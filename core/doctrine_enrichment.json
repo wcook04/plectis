@@ -8,10 +8,10 @@
       "id": "AX-1",
       "kind": "axiom",
       "one_line": "A claim is admissible only with a basis, a certificate, and a checker that recomputes and accepts it; a bare assertion is bottom evidence.",
-      "deep": "Microcosm starts from the position that an output is worth nothing until it can be reconstructed. A claim over some basis is admissible only if it arrives with a derivation certificate and a checker that recomputes the verdict and accepts it, and the strength the claim may carry is capped at the strength of that check. A confident sentence, a repeated fixture label, or a model's own answer sits at the bottom of the evidence order until something independent rederives it. This is the floor the rest of the doctrine stands on: it is what lets the system treat \"a model said so\" and \"a record is labelled passed\" as zero evidence rather than weak evidence.",
+      "deep": "Microcosm starts from the position that an output is worth nothing until it can be reconstructed. A claim over some basis is admissible only if it arrives with a derivation certificate and a checker that recomputes the verdict and accepts it, and the strength the claim may carry is capped at the strength of that check. The direction matters: the check is what admission requires, not a seal that makes the claim true. A confident sentence, a repeated fixture label, or a model's own answer sits at the bottom of the evidence order until something independent rederives it. This is the floor the rest of the doctrine stands on: it is what lets the system treat \"a model said so\" and \"a record is labelled passed\" as zero evidence rather than weak evidence.",
       "formal": {
-        "latex": "\\mathrm{adm}(\\varphi, B) \\iff \\exists\\, c, K.\\ K(B, c, \\varphi) = \\mathsf{accept} \\;\\wedge\\; \\mathrm{strength}(\\varphi) \\sqsubseteq \\mathrm{strength}(K(B, c, \\varphi))",
-        "reads": "A claim over a basis is admissible exactly when some certificate and checker accept it, and the claim's strength is bounded above by the strength of that check.",
+        "latex": "\\mathrm{adm}(\\varphi, B) \\;\\Rightarrow\\; \\exists\\, c, K.\\ K(B, c, \\varphi) = \\mathsf{accept} \\;\\wedge\\; \\mathrm{strength}(\\varphi) \\sqsubseteq \\mathrm{strength}(K(B, c, \\varphi)); \\quad \\mathrm{bare}(\\varphi) \\Rightarrow \\mathrm{strength}(\\varphi) = \\bot",
+        "reads": "A claim over a basis is admissible only if some certificate and checker accept it, with the claim's strength capped by the strength of that check; a claim that arrives with no certificate sits at the bottom of the evidence order. The condition is necessary, not sufficient: passing a check is what admission requires, never a promise that the claim is true.",
         "symbols": [
           {
             "sym": "\\mathrm{adm}(\\varphi, B)",
@@ -35,15 +35,23 @@
           },
           {
             "sym": "\\mathrm{strength}",
-            "meaning": "the position a claim or a check holds in the evidence order, with bare assertion at the bottom"
+            "meaning": "the position a claim or a check holds in the evidence order"
           },
           {
             "sym": "\\sqsubseteq",
             "meaning": "no stronger than"
+          },
+          {
+            "sym": "\\mathrm{bare}(\\varphi)",
+            "meaning": "a bare assertion: the claim presented with no certificate"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "bottom: the lowest position in the evidence order"
           }
         ]
       },
-      "governs": "When an output is allowed to count as true at all.",
+      "governs": "When a stated result is allowed to count as evidence at all.",
       "requires": "A basis, a derivation certificate, and a checker that recomputes the verdict and accepts it.",
       "refuses": "An asserted label treated as truth.",
       "example": {
@@ -59,15 +67,19 @@
         "agent_sabotage_scheming_monitor_replay",
         "belief_state_process_reward_replay"
       ],
-      "does_not_prove": "One checker catching one class of label echo does not prove a claim true in general. It bounds the claim; it does not bless it.",
+      "does_not_prove": "One checker catching one class of label echo does not prove a claim true in general, and admitting this law is separate from how well it is witnessed: support is computed obligation by obligation, elsewhere. A passing check caps what a claim may say; it does not bless it.",
       "reader_ladder": {
-        "plain": "A result counts as true only when the inputs it came from and an independent check can reproduce it. A confident statement on its own is worth nothing.",
+        "plain": "A result only counts when the inputs it came from and an independent check can reproduce it. A confident statement on its own is worth nothing.",
         "analogy": {
           "text": "A sports scoreboard is not trusted just because it shows a number. The game log has to list the plays that add up to that score.",
           "maps": [
             {
               "doctrine": "the claim",
               "analogy": "the number on the scoreboard"
+            },
+            {
+              "doctrine": "the inputs the claim was computed from",
+              "analogy": "the plays recorded in the game log"
             },
             {
               "doctrine": "the checker that recomputes it",
@@ -77,7 +89,7 @@
           "boundary": "The game log shows that a score can be recomputed; it does not make a score true in every possible game, and one matching log is not proof the whole season was scored correctly."
         },
         "why_it_matters": "It lets the system treat 'a model said so' or 'a record is labelled passed' as zero evidence until something independent recreates the answer.",
-        "common_misread": "That a checked result is therefore certain. The check bounds how much the result can claim; it does not bless it as true everywhere."
+        "potential_misread": "That a checked result is therefore certain. The check bounds how much the result can claim; it does not bless it as true everywhere."
       }
     },
     {
@@ -86,8 +98,8 @@
       "one_line": "Concentrate trust in one small checker over certificates; the producer that emits a certificate is never the thing that decides it.",
       "deep": "AX-2 says where the trust lives, not just that a check happened. The thing allowed to decide a claim is a small, separately maintained checker K that reads a certificate; the producer that emitted the certificate, however large, fast, or capable, is outside the trusted base and gets no vote on its own output. This is the architecture that makes AX-1's floor cheap to believe: shrinking the decider to a small K means the part you have to audit stays small even as the producers around it grow, so a clever or broken producer cannot quietly widen what counts as accepted. The bite is that confidence does not transfer from producer to verdict; an answer is trusted to the extent a small checker rederived it, and the strength of any claim is capped by the scope of that checker rather than the reputation of whatever generated the certificate.",
       "formal": {
-        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; K \\notin \\mathrm{producer}(c) \\;\\wedge\\; |K| \\sqsubseteq \\mathrm{small}",
-        "reads": "A claim is trusted only when some certificate is accepted by a checker K that is separate from whatever produced the certificate and is small enough to audit.",
+        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; K \\neq \\mathrm{producer}(c) \\;\\wedge\\; \\mathrm{small}(K)",
+        "reads": "A claim is trusted only when some certificate is accepted by the designated checker, the checker is not the thing that produced the certificate, and the checker is small enough to audit and rerun.",
         "symbols": [
           {
             "sym": "\\mathrm{trust}(\\varphi)",
@@ -110,8 +122,8 @@
             "meaning": "the component that generated c, kept outside the trusted base"
           },
           {
-            "sym": "|K| \\sqsubseteq \\mathrm{small}",
-            "meaning": "the checker is bounded small enough to audit"
+            "sym": "\\mathrm{small}(K)",
+            "meaning": "the checker is small enough to audit and rerun"
           }
         ]
       },
@@ -135,7 +147,7 @@
       ],
       "does_not_prove": "A small checker accepting one certificate proves only that this certificate passed this checker; it does not establish the producer is correct in general, that the checker covers every claim the producer can make, or that the kernel is itself bug-free. The scope of the check is the ceiling, and this reader illustration carries no support weight on its own.",
       "reader_ladder": {
-        "plain": "A claim counts as trusted only when a small, separate checker re-derives it from the supporting paper. The thing that produced the answer never gets to approve its own answer, no matter how capable it is. A claim is only as strong as what that small checker actually covered.",
+        "plain": "A claim counts as trusted only when a small, separate check re-derives it from the evidence presented with it. The thing that produced the answer never approves its own answer, however capable it is. A claim is only as strong as what that small check actually covered.",
         "analogy": {
           "text": "At a secure building, the person who printed a visitor pass does not get to wave themselves in; a small front desk checks the pass against its own list and decides entry, and only what the desk actually checks counts.",
           "maps": [
@@ -159,7 +171,7 @@
           "boundary": "The desk shows that the pass-printer cannot self-admit and that trust sits with the checker; it does not establish that the desk's list is complete, that every visitor was checked correctly, or that one admitted visitor means the whole building's access is sound."
         },
         "why_it_matters": "It keeps the part you have to audit small and fixed even as the systems generating answers grow larger and faster, so a clever or broken producer cannot quietly widen what gets accepted.",
-        "common_misread": "That a powerful, confident producer can be trusted to vouch for its own output, so the small separate checking step is optional once the output looks authoritative."
+        "potential_misread": "That a powerful, confident producer can be trusted to vouch for its own output, so the small separate checking step is optional once the output looks authoritative."
       }
     },
     {
@@ -168,12 +180,12 @@
       "one_line": "Authority over an effect is derived at the moment of acting from dereferenced tokens, policy, proof, and world-state; holding a standing credential is not itself authority.",
       "deep": "Microcosm refuses to treat a credential as the thing that grants power. Authority for a subject to cause an effect is computed at the point of action from the tokens actually dereferenced, the governing policy, the proof references, and the current world-state, so that ambient identity, a long-lived key, or simply having a tool reachable confers nothing on its own. This is the claim and evidence model applied to action rather than to assertion: just as a label is bottom evidence until something recomputes it, a credential is bottom authority until a derivation over policy and proof admits the specific effect. It bites hardest at the confused-deputy boundary, where a component holds broad standing power and is steered into exercising it on someone else's behalf; here the bound on what may happen has to be derived per effect from declared scope and approval, not inherited from whatever the holder could in principle do.",
       "formal": {
-        "latex": "\\mathrm{auth}(u, e) \\iff F\\big(\\mathrm{deref}(\\mathrm{tok}), \\mathrm{policy}, \\mathrm{proof}, \\mathrm{world}\\big) = \\mathsf{grant}; \\quad \\neg\\big(\\mathrm{holds}(u, \\mathrm{cred}) \\Rightarrow \\mathsf{grant}\\big)",
-        "reads": "A subject is authorized for an effect exactly when the authorizer's derivation over the dereferenced tokens, governing policy, proof references, and world-state grants it; merely holding a standing credential never on its own implies a grant.",
+        "latex": "\\mathrm{auth}(u, e) = F\\big(\\mathrm{deref}(\\mathrm{tok}), \\mathrm{policy}, \\mathrm{proof}, \\mathrm{world}\\big); \\quad \\mathrm{holds}(u, \\mathrm{cred}) \\;\\wedge\\; \\mathrm{deref}(\\mathrm{tok}) = \\emptyset \\;\\Rightarrow\\; \\mathrm{auth}(u, e) \\neq \\mathsf{grant}",
+        "reads": "Authority for a subject to cause an effect is the output of the authorizer's derivation over the dereferenced tokens, governing policy, proof references, and current world-state; a standing credential whose tokens dereference to nothing grants nothing. Possession is one input to the derivation, never the derivation.",
         "symbols": [
           {
             "sym": "\\mathrm{auth}(u, e)",
-            "meaning": "subject u is authorized to cause effect e"
+            "meaning": "the authority decision for subject u to cause effect e"
           },
           {
             "sym": "u",
@@ -247,7 +259,7 @@
           "boundary": "The card-and-lock picture compresses tokens, policy, proof, and the live world-state into one swipe; real authorization weighs all of those, and the analogy does not show that detail."
         },
         "why_it_matters": "It closes the confused-deputy hole, where a component with broad standing power is talked into using it on someone else's behalf.",
-        "common_misread": "That a valid credential is enough. The credential is only one input; permission still has to be derived for the exact action."
+        "potential_misread": "That a valid credential is enough. The credential is only one input; permission still has to be derived for the exact action."
       }
     },
     {
@@ -256,8 +268,8 @@
       "one_line": "A derived artifact's identity is the digest of its declared content basis; equal basis may be reused, basis drift forces recompute, and a missing basis is bottom.",
       "deep": "AX-4 fixes what a cached or reused result is allowed to mean. A derived artifact is a function of a declared content basis, and its identity is the digest of that basis, so two results are the same only when the inputs they were computed from are the same, not when they happen to share a name or a path. Equal basis licenses reuse or coalescing; any drift in the basis forces a recompute or a refusal; and a basis that cannot be resolved is bottom rather than an optimistic hit. This is the same admissibility floor as AX-1 pushed down to the build and cache layer: reusing an output because its name matches, while the inputs underneath have changed, is the label-echo failure dressed as a performance optimization, and it is what lets a stale projection or a poisoned cache pass for fresh.",
       "formal": {
-        "latex": "a = f(B) \\;\\wedge\\; \\mathrm{id}(a) = H(B) \\;\\wedge\\; \\big(\\mathrm{reuse}(a) \\Rightarrow H(B') = H(B)\\big) \\;\\wedge\\; \\big(H(B') \\neq H(B) \\Rightarrow \\mathrm{recompute}\\big) \\;\\wedge\\; \\big(B = \\emptyset \\Rightarrow \\bot\\big)",
-        "reads": "A derived artifact is a function of its basis and is identified by the digest of that basis; reuse is allowed only when the current basis digest equals the stored one, a changed digest forces a recompute, and a missing basis is bottom.",
+        "latex": "a = f(B) \\;\\wedge\\; \\mathrm{id}(a) = H(B); \\quad \\mathrm{reuse}(a) \\Rightarrow H(B') = H(B); \\quad H(B') \\neq H(B) \\Rightarrow \\mathrm{recompute}(a); \\quad \\mathrm{missing}(B) \\Rightarrow \\mathrm{reuse}(a) = \\bot",
+        "reads": "A derived artifact is a function of its declared basis and is identified by the digest of that basis; reuse is permitted only while the current basis digest equals the stored one; digest drift forces a rederivation; and a basis that cannot be resolved yields no result at all, never an optimistic hit.",
         "symbols": [
           {
             "sym": "a",
@@ -288,12 +300,16 @@
             "meaning": "the current basis at reuse time"
           },
           {
-            "sym": "\\mathrm{recompute}",
-            "meaning": "rederiving the artifact rather than reusing it"
+            "sym": "\\mathrm{recompute}(a)",
+            "meaning": "rederiving the artifact rather than serving the stored copy"
+          },
+          {
+            "sym": "\\mathrm{missing}(B)",
+            "meaning": "the declared basis cannot be resolved"
           },
           {
             "sym": "\\bot",
-            "meaning": "bottom: a missing basis is treated as no result, not a hit"
+            "meaning": "bottom: no result, rather than a hit"
           }
         ]
       },
@@ -343,7 +359,7 @@
           "boundary": "The pharmacy shows that identity must come from the exact inputs and not the name on file; it does not establish that every counter in the system checks orders this way, and it leaves unaddressed the open coverage gap where some reuse paths are not yet keyed to their inputs."
         },
         "why_it_matters": "It stops a stale or tampered result from passing as fresh just because a name or path matched, which is how a poisoned cache or an out-of-date view sneaks through dressed as a performance win.",
-        "common_misread": "That a matching name or filename is enough to safely reuse a stored result, so re-checking the underlying inputs is just wasted work."
+        "potential_misread": "That a matching name or filename is enough to safely reuse a stored result, so re-checking the underlying inputs is just wasted work."
       }
     },
     {
@@ -352,8 +368,8 @@
       "one_line": "A composite is only as trusted as its weakest part, missing evidence defaults to blocked rather than passing, and a later stage may lower authority but never raise it without a fresh derivation.",
       "deep": "AX-5 fixes the default and the direction of trust so that absence and silence cannot be read as permission. The status of a composite is the meet of its parts, so one blocked or unknown component pulls the whole down and no amount of green elsewhere lifts it back up; a missing witness defaults to blocked, not to a silent pass. The monotone half forbids the quiet upgrade: a downstream stage may demote authority freely, but raising it requires a new derivation under AX-1, never a stage that simply asserts a higher status than the evidence it received. This is the axiom that makes the gap the safe state, which is why a release step that finds private-adjacent content or overclaiming language stops rather than shipping, and why an uncovered obligation reads as blocked instead of as quietly satisfied.",
       "formal": {
-        "latex": "\\mathrm{status}(c) = \\bigsqcap_{p \\in \\mathrm{parts}(c)} \\mathrm{status}(p) \\;\\wedge\\; \\big(\\mathrm{evidence}(p) = \\emptyset \\Rightarrow \\mathrm{status}(p) = \\bot\\big) \\;\\wedge\\; \\big(\\mathrm{status}'(c) \\sqsupset \\mathrm{status}(c) \\Rightarrow \\exists\\, d.\\ \\mathrm{derives}(d, \\mathrm{status}'(c))\\big)",
-        "reads": "A composite's status is the meet of its parts' statuses; a part with no evidence is blocked; and a later status may exceed the earlier one only if some new derivation establishes it.",
+        "latex": "\\mathrm{status}(c) = \\bigsqcap_{p \\in \\mathrm{parts}(c)} \\mathrm{status}(p) \\;\\wedge\\; \\forall\\, p \\in \\mathrm{parts}(c).\\ \\big(\\mathrm{evidence}(p) = \\emptyset \\Rightarrow \\mathrm{status}(p) = \\bot\\big) \\;\\wedge\\; \\big(\\mathrm{status}'(c) \\sqsupset \\mathrm{status}(c) \\Rightarrow \\exists\\, d.\\ \\mathrm{derives}(d, \\mathrm{status}'(c))\\big)",
+        "reads": "A composite's status is the meet of its parts' statuses; every part with no evidence is blocked; and a later status may exceed the earlier one only when some fresh derivation establishes it.",
         "symbols": [
           {
             "sym": "\\mathrm{status}(c)",
@@ -432,7 +448,7 @@
           "boundary": "The checklist shows fail-closed status and the weakest-link rule; it does not show that trust here is measured along several separate dimensions at once, not a single pass or fail."
         },
         "why_it_matters": "It makes a gap the safe state, so a release that finds private-adjacent content or overclaiming language stops instead of shipping.",
-        "common_misread": "That enough green parts can outvote a blocked one. They cannot; the weakest required part sets the ceiling."
+        "potential_misread": "That enough green parts can outvote a blocked one. They cannot; the weakest required part sets the ceiling."
       }
     },
     {
@@ -441,27 +457,39 @@
       "one_line": "Not proving a claim is not proving its negation; an absence becomes a negative only inside a declared finite domain whose coverage is complete, and otherwise stays unknown.",
       "deep": "Microcosm refuses the cheap move of reading a blank as a no. Failing to prove a claim does not license proving its negation; the most an unproven claim earns is unknown, and unknown is a distinct verdict from refuted. The one case where absence does become a negative is narrow: the domain has to be explicitly declared finite and its coverage has to be complete, so that \"nothing found\" is backed by \"everything was looked at.\" This is what keeps the system from converting gaps in its own map into false confidence: a missing relation, an unmapped region, or a fact with no cited evidence reads as open and computable, not as settled, and the limit is recorded rather than papered over.",
       "formal": {
-        "latex": "\\neg\\,\\mathrm{proven}(\\varphi) \\;\\wedge\\; \\mathrm{closed}(D) \\;\\wedge\\; \\mathrm{covered}(D) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi); \\quad \\mathrm{else}\\ \\mathrm{unknown}",
-        "reads": "If a claim is unproven, its negation may be concluded only when the domain is a declared finite one and coverage over that domain is complete; in every other case the verdict is unknown, never refuted.",
+        "latex": "\\mathrm{scope}(\\varphi) \\subseteq D \\;\\wedge\\; \\mathrm{closed}(D) \\;\\wedge\\; \\mathrm{covered}(D) \\;\\wedge\\; \\neg\\,\\mathrm{proven}(\\varphi) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi); \\quad \\mathrm{else}\\ \\mathrm{verdict}(\\varphi) = \\mathsf{unknown}",
+        "reads": "Only when a claim ranges inside a domain that is declared finite and completely covered does failing to prove it license concluding its negation; in every other case the verdict on an unproven claim is unknown, never refuted.",
         "symbols": [
           {
             "sym": "\\varphi",
             "meaning": "a claim under consideration"
           },
           {
-            "sym": "\\neg\\,\\mathrm{proven}(\\varphi)",
-            "meaning": "the claim has not been proven"
+            "sym": "\\mathrm{scope}(\\varphi)",
+            "meaning": "the domain the claim ranges over"
+          },
+          {
+            "sym": "D",
+            "meaning": "a declared domain"
           },
           {
             "sym": "\\mathrm{closed}(D)",
-            "meaning": "the domain D is explicitly declared finite (closed-world)"
+            "meaning": "the domain is explicitly declared finite (closed-world)"
           },
           {
             "sym": "\\mathrm{covered}(D)",
             "meaning": "coverage over D is complete, so nothing in it was left unexamined"
           },
           {
-            "sym": "\\mathrm{unknown}",
+            "sym": "\\neg\\,\\mathrm{proven}(\\varphi)",
+            "meaning": "the claim has not been proven"
+          },
+          {
+            "sym": "\\mathrm{verdict}(\\varphi)",
+            "meaning": "the verdict the system records for the claim"
+          },
+          {
+            "sym": "\\mathsf{unknown}",
             "meaning": "the open-world verdict, distinct from refuted"
           }
         ]
@@ -500,7 +528,7 @@
           "boundary": "The drawer picture works only when the search space is small and fully declared, like one drawer; it does not let you call something false across an open world you never finished searching."
         },
         "why_it_matters": "It stops the system turning 'we did not see a problem' into 'there is no problem', which is how silent failures get signed off.",
-        "common_misread": "That no evidence means no problem. Outside a fully checked list, no evidence just means not yet known."
+        "potential_misread": "That no evidence means no problem. Outside a fully checked list, no evidence just means not yet known."
       }
     },
     {
@@ -509,12 +537,16 @@
       "one_line": "A partial computation returns a real answer only under its declared precondition; outside it, it returns a typed refusal carrying a reason and evidence, never a silent number or NaN.",
       "deep": "AX-7 refuses the most common way numerical code lies: producing a plausible-looking value where its preconditions do not actually hold. Microcosm requires a partial computation g to be totalized into a Result, so it returns Ok(y) only when a declared precondition Pre(x) is met, and otherwise returns a Refusal that names the reason and carries the evidence behind it. The refusal is the load-bearing half, because a number with no precondition check and no failure path is indistinguishable from a number that happens to be wrong; a NaN, an out-of-range horizon, or a missing dependency must surface as a typed object the caller can route, not leak downstream as a figure that reads as a result. This connects directly to the evidence model: a refusal with a reason is admissible information, whereas a silent number is a claim with no basis beneath it, so AX-7 is what lets the upstream admissibility floor see a gap instead of inheriting a fabricated value.",
       "formal": {
-        "latex": "\\forall\\, x.\\ \\mathrm{Pre}(x) \\Rightarrow g(x) = \\mathrm{Ok}(y) \\;\\wedge\\; \\neg\\,\\mathrm{Pre}(x) \\Rightarrow g(x) = \\mathrm{Refusal}(r, e)",
-        "reads": "For every input, when the declared precondition holds the partial computation returns Ok carrying a value, and when it does not hold the computation returns a Refusal carrying a reason and its evidence.",
+        "latex": "\\forall\\, x.\\ \\big(\\mathrm{Pre}(x) \\Rightarrow \\exists\\, y.\\ g(x) = \\mathrm{Ok}(y)\\big) \\;\\wedge\\; \\big(\\neg\\,\\mathrm{Pre}(x) \\Rightarrow \\exists\\, r, e.\\ g(x) = \\mathrm{Refusal}(r, e)\\big)",
+        "reads": "For every input: when the declared precondition holds, the computation returns Ok carrying some value; when it does not hold, the computation returns a typed Refusal carrying a reason and the evidence behind it. Both branches are total; there is no third, silent outcome.",
         "symbols": [
           {
             "sym": "g",
             "meaning": "a partial computation, totalized into a Result"
+          },
+          {
+            "sym": "x",
+            "meaning": "an input to the computation"
           },
           {
             "sym": "\\mathrm{Pre}(x)",
@@ -572,7 +604,7 @@
           "boundary": "The cash machine shows that a failed operation must decline with a reason instead of emitting a stray figure; it does not establish that every operation in the system declines this way, and untested failure paths can still leak a bad value rather than a clean refusal."
         },
         "why_it_matters": "It means a missing input or an out-of-range condition shows up as a visible, routable gap instead of a plausible-looking figure that a later page prints as a genuine result.",
-        "common_misread": "That a number coming out the end means the conditions were fine, so a calculation that quietly produced a value can be treated as a valid answer without checking it had grounds to run."
+        "potential_misread": "That a number coming out the end means the conditions were fine, so a calculation that quietly produced a value can be treated as a valid answer without checking it had grounds to run."
       }
     },
     {
@@ -581,12 +613,20 @@
       "one_line": "Provenance labels and ceilings travel with a value across every boundary; untrusted material reaches a privileged sink only through a declared transform.",
       "deep": "Trust is not a property of where a value ends up, it is a property of where it came from and what was done to it on the way. Every value carries a provenance class and a ceiling, and those travel with it across every boundary it crosses. Untrusted material, a prompt, a provider payload, or private-adjacent source, may reach a privileged or public sink only through a declared transform whose output the sink's policy admits. The endpoint cannot certify its own cleanliness: the label has to have been carried, not stamped on at the door. This is why a clean-looking final step is not enough, and why the system tracks how far a value may travel rather than just what it currently looks like.",
       "formal": {
-        "latex": "(x \\to s) \\;\\Rightarrow\\; \\mathrm{label}(x) \\sqsubseteq \\mathrm{policy}(s) \\;\\vee\\; \\big(s = T(x) \\;\\wedge\\; \\mathrm{declared}(T)\\big)",
-        "reads": "For any flow from x into a sink s, either x's label already sits within the sink's policy, or s is the output of a declared transform T applied to x.",
+        "latex": "y = f(x) \\;\\Rightarrow\\; \\mathrm{label}(x) \\sqsubseteq \\mathrm{label}(y); \\quad (x \\to s) \\;\\Rightarrow\\; \\mathrm{label}(x) \\sqsubseteq \\mathrm{policy}(s) \\;\\vee\\; \\big(x \\to T \\to s \\;\\wedge\\; \\mathrm{declared}(T) \\;\\wedge\\; \\mathrm{label}(T(x)) \\sqsubseteq \\mathrm{policy}(s)\\big)",
+        "reads": "A derived value carries at least the restriction of what it was derived from; and for any flow into a sink, either the value's label already sits within the sink's policy, or the flow passes through a declared transform whose output label the sink's policy admits. The endpoint never stamps the label; the label arrives with the value.",
         "symbols": [
           {
             "sym": "x",
             "meaning": "a value entering a flow"
+          },
+          {
+            "sym": "y",
+            "meaning": "a value derived from it along the flow"
+          },
+          {
+            "sym": "f",
+            "meaning": "a processing step along the flow"
           },
           {
             "sym": "s",
@@ -594,7 +634,7 @@
           },
           {
             "sym": "\\mathrm{label}(x)",
-            "meaning": "x's provenance class and ceiling"
+            "meaning": "the value's provenance class and how far it may travel"
           },
           {
             "sym": "\\mathrm{policy}(s)",
@@ -602,7 +642,7 @@
           },
           {
             "sym": "T",
-            "meaning": "a declared sanitising transform"
+            "meaning": "a declared sanitising transform the flow passes through"
           },
           {
             "sym": "\\mathrm{declared}(T)",
@@ -644,7 +684,7 @@
           "boundary": "The kitchen-label picture shows that the tag must travel and be transformed on purpose; it does not capture the full tracing of how information flows and combines, which is stricter than one label."
         },
         "why_it_matters": "It blocks private, provider, or unverified input quietly reaching a public or privileged output just because the final step looked clean.",
-        "common_misread": "That a clean label at the end shows a clean path. Only a label that actually travelled, with a declared cleaning step, counts."
+        "potential_misread": "That a clean label at the end shows a clean path. Only a label that actually travelled, with a declared cleaning step, counts."
       }
     },
     {
@@ -654,7 +694,7 @@
       "deep": "Microcosm treats a write as inadmissible until there is a way back from it or an explicit declaration that there is not. An effect counts as landed only if it carries a compensator that can reverse it or a declared irreversible boundary that marks the point of no return, and a multi-step effect lands as a saga whose every step compares against the head it expected and finds a single writer holding the path. The failure this refuses is the half-completed write: a sequence that succeeds partway, hits a moved head or a second writer, and leaves the world in a state nobody declared and nobody can undo. This ties back to the admissibility floor, because a landing that cannot be recomputed against its expected parent or rolled back is an effect asserting its own success with no check behind it, which is exactly the bare assertion the evidence order puts at the bottom.",
       "formal": {
         "latex": "\\mathrm{land}(e) \\;\\Rightarrow\\; \\big(\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)\\big) \\;\\wedge\\; \\big(\\mathrm{multi}(e) \\Rightarrow \\mathrm{parent}(e) = \\mathrm{head} \\wedge \\mathrm{writers}(\\mathrm{path}(e)) \\leq 1\\big)",
-        "reads": "An effect may land only if it declares a compensator or an irreversible boundary, and if it is multi-step, only when its expected parent still matches the head and at most one writer holds its path.",
+        "reads": "An effect may count as landed only if it declares a compensator or an irreversible boundary; and a multi-step effect lands only while the parent it expected still matches the head and at most one writer holds its path. Reversibility is not promised; what is required is that every effect declares which kind it is.",
         "symbols": [
           {
             "sym": "\\mathrm{land}(e)",
@@ -729,7 +769,7 @@
           "boundary": "This only describes when a change is allowed to be called done; it does not show that every change in the system can be undone, and one transfer that passed its checks does not establish that all transfers are reversible or collision-free."
         },
         "why_it_matters": "It stops a half-finished change from being silently treated as complete, which is how a system ends up in a state nobody chose and nobody can walk back.",
-        "common_misread": "Reading this as a promise that everything is reversible. It actually allows changes to be marked permanently final too; the rule is that the change must declare which one it is, not that undo is always possible."
+        "potential_misread": "Reading this as a promise that everything is reversible. It actually allows changes to be marked permanently final too; the rule is that the change must declare which one it is, not that undo is always possible."
       }
     },
     {
@@ -738,12 +778,12 @@
       "one_line": "A claim about live state is a cached read, valid only while it carries when it was taken, what it was read from, and how to recompute it.",
       "deep": "A number that describes a moving system stops being true the moment the system moves, so Microcosm treats every claim over live state as a cached read rather than a fact. To be admissible such a claim has to carry four things: the value, the time it was taken, the basis it was read from, and the rule for recomputing it; a bare value with none of these is a frozen snapshot wearing the costume of a current reading. This is where the evidence model meets time: the admissibility floor decides whether a claim counts at all, and this axiom adds that a live claim's strength decays with its own staleness unless its declared basis still holds. It bites hardest on the things that look most authoritative, the running counts and dashboard totals, because those are exactly the values a reader assumes are fresh.",
       "formal": {
-        "latex": "\\mathrm{adm}(\\varphi) \\;\\Rightarrow\\; \\varphi = \\langle v, t, B, \\rho \\rangle \\;\\wedge\\; \\big(\\mathrm{holds}(B, t) \\;\\vee\\; \\varphi = \\rho(B)\\big)",
-        "reads": "A live-state claim is admissible only when it carries a value, an as-of time, a basis, and a rederive rule, and either its declared basis still holds at that time or the claim has been recomputed by that rule.",
+        "latex": "\\mathrm{valid}(\\varphi, t') \\;\\Rightarrow\\; \\varphi = \\langle v, t, B, \\rho \\rangle \\;\\wedge\\; \\big(\\mathrm{holds}(B, t, t') \\;\\vee\\; v = \\rho(B)\\big)",
+        "reads": "A live-state claim may still be stated as current at a time of use only when it carries its value, its read time, its basis, and its rederive rule, and either the basis is unchanged between reading and use or the value has been freshly recomputed by that rule.",
         "symbols": [
           {
-            "sym": "\\mathrm{adm}(\\varphi)",
-            "meaning": "the claim varphi is admissible over live state"
+            "sym": "\\mathrm{valid}(\\varphi, t')",
+            "meaning": "the claim may still be stated as current at use time t'"
           },
           {
             "sym": "\\varphi",
@@ -755,7 +795,11 @@
           },
           {
             "sym": "t",
-            "meaning": "the as-of time the value was taken"
+            "meaning": "the time the value was read"
+          },
+          {
+            "sym": "t'",
+            "meaning": "the later time the claim is used"
           },
           {
             "sym": "B",
@@ -766,8 +810,8 @@
             "meaning": "the rule that recomputes the value from the basis"
           },
           {
-            "sym": "\\mathrm{holds}(B, t)",
-            "meaning": "the declared basis is still valid as of t"
+            "sym": "\\mathrm{holds}(B, t, t')",
+            "meaning": "the declared basis is unchanged between the read and the use"
           }
         ]
       },
@@ -817,7 +861,7 @@
           "boundary": "This only covers when a live number can still be stated as current; it does not establish that any particular reading is right now, and a reading that carries its date is not therefore fresh today."
         },
         "why_it_matters": "It keeps a number that was true once from quietly being read as if it were still true weeks later, after the thing it measured has moved on.",
-        "common_misread": "Thinking that attaching a date and a source makes the number current. It only makes the number checkable; whether it still holds has to be read again from the source."
+        "potential_misread": "Thinking that attaching a date and a source makes the number current. It only makes the number checkable; whether it still holds has to be read again from the source."
       }
     },
     {
@@ -826,8 +870,8 @@
       "one_line": "A doctrine artifact may claim authority only when an executable grammar accepts its shape and it carries receipt obligations and an anti-claim; prose alone is a projection.",
       "deep": "AX-11 turns the doctrine itself into something the system can execute rather than merely read. A standard, contract, or rule may carry authority only when an executable grammar accepts its form and it arrives with its receipt obligations and its own anti-claim attached; a clause that is only well written sits at the level of a projection, not a law. This is what stops a confident standard from governing by rhetoric: the gate decides on the artifact's checkable shape, not its prose, so the same admissibility discipline AX-1 imposes on claims is imposed on the documents that define how claims are judged. The bite is the second negative case as much as the first: passing the grammar admits the artifact's shape and never certifies that the doctrine it expresses is complete, so a grammar pass that is read as coverage is rejected, not rewarded.",
       "formal": {
-        "latex": "\\mathrm{authority}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{obligations}(d) \\neq \\emptyset \\;\\wedge\\; \\mathrm{anticlaim}(d) \\quad \\mathrm{else}\\ d \\in \\mathrm{Proj}",
-        "reads": "A doctrine artifact carries authority only when an executable grammar accepts it and it presents receipt obligations and an anti-claim; otherwise it is held as a projection.",
+        "latex": "\\mathrm{authority}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{obligations}(d) \\neq \\emptyset \\;\\wedge\\; \\mathrm{anticlaim}(d); \\quad \\mathrm{otherwise}\\ d \\in \\mathrm{Proj}",
+        "reads": "A doctrine artifact carries authority only when an executable grammar accepts its shape and it presents its evidence obligations and its own anti-claim; an artifact failing any of these sits in the projection tier, which can be read but cannot govern.",
         "symbols": [
           {
             "sym": "\\mathrm{authority}(d)",
@@ -901,7 +945,7 @@
           "boundary": "This only governs whether a rule is allowed to bind at all; passing the format check does not show the rule is complete or correct, and a cleared declaration is not therefore an accurate account of the goods."
         },
         "why_it_matters": "It stops a confident-sounding paragraph from being treated as an enforced rule just because it reads authoritatively, keeping unchecked prose out of the seat of governance.",
-        "common_misread": "Assuming that passing the format check means the rule fully covers its subject. Passing the check admits the rule's shape only; it never certifies that what the rule says is complete."
+        "potential_misread": "Assuming that passing the format check means the rule fully covers its subject. Passing the check admits the rule's shape only; it never certifies that what the rule says is complete."
       }
     },
     {
@@ -968,12 +1012,16 @@
             {
               "doctrine": "the same admissibility floor as external claims",
               "analogy": "the single rulebook that applies to everyone"
+            },
+            {
+              "doctrine": "the pages that describe the system, held to the floor they describe",
+              "analogy": "the referee's own match report, checked like any other"
             }
           ],
           "boundary": "The referee picture shows no special pleading; it does not say the system is therefore complete or correct, only that it cannot exempt itself."
         },
         "why_it_matters": "It lets the system state its own limits without that statement quietly becoming a new unchecked claim.",
-        "common_misread": "That applying the rule to itself makes the system trustworthy by default. It only removes the exemption; the limits remain, stated rather than hidden."
+        "potential_misread": "That applying the rule to itself makes the system trustworthy by default. It only removes the exemption; the limits remain, stated rather than hidden."
       }
     },
     {
@@ -983,7 +1031,7 @@
       "deep": "P-1 is AX-1 turned into a habit a builder repeats before anything is allowed to mean something. Do not trust a fixture's own verdict, a route status, a count, or a public copy line as proof; recompute it from the evidence underneath and keep a negative fixture that fails when the cheap lie is tried. The negative fixture is the load-bearing half: a check that only ever sees the happy path proves nothing, because it never had the chance to reject. This is the principle that makes \"green\" mean recomputed rather than reported.",
       "formal": {
         "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\varphi = K(B) \\;\\wedge\\; K(B_{\\mathrm{neg}}) = \\mathsf{reject}",
-        "reads": "Trust a verdict only if a checker recomputes it from the basis and also rejects the negative fixture built to fool it.",
+        "reads": "Trust a verdict only when a checker recomputes it from the underlying evidence and that same checker rejects the negative fixture built to slip the cheap lie through.",
         "symbols": [
           {
             "sym": "\\mathrm{trust}(\\varphi)",
@@ -1034,6 +1082,10 @@
           "text": "A teacher re-works the exam answer from scratch instead of copying the answer key, and also keeps a wrong-answer version to confirm the marking actually catches mistakes.",
           "maps": [
             {
+              "doctrine": "the evidence underneath the verdict",
+              "analogy": "the exam paper itself, worked from scratch"
+            },
+            {
               "doctrine": "recomputing the verdict from the evidence",
               "analogy": "re-working the answer instead of copying the key"
             },
@@ -1045,7 +1097,7 @@
           "boundary": "The re-marking picture shows recomputation plus a trap for false passes; it does not capture every kind of evidence a real check runs over."
         },
         "why_it_matters": "Without it, a label that says 'passed' gets repeated down the line and nobody ever re-derives whether it was true.",
-        "common_misread": "That re-checking once makes a result permanently safe. It only earns trust for that result, against that check."
+        "potential_misread": "That re-checking once makes a result permanently safe. It only earns trust for that result, against that check."
       }
     },
     {
@@ -1087,7 +1139,7 @@
       "requires": "Capping a claim at the meet of what its named checker, validator, registry, or witness route actually computes, with the ceiling derived from the grounding obligations rather than asserted.",
       "refuses": "Letting a checker that decides only a local contract license prose that projects global or system-wide authority.",
       "example": {
-        "text": "The formal-math readiness gate computes a readiness boundary and holds its claim to that boundary, reporting how far the available evidence reaches rather than narrating a local check into a proof of readiness.",
+        "text": "The formal-math readiness gate computes how far its available evidence actually reaches and reports that boundary as the claim, refusing to narrate a local check into a proof of readiness.",
         "refs": [
           "formal_math_readiness_gate"
         ]
@@ -1118,7 +1170,7 @@
           "boundary": "The blood-test picture shows that a result is limited to what was measured; it does not show how several separate checks are combined, where the overall ceiling drops to the weakest one. It is an illustration, not support that the rule holds everywhere."
         },
         "why_it_matters": "It stops a narrow, genuine check from being written up as a broad system-wide claim, so readers can size a claim to what was really tested.",
-        "common_misread": "That because the underlying check was real, any confident sentence built on it is also safe. The check sets a ceiling; words above that ceiling are not earned and do not prove the wider claim."
+        "potential_misread": "That because the underlying check was real, any confident sentence built on it is also safe. The check sets a ceiling; words above that ceiling are not earned and do not prove the wider claim."
       }
     },
     {
@@ -1127,8 +1179,8 @@
       "one_line": "Put trust in a small checker that rereads a certificate and decides, and keep the large producer outside that authority boundary.",
       "deep": "P-3 is AX-2 turned into a building habit: the thing you trust should be small enough to read and rerun, while the thing that did the work may be as large and opaque as it likes. A big model, search, or pipeline emits a certificate; a small verifier, parser, harness, compiler route, or registry contract rereads that certificate and decides, and only the checker sits inside the trusted boundary. This connects directly to the claim and evidence model: a claim's strength is capped at the strength of the check that admits it, so shrinking the checker shrinks what you have to believe to believe the verdict. The load-bearing move is keeping the producer outside the boundary; once the thing being judged also gets to decide, the check has collapsed into the same narrative confidence it was meant to replace.",
       "formal": {
-        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, K, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; \\mathrm{tcb}(\\varphi) = K \\;\\wedge\\; \\mathrm{producer} \\notin K",
-        "reads": "Trust a verdict only when a small checker rereads a certificate and accepts, the trusted base is that checker alone, and the producer that emitted the certificate is not inside it.",
+        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, K, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; \\mathrm{tcb}(\\varphi) = \\{K\\} \\;\\wedge\\; \\mathrm{producer} \\notin \\mathrm{tcb}(\\varphi)",
+        "reads": "Trust a verdict only when a small checker rereads a certificate and accepts, the trusted base consists of that checker alone, and the producer that emitted the certificate sits outside that base.",
         "symbols": [
           {
             "sym": "\\mathrm{trust}(\\varphi)",
@@ -1148,7 +1200,7 @@
           },
           {
             "sym": "\\mathrm{tcb}(\\varphi)",
-            "meaning": "the trusted base the claim rests on"
+            "meaning": "the trusted base the claim rests on: the set of components you must believe"
           },
           {
             "sym": "\\mathrm{producer}",
@@ -1195,7 +1247,7 @@
           "boundary": "The weighing-plate picture shows where the deciding power sits and that the producer is kept out; it does not show that a small checker is automatically a correct or complete one. A simple checker can still be wrong, and this is only an illustration."
         },
         "why_it_matters": "Keeping the deciding part small means the part you actually have to audit and re-run stays small, even as the systems producing answers grow large and hard to inspect.",
-        "common_misread": "That a confident, capable producer can be trusted to vouch for itself. Once the thing being judged also decides, there is no real check left, only restated confidence."
+        "potential_misread": "That a confident, capable producer can be trusted to vouch for itself. Once the thing being judged also decides, there is no real check left, only restated confidence."
       }
     },
     {
@@ -1204,8 +1256,8 @@
       "one_line": "Authority to mutate is derived from dereferenced proof, policy, and current world state; a credential, role name, or trusted-session phrasing authorizes nothing on its own.",
       "deep": "P-4 is the authority leg of the claim model, the way P-1 is the evidence leg: before an effect lands, recompute whether it is authorized rather than reading authority off who is asking. Authorization for a subject and an effect comes from dereferenced proof references, the governing policy, rollback or result-record evidence, and current world state; standing credentials, an admin role name, or trusted-session phrasing are ambient identity, which carries no authority by itself. This is the confused-deputy failure stated as a rule: a component holding a powerful capability must still derive permission for each effect, and tool authority is bounded by declared identity, scope, approval, and side-effect records, not by the tool merely being available. It bites because possession reads as permission almost everywhere, so a pipeline that trusts a present credential passes its own path while granting reach nothing actually authorized.",
       "formal": {
-        "latex": "\\mathrm{auth}(u, e) \\iff F\\big(\\mathrm{deref}(\\mathrm{tokens}), \\mathrm{policy}, \\mathrm{proofs}, \\mathrm{world}\\big) = \\mathsf{grant} \\;\\wedge\\; \\neg\\big(\\mathrm{identity}(u) \\Rightarrow \\mathsf{grant}\\big)",
-        "reads": "A subject is authorized for an effect exactly when the authorizer's derivation over the dereferenced tokens, governing policy, proof references, and world state grants it; holding an ambient credential or role name never on its own implies a grant.",
+        "latex": "\\mathrm{auth}(u, e) = F\\big(\\mathrm{deref}(\\mathrm{tokens}), \\mathrm{policy}, \\mathrm{proofs}, \\mathrm{world}\\big); \\quad \\mathrm{identity}(u) \\;\\wedge\\; \\mathrm{deref}(\\mathrm{tokens}) = \\emptyset \\;\\Rightarrow\\; \\mathrm{auth}(u, e) \\neq \\mathsf{grant}",
+        "reads": "Authorization for a subject and an effect is the output of the derivation over the dereferenced tokens, governing policy, proof references, and world state; ambient identity whose tokens dereference to nothing grants nothing. The credential is an input to the derivation, never a substitute for it.",
         "symbols": [
           {
             "sym": "\\mathrm{auth}(u, e)",
@@ -1285,7 +1337,7 @@
           "boundary": "The bank-transfer picture shows that holding a credential is not the same as being cleared to act; it does not capture everything weighed at decision time, such as the specific permissions, the rules, and the side-effect records. It is an illustration only."
         },
         "why_it_matters": "It closes the gap where a component that holds broad standing power is talked into using it for someone else, since each action still has to earn its own permission.",
-        "common_misread": "That a valid credential is enough to act. The credential is one input; the actual change still has to be cleared for that exact action against the current state."
+        "potential_misread": "That a valid credential is enough to act. The credential is one input; the actual change still has to be cleared for that exact action against the current state."
       }
     },
     {
@@ -1294,8 +1346,8 @@
       "one_line": "A reused result is valid only if it carries the digest of the exact content it was computed from; drift in that content forces a recompute, and a name match alone licenses nothing.",
       "deep": "P-5 turns content-addressed determinism into a habit a builder repeats before reusing any prior work. A stored result record, a coalesced command run, an imported source copy, or a resumed work-landing attempt may be reused only if it carries the digest of the exact content it was derived from; equal content basis permits reuse, and drift in the source bytes, the dirty scoped files, the parent commit, or the fixture input forces a recompute or a refusal. The bite is that a name, a path, or a label is a cheap stand-in for a basis: cache by name and you serve a stale answer the moment the content moves underneath the name. This connects straight to the claim and evidence model, because a reused verdict inherits its scope limit from the basis it was actually checked over, and reuse across drift silently widens that scope to content nothing ever verified.",
       "formal": {
-        "latex": "\\mathrm{reuse}(a, B') \\;\\Rightarrow\\; \\mathrm{id}(a) = H(B') \\;\\wedge\\; B' \\neq \\emptyset \\quad \\mathrm{else}\\ \\mathsf{recompute}",
-        "reads": "A prior result may be reused for an incoming basis only when the result's stored content id equals the digest of that basis and the basis is non-empty; otherwise recompute.",
+        "latex": "\\mathrm{reuse}(a, B') \\;\\Rightarrow\\; \\mathrm{id}(a) = H(B') \\;\\wedge\\; \\neg\\,\\mathrm{missing}(B') \\quad \\mathrm{else}\\ \\mathsf{recompute}",
+        "reads": "A prior result may be reused for an incoming basis only when the result's stored content id equals the digest of that basis and the basis actually resolves; in every other case, recompute.",
         "symbols": [
           {
             "sym": "\\mathrm{reuse}(a, B')",
@@ -1318,8 +1370,8 @@
             "meaning": "the content id the result was stored under"
           },
           {
-            "sym": "\\emptyset",
-            "meaning": "a missing basis, which is bottom and licenses no reuse"
+            "sym": "\\mathrm{missing}(B')",
+            "meaning": "the incoming basis cannot be resolved; bottom, licensing no reuse"
           }
         ]
       },
@@ -1357,7 +1409,7 @@
           "boundary": "The serial-number picture shows that identity must match the exact item, not just the label; it does not cover every kind of input drift the rule watches, such as changed source bytes, edited files, or a moved parent. It only illustrates the rule."
         },
         "why_it_matters": "It stops a stale or tampered result being served as fresh just because its name or path still looks familiar after the content underneath has moved.",
-        "common_misread": "That a matching name or path means the cached answer is still good. Only a match on the actual content the result was computed from licenses reuse; otherwise the work has to be redone."
+        "potential_misread": "That a matching name or path means the cached answer is still good. Only a match on the actual content the result was computed from licenses reuse; otherwise the work has to be redone."
       }
     },
     {
@@ -1366,8 +1418,8 @@
       "one_line": "A composite is only as trusted as its weakest part; missing evidence defaults to blocked, and a later stage can lower status but never raise it without a new derivation.",
       "deep": "P-6 is AX-5 turned into the default a builder relies on when evidence is absent rather than negative. The status of a composite is the meet of its parts, so a single missing policy file, source digest, secret scan, negative case, or result self-scan pulls the whole verdict down to blocked instead of leaving a gap that silently reads as pass. The bite is in the asymmetry: a later stage may lower a status freely, but it cannot raise one without a fresh derivation, which is exactly why a downstream view can explain why something passed yet can never upgrade a source truth that was blocked underneath it. This is the principle that makes silence cost something, and it is what lets the claim and evidence model treat an unscanned or unproven input as the bottom of the order rather than a weak yes.",
       "formal": {
-        "latex": "\\mathrm{status}(c) = \\bigsqcap_{p \\in \\mathrm{parts}(c)} \\mathrm{status}(p) \\;\\wedge\\; (\\mathrm{evidence}(p) = \\emptyset \\Rightarrow \\mathrm{status}(p) = \\bot) \\;\\wedge\\; (\\mathrm{status}' \\sqsupset \\mathrm{status} \\Rightarrow \\mathrm{derivation})",
-        "reads": "A composite's status is the meet of its parts' statuses; a part with no evidence sits at blocked; and a later status may exceed an earlier one only when a new derivation justifies the rise.",
+        "latex": "\\mathrm{status}(c) = \\bigsqcap_{p \\in \\mathrm{parts}(c)} \\mathrm{status}(p) \\;\\wedge\\; \\forall\\, p \\in \\mathrm{parts}(c).\\ \\big(\\mathrm{evidence}(p) = \\emptyset \\Rightarrow \\mathrm{status}(p) = \\bot\\big) \\;\\wedge\\; \\big(\\mathrm{status}'(c) \\sqsupset \\mathrm{status}(c) \\Rightarrow \\exists\\, d.\\ \\mathrm{derives}(d, \\mathrm{status}'(c))\\big)",
+        "reads": "A composite's status is the meet of its parts' statuses; every part with no evidence sits at blocked; and a later status may exceed the earlier one only when some fresh derivation establishes the rise.",
         "symbols": [
           {
             "sym": "\\mathrm{status}",
@@ -1402,12 +1454,20 @@
             "meaning": "blocked, the bottom of the status order"
           },
           {
+            "sym": "\\mathrm{status}'(c)",
+            "meaning": "a later status proposed for the same composite"
+          },
+          {
             "sym": "\\sqsupset",
             "meaning": "claims a strictly higher status than"
           },
           {
-            "sym": "\\mathrm{derivation}",
-            "meaning": "a fresh derivation that justifies the rise; the primed status is the later stage"
+            "sym": "d",
+            "meaning": "a fresh derivation"
+          },
+          {
+            "sym": "\\mathrm{derives}(d, \\mathrm{status}'(c))",
+            "meaning": "derivation d establishes the higher status"
           }
         ]
       },
@@ -1450,7 +1510,7 @@
           "boundary": "This shows why an un-inspected part drags the whole down and why a downstream check cannot upgrade it; it does not establish that the building is actually safe, only that the sign-off chain has no gaps. One full chain of passes is not a promise that nothing was missed."
         },
         "why_it_matters": "It means a missing check or skipped scan cannot quietly pass as approval, so silence has a cost instead of being read as a clean result.",
-        "common_misread": "That an absent or unchecked part is harmless and can be treated as a pass, or that a downstream view can promote something that was blocked underneath it."
+        "potential_misread": "That an absent or unchecked part is harmless and can be treated as a pass, or that a downstream view can promote something that was blocked underneath it."
       }
     },
     {
@@ -1459,7 +1519,7 @@
       "one_line": "A coverage report names declared domains and the gaps it actually found; it may not call the unmapped space safe, complete, exhausted, or irrelevant.",
       "deep": "P-7 is AX-6 open-world epistemics turned into a reporting discipline. A coverage report may draw a closed-world conclusion only inside a declared finite domain; outside that boundary an item is unknown, and unknown is held distinct from proven-absent, so a silence in the records is never read as a fact about the world. This bites because the cheap move is to let blank space mean clear: a tidy report with no findings reads as everything is fine, when all it established is that nothing was checked there. It connects to the claim and evidence model directly, since a completeness statement is itself a claim that has to cite its declared loci and evidence rather than assert exhaustiveness, which is why unknown sits as its own coverage tag and is never collapsed into the bottom of the evidence order.",
       "formal": {
-        "latex": "\\mathrm{covers}(r, d) \\;\\Rightarrow\\; \\mathrm{declared}(d) \\;\\wedge\\; \\forall\\, x \\notin d.\\ \\mathrm{status}(r, x) = \\mathrm{unknown} \\;\\wedge\\; \\mathrm{unknown} \\neq \\bot",
+        "latex": "\\mathrm{covers}(r, d) \\;\\Rightarrow\\; \\mathrm{declared}(d) \\;\\wedge\\; \\big(\\forall\\, x \\notin d.\\ \\mathrm{status}(r, x) = \\mathrm{unknown}\\big) \\;\\wedge\\; \\mathrm{unknown} \\neq \\bot",
         "reads": "If a report concludes coverage over a domain, that domain must be declared and finite; for anything outside it the report's status is unknown, and unknown is not the same as proven-absent.",
         "symbols": [
           {
@@ -1534,7 +1594,7 @@
           "boundary": "This shows why a blank result outside the indexed shelves means unknown, not absent; it does not establish that the un-indexed shelves are empty or full, only that the catalogue makes no claim about them. A clean catalogue is not a statement that the whole library was checked."
         },
         "why_it_matters": "It stops a tidy report with no findings from being read as everything is fine, when all it really showed is that nothing was looked at outside its declared scope.",
-        "common_misread": "That a report finding no problems means the unchecked area is clear, complete, or safe, rather than simply unexamined."
+        "potential_misread": "That a report finding no problems means the unchecked area is clear, complete, or safe, rather than simply unexamined."
       }
     },
     {
@@ -1543,8 +1603,8 @@
       "one_line": "When a precondition fails or a dependency is missing, return a typed refusal carrying its reason and evidence, never a silent number that keeps the path green.",
       "deep": "P-8 is AX-7's typed-partiality law made into the habit a builder applies at every computation that can fail. A function whose precondition does not hold, or whose library or corpus is absent, must totalize into a refusal that names why and cites the evidence, instead of returning a meaningless statistic, a proof verdict, a safety judgement, or a public-readiness status just to avoid a red path. This bites because the cheapest way to look finished is to emit a number anyway: a forecast computed past its sample size, a confidence interval with no distribution behind it, a readiness flag asserted while the dependency is missing. It connects to the claim and evidence model because a refusal is the honest evidence value when the basis is not admissible; a fabricated green output is a claim with no checker under it, which is exactly the bottom-of-the-order assertion the rest of the doctrine refuses.",
       "formal": {
-        "latex": "\\mathrm{run}(g, x) = \\mathsf{Ok}(y) \\;\\Rightarrow\\; \\mathrm{Pre}(g, x) \\;\\wedge\\; \\neg\\,\\mathrm{Pre}(g, x) \\Rightarrow \\mathrm{run}(g, x) = \\mathsf{Refusal}(r, \\epsilon)",
-        "reads": "A partial computation may return an Ok result only when its precondition holds; when the precondition fails it must return a typed refusal carrying a reason and its evidence, not a value.",
+        "latex": "\\big(\\mathrm{run}(g, x) = \\mathsf{Ok}(y) \\Rightarrow \\mathrm{Pre}(g, x)\\big) \\;\\wedge\\; \\big(\\neg\\,\\mathrm{Pre}(g, x) \\Rightarrow \\exists\\, r, \\epsilon.\\ \\mathrm{run}(g, x) = \\mathsf{Refusal}(r, \\epsilon)\\big)",
+        "reads": "An Ok result certifies that the precondition held: a value may come out only when the computation had grounds to run. And when the precondition fails, the computation returns a typed refusal carrying some reason and its evidence, never a bare value.",
         "symbols": [
           {
             "sym": "\\mathrm{run}(g, x)",
@@ -1614,7 +1674,7 @@
           "boundary": "This shows why a refusal that names its reason beats a fabricated answer; it does not establish that the refusal itself is correct or that the request was valid, only that an unfounded answer is withheld. A returned refusal is information, not a verdict on the underlying request."
         },
         "why_it_matters": "It keeps a system from emitting a forecast past its data, a confidence figure with nothing behind it, or a ready flag while a needed part is missing, all just to avoid showing red.",
-        "common_misread": "That returning some number is always better than returning nothing, even when the basis for that number does not exist."
+        "potential_misread": "That returning some number is always better than returning nothing, even when the basis for that number does not exist."
       }
     },
     {
@@ -1623,7 +1683,7 @@
       "one_line": "A value crossing any boundary must carry its provenance class and scope limit; if a crossing is only declared or labelled at the endpoint, say so rather than treating it as propagated.",
       "deep": "P-9 is AX-8 turned into the discipline a builder runs at every boundary a value actually crosses: imported source, a fixture, a result record, public copy, a provider payload shape, or material adjacent to a private root. Each crossing must carry a provenance class and a scope limit with the value, because trust is a property of where something came from and what was done to it, not of where it lands. The honesty half is load-bearing and is what separates this from AX-8 stated abstractly: when a flow is only declared, or only labelled clean at the endpoint instead of having the label carried across, the principle requires you to record that gap rather than read the endpoint label as proof. This is the rule that lets a clean-looking final copy step still be treated as unverified, and it is why the system tracks how far a value may travel rather than only what it currently looks like.",
       "formal": {
-        "latex": "(x \\to s) \\;\\Rightarrow\\; \\big(\\mathrm{prov}(x) \\sqsubseteq \\mathrm{policy}(s) \\;\\wedge\\; \\mathrm{ceil}(x)\\ \\mathrm{carried}\\big) \\;\\vee\\; \\mathrm{declared}(x \\to s)",
+        "latex": "(x \\to s) \\;\\Rightarrow\\; \\big(\\mathrm{prov}(x) \\sqsubseteq \\mathrm{policy}(s) \\;\\wedge\\; \\mathrm{carried}(\\mathrm{ceil}(x))\\big) \\;\\vee\\; \\mathrm{declared}(x \\to s)",
         "reads": "For any value x crossing into a sink s, either x's provenance sits within the sink's policy and its scope limit is carried across, or the crossing is explicitly recorded as only declared.",
         "symbols": [
           {
@@ -1702,13 +1762,13 @@
           "boundary": "This shows why a label applied only at the end is weaker than a record carried the whole way; it does not establish that an origin seal guarantees the contents are correct, only that an end-of-line sticker proves less than a continuous record. A carried log is not the same as the goods being verified."
         },
         "why_it_matters": "It lets a clean-looking final copy still be treated as unverified, so trust depends on where a value came from and what was done to it, not on how it looks at the last step.",
-        "common_misread": "That a clean label at the final destination is enough, regardless of whether that label actually accompanied the value across the earlier boundaries."
+        "potential_misread": "That a clean label at the final destination is enough, regardless of whether that label actually accompanied the value across the earlier boundaries."
       }
     },
     {
       "id": "P-10",
       "kind": "principle",
-      "one_line": "A write, release, or import counts as landed only after a durable ordered record, a compensator or declared irreversible boundary, a compare-and-swap on the expected parent, and a single-writer hold on its path.",
+      "one_line": "A write, release, or import counts as landed only with a durable ordered record, a compensator or declared irreversible boundary, a compare-and-swap on its expected parent, and a single writer on its path.",
       "deep": "P-10 is AX-9 turned into the discipline a builder runs before any effect is allowed to be real. A write, a release step, a claim release, a source import, or a rollback-shaped operation is not landed because it ran; it is landed only when ordered transaction evidence exists for it, when it carries a compensator or a declared irreversible boundary, when a compare-and-swap confirms the parent it expected has not moved, and when a single writer holds its path. This connects to the claim and evidence model because a landed effect is itself a claim about the world, and an effect with no compensation and no concurrency guard is a confident assertion that nobody can recompute or undo. It bites hardest in the gap between two steps: the moment a lock releases before the durable record is written, or two writers race the same path on a stale parent, is exactly where an unrecoverable, unauthorised, or doubled effect slips through.",
       "formal": {
         "latex": "\\mathrm{landed}(e) \\;\\Rightarrow\\; \\mathrm{durable}(e) \\;\\wedge\\; \\big(\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)\\big) \\;\\wedge\\; \\big(\\mathrm{multi}(e) \\Rightarrow \\mathrm{cas}(\\mathrm{parent}(e)) \\wedge |\\mathrm{writers}(\\mathrm{path}(e))| \\leq 1\\big)",
@@ -1795,7 +1855,7 @@
           "boundary": "The wire picture shows that a single transfer can be recorded, reversed, and protected from a race; it does not show the bank's whole system is sound, and one clean transfer does not establish that every account or every transfer is safe."
         },
         "why_it_matters": "Without this, a step that crashes between starting and finishing can look complete while leaving a half-done effect that nobody can recompute or unwind, which is how doubled, lost, or unauthorised changes slip through.",
-        "common_misread": "Thinking that because an operation reported success it must therefore be safely and fully landed. The most dangerous moment is the gap between two steps, where a lock can release before the permanent record is written."
+        "potential_misread": "Thinking that because an operation reported success it must therefore be safely and fully landed. The most dangerous moment is the gap between two steps, where a lock can release before the permanent record is written."
       }
     },
     {
@@ -1804,8 +1864,8 @@
       "one_line": "A live count, current state, or readiness signal may stand in durable prose only if it carries when it was read and a route that recomputes it; otherwise demote it to a dated snapshot.",
       "deep": "P-11 is AX-10 turned into a writing discipline: a number about live state is a cached read, not a standing fact, and a cached read is only as trustworthy as its invalidation contract. So counts, \"current\" states, route totals, CI floors, and readiness signals are admissible in durable prose only when they carry the time they were read, the basis they came from, and a route that re-derives them; if any of those is missing, the honest form is a dated snapshot or no claim at all. This connects to the claim and evidence model because an unbound live value is the temporal version of an echoed label: it keeps asserting yesterday's reading as today's truth with nothing recomputing it. The route is the load-bearing half; without it a confident number silently drifts away from the basis it was supposed to track.",
       "formal": {
-        "latex": "\\mathrm{durable}(v) \\;\\Rightarrow\\; \\exists\\, t, B, \\rho.\\ v = \\rho(B) \\;\\wedge\\; \\mathrm{asof}(v) = t \\quad \\mathrm{else}\\ \\mathrm{demote}(v)",
-        "reads": "A volatile value may stand in durable prose only if there exist a read time, a basis, and a route such that the value re-derives from that basis and carries that time as its as-of stamp; otherwise it is demoted to a dated snapshot or kept out of durable prose.",
+        "latex": "\\mathrm{durable}(v) \\;\\Rightarrow\\; \\exists\\, t, B, \\rho.\\ \\mathrm{carries}(v, \\langle t, B, \\rho \\rangle) \\quad \\mathrm{else}\\ \\mathrm{demote}(v)",
+        "reads": "A volatile value may stand in durable prose only when it carries a read time, a basis, and a route that can recompute it; otherwise demote it to a dated snapshot or keep it out. Carrying the route makes the number checkable; it does not make it currently fresh.",
         "symbols": [
           {
             "sym": "\\mathrm{durable}(v)",
@@ -1828,8 +1888,8 @@
             "meaning": "the route that re-derives the value from the basis"
           },
           {
-            "sym": "\\mathrm{asof}(v)",
-            "meaning": "the as-of read time stamped on v"
+            "sym": "\\mathrm{carries}(v, \\langle t, B, \\rho \\rangle)",
+            "meaning": "the value is stamped with its read time, basis, and recompute route"
           },
           {
             "sym": "\\mathrm{demote}(v)",
@@ -1879,7 +1939,7 @@
           "boundary": "The board only shows that a changing value needs a timestamp and a live source to stay honest; it does not show the posted time is correct right now, and seeing a refresh link does not mean the value has actually been recomputed since."
         },
         "why_it_matters": "A frozen 'current' number quietly drifts from reality as the underlying thing grows or changes, so readers keep trusting yesterday's reading as today's truth with nothing pulling it back into line.",
-        "common_misread": "Assuming a confident number in a document is current just because it sounds definite. The point that carries the weight is the route to recount it; without that, the figure is just a cached reading wearing the costume of a fixed fact."
+        "potential_misread": "Assuming a confident number in a document is current just because it sounds definite. The point that carries the weight is the route to recount it; without that, the figure is just a cached reading wearing the costume of a fixed fact."
       }
     },
     {
@@ -1888,7 +1948,7 @@
       "one_line": "A doctrine surface earns authority only by passing an executable grammar and carrying receipt obligations and anti-claims; prose alone stays a projection that orients but cannot rule.",
       "deep": "P-12 is the discipline that decides when a piece of doctrine is allowed to govern rather than merely describe. A standard, a route contract, or a doctrine record earns authority only when an executable grammar accepts it and it carries the required fields, result-record obligations, and anti-claims; well-written prose can orient a reader but cannot become the thing other components are checked against. This is the claim-and-evidence model pointed inward at the system's own laws: an authority-bearing surface is treated as a claim that has to clear an admissibility floor, so a confident paragraph sits at the bottom of that order until a grammar membership check and its obligations admit it. P-12 only operationalizes specific obligations of its grounding axiom; passing the grammar establishes that a surface is well-formed enough to carry authority, not that what it asserts is true or that the doctrine it belongs to is complete.",
       "formal": {
-        "latex": "\\mathrm{auth}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{records}(d) \\;\\wedge\\; \\mathrm{anticlaims}(d) \\quad \\mathrm{else}\\ \\mathrm{auth}(d) \\sqsubseteq \\mathrm{proj}",
+        "latex": "\\mathrm{auth}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{records}(d) \\;\\wedge\\; \\mathrm{anticlaims}(d); \\quad \\mathrm{otherwise}\\ \\mathrm{auth}(d) \\sqsubseteq \\mathrm{proj}",
         "reads": "A doctrine surface may carry authority only when an executable grammar accepts it and it carries result-record obligations and anti-claims; otherwise its standing is bounded at projection, which orients but does not rule.",
         "symbols": [
           {
@@ -1964,7 +2024,7 @@
           "boundary": "The inspection picture only shows a notice must clear a real check before it can govern; it does not show what the notice says is true, that the room is actually well-built, or that the building code itself is complete."
         },
         "why_it_matters": "It stops a persuasive paragraph from being treated as the law other parts must obey, which is exactly where confident but unchecked wording smuggles authority it never earned.",
-        "common_misread": "Believing that clear, authoritative-sounding writing is enough to make something a binding rule. Passing the form check means the rule is well-formed enough to carry authority, not that its content is correct."
+        "potential_misread": "Believing that clear, authoritative-sounding writing is enough to make something a binding rule. Passing the form check means the rule is well-formed enough to carry authority, not that its content is correct."
       }
     },
     {
@@ -2045,7 +2105,7 @@
           "boundary": "The calibration picture only shows the lab's own instruments face the same standard as customer equipment; it does not show the lab's instruments are actually accurate or its results correct, only that its self-checks were not waved through on a lighter rule."
         },
         "why_it_matters": "Self-referential copy is where overclaiming is easiest to hide, so removing the discount lets the system state its own limits in public without that statement quietly becoming a new unchecked claim.",
-        "common_misread": "Assuming a system describing itself can be taken at its word, or that holding its self-claims to the standard makes the self-praise correct. Clearing the floor only removes the special pleading; it does not make the system complete or ready."
+        "potential_misread": "Assuming a system describing itself can be taken at its word, or that holding its self-claims to the standard makes the self-praise correct. Clearing the floor only removes the special pleading; it does not make the system complete or ready."
       }
     },
     {
@@ -2126,7 +2186,7 @@
           "boundary": "The two-label picture only shows that both tags must be present together; it does not establish that a fully labelled sample is correct or safe, and it does not capture how a flow tag tightens as data combines with other data."
         },
         "why_it_matters": "It stops data from being trusted on a partial paper trail, where you know what something is but not where it may go, or where it may go but not what it actually came from.",
-        "common_misread": "That one good label is enough. Knowing the source does not tell you where the value may travel, and a flow tag with no record of inputs is a tag attached to nothing."
+        "potential_misread": "That one good label is enough. Knowing the source does not tell you where the value may travel, and a flow tag with no record of inputs is a tag attached to nothing."
       }
     },
     {
@@ -2205,12 +2265,16 @@
             {
               "doctrine": "the projection held at or below the source",
               "analogy": "the photocopy that can be read but cannot overrule the original"
+            },
+            {
+              "doctrine": "recompute or demote when the source weakens",
+              "analogy": "the old copy losing its standing the moment the original is amended"
             }
           ],
           "boundary": "The photocopy picture shows that a view cannot outrank its origin; it does not capture that the view's ceiling is set by several source properties at once, like freshness and provenance, not just by being a copy."
         },
         "why_it_matters": "It stops a polished public page or summary being treated as more trustworthy than the working source it was drawn from.",
-        "common_misread": "That a clear, confident-looking view must be reliable. Its reliability is capped by the source, however good the view looks."
+        "potential_misread": "That a clear, confident-looking view must be reliable. Its reliability is capped by the source, however good the view looks."
       }
     },
     {
@@ -2303,7 +2367,7 @@
           "boundary": "The wire picture shows that several conditions must hold together for one transfer; it does not establish that any given transfer is correct, and it does not capture the claimed write scope and landing evidence that the rule also requires."
         },
         "why_it_matters": "It closes the gap where someone with broad standing access is treated as authorized to make a change, even though nothing checked the specific change against its scope, the current state, and a way to undo it.",
-        "common_misread": "That having access means you are authorized to change something. Access is one input; permission still has to be worked out for this exact change, against the state you actually find."
+        "potential_misread": "That having access means you are authorized to change something. Access is one input; permission still has to be worked out for this exact change, against the state you actually find."
       }
     },
     {
@@ -2388,7 +2452,7 @@
           "boundary": "The booking picture only shows that a connection must trace to one exact entry, not an approximate one; it does not establish that the entry itself is right, and it does not capture every check a real edge addition runs."
         },
         "why_it_matters": "In a list where many entries look alike, acting on a near-match or a changed total quietly wires up the wrong relationship, and the mistake is hard to find later.",
-        "common_misread": "That a close match or a count that moved confirms the right connection. Only the exact entry that names the relationship does; everything else is a guess that happens to look right."
+        "potential_misread": "That a close match or a count that moved confirms the right connection. Only the exact entry that names the relationship does; everything else is a guess that happens to look right."
       }
     },
     {
@@ -2485,7 +2549,7 @@
           "boundary": "The bylaw picture shows that authority needs all the steps to land together before it counts; it does not establish that an enacted rule is wise or correct, and it does not capture the blocked-record case where a partial item is explicitly held without losing its place."
         },
         "why_it_matters": "It stops a half-finished draft from being treated as the live rule, where some steps are done and the rest are assumed, so nobody is acting on something that never actually took effect.",
-        "common_misread": "That once the content is drafted and looks complete, it is in force. The content is only in force when ownership, source, generated copy, check, and status change all land together."
+        "potential_misread": "That once the content is drafted and looks complete, it is in force. The content is only in force when ownership, source, generated copy, check, and status change all land together."
       }
     },
     {
@@ -2494,8 +2558,8 @@
       "one_line": "A missing relation is typed pressure, not an edge; it becomes an edge only when the current source row names it and the target resolves.",
       "deep": "P-19 is the discipline that keeps the system's own map honest as it grows. A missing neighbour in the lattice is a typed residual pressure, not a fact: before anyone wires it, classify the declared domain, the source row, the target resolution, the fillability, the evidence floor, and the anti-claim. A candidate route, a basename match, a singleton guess, or a stale projection row is still pressure; it becomes an edge only when a current source row names the relation and the target resolves under the builder. The same floor runs in both directions between the doctrine and the system it governs: a law constrains the system through source-derived edges, and the system can refine a law only through source-owned obligations, witnesses, negative cases, and unfinished-coverage rows. Neither direction is support proof, and neither is permission to launder pressure into an edge or to whiten a health card.",
       "formal": {
-        "latex": "e \\in E \\iff \\mathrm{source}(e) \\;\\wedge\\; \\mathrm{resolves}(\\tau(e)); \\quad \\mathrm{else}\\ e \\in R \\;\\wedge\\; \\mathrm{typed}(e)",
-        "reads": "An edge e is admitted only when a current source row names it and its target resolves under the builder; otherwise e is not absence but typed residual pressure in R, carrying its declared domain, evidence floor, and anti-claim until a source row resolves it.",
+        "latex": "e \\in E \\;\\Rightarrow\\; \\mathrm{source}(e) \\;\\wedge\\; \\mathrm{resolves}(\\tau(e)); \\quad \\mathrm{else}\\ e \\in R \\;\\wedge\\; \\mathrm{typed}(e)",
+        "reads": "An edge is admitted only when a current source row names it and its target resolves under the builder; naming alone does not force admission, and anything short of that is not absence but typed residual pressure in R, carrying its declared domain, evidence floor, and anti-claim until a source row resolves it.",
         "symbols": [
           {
             "sym": "e",
@@ -2561,7 +2625,7 @@
           "boundary": "The transit-map picture shows that a connection needs a real service, not nearness; it does not capture the typed record the gap carries while it waits, which is more than a blank."
         },
         "why_it_matters": "It keeps the system's own map honest as it grows, instead of inventing connections that make a diagram look complete.",
-        "common_misread": "That a plausible-looking connection is a real one. Nearness or a shared name is pressure to check, not a link."
+        "potential_misread": "That a plausible-looking connection is a real one. Nearness or a shared name is pressure to check, not a link."
       }
     },
     {
@@ -2642,7 +2706,7 @@
           "boundary": "The medicine-clearance picture only shows that the supporting records must be attached before use; it does not establish that the underlying tests were good, and it does not capture that a readable leaflet, however well written, never raises what the medicine is cleared to do."
         },
         "why_it_matters": "It stops a nicely formatted record from being treated as the trusted source when the checks, evidence, and limits that would back it have not actually been attached.",
-        "common_misread": "That a clear, complete-looking record is therefore authoritative. The readable copy is a projection; authority comes only from the checks and limits bound to the record, not from how it reads."
+        "potential_misread": "That a clear, complete-looking record is therefore authoritative. The readable copy is a projection; authority comes only from the checks and limits bound to the record, not from how it reads."
       }
     },
     {
@@ -2706,7 +2770,7 @@
           "boundary": "The stale-sign picture shows label-echo; it does not name the deeper rule, which is that the underlying evidence, not the sign, is what a verdict has to be re-derived from."
         },
         "why_it_matters": "It is the most common way false confidence spreads: a single unverified label gets quoted as fact all the way downstream.",
-        "common_misread": "That a label being present means it was checked. The label is just text until something recomputes the verdict beneath it."
+        "potential_misread": "That a label being present means it was checked. The label is just text until something recomputes the verdict beneath it."
       }
     },
     {
@@ -2715,7 +2779,7 @@
       "one_line": "Trusting a producer, persona, route, credential, or prior success instead of a checker, proof, policy, or dereferenced capability.",
       "deep": "AP-2 is the failure that AX-2 and AX-3 exist to refuse: granting trust because of who produced a claim or what badge they hold, rather than because something recomputed the claim or derived the authority. It bites because identity is cheap to read and usually correlates with correctness, so a system that trusts a known producer, a passing route, or a standing credential looks fine right up until that producer is wrong or compromised, at which point nothing was actually checking. The repair splits trust from production: a small checker decides the claim over its certificate, and authority for an effect is derived from dereferenced tokens, policy, and proof references against current world state, never from ambient identity or a prior green run. This is the human-pressure analogue of the label echo in AP-1; here the unchecked thing is a source of authority rather than a written verdict.",
       "formal": {
-        "latex": "\\mathrm{trust}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, K.\\ K(c) = \\mathsf{accept} \\;\\vee\\; \\mathrm{grant}(s, e) \\;\\wedge\\; \\neg\\,\\mathrm{deref}(\\mathrm{auth}(s, e))",
+        "latex": "\\big(\\mathrm{trust}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, K.\\ K(c) = \\mathsf{accept}\\big) \\;\\vee\\; \\big(\\mathrm{grant}(s, e) \\;\\wedge\\; \\neg\\,\\mathrm{deref}(\\mathrm{auth}(s, e))\\big)",
         "reads": "Trusting a claim while no small checker accepts its certificate, or granting a subject an effect while authority for it was never derived by dereference from tokens, policy, and proof against world state.",
         "symbols": [
           {
@@ -2784,7 +2848,7 @@
           "boundary": "This shows only that a familiar face is not the same as a confirmed permission. It does not prove the access system itself is correct, that every door in the building is checked this way, or that a confirmed person will behave well once inside."
         },
         "why_it_matters": "Identity is easy to fake or to go stale; a system that trusts the sender rather than re-checking the request looks fine until that sender is wrong or compromised, and by then nothing was actually guarding the door.",
-        "common_misread": "That a trusted name or a pass that worked before is a safe stand-in for checking. The check has to be made each time against what is actually allowed now."
+        "potential_misread": "That a trusted name or a pass that worked before is a safe stand-in for checking. The check has to be made each time against what is actually allowed now."
       }
     },
     {
@@ -2793,7 +2857,7 @@
       "one_line": "Reading a count, a handle, a passing validator, or an evidence-class name as product maturity, release readiness, or whole-system correctness.",
       "deep": "AP-3 is the roll-up fallacy the system polices in its own progress reporting: treating a number that summarises many parts as a verdict on the whole. A count of passing checks, a list of registered handles, a green validator, or a strong evidence-class label is a projection over an eight-component ceiling vector, and a high reading on one component can hide an uncovered provenance, freshness, or coverage component underneath it. This bites because it inverts how a composite is supposed to score: the honest status of a whole is the meet of its parts, where any part with no admissible witness sits at blocked, so a flattering average or a raw tally quietly reads a fail-open default as a pass. The repair is the count-theater rule: more passing cases raise standing only by covering a previously uncovered required obligation, lifting a sub-maximal ceiling component, or adding a missing negative case; redundant cases under the same basis are inert, and a rank stays a display of the ceiling, never the authority itself.",
       "formal": {
-        "latex": "\\mathrm{report}(n) \\;\\wedge\\; n = |\\{\\,\\mathrm{pass}\\,\\}| \\;\\wedge\\; \\exists\\, p.\\ \\mathrm{status}(p) = \\bot \\;\\wedge\\; \\mathrm{status}(\\mathrm{whole}) \\sqsupset \\bigsqcap_{p} \\mathrm{status}(p)",
+        "latex": "\\mathrm{report}(n) \\;\\wedge\\; n = |\\{\\,\\mathrm{pass}\\,\\}| \\;\\wedge\\; \\big(\\exists\\, p.\\ \\mathrm{status}(p) = \\bot\\big) \\;\\wedge\\; \\mathrm{status}(\\mathrm{whole}) \\sqsupset \\bigsqcap_{p} \\mathrm{status}(p)",
         "reads": "Reporting a tally of passing parts as the standing of the whole while some part has no admissible witness, so the claimed status rises above the meet of the parts that an uncovered part should pin to the bottom.",
         "symbols": [
           {
@@ -2868,7 +2932,7 @@
           "boundary": "This shows only that a flattering tally can hide an unmeasured part. It does not prove the lines that do report are running well, and it does not establish anything about lines the board never covered."
         },
         "why_it_matters": "Counting passing checks as a maturity score quietly treats anything unmeasured as if it passed, so a project can look release-ready while a required piece was never even tested.",
-        "common_misread": "That more passing checks always means more readiness. Extra passes only help if they cover a part that had no coverage before; repeating the same passing check adds nothing."
+        "potential_misread": "That more passing checks always means more readiness. Extra passes only help if they cover a part that had no coverage before; repeating the same passing check adds nothing."
       }
     },
     {
@@ -2950,7 +3014,7 @@
           "boundary": "This shows only that a stable label can outlive the thing it points to. It does not prove every card in the catalogue is being checked this way, and one caught mismatch says nothing about whether the rest of the shelves are current."
         },
         "why_it_matters": "Pipelines reuse saved results by name to stay fast, but if the underlying source was edited, the name keeps returning yesterday's answer and nobody notices the value is stale.",
-        "common_misread": "That an unchanged name means unchanged content. The name can stay identical while what it points to has been replaced underneath."
+        "potential_misread": "That an unchanged name means unchanged content. The name can stay identical while what it points to has been replaced underneath."
       }
     },
     {
@@ -2959,20 +3023,20 @@
       "one_line": "Reading a missing witness as a settled negative outside a declared finite domain, so absence of proof is reported as proof of absence.",
       "deep": "AP-5 is the failure AX-6 exists to refuse: turning a gap in evidence into a positive verdict of nothing-there. A required obligation with no admissible witness is an open coverage gap, not a refutation; it can be closed as a negative only inside a declared finite domain where every case is enumerable. This bites because it is the comfortable direction to round: a quiet absence reads as reassurance, and a coverage map that prints absent as clear looks finished when it has only stopped looking. It connects to the claim and evidence model through a distinction the system holds by construction: a missing witness is unknown, which is held separate from a value at the bottom of the evidence order, and unknown is kept distinct from a fail-closed block where an in-domain obligation has no admissible witness; collapsing any of these into proven-absent launders an open gap into a certified claim it cannot support.",
       "formal": {
-        "latex": "\\neg\\,\\mathrm{proven}(\\varphi) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi) \\;\\wedge\\; \\neg\\,\\mathrm{finite}(D)",
-        "reads": "Concluding the negation of a claim from the mere absence of its proof, when the domain is not a declared finite one where coverage can be closed.",
+        "latex": "\\mathrm{assert}\\big(\\mathrm{proven}(\\neg\\varphi)\\big) \\;\\wedge\\; \\neg\\,\\mathrm{proven}(\\varphi) \\;\\wedge\\; \\neg\\,\\mathrm{finite}(D)",
+        "reads": "Reporting the negation of a claim as established while the claim is merely unproven and the domain was never declared finite, so an open gap is laundered into a settled negative.",
         "symbols": [
           {
             "sym": "\\varphi",
             "meaning": "a claim whose proof is missing"
           },
           {
-            "sym": "\\mathrm{proven}(\\varphi)",
-            "meaning": "an admissible derivation exists for the claim"
+            "sym": "\\mathrm{assert}\\big(\\mathrm{proven}(\\neg\\varphi)\\big)",
+            "meaning": "reporting the negation as an established finding"
           },
           {
-            "sym": "\\mathrm{proven}(\\neg\\varphi)",
-            "meaning": "the negation asserted from that absence"
+            "sym": "\\mathrm{proven}(\\varphi)",
+            "meaning": "an admissible derivation exists for the claim"
           },
           {
             "sym": "\\mathrm{finite}(D)",
@@ -3022,7 +3086,7 @@
           "boundary": "This shows only that 'we found nothing' is not the same as 'there is nothing'. It does not establish whether the un-imaged region is actually healthy or not, and it does not turn a properly scanned clear area into a guarantee."
         },
         "why_it_matters": "An unexamined gap quietly reads as reassurance, so a coverage map can look finished when it has only stopped looking, hiding risk exactly where no one checked.",
-        "common_misread": "That a blank or absence is the same as a confirmed 'nothing here'. Absence of evidence is unknown, not a settled negative, unless the whole area was genuinely covered."
+        "potential_misread": "That a blank or absence is the same as a confirmed 'nothing here'. Absence of evidence is unknown, not a settled negative, unless the whole area was genuinely covered."
       }
     },
     {
@@ -3094,7 +3158,7 @@
           "boundary": "This shows only that a missing input should produce an explicit refusal, not a made-up answer. It does not prove that a dose computed with all the right inputs is correct, and a refusal is not itself a treatment."
         },
         "why_it_matters": "A fabricated number looks just like a real one downstream, so a statistic computed outside its valid range slides into later steps that trust it, while an honest refusal stops the bad value at the door.",
-        "common_misread": "That returning some number is more helpful than refusing. A number produced when its inputs are missing is worse than a refusal, because it hides as a usable result."
+        "potential_misread": "That returning some number is more helpful than refusing. A number produced when its inputs are missing is worse than a refusal, because it hides as a usable result."
       }
     },
     {
@@ -3103,8 +3167,8 @@
       "one_line": "Letting untrusted, private, provider, prompt, or raw-voice material reach a public or privileged sink without a carried provenance label and a declared sanitizing transform.",
       "deep": "AP-7 is the failure AX-8 exists to refuse: a value crosses into a public or privileged sink carrying trust it never earned. It bites because the final step usually looks clean, so a pipeline that copies a private-adjacent body, a provider payload, a prompt instruction, or raw operator voice into a published page passes its own checks while leaking, since nothing recomputed where the value came from or what was done to it on the way. The repair follows the boundary model directly: a provenance class and ceiling must travel with the value, and untrusted material may reach the sink only through a declared transform whose output the sink's policy admits, never a clean label stamped on at the door. This is the membrane that lets the system publish from private-adjacent source at all, because the act of crossing is gated by carried provenance rather than by how the endpoint happens to look.",
       "formal": {
-        "latex": "(x \\to s) \\;\\wedge\\; \\mathrm{label}(x) \\sqsupset \\mathrm{policy}(s) \\;\\wedge\\; \\neg\\,\\exists\\, T.\\ \\big(s = T(x) \\;\\wedge\\; \\mathrm{declared}(T)\\big)",
-        "reads": "A flow carries x into a sink s while x's carried provenance label sits above what the sink's policy may admit, and no declared sanitizing transform produced s from x.",
+        "latex": "(x \\to s) \\;\\wedge\\; \\mathrm{label}(x) \\sqsupset \\mathrm{policy}(s) \\;\\wedge\\; \\neg\\,\\exists\\, T.\\ \\big(x \\to T \\to s \\;\\wedge\\; \\mathrm{declared}(T) \\;\\wedge\\; \\mathrm{label}(T(x)) \\sqsubseteq \\mathrm{policy}(s)\\big)",
+        "reads": "A flow carries x into a sink s while x's carried provenance label sits above what the sink's policy may admit, and the flow passes through no declared sanitizing transform whose output label the sink's policy admits.",
         "symbols": [
           {
             "sym": "x",
@@ -3182,7 +3246,7 @@
           "boundary": "This shows the crossing must be gated by what travels with the goods, not by how the truck looks; it does not establish that checking goods at one border post keeps every border in the country clean, and one clean shipment does not mean the whole supply chain is safe."
         },
         "why_it_matters": "It is how a system can publish from private-adjacent sources at all without leaking secrets, credentials, or planted instructions onto a public page.",
-        "common_misread": "That if the last copy step looks tidy and nothing obviously private is visible, the material is safe to publish."
+        "potential_misread": "That if the last copy step looks tidy and nothing obviously private is visible, the material is safe to publish."
       }
     },
     {
@@ -3191,7 +3255,7 @@
       "one_line": "Performing an irreversible mutation with no compensator, no rollback record, no compare-and-swap guard, and no declared irreversible boundary.",
       "deep": "AP-8 is the failure AX-9 exists to refuse: writing a real effect into the world while assuming it can always be taken back, when nothing was put in place to take it back. It bites because the happy path looks identical whether or not a guard exists; the gap only appears when two writers race, a parent state has already moved, or a step half-lands and there is no recorded way to undo it. The repair is to make every effect declare its own reversibility up front: a compensator or an explicitly named irreversible boundary, multi-step effects landing under compare-and-swap against an expected parent, and same-path writes held to a single writer. This connects to the evidence model through provenance and freshness rather than through a label: a write is only safe to treat as landed when the state it assumed is still the state it is acting on, and a record of how to reverse it travels with the effect rather than being assumed after the fact.",
       "formal": {
-        "latex": "\\mathrm{effect}(e) \\;\\wedge\\; \\neg\\,\\exists\\, c.\\ \\mathrm{compensates}(c, e) \\;\\wedge\\; \\neg\\,\\mathrm{irreversible-boundary}(e) \\;\\wedge\\; \\neg\\,\\mathrm{cas}(e, \\mathrm{parent})",
+        "latex": "\\mathrm{effect}(e) \\;\\wedge\\; \\big(\\neg\\,\\exists\\, c.\\ \\mathrm{compensates}(c, e)\\big) \\;\\wedge\\; \\neg\\,\\mathrm{irrev}(e) \\;\\wedge\\; \\neg\\,\\mathrm{cas}(e, \\mathrm{parent})",
         "reads": "An effect e is landed while no compensator reverses it, no irreversible boundary is declared for it, and no compare-and-swap guards it against the parent state having advanced.",
         "symbols": [
           {
@@ -3211,7 +3275,7 @@
             "meaning": "c is a compensator that reverses effect e"
           },
           {
-            "sym": "\\mathrm{irreversible-boundary}(e)",
+            "sym": "\\mathrm{irrev}(e)",
             "meaning": "an explicit declaration that the effect cannot be undone"
           },
           {
@@ -3264,7 +3328,7 @@
           "boundary": "This shows the obligation to set up a recall path and a balance check before sending; it does not establish that every transaction in the bank is reversible or race-free, only that these specific steps were put in place for this send."
         },
         "why_it_matters": "It stops a change from silently overwriting someone else's concurrent work or landing half-done with no recorded way to undo it.",
-        "common_misread": "That because the normal case completes fine, you can always undo a change later if something goes wrong."
+        "potential_misread": "That because the normal case completes fine, you can always undo a change later if something goes wrong."
       }
     },
     {
@@ -3273,7 +3337,7 @@
       "one_line": "Freezing a count, a \"current\" state, or any live value into durable prose with no recorded time, basis, or way to re-derive it.",
       "deep": "AP-9 is the failure AX-10 exists to refuse: writing a live value into prose as if it were a fixed fact. A count, a \"current\" total, a readiness signal, or a route tally is a cached read of moving state, so the moment it lands in text without an as-of time, a named basis, and a way to recompute it, the page starts asserting something it can no longer check. It is tempting because the number is true at the instant it is written, and the freshness contract feels like clutter next to a clean figure. The bite is that the value drifts while the prose does not, and a stale figure reads exactly like a live one; under the claim and evidence model the figure has quietly become a bare assertion, admissible only at the bottom of the evidence order because nothing can rederive it. The honest forms are the ones P-11 names: carry the freshness fields, keep the value out of durable prose, or mark it explicitly as a dated snapshot.",
       "formal": {
-        "latex": "\\mathrm{durable}(\\varphi) \\;\\wedge\\; \\mathrm{live}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, \\langle a, b, r \\rangle.\\ \\mathrm{carries}(\\varphi, a, b, r)",
+        "latex": "\\mathrm{durable}(\\varphi) \\;\\wedge\\; \\mathrm{live}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, a, b, r.\\ \\mathrm{carries}(\\varphi, \\langle a, b, r \\rangle)",
         "reads": "A live-state value is frozen into durable prose while no as-of time, basis, and rederive route travel with it.",
         "symbols": [
           {
@@ -3301,7 +3365,7 @@
             "meaning": "the route that recomputes it"
           },
           {
-            "sym": "\\mathrm{carries}(\\varphi, a, b, r)",
+            "sym": "\\mathrm{carries}(\\varphi, \\langle a, b, r \\rangle)",
             "meaning": "the value carries its as-of time, basis, and rederive route"
           }
         ]
@@ -3352,7 +3416,7 @@
           "boundary": "This shows that a moving value frozen in permanent text drifts while the text stays put; it does not establish that any value left on the live board is itself currently correct, only that a printed sign loses the ability to be re-checked."
         },
         "why_it_matters": "It keeps readers from trusting a stale figure that reads exactly like a live one, long after the real number has moved.",
-        "common_misread": "That because the number was true the moment it was written down, it stays a reliable fact afterward."
+        "potential_misread": "That because the number was true the moment it was written down, it stays a reliable fact afterward."
       }
     },
     {
@@ -3361,7 +3425,7 @@
       "one_line": "Granting executable authority to prose doctrine that is not accepted by the grammar and carries no result-record obligation or scope limit.",
       "deep": "AP-10 is the failure AX-11 exists to refuse: letting a sentence govern because it sounds authoritative. A standard, a policy line, or a doctrine page may bind behaviour only when an executable grammar accepts it and it carries result-record obligations and a stated scope limit; prose on its own is a readable view, not a rule. It is tempting because writing a confident paragraph is cheap and reads like governance, so a system accumulates prose that nothing can recompute and mistakes that pile for an enforced contract. The repair is to make the artifact pass the grammar and attach what evidence it must produce and what it does not establish, otherwise holding it at the strength of a projection rather than an authority.",
       "formal": {
-        "latex": "\\mathrm{authority}(d) \\;\\wedge\\; \\big(d \\notin L(G) \\;\\vee\\; \\neg\\,\\mathrm{obligations}(d) \\;\\vee\\; \\neg\\,\\mathrm{antiClaim}(d)\\big) \\;\\Rightarrow\\; \\mathsf{reject}",
+        "latex": "\\mathrm{authority}(d) \\;\\wedge\\; \\big(d \\notin L(G) \\;\\vee\\; \\neg\\,\\mathrm{obligations}(d) \\;\\vee\\; \\neg\\,\\mathrm{anticlaim}(d)\\big) \\;\\Rightarrow\\; \\mathsf{reject}",
         "reads": "If an artifact is granted governing authority while it is not accepted by the doctrine grammar, or carries no result-record obligations, or carries no scope limit, reject the authority and treat the prose as a projection.",
         "symbols": [
           {
@@ -3381,7 +3445,7 @@
             "meaning": "d declares the result records it must produce"
           },
           {
-            "sym": "\\mathrm{antiClaim}(d)",
+            "sym": "\\mathrm{anticlaim}(d)",
             "meaning": "d states its scope limit, what it does not establish"
           }
         ]
@@ -3428,7 +3492,7 @@
           "boundary": "This shows that an unregistered note is only a readable claim, not real access; it does not establish that a pass which is registered is therefore correct or sufficient, only that an unregistered one should not open doors."
         },
         "why_it_matters": "It stops a pile of confident-sounding paragraphs from accumulating as if they were enforced rules nothing can actually check.",
-        "common_misread": "That a clearly and authoritatively worded statement is, by virtue of how it reads, a rule the system enforces."
+        "potential_misread": "That a clearly and authoritatively worded statement is, by virtue of how it reads, a rule the system enforces."
       }
     },
     {
@@ -3508,7 +3572,7 @@
           "boundary": "This shows that the same test must apply to the lab's own samples, removing the self-discount; it does not establish that passing that test makes any sample clean, only that the lab cannot exempt itself from running it."
         },
         "why_it_matters": "It lets the system state its own limits honestly instead of having a flattering self-assessment quietly become a new unchecked claim.",
-        "common_misread": "That a claim is more trustworthy because the system is reporting on itself, so it deserves a lighter check than outside claims."
+        "potential_misread": "That a claim is more trustworthy because the system is reporting on itself, so it deserves a lighter check than outside claims."
       }
     },
     {
@@ -3517,8 +3581,8 @@
       "one_line": "Standing a real claim on a synthetic fixture when public-safe real material was available, so a fabricated input carries weight the real basis never granted.",
       "deep": "AP-12 is the failure AX-1, AX-4, and AX-8 jointly refuse: substituting a synthetic fixture for available public-safe real material and then letting a real claim ride on it. A synthetic stand-in has no derivation from anything real (so AX-1's checker has nothing to recompute), it is not the content hash of any real basis (so AX-4 cannot tell when it has drifted from the thing it stands for), and it carries no real provenance (so AX-8's label is fabricated at the door rather than propagated). It is tempting because a synthetic fixture is convenient and looks identical to a real one on the page, and the system itself admits synthetic fixtures for shape and negative cases; the line AP-12 polices is narrower, when real public-safe material exists, a synthetic substitute must not silently inherit a real basis's strength.",
       "formal": {
-        "latex": "\\exists\\, \\varphi.\\ \\mathrm{basis}(\\varphi) = B_{\\mathrm{syn}} \\;\\wedge\\; \\mathrm{avail}(B_{\\mathrm{real}}) \\;\\wedge\\; B_{\\mathrm{syn}} \\neq H(B_{\\mathrm{real}}) \\;\\wedge\\; \\mathrm{strength}(\\varphi) \\sqsupset \\bot",
-        "reads": "A claim is grounded on a synthetic basis while a public-safe real basis was available, the synthetic stand-in is not the content hash of that real basis, and the claim is still allowed to carry more than bottom strength.",
+        "latex": "\\exists\\, \\varphi.\\ \\mathrm{basis}(\\varphi) = B_{\\mathrm{syn}} \\;\\wedge\\; \\mathrm{avail}(B_{\\mathrm{real}}) \\;\\wedge\\; H(B_{\\mathrm{syn}}) \\neq H(B_{\\mathrm{real}}) \\;\\wedge\\; \\mathrm{strength}(\\varphi) \\sqsupset \\bot",
+        "reads": "A claim is grounded on a synthetic basis while a public-safe real basis was available, the stand-in's content hash differs from the real basis's hash (it was not derived from the real material), and the claim is still allowed to carry more than bottom strength.",
         "symbols": [
           {
             "sym": "\\varphi",
@@ -3592,7 +3656,7 @@
           "boundary": "This shows only that a stand-in must not be passed off as the real input when the real input was available; it does not say practice dummy bags are useless, and it does not establish that the real sample, once used, would give a correct or complete reading."
         },
         "why_it_matters": "Readers can tell whether a stated result rests on something real and shareable or on a convenient placeholder, so they can judge how much to lean on it.",
-        "common_misread": "That a stand-in is fine because it looks identical to the real thing on the page. The tempting wrong belief is that looking the same means it can carry the same weight."
+        "potential_misread": "That a stand-in is fine because it looks identical to the real thing on the page. The tempting wrong belief is that looking the same means it can carry the same weight."
       }
     },
     {
@@ -3665,7 +3729,7 @@
           "boundary": "This shows only that a copied card must stay below the book and be redone from it, never used as the origin; it stops there and does not establish that the book itself is correct or up to date."
         },
         "why_it_matters": "It keeps a generated view from quietly outranking the thing it was built from, so a reader knows which artifact is the real origin and which is just a downstream copy.",
-        "common_misread": "That whichever copy is already sitting in front of you, with a confident verdict on it, is the thing to edit and cite. The tempting wrong belief is that the handy artifact is the source."
+        "potential_misread": "That whichever copy is already sitting in front of you, with a confident verdict on it, is the thing to edit and cite. The tempting wrong belief is that the handy artifact is the source."
       }
     },
     {
@@ -3734,7 +3798,7 @@
           "boundary": "This shows only that wording must not claim a status nothing backs; it does not say the door is unsafe, and removing the false sign does not establish that the door is in fact a certified exit either way."
         },
         "why_it_matters": "A reader can trust that what a public page says about itself, like being hosted or ready or affiliated, is limited to what the system can actually back, not free-floating prose.",
-        "common_misread": "That impressive-sounding wording is harmless because it costs nothing and usually looks right. The tempting wrong belief is that stating a power is the same as holding it."
+        "potential_misread": "That impressive-sounding wording is harmless because it costs nothing and usually looks right. The tempting wrong belief is that stating a power is the same as holding it."
       }
     },
     {
@@ -3810,7 +3874,7 @@
           "boundary": "The passport-glance picture shows the name-versus-action gap; it does not list which words are over-strong here, which depends on what the specific mechanism really decides."
         },
         "why_it_matters": "Strong vocabulary makes a shape check sound far more rigorous than it is, so readers trust it more than it has earned.",
-        "common_misread": "That an impressive name reflects an impressive check. The name has to be earned by what the mechanism actually decides."
+        "potential_misread": "That an impressive name reflects an impressive check. The name has to be earned by what the mechanism actually decides."
       }
     },
     {
@@ -3890,7 +3954,7 @@
           "boundary": "This shows only that arrival must be confirmed at the receiving end before it is displayed as done; confirming one parcel's arrival does not establish that every parcel that went out arrived, and it does not say the address was the right one."
         },
         "why_it_matters": "A reader can tell apart 'this was sent toward a known target' from 'this was confirmed to have landed', instead of mistaking an intention for a witnessed result.",
-        "common_misread": "That because the destination is known in advance, showing it as reached is as good as confirming it. The tempting wrong belief is that knowing where something is headed is the same as seeing it arrive."
+        "potential_misread": "That because the destination is known in advance, showing it as reached is as good as confirming it. The tempting wrong belief is that knowing where something is headed is the same as seeing it arrive."
       }
     },
     {
@@ -3962,7 +4026,7 @@
           "boundary": "The article-versus-law picture shows a summary cannot outrank its source; it does not capture that the summary must also be recomputed and demoted when the source it describes drifts."
         },
         "why_it_matters": "A readable summary is easy to trust, so letting it win over the source quietly replaces the real rule with a description of it.",
-        "common_misread": "That the clearest version is the authoritative one. The source stays authoritative; the summary only points at it."
+        "potential_misread": "That the clearest version is the authoritative one. The source stays authoritative; the summary only points at it."
       }
     }
   ]

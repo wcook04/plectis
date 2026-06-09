@@ -18,7 +18,7 @@ Per-object contract (the `reader_ladder` block):
                      the analogy is inspectable (the anti-laundering map).
   - analogy.boundary: where the analogy stops; must signal a limit.
   - why_it_matters:  why a reader should care, in practical terms.
-  - common_misread:  the tempting but wrong takeaway.
+  - potential_misread:  the tempting but wrong takeaway.
 
 Reader-soundness rules enforced:
   - lay fields carry NO LaTeX / math symbols (those live in the formal layer);
@@ -27,7 +27,7 @@ Reader-soundness rules enforced:
   - lay fields use NO grandiosity / "not X, but Y" framing;
   - the affirmative lay fields (plain, analogy.text, why_it_matters) make NO
     proof/guarantee claim (a "does not prove" disclaimer is fine in boundary /
-    common_misread, where naming the limit is the point).
+    potential_misread, where naming the limit is the point).
 
 This is reader content, never support evidence: like the formal gate it never
 reads or raises axiom support (P-15).
@@ -98,7 +98,7 @@ def audit_record(rec: dict) -> dict:
 
     plain = str(rl.get("plain") or "").strip()
     why = str(rl.get("why_it_matters") or "").strip()
-    misread = str(rl.get("common_misread") or "").strip()
+    misread = str(rl.get("potential_misread") or "").strip()
     analogy = rl.get("analogy") if isinstance(rl.get("analogy"), dict) else {}
     a_text = str(analogy.get("text") or "").strip()
     a_boundary = str(analogy.get("boundary") or "").strip()
@@ -114,7 +114,7 @@ def audit_record(rec: dict) -> dict:
     if not why:
         issues.append("why_it_matters missing")
     if not misread:
-        issues.append("common_misread missing")
+        issues.append("potential_misread missing")
 
     # plain shape
     if plain:
@@ -143,7 +143,7 @@ def audit_record(rec: dict) -> dict:
 
     # voice + vocab + no-overclaim across the lay fields
     affirmative = {"plain": plain, "analogy.text": a_text, "why_it_matters": why}
-    all_fields = {**affirmative, "analogy.boundary": a_boundary, "common_misread": misread}
+    all_fields = {**affirmative, "analogy.boundary": a_boundary, "potential_misread": misread}
     for fname, val in all_fields.items():
         for term in _banned_terms(val):
             issues.append(f"{fname}: banned visible term '{term}'")
@@ -153,7 +153,7 @@ def audit_record(rec: dict) -> dict:
             issues.append(f"{fname}: math/LaTeX leaked into a lay field")
     for fname, val in affirmative.items():
         if _PROOF_RE.search(val or ""):
-            issues.append(f"{fname}: proof/guarantee claim in an affirmative lay field (allowed only in boundary/common_misread)")
+            issues.append(f"{fname}: proof/guarantee claim in an affirmative lay field (allowed only in boundary/potential_misread)")
 
     return {"id": rec.get("id"), "kind": rec.get("kind"), "issues": issues, "clean": not issues}
 

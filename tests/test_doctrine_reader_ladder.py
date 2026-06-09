@@ -1,7 +1,7 @@
 """The doctrine reader-ladder gate is a permanent floor, not a one-off pass.
 
   1. Every object carries a sound reader ladder (plain + bounded analogy + maps
-     + why_it_matters + common_misread, laundering-free).
+     + why_it_matters + potential_misread, laundering-free).
   2. The gate is NOT vacuous: it catches a missing analogy boundary, a banned
      visible term, a proof claim in an affirmative lay field, and math leakage.
   3. The health projection consumes the gate and reflects it in `status`.
@@ -37,7 +37,7 @@ def _well_formed() -> dict:
                 "boundary": "The catalogue picture shows lookup, it does not show that the book's contents are correct.",
             },
             "why_it_matters": "It keeps a label from standing in for the thing it points at.",
-            "common_misread": "That a present card means a present book.",
+            "potential_misread": "That a present card means a present book.",
         },
     }
 

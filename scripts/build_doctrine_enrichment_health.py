@@ -159,7 +159,7 @@ def build_health(root: Path) -> dict[str, Any]:
     }
     # Reader-ladder accessibility: every object carries a plain reading and a
     # bounded analogy (plain + analogy.text + maps + boundary + why_it_matters +
-    # common_misread), with no laundering, banned visible term, or lay overclaim.
+    # potential_misread), with no laundering, banned visible term, or lay overclaim.
     # Like soundness, this is structural agreement, not a clarity score.
     ladder = run_reader_ladder(enrichment_path)
     reader_ladder = {
