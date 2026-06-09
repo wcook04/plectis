@@ -3891,7 +3891,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate that the copied tools-tail source modules preserve required anchors and digests, their public exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
@@ -3957,7 +3957,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate that the copied policy-engine source modules preserve required anchors and digests, their public policy exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
@@ -4146,7 +4146,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate that the copied structural thesis source body preserves required anchors and digest evidence, the synthetic winner/loser/control exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
@@ -4365,7 +4365,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate the Batch-10 source-open capsule: all 13 imported mechanisms must pass, exact copied source modules must preserve required anchors and digests, the publication selector contract must be represented as a private-path-safe public refactor, planted negative cases must be observed, the Batch-9 lane-width binding repair must remain explicitly deferred, and receipts must omit copied body text and private state.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, publication, live ledger authority, or source mutation authority",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live ledger control, or source mutation authority.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
@@ -4429,7 +4429,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate the Batch-11 saturation-engine capsule: all 12 imported modules must preserve source digests, public exercises must compute from fixture inputs, all 13 negative probes must be computed rather than fixture-verdict echoes, and receipts must omit copied body text and private state.",
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, publication, live runtime authority, or source mutation authority",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live runtime authority, or source mutation authority.",
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
@@ -4817,7 +4817,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate the Batch 8 validator checker membrane: the copied validators.py body must match its source digest and required anchors, all six checker engines must pass, all six negative cases must be observed, and receipts must omit source body text, private refs, provider payloads, release authority, source mutation, and full validator-suite overclaims.",
-      "claim_ceiling_restated": "verified non-secret validators.py macro body import only, not source authority, full validator-suite proof, private-root equivalence, release, hosted-public, publication, provider dispatch, or source mutation authority",
+      "claim_ceiling_restated": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
       "evidence_class": "verified_macro_body_import",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
