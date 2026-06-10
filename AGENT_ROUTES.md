@@ -4,6 +4,8 @@
 
 This is the agent-facing selector over the frozen organ atlas. Start here when you know the work shape but not the organ id. Human specialty entry lives in [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty); full organ cards live in [ORGANS.md](ORGANS.md).
 
+With a goal already in hand, convert it first: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"` returns the owning component, the runnable first command, the validator that proves it, and the stop condition (demonstrated in [FIRST_ACTION.md](FIRST_ACTION.md)). This table is the per-`task_class` selector behind that contract.
+
 > Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence.
 
 ## How to use this table

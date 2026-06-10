@@ -1784,6 +1784,7 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
         ("CODEX adapter", "CODEX.md"),
         ("CURSOR adapter", "CURSOR.md"),
         ("first-action demonstration", "FIRST_ACTION.md"),
+        ("agent task-route selector", "AGENT_ROUTES.md"),
     ):
         text = (MICROCOSM_ROOT / rel).read_text(encoding="utf-8")
         assert product_command in text, label
@@ -1793,6 +1794,12 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     # adapter carries it on the first screenful.
     quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
     assert quickstart.index(product_command) < quickstart.index("## 0.")
+    # The task-route selector teaches the goal conversion in its preamble,
+    # before the per-task-class table starts.
+    agent_routes = (MICROCOSM_ROOT / "AGENT_ROUTES.md").read_text(encoding="utf-8")
+    assert agent_routes.index(product_command) < agent_routes.index(
+        "## Agent Task Route Table"
+    )
     for rel in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
         adapter_head = "\n".join(
             (MICROCOSM_ROOT / rel).read_text(encoding="utf-8").splitlines()[:12]

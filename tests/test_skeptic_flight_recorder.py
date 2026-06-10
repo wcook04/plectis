@@ -107,7 +107,14 @@ def test_skeptic_flight_recorder_preserves_blocked_authority_evidence(
         row for row in packet["commands"] if row["command_id"] == "authority_card"
     )
 
-    assert packet["schema_version"] == "microcosm_skeptic_flight_recorder_packet_v1"
+    assert packet["schema_version"] == "microcosm_skeptic_flight_recorder_packet_v2"
+    assert packet["first_action_proof"]["status"] == "blocked"
+    assert packet["first_action_proof"]["schema_version"] == (
+        "microcosm_flight_recorder_first_action_proof_v1"
+    )
+    assert {
+        row["command_id"] for row in packet["evaluator_verdict"]["refused_claims"]
+    } >= {"first_action_proof"}
     assert packet["status"] == "pass"
     assert packet["evaluator_verdict"]["status"] == "mixed_claims_preserved"
     assert packet["evaluator_verdict"]["command_status_summary"][

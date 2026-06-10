@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 
-SCHEMA_VERSION = "microcosm_skeptic_flight_recorder_packet_v1"
+SCHEMA_VERSION = "microcosm_skeptic_flight_recorder_packet_v2"
 CARD_SCHEMA_VERSION = "microcosm_skeptic_flight_recorder_card_v1"
 VERIFICATION_SCHEMA_VERSION = "microcosm_skeptic_flight_recorder_verification_v1"
 PACKET_FILENAME = "flight-recorder-packet.json"
@@ -24,6 +24,7 @@ VERIFICATION_FILENAME = "flight-recorder-verification.json"
 DEFAULT_OUT_ROOT = Path(".microcosm/skeptic-flight-recorder")
 FORBIDDEN_OUTPUT_NEEDLES = (
     ("home_directory_absolute_path", "/Users/"),
+    ("home_directory_absolute_path_linux", "/home/"),
     ("macro_repo_path", "src/ai_workflow"),
 )
 PROVIDER_ENV_MARKERS = (
@@ -91,7 +92,22 @@ SELECTED_JSON_KEYS = (
     "evidence_ref_count",
     "private_path_hit_count",
     "source_files_mutated",
+    "found",
+    "goal",
+    "scenarios",
+    "source_body_leaks",
+    "contract_completeness_pct",
+    "degraded",
 )
+FIRST_ACTION_PROOF_SCHEMA_VERSION = "microcosm_flight_recorder_first_action_proof_v1"
+FIRST_ACTION_HERO_GOAL = "How do I evaluate the finance forecasting system?"
+FIRST_ACTION_CLONE_GOAL = "where do I start with this clone?"
+FIRST_ACTION_COLD_RUNNABLE_PREFIX = "PYTHONPATH=src python3 -m microcosm_core"
+FIRST_ACTION_COMMAND_OUTPUTS = {
+    "first_action_contract": "smoke/first-action.json",
+    "first_action_hero": "commands/first-action-hero.json",
+    "first_action_assay": "commands/first-action-assay.json",
+}
 
 
 @dataclass(frozen=True)
@@ -523,7 +539,7 @@ def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[Comm
     """Construct the ordered list of probe CommandSpecs the recorder will execute.
 
     - Teleology: the authoritative registry of which Microcosm first-screen/runtime/proof commands form the replay packet and where each writes its output.
-    - Guarantee: returns a list of CommandSpec covering hello, first-screen/tour/status/authority/workingness cards, legibility-scorecard, version, stripping-guard, observe, proof-lab, run, served-status smoke, and check-smoke-outputs — each with public display argv, private `-m microcosm_core` argv, and stdout/stderr relpaths under `out_dir`.
+    - Guarantee: returns a list of CommandSpec covering hello, first-screen/tour/status/authority/workingness cards, legibility-scorecard, version, stripping-guard, observe, proof-lab, run, served-status smoke, the first-action encounter (clone-entry contract feeding smoke/first-action.json, the hero finance-goal contract, and the first-action assay), and check-smoke-outputs — each with public display argv, private `-m microcosm_core` argv, and stdout/stderr relpaths under `out_dir`. The first_action_contract spec writes the smoke/first-action.json receipt check_smoke_outputs requires, so the smoke validation probe stays green from inside the recorder.
     - Reads: only computes relative refs from `root`/`out_dir`; runs nothing.
     - When-needed: to see or extend the set of commands whose evidence the packet attests.
     - Fails: never raises.
@@ -650,6 +666,28 @@ def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[Comm
             py_module("run", "--card", "examples/runtime_shell/demo_project"),
             "commands/run-card.json",
             "commands/run-card.stderr.txt",
+            timeout_seconds=120,
+        ),
+        CommandSpec(
+            "first_action_contract",
+            ["microcosm", "comprehend", "--first-action", FIRST_ACTION_CLONE_GOAL],
+            py_module("comprehend", "--first-action", FIRST_ACTION_CLONE_GOAL),
+            FIRST_ACTION_COMMAND_OUTPUTS["first_action_contract"],
+            "commands/first-action.stderr.txt",
+        ),
+        CommandSpec(
+            "first_action_hero",
+            ["microcosm", "comprehend", "--first-action", FIRST_ACTION_HERO_GOAL],
+            py_module("comprehend", "--first-action", FIRST_ACTION_HERO_GOAL),
+            FIRST_ACTION_COMMAND_OUTPUTS["first_action_hero"],
+            "commands/first-action-hero.stderr.txt",
+        ),
+        CommandSpec(
+            "first_action_assay",
+            ["microcosm", "comprehension-assay", "--first-action"],
+            py_module("comprehension-assay", "--first-action"),
+            FIRST_ACTION_COMMAND_OUTPUTS["first_action_assay"],
+            "commands/first-action-assay.stderr.txt",
             timeout_seconds=120,
         ),
         CommandSpec(
@@ -814,6 +852,7 @@ def _scan_private_needles(paths: Iterable[Path], root: Path) -> dict[str, Any]:
     hits: list[dict[str, Any]] = []
     needle_classes = [
         "home_directory_absolute_path",
+        "home_directory_absolute_path_linux",
         "macro_repo_path",
         "package_root_absolute_path",
     ]
@@ -931,6 +970,208 @@ def _authority_false_keys(command_records: list[dict[str, Any]]) -> dict[str, li
     return rows
 
 
+def first_action_contract_fields(payload: dict[str, Any] | None) -> dict[str, Any]:
+    """Project one first-action contract payload into its public proof display fields.
+
+    - Teleology: the single field-extraction surface for first-action evidence — owner, command, validator, boundary, ceiling, footprint — shared by the recorder's proof block and the release-candidate proof so both publish identical shapes.
+    - Guarantee: a pure deterministic projection; malformed/missing structures degrade to None/empty values, never exceptions; no payload body fields outside the named selection are carried.
+    - Fails: never raises.
+    """
+    hero = payload if isinstance(payload, dict) else {}
+    action = hero.get("first_action") if isinstance(hero.get("first_action"), dict) else {}
+    proof_path = hero.get("proof_path") if isinstance(hero.get("proof_path"), dict) else {}
+    boundary = (
+        hero.get("reading_boundary")
+        if isinstance(hero.get("reading_boundary"), dict)
+        else {}
+    )
+    ceiling = (
+        hero.get("authority_ceiling")
+        if isinstance(hero.get("authority_ceiling"), dict)
+        else {}
+    )
+    graph = hero.get("graph_backed") if isinstance(hero.get("graph_backed"), dict) else {}
+    owner = hero.get("owner") if isinstance(hero.get("owner"), dict) else {}
+    clean_run = action.get("clean_run") if isinstance(action.get("clean_run"), dict) else {}
+    receipt_refs = proof_path.get("receipt_refs")
+    command = str(action.get("command") or "")
+    return {
+        "goal": hero.get("goal"),
+        "found": hero.get("found"),
+        "owner": {
+            key: owner.get(key)
+            for key in ("organ_id", "display_name", "evidence_class", "task_class")
+            if key in owner
+        },
+        "action_kind": action.get("action_kind"),
+        "command": command or None,
+        "writes_outputs_under": action.get("writes_outputs_under"),
+        "clean_run_command": clean_run.get("command"),
+        "validator_command": proof_path.get("validator_command")
+        or proof_path.get("runnable_validator"),
+        "authority_receipt": proof_path.get("authority_receipt"),
+        "receipt_ref_count": len(receipt_refs) if isinstance(receipt_refs, list) else 0,
+        "stop_condition": boundary.get("stop_condition"),
+        "do_not_claim": hero.get("do_not_claim"),
+        "authority_ceiling": ceiling or None,
+        "graph_source": graph.get("source"),
+        "graph_source_schema": graph.get("source_schema"),
+    }
+
+
+def first_action_contract_checks(
+    payload: dict[str, Any] | None,
+    return_code: int | None,
+) -> dict[str, bool]:
+    """Evaluate the completeness obligations of one first-action contract payload.
+
+    - Teleology: the single completeness predicate for the goal-shaped product — exit, resolution, cold-runnable placeholder-free command, proof path, stop condition, claim ceiling, all-false authority ceiling — shared verbatim by the recorder proof block and the release-candidate proof so "complete" means the same thing on every proof surface.
+    - Guarantee: pure and deterministic; returns the fixed check-name -> bool map; malformed payloads fail checks rather than raising.
+    - Fails: never raises.
+    """
+    hero = payload if isinstance(payload, dict) else {}
+    action = hero.get("first_action") if isinstance(hero.get("first_action"), dict) else {}
+    proof_path = hero.get("proof_path") if isinstance(hero.get("proof_path"), dict) else {}
+    boundary = (
+        hero.get("reading_boundary")
+        if isinstance(hero.get("reading_boundary"), dict)
+        else {}
+    )
+    ceiling = (
+        hero.get("authority_ceiling")
+        if isinstance(hero.get("authority_ceiling"), dict)
+        else {}
+    )
+    command = str(action.get("command") or "")
+    return {
+        "command_exit_zero": return_code == 0,
+        "goal_resolved": hero.get("found") is True,
+        "command_cold_runnable": command.startswith(FIRST_ACTION_COLD_RUNNABLE_PREFIX),
+        "command_placeholder_free": bool(command) and "<" not in command,
+        "proof_path_present": bool(
+            proof_path.get("runnable_validator") or proof_path.get("validation_commands")
+        ),
+        "stop_condition_present": bool(
+            str(
+                boundary.get("stop_condition") or boundary.get("fallback_guidance") or ""
+            ).strip()
+        ),
+        "claim_ceiling_present": bool(str(hero.get("do_not_claim") or "").strip()),
+        "authority_ceiling_all_false": bool(ceiling)
+        and all(value is False for value in ceiling.values()),
+    }
+
+
+def _derive_first_action_proof(
+    *,
+    hero_payload: dict[str, Any] | None,
+    hero_return_code: int | None,
+    contract_payload: dict[str, Any] | None,
+    contract_return_code: int | None,
+    assay_payload: dict[str, Any] | None,
+    assay_return_code: int | None,
+) -> dict[str, Any]:
+    """Project the first-action probe evidence into the packet's first_action_proof block.
+
+    - Teleology: turn the goal-shaped product's digest-bound probe outputs (hero contract, clone-entry contract, assay) into one reviewer-grade proof block — owner, command, validator, boundary, ceiling, footprint, assay verdict — derived from evidence, never asserted.
+    - Guarantee: a pure deterministic projection of the parsed payloads plus return codes; identical inputs always yield an identical block; status is "pass" only when every named check holds, else "blocked" with failed_checks listing exactly which obligations failed.
+    - Non-goal: grants nothing — the block records that the contract routes and proves; release authorization, domain correctness, and whole-system correctness stay out of scope by construction.
+    - Fails: never raises; missing/malformed payloads degrade to failed checks, not exceptions.
+    - Escalates-to: _first_action_proof_from_disk (the evidence loader) and _first_action_proof_check (the verifier-side re-derivation).
+    """
+    contract = contract_payload if isinstance(contract_payload, dict) else {}
+    assay = assay_payload if isinstance(assay_payload, dict) else {}
+    fields = first_action_contract_fields(hero_payload)
+    hero_checks = first_action_contract_checks(hero_payload, hero_return_code)
+
+    checks = {
+        "hero_command_exit_zero": hero_checks["command_exit_zero"],
+        "clone_entry_command_exit_zero": contract_return_code == 0,
+        "assay_exit_zero": assay_return_code == 0,
+        "hero_goal_resolved": hero_checks["goal_resolved"],
+        "clone_entry_goal_resolved": contract.get("found") is True,
+        "command_cold_runnable": hero_checks["command_cold_runnable"],
+        "command_placeholder_free": hero_checks["command_placeholder_free"],
+        "proof_path_present": hero_checks["proof_path_present"],
+        "stop_condition_present": hero_checks["stop_condition_present"],
+        "claim_ceiling_present": hero_checks["claim_ceiling_present"],
+        "authority_ceiling_all_false": hero_checks["authority_ceiling_all_false"],
+        "assay_source_body_leak_free": assay.get("source_body_leaks") == 0,
+        "assay_not_degraded": assay.get("degraded") is not True,
+    }
+    return {
+        "schema_version": FIRST_ACTION_PROOF_SCHEMA_VERSION,
+        "status": "pass" if all(checks.values()) else "blocked",
+        "hero_goal": fields["goal"],
+        "clone_entry_goal": contract.get("goal"),
+        "owner": fields["owner"],
+        "action_kind": fields["action_kind"],
+        "command": fields["command"],
+        "writes_outputs_under": fields["writes_outputs_under"],
+        "clean_run_command": fields["clean_run_command"],
+        "validator_command": fields["validator_command"],
+        "authority_receipt": fields["authority_receipt"],
+        "receipt_ref_count": fields["receipt_ref_count"],
+        "stop_condition": fields["stop_condition"],
+        "do_not_claim": fields["do_not_claim"],
+        "authority_ceiling": fields["authority_ceiling"],
+        "graph_source": fields["graph_source"],
+        "graph_source_schema": fields["graph_source_schema"],
+        "assay": {
+            "return_code": assay_return_code,
+            "scenarios": assay.get("scenarios"),
+            "source_body_leaks": assay.get("source_body_leaks"),
+            "contract_completeness_pct": assay.get("contract_completeness_pct"),
+            "degraded": assay.get("degraded"),
+        },
+        "checks": checks,
+        "failed_checks": sorted(key for key, value in checks.items() if not value),
+        "proof_boundary": (
+            "routes and proves the first-action encounter only; not release "
+            "authorization, domain correctness, or whole-system correctness"
+        ),
+    }
+
+
+def _first_action_proof_from_disk(
+    command_records: list[dict[str, Any]],
+    out_dir: Path,
+) -> dict[str, Any]:
+    """Load the three first-action probe outputs from the packet dir and derive the proof block.
+
+    - Teleology: the single evidence loader both the builder and the verifier use, so the proof block is always recomputed from the same digest-bound on-disk bytes plus recorded return codes.
+    - Guarantee: reads FIRST_ACTION_COMMAND_OUTPUTS relpaths under `out_dir`, takes return codes from the matching command records, and returns _derive_first_action_proof of exactly that evidence; a missing or non-JSON output degrades to a None payload (failed checks), never an exception.
+    - Reads: <out_dir>/smoke/first-action.json, <out_dir>/commands/first-action-hero.json, <out_dir>/commands/first-action-assay.json.
+    - Fails: never raises; OSError and JSON errors yield None payloads.
+    """
+    by_id: dict[str, dict[str, Any]] = {}
+    for record in command_records:
+        if isinstance(record, dict) and isinstance(record.get("command_id"), str):
+            by_id[record["command_id"]] = record
+
+    def return_code(command_id: str) -> int | None:
+        record = by_id.get(command_id)
+        value = record.get("return_code") if isinstance(record, dict) else None
+        return value if isinstance(value, int) else None
+
+    def payload(command_id: str) -> dict[str, Any] | None:
+        path = out_dir / FIRST_ACTION_COMMAND_OUTPUTS[command_id]
+        try:
+            data = path.read_bytes()
+        except OSError:
+            return None
+        return _parse_json_bytes(data)
+
+    return _derive_first_action_proof(
+        hero_payload=payload("first_action_hero"),
+        hero_return_code=return_code("first_action_hero"),
+        contract_payload=payload("first_action_contract"),
+        contract_return_code=return_code("first_action_contract"),
+        assay_payload=payload("first_action_assay"),
+        assay_return_code=return_code("first_action_assay"),
+    )
+
+
 def _human_card(packet: dict[str, Any]) -> str:
     """Render the packet into the human-readable Markdown flight-recorder card.
 
@@ -962,6 +1203,36 @@ def _human_card(packet: dict[str, Any]) -> str:
             "- Provider credential env available to subprocesses: "
             f"`{integrity['provider_env_policy']['provider_credential_env_keys_available_to_subprocess']}`"
         ),
+    ]
+    proof = packet.get("first_action_proof")
+    if isinstance(proof, dict):
+        owner = proof.get("owner") if isinstance(proof.get("owner"), dict) else {}
+        assay = proof.get("assay") if isinstance(proof.get("assay"), dict) else {}
+        failed = proof.get("failed_checks") or []
+        lines += [
+            "",
+            "## First Action Proof",
+            "",
+            f"- Status: `{proof.get('status')}`",
+            f"- Hero goal: `{proof.get('hero_goal')}`",
+            f"- Owner: `{owner.get('organ_id')}` ({owner.get('display_name')})",
+            f"- Command: `{proof.get('command')}`",
+            f"- Validator: `{proof.get('validator_command')}`",
+            f"- Stop condition: {proof.get('stop_condition')}",
+            f"- Do not claim: {proof.get('do_not_claim')}",
+            (
+                f"- Assay: `{assay.get('scenarios')}` scenarios, "
+                f"`{assay.get('source_body_leaks')}` source-body leaks, "
+                f"contract completeness `{assay.get('contract_completeness_pct')}`"
+            ),
+            (
+                "- Failed checks: " + ", ".join(f"`{name}`" for name in failed)
+                if failed
+                else "- Failed checks: none"
+            ),
+            f"- Boundary: {proof.get('proof_boundary')}",
+        ]
+    lines += [
         "",
         "## Drilldowns",
         "",
@@ -1401,6 +1672,70 @@ def _source_mutation_receipt_check(packet: dict[str, Any]) -> tuple[dict[str, An
     )
 
 
+def _first_action_proof_check(
+    packet: dict[str, Any],
+    packet_dir: Path,
+) -> tuple[dict[str, Any], set[str]]:
+    """Re-derive the first_action_proof block from on-disk evidence and compare to the stored block.
+
+    - Teleology: prove the packet's first-action claims are evidence-derived, not asserted — the stored block must equal a fresh derivation from the digest-bound probe outputs plus recorded return codes.
+    - Guarantee: returns (check_row, statuses); "pass" only when the block exists, is internally consistent, and byte-equals the re-derivation; a missing block adds "packet_stale", an internally inconsistent block (status "pass" while carrying failed_checks — checked BEFORE the derivation compare so a forged status gets a named refusal) adds "packet_stale", and a divergent block adds "digest_mismatch" with the differing top-level keys named.
+    - Reads: the probe output files under `packet_dir` via _first_action_proof_from_disk; no command is rerun.
+    - Non-goal: does not re-judge whether the contract SHOULD pass — a stored "blocked" block that matches its evidence verifies clean (refusals are preserved evidence, not verification failures).
+    - Fails: never raises; malformed shapes fold into blocked rows.
+    """
+    statuses: set[str] = set()
+    stored = packet.get("first_action_proof")
+    if not isinstance(stored, dict):
+        statuses.add("packet_stale")
+        return (
+            _check_row(
+                "first_action_proof_present",
+                "blocked",
+                reason="packet.first_action_proof missing or not an object",
+            ),
+            statuses,
+        )
+    if stored.get("status") == "pass" and stored.get("failed_checks"):
+        statuses.add("packet_stale")
+        return (
+            _check_row(
+                "first_action_proof_consistent",
+                "blocked",
+                reason="first_action_proof claims pass while carrying failed checks",
+            ),
+            statuses,
+        )
+    commands = packet.get("commands")
+    records = [row for row in commands if isinstance(row, dict)] if isinstance(commands, list) else []
+    derived = _first_action_proof_from_disk(records, packet_dir)
+    if derived != stored:
+        statuses.add("digest_mismatch")
+        differing = sorted(
+            key
+            for key in set(stored) | set(derived)
+            if stored.get(key) != derived.get(key)
+        )
+        return (
+            _check_row(
+                "first_action_proof_rederived",
+                "blocked",
+                reason="stored first_action_proof does not match re-derivation from digest-bound evidence",
+                differing_keys=differing[:10],
+            ),
+            statuses,
+        )
+    return (
+        _check_row(
+            "first_action_proof_rederived",
+            "pass",
+            proof_status=stored.get("status"),
+            failed_check_count=len(stored.get("failed_checks") or []),
+        ),
+        statuses,
+    )
+
+
 def verify_flight_recorder_packet(
     *,
     packet_dir: Path,
@@ -1545,6 +1880,13 @@ def verify_flight_recorder_packet(
     checks.append(mutation_check)
     statuses.update(mutation_statuses)
 
+    first_action_check, first_action_statuses = _first_action_proof_check(
+        packet,
+        packet_dir,
+    )
+    checks.append(first_action_check)
+    statuses.update(first_action_statuses)
+
     integrity = packet.get("recorder_integrity")
     provider_policy = (
         integrity.get("provider_env_policy") if isinstance(integrity, dict) else None
@@ -1674,6 +2016,17 @@ def build_flight_recorder_packet(
                     "reason": "command returned non-zero; raw stdout/stderr retained by digest and path",
                 }
             )
+    first_action_proof = _first_action_proof_from_disk(command_records, out_dir)
+    if first_action_proof["status"] != "pass":
+        refused_claims.append(
+            {
+                "command_id": "first_action_proof",
+                "reason": (
+                    "first-action proof checks failed: "
+                    + ", ".join(first_action_proof["failed_checks"])
+                ),
+            }
+        )
 
     packet_path = out_dir / PACKET_FILENAME
     card_path = out_dir / CARD_FILENAME
@@ -1718,6 +2071,7 @@ def build_flight_recorder_packet(
             "evidence_class_counts": _merge_evidence_class_counts(command_records),
             "authority_ceiling_false_keys_by_command": _authority_false_keys(command_records),
         },
+        "first_action_proof": first_action_proof,
         "commands": command_records,
     }
     _write_json(packet_path, packet)

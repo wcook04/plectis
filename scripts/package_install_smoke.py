@@ -100,6 +100,10 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         **os.environ,
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
     }
+    # A caller-supplied PYTHONPATH (e.g. a dev-tree src/) would shadow the
+    # installed package inside the venv and turn this smoke into a checkout
+    # test wearing an install costume. Scrub it so "fresh venv" stays true.
+    env.pop("PYTHONPATH", None)
 
     _run(
         [
@@ -113,6 +117,22 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         ],
         env=env,
     )
+
+    # Install-context independence: the console commands below must exercise
+    # the pip-installed copy, not a shadowing checkout import.
+    import_root = _run(
+        [
+            str(venv_python),
+            "-c",
+            "import microcosm_core; print(microcosm_core.__file__)",
+        ],
+        env=env,
+    ).stdout.strip()
+    if not import_root.startswith(str(venv_dir)):
+        raise SystemExit(
+            "installed console resolves microcosm_core outside the venv "
+            "(a PYTHONPATH or cwd shadow defeats the install proof)"
+        )
 
     checks: list[tuple[str, list[str], str]] = [
         ("version", [str(microcosm), "--version"], "text"),
@@ -190,7 +210,9 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         raise SystemExit("first-action contract lacks a claim ceiling")
 
     print("Microcosm package smoke: pass")
-    print(f"workdir: {work_dir}")
+    # The work dir is host-private; callers that capture this stdout as
+    # public evidence must never receive an absolute path from a passing run.
+    print("workdir: <work-dir>")
     print(f"version: {version_text}")
     print(
         "checks: version, hello, first-screen, tour, status, authority, "

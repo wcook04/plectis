@@ -2136,7 +2136,7 @@
             "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret validators.py macro body import only, source-linked only, full validator-suite proof, private-system equivalence, launch, hosted-public, public sharing, external model access, or source-file changes",
+          "scope_limit": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-system equivalence, launch, hosted-public status, public sharing, external model access, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 8,
             "query": "microcosm organ-topology --organ batch8_validator_checker_capsule",
@@ -2899,7 +2899,7 @@
             "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret validators.py macro body import only, source-linked only, full validator-suite proof, private-system equivalence, launch, hosted-public, public sharing, external model access, or source-file changes",
+          "scope_limit": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-system equivalence, launch, hosted-public status, public sharing, external model access, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 8,
             "query": "microcosm organ-topology --organ batch8_validator_checker_capsule",
@@ -5722,7 +5722,7 @@
             "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 48,
             "query": "microcosm organ-topology --organ batch8_tools_tail_primitives_capsule",
@@ -5761,7 +5761,7 @@
             "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 13,
             "query": "microcosm organ-topology --organ batch8_policy_engines_capsule",
@@ -5874,7 +5874,7 @@
             "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 43,
             "query": "microcosm organ-topology --organ batch8_structural_theses_capsule",
@@ -5992,7 +5992,7 @@
             "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live ledger authority, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 67,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
@@ -6029,7 +6029,7 @@
             "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live runtime control, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live runtime control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 38,
             "query": "microcosm organ-topology --organ batch11_saturation_engines_capsule",
@@ -6674,7 +6674,7 @@
             "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 13,
             "query": "microcosm organ-topology --organ batch8_policy_engines_capsule",
@@ -6711,7 +6711,7 @@
             "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 43,
             "query": "microcosm organ-topology --organ batch8_structural_theses_capsule",
@@ -6750,7 +6750,7 @@
             "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live ledger authority, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 67,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
@@ -10973,7 +10973,7 @@
             "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 48,
             "query": "microcosm organ-topology --organ batch8_tools_tail_primitives_capsule",
@@ -11012,7 +11012,7 @@
             "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 13,
             "query": "microcosm organ-topology --organ batch8_policy_engines_capsule",
@@ -11125,7 +11125,7 @@
             "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 43,
             "query": "microcosm organ-topology --organ batch8_structural_theses_capsule",
@@ -11243,7 +11243,7 @@
             "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live ledger authority, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 67,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
@@ -11280,7 +11280,7 @@
             "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live runtime control, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live runtime control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 38,
             "query": "microcosm organ-topology --organ batch11_saturation_engines_capsule",
@@ -12363,7 +12363,7 @@
             "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret validators.py macro body import only, source-linked only, full validator-suite proof, private-system equivalence, launch, hosted-public, public sharing, external model access, or source-file changes",
+          "scope_limit": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-system equivalence, launch, hosted-public status, public sharing, external model access, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 8,
             "query": "microcosm organ-topology --organ batch8_validator_checker_capsule",
@@ -12777,7 +12777,7 @@
             "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 48,
             "query": "microcosm organ-topology --organ batch8_tools_tail_primitives_capsule",
@@ -13108,7 +13108,7 @@
             "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret validators.py macro body import only, source-linked only, full validator-suite proof, private-system equivalence, launch, hosted-public, public sharing, external model access, or source-file changes",
+          "scope_limit": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-system equivalence, launch, hosted-public status, public sharing, external model access, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 8,
             "query": "microcosm organ-topology --organ batch8_validator_checker_capsule",
@@ -14758,7 +14758,7 @@
             "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 48,
             "query": "microcosm organ-topology --organ batch8_tools_tail_primitives_capsule",
@@ -14797,7 +14797,7 @@
             "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 13,
             "query": "microcosm organ-topology --organ batch8_policy_engines_capsule",
@@ -14910,7 +14910,7 @@
             "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, or public sharing",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
           "source_relation_handle": {
             "edge_count": 43,
             "query": "microcosm organ-topology --organ batch8_structural_theses_capsule",
@@ -15028,7 +15028,7 @@
             "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live ledger authority, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 67,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
@@ -15065,7 +15065,7 @@
             "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_validation_receipt.json",
             "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
           ],
-          "scope_limit": "verified non-secret macro body import only, source-linked only, private-system equivalence, launch, public sharing, live runtime control, or source-file changes",
+          "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live runtime control, or source-file changes.",
           "source_relation_handle": {
             "edge_count": 38,
             "query": "microcosm organ-topology --organ batch11_saturation_engines_capsule",

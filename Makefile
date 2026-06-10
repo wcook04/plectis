@@ -8,6 +8,8 @@ SMOKE_OUT ?= .microcosm/smoke
 SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0
 FLIGHT_RECORDER_OUT ?= .microcosm/skeptic-flight-recorder
 FLIGHT_RECORDER_VERIFY_DIR ?= $(FLIGHT_RECORDER_OUT)
+RELEASE_CANDIDATE_PROOF_OUT ?= .microcosm/release-candidate-proof
+RELEASE_CANDIDATE_PROOF_VERIFY_DIR ?= $(RELEASE_CANDIDATE_PROOF_OUT)
 TMPDIR ?= /tmp
 PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
 PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)
@@ -37,12 +39,15 @@ PUBLIC_TESTS ?= \
 	tests/test_batch12_release_claim_language_gate.py \
 	tests/test_evidence_truth_floor.py \
 	tests/test_release_export.py \
-	tests/test_first_action_demo.py
+	tests/test_first_action_demo.py \
+	tests/test_skeptic_flight_recorder.py \
+	tests/test_release_candidate_proof.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
+.PHONY: release-candidate-proof release-candidate-proof-verify
 .PHONY: check preflight validate
 
 help:
@@ -54,6 +59,8 @@ help:
 		"  make smoke               validate and summarize the public smoke route" \
 		"  make flight-recorder     write a public-safe evaluator proof packet" \
 		"  make flight-recorder-verify verify an existing flight-recorder packet" \
+		"  make release-candidate-proof prove the first-action product in checkout, install, and export" \
+		"  make release-candidate-proof-verify verify an existing release-candidate proof packet" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
 		"  make check               fast preflight: organ evidence-class registry integrity" \
@@ -102,6 +109,13 @@ flight-recorder:
 
 flight-recorder-verify:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/skeptic_flight_recorder.py verify $(FLIGHT_RECORDER_VERIFY_DIR) --root .
+
+release-candidate-proof:
+	@mkdir -p $(RELEASE_CANDIDATE_PROOF_OUT)
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py --root . --out $(RELEASE_CANDIDATE_PROOF_OUT) --python $(PYTHON)
+
+release-candidate-proof-verify:
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
 
 package-smoke:
 	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status

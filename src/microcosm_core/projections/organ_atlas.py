@@ -1683,6 +1683,15 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
         "full organ cards live in [ORGANS.md](ORGANS.md)."
     )
     out.append("")
+    out.append(
+        "With a goal already in hand, convert it first: "
+        '`PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"` '
+        "returns the owning component, the runnable first command, the validator "
+        "that proves it, and the stop condition (demonstrated in "
+        "[FIRST_ACTION.md](FIRST_ACTION.md)). This table is the per-`task_class` "
+        "selector behind that contract."
+    )
+    out.append("")
     out.append(f"> {CLAIM_CEILING_LINE}")
     out.append("")
     out.append("## How to use this table")

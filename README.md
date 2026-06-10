@@ -74,6 +74,7 @@ count, organ count, or route label as a claim:
 | Runtime package | [src/microcosm_core/](src/microcosm_core/) | CLI-backed local behavior: first-screen cards, project scan, route selection, validators, server, and release export. |
 | Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
 | Skeptic flight recorder | `make flight-recorder`, `make flight-recorder-verify`, [scripts/skeptic_flight_recorder.py](scripts/skeptic_flight_recorder.py) | A public-safe evaluator packet with command receipts, output digests, private-path scans, source-file change checks, scope limits, and blocked evidence preserved as evidence. |
+| Release-candidate proof | `make release-candidate-proof`, `make release-candidate-proof-verify`, [scripts/release_candidate_proof.py](scripts/release_candidate_proof.py) | One digest-bound packet proving the hero goal resolves to the same complete first-action contract in the source checkout, a fresh package install, and the standalone export. |
 | Public doctrine | [core/](core/), [standards/](standards/), [paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, standards, bounded explanations, and the first-screen entry packet. |
 | Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), [receipts/](receipts/) | Public-safe input bundles, negative cases, drilldown receipts, and copied artifact bodies. |
 | Source capsules | `source_modules/` plus `source_module_manifest.json` inside bundles | Non-secret macro source bodies with target paths, digests, anchors, omissions, and light-edit receipts. |
@@ -297,6 +298,8 @@ microcosm workingness --card
 microcosm proof-lab --out /tmp/microcosm-proof-lab
 make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder
 make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder
+make release-candidate-proof RELEASE_CANDIDATE_PROOF_OUT=/tmp/microcosm-release-candidate-proof
+make release-candidate-proof-verify RELEASE_CANDIDATE_PROOF_VERIFY_DIR=/tmp/microcosm-release-candidate-proof
 microcosm observe --card .
 microcosm observe .
 microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7
@@ -434,10 +437,34 @@ The generator writes `flight-recorder-packet.json` plus
 records public command argv, return codes, output refs and SHA-256 digests,
 selected JSON fields, provider-env stripping, private-path scan results,
 source-file change receipts, evidence class counters, scope limits, and
-blocked/non-zero commands as preserved evidence. It is a provenance and
-attestation input for later reviewers; it excludes release, standards
-compliance, external model access, formal-result correctness, frontend readiness, or
+blocked/non-zero commands as preserved evidence. It also carries a
+`first_action_proof` block derived from the recorded goal-route probes — the
+hero goal's owner, command, validator, stop condition, and claim ceiling — and
+the verifier re-derives that block from the digest-bound outputs, so the
+first-action claims are evidence, not prose. It is a provenance and
+attestation input for later reviewers; it does not authorize release, standards
+compliance, provider calls, proof correctness, frontend readiness, or
 private-system equivalence.
+
+The release-candidate proof closes the distribution loop over the same
+machinery:
+
+```bash
+make release-candidate-proof RELEASE_CANDIDATE_PROOF_OUT=/tmp/microcosm-release-candidate-proof
+make release-candidate-proof-verify RELEASE_CANDIDATE_PROOF_VERIFY_DIR=/tmp/microcosm-release-candidate-proof
+```
+
+It runs the hero goal's first-action contract, the first-action assay, and the
+committed-demonstration drift check in three contexts — this source checkout, a
+fresh venv `pip install` of the package, and a real standalone export — then
+writes one digest-bound packet proving every context selected the same owner
+and the same command, with no private-path leakage and no tracked source
+mutated by the run. The verifier re-derives every claim from the recorded
+evidence without rerunning anything. A passing packet proves the goal-shaped
+encounter is distribution-true; it does not authorize release or assert domain
+correctness, and verification proves internal consistency with the digest-bound
+evidence rather than that the run happened as recorded — rerun the generator to
+re-establish provenance.
 
 Pattern rows become routable only through their organ and fixture overlays. The
 route-readiness command validates the exported selector bundle and writes
