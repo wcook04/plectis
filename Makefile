@@ -61,8 +61,8 @@ help:
 		"  make flight-recorder     write a public-safe evaluator proof packet" \
 		"  make flight-recorder-verify verify an existing flight-recorder packet" \
 		"  make release-candidate-proof prove the first-action product in checkout, install, and export" \
-		"  make release-candidate-proof-verify verify an existing release-candidate proof packet" \
-		"  make release-review       verify an existing proof packet and print its reviewer card (contract: RELEASE_REVIEW.md)" \
+		"  make release-candidate-proof-verify verify an existing release-candidate proof packet without rerunning anything" \
+		"  make release-review       cold review: regenerate the proof, verify the fresh packet, print its reviewer card (contract: RELEASE_REVIEW.md)" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
 		"  make check               fast preflight: organ evidence-class registry integrity" \
@@ -119,8 +119,14 @@ release-candidate-proof:
 release-candidate-proof-verify:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
 
+# The one obvious cold-review command: regenerate the proof packet fresh
+# (transient work in an out-of-source temp root by default), then run the
+# strict no-rerun verifier against the fresh packet, then print the card.
+# `make release-candidate-proof-verify` remains the no-rerun boundary for an
+# existing packet.
 release-review:
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
+	@$(MAKE) release-candidate-proof
+	@$(MAKE) release-candidate-proof-verify
 	@cat $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)/release-candidate-proof-card.md
 
 package-smoke:

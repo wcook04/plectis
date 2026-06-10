@@ -100,6 +100,16 @@ def test_review_contract_answers_the_reviewer_questions() -> None:
     assert "not externally signed or attested provenance" in text
     assert EXTERNAL_SIGNATURE_STATUS in text
     assert "does not prove the run happened as recorded" in text
+    # One obvious cold-review command with hermetic-regeneration semantics,
+    # while the no-rerun verify boundary stays separately named.
+    assert "one cold-review command" in text
+    assert "regenerates the proof packet fresh" in text
+    assert "without rerunning anything" in text
+    # The work-root and normalization obligations are part of the contract:
+    # transient work never sits in-tree and reaches evidence only as tokens.
+    assert "outside the source root" in text
+    assert "<work-dir>" in text
+    assert "<export-out>" in text
     # Every named failure code is interpreted; a red result always classifies.
     for row in FAILURE_INTERPRETATIONS:
         assert f"`{row['code']}`" in text, row["code"]
@@ -118,6 +128,13 @@ def test_review_receipt_binds_live_subjects_and_expectation() -> None:
     }
     assert receipt["external_signature_status"] == EXTERNAL_SIGNATURE_STATUS
     assert receipt["publication_binding"] == "publication_artifact_not_yet_bound"
+    assert (
+        receipt["commands"]["review_alias_behavior"]
+        == "generate_fresh_then_verify_then_print_card"
+    )
+    assert receipt["commands"]["no_rerun_verify"] == (
+        "make release-candidate-proof-verify"
+    )
     assert receipt["failure_interpretations"] == [
         dict(row) for row in FAILURE_INTERPRETATIONS
     ]
@@ -156,6 +173,11 @@ def test_review_contract_ships_in_every_distribution_lane() -> None:
     makefile = (_ROOT / "Makefile").read_text(encoding="utf-8")
     assert "release-review:" in makefile
     assert "tests/test_release_review_contract.py" in makefile
+    # The cold-review command really regenerates: the release-review recipe
+    # runs generate then the strict no-rerun verify, never a stale-packet cat.
+    review_recipe = makefile.split("release-review:", 1)[1]
+    assert "$(MAKE) release-candidate-proof" in review_recipe
+    assert "$(MAKE) release-candidate-proof-verify" in review_recipe
 
 
 def test_review_contract_carries_no_leaks() -> None:

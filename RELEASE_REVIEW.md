@@ -66,16 +66,16 @@ Integrity obligations on the run itself:
 - no tracked source file may change while the proof runs
 - provider credential environment keys are never available to proof subprocesses
 - the fresh-install context must scrub PYTHONPATH and import from the venv, not a shadowing checkout
-- install and export work trees are removed after evidence copy unless --keep-work is passed
+- install and export work trees live under a transient work root outside the source root (an in-tree work root is refused at allocation) and are removed after evidence copy unless --keep-work is passed
+- captured evidence and recorded argv refer to transient work locations only by the symbolic tokens <work-dir>, <export-out>, and <work-root>, never by absolute host paths; the source root and home directory are never normalized away, so a product output echoing them still fails the scan
 
 ## Run the review
 
 ```bash
-make release-candidate-proof
-make release-candidate-proof-verify
+make release-review
 ```
 
-Without make: `PYTHONPATH=src python3 scripts/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof` then `PYTHONPATH=src python3 scripts/release_candidate_proof.py verify .microcosm/release-candidate-proof --root .`. `make release-review` wraps verification of an existing packet and prints its card.
+`make release-review` is the one cold-review command: it regenerates the proof packet fresh from your checkout, runs the strict no-rerun verifier against the fresh packet, and prints its card. The steps are also available separately: `make release-candidate-proof` to generate, `make release-candidate-proof-verify` to re-verify an existing packet without rerunning anything. Without make: `PYTHONPATH=src python3 scripts/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof` then `PYTHONPATH=src python3 scripts/release_candidate_proof.py verify .microcosm/release-candidate-proof --root .`. Transient install/export work runs under an out-of-source temporary root by default (`--work-root` to relocate it; an in-tree work root is refused), so no hidden environment override is needed for a clean run.
 
 The run writes `release-candidate-proof.json` (the digest-bound evidence packet), `release-candidate-proof-card.md` (the human card), and — on verify — `release-candidate-proof-verification.json` under `.microcosm/release-candidate-proof/`. The review passes when generation reports status `pass` and verification reports `packet_valid`. Expect minutes, not seconds: the proof builds a fresh venv install and a full standalone export. The packet schema under review is `microcosm_first_action_release_candidate_proof_v2`.
 

@@ -21,7 +21,9 @@
       "make release-candidate-proof",
       "PYTHONPATH=src python3 scripts/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof"
     ],
+    "no_rerun_verify": "make release-candidate-proof-verify",
     "review_alias": "make release-review",
+    "review_alias_behavior": "generate_fresh_then_verify_then_print_card",
     "verify": [
       "make release-candidate-proof-verify",
       "PYTHONPATH=src python3 scripts/release_candidate_proof.py verify .microcosm/release-candidate-proof --root ."
@@ -118,7 +120,8 @@
     "no tracked source file may change while the proof runs",
     "provider credential environment keys are never available to proof subprocesses",
     "the fresh-install context must scrub PYTHONPATH and import from the venv, not a shadowing checkout",
-    "install and export work trees are removed after evidence copy unless --keep-work is passed"
+    "install and export work trees live under a transient work root outside the source root (an in-tree work root is refused at allocation) and are removed after evidence copy unless --keep-work is passed",
+    "captured evidence and recorded argv refer to transient work locations only by the symbolic tokens <work-dir>, <export-out>, and <work-root>, never by absolute host paths; the source root and home directory are never normalized away, so a product output echoing them still fails the scan"
   ],
   "nonclaims": [
     "not release authorization or publication approval",

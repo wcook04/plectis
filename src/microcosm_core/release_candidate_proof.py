@@ -18,9 +18,17 @@
   digests, re-derives every context encounter, the agreement block, and the
   expectation policy from on-disk evidence, and never reruns the substrate.
 - Reads: the source checkout, the throwaway install venv outputs, and the
-  throwaway export tree (both work trees are removed after evidence copy
-  unless --keep-work).
-- Writes: the packet directory only (default .microcosm/release-candidate-proof).
+  throwaway export tree. Both work trees live under a transient work root
+  that is allocated OUTSIDE the source root (default: a fresh temp dir;
+  --work-root to relocate) and removed after evidence copy unless
+  --keep-work; a work root inside the source root is refused outright,
+  because it would leak the checkout path into fresh-install evidence and
+  ask release_export to write inside the source root.
+- Writes: the packet directory (default .microcosm/release-candidate-proof)
+  plus the transient out-of-source work root. Captured evidence refers to
+  transient work locations only by the symbolic tokens <work-dir>,
+  <export-out>, and <work-root> — never by absolute host paths — and the
+  recorded digests bind the normalized bytes that are actually published.
 - Non-goal: a passing packet does NOT authorize release, publication, provider
   calls, source mutation, domain correctness, or whole-system correctness; it
   proves the goal-shaped encounter is distribution-true and nothing more.
@@ -37,6 +45,7 @@ import argparse
 import json
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -78,6 +87,14 @@ CONTEXT_IDS = ("source_checkout", "fresh_install", "standalone_export")
 COMMITTED_DEMO_RECEIPT_REL = "receipts/code_lens/first_action_demo.json"
 EXPECTATION_EVIDENCE_REF = "expectation/committed-demo-receipt.json"
 REVIEW_DOC_REL = "RELEASE_REVIEW.md"
+# Symbolic refs for the transient work locations: published evidence must
+# describe WHERE a command worked without serializing the host path it worked
+# in. The proof boundary normalizes captured bytes to these tokens before
+# digest binding, so the packet is path-stable across hosts and the
+# private-path scan stays a real leak detector instead of a TMPDIR lottery.
+WORK_DIR_TOKEN = "<work-dir>"
+EXPORT_OUT_TOKEN = "<export-out>"
+WORK_ROOT_TOKEN = "<work-root>"
 # Honest provenance posture: no public release artifact exists yet, so nothing
 # here is externally signed or attested. Verification is internal consistency
 # with digest-bound evidence, never third-party provenance.
@@ -235,6 +252,61 @@ CONTEXT_EVIDENCE = {
 }
 
 
+def _path_token_redactions(
+    pairs: tuple[tuple[Path, str], ...],
+) -> list[tuple[str, str]]:
+    """Build the longest-first (needle, token) rows for transient work paths.
+
+    - Teleology: one path can surface in output under several textual
+      variants (as passed, fully resolved -- e.g. /var vs /private/var on
+      macOS); every variant must normalize to the SAME symbolic token or the
+      packet stays host-shaped.
+    - Guarantee: deterministic; covers str() and resolved POSIX forms of each
+      path; longest needles first so a nested work dir wins over its parent
+      work root; never emits an empty or bare-"/" needle.
+    - Fails: never raises; non-strict resolve does not require existence.
+    """
+    rows: dict[str, str] = {}
+    for path, token in pairs:
+        for variant in (str(path), path.resolve(strict=False).as_posix()):
+            if variant and variant != "/" and variant not in rows:
+                rows[variant] = token
+    return sorted(rows.items(), key=lambda row: len(row[0]), reverse=True)
+
+
+def _normalize_public_output(
+    data: bytes, redactions: list[tuple[str, str]]
+) -> tuple[bytes, list[str]]:
+    """Replace transient-work-path variants with symbolic tokens in captured bytes.
+
+    - Teleology: the proof-boundary normalization step -- published evidence
+      may say a command worked under <work-dir>, never under which host path.
+    - Guarantee: byte-level substring replacement (no decode round-trip, so
+      arbitrary subprocess bytes survive untouched); returns the normalized
+      bytes plus the sorted tokens actually applied; empty redactions is a
+      no-op.
+    - Non-goal: does NOT touch source-root or home-directory needles -- a
+      product output that echoes the checkout path is a real leak the
+      private-path scan must keep catching.
+    - Fails: never raises.
+    """
+    applied: set[str] = set()
+    for needle, token in redactions:
+        needle_bytes = needle.encode("utf-8")
+        if needle_bytes and needle_bytes in data:
+            data = data.replace(needle_bytes, token.encode("utf-8"))
+            applied.add(token)
+    return data, sorted(applied)
+
+
+def _normalize_public_text(text: str, redactions: list[tuple[str, str]]) -> str:
+    """String-side twin of _normalize_public_output for argv tokens."""
+    for needle, token in redactions:
+        if needle in text:
+            text = text.replace(needle, token)
+    return text
+
+
 def _run_recorded(
     *,
     command_id: str,
@@ -246,6 +318,7 @@ def _run_recorded(
     stdout_rel: str,
     timeout_seconds: int,
     runner: Runner,
+    redactions: list[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     """Run one proof command and persist a digest-bound, packet-relative receipt.
 
@@ -253,11 +326,14 @@ def _run_recorded(
       executor -- same public-argv projection and digest binding, but every
       output ref is PACKET-RELATIVE so the packet stays portable regardless of
       which context root the command ran in.
-    - Guarantee: writes raw stdout/stderr under `out_dir`, returns a record
-      with public argv (projected against `cwd`), a sha256 of the private
-      argv, return code, duration, packet-relative stdout/stderr refs with
-      sha256 digests and byte counts, and json_detected; never serializes the
-      private argv.
+    - Guarantee: writes stdout/stderr under `out_dir` after applying the
+      transient-work-path `redactions` (so the digests bind the normalized
+      bytes that are actually published), returns a record with public argv
+      (projected against `cwd`, then normalized with the same redactions), a
+      sha256 of the private argv, return code, duration, packet-relative
+      stdout/stderr refs with sha256 digests and byte counts, json_detected,
+      and -- when redactions are active -- the public_output_normalization
+      token list; never serializes the private argv.
     - Fails: propagates OSError from output writes; runner timeouts arrive as
       return code 124 per default_runner.
     """
@@ -271,26 +347,47 @@ def _run_recorded(
         timeout_seconds=timeout_seconds,
     )
     result = runner(spec, cwd, env)
+    stdout_bytes = result.stdout
+    stderr_bytes = result.stderr
+    public_argv = _public_subprocess_argv(actual_argv, cwd)
+    applied: list[str] = []
+    if redactions:
+        stdout_bytes, stdout_applied = _normalize_public_output(stdout_bytes, redactions)
+        stderr_bytes, stderr_applied = _normalize_public_output(stderr_bytes, redactions)
+        argv_applied: set[str] = set()
+        normalized_argv: list[str] = []
+        for argv_token in public_argv:
+            normalized = _normalize_public_text(argv_token, redactions)
+            if normalized != argv_token:
+                argv_applied.update(
+                    token for _, token in redactions if token in normalized
+                )
+            normalized_argv.append(normalized)
+        public_argv = normalized_argv
+        applied = sorted({*stdout_applied, *stderr_applied, *argv_applied})
     stdout_path = out_dir / stdout_rel
     stderr_path = out_dir / stderr_rel
     stdout_path.parent.mkdir(parents=True, exist_ok=True)
-    stdout_path.write_bytes(result.stdout)
-    stderr_path.write_bytes(result.stderr)
-    return {
+    stdout_path.write_bytes(stdout_bytes)
+    stderr_path.write_bytes(stderr_bytes)
+    record = {
         "command_id": command_id,
         "argv": display_argv,
-        "subprocess_argv_public": _public_subprocess_argv(actual_argv, cwd),
+        "subprocess_argv_public": public_argv,
         "subprocess_argv_sha256": sha256_bytes("\0".join(actual_argv).encode("utf-8")),
         "return_code": result.returncode,
         "duration_seconds": result.duration_seconds,
         "stdout_ref": stdout_rel,
         "stderr_ref": stderr_rel,
-        "stdout_sha256": sha256_bytes(result.stdout),
-        "stderr_sha256": sha256_bytes(result.stderr),
-        "stdout_bytes": len(result.stdout),
-        "stderr_bytes": len(result.stderr),
-        "json_detected": _parse_json_bytes(result.stdout) is not None,
+        "stdout_sha256": sha256_bytes(stdout_bytes),
+        "stderr_sha256": sha256_bytes(stderr_bytes),
+        "stdout_bytes": len(stdout_bytes),
+        "stderr_bytes": len(stderr_bytes),
+        "json_detected": _parse_json_bytes(stdout_bytes) is not None,
     }
+    if redactions is not None:
+        record["public_output_normalization"] = applied
+    return record
 
 
 def derive_context_encounter(
@@ -592,6 +689,7 @@ def _run_encounter_context(
     out_dir: Path,
     python_executable: str,
     runner: Runner,
+    redactions: list[tuple[str, str]] | None = None,
 ) -> list[dict[str, Any]]:
     """Run hero + assay + demo-check in one context root, recording evidence."""
     env, _ = subprocess_env(context_root)
@@ -621,6 +719,7 @@ def _run_encounter_context(
                 stdout_rel=evidence[step],
                 timeout_seconds=300,
                 runner=runner,
+                redactions=redactions,
             )
         )
     return records
@@ -633,6 +732,7 @@ def build_release_candidate_proof(
     python_executable: str = sys.executable,
     runner: Runner = default_runner,
     keep_work: bool = False,
+    work_root: Path | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     """Run the three-context first-action encounter and write the proof packet + card.
@@ -646,18 +746,57 @@ def build_release_candidate_proof(
       encounters pass, cross-context agreement holds, no private path leaks
       into any written file, and the checkout's tracked source is unchanged
       by the run; failures are preserved as evidence with named checks.
-    - Writes: `out_dir` (evidence + packet + card); transient install/export
-      work trees under `out_dir` are removed after evidence copy unless
-      keep_work.
+    - Writes: `out_dir` (evidence + packet + card) plus a transient work root
+      holding the install venv and export tree. The work root defaults to a
+      fresh temp dir, must live OUTSIDE the source root, and is removed
+      after evidence copy unless keep_work (a caller-supplied work_root keeps
+      its shell dir; only the install/export subtrees are removed). Captured
+      evidence and recorded argv refer to the work locations only by the
+      symbolic tokens <work-dir>, <export-out>, <work-root>.
     - Non-goal: does NOT authorize release/publication/provider calls/source
-      mutation, and does not assert domain or whole-system correctness.
-    - Fails: propagates OSError on packet writes; probe failures land in the
+      mutation, and does not assert domain or whole-system correctness. The
+      normalization never covers the source root or home directory -- a
+      product output that echoes the checkout path must still block the scan.
+    - Fails: raises ValueError when the resolved work root sits inside the
+      source root (an in-tree work root would leak the checkout path into
+      fresh-install evidence and ask release_export to write inside the
+      source root) or when it equals/contains the packet out dir (the scan
+      would exclude the whole publishable surface and pass vacuously);
+      propagates OSError on packet writes; probe failures land in the
       packet, not as exceptions.
     """
     root = root.expanduser().resolve(strict=False)
     out_dir = out_dir.expanduser()
     if not out_dir.is_absolute():
         out_dir = root / out_dir
+    allocated_work_root = work_root is None
+    work_base = (
+        Path(tempfile.mkdtemp(prefix="microcosm-release-candidate-proof-work-"))
+        if work_root is None
+        else work_root.expanduser()
+    )
+    work_base = work_base.resolve(strict=False)
+    out_dir_resolved = out_dir.resolve(strict=False)
+    refusal: str | None = None
+    if work_base == root or root in work_base.parents:
+        refusal = (
+            "release-candidate proof work root must live outside the source "
+            "root: an in-tree work root leaks the checkout path into "
+            "fresh-install evidence and asks release_export to write inside "
+            "the source root (pass --work-root to relocate it)"
+        )
+    elif work_base == out_dir_resolved or work_base in out_dir_resolved.parents:
+        refusal = (
+            "release-candidate proof work root must not equal or contain the "
+            "packet out dir: the scan that proves the packet public-safe "
+            "excludes the work tree, so this layout would exclude the entire "
+            "publishable surface and pass vacuously"
+        )
+    if refusal is not None:
+        if allocated_work_root:
+            shutil.rmtree(work_base, ignore_errors=True)
+        raise ValueError(refusal)
+    work_base.mkdir(parents=True, exist_ok=True)
     # Every evidence file in the packet must belong to THIS run: stale bytes
     # from a prior run would otherwise feed encounters on degraded runs, and a
     # stale receipt would skew the generate-side scan relative to verify.
@@ -710,8 +849,17 @@ def build_release_candidate_proof(
 
     # Context 2: fresh install -- delegated to the package smoke, which builds
     # a venv, installs the package, and runs the hero contract + assay from
-    # the installed console.
-    install_work = out_dir / "work/install"
+    # the installed console. Both work trees live under the out-of-source
+    # work root; their host paths reach published evidence only as tokens.
+    install_work = work_base / "install"
+    export_work = work_base / "export"
+    work_redactions = _path_token_redactions(
+        (
+            (install_work, WORK_DIR_TOKEN),
+            (export_work, EXPORT_OUT_TOKEN),
+            (work_base, WORK_ROOT_TOKEN),
+        )
+    )
     env, provider_policy = subprocess_env(root)
     # The smoke must prove the INSTALLED copy: a dev-tree PYTHONPATH reaching
     # the venv console would shadow site-packages and hollow out the context.
@@ -744,6 +892,7 @@ def build_release_candidate_proof(
             stdout_rel=CONTEXT_EVIDENCE["fresh_install"]["smoke"],
             timeout_seconds=900,
             runner=runner,
+            redactions=work_redactions,
         )
     )
     for source_name, target_rel in INSTALL_EVIDENCE_SOURCES:
@@ -765,7 +914,6 @@ def build_release_candidate_proof(
 
     # Context 3: the standalone export -- a real release_export, then the
     # encounter inside the exported artifact tree.
-    export_work = out_dir / "work/export"
     export_env = dict(env)
     # The export builder writes its own receipts inside the new tree; do not
     # carry the probe-side receipt-write suppression into it.
@@ -802,6 +950,7 @@ def build_release_candidate_proof(
             stdout_rel=CONTEXT_EVIDENCE["standalone_export"]["export"],
             timeout_seconds=900,
             runner=runner,
+            redactions=work_redactions,
         )
     )
     exported_root = export_work / EXPORT_ARTIFACT_DIR_NAME
@@ -813,13 +962,24 @@ def build_release_candidate_proof(
                 out_dir=out_dir,
                 python_executable=python_executable,
                 runner=runner,
+                redactions=work_redactions,
             )
         )
     else:
         work_notes.append("export tree missing: standalone_export encounter not run")
 
-    if not keep_work:
-        shutil.rmtree(out_dir / "work", ignore_errors=True)
+    if keep_work:
+        # Operator debugging surface only: the kept location goes to stderr,
+        # never into the packet, so published evidence stays token-normalized.
+        print(
+            f"release-candidate proof: kept transient work root: {work_base}",
+            file=sys.stderr,
+        )
+    else:
+        shutil.rmtree(install_work, ignore_errors=True)
+        shutil.rmtree(export_work, ignore_errors=True)
+        if allocated_work_root:
+            shutil.rmtree(work_base, ignore_errors=True)
 
     encounters = {
         context_id: _context_encounter_from_disk(context_id, records, out_dir)
@@ -834,16 +994,16 @@ def build_release_candidate_proof(
 
     def publishable_paths() -> list[Path]:
         # The work trees (venv, export) are transient workspace, not published
-        # evidence — under --keep-work they would otherwise drag thousands of
-        # absolute-path-bearing files (shebangs, pip RECORD) into the scan and
-        # block an otherwise-passing packet.
-        work_root = out_dir / "work"
+        # evidence — they live outside the source root by contract, and under
+        # an explicit --work-root beneath out_dir they would otherwise drag
+        # thousands of absolute-path-bearing files (shebangs, pip RECORD)
+        # into the scan and block an otherwise-passing packet.
         return [
             path
             for path in out_dir.rglob("*")
             if path.is_file()
             and not path.name.endswith(".tmp")
-            and work_root not in path.parents
+            and work_base not in path.parents
         ]
 
     private_scan = _scan_private_needles(publishable_paths(), root)
@@ -890,6 +1050,18 @@ def build_release_candidate_proof(
             "provider_env_policy": provider_policy,
             "copied_evidence": copied_evidence,
             "work_notes": work_notes,
+            # The hermetic-regeneration contract: transient work never sits
+            # inside the source root (enforced fail-closed at allocation) and
+            # reaches published evidence only as these symbolic tokens.
+            "transient_work_root_policy": {
+                "outside_source_root": True,
+                "removed_after_evidence_copy": not keep_work,
+                "public_tokens": [
+                    WORK_DIR_TOKEN,
+                    EXPORT_OUT_TOKEN,
+                    WORK_ROOT_TOKEN,
+                ],
+            },
         },
         "commands": records,
         "proof_boundary": PROOF_BOUNDARY,
@@ -1373,17 +1545,30 @@ def _generate_main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", default=".microcosm/release-candidate-proof")
     parser.add_argument("--python", default=sys.executable)
     parser.add_argument(
+        "--work-root",
+        default=None,
+        help=(
+            "transient work root for the install venv and export tree "
+            "(default: a fresh temporary directory; must live outside the "
+            "source root -- an in-tree work root is refused)"
+        ),
+    )
+    parser.add_argument(
         "--keep-work",
         action="store_true",
         help="keep the install venv and export tree instead of removing them after evidence copy",
     )
     args = parser.parse_args(argv)
-    packet = build_release_candidate_proof(
-        root=Path(args.root),
-        out_dir=Path(args.out),
-        python_executable=args.python,
-        keep_work=args.keep_work,
-    )
+    try:
+        packet = build_release_candidate_proof(
+            root=Path(args.root),
+            out_dir=Path(args.out),
+            python_executable=args.python,
+            keep_work=args.keep_work,
+            work_root=Path(args.work_root) if args.work_root else None,
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
     # The generate-side failure codes from FAILURE_INTERPRETATIONS, so a red
     # run is greppable against the reviewer contract's taxonomy table.
     blocked_codes = []

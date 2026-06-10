@@ -100,7 +100,8 @@ INTEGRITY_REQUIREMENTS = (
     "no tracked source file may change while the proof runs",
     "provider credential environment keys are never available to proof subprocesses",
     "the fresh-install context must scrub PYTHONPATH and import from the venv, not a shadowing checkout",
-    "install and export work trees are removed after evidence copy unless --keep-work is passed",
+    "install and export work trees live under a transient work root outside the source root (an in-tree work root is refused at allocation) and are removed after evidence copy unless --keep-work is passed",
+    "captured evidence and recorded argv refer to transient work locations only by the symbolic tokens <work-dir>, <export-out>, and <work-root>, never by absolute host paths; the source root and home directory are never normalized away, so a product output echoing them still fails the scan",
 )
 
 ASSAY_REQUIREMENTS = (
@@ -295,14 +296,21 @@ def build_contract(root: Path) -> tuple[str, str]:
     lines.append("## Run the review")
     lines.append("")
     lines.append("```bash")
-    lines.append(GENERATE_COMMANDS[0])
-    lines.append(VERIFY_COMMANDS[0])
+    lines.append(REVIEW_ALIAS_COMMAND)
     lines.append("```")
     lines.append("")
     lines.append(
-        f"Without make: `{GENERATE_COMMANDS[1]}` then `{VERIFY_COMMANDS[1]}`. "
-        f"`{REVIEW_ALIAS_COMMAND}` wraps verification of an existing packet and "
-        "prints its card."
+        f"`{REVIEW_ALIAS_COMMAND}` is the one cold-review command: it "
+        "regenerates the proof packet fresh from your checkout, runs the "
+        "strict no-rerun verifier against the fresh packet, and prints its "
+        f"card. The steps are also available separately: `{GENERATE_COMMANDS[0]}` "
+        f"to generate, `{VERIFY_COMMANDS[0]}` to re-verify an existing packet "
+        "without rerunning anything. Without make: "
+        f"`{GENERATE_COMMANDS[1]}` then `{VERIFY_COMMANDS[1]}`. Transient "
+        "install/export work runs under an out-of-source temporary root by "
+        "default (`--work-root` to relocate it; an in-tree work root is "
+        "refused), so no hidden environment override is needed for a clean "
+        "run."
     )
     lines.append("")
     lines.append(
@@ -373,6 +381,8 @@ def build_contract(root: Path) -> tuple[str, str]:
             "generate": list(GENERATE_COMMANDS),
             "verify": list(VERIFY_COMMANDS),
             "review_alias": REVIEW_ALIAS_COMMAND,
+            "review_alias_behavior": "generate_fresh_then_verify_then_print_card",
+            "no_rerun_verify": VERIFY_COMMANDS[0],
         },
         "outputs": {
             "packet": PACKET_FILENAME,

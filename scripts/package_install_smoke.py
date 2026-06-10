@@ -15,6 +15,27 @@ PRIVATE_MARKERS = (
     "/home/",
     "src/ai_workflow",
 )
+# Captured outputs may legitimately echo the smoke's own work dir (e.g. the
+# hello target path); that location is run plumbing, not product content, so
+# it is normalized to this token BEFORE the private-marker assert. The assert
+# itself stays strict: any other absolute/private path still fails the smoke.
+WORK_DIR_TOKEN = "<work-dir>"
+
+
+def _normalize_work_refs(text: str, work_dir: Path) -> str:
+    """Replace every textual variant of the smoke's work dir with WORK_DIR_TOKEN.
+
+    Covers the path as given and fully resolved (e.g. /var vs /private/var on
+    macOS) so a host whose temp root lives under a private marker (/home/...)
+    cannot fail the marker assert on its own plumbing, while real product
+    leaks remain visible.
+    """
+    for variant in sorted(
+        {str(work_dir), work_dir.resolve().as_posix()}, key=len, reverse=True
+    ):
+        if variant and variant != "/":
+            text = text.replace(variant, WORK_DIR_TOKEN)
+    return text
 
 
 def _bin_dir(venv_dir: Path) -> Path:
@@ -172,6 +193,10 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         suffix = "json" if kind in ("json", "contract") else "txt"
         out_path = output_dir / f"{name}.{suffix}"
         _run(argv, env=env, stdout_path=out_path)
+        out_path.write_text(
+            _normalize_work_refs(out_path.read_text(encoding="utf-8"), work_dir),
+            encoding="utf-8",
+        )
         _assert_no_private_markers(out_path, label=name)
         if kind == "json":
             _assert_status_pass(_json_payload(out_path, label=name), label=name)

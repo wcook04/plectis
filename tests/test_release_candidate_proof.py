@@ -13,6 +13,8 @@ import json
 import tomllib
 from pathlib import Path
 
+import pytest
+
 from microcosm_core import comprehension, release_export
 from microcosm_core import release_candidate_proof
 from microcosm_core.release_candidate_proof import (
@@ -812,22 +814,255 @@ def test_release_candidate_proof_blocks_on_source_mutation(tmp_path: Path) -> No
 
 def test_release_candidate_proof_keep_work_still_passes(tmp_path: Path) -> None:
     """--keep-work keeps the transient work trees without flipping the verdict:
-    the leak scan covers the publishable packet surface, not the workspace."""
+    the leak scan covers the publishable packet surface, not the workspace —
+    and the kept workspace lives outside the source root, never under out_dir."""
     root = _fake_root(tmp_path)
     out_dir = root / ".microcosm/release-candidate-proof"
+    work_root = tmp_path / "rcp-kept-work"
     packet = build_release_candidate_proof(
         root=root,
         out_dir=out_dir,
         python_executable="python",
         runner=_release_candidate_fake_runner(),
         keep_work=True,
+        work_root=work_root,
         generated_at="2026-06-10T00:00:00+00:00",
     )
     assert packet["status"] == "pass"
-    assert (out_dir / "work").is_dir()
+    # The fake runner plants an absolute-path venv shim in the install work
+    # tree; keeping it must not block the scan because the workspace is not
+    # part of the publishable packet surface.
+    assert (work_root / "install").is_dir()
+    assert (work_root / "install/venv-shim.txt").is_file()
+    assert not (out_dir / "work").exists()
     assert packet["authority_and_omission_policy"][
         "work_trees_removed_after_evidence_copy"
     ] is False
+    assert packet["integrity"]["transient_work_root_policy"][
+        "removed_after_evidence_copy"
+    ] is False
+
+
+def test_release_candidate_proof_default_work_root_is_out_of_source_and_removed(
+    tmp_path: Path,
+) -> None:
+    """The DEFAULT lane is hermetic: with no work_root argument the transient
+    install/export work is allocated outside the source root (a fresh temp
+    dir) and removed after evidence copy, so an ordinary checkout regenerates
+    a clean packet with no environment overrides. This is the
+    live-default-shaped regression for the in-tree work allocation that
+    blocked fresh_install and standalone_export."""
+    root = _fake_root(tmp_path)
+    out_dir = root / ".microcosm/release-candidate-proof"
+    seen: dict[str, Path] = {}
+    inner = _release_candidate_fake_runner()
+
+    def observing_runner(
+        spec: CommandSpec, cwd: Path, env: dict[str, str]
+    ) -> RunnerResult:
+        if spec.command_id == "fresh_install.package_smoke":
+            seen["install"] = Path(
+                spec.actual_argv[spec.actual_argv.index("--work-dir") + 1]
+            )
+        if spec.command_id == "standalone_export.release_export":
+            seen["export"] = Path(
+                spec.actual_argv[spec.actual_argv.index("--out") + 1]
+            )
+        return inner(spec, cwd, env)
+
+    packet = build_release_candidate_proof(
+        root=root,
+        out_dir=out_dir,
+        python_executable="python",
+        runner=observing_runner,
+        generated_at="2026-06-10T00:00:00+00:00",
+    )
+    assert packet["status"] == "pass"
+    resolved_root = root.resolve()
+    for label in ("install", "export"):
+        work_path = seen[label].resolve()
+        assert resolved_root not in work_path.parents, (
+            f"{label} work tree must not sit under the source root"
+        )
+        assert not work_path.exists(), f"{label} work tree must be removed"
+    assert not (out_dir / "work").exists()
+    policy = packet["integrity"]["transient_work_root_policy"]
+    assert policy["outside_source_root"] is True
+    assert policy["removed_after_evidence_copy"] is True
+
+
+def test_release_candidate_proof_refuses_work_root_inside_source_root(
+    tmp_path: Path,
+) -> None:
+    """Fail closed, not half-run: an in-tree work root would leak the checkout
+    path into fresh-install evidence and ask release_export to write inside
+    the source root, so allocation refuses it before any context runs."""
+    root = _fake_root(tmp_path)
+    with pytest.raises(ValueError, match="outside the source root"):
+        build_release_candidate_proof(
+            root=root,
+            out_dir=root / ".microcosm/release-candidate-proof",
+            python_executable="python",
+            runner=_release_candidate_fake_runner(),
+            work_root=root / ".microcosm/release-candidate-proof/work",
+            generated_at="2026-06-10T00:00:00+00:00",
+        )
+    assert not (root / ".microcosm/release-candidate-proof/work").exists()
+    # A work root that equals or contains the packet out dir would make the
+    # scan exclude the whole publishable surface and pass vacuously: refused.
+    out_dir = tmp_path / "packet-out"
+    with pytest.raises(ValueError, match="pass vacuously"):
+        build_release_candidate_proof(
+            root=root,
+            out_dir=out_dir,
+            python_executable="python",
+            runner=_release_candidate_fake_runner(),
+            work_root=out_dir,
+            generated_at="2026-06-10T00:00:00+00:00",
+        )
+    with pytest.raises(ValueError, match="pass vacuously"):
+        build_release_candidate_proof(
+            root=root,
+            out_dir=tmp_path / "scratch/nested/packet-out",
+            python_executable="python",
+            runner=_release_candidate_fake_runner(),
+            work_root=tmp_path / "scratch",
+            generated_at="2026-06-10T00:00:00+00:00",
+        )
+
+
+def test_release_candidate_proof_normalizes_work_paths_into_tokens(
+    tmp_path: Path,
+) -> None:
+    """Captured evidence and recorded argv refer to transient work locations
+    only by symbolic tokens: a subprocess that echoes its work path publishes
+    `<work-dir>`/`<export-out>` instead, the digests bind the normalized bytes
+    (so the no-rerun verifier round-trips), and the scan stays green."""
+    root = _fake_root(tmp_path)
+    out_dir = root / ".microcosm/release-candidate-proof"
+    work_root = tmp_path / "rcp-transient"
+    inner = _release_candidate_fake_runner()
+
+    def echoing_runner(
+        spec: CommandSpec, cwd: Path, env: dict[str, str]
+    ) -> RunnerResult:
+        result = inner(spec, cwd, env)
+        if spec.command_id == "fresh_install.package_smoke":
+            work_dir = spec.actual_argv[spec.actual_argv.index("--work-dir") + 1]
+            return RunnerResult(
+                0,
+                result.stdout + f"workdir-echo: {work_dir}\n".encode("utf-8"),
+                b"",
+                0.01,
+            )
+        if spec.command_id == "standalone_export.release_export":
+            export_out = spec.actual_argv[spec.actual_argv.index("--out") + 1]
+            return RunnerResult(
+                0,
+                result.stdout,
+                f"exporting to {export_out}\n".encode("utf-8"),
+                0.01,
+            )
+        return result
+
+    packet = build_release_candidate_proof(
+        root=root,
+        out_dir=out_dir,
+        python_executable="python",
+        runner=echoing_runner,
+        work_root=work_root,
+        generated_at="2026-06-10T00:00:00+00:00",
+    )
+    assert packet["status"] == "pass"
+    smoke_text = (out_dir / "install/package-smoke.stdout.txt").read_text(
+        encoding="utf-8"
+    )
+    assert "workdir-echo: <work-dir>" in smoke_text
+    assert str(work_root) not in smoke_text
+    export_stderr = (
+        out_dir / "export/release-export-summary.txt.stderr.txt"
+    ).read_text(encoding="utf-8")
+    assert "exporting to <export-out>" in export_stderr
+    smoke_record = next(
+        row
+        for row in packet["commands"]
+        if row["command_id"] == "fresh_install.package_smoke"
+    )
+    assert "<work-dir>" in smoke_record["subprocess_argv_public"]
+    assert "<work-dir>" in smoke_record["public_output_normalization"]
+    packet_text = (out_dir / "release-candidate-proof.json").read_text(
+        encoding="utf-8"
+    )
+    assert str(work_root) not in packet_text
+    receipt = verify_release_candidate_proof(
+        packet_dir=out_dir, root=root, write_receipt=False
+    )
+    assert receipt["status"] == "packet_valid"
+
+
+def test_release_candidate_proof_still_blocks_source_root_leak(
+    tmp_path: Path,
+) -> None:
+    """The normalization must not weaken the boundary: an output that echoes
+    the SOURCE ROOT path is a real product leak — never run plumbing — and it
+    still blocks the packet through the private-path scan."""
+    root = _fake_root(tmp_path)
+    out_dir = root / ".microcosm/release-candidate-proof"
+    inner = _release_candidate_fake_runner()
+
+    def leaking_runner(
+        spec: CommandSpec, cwd: Path, env: dict[str, str]
+    ) -> RunnerResult:
+        result = inner(spec, cwd, env)
+        if spec.command_id == "fresh_install.package_smoke":
+            return RunnerResult(
+                0,
+                result.stdout
+                + f"installed from {root.resolve()}\n".encode("utf-8"),
+                b"",
+                0.01,
+            )
+        return result
+
+    packet = build_release_candidate_proof(
+        root=root,
+        out_dir=out_dir,
+        python_executable="python",
+        runner=leaking_runner,
+        generated_at="2026-06-10T00:00:00+00:00",
+    )
+    assert packet["status"] == "blocked"
+    scan = packet["integrity"]["private_path_scan"]
+    assert scan["status"] == "blocked"
+    assert scan["private_path_hit_count"] >= 1
+    assert any(
+        hit["needle_class"] == "package_root_absolute_path"
+        for hit in scan["private_path_hits"]
+    )
+
+
+def test_package_install_smoke_normalizes_work_refs_before_marker_assert() -> None:
+    """The smoke's leak assert stays strict while its own work dir is
+    normalized: a /home/-rooted work dir (a real CI temp shape) cannot fail
+    the assert on its own plumbing, and any OTHER private path still trips."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "package_install_smoke",
+        MICROCOSM_ROOT / "scripts/package_install_smoke.py",
+    )
+    smoke = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(smoke)
+    work_dir = Path("/home/ci-runner/work/rcp")  # synthetic, never touched
+    normalized = smoke._normalize_work_refs(
+        f"hello target: {work_dir}/project\nok\n", work_dir
+    )
+    assert "<work-dir>/project" in normalized
+    assert "/home/" not in normalized
+    leaky = smoke._normalize_work_refs(
+        "data at /Users/someone/file\n", work_dir
+    )
+    assert "/Users/" in leaky
 
 
 def test_release_candidate_proof_is_publicly_discoverable() -> None:
