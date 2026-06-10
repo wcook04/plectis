@@ -1041,6 +1041,40 @@ def test_release_candidate_proof_still_blocks_source_root_leak(
     )
 
 
+def test_package_install_smoke_build_lock_and_residue_clear(tmp_path: Path) -> None:
+    """Concurrent in-tree wheel builds are serialized and crashed-build residue
+    is cleared before install: the lock is exclusive while held, and only the
+    bdist staging trees are swept (build/lib cache survives)."""
+    import fcntl
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "package_install_smoke_lock",
+        MICROCOSM_ROOT / "scripts/package_install_smoke.py",
+    )
+    smoke = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(smoke)
+
+    source_root = tmp_path / "src-root"
+    staged = source_root / "build/bdist.macosx-15.0-arm64/wheel/pkg-0.1.dist-info"
+    staged.mkdir(parents=True)
+    kept = source_root / "build/lib/pkg"
+    kept.mkdir(parents=True)
+    smoke._clear_stale_wheel_staging(source_root)
+    assert not staged.exists(), "crashed bdist staging must be swept"
+    assert kept.is_dir(), "build/lib incremental cache must survive"
+
+    with smoke._source_build_lock(source_root):
+        lock_path = source_root / ".microcosm/package_build.lock"
+        assert lock_path.is_file()
+        with lock_path.open("w") as second:
+            with pytest.raises(OSError):
+                fcntl.flock(second, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    # Released on exit: a fresh exclusive acquisition succeeds.
+    with smoke._source_build_lock(source_root):
+        pass
+
+
 def test_package_install_smoke_normalizes_work_refs_before_marker_assert() -> None:
     """The smoke's leak assert stays strict while its own work dir is
     normalized: a /home/-rooted work dir (a real CI temp shape) cannot fail

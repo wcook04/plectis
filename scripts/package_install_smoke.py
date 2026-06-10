@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import os
 import shutil
@@ -36,6 +37,50 @@ def _normalize_work_refs(text: str, work_dir: Path) -> str:
         if variant and variant != "/":
             text = text.replace(variant, WORK_DIR_TOKEN)
     return text
+
+
+@contextlib.contextmanager
+def _source_build_lock(source_root: Path):
+    """Serialize in-tree wheel builds across concurrent smokes and proof runs.
+
+    pip's in-tree build writes shared intermediates under <source-root>/build;
+    two concurrent builds race, and a crashed one leaves residue that fails
+    every later build ([Errno 17] on the staged dist-info). The lock lives at
+    .microcosm/package_build.lock (gitignored runtime state). POSIX flock
+    only; on Windows, or when the lock file cannot be opened, it degrades to
+    a no-op rather than blocking the smoke.
+    """
+    handle = None
+    if os.name != "nt":
+        try:
+            lock_dir = source_root / ".microcosm"
+            lock_dir.mkdir(parents=True, exist_ok=True)
+            handle = (lock_dir / "package_build.lock").open("w")
+            import fcntl
+
+            fcntl.flock(handle, fcntl.LOCK_EX)
+        except OSError:
+            if handle is not None:
+                handle.close()
+            handle = None
+    try:
+        yield
+    finally:
+        if handle is not None:
+            handle.close()
+
+
+def _clear_stale_wheel_staging(source_root: Path) -> None:
+    """Remove crashed-build residue under build/bdist.* before installing.
+
+    A killed wheel build leaves build/bdist.*/wheel/<name>.dist-info behind,
+    and setuptools then fails every later build with [Errno 17] File exists.
+    Only the bdist staging trees are cleared -- the build/lib incremental
+    cache is kept. Call while holding the source build lock so a live
+    concurrent build is never swept.
+    """
+    for staged in (source_root / "build").glob("bdist.*"):
+        shutil.rmtree(staged, ignore_errors=True)
 
 
 def _bin_dir(venv_dir: Path) -> Path:
@@ -126,18 +171,20 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     # test wearing an install costume. Scrub it so "fresh venv" stays true.
     env.pop("PYTHONPATH", None)
 
-    _run(
-        [
-            str(venv_python),
-            "-m",
-            "pip",
-            "install",
-            "--disable-pip-version-check",
-            "--no-deps",
-            str(source_root),
-        ],
-        env=env,
-    )
+    with _source_build_lock(source_root):
+        _clear_stale_wheel_staging(source_root)
+        _run(
+            [
+                str(venv_python),
+                "-m",
+                "pip",
+                "install",
+                "--disable-pip-version-check",
+                "--no-deps",
+                str(source_root),
+            ],
+            env=env,
+        )
 
     # Install-context independence: the console commands below must exercise
     # the pip-installed copy, not a shadowing checkout import.
