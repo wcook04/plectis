@@ -113,8 +113,16 @@ def _write_fixture(root: Path, *, leaky: bool = False, legacy_graph: bool = Fals
              "to": "src/microcosm_core/organs/alpha_validator.py", "kind": "implemented_by_runner"},
             {"from_type": "organ", "from": "alpha_validator", "to_type": "receipt",
              "to": "receipts/first_wave/alpha_validator/acceptance.json", "kind": "emits_receipt"},
+            {"from_type": "organ", "from": "alpha_validator", "to_type": "receipt",
+             "to": "receipts/first_wave/alpha_validator/findings.json", "kind": "emits_receipt"},
         ],
     }
+    # Ship the emitted receipts on disk so the committed-vs-provenance receipt
+    # split in first-action contracts is exercised against real files.
+    receipt_dir = root / "receipts/first_wave/alpha_validator"
+    receipt_dir.mkdir(parents=True, exist_ok=True)
+    (receipt_dir / "acceptance.json").write_text("{}")
+    (receipt_dir / "findings.json").write_text("{}")
     if legacy_graph:
         # Pre-v2 clones: no graph block, no claim/route/family nodes.
         join["schema_version"] = "microcosm_code_lens_join_index_v0"
@@ -508,7 +516,7 @@ def test_every_next_packet_resolves_to_a_known_packet() -> None:
 def test_every_spec_mode_is_dispatchable() -> None:
     for spec in C.PACKET_SPECS:
         mode = spec["mode"]
-        assert mode in C._MODE_COMPILERS or mode in ("path", "mutation_plan")
+        assert mode in C._MODE_COMPILERS or mode in ("path", "mutation_plan", "first_action")
 
 
 def test_organ_cluster_is_substantive_for_a_family(tmp_path: Path) -> None:
@@ -796,6 +804,7 @@ def test_every_packet_is_stamped_with_identity_and_within_budget(tmp_path: Path)
         "flow": "alpha_validator",
         "mutation_plan": "src/microcosm_core/widget.py",
         "path": "src/microcosm_core/widget.py",
+        "first_action": "where do I start?",
     }
     for spec in C.PACKET_SPECS:
         mode = spec["mode"]
@@ -941,6 +950,309 @@ def test_self_model_in_prebuilt_cache_and_atlas(tmp_path: Path) -> None:
     assert "semantic_excerpts" not in cached
     atlas = C.comprehend(root=tmp_path, mode="packet-atlas")
     assert "self_model" in [n["packet_id"] for n in atlas["selected_nodes"]]
+
+
+# === First Correct Action: goal -> graph-backed action contract ====================
+
+
+def test_first_action_route_goal_triggers(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    for goal in ("where do I start?", "what should I do first", "get started here"):
+        mode, target, _ = C.route_goal(goal, bundle)
+        assert mode == "first_action"
+        assert target == goal
+    # Improvement goals still route to mutation_plan, not first_action.
+    assert C.route_goal("what should I work on for the Microcosm release?", bundle)[0] == "mutation_plan"
+
+
+def test_first_action_contract_for_named_organ(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action", target="is alpha_validator safe to edit?"
+    )
+    assert pack["found"] is True
+    assert pack["routing"]["basis"] == "organ_named_in_goal"
+    assert pack["first_action"]["action_kind"] == "run_fixture_command"
+    # The command is cold-runnable VERBATIM from a fresh source clone.
+    assert pack["first_action"]["command"].startswith(
+        "PYTHONPATH=src python3 -m microcosm_core alpha-validator"
+    )
+    assert pack["owner"]["organ_id"] == "alpha_validator"
+    assert pack["proof_path"]["validator_command"]
+    # Receipt truth: authority receipt first, then the other shipped receipt,
+    # deduplicated, every entry existing on disk in the clone.
+    refs = pack["proof_path"]["receipt_refs"]
+    assert refs[0].endswith("acceptance.json")
+    assert any(r.endswith("findings.json") for r in refs)
+    assert len(refs) == len(set(refs))
+    for ref in refs:
+        assert (tmp_path / ref).is_file()
+    assert pack["proof_path"]["provenance_receipts"] == []
+    assert pack["first_action"]["committed_receipts"] == refs
+    assert pack["reading_boundary"]["stop_condition"] == "Stop when the binding receipt is visible."
+    # The custody-bound runner is named as do-not-edit.
+    assert pack["do_not_edit"]["paths"] == ["src/microcosm_core/organs/alpha_validator.py"]
+    assert "declared public contract" in pack["do_not_claim"]
+    assert pack["packet_id"] == "first_action"
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_first_action_contract_via_task_route_match(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action", target="how do I validate agent entry?"
+    )
+    assert pack["routing"]["basis"] == "task_class_route_match"
+    assert pack["routing"]["task_class"] == "agent-entry"
+    assert pack["owner"]["organ_id"] == "alpha_validator"
+    assert pack["first_action"]["command"].startswith("PYTHONPATH=src python3 -m microcosm_core")
+    # The why is the POSITIVE purpose (synopsis), not a ceiling restatement.
+    assert "binding rows" in pack["first_action"]["why"]
+    assert pack["reading_boundary"]["allowed_scope"]
+    assert pack["graph_backed"]["edge_classes_resolved"] == [
+        "claim_node_ontology",
+        "cross_organ_route_topology",
+    ]
+
+
+def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action",
+        target="what should I work on for the Microcosm release?",
+    )
+    assert pack["routing"]["basis"] == "improvement_goal"
+    assert pack["first_action"]["action_kind"] == "inspect_mutation_target"
+    assert "--mutation" in pack["first_action"]["command"]
+    assert pack["proof_path"]["validation_commands"]
+    assert "not release approval" in pack["do_not_claim"]
+
+
+def test_first_action_orientation_fallback_and_blank_chooser(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action", target="understand the whole substrate at once"
+    )
+    assert pack["routing"]["basis"] == "packet_fallback"
+    assert pack["first_action"]["action_kind"] == "open_packet"
+    assert "--self-model" in pack["first_action"]["command"]
+    # Honest fallback wording: it says no route matched, it does not claim the
+    # goal itself was orientation-shaped.
+    assert "No task-class route or organ matched" in pack["summary"]["what_this_is"]
+    # Receipt truth on the fixture: the cache file is absent, so nothing is
+    # promised as committed; the proof path carries an explicit note instead.
+    assert pack["first_action"]["committed_receipts"] == []
+    assert pack["proof_path"]["note"]
+    chooser = C.comprehend(root=tmp_path, mode="first_action", target="")
+    assert chooser["found"] is False
+    assert {n["task_class"] for n in chooser["selected_nodes"]} == {"agent-entry"}
+
+
+def test_first_action_word_boundary_protects_house_vocabulary(tmp_path: Path) -> None:
+    """'fixture', 'dispatch', 'exchange', 'editor' must NOT read as mutation
+    intent -- a read-only question never becomes an inspect-mutation contract."""
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    for goal in (
+        "where is the fixture input for the audio organ?",
+        "dispatch the route bundle",
+        "how does the exchange rate organ work?",
+        "open the editor configuration",
+    ):
+        mode, _t, _n = C.route_goal(goal, bundle)
+        assert mode != "mutation_plan", goal
+        pack = C.comprehend(root=tmp_path, mode="first_action", target=goal)
+        assert pack["first_action"]["action_kind"] != "inspect_mutation_target", goal
+    # Real mutation verbs still route to mutation_plan.
+    assert C.route_goal("fix the binding validator", bundle)[0] == "mutation_plan"
+
+
+def test_first_action_route_goal_ordering_protects_mixed_goals(tmp_path: Path) -> None:
+    """A goal carrying BOTH a start phrase and an improvement phrase must stay
+    first_action -- the block order in route_goal is the invariant."""
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    assert C.route_goal("where do I start on the microcosm release?", bundle)[0] == "first_action"
+
+
+def test_match_task_route_evidence_bar_and_tie_break(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    join_path = tmp_path / "receipts/code_lens/code_lens_join_index_v0.json"
+    join = json.loads(join_path.read_text())
+    join["nodes"]["route"] = [
+        {"task_class": "binding-review", "primary_organ_id": "alpha_validator",
+         "primary_display_name": "Alpha Validator", "first_command": "microcosm a run",
+         "stop_condition": "Stop A.", "allowed_scope": "A only.", "organ_count": 1},
+        {"task_class": "binding-audit", "primary_organ_id": "beta_projection",
+         "primary_display_name": "Beta Projection", "first_command": "microcosm b run",
+         "stop_condition": "Stop B.", "allowed_scope": "B only.", "organ_count": 1},
+    ]
+    join_path.write_text(json.dumps(join))
+    bundle = C.load_inputs(tmp_path)
+    # Single common-word overlap ('binding') is below the evidence bar -> None.
+    assert C._match_task_route("the binding in my ski boot broke", bundle) is None
+    # Two distinct matched tokens clear the bar; the tie breaks lexicographically
+    # (binding-audit < binding-review) regardless of node order.
+    chosen = C._match_task_route("review the binding audit work", bundle)
+    assert chosen is not None
+    assert chosen["task_class"] == "binding-audit"
+    join["nodes"]["route"].reverse()
+    join_path.write_text(json.dumps(join))
+    bundle = C.load_inputs(tmp_path)
+    chosen_again = C._match_task_route("review the binding audit work", bundle)
+    assert chosen_again is not None and chosen_again["task_class"] == "binding-audit"
+
+
+def test_first_action_negation_and_multi_organ_resolution(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action",
+        target="ignore alpha_validator, I want beta_projection",
+    )
+    assert pack["routing"]["basis"] == "organ_named_in_goal"
+    assert pack["routing"]["organ_id"] == "beta_projection"
+    assert pack["routing"]["excluded_by_negation"] == ["alpha_validator"]
+    # Display names resolve too (spoken form, no underscores).
+    spoken = C.comprehend(
+        root=tmp_path, mode="first_action", target="is the Beta Projection safe to run?"
+    )
+    assert spoken["routing"]["organ_id"] == "beta_projection"
+    # Two positive mentions: earliest wins, the other is surfaced.
+    both = C.comprehend(
+        root=tmp_path, mode="first_action",
+        target="compare beta_projection with alpha_validator",
+    )
+    assert both["routing"]["organ_id"] == "beta_projection"
+    assert both["routing"]["also_named"] == ["alpha_validator"]
+
+
+def test_first_action_owned_runner_do_not_edit_arm(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="first_action", target="run beta_projection now")
+    assert pack["routing"]["organ_id"] == "beta_projection"
+    assert pack["do_not_edit"]["paths"] == []
+    assert "owned" in pack["do_not_edit"]["note"]
+
+
+def test_first_action_provenance_receipt_split(tmp_path: Path) -> None:
+    """An authority receipt that is not shipped in the clone must be labelled
+    provenance, never promised as a committed receipt."""
+    _write_fixture(tmp_path)
+    join_path = tmp_path / "receipts/code_lens/code_lens_join_index_v0.json"
+    join = json.loads(join_path.read_text())
+    for node in join["nodes"]["organ"]:
+        if node["organ_id"] == "alpha_validator":
+            node["authority_receipt"] = "state/microcosm_portfolio/reconstruction/alpha.json"
+    join_path.write_text(json.dumps(join))
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action", target="run alpha_validator now"
+    )
+    committed = pack["proof_path"]["receipt_refs"]
+    assert all(not r.startswith("state/") for r in committed)
+    prov = pack["proof_path"]["provenance_receipts"]
+    assert prov and prov[0]["path"].startswith("state/")
+    assert prov[0]["exists_in_clone"] is False
+
+
+def test_first_action_contract_complete_refusal_arms(tmp_path: Path) -> None:
+    """The completeness predicate must REFUSE doc-shaped non-contracts."""
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    good = C.compile_first_action(bundle, tmp_path, "run alpha_validator now")
+    assert C._first_action_contract_complete(good) is True
+    import copy
+
+    broken = copy.deepcopy(good)
+    broken["first_action"]["command"] = ""
+    assert C._first_action_contract_complete(broken) is False
+    broken = copy.deepcopy(good)
+    broken["first_action"]["command"] = "python foo.py"  # not cold-runnable form
+    assert C._first_action_contract_complete(broken) is False
+    broken = copy.deepcopy(good)
+    broken["first_action"]["command"] = (
+        "PYTHONPATH=src python3 -m microcosm_core comprehend --organ <organ_id>"
+    )
+    assert C._first_action_contract_complete(broken) is False  # placeholder
+    broken = copy.deepcopy(good)
+    broken["proof_path"] = {}
+    broken["first_action"]["committed_receipts"] = []
+    broken["first_action"]["writes_outputs_under"] = None
+    assert C._first_action_contract_complete(broken) is False
+    broken = copy.deepcopy(good)
+    broken["reading_boundary"] = {}
+    assert C._first_action_contract_complete(broken) is False
+    broken = copy.deepcopy(good)
+    broken["do_not_claim"] = ""
+    assert C._first_action_contract_complete(broken) is False
+
+
+def test_first_action_refuses_destructive_intent_and_placeholder_commands(tmp_path: Path) -> None:
+    """A destructive goal routes to the AUTHORITY boundary -- never a fixture or
+    mutation command; a routed packet with an unresolved <placeholder> falls back
+    to the concrete menu."""
+    _write_fixture(tmp_path)
+    for goal in (
+        "delete all receipts and force push to production",
+        "publish the microcosm release",
+        "deploy this to production",
+        "I'm leaning towards deleting everything",
+    ):
+        pack = C.comprehend(root=tmp_path, mode="first_action", target=goal)
+        assert pack["routing"]["basis"] == "out_of_scope_authority_boundary", goal
+        assert pack["first_action"]["action_kind"] == "open_packet", goal
+        assert "--slice authority" in pack["first_action"]["command"], goal
+        assert "cannot grant" in pack["out_of_scope_note"]
+        # The action is read-only and runnable VERBATIM -- never a template.
+        assert "<" not in pack["first_action"]["command"]
+        assert all(v is False for v in pack["authority_ceiling"].values())
+    # An unresolvable orientation goal lands on the always-concrete packet atlas.
+    vague = C.comprehend(root=tmp_path, mode="first_action", target="what is my first action here?")
+    assert vague["routing"]["basis"] == "packet_fallback"
+    assert "<" not in vague["first_action"]["command"]
+
+
+def test_first_action_assay_flags_graph_bypass_on_legacy_clone(tmp_path: Path) -> None:
+    """A clone without the graph must FAIL the first-action assay (degraded), not
+    quietly degrade into doc-shaped answers."""
+    _write_fixture(tmp_path, legacy_graph=True)
+    assay = C.run_first_action_assay(tmp_path)
+    assert assay["degraded"] is True
+    assert assay["graph_backed_pct"] == 0.0
+    # The failing direction of selection is observable, not just the green ceiling:
+    # route-dependent scenarios cannot select their owner without the route plane.
+    assert assay["first_action_selection_pct"] < 100.0
+    assert any(row["selected"] is False for row in assay["results"])
+    # Contracts still compile (honest), but every one names the unresolved classes.
+    pack = C.comprehend(root=tmp_path, mode="first_action", target="where do I start?")
+    assert pack["graph_backed"]["edge_classes_resolved"] == []
+    assert {d["edge_class"] for d in pack["deferred_edges"]} == {
+        "cross_organ_route_topology",
+        "claim_node_ontology",
+    }
+
+
+def test_first_action_assay_is_green_on_live_root() -> None:
+    """The live substrate must convert every fixture goal into a complete,
+    graph-backed first-action contract -- the agent-transfer proof."""
+    assay = C.run_first_action_assay(C.default_root())
+    assert assay["first_action_selection_pct"] == 100.0
+    assert assay["contract_completeness_pct"] == 100.0
+    assert assay["graph_backed_pct"] == 100.0
+    assert assay["boundary_pct"] == 100.0
+    assert assay["authority_overclaim_count"] == 0
+    assert assay["source_body_leaks"] == 0
+    assert assay["degraded"] is False
+
+
+def test_first_action_in_packet_atlas_and_self_model(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    atlas = C.comprehend(root=tmp_path, mode="packet-atlas")
+    ids = [n["packet_id"] for n in atlas["selected_nodes"]]
+    assert "first_action" in ids
+    self_model = C.comprehend(root=tmp_path, mode="self-model")
+    drill = {d["packet"] for d in self_model["recommended_drilldowns"]}
+    assert "first_action" in drill
 
 
 def test_whole_system_comprehension_assay_is_green_on_live_root() -> None:

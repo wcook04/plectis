@@ -637,13 +637,14 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm first-screen --card <project> emit the compact JSON first-screen card
   microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (cold-agent first move; pick the packet that matches your goal)
   microcosm comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
+  microcosm comprehend --first-action "<goal>" graph-backed FIRST CORRECT ACTION contract: action, owner, validator, receipts, stop condition, do-not-edit boundary
   microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   microcosm comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
   microcosm comprehend --improvements rank concrete Microcosm improvement targets with validation commands
   microcosm comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   microcosm comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
-  microcosm comprehension-assay [--hard|--packet-route|--whole-system] prove the packets answer / carry atoms / navigate / comprehend-the-whole without opening source
+  microcosm comprehension-assay [--hard|--packet-route|--whole-system|--first-action] prove the packets answer / carry atoms / navigate / comprehend-the-whole / route first actions without opening source
   microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
@@ -3800,6 +3801,12 @@ def main(argv: list[str] | None = None) -> int:
         choices=["operating_picture", "whole_substrate_map", "public_reader"],
         help="self-model profile (default operating_picture; whole_substrate_map = every organ)",
     )
+    comprehend_parser.add_argument(
+        "--first-action",
+        dest="first_action",
+        metavar="GOAL",
+        help="compile a graph-backed First Correct Action contract for a freeform goal",
+    )
     comprehend_parser.add_argument("--goal", help="freeform goal routed to a packet")
     comprehend_parser.add_argument(
         "--path",
@@ -3838,6 +3845,12 @@ def main(argv: list[str] | None = None) -> int:
         dest="whole_system",
         action="store_true",
         help="run the whole-system comprehension assay: can a cold reader comprehend ALL of it?",
+    )
+    comprehension_assay_parser.add_argument(
+        "--first-action",
+        dest="first_action",
+        action="store_true",
+        help="run the first-action assay: do freeform goals yield graph-backed first-action contracts?",
     )
     comprehension_assay_parser.add_argument(
         "--root", help="substrate root override (defaults to the package root)"
@@ -4745,6 +4758,10 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.improvements:
             pack = comprehension.comprehend(root=comprehend_root, mode="mutation_plan")
+        elif args.first_action is not None:
+            pack = comprehension.comprehend(
+                root=comprehend_root, mode="first_action", target=args.first_action
+            )
         elif args.path:
             pack = comprehension.comprehend(
                 root=comprehend_root, mode="path", path=args.path
@@ -4787,6 +4804,17 @@ def main(argv: list[str] | None = None) -> int:
                 and route["first_contact_has_scent"]
             )
             return _print_json(route, exit_code=0 if route_ok else 1)
+        if args.first_action:
+            first = comprehension.run_first_action_assay(assay_root)
+            first_ok = (
+                first["first_action_selection_pct"] >= 90.0
+                and first["contract_completeness_pct"] == 100.0
+                and first["graph_backed_pct"] == 100.0
+                and first["authority_overclaim_count"] == 0
+                and first["source_body_leaks"] == 0
+                and not first["degraded"]
+            )
+            return _print_json(first, exit_code=0 if first_ok else 1)
         if args.whole_system:
             whole = comprehension.run_whole_system_comprehension_assay(assay_root)
             whole_ok = (

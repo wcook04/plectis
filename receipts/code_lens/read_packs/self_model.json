@@ -12,7 +12,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 14605,
+    "actual_bytes": 14753,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -58,7 +58,7 @@
     },
     "synopsis_coverage": 82
   },
-  "compile_ms": 0.507,
+  "compile_ms": 0.657,
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
@@ -178,6 +178,11 @@
   ],
   "receipt_refs": [],
   "recommended_drilldowns": [
+    {
+      "command": "microcosm comprehend --first-action \"<goal>\"",
+      "packet": "first_action",
+      "question": "what is my FIRST correct action for a goal?"
+    },
     {
       "command": "microcosm comprehend --slice organs",
       "packet": "organs_index",

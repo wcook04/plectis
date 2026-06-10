@@ -49,6 +49,7 @@ PACKET_ATLAS_SCHEMA = "microcosm_comprehension_packet_atlas_v0"
 PACKET_ROUTE_ASSAY_SCHEMA = "microcosm_packet_route_assay_v0"
 SELF_MODEL_SCHEMA = "microcosm_whole_system_self_model_v0"
 WHOLE_SYSTEM_ASSAY_SCHEMA = "microcosm_whole_system_comprehension_assay_v0"
+FIRST_ACTION_ASSAY_SCHEMA = "microcosm_first_action_assay_v0"
 
 # atom_value_membrane_v0 -- the export contract every read pack declares. Only the
 # presence_only band is active in v0; the richer bands are declared but dormant so a
@@ -485,20 +486,180 @@ def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
 
 
 def _runnable_command(command: Any) -> str:
-    """Render a registry validator command in its cold-runnable form.
+    """Render a command in its cold-runnable form for a fresh source clone.
 
     - Teleology: a packet that says "run this" must hand over a command that works
-      from a fresh clone; the registry stores bare `python -m microcosm_core...`
-      identities that fail without the src layout on PYTHONPATH.
-    - Guarantee: returns the command prefixed with "PYTHONPATH=src " when it starts
-      with a bare python module invocation of microcosm_core; other commands and
-      non-strings pass through as str(command or "").
+      VERBATIM from a fresh clone; the registry stores bare `python -m ...`
+      identities and the atlas stores `microcosm ...` console-script forms that
+      only exist after pip install.
+    - Guarantee: rewrites a leading "microcosm " to
+      "PYTHONPATH=src python3 -m microcosm_core " (identical CLI per the
+      project's console-script entry), prefixes bare
+      "python/python3 -m microcosm_core" with "PYTHONPATH=src" and normalizes
+      "python " to "python3 "; other commands and non-strings pass through as
+      str(command or "").
     - Fails: never raises.
     """
     text = str(command or "")
-    if text.startswith(("python -m microcosm_core", "python3 -m microcosm_core")):
+    if text.startswith("microcosm "):
+        return "PYTHONPATH=src python3 -m microcosm_core " + text[len("microcosm "):]
+    if text.startswith("python -m microcosm_core"):
+        return "PYTHONPATH=src python3" + text[len("python"):]
+    if text.startswith("python3 -m microcosm_core"):
         return "PYTHONPATH=src " + text
     return text
+
+
+_NEGATION_MARKERS = ("ignore ", "not ", "except ", "skip ", "without ", "don't want ", "do not want ")
+
+
+def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
+    """Resolve organ mentions in a goal: normalized, negation-aware, earliest-first.
+
+    - Teleology: "is the Mission Transaction Work Spine safe to edit?" and
+      "ignore X, I want Y" must both land on the organ the agent MEANT --
+      display names count, negated mentions are excluded, and when several
+      organs are named the earliest positive mention wins (never dict order).
+    - Guarantee: returns {selected, also_named, excluded}; mentions are found by
+      matching each organ's normalized id AND display name (hyphens/underscores
+      -> spaces) inside the normalized goal; a mention whose preceding ~24 chars
+      contain a negation marker (ignore/not/except/skip/without) is excluded;
+      among positives the earliest (then longest) mention is selected and the
+      rest are recorded in also_named.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    text = re.sub(r"[-_]", " ", (goal or "").lower())
+    mentions: list[tuple[int, int, str]] = []  # (position, -length, organ_id)
+    for oid, row in inputs.get("atlas_by_organ", {}).items():
+        for phrase in {
+            re.sub(r"[-_]", " ", oid.lower()),
+            re.sub(r"[-_]", " ", str(row.get("display_name") or "").lower()),
+        }:
+            if not phrase:
+                continue
+            pos = text.find(phrase)
+            if pos >= 0:
+                mentions.append((pos, -len(phrase), oid))
+    if not mentions:
+        return {"selected": None, "also_named": [], "excluded": []}
+    mentions.sort()
+    positives: list[str] = []
+    excluded: list[str] = []
+    seen: set[str] = set()
+    for pos, _neg_len, oid in mentions:
+        if oid in seen:
+            continue
+        seen.add(oid)
+        window = text[max(0, pos - 24):pos]
+        if any(marker in window for marker in _NEGATION_MARKERS):
+            excluded.append(oid)
+        else:
+            positives.append(oid)
+    return {
+        "selected": positives[0] if positives else None,
+        "also_named": positives[1:],
+        "excluded": excluded,
+    }
+
+
+def _match_organ_tokens(goal: str, inputs: dict[str, Any]) -> str | None:
+    """Fuzzy subject-matter rung: match goal tokens against organ names.
+
+    - Teleology: "evaluate prompt injection defenses" names no route or exact
+      organ id, but the substrate HAS an owning organ -- token overlap against
+      organ_id + display_name finds it before the generic orientation fallback.
+    - Guarantee: returns the best organ_id when >= 2 distinct goal tokens match
+      its id/display tokens (score = matched count, ties by organ_id); else None.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    tokens = _goal_tokens(goal)
+    if not tokens:
+        return None
+    best: tuple[int, str] | None = None
+    for oid, row in inputs.get("atlas_by_organ", {}).items():
+        name_tokens = set(
+            _goal_tokens(oid) + _goal_tokens(str(row.get("display_name") or ""))
+        )
+        matched = {
+            g for g in tokens if any(_tokens_overlap(g, n) for n in name_tokens)
+        }
+        if len(matched) >= 2 and (best is None or (-len(matched), oid) < (-best[0], best[1])):
+            best = (len(matched), oid)
+    return best[1] if best else None
+
+
+def _receipt_evidence(
+    inputs: dict[str, Any], root: Path | None, organ_id: str
+) -> dict[str, Any]:
+    """Split an organ's receipt refs into shipped evidence vs provenance pointers.
+
+    - Teleology: a contract must never tell a cold agent to expect a receipt the
+      clone does not ship -- macrocosm adoption receipts (state/... paths) exist
+      only upstream, and listing them as expected outputs makes a correct run
+      look like a failure.
+    - Guarantee: returns {committed_receipts (exist under root, authority first),
+      provenance_receipts ([{path, exists_in_clone: False, note}]), all_refs};
+      ordering is authority receipt first then emits_receipt edge targets,
+      deduplicated.
+    - Fails: never raises; a missing root existence-checks against the default root.
+    - Reads: the in-memory inputs bundle + path existence under root.
+    """
+    base = root or default_root()
+    ordered = _organ_receipts(inputs, organ_id)
+    committed: list[str] = []
+    provenance: list[dict[str, Any]] = []
+    for ref in ordered:
+        if ref and (base / str(ref)).exists():
+            committed.append(str(ref))
+        elif ref:
+            provenance.append(
+                {
+                    "path": str(ref),
+                    "exists_in_clone": False,
+                    "note": "provenance pointer (e.g. macrocosm adoption receipt); not shipped in this clone",
+                }
+            )
+    return {
+        "committed_receipts": committed,
+        "provenance_receipts": provenance,
+        "all_refs": ordered,
+    }
+
+
+def _writes_outputs_under(command: str) -> str | None:
+    """Extract the --out directory a first command writes fresh outputs under.
+
+    - Teleology: distinguish "receipts this run will write" from committed
+      prior-run evidence, so expected outputs are never conflated with shipped
+      receipts.
+    - Guarantee: returns the token following "--out" in the command, else None.
+    - Fails: never raises.
+    """
+    parts = str(command or "").split()
+    for i, part in enumerate(parts):
+        if part == "--out" and i + 1 < len(parts):
+            return parts[i + 1]
+    return None
+
+
+def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> str:
+    """Pick the POSITIVE purpose sentence for an organ (never a ceiling restatement).
+
+    - Teleology: a first-action why must say what the action does FOR the goal;
+      scope limits and ceilings belong in the boundary fields, not here.
+    - Guarantee: returns the public synopsis, else the human gloss, else the
+      agent gloss, else the supplied fallback.
+    - Fails: never raises.
+    """
+    atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
+    return str(
+        inputs.get("synopsis_by_organ", {}).get(organ_id)
+        or atlas_row.get("human_gloss")
+        or atlas_row.get("agent_gloss")
+        or fallback
+    )
 
 
 def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
@@ -753,6 +914,25 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     if any(
         w in text
         for w in (
+            "where do i start",
+            "where should i start",
+            "what should i do first",
+            "what do i do first",
+            "what should i run",
+            "what do i run",
+            "first action",
+            "first command",
+            "first step",
+            "first correct action",
+            "get started",
+            "getting started",
+            "start here",
+        )
+    ):
+        return "first_action", goal, None
+    if any(
+        w in text
+        for w in (
             "what should i work on",
             "what should we work on",
             "where should i work",
@@ -770,10 +950,9 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         )
     ):
         return "mutation_plan", organ or path, None
-    if any(
-        w in text
-        for w in ("patch", "change", "fix", "mutate", "edit", "modify", "refactor")
-    ):
+    # Word-boundary matching: house vocabulary like "fixture", "dispatch",
+    # "exchange", and "editor" must NOT read as mutation intent.
+    if re.search(r"\b(patch|change|fix|mutate|edit|modify|refactor)\b", text):
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
@@ -1117,6 +1296,21 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "slo_ms": 300,
         "data_status": "full",
         "next_packets": ["self_model", "authority", "organ_cluster", "organs_index", "mutation_plan"],
+    },
+    {
+        "packet_id": "first_action",
+        "packet_kind": "how_to",
+        "mode": "first_action",
+        "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?",
+        "command": 'microcosm comprehend --first-action "<goal>"',
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "compact",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["organ", "claim_trace", "flow", "mutation_plan", "packet_atlas"],
     },
     {
         "packet_id": "authority",
@@ -1739,6 +1933,531 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
     pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
     pack["graph_backed"] = _graph_backed_block(inputs, ("cross_organ_route_topology",))
     pack["deferred_edges"] = _deferred_edges_for(inputs, ("cross_organ_route_topology",))
+    return pack
+
+
+def _goal_tokens(text: str) -> list[str]:
+    """Tokenize a freeform goal for route matching (lowercase, len >= 3).
+
+    - Teleology: one tokenizer shared by the route matcher so scoring is
+      deterministic and testable.
+    - Guarantee: returns lowercase alphanumeric tokens of length >= 3 in order.
+    - Fails: never raises.
+    """
+    return [t for t in re.split(r"[^a-z0-9]+", (text or "").lower()) if len(t) >= 3]
+
+
+def _tokens_overlap(a: str, b: str) -> bool:
+    """Loose token match: equality, >=4-char prefix, or >=6-char common prefix.
+
+    - Teleology: let "start" reach "started" AND "evaluate" reach "evaluation"
+      without a stemmer dependency.
+    - Guarantee: True iff tokens are equal, one is a >=4-char prefix of the other,
+      or the two share a common prefix of length >= 6 (which bridges
+      evaluate/evaluation while keeping short common words apart).
+    - Fails: never raises.
+    """
+    if a == b:
+        return True
+    if (len(a) >= 4 and b.startswith(a)) or (len(b) >= 4 and a.startswith(b)):
+        return True
+    common = 0
+    for ca, cb in zip(a, b):
+        if ca != cb:
+            break
+        common += 1
+    return common >= 6
+
+
+# Verbs that signal the goal actually asks to RUN/CHECK something -- the evidence a
+# single-token route match needs before it may fire (see _match_task_route).
+_ACTION_VERB_RE = re.compile(
+    r"\b(run|check|validate|inspect|test|replay|show|verify|exercise)\b"
+)
+
+
+def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | None:
+    """Match a freeform goal to the best task-class route node in the graph.
+
+    - Teleology: the goal->route half of the first-action compiler -- the route
+      plane already encodes 'which organ owns this kind of task', so a goal that
+      names a task class (lean, security, finance, getting started...) should land
+      on that route's first command, not on a generic orientation packet.
+    - Guarantee: returns the best-scoring route node dict, scored by token overlap
+      with task_class (weight 3), primary_display_name (2), and primary_organ_id
+      (2). EVIDENCE BAR: a route fires only when >= 2 DISTINCT goal tokens
+      matched, or when exactly one matched but it equals the full task_class name
+      (len >= 5) AND the goal carries an action verb (run/check/validate/...) --
+      so "does this work?" or "the security guard at my office building" fall to
+      the orientation fallback instead of a confident wrong fixture. Returns None
+      below the bar or when the route plane is absent; ties break by score then
+      task_class name for determinism.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    tokens = _goal_tokens(goal)
+    if not tokens:
+        return None
+    has_action_verb = bool(_ACTION_VERB_RE.search((goal or "").lower()))
+    best: tuple[int, str, dict[str, Any]] | None = None
+    for route in _graph_state(inputs)["route_nodes"]:
+        task_class = str(route.get("task_class") or "")
+        score = 0
+        matched_goal_tokens: set[str] = set()
+        for field, weight in (
+            ("task_class", 3),
+            ("primary_display_name", 2),
+            ("primary_organ_id", 2),
+        ):
+            for ftok in _goal_tokens(str(route.get(field) or "")):
+                hits = [g for g in tokens if _tokens_overlap(ftok, g)]
+                if hits:
+                    score += weight
+                    matched_goal_tokens.update(hits)
+        if not matched_goal_tokens:
+            continue
+        if len(matched_goal_tokens) < 2:
+            only = next(iter(matched_goal_tokens))
+            exact_class = only == task_class and len(only) >= 5
+            if not (exact_class and has_action_verb):
+                continue
+        if best is None or (-score, task_class) < (-best[0], best[1]):
+            best = (score, task_class, route)
+    return best[2] if best else None
+
+
+def _custody_do_not_edit(join_node: dict[str, Any]) -> dict[str, Any]:
+    """Build the do-not-edit boundary for an organ's runner custody.
+
+    - Teleology: a first-action contract must say what the agent may NOT touch
+      before it says what to run.
+    - Guarantee: returns {paths, note}; a custody-bound runner lists its
+      runner_source_ref and an exact-copy warning, an owned runner returns an
+      empty list with the validator-required note.
+    - Fails: never raises.
+    """
+    if join_node.get("runner_custody_basis") == "directory_coupling_marker":
+        paths = [p for p in [join_node.get("runner_source_ref")] if p]
+        return {
+            "paths": paths,
+            "note": (
+                "runner is an exact-copy macro body: do NOT edit it in place; "
+                "change the upstream source module via the refresh lane"
+            ),
+        }
+    return {
+        "paths": [],
+        "note": "runner is owned; edits still require the validator + refreshed receipts",
+    }
+
+
+def _organ_receipts(inputs: dict[str, Any], organ_id: str) -> list[str]:
+    """Collect an organ's receipt refs (authority receipt first, deduplicated).
+
+    - Teleology: the expected-receipts half of a first-action proof path.
+    - Guarantee: returns the authority receipt (when present) followed by the
+      organ's emits_receipt edge targets, without duplicates.
+    - Fails: never raises.
+    """
+    join_node = inputs.get("join_by_organ", {}).get(organ_id) or {}
+    receipts = [
+        e.get("to")
+        for e in _edges_touching(inputs.get("join_index"), organ_id)
+        if e.get("kind") == "emits_receipt"
+    ]
+    authority = join_node.get("authority_receipt")
+    if authority and authority not in receipts:
+        receipts.insert(0, authority)
+    return receipts
+
+
+def _first_action_owner(
+    inputs: dict[str, Any], organ_id: str, task_class: str | None
+) -> dict[str, Any]:
+    """Build the owner block for a first-action contract.
+
+    - Teleology: name WHO owns the first action -- organ, display name, family,
+      custody -- so the agent can localize before it runs anything.
+    - Guarantee: returns {organ_id, display_name, family, runner_custody_basis,
+      evidence_class, task_class}; absent fields become None.
+    - Fails: never raises.
+    """
+    atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
+    join_node = inputs.get("join_by_organ", {}).get(organ_id) or {}
+    return {
+        "organ_id": organ_id,
+        "display_name": atlas_row.get("display_name"),
+        "family": atlas_row.get("family") or join_node.get("family"),
+        "runner_custody_basis": join_node.get("runner_custody_basis"),
+        "evidence_class": join_node.get("evidence_class"),
+        "task_class": task_class,
+    }
+
+
+def compile_first_action(
+    inputs: dict[str, Any], root: Path | None, goal: str
+) -> dict[str, Any]:
+    """Compile the First Correct Action contract for a freeform cold-agent goal.
+
+    - Teleology: convert a cold agent from "what is this?" to its FIRST CORRECT
+      ACTION -- one graph-backed contract naming the action, the owner, the
+      validator/receipt proof path, the stop condition, the authority ceiling,
+      and the do-not-edit boundary -- instead of handing the agent a map pile.
+    - Guarantee: returns a how_to pack with first_action {action_kind, command
+      (cold-runnable), why, expected_receipts}, owner, proof_path, reading_boundary,
+      do_not_claim, do_not_edit, if_this_is_wrong, routing (how the goal was
+      resolved), graph_backed, and computed deferred_edges. Resolution order:
+      organ named in the goal -> organ contract; improvement/patch-shaped goal ->
+      inspect-the-ranked-target contract; task-class route match -> route-first-
+      command contract; otherwise -> the routed packet as an open_packet contract.
+      A blank goal returns a chooser (found False) listing the task classes.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only (plus filesystem existence via the
+      improvement ranker).
+    - Non-goal: never instructs an edit, never exports source bodies, never
+      grants release/correctness authority; the contract is navigation + proof
+      pointers only.
+    """
+    base = root or default_root()
+    atlas = inputs.get("atlas") or {}
+    atlas_by = inputs.get("atlas_by_organ", {})
+    state = _graph_state(inputs)
+    text = (goal or "").lower()
+
+    pack = _pack_skeleton("how_to", goal or "choose a first action")
+    pack["summary"]["what_not_to_trust"] = (
+        "This contract routes and proves; it does not authorize release, edits, "
+        "or correctness. Run the proof path before trusting the action's result."
+    )
+    pack["graph_backed"] = _graph_backed_block(
+        inputs, ("cross_organ_route_topology", "claim_node_ontology")
+    )
+    pack["deferred_edges"] = _deferred_edges_for(
+        inputs, ("cross_organ_route_topology", "claim_node_ontology")
+    )
+    pack["if_this_is_wrong"] = [
+        "microcosm comprehend --packet-atlas",
+        'microcosm comprehend --goal "<rephrase your goal>"',
+    ]
+
+    if not text.strip():
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = (
+            "Name a goal to get a first-action contract. The graph carries "
+            f"{len(state['route_nodes'])} task-class routes."
+        )
+        pack["selected_nodes"] = [
+            {
+                "kind": "task_class",
+                "task_class": r.get("task_class"),
+                "primary_organ_id": r.get("primary_organ_id"),
+                "primary_display_name": r.get("primary_display_name"),
+            }
+            for r in state["route_nodes"]
+        ]
+        pack["summary"]["what_to_inspect_next"] = [
+            'microcosm comprehend --first-action "where do I start?"'
+        ]
+        return pack
+
+    pack["found"] = True
+
+    # RUNG 1 -- destructive/publication intent routes to the AUTHORITY packet,
+    # never to a fixture or mutation command: the substrate cannot grant what the
+    # goal asks for, and the contract's first action is to read that boundary.
+    if any(
+        tok.startswith(("delet", "destroy", "wipe", "publish", "deploy", "production"))
+        for tok in _goal_tokens(text)
+    ) or any(ph in text for ph in ("force push", "force-push", "rm -rf", "make public")):
+        auth_spec = _SPEC_BY_ID["authority"]
+        cache_ref = auth_spec.get("cache_ref")
+        cache_exists = bool(cache_ref) and (base / str(cache_ref)).exists()
+        pack["routing"] = {"basis": "out_of_scope_authority_boundary"}
+        pack["out_of_scope_note"] = (
+            "Destructive or publication actions are outside this contract's "
+            "authority (authority_ceiling is all false and cannot grant them). "
+            "The action below is a read-only comprehension move only."
+        )
+        pack["summary"]["what_this_is"] = (
+            "This goal asks for an action the substrate cannot grant; the first "
+            "correct action is to read the authority boundary."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": _runnable_command(auth_spec["command"]),
+            "why": auth_spec["when_needed"],
+            "committed_receipts": [str(cache_ref)] if cache_exists else [],
+        }
+        pack["owner"] = {"scope": "whole_substrate", "packet_id": "authority"}
+        pack["proof_path"] = {
+            "validation_commands": [
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
+            ],
+            "receipt_refs": [str(cache_ref)] if cache_exists else [],
+            "note": "the authority packet IS the boundary evidence; the whole-system assay proves overclaim_count == 0",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the authority ceiling: this substrate cannot grant "
+                "destructive or publication actions."
+            ),
+            "task_classes": [],
+            "source": "comprehension-layer guidance",
+        }
+        pack["do_not_claim"] = str(atlas.get("anti_claim") or "")
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "no edit, deletion, or publication is authorized by this contract",
+        }
+        return pack
+
+    organs = _resolve_goal_organs(goal, inputs)
+    organ_target = organs["selected"]
+    mode, _rg_target, _note = route_goal(goal, inputs)
+    # Start-shaped intent maps deterministically to the getting-started route
+    # when the graph carries one; otherwise the generic matcher gets its chance.
+    route = None
+    if mode == "first_action":
+        route = next(
+            (
+                r
+                for r in state["route_nodes"]
+                if r.get("task_class") == "getting-started"
+            ),
+            None,
+        )
+    if route is None:
+        route = _match_task_route(goal, inputs)
+
+    if organ_target:
+        atlas_row = atlas_by.get(organ_target) or {}
+        join_node = inputs.get("join_by_organ", {}).get(organ_target) or {}
+        routes = _routes_serving(inputs, organ_target)
+        first_command = atlas_row.get("first_command") or (
+            routes[0].get("first_command") if routes else None
+        )
+        runnable = _runnable_command(first_command)
+        evidence = _receipt_evidence(inputs, base, organ_target)
+        pack["routing"] = {
+            "basis": "organ_named_in_goal",
+            "organ_id": organ_target,
+            "also_named": organs["also_named"],
+            "excluded_by_negation": organs["excluded"],
+        }
+        pack["summary"]["what_this_is"] = (
+            f"First-action contract for organ {organ_target}: run its first "
+            "command, prove it with the validator, stop at the route boundary."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_fixture_command",
+            "command": runnable,
+            "why": _positive_why(inputs, organ_target),
+            "committed_receipts": evidence["committed_receipts"],
+            "writes_outputs_under": _writes_outputs_under(runnable),
+        }
+        pack["owner"] = _first_action_owner(
+            inputs, organ_target, routes[0]["task_class"] if routes else None
+        )
+        pack["proof_path"] = {
+            "validator_command": join_node.get("validator_command"),
+            "runnable_validator": _runnable_command(join_node.get("validator_command")),
+            "receipt_refs": evidence["committed_receipts"],
+            "provenance_receipts": evidence["provenance_receipts"],
+            "authority_receipt": join_node.get("authority_receipt"),
+        }
+        pack["reading_boundary"] = _reading_boundary(inputs, organ_target)
+        pack["do_not_claim"] = str(
+            atlas_row.get("claim_ceiling_restated") or atlas.get("anti_claim") or ""
+        )
+        pack["do_not_edit"] = _custody_do_not_edit(join_node)
+        pack["next_packet_commands"] = [
+            f"microcosm comprehend --slice claims --organ {organ_target}",
+            f"microcosm comprehend --slice flows --organ {organ_target}",
+        ]
+        return pack
+
+    if route is not None:
+        primary = str(route.get("primary_organ_id") or "")
+        join_node = inputs.get("join_by_organ", {}).get(primary) or {}
+        runnable = _runnable_command(route.get("first_command"))
+        evidence = _receipt_evidence(inputs, base, primary)
+        pack["routing"] = {
+            "basis": "task_class_route_match",
+            "task_class": route.get("task_class"),
+        }
+        pack["summary"]["what_this_is"] = (
+            f"First-action contract via the {route.get('task_class')} route: run "
+            "the route's first command against its primary organ, then stop at "
+            "the route's stop condition."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_fixture_command",
+            "command": runnable,
+            "why": _positive_why(inputs, primary, fallback=str(route.get("allowed_scope") or "")),
+            "committed_receipts": evidence["committed_receipts"],
+            "writes_outputs_under": _writes_outputs_under(runnable),
+        }
+        pack["owner"] = _first_action_owner(inputs, primary, str(route.get("task_class")))
+        pack["proof_path"] = {
+            "validator_command": join_node.get("validator_command"),
+            "runnable_validator": _runnable_command(join_node.get("validator_command")),
+            "receipt_refs": evidence["committed_receipts"],
+            "provenance_receipts": evidence["provenance_receipts"],
+            "authority_receipt": join_node.get("authority_receipt"),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": route.get("stop_condition"),
+            "allowed_scope": route.get("allowed_scope"),
+            "task_classes": [route.get("task_class")],
+            "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        }
+        pack["do_not_claim"] = str(
+            (atlas_by.get(primary) or {}).get("claim_ceiling_restated")
+            or atlas.get("anti_claim")
+            or ""
+        )
+        pack["do_not_edit"] = _custody_do_not_edit(join_node)
+        pack["next_packet_commands"] = [
+            f"microcosm comprehend --organ {primary}",
+            f"microcosm comprehend --slice claims --organ {primary}",
+        ]
+        return pack
+
+    if mode == "mutation_plan":
+        targets = _release_improvement_targets(inputs, base)
+        rank1 = targets[0]
+        pack["routing"] = {"basis": "improvement_goal", "rank1_target": rank1["target"]}
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for an improvement goal: inspect the rank-1 "
+            "target's mutation plan BEFORE editing anything."
+        )
+        pack["first_action"] = {
+            "action_kind": "inspect_mutation_target",
+            "command": (
+                "PYTHONPATH=src python3 -m microcosm_core comprehend --mutation "
+                + str(rank1["target"])
+            ),
+            "why": rank1["why"],
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "release_improvement",
+            "target": rank1["target"],
+            "title": rank1["title"],
+        }
+        pack["proof_path"] = {
+            "validation_commands": list(rank1.get("validation_commands") or []),
+            "receipt_refs": [],
+            "note": "run every validation command after the change; assays must stay green",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop planning when the mutation plan names the owned paths, the "
+                "validator, and the receipts to refresh; any edit beyond that "
+                "point is governed by the mutation plan's custody flags, not by "
+                "this contract."
+            ),
+            "task_classes": [],
+            "source": "comprehension-layer guidance",
+        }
+        pack["do_not_claim"] = (
+            "Improvement ranking is a work plan, not release approval or a claim "
+            "that the substrate is complete."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "do not edit exact-copy macro runners; the mutation plan flags custody per file",
+        }
+        pack["next_packet_commands"] = [
+            "PYTHONPATH=src python3 -m microcosm_core comprehend --improvements"
+        ]
+        return pack
+
+    # RUNG: fuzzy subject-matter match against organ names -- "evaluate prompt
+    # injection defenses" should reach the owning organ, not be told it is
+    # orientation-shaped.
+    token_organ = _match_organ_tokens(goal, inputs)
+    if token_organ:
+        join_node = inputs.get("join_by_organ", {}).get(token_organ) or {}
+        atlas_row = atlas_by.get(token_organ) or {}
+        runnable = _runnable_command(atlas_row.get("first_command"))
+        evidence = _receipt_evidence(inputs, base, token_organ)
+        routes = _routes_serving(inputs, token_organ)
+        pack["routing"] = {"basis": "organ_token_match", "organ_id": token_organ}
+        pack["summary"]["what_this_is"] = (
+            f"First-action contract: the goal's subject matter matches organ "
+            f"{token_organ}; run its first command and stop at its boundary."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_fixture_command",
+            "command": runnable,
+            "why": _positive_why(inputs, token_organ),
+            "committed_receipts": evidence["committed_receipts"],
+            "writes_outputs_under": _writes_outputs_under(runnable),
+        }
+        pack["owner"] = _first_action_owner(
+            inputs, token_organ, routes[0]["task_class"] if routes else None
+        )
+        pack["proof_path"] = {
+            "validator_command": join_node.get("validator_command"),
+            "runnable_validator": _runnable_command(join_node.get("validator_command")),
+            "receipt_refs": evidence["committed_receipts"],
+            "provenance_receipts": evidence["provenance_receipts"],
+            "authority_receipt": join_node.get("authority_receipt"),
+        }
+        pack["reading_boundary"] = _reading_boundary(inputs, token_organ)
+        pack["do_not_claim"] = str(
+            atlas_row.get("claim_ceiling_restated") or atlas.get("anti_claim") or ""
+        )
+        pack["do_not_edit"] = _custody_do_not_edit(join_node)
+        pack["next_packet_commands"] = [
+            f"microcosm comprehend --organ {token_organ}",
+        ]
+        return pack
+
+    spec = _SPEC_BY_MODE.get(mode) or _SPEC_BY_MODE["first-contact"]
+    # A first action must be runnable VERBATIM: a routed packet whose command
+    # still carries a <placeholder> (no target resolved) falls back to the
+    # always-concrete packet atlas menu instead of handing out a template.
+    if "<" in str(spec.get("command") or ""):
+        spec = _SPEC_BY_ID["packet_atlas"]
+    cache_ref = spec.get("cache_ref")
+    cache_exists = bool(cache_ref) and (base / str(cache_ref)).exists()
+    pack["routing"] = {"basis": "packet_fallback", "packet_id": spec["packet_id"]}
+    # Honest fallback wording: no route matched -- do not assert the goal itself
+    # was orientation-shaped.
+    pack["summary"]["what_this_is"] = (
+        "No task-class route or organ matched this goal; opening the "
+        f"{spec['packet_id']} packet is the safe default first action."
+    )
+    pack["first_action"] = {
+        "action_kind": "open_packet",
+        "command": _runnable_command(spec["command"]),
+        "why": spec["when_needed"],
+        "committed_receipts": [str(cache_ref)] if cache_exists else [],
+    }
+    pack["owner"] = {"scope": "whole_substrate", "packet_id": spec["packet_id"]}
+    pack["proof_path"] = {
+        "validation_commands": [
+            "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
+        ],
+        "receipt_refs": [str(cache_ref)] if cache_exists else [],
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+    }
+    pack["reading_boundary"] = {
+        "stop_condition": (
+            "Stop when the packet answers your question and you have chosen one "
+            "next_packet; if it does not, open --packet-atlas."
+        ),
+        "task_classes": [],
+        "source": "comprehension-layer guidance",
+    }
+    pack["do_not_claim"] = str(atlas.get("anti_claim") or "")
+    pack["do_not_edit"] = {
+        "paths": [],
+        "note": "orientation goals never require edits",
+    }
+    pack["next_packet_commands"] = [s["command"] for s in PACKET_SPECS[:3]]
     return pack
 
 
@@ -2411,6 +3130,8 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["graph_backed"] = graph_backed
     # The self-model is the HUB: it routes to the specialized packets rather than duplicating them.
     pack["recommended_drilldowns"] = [
+        {"question": "what is my FIRST correct action for a goal?", "packet": "first_action",
+         "command": 'microcosm comprehend --first-action "<goal>"'},
         {"question": "what organs exist (one line each)?", "packet": "organs_index",
          "command": "microcosm comprehend --slice organs"},
         {"question": "understand a whole family?", "packet": "organ_cluster",
@@ -2500,6 +3221,8 @@ def comprehend(
         pack = compile_path_excerpts(base_root, path or target or "")
     elif mode == "mutation_plan":
         pack = compile_mutation_plan(bundle, base_root, target or path or "")
+    elif mode == "first_action":
+        pack = compile_first_action(bundle, base_root, target or goal or "")
     else:
         compiler = _MODE_COMPILERS.get(mode)
         if compiler is None:
@@ -2786,6 +3509,8 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("what is the most productive improvement?", "mutation_plan"),
     ("I want to change the import behaviour", "mutation_plan"),
     ("read the atom values in src/microcosm_core/comprehension.py", "path"),
+    ("where do I start?", "first_action"),
+    ("what is my first correct action here?", "first_action"),
 ]
 
 
@@ -2804,6 +3529,8 @@ def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
         return roster[0]["family"] if roster else None
     if mode in ("path", "mutation_plan"):
         return OWNED_EXCERPT_ROOT + "comprehension.py"
+    if mode == "first_action":
+        return "where do I start?"
     if mode in ("organ", "claim_trace", "flow"):
         return next(iter(inputs.get("join_by_organ", {})), None) or next(
             iter(inputs.get("atlas_by_organ", {})), None
@@ -3016,6 +3743,214 @@ def run_whole_system_comprehension_assay(
         "front_anchor_present": bool(pack.get("read_me_first")),
         "tail_recap_present": bool(pack.get("tail_recap")),
         "packet_bytes": len(json.dumps(pack, ensure_ascii=True)),
+        "results": results,
+        "authority_ceiling": dict(AUTHORITY_CEILING),
+    }
+
+
+# --- first-action assay: does the graph operate an agent's FIRST move? -------------
+
+# Cold-agent scenarios with the contract each must produce. expect keys:
+#   owner_organ   -- the organ the contract must localize to
+#   action_kind   -- the contract's action class
+#   command_has   -- substring the first-action command must carry
+#   routing_basis -- how the goal must have been resolved
+#   do_not_edit_nonempty -- the custody boundary must name concrete paths
+# The adversarial rows came out of a red-team review: house vocabulary
+# ("fixture", "dispatch", "exchange"), single-common-word traps ("does this
+# work?"), negation, and destructive/publication intent must all resolve to
+# SAFE contracts -- never a mutation plan or a confidently wrong fixture.
+_FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
+    ("where do I start with this clone?",
+     {"owner_organ": "cold_reader_route_map", "action_kind": "run_fixture_command"}),
+    ("run the lean proof evidence checks",
+     {"owner_organ": "proof_diagnostic_evidence_spine", "action_kind": "run_fixture_command"}),
+    ("evaluate agent benchmark gaming",
+     {"owner_organ": "agent_benchmark_integrity_anti_gaming_replay",
+      "action_kind": "run_fixture_command"}),
+    ("what should I work on for the Microcosm release?",
+     {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
+      "routing_basis": "improvement_goal"}),
+    ("understand the whole substrate at once",
+     {"action_kind": "open_packet", "command_has": "--self-model"}),
+    ("is mission_transaction_work_spine safe to edit?",
+     {"owner_organ": "mission_transaction_work_spine", "action_kind": "run_fixture_command",
+      "do_not_edit_nonempty": True}),
+    ("is the Mission Transaction Work Spine safe to edit?",
+     {"owner_organ": "mission_transaction_work_spine",
+      "routing_basis": "organ_named_in_goal", "do_not_edit_nonempty": True}),
+    ("run the fixture for finance",
+     {"owner_organ": "finance_forecast_evaluation_spine",
+      "action_kind": "run_fixture_command", "routing_basis": "task_class_route_match"}),
+    ("where is the fixture input for the audio organ?",
+     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+    ("dispatch the route bundle",
+     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+    ("how does the exchange rate organ work?",
+     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+    ("does this work?",
+     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+    ("the security guard at my office building",
+     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+    ("ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map",
+     {"owner_organ": "cold_reader_route_map", "routing_basis": "organ_named_in_goal"}),
+    ("delete the agent memory",
+     {"action_kind": "open_packet", "routing_basis": "out_of_scope_authority_boundary",
+      "command_has": "--slice authority"}),
+    ("publish the Microcosm release",
+     {"action_kind": "open_packet", "routing_basis": "out_of_scope_authority_boundary"}),
+    ("force push to origin main",
+     {"action_kind": "open_packet", "routing_basis": "out_of_scope_authority_boundary"}),
+]
+
+_FIRST_ACTION_GRAPH_CLASSES = ("cross_organ_route_topology", "claim_node_ontology")
+
+
+def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
+    """Decide whether a first-action contract carries every required surface.
+
+    - Teleology: the completeness predicate behind the first-action assay -- a
+      static doc-shaped answer without an action, proof path, or boundary must
+      not count as a contract.
+    - Guarantee: True iff the pack has a non-empty first_action command in the
+      cold-runnable source form (PYTHONPATH=src python3 -m microcosm_core ...)
+      with no <placeholder>, a proof path (validator/runnable_validator/
+      validation_commands) with shipped receipts, a fresh-output dir, or an
+      explicit note, a reading boundary (stop_condition or labelled fallback),
+      a non-empty do_not_claim, and a do_not_edit block.
+    - Fails: never raises.
+    """
+    action = contract.get("first_action") or {}
+    command = str(action.get("command") or "")
+    if not command.startswith("PYTHONPATH=src python3 -m microcosm_core"):
+        return False
+    if "<" in command:
+        return False
+    proof = contract.get("proof_path") or {}
+    has_proof = bool(
+        proof.get("validator_command")
+        or proof.get("runnable_validator")
+        or proof.get("validation_commands")
+    )
+    has_evidence = bool(
+        action.get("committed_receipts")
+        or action.get("writes_outputs_under")
+        or proof.get("receipt_refs")
+        or proof.get("note")
+    )
+    boundary = contract.get("reading_boundary") or {}
+    has_boundary = bool(
+        boundary.get("stop_condition") or boundary.get("fallback_guidance")
+    )
+    return (
+        has_proof
+        and has_evidence
+        and has_boundary
+        and bool(contract.get("do_not_claim"))
+        and isinstance(contract.get("do_not_edit"), dict)
+    )
+
+
+def run_first_action_assay(
+    root: Path | None = None, inputs: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    """Assay whether the graph converts cold-agent goals into first correct actions.
+
+    - Teleology: prove the leap from self-comprehension to AGENT TRANSFER -- a
+      freeform goal must yield one graph-backed contract (action, owner, proof,
+      stop condition, ceiling, no-edit boundary), and a clone whose join index
+      lacks the graph must FAIL this assay rather than degrade into doc answers.
+    - Guarantee: returns a FIRST_ACTION_ASSAY_SCHEMA dict with
+      first_action_selection_pct (owner/action/command expectations met),
+      contract_completeness_pct, graph_backed_pct (contracts whose resolved
+      classes cover route+claim topology -- the graph-bypass detector),
+      boundary_pct, authority_overclaim_count, source_body_leaks, degraded
+      (route/claim topology unresolved on this clone), and per-scenario rows;
+      all metrics computed, never asserted.
+    - Fails: never raises on content; ValueError only on a leaking join index.
+    - Reads: the substrate inputs once.
+    - Writes: nothing.
+    - Non-goal: does not call any LLM; "selection" is the deterministic contract
+      compiler's output measured against fixture expectations.
+    """
+    bundle = inputs if inputs is not None else load_inputs(root)
+    base = bundle.get("root") or default_root()
+    state = _graph_state(bundle)
+    degraded = not set(_FIRST_ACTION_GRAPH_CLASSES) <= state["resolved"]
+
+    results: list[dict[str, Any]] = []
+    selected = 0
+    complete = 0
+    graph_backed = 0
+    boundary_ok = 0
+    overclaim = 0
+    leaks = 0
+    for goal, expect in _FIRST_ACTION_FIXTURES:
+        contract = compile_first_action(bundle, base, goal)
+        action = contract.get("first_action") or {}
+        owner = contract.get("owner") or {}
+        ok_owner = (
+            expect.get("owner_organ") is None
+            or owner.get("organ_id") == expect["owner_organ"]
+        )
+        ok_kind = (
+            expect.get("action_kind") is None
+            or action.get("action_kind") == expect["action_kind"]
+        )
+        ok_command = (
+            expect.get("command_has") is None
+            or expect["command_has"] in str(action.get("command") or "")
+        )
+        ok_basis = (
+            expect.get("routing_basis") is None
+            or (contract.get("routing") or {}).get("basis") == expect["routing_basis"]
+        )
+        ok_edit = not expect.get("do_not_edit_nonempty") or bool(
+            (contract.get("do_not_edit") or {}).get("paths")
+        )
+        ok = (
+            bool(contract.get("found"))
+            and ok_owner
+            and ok_kind
+            and ok_command
+            and ok_basis
+            and ok_edit
+        )
+        selected += 1 if ok else 0
+        is_complete = _first_action_contract_complete(contract)
+        complete += 1 if is_complete else 0
+        resolved = set(
+            (contract.get("graph_backed") or {}).get("edge_classes_resolved") or []
+        )
+        is_graph_backed = set(_FIRST_ACTION_GRAPH_CLASSES) <= resolved
+        graph_backed += 1 if is_graph_backed else 0
+        b = contract.get("reading_boundary") or {}
+        boundary_ok += 1 if (b.get("stop_condition") or b.get("fallback_guidance")) else 0
+        ceiling = contract.get("authority_ceiling") or {}
+        overclaim += 1 if any(ceiling.get(k) for k in AUTHORITY_CEILING) else 0
+        leaks += 1 if _pack_leaks_source_body(contract) else 0
+        results.append(
+            {
+                "goal": goal,
+                "routing_basis": (contract.get("routing") or {}).get("basis"),
+                "owner": owner.get("organ_id") or owner.get("scope"),
+                "action_kind": action.get("action_kind"),
+                "selected": ok,
+                "complete": is_complete,
+                "graph_backed": is_graph_backed,
+            }
+        )
+    total = len(_FIRST_ACTION_FIXTURES) or 1
+    return {
+        "schema_version": FIRST_ACTION_ASSAY_SCHEMA,
+        "scenarios": total,
+        "first_action_selection_pct": round(100.0 * selected / total, 1),
+        "contract_completeness_pct": round(100.0 * complete / total, 1),
+        "graph_backed_pct": round(100.0 * graph_backed / total, 1),
+        "boundary_pct": round(100.0 * boundary_ok / total, 1),
+        "authority_overclaim_count": overclaim,
+        "source_body_leaks": leaks,
+        "degraded": degraded,
         "results": results,
         "authority_ceiling": dict(AUTHORITY_CEILING),
     }

@@ -610,6 +610,78 @@ def test_cli_comprehension_assay_whole_system_is_green() -> None:
     assert payload["route_topology_present"] is True
 
 
+def test_cli_comprehend_first_action_returns_contract() -> None:
+    result = _run_microcosm_cli(
+        "comprehend", "--first-action", "where do I start with this clone?"
+    )
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["packet_id"] == "first_action"
+    assert payload["found"] is True
+    assert payload["first_action"]["command"].startswith(("microcosm", "PYTHONPATH=src"))
+    assert payload["owner"]["organ_id"]
+    assert payload["proof_path"]["receipt_refs"]
+    assert payload["reading_boundary"]["stop_condition"]
+    assert payload["do_not_claim"]
+    assert "paths" in payload["do_not_edit"]
+    assert all(v is False for v in payload["authority_ceiling"].values())
+
+
+def test_cli_comprehension_assay_first_action_is_green() -> None:
+    result = _run_microcosm_cli("comprehension-assay", "--first-action")
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["first_action_selection_pct"] == 100.0
+    assert payload["contract_completeness_pct"] == 100.0
+    assert payload["graph_backed_pct"] == 100.0
+    assert payload["degraded"] is False
+
+
+def test_cli_comprehension_assay_first_action_red_on_legacy_clone(tmp_path) -> None:
+    """The exit-code surface agents consume must go RED on a clone whose join
+    index predates the v2 graph -- graph bypass cannot quietly pass."""
+    (tmp_path / "core").mkdir(parents=True)
+    (tmp_path / "receipts/code_lens").mkdir(parents=True)
+    (tmp_path / "core/organ_atlas.json").write_text(
+        json.dumps(
+            {
+                "authority_boundary": "fixture",
+                "anti_claim": "navigation metadata only",
+                "organs": [
+                    {
+                        "organ_id": "alpha_validator",
+                        "display_name": "Alpha Validator",
+                        "family": "agent_reliability_and_safety",
+                        "first_command": "microcosm alpha-validator validate --input fixtures/x",
+                        "claim_ceiling_restated": "Fixture contract only.",
+                    }
+                ],
+            }
+        )
+    )
+    (tmp_path / "core/component_public_synopses.json").write_text(
+        json.dumps({"synopses": {"alpha_validator": "Checks fixture binding rows."}})
+    )
+    (tmp_path / "receipts/code_lens/code_lens_join_index_v0.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "microcosm_code_lens_join_index_v0",
+                "export_band": "presence_only",
+                "source_bodies_exported": False,
+                "nodes": {"organ": [], "source_file": []},
+                "edges": [],
+            }
+        )
+    )
+    result = _run_microcosm_cli(
+        "comprehension-assay", "--first-action", "--root", str(tmp_path)
+    )
+    assert result.returncode == 1, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["degraded"] is True
+    assert payload["graph_backed_pct"] == 0.0
+
+
 def test_cli_comprehension_assay_packet_route_is_green() -> None:
     result = _run_microcosm_cli("comprehension-assay", "--packet-route")
     assert result.returncode == 0, result.stderr

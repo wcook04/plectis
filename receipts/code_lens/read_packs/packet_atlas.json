@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 8304,
+    "actual_bytes": 8833,
     "band": "compact",
     "max_bytes": 16000,
     "target_bytes": 8000,
     "within_budget": true
   },
-  "compile_ms": 0.547,
+  "compile_ms": 1.007,
   "default_entry": "first_contact",
   "evidence_refs": [
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
@@ -69,7 +69,7 @@
       "budget_band": "compact",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/packet_atlas.json",
-      "cached_bytes": 10557,
+      "cached_bytes": 10503,
       "command": "microcosm comprehend --packet-atlas",
       "data_status": "full",
       "export_band": "presence_only",
@@ -91,7 +91,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/self_model.json",
-      "cached_bytes": 17686,
+      "cached_bytes": 17862,
       "command": "microcosm comprehend --self-model",
       "data_status": "full",
       "export_band": "presence_only",
@@ -132,6 +132,27 @@
       "slo_ms": 300,
       "target_bytes": 24000,
       "when_needed": "new clone: what is this substrate and where do I start?"
+    },
+    {
+      "budget_band": "compact",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --first-action \"<goal>\"",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 16000,
+      "next_packets": [
+        "organ",
+        "claim_trace",
+        "flow",
+        "mutation_plan",
+        "packet_atlas"
+      ],
+      "packet_id": "first_action",
+      "packet_kind": "how_to",
+      "slo_ms": 300,
+      "target_bytes": 8000,
+      "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?"
     },
     {
       "budget_band": "standard",
@@ -309,6 +330,7 @@
   "slo_ms_by_packet": {
     "authority": 300,
     "claim_trace": 300,
+    "first_action": 300,
     "first_contact": 300,
     "flow": 300,
     "math": 500,
@@ -325,13 +347,13 @@
   "sqlite_gate": "closed: JSON read-pack cache meets SLO; build SQLite/FTS5 only when freeform goal routing or atom-excerpt search misses an SLO or needs ranked full-text search",
   "summary": {
     "what_not_to_trust": "A packet is a navigation read model, never release/source-export/correctness authority; local_semantic_excerpt packets are local-only and never cached.",
-    "what_this_is": "12 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Enter through first_contact, or pick the packet that matches your goal.",
+    "what_this_is": "13 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Enter through first_contact, or pick the packet that matches your goal.",
     "what_to_inspect_next": [
       "microcosm comprehend --packet-atlas",
       "microcosm comprehend --self-model",
       "microcosm comprehend --first-contact",
-      "microcosm comprehend --slice authority",
-      "microcosm comprehend --slice organs"
+      "microcosm comprehend --first-action \"<goal>\"",
+      "microcosm comprehend --slice authority"
     ]
   }
 }
