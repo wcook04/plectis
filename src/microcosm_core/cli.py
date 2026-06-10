@@ -640,6 +640,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   microcosm comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
+  microcosm comprehend --improvements rank concrete Microcosm improvement targets with validation commands
   microcosm comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   microcosm comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
   microcosm comprehension-assay [--hard|--packet-route|--whole-system] prove the packets answer / carry atoms / navigate / comprehend-the-whole without opening source
@@ -3778,6 +3779,11 @@ def main(argv: list[str] | None = None) -> int:
         help="organ id or owned path to compile a safe-mutation plan (local band)",
     )
     comprehend_parser.add_argument(
+        "--improvements",
+        action="store_true",
+        help="rank concrete Microcosm improvement targets with validation commands",
+    )
+    comprehend_parser.add_argument(
         "--packet-atlas",
         dest="packet_atlas",
         action="store_true",
@@ -4737,6 +4743,8 @@ def main(argv: list[str] | None = None) -> int:
             pack = comprehension.comprehend(
                 root=comprehend_root, mode="mutation_plan", target=args.mutation
             )
+        elif args.improvements:
+            pack = comprehension.comprehend(root=comprehend_root, mode="mutation_plan")
         elif args.path:
             pack = comprehension.comprehend(
                 root=comprehend_root, mode="path", path=args.path

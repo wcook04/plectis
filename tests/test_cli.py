@@ -374,6 +374,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "first-screen card"
         in output
     )
+    assert (
+        "microcosm comprehend --improvements rank concrete Microcosm improvement targets"
+        in output
+    )
     task_hint = (
         "microcosm agent-entry-composition --task "
         "{agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card"
@@ -579,6 +583,17 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_comprehend_improvements_returns_ranked_targets() -> None:
+    result = _run_microcosm_cli("comprehend", "--improvements")
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["packet_id"] == "mutation_plan"
+    assert payload["found"] is True
+    assert payload["selected_nodes"][0]["target"] == "src/microcosm_core/comprehension.py"
+    assert "validation_commands" in payload["selected_nodes"][0]
+    assert all(v is False for v in payload["authority_ceiling"].values())
 
 
 def test_cli_root_help_listed_commands_have_help_routes() -> None:
