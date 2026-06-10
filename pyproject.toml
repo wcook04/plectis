@@ -59,6 +59,7 @@ where = ["src"]
   "CONTRIBUTING.md",
   "CODEX.md",
   "CURSOR.md",
+  "FIRST_ACTION.md",
   "LICENSE",
   "MANIFEST.in",
   "Makefile",
@@ -187,6 +188,8 @@ where = ["src"]
 "share/microcosm-substrate/receipts/acceptance/first_wave" = ["receipts/acceptance/first_wave/*.json"]
 "share/microcosm-substrate/receipts/preflight" = ["receipts/preflight/*.json"]
 "share/microcosm-substrate/receipts/runtime_shell" = ["receipts/runtime_shell/*.json"]
+"share/microcosm-substrate/receipts/code_lens" = ["receipts/code_lens/*.json"]
+"share/microcosm-substrate/receipts/code_lens/read_packs" = ["receipts/code_lens/read_packs/*.json"]
 "share/microcosm-substrate/receipts/first_wave/agent_route_observability_runtime" = ["receipts/first_wave/agent_route_observability_runtime/*.json"]
 "share/microcosm-substrate/receipts/first_wave/batch4_proof_authority_runtime" = ["receipts/first_wave/batch4_proof_authority_runtime/*.json"]
 "share/microcosm-substrate/receipts/first_wave/batch6_unsurfaced_primitives_capsule" = ["receipts/first_wave/batch6_unsurfaced_primitives_capsule/*.json"]

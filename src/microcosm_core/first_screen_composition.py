@@ -59,7 +59,10 @@ STANDARD_SURFACE_ALIASES = {
     "reader_route_ids": ("reader_routes",),
     "terminal_text_projection": ("text_projection",),
 }
-TEXT_CARD_MAX_LINES = 32
+# 33 = the 32-line reader ladder plus the one goal-entry line ("Have a goal?"),
+# which must stay above the orientation ladder so the card cannot teach a
+# second first action.
+TEXT_CARD_MAX_LINES = 33
 COMPACT_JSON_CARD_MAX_CHARS = 16000
 TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS + tuple(READER_ROUTE_ALIASES)
 ORGAN_REGISTRY_REF = "core/organ_registry.json"
@@ -4586,11 +4589,11 @@ def _reader_branch_lines(
         )
     source_first_action = packet.get("source_checkout_first_action")
     source_proof = packet.get("source_checkout_proof_surface")
-    first_action_line = f"  First action: {packet['first_action']}"
+    first_action_line = f"  First step: {packet['first_action']}"
     proof_line = f"  Proof: {packet['proof_surface']}"
     if source_first_action and source_proof:
         first_action_line = (
-            f"{first_action_line} Source-only first action: {source_first_action}"
+            f"{first_action_line} Source-only first step: {source_first_action}"
         )
         proof_line = f"{proof_line} | Source-only proof: {source_proof}"
     task_selector = packet.get("task_selector_command")
@@ -4778,6 +4781,11 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     )
     lines = [
         "Microcosm first screen",
+        (
+            'Have a goal? microcosm comprehend --first-action "<your goal>" | '
+            "Source-only: PYTHONPATH=src python3 -m microcosm_core comprehend "
+            '--first-action "<your goal>" | Demonstrated in FIRST_ACTION.md'
+        ),
         (
             f"{pre_install_summary} | {source_card_prefix}"
             f"Open card: {human_first_command}"

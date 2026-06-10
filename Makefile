@@ -91,6 +91,7 @@ smoke:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card > $(SMOKE_OUT)/workingness-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend --first-action "where do I start with this clone?" > $(SMOKE_OUT)/first-action.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json
 	@$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)

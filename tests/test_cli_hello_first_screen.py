@@ -99,7 +99,7 @@ def test_cli_hello_can_focus_reader_branch(
     output = capsys.readouterr().out
 
     assert "Reader branch: Peer developer" in output
-    assert "First action: Run `microcosm tour --card .`." in output
+    assert "First step: Run `microcosm tour --card .`." in output
     assert "Proof: `microcosm observe --card .`" in output
     assert "Reader branch: GitHub visitor" not in output
     assert "Reader branch: Safety/evals" not in output
@@ -115,7 +115,7 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
 
     assert "Reader branch: GitHub visitor" in output
     assert "Command: microcosm hello --reader public_github_visitor ." in output
-    assert "First action: Run `microcosm tour --card .` after this card." in output
+    assert "First step: Run `microcosm tour --card .` after this card." in output
     assert "from the repo root" not in output
     assert "Proof: `microcosm tour --card .`" in output
     assert "release, hosting, and private-data claims this repo refuses" in output
@@ -134,11 +134,11 @@ def test_cli_hello_can_focus_skeptical_reviewer_source_only_handoff(
     assert "Reader branch: Safety/evals" in output
     assert "Command: microcosm hello --reader skeptical_reviewer ." in output
     assert (
-        "First action: Run `microcosm tour --card .` first, then "
+        "First step: Run `microcosm tour --card .` first, then "
         "`microcosm status --card .`."
     ) in output
     assert (
-        "Source-only first action: Run `PYTHONPATH=src python3 -m "
+        "Source-only first step: Run `PYTHONPATH=src python3 -m "
         "microcosm_core tour --card .` first, then "
         "`PYTHONPATH=src python3 -m microcosm_core status --card .`."
     ) in output
@@ -160,14 +160,14 @@ def test_cli_hello_can_focus_type_a_agent_branch(
     assert "Reader branch: Type A agent" in output
     assert "Command: microcosm hello --reader type_a_agent ." in output
     assert (
-        "First action: Run `microcosm first-screen --card .`. "
+        "First step: Run `microcosm first-screen --card .`. "
         "If you need `doctrine_effect_frame`, run "
         "`microcosm first-screen --full .` before reading it; then run "
         "`microcosm organ-surface-contract --card --root .`."
     ) in output
     assert "Proof: `microcosm organ-surface-contract --card --root .`" in output
     assert (
-        "Source-only first action: Run `PYTHONPATH=src python3 -m "
+        "Source-only first step: Run `PYTHONPATH=src python3 -m "
         "microcosm_core first-screen --card .`."
     ) in output
     assert (
@@ -210,7 +210,7 @@ def test_cli_hello_accepts_public_reader_aliases_without_new_routes(
     assert f"Command: microcosm hello --reader {alias} ." in output
     if canonical_reader == "public_github_visitor":
         assert (
-            "Source-only first action: Run `PYTHONPATH=src python3 -m "
+            "Source-only first step: Run `PYTHONPATH=src python3 -m "
             "microcosm_core tour --card .` after this card."
         ) in output
         assert (

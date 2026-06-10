@@ -90,6 +90,30 @@ def _write_valid_smoke_outputs(smoke_out: Path) -> None:
             "unsafe_payload_bodies_in_receipt": False,
         },
     )
+    _write_json(
+        smoke_out / "first-action.json",
+        {
+            "found": True,
+            "first_action": {
+                "command": (
+                    "PYTHONPATH=src python3 -m microcosm_core "
+                    "cold-reader-route-map run-route-map-bundle "
+                    "--input fixtures/first_wave/cold_reader_route_map/input "
+                    "--out .microcosm/first_action_runs/cold_reader_route_map"
+                ),
+            },
+            "proof_path": {
+                "runnable_validator": (
+                    "PYTHONPATH=src python3 -m microcosm_core "
+                    "cold-reader-route-map run-route-map-bundle "
+                    "--input fixtures/first_wave/cold_reader_route_map/input "
+                    "--out .microcosm/first_action_runs/cold_reader_route_map"
+                ),
+            },
+            "reading_boundary": {"stop_condition": "stop at the route boundary"},
+            "do_not_claim": "navigation metadata only",
+        },
+    )
 
 
 def test_public_repo_makefile_exposes_standard_command_surface() -> None:
@@ -153,6 +177,8 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
+        '$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core comprehend '
+        '--first-action "where do I start with this clone?"',
         "> $(SMOKE_OUT)/first-screen-card.json",
         "> $(SMOKE_OUT)/tour-card.json",
         "> $(SMOKE_OUT)/status-card.json",
@@ -199,6 +225,7 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
         "legibility-scorecard.json",
         "version.txt",
         "stripping-guard.json",
+        "first-action.json",
     ):
         assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact}") == 1
     assert text.count("--out $(SMOKE_OUT)/served-status-card.json") == 1
@@ -251,8 +278,58 @@ def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
         in result.stdout
     )
     assert "served status: pass (0 private path hits)" in result.stdout
+    assert "first action: contract pass" in result.stdout
     assert "version: microcosm 0.1.0" in result.stdout
     assert result.stderr == ""
+
+
+def test_check_smoke_outputs_fails_when_first_action_contract_is_unresolved(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    # The first-action block must be greenwash-resistant in its own right:
+    # an unresolved contract (or a deleted check) may not ride a green smoke.
+    _write_json(smoke_out / "first-action.json", {"found": False})
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "Microcosm smoke check: fail" in result.stderr
+    assert (
+        "first-action.json: contract did not resolve the smoke goal"
+        in result.stderr
+    )
+
+
+def test_check_smoke_outputs_fails_when_first_action_command_is_templated(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    payload = json.loads(
+        (smoke_out / "first-action.json").read_text(encoding="utf-8"),
+    )
+    payload["first_action"]["command"] = (
+        "PYTHONPATH=src python3 -m microcosm_core comprehend --organ <organ_id>"
+    )
+    _write_json(smoke_out / "first-action.json", payload)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "first-action.json: command carries an unresolved placeholder" in result.stderr
 
 
 def test_check_smoke_outputs_fails_when_workingness_is_not_clear(

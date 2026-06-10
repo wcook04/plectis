@@ -11,6 +11,14 @@ one-line organ ladder use
 for human specialty browsing use [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty);
 for the system shape use [ARCHITECTURE.md](ARCHITECTURE.md).
 
+Arriving with a goal instead of a reading plan? Ask for your first correct
+action (demonstrated in [FIRST_ACTION.md](FIRST_ACTION.md)) before the
+orientation path below:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
+```
+
 ## 0. Run The Bounded Cold-Clone Probe
 
 If you want one command before installing the console script, run the public
@@ -194,7 +202,9 @@ stays inside local review scope.
 ## Boundaries
 
 Microcosm is a local source-open research runtime. These commands are for local
-inspection, tests, source-linked records, and result evidence. The public copy
+inspection, tests, source-linked records, and result evidence. They do
+not authorize release, hosted publication, provider calls, source mutation,
+private-root equivalence, or proof correctness. The public copy
 supports source review and reproducible local checks; stronger distribution,
 service, domain, security, or operational claims require their own release
 receipts.

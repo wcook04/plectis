@@ -127,10 +127,29 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         ("authority", [str(microcosm), "authority", "--card"], "json"),
         ("workingness", [str(microcosm), "workingness", "--card"], "json"),
         ("legibility", [str(microcosm), "legibility-scorecard"], "json"),
+        # The goal-shaped product center: the installed console must convert a
+        # freeform goal into a first-action contract (graph substrate ships via
+        # the share/microcosm-substrate data files), and its assay must pass
+        # from the installed root, not only the dev tree.
+        (
+            "first-action",
+            [
+                str(microcosm),
+                "comprehend",
+                "--first-action",
+                "How do I evaluate the finance forecasting system?",
+            ],
+            "contract",
+        ),
+        (
+            "first-action-assay",
+            [str(microcosm), "comprehension-assay", "--first-action"],
+            "text",
+        ),
     ]
 
     for name, argv, kind in checks:
-        suffix = "json" if kind == "json" else "txt"
+        suffix = "json" if kind in ("json", "contract") else "txt"
         out_path = output_dir / f"{name}.{suffix}"
         _run(argv, env=env, stdout_path=out_path)
         _assert_no_private_markers(out_path, label=name)
@@ -152,10 +171,31 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     if workingness.get("card_status") != "clear":
         raise SystemExit("workingness card_status is not clear")
 
+    contract = _json_payload(output_dir / "first-action.json", label="first-action")
+    if contract.get("found") is not True:
+        raise SystemExit("first-action contract did not resolve the hero goal")
+    action = contract.get("first_action") or {}
+    command = str(action.get("command") or "")
+    if not command.startswith("PYTHONPATH=src python3 -m microcosm_core"):
+        raise SystemExit("first-action contract command is not cold-runnable source form")
+    if "<" in command:
+        raise SystemExit("first-action contract command carries an unresolved placeholder")
+    proof = contract.get("proof_path") or {}
+    if not (proof.get("runnable_validator") or proof.get("validation_commands")):
+        raise SystemExit("first-action contract lacks a proof path")
+    boundary = contract.get("reading_boundary") or {}
+    if not (boundary.get("stop_condition") or boundary.get("fallback_guidance")):
+        raise SystemExit("first-action contract lacks a reading boundary")
+    if not str(contract.get("do_not_claim") or "").strip():
+        raise SystemExit("first-action contract lacks a claim ceiling")
+
     print("Microcosm package smoke: pass")
     print(f"workdir: {work_dir}")
     print(f"version: {version_text}")
-    print("checks: version, hello, first-screen, tour, status, authority, workingness, legibility")
+    print(
+        "checks: version, hello, first-screen, tour, status, authority, "
+        "workingness, legibility, first-action, first-action-assay"
+    )
 
 
 def main(argv: list[str] | None = None) -> int:

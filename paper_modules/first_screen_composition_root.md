@@ -236,9 +236,13 @@ inventory:
   "Microcosm turns a folder into local routes, work, events, evidence, and
   explanations." This names the composition root without claiming release,
   hosted product status, or whole-system correctness.
-- First action:
-  `microcosm hello <project>` gives every reader the same first command before
-  audience branching.
+- Goal entry:
+  `microcosm comprehend --first-action "<your goal>"` converts an arriving
+  goal into one graph-backed first correct action (demonstrated in
+  `FIRST_ACTION.md`) before the orientation ladder begins.
+- First step:
+  `microcosm hello <project>` gives every reader the same shared entry command
+  before audience branching.
 - Shared proof:
   `microcosm tour --card <project>` shows one local behavior proof that can be
   repeated from a clone.
@@ -257,8 +261,8 @@ inventory:
   Safety/evals, hiring, and peer developer branch handles let each reader
   choose a next drilldown without changing authority.
 - Exit rule:
-  Stop when first action, shared proof, evidence legend, and one branch
-  next-step are understood. This keeps the card from expanding into the
+  Stop when the goal entry, first step, shared proof, evidence legend, and one
+  branch next-step are understood. This keeps the card from expanding into the
   long-form route map.
 
 Any first-screen renderer may change wording, but not the order of those slots.

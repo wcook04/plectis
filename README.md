@@ -59,8 +59,10 @@ Use this map before opening the longer reference body or raw receipt trees:
 | [core/](core/) / [standards/](standards/) / [paper_modules/](paper_modules/) | Public registries, standards, and bounded organ summaries. |
 | [examples/](examples/) / [fixtures/](fixtures/) / [receipts/](receipts/) | Input bundles, negative cases, and drilldown evidence. |
 
-This map is for navigation. Receipts and counts remain drilldown evidence; run
-the cards and validators before drawing broader conclusions from a link or count.
+This map is navigation only. It grants no release, hosting, provider calls, source
+mutation, private-root equivalence, or proof authority. Receipts and counts remain
+drilldown evidence; run the cards and validators before drawing broader conclusions
+from a link or count.
 
 ## Component Map
 
@@ -70,7 +72,7 @@ count, organ count, or route label as a claim:
 | Component family | Local surface | What to inspect |
 |---|---|---|
 | Runtime package | [src/microcosm_core/](src/microcosm_core/) | CLI-backed local behavior: first-screen cards, project scan, route selection, validators, server, and release export. |
-| Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, scope limit, and failure envelope. |
+| Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
 | Skeptic flight recorder | `make flight-recorder`, `make flight-recorder-verify`, [scripts/skeptic_flight_recorder.py](scripts/skeptic_flight_recorder.py) | A public-safe evaluator packet with command receipts, output digests, private-path scans, source-file change checks, scope limits, and blocked evidence preserved as evidence. |
 | Public doctrine | [core/](core/), [standards/](standards/), [paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, standards, bounded explanations, and the first-screen entry packet. |
 | Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), [receipts/](receipts/) | Public-safe input bundles, negative cases, drilldown receipts, and copied artifact bodies. |
@@ -160,13 +162,14 @@ Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external
 subprocess receipts, algorithmic projections, metadata-only rows, or explicit
 omissions. Microcosm puts that evidence legend on the first screen so strong
-claims stay narrow.
+claims stay narrow. Most projects do not publish that boundary at all, and
+the counts inside it stay inventory, not benchmark scores.
 
 Read the evidence class counters as a claim-boundary legend:
 
 | Evidence class | What the count means | What it does not mean |
 |---|---|---|
-| `verified_macro_body_import` | Non-secret macro source body copied into the public tree with a target, digest, validator, or receipt. | private-system equivalence, release posture, or source authority above the validator. |
+| `verified_macro_body_import` | Non-secret macro source body copied into the public tree with a target, digest, validator, or receipt. | Private-root equivalence, release posture, or source authority above the validator. |
 | `external_subprocess_witness` | A bounded local tool return code or subprocess receipt exists. | General proof authority or correctness outside the declared witness. |
 | `algorithmic_projection` | A deterministic computation over public/local rows produced the value. | domain-level conclusions or real-world validation. |
 | `semantic_validator` | A validator checked declared schema, policy, or routing semantics. | Runtime behavior, operational launch decision, or source-file change permission. |

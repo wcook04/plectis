@@ -124,6 +124,31 @@ def test_demo_commands_are_cold_runnable_verbatim() -> None:
         assert "<" not in command, contract["goal"]
 
 
+def test_demo_dirty_footprint_rows_carry_no_footprint_variant() -> None:
+    """Every demonstrated contract whose first command writes into committed
+    receipt paths must also demonstrate the ready-to-run clean variant, so the
+    literal first 30 seconds cannot silently dirty a cold clone."""
+    receipt = json.loads((_ROOT / demo_mod.RECEIPT_REL).read_text())
+    dirty_rows = [
+        c
+        for c in receipt["contracts"]
+        if str((c.get("first_action") or {}).get("writes_outputs_under") or "")
+        and not str(c["first_action"]["writes_outputs_under"]).startswith(
+            (".microcosm", "/tmp")
+        )
+    ]
+    assert dirty_rows, "battery must keep a committed-footprint demonstration"
+    for row in dirty_rows:
+        clean = (row["first_action"] or {}).get("clean_run") or {}
+        assert str(clean.get("writes_outputs_under") or "").startswith(
+            ".microcosm/"
+        ), row["goal"]
+        assert "--out .microcosm/" in str(clean.get("command") or ""), row["goal"]
+    text = (_ROOT / demo_mod.DOC_REL).read_text()
+    assert "- no-footprint run: `" in text
+    assert "the no-footprint variant below leaves the clone clean" in text
+
+
 def test_demo_doc_carries_marker_sections_and_no_leaks() -> None:
     text = (_ROOT / demo_mod.DOC_REL).read_text()
     assert demo_mod.GENERATED_MARKER in text

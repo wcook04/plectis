@@ -10,6 +10,7 @@ include CONSTITUTION.md
 include CONTRIBUTING.md
 include CODEX.md
 include CURSOR.md
+include FIRST_ACTION.md
 include LICENSE
 include Makefile
 include NOTICE

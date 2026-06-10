@@ -187,6 +187,7 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
         "include CONTRIBUTING.md",
         "include CODEX.md",
         "include CURSOR.md",
+        "include FIRST_ACTION.md",
         "include ARCHITECTURE.md",
         "include ORGANS.md",
         "include Makefile",
@@ -233,6 +234,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "CONTRIBUTING.md",
         "CODEX.md",
         "CURSOR.md",
+        "FIRST_ACTION.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",
@@ -280,6 +282,15 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     ]
     assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [
         "receipts/runtime_shell/*.json"
+    ]
+    # The comprehension product (join index -> first-action contracts) must ship
+    # with the package: without receipts/code_lens the installed share tree has
+    # no graph substrate and `comprehend` is dev-tree-only.
+    assert data_files["share/microcosm-substrate/receipts/code_lens"] == [
+        "receipts/code_lens/*.json"
+    ]
+    assert data_files["share/microcosm-substrate/receipts/code_lens/read_packs"] == [
+        "receipts/code_lens/read_packs/*.json"
     ]
     for receipt_dir in (
         "agent_route_observability_runtime",

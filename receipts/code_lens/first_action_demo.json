@@ -14,6 +14,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
         "committed_receipts": [
           "receipts/code_lens/read_packs/first_contact.json"
@@ -61,6 +62,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
         "committed_receipts": [
           "receipts/code_lens/read_packs/first_contact.json"
@@ -110,6 +112,11 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out .microcosm/first_action_runs/finance_forecast_evaluation_spine",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/finance_forecast_evaluation_spine"
+        },
         "command": "PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "committed_receipts": [
           "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
@@ -165,6 +172,11 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out .microcosm/first_action_runs/proof_diagnostic_evidence_spine --card",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/proof_diagnostic_evidence_spine"
+        },
         "command": "PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
         "committed_receipts": [
           "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
@@ -225,6 +237,11 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out .microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay"
+        },
         "command": "PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
         "committed_receipts": [
           "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
@@ -280,6 +297,11 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/cold_reader_route_map"
+        },
         "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "committed_receipts": [
           "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
@@ -335,6 +357,7 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
         "committed_receipts": [
           "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
@@ -390,6 +413,11 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out .microcosm/first_action_runs/mission_transaction_work_spine",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/mission_transaction_work_spine"
+        },
         "command": "PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "committed_receipts": [
           "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
@@ -452,6 +480,11 @@
       },
       "first_action": {
         "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/cold_reader_route_map"
+        },
         "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "committed_receipts": [
           "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
@@ -509,6 +542,7 @@
       },
       "first_action": {
         "action_kind": "inspect_mutation_target",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --mutation src/microcosm_core/comprehension.py",
         "committed_receipts": [],
         "committed_receipts_more": 0,
@@ -555,6 +589,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority",
         "committed_receipts": [
           "receipts/code_lens/read_packs/authority.json"
@@ -601,6 +636,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority",
         "committed_receipts": [
           "receipts/code_lens/read_packs/authority.json"
@@ -647,6 +683,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority",
         "committed_receipts": [
           "receipts/code_lens/read_packs/authority.json"
@@ -693,6 +730,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
         "committed_receipts": [
           "receipts/code_lens/read_packs/first_contact.json"
@@ -740,6 +778,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
         "committed_receipts": [
           "receipts/code_lens/read_packs/first_contact.json"
@@ -787,6 +826,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --packet-atlas",
         "committed_receipts": [
           "receipts/code_lens/read_packs/packet_atlas.json"
@@ -834,6 +874,7 @@
       },
       "first_action": {
         "action_kind": "open_packet",
+        "clean_run": null,
         "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
         "committed_receipts": [
           "receipts/code_lens/read_packs/first_contact.json"

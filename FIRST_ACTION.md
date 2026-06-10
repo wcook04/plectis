@@ -27,6 +27,11 @@ Goal: “How do I evaluate the finance forecasting system?”
   },
   "first_action": {
     "action_kind": "run_fixture_command",
+    "clean_run": {
+      "command": "PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out .microcosm/first_action_runs/finance_forecast_evaluation_spine",
+      "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+      "writes_outputs_under": ".microcosm/first_action_runs/finance_forecast_evaluation_spine"
+    },
     "command": "PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
     "committed_receipts": [
       "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
@@ -138,7 +143,8 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json`
 - committed evidence (prior runs): `receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json`, `receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json`, `receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json` (+1 more)
 - fresh outputs land under: `receipts/first_wave/finance_forecast_evaluation_spine`
-- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; for a no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`.
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out .microcosm/first_action_runs/finance_forecast_evaluation_spine` (outputs under `.microcosm/first_action_runs/finance_forecast_evaluation_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim
 - do not edit: `src/microcosm_core/organs/finance_forecast_evaluation_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
@@ -151,7 +157,8 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine`
 - committed evidence (prior runs): `receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json`, `receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json`, `receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json` (+2 more)
 - fresh outputs land under: `receipts/first_wave/proof_diagnostic_evidence_spine`
-- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; for a no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`.
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out .microcosm/first_action_runs/proof_diagnostic_evidence_spine --card` (outputs under `.microcosm/first_action_runs/proof_diagnostic_evidence_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or who...
 - do not edit: `src/microcosm_core/organs/proof_diagnostic_evidence_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
@@ -164,7 +171,8 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json`
 - committed evidence (prior runs): `receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json`, `receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json`, `receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json` (+1 more)
 - fresh outputs land under: `receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay`
-- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; for a no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`.
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out .microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay` (outputs under `.microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live acc...
 - do not edit: `src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
@@ -177,7 +185,8 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map`
 - committed evidence (prior runs): `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json`, `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json`, `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json` (+1 more)
 - fresh outputs land under: `receipts/runtime_shell/demo_project/organs/cold_reader_route_map`
-- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; for a no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`.
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
 - do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
@@ -202,7 +211,8 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine`
 - committed evidence (prior runs): `receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json`, `receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json`, `receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json` (+5 more)
 - fresh outputs land under: `receipts/first_wave/mission_transaction_work_spine`
-- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; for a no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`.
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out .microcosm/first_action_runs/mission_transaction_work_spine` (outputs under `.microcosm/first_action_runs/mission_transaction_work_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator...
 - do not edit: `src/microcosm_core/organs/mission_transaction_work_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
@@ -215,7 +225,8 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map`
 - committed evidence (prior runs): `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json`, `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json`, `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json` (+1 more)
 - fresh outputs land under: `receipts/runtime_shell/demo_project/organs/cold_reader_route_map`
-- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; for a no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`.
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
 - do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane

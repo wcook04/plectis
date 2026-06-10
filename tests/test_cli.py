@@ -1310,7 +1310,7 @@ def test_cli_first_screen_text_projection_is_package_backed(
     )
     assert "A local evidence router; doctrine names boundaries" in text
     assert "Reader branch: Peer developer" in text
-    assert "  First action: Run `microcosm tour --card .`." in text
+    assert "  First step: Run `microcosm tour --card .`." in text
     assert "  Proof: `microcosm observe --card .`" in text
     assert "Authority ceiling:" in text
     assert "reader_routes" not in text

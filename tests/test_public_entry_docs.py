@@ -1763,3 +1763,68 @@ def test_public_bridge_continuity_copy_uses_synthetic_transport_language() -> No
         assert "synthetic transport" in text or "synthetic-transport" in text, label
         assert "fake-transport" not in text, label
         assert "fake transport" not in text, label
+
+
+def test_entry_surfaces_converge_on_first_action_product() -> None:
+    """Every cold-entry route must teach the same goal-shaped product, and no
+    surface may label a different command as the "First action".
+
+    The product center is `comprehend --first-action`: README, QUICKSTART,
+    AGENTS, the three provider adapters, the CLI first screen, and the rendered
+    hello card must all carry it; the reader-route ladder uses the
+    "First step:" label so the encounter never teaches two first actions.
+    """
+    product_command = "comprehend --first-action"
+
+    for label, rel in (
+        ("README", "README.md"),
+        ("QUICKSTART", "QUICKSTART.md"),
+        ("AGENTS", "AGENTS.md"),
+        ("CLAUDE adapter", "CLAUDE.md"),
+        ("CODEX adapter", "CODEX.md"),
+        ("CURSOR adapter", "CURSOR.md"),
+        ("first-action demonstration", "FIRST_ACTION.md"),
+    ):
+        text = (MICROCOSM_ROOT / rel).read_text(encoding="utf-8")
+        assert product_command in text, label
+
+    # Lead position, not just presence: QUICKSTART teaches the goal-shaped
+    # move before its first numbered orientation step, and each provider
+    # adapter carries it on the first screenful.
+    quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
+    assert quickstart.index(product_command) < quickstart.index("## 0.")
+    for rel in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
+        adapter_head = "\n".join(
+            (MICROCOSM_ROOT / rel).read_text(encoding="utf-8").splitlines()[:12]
+        )
+        assert product_command in adapter_head, rel
+
+    # The hello card's omission receipt routes readers to the composition
+    # paper module; that module must not teach a second "First action" either.
+    composition_module = (
+        MICROCOSM_ROOT / "paper_modules/first_screen_composition_root.md"
+    ).read_text(encoding="utf-8")
+    assert "First action:" not in composition_module
+    assert product_command in composition_module
+
+    import importlib
+
+    cli = importlib.import_module("microcosm_core.cli")
+    help_text = str(cli.FIRST_SCREEN_HELP)
+    assert product_command in help_text
+    # The goal-shaped move leads the command help: nothing is taught before it.
+    assert help_text.index(product_command) < help_text.index("hello")
+
+    composition = importlib.import_module("microcosm_core.first_screen_composition")
+    card = composition.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
+    hello_text = composition.first_screen_text_card(card)
+    assert 'Have a goal? microcosm comprehend --first-action "<your goal>"' in hello_text
+    # The goal line must LEAD the card (line 2, directly under the title), not
+    # trail it: position is the product here, presence alone can be demoted.
+    assert hello_text.splitlines()[1].startswith("Have a goal? ")
+    # The retired label must not reappear on the reader ladder: the route
+    # ladder teaches steps, the product owns "first action".
+    assert "First action:" not in hello_text
+    agent_text = composition.first_screen_text_card(card, reader_id="type_a_agent")
+    assert "First action:" not in agent_text
+    assert "First step:" in agent_text

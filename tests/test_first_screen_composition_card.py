@@ -2009,11 +2009,11 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
             f"--reader {reader_id} ."
         ) in text
         assert "  Question: " in text
-        assert f"  First action: {assertions['first_action']}" in text
+        assert f"  First step: {assertions['first_action']}" in text
         assert f"  Proof: {assertions['proof']}" in text
         if "source_proof" in assertions:
             assert (
-                f"Source-only first action: {assertions['source_first_action']}"
+                f"Source-only first step: {assertions['source_first_action']}"
                 in text
             )
             assert f"Source-only proof: {assertions['source_proof']}" in text
@@ -2119,7 +2119,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
         in result.stdout
     )
     assert (
-        "  First action: Run `microcosm tour --card .` first, then "
+        "  First step: Run `microcosm tour --card .` first, then "
         "`microcosm status --card .`."
     ) in result.stdout
     assert (

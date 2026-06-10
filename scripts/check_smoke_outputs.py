@@ -148,6 +148,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     workingness = _read_json(smoke_out / "workingness-card.json")
     legibility = _read_json(smoke_out / "legibility-scorecard.json")
     stripping_guard = _read_json(smoke_out / "stripping-guard.json")
+    first_action = _read_json(smoke_out / "first-action.json")
 
     for name, payload in (
         ("first-screen-card.json", first_screen),
@@ -252,6 +253,39 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         key="unsafe_payload_bodies_in_receipt",
     )
 
+    # The goal-shaped product: the smoke goal must come back as a complete
+    # first-action contract, not a doc-shaped answer.
+    if first_action.get("found") is not True:
+        raise SmokeCheckError(
+            "first-action.json: contract did not resolve the smoke goal",
+        )
+    fa_action = first_action.get("first_action")
+    fa_command = (
+        str(fa_action.get("command") or "") if isinstance(fa_action, dict) else ""
+    )
+    if not fa_command.startswith("PYTHONPATH=src python3 -m microcosm_core"):
+        raise SmokeCheckError(
+            "first-action.json: command is not the cold-runnable source form",
+        )
+    if "<" in fa_command:
+        raise SmokeCheckError(
+            "first-action.json: command carries an unresolved placeholder",
+        )
+    fa_proof = first_action.get("proof_path")
+    if not isinstance(fa_proof, dict) or not (
+        fa_proof.get("runnable_validator")
+        or fa_proof.get("validator_command")
+        or fa_proof.get("validation_commands")
+    ):
+        raise SmokeCheckError("first-action.json: missing proof path")
+    fa_boundary = first_action.get("reading_boundary")
+    if not isinstance(fa_boundary, dict) or not (
+        fa_boundary.get("stop_condition") or fa_boundary.get("fallback_guidance")
+    ):
+        raise SmokeCheckError("first-action.json: missing reading boundary")
+    if not str(first_action.get("do_not_claim") or "").strip():
+        raise SmokeCheckError("first-action.json: missing claim ceiling")
+
     return {
         "status": "pass",
         "smoke_out": str(smoke_out),
@@ -283,6 +317,7 @@ def print_summary(summary: dict[str, Any]) -> None:
         "served status: pass "
         f"({summary['private_path_hit_count']} private path hits)",
     )
+    print("first action: contract pass")
     print(f"version: {summary['version']}")
 
 

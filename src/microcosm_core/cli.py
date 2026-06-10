@@ -629,13 +629,17 @@ PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
     "proof_bodies_or_provider_payloads_exported": False,
 }
 
-FIRST_SCREEN_HELP = """First-screen route:
+FIRST_SCREEN_HELP = """Goal route (start here when you arrive with a goal):
+  microcosm comprehend --first-action "<your goal>"
+      your goal -> one graph-backed first correct action: owner, runnable
+      command, validator, receipts, stop condition, do-not-edit boundary
+      (FIRST_ACTION.md demonstrates it across a goal battery)
+First-screen route:
   microcosm hello <project>      print the cold-entry one-screen card (--card accepted)
   microcosm hello --reader {cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} <project> branch by reader
   reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
-  microcosm comprehend --first-action "<goal>" YOUR GOAL -> one graph-backed FIRST CORRECT ACTION: owner, runnable command, validator, receipts, stop condition, do-not-edit boundary (start here when you have a goal; FIRST_ACTION.md shows it across a goal battery)
   microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (pick a different lens when first-action is not the question)
   microcosm comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
   microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
@@ -2566,7 +2570,8 @@ def main(argv: list[str] | None = None) -> int:
         prog="microcosm",
         description=(
             "Local-first project substrate: repo -> .microcosm without provider "
-            "calls or source mutation."
+            "calls or source mutation. Have a goal? "
+            'microcosm comprehend --first-action "<your goal>".'
         ),
         epilog=FIRST_SCREEN_HELP,
         formatter_class=argparse.RawDescriptionHelpFormatter,

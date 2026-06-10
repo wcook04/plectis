@@ -178,6 +178,7 @@ def _contract_surface(contract: dict) -> dict:
         # not only asserted in section prose: carry the compiler's own
         # no-route-matched sentence.
         routing_note = (contract.get("summary") or {}).get("what_this_is")
+    clean_run = action.get("clean_run") or {}
     return {
         "goal": contract.get("goal"),
         "found": contract.get("found"),
@@ -191,6 +192,18 @@ def _contract_surface(contract: dict) -> dict:
             "committed_receipts": receipts[:_RECEIPT_REF_CAP],
             "committed_receipts_more": max(0, len(receipts) - _RECEIPT_REF_CAP),
             "writes_outputs_under": action.get("writes_outputs_under"),
+            "clean_run": (
+                {
+                    "command": clean_run.get("command"),
+                    "writes_outputs_under": clean_run.get("writes_outputs_under"),
+                    # The note is fixed compiler text, not a volatile field; it
+                    # is exactly what disambiguates the two near-identical
+                    # commands for a cold reader of the hero JSON.
+                    "note": clean_run.get("note"),
+                }
+                if clean_run.get("command")
+                else None
+            ),
         },
         "owner": contract.get("owner"),
         "proof_path": {
@@ -290,16 +303,30 @@ def _goal_block(surface: dict) -> list[str]:
             + suffix
         )
     out_dir = str(action.get("writes_outputs_under") or "")
+    clean_run = action.get("clean_run") or {}
     if out_dir:
         lines.append(f"- fresh outputs land under: `{out_dir}`")
         if not out_dir.startswith((".microcosm", "/tmp")):
             # A first action must not silently dirty a cold clone: rerunning
             # into a committed receipt directory overwrites tracked evidence.
-            lines.append(
-                "- footprint: rerunning writes into committed receipt paths -- "
-                "expect git drift against the prior-run evidence; for a "
-                "no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`."
-            )
+            # Only promise the variant when the contract actually carries it.
+            if clean_run.get("command"):
+                lines.append(
+                    "- footprint: rerunning writes into committed receipt paths -- "
+                    "expect git drift against the prior-run evidence; the "
+                    "no-footprint variant below leaves the clone clean."
+                )
+            else:
+                lines.append(
+                    "- footprint: rerunning writes into committed receipt paths -- "
+                    "expect git drift against the prior-run evidence; for a "
+                    "no-footprint probe, redirect `--out` to `.microcosm/` or `/tmp`."
+                )
+    if clean_run.get("command"):
+        lines.append(
+            f"- no-footprint run: `{clean_run['command']}` "
+            f"(outputs under `{clean_run.get('writes_outputs_under')}`)"
+        )
     stop = boundary.get("stop_condition") or boundary.get("fallback_guidance")
     if stop:
         lines.append(f"- stop: {stop}")

@@ -22874,7 +22874,7 @@ class RuntimeShell:
                     f"<h3>{html.escape(label)}</h3>"
                     f"<p class=\"reader-question\">{html.escape(_safe_text(route.get('first_question')))}</p>"
                     "<dl>"
-                    f"<dt>First action</dt><dd>{html.escape(_safe_text(packet.get('first_action')))}</dd>"
+                    f"<dt>First step</dt><dd>{html.escape(_safe_text(packet.get('first_action')))}</dd>"
                     f"<dt>Proof surface</dt><dd>{html.escape(_safe_text(packet.get('proof_surface')))}</dd>"
                     f"<dt>Success criterion</dt><dd>{html.escape(_safe_text(packet.get('success_criterion')))}</dd>"
                     f"<dt>Exit when</dt><dd>{html.escape(_safe_text(exit_row.get('exit_when')))}</dd>"

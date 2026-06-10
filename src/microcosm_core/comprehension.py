@@ -38,10 +38,13 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import posixpath
 import re
 import time
 from pathlib import Path
 from typing import Any
+
+from microcosm_core import resource_root
 
 READ_PACK_SCHEMA = "microcosm_comprehension_read_pack_v0"
 ASSAY_SCHEMA = "microcosm_cold_agent_comprehension_assay_v0"
@@ -131,12 +134,15 @@ _PRIVATE_PATH_RE = re.compile(r"/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+")
 def default_root() -> Path:
     """Resolve the substrate root that holds core/ and receipts/.
 
-    - Teleology: let comprehend find its public inputs regardless of the caller's cwd.
-    - Guarantee: returns the microcosm-substrate directory (this file's parents[2]).
-    - Fails: never raises; pure path arithmetic.
-    - Reads: only __file__.
+    - Teleology: let comprehend find its public inputs regardless of the caller's
+      cwd, including from an installed package where the public data lives under
+      share/microcosm-substrate rather than a source checkout.
+    - Guarantee: returns resource_root.microcosm_root() -- the source checkout
+      when it carries the public manifest triple, else the installed share root.
+    - Fails: never raises; pure path resolution.
+    - Reads: the public manifest probe files via resource_root.
     """
-    return Path(__file__).resolve().parents[2]
+    return resource_root.microcosm_root()
 
 
 def _load_json(path: Path) -> Any:
@@ -631,20 +637,122 @@ def _receipt_evidence(
     }
 
 
+_WRITE_FLAG_RE = re.compile(r"^--(?:[a-z0-9][a-z0-9-]*-)?out(?:=(?P<inline>.+))?$")
+
+
+def _write_targets(command: str) -> list[tuple[str, str]]:
+    """List every (flag, target) write destination a command names.
+
+    - Teleology: footprint honesty must see EVERY write flag (--out,
+      --acceptance-out, --out=DIR), not only the first --out, or a clean_run
+      could claim a clean clone while a second flag still writes into
+      committed paths.
+    - Guarantee: returns (flag, target) pairs in argv order for every token
+      matching --out / --<word>-out, accepting both the space and = forms;
+      duplicate flags are all kept (argparse last-wins is the caller's
+      concern).
+    - Fails: never raises.
+    """
+    parts = str(command or "").split()
+    targets: list[tuple[str, str]] = []
+    for i, part in enumerate(parts):
+        match = _WRITE_FLAG_RE.match(part)
+        if not match:
+            continue
+        inline = match.group("inline")
+        if inline is not None:
+            targets.append((part.split("=", 1)[0], inline))
+        elif i + 1 < len(parts):
+            targets.append((part, parts[i + 1]))
+    return targets
+
+
+def _is_ignored_out_dir(path: str) -> bool:
+    """Decide whether a write target stays outside the committed tree.
+
+    - Teleology: the clean/dirty classification behind footprint honesty must
+      be separator-aware and normalized, so `.microcosm/../receipts/x` or a
+      hypothetical `.microcosm_extra/` cannot pass as clean.
+    - Guarantee: True only for `<placeholder>` targets and normalized paths
+      that are exactly .microcosm//tmp or sit under them.
+    - Fails: never raises.
+    """
+    raw = str(path or "")
+    if raw.startswith("<"):
+        return True
+    norm = posixpath.normpath(raw)
+    return (
+        norm == ".microcosm"
+        or norm.startswith(".microcosm/")
+        or norm == "/tmp"
+        or norm.startswith("/tmp/")
+    )
+
+
 def _writes_outputs_under(command: str) -> str | None:
     """Extract the --out directory a first command writes fresh outputs under.
 
     - Teleology: distinguish "receipts this run will write" from committed
       prior-run evidence, so expected outputs are never conflated with shipped
       receipts.
-    - Guarantee: returns the token following "--out" in the command, else None.
+    - Guarantee: returns the LAST --out target in the command (argparse
+      last-wins), accepting both `--out DIR` and `--out=DIR`; None when the
+      command names no --out flag.
     - Fails: never raises.
     """
-    parts = str(command or "").split()
+    out_dir: str | None = None
+    for flag, target in _write_targets(command):
+        if flag == "--out":
+            out_dir = target
+    return out_dir
+
+
+_CLEAN_RUN_OUT_ROOT = ".microcosm/first_action_runs"
+
+
+def _clean_run_variant(command: str) -> dict[str, Any] | None:
+    """Build the no-footprint variant of a first command that writes into the tree.
+
+    - Teleology: the literal first action must not silently dirty a cold clone;
+      when a first command's write flags land in committed receipt paths, the
+      contract must carry a ready-to-run variant whose outputs land under the
+      ignored .microcosm/ scratch tree instead.
+    - Guarantee: returns {command, writes_outputs_under, note} with EVERY
+      non-ignored write-flag target (--out / --<word>-out, space or = form)
+      redirected to .microcosm/first_action_runs/<leaf>; returns None when the
+      command names no write flag or every target is already ignored.
+    - Fails: never raises.
+    """
+    targets = _write_targets(command)
+    if not targets or all(_is_ignored_out_dir(t) for _f, t in targets):
+        return None
+    parts = str(command).split()
     for i, part in enumerate(parts):
-        if part == "--out" and i + 1 < len(parts):
-            return parts[i + 1]
-    return None
+        match = _WRITE_FLAG_RE.match(part)
+        if not match:
+            continue
+        inline = match.group("inline")
+        if inline is not None:
+            if _is_ignored_out_dir(inline):
+                continue
+            leaf = inline.rstrip("/").rsplit("/", 1)[-1] or "run"
+            parts[i] = f"{part.split('=', 1)[0]}={_CLEAN_RUN_OUT_ROOT}/{leaf}"
+        elif i + 1 < len(parts):
+            if _is_ignored_out_dir(parts[i + 1]):
+                continue
+            leaf = parts[i + 1].rstrip("/").rsplit("/", 1)[-1] or "run"
+            parts[i + 1] = f"{_CLEAN_RUN_OUT_ROOT}/{leaf}"
+    clean_command = " ".join(parts)
+    return {
+        "command": clean_command,
+        "writes_outputs_under": _writes_outputs_under(clean_command)
+        or _CLEAN_RUN_OUT_ROOT,
+        "note": (
+            "same run with outputs redirected to the ignored .microcosm/ tree; "
+            "the committed receipts stay the comparison baseline and the clone "
+            "stays clean"
+        ),
+    }
 
 
 def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> str:
@@ -2265,6 +2373,9 @@ def compile_first_action(
             "committed_receipts": evidence["committed_receipts"],
             "writes_outputs_under": _writes_outputs_under(runnable),
         }
+        clean_run = _clean_run_variant(runnable)
+        if clean_run:
+            pack["first_action"]["clean_run"] = clean_run
         pack["owner"] = _first_action_owner(
             inputs, organ_target, routes[0]["task_class"] if routes else None
         )
@@ -2307,6 +2418,9 @@ def compile_first_action(
             "committed_receipts": evidence["committed_receipts"],
             "writes_outputs_under": _writes_outputs_under(runnable),
         }
+        clean_run = _clean_run_variant(runnable)
+        if clean_run:
+            pack["first_action"]["clean_run"] = clean_run
         pack["owner"] = _first_action_owner(inputs, primary, str(route.get("task_class")))
         pack["proof_path"] = {
             "validator_command": join_node.get("validator_command"),
@@ -2405,6 +2519,9 @@ def compile_first_action(
             "committed_receipts": evidence["committed_receipts"],
             "writes_outputs_under": _writes_outputs_under(runnable),
         }
+        clean_run = _clean_run_variant(runnable)
+        if clean_run:
+            pack["first_action"]["clean_run"] = clean_run
         pack["owner"] = _first_action_owner(
             inputs, token_organ, routes[0]["task_class"] if routes else None
         )
@@ -3800,6 +3917,11 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("run the fixture for finance",
      {"owner_organ": "finance_forecast_evaluation_spine",
       "action_kind": "run_fixture_command", "routing_basis": "task_class_route_match"}),
+    # The package-install smoke's hero goal, verbatim: the installed-console
+    # proof and the strict assay must guard the SAME phrasing.
+    ("How do I evaluate the finance forecasting system?",
+     {"owner_organ": "finance_forecast_evaluation_spine",
+      "action_kind": "run_fixture_command"}),
     ("where is the fixture input for the audio organ?",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("dispatch the route bundle",
@@ -3837,7 +3959,10 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
       with no <placeholder>, a proof path (validator/runnable_validator/
       validation_commands) with shipped receipts, a fresh-output dir, or an
       explicit note, a reading boundary (stop_condition or labelled fallback),
-      a non-empty do_not_claim, and a do_not_edit block.
+      a non-empty do_not_claim, and a do_not_edit block; when the action's
+      fresh outputs land outside .microcosm//tmp, a clean_run variant whose
+      --out really redirects under .microcosm/ is also required (footprint
+      honesty).
     - Fails: never raises.
     """
     action = contract.get("first_action") or {}
@@ -3862,6 +3987,26 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
     has_boundary = bool(
         boundary.get("stop_condition") or boundary.get("fallback_guidance")
     )
+    # Footprint honesty, recomputed from the COMMAND (fail closed): the
+    # declared out-dir must match what the command actually writes, and any
+    # non-ignored write-flag target obliges a clean_run variant whose own
+    # command writes only under the ignored scratch tree.
+    declared_out = str(action.get("writes_outputs_under") or "")
+    if declared_out != str(_writes_outputs_under(command) or ""):
+        return False
+    if any(not _is_ignored_out_dir(t) for _f, t in _write_targets(command)):
+        clean_run = action.get("clean_run") or {}
+        clean_command = str(clean_run.get("command") or "")
+        clean_out = str(clean_run.get("writes_outputs_under") or "")
+        clean_targets = _write_targets(clean_command)
+        if not clean_out.startswith(".microcosm"):
+            return False
+        if not clean_targets:
+            return False
+        if any(not _is_ignored_out_dir(t) for _f, t in clean_targets):
+            return False
+        if str(_writes_outputs_under(clean_command) or _CLEAN_RUN_OUT_ROOT) != clean_out:
+            return False
     return (
         has_proof
         and has_evidence

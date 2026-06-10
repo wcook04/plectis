@@ -580,7 +580,7 @@ def validate_legibility(
         and "Hiring:" in html
         and "Peer developer:" in html,
         "first_screen_reader_route_cards_visible": "Reader Route Choices" in html
-        and "First action" in html
+        and "First step" in html
         and "Proof surface" in html
         and "Success criterion" in html,
         "first_screen_reader_route_questions_visible": (

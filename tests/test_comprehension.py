@@ -1211,6 +1211,127 @@ def test_first_action_contract_complete_refusal_arms(tmp_path: Path) -> None:
     assert C._first_action_contract_complete(broken) is False
 
 
+def test_first_action_clean_run_variant_footprint_honesty(tmp_path: Path) -> None:
+    """A first command writing into committed receipt paths must carry a
+    ready-to-run no-footprint variant; already-clean commands must not; the
+    completeness predicate refuses dirty-footprint contracts without (or with
+    a lying) variant."""
+    dirty = (
+        "PYTHONPATH=src python3 -m microcosm_core alpha-validator run "
+        "--input fixtures/x/input --out receipts/first_wave/alpha_validator"
+    )
+    variant = C._clean_run_variant(dirty)
+    assert variant is not None
+    assert (
+        variant["writes_outputs_under"]
+        == ".microcosm/first_action_runs/alpha_validator"
+    )
+    assert "--out .microcosm/first_action_runs/alpha_validator" in variant["command"]
+    assert (
+        C._clean_run_variant(
+            dirty.replace("receipts/first_wave/alpha_validator", "/tmp/scratch")
+        )
+        is None
+    )
+    assert (
+        C._clean_run_variant(
+            dirty.replace("receipts/first_wave/alpha_validator", ".microcosm/x")
+        )
+        is None
+    )
+    assert (
+        C._clean_run_variant(
+            "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact"
+        )
+        is None
+    )
+
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    good = C.compile_first_action(bundle, tmp_path, "run alpha_validator now")
+    import copy
+
+    dirty_contract = copy.deepcopy(good)
+    dirty_contract["first_action"]["command"] = dirty
+    dirty_contract["first_action"]["writes_outputs_under"] = (
+        "receipts/first_wave/alpha_validator"
+    )
+    dirty_contract["first_action"].pop("clean_run", None)
+    assert C._first_action_contract_complete(dirty_contract) is False
+    dirty_contract["first_action"]["clean_run"] = C._clean_run_variant(dirty)
+    assert C._first_action_contract_complete(dirty_contract) is True
+    # A lying variant -- declares .microcosm/ but its command still writes to
+    # the committed path -- must also be refused.
+    lying = copy.deepcopy(dirty_contract)
+    lying["first_action"]["clean_run"] = {
+        "command": dirty,
+        "writes_outputs_under": ".microcosm/first_action_runs/alpha_validator",
+    }
+    assert C._first_action_contract_complete(lying) is False
+
+
+def test_first_action_footprint_machinery_fails_closed_on_parser_edges(
+    tmp_path: Path,
+) -> None:
+    """The footprint gate must see --out=DIR, secondary --*-out flags,
+    last-wins duplicate --out, and normalized escapes -- and the predicate
+    must refuse contracts whose declared footprint contradicts the command."""
+    base = "PYTHONPATH=src python3 -m microcosm_core alpha-validator run --input fixtures/x"
+    # --out=DIR (argparse-accepted) is seen, not skipped.
+    eq_form = base + " --out=receipts/first_wave/alpha_validator"
+    assert C._writes_outputs_under(eq_form) == "receipts/first_wave/alpha_validator"
+    variant = C._clean_run_variant(eq_form)
+    assert variant is not None
+    assert "--out=.microcosm/first_action_runs/alpha_validator" in variant["command"]
+    # A secondary write flag (--acceptance-out) obliges and gets redirected too.
+    two_flags = (
+        base
+        + " --out .microcosm/scratch --acceptance-out receipts/acceptance/alpha"
+    )
+    variant = C._clean_run_variant(two_flags)
+    assert variant is not None
+    assert "--acceptance-out .microcosm/first_action_runs/alpha" in variant["command"]
+    assert "--out .microcosm/scratch" in variant["command"]
+    # Duplicate --out: argparse last-wins, and the variant cleans both.
+    dup = base + " --out .microcosm/scratch --out receipts/first_wave/alpha_validator"
+    assert C._writes_outputs_under(dup) == "receipts/first_wave/alpha_validator"
+    variant = C._clean_run_variant(dup)
+    assert variant is not None
+    assert "receipts/" not in variant["command"]
+    # Normalized escapes do not count as clean.
+    assert C._is_ignored_out_dir(".microcosm/../receipts/x") is False
+    assert C._is_ignored_out_dir(".microcosm_extra/x") is False
+    assert C._is_ignored_out_dir(".microcosm/runs") is True
+    assert C._is_ignored_out_dir("/tmp/scratch") is True
+
+    # Predicate: a declared out-dir that contradicts the command is refused,
+    # in BOTH directions (clean declaration over dirty command and the
+    # parser-miss direction where the command names no --out at all).
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    good = C.compile_first_action(bundle, tmp_path, "run alpha_validator now")
+    import copy
+
+    mismatch = copy.deepcopy(good)
+    mismatch["first_action"]["command"] = (
+        base + " --out receipts/first_wave/alpha_validator"
+    )
+    mismatch["first_action"]["writes_outputs_under"] = ".microcosm/declared_clean"
+    mismatch["first_action"].pop("clean_run", None)
+    assert C._first_action_contract_complete(mismatch) is False
+    # An =-form dirty command with a stale space-form expectation must still
+    # oblige a clean_run (fail closed on parser shape, not fail open).
+    eq_dirty = copy.deepcopy(good)
+    eq_dirty["first_action"]["command"] = eq_form
+    eq_dirty["first_action"]["writes_outputs_under"] = (
+        "receipts/first_wave/alpha_validator"
+    )
+    eq_dirty["first_action"].pop("clean_run", None)
+    assert C._first_action_contract_complete(eq_dirty) is False
+    eq_dirty["first_action"]["clean_run"] = C._clean_run_variant(eq_form)
+    assert C._first_action_contract_complete(eq_dirty) is True
+
+
 def test_first_action_refuses_destructive_intent_and_placeholder_commands(tmp_path: Path) -> None:
     """A destructive goal routes to the AUTHORITY boundary -- never a fixture or
     mutation command; a routed packet with an unresolved <placeholder> falls back
