@@ -182,6 +182,7 @@ def test_goal_routes_to_organ_authority_and_math_packet(tmp_path: Path) -> None:
     assert C.route_goal("what am I allowed to trust", bundle)[0] == "authority"
     # v2: math is a first-class packet now, no longer a deferred-to-first-contact note.
     assert C.route_goal("show me all the math proofs", bundle)[0] == "math"
+    assert C.route_goal("what should I work on for the Microcosm release?", bundle)[0] == "mutation_plan"
 
 
 def test_packs_never_leak_raw_atom_bullets(tmp_path: Path) -> None:
@@ -487,6 +488,19 @@ def test_mutation_plan_path_target_excerpts_owned_file(tmp_path: Path) -> None:
     assert pack["export_band"] == "local_semantic_excerpt"
     assert pack["semantic_excerpts"][0]["path"] == "src/microcosm_core/widget.py"
     assert pack["semantic_excerpts"][0]["symbols"]
+
+
+def test_mutation_plan_without_target_returns_ranked_release_improvement_targets(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="mutation_plan")
+    assert pack["found"] is True
+    assert pack["export_band"] == "local_semantic_excerpt"
+    assert pack["selected_nodes"][0]["target"] == "src/microcosm_core/comprehension.py"
+    assert "validation_commands" in pack["selected_nodes"][0]
+    assert "release approval" in pack["summary"]["what_not_to_trust"]
+    body = json.dumps(pack)
+    assert "scripts/build_code_lens_join_index.py" in body
+    assert all(v is False for v in pack["authority_ceiling"].values())
 
 
 def test_every_packet_is_stamped_with_identity_and_within_budget(tmp_path: Path) -> None:

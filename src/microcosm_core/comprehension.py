@@ -640,7 +640,30 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     path = next(
         (tok for tok in text.split() if tok.endswith(".py") or "/" in tok), None
     )
-    if any(w in text for w in ("patch", "change", "fix", "mutate", "edit", "modify", "refactor")):
+    if any(
+        w in text
+        for w in (
+            "what should i work on",
+            "what should we work on",
+            "where should i work",
+            "what part should",
+            "most productive",
+            "highest leverage",
+            "high leverage",
+            "best thing to improve",
+            "what to improve",
+            "next improvement",
+            "improve microcosm",
+            "microcosm release",
+            "release comprehension",
+            "release prep",
+        )
+    ):
+        return "mutation_plan", organ or path, None
+    if any(
+        w in text
+        for w in ("patch", "change", "fix", "mutate", "edit", "modify", "refactor")
+    ):
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
@@ -1533,6 +1556,124 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
     return pack
 
 
+def _release_improvement_targets(
+    inputs: dict[str, Any], root: Path | None
+) -> list[dict[str, Any]]:
+    """Return ranked concrete edit targets for release-comprehension work.
+
+    - Teleology: make a vague "what should I work on?" prompt actionable for a cold
+      agent by pointing at the real files and tests that change clone comprehension.
+    - Guarantee: returns ranked target rows with path, reason, validation commands,
+      and expected reader-visible effect; rows are derived from packet/deferred-edge
+      state and fixed public front-door surfaces, never from source bodies.
+    - Fails: never raises; path existence is advisory metadata only.
+    - Reads: only in-memory inputs plus filesystem existence checks.
+    - Non-goal: does not claim release authority or mutate anything.
+    """
+    base = root or default_root()
+    join_organs = list(inputs.get("join_by_organ", {}).values())
+    rollup = ((inputs.get("join_index") or {}).get("rollup")) or {}
+    organ_count = (
+        len(inputs.get("atlas_by_organ", {}))
+        or rollup.get("organ_count")
+        or len(join_organs)
+    )
+    custody_split = rollup.get("runner_custody_split") or _count_by(
+        join_organs, "runner_custody_basis"
+    )
+    exact_copy = custody_split.get("directory_coupling_marker", 0)
+
+    rows = [
+        {
+            "rank": 1,
+            "target_type": "owned_source",
+            "target": "src/microcosm_core/comprehension.py",
+            "title": "Cold-clone comprehension router and read packs",
+            "why": (
+                "Highest reader-visible leverage: this file decides what a cold agent "
+                "sees for vague goals, whole-system comprehension, authority calibration, "
+                "and safe mutation planning."
+            ),
+            "expected_reader_visible_change": (
+                "A clone-side agent asking what to improve gets concrete targets and "
+                "validation commands instead of another orientation packet."
+            ),
+            "validation_commands": [
+                'PYTHONPATH=src python3 -m microcosm_core comprehend --goal "what should I work on for the Microcosm release?"',
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
+            ],
+        },
+        {
+            "rank": 2,
+            "target_type": "owned_source",
+            "target": "src/microcosm_core/cli.py",
+            "title": "CLI first-contact affordance",
+            "why": (
+                "The CLI is the first tool surface after install. If the compiler gains "
+                "a better comprehension behavior, the help text and named options should "
+                "make that behavior discoverable without reading docs."
+            ),
+            "expected_reader_visible_change": (
+                "The shortest local command path names the improvement-target behavior "
+                "plainly for Type A agents."
+            ),
+            "validation_commands": [
+                "PYTHONPATH=src python3 -m microcosm_core comprehend --help",
+                "PYTHONPATH=src python3 -m microcosm_core comprehend --packet-atlas",
+            ],
+        },
+        {
+            "rank": 3,
+            "target_type": "builder",
+            "target": "scripts/build_code_lens_join_index.py",
+            "title": "Join-index route and claim extraction",
+            "why": (
+                "The self-model still declares cross_organ_route_topology and "
+                "claim_node_ontology as deferred edges. Filling those edges would make "
+                "claim_trace and flow packets less thin for all organs."
+            ),
+            "expected_reader_visible_change": (
+                "A cold reader can follow route and claim topology directly instead of "
+                "seeing those relationships as deferred."
+            ),
+            "validation_commands": [
+                "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py --help",
+                "PYTHONPATH=src python3 -m microcosm_core comprehend --self-model",
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
+            ],
+        },
+        {
+            "rank": 4,
+            "target_type": "docs",
+            "target": "README.md / AGENTS.md / skills/cold_start_navigation.md",
+            "title": "Cold-agent command ladder wording",
+            "why": (
+                "Docs are secondary to the CLI, but the release clone path should name "
+                "the same command ladder the compiler actually routes."
+            ),
+            "expected_reader_visible_change": (
+                "A reader skimming entry docs sees the exact commands that match the "
+                "runtime comprehension packets."
+            ),
+            "validation_commands": [
+                "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-release-boundary",
+            ],
+        },
+    ]
+    context = {
+        "organ_count": organ_count,
+        "exact_copy_macro_runners": exact_copy,
+        "packet_count": len(PACKET_SPECS),
+        "deferred_edge_classes": [d["edge_class"] for d in _ALL_DEFERRED_EDGES],
+    }
+    for row in rows:
+        target = str(row["target"]).split(" / ")[0]
+        row["path_exists"] = (base / target).exists()
+        row["ranking_basis"] = context
+    return rows
+
+
 def compile_mutation_plan(
     inputs: dict[str, Any], root: Path | None, target: str
 ) -> dict[str, Any]:
@@ -1582,12 +1723,34 @@ def compile_mutation_plan(
         pack["source_span_escalation"] = [{"path": target, "symbols": []}]
         return pack
     if not target or (target not in atlas_by and target not in join_by):
-        pack = _pack_skeleton("reference", "choose a mutation target")
-        pack["found"] = False
+        targets = _release_improvement_targets(inputs, base)
+        pack = _pack_skeleton("how_to", "choose the highest-leverage Microcosm improvement")
+        pack["found"] = True
+        pack["target"] = None
+        pack["export_band"] = "local_semantic_excerpt"
         pack["summary"]["what_this_is"] = (
-            "Name an organ id or an owned source path to plan a safe change."
+            "Ranked concrete edit targets for improving Microcosm cold-clone "
+            "comprehension. Start at rank 1 unless you already have a narrower failing "
+            "surface."
         )
-        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["summary"]["what_to_inspect_next"] = [
+            f"{row['rank']}. {row['target']} - {row['title']}" for row in targets
+        ]
+        pack["summary"]["what_not_to_trust"] = (
+            "These are local implementation priorities, not release approval or a claim "
+            "that the substrate is complete."
+        )
+        pack["selected_nodes"] = targets
+        pack["mutation_steps"] = [
+            "pick the first target unless a newer failing receipt names a narrower owner",
+            "edit only the owned source/docs path for that rank",
+            "run that row's validation_commands",
+            "rerun packet-route and whole-system comprehension assays before closeout",
+        ]
+        pack["warnings"] = [
+            "target ranking is a comprehension work plan, not authority to publish",
+            "do not edit exact-copy macro runners unless the refresh lane owns the copy",
+        ]
         return pack
     atlas_row = atlas_by.get(target) or {}
     join_node = join_by.get(target) or {}
@@ -2194,6 +2357,8 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("what may I trust here?", "authority"),
     ("list all organs", "organs_index"),
     ("which packet should I use?", "packet_atlas"),
+    ("what should I work on for the Microcosm release?", "mutation_plan"),
+    ("what is the most productive improvement?", "mutation_plan"),
     ("I want to change the import behaviour", "mutation_plan"),
     ("read the atom values in src/microcosm_core/comprehension.py", "path"),
 ]
