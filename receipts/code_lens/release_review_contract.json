@@ -1,0 +1,147 @@
+{
+  "artifact_subjects": [
+    {
+      "bytes": 35728,
+      "ref": "FIRST_ACTION.md",
+      "sha256": "53e883a127c2474637fc1cc10f4b71df1484c73d05dcfc1509c4a3327735addb"
+    },
+    {
+      "bytes": 55447,
+      "ref": "receipts/code_lens/first_action_demo.json",
+      "sha256": "2882ecb4e6b1a8c7ba12332c9cf31c6cf24f85e148e2cec4156c1db839ad3ee2"
+    }
+  ],
+  "assay_requirements": [
+    "the first-action assay exits zero in every context",
+    "the assay reports zero source-body leaks",
+    "the assay reports itself not degraded"
+  ],
+  "commands": {
+    "generate": [
+      "make release-candidate-proof",
+      "PYTHONPATH=src python3 scripts/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof"
+    ],
+    "review_alias": "make release-review",
+    "verify": [
+      "make release-candidate-proof-verify",
+      "PYTHONPATH=src python3 scripts/release_candidate_proof.py verify .microcosm/release-candidate-proof --root ."
+    ]
+  },
+  "contexts": [
+    "source_checkout",
+    "fresh_install",
+    "standalone_export"
+  ],
+  "doc": "RELEASE_REVIEW.md",
+  "encounter_check_names": [
+    "assay_exit_zero",
+    "assay_not_degraded",
+    "assay_source_body_leak_free",
+    "authority_ceiling_all_false",
+    "claim_ceiling_present",
+    "command_cold_runnable",
+    "command_exit_zero",
+    "command_placeholder_free",
+    "committed_demo_byte_fresh",
+    "goal_resolved",
+    "proof_path_present",
+    "stop_condition_present"
+  ],
+  "expectation": {
+    "committed_demonstration_present": true,
+    "expected_command": "PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+    "expected_owner_organ_id": "finance_forecast_evaluation_spine",
+    "expected_validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
+    "hero_goal": "How do I evaluate the finance forecasting system?"
+  },
+  "external_signature_status": "absent_public_release_not_yet_attested",
+  "failure_interpretations": [
+    {
+      "code": "context_encounter_blocked",
+      "does_not_mean": "the whole repository is broken \u2014 read the named context's evidence before concluding anything wider",
+      "meaning": "one distribution context did not produce the complete first-action contract; that context's failed_checks names each missed obligation and evidence_refs points at the raw bytes",
+      "surface": "generate"
+    },
+    {
+      "code": "cross_context_agreement_blocked",
+      "does_not_mean": "a tampered packet; agreement failures are honest divergence evidence, preserved for review",
+      "meaning": "the contexts resolved the hero goal to different owners, commands, or validators \u2014 the installed or exported product differs from the checkout",
+      "surface": "generate"
+    },
+    {
+      "code": "expectation_policy_blocked",
+      "does_not_mean": "cross-context divergence \u2014 the contexts can agree with each other and still differ from what the artifact promised",
+      "meaning": "the agreed encounter does not match the committed demonstration (owner, command, or validator drifted, or the committed demo receipt is missing from the tree)",
+      "surface": "generate"
+    },
+    {
+      "code": "private_path_leak",
+      "does_not_mean": "a security breach \u2014 the usual cause is a subprocess echoing an absolute workspace path into scanned output",
+      "meaning": "a written evidence file carries a private absolute path, so the packet refuses to present itself as public-safe",
+      "surface": "generate_or_verify"
+    },
+    {
+      "code": "source_mutation_seen",
+      "does_not_mean": "the proof machinery mutated the tree \u2014 rerun in a quiet window before suspecting the substrate",
+      "meaning": "tracked source changed while the proof ran, so the run is not a clean witness (concurrent edits in a busy tree also trip this)",
+      "surface": "generate_or_verify"
+    },
+    {
+      "code": "packet_stale",
+      "does_not_mean": "evidence forgery \u2014 staleness is the no-packet / wrong-version / wrong-posture class, not the tampered-bytes class",
+      "meaning": "the packet is missing, unparseable, schema-mismatched, missing referenced evidence, or asserting an authority/signature posture this lane does not grant \u2014 regenerate before reviewing",
+      "surface": "verify"
+    },
+    {
+      "code": "digest_mismatch",
+      "does_not_mean": "an infrastructure flake \u2014 treat the packet as untrusted and regenerate it",
+      "meaning": "stored claims diverge from the digest-bound evidence: tampered bytes, a forged block, or a doctored status",
+      "surface": "verify"
+    },
+    {
+      "code": "concurrent_churn_possible",
+      "does_not_mean": "deliberate tampering",
+      "meaning": "the mutation receipt shows tracked files changed during the run \u2014 most likely a concurrent writer, not the proof itself",
+      "surface": "verify"
+    },
+    {
+      "code": "packet_valid",
+      "does_not_mean": "release authorization, domain correctness, or proof that the run happened as recorded \u2014 rerun the generator to re-establish provenance",
+      "meaning": "every digest re-hashed, every derived block re-derived, no private-path leak: the packet is internally consistent with its evidence",
+      "surface": "verify"
+    }
+  ],
+  "generated_by": "scripts/build_release_review.py",
+  "hero_goal": "How do I evaluate the finance forecasting system?",
+  "integrity_requirements": [
+    "no private absolute path may appear in any written evidence file",
+    "no tracked source file may change while the proof runs",
+    "provider credential environment keys are never available to proof subprocesses",
+    "the fresh-install context must scrub PYTHONPATH and import from the venv, not a shadowing checkout",
+    "install and export work trees are removed after evidence copy unless --keep-work is passed"
+  ],
+  "nonclaims": [
+    "not release authorization or publication approval",
+    "not a security audit or a secure-artifact claim",
+    "not domain correctness of any component's outputs",
+    "not whole-system correctness",
+    "not agent success beyond the committed first-action assay battery",
+    "not externally signed or attested provenance",
+    "not equivalence with any private system"
+  ],
+  "outputs": {
+    "human_card": "release-candidate-proof-card.md",
+    "out_dir": ".microcosm/release-candidate-proof",
+    "packet": "release-candidate-proof.json",
+    "verification_receipt": "release-candidate-proof-verification.json"
+  },
+  "packet_schema_version": "microcosm_first_action_release_candidate_proof_v2",
+  "pass_criteria": {
+    "generate_status": "pass",
+    "verify_status": "packet_valid"
+  },
+  "proof_boundary": "proves the goal-shaped first-action encounter is distribution-true across checkout, install, and export; does not authorize release, publication, provider calls, source mutation, domain correctness, or whole-system correctness. Verification proves the packet is internally consistent with its digest-bound evidence; it does not prove the run happened as recorded \u2014 rerun the generator to re-establish provenance",
+  "publication_binding": "publication_artifact_not_yet_bound",
+  "refresh_command": "PYTHONPATH=src python3 scripts/build_release_review.py --write",
+  "schema_version": "microcosm_release_review_contract_v1"
+}

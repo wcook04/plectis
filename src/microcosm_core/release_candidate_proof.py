@@ -11,10 +11,12 @@
   source_checkout, fresh_install (delegated to scripts/package_install_smoke.py),
   standalone_export (a real release_export then the encounter inside the
   exported tree) -- and writes release-candidate-proof.json plus a human card,
-  binding every output by SHA-256 and proving cross-context agreement on the
-  selected owner and command; `verify` re-checks digests, re-derives every
-  context encounter and the agreement block from on-disk evidence, and never
-  reruns the substrate.
+  binding every output by SHA-256 and proving both cross-context agreement on
+  the selected owner and command AND that the agreed encounter matches the
+  committed demonstration (the expectation policy, anchored to a digest-bound
+  copy of receipts/code_lens/first_action_demo.json); `verify` re-checks
+  digests, re-derives every context encounter, the agreement block, and the
+  expectation policy from on-disk evidence, and never reruns the substrate.
 - Reads: the source checkout, the throwaway install venv outputs, and the
   throwaway export tree (both work trees are removed after evidence copy
   unless --keep-work).
@@ -62,7 +64,7 @@ from .skeptic_flight_recorder import (
 )
 
 
-SCHEMA_VERSION = "microcosm_first_action_release_candidate_proof_v1"
+SCHEMA_VERSION = "microcosm_first_action_release_candidate_proof_v2"
 ENCOUNTER_SCHEMA_VERSION = "microcosm_release_candidate_context_encounter_v1"
 VERIFICATION_SCHEMA_VERSION = "microcosm_release_candidate_proof_verification_v1"
 PACKET_FILENAME = "release-candidate-proof.json"
@@ -70,6 +72,142 @@ CARD_FILENAME = "release-candidate-proof-card.md"
 VERIFICATION_FILENAME = "release-candidate-proof-verification.json"
 EXPORT_ARTIFACT_DIR_NAME = "microcosm-substrate"
 CONTEXT_IDS = ("source_checkout", "fresh_install", "standalone_export")
+# The committed demonstration is the artifact's PROMISE: the expectation policy
+# pins the agreed encounter to this receipt, and the reviewer contract
+# (RELEASE_REVIEW.md) is generated from the same source.
+COMMITTED_DEMO_RECEIPT_REL = "receipts/code_lens/first_action_demo.json"
+EXPECTATION_EVIDENCE_REF = "expectation/committed-demo-receipt.json"
+REVIEW_DOC_REL = "RELEASE_REVIEW.md"
+# Honest provenance posture: no public release artifact exists yet, so nothing
+# here is externally signed or attested. Verification is internal consistency
+# with digest-bound evidence, never third-party provenance.
+EXTERNAL_SIGNATURE_STATUS = "absent_public_release_not_yet_attested"
+PROOF_BOUNDARY = (
+    "proves the goal-shaped first-action encounter is distribution-true "
+    "across checkout, install, and export; does not authorize release, "
+    "publication, provider calls, source mutation, domain correctness, "
+    "or whole-system correctness. Verification proves the packet is "
+    "internally consistent with its digest-bound evidence; it does not "
+    "prove the run happened as recorded — rerun the generator to "
+    "re-establish provenance"
+)
+# The reviewer-facing failure taxonomy: every named way a proof or its
+# verification goes red, with what each one does and does not mean. Single
+# source for the human card pointer, RELEASE_REVIEW.md, and the gate tests —
+# a red result must classify, never read as a bare "bad repo".
+FAILURE_INTERPRETATIONS: tuple[dict[str, str], ...] = (
+    {
+        "code": "context_encounter_blocked",
+        "surface": "generate",
+        "meaning": (
+            "one distribution context did not produce the complete "
+            "first-action contract; that context's failed_checks names each "
+            "missed obligation and evidence_refs points at the raw bytes"
+        ),
+        "does_not_mean": (
+            "the whole repository is broken — read the named context's "
+            "evidence before concluding anything wider"
+        ),
+    },
+    {
+        "code": "cross_context_agreement_blocked",
+        "surface": "generate",
+        "meaning": (
+            "the contexts resolved the hero goal to different owners, "
+            "commands, or validators — the installed or exported product "
+            "differs from the checkout"
+        ),
+        "does_not_mean": (
+            "a tampered packet; agreement failures are honest divergence "
+            "evidence, preserved for review"
+        ),
+    },
+    {
+        "code": "expectation_policy_blocked",
+        "surface": "generate",
+        "meaning": (
+            "the agreed encounter does not match the committed demonstration "
+            "(owner, command, or validator drifted, or the committed demo "
+            "receipt is missing from the tree)"
+        ),
+        "does_not_mean": (
+            "cross-context divergence — the contexts can agree with each "
+            "other and still differ from what the artifact promised"
+        ),
+    },
+    {
+        "code": "private_path_leak",
+        "surface": "generate_or_verify",
+        "meaning": (
+            "a written evidence file carries a private absolute path, so the "
+            "packet refuses to present itself as public-safe"
+        ),
+        "does_not_mean": (
+            "a security breach — the usual cause is a subprocess echoing an "
+            "absolute workspace path into scanned output"
+        ),
+    },
+    {
+        "code": "source_mutation_seen",
+        "surface": "generate_or_verify",
+        "meaning": (
+            "tracked source changed while the proof ran, so the run is not a "
+            "clean witness (concurrent edits in a busy tree also trip this)"
+        ),
+        "does_not_mean": (
+            "the proof machinery mutated the tree — rerun in a quiet window "
+            "before suspecting the substrate"
+        ),
+    },
+    {
+        "code": "packet_stale",
+        "surface": "verify",
+        "meaning": (
+            "the packet is missing, unparseable, schema-mismatched, missing "
+            "referenced evidence, or asserting an authority/signature posture "
+            "this lane does not grant — regenerate before reviewing"
+        ),
+        "does_not_mean": (
+            "evidence forgery — staleness is the no-packet / wrong-version / "
+            "wrong-posture class, not the tampered-bytes class"
+        ),
+    },
+    {
+        "code": "digest_mismatch",
+        "surface": "verify",
+        "meaning": (
+            "stored claims diverge from the digest-bound evidence: tampered "
+            "bytes, a forged block, or a doctored status"
+        ),
+        "does_not_mean": (
+            "an infrastructure flake — treat the packet as untrusted and "
+            "regenerate it"
+        ),
+    },
+    {
+        "code": "concurrent_churn_possible",
+        "surface": "verify",
+        "meaning": (
+            "the mutation receipt shows tracked files changed during the "
+            "run — most likely a concurrent writer, not the proof itself"
+        ),
+        "does_not_mean": "deliberate tampering",
+    },
+    {
+        "code": "packet_valid",
+        "surface": "verify",
+        "meaning": (
+            "every digest re-hashed, every derived block re-derived, no "
+            "private-path leak: the packet is internally consistent with its "
+            "evidence"
+        ),
+        "does_not_mean": (
+            "release authorization, domain correctness, or proof that the "
+            "run happened as recorded — rerun the generator to re-establish "
+            "provenance"
+        ),
+    },
+)
 # Filenames package_install_smoke writes under <work-dir>/outputs/ — the copy
 # contract between the smoke and the fresh_install evidence (test-pinned on
 # both sides).
@@ -259,6 +397,109 @@ def derive_cross_context_agreement(
     }
 
 
+def extract_committed_expectation(
+    receipt_payload: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Extract the hero goal's expected encounter from the committed demo receipt.
+
+    - Teleology: the committed demonstration (FIRST_ACTION.md's receipt) is
+      what the artifact PROMISES a reviewer; this projection turns its hero row
+      into the expectation the proof compares every context against.
+    - Guarantee: pure and deterministic; returns the fixed expectation row
+      (present flag, hero goal, expected owner organ_id, expected command,
+      expected validator command); a missing/malformed receipt degrades to an
+      absent expectation, never an exception. The validator preference order
+      (validator_command, else runnable_validator) mirrors
+      first_action_contract_fields so both sides of the comparison project the
+      same field.
+    - Fails: never raises.
+    """
+    contracts = (
+        receipt_payload.get("contracts") if isinstance(receipt_payload, dict) else None
+    )
+    hero: dict[str, Any] | None = None
+    if isinstance(contracts, list):
+        for row in contracts:
+            if isinstance(row, dict) and row.get("goal") == FIRST_ACTION_HERO_GOAL:
+                hero = row
+                break
+    owner = hero.get("owner") if hero and isinstance(hero.get("owner"), dict) else {}
+    action = (
+        hero.get("first_action")
+        if hero and isinstance(hero.get("first_action"), dict)
+        else {}
+    )
+    proof_path = (
+        hero.get("proof_path")
+        if hero and isinstance(hero.get("proof_path"), dict)
+        else {}
+    )
+    return {
+        "committed_demonstration_present": hero is not None,
+        "hero_goal": FIRST_ACTION_HERO_GOAL,
+        "expected_owner_organ_id": owner.get("organ_id"),
+        "expected_command": action.get("command"),
+        "expected_validator_command": proof_path.get("validator_command")
+        or proof_path.get("runnable_validator"),
+    }
+
+
+def derive_expectation_policy(
+    expectation: dict[str, Any],
+    agreement: dict[str, Any],
+) -> dict[str, Any]:
+    """Prove the agreed encounter is the encounter the artifact promised.
+
+    - Teleology: cross-context agreement alone is satisfiable by three contexts
+      agreeing on the WRONG product; this block pins the observed owner,
+      command, and validator in every context to the committed demonstration,
+      so "matches what the artifact sells" is a named mechanical check instead
+      of an implicit hope.
+    - Guarantee: pure projection over the expectation row plus the agreement
+      block's per-context value maps; each *_matches check requires a
+      non-empty expected string and every expected context's observed value
+      equal to it (a missing context or empty expectation can never satisfy a
+      check by vacuity); status "pass" only when the committed demonstration
+      was present and every check holds.
+    - Fails: never raises.
+    """
+
+    def all_match(expected: Any, observed: Any) -> bool:
+        rows = observed if isinstance(observed, dict) else {}
+        return (
+            isinstance(expected, str)
+            and bool(expected)
+            and set(rows) == set(CONTEXT_IDS)
+            and all(value == expected for value in rows.values())
+        )
+
+    checks = {
+        "committed_demonstration_present": expectation.get(
+            "committed_demonstration_present"
+        )
+        is True,
+        "owner_matches_committed_demonstration": all_match(
+            expectation.get("expected_owner_organ_id"),
+            agreement.get("owner_organ_ids"),
+        ),
+        "command_matches_committed_demonstration": all_match(
+            expectation.get("expected_command"), agreement.get("commands")
+        ),
+        "validator_matches_committed_demonstration": all_match(
+            expectation.get("expected_validator_command"),
+            agreement.get("validator_commands"),
+        ),
+    }
+    return {
+        "status": "pass" if all(checks.values()) else "blocked",
+        "source_ref": COMMITTED_DEMO_RECEIPT_REL,
+        "evidence_ref": EXPECTATION_EVIDENCE_REF,
+        **expectation,
+        "checks": checks,
+        "failed_checks": sorted(key for key, value in checks.items() if not value),
+    }
+
+
 def _read_json_evidence(out_dir: Path, relpath: str) -> dict[str, Any] | None:
     """Best-effort load one packet-relative evidence file as a JSON object."""
     try:
@@ -420,7 +661,7 @@ def build_release_candidate_proof(
     # Every evidence file in the packet must belong to THIS run: stale bytes
     # from a prior run would otherwise feed encounters on degraded runs, and a
     # stale receipt would skew the generate-side scan relative to verify.
-    for stale_sub in ("checkout", "install", "export", "work"):
+    for stale_sub in ("checkout", "install", "export", "expectation", "work"):
         shutil.rmtree(out_dir / stale_sub, ignore_errors=True)
     for stale_file in (PACKET_FILENAME, CARD_FILENAME, VERIFICATION_FILENAME):
         (out_dir / stale_file).unlink(missing_ok=True)
@@ -431,6 +672,30 @@ def build_release_candidate_proof(
     records: list[dict[str, Any]] = []
     work_notes: list[str] = []
     copied_evidence: list[dict[str, Any]] = []
+
+    # The expectation snapshot comes FIRST: the committed demonstration is
+    # copied into the packet as digest-bound evidence before any context runs,
+    # so the promise the encounters are compared against provably predates the
+    # encounters themselves.
+    committed_demo_payload: dict[str, Any] | None = None
+    committed_demo_source = root / COMMITTED_DEMO_RECEIPT_REL
+    expectation_target = out_dir / EXPECTATION_EVIDENCE_REF
+    if committed_demo_source.is_file():
+        expectation_target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(committed_demo_source, expectation_target)
+        copied_evidence.append(
+            {
+                "source": COMMITTED_DEMO_RECEIPT_REL,
+                "ref": EXPECTATION_EVIDENCE_REF,
+                "sha256": sha256_file(expectation_target),
+                "bytes": expectation_target.stat().st_size,
+            }
+        )
+        committed_demo_payload = _parse_json_bytes(expectation_target.read_bytes())
+    else:
+        work_notes.append(
+            f"missing committed demonstration: {COMMITTED_DEMO_RECEIPT_REL}"
+        )
 
     # Context 1: the source checkout.
     records.extend(
@@ -561,6 +826,9 @@ def build_release_candidate_proof(
         for context_id in CONTEXT_IDS
     }
     agreement = derive_cross_context_agreement(encounters)
+    expectation_policy = derive_expectation_policy(
+        extract_committed_expectation(committed_demo_payload), agreement
+    )
     after_snapshot = source_snapshot(root)
     mutation = source_mutation_check(before_snapshot, after_snapshot)
 
@@ -589,6 +857,7 @@ def build_release_candidate_proof(
             "pass"
             if contexts_pass
             and agreement["status"] == "pass"
+            and expectation_policy["status"] == "pass"
             and private_scan["status"] == "pass"
             and mutation["status"] == "pass"
             else "blocked"
@@ -597,6 +866,8 @@ def build_release_candidate_proof(
         "hero_goal": FIRST_ACTION_HERO_GOAL,
         "packet_ref": PACKET_FILENAME,
         "human_card_ref": CARD_FILENAME,
+        "reviewer_contract_ref": REVIEW_DOC_REL,
+        "external_signature_status": EXTERNAL_SIGNATURE_STATUS,
         "authority_and_omission_policy": {
             "release_authorized": False,
             "provider_calls_authorized": False,
@@ -612,6 +883,7 @@ def build_release_candidate_proof(
             for context_id in CONTEXT_IDS
         },
         "cross_context_agreement": agreement,
+        "expectation_policy": expectation_policy,
         "integrity": {
             "source_mutation_check": mutation,
             "private_path_scan": private_scan,
@@ -620,15 +892,7 @@ def build_release_candidate_proof(
             "work_notes": work_notes,
         },
         "commands": records,
-        "proof_boundary": (
-            "proves the goal-shaped first-action encounter is distribution-true "
-            "across checkout, install, and export; does not authorize release, "
-            "publication, provider calls, source mutation, domain correctness, "
-            "or whole-system correctness. Verification proves the packet is "
-            "internally consistent with its digest-bound evidence; it does not "
-            "prove the run happened as recorded — rerun the generator to "
-            "re-establish provenance"
-        ),
+        "proof_boundary": PROOF_BOUNDARY,
     }
     _write_json(packet_path, packet)
     card = _human_card(packet)
@@ -640,6 +904,7 @@ def build_release_candidate_proof(
         "pass"
         if contexts_pass
         and agreement["status"] == "pass"
+        and expectation_policy["status"] == "pass"
         and packet["integrity"]["private_path_scan"]["status"] == "pass"
         and mutation["status"] == "pass"
         else "blocked"
@@ -655,12 +920,24 @@ def build_release_candidate_proof(
 def _human_card(packet: dict[str, Any]) -> str:
     """Render the proof packet into the human release-candidate card (a projection, not authority)."""
     agreement = packet["cross_context_agreement"]
+    expectation = packet.get("expectation_policy") or {}
     integrity = packet["integrity"]
+    expectation_line = f"- Expectation policy: `{expectation.get('status')}`"
+    failed_expectation = expectation.get("failed_checks") or []
+    if failed_expectation:
+        expectation_line += (
+            " (failed: " + ", ".join(f"`{name}`" for name in failed_expectation) + ")"
+        )
+    else:
+        expectation_line += (
+            f" (matches the committed demonstration `{expectation.get('source_ref')}`)"
+        )
     lines = [
         "# Microcosm First Correct Action — Release Candidate Proof",
         "",
         f"- Packet status: `{packet['status']}`",
         f"- Hero goal: `{packet['hero_goal']}`",
+        expectation_line,
         (
             "- Cross-context agreement: "
             f"`{agreement['status']}` (owner identical: "
@@ -675,6 +952,23 @@ def _human_card(packet: dict[str, Any]) -> str:
             "- Private path hits in written evidence: "
             f"`{integrity['private_path_scan']['private_path_hit_count']}`"
         ),
+        f"- External signature status: `{packet.get('external_signature_status')}`",
+        "",
+        "## Claim under review",
+        "",
+        (
+            "This packet claims exactly one thing: in the source checkout, a "
+            "fresh package install, and the standalone export, the hero goal "
+            "resolved to the complete first-action contract the committed "
+            "demonstration promises — same owner, same first command, same "
+            "validator. Nothing else is claimed."
+        ),
+        "",
+        f"- Expected owner: `{expectation.get('expected_owner_organ_id')}`",
+        f"- Expected command: `{expectation.get('expected_command')}`",
+        f"- Expected validator: `{expectation.get('expected_validator_command')}`",
+        f"- Promise source: `{expectation.get('source_ref')}` "
+        f"(copied into this packet at `{expectation.get('evidence_ref')}`)",
         "",
         "## Contexts",
         "",
@@ -707,6 +1001,24 @@ def _human_card(packet: dict[str, Any]) -> str:
         lines += [f"- {note}" for note in notes]
         lines += [""]
     lines += [
+        "## Verify this packet",
+        "",
+        (
+            "- `make release-candidate-proof-verify` (or `PYTHONPATH=src "
+            "python3 scripts/release_candidate_proof.py verify <packet-dir> "
+            "--root .`) re-derives every claim above from the digest-bound "
+            "evidence without rerunning the substrate."
+        ),
+        (
+            "- A reviewer who distrusts this packet should rerun "
+            "`make release-candidate-proof` and compare."
+        ),
+        (
+            f"- The full reviewer contract — claim, expectation policy, and "
+            f"failure interpretations — is committed as "
+            f"`{packet.get('reviewer_contract_ref')}`."
+        ),
+        "",
         "## Boundary",
         "",
         f"- {packet['proof_boundary']}",
@@ -908,6 +1220,21 @@ def verify_release_candidate_proof(
     else:
         checks.append(_check_row("cross_context_agreement_rederived", "pass"))
 
+    # The expectation policy must be a projection of the digest-bound copy of
+    # the committed demonstration plus the re-derived agreement — a forged
+    # "matches the promise" claim is refused even with a recomputed self-digest.
+    derived_expectation = derive_expectation_policy(
+        extract_committed_expectation(
+            _read_json_evidence(packet_dir, EXPECTATION_EVIDENCE_REF)
+        ),
+        derived_agreement,
+    )
+    if packet.get("expectation_policy") != derived_expectation:
+        statuses.add("digest_mismatch")
+        checks.append(_check_row("expectation_policy_rederived", "blocked"))
+    else:
+        checks.append(_check_row("expectation_policy_rederived", "pass"))
+
     scan_paths = [packet_path, *([card_path] if card_path.is_file() else []), *evidence_paths]
     private_scan = _scan_private_needles(scan_paths, root)
     if private_scan["status"] != "pass":
@@ -951,16 +1278,22 @@ def verify_release_candidate_proof(
     policy = policy if isinstance(policy, dict) else {}
     provider_policy = integrity_block.get("provider_env_policy")
     provider_policy = provider_policy if isinstance(provider_policy, dict) else {}
-    policy_ok = all(
-        policy.get(key) is False
-        for key in (
-            "release_authorized",
-            "provider_calls_authorized",
-            "source_mutation_authorized",
+    policy_ok = (
+        all(
+            policy.get(key) is False
+            for key in (
+                "release_authorized",
+                "provider_calls_authorized",
+                "source_mutation_authorized",
+            )
         )
-    ) and (
-        provider_policy.get("provider_credential_env_keys_available_to_subprocess")
-        is False
+        and (
+            provider_policy.get("provider_credential_env_keys_available_to_subprocess")
+            is False
+        )
+        # A packet asserting any other signature posture is claiming external
+        # provenance this lane does not have.
+        and packet.get("external_signature_status") == EXTERNAL_SIGNATURE_STATUS
     )
     if policy_ok:
         checks.append(_check_row("authority_policy_preserved", "pass"))
@@ -975,6 +1308,7 @@ def verify_release_candidate_proof(
         "pass"
         if all(row["status"] == "pass" for row in rederived.values())
         and derived_agreement["status"] == "pass"
+        and derived_expectation["status"] == "pass"
         and private_scan["status"] == "pass"
         and mutation_clean
         and not copied_missing
@@ -1005,6 +1339,7 @@ def verify_release_candidate_proof(
         "provider_calls_authorized": False,
         "packet_status": packet.get("status"),
         "cross_context_agreement_status": derived_agreement["status"],
+        "expectation_policy_status": derived_expectation["status"],
         "private_path_scan": private_scan,
         "checks": checks,
     }
@@ -1049,9 +1384,24 @@ def _generate_main(argv: list[str] | None = None) -> int:
         python_executable=args.python,
         keep_work=args.keep_work,
     )
+    # The generate-side failure codes from FAILURE_INTERPRETATIONS, so a red
+    # run is greppable against the reviewer contract's taxonomy table.
+    blocked_codes = []
+    if any(row["status"] != "pass" for row in packet["contexts"].values()):
+        blocked_codes.append("context_encounter_blocked")
+    if packet["cross_context_agreement"]["status"] != "pass":
+        blocked_codes.append("cross_context_agreement_blocked")
+    if packet["expectation_policy"]["status"] != "pass":
+        blocked_codes.append("expectation_policy_blocked")
+    if packet["integrity"]["private_path_scan"]["status"] != "pass":
+        blocked_codes.append("private_path_leak")
+    if packet["integrity"]["source_mutation_check"]["status"] != "pass":
+        blocked_codes.append("source_mutation_seen")
     summary = {
         "status": packet["status"],
+        "blocked_codes": blocked_codes,
         "cross_context_agreement": packet["cross_context_agreement"]["status"],
+        "expectation_policy": packet["expectation_policy"]["status"],
         "contexts": {
             context_id: packet["contexts"][context_id]["status"]
             for context_id in CONTEXT_IDS

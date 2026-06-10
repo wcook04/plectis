@@ -238,6 +238,7 @@ def _make_release_root(root: Path) -> Path:
         "PROVENANCE.md",
         "QUICKSTART.md",
         "RELEASE_DISCIPLINE.md",
+        "RELEASE_REVIEW.md",
         "README.md",
         "SECURITY.md",
         "bootstrap.sh",

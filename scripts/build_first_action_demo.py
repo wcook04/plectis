@@ -208,6 +208,10 @@ def _contract_surface(contract: dict) -> dict:
         "owner": contract.get("owner"),
         "proof_path": {
             "runnable_validator": proof.get("runnable_validator"),
+            # The short canonical validator form: the release-candidate proof's
+            # expectation policy compares live encounters against exactly this
+            # committed value, so the surface must carry it verbatim.
+            "validator_command": proof.get("validator_command"),
             "validation_commands": list(proof.get("validation_commands") or []),
             "receipt_refs": proof_refs[:_RECEIPT_REF_CAP],
             "receipt_refs_more": max(0, len(proof_refs) - _RECEIPT_REF_CAP),
@@ -582,9 +586,15 @@ def main(argv: list[str] | None = None) -> int:
     receipt_path = root / RECEIPT_REL
     if args.check:
         drifted = []
-        if not doc_path.exists() or doc_path.read_text() != md_body + "\n":
+        if (
+            not doc_path.exists()
+            or doc_path.read_text(encoding="utf-8") != md_body + "\n"
+        ):
             drifted.append(DOC_REL)
-        if not receipt_path.exists() or receipt_path.read_text() != receipt_body:
+        if (
+            not receipt_path.exists()
+            or receipt_path.read_text(encoding="utf-8") != receipt_body
+        ):
             drifted.append(RECEIPT_REL)
         if drifted:
             print(
@@ -595,8 +605,8 @@ def main(argv: list[str] | None = None) -> int:
         print("first-action demo: check pass")
         return 0
     receipt_path.parent.mkdir(parents=True, exist_ok=True)
-    doc_path.write_text(md_body + "\n")
-    receipt_path.write_text(receipt_body)
+    doc_path.write_text(md_body + "\n", encoding="utf-8")
+    receipt_path.write_text(receipt_body, encoding="utf-8")
     print(f"first-action demo: wrote {DOC_REL} and {RECEIPT_REL}")
     return 0
 

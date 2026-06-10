@@ -63,7 +63,8 @@ Goal: “How do I evaluate the finance forecasting system?”
     ],
     "receipt_refs_more": 1,
     "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
-    "validation_commands": []
+    "validation_commands": [],
+    "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
   },
   "reading_boundary": {
     "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",

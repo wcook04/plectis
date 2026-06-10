@@ -16,10 +16,15 @@ from pathlib import Path
 from microcosm_core import comprehension, release_export
 from microcosm_core import release_candidate_proof
 from microcosm_core.release_candidate_proof import (
+    COMMITTED_DEMO_RECEIPT_REL,
     CONTEXT_IDS,
+    EXPECTATION_EVIDENCE_REF,
+    EXTERNAL_SIGNATURE_STATUS,
     INSTALL_EVIDENCE_SOURCES,
     build_release_candidate_proof,
     derive_cross_context_agreement,
+    derive_expectation_policy,
+    extract_committed_expectation,
     verify_release_candidate_proof,
 )
 from microcosm_core.skeptic_flight_recorder import (
@@ -159,6 +164,23 @@ def test_first_action_release_candidate_proof_is_distribution_true() -> None:
     first_action_doc = (MICROCOSM_ROOT / "FIRST_ACTION.md").read_text(encoding="utf-8")
     assert FIRST_ACTION_HERO_GOAL in first_action_doc
     assert (MICROCOSM_ROOT / "receipts/code_lens/first_action_demo.json").is_file()
+
+    # The committed demonstration is the proof's expectation anchor: its hero
+    # row must keep carrying the canonical validator form the live encounters
+    # project, and the live extraction must match the live compile.
+    committed_demo = json.loads(
+        (MICROCOSM_ROOT / COMMITTED_DEMO_RECEIPT_REL).read_text(encoding="utf-8")
+    )
+    committed_expectation = extract_committed_expectation(committed_demo)
+    assert committed_expectation["committed_demonstration_present"] is True
+    assert committed_expectation["expected_owner_organ_id"] == (
+        (contract.get("owner") or {}).get("organ_id")
+    )
+    assert committed_expectation["expected_command"] == command
+    assert committed_expectation["expected_validator_command"] == (
+        (contract.get("proof_path") or {}).get("validator_command")
+        or (contract.get("proof_path") or {}).get("runnable_validator")
+    )
 
     makefile = (MICROCOSM_ROOT / "Makefile").read_text(encoding="utf-8")
     assert f'comprehend --first-action "{FIRST_ACTION_CLONE_GOAL}"' in makefile
@@ -344,6 +366,49 @@ def test_flight_recorder_first_action_proof_preserves_placeholder_failure(
     assert verification["status"] == "packet_valid"
 
 
+def _plant_committed_demo(
+    root: Path,
+    *,
+    owner_organ_id: str = "finance_forecast_evaluation_spine",
+    command: str | None = None,
+    validator_command: str | None = None,
+) -> None:
+    """Write a minimal committed demonstration receipt whose hero row carries
+    the expectation the release-candidate proof pins encounters against."""
+    demo = {
+        "schema_version": "microcosm_first_action_demo_v0",
+        "contracts": [
+            {
+                "goal": FIRST_ACTION_HERO_GOAL,
+                "owner": {"organ_id": owner_organ_id},
+                "first_action": {
+                    "command": command
+                    or HERO_CONTRACT_PAYLOAD["first_action"]["command"],
+                },
+                "proof_path": {
+                    "runnable_validator": HERO_CONTRACT_PAYLOAD["proof_path"][
+                        "runnable_validator"
+                    ],
+                    "validator_command": validator_command
+                    or HERO_CONTRACT_PAYLOAD["proof_path"]["validator_command"],
+                },
+            }
+        ],
+    }
+    path = root / COMMITTED_DEMO_RECEIPT_REL
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(demo), encoding="utf-8")
+
+
+def _fake_root(tmp_path: Path, *, plant_demo: bool = True) -> Path:
+    root = tmp_path / "microcosm-root"
+    (root / "src/microcosm_core").mkdir(parents=True)
+    (root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+    if plant_demo:
+        _plant_committed_demo(root)
+    return root
+
+
 def _release_candidate_fake_runner(export_owner_organ_id: str | None = None):
     def fake_runner(spec: CommandSpec, cwd: Path, env: dict[str, str]) -> RunnerResult:
         command_id = spec.command_id
@@ -382,11 +447,10 @@ def _release_candidate_fake_runner(export_owner_organ_id: str | None = None):
 
 
 def test_release_candidate_proof_round_trip(tmp_path: Path) -> None:
-    """Three passing contexts with identical owner/command produce a passing,
-    re-verifiable packet; tampered evidence is refused."""
-    root = tmp_path / "microcosm-root"
-    (root / "src/microcosm_core").mkdir(parents=True)
-    (root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+    """Three passing contexts with identical owner/command matching the
+    committed demonstration produce a passing, re-verifiable packet; tampered
+    evidence is refused."""
+    root = _fake_root(tmp_path)
     out_dir = root / ".microcosm/release-candidate-proof"
 
     packet = build_release_candidate_proof(
@@ -402,6 +466,30 @@ def test_release_candidate_proof_round_trip(tmp_path: Path) -> None:
         assert packet["contexts"][context_id]["status"] == "pass", context_id
     assert packet["authority_and_omission_policy"]["release_authorized"] is False
     assert packet["integrity"]["source_mutation_check"]["status"] == "pass"
+
+    # The expectation policy pins the agreed encounter to the committed
+    # demonstration, and the demonstration copy itself is digest-bound.
+    expectation = packet["expectation_policy"]
+    assert expectation["status"] == "pass"
+    assert (
+        expectation["expected_owner_organ_id"] == "finance_forecast_evaluation_spine"
+    )
+    assert expectation["expected_validator_command"] == (
+        HERO_CONTRACT_PAYLOAD["proof_path"]["validator_command"]
+    )
+    assert EXPECTATION_EVIDENCE_REF in {
+        row["ref"] for row in packet["integrity"]["copied_evidence"]
+    }
+    assert packet["external_signature_status"] == EXTERNAL_SIGNATURE_STATUS
+
+    card_text = (out_dir / "release-candidate-proof-card.md").read_text(
+        encoding="utf-8"
+    )
+    assert "## Claim under review" in card_text
+    assert "finance_forecast_evaluation_spine" in card_text
+    assert "External signature status" in card_text
+    assert "## Verify this packet" in card_text
+    assert "RELEASE_REVIEW.md" in card_text
     assert not (out_dir / "work").exists(), "work trees must be removed after evidence copy"
     packet_text = (out_dir / "release-candidate-proof.json").read_text(encoding="utf-8")
     assert "/Users/" not in packet_text
@@ -434,9 +522,7 @@ def test_release_candidate_proof_blocks_on_cross_context_divergence(
 ) -> None:
     """A contract that resolves to a different owner in the export than in the
     checkout is a different product: the packet must block and name it."""
-    root = tmp_path / "microcosm-root"
-    (root / "src/microcosm_core").mkdir(parents=True)
-    (root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+    root = _fake_root(tmp_path)
     out_dir = root / ".microcosm/release-candidate-proof"
 
     packet = build_release_candidate_proof(
@@ -461,6 +547,84 @@ def test_release_candidate_proof_blocks_on_cross_context_divergence(
     )
     assert receipt["status"] == "packet_valid"
     assert receipt["packet_status"] == "blocked"
+
+
+def test_release_candidate_proof_blocks_when_agreement_misses_committed_promise(
+    tmp_path: Path,
+) -> None:
+    """Cross-context agreement alone is satisfiable by three contexts agreeing
+    on the WRONG product: when every context selects the same owner but that
+    owner is not the committed demonstration's owner, the expectation policy —
+    not the agreement block — must block the packet and name the mismatch."""
+    root = _fake_root(tmp_path, plant_demo=False)
+    _plant_committed_demo(root, owner_organ_id="committed_promises_other_organ")
+    out_dir = root / ".microcosm/release-candidate-proof"
+
+    packet = build_release_candidate_proof(
+        root=root,
+        out_dir=out_dir,
+        python_executable="python",
+        runner=_release_candidate_fake_runner(),
+        generated_at="2026-06-10T00:00:00+00:00",
+    )
+    assert packet["status"] == "blocked"
+    assert packet["cross_context_agreement"]["status"] == "pass"
+    expectation = packet["expectation_policy"]
+    assert expectation["status"] == "blocked"
+    assert expectation["failed_checks"] == ["owner_matches_committed_demonstration"]
+    # The honest blocked packet still verifies — and the verifier reports the
+    # re-derived expectation status, not a paraphrase.
+    receipt = verify_release_candidate_proof(
+        packet_dir=out_dir,
+        root=root,
+        write_receipt=False,
+        verified_at="2026-06-10T00:01:00+00:00",
+    )
+    assert receipt["status"] == "packet_valid"
+    assert receipt["expectation_policy_status"] == "blocked"
+
+
+def test_release_candidate_proof_blocks_without_committed_demonstration(
+    tmp_path: Path,
+) -> None:
+    """No committed demonstration means no promise to review against: the
+    packet blocks with a named absence instead of passing by vacuity."""
+    root = _fake_root(tmp_path, plant_demo=False)
+    out_dir = root / ".microcosm/release-candidate-proof"
+
+    packet = build_release_candidate_proof(
+        root=root,
+        out_dir=out_dir,
+        python_executable="python",
+        runner=_release_candidate_fake_runner(),
+        generated_at="2026-06-10T00:00:00+00:00",
+    )
+    assert packet["status"] == "blocked"
+    expectation = packet["expectation_policy"]
+    assert expectation["committed_demonstration_present"] is False
+    assert "committed_demonstration_present" in expectation["failed_checks"]
+    assert any(
+        COMMITTED_DEMO_RECEIPT_REL in note
+        for note in packet["integrity"]["work_notes"]
+    )
+    receipt = verify_release_candidate_proof(
+        packet_dir=out_dir, root=root, write_receipt=False
+    )
+    assert receipt["status"] == "packet_valid"
+    assert receipt["packet_status"] == "blocked"
+
+
+def test_expectation_policy_requires_nonempty_committed_values() -> None:
+    """An empty committed expectation can never be satisfied by vacuity."""
+    expectation = extract_committed_expectation(
+        {"contracts": [{"goal": FIRST_ACTION_HERO_GOAL}]}
+    )
+    assert expectation["committed_demonstration_present"] is True
+    assert expectation["expected_owner_organ_id"] is None
+    agreement = derive_cross_context_agreement({})
+    policy = derive_expectation_policy(expectation, agreement)
+    assert policy["status"] == "blocked"
+    assert "owner_matches_committed_demonstration" in policy["failed_checks"]
 
 
 def test_cross_context_agreement_requires_every_context() -> None:
@@ -534,9 +698,7 @@ def test_release_candidate_verifier_isolating_tamper_arms(tmp_path: Path) -> Non
     """Each re-derivation check carries its own weight: forging the stored
     encounters, the agreement block, or the top-level status — with the
     self-digest recomputed every time — is refused by the NAMED check."""
-    root = tmp_path / "microcosm-root"
-    (root / "src/microcosm_core").mkdir(parents=True)
-    (root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+    root = _fake_root(tmp_path)
     out_dir = root / ".microcosm/release-candidate-proof"
     build_release_candidate_proof(
         root=root,
@@ -590,6 +752,25 @@ def test_release_candidate_verifier_isolating_tamper_arms(tmp_path: Path) -> Non
     assert forged_policy["status"] != "packet_valid"
     assert check_status(forged_policy, "authority_policy_preserved") == "blocked"
 
+    # Forging the expectation block — claiming a different committed promise
+    # than the digest-bound demonstration copy carries — is refused by name.
+    forged_expectation = rewrite(
+        lambda p: p["expectation_policy"].update(
+            expected_owner_organ_id="forged_promise_organ"
+        )
+    )
+    assert forged_expectation["status"] == "digest_mismatch"
+    assert check_status(forged_expectation, "expectation_policy_rederived") == "blocked"
+    assert check_status(forged_expectation, "cross_context_agreement_rederived") == "pass"
+
+    # A packet claiming any external signature posture this lane does not have
+    # is claiming provenance it cannot back.
+    forged_signature = rewrite(
+        lambda p: p.update(external_signature_status="signed_by_github_attestation")
+    )
+    assert forged_signature["status"] != "packet_valid"
+    assert check_status(forged_signature, "authority_policy_preserved") == "blocked"
+
     # Copied install evidence is digest-bound too: deleting it is refused.
     packet_path.write_text(pristine, encoding="utf-8")
     (out_dir / "install/first-action-hero.json").unlink()
@@ -603,10 +784,8 @@ def test_release_candidate_verifier_isolating_tamper_arms(tmp_path: Path) -> Non
 def test_release_candidate_proof_blocks_on_source_mutation(tmp_path: Path) -> None:
     """A run that mutates tracked source — even via a concurrent writer — must
     block the packet, and the verifier must not bless the mutated receipt."""
-    root = tmp_path / "microcosm-root"
-    (root / "src/microcosm_core").mkdir(parents=True)
+    root = _fake_root(tmp_path)
     tracked = root / "src/microcosm_core/__init__.py"
-    tracked.write_text("", encoding="utf-8")
     out_dir = root / ".microcosm/release-candidate-proof"
 
     inner = _release_candidate_fake_runner()
@@ -634,9 +813,7 @@ def test_release_candidate_proof_blocks_on_source_mutation(tmp_path: Path) -> No
 def test_release_candidate_proof_keep_work_still_passes(tmp_path: Path) -> None:
     """--keep-work keeps the transient work trees without flipping the verdict:
     the leak scan covers the publishable packet surface, not the workspace."""
-    root = tmp_path / "microcosm-root"
-    (root / "src/microcosm_core").mkdir(parents=True)
-    (root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+    root = _fake_root(tmp_path)
     out_dir = root / ".microcosm/release-candidate-proof"
     packet = build_release_candidate_proof(
         root=root,

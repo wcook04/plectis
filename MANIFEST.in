@@ -19,6 +19,7 @@ include PRINCIPLES.md
 include PROVENANCE.md
 include QUICKSTART.md
 include RELEASE_DISCIPLINE.md
+include RELEASE_REVIEW.md
 include README.md
 include SECURITY.md
 include bootstrap.sh

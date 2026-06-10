@@ -41,13 +41,14 @@ PUBLIC_TESTS ?= \
 	tests/test_release_export.py \
 	tests/test_first_action_demo.py \
 	tests/test_skeptic_flight_recorder.py \
-	tests/test_release_candidate_proof.py
+	tests/test_release_candidate_proof.py \
+	tests/test_release_review_contract.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
-.PHONY: release-candidate-proof release-candidate-proof-verify
+.PHONY: release-candidate-proof release-candidate-proof-verify release-review
 .PHONY: check preflight validate
 
 help:
@@ -61,6 +62,7 @@ help:
 		"  make flight-recorder-verify verify an existing flight-recorder packet" \
 		"  make release-candidate-proof prove the first-action product in checkout, install, and export" \
 		"  make release-candidate-proof-verify verify an existing release-candidate proof packet" \
+		"  make release-review       verify an existing proof packet and print its reviewer card (contract: RELEASE_REVIEW.md)" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
 		"  make check               fast preflight: organ evidence-class registry integrity" \
@@ -116,6 +118,10 @@ release-candidate-proof:
 
 release-candidate-proof-verify:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
+
+release-review:
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/release_candidate_proof.py verify $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR) --root .
+	@cat $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)/release-candidate-proof-card.md
 
 package-smoke:
 	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status

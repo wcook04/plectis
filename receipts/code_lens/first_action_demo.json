@@ -40,7 +40,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -88,7 +89,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -148,7 +150,8 @@
         ],
         "receipt_refs_more": 1,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
       },
       "reading_boundary": {
         "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
@@ -213,7 +216,8 @@
         ],
         "receipt_refs_more": 2,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine"
       },
       "reading_boundary": {
         "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
@@ -273,7 +277,8 @@
         ],
         "receipt_refs_more": 1,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
       },
       "reading_boundary": {
         "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
@@ -333,7 +338,8 @@
         ],
         "receipt_refs_more": 1,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
         "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
@@ -389,7 +395,8 @@
         ],
         "receipt_refs_more": 1,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
       },
       "reading_boundary": {
         "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
@@ -454,7 +461,8 @@
         ],
         "receipt_refs_more": 5,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
       },
       "reading_boundary": {
         "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
@@ -516,7 +524,8 @@
         ],
         "receipt_refs_more": 1,
         "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
-        "validation_commands": []
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
         "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
@@ -567,7 +576,8 @@
           "PYTHONPATH=src python3 -m microcosm_core comprehend --goal \"what should I work on for the Microcosm release?\"",
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -615,7 +625,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -662,7 +673,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -709,7 +721,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -756,7 +769,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -804,7 +818,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -852,7 +867,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,
@@ -900,7 +916,8 @@
         "runnable_validator": null,
         "validation_commands": [
           "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ]
+        ],
+        "validator_command": null
       },
       "reading_boundary": {
         "allowed_scope": null,

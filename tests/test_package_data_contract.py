@@ -244,6 +244,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "PROVENANCE.md",
         "QUICKSTART.md",
         "RELEASE_DISCIPLINE.md",
+        "RELEASE_REVIEW.md",
         "README.md",
         "SECURITY.md",
         "bootstrap.sh",
