@@ -12,7 +12,7 @@
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.31,
+  "compile_ms": 0.209,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",

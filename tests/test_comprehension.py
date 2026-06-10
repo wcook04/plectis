@@ -13,8 +13,12 @@ from pathlib import Path
 from microcosm_core import comprehension as C
 
 
-def _write_fixture(root: Path, *, leaky: bool = False) -> None:
-    """Write a minimal substrate root (atlas + synopses + join index) for tests."""
+def _write_fixture(root: Path, *, leaky: bool = False, legacy_graph: bool = False) -> None:
+    """Write a minimal substrate root (atlas + synopses + join index) for tests.
+
+    legacy_graph=True writes a pre-v2 join index (no graph block, no claim/route/
+    family nodes) so tests can prove the packets re-defer honestly on old clones.
+    """
     (root / "core").mkdir(parents=True, exist_ok=True)
     (root / "receipts/code_lens").mkdir(parents=True, exist_ok=True)
     atlas = {
@@ -68,7 +72,7 @@ def _write_fixture(root: Path, *, leaky: bool = False) -> None:
         },
     }
     join = {
-        "schema_version": "microcosm_code_lens_join_index_v0",
+        "schema_version": "microcosm_code_lens_join_index_v2",
         "export_band": "presence_only",
         "source_bodies_exported": bool(leaky),
         "nodes": {
@@ -78,11 +82,13 @@ def _write_fixture(root: Path, *, leaky: bool = False) -> None:
                     "evidence_class": "semantic_validator",
                     "claim_ceiling": "validates_public_contract",
                     "status": "accepted",
+                    "family": "agent_reliability_and_safety",
                     "runner_module": "microcosm_core.organs.alpha_validator",
                     "runner_source_ref": "src/microcosm_core/organs/alpha_validator.py",
                     "runner_source_resolved": True,
                     "runner_custody_basis": "directory_coupling_marker",
                     "runner_specificity": {"real_coverage": 5, "body_specific": 4, "generic_unique": 1},
+                    "validator_command": "microcosm alpha-validator validate --input fixtures/x",
                     "authority_receipt": "receipts/first_wave/alpha_validator/acceptance.json",
                 },
                 {
@@ -90,11 +96,13 @@ def _write_fixture(root: Path, *, leaky: bool = False) -> None:
                     "evidence_class": "algorithmic_projection",
                     "claim_ceiling": "projects_drift",
                     "status": "accepted",
+                    "family": "import_projection_and_drift",
                     "runner_module": "microcosm_core.beta_projection",
                     "runner_source_ref": "src/microcosm_core/beta_projection.py",
                     "runner_source_resolved": True,
                     "runner_custody_basis": "owned",
                     "runner_specificity": {"real_coverage": 3, "body_specific": 3, "generic_unique": 0},
+                    "validator_command": "microcosm beta-projection run",
                     "authority_receipt": None,
                 },
             ],
@@ -107,6 +115,104 @@ def _write_fixture(root: Path, *, leaky: bool = False) -> None:
              "to": "receipts/first_wave/alpha_validator/acceptance.json", "kind": "emits_receipt"},
         ],
     }
+    if legacy_graph:
+        # Pre-v2 clones: no graph block, no claim/route/family nodes.
+        join["schema_version"] = "microcosm_code_lens_join_index_v0"
+        for node in join["nodes"]["organ"]:
+            node.pop("family", None)
+            node.pop("validator_command", None)
+    else:
+        join["nodes"]["claim"] = [
+            {
+                "claim_id": "claim::alpha_validator",
+                "organ_id": "alpha_validator",
+                "claim_ceiling": "validates_public_contract",
+                "claim_ceiling_restated": "Validates only the declared public contract.",
+                "evidence_class": "semantic_validator",
+                "evidence_strength_rank": 4,
+                "truth_accounting_bucket": "owned_validator",
+                "validator_command": "microcosm alpha-validator validate --input fixtures/x",
+                "authority_receipt": "receipts/first_wave/alpha_validator/acceptance.json",
+            },
+            {
+                "claim_id": "claim::beta_projection",
+                "organ_id": "beta_projection",
+                "claim_ceiling": "projects_drift",
+                "claim_ceiling_restated": "Projects drift only; does not certify release.",
+                "evidence_class": "algorithmic_projection",
+                "evidence_strength_rank": 3,
+                "truth_accounting_bucket": "owned_projection",
+                "validator_command": "microcosm beta-projection run",
+                "authority_receipt": None,
+            },
+        ]
+        join["nodes"]["route"] = [
+            {
+                "task_class": "agent-entry",
+                "route_role": "agent_task_class_to_organ_selector",
+                "primary_organ_id": "alpha_validator",
+                "primary_display_name": "Alpha Validator",
+                "first_command": "microcosm alpha-validator validate --input fixtures/x",
+                "stop_condition": "Stop when the binding receipt is visible.",
+                "allowed_scope": "Validates declared binding rows only; no release decision.",
+                "organ_count": 2,
+            }
+        ]
+        join["nodes"]["family"] = [
+            {"family_id": "agent_reliability_and_safety", "organ_count": 1},
+            {"family_id": "import_projection_and_drift", "organ_count": 1},
+        ]
+        join["edges"] += [
+            {"from_type": "organ", "from": "alpha_validator", "to_type": "claim",
+             "to": "claim::alpha_validator", "kind": "asserts_claim"},
+            {"from_type": "claim", "from": "claim::alpha_validator", "to_type": "validator_command",
+             "to": "microcosm alpha-validator validate --input fixtures/x", "kind": "validated_by"},
+            {"from_type": "claim", "from": "claim::alpha_validator", "to_type": "receipt",
+             "to": "receipts/first_wave/alpha_validator/acceptance.json", "kind": "proven_by"},
+            {"from_type": "organ", "from": "beta_projection", "to_type": "claim",
+             "to": "claim::beta_projection", "kind": "asserts_claim"},
+            {"from_type": "organ", "from": "alpha_validator", "to_type": "family",
+             "to": "agent_reliability_and_safety", "kind": "member_of_family"},
+            {"from_type": "organ", "from": "beta_projection", "to_type": "family",
+             "to": "import_projection_and_drift", "kind": "member_of_family"},
+            {"from_type": "organ", "from": "alpha_validator", "to_type": "organ",
+             "to": "beta_projection", "kind": "wires_to"},
+            {"from_type": "organ", "from": "alpha_validator", "to_type": "doctrine_ref",
+             "to": "mechanism.alpha.validates", "kind": "grounded_in_doctrine",
+             "ref_kind": "mechanism"},
+            {"from_type": "route", "from": "agent-entry", "to_type": "organ",
+             "to": "alpha_validator", "kind": "routes_to", "role": "primary"},
+            {"from_type": "route", "from": "agent-entry", "to_type": "organ",
+             "to": "beta_projection", "kind": "routes_to", "role": "relevant"},
+        ]
+        kind_counts: dict[str, int] = {}
+        for edge in join["edges"]:
+            kind_counts[edge["kind"]] = kind_counts.get(edge["kind"], 0) + 1
+        join["graph"] = {
+            "edge_kinds": sorted(kind_counts),
+            "edge_kind_counts": kind_counts,
+            "resolved_edge_classes": ["claim_node_ontology", "cross_organ_route_topology"],
+            "deferred_edge_classes": [
+                {
+                    "edge_class": "proof_internal_structure",
+                    "missing": "theorem -> lemma -> tactic edges inside a proof organ",
+                    "missing_source_class": "lean_proof_term_graph_not_extracted",
+                    "owner_path": "scripts/build_code_lens_join_index.py",
+                    "re_entry_command": "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py --help",
+                    "would_come_from": "a Lean-aware proof-graph builder feeding this join index",
+                }
+            ],
+            "atlas_plane_present": True,
+            "route_plane_present": True,
+        }
+        join["rollup"] = {
+            "organ_count": 2,
+            "claim_node_count": 2,
+            "route_node_count": 1,
+            "family_node_count": 2,
+            "organs_reachable_from_routes": 2,
+            "edge_count": len(join["edges"]),
+        }
     (root / "core/organ_atlas.json").write_text(json.dumps(atlas))
     (root / "core/component_public_synopses.json").write_text(json.dumps(synopses))
     (root / "receipts/code_lens/code_lens_join_index_v0.json").write_text(json.dumps(join))
@@ -445,7 +551,25 @@ def test_claim_trace_chains_claim_validator_and_receipts(tmp_path: Path) -> None
     kinds = {n["kind"] for n in pack["selected_nodes"]}
     assert {"claim", "validator"} <= kinds
     assert "receipts/first_wave/alpha_validator/acceptance.json" in pack["receipt_refs"]
-    assert {d["edge_class"] for d in pack["deferred_edges"]} == {"claim_node_ontology"}
+    # v2: the claim is the join index's FIRST-CLASS claim node, not a synthesis.
+    claim = next(n for n in pack["selected_nodes"] if n["kind"] == "claim")
+    assert claim["graph_backed"] is True
+    assert claim["claim_id"] == "claim::alpha_validator"
+    # The POSITIVE claim statement (from the synopsis), not only the ceiling negations.
+    assert "binding rows" in claim["claim_statement"]
+    edge_kinds = {e["kind"] for e in pack["selected_edges"]}
+    assert {"asserts_claim", "validated_by", "proven_by"} <= edge_kinds
+    # Purpose-filtered: the organ's doctrine/wires neighborhood stays on the organ
+    # packet; the claim packet carries only the claim chain + receipts.
+    assert edge_kinds <= {"asserts_claim", "validated_by", "proven_by", "emits_receipt"}
+    assert pack["edge_kinds_included"] == [
+        "asserts_claim", "validated_by", "proven_by", "emits_receipt",
+    ]
+    # The authority receipt is not double-counted when it is also an emitted receipt.
+    assert len(pack["receipt_refs"]) == len(set(pack["receipt_refs"]))
+    # claim_node_ontology is resolved by the graph -- no longer deferred.
+    assert pack["deferred_edges"] == []
+    assert pack["graph_backed"]["edge_classes_resolved"] == ["claim_node_ontology"]
 
 
 def test_flow_packet_orders_validator_runner_receipts(tmp_path: Path) -> None:
@@ -454,7 +578,160 @@ def test_flow_packet_orders_validator_runner_receipts(tmp_path: Path) -> None:
     assert pack["found"] is True
     stages = [n["role"] for n in pack["selected_nodes"] if n.get("kind") == "flow_stage"]
     assert stages == ["validator", "runner", "receipts"]
-    assert {d["edge_class"] for d in pack["deferred_edges"]} == {"cross_organ_route_topology"}
+    # v2: the route plane resolves cross_organ_route_topology -- no longer deferred.
+    assert pack["deferred_edges"] == []
+    route_ctx = next(n for n in pack["selected_nodes"] if n.get("kind") == "route_context")
+    assert route_ctx["routes"][0]["task_class"] == "agent-entry"
+    assert route_ctx["routes"][0]["role"] == "primary"
+    assert route_ctx["routes"][0]["stop_condition"] == "Stop when the binding receipt is visible."
+    wired = next(n for n in pack["selected_nodes"] if n.get("kind") == "wired_neighbors")
+    assert wired["wires_to"] == ["beta_projection"]
+    assert pack["reading_boundary"]["stop_condition"]
+    # Purpose-filtered flow edges: execution/topology kinds only.
+    assert {e["kind"] for e in pack["selected_edges"]} <= {
+        "implemented_by_runner", "emits_receipt", "wires_to", "routes_to",
+    }
+    assert pack["graph_backed"]["edge_classes_resolved"] == ["cross_organ_route_topology"]
+    # Inbound wires are real topology too: beta's flow shows who wires INTO it.
+    beta = C.comprehend(root=tmp_path, mode="flow", target="beta_projection")
+    beta_wired = next(
+        n for n in beta["selected_nodes"] if n.get("kind") == "wired_neighbors"
+    )
+    assert beta_wired["wired_from"] == ["alpha_validator"]
+    assert beta_wired["wires_to"] == []
+
+
+def test_organ_pack_carries_reading_boundary_and_graph_edges(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="organ", organ_id="alpha_validator")
+    boundary = pack["reading_boundary"]
+    assert boundary["stop_condition"] == "Stop when the binding receipt is visible."
+    assert boundary["allowed_scope"] == (
+        "Validates declared binding rows only; no release decision."
+    )
+    assert boundary["task_classes"] == ["agent-entry"]
+    edge_kinds = {e["kind"] for e in pack["selected_edges"]}
+    assert {"member_of_family", "wires_to", "grounded_in_doctrine", "routes_to"} <= edge_kinds
+    # beta is routed too (relevant role), so it inherits the route-bound boundary.
+    beta = C.comprehend(root=tmp_path, mode="organ", organ_id="beta_projection")
+    beta_boundary = beta["reading_boundary"]
+    assert beta_boundary["task_classes"] == ["agent-entry"]
+    assert beta_boundary["stop_condition"] == "Stop when the binding receipt is visible."
+
+
+def test_reading_boundary_fallback_when_no_route_lands(tmp_path: Path) -> None:
+    """An unrouted organ gets an honest fallback labelled as guidance, never a fake
+    route-bound stop condition."""
+    _write_fixture(tmp_path, legacy_graph=True)  # no route plane at all
+    pack = C.comprehend(root=tmp_path, mode="organ", organ_id="alpha_validator")
+    boundary = pack["reading_boundary"]
+    assert boundary["stop_condition"] is None
+    assert boundary["task_classes"] == []
+    assert "comprehension-layer guidance, not route data" in boundary["fallback_guidance"]
+
+
+def test_packets_redefer_honestly_on_legacy_join_index(tmp_path: Path) -> None:
+    """A pre-v2 clone must re-defer the graph edge classes, not fake resolution."""
+    _write_fixture(tmp_path, legacy_graph=True)
+    claim_pack = C.comprehend(root=tmp_path, mode="claim_trace", target="alpha_validator")
+    deferred = {d["edge_class"]: d for d in claim_pack["deferred_edges"]}
+    assert set(deferred) == {"claim_node_ontology"}
+    # Residuals are precise: missing-source class + owner + re-entry command.
+    residual = deferred["claim_node_ontology"]
+    assert residual["missing_source_class"]
+    assert residual["owner_path"] == "scripts/build_code_lens_join_index.py"
+    assert residual["re_entry_command"]
+    claim = next(n for n in claim_pack["selected_nodes"] if n["kind"] == "claim")
+    assert claim["graph_backed"] is False
+    flow_pack = C.comprehend(root=tmp_path, mode="flow", target="alpha_validator")
+    assert {d["edge_class"] for d in flow_pack["deferred_edges"]} == {
+        "cross_organ_route_topology"
+    }
+    self_model = C.comprehend(root=tmp_path, mode="self-model")
+    assert {d["edge_class"] for d in self_model["deferred_edges"]} == {
+        "proof_internal_structure",
+        "cross_organ_route_topology",
+        "claim_node_ontology",
+    }
+    # The residual vocabulary matches the builder's exactly (no drift).
+    by_class = {d["edge_class"]: d for d in self_model["deferred_edges"]}
+    assert (
+        by_class["cross_organ_route_topology"]["missing_source_class"]
+        == "agent_task_routes_plane_absent_from_join_index"
+    )
+    assert self_model["route_topology"]["route_node_count"] == 0
+    assert "rebuild" in self_model["route_topology"]["note"]
+    # The improvement ranker's rank-3 row reverts to the route/claim extraction
+    # target while those classes are deferred (the other half of the lifecycle).
+    plan = C.comprehend(root=tmp_path, mode="mutation_plan")
+    rank3 = next(r for r in plan["selected_nodes"] if r["rank"] == 3)
+    assert "route and claim" in rank3["title"].lower()
+    assert set(rank3["ranking_basis"]["deferred_edge_classes"]) >= {
+        "cross_organ_route_topology",
+        "claim_node_ontology",
+    }
+
+
+def test_declared_resolution_over_empty_planes_is_not_trusted(tmp_path: Path) -> None:
+    """A corrupted index that DECLARES resolution while carrying no claim/route
+    nodes must re-defer: the reader derives resolution structurally, never from
+    the label."""
+    _write_fixture(tmp_path)
+    join_path = tmp_path / "receipts/code_lens/code_lens_join_index_v0.json"
+    join = json.loads(join_path.read_text())
+    join["nodes"]["claim"] = []
+    join["nodes"]["route"] = []
+    join["edges"] = [
+        e for e in join["edges"] if e["kind"] not in ("asserts_claim", "routes_to")
+    ]
+    # The (now false) declaration stays in place -- that is the attack.
+    assert "claim_node_ontology" in join["graph"]["resolved_edge_classes"]
+    join_path.write_text(json.dumps(join))
+    claim_pack = C.comprehend(root=tmp_path, mode="claim_trace", target="alpha_validator")
+    assert {d["edge_class"] for d in claim_pack["deferred_edges"]} == {
+        "claim_node_ontology"
+    }
+    claim = next(n for n in claim_pack["selected_nodes"] if n["kind"] == "claim")
+    assert claim["graph_backed"] is False
+    flow_pack = C.comprehend(root=tmp_path, mode="flow", target="alpha_validator")
+    assert {d["edge_class"] for d in flow_pack["deferred_edges"]} == {
+        "cross_organ_route_topology"
+    }
+
+
+def test_cluster_pack_carries_task_classes_and_doctrine_spine(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="organ_cluster", target="agent_reliability_and_safety"
+    )
+    assert pack["task_classes"] == ["agent-entry"]
+    assert {"axioms", "principles"} <= set(pack["shared_refs"])
+    # Legacy clones have no routes_to edges, so the field is honestly absent.
+    legacy_root = tmp_path / "legacy"
+    _write_fixture(legacy_root, legacy_graph=True)
+    legacy = C.comprehend(
+        root=legacy_root, mode="organ_cluster", target="agent_reliability_and_safety"
+    )
+    assert "task_classes" not in legacy
+
+
+def test_packet_atlas_data_status_is_computed_from_graph_state(tmp_path: Path) -> None:
+    """The menu must not keep apologizing for edges the join index now carries,
+    nor advertise 'full' over a degraded clone."""
+    _write_fixture(tmp_path)
+    atlas = C.comprehend(root=tmp_path, mode="packet-atlas")
+    status = {n["packet_id"]: n["data_status"] for n in atlas["selected_nodes"]}
+    assert status["claim_trace"] == "full"
+    assert status["flow"] == "full"
+    assert status["math"] == "substantive_with_deferred_edges"  # proof still deferred
+    legacy_root = tmp_path / "legacy"
+    _write_fixture(legacy_root, legacy_graph=True)
+    legacy_atlas = C.comprehend(root=legacy_root, mode="packet-atlas")
+    legacy_status = {
+        n["packet_id"]: n["data_status"] for n in legacy_atlas["selected_nodes"]
+    }
+    assert legacy_status["claim_trace"] == "substantive_with_deferred_edges"
+    assert legacy_status["flow"] == "substantive_with_deferred_edges"
 
 
 def test_claim_trace_and_flow_chooser_when_target_blank(tmp_path: Path) -> None:
@@ -501,6 +778,12 @@ def test_mutation_plan_without_target_returns_ranked_release_improvement_targets
     body = json.dumps(pack)
     assert "scripts/build_code_lens_join_index.py" in body
     assert all(v is False for v in pack["authority_ceiling"].values())
+    # The ranked list stays honest across its own lifecycle: with route/claim
+    # topology resolved in the graph, rank 3 advances to the genuinely-remaining
+    # proof-graph extraction instead of re-recommending finished work.
+    rank3 = next(r for r in pack["selected_nodes"] if r["rank"] == 3)
+    assert "proof" in rank3["title"].lower()
+    assert rank3["ranking_basis"]["deferred_edge_classes"] == ["proof_internal_structure"]
 
 
 def test_every_packet_is_stamped_with_identity_and_within_budget(tmp_path: Path) -> None:
@@ -600,8 +883,27 @@ def test_self_model_surfaces_thinness_honestly(tmp_path: Path) -> None:
     # alpha_validator's runner is a directory_coupling_marker (exact-copy macro body).
     assert thin["exact_copy_macro_runners"] == 1
     assert "how_to_probe" in thin
-    # The honest deferred edges are always surfaced, never hidden.
-    assert {d["edge_class"] for d in pack["deferred_edges"]} >= {"proof_internal_structure"}
+    # The honest deferred edges are always surfaced, never hidden -- and with the v2
+    # graph resolved, ONLY the genuinely-missing proof structure remains deferred.
+    assert {d["edge_class"] for d in pack["deferred_edges"]} == {"proof_internal_structure"}
+    assert pack["graph_backed"]["edge_classes_resolved"] == [
+        "claim_node_ontology",
+        "cross_organ_route_topology",
+    ]
+
+
+def test_self_model_carries_route_topology_section(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="self-model")
+    topo = pack["route_topology"]
+    assert topo["route_node_count"] == 1
+    assert topo["routes"][0]["task_class"] == "agent-entry"
+    assert topo["routes"][0]["primary_organ_id"] == "alpha_validator"
+    assert "route_topology" in pack["sections"]
+    # Health rollup names the graph shape.
+    assert pack["code_lens_health"]["claim_node_count"] == 2
+    assert pack["code_lens_health"]["route_node_count"] == 1
+    assert pack["code_lens_health"]["edge_kind_counts"]["routes_to"] == 2
 
 
 def test_self_model_public_reader_is_calibrated_not_promotional(tmp_path: Path) -> None:
@@ -653,3 +955,43 @@ def test_whole_system_comprehension_assay_is_green_on_live_root() -> None:
     assert assay["deferred_surfaced"] is True
     assert assay["front_anchor_present"] is True
     assert assay["tail_recap_present"] is True
+    # v2 graph obligations: route + claim topology are graph-backed on the live
+    # substrate, and the ONLY remaining deferred class is proof-internal structure,
+    # surfaced as a precise residual (owner + re-entry command), never a vague note.
+    assert assay["route_topology_present"] is True
+    assert assay["claim_nodes_present"] is True
+    assert assay["deferred_edge_classes_remaining"] == ["proof_internal_structure"]
+    assert assay["deferred_residuals_are_precise"] is True
+
+
+def test_live_join_index_resolves_route_and_claim_topology() -> None:
+    """The committed join index must carry the v2 graph: typed route/claim/family
+    edges covering every organ, so claim_trace and flow answer from the graph."""
+    bundle = C.load_inputs(C.default_root())
+    state = C._graph_state(bundle)
+    assert {"claim_node_ontology", "cross_organ_route_topology"} <= state["resolved"]
+    organ_total = len(bundle["join_by_organ"])
+    assert len(state["claim_nodes"]) == organ_total
+    assert len(state["route_nodes"]) > 0
+    # Recompute reachability from the edges themselves -- never trust the rollup
+    # label: every organ must be a routes_to target, and no route may point at a
+    # phantom organ id.
+    routed_targets = {
+        e["to"]
+        for e in (bundle["join_index"] or {}).get("edges") or []
+        if isinstance(e, dict) and e.get("kind") == "routes_to"
+    }
+    assert routed_targets == set(bundle["join_by_organ"])
+    rollup = (bundle["join_index"] or {}).get("rollup") or {}
+    assert rollup.get("organs_reachable_from_routes") == organ_total
+    assert rollup.get("route_targets_unknown") == 0
+    counts = state["graph"]["edge_kind_counts"]
+    for kind in (
+        "asserts_claim",
+        "validated_by",
+        "member_of_family",
+        "wires_to",
+        "routes_to",
+        "grounded_in_doctrine",
+    ):
+        assert counts.get(kind, 0) > 0, f"live graph missing edge kind {kind}"

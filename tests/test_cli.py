@@ -596,6 +596,31 @@ def test_cli_comprehend_improvements_returns_ranked_targets() -> None:
     assert all(v is False for v in payload["authority_ceiling"].values())
 
 
+def test_cli_comprehension_assay_whole_system_is_green() -> None:
+    """The CLI assay surface itself (not just the library) must run green: a cold
+    agent's literal first proof command is `microcosm comprehension-assay ...`."""
+    result = _run_microcosm_cli("comprehension-assay", "--whole-system")
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["whole_system_answerability_pct"] >= 90.0
+    assert payload["every_organ_mapped"] is True
+    assert payload["overclaim_count"] == 0
+    assert payload["source_body_leaks"] == 0
+    assert payload["deferred_edge_classes_remaining"] == ["proof_internal_structure"]
+    assert payload["route_topology_present"] is True
+
+
+def test_cli_comprehension_assay_packet_route_is_green() -> None:
+    result = _run_microcosm_cli("comprehension-assay", "--packet-route")
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["packet_route_accuracy_pct"] == 100.0
+    assert payload["authority_overclaim_count"] == 0
+    assert payload["public_excerpt_leak_count"] == 0
+    assert payload["budget_violations"] == 0
+    assert payload["next_packet_link_coverage_pct"] == 100.0
+
+
 def test_cli_root_help_listed_commands_have_help_routes() -> None:
     root_help = _run_microcosm_cli_in_process("--help")
     assert root_help.returncode == 0, root_help.stderr

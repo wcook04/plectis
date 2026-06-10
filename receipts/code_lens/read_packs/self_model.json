@@ -7,34 +7,12 @@
   },
   "authority_membrane": {
     "anti_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
-    "authority_ceiling": {
-      "release_authorized": false,
-      "source_body_export_authorized": false,
-      "static_analysis_authority": false,
-      "whole_system_correctness_authorized": false
-    },
-    "bands": {
-      "local_semantic_excerpt": {
-        "exports": "bounded owned-source excerpts behind explicit local authority",
-        "requires": "source_body_export_authorized is False even when active",
-        "source_bodies": false,
-        "state": "dormant"
-      },
-      "presence_only": {
-        "exports": "names, public glosses, counts, refs, ceilings",
-        "source_bodies": false,
-        "state": "active"
-      },
-      "source_span_escalation": {
-        "exports": "exact path + symbol pointers only; open source to mutate or prove",
-        "source_bodies": false,
-        "state": "on_demand"
-      }
-    },
+    "authority_ceiling": "see top-level authority_ceiling (all false)",
+    "bands": "see membrane.bands (top of this packet)",
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 8564,
+    "actual_bytes": 14605,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -59,31 +37,38 @@
       "real_runtime_receipt": 12,
       "source_faithful_refactor": 27
     },
-    "edge_count": 424,
+    "claim_node_count": 82,
+    "edge_count": 2188,
+    "edge_kind_counts": {
+      "asserts_claim": 82,
+      "emits_receipt": 342,
+      "grounded_in_doctrine": 932,
+      "implemented_by_runner": 82,
+      "member_of_family": 82,
+      "proven_by": 82,
+      "routes_to": 296,
+      "validated_by": 82,
+      "wires_to": 208
+    },
     "organ_count": 82,
+    "route_node_count": 33,
     "runner_custody_split": {
       "directory_coupling_marker": 81,
       "owned": 1
     },
     "synopsis_coverage": 82
   },
-  "compile_ms": 0.314,
+  "compile_ms": 0.507,
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
+      "blocked_on": "no Lean-aware proof-graph builder exists yet; see owner_path",
       "edge_class": "proof_internal_structure",
       "missing": "theorem -> lemma -> tactic edges inside a proof organ",
-      "would_come_from": "join-index v2 Lean-aware proof-graph builder"
-    },
-    {
-      "edge_class": "cross_organ_route_topology",
-      "missing": "a route node fanning one entry point across multiple organs",
-      "would_come_from": "join-index v2 route extraction"
-    },
-    {
-      "edge_class": "claim_node_ontology",
-      "missing": "a first-class claim node distinct from the per-organ ceiling",
-      "would_come_from": "join-index v2 claim extraction"
+      "missing_source_class": "lean_proof_term_graph_not_extracted",
+      "next_packet": "math",
+      "owner_path": "scripts/build_code_lens_join_index.py",
+      "would_come_from": "a Lean-aware proof-graph builder feeding this join index"
     }
   ],
   "evidence_refs": [
@@ -94,6 +79,16 @@
   ],
   "export_band": "presence_only",
   "goal": "comprehend the whole Microcosm",
+  "graph_backed": {
+    "edge_classes_resolved": [
+      "claim_node_ontology",
+      "cross_organ_route_topology"
+    ],
+    "edge_kind_counts": "see code_lens_health.edge_kind_counts",
+    "source": "receipts/code_lens/code_lens_join_index_v0.json#graph",
+    "source_note": "the v0 filename is a stable artifact path; the schema_version inside is authoritative",
+    "source_schema": "microcosm_code_lens_join_index_v2"
+  },
   "major_subsystems": [
     {
       "drilldown": "microcosm comprehend --slice cluster --family import_projection_and_drift",
@@ -178,7 +173,8 @@
     "Microcosm is a 82-organ self-describing substrate; each organ is a bounded capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
     "Custody truth: 81/82 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
     "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, or whole-system correctness.",
-    "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow."
+    "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
+    "The join index is a typed graph: 33 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
   ],
   "receipt_refs": [],
   "recommended_drilldowns": [
@@ -223,10 +219,217 @@
       "question": "read a file's atoms without opening source?"
     }
   ],
+  "route_topology": {
+    "drilldown": "microcosm comprehend --slice flows --organ <primary_organ_id>",
+    "note": "route nodes carry a first_command, a stop_condition, and an allowed_scope where the route plane binds them; the flow and organ packets surface them per organ",
+    "organs_reachable_from_routes": 82,
+    "route_node_count": 33,
+    "routes": [
+      {
+        "organ_count": 2,
+        "primary_display_name": "Mission Transaction Work Spine",
+        "primary_organ_id": "mission_transaction_work_spine",
+        "task_class": "agent-concurrency"
+      },
+      {
+        "organ_count": 4,
+        "primary_display_name": "Cold Reader Route Map",
+        "primary_organ_id": "cold_reader_route_map",
+        "task_class": "agent-entry"
+      },
+      {
+        "organ_count": 17,
+        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "task_class": "agent-evaluation"
+      },
+      {
+        "organ_count": 17,
+        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "task_class": "ai-safety"
+      },
+      {
+        "organ_count": 10,
+        "primary_display_name": "Pattern Binding Contract",
+        "primary_organ_id": "pattern_binding_contract",
+        "task_class": "architecture"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Audio Level RMS Port",
+        "primary_organ_id": "batch8_audio_level_rms_port",
+        "task_class": "audio"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Authority Systems Source Capsule",
+        "primary_organ_id": "batch5_authority_systems_capsule",
+        "task_class": "authority-boundary"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Compliance Pipeline Capsule",
+        "primary_organ_id": "batch8_compliance_pipeline_capsule",
+        "task_class": "compliance"
+      },
+      {
+        "organ_count": 5,
+        "primary_display_name": "Mission Transaction Work Spine",
+        "primary_organ_id": "mission_transaction_work_spine",
+        "task_class": "continuity"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Demo Take Console Source Capsule",
+        "primary_organ_id": "batch7_demo_take_console_capsule",
+        "task_class": "desktop-capture-boundary"
+      },
+      {
+        "organ_count": 10,
+        "primary_display_name": "Pattern Binding Contract",
+        "primary_organ_id": "pattern_binding_contract",
+        "task_class": "doctrine"
+      },
+      {
+        "organ_count": 21,
+        "primary_display_name": "Secondary Runtime Source Capsule",
+        "primary_organ_id": "batch7_secondary_runtime_capsule",
+        "task_class": "drift-control"
+      },
+      {
+        "organ_count": 2,
+        "primary_display_name": "Cold Reader Route Map",
+        "primary_organ_id": "cold_reader_route_map",
+        "task_class": "evaluation"
+      },
+      {
+        "organ_count": 7,
+        "primary_display_name": "Finance Forecast Evaluation Spine",
+        "primary_organ_id": "finance_forecast_evaluation_spine",
+        "task_class": "finance"
+      },
+      {
+        "organ_count": 8,
+        "primary_display_name": "Research Replication Rubric Artifact Replay",
+        "primary_organ_id": "research_replication_rubric_artifact_replay",
+        "task_class": "forecasting"
+      },
+      {
+        "organ_count": 18,
+        "primary_display_name": "Proof Diagnostic Evidence Spine",
+        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "task_class": "formal-methods"
+      },
+      {
+        "organ_count": 6,
+        "primary_display_name": "Station Runtime Evidence Capsule",
+        "primary_organ_id": "batch7_station_runtime_capsule",
+        "task_class": "frontend"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Frontend Work/Market Cockpit Capsule",
+        "primary_organ_id": "batch10_frontend_work_market_cockpit_capsule",
+        "task_class": "frontend-boundary"
+      },
+      {
+        "organ_count": 2,
+        "primary_display_name": "Cold Reader Route Map",
+        "primary_organ_id": "cold_reader_route_map",
+        "task_class": "getting-started"
+      },
+      {
+        "organ_count": 2,
+        "primary_display_name": "Cold Reader Route Map",
+        "primary_organ_id": "cold_reader_route_map",
+        "task_class": "interesting-parts"
+      },
+      {
+        "organ_count": 18,
+        "primary_display_name": "Proof Diagnostic Evidence Spine",
+        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "task_class": "lean"
+      },
+      {
+        "organ_count": 2,
+        "primary_display_name": "Secondary Runtime Source Capsule",
+        "primary_organ_id": "batch7_secondary_runtime_capsule",
+        "task_class": "market-boundary"
+      },
+      {
+        "organ_count": 10,
+        "primary_display_name": "Pattern Binding Contract",
+        "primary_organ_id": "pattern_binding_contract",
+        "task_class": "navigation"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Oracle Sibling Source Capsule",
+        "primary_organ_id": "batch7_oracle_sibling_capsule",
+        "task_class": "oracle-boundary"
+      },
+      {
+        "organ_count": 22,
+        "primary_display_name": "Secondary Runtime Source Capsule",
+        "primary_organ_id": "batch7_secondary_runtime_capsule",
+        "task_class": "provenance"
+      },
+      {
+        "organ_count": 32,
+        "primary_display_name": "Cold Reader Route Map",
+        "primary_organ_id": "cold_reader_route_map",
+        "task_class": "provider-ops"
+      },
+      {
+        "organ_count": 17,
+        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "task_class": "red-teaming"
+      },
+      {
+        "organ_count": 8,
+        "primary_display_name": "Research Replication Rubric Artifact Replay",
+        "primary_organ_id": "research_replication_rubric_artifact_replay",
+        "task_class": "research-workflows"
+      },
+      {
+        "organ_count": 3,
+        "primary_display_name": "Agent Memory Temporal Conflict Replay",
+        "primary_organ_id": "agent_memory_temporal_conflict_replay",
+        "task_class": "security"
+      },
+      {
+        "organ_count": 22,
+        "primary_display_name": "Secondary Runtime Source Capsule",
+        "primary_organ_id": "batch7_secondary_runtime_capsule",
+        "task_class": "source-import"
+      },
+      {
+        "organ_count": 18,
+        "primary_display_name": "Proof Diagnostic Evidence Spine",
+        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "task_class": "theorem-proving"
+      },
+      {
+        "organ_count": 2,
+        "primary_display_name": "Mission Transaction Work Spine",
+        "primary_organ_id": "mission_transaction_work_spine",
+        "task_class": "work-ledger"
+      },
+      {
+        "organ_count": 5,
+        "primary_display_name": "Mission Transaction Work Spine",
+        "primary_organ_id": "mission_transaction_work_spine",
+        "task_class": "workflow-engineering"
+      }
+    ]
+  },
   "schema_version": "microcosm_whole_system_self_model_v0",
   "sections": [
     "read_me_first",
     "major_subsystems",
+    "route_topology",
     "code_lens_health",
     "authority_membrane",
     "thin_or_projection_surfaces",

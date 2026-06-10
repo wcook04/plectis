@@ -394,6 +394,113 @@ def _organ_edges(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
     return [e for e in edges if isinstance(e, dict) and e.get("from") == organ_id]
 
 
+def _edges_touching(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
+    """Select every join-index edge that touches one organ's graph neighborhood.
+
+    - Teleology: the v2 selection behind organ/claim/flow packets -- outgoing edges
+      (runner, receipts, claim, family, wires, doctrine), the organ's claim-node
+      edges, and inbound routes_to / wires_to edges, so a packet shows the organ's
+      place in the topology instead of only what it emits.
+    - Guarantee: returns the de-duplicated edge dicts whose ``from`` is the organ or
+      its claim node, or whose ``to`` is the organ; [] when the join index is absent.
+    - Fails: never raises.
+    - Reads: the in-memory join index only.
+    """
+    edges = (join_index or {}).get("edges") or []
+    claim_id = f"claim::{organ_id}"
+    out: list[dict[str, Any]] = []
+    for edge in edges:
+        if not isinstance(edge, dict):
+            continue
+        if edge.get("from") in (organ_id, claim_id) or edge.get("to") == organ_id:
+            out.append(edge)
+    return out
+
+
+def _routes_serving(inputs: dict[str, Any], organ_id: str) -> list[dict[str, Any]]:
+    """Find the task-class routes whose fan-out lands on one organ.
+
+    - Teleology: answer "which entry points reach this organ, and with what stop
+      condition?" from the join index's route plane.
+    - Guarantee: returns [{task_class, role, first_command, stop_condition,
+      allowed_scope}] sorted primary-first then by task_class; allowed_scope is the
+      route's own scope sentence (the per-route stopping information) when the
+      route node carries one; [] when the route plane is absent.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    state = _graph_state(inputs)
+    route_by = {str(r.get("task_class")): r for r in state["route_nodes"]}
+    rows: list[dict[str, Any]] = []
+    for edge in (inputs.get("join_index") or {}).get("edges") or []:
+        if not isinstance(edge, dict) or edge.get("kind") != "routes_to":
+            continue
+        if edge.get("to") != organ_id:
+            continue
+        route = route_by.get(str(edge.get("from"))) or {}
+        rows.append(
+            {
+                "task_class": edge.get("from"),
+                "role": edge.get("role"),
+                "first_command": route.get("first_command"),
+                "stop_condition": route.get("stop_condition"),
+                "allowed_scope": route.get("allowed_scope"),
+            }
+        )
+    rows.sort(key=lambda r: (r.get("role") != "primary", str(r.get("task_class"))))
+    return rows
+
+
+def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
+    """Build the organ's where-to-stop-reading block from the route plane.
+
+    - Teleology: a cold agent needs a stopping rule, not just more material; this
+      surfaces the strongest route-bound stop condition for the organ.
+    - Guarantee: returns {stop_condition, allowed_scope, task_classes, source};
+      allowed_scope is the primary-most route's own scope sentence (the route-
+      specific stopping information); when no route lands on the organ,
+      stop_condition is None and a fallback_guidance string (labelled as
+      comprehension-layer guidance, not route data) is supplied.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    routes = _routes_serving(inputs, organ_id)
+    boundary: dict[str, Any] = {
+        "stop_condition": next(
+            (r["stop_condition"] for r in routes if r.get("stop_condition")), None
+        ),
+        "allowed_scope": next(
+            (r["allowed_scope"] for r in routes if r.get("allowed_scope")), None
+        ),
+        "task_classes": [r["task_class"] for r in routes],
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+    }
+    if boundary["stop_condition"] is None:
+        boundary["fallback_guidance"] = (
+            "No task-class route binds a stop condition for this organ; stop once the "
+            "first command's named result record is visible (comprehension-layer "
+            "guidance, not route data)."
+        )
+    return boundary
+
+
+def _runnable_command(command: Any) -> str:
+    """Render a registry validator command in its cold-runnable form.
+
+    - Teleology: a packet that says "run this" must hand over a command that works
+      from a fresh clone; the registry stores bare `python -m microcosm_core...`
+      identities that fail without the src layout on PYTHONPATH.
+    - Guarantee: returns the command prefixed with "PYTHONPATH=src " when it starts
+      with a bare python module invocation of microcosm_core; other commands and
+      non-strings pass through as str(command or "").
+    - Fails: never raises.
+    """
+    text = str(command or "")
+    if text.startswith(("python -m microcosm_core", "python3 -m microcosm_core")):
+        return "PYTHONPATH=src " + text
+    return text
+
+
 def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
     """Compile the per-organ comprehension read pack.
 
@@ -402,7 +509,9 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
     - Guarantee: returns an explanation-mode pack whose summary draws what_this_is from
       the synopsis + human_gloss, what_to_inspect_next from first_command + wires_to +
       resolved mechanism/concept refs, and what_not_to_trust from claim_ceiling_restated;
-      selected_edges are the organ's join edges; source_span_escalation carries code_loci.
+      selected_edges are every join edge touching the organ (runner/receipt/claim/
+      family/wires/doctrine/inbound routes); reading_boundary carries the route-bound
+      stop condition; source_span_escalation carries code_loci.
     - Fails: returns a not_found pack (mode reference) when the organ id is unknown.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never reads or returns runner source bodies or docstring atoms.
@@ -453,11 +562,12 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
             "authority_receipt": join_node.get("authority_receipt"),
         }
     ]
-    pack["selected_edges"] = _organ_edges(inputs.get("join_index"), organ_id)
+    pack["selected_edges"] = _edges_touching(inputs.get("join_index"), organ_id)
     pack["evidence_refs"] = _organ_concept_refs(atlas_row)
     pack["receipt_refs"] = [
         e.get("to") for e in pack["selected_edges"] if e.get("kind") == "emits_receipt"
     ]
+    pack["reading_boundary"] = _reading_boundary(inputs, organ_id)
     pack["specificity_risks"] = [_organ_specificity_risk(join_node)]
     pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
     return pack
@@ -1081,6 +1191,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "standard",
         "slo_ms": 500,
         "data_status": "substantive_with_deferred_edges",
+        "deferred_classes": ["proof_internal_structure"],
         "next_packets": ["organ", "claim_trace", "organ_cluster"],
     },
     {
@@ -1096,6 +1207,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 300,
         "data_status": "substantive_with_deferred_edges",
+        "deferred_classes": ["claim_node_ontology"],
         "next_packets": ["flow", "organ", "authority"],
     },
     {
@@ -1111,6 +1223,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 300,
         "data_status": "substantive_with_deferred_edges",
+        "deferred_classes": ["cross_organ_route_topology"],
         "next_packets": ["claim_trace", "organ", "mutation_plan"],
     },
     {
@@ -1251,6 +1364,17 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     for spec in PACKET_SPECS:
         budget = _budget_for(spec)
+        # data_status is COMPUTED from the live graph state when the spec names
+        # deferred classes: a menu must not keep apologizing for edges the join
+        # index now carries, nor advertise "full" over a degraded clone.
+        deferred_classes = tuple(spec.get("deferred_classes") or ())
+        if deferred_classes:
+            still_deferred = _deferred_edges_for(inputs, deferred_classes)
+            data_status = (
+                "substantive_with_deferred_edges" if still_deferred else "full"
+            )
+        else:
+            data_status = spec["data_status"]
         row = {
             "kind": "packet",
             "packet_id": spec["packet_id"],
@@ -1263,7 +1387,7 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
             "target_bytes": budget["target_bytes"],
             "max_bytes": budget["max_bytes"],
             "slo_ms": spec["slo_ms"],
-            "data_status": spec["data_status"],
+            "data_status": data_status,
             "next_packets": list(spec.get("next_packets") or []),
         }
         cache_ref = spec.get("cache_ref")
@@ -1339,8 +1463,22 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
     pack["shared_refs"] = {
         "mechanisms": _shared_refs(member_rows, "mechanism_refs"),
         "concepts": _shared_refs(member_rows, "concept_refs"),
+        "axioms": _shared_refs(member_rows, "axiom_refs"),
+        "principles": _shared_refs(member_rows, "principle_refs"),
         "paper_modules": _shared_refs(member_rows, "paper_module_ref"),
     }
+    member_set = set(members)
+    family_task_classes = sorted(
+        {
+            str(e.get("from"))
+            for e in (inputs.get("join_index") or {}).get("edges") or []
+            if isinstance(e, dict)
+            and e.get("kind") == "routes_to"
+            and e.get("to") in member_set
+        }
+    )
+    if family_task_classes:
+        pack["task_classes"] = family_task_classes
     pack["selected_nodes"].append(
         {
             "kind": "evidence_distribution",
@@ -1401,14 +1539,7 @@ def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
         "mechanisms": _shared_refs(member_rows, "mechanism_refs"),
         "paper_modules": _shared_refs(member_rows, "paper_module_ref"),
     }
-    pack["deferred_edges"] = [
-        {
-            "edge_class": "proof_internal_structure",
-            "missing": "theorem -> lemma -> tactic edges inside a proof organ",
-            "would_come_from": "a Lean-aware proof-graph builder (join-index v2)",
-            "next_packet": "claim_trace",
-        }
-    ]
+    pack["deferred_edges"] = _deferred_edges_for(inputs, ("proof_internal_structure",))
     return pack
 
 
@@ -1417,10 +1548,12 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
 
     - Teleology: answer "how is this organ's public claim justified, and what bounds it?"
       by chaining its claim ceiling to the validator command and the receipts it emits.
-    - Guarantee: returns a proof_trace pack for ``target`` with the claim ceiling (atlas
-      restated + join), the validator_command that re-establishes it, the
-      authority_receipt, the emits_receipt edges, and evidence_class; carries a
-      deferred_edges block for the first-class claim-node ontology still behind v1.
+    - Guarantee: returns a proof_trace pack for ``target`` whose claim node is the
+      join index's FIRST-CLASS claim node when the graph carries one (asserts_claim /
+      validated_by / proven_by edges selected, graph_backed names the resolved class),
+      degrading to a synthesized claim row -- with claim_node_ontology honestly
+      re-deferred -- when the join index predates the v2 graph; always carries the
+      validator_command, authority_receipt, emits_receipt edges, and evidence_class.
     - Fails: returns a chooser pack (found False) listing organs by ceiling when target
       is blank/unknown.
     - Reads: the in-memory inputs bundle only.
@@ -1449,41 +1582,65 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
         f"Claim trace for {target}: what it claims, how to re-establish it, what bounds it."
     )
     pack["summary"]["what_to_inspect_next"] = [
-        str(join_node.get("validator_command") or "")
+        _runnable_command(join_node.get("validator_command"))
     ]
     pack["summary"]["what_not_to_trust"] = str(atlas_row.get("claim_ceiling_restated") or "")
-    pack["selected_nodes"] = [
-        {
+    state = _graph_state(inputs)
+    claim_node = next(
+        (c for c in state["claim_nodes"] if c.get("organ_id") == target), None
+    )
+    # The POSITIVE claim statement: a cold reader must learn what is asserted, not
+    # only what is disclaimed -- the ceiling fields are negative space.
+    claim_statement = inputs.get("synopsis_by_organ", {}).get(target) or str(
+        atlas_row.get("agent_gloss") or ""
+    )
+    if claim_node is not None:
+        claim_row: dict[str, Any] = {
             "kind": "claim",
+            "graph_backed": True,
+            "claim_statement": claim_statement,
+            **claim_node,
+        }
+    else:
+        claim_row = {
+            "kind": "claim",
+            "graph_backed": False,
+            "claim_statement": claim_statement,
             "organ_id": target,
             "claim_ceiling": join_node.get("claim_ceiling"),
             "claim_ceiling_restated": atlas_row.get("claim_ceiling_restated"),
             "evidence_class": join_node.get("evidence_class"),
             "evidence_strength_rank": join_node.get("evidence_strength_rank"),
             "truth_accounting_bucket": join_node.get("truth_accounting_bucket"),
-        },
+        }
+    pack["selected_nodes"] = [
+        claim_row,
         {
             "kind": "validator",
             "validator_command": join_node.get("validator_command"),
+            "runnable_command": _runnable_command(join_node.get("validator_command")),
             "note": "run this to re-establish the claim; it does not authorize release",
         },
     ]
-    pack["selected_edges"] = _organ_edges(inputs.get("join_index"), target)
+    # Edge selection is purpose-filtered: the claim chain plus its receipts, not the
+    # organ's whole neighborhood (that hub view belongs to the organ packet).
+    claim_edge_kinds = ("asserts_claim", "validated_by", "proven_by", "emits_receipt")
+    pack["edge_kinds_included"] = list(claim_edge_kinds)
+    pack["selected_edges"] = [
+        e
+        for e in _edges_touching(inputs.get("join_index"), target)
+        if e.get("kind") in claim_edge_kinds
+    ]
     receipts = [
         e.get("to") for e in pack["selected_edges"] if e.get("kind") == "emits_receipt"
     ]
-    if join_node.get("authority_receipt"):
-        receipts.insert(0, join_node.get("authority_receipt"))
+    authority = join_node.get("authority_receipt")
+    if authority and authority not in receipts:
+        receipts.insert(0, authority)
     pack["receipt_refs"] = receipts
     pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
-    pack["deferred_edges"] = [
-        {
-            "edge_class": "claim_node_ontology",
-            "missing": "a first-class claim node distinct from the per-organ ceiling",
-            "would_come_from": "join-index v2 claim extraction",
-            "next_packet": "flow",
-        }
-    ]
+    pack["graph_backed"] = _graph_backed_block(inputs, ("claim_node_ontology",))
+    pack["deferred_edges"] = _deferred_edges_for(inputs, ("claim_node_ontology",))
     return pack
 
 
@@ -1493,8 +1650,11 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
     - Teleology: answer "how does this organ run and what does it leave behind?" by
       ordering its validator command, runner module, and emitted receipts.
     - Guarantee: returns a proof_trace pack for ``target`` whose selected_nodes are the
-      ordered flow stages (validator -> runner/custody -> receipts) and whose
-      deferred_edges names the cross-organ ROUTE topology still behind v1.
+      ordered flow stages (validator -> runner/custody -> receipts) PLUS, when the
+      join index carries the v2 route plane, a route_context row (the task-class
+      routes landing on the organ, with stop conditions) and a wired_neighbors row
+      (wires_to topology in both directions); deferred_edges re-defers
+      cross_organ_route_topology honestly when the route plane is absent.
     - Fails: returns a chooser pack (found False) when target is blank/unknown.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never opens runner source; it orders pointers, not bodies.
@@ -1514,16 +1674,26 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
         return pack
     atlas_row = atlas_by.get(target) or {}
     join_node = join_by.get(target) or {}
-    edges = _organ_edges(inputs.get("join_index"), target)
+    # Edge selection is purpose-filtered to the execution/topology kinds; the full
+    # neighborhood (claim chain, doctrine refs) lives on the organ packet.
+    flow_edge_kinds = ("implemented_by_runner", "emits_receipt", "wires_to", "routes_to")
+    edges = [
+        e
+        for e in _edges_touching(inputs.get("join_index"), target)
+        if e.get("kind") in flow_edge_kinds
+    ]
     receipts = [e.get("to") for e in edges if e.get("kind") == "emits_receipt"]
     pack = _pack_skeleton("proof_trace", f"trace the flow for {target}")
     pack["found"] = True
     pack["organ_id"] = target
+    pack["edge_kinds_included"] = list(flow_edge_kinds)
     pack["summary"]["what_this_is"] = (
         f"Execution flow for {target}: run the validator, it exercises the runner, which "
         f"emits {len(receipts)} receipt(s)."
     )
-    pack["summary"]["what_to_inspect_next"] = [str(join_node.get("validator_command") or "")]
+    pack["summary"]["what_to_inspect_next"] = [
+        _runnable_command(join_node.get("validator_command"))
+    ]
     pack["summary"]["what_not_to_trust"] = str(atlas_row.get("claim_ceiling_restated") or "")
     pack["selected_nodes"] = [
         {
@@ -1531,6 +1701,7 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
             "stage": 1,
             "role": "validator",
             "command": join_node.get("validator_command"),
+            "runnable_command": _runnable_command(join_node.get("validator_command")),
         },
         {
             "kind": "flow_stage",
@@ -1542,17 +1713,32 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
         },
         {"kind": "flow_stage", "stage": 3, "role": "receipts", "receipts": receipts},
     ]
+    routes = _routes_serving(inputs, target)
+    if routes:
+        pack["selected_nodes"].append(
+            {
+                "kind": "route_context",
+                "note": "task-class entry points whose fan-out lands on this organ",
+                "routes": routes,
+            }
+        )
+    wires_out = [e.get("to") for e in edges if e.get("kind") == "wires_to" and e.get("from") == target]
+    wires_in = [e.get("from") for e in edges if e.get("kind") == "wires_to" and e.get("to") == target]
+    if wires_out or wires_in:
+        pack["selected_nodes"].append(
+            {
+                "kind": "wired_neighbors",
+                "wires_to": wires_out,
+                "wired_from": wires_in,
+                "drilldown": "microcosm comprehend --slice flows --organ <neighbor>",
+            }
+        )
     pack["selected_edges"] = edges
     pack["receipt_refs"] = receipts
+    pack["reading_boundary"] = _reading_boundary(inputs, target)
     pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
-    pack["deferred_edges"] = [
-        {
-            "edge_class": "cross_organ_route_topology",
-            "missing": "a route node fanning one entry point across multiple organs",
-            "would_come_from": "join-index v2 route extraction",
-            "next_packet": "claim_trace",
-        }
-    ]
+    pack["graph_backed"] = _graph_backed_block(inputs, ("cross_organ_route_topology",))
+    pack["deferred_edges"] = _deferred_edges_for(inputs, ("cross_organ_route_topology",))
     return pack
 
 
@@ -1623,26 +1809,7 @@ def _release_improvement_targets(
                 "PYTHONPATH=src python3 -m microcosm_core comprehend --packet-atlas",
             ],
         },
-        {
-            "rank": 3,
-            "target_type": "builder",
-            "target": "scripts/build_code_lens_join_index.py",
-            "title": "Join-index route and claim extraction",
-            "why": (
-                "The self-model still declares cross_organ_route_topology and "
-                "claim_node_ontology as deferred edges. Filling those edges would make "
-                "claim_trace and flow packets less thin for all organs."
-            ),
-            "expected_reader_visible_change": (
-                "A cold reader can follow route and claim topology directly instead of "
-                "seeing those relationships as deferred."
-            ),
-            "validation_commands": [
-                "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py --help",
-                "PYTHONPATH=src python3 -m microcosm_core comprehend --self-model",
-                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
-            ],
-        },
+        _join_index_improvement_row(inputs),
         {
             "rank": 4,
             "target_type": "docs",
@@ -1665,13 +1832,69 @@ def _release_improvement_targets(
         "organ_count": organ_count,
         "exact_copy_macro_runners": exact_copy,
         "packet_count": len(PACKET_SPECS),
-        "deferred_edge_classes": [d["edge_class"] for d in _ALL_DEFERRED_EDGES],
+        "deferred_edge_classes": [
+            d["edge_class"]
+            for d in _deferred_edges_for(inputs, _CANONICAL_EDGE_CLASSES)
+        ],
     }
     for row in rows:
         target = str(row["target"]).split(" / ")[0]
         row["path_exists"] = (base / target).exists()
         row["ranking_basis"] = context
     return rows
+
+
+def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
+    """Build the rank-3 join-index improvement row from the graph's ACTUAL state.
+
+    - Teleology: keep the ranked improvement list honest across its own lifecycle --
+      while route/claim topology is deferred the row says build it; once the v2
+      graph resolves those classes the row advances to the genuinely-remaining
+      proof-graph extraction instead of re-recommending finished work.
+    - Guarantee: returns a rank-3 target row whose target is always
+      scripts/build_code_lens_join_index.py (the owning builder) and whose
+      title/why/expected change reflect the computed deferred set.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    deferred = {
+        d["edge_class"] for d in _deferred_edges_for(inputs, _CANONICAL_EDGE_CLASSES)
+    }
+    if {"cross_organ_route_topology", "claim_node_ontology"} & deferred:
+        title = "Join-index route and claim extraction"
+        why = (
+            "The self-model still declares cross_organ_route_topology and "
+            "claim_node_ontology as deferred edges. Filling those edges would make "
+            "claim_trace and flow packets less thin for all organs."
+        )
+        change = (
+            "A cold reader can follow route and claim topology directly instead of "
+            "seeing those relationships as deferred."
+        )
+    else:
+        title = "Join-index proof-graph extraction (proof_internal_structure)"
+        why = (
+            "Route and claim topology are graph-backed now; the one remaining "
+            "deferred edge class is proof_internal_structure -- theorem -> lemma -> "
+            "tactic edges need a Lean-aware proof-graph builder feeding the join index."
+        )
+        change = (
+            "A cold reader can walk INSIDE a proof organ's evidence instead of "
+            "stopping at its receipts."
+        )
+    return {
+        "rank": 3,
+        "target_type": "builder",
+        "target": "scripts/build_code_lens_join_index.py",
+        "title": title,
+        "why": why,
+        "expected_reader_visible_change": change,
+        "validation_commands": [
+            "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py --help",
+            "PYTHONPATH=src python3 -m microcosm_core comprehend --self-model",
+            "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
+        ],
+    }
 
 
 def compile_mutation_plan(
@@ -1793,18 +2016,162 @@ def compile_mutation_plan(
 # tail_recap mitigate the "lost in the middle" long-context failure mode.
 _SELF_MODEL_PROFILES = ("operating_picture", "whole_substrate_map", "public_reader")
 
-# The genuinely-missing edges, surfaced honestly in every self-model (not faked).
-_ALL_DEFERRED_EDGES = [
-    {"edge_class": "proof_internal_structure",
-     "missing": "theorem -> lemma -> tactic edges inside a proof organ",
-     "would_come_from": "join-index v2 Lean-aware proof-graph builder"},
-    {"edge_class": "cross_organ_route_topology",
-     "missing": "a route node fanning one entry point across multiple organs",
-     "would_come_from": "join-index v2 route extraction"},
-    {"edge_class": "claim_node_ontology",
-     "missing": "a first-class claim node distinct from the per-organ ceiling",
-     "would_come_from": "join-index v2 claim extraction"},
-]
+# The canonical comprehension edge classes and their precise residual rows. Whether a
+# class is DEFERRED is no longer asserted here -- it is COMPUTED from the join index's
+# graph block (_graph_state), so a clone with a degraded/stale join index re-defers
+# honestly and a clone with the v2 graph stops apologizing for edges it now has.
+_CANONICAL_EDGE_CLASSES = (
+    "proof_internal_structure",
+    "cross_organ_route_topology",
+    "claim_node_ontology",
+)
+
+_EDGE_CLASS_RESIDUALS: dict[str, dict[str, str]] = {
+    "proof_internal_structure": {
+        "edge_class": "proof_internal_structure",
+        "missing": "theorem -> lemma -> tactic edges inside a proof organ",
+        "missing_source_class": "lean_proof_term_graph_not_extracted",
+        "owner_path": "scripts/build_code_lens_join_index.py",
+        "blocked_on": "no Lean-aware proof-graph builder exists yet; see owner_path",
+        "would_come_from": "a Lean-aware proof-graph builder feeding the join index",
+        "next_packet": "math",
+    },
+    "cross_organ_route_topology": {
+        "edge_class": "cross_organ_route_topology",
+        "missing": "route nodes fanning one task-class entry across organs",
+        "missing_source_class": "agent_task_routes_plane_absent_from_join_index",
+        "owner_path": "scripts/build_code_lens_join_index.py",
+        "re_entry_command": (
+            "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py"
+            " --lens <python-lens --full snapshot> --routes atlas/agent_task_routes.json"
+        ),
+        "would_come_from": "rebuilding the join index with atlas/agent_task_routes.json",
+        "next_packet": "claim_trace",
+    },
+    "claim_node_ontology": {
+        "edge_class": "claim_node_ontology",
+        "missing": "a first-class claim node distinct from the per-organ ceiling",
+        "missing_source_class": "organ_registry_claim_fields_not_joined",
+        "owner_path": "scripts/build_code_lens_join_index.py",
+        "re_entry_command": (
+            "PYTHONPATH=src python3 scripts/build_code_lens_join_index.py"
+            " --lens <python-lens --full snapshot>"
+        ),
+        "would_come_from": "rebuilding the join index with the organ registry plane",
+        "next_packet": "flow",
+    },
+}
+
+
+def _graph_state(inputs: dict[str, Any]) -> dict[str, Any]:
+    """Read the join index's graph contract, re-deriving resolution structurally.
+
+    - Teleology: one accessor for "what topology does this clone's join index
+      actually carry?" so packets derive deferral from graph truth, not prose.
+    - Guarantee: returns {resolved: set[str], graph: dict, route_nodes, claim_nodes,
+      family_nodes}; claim_node_ontology / cross_organ_route_topology count as
+      resolved ONLY when the nodes AND their typed edges are actually present --
+      the declared resolved_edge_classes label is never trusted for them (a
+      corrupted index that declares resolution over empty planes re-defers);
+      classes without a structural signature (proof_internal_structure) follow the
+      declared label. An absent/old join index yields empty resolved + empty lists.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    join_index = inputs.get("join_index") or {}
+    graph = join_index.get("graph") if isinstance(join_index, dict) else None
+    graph = graph if isinstance(graph, dict) else {}
+    nodes = (join_index.get("nodes") or {}) if isinstance(join_index, dict) else {}
+    route_nodes = [r for r in nodes.get("route") or [] if isinstance(r, dict)]
+    claim_nodes = [c for c in nodes.get("claim") or [] if isinstance(c, dict)]
+    edge_kinds = {
+        e.get("kind")
+        for e in (join_index.get("edges") or [] if isinstance(join_index, dict) else [])
+        if isinstance(e, dict)
+    }
+    resolved = {
+        cls
+        for cls in (graph.get("resolved_edge_classes") or [])
+        if cls not in ("claim_node_ontology", "cross_organ_route_topology")
+    }
+    if claim_nodes and "asserts_claim" in edge_kinds:
+        resolved.add("claim_node_ontology")
+    if route_nodes and "routes_to" in edge_kinds:
+        resolved.add("cross_organ_route_topology")
+    return {
+        "resolved": resolved,
+        "graph": graph,
+        "route_nodes": route_nodes,
+        "claim_nodes": claim_nodes,
+        "family_nodes": [f for f in nodes.get("family") or [] if isinstance(f, dict)],
+    }
+
+
+def _deferred_edges_for(
+    inputs: dict[str, Any], classes: tuple[str, ...]
+) -> list[dict[str, Any]]:
+    """Compute the deferred-edge rows a packet must surface, from graph truth.
+
+    - Teleology: keep deferred_edges honest in BOTH directions -- a packet neither
+      hides a genuinely-missing edge class nor keeps apologizing for one the join
+      index now materializes.
+    - Guarantee: returns the precise residual rows (missing_source_class, owner_path,
+      re_entry_command or blocked_on) for each requested class NOT structurally
+      resolved; when the join index's graph block carries its own residual row for
+      the class, that row is the source of truth (merged with the packet-only
+      next_packet scent), so builder and packets never drift apart; [] when all
+      requested classes are resolved.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    state = _graph_state(inputs)
+    builder_rows = {
+        row.get("edge_class"): row
+        for row in state["graph"].get("deferred_edge_classes") or []
+        if isinstance(row, dict)
+    }
+    out: list[dict[str, Any]] = []
+    for cls in classes:
+        if cls not in _EDGE_CLASS_RESIDUALS or cls in state["resolved"]:
+            continue
+        row = dict(_EDGE_CLASS_RESIDUALS[cls])
+        if cls in builder_rows:
+            row.update(builder_rows[cls])
+            row.setdefault("next_packet", _EDGE_CLASS_RESIDUALS[cls].get("next_packet"))
+        out.append(row)
+    return out
+
+
+def _graph_backed_block(
+    inputs: dict[str, Any], classes: tuple[str, ...]
+) -> dict[str, Any]:
+    """Describe which requested edge classes this packet answers from the graph.
+
+    - Teleology: the positive counterpart of _deferred_edges_for -- name what is
+      now graph-backed so a reader can trust (and audit) the edges it follows.
+    - Guarantee: returns {edge_classes_resolved, edge_kind_counts, source}; the
+      resolved list contains only the requested classes the join index resolves;
+      the source pointer names the #graph fragment (plus the inner schema_version,
+      pre-answering the v0-filename/v2-schema scent) only when that fragment
+      actually exists, and otherwise says the index predates the graph block.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    """
+    state = _graph_state(inputs)
+    block: dict[str, Any] = {
+        "edge_classes_resolved": sorted(c for c in classes if c in state["resolved"]),
+        "edge_kind_counts": dict(state["graph"].get("edge_kind_counts") or {}),
+    }
+    if state["graph"]:
+        block["source"] = "receipts/code_lens/code_lens_join_index_v0.json#graph"
+        block["source_schema"] = (inputs.get("join_index") or {}).get("schema_version")
+        block["source_note"] = "the v0 filename is a stable artifact path; the schema_version inside is authoritative"
+    else:
+        block["source"] = (
+            "join index predates the v2 graph block; rebuild via "
+            "scripts/build_code_lens_join_index.py"
+        )
+    return block
 
 
 def _count_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
@@ -1923,9 +2290,13 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     families = _family_roster(list(atlas_by.values()))
     organ_count = len(atlas_by) or rollup.get("organ_count") or 0
     custody_split = rollup.get("runner_custody_split") or _count_by(join_organs, "runner_custody_basis")
+    state = _graph_state(inputs)
     health = {
         "organ_count": organ_count,
         "edge_count": rollup.get("edge_count"),
+        "edge_kind_counts": dict(state["graph"].get("edge_kind_counts") or {}),
+        "claim_node_count": rollup.get("claim_node_count", len(state["claim_nodes"])),
+        "route_node_count": rollup.get("route_node_count", len(state["route_nodes"])),
         "by_evidence_class": _count_by(join_organs, "evidence_class"),
         "by_truth_accounting_bucket": _count_by(join_organs, "truth_accounting_bucket"),
         "by_evidence_strength_rank": _count_by(join_organs, "evidence_strength_rank"),
@@ -1949,14 +2320,31 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         f"{len(families)} organ families. This packet IS the hub: open --slice cluster --family <f> "
         "for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
     ]
+    if {"cross_organ_route_topology", "claim_node_ontology"} <= state["resolved"]:
+        routes_with_stop = sum(
+            1 for r in state["route_nodes"] if r.get("stop_condition") and r.get("first_command")
+        )
+        route_total = len(state["route_nodes"])
+        route_phrase = (
+            "each with a first command and a stop condition"
+            if routes_with_stop == route_total
+            else f"{routes_with_stop} of {route_total} carrying a first command and a stop condition"
+        )
+        pack["read_me_first"].append(
+            f"The join index is a typed graph: {route_total} task-class routes "
+            f"({route_phrase}), first-class claim nodes chained "
+            "claim -> validator -> receipt, wires_to topology, and doctrine refs. Only "
+            "proof-internal structure remains deferred."
+        )
     pack["summary"]["what_this_is"] = (
         str(atlas.get("authority_boundary") or "A self-describing organ substrate.")
     )
     pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
     pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
     pack["sections"] = [
-        "read_me_first", "major_subsystems", "code_lens_health", "authority_membrane",
-        "thin_or_projection_surfaces", "deferred_edges", "recommended_drilldowns", "tail_recap",
+        "read_me_first", "major_subsystems", "route_topology", "code_lens_health",
+        "authority_membrane", "thin_or_projection_surfaces", "deferred_edges",
+        "recommended_drilldowns", "tail_recap",
     ]
     pack["major_subsystems"] = [
         {
@@ -1966,10 +2354,39 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         }
         for entry in families
     ]
+    # ROUTE TOPOLOGY -- how task-class entry points fan out across organs. Honest in
+    # both directions: a join index without the route plane says so and names the fix.
+    if state["route_nodes"]:
+        pack["route_topology"] = {
+            "route_node_count": len(state["route_nodes"]),
+            "organs_reachable_from_routes": rollup.get("organs_reachable_from_routes"),
+            "routes": [
+                {
+                    "task_class": r.get("task_class"),
+                    "primary_organ_id": r.get("primary_organ_id"),
+                    "primary_display_name": r.get("primary_display_name"),
+                    "organ_count": r.get("organ_count"),
+                }
+                for r in state["route_nodes"]
+            ],
+            "drilldown": "microcosm comprehend --slice flows --organ <primary_organ_id>",
+            "note": "route nodes carry a first_command, a stop_condition, and an "
+            "allowed_scope where the route plane binds them; the flow and organ "
+            "packets surface them per organ",
+        }
+    else:
+        pack["route_topology"] = {
+            "route_node_count": 0,
+            "note": "this clone's join index carries no route plane; rebuild it with "
+            "scripts/build_code_lens_join_index.py --routes atlas/agent_task_routes.json",
+        }
     pack["code_lens_health"] = health
+    # Deduplicated on purpose: bands + ceiling already live verbatim on this pack
+    # (membrane / authority_ceiling); re-embedding them mid-packet creates
+    # lost-in-the-middle "did I lose my place?" friction for a cold reader.
     pack["authority_membrane"] = {
-        "bands": MEMBRANE_V0["bands"],
-        "authority_ceiling": dict(AUTHORITY_CEILING),
+        "bands": "see membrane.bands (top of this packet)",
+        "authority_ceiling": "see top-level authority_ceiling (all false)",
         "boundary": atlas.get("authority_boundary"),
         "anti_claim": atlas.get("anti_claim"),
     }
@@ -1987,7 +2404,11 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         "how_to_probe": "For any organ run --slice claims --organ <id> to see its validator_command + "
         "receipts; an algorithmic_projection organ asserts projection mechanics only, not domain truth.",
     }
-    pack["deferred_edges"] = _ALL_DEFERRED_EDGES
+    pack["deferred_edges"] = _deferred_edges_for(inputs, _CANONICAL_EDGE_CLASSES)
+    graph_backed = _graph_backed_block(inputs, _CANONICAL_EDGE_CLASSES)
+    # The counts already live in code_lens_health; point rather than duplicate.
+    graph_backed["edge_kind_counts"] = "see code_lens_health.edge_kind_counts"
+    pack["graph_backed"] = graph_backed
     # The self-model is the HUB: it routes to the specialized packets rather than duplicating them.
     pack["recommended_drilldowns"] = [
         {"question": "what organs exist (one line each)?", "packet": "organs_index",
@@ -2164,6 +2585,10 @@ def _assay_rows(sample_organ: str | None) -> list[dict[str, Any]]:
          "must_key": "specificity_risks", "evidence_token": "runner_custody_basis"},
         {"q": f"When do I open source for {sample_organ}?", "mode": "organ", "organ": sample_organ,
          "must_key": "source_span_escalation", "evidence_token": None},
+        {"q": f"Where do I stop reading for {sample_organ}?", "mode": "organ", "organ": sample_organ,
+         "must_key": "reading_boundary", "evidence_token": "stop_condition"},
+        {"q": f"How is {sample_organ}'s claim proven?", "mode": "claim_trace", "organ": sample_organ,
+         "must_key": "selected_nodes", "evidence_token": "validator"},
     ]
 
 
@@ -2510,11 +2935,12 @@ def run_packet_route_assay(
 _WHOLE_SYSTEM_QUESTIONS: list[tuple[str, str, str | None]] = [
     ("what is Microcosm?", "summary.what_this_is", None),
     ("what are the major organ families?", "major_subsystems", None),
+    ("how do task-class entry points reach organs?", "route_topology", None),
     ("which surfaces are runtime vs projection vs custody/import?", "code_lens_health.by_evidence_class", None),
     ("what is the real-vs-copied calibration?", "code_lens_health.by_truth_accounting_bucket", None),
     ("what should NOT be claimed?", "authority_membrane.authority_ceiling", None),
     ("where is the thinness / where to be skeptical?", "thin_or_projection_surfaces", None),
-    ("what remains deferred?", "deferred_edges", None),
+    ("what remains deferred, and what would resolve it?", "deferred_edges", None),
     ("which packet inspects one organ next?", "recommended_drilldowns", "organ"),
     ("is there a front anchor?", "read_me_first", None),
     ("is there a tail recap?", "tail_recap", None),
@@ -2555,6 +2981,12 @@ def run_whole_system_comprehension_assay(
     mapped = sum(len(fam.get("organs", [])) for fam in pack.get("whole_substrate_map", []))
     organ_total = len(bundle.get("atlas_by_organ", {}))
     total_q = len(_WHOLE_SYSTEM_QUESTIONS) or 1
+    state = _graph_state(bundle)
+    deferred_remaining = sorted(
+        d.get("edge_class")
+        for d in pack.get("deferred_edges") or []
+        if isinstance(d, dict)
+    )
     return {
         "schema_version": WHOLE_SYSTEM_ASSAY_SCHEMA,
         "profile": pack.get("context_profile"),
@@ -2568,6 +3000,19 @@ def run_whole_system_comprehension_assay(
         "public_excerpt_leak_count": leak,
         "thinness_surfaced": bool(pack.get("thin_or_projection_surfaces")),
         "deferred_surfaced": bool(pack.get("deferred_edges")),
+        "deferred_edge_classes_remaining": deferred_remaining,
+        "route_topology_present": bool(
+            (pack.get("route_topology") or {}).get("route_node_count")
+        ),
+        "claim_nodes_present": bool(state["claim_nodes"]),
+        "deferred_residuals_are_precise": bool(pack.get("deferred_edges"))
+        and all(
+            isinstance(d, dict)
+            and d.get("missing_source_class")
+            and d.get("owner_path")
+            and (d.get("re_entry_command") or d.get("blocked_on"))
+            for d in pack.get("deferred_edges") or []
+        ),
         "front_anchor_present": bool(pack.get("read_me_first")),
         "tail_recap_present": bool(pack.get("tail_recap")),
         "packet_bytes": len(json.dumps(pack, ensure_ascii=True)),
