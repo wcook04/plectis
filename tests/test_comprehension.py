@@ -486,13 +486,33 @@ def test_packet_atlas_lists_every_spec_and_default_entry(tmp_path: Path) -> None
     pack = C.comprehend(root=tmp_path, mode="packet-atlas")
     assert pack["schema_version"] == C.PACKET_ATLAS_SCHEMA
     assert pack["default_entry"] == "first_contact"
+    # The goal-shaped entry is the product center: an agent that arrived WITH a
+    # goal must see first_action as the entry, listed right after the menu itself.
+    assert pack["goal_entry"] == "first_action"
     ids = [n["packet_id"] for n in pack["selected_nodes"]]
     assert ids == [s["packet_id"] for s in C.PACKET_SPECS]
+    assert ids[1] == "first_action"
     for row in pack["selected_nodes"]:
         assert row["command"] and row["when_needed"]
         assert row["export_band"] in ("presence_only", "local_semantic_excerpt")
         assert "max_bytes" in row and "slo_ms" in row
     assert "closed" in pack["sqlite_gate"]
+
+
+def test_first_contact_leads_with_the_goal_shaped_entry(tmp_path: Path) -> None:
+    """The canonical start-here routes must put first-action before any inventory."""
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="first-contact")
+    inspect_next = pack["summary"]["what_to_inspect_next"]
+    assert inspect_next[0] == 'microcosm comprehend --first-action "<goal>"'
+
+
+def test_self_model_front_anchor_names_first_action(tmp_path: Path) -> None:
+    """The whole-substrate packet's front anchor must point a goal-holding agent
+    at the goal-shaped entry, not only at inventory drilldowns."""
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="self-model")
+    assert any("--first-action" in line for line in pack["read_me_first"])
 
 
 def test_packet_atlas_is_presence_only_and_carries_no_excerpts(tmp_path: Path) -> None:
@@ -1044,6 +1064,10 @@ def test_first_action_orientation_fallback_and_blank_chooser(tmp_path: Path) -> 
     # promised as committed; the proof path carries an explicit note instead.
     assert pack["first_action"]["committed_receipts"] == []
     assert pack["proof_path"]["note"]
+    # The fallback menu must never hand out a template: explicit packet ids
+    # only, and no command suggesting a re-run of the mode that just fell back.
+    assert pack["next_packet_commands"]
+    assert all("<" not in command for command in pack["next_packet_commands"])
     chooser = C.comprehend(root=tmp_path, mode="first_action", target="")
     assert chooser["found"] is False
     assert {n["task_class"] for n in chooser["selected_nodes"]} == {"agent-entry"}

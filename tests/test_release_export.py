@@ -200,6 +200,20 @@ def test_exported_macro_source_modules_use_public_example_home_only() -> None:
     assert violations == []
 
 
+def test_standalone_required_refs_exist_in_real_tree() -> None:
+    """The synthetic release fixture can never mask a missing real file: every
+    standalone-required public ref must exist in the actual repo root."""
+    from microcosm_core import release_export as release_export_mod
+
+    repo_root = Path(__file__).resolve().parents[1]
+    missing = [
+        ref
+        for ref in release_export_mod.STANDALONE_REQUIRED_PUBLIC_REFS
+        if not (repo_root / ref).exists()
+    ]
+    assert missing == []
+
+
 def _make_release_root(root: Path) -> Path:
     root.mkdir()
     for file_name in (
@@ -214,6 +228,7 @@ def _make_release_root(root: Path) -> Path:
         "CONTRIBUTING.md",
         "CODEX.md",
         "CURSOR.md",
+        "FIRST_ACTION.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",

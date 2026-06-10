@@ -1,0 +1,932 @@
+{
+  "authority_ceiling": {
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "static_analysis_authority": false,
+    "whole_system_correctness_authorized": false
+  },
+  "contracts": [
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "orientation goals never require edits",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "new clone: what is this substrate and where do I start?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "explain the system to me",
+      "out_of_scope_note": null,
+      "owner": {
+        "packet_id": "first_contact",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+      },
+      "routing": {
+        "basis": "packet_fallback",
+        "packet_id": "first_contact"
+      },
+      "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "orientation goals never require edits",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "new clone: what is this substrate and where do I start?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "what's going on here?",
+      "out_of_scope_note": null,
+      "owner": {
+        "packet_id": "first_contact",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+      },
+      "routing": {
+        "basis": "packet_fallback",
+        "packet_id": "first_contact"
+      },
+      "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
+    },
+    {
+      "do_not_claim": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/finance_forecast_evaluation_spine.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+        "committed_receipts": [
+          "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+          "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+          "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json"
+        ],
+        "committed_receipts_more": 1,
+        "why": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.",
+        "writes_outputs_under": "receipts/first_wave/finance_forecast_evaluation_spine"
+      },
+      "found": true,
+      "goal": "How do I evaluate the finance forecasting system?",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Finance Forecast Evaluation Spine",
+        "evidence_class": "external_subprocess_witness",
+        "family": "research_and_science_replays",
+        "organ_id": "finance_forecast_evaluation_spine",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "finance"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+          "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+          "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json"
+        ],
+        "receipt_refs_more": 1,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "basis": "task_class_route_match",
+        "task_class": "finance"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public release, authorize publication or recipient work, or establish secret export.",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+        "committed_receipts": [
+          "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+          "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+          "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json"
+        ],
+        "committed_receipts_more": 2,
+        "why": "Sorts proof-pipeline checks into accepted or rejected without inflating a pass.",
+        "writes_outputs_under": "receipts/first_wave/proof_diagnostic_evidence_spine"
+      },
+      "found": true,
+      "goal": "check the lean proof evidence",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Proof Diagnostic Evidence Spine",
+        "evidence_class": "algorithmic_projection",
+        "family": "formal_math_and_proof",
+        "organ_id": "proof_diagnostic_evidence_spine",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "lean"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [
+          {
+            "exists_in_clone": false,
+            "path": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
+          }
+        ],
+        "receipt_refs": [
+          "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+          "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+          "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json"
+        ],
+        "receipt_refs_more": 2,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "basis": "task_class_route_match",
+        "task_class": "lean"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live account/tool/provider safety, hidden-message handling in a real system, source-mutation authority, or release authority.",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
+        "committed_receipts": [
+          "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
+          "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
+          "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
+        ],
+        "committed_receipts_more": 1,
+        "why": "Replays an agent run to show untrusted text was gated before any sensitive action, leaking no secret.",
+        "writes_outputs_under": "receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay"
+      },
+      "found": true,
+      "goal": "evaluate prompt injection defenses",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+        "evidence_class": "algorithmic_projection",
+        "family": "agent_reliability_and_safety",
+        "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "agent-evaluation"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
+          "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
+          "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
+        ],
+        "receipt_refs_more": 1,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "basis": "organ_token_match",
+        "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/cold_reader_route_map.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+        "committed_receipts": [
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
+        ],
+        "committed_receipts_more": 1,
+        "why": "Verifies the first-run guided path so every step names a real command, doc, and evidence.",
+        "writes_outputs_under": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+      },
+      "found": true,
+      "goal": "where do I start with this clone?",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Cold Reader Route Map",
+        "evidence_class": "semantic_validator",
+        "family": "entry_and_reveal",
+        "organ_id": "cold_reader_route_map",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "getting-started"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
+        ],
+        "receipt_refs_more": 1,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "basis": "task_class_route_match",
+        "task_class": "getting-started"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+        "committed_receipts": [
+          "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+          "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+          "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
+        ],
+        "committed_receipts_more": 1,
+        "why": "Recomputes benchmark pass and quarantine verdicts and rejects gaming tricks like test-set peeking.",
+        "writes_outputs_under": ".microcosm/agent_benchmark_integrity_anti_gaming_replay"
+      },
+      "found": true,
+      "goal": "evaluate agent benchmark gaming",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+        "evidence_class": "bounded_runtime_computation",
+        "family": "agent_reliability_and_safety",
+        "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "agent-evaluation"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+          "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+          "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
+        ],
+        "receipt_refs_more": 1,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "basis": "task_class_route_match",
+        "task_class": "agent-evaluation"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/mission_transaction_work_spine.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+        "committed_receipts": [
+          "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+          "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+          "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json"
+        ],
+        "committed_receipts_more": 5,
+        "why": "Replays work-landing cases to show why each change is allowed to land or blocked.",
+        "writes_outputs_under": "receipts/first_wave/mission_transaction_work_spine"
+      },
+      "found": true,
+      "goal": "is the Mission Transaction Work Spine safe to edit?",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Mission Transaction Work Spine",
+        "evidence_class": "algorithmic_projection",
+        "family": "work_landing_and_continuity",
+        "organ_id": "mission_transaction_work_spine",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "agent-concurrency"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [
+          {
+            "exists_in_clone": false,
+            "path": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json"
+          }
+        ],
+        "receipt_refs": [
+          "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+          "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+          "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json"
+        ],
+        "receipt_refs_more": 5,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "also_named": [],
+        "basis": "organ_named_in_goal",
+        "excluded_by_negation": [],
+        "organ_id": "mission_transaction_work_spine"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+      "do_not_edit": {
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/cold_reader_route_map.py"
+        ]
+      },
+      "first_action": {
+        "action_kind": "run_fixture_command",
+        "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+        "committed_receipts": [
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
+        ],
+        "committed_receipts_more": 1,
+        "why": "Verifies the first-run guided path so every step names a real command, doc, and evidence.",
+        "writes_outputs_under": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+      },
+      "found": true,
+      "goal": "ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map",
+      "out_of_scope_note": null,
+      "owner": {
+        "display_name": "Cold Reader Route Map",
+        "evidence_class": "semantic_validator",
+        "family": "entry_and_reveal",
+        "organ_id": "cold_reader_route_map",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "agent-entry"
+      },
+      "proof_path": {
+        "note": null,
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
+        ],
+        "receipt_refs_more": 1,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+        "validation_commands": []
+      },
+      "reading_boundary": {
+        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
+        "fallback_guidance": null,
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
+      },
+      "routing": {
+        "also_named": [],
+        "basis": "organ_named_in_goal",
+        "excluded_by_negation": [
+          "proof_diagnostic_evidence_spine"
+        ],
+        "organ_id": "cold_reader_route_map"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "Improvement ranking is a work plan, not release approval or a claim that the substrate is complete.",
+      "do_not_edit": {
+        "note": "do not edit exact-copy macro runners; the mutation plan flags custody per file",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "inspect_mutation_target",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --mutation src/microcosm_core/comprehension.py",
+        "committed_receipts": [],
+        "committed_receipts_more": 0,
+        "why": "Highest reader-visible leverage: this file decides what a cold agent sees for vague goals, whole-system comprehension, authority calibration, and safe mutation planning.",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "what should I work on for the Microcosm release?",
+      "out_of_scope_note": null,
+      "owner": {
+        "scope": "release_improvement",
+        "target": "src/microcosm_core/comprehension.py",
+        "title": "Cold-clone comprehension router and read packs"
+      },
+      "proof_path": {
+        "note": "run every validation command after the change; assays must stay green",
+        "provenance_receipts": [],
+        "receipt_refs": [],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehend --goal \"what should I work on for the Microcosm release?\"",
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop planning when the mutation plan names the owned paths, the validator, and the receipts to refresh; any edit beyond that point is governed by the mutation plan's custody flags, not by this contract."
+      },
+      "routing": {
+        "basis": "improvement_goal",
+        "rank1_target": "src/microcosm_core/comprehension.py"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "no edit, deletion, or publication is authorized by this contract",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/authority.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "before acting: what is authoritative vs projection, and what does passing NOT authorize?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "delete the agent memory",
+      "out_of_scope_note": "Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
+      "owner": {
+        "packet_id": "authority",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the authority packet IS the boundary evidence; the whole-system assay proves overclaim_count == 0",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/authority.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive or publication actions."
+      },
+      "routing": {
+        "basis": "out_of_scope_authority_boundary"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "no edit, deletion, or publication is authorized by this contract",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/authority.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "before acting: what is authoritative vs projection, and what does passing NOT authorize?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "publish the Microcosm release",
+      "out_of_scope_note": "Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
+      "owner": {
+        "packet_id": "authority",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the authority packet IS the boundary evidence; the whole-system assay proves overclaim_count == 0",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/authority.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive or publication actions."
+      },
+      "routing": {
+        "basis": "out_of_scope_authority_boundary"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "no edit, deletion, or publication is authorized by this contract",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/authority.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "before acting: what is authoritative vs projection, and what does passing NOT authorize?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "force push to origin main",
+      "out_of_scope_note": "Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
+      "owner": {
+        "packet_id": "authority",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the authority packet IS the boundary evidence; the whole-system assay proves overclaim_count == 0",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/authority.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive or publication actions."
+      },
+      "routing": {
+        "basis": "out_of_scope_authority_boundary"
+      },
+      "routing_note": null
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "orientation goals never require edits",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "new clone: what is this substrate and where do I start?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "where is the fixture input for the audio organ?",
+      "out_of_scope_note": null,
+      "owner": {
+        "packet_id": "first_contact",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+      },
+      "routing": {
+        "basis": "packet_fallback",
+        "packet_id": "first_contact"
+      },
+      "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "orientation goals never require edits",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "new clone: what is this substrate and where do I start?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "dispatch the route bundle",
+      "out_of_scope_note": null,
+      "owner": {
+        "packet_id": "first_contact",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+      },
+      "routing": {
+        "basis": "packet_fallback",
+        "packet_id": "first_contact"
+      },
+      "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "orientation goals never require edits",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --packet-atlas",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/packet_atlas.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "cold clone, first move: which packet answers my question?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "how does the exchange rate organ work?",
+      "out_of_scope_note": null,
+      "owner": {
+        "packet_id": "packet_atlas",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/packet_atlas.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+      },
+      "routing": {
+        "basis": "packet_fallback",
+        "packet_id": "packet_atlas"
+      },
+      "routing_note": "No task-class route or organ matched this goal; opening the packet_atlas packet is the safe default first action."
+    },
+    {
+      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_edit": {
+        "note": "orientation goals never require edits",
+        "paths": []
+      },
+      "first_action": {
+        "action_kind": "open_packet",
+        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
+        "committed_receipts": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "committed_receipts_more": 0,
+        "why": "new clone: what is this substrate and where do I start?",
+        "writes_outputs_under": null
+      },
+      "found": true,
+      "goal": "audit the security posture of this repo",
+      "out_of_scope_note": null,
+      "owner": {
+        "packet_id": "first_contact",
+        "scope": "whole_substrate"
+      },
+      "proof_path": {
+        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "provenance_receipts": [],
+        "receipt_refs": [
+          "receipts/code_lens/read_packs/first_contact.json"
+        ],
+        "receipt_refs_more": 0,
+        "runnable_validator": null,
+        "validation_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
+        ]
+      },
+      "reading_boundary": {
+        "allowed_scope": null,
+        "fallback_guidance": null,
+        "source": "comprehension-layer guidance",
+        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+      },
+      "routing": {
+        "basis": "packet_fallback",
+        "packet_id": "first_contact"
+      },
+      "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
+    }
+  ],
+  "doc": "FIRST_ACTION.md",
+  "generated_by": "scripts/build_first_action_demo.py",
+  "goal_count": 17,
+  "non_goals": [
+    "not release approval",
+    "not source-body export",
+    "not whole-system correctness",
+    "not a routing-quality guarantee beyond the committed assay"
+  ],
+  "refresh_command": "PYTHONPATH=src python3 scripts/build_first_action_demo.py --write",
+  "schema_version": "microcosm_first_action_demo_v0",
+  "sections": [
+    {
+      "bases": [
+        "packet_fallback"
+      ],
+      "goal_count": 2,
+      "section_id": "orientation",
+      "title": "Orientation: no-task questions get the orientation packet"
+    },
+    {
+      "bases": [
+        "organ_named_in_goal",
+        "organ_token_match",
+        "task_class_route_match"
+      ],
+      "goal_count": 7,
+      "section_id": "localization",
+      "title": "Localization: the goal names work, the graph names the owner"
+    },
+    {
+      "bases": [
+        "improvement_goal"
+      ],
+      "goal_count": 1,
+      "section_id": "change_shaped",
+      "title": "Change-shaped goals: inspect before editing"
+    },
+    {
+      "bases": [
+        "out_of_scope_authority_boundary"
+      ],
+      "goal_count": 3,
+      "section_id": "refusals",
+      "title": "Refusals: actions the substrate cannot grant"
+    },
+    {
+      "bases": [
+        "packet_fallback"
+      ],
+      "goal_count": 4,
+      "section_id": "honest_fallback",
+      "title": "Honest fallbacks: below the evidence bar, the contract says so"
+    }
+  ]
+}

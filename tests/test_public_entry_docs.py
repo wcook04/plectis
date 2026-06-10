@@ -910,7 +910,12 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "as much of the macro substrate as possible" in normalized_agents
     assert "The exclusion set is narrow" in text
     assert "The hard exclusion set is narrow" in agents
-    assert "raw operator voice, slurs or abusive wording" in normalized_text
+    # README converged on the public-copy clean wording (8af1382420); AGENTS.md
+    # deliberately retains the house phrase for its agent-facing hard list.
+    assert (
+        "private notes, personal material, and other content that is unsafe for a public source package"
+        in normalized_text
+    )
     assert "raw operator voice, slurs or abusive wording" in normalized_agents
     assert "Any `body_copied=true` claim must name the source file" in text
     assert "Any `body_copied=true` claim must point at a real target file" in agents
@@ -1083,7 +1088,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     assert entry_packet["first_command"] == "microcosm tour --card <project>"
 
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "New here? Four generated surfaces give you the whole system fast:" in readme
+    assert "New here? Five generated surfaces give you the whole system fast:" in readme
     for phrase in (
         "| Repo-reading agent |",
         "microcosm hello --reader agent <project>",

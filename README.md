@@ -47,6 +47,7 @@ Use this map before opening the longer reference body or raw receipt trees:
 |---|---|
 | [QUICKSTART.md](QUICKSTART.md) | One-page cold-clone run path and boundary check. |
 | [AGENTS.md](AGENTS.md) | Agent entry contract and public authority membrane. |
+| [FIRST_ACTION.md](FIRST_ACTION.md) | Goal → first correct action, demonstrated: compiler-generated contracts (owner, runnable command, validator, receipts, stop condition) for a freeform goal battery, including refusals and honest fallbacks. |
 | [CLAUDE.md](CLAUDE.md) / [CODEX.md](CODEX.md) / [CURSOR.md](CURSOR.md) | Thin provider-style adapter stubs that point back to `AGENTS.md` and add no authority. |
 | [CONSTITUTION.md](CONSTITUTION.md) / [AXIOMS.md](AXIOMS.md) / [PRINCIPLES.md](PRINCIPLES.md) / [ANTI_PRINCIPLES.md](ANTI_PRINCIPLES.md) | Root doctrine: authority spine, public-safe source rules, operating principles, and rejected failure shapes. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Public verification floor, standalone export path, and contribution boundaries. |
@@ -79,8 +80,10 @@ count, organ count, or route label as a claim:
 This component map is still navigation, not authority. The command cards,
 validators, manifests, and receipts remain the evidence-bearing surfaces.
 
-New here? Four generated surfaces give you the whole system fast:
-[AGENT_ROUTES.md](AGENT_ROUTES.md) is the task-class route table for agents,
+New here? Five generated surfaces give you the whole system fast:
+[FIRST_ACTION.md](FIRST_ACTION.md) shows a freeform goal becoming one safe,
+runnable first action (the goal-shaped entry, with refusals and fallbacks
+demonstrated), [AGENT_ROUTES.md](AGENT_ROUTES.md) is the task-class route table for agents,
 [ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line)
 is the one-line organ ladder, [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)
 is the human specialty index, and [ARCHITECTURE.md](ARCHITECTURE.md) is the
@@ -151,7 +154,7 @@ extra doctrine.
 | Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
 | Peer developer | `microcosm tour --card <project>`, then `microcosm observe --card <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`; use `microcosm observe <project>` for full event rows. |
 | Domain specialist | `microcosm hello --reader domain_specialist <project>`, then [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty) and `microcosm tour --card <project>` | Specialty-to-organ route, evidence class, scope limit, and the explicit non-claim of domain-level conclusions or specialist review. |
-| Repo-reading agent | `microcosm comprehend --packet-atlas` (the navigable packet menu — pick the packet matching your goal), then `microcosm comprehend --first-contact` (then `microcosm comprehend --organ <organ_id>` for any component), then `microcosm hello --reader agent <project>`, `microcosm first-screen --card <project>`, and `microcosm organ-surface-contract --card --root .`. Source-only: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact`, `PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>`, and `PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check`. | A source-body-free comprehension read pack (what the substrate is, what each organ does, what may be trusted, and the exact source spans to open only when mutating or proving), the agent first-read path, the owner surface to patch if the route misleads, mechanism/validator/projection boundaries, and the source-mutation ceiling. |
+| Repo-reading agent | `microcosm comprehend --first-action "<your goal>"` (your goal → one graph-backed first action: owner, runnable command, validator, receipts, stop condition — demonstrated across a goal battery in [FIRST_ACTION.md](FIRST_ACTION.md)), then `microcosm comprehend --packet-atlas` (the navigable packet menu when first-action is not the question), then `microcosm comprehend --first-contact` (then `microcosm comprehend --organ <organ_id>` for any component), then `microcosm hello --reader agent <project>`, `microcosm first-screen --card <project>`, and `microcosm organ-surface-contract --card --root .`. Source-only: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"`, `PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact`, `PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>`, and `PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check`. | A first-action contract for your actual goal (with the authority boundary enforced: destructive/publication goals route to the authority packet), a source-body-free comprehension read pack (what the substrate is, what each organ does, what may be trusted, and the exact source spans to open only when mutating or proving), the agent first-read path, the owner surface to patch if the route misleads, mechanism/validator/projection boundaries, and the source-mutation ceiling. |
 
 Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external

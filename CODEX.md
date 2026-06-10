@@ -3,10 +3,12 @@
 This is a thin adapter for Codex-style agents. The canonical public agent
 contract is `AGENTS.md`; do not duplicate or override it here.
 
-First read `AGENTS.md`, then run one command preview and one no-write
-first-screen card:
+First read `AGENTS.md`. If you arrived with a goal, convert it into your first
+correct action (demonstrated in `FIRST_ACTION.md`); then run one command
+preview and one no-write first-screen card:
 
 ```bash
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
 ./bootstrap.sh --dry-run
 PYTHONPATH=src python3 -m microcosm_core hello --reader agent .
 ```

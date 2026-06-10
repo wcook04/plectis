@@ -80,7 +80,13 @@ REQUIRED_PHRASES_BY_DOC = {
         "Public should carry private by default",
         "as much of the macro substrate as possible",
         "The exclusion set is narrow",
-        "raw operator voice, slurs or abusive wording",
+        # Aligned with the public-copy clean (8af1382420): the README's
+        # exclusion-set sentence now uses cold-reader wording instead of the
+        # house phrase "raw operator voice, slurs or abusive wording". The pin
+        # runs through the full noun phrase so a tail edit cannot slip past;
+        # the README pin in tests/test_public_entry_docs.py (first-slice test)
+        # converges on this same string.
+        "private notes, personal material, and other content that is unsafe for a public source package",
         "Any `body_copied=true` claim must name the source file",
         "microcosm compile .",
         "std_python_microcosm_navigation_assay",

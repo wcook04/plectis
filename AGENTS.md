@@ -14,9 +14,23 @@ assimilation, imported macro bodies, and exported macro-shaped bundles.
 
 ## Fast Entry For Cold Agents
 
-If this is your first touch in a standalone clone, do not start by absorbing the
-organ inventory. First prove the local entry path and the public authority
-membrane:
+**Arrived with a goal? Convert it into your first correct action before
+absorbing anything:**
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
+```
+
+It returns one graph-backed contract: the runnable command, the owning
+component, the validator that proves it, the shipped receipts, the stop
+condition, and the do-not-edit boundary. [FIRST_ACTION.md](FIRST_ACTION.md)
+demonstrates this across a goal battery — localization, change-shaped goals,
+authority refusals, vocabulary traps — and is regenerated from the live
+compiler, so the examples are compiler output, not prose.
+
+If this is your first touch in a standalone clone and you have no task yet, do
+not start by absorbing the organ inventory. First prove the local entry path
+and the public authority membrane:
 
 1. Read `README.md` for the human map and install mode. In that README, use
    `Public Repo Map` and `Component Map` before opening raw receipts or the
@@ -56,6 +70,7 @@ microcosm hello --reader skeptical_reviewer .
 microcosm hello --reader agent .
 microcosm hello --reader domain_specialist .
 microcosm first-screen --card .
+microcosm comprehend --first-action "<goal>"
 microcosm comprehend --first-contact
 microcosm comprehend --organ <organ_id>
 microcosm tour --card .
@@ -78,6 +93,10 @@ for copy/paste while resolving it to the selected branch.
 
 Read those outputs as the first contract: `microcosm hello` is the no-write
 human card, `microcosm first-screen --card` is the compact JSON reader map,
+`microcosm comprehend --first-action "<goal>"` is the goal-shaped entry (one
+graph-backed First Correct Action contract: action, owner, validator, receipts,
+stop condition, do-not-edit boundary — demonstrated in
+[FIRST_ACTION.md](FIRST_ACTION.md)),
 `microcosm comprehend --packet-atlas` is the navigable menu of comprehension
 packets (pick the one matching your goal: self_model, first_contact, authority,
 organ_cluster, math, claim_trace, flow, mutation_plan, path),
@@ -105,6 +124,11 @@ These are passive defaults: you invoke them yourself the instant the trigger
 holds. No one has to tell you. They exist because the most common failure here
 is reasoning about the whole substrate from the one slice you happened to open.
 
+- **First-action reflex.** If you have a concrete goal (or were handed one) and
+  you are about to grep, glob, or open source to figure out where to start, run
+  `microcosm comprehend --first-action "<goal>"` first. It names the owner, the
+  runnable command, the validator, the receipts, and the stop condition; source
+  search before that contract is almost always wasted or unsafe reading.
 - **Comprehension reflex.** If you ever catch yourself assessing, summarizing,
   scoring, or judging Microcosm from only the part you looked at (the tell:
   "based on the part I worked on…"), or you have just arrived cold, then before

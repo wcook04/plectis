@@ -635,9 +635,9 @@ FIRST_SCREEN_HELP = """First-screen route:
   reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
-  microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (cold-agent first move; pick the packet that matches your goal)
+  microcosm comprehend --first-action "<goal>" YOUR GOAL -> one graph-backed FIRST CORRECT ACTION: owner, runnable command, validator, receipts, stop condition, do-not-edit boundary (start here when you have a goal; FIRST_ACTION.md shows it across a goal battery)
+  microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (pick a different lens when first-action is not the question)
   microcosm comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
-  microcosm comprehend --first-action "<goal>" graph-backed FIRST CORRECT ACTION contract: action, owner, validator, receipts, stop condition, do-not-edit boundary
   microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   microcosm comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
@@ -4807,7 +4807,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.first_action:
             first = comprehension.run_first_action_assay(assay_root)
             first_ok = (
-                first["first_action_selection_pct"] >= 90.0
+                # Exact: one wrong owner in the battery must go red, not round up.
+                first["first_action_selection_pct"] == 100.0
                 and first["contract_completeness_pct"] == 100.0
                 and first["graph_backed_pct"] == 100.0
                 and first["authority_overclaim_count"] == 0

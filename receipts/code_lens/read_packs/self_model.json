@@ -12,7 +12,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 14753,
+    "actual_bytes": 15016,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -58,7 +58,7 @@
     },
     "synopsis_coverage": 82
   },
-  "compile_ms": 0.657,
+  "compile_ms": 0.862,
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
@@ -174,6 +174,7 @@
     "Custody truth: 81/82 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
     "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, or whole-system correctness.",
     "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
+    "Have a concrete goal? microcosm comprehend --first-action \"<goal>\" converts it into ONE graph-backed first action -- owner, runnable command, validator, receipts, stop condition, do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
     "The join index is a typed graph: 33 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
   ],
   "receipt_refs": [],

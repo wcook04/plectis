@@ -97,8 +97,11 @@ _ATOM_BULLET_MARKERS = (
     "- Non-goal:",
 )
 
-# Canonical first-contact routes a cold agent should run, in order.
+# Canonical first-contact routes a cold agent should run, in order. The goal-shaped
+# entry leads: a cold agent with a concrete goal should get its first correct action
+# before absorbing any inventory.
 _START_HERE_ROUTES = [
+    'microcosm comprehend --first-action "<goal>"',
     "microcosm comprehend --first-contact",
     "microcosm comprehend --slice authority",
     "microcosm comprehend --organ <organ_id>",
@@ -1265,7 +1268,22 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 200,
         "data_status": "full",
-        "next_packets": ["self_model", "first_contact", "authority", "organs_index"],
+        "next_packets": ["first_action", "self_model", "first_contact", "authority", "organs_index"],
+    },
+    {
+        "packet_id": "first_action",
+        "packet_kind": "how_to",
+        "mode": "first_action",
+        "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?",
+        "command": 'microcosm comprehend --first-action "<goal>"',
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "compact",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["organ", "claim_trace", "flow", "mutation_plan", "packet_atlas"],
     },
     {
         "packet_id": "self_model",
@@ -1296,21 +1314,6 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "slo_ms": 300,
         "data_status": "full",
         "next_packets": ["self_model", "authority", "organ_cluster", "organs_index", "mutation_plan"],
-    },
-    {
-        "packet_id": "first_action",
-        "packet_kind": "how_to",
-        "mode": "first_action",
-        "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?",
-        "command": 'microcosm comprehend --first-action "<goal>"',
-        "inputs": ["join_index", "organ_atlas", "synopses"],
-        "export_band": "presence_only",
-        "cache_policy": "on_demand",
-        "cache_ref": None,
-        "budget": "compact",
-        "slo_ms": 300,
-        "data_status": "full",
-        "next_packets": ["organ", "claim_trace", "flow", "mutation_plan", "packet_atlas"],
     },
     {
         "packet_id": "authority",
@@ -1547,10 +1550,14 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
     pack["schema_version"] = PACKET_ATLAS_SCHEMA
     pack["summary"]["what_this_is"] = (
         f"{len(PACKET_SPECS)} comprehension packets. Each is a bounded, source-body-free "
-        "operating context for one situation. Enter through first_contact, or pick the "
-        "packet that matches your goal."
+        "operating context for one situation. Have a goal? Enter through first_action "
+        "(one graph-backed first correct action). Orienting cold? Enter through "
+        "first_contact."
     )
-    pack["summary"]["what_to_inspect_next"] = [s["command"] for s in PACKET_SPECS[:5]]
+    pack["summary"]["what_to_inspect_next"] = [
+        _SPEC_BY_ID[i]["command"]
+        for i in ("packet_atlas", "first_action", "self_model", "first_contact", "authority")
+    ]
     pack["summary"]["what_not_to_trust"] = (
         "A packet is a navigation read model, never release/source-export/correctness "
         "authority; local_semantic_excerpt packets are local-only and never cached."
@@ -1593,6 +1600,9 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
         rows.append(row)
     pack["selected_nodes"] = rows
     pack["default_entry"] = "first_contact"
+    # The goal-shaped entry: an agent that arrived WITH a goal should not read the
+    # menu at all -- first_action converts the goal into one graph-backed contract.
+    pack["goal_entry"] = "first_action"
     pack["slo_ms_by_packet"] = {s["packet_id"]: s["slo_ms"] for s in PACKET_SPECS}
     pack["sqlite_gate"] = SQLITE_GATE
     pack["evidence_refs"] = ["src/microcosm_core/comprehension.py#PACKET_SPECS"]
@@ -2176,7 +2186,7 @@ def compile_first_action(
         pack["out_of_scope_note"] = (
             "Destructive or publication actions are outside this contract's "
             "authority (authority_ceiling is all false and cannot grant them). "
-            "The action below is a read-only comprehension move only."
+            "The named first action is a read-only comprehension move only."
         )
         pack["summary"]["what_this_is"] = (
             "This goal asks for an action the substrate cannot grant; the first "
@@ -2457,7 +2467,12 @@ def compile_first_action(
         "paths": [],
         "note": "orientation goals never require edits",
     }
-    pack["next_packet_commands"] = [s["command"] for s in PACKET_SPECS[:3]]
+    # Explicit ids, not a positional slice: the fallback menu must stay
+    # placeholder-free and must not suggest re-running the mode that just fell
+    # back (first_action's own command carries "<goal>").
+    pack["next_packet_commands"] = [
+        _SPEC_BY_ID[i]["command"] for i in ("packet_atlas", "self_model", "first_contact")
+    ]
     return pack
 
 
@@ -3038,6 +3053,9 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         "release, source export, or whole-system correctness.",
         f"{len(families)} organ families. This packet IS the hub: open --slice cluster --family <f> "
         "for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
+        'Have a concrete goal? microcosm comprehend --first-action "<goal>" converts it into ONE '
+        "graph-backed first action -- owner, runnable command, validator, receipts, stop condition, "
+        "do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
     ]
     if {"cross_organ_route_topology", "claim_node_ontology"} <= state["resolved"]:
         routes_with_stop = sum(
@@ -3791,6 +3809,8 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("does this work?",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("the security guard at my office building",
+     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+    ("audit the security posture of this repo",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map",
      {"owner_organ": "cold_reader_route_map", "routing_basis": "organ_named_in_goal"}),

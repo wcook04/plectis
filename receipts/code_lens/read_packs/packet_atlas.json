@@ -6,19 +6,20 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 8833,
+    "actual_bytes": 8933,
     "band": "compact",
     "max_bytes": 16000,
     "target_bytes": 8000,
     "within_budget": true
   },
-  "compile_ms": 1.007,
+  "compile_ms": 0.992,
   "default_entry": "first_contact",
   "evidence_refs": [
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
   ],
   "export_band": "presence_only",
   "goal": "which comprehension packet should I use?",
+  "goal_entry": "first_action",
   "membrane": {
     "active_band": "presence_only",
     "bands": {
@@ -43,6 +44,7 @@
   },
   "mode": "reference",
   "next_packets": [
+    "first_action",
     "self_model",
     "first_contact",
     "authority",
@@ -69,13 +71,14 @@
       "budget_band": "compact",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/packet_atlas.json",
-      "cached_bytes": 10503,
+      "cached_bytes": 11302,
       "command": "microcosm comprehend --packet-atlas",
       "data_status": "full",
       "export_band": "presence_only",
       "kind": "packet",
       "max_bytes": 16000,
       "next_packets": [
+        "first_action",
         "self_model",
         "first_contact",
         "authority",
@@ -88,10 +91,31 @@
       "when_needed": "cold clone, first move: which packet answers my question?"
     },
     {
+      "budget_band": "compact",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --first-action \"<goal>\"",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 16000,
+      "next_packets": [
+        "organ",
+        "claim_trace",
+        "flow",
+        "mutation_plan",
+        "packet_atlas"
+      ],
+      "packet_id": "first_action",
+      "packet_kind": "how_to",
+      "slo_ms": 300,
+      "target_bytes": 8000,
+      "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?"
+    },
+    {
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/self_model.json",
-      "cached_bytes": 17862,
+      "cached_bytes": 18129,
       "command": "microcosm comprehend --self-model",
       "data_status": "full",
       "export_band": "presence_only",
@@ -114,7 +138,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
-      "cached_bytes": 30957,
+      "cached_bytes": 31013,
       "command": "microcosm comprehend --first-contact",
       "data_status": "full",
       "export_band": "presence_only",
@@ -132,27 +156,6 @@
       "slo_ms": 300,
       "target_bytes": 24000,
       "when_needed": "new clone: what is this substrate and where do I start?"
-    },
-    {
-      "budget_band": "compact",
-      "cache_policy": "on_demand",
-      "command": "microcosm comprehend --first-action \"<goal>\"",
-      "data_status": "full",
-      "export_band": "presence_only",
-      "kind": "packet",
-      "max_bytes": 16000,
-      "next_packets": [
-        "organ",
-        "claim_trace",
-        "flow",
-        "mutation_plan",
-        "packet_atlas"
-      ],
-      "packet_id": "first_action",
-      "packet_kind": "how_to",
-      "slo_ms": 300,
-      "target_bytes": 8000,
-      "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?"
     },
     {
       "budget_band": "standard",
@@ -347,12 +350,12 @@
   "sqlite_gate": "closed: JSON read-pack cache meets SLO; build SQLite/FTS5 only when freeform goal routing or atom-excerpt search misses an SLO or needs ranked full-text search",
   "summary": {
     "what_not_to_trust": "A packet is a navigation read model, never release/source-export/correctness authority; local_semantic_excerpt packets are local-only and never cached.",
-    "what_this_is": "13 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Enter through first_contact, or pick the packet that matches your goal.",
+    "what_this_is": "13 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Have a goal? Enter through first_action (one graph-backed first correct action). Orienting cold? Enter through first_contact.",
     "what_to_inspect_next": [
       "microcosm comprehend --packet-atlas",
+      "microcosm comprehend --first-action \"<goal>\"",
       "microcosm comprehend --self-model",
       "microcosm comprehend --first-contact",
-      "microcosm comprehend --first-action \"<goal>\"",
       "microcosm comprehend --slice authority"
     ]
   }

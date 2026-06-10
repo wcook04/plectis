@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 18097,
+    "actual_bytes": 18147,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.277,
+  "compile_ms": 0.901,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",
@@ -929,6 +929,7 @@
     "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
     "what_this_is": "Microcosm is a local-first, source-open substrate of 82 runtime organs across 7 families. Comprehend it through governed metadata -- glosses, evidence classes, receipts, and authority ceilings -- rather than by reading source. Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
     "what_to_inspect_next": [
+      "microcosm comprehend --first-action \"<goal>\"",
       "microcosm comprehend --first-contact",
       "microcosm comprehend --slice authority",
       "microcosm comprehend --organ <organ_id>",

@@ -36,7 +36,8 @@ PUBLIC_TESTS ?= \
 	tests/test_proof_lab_card.py \
 	tests/test_batch12_release_claim_language_gate.py \
 	tests/test_evidence_truth_floor.py \
-	tests/test_release_export.py
+	tests/test_release_export.py \
+	tests/test_first_action_demo.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
