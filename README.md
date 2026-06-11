@@ -1,19 +1,75 @@
 # Microcosm Substrate
 
 Microcosm is the public, source-open cross-section of a larger private
-AI-native workflow system. It exists to make the system's architecture,
-evidence habits, component families, and claim limits inspectable without
-publishing the full working system.
+AI-native workflow system — one person's working substrate, reorganized into a
+small repository that can be run, inspected, and doubted on its own terms. It
+exists to make the system's architecture, evidence habits, component families,
+and claim limits inspectable without publishing the full working system.
+
+**Reading this as an AI agent?** Your entry document is [AGENTS.md](AGENTS.md),
+not this file. This README is the human map; the provider adapters
+([CLAUDE.md](CLAUDE.md), [CODEX.md](CODEX.md), [CURSOR.md](CURSOR.md)) route
+there as well.
+
+## One Command, One Record
 
 The package in this folder is one concrete witness for that public slice. When
 run locally, it turns repo -> .microcosm beside a project so a reader can
 inspect routes, events, evidence handles, and source links without changing
 source files or making external model calls.
 
+That sentence is the whole product. Here is what it means in practice. From a
+clone, with nothing installed, ask for the map:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core hello .
+```
+
+It prints a first screen in under a second: what this is, what to run next,
+how the counts are backed, and what none of it proves. Then run the local
+witness:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core tour --card .
+```
+
+That command builds `.microcosm/` beside the project — catalog, patterns,
+routes, work items, events, evidence — and prints a compact card naming the
+route it selected and the state it wrote. The record it leaves behind has a
+fixed grammar, and the grammar is what this repository is actually
+demonstrating:
+
+- **One command** produced the record, so you can rerun it instead of
+  trusting it.
+- **The record sits on your disk** under `.microcosm/`, not in this prose.
+- **Every claim in it carries an evidence class** — what kind of proof backs
+  it: a copied source body, a subprocess return code, a deterministic
+  projection, a validator, or a fixture.
+- **Every component links back to source** — the file that produces the
+  behaviour, not a description of it.
+- **Every card ends with a scope limit** — the things it does *not* prove,
+  held as machine state rather than disclaimers: `microcosm authority --card`
+  keeps sixteen authority bits explicitly false, including release,
+  provider calls, and whole-system correctness.
+
+Command, then record, then evidence class, then source link, then scope
+limit. The rest of this repository is that loop applied to 82 components, and
+the rest of this README is navigation for it. Nothing in the loop mutates
+your source files or calls a model provider; `source_files_mutated=false` is
+a field in the recorded card, not a promise in prose.
+
+## Where To Start, By Reader
+
+| You are | Open |
+|---|---|
+| Deciding whether this deserves ten minutes | This README, top to [Reference Body](#reference-body). |
+| Wanting to run it before reading anything | [QUICKSTART.md](QUICKSTART.md) — one page. |
+| An AI agent arriving with a task | [AGENTS.md](AGENTS.md), then `comprehend --first-action "<your goal>"`. |
+| Asking "what are the parts?" | [ORGANS.md](ORGANS.md) — generated, one card per component. |
+| Checking what is and is not claimed | `microcosm authority --card`, then [RELEASE_REVIEW.md](RELEASE_REVIEW.md). |
+
 For a one-page cold-clone path, start with [QUICKSTART.md](QUICKSTART.md).
-For the first local card from a source checkout, run
-`PYTHONPATH=src python3 -m microcosm_core hello .`; after install, run
-`microcosm hello .`. Use `make package-smoke` when you need the fresh-venv
+Use `make package-smoke` when you need the fresh-venv
 installed-console proof; `make ci` includes that package smoke. Use
 `make flight-recorder` when a reviewer needs a replayable proof packet for the
 local command transcript without treating it as release, compliance, provider,
@@ -669,6 +725,18 @@ project loop; open receipts only when you need a drilldown. Inspect a listed
 project ref with `microcosm evidence inspect <project> <ref>` or
 `microcosm evidence inspect --project <project> <ref>`. Use `--limit 0` only
 when you intentionally want the full receipt index.
+
+---
+
+## Reference Body
+
+Everything below this line is the reference layer: per-command contracts,
+their evidence plumbing, and the exact boundary each surface keeps. It is
+deliberately exhaustive and reads like an inventory because it is one. On a
+first pass you can stop here — the generated atlas covers the same ground one
+card at a time: [ORGANS.md](ORGANS.md) for any single component,
+[AGENT_ROUTES.md](AGENT_ROUTES.md) for task-shaped entry, and
+[ARCHITECTURE.md](ARCHITECTURE.md) for the system shape.
 
 `microcosm tour --card <project>` is the compressed cold-reader route. It
 compiles the project into `.microcosm/`, then emits a compact first-screen

@@ -1,5 +1,8 @@
 # AGENTS.md - Microcosm Substrate
 
+Reading this as a person? The human map is [README.md](README.md); this file
+is the agent entry contract.
+
 This root is an executable research prototype of a local project operating
 substrate. Treat it as the public runtime surface in front of you: a user can
 bring a project folder, initialize `.microcosm/` state, index files, discover

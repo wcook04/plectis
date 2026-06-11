@@ -64,7 +64,7 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         in quickstart
     )
     assert "blocked/non-zero command evidence" in quickstart
-    assert "not a release, standards, provider-call" in quickstart
+    assert "not a launch, standards, external-model" in quickstart
     assert quickstart.index("- `/workingness-card`") < quickstart.index(
         "Open `/workingness` only"
     )
