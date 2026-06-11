@@ -211,6 +211,7 @@ PUBLICATION_REVIEW_CHECKLISTS = {
     ],
 }
 SKIPPED_DIR_NAMES = {
+    ".build",
     ".git",
     ".microcosm",
     ".hg",
@@ -218,13 +219,28 @@ SKIPPED_DIR_NAMES = {
     ".nox",
     ".pytest_cache",
     ".ruff_cache",
+    ".swiftpm",
     ".tox",
     ".venv",
+    "DerivedData",
     "__pycache__",
     "build",
     "dist",
     "node_modules",
 }
+# Compiler/build product directory names that must never appear inside an
+# exported bundle's source_modules payload (SwiftPM/Xcode output is not source).
+SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES = {
+    ".build",
+    ".git",
+    ".swiftpm",
+    "DerivedData",
+    "__pycache__",
+}
+# Path-prefix (relative to the public root) -> reason. Deliberate fixture
+# exceptions to the source_modules contamination scan must be declared here
+# with a written reason; an empty map means no exceptions exist.
+SOURCE_MODULE_CONTAMINATION_ALLOWLIST: dict[str, str] = {}
 SKIPPED_ROOT_NAMES = {
     ".DS_Store",
     ".microcosm",
@@ -782,6 +798,103 @@ def _strong_secret_hits(target: Path) -> list[dict[str, str]]:
                     }
                 )
     return hits
+
+
+# operator and example are the two house synthetic-home conventions; any other
+# /Users/<name> or /home/<name> in a copied body is a real host-path leak.
+# The username segment must be dotless: frontend route strings such as
+# /home/StationSurfaceAtlas.tsx are file references, not home directories.
+_REAL_HOME_PATH_PATTERN = re.compile(
+    r"/(?:Users|home)/(?!(?:operator|example)\b)(?![A-Za-z0-9_.-]*\.)[A-Za-z0-9_-]+"
+)
+
+
+def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]:
+    """
+    - Teleology: population contamination gate over every exported bundle's source_modules payload — committed compiler output (SwiftPM/Xcode .build trees) and real host-private paths are release blockers the bounded import membrane cannot see, because the import trusts exact-copy declarations.
+    - Guarantee: returns one row (path, contamination_class, owning_bundle, remediation) per offending file: build_artifact_directory for any path under SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES, host_private_path for text files carrying a real /Users/<name> or /home/<name> (synthetic /Users/operator is the house fixture convention and is allowed) or a non-synthetic host temp needle; empty list means the scanned payloads are clean.
+    - Fails: never raises; unreadable/binary files contribute no content rows; SOURCE_MODULE_CONTAMINATION_ALLOWLIST prefixes are skipped with their declared reason.
+    - Reads: every source_modules subtree under examples/ plus per-file text (bounded by _read_text_if_small).
+    - Non-goal: does not authorize release or population; a clean scan is a bounded gate result, not a complete privacy audit.
+    """
+    rows: list[dict[str, str]] = []
+    examples_root = public_root / "examples"
+    if not examples_root.is_dir():
+        return rows
+    source_module_roots = sorted(
+        path for path in examples_root.rglob("source_modules") if path.is_dir()
+    )
+    for modules_root in source_module_roots:
+        bundle_ref = modules_root.parent.relative_to(public_root).as_posix()
+        for path in sorted(modules_root.rglob("*")):
+            if not path.is_file():
+                continue
+            rel = path.relative_to(public_root).as_posix()
+            allow_reason = next(
+                (
+                    reason
+                    for prefix, reason in SOURCE_MODULE_CONTAMINATION_ALLOWLIST.items()
+                    if rel.startswith(prefix)
+                ),
+                None,
+            )
+            if allow_reason is not None:
+                continue
+            module_rel_parts = path.relative_to(modules_root).parts
+            artifact_parts = sorted(
+                set(module_rel_parts) & SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES
+            )
+            if artifact_parts:
+                rows.append(
+                    {
+                        "path": rel,
+                        "contamination_class": "build_artifact_directory",
+                        "matched_dir_names": ",".join(artifact_parts),
+                        "owning_bundle": bundle_ref,
+                        "remediation": (
+                            "delete the compiler-output tree from source_modules "
+                            "(build products are not source) or declare a reasoned "
+                            "SOURCE_MODULE_CONTAMINATION_ALLOWLIST entry"
+                        ),
+                    }
+                )
+                continue
+            text = _read_text_if_small(path)
+            if text is None:
+                continue
+            host_hit = _REAL_HOME_PATH_PATTERN.search(text)
+            if host_hit is not None:
+                rows.append(
+                    {
+                        "path": rel,
+                        "contamination_class": "host_private_path",
+                        "needle": "<real-home-path>",
+                        "owning_bundle": bundle_ref,
+                        "remediation": (
+                            "regenerate the body without absolute host paths or "
+                            "replace the real username with the synthetic "
+                            "/Users/operator fixture convention"
+                        ),
+                    }
+                )
+                continue
+            if (
+                HOST_TEMP_ROOT_NEEDLE in text
+                and HOST_TEMP_SYNTHETIC_EXAMPLE_NEEDLE not in text
+            ):
+                rows.append(
+                    {
+                        "path": rel,
+                        "contamination_class": "host_private_path",
+                        "needle": HOST_TEMP_ROOT_NEEDLE,
+                        "owning_bundle": bundle_ref,
+                        "remediation": (
+                            "route the path through the <host-temp> scrubber or "
+                            "drop the runtime path from the committed body"
+                        ),
+                    }
+                )
+    return rows
 
 
 def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
