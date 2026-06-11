@@ -3564,6 +3564,180 @@ def _target_adjacent_source_module_manifest_paths(
         current = current.parent
 
 
+def _bundle_manifest_for_target(target_path: Path, *, public_root: Path) -> Path | None:
+    public_root_resolved = public_root.resolve(strict=False)
+    try:
+        target_path.resolve(strict=False).relative_to(public_root_resolved)
+    except ValueError:
+        return None
+    current = target_path.parent
+    while True:
+        candidate = current / "bundle_manifest.json"
+        if candidate.is_file():
+            return candidate
+        if current.resolve(strict=False) == public_root_resolved or current.parent == current:
+            return None
+        current = current.parent
+
+
+def _co_update_bundle_manifest_expected_rows(
+    *,
+    exact_copy_targets: dict[str, tuple[Path, Path]],
+    json_updates: dict[str, tuple[Path, dict[str, Any]]],
+    public_root: Path,
+    defects: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """
+    - Teleology: a refresh must move every declared digest authority in one wave; bundle_manifest.json files[] rows carry expected_sha256/expected_line_count for copied bodies and silently go stale when only source_module_manifest.json is refreshed (split-provenance defect class).
+    - Guarantee: for every exact-copy target seen this wave, the nearest enclosing bundle_manifest.json files[] row matching the target's bundle-relative path is reconciled to the refreshed source stats; touched manifests join json_updates; returns one receipt row per changed entry. Re-running on a half-refreshed bundle repairs the stale rows even when bodies already match.
+    - Fails: never raises; files[] rows that reference a refreshed target without any expected_* field are path listings, not digest authorities, and are skipped untouched.
+    - Non-goal: does not invent files[] rows, does not touch bundle manifests that never reference a refreshed target, does not validate bundle semantics beyond digest/line coherence.
+    """
+    updated_rows: list[dict[str, Any]] = []
+    for source_path, target_path in exact_copy_targets.values():
+        bundle_manifest_path = _bundle_manifest_for_target(
+            target_path, public_root=public_root
+        )
+        if bundle_manifest_path is None:
+            continue
+        key = str(bundle_manifest_path.resolve(strict=False))
+        if key in json_updates:
+            payload = json_updates[key][1]
+        else:
+            payload = read_json_strict(bundle_manifest_path)
+        if not isinstance(payload, dict):
+            continue
+        files_rows = payload.get("files")
+        if not isinstance(files_rows, list):
+            continue
+        bundle_dir = bundle_manifest_path.parent
+        try:
+            rel_text = (
+                target_path.resolve(strict=False)
+                .relative_to(bundle_dir.resolve(strict=False))
+                .as_posix()
+            )
+        except ValueError:
+            continue
+        stats: dict[str, Any] | None = None
+        for row in files_rows:
+            if not isinstance(row, dict):
+                continue
+            if str(row.get("path") or "") != rel_text:
+                continue
+            if stats is None:
+                stats = _body_stats(source_path)
+            row_updates: dict[str, Any] = {}
+            if "expected_sha256" in row:
+                row_updates["expected_sha256"] = _digest_for_existing_format(
+                    row.get("expected_sha256"), stats
+                )
+            if "expected_line_count" in row:
+                row_updates["expected_line_count"] = stats["line_count"]
+            if "expected_byte_count" in row:
+                row_updates["expected_byte_count"] = stats["byte_count"]
+            if not row_updates:
+                continue
+            if all(row.get(field) == value for field, value in row_updates.items()):
+                continue
+            row.update(row_updates)
+            json_updates[key] = (bundle_manifest_path, payload)
+            updated_rows.append(
+                {
+                    "bundle_manifest_ref": _display(
+                        bundle_manifest_path, public_root=public_root
+                    ),
+                    "path": rel_text,
+                    "expected_sha256": row.get("expected_sha256"),
+                    "expected_line_count": row.get("expected_line_count"),
+                    "body_in_receipt": False,
+                }
+            )
+    return updated_rows
+
+
+def _reconcile_bundle_manifest_self_row(
+    *,
+    manifest_path: Path,
+    bundle_updates: dict[str, tuple[Path, dict[str, Any]]],
+    public_root: Path,
+    apply: bool,
+) -> list[dict[str, Any]]:
+    """
+    - Teleology: bundle_manifest.json files[] rows may pin the source_module_manifest.json file itself; rewriting the manifest stales that pin, so refresh must reconcile it from the manifest's post-write bytes (third digest authority in the split-provenance class).
+    - Guarantee: with apply=True (after the manifest file is written) the matching files[] row is updated from the on-disk manifest bytes and the touched bundle manifest joins bundle_updates; with apply=False it only reports the pending reconcile as deferred_digest_recompute rows.
+    - Fails: never raises; missing bundle manifest, missing files[] table, or rows without expected_* fields are skipped untouched.
+    - Non-goal: does not serialize-predict digests (disk bytes after write are the truth), does not touch rows for other files.
+    """
+    bundle_manifest_path = _bundle_manifest_for_target(
+        manifest_path, public_root=public_root
+    )
+    if bundle_manifest_path is None or bundle_manifest_path == manifest_path:
+        return []
+    key = str(bundle_manifest_path.resolve(strict=False))
+    if key in bundle_updates:
+        payload = bundle_updates[key][1]
+    else:
+        payload = read_json_strict(bundle_manifest_path)
+    if not isinstance(payload, dict):
+        return []
+    files_rows = payload.get("files")
+    if not isinstance(files_rows, list):
+        return []
+    try:
+        rel_text = (
+            manifest_path.resolve(strict=False)
+            .relative_to(bundle_manifest_path.parent.resolve(strict=False))
+            .as_posix()
+        )
+    except ValueError:
+        return []
+    rows: list[dict[str, Any]] = []
+    for row in files_rows:
+        if not isinstance(row, dict) or str(row.get("path") or "") != rel_text:
+            continue
+        if "expected_sha256" not in row and "expected_line_count" not in row:
+            continue
+        if not apply:
+            rows.append(
+                {
+                    "bundle_manifest_ref": _display(
+                        bundle_manifest_path, public_root=public_root
+                    ),
+                    "path": rel_text,
+                    "deferred_digest_recompute": True,
+                    "body_in_receipt": False,
+                }
+            )
+            continue
+        stats = _body_stats(manifest_path)
+        row_updates: dict[str, Any] = {}
+        if "expected_sha256" in row:
+            row_updates["expected_sha256"] = _digest_for_existing_format(
+                row.get("expected_sha256"), stats
+            )
+        if "expected_line_count" in row:
+            row_updates["expected_line_count"] = stats["line_count"]
+        if "expected_byte_count" in row:
+            row_updates["expected_byte_count"] = stats["byte_count"]
+        if all(row.get(field) == value for field, value in row_updates.items()):
+            continue
+        row.update(row_updates)
+        bundle_updates[key] = (bundle_manifest_path, payload)
+        rows.append(
+            {
+                "bundle_manifest_ref": _display(
+                    bundle_manifest_path, public_root=public_root
+                ),
+                "path": rel_text,
+                "expected_sha256": row.get("expected_sha256"),
+                "expected_line_count": row.get("expected_line_count"),
+                "body_in_receipt": False,
+            }
+        )
+    return rows
+
+
 def _source_module_protocol_paths(input_path: Path, *, public_root: Path) -> list[Path]:
     candidates: list[Path] = []
     if input_path.is_file() and input_path.name == "projection_protocol.json":
@@ -3625,6 +3799,7 @@ def _update_source_module_manifest_row(
     source_root: Path,
     target_copies: dict[str, tuple[Path, Path]],
     defects: list[dict[str, Any]],
+    exact_copy_targets: dict[str, tuple[Path, Path]] | None = None,
 ) -> dict[str, Any] | None:
     material_id = _source_module_row_material_id(row)
     source_ref = str(row.get("source_ref") or "")
@@ -3657,6 +3832,27 @@ def _update_source_module_manifest_row(
             }
         )
         return None
+    # Cross-tree write guard: when public-root resolution fell back to a tree
+    # that does not contain this manifest, a prefix-resolved target lands in
+    # the fallback tree and a write would pollute it. Fail closed on that row.
+    manifest_resolved = manifest_path.resolve(strict=False)
+    cross_target_resolved = target_path.resolve(strict=False)
+    cross_public_root_resolved = public_root.resolve(strict=False)
+    if (
+        cross_public_root_resolved in cross_target_resolved.parents
+        and cross_public_root_resolved not in manifest_resolved.parents
+    ):
+        defects.append(
+            {
+                "material_id": material_id,
+                "manifest_ref": str(manifest_resolved),
+                "target_ref": str(cross_target_resolved),
+                "resolved_public_root": str(cross_public_root_resolved),
+                "defect_code": "source_module_refresh_cross_tree_target",
+                "body_in_receipt": False,
+            }
+        )
+        return None
     if not source_path.is_file():
         defects.append(
             {
@@ -3668,6 +3864,11 @@ def _update_source_module_manifest_row(
             }
         )
         return None
+    if exact_copy_targets is not None:
+        exact_copy_targets[str(target_path.resolve(strict=False))] = (
+            source_path,
+            target_path,
+        )
 
     stats = _body_stats(source_path)
     missing_anchors = [
@@ -3914,6 +4115,8 @@ def refresh_exact_copy_source_modules(
     json_updates: dict[str, tuple[Path, dict[str, Any]]] = {}
     matched_material_ids: set[str] = set()
     processed_manifest_keys: set[str] = set()
+    scanned_manifest_paths: list[Path] = []
+    exact_copy_targets: dict[str, tuple[Path, Path]] = {}
 
     def process_manifest_paths(paths: list[Path]) -> None:
         for manifest_path in paths:
@@ -3931,6 +4134,7 @@ def refresh_exact_copy_source_modules(
                     }
                 )
                 continue
+            scanned_manifest_paths.append(manifest_path)
             updated = False
             for row in _rows(payload, "modules"):
                 material_id = _source_module_row_material_id(row)
@@ -3947,6 +4151,7 @@ def refresh_exact_copy_source_modules(
                     source_root=source_root_path,
                     target_copies=target_copies,
                     defects=defects,
+                    exact_copy_targets=exact_copy_targets,
                 )
                 if update is not None:
                     updated = True
@@ -4029,6 +4234,15 @@ def refresh_exact_copy_source_modules(
 
     process_manifest_paths(target_adjacent_manifest_paths)
 
+    for target_key, copy_pair in target_copies.items():
+        exact_copy_targets.setdefault(target_key, copy_pair)
+    bundle_manifest_rows = _co_update_bundle_manifest_expected_rows(
+        exact_copy_targets=exact_copy_targets,
+        json_updates=json_updates,
+        public_root=public_root,
+        defects=defects,
+    )
+
     if material_filter and not matched_material_ids:
         defects.append(
             {
@@ -4065,6 +4279,8 @@ def refresh_exact_copy_source_modules(
             role = "manifest_json_update"
         elif path.name == "projection_protocol.json":
             role = "protocol_json_update"
+        elif path.name == "bundle_manifest.json":
+            role = "bundle_manifest_json_update"
         else:
             role = "json_update"
         pending_output_paths.append((role, path))
@@ -4084,14 +4300,60 @@ def refresh_exact_copy_source_modules(
             }
         )
 
+    pending_manifest_keys = {
+        str(path.resolve(strict=False))
+        for path, _payload in json_updates.values()
+        if path.name.endswith("source_module_manifest.json")
+    }
+    if not write:
+        for scanned_path in scanned_manifest_paths:
+            scanned_key = str(scanned_path.resolve(strict=False))
+            bundle_manifest_rows.extend(
+                _reconcile_bundle_manifest_self_row(
+                    manifest_path=scanned_path,
+                    bundle_updates=json_updates,
+                    public_root=public_root,
+                    # A manifest that will be rewritten this wave gets a deferred
+                    # marker (its post-write bytes are unknown); an untouched
+                    # manifest's disk bytes are final, so reconcile exactly.
+                    apply=scanned_key not in pending_manifest_keys,
+                )
+            )
+
     if write and not defects:
         for source_path, target_path in target_copies.values():
             target_path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source_path, target_path)
-        for path, payload in json_updates.values():
+        # Two-phase write: bodies + manifests + protocols first, then reconcile
+        # bundle_manifest self-pins from the manifests' on-disk bytes, then
+        # write the bundle manifests once with body rows and self rows folded in.
+        bundle_updates: dict[str, tuple[Path, dict[str, Any]]] = {
+            key: (path, payload)
+            for key, (path, payload) in json_updates.items()
+            if path.name == "bundle_manifest.json"
+        }
+        for key, (path, payload) in json_updates.items():
+            if key in bundle_updates:
+                continue
+            write_json_atomic(path, payload)
+        for scanned_path in scanned_manifest_paths:
+            bundle_manifest_rows.extend(
+                _reconcile_bundle_manifest_self_row(
+                    manifest_path=scanned_path,
+                    bundle_updates=bundle_updates,
+                    public_root=public_root,
+                    apply=True,
+                )
+            )
+        for path, payload in bundle_updates.values():
             write_json_atomic(path, payload)
 
-    pending_update_count = len(manifest_rows) + len(protocol_rows) + len(target_copies)
+    pending_update_count = (
+        len(manifest_rows)
+        + len(protocol_rows)
+        + len(target_copies)
+        + len(bundle_manifest_rows)
+    )
     status = (
         "blocked"
         if defects
@@ -4146,6 +4408,7 @@ def refresh_exact_copy_source_modules(
         "target_copy_count": len(target_copies),
         "manifest_row_update_count": len(manifest_rows),
         "protocol_row_update_count": len(protocol_rows),
+        "bundle_manifest_row_update_count": len(bundle_manifest_rows),
         "pending_update_count": pending_update_count,
         "manifests_scanned": [
             _display(path, public_root=public_root) for path in manifest_paths
@@ -4155,6 +4418,7 @@ def refresh_exact_copy_source_modules(
         ],
         "manifest_rows": manifest_rows,
         "protocol_rows": protocol_rows,
+        "bundle_manifest_rows": bundle_manifest_rows,
         "defect_count": len(defects),
         "defects": defects,
         "source_coupling": source_coupling,

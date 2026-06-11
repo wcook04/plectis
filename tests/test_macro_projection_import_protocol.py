@@ -2393,6 +2393,207 @@ def test_refresh_exact_copy_source_modules_updates_target_adjacent_manifest(
     assert manifest_row["target_sha256"] == new_digest
 
 
+def _bundle_manifest_co_update_fixture(
+    tmp_path: Path,
+    *,
+    target_body: str,
+    manifest_digest: str,
+    bundle_expected_digest: str,
+    source_body: str,
+) -> tuple[Path, Path, Path, Path]:
+    public_root = tmp_path / "microcosm-substrate"
+    source_root = tmp_path
+    bundle = public_root / "examples/work_landing_demo/exported_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    bundle_manifest_path = bundle / "bundle_manifest.json"
+    source_ref = "tools/demo/work_landing.py"
+    target_ref = (
+        "examples/work_landing_demo/exported_bundle/"
+        "source_modules/tools/demo/work_landing.py"
+    )
+    source = source_root / source_ref
+    target = public_root / target_ref
+    policy_path = public_root / "core/private_state_forbidden_classes.json"
+    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    policy_path.write_text("{}", encoding="utf-8")
+    for path, text in ((source, source_body), (target, target_body)):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "work_landing_demo_body",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "classification": "copied_non_secret_macro_body",
+                        "sha256_match": True,
+                        "source_sha256": manifest_digest,
+                        "target_sha256": manifest_digest,
+                        "line_count": target_body.count("\n"),
+                        "byte_count": len(target_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    bundle_manifest_path.write_text(
+        json.dumps(
+            {
+                "bundle_id": "work_landing_demo",
+                "body_in_receipt": False,
+                "files": [
+                    {
+                        "path": "source_modules/tools/demo/work_landing.py",
+                        "expected_sha256": bundle_expected_digest,
+                        "expected_line_count": 1,
+                        "body_in_receipt": False,
+                    },
+                    {"path": "source_module_manifest.json"},
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return manifest_path, bundle_manifest_path, target, source_root
+
+
+def test_refresh_exact_copy_source_modules_co_updates_bundle_manifest_expected_rows(
+    tmp_path: Path,
+) -> None:
+    old_body = "VALUE = 'old'\n"
+    new_body = "VALUE = 'new'\nEXTRA = 1\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+    manifest_path, bundle_manifest_path, target, source_root = (
+        _bundle_manifest_co_update_fixture(
+            tmp_path,
+            target_body=old_body,
+            manifest_digest=old_digest,
+            bundle_expected_digest=old_digest,
+            source_body=new_body,
+        )
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        write=True,
+        scan_protocols=False,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    assert result["status"] == "pass"
+    assert result["target_copy_count"] == 1
+    assert result["bundle_manifest_row_update_count"] == 1
+    assert target.read_text(encoding="utf-8") == new_body
+    bundle_manifest = json.loads(bundle_manifest_path.read_text(encoding="utf-8"))
+    row = bundle_manifest["files"][0]
+    assert row["expected_sha256"] == new_digest
+    assert row["expected_line_count"] == new_body.count("\n")
+
+
+def test_refresh_exact_copy_source_modules_repairs_stale_bundle_manifest_when_bodies_fresh(
+    tmp_path: Path,
+) -> None:
+    body = "VALUE = 'fresh'\nEXTRA = 2\n"
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+    stale_digest = hashlib.sha256(b"stale").hexdigest()
+    manifest_path, bundle_manifest_path, target, source_root = (
+        _bundle_manifest_co_update_fixture(
+            tmp_path,
+            target_body=body,
+            manifest_digest=digest,
+            bundle_expected_digest=stale_digest,
+            source_body=body,
+        )
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        write=True,
+        scan_protocols=False,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["target_copy_count"] == 0
+    assert result["manifest_row_update_count"] == 0
+    assert result["bundle_manifest_row_update_count"] == 1
+    assert target.read_text(encoding="utf-8") == body
+    bundle_manifest = json.loads(bundle_manifest_path.read_text(encoding="utf-8"))
+    row = bundle_manifest["files"][0]
+    assert row["expected_sha256"] == digest
+    assert row["expected_line_count"] == body.count("\n")
+
+
+def test_refresh_exact_copy_source_modules_blocks_cross_tree_target_writes(
+    tmp_path: Path,
+) -> None:
+    # Regression for the fallback-pollution class: a fixture tree without the
+    # public-root policy marker makes _public_root_for_path fall back to the
+    # live module tree; a prefix-style target_ref then resolves into that live
+    # tree and a write would create files there. The refresh must fail closed.
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / "examples/cross_tree_demo/exported_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    source_ref = "tools/demo/cross_tree.py"
+    target_ref = (
+        "examples/cross_tree_demo/exported_bundle/"
+        "source_modules/tools/demo/cross_tree.py"
+    )
+    source = tmp_path / source_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text("VALUE = 'new'\n", encoding="utf-8")
+    old_digest = hashlib.sha256(b"VALUE = 'old'\n").hexdigest()
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "cross_tree_demo_body",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "classification": "copied_non_secret_macro_body",
+                        "sha256_match": True,
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "line_count": 1,
+                        "byte_count": 14,
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=tmp_path,
+        write=True,
+        scan_protocols=False,
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["write_applied"] is False
+    defect_codes = {row.get("defect_code") for row in result["defects"]}
+    assert "source_module_refresh_cross_tree_target" in defect_codes
+    assert result["target_copy_count"] == 0
+
+
 def test_refresh_exact_copy_source_modules_detects_manifest_count_metadata_drift(
     tmp_path: Path,
 ) -> None:
