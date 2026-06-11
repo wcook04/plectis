@@ -9,9 +9,9 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 667900,
+      "byte_count": 675390,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 15635,
+      "line_count": 15792,
       "module_id": "task_ledger_events_body_import",
       "required_anchors": [
         "def append_event(",
@@ -25,17 +25,17 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "system/lib/task_ledger_events.py",
       "source_role": "Task Ledger authority event log and projection builder",
-      "source_sha256": "7ecb62c04e6ca095e6e998c98081de8164d1bcddf3bb2f54736384576eba516e",
+      "source_sha256": "b99fe434ef686c3f998b8845f38332eb027a21c1a26e0760654fa71cc01f07d1",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
-      "target_sha256": "7ecb62c04e6ca095e6e998c98081de8164d1bcddf3bb2f54736384576eba516e"
+      "target_sha256": "b99fe434ef686c3f998b8845f38332eb027a21c1a26e0760654fa71cc01f07d1"
     },
     {
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 216380,
+      "byte_count": 216737,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5227,
+      "line_count": 5231,
       "module_id": "task_ledger_apply_tool_body_import",
       "required_anchors": [
         "quick-capture",
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "tools/meta/factory/task_ledger_apply.py",
       "source_role": "Task Ledger mutation CLI for capture, execution receipts, sign-off, health, and projection rebuilds",
-      "source_sha256": "b85a0117f156aea397e02352d78ee0044f9274ecdd528e8b6aec4d6697c055da",
+      "source_sha256": "9fc305a85d81a28b1b2b3a577bcb3725b61a5ab3271e300b60b59cbcd5fbd416",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
-      "target_sha256": "b85a0117f156aea397e02352d78ee0044f9274ecdd528e8b6aec4d6697c055da"
+      "target_sha256": "9fc305a85d81a28b1b2b3a577bcb3725b61a5ab3271e300b60b59cbcd5fbd416"
     },
     {
       "anchor_count": 5,

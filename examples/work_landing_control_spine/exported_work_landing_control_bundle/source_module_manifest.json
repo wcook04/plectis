@@ -74,19 +74,19 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 107972,
-      "line_count": 2866,
+      "byte_count": 119035,
+      "line_count": 3151,
       "material_class": "public_macro_tool_body",
       "module_id": "scoped_commit_tool_body_import",
       "path": "source_modules/tools/meta/control/scoped_commit.py",
-      "sha256": "6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392",
+      "sha256": "1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/control/scoped_commit.py",
-      "source_sha256": "6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392",
+      "source_sha256": "1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
-      "target_sha256": "6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392"
+      "target_sha256": "1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922"
     }
   ],
   "schema_version": "microcosm_work_landing_control_source_module_manifest_v1",

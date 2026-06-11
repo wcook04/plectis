@@ -210,6 +210,9 @@ def _compact_quick_capture_visibility_receipt(receipt: Mapping[str, Any]) -> Dic
             "authority_event_visible": assimilation.get("authority_event_visible"),
             "projection_visible": assimilation.get("projection_visible"),
             "projection_card_visibility": assimilation.get("projection_card_visibility"),
+            "terminal_for_authority": assimilation.get("terminal_for_authority"),
+            "projection_required_now": assimilation.get("projection_required_now"),
+            "read_model_lag_expected": assimilation.get("read_model_lag_expected"),
             "queued_for_drain": assimilation.get("queued_for_drain"),
             "next_safe_action": assimilation.get("next_safe_action"),
         }
@@ -3501,6 +3504,7 @@ def cmd_event(args: argparse.Namespace) -> int:
                 result: dict[str, Any] = {
                     "ok": True,
                     "status": "receipt_already_recorded",
+                    "idempotency_status": receipt_reconcile.get("idempotency_status") or "duplicate_noop",
                     "receipt_reconcile": receipt_reconcile,
                 }
                 effective_rebuild, lease_context = _resolve_projection_rebuild_request(

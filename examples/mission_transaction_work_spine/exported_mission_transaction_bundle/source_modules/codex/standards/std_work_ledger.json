@@ -304,6 +304,43 @@
       "The envelope is generic over local examples such as package-data or pyproject companion surfaces; do not encode batch-specific names in the contract."
     ]
   },
+  "pre_mutation_route_selector_contract": {
+    "schema": "work_ledger_pre_mutation_route_selector_v1",
+    "purpose": "Make mutation-check classify edit authority before the first write, so a clear foreign-collision scan cannot be mistaken for an unclaimed mutation lane.",
+    "producer_commands": [
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <path> --require-exclusive",
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --session-id <session> --path <path> --require-exclusive",
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --write-profile <profile> --require-exclusive"
+    ],
+    "required_fields": [
+      "decision",
+      "mutation_allowed_now",
+      "required_next_lane",
+      "required_next_command",
+      "same_session_claim_count",
+      "unclaimed_requested_path_count",
+      "foreign_collision_count",
+      "source_input_collision_count",
+      "source_input_policy"
+    ],
+    "decisions": [
+      "session_preflight_required_before_mutation",
+      "claim_required_before_mutation",
+      "same_owner_continuation",
+      "owner_coordination_required",
+      "source_input_owner_coordination_required",
+      "watch_owner_claims_before_mutation",
+      "read_only_or_no_mutation_scope"
+    ],
+    "rules": [
+      "A mutation-check status of clear only means no active foreign owner claim collided with the requested scope; direct mutation is allowed only when pre_mutation_route_selector.mutation_allowed_now is true.",
+      "Without a session id, clear scopes route to session-preflight before mutation so the actor creates a read receipt and a forward-looking claim.",
+      "With a session id but no same-session active path claim covering the requested paths, clear scopes route to session-preflight or claim-current-session before mutation.",
+      "With a same-session active covering claim and no foreign/source-input collision, the legal decision is same_owner_continuation.",
+      "Foreign path collisions and source-input collisions under --require-exclusive route through the contention envelope, coordination brief, disjoint lane, or blocked receipt; they are never permission to clone the surface or mutate unclaimed.",
+      "Source-coupled write profiles must still prove source inputs are committed, same-session-owned, or clean-snapshot documented before landing generated outputs even when the pre-mutation route selector is otherwise clear."
+    ]
+  },
   "observed_path_overlap_boundary_contract": {
     "schema": "observed_path_overlap_boundary_v0",
     "purpose": "Distinguish session-preflight observed_path_overlaps telemetry from live owner-claim blockers so agents do not downshift or stop when exact mutation claims are clear.",
@@ -722,7 +759,7 @@
       "observed_path_overlaps are advisory signals from imported host telemetry; they never create or imply a claim lease. Resolve them through observed_path_overlap_boundary_contract: referenced-only or mutation_path_count=0 rows with no active same-path claim are watch telemetry, while active owner claims or same-path mutation evidence require coordination, blocking, or lane switching.",
       "observed_path_overlaps identity fields must not carry unbounded prompt, packet, or title bodies. Long session titles must be projected as bounded handles with title_preview, title_bytes, title_hash, title_kind, title_full_omitted, title_ref or drilldown, and an omission_receipt; the full source remains recoverable by rerunning the same session-preflight with --full instead of repeating per overlap row.",
       "shared_worktree_git_risks are advisory signals for commands such as git stash, git reset --hard, git checkout --, git restore, and git clean -fd*. In a dirty multi-agent worktree, broad stash/apply/pop or restore/reset operations are unsafe unless every affected path is intentionally claimed and restored path-specifically.",
-      "mutation-check performs the read-only subset of write-profile/path collision detection and returns non-zero when --require-exclusive would block mutation; when --session-id is provided, that session's own active claims are ignored so a holder can re-check its claimed scope.",
+      "mutation-check performs the read-only subset of write-profile/path collision detection, emits pre_mutation_route_selector, and returns non-zero when --require-exclusive would block mutation; when --session-id is provided, that session's own active claims are ignored as blockers but are still reported as same-session edit authority.",
       "Scoped commit and mission landing must bind claim proof to the current owner session. Broad write-profile or directory claims are startup coordination evidence for overlapping child paths, but a landing gate may require exact owned paths or a session-bound overlap proof; if duplicate-claim dedupe collapses exact child claims into a broad parent and exact coverage is questioned, rerun the landing preflight with --session-id auto or release/narrow to exact child path claims before committing.",
       "In dirty or concurrent trees, scoped landing should prefer scoped_commit.py private-index modes with --work-ledger-session-id over manual shared-index staging. Manual shared-index staging is permitted only as one contiguous stage, inspect cached names, commit critical section for exact owner paths; if a sibling commit consumes the staged owner paths, bind closeout to that landed commit, capture the coordination failure, and repair the owner rule rather than manufacturing an empty duplicate commit.",
       "scoped_commit.py closeout hints must not present Work Landing reconcile as unconditional after-commit closeout. Reconcile is for sessions that established a Work Landing begin/attempt binding before mutation; direct scoped commits with no attempt binding must surface the append-exempt session-finalize template, read-receipt placeholder, commit ref, and do-not-follow-with-bare-finalize rule.",

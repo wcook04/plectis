@@ -3111,6 +3111,7 @@ def build_session_cohort_overview(
     td_active_sessions: Dict[str, List[Dict[str, Any]]] = {}
     unknown_scope_active: List[Dict[str, Any]] = []
     unclaimed_touched_sessions: List[Dict[str, Any]] = []
+    validated_uncommitted_closeout_sessions: List[Dict[str, Any]] = []
     active_claims_flat: List[Dict[str, Any]] = []
     effective_active_compacts: List[Dict[str, Any]] = []
 
@@ -3169,6 +3170,14 @@ def build_session_cohort_overview(
             unknown_scope=unknown_scope,
             orphaned_active=orphaned_active,
         )
+        closeout_row = _validated_uncommitted_closeout_session_row(
+            session,
+            now=now,
+            repo_root=repo_root,
+            orphan_after=orphan_after,
+        )
+        if closeout_row is not None:
+            validated_uncommitted_closeout_sessions.append(closeout_row)
         if not effective_active:
             continue
         if compact is None:
@@ -3205,6 +3214,13 @@ def build_session_cohort_overview(
     mission_focus_groups = _build_mission_focus_pressure_groups(
         effective_active_compacts,
         limit=max(0, int(limit or 0)),
+    )
+    validated_uncommitted_closeout_sessions.sort(
+        key=lambda row: (
+            str(row.get("append_exempted_at") or row.get("ended_at") or ""),
+            str(row.get("session_id") or ""),
+        ),
+        reverse=True,
     )
 
     signals: List[str] = []
@@ -3290,6 +3306,9 @@ def build_session_cohort_overview(
     counts["mission_focus_pressure_groups"] = len(mission_focus_groups)
     counts["stale_append_obligations"] = len(stale_append_sessions)
     counts["stale_claim_only_sessions"] = len(stale_claim_only_sessions)
+    counts["validated_uncommitted_closeout_sessions"] = len(
+        validated_uncommitted_closeout_sessions
+    )
     recent_sweep_events = [
         dict(entry)
         for entry in (status.get("recent_sweep_events") or [])
@@ -3453,6 +3472,12 @@ def build_session_cohort_overview(
             ],
             "claim_collisions": claim_collisions[:safe_limit],
         },
+        "validated_uncommitted_closeout_sessions": (
+            validated_uncommitted_closeout_sessions[:safe_limit]
+        ),
+        "validated_uncommitted_closeout_sessions_omitted": max(
+            0, len(validated_uncommitted_closeout_sessions) - safe_limit
+        ),
         "active_claims": active_claims_flat[:safe_limit],
         "recent_sweep_events": recent_sweep_events,
         "recommended_actions": recommended_actions,
@@ -3485,8 +3510,23 @@ CAS_RETRY_HANDOFF_TERMS: tuple[str, ...] = (
 def _seed_speed_cas_retry_handoff_row(card: Mapping[str, Any]) -> Dict[str, Any] | None:
     current_line = str(card.get("current_pass_line") or "").strip()
     last_result = str(card.get("last_pass_result_line") or "").strip()
-    haystack = f"{current_line}\n{last_result}".lower()
+    append_exempt_reason = str(card.get("append_exempt_reason") or "").strip()
+    append_exempt_refs = [
+        str(item).strip()
+        for item in list(card.get("append_exempt_refs") or [])
+        if str(item).strip()
+    ]
+    haystack = "\n".join(
+        [
+            current_line,
+            last_result,
+            append_exempt_reason,
+            *append_exempt_refs,
+        ]
+    ).lower()
     matched_terms = [term for term in CAS_RETRY_HANDOFF_TERMS if term in haystack]
+    if append_exempt_reason == "validated_uncommitted_git_metadata_blocked":
+        matched_terms.append(append_exempt_reason)
     if not matched_terms:
         return None
     session_id = str(card.get("session_id") or "").strip()
@@ -3503,6 +3543,10 @@ def _seed_speed_cas_retry_handoff_row(card: Mapping[str, Any]) -> Dict[str, Any]
         "pass_state": card.get("pass_state"),
         "freshness_state": card.get("freshness_state"),
         "active_claim_count": card.get("active_claim_count"),
+        "append_exempt_reason": append_exempt_reason or None,
+        "append_exempt_refs": append_exempt_refs[:3],
+        "append_exempt_refs_omitted": max(0, len(append_exempt_refs) - 3),
+        "handoff_origin": card.get("handoff_origin") or "active_claim_session",
         "scope_ref": scope_ref,
         "current_pass_line": current_line,
         "matched_terms": matched_terms,
@@ -3525,6 +3569,95 @@ def _seed_speed_cas_retry_handoff_row(card: Mapping[str, Any]) -> Dict[str, Any]
                 "broad staging of unrelated dirty paths",
             ],
         },
+    }
+
+
+def _validated_uncommitted_closeout_session_row(
+    session: Mapping[str, Any],
+    *,
+    now: datetime,
+    repo_root: Path | None,
+    orphan_after: timedelta,
+) -> Dict[str, Any] | None:
+    if not session.get("ended_at"):
+        return None
+    if not bool(session.get("append_exempt")):
+        return None
+    append_exempt_reason = str(session.get("append_exempt_reason") or "").strip()
+    append_exempt_refs = [
+        str(item).strip()
+        for item in list(session.get("append_exempt_refs") or [])
+        if str(item).strip()
+    ]
+    if (
+        append_exempt_reason != "validated_uncommitted_git_metadata_blocked"
+        and not any("scoped-commit-head-cas-retry-packet:" in ref for ref in append_exempt_refs)
+    ):
+        return None
+
+    compact = _compact_session(
+        session,
+        repo_root=repo_root,
+        now=now,
+        orphan_after=orphan_after,
+    )
+    heartbeat = (
+        dict(compact.get("pass_heartbeat") or {})
+        if isinstance(compact.get("pass_heartbeat"), Mapping)
+        else {}
+    )
+    released_paths: List[str] = []
+    for claim in list(session.get("claims") or []):
+        if not isinstance(claim, Mapping):
+            continue
+        scope_kind, scope_id = _normalize_claim_scope(claim)
+        path = str(claim.get("path") or "").strip()
+        if not path and scope_kind == CLAIM_SCOPE_PATH:
+            path = scope_id
+        if path and path not in released_paths:
+            released_paths.append(path)
+    for ref in list(heartbeat.get("scope_refs_preview") or []):
+        if not isinstance(ref, Mapping):
+            continue
+        text = str(ref.get("ref") or "").strip()
+        if text and _looks_like_repo_path_token(text) and text not in released_paths:
+            released_paths.append(text)
+
+    session_id = str(compact.get("session_id") or "").strip()
+    return {
+        "schema": "work_ledger_validated_uncommitted_closeout_session_v0",
+        "session_id": session_id,
+        "actor": compact.get("actor"),
+        "phase_id": compact.get("phase_id"),
+        "family_id": compact.get("family_id"),
+        "freshness_state": "ended_append_exempt",
+        "pass_state": heartbeat.get("pass_state") or "closed",
+        "active_claim_count": 0,
+        "path_claim_count": 0,
+        "paths_preview": released_paths[:3],
+        "path_count": len(released_paths),
+        "paths_omitted": max(0, len(released_paths) - 3),
+        "current_pass_line": heartbeat.get("current_pass_line"),
+        "last_pass_result_line": heartbeat.get("last_pass_result_line"),
+        "ended_at": compact.get("ended_at"),
+        "end_action": compact.get("end_action"),
+        "read_receipt_id": compact.get("read_receipt_id"),
+        "append_exempt_reason": append_exempt_reason,
+        "append_exempted_at": compact.get("append_exempted_at"),
+        "append_exempt_refs": append_exempt_refs[:3],
+        "append_exempt_refs_omitted": max(0, len(append_exempt_refs) - 3),
+        "handoff_origin": "ended_append_exempt_validated_uncommitted_closeout",
+        "read_only_drilldown": _wl_command(
+            "session-status",
+            f"--session-id {_quote_cli(session_id)} --full",
+        ),
+        "reentry_condition": [
+            "verify the released paths are still dirty and wanted",
+            "refresh HEAD and inspect intervening commits for owned-path overlap",
+            "rerun mission_transaction_preflight for the exact path set",
+            "refresh focused validation after latest HEAD movement",
+            "start a new scoped_commit attempt from a fresh evidence root",
+        ],
     }
 
 
@@ -5793,13 +5926,6 @@ def build_seed_speed_status(
         grouped.values(),
         key=lambda card: (-int(card.get("active_claim_count") or 0), str(card.get("session_id") or "")),
     )
-    cas_retry_handoff_rows = [
-        row
-        for row in (
-            _seed_speed_cas_retry_handoff_row(card) for card in seed_claim_sessions
-        )
-        if row is not None
-    ]
     heartbeat_gap_claim_sessions = [
         _seed_speed_heartbeat_gap_row(card)
         for card in seed_claim_sessions
@@ -5821,6 +5947,15 @@ def build_seed_speed_status(
             card,
             heartbeat_gap=session_id in heartbeat_gap_session_ids,
         )
+    validated_uncommitted_closeout_sessions = [
+        dict(row)
+        for row in list(overview.get("validated_uncommitted_closeout_sessions") or [])
+        if isinstance(row, Mapping)
+    ]
+    cas_retry_source_cards = [
+        *seed_claim_sessions,
+        *validated_uncommitted_closeout_sessions,
+    ]
     unclaimed_touched_source = [
         row
         for row in list(contention.get("unclaimed_touched_sessions") or [])
@@ -5860,6 +5995,13 @@ def build_seed_speed_status(
         dirty_tree_pressure_focus_full,
         limit=safe_limit,
     )
+    cas_retry_handoff_rows = [
+        row
+        for row in (
+            _seed_speed_cas_retry_handoff_row(card) for card in cas_retry_source_cards
+        )
+        if row is not None
+    ]
     first_action_kind: str
     first_action_command: str | None = None
     first_action_ref: str | None = None
@@ -6124,6 +6266,9 @@ def build_seed_speed_status(
             "orphaned_active_sessions": counts.get("orphaned_active_sessions"),
             "claim_collisions": claim_collision_count,
             "unclaimed_touched_sessions": counts.get("unclaimed_touched_sessions"),
+            "validated_uncommitted_closeout_sessions": len(
+                validated_uncommitted_closeout_sessions
+            ),
         },
         "count_semantics": coordination_count_semantics(counts, heartbeat=heartbeat),
         "risk": {
@@ -6153,6 +6298,12 @@ def build_seed_speed_status(
                 int(counts.get("unclaimed_touched_sessions") or 0),
             )
             - safe_limit,
+        ),
+        "validated_uncommitted_closeout_sessions": (
+            validated_uncommitted_closeout_sessions[:safe_limit]
+        ),
+        "validated_uncommitted_closeout_sessions_omitted": max(
+            0, len(validated_uncommitted_closeout_sessions) - safe_limit
         ),
         "seed_claim_sessions": seed_claim_sessions[:safe_limit],
         "seed_claim_sessions_omitted": max(0, len(seed_claim_sessions) - safe_limit),
@@ -9285,6 +9436,62 @@ def active_claim_collisions_for_paths(
     return collisions
 
 
+def active_path_claims_for_paths(
+    repo_root: Path,
+    paths: Iterable[str],
+    *,
+    status: Mapping[str, Any] | None = None,
+    session_id: str | None = None,
+    now: datetime | None = None,
+) -> List[Dict[str, Any]]:
+    """Return active Work Ledger path claims that overlap requested paths.
+
+    Unlike ``active_claim_collisions_for_paths``, this is not a blocker scan:
+    callers may filter to the requesting session to prove same-owner mutation
+    authority before interpreting a clear collision result as edit permission.
+    """
+    status_payload = status if status is not None else load_runtime_status(repo_root)
+    snapshot = build_active_claims_snapshot(repo_root, status_payload, now=now)
+    owner_session_id = str(session_id or "").strip()
+    requested_paths: List[str] = []
+    for path in paths:
+        try:
+            requested = _normalize_repo_claim_path(repo_root, str(path))
+        except ValueError:
+            requested = _normalize_dirty_path(path)
+        if requested and requested not in requested_paths:
+            requested_paths.append(requested)
+
+    active_claims = [
+        claim
+        for claim in snapshot.get("active_claims") or []
+        if isinstance(claim, Mapping) and _normalize_claim_scope(claim)[0] == CLAIM_SCOPE_PATH
+    ]
+    matches: List[Dict[str, Any]] = []
+    for requested in requested_paths:
+        for claim in active_claims:
+            claim_session_id = str(claim.get("session_id") or "").strip()
+            if owner_session_id and claim_session_id != owner_session_id:
+                continue
+            claim_path = str(claim.get("path") or claim.get("scope_id") or "")
+            if not claim_path or not _path_scope_overlaps(requested, claim_path):
+                continue
+            matches.append(
+                {
+                    "requested_path": requested,
+                    "session_id": claim.get("session_id"),
+                    "actor": claim.get("actor"),
+                    "claim_id": claim.get("claim_id"),
+                    "claim_path": claim_path,
+                    "claim_intent": claim.get("claim_intent"),
+                    "conflict_scope_kind": claim.get("conflict_scope_kind"),
+                    "conflict_mode": claim.get("conflict_mode"),
+                    "leased_until": claim.get("leased_until"),
+                }
+            )
+    return matches
+
+
 def _unique_nonempty(values: Iterable[Any]) -> List[str]:
     seen: List[str] = []
     for value in values:
@@ -9292,6 +9499,19 @@ def _unique_nonempty(values: Iterable[Any]) -> List[str]:
         if token and token not in seen:
             seen.append(token)
     return seen
+
+
+def _write_profile_names(write_profiles: Iterable[Any]) -> List[str]:
+    names: List[str] = []
+    for profile in write_profiles:
+        if isinstance(profile, Mapping):
+            value = profile.get("profile") or profile.get("name")
+        else:
+            value = profile
+        token = str(value or "").strip()
+        if token and token not in names:
+            names.append(token)
+    return names
 
 
 def _contention_collision_claim_path(collision: Mapping[str, Any]) -> str:
@@ -9327,6 +9547,166 @@ def _contention_collision_requested_surface(collision: Mapping[str, Any]) -> str
         or claim.get("work_item_id")
         or ""
     ).strip()
+
+
+def _path_claim_matches_surface(surface: str, claim: Mapping[str, Any]) -> bool:
+    claim_path = str(claim.get("claim_path") or claim.get("path") or claim.get("scope_id") or "")
+    if not surface or not claim_path:
+        return False
+    return _path_scope_overlaps(surface, claim_path)
+
+
+def _session_preflight_command_for_mutation_route(
+    *,
+    explicit_paths: Sequence[Any] | None = None,
+    write_profiles: Sequence[Any] | None = None,
+    requester_session_id: str | None = None,
+) -> str:
+    parts: List[str] = []
+    requester = str(requester_session_id or "").strip()
+    if requester:
+        parts.append(f"--session-id {_quote_cli(requester)}")
+    else:
+        parts.append("--session-slug <slug>")
+    for profile in _unique_nonempty(write_profiles or []):
+        parts.append(f"--write-profile {_quote_cli(profile)}")
+    for path in _unique_nonempty(explicit_paths or []):
+        parts.append(f"--path {_quote_cli(path)}")
+    parts.append("--require-exclusive")
+    return _wl_command("session-preflight", *parts)
+
+
+def build_pre_mutation_route_selector(
+    *,
+    requested_paths: Sequence[Any] | None = None,
+    explicit_paths: Sequence[Any] | None = None,
+    write_profiles: Sequence[Any] | None = None,
+    collisions: Sequence[Mapping[str, Any]] | None = None,
+    source_input_paths: Sequence[Any] | None = None,
+    source_input_collisions: Sequence[Mapping[str, Any]] | None = None,
+    same_session_claims: Sequence[Mapping[str, Any]] | None = None,
+    requester_session_id: str | None = None,
+    require_exclusive: bool = True,
+) -> Dict[str, Any]:
+    """Classify the legal pre-mutation lane for requested Work Ledger scopes."""
+    requested_surfaces = _unique_nonempty(requested_paths or [])
+    explicit_surfaces = _unique_nonempty(explicit_paths or requested_surfaces)
+    profiles = _write_profile_names(write_profiles or [])
+    collision_rows = [row for row in list(collisions or []) if isinstance(row, Mapping)]
+    source_collision_rows = [
+        row for row in list(source_input_collisions or []) if isinstance(row, Mapping)
+    ]
+    owner_claim_rows = [
+        row for row in list(same_session_claims or []) if isinstance(row, Mapping)
+    ]
+    owned_requested_surfaces = [
+        surface
+        for surface in requested_surfaces
+        if any(_path_claim_matches_surface(surface, claim) for claim in owner_claim_rows)
+    ]
+    unclaimed_requested_surfaces = [
+        surface for surface in requested_surfaces if surface not in owned_requested_surfaces
+    ]
+    requester = str(requester_session_id or "").strip()
+    preflight_command = _session_preflight_command_for_mutation_route(
+        explicit_paths=explicit_surfaces,
+        write_profiles=profiles,
+        requester_session_id=requester,
+    )
+
+    if (collision_rows or source_collision_rows) and require_exclusive:
+        decision = (
+            "source_input_owner_coordination_required"
+            if source_collision_rows and not collision_rows
+            else "owner_coordination_required"
+        )
+        required_next_lane = "coordinate_with_owner_or_switch_disjoint"
+        required_next_command = "contention_envelope.owner_sessions[].coordination_brief_command"
+        mutation_allowed_now = False
+    elif collision_rows or source_collision_rows:
+        decision = "watch_owner_claims_before_mutation"
+        required_next_lane = "rerun_with_require_exclusive_or_claim_scope"
+        required_next_command = _wl_command(
+            "mutation-check",
+            *[f"--path {_quote_cli(path)}" for path in explicit_surfaces],
+            *[f"--write-profile {_quote_cli(profile)}" for profile in profiles],
+            "--require-exclusive",
+        )
+        mutation_allowed_now = False
+    elif not requested_surfaces and not profiles:
+        decision = "read_only_or_no_mutation_scope"
+        required_next_lane = "no_mutation_claim_needed"
+        required_next_command = None
+        mutation_allowed_now = False
+    elif not requester:
+        decision = "session_preflight_required_before_mutation"
+        required_next_lane = "session_preflight"
+        required_next_command = preflight_command
+        mutation_allowed_now = False
+    elif profiles and not requested_surfaces:
+        decision = "claim_required_before_mutation"
+        required_next_lane = "claim_current_session"
+        required_next_command = preflight_command
+        mutation_allowed_now = False
+    elif unclaimed_requested_surfaces:
+        decision = "claim_required_before_mutation"
+        required_next_lane = "claim_current_session"
+        required_next_command = preflight_command
+        mutation_allowed_now = False
+    else:
+        decision = "same_owner_continuation"
+        required_next_lane = "proceed_with_claimed_mutation"
+        required_next_command = None
+        mutation_allowed_now = True
+    mutation_check_parts = [
+        *[f"--path {_quote_cli(path)}" for path in explicit_surfaces],
+        *[f"--write-profile {_quote_cli(profile)}" for profile in profiles],
+        "--require-exclusive",
+    ]
+    if requester:
+        mutation_check_parts.append(f"--session-id {_quote_cli(requester)}")
+
+    return {
+        "schema": "work_ledger_pre_mutation_route_selector_v1",
+        "decision": decision,
+        "mutation_allowed_now": mutation_allowed_now,
+        "required_next_lane": required_next_lane,
+        "required_next_command": required_next_command,
+        "rule": (
+            "A clear claim scan means no active foreign owner collision; it is not "
+            "edit authority by itself. Mutating actors need same-session claim "
+            "coverage or must run session-preflight before the first write."
+        ),
+        "requested_path_count": len(requested_surfaces),
+        "requested_paths": requested_surfaces,
+        "explicit_path_count": len(explicit_surfaces),
+        "write_profiles": profiles,
+        "foreign_collision_count": len(collision_rows),
+        "source_input_path_count": len(_unique_nonempty(source_input_paths or [])),
+        "source_input_collision_count": len(source_collision_rows),
+        "same_session_claim_count": len(owner_claim_rows),
+        "same_session_claims": owner_claim_rows,
+        "unclaimed_requested_path_count": len(unclaimed_requested_surfaces),
+        "unclaimed_requested_paths": unclaimed_requested_surfaces,
+        "commands": {
+            "session_preflight": preflight_command,
+            "mutation_check": _wl_command("mutation-check", *mutation_check_parts),
+        },
+        "source_input_policy": (
+            "source inputs with active foreign claims block generated/source-coupled mutation; "
+            "when clear, still prove source inputs are committed, same-session-owned, or "
+            "clean-snapshot documented before landing generated outputs"
+            if source_input_paths
+            else "not_declared_for_selected_profiles"
+        ),
+        "allowed_parallel_lanes": [
+            "same_owner_continuation",
+            "owner_acknowledged_handoff_or_release",
+            "claimed_disjoint_companion_surface",
+            "append_only_or_commutative_ledger_lane",
+            "blocked_receipt_with_exact_owner_and_reentry_condition",
+        ],
+    }
 
 
 def build_shared_substrate_contention_envelope(

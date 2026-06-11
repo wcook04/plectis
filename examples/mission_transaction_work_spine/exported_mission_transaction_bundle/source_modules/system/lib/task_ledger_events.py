@@ -1744,18 +1744,42 @@ def visibility_receipt(
     else:
         assimilation_status = "authority_visible_projection_not_rebuilt"
     projection_visible = all_cards_visible if projection_rebuilt else False
+    # Authority append is the source of truth (write model). The projection/card
+    # view is a read model that may lag; lag is expected and NOT a failed write.
+    # terminal_for_authority distinguishes "write durable, read lagging" from
+    # "work unfinished", and projection_required_now flags whether any current
+    # proof consumer actually needs the rebuilt card view.
+    write_authority_durable = (
+        authority_event_visible is not False and assimilation_status != "projection_rebuild_failed"
+    )
     if projection_rebuilt:
         projection_card_visibility = "checked"
         next_safe_action = "continue from the selected Task Ledger projection card"
         receipt_condition = "authority and projection visibility checked"
+        terminal_for_authority = write_authority_durable
+        projection_required_now = False
+        read_model_lag_expected = False
     elif deferred:
         projection_card_visibility = "deferred_until_rebuild"
-        next_safe_action = "drain the queued Task Ledger projection rebuild, then re-open the selected card"
+        next_safe_action = (
+            "authority event is durable; drain the queued Task Ledger projection "
+            "rebuild only before relying on projected/card visibility"
+        )
         receipt_condition = "authority event visible; projection rebuild deferred and queued"
+        terminal_for_authority = write_authority_durable
+        projection_required_now = False
+        read_model_lag_expected = True
     else:
         projection_card_visibility = "not_checked_until_rebuild"
-        next_safe_action = "run a Task Ledger projection rebuild before relying on card visibility"
+        next_safe_action = (
+            "none required: authority event is durable. Rebuild the Task Ledger "
+            "projection only before relying on projected/card visibility, or when "
+            "a named proof consumer needs the card now"
+        )
         receipt_condition = "authority event visible; projection rebuild not requested or not run"
+        terminal_for_authority = write_authority_durable
+        projection_required_now = False
+        read_model_lag_expected = True
     assimilation_state: Dict[str, Any] = {
         "schema": "task_ledger_projection_assimilation_state_v1",
         "status": assimilation_status,
@@ -1767,6 +1791,10 @@ def visibility_receipt(
         "projection_status": projection_status,
         "projection_visible": projection_visible,
         "projection_card_visibility": projection_card_visibility,
+        # Axis separation: write authority vs read-model freshness vs obligation.
+        "terminal_for_authority": bool(terminal_for_authority),
+        "projection_required_now": bool(projection_required_now),
+        "read_model_lag_expected": bool(read_model_lag_expected),
         "queued_for_drain": bool(deferred.get("queued_for_drain")) if deferred else False,
         "receipt_condition": receipt_condition,
         "next_safe_action": next_safe_action,
@@ -4719,6 +4747,13 @@ def _receipt_validation_refs(receipt: Mapping[str, Any]) -> list[str]:
     return [str(ref or "").strip() for ref in list(refs or []) if str(ref or "").strip()]
 
 
+def _receipt_string_list(receipt: Mapping[str, Any], key: str) -> list[str]:
+    values = receipt.get(key)
+    if isinstance(values, str):
+        values = [values]
+    return [str(value or "").strip() for value in list(values or []) if str(value or "").strip()]
+
+
 def _receipt_no_commit_reason(receipt: Mapping[str, Any]) -> str:
     return str(receipt.get("no_commit_reason") or "").strip()
 
@@ -4798,6 +4833,107 @@ def _receipt_identity_token(receipt: Mapping[str, Any]) -> str:
     if _receipt_allows_missing_commit(receipt) and closeout_state:
         return f"validated_uncommitted:{closeout_state}"
     return ""
+
+
+def _receipt_material(receipt: Mapping[str, Any]) -> dict[str, Any]:
+    material = {
+        "commit_hash": _receipt_commit_hash(receipt),
+        "read_set_hash": str(receipt.get("read_set_hash") or "").strip(),
+        "write_set_hash": str(receipt.get("write_set_hash") or "").strip(),
+        "closeout_state": _receipt_closeout_state(receipt),
+        "no_commit_reason": _receipt_no_commit_reason(receipt),
+        "validation_refs": sorted(set(_receipt_validation_refs(receipt))),
+        "projection_refs": sorted(set(_receipt_string_list(receipt, "projection_refs"))),
+        "commit_blocker_refs": sorted(set(_receipt_string_list(receipt, "commit_blocker_refs"))),
+    }
+    return {key: value for key, value in material.items() if value not in ("", [], None)}
+
+
+def _receipt_material_diff(existing: Mapping[str, Any], incoming: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    existing_material = _receipt_material(existing)
+    incoming_material = _receipt_material(incoming)
+    changed: dict[str, dict[str, Any]] = {}
+    for key in sorted(set(existing_material) | set(incoming_material)):
+        existing_value = existing_material.get(key)
+        incoming_value = incoming_material.get(key)
+        if existing_value != incoming_value:
+            changed[key] = {
+                "existing": existing_value,
+                "incoming": incoming_value,
+            }
+    return changed
+
+
+def _execution_receipt_from_authority_event(event: Mapping[str, Any]) -> dict[str, Any] | None:
+    if str(event.get("event_type") or "").strip() != "work_item.execution_receipt_recorded":
+        return None
+    if str(event.get("subject_id") or "").strip() == "":
+        return None
+    payload = event.get("payload") if isinstance(event.get("payload"), Mapping) else {}
+    raw_receipt = payload.get("execution_receipt") or payload.get("receipt")
+    if not isinstance(raw_receipt, Mapping):
+        return None
+    receipt = dict(raw_receipt)
+    receipt.setdefault(
+        "id",
+        _receipt_transaction_id(receipt)
+        or str(event.get("event_id") or "").strip(),
+    )
+    receipt["source_event_id"] = event.get("event_id")
+    receipt["source_event_hash"] = event.get("event_hash")
+    receipt["source_created_at"] = event.get("created_at")
+    refs = event.get("refs") if isinstance(event.get("refs"), Mapping) else {}
+    for key in ("commit_refs", "receipt_refs", "work_ledger_refs"):
+        values = receipt.get(key)
+        if values in (None, [], "") and isinstance(refs.get(key), list):
+            receipt[key] = list(refs.get(key) or [])
+    return receipt
+
+
+def _authority_execution_receipts(repo_root: Path, *, subject_id: str) -> list[dict[str, Any]]:
+    subject = str(subject_id or "").strip()
+    receipts: list[dict[str, Any]] = []
+    if not subject:
+        return receipts
+    for event in read_authority_events(repo_root):
+        if str(event.get("subject_id") or "").strip() != subject:
+            continue
+        receipt = _execution_receipt_from_authority_event(event)
+        if receipt is not None:
+            receipts.append(receipt)
+    return receipts
+
+
+def _projection_execution_receipts(repo_root: Path, *, subject_id: str) -> list[dict[str, Any]]:
+    subject = str(subject_id or "").strip()
+    receipts: list[dict[str, Any]] = []
+    if not subject:
+        return receipts
+    for row in _ledger_work_items(repo_root):
+        if str(row.get("id") or "").strip() != subject:
+            continue
+        for existing in row.get("execution_receipts") or []:
+            if isinstance(existing, Mapping):
+                receipts.append(dict(existing))
+    return receipts
+
+
+def _dedupe_receipts(receipts: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for receipt in receipts:
+        source_event_id = str(receipt.get("source_event_id") or "").strip()
+        material_key = json.dumps(_receipt_material(receipt), sort_keys=True, separators=(",", ":"))
+        key = (
+            source_event_id,
+            _receipt_transaction_id(receipt),
+            _receipt_identity_token(receipt) if source_event_id else material_key,
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(dict(receipt))
+    return rows
 
 
 def execution_receipt_idempotency_key(
@@ -5495,16 +5631,10 @@ def execution_receipt_reconcile_state(
             **repair_hint,
         }
 
-    subject_rows = [
-        row
-        for row in _ledger_work_items(repo_root)
-        if str(row.get("id") or "").strip() == subject
-    ]
-    receipts: list[dict[str, Any]] = []
-    for row in subject_rows:
-        for existing in row.get("execution_receipts") or []:
-            if isinstance(existing, Mapping):
-                receipts.append(dict(existing))
+    authority_receipts = _authority_execution_receipts(repo_root, subject_id=subject)
+    projection_receipts = _projection_execution_receipts(repo_root, subject_id=subject)
+    receipts = _dedupe_receipts([*authority_receipts, *projection_receipts])
+    receipt_source = "authority_events" if authority_receipts else "projection_read_model"
 
     same_transaction = [
         existing
@@ -5516,47 +5646,73 @@ def execution_receipt_reconcile_state(
         for existing in receipts
         if commit_hash and _receipt_commit_hash(existing) == commit_hash
     ]
-    same_identity = [
+    same_material = [
         existing
         for existing in same_transaction
-        if _receipt_same_identity(existing, receipt)
+        if not _receipt_material_diff(existing, receipt)
     ]
-    if same_identity:
+    if same_material:
+        existing = same_material[-1]
         return {
             "schema": "task_ledger_execution_receipt_reconcile_state_v0",
             "ok": True,
             "status": "receipt_already_recorded",
+            "idempotency_status": "duplicate_noop",
+            "receipt_source": receipt_source,
             "subject_id": subject,
             "transaction_id": transaction_id,
             "commit_hash": commit_hash,
             "closeout_state": closeout_state or None,
             "receipt_landing_mode": landing_mode,
-            "existing_receipt": same_identity[-1],
+            "existing_receipt": existing,
+            "primary_event_id": existing.get("source_event_id"),
+            "primary_event_hash": existing.get("source_event_hash"),
+            "primary_created_at": existing.get("source_created_at"),
+            "receipt_refs": existing.get("receipt_refs") or ([transaction_id] if transaction_id else []),
+            "commit_refs": existing.get("commit_refs") or ([commit_hash] if commit_hash else []),
         }
 
-    transaction_conflicts = [
-        existing
-        for existing in same_transaction
-        if (
-            (_receipt_commit_hash(existing) and commit_hash and _receipt_commit_hash(existing) != commit_hash)
-            or (_receipt_commit_hash(existing) and not commit_hash)
-        )
-    ]
+    transaction_conflicts: list[dict[str, Any]] = []
+    for existing in same_transaction:
+        changed_fields = _receipt_material_diff(existing, receipt)
+        if changed_fields:
+            transaction_conflicts.append(
+                {
+                    "receipt": existing,
+                    "changed_fields": changed_fields,
+                }
+            )
     if transaction_conflicts:
+        changed_fields: dict[str, dict[str, Any]] = {}
+        for conflict in transaction_conflicts:
+            for key, value in dict(conflict.get("changed_fields") or {}).items():
+                changed_fields.setdefault(key, value)
+        changed_field_names = set(changed_fields)
+        if changed_field_names == {"commit_hash"}:
+            conflict_kind = (
+                "same_transaction_id_commit_presence_mismatch"
+                if not commit_hash
+                else "same_transaction_id_different_commit_hash"
+            )
+        else:
+            conflict_kind = "same_transaction_id_material_mismatch"
         return {
             "schema": "task_ledger_execution_receipt_reconcile_state_v0",
             "ok": False,
             "status": "receipt_conflict",
-            "conflict_kind": (
-                "same_transaction_id_commit_presence_mismatch"
-                if not commit_hash
-                else "same_transaction_id_different_commit_hash"
-            ),
+            "idempotency_status": "duplicate_conflict",
+            "conflict_kind": conflict_kind,
+            "receipt_source": receipt_source,
             "subject_id": subject,
             "transaction_id": transaction_id,
             "commit_hash": commit_hash,
             "closeout_state": closeout_state or None,
+            "changed_fields": changed_fields,
             "conflicting_receipts": transaction_conflicts,
+            "reentry_instruction": (
+                "Append a correction note for the existing receipt, or use a new transaction_id "
+                "only when this is a genuinely distinct transaction."
+            ),
         }
 
     alias_receipts = [
@@ -5573,6 +5729,7 @@ def execution_receipt_reconcile_state(
         "commit_hash": commit_hash,
         "closeout_state": closeout_state or None,
         "receipt_landing_mode": landing_mode,
+        "receipt_source": receipt_source,
         "alias_status": "same_commit_different_transaction_id" if alias_receipts else None,
         "alias_receipts": alias_receipts,
     }

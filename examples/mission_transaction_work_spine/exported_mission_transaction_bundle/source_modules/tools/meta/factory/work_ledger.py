@@ -4840,11 +4840,29 @@ def _active_claim_collisions_for_paths(paths: List[str], *, session_id: str | No
 def cmd_mutation_check(args: argparse.Namespace) -> int:
     write_profiles = _preflight_write_profiles(list(getattr(args, "write_profile", []) or []))
     paths = _preflight_claim_paths(list(args.path or []), write_profiles)
-    collisions = _active_claim_collisions_for_paths(paths, session_id=args.session_id)
-    source_input_paths = _preflight_source_input_paths(write_profiles)
-    source_input_collisions = _active_claim_collisions_for_paths(
-        source_input_paths,
+    runtime_status = work_ledger_runtime.load_runtime_status(REPO_ROOT)
+    collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        REPO_ROOT,
+        paths,
+        status=runtime_status,
         session_id=args.session_id,
+    )
+    source_input_paths = _preflight_source_input_paths(write_profiles)
+    source_input_collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        REPO_ROOT,
+        source_input_paths,
+        status=runtime_status,
+        session_id=args.session_id,
+    )
+    same_session_claims = (
+        work_ledger_runtime.active_path_claims_for_paths(
+            REPO_ROOT,
+            paths,
+            status=runtime_status,
+            session_id=args.session_id,
+        )
+        if args.session_id
+        else []
     )
     all_collision_count = len(collisions) + len(source_input_collisions)
     status = (
@@ -4858,10 +4876,27 @@ def cmd_mutation_check(args: argparse.Namespace) -> int:
         requester_session_id=args.session_id,
         require_exclusive=bool(args.require_exclusive),
     )
+    route_selector = work_ledger_runtime.build_pre_mutation_route_selector(
+        requested_paths=paths,
+        explicit_paths=list(args.path or []),
+        write_profiles=write_profiles,
+        collisions=collisions,
+        source_input_paths=source_input_paths,
+        source_input_collisions=source_input_collisions,
+        same_session_claims=same_session_claims,
+        requester_session_id=args.session_id,
+        require_exclusive=bool(args.require_exclusive),
+    )
     recommended_actions = []
+    if route_selector.get("required_next_command"):
+        recommended_actions.append(str(route_selector["required_next_command"]))
     if status == "clear" and not args.session_id:
         recommended_actions.append(
             "Run session-preflight with the same --path/--write-profile and claim the work before mutation."
+        )
+    if status == "clear" and args.session_id and not bool(route_selector.get("mutation_allowed_now")):
+        recommended_actions.append(
+            "The session has no covering active path claim; run session-preflight before mutating."
         )
     if collisions:
         recommended_actions.append(
@@ -4887,6 +4922,7 @@ def cmd_mutation_check(args: argparse.Namespace) -> int:
             if source_input_paths
             else "not_declared_for_selected_profiles"
         ),
+        "pre_mutation_route_selector": route_selector,
         "contention_envelope": contention_envelope,
         "recommended_actions": recommended_actions,
     }

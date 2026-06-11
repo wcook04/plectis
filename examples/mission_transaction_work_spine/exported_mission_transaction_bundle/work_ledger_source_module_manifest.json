@@ -9,9 +9,9 @@
       "anchor_count": 7,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 327300,
+      "byte_count": 328716,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 8187,
+      "line_count": 8223,
       "module_id": "work_ledger_tool_body_import",
       "required_anchors": [
         "session-preflight",
@@ -26,9 +26,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "tools/meta/factory/work_ledger.py",
       "source_role": "Work Ledger runtime and durable-thread CLI for session preflight, claims, heartbeats, finalization, mutation checks, progress, and projection commands",
-      "source_sha256": "098d9f4719f0cab8259ca64273aecb5ce21e0da7a6f014805efd2f048c061843",
+      "source_sha256": "7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
-      "target_sha256": "098d9f4719f0cab8259ca64273aecb5ce21e0da7a6f014805efd2f048c061843"
+      "target_sha256": "7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799"
     },
     {
       "anchor_count": 6,
@@ -58,9 +58,9 @@
       "anchor_count": 12,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 486311,
+      "byte_count": 502440,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 11841,
+      "line_count": 12221,
       "module_id": "work_ledger_runtime_body_import",
       "required_anchors": [
         "WORK_LEDGER_RUNTIME_SCHEMA",
@@ -80,17 +80,17 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "system/lib/work_ledger_runtime.py",
       "source_role": "Work Ledger runtime status, session bootstrap, pass heartbeat, claim lease, release, finalization, and active-claim snapshot substrate",
-      "source_sha256": "06b5156383f4ef7163194f2c2d8edf206bd54ed7d9e7064ffd2c0f027a5e292c",
+      "source_sha256": "bb439f0fddb9421edfd4a207dd7cf4b487fd83ad814ec71e143b0a1e598f16dc",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
-      "target_sha256": "06b5156383f4ef7163194f2c2d8edf206bd54ed7d9e7064ffd2c0f027a5e292c"
+      "target_sha256": "bb439f0fddb9421edfd4a207dd7cf4b487fd83ad814ec71e143b0a1e598f16dc"
     },
     {
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 70696,
+      "byte_count": 73231,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 953,
+      "line_count": 990,
       "module_id": "work_ledger_standard_body_import",
       "required_anchors": [
         "\"runtime_status_contract\"",
@@ -104,9 +104,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "codex/standards/std_work_ledger.json",
       "source_role": "Work Ledger runtime contract standard for sessions, read receipts, claim leases, heartbeat participation, preflight, and finalization",
-      "source_sha256": "106a5c8ac4da0b495666b9c6200d106d6925c818cc2e7648625caa5f0c00d901",
+      "source_sha256": "00e2d1c837e856e60ecdf38c1ade2866222a67b3bd453addc892daf7050390c4",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
-      "target_sha256": "106a5c8ac4da0b495666b9c6200d106d6925c818cc2e7648625caa5f0c00d901"
+      "target_sha256": "00e2d1c837e856e60ecdf38c1ade2866222a67b3bd453addc892daf7050390c4"
     }
   ],
   "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
