@@ -19385,29 +19385,22 @@ def load_code_map_snapshot(
     cached = swr_peek(_CODE_MAP_CACHE_NAME, key, copy_value=False)
     phase_timings_ms["process_cache_peek"] = _code_map_elapsed_ms(stage_started_at)
     if isinstance(cached, Mapping):
-        cached_packet = cached
-        cached_state = "ready"
-        cached_served_from = "process_cache"
-        cached_served_max_files = clamped_max_files
-        cached_degraded_reason = None
-        if not normalized_focus and clamped_max_files > _CODE_MAP_DISK_LAST_GOOD_MAX_FILES:
-            cached_packet, cached_served_max_files = _code_map_disk_last_good_packet(
-                cached,
-                max_files=clamped_max_files,
-            )
-            cached_state = "partial_ready"
-            cached_served_from = "process_cache_first_paint"
-            cached_degraded_reason = (
-                f"interactive_first_paint_cap_{cached_served_max_files}_below_requested_{clamped_max_files}"
-            )
+        # The SWR process cache holds the FULL packet built at the requested
+        # max_files (see `_build_and_store_code_map_snapshot_uncached`). Serve it
+        # in full: the 150-file first-paint cap is a property of the small *disk*
+        # placeholder artifact, not of fresh in-memory data. Previously this
+        # branch unconditionally re-capped the full packet back to
+        # `_CODE_MAP_DISK_LAST_GOOD_MAX_FILES` and never promoted it, which
+        # permanently starved the global atlas to 150/1930 files even though the
+        # complete projection was sitting warm in this very cache.
         return _annotated(
-            cached_packet,
-            state=cached_state,
-            served_from=cached_served_from,
-            served_max_files=cached_served_max_files,
+            cached,
+            state="ready",
+            served_from="process_cache",
+            served_max_files=clamped_max_files,
             cache_source_stat_fingerprint=source_stat_fingerprint,
             refresh_in_flight=False,
-            degraded_reason=cached_degraded_reason,
+            degraded_reason=None,
             last_good_stored_at=None,
         )
 
@@ -19420,32 +19413,46 @@ def load_code_map_snapshot(
     phase_timings_ms["last_good_exact_read"] = _code_map_elapsed_ms(stage_started_at)
     if last_good and last_good.get("cache_source_stat_fingerprint") == source_stat_fingerprint:
         last_good_packet = last_good["packet"]
-        last_good_state = "ready"
         last_good_served_from = str(last_good.get("served_from") or "last_good")
-        last_good_served_max_files = int(last_good.get("stored_max_files") or clamped_max_files)
-        last_good_degraded_reason = None
-        if (
-            not normalized_focus
-            and last_good_served_max_files > _CODE_MAP_DISK_LAST_GOOD_MAX_FILES
-            and clamped_max_files > _CODE_MAP_DISK_LAST_GOOD_MAX_FILES
-        ):
-            last_good_packet, last_good_served_max_files = _code_map_disk_last_good_packet(
-                last_good_packet,
+        # last_good_memory holds the full packet; last_good_disk is already
+        # capped to the first-paint size at store time. Serve whatever we have at
+        # its real file count instead of re-trimming full data. Partial-ness is
+        # derived from the packet's own selection accounting (selected vs.
+        # returned files), not from the request budget — a complete packet whose
+        # universe is smaller than `max_files` is still `ready`, not degraded.
+        last_good_files = last_good_packet.get("files")
+        served_count = (
+            len(last_good_files)
+            if isinstance(last_good_files, list)
+            else int(last_good.get("stored_max_files") or clamped_max_files)
+        )
+        weight = last_good_packet.get("estimated_packet_weight")
+        selected_count = (
+            int(weight.get("selected_file_count") or served_count)
+            if isinstance(weight, Mapping)
+            else served_count
+        )
+        is_partial = not normalized_focus and served_count < selected_count
+        if is_partial:
+            # Only the small disk placeholder is short; warm the full packet so
+            # the next request lands on the complete cache-hit branch above.
+            _schedule_code_map_refresh(
+                repo_root,
+                cache_key=key,
+                focus=normalized_focus,
                 max_files=clamped_max_files,
-            )
-            last_good_state = "partial_ready"
-            last_good_served_from = f"{last_good_served_from}_first_paint"
-            last_good_degraded_reason = (
-                f"interactive_first_paint_cap_{last_good_served_max_files}_below_requested_{clamped_max_files}"
+                source_stat_fingerprint=source_stat_fingerprint,
             )
         return _annotated(
             last_good_packet,
-            state=last_good_state,
-            served_from=last_good_served_from,
-            served_max_files=last_good_served_max_files,
+            state="partial_ready" if is_partial else "ready",
+            served_from=f"{last_good_served_from}_first_paint" if is_partial else last_good_served_from,
+            served_max_files=served_count,
             cache_source_stat_fingerprint=source_stat_fingerprint,
-            refresh_in_flight=False,
-            degraded_reason=last_good_degraded_reason,
+            refresh_in_flight=is_partial,
+            degraded_reason=(
+                f"first_paint_cap_{served_count}_below_available_{selected_count}" if is_partial else None
+            ),
             last_good_stored_at=str(last_good.get("stored_at") or ""),
         )
 
