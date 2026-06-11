@@ -21,11 +21,11 @@ the public Microcosm repository:
 https://github.com/wcook04/microcosm-substrate/security/advisories/new
 ```
 
-Before public release, the release gate must bind a current setting receipt that
-proves the standalone public repository exists and GitHub Private Vulnerability
-Reporting is enabled. If the GitHub "Report a vulnerability" button is not
-visible on the repository's Security/Advisories page, do not open a public issue
-with vulnerability details.
+The release gate binds a current setting receipt proving that the standalone
+public shell repository exists and GitHub Private Vulnerability Reporting is
+enabled. If the GitHub "Report a vulnerability" button is not visible on the
+repository's Security/Advisories page, do not open a public issue with
+vulnerability details.
 
 No `security@` email route is published yet. Email intake is deferred until a
 final domain, monitored mailbox, SPF/DKIM/DMARC posture, and ownership boundary
