@@ -14,7 +14,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -2050,11 +2054,19 @@ def _write_receipts(
     board_path = out_dir / BOARD_NAME
     validation_path = out_dir / VALIDATION_RECEIPT_NAME
     board = _board(result)
-    receipt_paths = [
-        _display(result_path, public_root=public_root),
-        _display(board_path, public_root=public_root),
-        _display(validation_path, public_root=public_root),
-    ]
+    # Normalize in-memory exactly as write_json_atomic normalizes on disk, so the
+    # fresh card and a later cached read of the receipt carry identical paths
+    # (raw host-temp paths must never surface on either lane).
+    normalized = normalize_public_receipt_paths(
+        {
+            "receipt_paths": [
+                _display(result_path, public_root=public_root),
+                _display(board_path, public_root=public_root),
+                _display(validation_path, public_root=public_root),
+            ]
+        }
+    )
+    receipt_paths = list(normalized.get("receipt_paths") or [])
     validation = {
         "schema_version": "world_model_projection_drift_control_room_validation_receipt_v1",
         "created_at": utc_now(),
@@ -2174,11 +2186,16 @@ def run_drift_control_bundle(
     result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
-    payload = {
-        **result,
-        "schema_version": "exported_projection_drift_control_bundle_validation_result_v1",
-        "receipt_paths": [_display(bundle_path, public_root=public_root)],
-    }
+    # Normalize the in-memory payload exactly as write_json_atomic normalizes the
+    # disk copy, so the fresh-card lane and the cached read-back lane carry
+    # identical (host-temp-scrubbed) paths.
+    payload = normalize_public_receipt_paths(
+        {
+            **result,
+            "schema_version": "exported_projection_drift_control_bundle_validation_result_v1",
+            "receipt_paths": [_display(bundle_path, public_root=public_root)],
+        }
+    )
     write_json_atomic(bundle_path, payload)
     return payload
 
