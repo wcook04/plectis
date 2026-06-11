@@ -821,6 +821,31 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
     examples_root = public_root / "examples"
     if not examples_root.is_dir():
         return rows
+    # Tracked-path set decides build-artifact reporting: untracked compiler
+    # noise (e.g. __pycache__ regenerated whenever organ validators import the
+    # bundled .py modules) is unreachable on BOTH public lanes — the export
+    # skip rules drop it from the artifact and git never populates it — so
+    # reporting it would only make the gate flake. Tracked junk is the real
+    # population hazard and always reports. Non-git trees (planted fixtures)
+    # report everything.
+    tracked_paths: set[str] | None
+    try:
+        ls_files = subprocess.run(
+            ["git", "ls-files", "-z", "--", "examples"],
+            cwd=public_root,
+            capture_output=True,
+            check=False,
+        )
+        if ls_files.returncode == 0:
+            tracked_paths = {
+                entry.decode("utf-8", errors="replace")
+                for entry in ls_files.stdout.split(b"\0")
+                if entry
+            }
+        else:
+            tracked_paths = None
+    except (OSError, ValueError):
+        tracked_paths = None
     source_module_roots = sorted(
         path for path in examples_root.rglob("source_modules") if path.is_dir()
     )
@@ -844,6 +869,8 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
             artifact_parts = sorted(
                 set(module_rel_parts) & SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES
             )
+            if artifact_parts and tracked_paths is not None and rel not in tracked_paths:
+                continue
             if artifact_parts:
                 rows.append(
                     {
@@ -3154,6 +3181,24 @@ def build_release_export(
     receipt["standalone_severance_receipt"] = standalone_severance_receipt
     if standalone_severance_receipt.get("status") != "pass":
         blocking_codes.append("RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED")
+    # Source-tree contamination visibility for the population lane: the export
+    # artifact itself is already protected (skip rules drop build dirs; the
+    # home-redaction pass rewrites concrete homes), so contamination here does
+    # not block the export receipt — the fail-closed population gate is
+    # tests/test_export_contamination_gate.py over the committed tree. This key
+    # makes a contaminated source tree visible to receipt consumers either way.
+    contamination_rows = scan_source_modules_contamination(Path(source_root))
+    receipt["source_modules_contamination"] = {
+        "status": "pass" if not contamination_rows else "fail",
+        "row_count": len(contamination_rows),
+        "rows": contamination_rows[:40],
+        "scanned_surface": "examples/**/source_modules",
+        "blocking_jurisdiction": (
+            "tree_gate_tests/test_export_contamination_gate.py; artifact-side "
+            "mitigations: SKIPPED_DIR_NAMES + source_module_home_redaction"
+        ),
+        "body_in_receipt": False,
+    }
     receipt["release_assurance_v2"] = _release_assurance_receipt(
         target,
         inventory=inventory,

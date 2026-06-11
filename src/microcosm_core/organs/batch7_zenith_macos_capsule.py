@@ -229,7 +229,17 @@ def _probe_copied_swiftpm_package(input_path: Path, public_root: Path) -> dict[s
             "error_code": "BATCH7_ZENITH_COPIED_SWIFTPM_PACKAGE_MISSING",
             "body_in_receipt": False,
         }
-    result = _run_swiftpm_package(copied_package_root, public_root=public_root)
+    # Probe in a scratch copy: running SwiftPM inside the exported bundle would
+    # regenerate .build compiler output (with absolute host paths) inside the
+    # committed source_modules payload — the recontamination loop the export
+    # contamination gate exists to block. The bundle copy stays byte-identical.
+    with tempfile.TemporaryDirectory(prefix="b7-zenith-copied-probe.") as scratch:
+        scratch_package_root = Path(scratch) / "zenith-macos"
+        shutil.copytree(copied_package_root, scratch_package_root)
+        result = _run_swiftpm_package(scratch_package_root, public_root=public_root)
+    result["witness_package_ref"] = display(
+        copied_package_root, public_root=public_root
+    )
     result["witness_source"] = "copied_exported_swiftpm_source_modules"
     result["authority_ceiling"] = (
         "copied_package_probe_only_public_safe_entry_body_intentionally_excluded"
