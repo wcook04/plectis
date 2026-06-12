@@ -58,6 +58,33 @@ def test_first_screen_cli_enforces_stdout_budget_for_long_project_labels(
         assert "proof_surface" not in row
 
 
+def test_first_screen_cli_pathological_label_stays_under_budget(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    # Deep mkdtemp sandbox paths (the external first-contact drill's actual
+    # label shape on macOS) overran the budget even after detail rollups; the
+    # terminal dedup step swaps the repeated literal label for <project> in
+    # bulk command strings while top-level commands stay literal.
+    label = (
+        "/var/folders/3k/abcdefghij1234567890qrstuv0000gn/T/"
+        "some_unusually_deep_external_reviewer_environment/nested/"
+        "another_level/microcosm_first_contact_sandbox_2026/project_copy"
+    )
+    assert cli.main(["first-screen", label]) == 0
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert len(out) < 16000
+    degradation = payload["omission_receipt"]["budget_degradation"]
+    assert degradation["over_budget_after_full_ladder"] is False
+    # The measured size must account for the receipt's own bytes.
+    assert degradation["serialized_chars_after"] == len(out)
+    assert "bulk_command_label_deduplication" in degradation["applied_steps"]
+    assert payload["label_substitution"]["placeholder"] == "<project>"
+    # Top-level entry commands stay literal for copy-paste.
+    assert label in payload["human_first_command"]
+
+
 def test_first_screen_cli_short_label_keeps_full_route_detail(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

@@ -4506,6 +4506,22 @@ def _compact_stdout_chars(card: dict[str, Any]) -> int:
     return len(json.dumps(card, ensure_ascii=True, indent=2, sort_keys=True)) + 1
 
 
+def _substitute_label(node: Any, label: str) -> None:
+    """In-place replace the literal project label with <project> in string values."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if isinstance(value, str) and label in value:
+                node[key] = value.replace(label, "<project>")
+            else:
+                _substitute_label(value, label)
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            if isinstance(value, str) and label in value:
+                node[index] = value.replace(label, "<project>")
+            else:
+                _substitute_label(value, label)
+
+
 def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
     """Enforce COMPACT_JSON_CARD_MAX_CHARS on the compact card with typed omissions.
 
@@ -4524,8 +4540,26 @@ def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
       demoted detail remains in the full contract behind `--full`.
     """
     budget = COMPACT_JSON_CARD_MAX_CHARS
-    chars_before = _compact_stdout_chars(card)
     applied: list[str] = []
+    # Stamp the receipt BEFORE measuring: the receipt's own bytes are part of
+    # the stdout the budget governs, so measuring without it under-counts and
+    # a "fits" verdict can ship an over-budget card.
+    omission = card.get("omission_receipt")
+    degradation: dict[str, Any] = {
+        "stdout_budget_chars": budget,
+        "serialized_chars_before": 0,
+        "serialized_chars_after": 0,
+        "applied_steps": applied,
+        "over_budget_after_full_ladder": False,
+        "full_contract_command": (
+            omission.get("full_contract_command") if isinstance(omission, dict) else None
+        ),
+    }
+    if isinstance(omission, dict):
+        omission["budget_degradation"] = degradation
+    chars_before = _compact_stdout_chars(card)
+    degradation["serialized_chars_before"] = chars_before
+    degradation["serialized_chars_after"] = chars_before
 
     if _compact_stdout_chars(card) > budget:
         routes = card.get("reader_route_menu", {}).get("routes", [])
@@ -4577,17 +4611,29 @@ def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
             )
         applied.append("first_run_step_detail_rollup")
 
-    chars_after = _compact_stdout_chars(card)
-    omission = card.get("omission_receipt")
-    if isinstance(omission, dict):
-        omission["budget_degradation"] = {
-            "stdout_budget_chars": budget,
-            "serialized_chars_before": chars_before,
-            "serialized_chars_after": chars_after,
-            "applied_steps": applied,
-            "over_budget_after_full_ladder": chars_after > budget,
-            "full_contract_command": omission.get("full_contract_command"),
-        }
+    if _compact_stdout_chars(card) > budget:
+        # Terminal step for pathological labels (deep mkdtemp sandbox paths):
+        # the label itself, repeated through every bulk command string, IS the
+        # overrun. De-duplicate it to the documented <project> placeholder in
+        # the bulk sections only; the top-level commands (human_first_command,
+        # shared_first_command, output_policy.*) stay literal and copy-pasteable.
+        label = str(card.get("project_label") or "")
+        if label and label != "<project>":
+            for section_key in ("reader_route_menu", "first_run_ladder", "drilldowns"):
+                _substitute_label(card.get(section_key), label)
+            card["label_substitution"] = {
+                "placeholder": "<project>",
+                "substitute_with": "project_label",
+                "reason": "stdout_budget_label_deduplication",
+            }
+            applied.append("bulk_command_label_deduplication")
+
+    # Fixpoint settle: writing the final counts can shift the size by a few
+    # digit/boolean bytes, so measure-set twice before the honest verdict.
+    for _ in range(2):
+        chars_after = _compact_stdout_chars(card)
+        degradation["serialized_chars_after"] = chars_after
+        degradation["over_budget_after_full_ladder"] = chars_after > budget
     return card
 
 
