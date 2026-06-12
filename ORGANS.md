@@ -6,7 +6,7 @@ An **organ** is one accepted public runtime surface: a runnable specimen with a 
 
 Most organs are **standalone specimens**: they do not call each other. They bind to one shared spine — the architecture kernel (`project -> catalog -> pattern -> standard -> route -> work -> event -> evidence -> explanation -> assimilation`), the evidence-class registry, and the scope limit. A few are **wired** to other named surfaces; each card says which. See [ARCHITECTURE.md](ARCHITECTURE.md) for the system shape and [README.md](README.md) for the first run.
 
-> Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence.
+> Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence. It does not authorize release, provider access, source mutation, private-root equivalence, proof authority, or whole-system correctness.
 
 ## Microcosm at a glance — every organ in one line
 
@@ -117,7 +117,7 @@ This is the lowest faithful pass over the public substrate: one row per accepted
 
 ### Why the counts are honest
 
-`82` accepted organs · `97` JSON paper-module capsules · `100` Markdown paper modules · `99` JSON paper-module projections. These counts are not expected to match: `15` capsules are mechanism-only, `2` mechanism-only capsules are used by accepted organs through explicit paper-module references, and `15` capsule rows are not accepted-organ atlas rows. Accepted organs, JSON paper-module capsules, and Markdown/JSON paper module projections are distinct surfaces. A count mismatch is expected when capsules describe mechanism-only or ahead-of-registry rows, or when Markdown/JSON projections exist outside the accepted-organ registry.
+`82` accepted organs · `98` JSON paper-module capsules · `100` Markdown paper modules · `99` JSON paper-module projections. These counts are not expected to match: `16` capsules are mechanism-only, `2` mechanism-only capsules are used by accepted organs through explicit paper-module references, and `16` capsule rows are not accepted-organ atlas rows. Accepted organs, JSON paper-module capsules, and Markdown/JSON paper module projections are distinct surfaces. A count mismatch is expected when capsules describe mechanism-only or ahead-of-registry rows, or when Markdown/JSON projections exist outside the accepted-organ registry.
 
 ### First command
 
@@ -125,7 +125,7 @@ Run `microcosm tour --card .` for the local first-screen path, then use [AGENT_R
 
 ### Where the public scope stops
 
-Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence.
+Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence. It does not authorize release, provider access, source mutation, private-root equivalence, proof authority, or whole-system correctness.
 
 ## How to read a card
 

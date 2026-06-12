@@ -2841,6 +2841,17 @@ flowchart LR
   mechanism_mechanism_mechanistic_interpretability_circuit_attribution_replay_validates_public_mechanistic_interpretability_circuit_attribution_replay -- runs_in --> organ_mechanistic_interpretability_circuit_attribution_replay
   concept_concept_research_and_science_replay_evidence_bundle["concept:concept.research_and_science_replay_evidence_bundle"]
   mechanism_mechanism_mechanistic_interpretability_circuit_attribution_replay_validates_public_mechanistic_interpretability_circuit_attribution_replay -- grounds --> concept_concept_research_and_science_replay_evidence_bundle
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary["mechanism:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary: validates public axiom support boundary"]:::mechanism
+  code_locus_src_microcosm_core_validators_axiom_support_cover_py["code_locus:src/microcosm_core/validators/axiom_support_cover.py"]
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary -- grounded_in --> code_locus_src_microcosm_core_validators_axiom_support_cover_py
+  organ_microcosm_axiom_substrate["organ:microcosm_axiom_substrate"]:::residual
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary -- runs_in --> organ_microcosm_axiom_substrate
+  concept_concept_executable_doctrine_grammar_standard_bundle["concept:concept.executable_doctrine_grammar_standard_bundle"]
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary -- grounds --> concept_concept_executable_doctrine_grammar_standard_bundle
+  mechanism_mechanism_executable_doctrine_grammar_validates_public_doctrine_grammar_bundle["mechanism:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"]
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary -- upstream_of --> mechanism_mechanism_executable_doctrine_grammar_validates_public_doctrine_grammar_bundle
+  mechanism_mechanism_doctrine_fact_claim_audit_validates_public_doctrine_fact_claim_audit["mechanism:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"]
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary -- upstream_of --> mechanism_mechanism_doctrine_fact_claim_audit_validates_public_doctrine_fact_claim_audit
   mechanism_mechanism_mission_transaction_work_spine_validates_public_mission_transaction_bundle["mechanism:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle: validates public mission transaction bundle"]:::mechanism
   code_locus_src_microcosm_core_organs_mission_transaction_work_spine_py["code_locus:src/microcosm_core/organs/mission_transaction_work_spine.py"]
   mechanism_mechanism_mission_transaction_work_spine_validates_public_mission_transaction_bundle -- grounded_in --> code_locus_src_microcosm_core_organs_mission_transaction_work_spine_py
@@ -6941,6 +6952,22 @@ flowchart LR
   code_locus_src_microcosm_core_organs_concurrency_mission_control_py["code_locus:src/microcosm_core/organs/concurrency_mission_control.py"]
   paper_module_paper_module_concurrency_mission_control -- cites --> code_locus_src_microcosm_core_organs_concurrency_mission_control_py
   paper_module_paper_module_corpus_readiness_mathlib_absence_gate["paper_module:paper_module.corpus_readiness_mathlib_absence_gate: Corpus Readiness Mathlib Absence Gate"]:::paper_module
+  organ_corpus_readiness_mathlib_absence_gate["organ:corpus_readiness_mathlib_absence_gate"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- explains --> organ_corpus_readiness_mathlib_absence_gate
+  mechanism_mechanism_corpus_readiness_mathlib_absence_gate_validates_public_corpus_readiness_boundary["mechanism:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- explains --> mechanism_mechanism_corpus_readiness_mathlib_absence_gate_validates_public_corpus_readiness_boundary
+  mechanism_mechanism_corpus_readiness_mathlib_absence_gate_validates_public_mathlib_absence_boundary["mechanism:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- explains --> mechanism_mechanism_corpus_readiness_mathlib_absence_gate_validates_public_mathlib_absence_boundary
+  concept_concept_formal_math_and_proof_witness_bundle["concept:concept.formal_math_and_proof_witness_bundle"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- governed_by --> concept_concept_formal_math_and_proof_witness_bundle
+  principle_P_8["principle:P-8"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- governed_by --> principle_P_8
+  axiom_AX_7["axiom:AX-7"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- abides_by --> axiom_AX_7
+  paper_module_paper_module_tactic_portfolio_availability["paper_module:paper_module.tactic_portfolio_availability"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- depends_on --> paper_module_paper_module_tactic_portfolio_availability
+  code_locus_src_microcosm_core_organs_corpus_readiness_mathlib_absence_gate_py["code_locus:src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py"]
+  paper_module_paper_module_corpus_readiness_mathlib_absence_gate -- cites --> code_locus_src_microcosm_core_organs_corpus_readiness_mathlib_absence_gate_py
   paper_module_paper_module_doctrine_fact_claim_audit["paper_module:paper_module.doctrine_fact_claim_audit: Doctrine Fact Claim Audit"]:::paper_module
   organ_doctrine_fact_claim_audit["organ:doctrine_fact_claim_audit"]
   paper_module_paper_module_doctrine_fact_claim_audit -- explains --> organ_doctrine_fact_claim_audit
@@ -7830,6 +7857,38 @@ flowchart LR
   code_locus_src_microcosm_core_organs_mechanistic_interpretability_circuit_attribution_replay_py["code_locus:src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py"]
   paper_module_paper_module_mechanistic_interpretability_circuit_attribution_replay -- cites --> code_locus_src_microcosm_core_organs_mechanistic_interpretability_circuit_attribution_replay_py
   paper_module_paper_module_microcosm_axiom_substrate["paper_module:paper_module.microcosm_axiom_substrate: Microcosm Axiom Substrate"]:::paper_module
+  mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary["mechanism:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"]
+  paper_module_paper_module_microcosm_axiom_substrate -- explains --> mechanism_mechanism_microcosm_axiom_substrate_validates_public_axiom_support_boundary
+  concept_concept_executable_doctrine_grammar_standard_bundle["concept:concept.executable_doctrine_grammar_standard_bundle"]
+  paper_module_paper_module_microcosm_axiom_substrate -- governed_by --> concept_concept_executable_doctrine_grammar_standard_bundle
+  principle_P_1["principle:P-1"]
+  paper_module_paper_module_microcosm_axiom_substrate -- governed_by --> principle_P_1
+  principle_P_2["principle:P-2"]
+  paper_module_paper_module_microcosm_axiom_substrate -- governed_by --> principle_P_2
+  principle_P_8["principle:P-8"]
+  paper_module_paper_module_microcosm_axiom_substrate -- governed_by --> principle_P_8
+  principle_P_15["principle:P-15"]
+  paper_module_paper_module_microcosm_axiom_substrate -- governed_by --> principle_P_15
+  axiom_AX_1["axiom:AX-1"]
+  paper_module_paper_module_microcosm_axiom_substrate -- abides_by --> axiom_AX_1
+  axiom_AX_5["axiom:AX-5"]
+  paper_module_paper_module_microcosm_axiom_substrate -- abides_by --> axiom_AX_5
+  axiom_AX_7["axiom:AX-7"]
+  paper_module_paper_module_microcosm_axiom_substrate -- abides_by --> axiom_AX_7
+  axiom_AX_8["axiom:AX-8"]
+  paper_module_paper_module_microcosm_axiom_substrate -- abides_by --> axiom_AX_8
+  axiom_AX_11["axiom:AX-11"]
+  paper_module_paper_module_microcosm_axiom_substrate -- abides_by --> axiom_AX_11
+  axiom_AX_12["axiom:AX-12"]
+  paper_module_paper_module_microcosm_axiom_substrate -- abides_by --> axiom_AX_12
+  paper_module_paper_module_executable_doctrine_grammar["paper_module:paper_module.executable_doctrine_grammar"]
+  paper_module_paper_module_microcosm_axiom_substrate -- depends_on --> paper_module_paper_module_executable_doctrine_grammar
+  paper_module_paper_module_standards_meta_diagnostics["paper_module:paper_module.standards_meta_diagnostics"]
+  paper_module_paper_module_microcosm_axiom_substrate -- depends_on --> paper_module_paper_module_standards_meta_diagnostics
+  paper_module_paper_module_doctrine_fact_claim_audit["paper_module:paper_module.doctrine_fact_claim_audit"]
+  paper_module_paper_module_microcosm_axiom_substrate -- depends_on --> paper_module_paper_module_doctrine_fact_claim_audit
+  code_locus_src_microcosm_core_validators_axiom_support_cover_py["code_locus:src/microcosm_core/validators/axiom_support_cover.py"]
+  paper_module_paper_module_microcosm_axiom_substrate -- cites --> code_locus_src_microcosm_core_validators_axiom_support_cover_py
   paper_module_paper_module_mission_transaction_work_spine["paper_module:paper_module.mission_transaction_work_spine: Mission Transaction Work Spine"]:::paper_module
   organ_mission_transaction_work_spine["organ:mission_transaction_work_spine"]
   paper_module_paper_module_mission_transaction_work_spine -- explains --> organ_mission_transaction_work_spine
@@ -14511,3 +14570,12 @@ flowchart LR
   standard_std_microcosm_work_landing_control_spine -- owns_triad --> skill_skill_microcosm_work_landing_control_spine_refine_instance
   skill_skill_microcosm_work_landing_control_spine_refine_standard_and_propagate["skill:skill.microcosm.work_landing_control_spine.refine_standard_and_propagate"]
   standard_std_microcosm_work_landing_control_spine -- owns_triad --> skill_skill_microcosm_work_landing_control_spine_refine_standard_and_propagate
+  standard_std_microcosm_doctrine_enrichment["standard:std_microcosm_doctrine_enrichment: Doctrine enrichment envelope"]:::standard
+  doctrine_kind_doctrine_enrichment["doctrine_kind:doctrine_enrichment"]
+  standard_std_microcosm_doctrine_enrichment -- governs --> doctrine_kind_doctrine_enrichment
+  skill_skill_microcosm_doctrine_roof_author["skill:skill.microcosm.doctrine_roof.author"]
+  standard_std_microcosm_doctrine_enrichment -- owns_triad --> skill_skill_microcosm_doctrine_roof_author
+  skill_skill_microcosm_doctrine_roof_refine_instance["skill:skill.microcosm.doctrine_roof.refine_instance"]
+  standard_std_microcosm_doctrine_enrichment -- owns_triad --> skill_skill_microcosm_doctrine_roof_refine_instance
+  skill_skill_microcosm_doctrine_roof_refine_standard_and_propagate["skill:skill.microcosm.doctrine_roof.refine_standard_and_propagate"]
+  standard_std_microcosm_doctrine_enrichment -- owns_triad --> skill_skill_microcosm_doctrine_roof_refine_standard_and_propagate

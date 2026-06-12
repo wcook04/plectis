@@ -45,6 +45,74 @@ The runtime locus is
 `run`, `run_availability_bundle`, `_build_result`, `_write_receipts`,
 `EXPECTED_NEGATIVE_CASES`, and `AUTHORITY_CEILING`.
 
+## Reader Proof Boundary
+
+Read this page as a public reader projection over a legacy Microcosm
+paper-module row. The generated JSON row for this slug reports
+`paper_module_payload.source_authority: legacy_markdown_projection`, with source
+ref `paper_modules/tactic_portfolio_availability_probe.md`. Mermaid and Atlas
+projections must remain `blocked_required_subject_gap` until this slug receives
+its own JSON capsule row with a resolving subject, concept route, and code locus.
+The current source locus is
+`src/microcosm_core/organs/tactic_portfolio_availability_probe.py`; it is real
+runtime evidence, but this Markdown cannot create a capsule edge without
+claiming JSON capsule authority.
+
+## JSON Capsule Binding
+
+This file is not itself JSON-capsule-backed. The existing capsule-backed module
+is `paper_module.tactic_portfolio_availability`, whose capsule explains the
+probe organ and mechanism through `paper_modules/tactic_portfolio_availability.md`.
+The separate generated row `paper_module.tactic_portfolio_availability_probe`
+exists as a legacy Markdown projection so readers can see the remaining
+required-subject gap instead of inferring it from a sibling capsule.
+
+## JSON Capsule Boundary
+
+This paper module remains a legacy Markdown projection in the generated
+paper-module corpus.
+
+- Current authority: `paper_module_payload.source_authority` remains
+  `legacy_markdown_projection`, and the sidecar keeps Mermaid/Atlas edges
+  blocked by the required-subject gap.
+- Current proof: the tactic probe organ, copied source artifacts, receipts, and
+  focused tests make the runtime inspectable to readers, but this Markdown is
+  not a JSON-capsule-backed source row yet.
+- Re-entry: after the capsule owner admits this slug as a distinct paper module
+  or deliberately suppresses the duplicate legacy row, append
+  `paper_module.tactic_portfolio_availability_probe` to
+  `core/paper_module_capsules.json` with resolved subjects, resolved code loci,
+  concept refs, and the same anti-claim ceiling, then regenerate with
+  `scripts/build_doctrine_projection.py --write-paper-module-corpus`.
+
+Until that exact re-entry condition lands, this Markdown explains the proof
+boundary without claiming JSON capsule authority. It must not invent a subject
+row yet, source Mermaid edges, source Atlas cards, prove tactic correctness,
+authorize Lean/Lake execution, authorize release, or count as aggregate
+doctrine-lattice coverage.
+
+## Capsule Re-entry Packet
+
+- current source authority: generated JSON reports
+  `paper_module_payload.source_authority: legacy_markdown_projection`.
+- generated row source ref:
+  `paper_modules/tactic_portfolio_availability_probe.md`.
+- current generated projection status: Mermaid `blocked_required_subject_gap`;
+  Atlas `blocked_required_subject_gap`.
+- resolved source locus:
+  `src/microcosm_core/organs/tactic_portfolio_availability_probe.py`.
+- missing authority edge: this slug has no direct JSON capsule subject, concept
+  route, or code-locus edge, so the capsule registry must not invent a subject
+  row yet.
+- re-entry condition: either admit a distinct source capsule for
+  `paper_module.tactic_portfolio_availability_probe` or remove/suppress the
+  duplicate legacy Markdown row through the owner builder, then verify Mermaid,
+  Atlas, required-subject-gap, and aggregate doctrine-lattice coverage outputs.
+- authority ceiling: this Markdown provides reader evidence only; it does not
+  source proof authority, runtime correctness, Lean/Lake execution authority,
+  release claims, source mutation authority, or aggregate doctrine-lattice
+  completion.
+
 ## Evidence Model
 
 The probe consumes a fixture and an exported public bundle:
@@ -133,6 +201,15 @@ The existing receipt
 records this floor as a committed mutated-real rejection and input-dependence
 receipt: the organ derives availability from copied source artifacts, not from
 baked public labels.
+
+## Prior Art Grounding
+
+This page is grounded in the accepted
+`paper_module.tactic_portfolio_availability` capsule, the
+`mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection`
+mechanism row, `standards/std_microcosm_tactic_portfolio_availability_probe.json`,
+the first-wave fixture receipts, and the exported tactic availability bundle. It
+does not use that sibling capsule to claim this legacy slug is ready.
 
 ## Diagram
 
@@ -264,6 +341,16 @@ From `microcosm-substrate/`, the focused validation route is:
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out /tmp/microcosm-tactic-portfolio-availability-probe --acceptance-out /tmp/microcosm-tactic-portfolio-availability-probe-acceptance.json
 PYTHONPATH=src ../repo-python -m microcosm_core.organs.tactic_portfolio_availability_probe run-availability-bundle --input examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle --out /tmp/microcosm-tactic-portfolio-availability-bundle
 ../repo-pytest microcosm-substrate/tests/test_tactic_portfolio_availability_probe.py
+PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
+```
+
+## Validation Receipt Path
+
+The reader-verifiable receipt path is the same focused route above:
+
+```bash
+PYTHONPATH=src ../repo-python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out /tmp/microcosm-tactic-portfolio-availability-probe --acceptance-out /tmp/microcosm-tactic-portfolio-availability-probe-acceptance.json
+PYTHONPATH=src ../repo-pytest tests/test_tactic_portfolio_availability_probe.py -q
 PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus
 ```
 

@@ -123,10 +123,10 @@ EXPECTED_SKILL_INSTANCE_COUNT = 401
 EXPECTED_SKILL_SELECTIVE_RELATION_COUNT = 6
 EXPECTED_SKILL_SELECTIVE_NODE_COUNT = 6
 EXPECTED_ORGAN_SELECTIVE_RELATION_COUNT = 29
-EXPECTED_STANDARD_INSTANCE_COUNT = 145
+EXPECTED_STANDARD_INSTANCE_COUNT = 146
 EXPECTED_STANDARD_REQUIRED_EDGE_GAP_COUNT = 0
 EXPECTED_STANDARD_REQUIRED_RELATION_GAP_COUNT = 0
-EXPECTED_STANDARD_TRIAD_RESOLVED_EDGE_COUNT = 435
+EXPECTED_STANDARD_TRIAD_RESOLVED_EDGE_COUNT = 438
 EXPECTED_STANDARD_TRIAD_PLANNED_UNRESOLVED_EDGE_COUNT = 0
 EXPECTED_STANDARD_REQUIRED_RELATION_GAP_DETAIL_COUNT = 0
 EXPECTED_STANDARD_USED_BY_ORGAN_EDGE_COUNT = 247
@@ -1150,6 +1150,9 @@ def test_family_concept_refs_bind_organs_mechanisms_and_paper_modules() -> None:
                 ],
                 "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root": [
                     "runtime_shell"
+                ],
+                "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary": [
+                    "microcosm_axiom_substrate"
                 ],
             }
             assert row["id"] in expected_planned_hosts

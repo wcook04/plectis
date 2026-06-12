@@ -21,7 +21,7 @@
     "paper_module_readiness_audit"
   ],
   "governed_floor_complete": true,
-  "governed_floor_total_objects": 159,
+  "governed_floor_total_objects": 160,
   "incomplete": [],
   "kinds": {
     "anti_principle": {
@@ -79,22 +79,9 @@
   "paper_module_readiness_audit": {
     "authority_boundary": "Paper-module readiness audit over generated paper-module JSON instances. It exposes walkability and residual pressure only; it is not source authority, support evidence, proof authority, release readiness, or permission to hand-edit generated paper-module rows.",
     "incomplete_ids": [
-      "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
     "issue_rows": [
-      {
-        "id": "paper_module.microcosm_axiom_substrate",
-        "issues": [
-          "source_authority_not_json_capsule",
-          "required_residual_relations_present",
-          "code_loci_missing",
-          "edges_missing",
-          "resolved_subject_route_missing",
-          "resolved_concept_route_missing",
-          "resolved_existing_code_locus_missing"
-        ]
-      },
       {
         "id": "paper_module.tactic_portfolio_availability_probe",
         "issues": [
@@ -109,12 +96,11 @@
       }
     ],
     "readiness_complete": false,
-    "ready_objects": 97,
+    "ready_objects": 98,
     "required_gap_ids": [
-      "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
-    "required_residual_relation_count": 2,
+    "required_residual_relation_count": 1,
     "required_structures": [
       "valid_json_object",
       "source_refs",
@@ -130,20 +116,20 @@
       "selective residual relations counted as frontier pressure"
     ],
     "residual_policy": "Required paper-module residuals block readiness. Selective residuals are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-    "residual_relation_count": 35,
+    "residual_relation_count": 29,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 2,
-      "paper_module.cites.code_locus": 2,
-      "paper_module.depends_on.paper_module": 25,
-      "paper_module.explains.organ_or_mechanism": 2,
-      "paper_module.governed_by.concept": 2,
-      "paper_module.governed_by.principle": 2
+      "paper_module.abides_by.axiom": 1,
+      "paper_module.cites.code_locus": 1,
+      "paper_module.depends_on.paper_module": 24,
+      "paper_module.explains.organ_or_mechanism": 1,
+      "paper_module.governed_by.concept": 1,
+      "paper_module.governed_by.principle": 1
     },
     "residual_relation_counts_by_requirement": {
-      "required": 2,
-      "selective": 33
+      "required": 1,
+      "selective": 28
     },
-    "residual_relation_row_count": 25,
+    "residual_relation_row_count": 24,
     "residual_relation_rows": [
       {
         "count": 1,
@@ -248,12 +234,6 @@
         "selective_count": 1
       },
       {
-        "count": 6,
-        "id": "paper_module.microcosm_axiom_substrate",
-        "required_count": 1,
-        "selective_count": 5
-      },
-      {
         "count": 1,
         "id": "paper_module.mission_transaction_work_spine",
         "required_count": 0,
@@ -297,10 +277,10 @@
       }
     ],
     "schema_version": "microcosm_paper_module_readiness_audit_v1",
-    "selective_residual_relation_count": 33,
+    "selective_residual_relation_count": 28,
     "source_authority_counts": {
-      "json_capsule": 97,
-      "legacy_markdown_projection": 2
+      "json_capsule": 98,
+      "legacy_markdown_projection": 1
     },
     "source_of_record": {
       "instance_owner": "microcosm_core.doctrine_lattice",
@@ -509,8 +489,8 @@
             "id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
           }
         ],
-        "planned_edge_count": 3,
-        "planned_edge_row_count": 3,
+        "planned_edge_count": 4,
+        "planned_edge_row_count": 4,
         "planned_edge_rows": [
           {
             "count": 1,
@@ -523,6 +503,10 @@
           {
             "count": 1,
             "id": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
           }
         ],
         "required_structures": [
@@ -540,18 +524,18 @@
           "known_residual_selective_relations_counted_not_blocking"
         ],
         "residual_policy": "Residual selective relations and planned non-floor edges are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-        "routed": 99,
-        "total": 99
+        "routed": 100,
+        "total": 100
       }
     },
-    "routed_objects": 110,
+    "routed_objects": 111,
     "schema_version": "microcosm_doctrine_routing_floor_v2",
     "source_of_record": {
       "concept": "concepts/concept.*.json",
       "mechanism": "mechanisms/mechanism.*.json"
     },
     "status": "complete",
-    "total_objects": 110
+    "total_objects": 111
   },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
   "sections": {

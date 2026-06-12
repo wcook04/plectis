@@ -16,7 +16,7 @@
   "first_wave_required_standard_count": 118,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 145,
+  "standard_count": 146,
   "standards": [
     {
       "first_wave_required": true,
@@ -2116,6 +2116,18 @@
       "used_by_organs": [],
       "validator_id": null,
       "wave": "w1_unregistered_standard_file_inventory"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "doctrine_enrichment",
+      "kind_name": "Doctrine enrichment envelope",
+      "path": "standards/std_microcosm_doctrine_enrichment.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_doctrine_enrichment",
+      "status": "active_projection_standard",
+      "used_by_organs": [],
+      "validator_id": "validator.microcosm.doctrine_enrichment_health",
+      "wave": "w1_doctrine_enrichment_health_projection"
     }
   ],
   "status": "current_public_standard_registry_cognitive_operator_registry_bound"

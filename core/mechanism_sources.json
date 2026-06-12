@@ -6702,6 +6702,69 @@
           "authority_boundary": "planned_target_marker_not_resolved_organ_authority"
         }
       ]
+    },
+    {
+      "id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
+      "kind": "mechanism",
+      "statement": "The Microcosm axiom substrate support-cover evaluator projects public axiom support cases, support frontiers, anti-axiom rejection mappings, principle support inheritance, and strong-gate pressure from routing, standards, doctrine, and receipt evidence without proving axioms, promoting candidate law, authorizing source mutation, or raising release/publication/runtime-correctness authority.",
+      "status": "active",
+      "runs_in": [
+        "microcosm_axiom_substrate"
+      ],
+      "concept_refs": [
+        "concept.executable_doctrine_grammar_standard_bundle"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/validators/axiom_support_cover.py",
+          "symbols": [
+            "evaluate_axiom_support_cover",
+            "_compile_support_case",
+            "_axiom_verdict",
+            "_strong_gate_summary",
+            "_anti_axiom_rejection",
+            "main"
+          ],
+          "role": "Read-only evaluator and CLI locus for public axiom support-cover receipts, anti-axiom rejection mappings, strong-gate pressure, deterministic basis digests, and authority ceilings.",
+          "resolution": "resolved"
+        }
+      ],
+      "input_refs": [
+        "core/axiom_organ_routing.json",
+        "standards/std_microcosm_axiom.json",
+        "AXIOMS.md",
+        "PRINCIPLES.md",
+        "ANTI_PRINCIPLES.md"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/axiom_support_cover/axiom_support_cover_result.json",
+        "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+      ],
+      "guardrails": [
+        "support_cover_is_read_only_projection_not_axiom_source_authority",
+        "strong_gate_pressure_never_reports_strong_certified_true",
+        "candidate_axiom_pressure_does_not_promote_law",
+        "anti_axiom_rejection_mappings_require_source_rows_or_remain_debt",
+        "receipt_coverage_is_not_runtime_correctness_or_release_authority",
+        "generated_lattice_health_and_markdown_do_not_become_source_evidence"
+      ],
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "resolution_evidence": {
+        "authority_class": "source_assertion",
+        "evidence_rank": 4,
+        "validator_command": "PYTHONPATH=src ../repo-python -m microcosm_core.validators.axiom_support_cover --root . --out /tmp/microcosm-axiom-support-cover-vrp.json",
+        "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_axiom_organ_routing.py tests/test_axiom_support_cover.py -q"
+      },
+      "upstream_of": [
+        "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+      ]
     }
   ]
 }

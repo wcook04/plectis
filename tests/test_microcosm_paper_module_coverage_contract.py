@@ -220,6 +220,9 @@ NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI = {
     "paper_module.microcosm_axiom_substrate": (
         "src/microcosm_core/validators/axiom_support_cover.py"
     ),
+    "paper_module.tactic_portfolio_availability_probe": (
+        "src/microcosm_core/organs/tactic_portfolio_availability_probe.py"
+    ),
 }
 
 LEGACY_REENTRY_LOCI = {

@@ -40,16 +40,16 @@ flowchart TD
     C["Standard<br/>standards/std_microcosm_axiom.json"] --> D["Read-only validator<br/>src/microcosm_core/validators/axiom_support_cover.py"]
     B --> D
     D --> E["Support cases, frontiers,<br/>anti-axiom mapping readback"]
-    E --> F{"Capsule subject admitted?"}
-    F -->|no| G["Paper-module sidecar remains<br/>legacy_markdown_projection"]
-    F -->|later| H["Admit subject, add capsule row,<br/>regenerate corpus"]
+    E --> F["Mechanism subject<br/>mechanism.microcosm_axiom_substrate.*"]
+    F --> G["Paper-module capsule<br/>source_authority: json_capsule"]
+    G --> H["Generated corpus<br/>Mermaid available, Atlas host bounded"]
 ```
 
 The shape makes the axiom substrate inspectable without converting pressure
 into proof. Doctrine refs, routing JSON, the axiom standard, validator output,
-and focused tests can show support/frontier structure; they cannot certify a
-strong gate, promote candidate law, source Mermaid edges, or authorize release
-until a resolving capsule row exists.
+and focused tests can show support/frontier structure; the capsule makes that
+route walkable through a mechanism and code locus, but it cannot certify a
+strong gate, promote candidate law, or authorize release.
 
 ## Anti-Axiom Rejection Mapping
 
@@ -79,36 +79,41 @@ they do not close rejection, remove layer debt, or upgrade any obligation to
 
 ## Reader Proof Boundary
 
-Read this page as a public reader projection over a legacy Microcosm
-paper-module row. The generated JSON row still reports
-`paper_module_payload.source_authority: legacy_markdown_projection`, so its
-Mermaid and Atlas projections must remain `blocked_required_subject_gap` until
-a resolved organ or mechanism subject is admitted and the capsule registry is
-regenerated. The useful proof here is narrower: the page names the current
-source locus, the generated row source ref, and the exact re-entry condition
-without claiming JSON capsule authority.
+Read this page as a public reader projection over the JSON capsule row
+`core/paper_module_capsules.json::paper_module.microcosm_axiom_substrate`.
+The generated JSON row reports
+`paper_module_payload.source_authority: json_capsule`, and the capsule names the
+read-only axiom support-cover mechanism as its resolving subject. The generated
+Mermaid projection is available from capsule edges. The generated Atlas
+projection remains bounded to the capsule/organ-atlas boundary because no
+accepted `microcosm_axiom_substrate` organ exists. The proof boundary is still
+narrow: the capsule creates a walkable source edge to a validator mechanism and
+code locus, not axiom proof, strong-gate certification, or release authority.
 
 ## JSON Capsule Binding
 
-There is no JSON capsule row in `core/paper_module_capsules.json` for
-`paper_module.microcosm_axiom_substrate` at this boundary. The checked-in
-`paper_modules/microcosm_axiom_substrate.json` row is a governed projection
-seeded from the legacy Markdown path, not source authority; it keeps
-`paper_module_payload.source_authority: legacy_markdown_projection`, empty
-`subjects`, and generated Mermaid/Atlas statuses of
-`blocked_required_subject_gap`.
+`paper_module.microcosm_axiom_substrate` is source-bound by
+`core/paper_module_capsules.json::paper_module.microcosm_axiom_substrate`.
+The generated row source ref is
+`core/paper_module_capsules.json::paper_modules[97:paper_module.microcosm_axiom_substrate]`.
+The checked-in `paper_modules/microcosm_axiom_substrate.json` row is regenerated
+from that capsule and keeps `paper_module_payload.source_authority:
+json_capsule`. Its resolving subject is
+`mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary`,
+and its resolved code locus is
+`src/microcosm_core/validators/axiom_support_cover.py`.
 
-The current binding is therefore negative and useful: it tells a reader exactly
-what is not proved. A future capsule may cite the axiom-routing owner, accepted
-subject rows, resolved code loci, and Microcosm doctrine ids, but this Markdown
-cannot create those edges by prose.
+This Markdown is a reader projection over that capsule. It may explain the
+generated Mermaid projection, generated Atlas projection boundary, authority
+ceiling, and proof boundary, but it cannot create stronger source authority by
+prose.
 
 ## Structured Lattice Bindings
 
 - Generated paper-module row:
-  `paper_modules/microcosm_axiom_substrate.json` is legacy Markdown inventory
-  with no capsule authority, no subjects, and residual required-subject
-  pressure.
+  `paper_modules/microcosm_axiom_substrate.json` is regenerated from the JSON
+  capsule row with `source_authority: json_capsule`, one mechanism subject, and
+  a resolved validator code-locus edge.
 - Axiom doctrine surfaces:
   `AXIOMS.md`, `PRINCIPLES.md`, `ANTI_PRINCIPLES.md`, and
   `RELEASE_DISCIPLINE.md` are reader-facing doctrine references for the axiom
@@ -123,41 +128,36 @@ cannot create those edges by prose.
   `standards/std_microcosm_axiom.json` is the contract for axiom payloads,
   support claims, anti-axiom rejection mappings, and strong-gate pressure.
 - Validator locus:
-  `src/microcosm_core/validators/axiom_support_cover.py` is a read-only
-  evaluator that projects support cases and strong-gate pressure. It is reader
-  evidence, not a capsule `code_loci` edge yet.
+  `src/microcosm_core/validators/axiom_support_cover.py` is the capsule
+  `code_loci` edge and remains a read-only evaluator that projects support cases
+  and strong-gate pressure.
 
-The generated sidecar currently binds no structured lattice subjects:
-`paper_module_payload.source_row.subjects: []`,
-`paper_module_payload.source_row.code_loci: []`, and `relationships.edges: []`.
-It retains six unpopulated selective relations as residuals. Mermaid and Atlas
-remain `blocked_required_subject_gap`, and Markdown remains
-`legacy_markdown_projection_not_generated_from_json`.
-
-Unresolved concept, principle, axiom, dependency, organ, mechanism, and capsule
-code-locus edges remain residual pressure until source JSON names real targets
-that resolve in the Microcosm corpus.
+The generated sidecar binds the mechanism subject, concept, principle, axiom,
+dependency, and code-locus edges that the capsule names. The mechanism's runtime
+host edge is intentionally planned until a separate organ-atlas owner admits a
+real `microcosm_axiom_substrate` organ or remaps the validator to an accepted
+runtime host. That planned host edge is frontier pressure, not a paper-module
+required-subject gap.
 
 ## JSON Capsule Boundary
 
-This paper module remains a legacy Markdown projection in the generated
-paper-module corpus.
+This paper module is JSON-capsule-backed in the generated paper-module corpus,
+with Markdown retained as the authored reader projection.
 
-- Current authority: `paper_module_payload.source_authority` remains
-  `legacy_markdown_projection`, and the sidecar keeps Mermaid/Atlas edges
-  blocked by the required-subject gap.
+- Current authority: `paper_module_payload.source_authority` is
+  `json_capsule`, and the source row is
+  `core/paper_module_capsules.json::paper_module.microcosm_axiom_substrate`.
 - Current proof: axiom routing rows, the support-cover validator, and focused
-  tests make the substrate inspectable to readers, but this Markdown is not a
-  JSON-capsule-backed source row yet.
-- Re-entry: after the axiom-routing owner lands the required accepted subject
-  rows and any named code loci resolve, add a real row to
-  `core/paper_module_capsules.json` and regenerate with
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`.
+  tests make the substrate inspectable to readers. They do not certify axioms,
+  prove strong-gate closure, or authorize release.
+- Regeneration: `scripts/build_doctrine_projection.py
+  --write-paper-module-corpus` and aggregate doctrine-lattice builders own the
+  generated JSON/Mermaid/Atlas projection updates.
 
-Until that re-entry lands, this Markdown explains the proof boundary; it does
-not source Mermaid edges, Atlas cards, axiom promotion, strong-gate
-certification, release claims, source mutation authority, or aggregate
-doctrine-lattice coverage.
+This Markdown explains the proof boundary and authority ceiling. It does not
+source axiom promotion, strong-gate certification, release claims, source
+mutation authority, runtime correctness, or aggregate doctrine-lattice
+completion claims.
 
 ## Public Site Availability Boundary
 
@@ -200,10 +200,9 @@ payloads or laundering evidence pressure into proof authority.
   whether candidate law, Lean proof, strong-gate certification, release
   authority, and aggregate lattice coverage stay outside this Markdown.
 
-Generated projections may summarize axiom evidence only by source refs,
-mapping statuses, booleans, summaries, and receipt paths. Any stronger claim
-belongs in source-owner rows plus validator receipts, not in this legacy
-paper-module projection.
+Generated projections may summarize axiom evidence only by source refs, mapping
+statuses, booleans, summaries, and receipt paths. Any stronger claim belongs in
+source-owner rows plus validator receipts, not in this reader projection.
 
 ## Proof-Consumer Readback
 
@@ -211,9 +210,8 @@ This module's proof-consumer value is a narrow evidence-accounting readback:
 named validators and tests consume public source refs, fixture-visible routing
 rows, counts, verdict fields, and anti-claims so a reader can see where axiom
 support is computed and where it is capped. These consumers do not expand the
-authority ceiling, admit a capsule subject, certify `strong`, promote candidate
-law, prove axioms in Lean, source Mermaid or Atlas edges, authorize release, or
-mutate source authority.
+authority ceiling, certify `strong`, promote candidate law, prove axioms in
+Lean, authorize release, or mutate source authority.
 
 - `validator.microcosm.axiom_support_cover` consumes
   `core/axiom_organ_routing.json`, `core/organ_evidence_classes.json`,
@@ -245,10 +243,9 @@ mutate source authority.
   projection. It does not treat generated graph, health, Markdown, or Atlas
   output as source evidence.
 - `tests/test_microcosm_paper_module_coverage_contract.py` consumes this
-  Markdown as a legacy re-entry lane by requiring the axiom-support validator
-  locus for `paper_module.microcosm_axiom_substrate` and by preserving the
-  paper-module coverage authority ceiling against release permission, proof
-  correctness, source truth, or candidate-axiom authority.
+  Markdown as a capsule-backed reader lane by requiring the source capsule,
+  axiom-support validator locus, generated projection boundary, and authority
+  ceiling to stay in sync with generated paper-module coverage.
 
 The readback condition is intentionally modest: if those consumers still derive
 bounded support, negative-case and rejection-mapping pressure, source-ref
@@ -259,79 +256,66 @@ repair is in the source owner or validator lane, not in stronger prose here.
 
 ## Subject Admission Audit
 
-A future capsule row needs a resolving paper-module subject before this page
-can leave `blocked_required_subject_gap`. The live subject audit is negative:
+The live subject audit is now split:
 
-- `core/paper_module_capsules.json` does not contain a source-authority row for
-  `paper_module.microcosm_axiom_substrate`; dependency refs from other paper
-  modules are not source authority for this paper-module row.
+- `core/paper_module_capsules.json` contains the source-authority row for
+  `paper_module.microcosm_axiom_substrate`.
+- `core/mechanism_sources.json::mechanisms` contains
+  `mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary`.
+- `src/microcosm_core/validators/axiom_support_cover.py` resolves as the
+  capsule and mechanism code locus.
 - `core/organ_registry.json::implemented_organs` does not contain an accepted
-  `microcosm_axiom_substrate` organ.
-- `core/mechanism_sources.json::mechanisms` does not contain a
-  `mechanism.microcosm_axiom_substrate.*` row.
-- `standards/std_microcosm_axiom.json::relationships.used_by_organs` may name
-  consumers of the axiom standard, but those consumers are not a resolving
-  subject for the paper-module row itself.
+  `microcosm_axiom_substrate` organ, so the mechanism runtime-host edge and
+  Atlas card remain explicitly bounded until an organ-atlas owner admits or
+  remaps that host.
 
 That is why this page routes readers to the public axiom docs, routing JSON,
-validator, standard, and tests without flipping capsule authority. The
-admissible re-entry is a real paper-module capsule row with a resolved organ or
-mechanism subject, followed by serialized doctrine-projection regeneration.
+validator, standard, tests, and generated paper-module sidecar without raising
+the capsule into proof, release, runtime-correctness, or publication authority.
 
 ## Source Authority Re-entry Guard
 
-The blocker for this module is not missing explanatory prose. It is missing an
-admitted capsule subject. `AXIOMS.md`, `PRINCIPLES.md`,
-`ANTI_PRINCIPLES.md`, `core/axiom_organ_routing.json`,
-`standards/std_microcosm_axiom.json`, and
-`src/microcosm_core/validators/axiom_support_cover.py` are real reader evidence,
-but none of them is a resolving `organ` or `mechanism` subject for
-`paper_module.microcosm_axiom_substrate`.
+The closure sequence for this module is source-first:
 
-The next capsule pass must therefore keep the admission order strict:
+1. the mechanism registry admits
+   `mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary`
+   as a read-only validator mechanism;
+2. the paper-module capsule names that mechanism as its resolving subject,
+   names the resolved validator `code_loci`, and retains existing
+   axiom/principle/concept refs plus the same anti-claim ceiling;
+3. owner builders regenerate the mechanism corpus, paper-module corpus, and
+   aggregate doctrine-lattice surfaces from source authority;
+4. readiness evidence must prove `required_subject_gap_ids` no longer includes
+   this module and that Mermaid moved to `available_from_capsule_edges` because
+   the source row exists.
 
-1. land the source-owner row that admits a real organ or mechanism subject for
-   the axiom substrate boundary;
-2. add `paper_module.microcosm_axiom_substrate` to
-   `core/paper_module_capsules.json` with resolved `subjects`, resolved
-   `code_loci`, existing axiom/principle/concept refs, and the same anti-claim
-   ceiling;
-3. regenerate the paper-module corpus and doctrine-lattice aggregate surfaces
-   from source authority;
-4. prove `required_subject_gap_ids` no longer includes this module and that
-   Mermaid/Atlas moved from `blocked_required_subject_gap` only because the
-   source row exists.
-
-Until those conditions are true, this Markdown remains a public-safe reader
-route over axiom support evidence, not source authority for generated lattice
-edges. Generated site availability follows the same source-coupling boundary:
-the website may expose this source page through the existing builder, but
-generated site files should only be regenerated and committed after all dirty
-source inputs are clean or owned and the public-site builder plus secret scan
-pass under claim.
+This Markdown remains a public-safe reader route over axiom support evidence,
+not source authority for claims beyond the capsule edge. Generated site
+availability follows the same source-coupling boundary: the website may expose
+this source page through the existing builder, but generated site files should
+only be regenerated and committed after all dirty source inputs are clean or
+owned and the public-site builder plus secret scan pass under claim.
 
 ## Capsule Re-entry Packet
 
-- current source authority: generated JSON still reports
-  `paper_module_payload.source_authority: legacy_markdown_projection`.
+- current source authority: generated JSON reports
+  `paper_module_payload.source_authority: json_capsule`.
 - generated row source ref:
-  `paper_modules/microcosm_axiom_substrate.md`.
-- current generated projection status: Mermaid `blocked_required_subject_gap`;
-  Atlas `blocked_required_subject_gap`.
+  `core/paper_module_capsules.json::paper_modules[97:paper_module.microcosm_axiom_substrate]`.
+- current generated projection status: Mermaid `available_from_capsule_edges`;
+  Atlas `blocked_until_organ_atlas_owner_lane_binds_edges`.
 - resolved code locus:
   `src/microcosm_core/validators/axiom_support_cover.py`.
-- missing authority edge: no accepted organ or mechanism subject currently
-  resolves this paper-module id, so the capsule registry must not invent a
-  subject row yet.
-- re-entry condition: after the axiom-routing owner admits the required subject,
-  append `paper_module.microcosm_axiom_substrate` to
-  `core/paper_module_capsules.json`, run
-  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and
-  verify Mermaid and Atlas leave the required-subject-gap state.
-- authority ceiling: until that JSON row and owner projections land, this
-  Markdown provides reader evidence only; it does not source Mermaid edges,
-  Atlas cards, axiom promotion, strong-gate certification, release claims,
-  source mutation authority, or aggregate doctrine-lattice coverage.
+- resolving authority edge:
+  `mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary`.
+- regeneration route: after source edits, run
+  `scripts/build_doctrine_projection.py --write-mechanism-corpus`,
+  `scripts/build_doctrine_projection.py --write-paper-module-corpus`, and the
+  aggregate surface builder, then verify the readiness audit.
+- authority ceiling: this Markdown and its generated projections provide reader
+  evidence only; they do not source axiom promotion, strong-gate certification,
+  release claims, source mutation authority, runtime correctness, or aggregate
+  doctrine-lattice completion.
 
 ## Claim Ceiling
 

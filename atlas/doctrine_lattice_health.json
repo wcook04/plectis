@@ -20,10 +20,10 @@
   },
   "code_loci": {
     "counts_by_support_status": {
-      "resolved_path_named_by_source_edges": 99
+      "resolved_path_named_by_source_edges": 100
     },
-    "inbound_edge_count": 292,
-    "known_count": 99,
+    "inbound_edge_count": 295,
+    "known_count": 100,
     "planned_or_unresolved_path_count": 0,
     "planned_or_unresolved_path_details": [],
     "relation_ids": [
@@ -31,7 +31,7 @@
       "organ.implemented_by.code_locus",
       "paper_module.cites.code_locus"
     ],
-    "resolved_path_count": 99,
+    "resolved_path_count": 100,
     "sample_nodes": [
       {
         "authority_boundary": "derived_projection_node_from_source_edges_not_source_file_authority",
@@ -357,19 +357,19 @@
   "doctrine_kinds": {
     "counts_by_relation_id": {
       "skill.acts_on.doctrine_kind": 401,
-      "standard.governs.doctrine_kind": 145
+      "standard.governs.doctrine_kind": 146
     },
     "counts_by_source_kind": {
       "skill": 401,
-      "standard": 145
+      "standard": 146
     },
     "counts_by_support_status": {
-      "resolved_doctrine_kind_contract_from_source_edges": 133
+      "resolved_doctrine_kind_contract_from_source_edges": 134
     },
     "gap_count": 0,
     "gap_details": [],
-    "inbound_edge_count": 546,
-    "known_count": 133,
+    "inbound_edge_count": 547,
+    "known_count": 134,
     "sample_nodes": [
       {
         "authority_boundary": "derived_projection_node_from_standard_skill_kind_edges_not_kind_source_authority",
@@ -735,17 +735,42 @@
       }
     ],
     "skill_acts_on_edge_count": 401,
-    "standard_governs_edge_count": 145,
+    "standard_governs_edge_count": 146,
     "support_scope": "derived from standard.governs and skill.acts_on edges; kind handles are walkability nodes, not complete ontology, runtime use, or release authority"
   },
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
       "covered_edge_count": 200,
-      "missing_edge_count": 0,
-      "missing_edges": [],
+      "missing_edge_count": 4,
+      "missing_edges": [
+        {
+          "consumer_paper_module": "paper_module.microcosm_axiom_substrate",
+          "dependency_paper_module": "paper_module.doctrine_fact_claim_audit",
+          "source_mechanism": "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+          "target_mechanism": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        },
+        {
+          "consumer_paper_module": "paper_module.microcosm_axiom_substrate",
+          "dependency_paper_module": "paper_module.executable_doctrine_grammar",
+          "source_mechanism": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+          "target_mechanism": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        },
+        {
+          "consumer_paper_module": "paper_module.batch8_validator_checker_capsule",
+          "dependency_paper_module": "paper_module.microcosm_axiom_substrate",
+          "source_mechanism": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
+          "target_mechanism": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.microcosm_axiom_substrate",
+          "dependency_paper_module": "paper_module.standards_meta_diagnostics",
+          "source_mechanism": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+          "target_mechanism": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        }
+      ],
       "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
-      "resolved_mechanism_subject_count": 97,
+      "resolved_mechanism_subject_count": 98,
       "sample_covered_edges": [
         {
           "consumer_paper_module": "paper_module.batch10_cold_eval_honesty_capsule",
@@ -826,18 +851,12 @@
         "paper_module_capsules": "core/paper_module_capsules.json",
         "relation_registry": "core/doctrine_lattice_relations.json::mechanism.upstream_of.mechanism"
       },
-      "status": "pass",
-      "unresolved_dependencies": [
-        {
-          "consumer_paper_module": "paper_module.batch8_validator_checker_capsule",
-          "dependency_paper_module": "paper_module.microcosm_axiom_substrate",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        }
-      ],
-      "unresolved_dependency_count": 1
+      "status": "deficit",
+      "unresolved_dependencies": [],
+      "unresolved_dependency_count": 0
     },
-    "json_instance_count": 99,
-    "known_count": 99,
+    "json_instance_count": 100,
+    "known_count": 100,
     "parity_status": "pass",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
@@ -1456,12 +1475,42 @@
         }
       }
     ],
-    "upstream_capsule_dependency_missing_source_declaration_count": 0,
-    "upstream_capsule_dependency_missing_source_declaration_details": [],
+    "upstream_capsule_dependency_missing_source_declaration_count": 1,
+    "upstream_capsule_dependency_missing_source_declaration_details": [
+      {
+        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
+        "capsule_dependency_expected_upstream_of": [
+          "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        ],
+        "capsule_dependency_expected_upstream_of_count": 1,
+        "capsule_dependency_missing_upstream_of": [
+          "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        ],
+        "capsule_dependency_missing_upstream_of_count": 1,
+        "capsule_dependency_unresolved_subject_count": 0,
+        "capsule_dependency_unresolved_subjects": [],
+        "claim_ceiling": "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority",
+        "declared_upstream_of": [],
+        "declared_upstream_of_count": 0,
+        "fillability_status": "capsule_dependency_upstream_target_missing_source_declaration",
+        "instance_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+        "instance_kind": "mechanism",
+        "mechanism_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "requirement": "selective",
+        "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+        "source_refs": {
+          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]"
+        }
+      }
+    ],
     "upstream_capsule_dependency_unresolved_subject_count": 0,
     "upstream_capsule_dependency_unresolved_subject_details": [],
     "upstream_residual_counts_by_fillability_status": {
-      "no_capsule_dependency_upstream_target_named": 37
+      "capsule_dependency_upstream_target_missing_source_declaration": 1,
+      "no_capsule_dependency_upstream_target_named": 36
     },
     "upstream_residual_fillability_detail_count": 37,
     "upstream_residual_fillability_details": [
@@ -2283,16 +2332,20 @@
       },
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "capsule_dependency_expected_upstream_of": [],
-        "capsule_dependency_expected_upstream_of_count": 0,
-        "capsule_dependency_missing_upstream_of": [],
-        "capsule_dependency_missing_upstream_of_count": 0,
+        "capsule_dependency_expected_upstream_of": [
+          "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        ],
+        "capsule_dependency_expected_upstream_of_count": 1,
+        "capsule_dependency_missing_upstream_of": [
+          "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+        ],
+        "capsule_dependency_missing_upstream_of_count": 1,
         "capsule_dependency_unresolved_subject_count": 0,
         "capsule_dependency_unresolved_subjects": [],
         "claim_ceiling": "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority",
         "declared_upstream_of": [],
         "declared_upstream_of_count": 0,
-        "fillability_status": "no_capsule_dependency_upstream_target_named",
+        "fillability_status": "capsule_dependency_upstream_target_missing_source_declaration",
         "instance_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
         "instance_kind": "mechanism",
         "mechanism_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
@@ -3562,26 +3615,24 @@
   },
   "paper_modules": {
     "expected_json_instance_count": 99,
-    "json_capsule_backed_count": 97,
-    "json_capsule_count": 97,
+    "json_capsule_backed_count": 98,
+    "json_capsule_count": 98,
     "json_instance_count": 99,
     "json_instance_parity_status": "pass",
-    "legacy_only_count": 3,
-    "legacy_only_json_instance_count": 3,
+    "legacy_only_count": 1,
+    "legacy_only_json_instance_count": 1,
     "markdown_file_count": 100,
-    "required_subject_gap_count": 3,
+    "required_subject_gap_count": 1,
     "required_subject_gaps": [
-      "paper_module.corpus_readiness_mathlib_absence_gate",
-      "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
-    "residual_relation_count": 41,
+    "residual_relation_count": 29,
     "residual_relation_counts_by_requirement": {
-      "required": 3,
-      "selective": 38
+      "required": 1,
+      "selective": 28
     },
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 26,
+    "unpopulated_selective_edge_count": 24,
     "unpopulated_selective_edges": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3593,7 +3644,6 @@
       "paper_module.batch7_zenith_macos_capsule",
       "paper_module.bridge_phase_continuity_runtime",
       "paper_module.cognitive_operator_registry",
-      "paper_module.corpus_readiness_mathlib_absence_gate",
       "paper_module.durable_agent_work_landing_replay",
       "paper_module.engine_room_generated_projection_drift_gate",
       "paper_module.executable_doctrine_grammar",
@@ -3601,7 +3651,6 @@
       "paper_module.first_screen_composition_root",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay",
-      "paper_module.microcosm_axiom_substrate",
       "paper_module.mission_transaction_work_spine",
       "paper_module.proof_derived_governed_mutation_authorization",
       "paper_module.public_reveal_walkthrough",
@@ -3610,9 +3659,9 @@
       "paper_module.tactic_portfolio_availability_probe",
       "paper_module.world_model_projection_drift_control_room"
     ],
-    "unpopulated_selective_relation_count": 38,
+    "unpopulated_selective_relation_count": 28,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 38
+      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 28
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "paper_module.agent_memory_temporal_conflict_replay": 1,
@@ -3625,7 +3674,6 @@
       "paper_module.batch7_zenith_macos_capsule": 1,
       "paper_module.bridge_phase_continuity_runtime": 1,
       "paper_module.cognitive_operator_registry": 1,
-      "paper_module.corpus_readiness_mathlib_absence_gate": 5,
       "paper_module.durable_agent_work_landing_replay": 1,
       "paper_module.engine_room_generated_projection_drift_gate": 1,
       "paper_module.executable_doctrine_grammar": 1,
@@ -3633,7 +3681,6 @@
       "paper_module.first_screen_composition_root": 1,
       "paper_module.indirect_prompt_injection_information_flow_policy_replay": 1,
       "paper_module.mcp_tool_authority_replay": 1,
-      "paper_module.microcosm_axiom_substrate": 5,
       "paper_module.mission_transaction_work_spine": 1,
       "paper_module.proof_derived_governed_mutation_authorization": 1,
       "paper_module.public_reveal_walkthrough": 1,
@@ -3643,45 +3690,17 @@
       "paper_module.world_model_projection_drift_control_room": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 38
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 28
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 3,
-      "paper_module.cites.code_locus": 3,
-      "paper_module.depends_on.paper_module": 26,
-      "paper_module.governed_by.concept": 3,
-      "paper_module.governed_by.principle": 3
+      "paper_module.abides_by.axiom": 1,
+      "paper_module.cites.code_locus": 1,
+      "paper_module.depends_on.paper_module": 24,
+      "paper_module.governed_by.concept": 1,
+      "paper_module.governed_by.principle": 1
     },
-    "unpopulated_selective_relation_detail_count": 38,
+    "unpopulated_selective_relation_detail_count": 28,
     "unpopulated_selective_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.microcosm_axiom_substrate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.microcosm_axiom_substrate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/microcosm_axiom_substrate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/microcosm_axiom_substrate.md"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.tactic_portfolio_availability_probe",
@@ -3694,34 +3713,6 @@
         "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
         "source_refs": {
           "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.microcosm_axiom_substrate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.microcosm_axiom_substrate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/microcosm_axiom_substrate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/microcosm_axiom_substrate.md"
         }
       },
       {
@@ -3880,20 +3871,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.durable_agent_work_landing_replay",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.durable_agent_work_landing_replay",
@@ -3988,20 +3965,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[39:paper_module.mcp_tool_authority_replay]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[39:paper_module.mcp_tool_authority_replay]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.microcosm_axiom_substrate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.microcosm_axiom_substrate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/microcosm_axiom_substrate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/microcosm_axiom_substrate.md"
         }
       },
       {
@@ -4104,34 +4067,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.microcosm_axiom_substrate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.microcosm_axiom_substrate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/microcosm_axiom_substrate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/microcosm_axiom_substrate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.tactic_portfolio_availability_probe",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
@@ -4142,34 +4077,6 @@
         "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
         "source_refs": {
           "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.microcosm_axiom_substrate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.microcosm_axiom_substrate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/microcosm_axiom_substrate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/microcosm_axiom_substrate.md"
         }
       },
       {
@@ -4189,10 +4096,9 @@
     ],
     "without_json_capsule": [
       "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-      "paper_modules/microcosm_axiom_substrate.md",
       "paper_modules/tactic_portfolio_availability_probe.md"
     ],
-    "without_json_capsule_count": 3
+    "without_json_capsule_count": 2
   },
   "principles": {
     "expected_json_instance_count": 20,
@@ -4221,15 +4127,15 @@
   },
   "receipts": {
     "counts_by_support_status": {
-      "declared_receipt_ref_not_file_resolved": 2,
+      "declared_receipt_ref_not_file_resolved": 3,
       "nonlocal_receipt_path_resolved_not_public_evidence": 7,
-      "receipt_path_resolved": 478,
+      "receipt_path_resolved": 479,
       "symbolic_receipt_id_declared_not_file_resolved": 129
     },
-    "declared_ref_count": 2,
-    "edge_count": 1343,
+    "declared_ref_count": 3,
+    "edge_count": 1346,
     "gap_details": [],
-    "known_count": 616,
+    "known_count": 618,
     "missing_ref_count": 0,
     "missing_ref_details": [],
     "nonlocal_ref_count": 7,
@@ -4413,7 +4319,7 @@
       "standard.evidenced_by.receipt"
     ],
     "resolved_nonlocal_ref_count": 7,
-    "resolved_path_count": 478,
+    "resolved_path_count": 479,
     "sample_nodes": [
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
@@ -4436,6 +4342,28 @@
         ],
         "support_status": "declared_receipt_ref_not_file_resolved",
         "title": ".microcosm/cold_clone_probe.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
+        "gap_count": 0,
+        "id": "core/doctrine_enrichment_health.json",
+        "inbound_edge_count": 1,
+        "kind": "receipt",
+        "path_exists": null,
+        "relation_ids": [
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": null,
+        "source_ids": [
+          "standard:std_microcosm_doctrine_enrichment"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "standards/std_microcosm_doctrine_enrichment.json.receipt_refs[0]"
+        ],
+        "support_status": "declared_receipt_ref_not_file_resolved",
+        "title": "core/doctrine_enrichment_health.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
@@ -4656,28 +4584,6 @@
         ],
         "support_status": "symbolic_receipt_id_declared_not_file_resolved",
         "title": "receipt.microcosm.anti_claim"
-      },
-      {
-        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
-        "claim_ceiling": "receipt_ref_presence_or_file_existence_not_proof_runtime_correctness_or_release_authority",
-        "gap_count": 0,
-        "id": "receipt.microcosm.anti_principle",
-        "inbound_edge_count": 1,
-        "kind": "receipt",
-        "path_exists": null,
-        "relation_ids": [
-          "standard.evidenced_by.receipt"
-        ],
-        "residual_pressure_ref": null,
-        "source_ids": [
-          "standard:std_microcosm_anti_principle"
-        ],
-        "source_ref": null,
-        "source_refs": [
-          "standards/std_microcosm_anti_principle.json.receipt_refs[0]"
-        ],
-        "support_status": "symbolic_receipt_id_declared_not_file_resolved",
-        "title": "receipt.microcosm.anti_principle"
       }
     ],
     "support_scope": "derived from receipt_refs on source instances; receipt existence is not proof, and nonlocal path walkability is not runtime correctness, release authority, or source evidence laundering",
@@ -5273,9 +5179,9 @@
       }
     ],
     "governs_kind_missing_required_count": 0,
-    "governs_kind_resolved_edge_count": 145,
+    "governs_kind_resolved_edge_count": 146,
     "governs_kind_unresolved_edge_count": 0,
-    "json_instance_count": 145,
+    "json_instance_count": 146,
     "json_instance_parity_status": "pass",
     "legacy_or_draft_contract_count": 11,
     "legacy_or_draft_contract_counts_by_projection_status": {
@@ -5509,7 +5415,7 @@
     ],
     "missing_standard_id_file_count": 0,
     "missing_standard_id_files": [],
-    "registry_expected_count": 145,
+    "registry_expected_count": 146,
     "required_edge_gap_count": 0,
     "required_edge_gaps": [],
     "required_relation_gap_count": 0,
@@ -5519,12 +5425,10 @@
     "support_scope": "standard JSON files are inventory-backed contract nodes; governed-kind, triad-skill, source-declared used_by_organs, and target-organ admission status are computed separately from contract activation, organ acceptance, or runtime use claims",
     "triad_skill_missing_required_count": 0,
     "triad_skill_planned_unresolved_edge_count": 0,
-    "triad_skill_resolved_edge_count": 435,
+    "triad_skill_resolved_edge_count": 438,
     "triad_skill_unresolved_edge_count": 0,
-    "unregistered_standard_file_count": 1,
-    "unregistered_standard_file_ids": [
-      "std_microcosm_doctrine_enrichment"
-    ],
+    "unregistered_standard_file_count": 0,
+    "unregistered_standard_file_ids": [],
     "used_by_organ_admission_counts_by_admission_status": {
       "target_organ_not_accepted_current_authority": 28
     },

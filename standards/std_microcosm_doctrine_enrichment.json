@@ -1,8 +1,39 @@
 {
   "standard_id": "std_microcosm_doctrine_enrichment",
-  "schema_version": "microcosm_doctrine_enrichment_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "title": "Doctrine enrichment envelope",
   "status": "active",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "kind_id": "doctrine_enrichment",
+  "kind_name": "Doctrine enrichment envelope",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.doctrine_roof.author",
+      "status": "active",
+      "purpose": "author governed doctrine-enrichment envelope rows under the doctrine roof authority ceiling"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.doctrine_roof.refine_instance",
+      "status": "active",
+      "purpose": "refine doctrine-enrichment projections without treating reader fields or health counts as support evidence"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.doctrine_roof.refine_standard_and_propagate",
+      "status": "active",
+      "purpose": "change the doctrine-enrichment standard and propagate through checker, health projection, and focused tests"
+    }
+  },
+  "relationships": {
+    "used_by_organs": []
+  },
+  "validator_refs": [
+    "scripts/build_doctrine_enrichment_health.py --check",
+    "scripts/check_doctrine_formal_soundness.py --check",
+    "scripts/check_doctrine_reader_ladder.py --check"
+  ],
+  "receipt_refs": [
+    "core/doctrine_enrichment_health.json"
+  ],
   "purpose": "Define the reader-enrichment envelope that turns a doctrine object (axiom, principle, anti-principle) from a one-line rule row into a drill-down doctrine cell: a deep reading, a formal statement with a symbol table, the problem it governs, what it requires and refuses, a worked example wired to a real component, the tempting mistake, the enforcement routes, and the bound on what it proves. The same health gate also carries the routing-floor extension beyond those 49 reader cards: governed concept rows must expose source-backed, checker-readable routes to mechanism substrate, and governed mechanism rows must expose source-backed, checker-readable routes to sibling concepts plus resolved runtime code loci without treating route presence as support evidence. Paper-module readiness is exposed as a separate frontier audit so legacy-only rows and required subject gaps remain visible without claiming paper-module floor completion.",
   "source_of_record": "microcosm-substrate/core/doctrine_enrichment.json",
   "consumed_by": [

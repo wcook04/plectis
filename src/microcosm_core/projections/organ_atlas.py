@@ -113,7 +113,9 @@ PUBLIC_SCOPE_LINE = (
     "source-linked components, not as maturity, completeness, or release signals. "
     "Evidence classes describe bounded result-record strength for each component. "
     "The public scope stops at local inspection, source records, fixture replay, "
-    "and component-specific evidence."
+    "and component-specific evidence. It does not authorize release, provider "
+    "access, source mutation, private-root equivalence, proof authority, or "
+    "whole-system correctness."
 )
 
 CLAIM_CEILING_LINE = PUBLIC_SCOPE_LINE

@@ -139,38 +139,36 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     paper_modules = report["paper_module_readiness_audit"]
 
     assert report["reader_enrichment_total_objects"] == 49
-    assert report["governed_floor_total_objects"] == 159
+    assert report["governed_floor_total_objects"] == 160
     assert routing["status"] == "complete"
     assert routing["covered_kinds"] == ["concept", "mechanism"]
     assert concept["total"] == 11
     assert concept["routed"] == 11
     assert concept["incomplete_ids"] == []
     assert concept["issue_rows"] == []
-    assert mechanism["total"] == 99
-    assert mechanism["routed"] == 99
+    assert mechanism["total"] == 100
+    assert mechanism["routed"] == 100
     assert mechanism["incomplete_ids"] == []
     assert mechanism["issue_rows"] == []
     assert mechanism["known_residual_selective_relation_row_count"] == 37
     assert mechanism["known_residual_selective_relation_count"] == 37
-    assert mechanism["planned_edge_row_count"] == 3
-    assert mechanism["planned_edge_count"] == 3
+    assert mechanism["planned_edge_row_count"] == 4
+    assert mechanism["planned_edge_count"] == 4
     assert paper_modules["status"] == "frontier"
     assert paper_modules["readiness_complete"] is False
     assert paper_modules["total_objects"] == 99
-    assert paper_modules["ready_objects"] == 97
+    assert paper_modules["ready_objects"] == 98
     assert paper_modules["source_authority_counts"] == {
-        "json_capsule": 97,
-        "legacy_markdown_projection": 2,
+        "json_capsule": 98,
+        "legacy_markdown_projection": 1,
     }
-    assert paper_modules["required_residual_relation_count"] == 2
-    assert paper_modules["selective_residual_relation_count"] == 33
-    assert paper_modules["residual_relation_count"] == 35
+    assert paper_modules["required_residual_relation_count"] == 1
+    assert paper_modules["selective_residual_relation_count"] == 28
+    assert paper_modules["residual_relation_count"] == 29
     assert paper_modules["required_gap_ids"] == [
-        "paper_module.microcosm_axiom_substrate",
         "paper_module.tactic_portfolio_availability_probe",
     ]
     assert paper_modules["incomplete_ids"] == [
-        "paper_module.microcosm_axiom_substrate",
         "paper_module.tactic_portfolio_availability_probe",
     ]
     assert report["status"] == "complete"
