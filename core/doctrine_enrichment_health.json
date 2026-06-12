@@ -99,14 +99,14 @@
       "selective residual relations counted as frontier pressure"
     ],
     "residual_policy": "Required paper-module residuals block readiness. Selective residuals are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-    "residual_relation_count": 23,
+    "residual_relation_count": 22,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 23
+      "paper_module.depends_on.paper_module": 22
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 23
+      "selective": 22
     },
-    "residual_relation_row_count": 23,
+    "residual_relation_row_count": 22,
     "residual_relation_rows": [
       {
         "count": 1,
@@ -224,12 +224,6 @@
       },
       {
         "count": 1,
-        "id": "paper_module.public_reveal_walkthrough",
-        "required_count": 0,
-        "selective_count": 1
-      },
-      {
-        "count": 1,
         "id": "paper_module.sleeper_memory_poisoning_quarantine_replay",
         "required_count": 0,
         "selective_count": 1
@@ -248,7 +242,7 @@
       }
     ],
     "schema_version": "microcosm_paper_module_readiness_audit_v1",
-    "selective_residual_relation_count": 23,
+    "selective_residual_relation_count": 22,
     "source_authority_counts": {
       "json_capsule": 98
     },
@@ -307,8 +301,8 @@
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 37,
-        "known_residual_selective_relation_row_count": 37,
+        "known_residual_selective_relation_count": 36,
+        "known_residual_selective_relation_row_count": 36,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -445,10 +439,6 @@
           {
             "count": 1,
             "id": "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
           },
           {
             "count": 1,

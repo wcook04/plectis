@@ -1599,7 +1599,8 @@
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_executable_doctrine_grammar.py -q"
       },
       "upstream_of": [
-        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
       ]
     },
     {
@@ -4349,6 +4350,9 @@
         "concept.standards_meta_diagnostics_bundle",
         "concept.architecture_and_navigation_route_contract_bundle"
       ],
+      "upstream_of": [
+        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+      ],
       "statement": "The standards meta diagnostics organ validates public projection-only diagnostics over accepted-organ standards inventory, runtime contracts, receipt refs, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without becoming source authority for standards_registry, authorizing source mutation, provider dispatch, release, publication, or whole-system correctness claims.",
       "code_loci": [
         {
@@ -5099,6 +5103,7 @@
       ],
       "upstream_of": [
         "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
         "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger"
       ],
       "concept_refs": [
@@ -6762,8 +6767,7 @@
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_axiom_organ_routing.py tests/test_axiom_support_cover.py -q"
       },
       "upstream_of": [
-        "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
-        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+        "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule"
       ]
     }
   ]

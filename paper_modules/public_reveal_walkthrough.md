@@ -100,9 +100,10 @@ Evidence/accounting:
   `paper_modules/public_reveal_walkthrough.json` reports
   `source_authority: json_capsule`, Mermaid
   `available_from_capsule_edges`, Atlas
-  `linked_from_capsule_edges_after_atlas_binding`, 19 relationship edges, and
-  one visible `paper_module.depends_on.paper_module` residual pressure because
-  no sibling/dependency module id is bound in the capsule row.
+  `linked_from_capsule_edges_after_atlas_binding`, 20 relationship edges, and
+  a resolved `paper_module.depends_on.paper_module` edge to
+  `paper_module.first_screen_composition_root` because the reveal path spends
+  the first-screen composition contract before deeper route/evidence drilldown.
 - Runtime and shell consumers:
   `src/microcosm_core/organs/public_reveal_walkthrough.py` exposes `run`,
   `run_reveal_bundle`, `_source_module_manifest_result`,

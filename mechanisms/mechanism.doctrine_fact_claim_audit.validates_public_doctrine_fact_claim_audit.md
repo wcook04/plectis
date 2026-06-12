@@ -16,6 +16,7 @@ The doctrine fact-claim audit organ validates fact assertions, numeric claim bin
 - `runs_in` -> `organ:doctrine_fact_claim_audit` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger` (resolved_json_instance)
 
 ## Anti-Claims

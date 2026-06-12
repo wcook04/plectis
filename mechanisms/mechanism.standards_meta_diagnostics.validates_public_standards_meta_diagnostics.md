@@ -16,7 +16,7 @@ The standards meta diagnostics organ validates public projection-only diagnostic
 - `runs_in` -> `organ:standards_meta_diagnostics` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.standards_meta_diagnostics_bundle` (resolved_json_instance)
 - `grounds` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary` (resolved_json_instance)
 
 ## Anti-Claims
 

@@ -91,6 +91,9 @@
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
       ],
+      "depends_on": [
+        "paper_module.first_screen_composition_root"
+      ],
       "generated_projections": {
         "atlas_card": {
           "generated": true,
@@ -172,7 +175,9 @@
     "concept_refs": [
       "concept.entry_and_reveal_route_readiness_bundle"
     ],
-    "depends_on": [],
+    "depends_on": [
+      "paper_module.first_screen_composition_root"
+    ],
     "edges": [
       {
         "justification": {
@@ -410,6 +415,19 @@
       },
       {
         "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[28:paper_module.public_reveal_walkthrough].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.first_screen_composition_root",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[28:paper_module.public_reveal_walkthrough].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for public reveal fixture validation, exported reveal bundle validation, source-module digest checks, negative-case enforcement, cards, and authority ceilings."
         },
@@ -446,15 +464,7 @@
         "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough"
       }
     ],
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ]
+    "unpopulated_selective_relations": []
   },
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [

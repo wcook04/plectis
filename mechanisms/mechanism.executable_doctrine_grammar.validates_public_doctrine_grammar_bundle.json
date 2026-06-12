@@ -213,7 +213,8 @@
       "statement": "The executable doctrine grammar organ validates public standards and paper-module grammar fixtures by checking required standard fields, paper-module teleology/governing-standard/receipt/anti-claim sections, duplicate slugs, prose-runtime authority claims, doctrine-completeness overclaims, copied executable-grammar and standards/type-plane source-module digests, source-open body-import accounting, and private-state exclusion before writing bounded body-free receipts.",
       "status": "active",
       "upstream_of": [
-        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
       ]
     },
     "support_contract": {
@@ -356,6 +357,19 @@
         "target_id": "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
@@ -364,7 +378,8 @@
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
-      "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+      "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+      "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
     ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",

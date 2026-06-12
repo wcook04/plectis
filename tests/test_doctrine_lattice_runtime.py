@@ -7169,6 +7169,37 @@ def test_public_reveal_walkthrough_population_has_capsule_mechanism_and_manifest
         atlas_mechanism_id=mechanism_id,
         code_path="src/microcosm_core/organs/public_reveal_walkthrough.py",
     )
+    paper_module = json.loads(
+        (
+            MICROCOSM_ROOT / "paper_modules/public_reveal_walkthrough.json"
+        ).read_text(encoding="utf-8")
+    )
+    depends_edges = [
+        edge
+        for edge in paper_module["relationships"]["edges"]
+        if edge["relation_id"] == "paper_module.depends_on.paper_module"
+    ]
+    assert depends_edges == [
+        {
+            "relation_id": "paper_module.depends_on.paper_module",
+            "relation_verb": "depends_on",
+            "reverse_verb": "depended_on_by",
+            "target_kind": "paper_module",
+            "target_id": "paper_module.first_screen_composition_root",
+            "target_status": "resolved_json_instance",
+            "justification": {
+                "source_ref": (
+                    "core/paper_module_capsules.json::paper_modules"
+                    "[28:paper_module.public_reveal_walkthrough].depends_on"
+                ),
+                "summary": (
+                    "Paper-module source row names this sibling/dependency "
+                    "paper module."
+                ),
+            },
+            "residual_pressure_ref": None,
+        }
+    ]
 
     standard = json.loads(
         (

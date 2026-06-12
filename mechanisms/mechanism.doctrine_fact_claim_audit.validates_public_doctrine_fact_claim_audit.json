@@ -193,6 +193,7 @@
       "status": "active",
       "upstream_of": [
         "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
         "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger"
       ]
     },
@@ -329,6 +330,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -341,6 +355,7 @@
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+      "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
       "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger"
     ]
   },

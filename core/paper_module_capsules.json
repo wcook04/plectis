@@ -2240,6 +2240,9 @@
       ],
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
+      ],
+      "depends_on": [
+        "paper_module.first_screen_composition_root"
       ]
     },
     {

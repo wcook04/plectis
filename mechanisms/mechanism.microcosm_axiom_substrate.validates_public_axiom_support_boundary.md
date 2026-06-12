@@ -15,8 +15,7 @@ The Microcosm axiom substrate support-cover evaluator projects public axiom supp
 - `grounded_in` -> `code_locus:src/microcosm_core/validators/axiom_support_cover.py` (resolved_code_locus)
 - `runs_in` -> `organ:microcosm_axiom_substrate` (planned_registry_or_atlas_target)
 - `grounds` -> `concept:concept.executable_doctrine_grammar_standard_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule` (resolved_json_instance)
 
 ## Anti-Claims
 

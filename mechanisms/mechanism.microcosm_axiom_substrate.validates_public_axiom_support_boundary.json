@@ -192,8 +192,7 @@
       "statement": "The Microcosm axiom substrate support-cover evaluator projects public axiom support cases, support frontiers, anti-axiom rejection mappings, principle support inheritance, and strong-gate pressure from routing, standards, doctrine, and receipt evidence without proving axioms, promoting candidate law, authorizing source mutation, or raising release/publication/runtime-correctness authority.",
       "status": "active",
       "upstream_of": [
-        "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
-        "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+        "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule"
       ]
     },
     "support_contract": {
@@ -311,20 +310,7 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
-        "target_id": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[99:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
-        "target_id": "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+        "target_id": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
       }
@@ -335,8 +321,7 @@
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[99:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
-      "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
-      "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit"
+      "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule"
     ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",

@@ -2949,6 +2949,13 @@ def _organ_wires_to_fillability_detail_rows(
         if mechanism_id and host_organs:
             mechanism_to_organ[mechanism_id] = host_organs[0]
 
+    declared_by_organ = {
+        str(organ.get("id") or ""): set(_strings(organ.get("wires_to")))
+        for organ in organ_instances
+        if organ.get("id")
+    }
+    known_organ_ids = set(declared_by_organ)
+
     expected_by_organ: dict[str, set[str]] = {}
     for mechanism in mechanism_instances:
         mechanism_id = str(mechanism.get("id") or "")
@@ -2958,14 +2965,12 @@ def _organ_wires_to_fillability_detail_rows(
         relationships = _as_dict(mechanism.get("relationships"))
         for target_mechanism in _strings(relationships.get("upstream_mechanism_refs")):
             target_organ = mechanism_to_organ.get(target_mechanism, "")
-            if target_organ and target_organ != source_organ:
+            if (
+                target_organ
+                and target_organ in known_organ_ids
+                and target_organ != source_organ
+            ):
                 expected_by_organ.setdefault(source_organ, set()).add(target_organ)
-
-    declared_by_organ = {
-        str(organ.get("id") or ""): set(_strings(organ.get("wires_to")))
-        for organ in organ_instances
-        if organ.get("id")
-    }
     rows: list[dict[str, Any]] = []
     for residual in organ_selective_relation_details:
         if residual.get("relation_id") != "organ.wires_to.organ":

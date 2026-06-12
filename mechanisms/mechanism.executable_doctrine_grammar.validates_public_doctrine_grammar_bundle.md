@@ -17,6 +17,7 @@ The executable doctrine grammar organ validates public standards and paper-modul
 - `grounds` -> `concept:concept.executable_doctrine_grammar_standard_bundle` (resolved_json_instance)
 - `grounds` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary` (resolved_json_instance)
 
 ## Anti-Claims
 

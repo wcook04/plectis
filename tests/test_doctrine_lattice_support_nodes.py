@@ -484,9 +484,10 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
     paper_module_instance_counts = dict(
         sorted(Counter(row["paper_module_id"] for row in paper_module_details).items())
     )
-    paper_module_required_count = paper_modules[
+    paper_module_requirement_counts = paper_modules[
         "residual_relation_counts_by_requirement"
-    ]["required"]
+    ]
+    paper_module_required_count = paper_module_requirement_counts.get("required", 0)
     assert paper_modules["unpopulated_selective_edge_count"] == len(
         {row["paper_module_id"] for row in paper_module_details}
     )
@@ -496,10 +497,14 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
     assert paper_modules["residual_relation_count"] == (
         paper_module_required_count + len(paper_module_details)
     )
-    assert paper_modules["residual_relation_counts_by_requirement"] == {
-        "required": paper_module_required_count,
+    expected_paper_module_requirement_counts = {
         "selective": len(paper_module_details),
     }
+    if paper_module_required_count:
+        expected_paper_module_requirement_counts["required"] = (
+            paper_module_required_count
+        )
+    assert paper_module_requirement_counts == expected_paper_module_requirement_counts
     assert paper_modules[
         "unpopulated_selective_relation_counts_by_relation_id"
     ] == paper_module_relation_counts
@@ -519,11 +524,7 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
         ),
     }
     assert set(paper_module_relation_counts) == {
-        "paper_module.abides_by.axiom",
-        "paper_module.cites.code_locus",
         "paper_module.depends_on.paper_module",
-        "paper_module.governed_by.concept",
-        "paper_module.governed_by.principle",
     }
     assert (
         "required subject residuals and selective relation residuals remain typed separately"

@@ -150,8 +150,8 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     assert mechanism["routed"] == 100
     assert mechanism["incomplete_ids"] == []
     assert mechanism["issue_rows"] == []
-    assert mechanism["known_residual_selective_relation_row_count"] == 37
-    assert mechanism["known_residual_selective_relation_count"] == 37
+    assert mechanism["known_residual_selective_relation_row_count"] == 36
+    assert mechanism["known_residual_selective_relation_count"] == 36
     assert mechanism["planned_edge_row_count"] == 4
     assert mechanism["planned_edge_count"] == 4
     assert paper_modules["status"] == "complete"
@@ -162,8 +162,8 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
         "json_capsule": 98,
     }
     assert paper_modules["required_residual_relation_count"] == 0
-    assert paper_modules["selective_residual_relation_count"] == 23
-    assert paper_modules["residual_relation_count"] == 23
+    assert paper_modules["selective_residual_relation_count"] == 22
+    assert paper_modules["residual_relation_count"] == 22
     assert paper_modules["required_gap_ids"] == []
     assert paper_modules["incomplete_ids"] == []
     assert report["status"] == "complete"
