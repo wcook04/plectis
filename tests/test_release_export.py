@@ -172,7 +172,12 @@ def test_exported_overnight_test_capsule_uses_public_example_home_only() -> None
     assert private_home_prefix not in text.replace(public_example_home, "")
 
 
-def test_exported_macro_source_modules_use_public_example_home_only() -> None:
+def test_exported_macro_source_modules_use_public_safe_homes_only() -> None:
+    """Copied macro bodies may carry only the two public-safe home spellings:
+    /Users/example (the export replacement home) and /Users/operator (the house
+    synthetic-fixture convention, admitted by the contamination policy and a
+    rewrite fixed point so exact-copy digest pins survive the export boundary).
+    Any other /Users/<name> is a real-home leak."""
     root = Path(__file__).resolve().parents[1]
     source_modules_root = (
         root
@@ -180,7 +185,10 @@ def test_exported_macro_source_modules_use_public_example_home_only() -> None:
         "source_modules"
     )
     private_home_prefix = "/" + "Users" + "/"
-    public_example_home = private_home_prefix + "example"
+    public_safe_homes = (
+        private_home_prefix + "example",
+        private_home_prefix + "operator",
+    )
     violations: list[str] = []
 
     for source in sorted(source_modules_root.rglob("*")):
@@ -194,7 +202,9 @@ def test_exported_macro_source_modules_use_public_example_home_only() -> None:
         }:
             continue
         text = source.read_text(encoding="utf-8", errors="ignore")
-        if private_home_prefix in text.replace(public_example_home, ""):
+        for safe_home in public_safe_homes:
+            text = text.replace(safe_home, "")
+        if private_home_prefix in text:
             violations.append(source.relative_to(root).as_posix())
 
     assert violations == []
@@ -852,6 +862,7 @@ def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
     root = _make_release_root(tmp_path / "source")
     private_home = "/" + "Users" + "/willcook/src/ai_workflow"
     public_home = "/" + "Users" + "/example/src/ai_workflow"
+    fixture_home = "/" + "Users" + "/operator/src/ai_workflow"
     generic_private_home_re = r"/" + r"Users/[A-Za-z0-9_.-]+"
     source_module = (
         root
@@ -862,6 +873,7 @@ def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
         source_module,
         f'DEFAULT_HOME = "{private_home}"\n'
         f'PUBLIC_HOME = "{public_home}"\n'
+        f'FIXTURE_HOME = "{fixture_home}"\n'
         f'GENERIC_PRIVATE_HOME_RE = r"{generic_private_home_re}"\n',
     )
 
@@ -883,6 +895,10 @@ def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
     assert receipt["status"] == "pass"
     assert private_home not in target_text
     assert public_home in target_text
+    # The synthetic fixture home is a rewrite fixed point: convention-following
+    # imported bodies must survive the export boundary byte-identical so their
+    # exact-copy digest pins keep holding.
+    assert fixture_home in target_text
     assert f'r"{generic_private_home_re}"' in target_text
     redaction = receipt["exclusion_receipt"]["source_module_home_redaction"]
     assert redaction == {

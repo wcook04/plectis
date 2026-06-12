@@ -278,7 +278,16 @@ STRONG_SECRET_PATTERNS = (
 HOST_TEMP_ROOT_NEEDLE = "/private/" + "var/folders/"
 HOST_TEMP_SYNTHETIC_EXAMPLE_NEEDLE = HOST_TEMP_ROOT_NEEDLE + "wn/example/"
 PUBLIC_EXAMPLE_HOME = "/Users/example"
-CONCRETE_HOME_PATH_RE = re.compile(r"/Users/(?!example(?:/|$))[A-Za-z0-9_.-]+")
+# /Users/example is the public replacement home; /Users/operator is the house
+# synthetic-fixture convention (see _scan_source_modules contamination policy:
+# "synthetic /Users/operator ... is allowed"). Both are rewrite fixed points —
+# rewriting the blessed synthetic home would break exact-copy body digest pins
+# for every convention-following imported body while adding no privacy, because
+# the value is synthetic by construction and the contamination scan already
+# admits it.
+CONCRETE_HOME_PATH_RE = re.compile(
+    r"/Users/(?!(?:example|operator)(?:/|$))[A-Za-z0-9_.-]+"
+)
 EXTERNAL_WARNING_CLASSIFICATION_ROWS = (
     {
         "warning_id": "historical_evidence_durability_backlog",
@@ -591,7 +600,7 @@ def _copy_allowed_files(
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """
     - Teleology: materialize the kept files into the artifact tree and build the per-file inventory, redacting concrete home paths in source_modules.
-    - Guarantee: each allowed file is copied to target/<rel>; text files under a source_modules path get concrete /Users/<name> rewritten to /Users/example; returns sorted inventory rows (path/role/size/sha256) and sorted home-redaction rows.
+    - Guarantee: each allowed file is copied to target/<rel>; text files under a source_modules path get concrete /Users/<name> rewritten to /Users/example, except the synthetic fixture home /Users/operator, which is copied verbatim so exact-copy body digest pins survive the export boundary; returns sorted inventory rows (path/role/size/sha256) and sorted home-redaction rows.
     - Fails: unwritable destination or unreadable source -> OSError; binary/large files are copied verbatim without redaction.
     - Reads: the source files in `files`; Writes: redacted-or-verbatim copies under target.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond home-path redaction, release, or whole-system correctness.
