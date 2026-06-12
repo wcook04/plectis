@@ -26,5 +26,36 @@
     "source_ref": "tools/oracle/run_quartet.py::run_missing_quartet",
     "reason": "run_missing_quartet can invoke GodModeEngine and remains outside this public-safe deterministic capsule."
   },
-  "body_in_receipt": false
+  "body_in_receipt": false,
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_body",
+    "body_material_count": 6,
+    "body_material_ids": [
+      "tools/oracle/subject_index.py",
+      "tools/oracle/subject_snapshot.py",
+      "tools/oracle/truth_diff_macro.py",
+      "tools/oracle/run_quartet.py",
+      "system/server/tests/test_oracle_v1_tools.py",
+      "system/server/tests/test_evolve_runner.py"
+    ],
+    "material_classes": [
+      "public_macro_oracle_tool_python_body",
+      "public_macro_server_test_python_body"
+    ],
+    "aggregate_floor_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+    "source_manifest_refs": [
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Inspect the Batch 7 Oracle Sibling source_module_manifest and rerun the capsule validator before treating the workingness row as source-body evidence.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "provider_dispatch": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "test_completeness_proof": false
+    }
+  }
 }

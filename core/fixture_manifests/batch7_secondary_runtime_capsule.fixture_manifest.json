@@ -17,5 +17,43 @@
     "batch7_secondary_exercise_manifest.json"
   ],
   "schema_version": "microcosm_fixture_manifest_v1",
-  "source_manifest_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json"
+  "source_manifest_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_body",
+    "body_material_count": 13,
+    "body_material_ids": [
+      "system/server/ui/src/components/world/agentTraceViewModel.ts",
+      "system/server/ui/src/components/world/__tests__/agentTraceViewModel.test.ts",
+      "system/server/ui/src/components/world/laneProgress.ts",
+      "system/server/ui/src/components/world/__tests__/laneProgress.test.ts",
+      "system/server/ui/src/components/graph/universalGraphLens.ts",
+      "system/server/ui/src/components/graph/__tests__/universalGraphLens.test.ts",
+      "system/server/ui/src/components/graph/graphProjection.ts",
+      "system/server/ui/src/lib/capCartographyShadowRender.ts",
+      "system/server/ui/src/lib/__tests__/capCartographyShadowRender.test.ts",
+      "tools/stockgrid/stockgrid.py",
+      "tools/polymarket/clob_snapshot.py",
+      "tools/polymarket/score.py",
+      "tools/polymarket/models.py"
+    ],
+    "material_classes": [
+      "public_macro_frontend_typescript_body",
+      "public_macro_market_tool_python_body"
+    ],
+    "aggregate_floor_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json",
+    "source_manifest_refs": [
+      "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Inspect the Batch 7 Secondary Runtime source_module_manifest and rerun the capsule validator before treating the workingness row as source-body evidence.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "provider_dispatch": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "test_completeness_proof": false
+    }
+  }
 }
