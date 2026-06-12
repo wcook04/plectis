@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,16 @@ EXPORTED_BUNDLE = (
     / "examples/batch7_zenith_macos_capsule/exported_batch7_zenith_macos_capsule_bundle"
 )
 SOURCE_MODULE_MANIFEST = EXPORTED_BUNDLE / "source_module_manifest.json"
+
+
+def _module_cli_env() -> dict[str, str]:
+    # The documented public entry is `PYTHONPATH=src python3 -m microcosm_core`;
+    # pytest's pythonpath config is process-local, so a bare sys.executable
+    # subprocess only imports microcosm_core when a stale editable install
+    # happens to exist. Pass the contract env explicitly.
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(MICROCOSM_ROOT / "src")
+    return env
 
 
 def _sha256(path: Path) -> str:
@@ -352,6 +363,8 @@ def test_batch7_zenith_card_omits_private_bodies(
             str(tmp_path_factory.mktemp("batch7_zenith_cli_fixture")),
             "--card",
         ],
+        cwd=MICROCOSM_ROOT,
+        env=_module_cli_env(),
         check=True,
         text=True,
         capture_output=True,
@@ -372,6 +385,8 @@ def test_batch7_zenith_card_omits_private_bodies(
             str(tmp_path_factory.mktemp("batch7_zenith_cli_bundle")),
             "--card",
         ],
+        cwd=MICROCOSM_ROOT,
+        env=_module_cli_env(),
         check=True,
         text=True,
         capture_output=True,
@@ -427,10 +442,16 @@ def test_batch7_zenith_negative_case_labels_are_not_verdict_authority(
         if row["case_id"] == "missing_web_latch"
     )
 
-    assert result["status"] == "blocked"
-    assert "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED" in result["error_codes"]
+    # Declared fixture labels are inert: the semantic mutation probe recomputes
+    # the true rejection, so a tampered label can flip the verdict in neither
+    # direction and the tampered code must not bleed into the semantic row.
+    assert result["status"] == "pass"
+    assert result["semantic_negative_case_evaluator_used"] is True
     assert semantic_row["status"] == "blocked"
     assert "BATCH7_ZENITH_WEB_LATCH_REQUIRED" in semantic_row["error_codes"]
+    assert "BATCH7_ZENITH_RECORDING_TELEMETRY_KEYS_REQUIRED" not in semantic_row[
+        "error_codes"
+    ]
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
 
 

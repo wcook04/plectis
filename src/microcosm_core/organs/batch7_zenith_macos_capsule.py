@@ -5,6 +5,7 @@ import json
 import shutil
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -172,7 +173,27 @@ def _read(input_path: Path, public_root: Path, source_ref: str) -> str:
     return _copied_source(input_path, public_root, source_ref).read_text(encoding="utf-8")
 
 
-def _run_swiftpm_package(package_root: Path, *, public_root: Path) -> dict[str, Any]:
+SWIFTPM_WITNESS_TIMEOUT_SECONDS = 240
+# Measured cold-compile truth (no .build, no .swiftpm, scratch copy of the
+# full package): swift test passes 17/17 in ~49s on the reference machine, so
+# the 240s budget carries ~5x cold margin. The receipt records observed
+# duration against this budget so a future timeout is diagnosable.
+
+
+def _public_witness_ref(package_root: Path, repo_root: Path) -> str:
+    # The original package lives OUTSIDE the public root (a sibling app tree in
+    # the private macro checkout), so display() cannot relativize it: its
+    # fallback chain ends at the operator-absolute path unless cwd happens to
+    # be the macro root — a cwd-dependent receipt that flips the body scan.
+    # Render repo-relative by construction: deterministic, cwd-free, public-safe.
+    try:
+        return package_root.resolve().relative_to(repo_root.resolve()).as_posix()
+    except ValueError:
+        return package_root.name
+
+
+def _run_swiftpm_package(package_root: Path, *, witness_ref: str) -> dict[str, Any]:
+    started = time.monotonic()
     try:
         completed = subprocess.run(
             ["swift", "test"],
@@ -180,7 +201,7 @@ def _run_swiftpm_package(package_root: Path, *, public_root: Path) -> dict[str, 
             text=True,
             capture_output=True,
             check=False,
-            timeout=240,
+            timeout=SWIFTPM_WITNESS_TIMEOUT_SECONDS,
         )
     except FileNotFoundError as exc:
         return {
@@ -188,6 +209,9 @@ def _run_swiftpm_package(package_root: Path, *, public_root: Path) -> dict[str, 
             "returncode": None,
             "error_code": "BATCH7_ZENITH_SWIFT_COMMAND_MISSING",
             "error_type": type(exc).__name__,
+            "witness_package_ref": witness_ref,
+            "duration_seconds": round(time.monotonic() - started, 1),
+            "timeout_budget_seconds": SWIFTPM_WITNESS_TIMEOUT_SECONDS,
             "body_in_receipt": False,
         }
     except subprocess.TimeoutExpired:
@@ -195,17 +219,22 @@ def _run_swiftpm_package(package_root: Path, *, public_root: Path) -> dict[str, 
             "status": "blocked",
             "returncode": None,
             "error_code": "BATCH7_ZENITH_SWIFTPM_WITNESS_TIMEOUT",
+            "witness_package_ref": witness_ref,
+            "duration_seconds": round(time.monotonic() - started, 1),
+            "timeout_budget_seconds": SWIFTPM_WITNESS_TIMEOUT_SECONDS,
             "body_in_receipt": False,
         }
     text = f"{completed.stdout}\n{completed.stderr}"
     return {
         "status": "pass" if completed.returncode == 0 and "17 tests passed" in text else "blocked",
         "returncode": completed.returncode,
-        "witness_package_ref": display(package_root, public_root=public_root),
+        "witness_package_ref": witness_ref,
         "expected_test_count": 17,
         "passed_test_count_observed": 17 if "17 tests passed" in text else None,
         "stdout_byte_count": len(completed.stdout.encode("utf-8")),
         "stderr_byte_count": len(completed.stderr.encode("utf-8")),
+        "duration_seconds": round(time.monotonic() - started, 1),
+        "timeout_budget_seconds": SWIFTPM_WITNESS_TIMEOUT_SECONDS,
         "body_in_receipt": False,
     }
 
@@ -214,8 +243,28 @@ def _run_swiftpm_witness(public_root: Path) -> dict[str, Any]:
     repo_root = _repo_root(public_root)
     witness_package_root = repo_root / "apps/zenith-macos"
     if not witness_package_root.is_dir():
-        witness_package_root = _repo_root(_default_public_root()) / "apps/zenith-macos"
-    result = _run_swiftpm_package(witness_package_root, public_root=public_root)
+        repo_root = _repo_root(_default_public_root())
+        witness_package_root = repo_root / "apps/zenith-macos"
+    witness_ref = _public_witness_ref(witness_package_root, repo_root)
+    if not (witness_package_root / "Package.swift").is_file():
+        # Severed-clone truth: the public slice ships copied source bodies plus
+        # digest/anchor witnesses, never the private macro app tree. Type that
+        # honestly instead of letting subprocess raise a misleading
+        # command-missing error from a nonexistent cwd.
+        return {
+            "status": "blocked",
+            "returncode": None,
+            "error_code": "BATCH7_ZENITH_ORIGINAL_PACKAGE_UNREACHABLE",
+            "witness_package_ref": witness_ref,
+            "witness_source": "original_swiftpm_package",
+            "unreachable_reason": (
+                "original SwiftPM package absent from this checkout; "
+                "copied-source digest/anchor witnesses remain the load-bearing "
+                "evidence in severed context"
+            ),
+            "body_in_receipt": False,
+        }
+    result = _run_swiftpm_package(witness_package_root, witness_ref=witness_ref)
     result["witness_source"] = "original_swiftpm_package"
     return result
 
@@ -236,10 +285,10 @@ def _probe_copied_swiftpm_package(input_path: Path, public_root: Path) -> dict[s
     with tempfile.TemporaryDirectory(prefix="b7-zenith-copied-probe.") as scratch:
         scratch_package_root = Path(scratch) / "zenith-macos"
         shutil.copytree(copied_package_root, scratch_package_root)
-        result = _run_swiftpm_package(scratch_package_root, public_root=public_root)
-    result["witness_package_ref"] = display(
-        copied_package_root, public_root=public_root
-    )
+        result = _run_swiftpm_package(
+            scratch_package_root,
+            witness_ref=display(copied_package_root, public_root=public_root),
+        )
     result["witness_source"] = "copied_exported_swiftpm_source_modules"
     result["authority_ceiling"] = (
         "copied_package_probe_only_public_safe_entry_body_intentionally_excluded"

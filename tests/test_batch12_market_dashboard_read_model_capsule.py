@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,16 @@ EXPORTED_BUNDLE = (
     "exported_batch12_market_dashboard_read_model_capsule_bundle"
 )
 SOURCE_MODULE_MANIFEST = EXPORTED_BUNDLE / "source_module_manifest.json"
+
+
+def _module_cli_env() -> dict[str, str]:
+    # The documented public entry is `PYTHONPATH=src python3 -m microcosm_core`;
+    # pytest's pythonpath config is process-local, so a bare sys.executable
+    # subprocess only imports microcosm_core when a stale editable install
+    # happens to exist. Pass the contract env explicitly.
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(MICROCOSM_ROOT / "src")
+    return env
 
 
 def _sha256(path: Path) -> str:
@@ -225,6 +236,8 @@ def test_batch12_market_dashboard_card_omits_bodies(tmp_path: Path) -> None:
             str(tmp_path / "cli_fixture"),
             "--card",
         ],
+        cwd=MICROCOSM_ROOT,
+        env=_module_cli_env(),
         check=True,
         text=True,
         capture_output=True,
@@ -245,6 +258,8 @@ def test_batch12_market_dashboard_card_omits_bodies(tmp_path: Path) -> None:
             str(tmp_path / "cli_bundle"),
             "--card",
         ],
+        cwd=MICROCOSM_ROOT,
+        env=_module_cli_env(),
         check=True,
         text=True,
         capture_output=True,
