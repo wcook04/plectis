@@ -18,7 +18,7 @@
   },
   "body_in_receipt": false,
   "command": "microcosm macro-engines-gallery run",
-  "created_at": "2026-06-12T05:38:25+00:00",
+  "created_at": "2026-06-12T13:39:14+00:00",
   "error_codes": [
     "BATCH9_APPROVAL_PREACQUIRED_CLAIM_REFUSED",
     "BATCH9_AST_SYNTAX_ERROR_GAP",
@@ -32,8 +32,7 @@
     "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED",
     "BATCH9_MISSION_GRAPH_MISSING_TARGET",
     "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",
-    "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED",
-    "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH"
+    "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
   ],
   "exercise": {
     "body_in_receipt": false,
@@ -704,14 +703,7 @@
     "work_atlas_routed_reason_excluded",
     "worker_forbidden_surface_blocked"
   ],
-  "findings": [
-    {
-      "body_in_receipt": false,
-      "error_code": "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH",
-      "message": "Copied source target must exactly match source_ref.",
-      "subject_id": "system/server/ui/src/pages/RootNavigator.tsx"
-    }
-  ],
+  "findings": [],
   "fixture_id": "first_wave.batch9_macro_engines_capsule",
   "input_count": 1,
   "input_mode": "fixture_input",
@@ -896,7 +888,7 @@
     "active_claimed_live_source_drift_count": 0,
     "all_expected_digests_matched": true,
     "all_expected_line_counts_matched": true,
-    "all_live_source_refs_current": false,
+    "all_live_source_refs_current": true,
     "all_required_anchors_present": true,
     "body_in_receipt": false,
     "dirty_worktree_live_source_drift_count": 0,
@@ -1153,14 +1145,14 @@
         "body_in_receipt": false,
         "copied_target_self_ref": false,
         "digest_status": "match",
-        "expected_line_count": 14476,
-        "expected_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
-        "expected_source_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
-        "expected_target_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
-        "line_count": 14476,
+        "expected_line_count": 14478,
+        "expected_sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3",
+        "expected_source_sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3",
+        "expected_target_sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3",
+        "line_count": 14478,
         "line_count_status": "match",
         "live_source_claimed": false,
-        "live_source_digest_status": "drift",
+        "live_source_digest_status": "match",
         "live_source_dirty": false,
         "missing_required_anchors": [],
         "module_id": "heterogeneous_graph_edge_extractor",
@@ -1170,18 +1162,18 @@
         "public_safe_mode": null,
         "public_safe_transform_present": false,
         "required_anchor_count": 3,
-        "sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
+        "sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3",
         "source_exists": true,
         "source_ref": "system/server/ui/src/pages/RootNavigator.tsx",
         "source_ref_required": true,
-        "source_ref_verification": "live_source_copy_mismatch",
+        "source_ref_verification": "live_source_exact_copy",
         "source_sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3",
-        "source_target_sha256_match": false,
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
         "target_expected_digest_match": true,
         "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/pages/RootNavigator.tsx",
-        "target_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3"
+        "target_sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3"
       },
       {
         "body_copied": true,
@@ -1402,8 +1394,8 @@
       "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/population_lane_metrics.py"
     ],
     "source_import_class": "copied_non_secret_macro_body",
-    "status": "blocked"
+    "status": "pass"
   },
-  "status": "blocked",
+  "status": "pass",
   "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule"
 }

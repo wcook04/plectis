@@ -40,6 +40,16 @@ AUTHORITY_CEILING = {
     "trading_or_financial_advice_authorized": False,
     "whole_system_correctness_claim": False,
 }
+# Module relations whose target is a declared public-safe refactor of the
+# source: custody is recorded basis-source pin + recorded target pin, never
+# source==target byte equality. Any relation outside this set keeps the strict
+# exact-copy three-way digest contract.
+DECLARED_REFACTOR_RELATIONS = frozenset(
+    {
+        "public_package_body_exercised_directly",
+        "source_faithful_public_refactor",
+    }
+)
 
 
 ProbeRunner = Callable[[Path, Path], dict[str, Any]]
@@ -131,17 +141,55 @@ def _manifest_card(organ_id: str) -> dict[str, Any]:
     manifest = _read_json(manifest_path)
     modules = _rows(manifest, "modules")
     digest_rows: list[dict[str, Any]] = []
+    refactored_row_count = 0
     for module in modules:
         source_ref = str(module.get("source_ref") or "")
         target_ref = str(module.get("path") or "")
         source_path = REPO_ROOT / source_ref
         target_path = manifest_path.parent / target_ref
-        expected = str(module.get("sha256") or module.get("expected_sha256") or "")
+        if not target_path.is_file():
+            # Some bundles (e.g. engine_room_demo) record repo-root-relative
+            # target_ref paths instead of bundle-relative `path` entries.
+            alt_ref = str(module.get("target_ref") or "")
+            for base, ref in (
+                (REPO_ROOT, alt_ref),
+                (MICROCOSM_ROOT, alt_ref),
+                (REPO_ROOT, target_ref),
+            ):
+                if ref and (base / ref).is_file():
+                    target_path = base / ref
+                    break
         source_sha = _sha256(source_path)
         target_sha = _sha256(target_path)
+        relation = str(module.get("source_to_target_relation") or "")
+        if relation in DECLARED_REFACTOR_RELATIONS:
+            # A declared refactored body never promises source==target byte
+            # equality. Its custody contract is: the recorded basis source is
+            # unchanged AND the refactored target matches its own recorded pin.
+            refactored_row_count += 1
+            expected_source = str(module.get("source_sha256") or "")
+            expected_target = str(module.get("target_sha256") or "")
+            digest_rows.append(
+                {
+                    "module_id": module.get("module_id"),
+                    "relation_class": "declared_refactored_body",
+                    "source_exists": source_path.is_file(),
+                    "target_exists": target_path.is_file(),
+                    "source_digest_match": bool(
+                        expected_source and source_sha == expected_source
+                    ),
+                    "target_digest_match": bool(
+                        expected_target and target_sha == expected_target
+                    ),
+                    "source_target_match": True,
+                }
+            )
+            continue
+        expected = str(module.get("sha256") or module.get("expected_sha256") or "")
         digest_rows.append(
             {
                 "module_id": module.get("module_id"),
+                "relation_class": "exact_copy",
                 "source_exists": source_path.is_file(),
                 "target_exists": target_path.is_file(),
                 "source_digest_match": bool(expected and source_sha == expected),
@@ -159,6 +207,7 @@ def _manifest_card(organ_id: str) -> dict[str, Any]:
         "source_import_class": manifest.get("source_import_class"),
         "digest_status": "pass" if all_digests_match else "blocked",
         "module_digest_check_count": len(digest_rows),
+        "declared_refactored_body_row_count": refactored_row_count,
         "body_in_receipt": manifest.get("body_in_receipt") is True,
     }
 

@@ -178,7 +178,6 @@ final class RecorderStore: ObservableObject {
     @Published var diskFreeBytes: Int64?
     @Published var microphoneLevel: Float = 0
     @Published var microphoneMeterStatus = "Meter idle"
-    @Published var microphoneTestInProgress = false
     @Published var cameraPreviewSession: AVCaptureSession?
     @Published var cameraPreviewStatus = "Camera preview off"
     @Published var screenPreviewEnabled = false
@@ -214,7 +213,9 @@ final class RecorderStore: ObservableObject {
     private var currentSegmentAudioTrack: NativeAudioCaptureTrack?
     private var hasAppliedInitialDefaults = false
     private var savedMicrophonePreferenceIsUnavailable = false
-    private let audioLevelMonitor = AudioLevelMonitor()
+    private let audioLevelMonitor: any AudioLevelMonitoring
+    private let microphonePermissionStatus: () -> CapabilityStatus
+    private let audioDeviceAvailability: (CaptureDevice) -> Bool
     private let cameraPreviewService = CameraPreviewService()
     private let nativeScreenCaptureManager: any NativeScreenCaptureManaging
     private let nativeAudioCaptureManager: any NativeAudioCaptureManaging
@@ -227,9 +228,15 @@ final class RecorderStore: ObservableObject {
     private let minimumStartDiskBytes: Int64 = 1_000_000_000
 
     init(
+        audioLevelMonitor: any AudioLevelMonitoring = AudioLevelMonitor(),
+        microphonePermissionStatus: @escaping () -> CapabilityStatus = PermissionService.microphoneStatus,
+        audioDeviceAvailability: @escaping (CaptureDevice) -> Bool = AVCaptureDeviceIdentityResolver.isAudioDeviceAvailable,
         nativeScreenCaptureManager: any NativeScreenCaptureManaging = NativeScreenCaptureManager(),
         nativeAudioCaptureManager: any NativeAudioCaptureManaging = NativeAudioCaptureManager()
     ) {
+        self.audioLevelMonitor = audioLevelMonitor
+        self.microphonePermissionStatus = microphonePermissionStatus
+        self.audioDeviceAvailability = audioDeviceAvailability
         self.nativeScreenCaptureManager = nativeScreenCaptureManager
         self.nativeAudioCaptureManager = nativeAudioCaptureManager
         refreshTakeHistory()
@@ -371,6 +378,11 @@ final class RecorderStore: ObservableObject {
         devices.audioDevices.first { $0.id == selectedAudioID }
     }
 
+    var selectedAudioIsAvailable: Bool {
+        guard let selectedAudio else { return true }
+        return audioDeviceAvailability(selectedAudio)
+    }
+
     var selectedWebcam: CaptureDevice? {
         guard webcamEnabled else { return nil }
         return devices.videoDevices.first { $0.id == selectedWebcamID && $0.isLikelyWebcam }
@@ -447,7 +459,9 @@ final class RecorderStore: ObservableObject {
     }
 
     var microphoneSourceStatus: CapabilityStatus {
-        selectedAudio == nil ? .notRequired : .ready
+        guard let selectedAudio else { return .notRequired }
+        guard permissions.microphone == .ready else { return .missing }
+        return audioDeviceAvailability(selectedAudio) ? .ready : .missing
     }
 
     var cameraSourceStatus: CapabilityStatus {
@@ -463,6 +477,13 @@ final class RecorderStore: ObservableObject {
             blockers.append("Reload devices before recording")
         } else if selectedScreens.isEmpty {
             blockers.append("Select at least one display")
+        }
+        if let selectedAudio {
+            if permissions.microphone != .ready {
+                blockers.append("Microphone permission needed")
+            } else if !audioDeviceAvailability(selectedAudio) {
+                blockers.append("\(selectedAudio.name) is not visible to macOS; reconnect it or Reload devices")
+            }
         }
         if permissions.disk == .low { blockers.append("Disk space is tight") }
         return blockers
@@ -510,7 +531,7 @@ final class RecorderStore: ObservableObject {
         permissions.ffmpeg = ffmpegPath == nil ? .missing : .ready
         transcribeBinaryPath = HostEnvironment.findTranscribeBinary()
         permissions.screenCapture = PermissionService.screenCaptureStatus()
-        permissions.microphone = PermissionService.microphoneStatus()
+        permissions.microphone = microphonePermissionStatus()
         diskFreeBytes = HostEnvironment.availableDiskBytes(at: HostEnvironment.outputRoot)
         permissions.disk = diskStatus(bytes: diskFreeBytes)
         applyPersistedRecorderConfigIfAvailable()
@@ -560,44 +581,22 @@ final class RecorderStore: ObservableObject {
         updateAudioMeter()
     }
 
-    func testMicrophone() async {
-        guard !microphoneTestInProgress else { return }
+    func refreshMicrophoneMonitor() {
         guard let selectedAudio else {
             microphoneMeterStatus = "No microphone selected"
             microphoneLevel = 0
             return
         }
-        guard let ffmpegPath else {
-            microphoneMeterStatus = "FFmpeg not found"
+        permissions.microphone = microphonePermissionStatus()
+        guard audioDeviceAvailability(selectedAudio) else {
+            audioLevelMonitor.stop()
             microphoneLevel = 0
+            microphoneMeterStatus = "\(selectedAudio.name) is not visible to macOS. Reconnect it, then Reload devices."
             return
         }
-
-        microphoneTestInProgress = true
-        microphoneLevel = 0.18
-        microphoneMeterStatus = "Testing \(selectedAudio.name) with FFmpeg..."
-        defer { microphoneTestInProgress = false }
-
-        do {
-            let response = try await CaptureHelperClient.testMicrophone(
-                ffmpegPath: ffmpegPath,
-                microphone: selectedAudio
-            )
-            for line in response.statusLines.reversed() {
-                appendStatus(line)
-            }
-            if response.status == "ready" {
-                microphoneLevel = 0.78
-                microphoneMeterStatus = "Mic test passed: \(selectedAudio.name)"
-            } else {
-                microphoneLevel = 0
-                microphoneMeterStatus = response.statusLines.last ?? "Mic test failed"
-            }
-        } catch {
-            microphoneLevel = 0
-            microphoneMeterStatus = "Mic test failed: \(error.localizedDescription)"
-            appendStatus(microphoneMeterStatus)
-        }
+        microphoneLevel = 0
+        microphoneMeterStatus = "Listening to \(selectedAudio.name)..."
+        updateAudioMeter(forceRestart: true)
     }
 
     func setWebcamEnabled(_ enabled: Bool) {
@@ -749,11 +748,18 @@ final class RecorderStore: ObservableObject {
             microphoneMeterStatus = "No microphone selected; screen recording continues."
         } else {
             appendStartAttempt("audio_start_begin", detail: selectedAudio?.identityDescription, takeURL: takeURL)
+            audioLevelMonitor.stop()
+            microphoneLevel = 0
+            microphoneMeterStatus = "Starting microphone recorder..."
             do {
                 if let audioTrack = try await nativeAudioCaptureManager.start(
                     takeRoot: takeURL,
                     microphone: selectedAudio,
-                    segmentIndex: currentRecordingSegmentIndex
+                    segmentIndex: currentRecordingSegmentIndex,
+                    onLevel: { [weak self] level, status in
+                        self?.microphoneLevel = level
+                        self?.microphoneMeterStatus = status
+                    }
                 ) {
                     currentSegmentAudioTrack = audioTrack
                     appendStatus("Native microphone recording \(audioTrack.device.name) to \(audioTrack.relativePath).")
@@ -895,11 +901,18 @@ final class RecorderStore: ObservableObject {
                 appendStartAttempt("resume_audio_start_skipped", detail: "No microphone selected.", takeURL: activeTakeURL)
             } else {
                 appendStartAttempt("resume_audio_start_begin", detail: selectedAudio?.identityDescription, takeURL: activeTakeURL)
+                audioLevelMonitor.stop()
+                microphoneLevel = 0
+                microphoneMeterStatus = "Resuming microphone recorder..."
                 do {
                     if let audioTrack = try await nativeAudioCaptureManager.start(
                         takeRoot: activeTakeURL,
                         microphone: selectedAudio,
-                        segmentIndex: nextSegment
+                        segmentIndex: nextSegment,
+                        onLevel: { [weak self] level, status in
+                            self?.microphoneLevel = level
+                            self?.microphoneMeterStatus = status
+                        }
                     ) {
                         currentSegmentAudioTrack = audioTrack
                         appendStartAttempt("resume_audio_start_ok", detail: audioTrack.relativePath, takeURL: activeTakeURL)
@@ -2540,18 +2553,24 @@ final class RecorderStore: ObservableObject {
         previewTimer = nil
     }
 
-    private func updateAudioMeter() {
-        guard state != .recording && state != .paused else { return }
+    private func updateAudioMeter(forceRestart: Bool = false) {
+        guard forceRestart || (state != .recording && state != .paused) else { return }
         guard let selectedAudio else {
             audioLevelMonitor.stop()
             microphoneLevel = 0
             microphoneMeterStatus = "No microphone selected"
             return
         }
+        guard audioDeviceAvailability(selectedAudio) else {
+            audioLevelMonitor.stop()
+            microphoneLevel = 0
+            microphoneMeterStatus = "\(selectedAudio.name) is not visible to macOS. Reconnect it, then Reload devices."
+            return
+        }
         guard permissions.microphone == .ready else {
             audioLevelMonitor.stop()
             microphoneLevel = 0
-            microphoneMeterStatus = "\(selectedAudio.name) selected; use Test Mic for the FFmpeg check."
+            microphoneMeterStatus = "\(selectedAudio.name) selected; microphone permission needed for live level."
             return
         }
         audioLevelMonitor.start(

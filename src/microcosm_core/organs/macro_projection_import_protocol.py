@@ -188,10 +188,15 @@ BODY_IMPORT_VERIFICATION_MODES = {
 EXACT_COPY_SOURCE_TO_TARGET_RELATIONS = frozenset(
     {
         "exact_copy",
+        "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "exact_public_safe_macro_copy",
+        "exact_public_safe_source_copy",
         "source_faithful_public_safe_exact_copy",
     }
 )
+# exact_copy_reference_for_python_port is deliberately NOT refreshable: its
+# target pins the reference version the port was written against, so live
+# macro-source evolution must not overwrite it.
 VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS = frozenset(
     {
         "public_light_edit_private_path_redaction",

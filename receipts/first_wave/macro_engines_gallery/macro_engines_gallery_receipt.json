@@ -15,13 +15,13 @@
   "batch9_visible": true,
   "body_in_receipt": false,
   "command": "microcosm macro-engines-gallery run",
-  "copied_source_digest_status": "mixed_historical_drift",
+  "copied_source_digest_status": "pass",
   "copied_source_digest_summary": {
-    "blocked_count": 2,
+    "blocked_count": 0,
     "not_applicable_count": 1,
-    "pass_count": 21
+    "pass_count": 23
   },
-  "created_at": "2026-06-12T05:38:25+00:00",
+  "created_at": "2026-06-12T13:41:53+00:00",
   "earlier_macro_probe_visible": true,
   "gallery_card_count": 24,
   "gallery_cards": [
@@ -57,6 +57,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_module_manifest.json",
         "module_digest_check_count": 19,
@@ -78,6 +79,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 26,
@@ -99,6 +101,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 10,
@@ -120,6 +123,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 15,
@@ -141,6 +145,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 6,
@@ -162,6 +167,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 8,
@@ -183,6 +189,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 4,
@@ -204,6 +211,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 3,
@@ -225,6 +233,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 12,
@@ -246,7 +255,8 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
-        "digest_status": "blocked",
+        "declared_refactored_body_row_count": 2,
+        "digest_status": "pass",
         "manifest_ref": "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json",
         "module_digest_check_count": 2,
         "source_import_class": "public_safe_refactored_body",
@@ -267,7 +277,8 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
-        "digest_status": "blocked",
+        "declared_refactored_body_row_count": 0,
+        "digest_status": "pass",
         "manifest_ref": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 13,
         "source_import_class": "copied_non_secret_macro_body",
@@ -288,6 +299,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 13,
@@ -309,6 +321,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 9,
@@ -330,6 +343,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 4,
@@ -351,6 +365,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 1,
@@ -372,6 +387,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 1,
@@ -393,6 +409,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json",
         "module_digest_check_count": 7,
@@ -414,6 +431,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 5,
@@ -435,6 +453,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 13,
@@ -456,6 +475,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 1,
@@ -477,6 +497,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 1,
@@ -498,6 +519,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json",
         "module_digest_check_count": 1,
@@ -519,6 +541,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
+        "declared_refactored_body_row_count": 0,
         "digest_status": "pass",
         "manifest_ref": "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 5,
@@ -600,8 +623,7 @@
         "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED",
         "BATCH9_MISSION_GRAPH_MISSING_TARGET",
         "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",
-        "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED",
-        "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH"
+        "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
       ],
       "evidence_classes": [
         "algorithmic_projection",
@@ -628,7 +650,7 @@
       "receipt_ref_count": 3,
       "source_module_count": 13,
       "source_module_status": "pass",
-      "status": "blocked"
+      "status": "pass"
     },
     {
       "anti_claim": "The Engine Room demo is a public-safe composition of bounded symbolic prover, runtime, integrity, security, navigation, orchestration, and knowledge-routing capsules. It does not export private macro run state, credentials, provider/browser state, raw operator threads, third-party clones, or any release/publication authority.",
@@ -647,5 +669,5 @@
   ],
   "receipt_ref": "receipts/first_wave/macro_engines_gallery/macro_engines_gallery_receipt.json",
   "schema_version": "microcosm_macro_engines_gallery_receipt_v1",
-  "status": "blocked"
+  "status": "pass"
 }

@@ -7,7 +7,7 @@
   "receipt_body_scan_status": "pass",
   "schema_version": "batch9_macro_engines_capsule_validation_receipt_v1",
   "secret_exclusion_status": "pass",
-  "source_module_manifest_status": "blocked",
-  "status": "blocked",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
   "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule"
 }

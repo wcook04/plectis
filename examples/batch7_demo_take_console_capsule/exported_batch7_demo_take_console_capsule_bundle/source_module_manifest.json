@@ -71,8 +71,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 109787,
-      "line_count": 2791,
+      "byte_count": 111316,
+      "line_count": 2810,
       "material_class": "public_macro_macos_swift_body",
       "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
       "required_anchors": [
@@ -82,14 +82,14 @@
         "func togglePause()",
         "func stopRecording() async"
       ],
-      "sha256": "d338e62e0bdada3640a276c4f13508a767b028c5ea270150023529c96cfbc6a3",
+      "sha256": "d0ae77b430f0067be7e4268f46003ee7e6f5dead49a07885fc26ea14677f0687",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
-      "source_sha256": "d338e62e0bdada3640a276c4f13508a767b028c5ea270150023529c96cfbc6a3",
+      "source_sha256": "d0ae77b430f0067be7e4268f46003ee7e6f5dead49a07885fc26ea14677f0687",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
-      "target_sha256": "d338e62e0bdada3640a276c4f13508a767b028c5ea270150023529c96cfbc6a3"
+      "target_sha256": "d0ae77b430f0067be7e4268f46003ee7e6f5dead49a07885fc26ea14677f0687"
     },
     {
       "body_copied": true,
@@ -116,8 +116,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 5063,
-      "line_count": 137,
+      "byte_count": 9126,
+      "line_count": 240,
       "material_class": "public_macro_macos_swift_body",
       "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
       "required_anchors": [
@@ -126,14 +126,14 @@
         "Int16.max",
         "return min(max(rms * 8, 0), 1)"
       ],
-      "sha256": "c317838ca1a5e62d9ea96c2969704028cfafaa2ef4f301dd8dddf79e36fdab5d",
+      "sha256": "157f8d23affd936a86dd472e2544b6743f5830fe8aeac92b1a2e6138d9c3dccc",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
-      "source_sha256": "c317838ca1a5e62d9ea96c2969704028cfafaa2ef4f301dd8dddf79e36fdab5d",
+      "source_sha256": "157f8d23affd936a86dd472e2544b6743f5830fe8aeac92b1a2e6138d9c3dccc",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
-      "target_sha256": "c317838ca1a5e62d9ea96c2969704028cfafaa2ef4f301dd8dddf79e36fdab5d"
+      "target_sha256": "157f8d23affd936a86dd472e2544b6743f5830fe8aeac92b1a2e6138d9c3dccc"
     },
     {
       "body_copied": true,

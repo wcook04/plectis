@@ -6159,9 +6159,9 @@ function computeRootObjectFabricLayout(
   };
 }
 
-function compactObjectLabel(label: string, max = 38): string {
-  if (label.length <= max) return label;
-  return `${label.slice(0, max - 1)}…`;
+function objectDisplayLabel(label: string): string {
+  const normalized = label.trim();
+  return normalized || label;
 }
 
 function rootObjectComparableToken(value: string): string {
@@ -6227,7 +6227,7 @@ function focusObjectNodeFromRow(
     id: `${kind}:focus:${rawId}`,
     rawId,
     kind,
-    label: compactObjectLabel(label),
+    label: objectDisplayLabel(label),
     nodeKind: 'focus_object',
     lane: 'focus',
     status: pickFirstString(row, ['status', 'support_status']),
@@ -6261,7 +6261,7 @@ function neighborNodeFromEdgeCandidate(
     id: `${edge.targetKind}:neighbor:${neighborRawId}`,
     rawId: neighborRawId,
     kind: edge.targetKind,
-    label: compactObjectLabel(edge.targetLabel || neighborRawId),
+    label: objectDisplayLabel(edge.targetLabel || neighborRawId),
     nodeKind:
       edge.targetKind === 'source' ? 'source_ref'
         : edge.targetKind === 'standard' ? 'standard_ref'
@@ -6474,7 +6474,7 @@ function buildRootObjectRelationGraph(
           id: axiomNodeId,
           rawId: axiom.id,
           kind: 'axiom_candidate',
-          label: compactObjectLabel(axiom.title ?? axiom.id),
+          label: objectDisplayLabel(axiom.title ?? axiom.id),
           nodeKind: 'neighbor_object',
           lane: 'governance',
           selected: false,
@@ -6490,7 +6490,7 @@ function buildRootObjectRelationGraph(
             id: principleNodeId,
             rawId: principleId,
             kind: 'principle',
-            label: compactObjectLabel(principleTitleById.get(principleId) ?? principleId),
+            label: objectDisplayLabel(principleTitleById.get(principleId) ?? principleId),
             nodeKind: 'neighbor_object',
             lane: 'downstream',
             selected: false,
@@ -7091,9 +7091,11 @@ function UnifiedObjectFabricNode({ data }: NodeProps<UnifiedFlowNodeData & {
         style={{ background: fabric.isSelected ? data.accent : `${data.accent}66` }}
       />
       <div
+        data-zenith-root-object-label="primary"
+        title={data.label}
         className={clsx(
-          'line-clamp-2 whitespace-normal pl-1 font-semibold leading-[1.25]',
-          isSelectedSubject ? 'text-[16px]' : 'text-[12px]',
+          'whitespace-normal pl-1 font-semibold leading-[1.18] [overflow-wrap:anywhere]',
+          isSelectedSubject ? 'text-[14px]' : 'text-[10px]',
         )}
         style={{ color: fabric.isSelected ? data.accent : '#e2e8f0' }}
       >
