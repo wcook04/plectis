@@ -545,7 +545,7 @@ def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
     start_gate = all(
         token in store
         for token in (
-            "state == .ready || state == .idle || state == .reviewReady",
+            "state = startBlockers.isEmpty ? .ready : .setupNeeded",
             "return startBlockers.isEmpty",
             'blockers.append("Select at least one display")',
             "minimumStartDiskBytes",
@@ -580,7 +580,7 @@ def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
         )
     )
     screen_prompt_guard = (
-        "Snapshot preview is disabled so the console never opens macOS Screen Recording prompts."
+        "Snapshot preview disabled; Start records this display through FFmpeg."
         in store
     )
     return {
@@ -620,7 +620,7 @@ def _hotkey_audio_meter_contract(public_root: Path) -> dict[str, Any]:
         token in audio
         for token in (
             "AVCaptureDevice.authorizationStatus(for: .audio) == .authorized",
-            "selectAudioDevice(named: preferredDeviceName)",
+            "selectAudioDevice(uniqueID: preferredDeviceUniqueID, name: preferredDeviceName)",
             "kAudioFormatFlagIsFloat",
             "Int16.max",
             "return min(max(rms * 8, 0), 1)",

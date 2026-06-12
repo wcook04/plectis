@@ -6,7 +6,11 @@ final class AudioLevelMonitor: NSObject, AVCaptureAudioDataOutputSampleBufferDel
     private let queue = DispatchQueue(label: "ai.workflow.demo-take-console.audio-meter")
     private var onLevel: ((Float, String) -> Void)?
 
-    func start(preferredDeviceName: String?, onLevel: @escaping (Float, String) -> Void) {
+    func start(
+        preferredDeviceName: String?,
+        preferredDeviceUniqueID: String?,
+        onLevel: @escaping (Float, String) -> Void
+    ) {
         stop()
         self.onLevel = onLevel
 
@@ -14,7 +18,7 @@ final class AudioLevelMonitor: NSObject, AVCaptureAudioDataOutputSampleBufferDel
             onLevel(0, "Needs microphone permission")
             return
         }
-        guard let device = selectAudioDevice(named: preferredDeviceName) else {
+        guard let device = selectAudioDevice(uniqueID: preferredDeviceUniqueID, name: preferredDeviceName) else {
             onLevel(0, "No microphone available")
             return
         }
@@ -66,15 +70,15 @@ final class AudioLevelMonitor: NSObject, AVCaptureAudioDataOutputSampleBufferDel
         }
     }
 
-    private func selectAudioDevice(named name: String?) -> AVCaptureDevice? {
-        let devices = AVCaptureDevice.devices(for: .audio)
-        guard let name, !name.isEmpty else {
-            return devices.first
+    private func selectAudioDevice(uniqueID: String?, name: String?) -> AVCaptureDevice? {
+        let hasSpecificDevice = [uniqueID, name].contains { value in
+            value?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
         }
-        return devices.first { $0.localizedName == name }
-            ?? devices.first { $0.localizedName.localizedCaseInsensitiveContains(name) }
-            ?? devices.first { name.localizedCaseInsensitiveContains($0.localizedName) }
-            ?? devices.first
+        return AVCaptureDeviceIdentityResolver.audioDevice(
+            uniqueID: uniqueID,
+            name: name,
+            allowFallback: !hasSpecificDevice
+        )
     }
 
     private static func normalizedLevel(from sampleBuffer: CMSampleBuffer) -> Float {

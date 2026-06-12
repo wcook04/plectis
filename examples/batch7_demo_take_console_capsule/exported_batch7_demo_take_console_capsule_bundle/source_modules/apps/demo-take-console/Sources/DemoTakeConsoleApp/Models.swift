@@ -1,3 +1,4 @@
+import CoreGraphics
 import Foundation
 
 enum RecordingState: String, Codable {
@@ -40,6 +41,30 @@ struct CaptureDevice: Identifiable, Hashable, Codable {
     let index: Int
     let name: String
     let kind: DeviceKind
+    let uniqueID: String?
+
+    init(id: String, index: Int, name: String, kind: DeviceKind, uniqueID: String? = nil) {
+        self.id = id
+        self.index = index
+        self.name = name
+        self.kind = kind
+        self.uniqueID = uniqueID
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case index
+        case name
+        case kind
+        case uniqueID = "unique_id"
+    }
+
+    var identityDescription: String {
+        if let uniqueID, !uniqueID.isEmpty {
+            return "\(name) [\(uniqueID)]"
+        }
+        return name
+    }
 
     var isScreen: Bool {
         name.localizedCaseInsensitiveContains("screen")
@@ -69,6 +94,7 @@ struct DeviceInventory: Codable {
 }
 
 struct PermissionSnapshot {
+    var screenCapture: CapabilityStatus = .unknown
     var microphone: CapabilityStatus = .unknown
     var camera: CapabilityStatus = .unknown
     var disk: CapabilityStatus = .unknown
@@ -76,6 +102,7 @@ struct PermissionSnapshot {
 
     var blockers: [String] {
         var rows: [String] = []
+        if screenCapture == .missing { rows.append("Screen Recording") }
         if microphone == .missing { rows.append("Microphone") }
         if camera == .missing { rows.append("Camera") }
         if disk == .low { rows.append("Disk Space") }
@@ -108,6 +135,9 @@ struct DisplayMetadata: Equatable {
     let resolution: String
     let origin: String
     let mappingConfidence: String
+    let displayID: UInt32?
+    let bounds: DisplayBounds?
+    let scaleFactor: Double
 
     var summary: String {
         "\(name) \(resolution)"
@@ -118,11 +148,32 @@ struct DisplayMetadata: Equatable {
     }
 }
 
+struct DisplayBounds: Equatable {
+    let x: Double
+    let y: Double
+    let width: Double
+    let height: Double
+
+    var dictionary: [String: Double] {
+        [
+            "x": x,
+            "y": y,
+            "width": width,
+            "height": height,
+        ]
+    }
+
+    var cgRect: CGRect {
+        CGRect(x: x, y: y, width: width, height: height)
+    }
+}
+
 struct TrackRecord: Codable, Identifiable {
     let id: String
     let role: String
     let deviceName: String?
     let deviceIndex: Int?
+    let deviceUniqueID: String?
     let relativePath: String
 
     enum CodingKeys: String, CodingKey {
@@ -130,6 +181,7 @@ struct TrackRecord: Codable, Identifiable {
         case role
         case deviceName = "device_name"
         case deviceIndex = "device_index"
+        case deviceUniqueID = "device_unique_id"
         case relativePath = "relative_path"
     }
 }

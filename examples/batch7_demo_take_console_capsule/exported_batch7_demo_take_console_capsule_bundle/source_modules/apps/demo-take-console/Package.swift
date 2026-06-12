@@ -25,5 +25,10 @@ let package = Package(
             ],
             path: "Sources/DemoTakeTranscribe"
         ),
+        .testTarget(
+            name: "DemoTakeConsoleAppTests",
+            dependencies: ["DemoTakeConsoleApp"],
+            path: "Tests/DemoTakeConsoleAppTests"
+        ),
     ]
 )

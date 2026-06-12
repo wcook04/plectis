@@ -100,16 +100,22 @@ enum CaptureHelperClient {
         screenshotInterval: Int,
         transcribeBinary: String?,
         transcribeModel: String,
-        takeTitle: String
+        takeTitle: String,
+        captureBackend: String = "ffmpeg"
     ) async throws -> StartCaptureResponse {
         var config: [String: Any] = [
             "repo_root": HostEnvironment.repoRoot.path,
             "ffmpeg_path": ffmpegPath,
+            "capture_backend": captureBackend,
             "screenshot_interval_seconds": screenshotInterval,
             "screens": screens.map(deviceObject),
             "microphone": microphone.map(deviceObject) ?? NSNull(),
             "webcam": webcam.map(deviceObject) ?? NSNull(),
             "transcribe_model": transcribeModel,
+            "recording_quality": "source",
+            "cloud_archive_after_stop": true,
+            "cloud_archive_remote": "memeister_drive:aiw-cold-spillway/demo_takes",
+            "cloud_archive_local_retention": "proxy",
         ]
         if let transcribeBinary, !transcribeBinary.isEmpty {
             config["transcribe_binary"] = transcribeBinary
@@ -141,6 +147,11 @@ enum CaptureHelperClient {
 
     static func postprocess(takeRoot: URL) async throws -> StopCaptureResponse {
         let data = try await run(["postprocess", "--take-root", takeRoot.path])
+        return try JSONDecoder().decode(StopCaptureResponse.self, from: data)
+    }
+
+    static func transcribe(takeRoot: URL) async throws -> StopCaptureResponse {
+        let data = try await run(["transcribe", "--take-root", takeRoot.path])
         return try JSONDecoder().decode(StopCaptureResponse.self, from: data)
     }
 
@@ -259,13 +270,26 @@ enum CaptureHelperClient {
     }
 
     private static func deviceObject(_ device: CaptureDevice) -> [String: Any] {
-        [
+        var payload: [String: Any] = [
             "id": device.id,
             "index": device.index,
             "name": device.name,
             "kind": device.kind.rawValue,
             "is_screen": device.isScreen,
         ]
+        if let uniqueID = device.uniqueID, !uniqueID.isEmpty {
+            payload["unique_id"] = uniqueID
+        }
+        if device.isScreen {
+            let metadata = HostEnvironment.displayMetadata(forFFmpegScreenIndex: device.screenOrdinal)
+            payload["display_id"] = metadata.displayID.map(String.init) ?? NSNull()
+            payload["display_name"] = metadata.name
+            payload["display_bounds"] = metadata.bounds?.dictionary ?? NSNull()
+            payload["bounds"] = metadata.bounds?.dictionary ?? NSNull()
+            payload["scale_factor"] = metadata.scaleFactor
+            payload["mapping_confidence"] = metadata.mappingConfidence
+        }
+        return payload
     }
 }
 

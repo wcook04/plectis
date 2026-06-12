@@ -28,10 +28,16 @@ struct ImportCandidateSummary: Identifiable, Equatable {
 private struct TakeManifestSummary: Decodable {
     let title: String?
     let takeTitle: String?
+    let reviewVideo: String?
+    let reviewAudio: String?
+    let knownFailures: [String]?
 
     enum CodingKeys: String, CodingKey {
         case title
         case takeTitle = "take_title"
+        case reviewVideo = "review_video"
+        case reviewAudio = "review_audio"
+        case knownFailures = "known_failures"
     }
 }
 
@@ -53,6 +59,13 @@ private struct TakeSessionSummary: Decodable {
 private struct RenderReceiptSummary: Decodable {
     let status: String?
     let output: String?
+    let knownFailures: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case status
+        case output
+        case knownFailures = "known_failures"
+    }
 }
 
 private struct StorageReceiptSummary: Decodable {
@@ -94,6 +107,44 @@ private struct ExportStatusSummary {
     let ready: Bool
 }
 
+private struct PersistedRecorderConfig: Decodable {
+    let selectedDisplayIndexes: [Int]?
+    let selectedMicrophoneIndex: Int?
+    let selectedMicrophoneName: String?
+    let selectedMicrophoneUniqueID: String?
+    let selectedWebcamIndex: Int?
+    let screenshotIntervalSeconds: Int?
+    let hideConsoleBeforeCapture: Bool?
+    let transcribeModel: String?
+    let webcamEnabled: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case selectedDisplayIndexes = "selected_display_indexes"
+        case selectedMicrophoneIndex = "selected_microphone_index"
+        case selectedMicrophoneName = "selected_microphone_name"
+        case selectedMicrophoneUniqueID = "selected_microphone_unique_id"
+        case selectedWebcamIndex = "selected_webcam_index"
+        case screenshotIntervalSeconds = "screenshot_interval_seconds"
+        case hideConsoleBeforeCapture = "hide_console_before_capture"
+        case transcribeModel = "transcribe_model"
+        case webcamEnabled = "webcam_enabled"
+    }
+
+    var microphonePreference: MicrophonePreference {
+        MicrophonePreference(
+            uniqueID: selectedMicrophoneUniqueID,
+            name: selectedMicrophoneName,
+            index: selectedMicrophoneIndex
+        )
+    }
+}
+
+private struct ScreenSnapshotTarget: Sendable {
+    let deviceID: String
+    let displayID: UInt32
+    let displayName: String
+}
+
 @MainActor
 final class RecorderStore: ObservableObject {
     @Published var permissions = PermissionSnapshot()
@@ -113,6 +164,7 @@ final class RecorderStore: ObservableObject {
     @Published var activeTakeURL: URL?
     @Published var activeTakeTitle: String = ""
     @Published var takeTitleDraft: String = ""
+    @Published var lastStartFailureLine: String?
     @Published var titleSaveInProgress = false
     @Published var importVideoInProgress = false
     @Published var recentImportCandidate: ImportCandidateSummary?
@@ -137,6 +189,8 @@ final class RecorderStore: ObservableObject {
     @Published var hudVisible: Bool = false
     @Published var scheduleState: RunMapScheduleState?
     @Published var scheduleStatus: String = "Run map idle"
+    @Published var attentionStatusLine: String = "Attention telemetry idle"
+    @Published var attentionDetailLine: String = "Recorded-screen focus will be written during recording."
     @Published var playbackPlayer: AVPlayer?
     @Published var playbackURL: URL?
     @Published var playbackTitle: String = "No playback loaded"
@@ -153,16 +207,32 @@ final class RecorderStore: ObservableObject {
     private var scheduleTimer: Timer?
     private var playbackTimeObserver: Any?
     private var playbackEndObserver: NSObjectProtocol?
+    private var hiddenConsoleWindows: [NSWindow] = []
     private var recordingStartedAt: Date?
+    private var currentRecordingSegmentIndex = 0
+    private var currentSegmentScreenTracks: [NativeScreenCaptureTrack] = []
+    private var currentSegmentAudioTrack: NativeAudioCaptureTrack?
     private var hasAppliedInitialDefaults = false
+    private var savedMicrophonePreferenceIsUnavailable = false
     private let audioLevelMonitor = AudioLevelMonitor()
     private let cameraPreviewService = CameraPreviewService()
+    private let nativeScreenCaptureManager: any NativeScreenCaptureManaging
+    private let nativeAudioCaptureManager: any NativeAudioCaptureManaging
+    private lazy var attentionMonitor = RecordedScreenAttentionMonitor { [weak self] status in
+        self?.attentionStatusLine = status.line
+        self?.attentionDetailLine = status.detail
+    }
     var onHudShouldShow: (() -> Void)?
     var onHudShouldHide: (() -> Void)?
     private let minimumStartDiskBytes: Int64 = 1_000_000_000
 
-    init() {
-        refreshTakeHistory(selectLatestIfNone: true)
+    init(
+        nativeScreenCaptureManager: any NativeScreenCaptureManaging = NativeScreenCaptureManager(),
+        nativeAudioCaptureManager: any NativeAudioCaptureManaging = NativeAudioCaptureManager()
+    ) {
+        self.nativeScreenCaptureManager = nativeScreenCaptureManager
+        self.nativeAudioCaptureManager = nativeAudioCaptureManager
+        refreshTakeHistory()
         refreshRecentImportCandidate()
     }
 
@@ -175,10 +245,7 @@ final class RecorderStore: ObservableObject {
     var lastMarker: Marker? { markers.last }
 
     var canStart: Bool {
-        guard state == .ready || state == .idle || state == .reviewReady || state == .packageReady || state == .packageFailed else {
-            return false
-        }
-        return startBlockers.isEmpty
+        canManageTakes && startBlockers.isEmpty
     }
 
     var canPauseOrResume: Bool {
@@ -306,7 +373,7 @@ final class RecorderStore: ObservableObject {
 
     var selectedWebcam: CaptureDevice? {
         guard webcamEnabled else { return nil }
-        return devices.videoDevices.first { $0.id == selectedWebcamID }
+        return devices.videoDevices.first { $0.id == selectedWebcamID && $0.isLikelyWebcam }
     }
 
     var selectedScreenMetadata: [String: DisplayMetadata] {
@@ -319,14 +386,20 @@ final class RecorderStore: ObservableObject {
         if state == .recording || state == .paused || state == .postprocessing || state == .packageReady || state == .packageFailed {
             return state.label
         }
+        if lastStartFailureLine != nil {
+            return "Start failed"
+        }
         return startBlockers.isEmpty ? "Ready to record" : "Setup needed"
     }
 
     var setupDetail: String {
+        if let lastStartFailureLine {
+            return lastStartFailureLine
+        }
         if startBlockers.isEmpty {
             return autoHideBeforeRecording
-                ? "Start runs a countdown, hides the console, then starts FFmpeg."
-                : "Start records the selected display and microphone with the console still visible."
+                ? "Start runs a countdown, hides the console only when it overlaps the selected display, then starts native capture."
+                : "Start records the selected display and microphone with native capture."
         }
         return startBlockers.joined(separator: " · ")
     }
@@ -355,6 +428,20 @@ final class RecorderStore: ObservableObject {
         return "Long multi-screen take: \(free > long * 2 ? "OK" : "tight") · est. \(HostEnvironment.byteString(long))"
     }
 
+    var screenCaptureGateLine: String {
+        permissions.screenCapture == .ready
+            ? "macOS Screen Recording preflight is ready."
+            : "macOS Screen Recording preflight denies this app bundle."
+    }
+
+    var screenCaptureGateDetail: String {
+        "\(Bundle.main.bundleIdentifier ?? "unknown bundle") · \(Bundle.main.bundleURL.path)"
+    }
+
+    var needsScreenCapturePermission: Bool {
+        permissions.screenCapture != .ready
+    }
+
     var screenSourceStatus: CapabilityStatus {
         selectedScreens.isEmpty ? .missing : .ready
     }
@@ -371,14 +458,44 @@ final class RecorderStore: ObservableObject {
     var startBlockers: [String] {
         var blockers: [String] = []
         if ffmpegPath == nil { blockers.append("FFmpeg not found") }
-        if selectedScreens.isEmpty { blockers.append("Select at least one display") }
+        if permissions.screenCapture != .ready { blockers.append(screenRecordingPreflightBlocker) }
+        if devices.videoDevices.filter(\.isScreen).isEmpty {
+            blockers.append("Reload devices before recording")
+        } else if selectedScreens.isEmpty {
+            blockers.append("Select at least one display")
+        }
         if permissions.disk == .low { blockers.append("Disk space is tight") }
         return blockers
     }
 
     func reloadSetup() async {
+        await refreshPreflight(probeDevices: true)
+        appendStatus("Source list reloaded from FFmpeg. Start will run the real capture path without another device probe.")
+    }
+
+    func requestScreenRecordingPermission() async {
+        appendStatus("Requesting macOS Screen Recording permission for \(screenCaptureGateDetail).")
+        permissions.screenCapture = PermissionService.requestScreenCaptureAccess()
         await refreshPreflight()
-        appendStatus("Source list reloaded. Start will run the real FFmpeg capture path.")
+        appendStatus(screenCaptureGateLine)
+    }
+
+    func recheckScreenRecordingPermission() async {
+        await refreshPreflight()
+        appendStatus(screenCaptureGateLine)
+    }
+
+    func openScreenRecordingSettings() {
+        let urls = [
+            "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture",
+            "x-apple.systempreferences:com.apple.SystemSettings.PrivacySecurity.extension?Privacy_ScreenCapture",
+        ].compactMap(URL.init(string:))
+
+        for url in urls where NSWorkspace.shared.open(url) {
+            appendStatus("Opened Screen & System Audio Recording settings for \(screenCaptureGateDetail).")
+            return
+        }
+        appendStatus("Could not open Screen Recording settings.")
     }
 
     func useSimpleDefaults() {
@@ -388,20 +505,31 @@ final class RecorderStore: ObservableObject {
         updateScreenPreviewPlaceholders()
     }
 
-    func refreshPreflight() async {
+    func refreshPreflight(probeDevices: Bool = false) async {
         ffmpegPath = HostEnvironment.findFFmpeg()
         permissions.ffmpeg = ffmpegPath == nil ? .missing : .ready
         transcribeBinaryPath = HostEnvironment.findTranscribeBinary()
+        permissions.screenCapture = PermissionService.screenCaptureStatus()
         permissions.microphone = PermissionService.microphoneStatus()
         diskFreeBytes = HostEnvironment.availableDiskBytes(at: HostEnvironment.outputRoot)
         permissions.disk = diskStatus(bytes: diskFreeBytes)
+        applyPersistedRecorderConfigIfAvailable()
 
         if let ffmpegPath {
-            do {
-                devices = try await CaptureHelperClient.loadDevices(ffmpegPath: ffmpegPath)
+            if probeDevices {
+                do {
+                    devices = AVCaptureDeviceIdentityResolver.enrichInventory(
+                        try await CaptureHelperClient.loadDevices(ffmpegPath: ffmpegPath)
+                    )
+                    persistDeviceInventory(devices)
+                    applyDefaultSelections()
+                } catch {
+                    appendStatus("Could not enumerate FFmpeg AVFoundation devices: \(error.localizedDescription)")
+                    loadCachedOrPersistedDeviceInventoryIfNeeded()
+                }
+            } else {
+                loadCachedOrPersistedDeviceInventoryIfNeeded()
                 applyDefaultSelections()
-            } catch {
-                appendStatus("Could not enumerate FFmpeg AVFoundation devices: \(error.localizedDescription)")
             }
         }
 
@@ -411,7 +539,7 @@ final class RecorderStore: ObservableObject {
         updateCameraPreview()
         updateScreenPreviewPlaceholders()
         schedulePreviewTimer()
-        refreshTakeHistory(selectLatestIfNone: activeTakeURL == nil)
+        refreshTakeHistory()
         refreshRecentImportCandidate()
     }
 
@@ -421,15 +549,13 @@ final class RecorderStore: ObservableObject {
         } else {
             selectedScreenIDs.remove(device.id)
         }
-        if screenPreviewEnabled {
-            refreshScreenSnapshots()
-        } else {
-            updateScreenPreviewPlaceholders()
-        }
+        updateScreenPreviewPlaceholders()
     }
 
     func selectAudio(_ id: String) {
         selectedAudioID = id.isEmpty ? nil : id
+        savedMicrophonePreferenceIsUnavailable = false
+        persistMicrophonePreference(selectedAudio)
         microphoneLevel = 0
         updateAudioMeter()
     }
@@ -495,15 +621,21 @@ final class RecorderStore: ObservableObject {
     }
 
     func refreshScreenSnapshots() {
-        screenPreviewEnabled = true
-        for device in selectedScreens {
-            screenPreviewStatus[device.id] = "Snapshot preview is disabled so the console never opens macOS Screen Recording prompts."
-        }
-        schedulePreviewTimer()
+        screenPreviewEnabled = false
+        screenSnapshots.removeAll()
+        updateScreenPreviewPlaceholders(
+            message: "Screenshot preview is disabled until the macOS permission loop is repaired."
+        )
     }
 
     func startRecording() async {
         await refreshPreflight()
+        lastStartFailureLine = nil
+        if needsScreenCapturePermission {
+            state = .setupNeeded
+            appendStatus("Start blocked: \(screenCaptureGateLine) Use Request once, grant the current /Applications bundle, quit/reopen if macOS asks, then Recheck.")
+            return
+        }
         guard canStart, let ffmpegPath else {
             appendStatus("Start blocked: \(startBlockers.joined(separator: ", ")).")
             return
@@ -518,11 +650,14 @@ final class RecorderStore: ObservableObject {
             countdownValue = nil
             stopConfidencePreviewForRecording()
             markers = []
+            let hideConsole = shouldHideConsoleForRecording()
             showHud()
-            if autoHideBeforeRecording {
-                appendStatus("Console hidden; HUD floats over selected displays.")
-                NSApp.hide(nil)
+            if hideConsole {
+                appendStatus("Console hidden because it overlaps the selected display; HUD remains available.")
+                hideConsoleWindowsForRecording()
                 try await Task.sleep(nanoseconds: 250_000_000)
+            } else if autoHideBeforeRecording {
+                appendStatus(autoHideSkipReasonForRecording())
             } else {
                 appendStatus("Console remains visible; HUD floats over selected displays.")
             }
@@ -535,33 +670,118 @@ final class RecorderStore: ObservableObject {
                 screenshotInterval: screenshotInterval,
                 transcribeBinary: transcribeBinaryPath,
                 transcribeModel: transcribeModel,
-                takeTitle: recordingTitle
+                takeTitle: recordingTitle,
+                captureBackend: "screencapturekit"
             )
-            activeTakeURL = URL(fileURLWithPath: response.rootPath, isDirectory: true)
-            let title = normalizedTakeTitle(response.title ?? recordingTitle)
-            activeTakeTitle = title
-            takeTitleDraft = title
-            recordingTitle = ""
-            refreshTakeHistory()
-            state = .recording
-            recordingStartedAt = Date()
-            startTimer()
-            startScheduleTimer()
-            for line in response.statusLines.reversed() {
-                appendStatus(line)
-            }
-            appendStatus("Recording started: \(response.takeID).")
+            let takeURL = URL(fileURLWithPath: response.rootPath, isDirectory: true)
+            try await completeNativeStartAfterHelper(
+                takeURL: takeURL,
+                takeID: response.takeID,
+                title: response.title ?? recordingTitle,
+                helperStatusLines: response.statusLines
+            )
         } catch {
-            state = .packageFailed
+            attentionMonitor.stop()
+            try? await nativeAudioCaptureManager.stop()
+            try? await nativeScreenCaptureManager.stop()
+            appendStartAttempt("start_failed", detail: error.localizedDescription)
+            if let activeTakeURL {
+                _ = try? await CaptureHelperClient.finalize(takeRoot: activeTakeURL)
+                loadPlaybackAsset(from: activeTakeURL)
+                refreshActiveTakeExportStatus()
+            }
+            let failureLine = "Recording start failed: \(error.localizedDescription)."
+            lastStartFailureLine = failureLine
+            state = startBlockers.isEmpty ? .ready : .setupNeeded
             countdownValue = nil
             hideHud()
-            NSApp.unhide(nil)
-            NSApp.activate(ignoringOtherApps: true)
-            appendStatus("Recording start failed: \(error.localizedDescription).")
+            restoreConsoleWindowsAfterRecording()
+            appendStatus(failureLine)
+            refreshTakeHistory()
             updateAudioMeter()
             updateCameraPreview()
             schedulePreviewTimer()
         }
+    }
+
+    func completeNativeStartAfterHelper(
+        takeURL: URL,
+        takeID: String,
+        title: String,
+        helperStatusLines: [String]
+    ) async throws {
+        activeTakeURL = takeURL
+        appendStartAttempt("countdown_done", detail: "Countdown finished; helper package created.", takeURL: takeURL)
+        appendStartAttempt("helper_start_ok", detail: takeID, takeURL: takeURL)
+        let title = normalizedTakeTitle(title)
+        activeTakeTitle = title
+        takeTitleDraft = title
+        recordingTitle = ""
+
+        appendStatus("Starting ScreenCaptureKit screen recording.")
+        appendStartAttempt("screen_start_begin", takeURL: takeURL)
+        currentRecordingSegmentIndex = 1
+        currentSegmentScreenTracks = []
+        currentSegmentAudioTrack = nil
+        let nativeTracks = try await nativeScreenCaptureManager.start(
+            takeRoot: takeURL,
+            screens: selectedScreens,
+            segmentIndex: currentRecordingSegmentIndex
+        )
+        currentSegmentScreenTracks = nativeTracks
+        appendStartAttempt(
+            "screen_start_ok",
+            detail: nativeTracks.map(\.relativePath).joined(separator: ", "),
+            takeURL: takeURL
+        )
+        for track in nativeTracks {
+            appendStatus("ScreenCaptureKit recording \(track.device.name) to \(track.relativePath).")
+        }
+
+        state = .recording
+        recordingStartedAt = Date()
+        startTimer()
+        startScheduleTimer()
+        appendStartAttempt("state_recording_set", detail: "Screen recording is live.", takeURL: takeURL)
+
+        if selectedAudio == nil {
+            appendStartAttempt("audio_start_skipped", detail: "No microphone selected.", takeURL: takeURL)
+            microphoneMeterStatus = "No microphone selected; screen recording continues."
+        } else {
+            appendStartAttempt("audio_start_begin", detail: selectedAudio?.identityDescription, takeURL: takeURL)
+            do {
+                if let audioTrack = try await nativeAudioCaptureManager.start(
+                    takeRoot: takeURL,
+                    microphone: selectedAudio,
+                    segmentIndex: currentRecordingSegmentIndex
+                ) {
+                    currentSegmentAudioTrack = audioTrack
+                    appendStatus("Native microphone recording \(audioTrack.device.name) to \(audioTrack.relativePath).")
+                    appendStartAttempt("audio_start_ok", detail: audioTrack.relativePath, takeURL: takeURL)
+                } else {
+                    appendStartAttempt("audio_start_skipped", detail: "No microphone selected.", takeURL: takeURL)
+                }
+            } catch {
+                let warning = "Mic failed: \(error.localizedDescription); screen recording continues."
+                persistTakeKnownFailure(warning, to: takeURL)
+                appendStartAttempt("audio_start_failed", detail: error.localizedDescription, takeURL: takeURL)
+                appendStatus(warning)
+                microphoneMeterStatus = warning
+            }
+        }
+        persistOpenMediaSegment(
+            index: currentRecordingSegmentIndex,
+            screenTracks: currentSegmentScreenTracks,
+            audioTrack: currentSegmentAudioTrack,
+            to: takeURL
+        )
+
+        attentionMonitor.start(takeURL: takeURL, screen: selectedScreens.first)
+        refreshTakeHistory()
+        for line in helperStatusLines.reversed() {
+            appendStatus(line)
+        }
+        appendStatus("Recording started: \(takeID).")
     }
 
     func markClip(source: MarkerSource, label: String? = nil) {
@@ -583,36 +803,149 @@ final class RecorderStore: ObservableObject {
     }
 
     func togglePause() {
+        guard state == .recording || state == .paused else { return }
+        Task {
+            if state == .recording {
+                await pauseRecording()
+            } else {
+                await resumeRecording()
+            }
+        }
+    }
+
+    func pauseRecording() async {
         guard let activeTakeURL else { return }
-        switch state {
-        case .recording:
-            Task {
+        guard state == .recording else { return }
+        appendStartAttempt("pause_begin", detail: "Stopping native media writers.", takeURL: activeTakeURL)
+
+        var pauseWarnings: [String] = []
+        if let recordingStartedAt {
+            elapsed = Date().timeIntervalSince(recordingStartedAt)
+        }
+        timer?.invalidate()
+        scheduleTimer?.invalidate()
+        if nativeAudioCaptureManager.isRecording {
+            do {
+                try await nativeAudioCaptureManager.stop()
+            } catch {
+                pauseWarnings.append("Microphone pause warning: \(error.localizedDescription)")
+            }
+        }
+        if nativeScreenCaptureManager.isRecording {
+            do {
+                try await nativeScreenCaptureManager.stop()
+            } catch {
+                pauseWarnings.append("Screen pause warning: \(error.localizedDescription)")
+            }
+        }
+        closeCurrentMediaSegment(status: "paused", in: activeTakeURL)
+        let statusLines: [String]
+        do {
+            let response = try await CaptureHelperClient.pause(takeRoot: activeTakeURL)
+            statusLines = response.statusLines
+        } catch {
+            let warning = "Pause bookkeeping warning: \(error.localizedDescription)"
+            persistTakeKnownFailure(warning, to: activeTakeURL)
+            appendStartAttempt("pause_helper_failed", detail: error.localizedDescription, takeURL: activeTakeURL)
+            pauseWarnings.append(warning)
+            statusLines = []
+        }
+        attentionMonitor.pause()
+        state = .paused
+        for warning in pauseWarnings {
+            persistTakeKnownFailure(warning, to: activeTakeURL)
+            appendStatus(warning)
+        }
+        for line in statusLines.reversed() { appendStatus(line) }
+        appendStartAttempt(
+            "pause_segment_closed",
+            detail: String(format: "segment_%04d", currentRecordingSegmentIndex),
+            takeURL: activeTakeURL
+        )
+        appendStatus("Recording paused. Native media writers stopped; the paused interval will be cut from review.")
+    }
+
+    func resumeRecording() async {
+        guard let activeTakeURL else { return }
+        guard state == .paused else { return }
+        let nextSegment = max(currentRecordingSegmentIndex + 1, 2)
+        appendStartAttempt(
+            "resume_begin",
+            detail: String(format: "Starting segment_%04d.", nextSegment),
+            takeURL: activeTakeURL
+        )
+
+        do {
+            var resumeWarnings: [String] = []
+            let screenTracks = try await nativeScreenCaptureManager.start(
+                takeRoot: activeTakeURL,
+                screens: selectedScreens,
+                segmentIndex: nextSegment
+            )
+            currentRecordingSegmentIndex = nextSegment
+            currentSegmentScreenTracks = screenTracks
+            currentSegmentAudioTrack = nil
+            appendStartAttempt(
+                "resume_screen_start_ok",
+                detail: screenTracks.map(\.relativePath).joined(separator: ", "),
+                takeURL: activeTakeURL
+            )
+
+            if selectedAudio == nil {
+                appendStartAttempt("resume_audio_start_skipped", detail: "No microphone selected.", takeURL: activeTakeURL)
+            } else {
+                appendStartAttempt("resume_audio_start_begin", detail: selectedAudio?.identityDescription, takeURL: activeTakeURL)
                 do {
-                    let response = try await CaptureHelperClient.pause(takeRoot: activeTakeURL)
-                    timer?.invalidate()
-                    scheduleTimer?.invalidate()
-                    state = .paused
-                    for line in response.statusLines.reversed() { appendStatus(line) }
-                    appendStatus("Recording paused. Stop to finalize and review saved playback.")
+                    if let audioTrack = try await nativeAudioCaptureManager.start(
+                        takeRoot: activeTakeURL,
+                        microphone: selectedAudio,
+                        segmentIndex: nextSegment
+                    ) {
+                        currentSegmentAudioTrack = audioTrack
+                        appendStartAttempt("resume_audio_start_ok", detail: audioTrack.relativePath, takeURL: activeTakeURL)
+                    } else {
+                        appendStartAttempt("resume_audio_start_skipped", detail: "No microphone selected.", takeURL: activeTakeURL)
+                    }
                 } catch {
-                    appendStatus("Pause failed: \(error.localizedDescription).")
+                    let warning = "Mic resume failed: \(error.localizedDescription); screen recording continues."
+                    persistTakeKnownFailure(warning, to: activeTakeURL)
+                    appendStartAttempt("resume_audio_start_failed", detail: error.localizedDescription, takeURL: activeTakeURL)
+                    appendStatus(warning)
+                    microphoneMeterStatus = warning
                 }
             }
-        case .paused:
-            Task {
-                do {
-                    let response = try await CaptureHelperClient.resume(takeRoot: activeTakeURL)
-                    startTimer()
-                    startScheduleTimer()
-                    state = .recording
-                    for line in response.statusLines.reversed() { appendStatus(line) }
-                    appendStatus("Recording resumed.")
-                } catch {
-                    appendStatus("Resume failed: \(error.localizedDescription).")
-                }
+            persistOpenMediaSegment(
+                index: currentRecordingSegmentIndex,
+                screenTracks: currentSegmentScreenTracks,
+                audioTrack: currentSegmentAudioTrack,
+                to: activeTakeURL
+            )
+            let statusLines: [String]
+            do {
+                let response = try await CaptureHelperClient.resume(takeRoot: activeTakeURL)
+                statusLines = response.statusLines
+            } catch {
+                let warning = "Resume bookkeeping warning: \(error.localizedDescription)"
+                persistTakeKnownFailure(warning, to: activeTakeURL)
+                appendStartAttempt("resume_helper_failed", detail: error.localizedDescription, takeURL: activeTakeURL)
+                resumeWarnings.append(warning)
+                statusLines = []
             }
-        default:
-            break
+            attentionMonitor.resume()
+            recordingStartedAt = Date().addingTimeInterval(-elapsed)
+            startTimer()
+            startScheduleTimer()
+            state = .recording
+            for warning in resumeWarnings {
+                appendStatus(warning)
+            }
+            for line in statusLines.reversed() { appendStatus(line) }
+            appendStatus(String(format: "Recording resumed: segment_%04d writing.", currentRecordingSegmentIndex))
+        } catch {
+            try? await nativeAudioCaptureManager.stop()
+            try? await nativeScreenCaptureManager.stop()
+            appendStartAttempt("resume_failed", detail: error.localizedDescription, takeURL: activeTakeURL)
+            appendStatus("Resume failed: \(error.localizedDescription). Recording remains paused.")
         }
     }
 
@@ -621,33 +954,64 @@ final class RecorderStore: ObservableObject {
         pausePlayback()
         timer?.invalidate()
         scheduleTimer?.invalidate()
+        attentionMonitor.stop()
         state = .stopping
         appendStatus("Stopping capture processes.")
 
         do {
-            state = .postprocessing
-            appendStatus("Finalizing saved tracks for review.")
-            let response = try await CaptureHelperClient.finalize(takeRoot: activeTakeURL)
+            var captureWarnings: [String] = []
+            if nativeAudioCaptureManager.isRecording {
+                appendStatus("Stopping native microphone recorder.")
+                do {
+                    try await nativeAudioCaptureManager.stop()
+                } catch {
+                    captureWarnings.append("Microphone capture warning: \(error.localizedDescription)")
+                }
+            }
+            if nativeScreenCaptureManager.isRecording {
+                appendStatus("Stopping ScreenCaptureKit screen recorder.")
+                do {
+                    try await nativeScreenCaptureManager.stop()
+                } catch {
+                    captureWarnings.append("Screen capture warning: \(error.localizedDescription)")
+                }
+            }
+            closeCurrentMediaSegment(status: "stopped", in: activeTakeURL)
+            appendStatus("Finalizing saved tracks and verifying cloud archive.")
+            let response = try await CaptureHelperClient.stop(takeRoot: activeTakeURL)
             for line in response.statusLines.reversed() {
                 appendStatus(line)
             }
+            for warning in captureWarnings.reversed() {
+                appendStatus(warning)
+            }
             hideHud()
-            NSApp.unhide(nil)
-            NSApp.activate(ignoringOtherApps: true)
+            restoreConsoleWindowsAfterRecording()
             loadPlaybackAsset(from: activeTakeURL)
+            refreshActiveTakeExportStatus()
             refreshTakeHistory()
-            state = playbackURL == nil && !(response.knownFailures ?? []).isEmpty ? .packageFailed : .reviewReady
-            appendStatus("Review ready: \(response.rootPath). \(markers.count) marker(s).")
+            let hasReviewVideo = videoAssetURL(for: activeTakeURL) != nil
+            state = hasReviewVideo ? .reviewReady : .packageFailed
+            if hasReviewVideo {
+                appendStatus("Review ready: \(response.rootPath). \(markers.count) marker(s). Build the transcript later if needed.")
+                if let diagnosis = mediaDiagnosisLine(for: activeTakeURL) {
+                    appendStatus(diagnosis)
+                }
+            } else {
+                appendStatus("Review blocked: \(mediaDiagnosisLine(for: activeTakeURL) ?? "no usable screen video was found").")
+            }
             updateAudioMeter()
             updateCameraPreview()
             schedulePreviewTimer()
             scheduleState = nil
             scheduleStatus = "Run map idle"
         } catch {
+            try? await nativeAudioCaptureManager.stop()
+            try? await nativeScreenCaptureManager.stop()
+            attentionMonitor.stop()
             state = .packageFailed
             hideHud()
-            NSApp.unhide(nil)
-            NSApp.activate(ignoringOtherApps: true)
+            restoreConsoleWindowsAfterRecording()
             appendStatus("Stop/postprocess failed: \(error.localizedDescription).")
             loadPlaybackAsset(from: activeTakeURL)
             refreshTakeHistory()
@@ -663,21 +1027,34 @@ final class RecorderStore: ObservableObject {
         guard let activeTakeURL, canBuildPackage else { return }
         pausePlayback()
         state = .postprocessing
-        appendStatus("Building full package sidecars.")
+        appendStatus("Building transcript sidecar.")
 
         do {
-            let response = try await CaptureHelperClient.postprocess(takeRoot: activeTakeURL)
-            state = (response.knownFailures ?? []).isEmpty ? .packageReady : .packageFailed
+            let response = try await CaptureHelperClient.transcribe(takeRoot: activeTakeURL)
             for line in response.statusLines.reversed() {
                 appendStatus(line)
             }
             loadPlaybackAsset(from: activeTakeURL)
+            refreshActiveTakeExportStatus()
             refreshTakeHistory()
-            appendStatus("Full package build finished.")
+            let hasReviewVideo = videoAssetURL(for: activeTakeURL) != nil
+            let knownFailures = response.knownFailures ?? []
+            state = hasReviewVideo ? .reviewReady : (knownFailures.isEmpty ? .packageReady : .packageFailed)
+            if knownFailures.isEmpty {
+                appendStatus("Transcript sidecar build finished.")
+            } else if hasReviewVideo {
+                appendStatus("Transcript unavailable; review video is still available.")
+                if let diagnosis = mediaDiagnosisLine(for: activeTakeURL) {
+                    appendStatus(diagnosis)
+                }
+            } else {
+                appendStatus("Transcript build failed: \(mediaDiagnosisLine(for: activeTakeURL) ?? "no usable screen video was found").")
+            }
         } catch {
             state = .packageFailed
-            appendStatus("Package build failed: \(error.localizedDescription).")
+            appendStatus("Transcript build failed: \(error.localizedDescription).")
             loadPlaybackAsset(from: activeTakeURL)
+            refreshActiveTakeExportStatus()
             refreshTakeHistory()
         }
     }
@@ -940,6 +1317,63 @@ final class RecorderStore: ObservableObject {
         onHudShouldHide?()
     }
 
+    private func shouldHideConsoleForRecording() -> Bool {
+        guard autoHideBeforeRecording else { return false }
+        let selectedDisplayIDs = selectedScreensDisplayIDs()
+        guard !selectedDisplayIDs.isEmpty else { return false }
+        return consoleWindowsForCapture().contains { window in
+            HostEnvironment.window(window, intersectsAnyDisplayID: selectedDisplayIDs)
+        }
+    }
+
+    private func autoHideSkipReasonForRecording() -> String {
+        let selectedDisplayIDs = selectedScreensDisplayIDs()
+        if selectedDisplayIDs.isEmpty {
+            return "Console stays visible; selected display mapping is ambiguous."
+        }
+        if consoleWindowsForCapture().isEmpty {
+            return "Console stays visible; no normal console window is on screen."
+        }
+        return "Console stays visible because it is on a different display from the capture target."
+    }
+
+    private func hideConsoleWindowsForRecording() {
+        hiddenConsoleWindows = consoleWindowsForCapture()
+        for window in hiddenConsoleWindows {
+            window.orderOut(nil)
+        }
+    }
+
+    private func restoreConsoleWindowsAfterRecording() {
+        let windows = hiddenConsoleWindows
+        hiddenConsoleWindows = []
+        if windows.isEmpty {
+            NSApp.unhide(nil)
+            NSApp.activate(ignoringOtherApps: true)
+            return
+        }
+        for window in windows where !window.isMiniaturized {
+            window.makeKeyAndOrderFront(nil)
+        }
+        NSApp.unhide(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private func consoleWindowsForCapture() -> [NSWindow] {
+        NSApp.windows.filter { window in
+            guard window.isVisible, !window.isMiniaturized else { return false }
+            guard !(window is NSPanel) else { return false }
+            guard window.level == .normal else { return false }
+            return window.contentView != nil
+        }
+    }
+
+    private func selectedScreensDisplayIDs() -> Set<UInt32> {
+        Set(selectedScreens.compactMap { device in
+            HostEnvironment.displayMetadata(forFFmpegScreenIndex: device.screenOrdinal).displayID
+        })
+    }
+
     func revealTakeFolder() {
         guard let activeTakeURL else { return }
         revealTakeFolder(activeTakeURL)
@@ -1120,7 +1554,7 @@ final class RecorderStore: ObservableObject {
                 scheduleStatus = "Run map idle"
                 state = startBlockers.isEmpty ? .ready : .setupNeeded
             }
-            refreshTakeHistory(selectLatestIfNone: isActive)
+            refreshTakeHistory()
             appendStatus("Deleted \(name).")
         } catch {
             appendStatus("Delete failed for \(name): \(error.localizedDescription).")
@@ -1236,18 +1670,185 @@ final class RecorderStore: ObservableObject {
     private func applyDefaultSelections() {
         if !hasAppliedInitialDefaults {
             applySimpleDefaults(announce: false)
+            applyPersistedRecorderConfigIfAvailable()
+            applyPersistedDeviceSelectionsIfAvailable()
             hasAppliedInitialDefaults = true
             return
         }
         if selectedScreenIDs.isEmpty {
             selectedScreenIDs = defaultScreenSelection()
         }
-        if selectedAudioID == nil {
+        if selectedAudioID == nil && !savedMicrophonePreferenceIsUnavailable {
             selectedAudioID = preferredAudioDevice()?.id
         }
         if selectedWebcamID == nil {
             selectedWebcamID = devices.videoDevices.first(where: { $0.isLikelyWebcam })?.id
         }
+    }
+
+    private func applyPersistedDeviceSelectionsIfAvailable() {
+        guard let config = loadPersistedRecorderConfig() else { return }
+        if let displayIndexes = config.selectedDisplayIndexes, !displayIndexes.isEmpty {
+            let ids = devices.videoDevices
+                .filter { device in device.isScreen && displayIndexes.contains(device.index) }
+                .map(\.id)
+            if !ids.isEmpty {
+                selectedScreenIDs = Set(ids)
+            } else {
+                selectedScreenIDs = []
+                appendStatus("Saved display indexes no longer match screen devices. Reload Devices before recording.")
+            }
+        }
+        let microphonePreference = config.microphonePreference
+        if microphonePreference.hasSelection {
+            if let microphone = MicrophonePreferenceResolver.resolve(microphonePreference, in: devices.audioDevices) {
+                selectedAudioID = microphone.id
+                savedMicrophonePreferenceIsUnavailable = false
+                if microphone.uniqueID != nil && config.selectedMicrophoneUniqueID == nil {
+                    persistMicrophonePreference(microphone)
+                }
+            } else {
+                selectedAudioID = nil
+                savedMicrophonePreferenceIsUnavailable = true
+                appendStatus("Preferred microphone unavailable: \(microphonePreference.displayLabel). Reconnect it or choose another mic; screen recording can continue without mic.")
+            }
+        }
+        if let webcamIndex = config.selectedWebcamIndex,
+           let webcam = devices.videoDevices.first(where: { $0.index == webcamIndex && $0.isLikelyWebcam }) {
+            selectedWebcamID = webcam.id
+        }
+    }
+
+    private func persistDeviceInventory(_ inventory: DeviceInventory) {
+        do {
+            let url = HostEnvironment.deviceInventoryCacheURL
+            try FileManager.default.createDirectory(
+                at: url.deletingLastPathComponent(),
+                withIntermediateDirectories: true
+            )
+            let data = try JSONEncoder().encode(inventory)
+            try data.write(to: url, options: [.atomic])
+        } catch {
+            appendStatus("Could not save source inventory cache: \(error.localizedDescription)")
+        }
+    }
+
+    private func loadCachedOrPersistedDeviceInventoryIfNeeded() {
+        guard devices.videoDevices.isEmpty && devices.audioDevices.isEmpty else { return }
+        if let cached = loadCachedDeviceInventory() {
+            devices = cached
+            appendStatus("Loaded cached source inventory. Use Reload Devices only when sources change.")
+            return
+        }
+        if let fallback = deviceInventoryFromPersistedRecorderConfig() {
+            devices = fallback
+            appendStatus("Loaded saved audio index only. Reload Devices before recording a display.")
+        } else {
+            appendStatus("No cached source inventory yet. Use Reload Devices once before the next recording.")
+        }
+    }
+
+    private func loadCachedDeviceInventory() -> DeviceInventory? {
+        do {
+            let data = try Data(contentsOf: HostEnvironment.deviceInventoryCacheURL)
+            let inventory = AVCaptureDeviceIdentityResolver.enrichInventory(
+                try JSONDecoder().decode(DeviceInventory.self, from: data)
+            )
+            guard !inventory.videoDevices.isEmpty || !inventory.audioDevices.isEmpty else { return nil }
+            return inventory
+        } catch {
+            return nil
+        }
+    }
+
+    private func applyPersistedRecorderConfigIfAvailable() {
+        guard let config = loadPersistedRecorderConfig() else { return }
+        if let seconds = config.screenshotIntervalSeconds {
+            screenshotInterval = max(1, min(60, seconds))
+        }
+        if let hide = config.hideConsoleBeforeCapture {
+            autoHideBeforeRecording = hide
+        }
+        if let model = config.transcribeModel, !model.isEmpty {
+            transcribeModel = model
+        }
+        if let enabled = config.webcamEnabled {
+            webcamEnabled = enabled
+        }
+    }
+
+    private func loadPersistedRecorderConfig() -> PersistedRecorderConfig? {
+        do {
+            let data = try Data(contentsOf: HostEnvironment.recorderConfigURL)
+            return try JSONDecoder().decode(PersistedRecorderConfig.self, from: data)
+        } catch {
+            return nil
+        }
+    }
+
+    private func persistMicrophonePreference(_ microphone: CaptureDevice?) {
+        do {
+            let url = HostEnvironment.recorderConfigURL
+            try FileManager.default.createDirectory(
+                at: url.deletingLastPathComponent(),
+                withIntermediateDirectories: true
+            )
+            var payload = loadRecorderConfigPayload()
+            if let microphone {
+                payload["selected_microphone_index"] = microphone.index
+                payload["selected_microphone_name"] = microphone.name
+                if let uniqueID = microphone.uniqueID, !uniqueID.isEmpty {
+                    payload["selected_microphone_unique_id"] = uniqueID
+                } else {
+                    payload.removeValue(forKey: "selected_microphone_unique_id")
+                }
+                appendStatus("Saved microphone preference: \(microphone.identityDescription).")
+            } else {
+                payload.removeValue(forKey: "selected_microphone_index")
+                payload.removeValue(forKey: "selected_microphone_name")
+                payload.removeValue(forKey: "selected_microphone_unique_id")
+                appendStatus("Cleared microphone preference; screen recording will continue without mic.")
+            }
+
+            guard JSONSerialization.isValidJSONObject(payload) else {
+                appendStatus("Could not save microphone preference: recorder config is not valid JSON.")
+                return
+            }
+            let data = try JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
+            try data.write(to: url, options: [.atomic])
+        } catch {
+            appendStatus("Could not save microphone preference: \(error.localizedDescription)")
+        }
+    }
+
+    private func loadRecorderConfigPayload() -> [String: Any] {
+        guard let data = try? Data(contentsOf: HostEnvironment.recorderConfigURL),
+              let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else {
+            return [:]
+        }
+        return payload
+    }
+
+    private func deviceInventoryFromPersistedRecorderConfig() -> DeviceInventory? {
+        guard let config = loadPersistedRecorderConfig() else { return nil }
+        var inventory = DeviceInventory.empty
+        let preference = config.microphonePreference
+        if preference.hasSelection {
+            let microphoneIndex = preference.index ?? -1
+            let microphoneName = preference.name ?? "Saved microphone"
+            inventory.audioDevices = [
+                CaptureDevice(
+                    id: "audio-\(microphoneIndex)-\(microphoneName)",
+                    index: microphoneIndex,
+                    name: microphoneName,
+                    kind: .audio,
+                    uniqueID: preference.uniqueID
+                )
+            ]
+        }
+        guard !inventory.audioDevices.isEmpty else { return nil }
+        return inventory
     }
 
     private func applySimpleDefaults(announce: Bool) {
@@ -1257,6 +1858,8 @@ final class RecorderStore: ObservableObject {
         webcamEnabled = false
         autoHideBeforeRecording = false
         if announce {
+            savedMicrophonePreferenceIsUnavailable = false
+            persistMicrophonePreference(selectedAudio)
             let screenCount = selectedScreens.count
             let mic = selectedAudio?.name ?? "no microphone found"
             appendStatus("Simple mode: \(screenCount) display + \(mic); console stays visible.")
@@ -1285,6 +1888,10 @@ final class RecorderStore: ObservableObject {
             return .unknown
         }
         return bytes < minimumStartDiskBytes ? .low : .ready
+    }
+
+    private var screenRecordingPreflightBlocker: String {
+        "macOS Screen Recording preflight denied this app"
     }
 
     private func estimatedBytes(seconds: Int64) -> Int64 {
@@ -1462,7 +2069,7 @@ final class RecorderStore: ObservableObject {
         }
         let status = exportStatus(for: activeTakeURL)
         activeTakeExportURL = status.url
-        activeTakeExportLine = status.line
+        activeTakeExportLine = status.ready ? status.line : (mediaDiagnosisLine(for: activeTakeURL) ?? status.line)
         if status.ready, let url = status.url {
             lastExportedVideoURL = url
         }
@@ -1532,6 +2139,64 @@ final class RecorderStore: ObservableObject {
         return nil
     }
 
+    private func mediaDiagnosisLine(for takeURL: URL) -> String? {
+        let manifest = readJSON(TakeManifestSummary.self, from: takeURL.appendingPathComponent("manifest.json"))
+        let session = readJSON(TakeSessionSummary.self, from: takeURL.appendingPathComponent("session.json"))
+        let render = readJSON(RenderReceiptSummary.self, from: takeURL.appendingPathComponent("render/render_receipt.json"))
+        let video = videoAssetURL(for: takeURL)
+        let tracks = session?.tracks ?? []
+        let screen = tracks.first { $0.role == "screen" || $0.role == "external_video" || $0.role == "webcam" }
+        let microphone = tracks.first { $0.role == "microphone" }
+
+        var parts: [String] = []
+        if let video {
+            parts.append("Review video: \(relativePath(video, in: takeURL))\(sizeSuffix(for: video))")
+        } else if let screen {
+            let screenURL = takeURL.appendingPathComponent(screen.relativePath)
+            if FileManager.default.fileExists(atPath: screenURL.path) {
+                parts.append("Screen track empty: \(screen.relativePath)\(sizeSuffix(for: screenURL))")
+            } else {
+                parts.append("Missing screen track: \(screen.relativePath)")
+            }
+        } else {
+            parts.append("Missing screen track")
+        }
+
+        if let microphone {
+            let micURL = takeURL.appendingPathComponent(microphone.relativePath)
+            if !FileManager.default.fileExists(atPath: micURL.path) {
+                parts.append("Mic missing: \(microphone.relativePath)")
+            } else if (fileSize(at: micURL) ?? 0) <= 0 {
+                parts.append("Mic empty: \(microphone.relativePath)")
+            } else if manifest?.reviewAudio == nil {
+                parts.append("MP3 not built")
+            }
+        } else {
+            parts.append("No mic track")
+        }
+
+        if render?.status == "failed" || render?.status == "unavailable" || render?.status == "timeline_failed" {
+            parts.append("Render \(render?.status ?? "unavailable")")
+        }
+        let failures = (manifest?.knownFailures ?? []) + (render?.knownFailures ?? [])
+        if let firstFailure = failures.first, video == nil {
+            parts.append(firstFailure)
+        }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+
+    private func relativePath(_ url: URL, in takeURL: URL) -> String {
+        let prefix = takeURL.path + "/"
+        if url.path.hasPrefix(prefix) {
+            return String(url.path.dropFirst(prefix.count))
+        }
+        return url.lastPathComponent
+    }
+
+    private func sizeSuffix(for url: URL) -> String {
+        fileSize(at: url).map { " · \(HostEnvironment.byteString($0))" } ?? ""
+    }
+
     private func exportMethodLine(for receipt: ExportReceiptSummary) -> String? {
         if receipt.videoStreamAction == "no_reencode" {
             return "no re-encode"
@@ -1575,6 +2240,7 @@ final class RecorderStore: ObservableObject {
 
         candidates += roughCutCandidates(for: takeURL)
         candidates.append(takeURL.appendingPathComponent("tracks/microphone.m4a"))
+        candidates.append(takeURL.appendingPathComponent("tracks/microphone.wav"))
         candidates += sessionTrackCandidates(for: takeURL, roles: ["external_video", "screen", "webcam", "microphone"])
 
         for candidate in candidates where FileManager.default.fileExists(atPath: candidate.path) {
@@ -1608,7 +2274,7 @@ final class RecorderStore: ObservableObject {
         if relative.hasPrefix("render/rough_cut.") {
             return "rough cut"
         }
-        if relative == "tracks/microphone.m4a" {
+        if relative == "tracks/microphone.m4a" || relative == "tracks/microphone.wav" {
             return "microphone track"
         }
         return relative
@@ -1645,7 +2311,12 @@ final class RecorderStore: ObservableObject {
         return (session.tracks ?? [])
             .filter { roles.contains($0.role) }
             .map { takeURL.appendingPathComponent($0.relativePath) }
-            .filter { isVideoAsset($0) || $0.pathExtension.lowercased() == "m4a" }
+            .filter { isVideoAsset($0) || isAudioAsset($0) }
+    }
+
+    private func isAudioAsset(_ url: URL?) -> Bool {
+        guard let ext = url?.pathExtension.lowercased(), !ext.isEmpty else { return false }
+        return ["m4a", "wav", "aac", "mp3"].contains(ext)
     }
 
     private func titleForTake(_ takeURL: URL) -> String? {
@@ -1866,13 +2537,7 @@ final class RecorderStore: ObservableObject {
 
     private func schedulePreviewTimer() {
         previewTimer?.invalidate()
-        guard state != .recording && state != .paused && state != .countingDown else { return }
-        guard screenPreviewEnabled else { return }
-        previewTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                self?.refreshScreenSnapshots()
-            }
-        }
+        previewTimer = nil
     }
 
     private func updateAudioMeter() {
@@ -1889,7 +2554,10 @@ final class RecorderStore: ObservableObject {
             microphoneMeterStatus = "\(selectedAudio.name) selected; use Test Mic for the FFmpeg check."
             return
         }
-        audioLevelMonitor.start(preferredDeviceName: selectedAudio.name) { [weak self] level, status in
+        audioLevelMonitor.start(
+            preferredDeviceName: selectedAudio.name,
+            preferredDeviceUniqueID: selectedAudio.uniqueID
+        ) { [weak self] level, status in
             Task { @MainActor in
                 self?.microphoneLevel = level
                 self?.microphoneMeterStatus = status
@@ -1932,12 +2600,188 @@ final class RecorderStore: ObservableObject {
             : "Live mic monitor active during recording."
     }
 
-    private func updateScreenPreviewPlaceholders() {
+    private func updateScreenPreviewPlaceholders(message: String? = nil) {
         for device in selectedScreens {
-            screenPreviewStatus[device.id] = screenPreviewEnabled
+            screenPreviewStatus[device.id] = message ?? (screenPreviewEnabled
                 ? "Snapshot preview disabled; Start records this display through FFmpeg."
-                : "Selected for recording."
+                : "Selected for recording.")
         }
+    }
+
+    private func persistOpenMediaSegment(
+        index: Int,
+        screenTracks: [NativeScreenCaptureTrack],
+        audioTrack: NativeAudioCaptureTrack?,
+        to takeURL: URL
+    ) {
+        guard var session = loadSessionPayload(from: takeURL) else { return }
+        let segmentID = String(format: "segment_%04d", index)
+        let screenPayloads = screenTracks.map(screenTrackPayload)
+        let audioPayload = audioTrack.map(audioTrackPayload)
+        var segment: [String: Any] = [
+            "schema": "demo_take_media_segment_v0",
+            "id": segmentID,
+            "index": index,
+            "started_at": ISO8601DateFormatter().string(from: Date()),
+            "status": "recording",
+            "screen_tracks": screenPayloads,
+        ]
+        if let audioPayload {
+            segment["microphone_track"] = audioPayload
+        } else {
+            segment["microphone_track"] = NSNull()
+        }
+
+        var segments = session["media_segments"] as? [[String: Any]] ?? []
+        if let existingIndex = segments.firstIndex(where: { $0["id"] as? String == segmentID }) {
+            segments[existingIndex] = segment
+        } else {
+            segments.append(segment)
+        }
+        session["media_segments"] = segments.sorted { left, right in
+            (left["index"] as? Int ?? 0) < (right["index"] as? Int ?? 0)
+        }
+
+        var tracks = session["tracks"] as? [[String: Any]] ?? []
+        var segmentTracks = screenPayloads
+        if let audioPayload {
+            segmentTracks.append(audioPayload)
+        }
+        for track in segmentTracks {
+            guard let relativePath = track["relative_path"] as? String else { continue }
+            if !tracks.contains(where: { $0["relative_path"] as? String == relativePath }) {
+                tracks.append(track)
+            }
+        }
+        session["tracks"] = tracks
+        writeSessionPayload(session, to: takeURL)
+    }
+
+    private func closeCurrentMediaSegment(status: String, in takeURL: URL) {
+        guard currentRecordingSegmentIndex > 0 else { return }
+        guard var session = loadSessionPayload(from: takeURL) else { return }
+        let segmentID = String(format: "segment_%04d", currentRecordingSegmentIndex)
+        var segments = session["media_segments"] as? [[String: Any]] ?? []
+        guard let index = segments.firstIndex(where: { $0["id"] as? String == segmentID }) else { return }
+        if segments[index]["ended_at"] == nil || segments[index]["ended_at"] is NSNull {
+            segments[index]["ended_at"] = ISO8601DateFormatter().string(from: Date())
+        }
+        segments[index]["status"] = status
+        session["media_segments"] = segments
+        writeSessionPayload(session, to: takeURL)
+    }
+
+    private func screenTrackPayload(_ track: NativeScreenCaptureTrack) -> [String: Any] {
+        var payload: [String: Any] = [
+            "id": trackID(role: "screen", device: track.device, relativePath: track.relativePath),
+            "role": "screen",
+            "device_name": track.device.name,
+            "device_index": track.device.index,
+            "relative_path": track.relativePath,
+            "capture_engine": "screencapturekit",
+        ]
+        if let uniqueID = track.device.uniqueID, !uniqueID.isEmpty {
+            payload["device_unique_id"] = uniqueID
+        }
+        return payload
+    }
+
+    private func audioTrackPayload(_ track: NativeAudioCaptureTrack) -> [String: Any] {
+        var payload: [String: Any] = [
+            "id": trackID(role: "microphone", device: track.device, relativePath: track.relativePath),
+            "role": "microphone",
+            "device_name": track.device.name,
+            "device_index": track.device.index,
+            "relative_path": track.relativePath,
+            "capture_engine": "avfoundation_native",
+        ]
+        if let uniqueID = track.device.uniqueID, !uniqueID.isEmpty {
+            payload["device_unique_id"] = uniqueID
+        }
+        return payload
+    }
+
+    private func trackID(role: String, device: CaptureDevice, relativePath: String) -> String {
+        let suffix = relativePath
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: ".", with: "_")
+        return "\(role)_\(device.index)_\(suffix)"
+    }
+
+    private func loadSessionPayload(from takeURL: URL) -> [String: Any]? {
+        let url = takeURL.appendingPathComponent("session.json")
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+    }
+
+    private func writeSessionPayload(_ payload: [String: Any], to takeURL: URL) {
+        guard JSONSerialization.isValidJSONObject(payload),
+              let output = try? JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
+        else {
+            return
+        }
+        try? output.write(to: takeURL.appendingPathComponent("session.json"), options: [.atomic])
+    }
+
+    private func appendStartAttempt(_ event: String, detail: String? = nil, takeURL: URL? = nil) {
+        guard let takeURL = takeURL ?? activeTakeURL else { return }
+        let url = takeURL.appendingPathComponent("start_attempt.jsonl")
+        var payload: [String: Any] = [
+            "schema": "demo_take_start_attempt_event_v0",
+            "at": ISO8601DateFormatter().string(from: Date()),
+            "event": event,
+            "state": state.rawValue,
+            "selected_screens": selectedScreens.map(\.name),
+        ]
+        if let detail, !detail.isEmpty {
+            payload["detail"] = detail
+        }
+        if let selectedAudio {
+            payload["selected_microphone"] = selectedAudio.name
+            if let uniqueID = selectedAudio.uniqueID, !uniqueID.isEmpty {
+                payload["selected_microphone_unique_id"] = uniqueID
+            }
+        }
+        guard JSONSerialization.isValidJSONObject(payload),
+              let data = try? JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
+        else {
+            return
+        }
+
+        var line = data
+        line.append(0x0A)
+        if FileManager.default.fileExists(atPath: url.path),
+           let handle = try? FileHandle(forWritingTo: url) {
+            handle.seekToEndOfFile()
+            handle.write(line)
+            handle.closeFile()
+        } else {
+            try? FileManager.default.createDirectory(
+                at: url.deletingLastPathComponent(),
+                withIntermediateDirectories: true
+            )
+            try? line.write(to: url, options: [.atomic])
+        }
+    }
+
+    private func persistTakeKnownFailure(_ failure: String, to takeURL: URL) {
+        let url = takeURL.appendingPathComponent("session.json")
+        guard let data = try? Data(contentsOf: url),
+              var payload = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+        else {
+            return
+        }
+        var failures = payload["known_failures"] as? [String] ?? []
+        if !failures.contains(failure) {
+            failures.append(failure)
+        }
+        payload["known_failures"] = failures
+        guard JSONSerialization.isValidJSONObject(payload),
+              let output = try? JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
+        else {
+            return
+        }
+        try? output.write(to: url, options: [.atomic])
     }
 
     private func appendStatus(_ line: String) {
