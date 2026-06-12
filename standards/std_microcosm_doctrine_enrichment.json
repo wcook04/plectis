@@ -3,7 +3,7 @@
   "schema_version": "microcosm_doctrine_enrichment_standard_v1",
   "title": "Doctrine enrichment envelope",
   "status": "active",
-  "purpose": "Define the reader-enrichment envelope that turns a doctrine object (axiom, principle, anti-principle) from a one-line rule row into a drill-down doctrine cell: a deep reading, a formal statement with a symbol table, the problem it governs, what it requires and refuses, a worked example wired to a real component, the tempting mistake, the enforcement routes, and the bound on what it proves.",
+  "purpose": "Define the reader-enrichment envelope that turns a doctrine object (axiom, principle, anti-principle) from a one-line rule row into a drill-down doctrine cell: a deep reading, a formal statement with a symbol table, the problem it governs, what it requires and refuses, a worked example wired to a real component, the tempting mistake, the enforcement routes, and the bound on what it proves. The same health gate also carries the first routing-floor extension beyond those 49 reader cards: governed concept rows must expose source-backed, checker-readable routes to mechanism substrate without treating route presence as support evidence.",
   "source_of_record": "microcosm-substrate/core/doctrine_enrichment.json",
   "consumed_by": [
     "tools/meta/dissemination/build_microcosm_public_site.py (doctrine_cards renderer)",
@@ -11,7 +11,7 @@
     "microcosm-substrate/scripts/check_doctrine_formal_soundness.py (formal-statement soundness gate)",
     "microcosm-substrate/scripts/check_doctrine_reader_ladder.py (reader-ladder accessibility gate)"
   ],
-  "authority_boundary": "Enrichment is reader content, not law and not support evidence. The formal_clause source of record stays in core/axiom_organ_routing.json (axioms), PRINCIPLES.md (principles), and ANTI_PRINCIPLES.md (anti-principles); the latex here is a reviewed reader rendering of that clause. The axiom support-cover validator does not read this file, so an example or enforcement route named here never computes support, never raises a claim ceiling, and never becomes anti-axiom rejection. A generated page may expose this content but cannot raise the authority of the source it explains (P-15).",
+  "authority_boundary": "Enrichment is reader content, not law and not support evidence. The formal_clause source of record stays in core/axiom_organ_routing.json (axioms), PRINCIPLES.md (principles), and ANTI_PRINCIPLES.md (anti-principles); the latex here is a reviewed reader rendering of that clause. The concept routing floor reads governed concept JSON rows for source-backed relationship structure only. Neither an enrichment example nor a concept route computes support, raises a claim ceiling, proves target correctness, or becomes anti-axiom rejection. A generated page may expose this content but cannot raise the authority of the source it explains (P-15).",
   "envelope": {
     "required_fields": ["id", "kind"],
     "reader_fields": {
@@ -57,16 +57,38 @@
     "gate": "scripts/check_doctrine_formal_soundness.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_formal_soundness.py)",
     "source_of_record_ceiling": "The latex may not exceed the formal_clause it renders (axiom_organ_routing.json for axioms, PRINCIPLES.md / ANTI_PRINCIPLES.md for principles / anti-principles). Necessity is rendered as implication; only a definitional criterion is rendered as a biconditional."
   },
+  "routing_floor": {
+    "statement": "The doctrine-health checker extends beyond the 49 reader-enrichment cards by checking concept routing structure. A counted concept route must be source-backed, typed, resolved, justified, and able to reach runnable substrate through at least one resolved mechanism edge.",
+    "covered_kinds": ["concept"],
+    "source_of_record": "concepts/concept.*.json",
+    "required_structures": [
+      "source_refs",
+      "valid_json_object",
+      "validator_refs",
+      "receipt_refs",
+      "anti_claims",
+      "entry_surface_contract",
+      "cluster_flag",
+      "relationships.edges",
+      "relationships.unpopulated_selective_relations == []",
+      "at least one resolved mechanism edge"
+    ],
+    "gate": "scripts/build_doctrine_enrichment_health.py --check",
+    "non_goal": "This is not concept taxonomy completeness, target mechanism correctness, support evidence, release authority, or proof authority. Mechanism and paper-module routing floors are future extensions of the same checker, not implicit claims."
+  },
   "non_laundering_rules": [
     "An example is reader illustration, never a support case; it does not pass the support_case_shape and does not raise support.",
     "An enforced_in route is a navigation aid, not proof that the object is obligation-supported or complete.",
     "The latex rendering is a projection of the source clause and cannot become a competing source of record.",
     "An analogy is reader illustration, never proof; it explains the object and is bounded by an explicit limit, and it never establishes the object or computes support.",
-    "Coverage of an enrichment field is presence, not correctness; correctness (formal soundness, analogy fidelity, boundary honesty) is reviewed and gated, not counted."
+    "Coverage of an enrichment field is presence, not correctness; correctness (formal soundness, analogy fidelity, boundary honesty) is reviewed and gated, not counted.",
+    "Coverage of a concept routing edge is walkability, not proof of the target, support of the source concept, or completeness of the concept taxonomy."
   ],
   "anti_claims": [
     "This standard does not flip source authority for any axiom, principle, or anti-principle.",
+    "This standard does not flip source authority for any concept row.",
     "A fully enriched doctrine object is not therefore a strong or witnessed object; admission, support, and enrichment are independent axes.",
+    "A fully routed concept is not therefore a complete ontology node, mature subsystem, or proof of its target mechanisms.",
     "Adding enrichment fields is reader grammar, not release or proof authority."
   ]
 }

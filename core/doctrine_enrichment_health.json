@@ -1,5 +1,5 @@
 {
-  "authority_boundary": "Coverage projection over reader enrichment. Presence, not correctness, and never support evidence. Generated; do not hand-edit.",
+  "authority_boundary": "Coverage projection over reader enrichment and the first concept routing floor. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
   "coverage_complete": true,
   "enriched_objects": 49,
   "formal_soundness": {
@@ -10,6 +10,8 @@
     "sound": 49,
     "unsound": 0
   },
+  "governed_floor_complete": true,
+  "governed_floor_total_objects": 60,
   "incomplete": [],
   "kinds": {
     "anti_principle": {
@@ -64,6 +66,8 @@
       "unenriched_ids": []
     }
   },
+  "reader_enrichment_complete": true,
+  "reader_enrichment_total_objects": 49,
   "reader_ladder": {
     "checked": 49,
     "defects": [],
@@ -73,6 +77,39 @@
     "unsound": 0
   },
   "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
+  "routing_floor": {
+    "authority_boundary": "Concept routing floor over governed concept JSON rows. Structure and route presence only; not concept completeness, support evidence, release authority, or proof correctness.",
+    "coverage_complete": true,
+    "covered_kinds": [
+      "concept"
+    ],
+    "incomplete": [],
+    "kinds": {
+      "concept": {
+        "incomplete_ids": [],
+        "issue_rows": [],
+        "required_structures": [
+          "source_refs",
+          "valid_json_object",
+          "validator_refs",
+          "receipt_refs",
+          "anti_claims",
+          "entry_surface_contract",
+          "cluster_flag",
+          "relationships.edges",
+          "resolved_mechanism_route",
+          "empty_unpopulated_selective_relations"
+        ],
+        "routed": 11,
+        "total": 11
+      }
+    },
+    "routed_objects": 11,
+    "schema_version": "microcosm_doctrine_routing_floor_v1",
+    "source_of_record": "concepts/concept.*.json",
+    "status": "complete",
+    "total_objects": 11
+  },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
   "source_of_record": "core/doctrine_enrichment.json",
   "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
