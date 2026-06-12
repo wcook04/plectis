@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 
 MICRO_ROOT = Path(__file__).resolve().parents[1]
@@ -288,6 +289,103 @@ def test_paper_module_readiness_audit_accepts_resolved_routes(tmp_path: Path) ->
 
     issues = HEALTH._audit_paper_module_readiness_record(tmp_path, record)
     assert issues == []
+
+
+# --- section-model boundary tests -----------------------------------------
+# These are count-independent: they pin the projection's gate composition,
+# plane, and authority grammar, so they must survive the day the paper-module
+# blockers close and the count-pinned assertions above get rewritten.
+
+
+def test_section_model_keeps_frontier_audit_out_of_completion_gate() -> None:
+    report = HEALTH.build_health(MICRO_ROOT)
+
+    assert report["completion_gate_sections"] == [
+        "reader_enrichment_floor",
+        "formal_soundness",
+        "reader_ladder",
+        "doctrine_routing_floor",
+    ]
+    assert report["frontier_audit_sections"] == ["paper_module_readiness_audit"]
+    sections = report["sections"]
+    assert set(sections) == set(report["completion_gate_sections"]) | set(
+        report["frontier_audit_sections"]
+    )
+    for name in report["completion_gate_sections"]:
+        assert sections[name]["gate_role"] == "completion_floor", name
+        assert sections[name]["counts_toward_completion_gate"] is True, name
+    audit_section = sections["paper_module_readiness_audit"]
+    assert audit_section["gate_role"] == "frontier_audit"
+    assert audit_section["counts_toward_completion_gate"] is False
+    assert "promotion" in audit_section["promotion_contract"].lower()
+
+    # The governing standard and the checker must agree on the gate model;
+    # promoting the audit means editing BOTH deliberately, plus this test.
+    standard = json.loads(
+        (MICRO_ROOT / "standards/std_microcosm_doctrine_enrichment.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    model = standard["health_projection_section_model"]
+    assert model["completion_gate_sections"] == report["completion_gate_sections"]
+    assert model["frontier_audit_sections"] == report["frontier_audit_sections"]
+
+
+def test_completion_gate_folds_exactly_the_declared_sections() -> None:
+    report = HEALTH.build_health(MICRO_ROOT)
+
+    gate_ok = (
+        report["coverage_complete"]
+        and report["formal_soundness"]["unsound"] == 0
+        and report["reader_ladder"]["unsound"] == 0
+        and report["routing_floor"]["status"] == "complete"
+    )
+    # Top-level status must equal the recomputation from completion-gate
+    # sections alone: the frontier audit's status must never decide it.
+    assert report["status"] == ("complete" if gate_ok else "partial")
+    assert report["governed_floor_complete"] == (report["status"] == "complete")
+    assert report["paper_module_readiness_audit"]["status"] in {"complete", "frontier"}
+
+
+def test_authority_boundary_names_what_it_does_not_prove() -> None:
+    report = HEALTH.build_health(MICRO_ROOT)
+
+    boundary = report["authority_boundary"].lower()
+    for phrase in ("support evidence", "proof authority", "release readiness"):
+        assert phrase in boundary, phrase
+    for name, section in report["sections"].items():
+        does_not_prove = section["does_not_prove"].lower()
+        assert "support" in does_not_prove, name
+        assert "release" in does_not_prove, name
+
+
+def test_sources_of_record_resolve_inside_microcosm_root() -> None:
+    report = HEALTH.build_health(MICRO_ROOT)
+
+    declared = [report["source_of_record"]]
+    for section in report["sections"].values():
+        declared.extend(section["sources_of_record"])
+    for source in declared:
+        token = source.split()[0]
+        assert not token.startswith("/"), source
+        parts = Path(token).parts
+        assert ".." not in parts, source
+        base_parts: list[str] = []
+        for part in parts:
+            if any(glob_char in part for glob_char in "*?["):
+                break
+            base_parts.append(part)
+        assert base_parts, source
+        assert (MICRO_ROOT / Path(*base_parts)).exists(), source
+
+
+def test_projection_declares_role_and_plane_beyond_enrichment() -> None:
+    report = HEALTH.build_health(MICRO_ROOT)
+
+    assert report["projection_role"] == "microcosm_doctrine_and_readiness_health_projection"
+    assert report["plane"] == "microcosm_substrate_public_read_model"
+    assert "readiness" in report["display_name"].lower()
+    assert "not represented" in report["plane_note"]
 
 
 def test_paper_module_readiness_audit_requires_json_capsule_subject_and_code_locus(tmp_path: Path) -> None:

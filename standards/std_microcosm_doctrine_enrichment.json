@@ -123,6 +123,16 @@
     "gate": "scripts/build_doctrine_enrichment_health.py --check",
     "non_goal": "This audit is not support evidence, proof authority, release readiness, runtime correctness, paper-module topology completeness, or authority to hand-edit generated paper-module JSON."
   },
+  "health_projection_section_model": {
+    "statement": "The generated health projection is a typed multi-section read model, not a single enrichment gate. The projection output itself declares projection_role, plane, completion_gate_sections, frontier_audit_sections, and a per-section taxonomy with gate_role, sources_of_record, proves, and does_not_prove, so a cold reader never infers the gate composition from checker code.",
+    "projection_role": "microcosm_doctrine_and_readiness_health_projection",
+    "plane": "microcosm_substrate_public_read_model",
+    "plane_rule": "The projection reads microcosm-substrate sources only. External orchestration or control planes that operate on this repository are not represented in the projection and are never sources of record for it; every declared source of record must resolve inside the microcosm root.",
+    "completion_gate_sections": ["reader_enrichment_floor", "formal_soundness", "reader_ladder", "doctrine_routing_floor"],
+    "frontier_audit_sections": ["paper_module_readiness_audit"],
+    "promotion_rule": "Moving a section from frontier_audit_sections into completion_gate_sections is an explicit standard change plus a deliberate checker and regression-test update, never an implicit checker edit. A frontier audit's status must never be read as, or folded into, governed_floor_complete while it remains unpromoted.",
+    "gate": "tests/test_doctrine_enrichment_health.py (section-model boundary tests)"
+  },
   "non_laundering_rules": [
     "An example is reader illustration, never a support case; it does not pass the support_case_shape and does not raise support.",
     "An enforced_in route is a navigation aid, not proof that the object is obligation-supported or complete.",

@@ -1,6 +1,13 @@
 {
-  "authority_boundary": "Coverage projection over reader enrichment, concept/mechanism routing floors, and paper-module readiness audit. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
+  "authority_boundary": "Typed multi-section health projection over reader enrichment, concept/mechanism routing floors, and a paper-module readiness frontier audit. Presence/structure, not correctness; never support evidence, proof authority, or release readiness. Generated; do not hand-edit.",
+  "completion_gate_sections": [
+    "reader_enrichment_floor",
+    "formal_soundness",
+    "reader_ladder",
+    "doctrine_routing_floor"
+  ],
   "coverage_complete": true,
+  "display_name": "Microcosm doctrine and readiness health",
   "enriched_objects": 49,
   "formal_soundness": {
     "checked": 49,
@@ -10,6 +17,9 @@
     "sound": 49,
     "unsound": 0
   },
+  "frontier_audit_sections": [
+    "paper_module_readiness_audit"
+  ],
   "governed_floor_complete": true,
   "governed_floor_total_objects": 159,
   "incomplete": [],
@@ -303,6 +313,9 @@
     "status": "frontier",
     "total_objects": 99
   },
+  "plane": "microcosm_substrate_public_read_model",
+  "plane_note": "Public read model over microcosm-substrate sources only. External orchestration or control planes that operate on this repository are not represented in this projection and are never sources of record for it.",
+  "projection_role": "microcosm_doctrine_and_readiness_health_projection",
   "reader_enrichment_complete": true,
   "reader_enrichment_total_objects": 49,
   "reader_ladder": {
@@ -541,6 +554,77 @@
     "total_objects": 110
   },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
+  "sections": {
+    "doctrine_routing_floor": {
+      "counts_toward_completion_gate": true,
+      "does_not_prove": "Ontology completeness, topology completeness, runtime correctness, support evidence, or release readiness.",
+      "gate_role": "completion_floor",
+      "proves": "Checker-readable walkability of governed concept and mechanism routes.",
+      "result_keys": [
+        "routing_floor"
+      ],
+      "sources_of_record": [
+        "concepts/concept.*.json",
+        "mechanisms/mechanism.*.json"
+      ]
+    },
+    "formal_soundness": {
+      "counts_toward_completion_gate": true,
+      "does_not_prove": "Mathematical correctness, support evidence, proof authority, or release readiness.",
+      "gate_role": "completion_floor",
+      "proves": "Symbol/formula agreement for every formal block.",
+      "result_keys": [
+        "formal_soundness"
+      ],
+      "sources_of_record": [
+        "core/doctrine_enrichment.json"
+      ]
+    },
+    "paper_module_readiness_audit": {
+      "counts_toward_completion_gate": false,
+      "does_not_prove": "Paper-module floor completion, support evidence, proof authority, runtime correctness, or release readiness.",
+      "gate_role": "frontier_audit",
+      "instance_owner": "microcosm_core.doctrine_lattice",
+      "promotion_contract": "Folding this audit into the completion gate requires explicit promotion in standards/std_microcosm_doctrine_enrichment.json (paper_module_readiness_audit.completion_gate_policy) plus a deliberate update to COMPLETION_GATE_SECTIONS and its regression tests.",
+      "proves": "Paper-module readiness gaps are visible: legacy-only rows, required residuals, unresolved routes.",
+      "result_keys": [
+        "paper_module_readiness_audit"
+      ],
+      "sources_of_record": [
+        "paper_modules/*.json"
+      ]
+    },
+    "reader_enrichment_floor": {
+      "counts_toward_completion_gate": true,
+      "does_not_prove": "Correctness, support evidence, proof authority, or release readiness.",
+      "gate_role": "completion_floor",
+      "proves": "Reader-field presence and structure for the 49 doctrine cards.",
+      "result_keys": [
+        "kinds",
+        "incomplete",
+        "coverage_complete",
+        "reader_enrichment_complete"
+      ],
+      "sources_of_record": [
+        "core/doctrine_enrichment.json",
+        "axioms/AX-*.json",
+        "principles/P-*.json",
+        "anti_principles/AP-*.json"
+      ]
+    },
+    "reader_ladder": {
+      "counts_toward_completion_gate": true,
+      "does_not_prove": "Analogy fidelity, clarity quality, support evidence, or release readiness.",
+      "gate_role": "completion_floor",
+      "proves": "Plain reading plus bounded analogy present and laundering-free.",
+      "result_keys": [
+        "reader_ladder"
+      ],
+      "sources_of_record": [
+        "core/doctrine_enrichment.json"
+      ]
+    }
+  },
   "source_of_record": "core/doctrine_enrichment.json",
   "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
   "status": "complete",

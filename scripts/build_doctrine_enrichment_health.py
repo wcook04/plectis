@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project doctrine-enrichment coverage health.
+"""Project Microcosm doctrine and readiness health.
 
 Reads the hand-authored enrichment source of record
 (``core/doctrine_enrichment.json``) against the axiom/principle/anti-principle
@@ -10,6 +10,16 @@ reader-enrichment cards, and audits generated paper-module JSON instances for
 frontier readiness gaps. Coverage is PRESENCE / STRUCTURE, not correctness; the
 latex render check and voice/overclaim review live in the dissemination build
 and tests, not here.
+
+The projection is a typed multi-section read model, not a single enrichment
+gate. Each emitted section declares its gate role, source, what it proves, and
+what it does not prove (see ``SECTION_MODEL``). Sections listed in
+``COMPLETION_GATE_SECTIONS`` are the only inputs to the top-level
+``status``/``governed_floor_complete``; sections listed in
+``FRONTIER_AUDIT_SECTIONS`` are visibility-only and are never folded into the
+completion gate without an explicit promotion in the governing standard
+(``standards/std_microcosm_doctrine_enrichment.json``,
+``paper_module_readiness_audit.completion_gate_policy``).
 
 Usage:
   python3 scripts/build_doctrine_enrichment_health.py --write
@@ -94,6 +104,91 @@ PAPER_MODULE_REQUIRED_STRUCTURES = [
     "required residual relations counted as blockers",
     "selective residual relations counted as frontier pressure",
 ]
+
+PROJECTION_ROLE = "microcosm_doctrine_and_readiness_health_projection"
+PROJECTION_PLANE = "microcosm_substrate_public_read_model"
+PROJECTION_DISPLAY_NAME = "Microcosm doctrine and readiness health"
+PLANE_NOTE = (
+    "Public read model over microcosm-substrate sources only. External"
+    " orchestration or control planes that operate on this repository are not"
+    " represented in this projection and are never sources of record for it."
+)
+# The top-level status/governed_floor_complete fold EXACTLY these sections.
+# Folding a frontier audit into this tuple requires explicit promotion in the
+# governing standard plus a deliberate regression-test update, never a quiet
+# checker edit (std_microcosm_doctrine_enrichment.json
+# paper_module_readiness_audit.completion_gate_policy).
+COMPLETION_GATE_SECTIONS = (
+    "reader_enrichment_floor",
+    "formal_soundness",
+    "reader_ladder",
+    "doctrine_routing_floor",
+)
+FRONTIER_AUDIT_SECTIONS = ("paper_module_readiness_audit",)
+
+
+def _section_model() -> dict[str, Any]:
+    """Typed section taxonomy for the emitted health projection.
+
+    - Teleology: make the projection's plane and gate composition readable
+      from the artifact itself, so a cold reader never has to infer from code
+      which sections gate completion and which are frontier visibility.
+    - Guarantee: every key in COMPLETION_GATE_SECTIONS and
+      FRONTIER_AUDIT_SECTIONS appears exactly once, with gate_role, sources,
+      result_keys, proves, and does_not_prove per section.
+    - Non-goal: not a new authority surface; each section's claims stay
+      bounded by its own authority_boundary and the governing standard.
+    """
+    return {
+        "reader_enrichment_floor": {
+            "gate_role": "completion_floor",
+            "counts_toward_completion_gate": True,
+            "result_keys": ["kinds", "incomplete", "coverage_complete", "reader_enrichment_complete"],
+            "sources_of_record": [ENRICHMENT_REL, "axioms/AX-*.json", "principles/P-*.json", "anti_principles/AP-*.json"],
+            "proves": "Reader-field presence and structure for the 49 doctrine cards.",
+            "does_not_prove": "Correctness, support evidence, proof authority, or release readiness.",
+        },
+        "formal_soundness": {
+            "gate_role": "completion_floor",
+            "counts_toward_completion_gate": True,
+            "result_keys": ["formal_soundness"],
+            "sources_of_record": [ENRICHMENT_REL],
+            "proves": "Symbol/formula agreement for every formal block.",
+            "does_not_prove": "Mathematical correctness, support evidence, proof authority, or release readiness.",
+        },
+        "reader_ladder": {
+            "gate_role": "completion_floor",
+            "counts_toward_completion_gate": True,
+            "result_keys": ["reader_ladder"],
+            "sources_of_record": [ENRICHMENT_REL],
+            "proves": "Plain reading plus bounded analogy present and laundering-free.",
+            "does_not_prove": "Analogy fidelity, clarity quality, support evidence, or release readiness.",
+        },
+        "doctrine_routing_floor": {
+            "gate_role": "completion_floor",
+            "counts_toward_completion_gate": True,
+            "result_keys": ["routing_floor"],
+            "sources_of_record": ["concepts/concept.*.json", "mechanisms/mechanism.*.json"],
+            "proves": "Checker-readable walkability of governed concept and mechanism routes.",
+            "does_not_prove": "Ontology completeness, topology completeness, runtime correctness, support evidence, or release readiness.",
+        },
+        "paper_module_readiness_audit": {
+            "gate_role": "frontier_audit",
+            "counts_toward_completion_gate": False,
+            "result_keys": ["paper_module_readiness_audit"],
+            "sources_of_record": ["paper_modules/*.json"],
+            "instance_owner": "microcosm_core.doctrine_lattice",
+            "promotion_contract": (
+                "Folding this audit into the completion gate requires explicit"
+                " promotion in standards/std_microcosm_doctrine_enrichment.json"
+                " (paper_module_readiness_audit.completion_gate_policy) plus a"
+                " deliberate update to COMPLETION_GATE_SECTIONS and its"
+                " regression tests."
+            ),
+            "proves": "Paper-module readiness gaps are visible: legacy-only rows, required residuals, unresolved routes.",
+            "does_not_prove": "Paper-module floor completion, support evidence, proof authority, runtime correctness, or release readiness.",
+        },
+    }
 
 
 def _corpus_ids(root: Path, kind: str) -> list[str]:
@@ -805,6 +900,9 @@ def build_health(root: Path) -> dict[str, Any]:
         "gate": "scripts/check_doctrine_reader_ladder.py",
         "note": "Plain reading + bounded analogy present and laundering-free; analogy fidelity and boundary honesty are reviewed, not counted.",
     }
+    # This expression folds EXACTLY the sections named in
+    # COMPLETION_GATE_SECTIONS; the paper-module readiness audit is frontier
+    # visibility and must not enter here without explicit standard promotion.
     complete = (
         coverage_complete
         and soundness["unsound"] == 0
@@ -813,9 +911,16 @@ def build_health(root: Path) -> dict[str, Any]:
     )
     return {
         "schema_version": "microcosm_doctrine_enrichment_health_v1",
+        "projection_role": PROJECTION_ROLE,
+        "plane": PROJECTION_PLANE,
+        "plane_note": PLANE_NOTE,
+        "display_name": PROJECTION_DISPLAY_NAME,
         "source_of_record": ENRICHMENT_REL,
         "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
-        "authority_boundary": "Coverage projection over reader enrichment, concept/mechanism routing floors, and paper-module readiness audit. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
+        "authority_boundary": "Typed multi-section health projection over reader enrichment, concept/mechanism routing floors, and a paper-module readiness frontier audit. Presence/structure, not correctness; never support evidence, proof authority, or release readiness. Generated; do not hand-edit.",
+        "completion_gate_sections": list(COMPLETION_GATE_SECTIONS),
+        "frontier_audit_sections": list(FRONTIER_AUDIT_SECTIONS),
+        "sections": _section_model(),
         "status": "complete" if complete else "partial",
         "coverage_complete": coverage_complete,
         "total_objects": total,
