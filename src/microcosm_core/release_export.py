@@ -285,8 +285,13 @@ PUBLIC_EXAMPLE_HOME = "/Users/example"
 # for every convention-following imported body while adding no privacy, because
 # the value is synthetic by construction and the contamination scan already
 # admits it.
+# Boundary note: the exemption must hold wherever the home name ends (slash,
+# space, quote, end-of-string), not only before "/" — a bare "find
+# /Users/operator -maxdepth ..." fixture is still the synthetic home. A longer
+# name like /Users/operatorfoo is a different (real-shaped) name and is still
+# rewritten, hence the inner negative lookahead on a name character.
 CONCRETE_HOME_PATH_RE = re.compile(
-    r"/Users/(?!(?:example|operator)(?:/|$))[A-Za-z0-9_.-]+"
+    r"/Users/(?!(?:example|operator)(?![A-Za-z0-9_.-]))[A-Za-z0-9_.-]+"
 )
 EXTERNAL_WARNING_CLASSIFICATION_ROWS = (
     {

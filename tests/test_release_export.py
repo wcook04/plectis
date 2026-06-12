@@ -869,11 +869,15 @@ def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
         / "examples/private_home_source/exported_private_home_bundle/"
         "source_modules/tools/example_home.py"
     )
+    fixture_home_bare = "/" + "Users" + "/operator"
+    real_shaped_longer_name = "/" + "Users" + "/operatorfoo"
     _write(
         source_module,
         f'DEFAULT_HOME = "{private_home}"\n'
         f'PUBLIC_HOME = "{public_home}"\n'
         f'FIXTURE_HOME = "{fixture_home}"\n'
+        f'FIXTURE_CMD = "find {fixture_home_bare} -maxdepth 4 -type d"\n'
+        f'NOT_THE_FIXTURE = "{real_shaped_longer_name}"\n'
         f'GENERIC_PRIVATE_HOME_RE = r"{generic_private_home_re}"\n',
     )
 
@@ -897,8 +901,12 @@ def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
     assert public_home in target_text
     # The synthetic fixture home is a rewrite fixed point: convention-following
     # imported bodies must survive the export boundary byte-identical so their
-    # exact-copy digest pins keep holding.
+    # exact-copy digest pins keep holding — at every boundary the name can end
+    # on (slash, space, quote), not only before "/".
     assert fixture_home in target_text
+    assert f'FIXTURE_CMD = "find {fixture_home_bare} -maxdepth 4 -type d"' in target_text
+    # A longer real-shaped name is NOT the fixture and must still be rewritten.
+    assert real_shaped_longer_name not in target_text
     assert f'r"{generic_private_home_re}"' in target_text
     redaction = receipt["exclusion_receipt"]["source_module_home_redaction"]
     assert redaction == {
@@ -909,11 +917,11 @@ def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
         ),
         "replacement": "/" + "Users" + "/example",
         "redacted_file_count": 1,
-        "concrete_home_path_replacement_count": 1,
+        "concrete_home_path_replacement_count": 2,
         "redacted_files": [
             {
                 "path": source_module.relative_to(root).as_posix(),
-                "concrete_home_path_replacement_count": 1,
+                "concrete_home_path_replacement_count": 2,
                 "replacement": "/" + "Users" + "/example",
                 "body_in_receipt": False,
             }
