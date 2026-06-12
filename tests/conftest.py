@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +14,13 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 TRACKED_RUNTIME_RECEIPTS = (MICROCOSM_ROOT / "receipts/runtime_shell").resolve(
     strict=False
 )
+
+# Organ validators import bundled .py modules from examples/**/source_modules;
+# without this, every suite run regenerates untracked __pycache__ inside the
+# committed export bundles. Suppress bytecode writes for the in-process suite
+# and (via inherited env) for every CLI subprocess the tests spawn.
+sys.dont_write_bytecode = True
+os.environ.setdefault("PYTHONDONTWRITEBYTECODE", "1")
 
 
 def pytest_configure(config: pytest.Config) -> None:

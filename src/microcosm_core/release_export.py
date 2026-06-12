@@ -842,6 +842,13 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
                 for entry in ls_files.stdout.split(b"\0")
                 if entry
             }
+            if not tracked_paths:
+                # Zero tracked example files means this root is not a
+                # git-populated substrate at all (planted fixture trees sit
+                # inside the enclosing repo's worktree whenever pytest
+                # basetemp is in-repo, so git still answers). The fixture
+                # contract is report-everything.
+                tracked_paths = None
         else:
             tracked_paths = None
     except (OSError, ValueError):
@@ -926,7 +933,7 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
 
 def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
     """
-    - Teleology: prove the materialized artifact carries no forbidden private-root, generated-state, nested-self-export, cache, or bytecode residue.
+    - Teleology: prove the materialized artifact carries no forbidden private-root, generated-state, nested-self-export, cache, bytecode, or compiler build-product residue.
     - Guarantee: returns a violation row (path + reason) for every artifact path matching a residue rule; empty list means no residue found.
     - Fails: never raises; pure path classification over the artifact walk.
     - Reads: the artifact tree under target.
@@ -948,6 +955,10 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
             violations.append({"path": rel_text, "reason": "os_metadata_file"})
         if any(part in {".pytest_cache", "__pycache__"} for part in parts):
             violations.append({"path": rel_text, "reason": "cache_or_bytecode"})
+        # Walk skip rules prevent these from entering; this row is the
+        # artifact-side proof that holds even if the walk rules drift.
+        if any(part in {".build", ".swiftpm", "DerivedData"} for part in parts):
+            violations.append({"path": rel_text, "reason": "compiler_build_artifact"})
         if rel.suffix in SKIPPED_FILE_SUFFIXES:
             violations.append({"path": rel_text, "reason": "bytecode_cache"})
         if any(part.endswith(".egg-info") for part in parts):

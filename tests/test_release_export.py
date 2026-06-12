@@ -755,6 +755,14 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         "path": "examples/basic/.microcosm/state.json",
         "reason": "generated_microcosm_state",
     } in release_export._artifact_residue_violations(target)
+    swift_residue_probe = (
+        target / "examples/basic/source_modules/apps/demo/.build/output-file-map.json"
+    )
+    _write(swift_residue_probe, "{}\n")
+    assert {
+        "path": "examples/basic/source_modules/apps/demo/.build/output-file-map.json",
+        "reason": "compiler_build_artifact",
+    } in release_export._artifact_residue_violations(target)
     assert root.as_posix() not in json.dumps(receipt, sort_keys=True)
 
 
