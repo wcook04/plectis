@@ -1,5 +1,5 @@
 {
-  "authority_boundary": "Coverage projection over reader enrichment and the first concept routing floor. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
+  "authority_boundary": "Coverage projection over reader enrichment plus concept and mechanism routing floors. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
   "coverage_complete": true,
   "enriched_objects": 49,
   "formal_soundness": {
@@ -11,7 +11,7 @@
     "unsound": 0
   },
   "governed_floor_complete": true,
-  "governed_floor_total_objects": 60,
+  "governed_floor_total_objects": 159,
   "incomplete": [],
   "kinds": {
     "anti_principle": {
@@ -78,10 +78,11 @@
   },
   "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
   "routing_floor": {
-    "authority_boundary": "Concept routing floor over governed concept JSON rows. Structure and route presence only; not concept completeness, support evidence, release authority, or proof correctness.",
+    "authority_boundary": "Concept and mechanism routing floor over governed JSON rows. Structure and route presence only; not concept completeness, topology completeness, support evidence, release authority, or proof correctness.",
     "coverage_complete": true,
     "covered_kinds": [
-      "concept"
+      "concept",
+      "mechanism"
     ],
     "incomplete": [],
     "kinds": {
@@ -102,13 +103,205 @@
         ],
         "routed": 11,
         "total": 11
+      },
+      "mechanism": {
+        "incomplete_ids": [],
+        "issue_rows": [],
+        "known_residual_selective_relation_count": 37,
+        "known_residual_selective_relation_row_count": 37,
+        "known_residual_selective_relation_rows": [
+          {
+            "count": 1,
+            "id": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.cognitive_operator_registry.validates_public_operator_contract"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+          }
+        ],
+        "planned_edge_count": 3,
+        "planned_edge_row_count": 3,
+        "planned_edge_rows": [
+          {
+            "count": 1,
+            "id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
+          }
+        ],
+        "required_structures": [
+          "source_refs",
+          "valid_json_object",
+          "validator_refs",
+          "receipt_refs",
+          "anti_claims",
+          "entry_surface_contract",
+          "organ_refs",
+          "mechanism_payload.contract",
+          "relationships.edges",
+          "resolved_concept_route",
+          "resolved_existing_code_locus",
+          "known_residual_selective_relations_counted_not_blocking"
+        ],
+        "residual_policy": "Residual selective relations and planned non-floor edges are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
+        "routed": 99,
+        "total": 99
       }
     },
-    "routed_objects": 11,
-    "schema_version": "microcosm_doctrine_routing_floor_v1",
-    "source_of_record": "concepts/concept.*.json",
+    "routed_objects": 110,
+    "schema_version": "microcosm_doctrine_routing_floor_v2",
+    "source_of_record": {
+      "concept": "concepts/concept.*.json",
+      "mechanism": "mechanisms/mechanism.*.json"
+    },
     "status": "complete",
-    "total_objects": 11
+    "total_objects": 110
   },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
   "source_of_record": "core/doctrine_enrichment.json",

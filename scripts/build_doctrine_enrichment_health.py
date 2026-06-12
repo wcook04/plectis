@@ -4,11 +4,11 @@
 Reads the hand-authored enrichment source of record
 (``core/doctrine_enrichment.json``) against the axiom/principle/anti-principle
 instance corpora and reports per-kind coverage: how many objects are enriched
-and how many carry each reader field. It also reads governed concept JSON rows
-to report the first doctrine-routing floor beyond the 49 reader-enrichment
-cards. Coverage is PRESENCE / STRUCTURE, not correctness; the latex render
-check and voice/overclaim review live in the dissemination build and tests,
-not here.
+and how many carry each reader field. It also reads governed concept and
+mechanism JSON rows to report the doctrine-routing floor beyond the 49
+reader-enrichment cards. Coverage is PRESENCE / STRUCTURE, not correctness;
+the latex render check and voice/overclaim review live in the dissemination
+build and tests, not here.
 
 Usage:
   python3 scripts/build_doctrine_enrichment_health.py --write
@@ -38,9 +38,46 @@ KIND_DIRS = {
 }
 ROUTING_KIND_DIRS = {
     "concept": ("concepts", "concept.*.json"),
+    "mechanism": ("mechanisms", "mechanism.*.json"),
 }
 REQUIRED_FIELDS = ("deep", "formal", "governs", "requires", "refuses", "example", "counterexample", "enforced_in", "does_not_prove")
 ROUTING_REF_FIELDS = ("source_refs", "validator_refs", "receipt_refs", "anti_claims")
+MECHANISM_PAYLOAD_REQUIRED_FIELDS = (
+    "contract_version",
+    "guardrails",
+    "migration_contract",
+    "projection_contract",
+    "resolution_evidence",
+    "support_contract",
+)
+ROUTING_REQUIRED_STRUCTURES = {
+    "concept": [
+        "source_refs",
+        "valid_json_object",
+        "validator_refs",
+        "receipt_refs",
+        "anti_claims",
+        "entry_surface_contract",
+        "cluster_flag",
+        "relationships.edges",
+        "resolved_mechanism_route",
+        "empty_unpopulated_selective_relations",
+    ],
+    "mechanism": [
+        "source_refs",
+        "valid_json_object",
+        "validator_refs",
+        "receipt_refs",
+        "anti_claims",
+        "entry_surface_contract",
+        "organ_refs",
+        "mechanism_payload.contract",
+        "relationships.edges",
+        "resolved_concept_route",
+        "resolved_existing_code_locus",
+        "known_residual_selective_relations_counted_not_blocking",
+    ],
+}
 
 
 def _corpus_ids(root: Path, kind: str) -> list[str]:
@@ -75,7 +112,8 @@ def _routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
       kind directory/glob, sorted by path; malformed files become explicit
       load-error records so the floor cannot pass by omission.
     - Fails: KeyError for an unknown kind would propagate.
-    - Reads: root/<subdir>/<glob>, currently concepts/concept.*.json.
+    - Reads: root/<subdir>/<glob>, currently concepts/concept.*.json and
+      mechanisms/mechanism.*.json.
     - Non-goal: does not treat the row as source authority beyond its own
       governed JSON contract; this is a structural routing check only.
     """
@@ -207,18 +245,155 @@ def _audit_concept_routing_record(record: dict[str, Any]) -> list[str]:
     return issues
 
 
+def _audit_mechanism_routing_record(root: Path, record: dict[str, Any]) -> list[str]:
+    """Return structural routing-floor issues for one mechanism row.
+
+    - Teleology: make mechanism rows count as doctrine routing only when they
+      walk to both an interpretive sibling concept and runnable substrate.
+    - Guarantee: returns issue codes for missing refs, missing entry contract,
+      missing payload contract, missing resolved concept edge, and missing
+      resolved existing code locus.
+    - Non-goal: does not require topology completeness; known
+      unpopulated_selective_relations are surfaced in the kind summary instead
+      of treated as proof that no neighbors exist.
+    """
+    issues: list[str] = []
+    load_error = str(record.get("_routing_load_error") or "").strip()
+    if load_error:
+        return [load_error]
+
+    mechanism_id = str(record.get("id") or "").strip()
+    if not mechanism_id:
+        issues.append("id_missing")
+    if record.get("kind") != "mechanism":
+        issues.append("kind_not_mechanism")
+    if not str(record.get("authority_boundary") or "").strip():
+        issues.append("authority_boundary_missing")
+
+    for field in ROUTING_REF_FIELDS:
+        if not isinstance(record.get(field), list) or not record[field]:
+            issues.append(f"{field}_missing")
+
+    entry_contract = record.get("entry_surface_contract")
+    if not isinstance(entry_contract, dict) or entry_contract.get("required") is not True:
+        issues.append("entry_surface_contract_missing")
+
+    if not isinstance(record.get("organ_refs"), list) or not record["organ_refs"]:
+        issues.append("organ_refs_missing")
+
+    mechanism_payload = record.get("mechanism_payload")
+    if not isinstance(mechanism_payload, dict):
+        issues.append("mechanism_payload_missing")
+    else:
+        for field in MECHANISM_PAYLOAD_REQUIRED_FIELDS:
+            if not mechanism_payload.get(field):
+                issues.append(f"mechanism_payload_{field}_missing")
+
+    code_loci = record.get("code_loci")
+    resolved_existing_code_loci = 0
+    if not isinstance(code_loci, list) or not code_loci:
+        issues.append("code_loci_missing")
+    else:
+        for index, locus in enumerate(code_loci):
+            if not isinstance(locus, dict):
+                issues.append(f"code_locus_{index}_not_object")
+                continue
+            path = str(locus.get("path") or "").strip()
+            if not path:
+                issues.append(f"code_locus_{index}_path_missing")
+            if locus.get("resolution") != "resolved":
+                issues.append(f"code_locus_{index}_not_resolved")
+            if path and locus.get("resolution") == "resolved":
+                if (root / path).exists():
+                    resolved_existing_code_loci += 1
+                else:
+                    issues.append(f"code_locus_{index}_path_not_found")
+    if resolved_existing_code_loci == 0:
+        issues.append("resolved_existing_code_locus_missing")
+
+    relationships = record.get("relationships")
+    if not isinstance(relationships, dict):
+        issues.append("relationships_missing")
+        return issues
+
+    edges = relationships.get("edges")
+    if not isinstance(edges, list) or not edges:
+        issues.append("edges_missing")
+        edges = []
+
+    concept_route_count = 0
+    for index, edge in enumerate(edges):
+        if not isinstance(edge, dict):
+            issues.append(f"edge_{index}_not_object")
+            continue
+        relation_id = str(edge.get("relation_id") or "")
+        if not relation_id.startswith("mechanism."):
+            issues.append(f"edge_{index}_relation_id_not_mechanism")
+        for field in ("relation_verb", "reverse_verb", "target_id", "target_kind", "target_status"):
+            if not str(edge.get(field) or "").strip():
+                issues.append(f"edge_{index}_{field}_missing")
+        justification = edge.get("justification")
+        if not isinstance(justification, dict):
+            issues.append(f"edge_{index}_justification_missing")
+        else:
+            if not str(justification.get("source_ref") or "").strip():
+                issues.append(f"edge_{index}_source_ref_missing")
+            if not str(justification.get("summary") or "").strip():
+                issues.append(f"edge_{index}_summary_missing")
+        if edge.get("target_kind") == "concept" and edge.get("target_status") == "resolved_json_instance":
+            concept_route_count += 1
+
+    if concept_route_count == 0:
+        issues.append("resolved_concept_route_missing")
+    return issues
+
+
+def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
+    """Summarize mechanism routing residuals that are not floor blockers."""
+    residual_rows: list[dict[str, Any]] = []
+    planned_edge_rows: list[dict[str, Any]] = []
+    for record in records:
+        if record.get("_routing_load_error"):
+            continue
+        mechanism_id = str(record.get("id") or "<missing>")
+        relationships = record.get("relationships")
+        if not isinstance(relationships, dict):
+            continue
+        residuals = relationships.get("unpopulated_selective_relations")
+        if isinstance(residuals, list) and residuals:
+            residual_rows.append({"id": mechanism_id, "count": len(residuals)})
+        edges = relationships.get("edges")
+        if isinstance(edges, list):
+            planned_count = sum(
+                1
+                for edge in edges
+                if isinstance(edge, dict) and str(edge.get("target_status") or "").startswith("planned_")
+            )
+            if planned_count:
+                planned_edge_rows.append({"id": mechanism_id, "count": planned_count})
+    return {
+        "known_residual_selective_relation_rows": residual_rows,
+        "known_residual_selective_relation_row_count": len(residual_rows),
+        "known_residual_selective_relation_count": sum(row["count"] for row in residual_rows),
+        "planned_edge_rows": planned_edge_rows,
+        "planned_edge_row_count": len(planned_edge_rows),
+        "planned_edge_count": sum(row["count"] for row in planned_edge_rows),
+        "residual_policy": "Residual selective relations and planned non-floor edges are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
+    }
+
+
 def _build_routing_floor(root: Path) -> dict[str, Any]:
-    """Build the first non-reader-card doctrine routing floor.
+    """Build the non-reader-card doctrine routing floor.
 
     - Teleology: extend the health scoreboard beyond the 49 enrichment cards
       without inflating edge counts; every counted route must have a
-      checker-readable reason and a walkable mechanism path.
-    - Guarantee: currently emits concept routing coverage over governed
-      concepts/concept.*.json rows; status is complete only when every concept
-      passes _audit_concept_routing_record.
-    - Reads: governed concept JSON rows.
-    - Non-goal: does not cover mechanisms or paper modules yet; those remain
-      future routing-floor extensions.
+      checker-readable reason and a walkable substrate path.
+    - Guarantee: emits concept and mechanism routing coverage over governed
+      JSON rows; status is complete only when every covered row passes its
+      kind-specific structural audit.
+    - Reads: governed concept and mechanism JSON rows.
+    - Non-goal: does not cover paper modules yet and does not claim complete
+      topology for mechanism rows with known residual selective relations.
     """
     kinds: dict[str, Any] = {}
     incomplete: list[dict[str, Any]] = []
@@ -229,38 +404,38 @@ def _build_routing_floor(root: Path) -> dict[str, Any]:
                 {"id": str(record.get("id") or "<missing>"), "issues": _audit_concept_routing_record(record)}
                 for record in records
             ]
+        elif kind == "mechanism":
+            issue_rows = [
+                {"id": str(record.get("id") or "<missing>"), "issues": _audit_mechanism_routing_record(root, record)}
+                for record in records
+            ]
         else:
             issue_rows = []
         issue_rows = [row for row in issue_rows if row["issues"]]
         incomplete.extend(issue_rows)
         routed = len(records) - len(issue_rows)
-        kinds[kind] = {
+        kind_row: dict[str, Any] = {
             "total": len(records),
             "routed": routed,
             "incomplete_ids": [row["id"] for row in issue_rows],
             "issue_rows": issue_rows,
-            "required_structures": [
-                "source_refs",
-                "valid_json_object",
-                "validator_refs",
-                "receipt_refs",
-                "anti_claims",
-                "entry_surface_contract",
-                "cluster_flag",
-                "relationships.edges",
-                "resolved_mechanism_route",
-                "empty_unpopulated_selective_relations",
-            ],
+            "required_structures": ROUTING_REQUIRED_STRUCTURES[kind],
         }
+        if kind == "mechanism":
+            kind_row.update(_mechanism_residual_summary(records))
+        kinds[kind] = kind_row
     total = sum(row["total"] for row in kinds.values())
     routed = sum(row["routed"] for row in kinds.values())
     complete = not incomplete and total == routed
     return {
-        "schema_version": "microcosm_doctrine_routing_floor_v1",
-        "authority_boundary": "Concept routing floor over governed concept JSON rows. Structure and route presence only; not concept completeness, support evidence, release authority, or proof correctness.",
+        "schema_version": "microcosm_doctrine_routing_floor_v2",
+        "authority_boundary": "Concept and mechanism routing floor over governed JSON rows. Structure and route presence only; not concept completeness, topology completeness, support evidence, release authority, or proof correctness.",
         "status": "complete" if complete else "partial",
         "coverage_complete": complete,
-        "source_of_record": "concepts/concept.*.json",
+        "source_of_record": {
+            "concept": "concepts/concept.*.json",
+            "mechanism": "mechanisms/mechanism.*.json",
+        },
         "covered_kinds": sorted(ROUTING_KIND_DIRS),
         "total_objects": total,
         "routed_objects": routed,
@@ -373,7 +548,7 @@ def build_health(root: Path) -> dict[str, Any]:
         "schema_version": "microcosm_doctrine_enrichment_health_v1",
         "source_of_record": ENRICHMENT_REL,
         "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
-        "authority_boundary": "Coverage projection over reader enrichment and the first concept routing floor. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
+        "authority_boundary": "Coverage projection over reader enrichment plus concept and mechanism routing floors. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
         "status": "complete" if complete else "partial",
         "coverage_complete": coverage_complete,
         "total_objects": total,
