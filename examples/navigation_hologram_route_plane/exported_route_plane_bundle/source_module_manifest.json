@@ -63,9 +63,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 402154,
+      "byte_count": 404194,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 9714,
+      "line_count": 9790,
       "material_class": "public_macro_tool_body",
       "module_id": "navigation_route_plane_entry_packet_source_body_import",
       "required_anchors": [
@@ -80,9 +80,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
       "source_role": "Kernel entry packet and route-lease control plane for task recognition, active phase routing, WorkItem routing, mutation governance, and first-contact next actions.",
-      "source_sha256": "86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020",
+      "source_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020"
+      "target_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71"
     },
     {
       "anchor_count": 5,

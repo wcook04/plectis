@@ -2683,6 +2683,23 @@ def _hard_compact_type_b_candidate_lens_for_admission(
     closeout_probe = (
         lens.get("closeout_probe") if isinstance(lens.get("closeout_probe"), dict) else {}
     )
+    evidence_pack_workflow = (
+        closeout_probe.get("evidence_pack_workflow")
+        if isinstance(closeout_probe.get("evidence_pack_workflow"), dict)
+        else {}
+    )
+    compact_evidence_pack_workflow = {
+        key: evidence_pack_workflow.get(key)
+        for key in (
+            "schema_version",
+            "product",
+            "path_list_role",
+            "required_evidence_classes",
+            "acquisition_loop",
+            "verify_step",
+        )
+        if evidence_pack_workflow.get(key) not in (None, "", [], {})
+    }
     true_decision_gates = {
         key: value
         for key, value in decision_gates.items()
@@ -2712,9 +2729,14 @@ def _hard_compact_type_b_candidate_lens_for_admission(
         "prompt_shape": compact_shape,
         "closeout_probe": {
             key: closeout_probe.get(key)
-            for key in ("source_excerpt_command", "import_command")
+            for key in ("path_list_role", "source_excerpt_command", "import_command")
             if closeout_probe.get(key) not in (None, "", [], {})
-        },
+        }
+        | (
+            {"evidence_pack_workflow": compact_evidence_pack_workflow}
+            if compact_evidence_pack_workflow
+            else {}
+        ),
         "omission_receipt": {
             "reason": "Entry admission keeps the Type B candidate handle; prompt-ledger import carries packet-shape detail.",
             "drilldown": closeout_probe.get("import_command")
@@ -3553,6 +3575,7 @@ def _compact_speed_refinement_entry_for_admission(packet: dict[str, Any]) -> lis
                 "state": top_schedulable.get("state"),
                 "projection_placeholder": True,
                 "drilldown_command": top_schedulable.get("drilldown_command"),
+                "hard_ceiling_handle_compacted": True,
                 "speed_refinement_handle_compacted": True,
             },
         )
@@ -6888,6 +6911,59 @@ def _task_mentions_active_execution_constellation(repo_root: Path, task: str | N
     if any(phrase in text for phrase in phrases):
         return True
     tokens = set(text.split())
+    active_owner_context = bool(
+        {
+            "agent",
+            "agents",
+            "codex",
+            "claude",
+            "session",
+            "sessions",
+            "thread",
+            "threads",
+            "work",
+            "ledger",
+            "claim",
+            "claims",
+            "owner",
+            "owners",
+            "head",
+        }
+        & tokens
+    )
+    contention_phrases = (
+        "concurrent agent",
+        "concurrent agents",
+        "concurrent codex",
+        "parallel codex",
+        "two agents",
+        "another agent",
+        "other agent",
+        "sibling agent",
+        "sibling session",
+        "same path",
+        "same file",
+        "same files",
+        "same source",
+        "active claim",
+        "active claims",
+        "live claim",
+        "live claims",
+        "path claim",
+        "path claims",
+        "claim collision",
+        "claimed path",
+        "claimed file",
+        "work ledger claim",
+        "head raced",
+        "head moved",
+        "actively editing",
+        "actively edited",
+        "step on each other",
+        "stand down",
+    )
+    if active_owner_context and any(phrase in text for phrase in contention_phrases):
+        return True
     mentions_phase = "subphase" in tokens or ("sub" in tokens and "phase" in tokens)
     mentions_runtime = bool({"active", "current", "stale", "stagnant", "static", "concurrency"} & tokens)
     mentions_work_ledger = "workitem" in tokens or ("work" in tokens and "ledger" in tokens)
