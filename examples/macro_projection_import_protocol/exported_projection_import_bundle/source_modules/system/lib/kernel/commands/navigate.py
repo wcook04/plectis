@@ -113,6 +113,7 @@ from system.lib.agent_entrypoint_audit import (
 )
 from system.lib.agent_execution_trace import (
     AUDIT_PATH as PROCESS_AUDIT_PATH,
+    COMPACT_REPAIR_HINT_PRIORITIES,
     LEDGER_PATH as PROCESS_LEDGER_PATH,
     NAVIGATION_CACHE_PATH as PROCESS_NAVIGATION_CACHE_PATH,
     PATTERNS_PATH as PROCESS_PATTERNS_PATH,
@@ -120,7 +121,6 @@ from system.lib.agent_execution_trace import (
     PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
     PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
     PROCESS_TRACE_CACHE_CHECK_COMMAND,
-    PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
     PROCESS_TRACE_REFRESH_COMMAND,
     SUMMARY_PATH as PROCESS_SUMMARY_PATH,
     TRACE_RULES_PATH as PROCESS_TRACE_RULES_PATH,
@@ -129,6 +129,10 @@ from system.lib.agent_execution_trace import (
     compare_agents,
     load_execution_trace_audit,
     select_session,
+)
+PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND = (
+    "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
+    "--host-pressure-compact --host-pressure-admission-only --host-pressure-event-limit 500"
 )
 from system.lib.raw_seed_projection_coverage import (
     build_raw_seed_projection_coverage,
@@ -6988,14 +6992,65 @@ def cmd_pulse() -> int:
     - Navigation-group: kernel_lib
     """
     try:
-        snapshot = _pulse_snapshot(exact=True) if state.NAVIGATION_FULL_OUTPUT else _pulse_snapshot()
+        if state.NAVIGATION_FULL_OUTPUT:
+            return emit_json(_pulse_snapshot(exact=True))
+        payload = _cached_pulse_text_payload()
     except Exception as exc:
         print(f"ERROR: failed to build pulse: {exc}", file=sys.stderr)
         return 1
+    print(str(payload.get("text") or ""), end="")
+    return 0
 
-    if state.NAVIGATION_FULL_OUTPUT:
-        return emit_json(snapshot)
 
+def _pulse_text(snapshot: Mapping[str, Any]) -> str:
+    buffer = io.StringIO()
+    with redirect_stdout(buffer):
+        _print_pulse_snapshot(snapshot)
+    return buffer.getvalue()
+
+
+def _cached_pulse_text_payload() -> dict[str, Any]:
+    from system.lib.command_node_cache import cached_command_node
+    from system.lib.kernel.pulse_fast import (
+        DEFAULT_PULSE_TEXT_CACHE_TTL_S,
+        default_pulse_text_cache_manifest,
+    )
+
+    cache_key, input_paths = default_pulse_text_cache_manifest(state.REPO_ROOT)
+
+    def _build() -> dict[str, Any]:
+        snapshot = _pulse_snapshot()
+        return {
+            "schema": "kernel_pulse_text_cache_v0",
+            "text": _pulse_text(snapshot),
+        }
+
+    if not (state.REPO_ROOT / "kernel.py").is_file():
+        payload = _build()
+        payload["command_node_cache"] = {
+            "default_pulse_text": {
+                "status": "uncached_built",
+                "reason": "repo_root_missing_kernel_entrypoint",
+            }
+        }
+        return payload
+
+    payload, cache_status = cached_command_node(
+        state.REPO_ROOT,
+        node_id="kernel.pulse.default_text",
+        key=cache_key,
+        input_paths=input_paths,
+        ttl_s=DEFAULT_PULSE_TEXT_CACHE_TTL_S,
+        builder=_build,
+        freshness_policy="ttl_for_dynamic_pulse_projection_no_manifest_check",
+        dynamic_inputs_manifested=False,
+    )
+    packet = dict(payload) if isinstance(payload, Mapping) else {"text": str(payload or "")}
+    packet["command_node_cache"] = {"default_pulse_text": cache_status}
+    return packet
+
+
+def _print_pulse_snapshot(snapshot: Mapping[str, Any]) -> None:
     frontier = snapshot.get("frontier_anchor") if isinstance(snapshot.get("frontier_anchor"), dict) else {}
     active_plan = snapshot.get("active_plan") if isinstance(snapshot.get("active_plan"), dict) else {}
     runtime = snapshot.get("latest_runtime") if isinstance(snapshot.get("latest_runtime"), dict) else {}
@@ -7902,6 +7957,23 @@ def _preflight_build_card(snapshot: Mapping[str, Any], active_phase: Mapping[str
     active_execution = _preflight_compact_active_execution(
         snapshot.get("active_execution_constellation")
     )
+    try:
+        from system.lib import resource_pressure as _resource_pressure
+
+        host_resource_pressure = _resource_pressure.compact_host_resource_pressure_packet(
+            _resource_pressure.build_host_resource_pressure_packet(state.REPO_ROOT)
+        )
+    except Exception as exc:
+        host_resource_pressure = {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "unknown",
+            "admission": "unknown",
+            "normal_work_allowed": True,
+            "error": str(exc),
+            "owner_lanes": {
+                "resource_pressure": "./repo-python -m system.lib.resource_pressure --compact",
+            },
+        }
 
     driver = str(runtime.get("driver") or runtime.get("kind") or runtime.get("state") or "unknown")
     gate_reason = str(runtime.get("gate_reason") or runtime.get("gate") or runtime.get("state") or "unknown")
@@ -7947,6 +8019,10 @@ def _preflight_build_card(snapshot: Mapping[str, Any], active_phase: Mapping[str
         do_not.append(f"Do not trust old doctrine guidance; {doctrine_drift} docs show drift risk. Inspect `./repo-python kernel.py --stale` first.")
     if closeout_count:
         do_not.append(f"Do not launch another campaign before closing {closeout_count} sessions via `./repo-python kernel.py --closeout-audit`.")
+    if host_resource_pressure.get("status") == "critical":
+        do_not.append(
+            "Do not land ordinary source/projection/ledger commits while host resource pressure is critical; enter the named repair lane or use an operator-authorized urgent override receipt."
+        )
 
     recommended_actions: list[dict[str, str]] = []
     for action in recommended:
@@ -7962,6 +8038,27 @@ def _preflight_build_card(snapshot: Mapping[str, Any], active_phase: Mapping[str
         recommended_actions.append(compact_action)
         if len(recommended_actions) >= 4:
             break
+    if host_resource_pressure.get("status") == "critical":
+        owner_lanes = (
+            host_resource_pressure.get("owner_lanes")
+            if isinstance(host_resource_pressure.get("owner_lanes"), Mapping)
+            else {}
+        )
+        repair_command = str(
+            host_resource_pressure.get("primary_repair_command")
+            or owner_lanes.get("git_prune_policy")
+            or owner_lanes.get("git_object")
+            or owner_lanes.get("disk")
+            or "./repo-python -m system.lib.resource_pressure --compact"
+        )
+        recommended_actions.insert(
+            0,
+            {
+                "command": repair_command,
+                "reason": "Host resource pressure is critical; route into the owner repair lane before ordinary work.",
+            },
+        )
+        recommended_actions = recommended_actions[:4]
     next_safe = recommended_actions[0] if recommended_actions else {}
     return {
         "kind": "kernel.preflight.card",
@@ -7976,6 +8073,7 @@ def _preflight_build_card(snapshot: Mapping[str, Any], active_phase: Mapping[str
         },
         "active_execution": active_execution,
         "work_priority": work_priority,
+        "host_resource_pressure": host_resource_pressure,
         "freshness": {
             "system_hologram": {
                 "status": "current" if builder.get("all_current") else "stale",
@@ -8021,12 +8119,106 @@ def cmd_preflight() -> int:
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     try:
-        card = _preflight_card()
+        if state.NAVIGATION_FULL_OUTPUT:
+            card = _preflight_card()
+            return emit_json(card)
+        payload = _cached_preflight_text_payload()
     except Exception as exc:
-        print(f"ERROR: failed to build pulse snapshot for preflight: {exc}", file=sys.stderr)
+        print(f"ERROR: failed to build preflight card: {exc}", file=sys.stderr)
         return 1
+    print(str(payload.get("text") or ""), end="")
+    return 0
+
+
+def _preflight_text(card: Mapping[str, Any]) -> str:
+    buffer = io.StringIO()
+    with redirect_stdout(buffer):
+        _print_preflight_card(card)
+    return buffer.getvalue()
+
+
+def _cached_preflight_text_payload() -> dict[str, Any]:
+    from system.lib.command_node_cache import cached_command_node
+    from system.lib.kernel.preflight_fast import (
+        DEFAULT_PREFLIGHT_TEXT_CACHE_TTL_S,
+        default_preflight_text_cache_manifest,
+    )
+
+    cache_key, input_paths = default_preflight_text_cache_manifest(state.REPO_ROOT)
+
+    def _build() -> dict[str, Any]:
+        card = _preflight_card()
+        return {
+            "schema": "kernel_preflight_text_cache_v0",
+            "text": _preflight_text(card),
+            "resource_pressure_fingerprint": cache_key.get("resource_pressure_fingerprint"),
+        }
+
+    payload, cache_status = cached_command_node(
+        state.REPO_ROOT,
+        node_id="kernel.preflight.default_text",
+        key=cache_key,
+        input_paths=input_paths,
+        ttl_s=DEFAULT_PREFLIGHT_TEXT_CACHE_TTL_S,
+        builder=_build,
+        freshness_policy="ttl_for_dynamic_preflight_projection_no_manifest_check",
+        dynamic_inputs_manifested=False,
+    )
+    packet = dict(payload) if isinstance(payload, Mapping) else {"text": str(payload or "")}
+    packet["command_node_cache"] = {"default_preflight_text": cache_status}
+    return packet
+
+
+def _preflight_resource_action_lines(host_resource_pressure: Mapping[str, Any]) -> list[str]:
+    recommended_actions = (
+        host_resource_pressure.get("recommended_actions")
+        if isinstance(host_resource_pressure.get("recommended_actions"), Sequence)
+        and not isinstance(host_resource_pressure.get("recommended_actions"), (str, bytes))
+        else []
+    )
+    action_lines: list[str] = []
+    for action in recommended_actions[:4]:
+        if not isinstance(action, Mapping):
+            continue
+        command = str(action.get("command") or "").strip()
+        if not command:
+            continue
+        label = str(action.get("label") or action.get("action_id") or "action").strip()
+        component = str(action.get("component_id") or "").strip()
+        safety = str(action.get("safety") or "").strip()
+        suffix_parts = [part for part in (component, safety) if part]
+        suffix = f" [{'; '.join(suffix_parts)}]" if suffix_parts else ""
+        action_lines.append(f"    {label}: {command}{suffix}")
+    if action_lines:
+        return action_lines
+
+    command_groups = (
+        host_resource_pressure.get("pressure_relief_commands")
+        if isinstance(host_resource_pressure.get("pressure_relief_commands"), Mapping)
+        else {}
+    )
+    labels = (
+        ("safe_cleanup", "safe cleanup"),
+        ("owner_checked_cleanup", "owner checked"),
+        ("task_ledger_storage", "task ledger"),
+        ("resume", "resume"),
+    )
+    lines: list[str] = []
+    for group_id, label in labels:
+        commands = command_groups.get(group_id)
+        if not isinstance(commands, Sequence) or isinstance(commands, (str, bytes)):
+            continue
+        compact_commands = [str(command).strip() for command in commands if str(command).strip()]
+        if not compact_commands:
+            continue
+        suffix = f" (+{len(compact_commands) - 1})" if len(compact_commands) > 1 else ""
+        lines.append(f"    {label}: {compact_commands[0]}{suffix}")
+    return lines
+
+
+def _print_preflight_card(card: Mapping[str, Any]) -> None:
     if state.NAVIGATION_FULL_OUTPUT:
-        return emit_json(card)
+        return
 
     phase = card["phase"]
     runtime = card["runtime"]
@@ -8036,6 +8228,11 @@ def cmd_preflight() -> int:
         else {}
     )
     work_priority = card.get("work_priority") if isinstance(card.get("work_priority"), Mapping) else {}
+    host_resource_pressure = (
+        card.get("host_resource_pressure")
+        if isinstance(card.get("host_resource_pressure"), Mapping)
+        else {}
+    )
     freshness = card["freshness"]
     next_safe = card["next_safe_command"]
     recommended_actions = (
@@ -8138,6 +8335,47 @@ def cmd_preflight() -> int:
         if open_cmd:
             print(f"  open: {open_cmd}")
         print()
+    if host_resource_pressure:
+        print("RESOURCE PRESSURE")
+        print(
+            "  status:"
+            f" {host_resource_pressure.get('status')}"
+            f" | admission: {host_resource_pressure.get('admission')}"
+            f" | normal_work_allowed: {host_resource_pressure.get('normal_work_allowed')}"
+        )
+        git_status = host_resource_pressure.get("git_object_status")
+        task_status = host_resource_pressure.get("task_ledger_status")
+        disk_status = host_resource_pressure.get("disk_status")
+        print(f"  git objects: {git_status} | task ledger: {task_status} | disk: {disk_status}")
+        task_human = host_resource_pressure.get("task_ledger_events_human")
+        git_human = host_resource_pressure.get("git_loose_object_human")
+        disk_human = host_resource_pressure.get("disk_free_human")
+        if task_human or git_human or disk_human:
+            print(
+                "  sizes:"
+                f" git_loose={git_human or 'unknown'}"
+                f" task_events={task_human or 'unknown'}"
+                f" disk_free={disk_human or 'unknown'}"
+            )
+        lanes = (
+            host_resource_pressure.get("owner_lanes")
+            if isinstance(host_resource_pressure.get("owner_lanes"), Mapping)
+            else {}
+        )
+        primary_component = host_resource_pressure.get("primary_pressure_component")
+        primary_repair = host_resource_pressure.get("primary_repair_command")
+        if primary_component or primary_repair or lanes:
+            print(
+                "  repair:"
+                f" {primary_repair or lanes.get('git_prune_policy') or lanes.get('git_object') or lanes.get('disk')}"
+                f" | primary={primary_component or 'unknown'}"
+            )
+        action_lines = _preflight_resource_action_lines(host_resource_pressure)
+        if action_lines:
+            print("  actions:")
+            for line in action_lines:
+                print(line)
+        print()
     print("FRESHNESS")
     hologram = freshness["system_hologram"]
     stale_names = ", ".join(hologram.get("stale_phase_names") or [])
@@ -8178,7 +8416,6 @@ def cmd_preflight() -> int:
     print("DRILLDOWN")
     for item in card["drilldown"]:
         print(f"  {item.get('id')}: {item.get('command')}")
-    return 0
 
 
 def _preflight_card(profile_sink: list[dict[str, Any]] | None = None) -> dict[str, Any]:
@@ -12499,6 +12736,7 @@ def cmd_host_pressure(
     window_s: int = 900,
     event_limit: int = 2000,
     include_processes: bool = True,
+    include_resident_relief: bool = True,
     compact: bool = False,
     write_path: str | None = None,
     activation_url: str | None = None,
@@ -12528,6 +12766,7 @@ def cmd_host_pressure(
             window_s=window_s,
             event_limit=event_limit,
             include_processes=include_processes,
+            include_resident_relief=include_resident_relief,
             activation_url=activation_url,
         )
         if compact:
@@ -15265,7 +15504,7 @@ _STATIC_ROW_KIND_BAND_SUMMARY: dict[str, dict[str, Any]] = {
     alias: {
         "normalized_kind_id": "paper_modules",
         "legal_bands": ["cluster_flag", "atom", "flag", "card", "context", "evidence"],
-        "populated_bands": ["cluster_flag", "atom", "flag", "card"],
+        "populated_bands": ["cluster_flag", "atom", "flag", "card", "context"],
         "support_status": "option_surface_supported",
     }
     for alias in ("paper_modules", "paper_module", "paper-modules", "paper-module")
@@ -15690,6 +15929,7 @@ def cmd_agent_operating_packet(*, band: str = "summary") -> int:
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     from system.lib.agent_operating_packet import (
+        build_agent_operating_packet_card,
         build_agent_operating_packet_strip,
         build_agent_principle_lens,
         load_agent_operating_packet,
@@ -15727,29 +15967,9 @@ def cmd_agent_operating_packet(*, band: str = "summary") -> int:
         }
         return emit_json(payload)
     if normalized_band == "card":
-        capsule = packet.get("global_runtime_capsule") if isinstance(packet.get("global_runtime_capsule"), Mapping) else {}
-        axiom_pressure = packet.get("candidate_axiom_pressure") if isinstance(packet.get("candidate_axiom_pressure"), Mapping) else {}
-        payload = {
-            "kind": "agent_operating_packet_card",
-            "schema_version": packet.get("schema_version"),
-            "authority_posture": packet.get("authority_posture"),
-            "purpose": packet.get("purpose"),
-            "selection_policy": packet.get("selection_policy"),
-            "global_runtime_capsule": capsule,
-            "frequent_principles": packet.get("frequent_principles"),
-            "candidate_axiom_pressure": {
-                "authority_posture": axiom_pressure.get("authority_posture"),
-                "non_law_warning": axiom_pressure.get("non_law_warning"),
-                "rows": list(axiom_pressure.get("rows") or [])[:6],
-                "omitted_count": max(0, len(axiom_pressure.get("rows") or []) - 6),
-            },
-            "classification_summary": packet.get("classification_summary"),
-            "routing_matrix": packet.get("routing_matrix"),
-            "budget_metrics": packet.get("budget_metrics"),
-            "commands": packet.get("commands"),
-            "source_refs": packet.get("source_refs"),
-        }
-        return emit_json(payload)
+        return emit_json(build_agent_operating_packet_card(packet))
+    if normalized_band in {"full", "packet", "raw"}:
+        return emit_json(packet)
     return emit_json(packet)
 
 
@@ -15987,9 +16207,7 @@ def cmd_latency_seed_digest(
     if output_format == "markdown":
         print(render_markdown(payload), end="")
         return 0
-    if not include_git:
-        payload = compact_latency_seed_digest_for_cli(payload)
-    return emit_json(payload)
+    return emit_json(compact_latency_seed_digest_for_cli(payload))
 
 
 def _command_profile_payload_bytes(payload: Any) -> int:
@@ -16433,6 +16651,106 @@ def _compact_generated_state_fast_plan_for_profile(plan: Mapping[str, Any]) -> d
     }
 
 
+def _compact_generated_state_settle_for_profile(result: Mapping[str, Any]) -> dict[str, Any]:
+    def _compact_plan(plan: Any) -> dict[str, Any]:
+        if not isinstance(plan, Mapping):
+            return {}
+        return {
+            "status": plan.get("status"),
+            "planning_mode": plan.get("planning_mode"),
+            "authority_level": plan.get("authority_level"),
+            "dirty_owner_count": plan.get("dirty_owner_count"),
+            "refresh_required_owner_count": plan.get("refresh_required_owner_count"),
+            "blocked_owner_count": plan.get("blocked_owner_count"),
+            "can_settle": plan.get("can_settle"),
+            "blocked_by": list(plan.get("blocked_by") or []),
+        }
+
+    owners: list[dict[str, Any]] = []
+    for owner in result.get("owners") or []:
+        if not isinstance(owner, Mapping):
+            continue
+        completeness = (
+            owner.get("owner_bundle_completeness")
+            if isinstance(owner.get("owner_bundle_completeness"), Mapping)
+            else {}
+        )
+        owners.append(
+            {
+                "pass_index": owner.get("pass_index"),
+                "owner_id": owner.get("owner_id"),
+                "before_status": owner.get("before_status"),
+                "required_action": owner.get("required_action"),
+                "result_status": owner.get("result_status"),
+                "ok": owner.get("ok"),
+                "path_count": len(owner.get("paths_to_stage") or []),
+                "source_authority_stage_path_count": completeness.get(
+                    "source_authority_stage_path_count"
+                ),
+                "projection_stage_path_count": completeness.get(
+                    "projection_stage_path_count"
+                ),
+                "landing_manifest_included": completeness.get("landing_manifest_included"),
+            }
+        )
+
+    timing = result.get("timing") if isinstance(result.get("timing"), Mapping) else {}
+    return {
+        "schema": "generated_projection_settlement_dry_run_profile_compact_v0",
+        "ok": result.get("ok"),
+        "dry_run": result.get("dry_run"),
+        "status": result.get("status"),
+        "pass_count": result.get("pass_count"),
+        "max_passes": result.get("max_passes"),
+        "progress": result.get("progress"),
+        "owner_count": len(owners),
+        "owners": owners,
+        "before_plan_summary": _compact_plan(result.get("before_plan")),
+        "final_plan_summary": _compact_plan(result.get("final_plan")),
+        "timing_phase_count": timing.get("phase_count"),
+        "timing_phases": [
+            {
+                key: phase.get(key)
+                for key in (
+                    "phase",
+                    "wall_ms",
+                    "pass_index",
+                    "owner_id",
+                    "required_action",
+                    "result_status",
+                    "path_count",
+                    "fast_plan",
+                    "authority_level",
+                )
+                if isinstance(phase, Mapping) and phase.get(key) is not None
+            }
+            for phase in (timing.get("phases") or [])
+            if isinstance(phase, Mapping)
+        ],
+        "compact_settle_command": (
+            "./repo-python tools/meta/control/generated_state_drainer.py "
+            "settle --dry-run --fast-plan"
+        ),
+        "full_settle_command": (
+            "./repo-python tools/meta/control/generated_state_drainer.py "
+            "settle --dry-run --fast-plan --full-output"
+        ),
+        "omission_receipt": {
+            "status": "profile_path_bundles_omitted",
+            "omitted_fields": [
+                "owners.paths_to_stage",
+                "owners.source_authority_paths",
+                "owners.projection_paths",
+                "owners.path_bundle",
+                "before_plan.owners.path_bundle",
+                "final_plan.owners.path_bundle",
+                "progress_events",
+                "stewardship_check.source_bundle_by_owner",
+            ],
+        },
+    }
+
+
 def _compact_task_ledger_authority_health_for_profile(health: Mapping[str, Any]) -> dict[str, Any]:
     projection_check = (
         health.get("projection_check")
@@ -16658,6 +16976,7 @@ _COMMAND_PROFILE_SUPPORTED_SURFACES = [
     "context-pack",
     "host-pressure",
     "process-summary",
+    "process-audit",
     "process-bottlenecks",
     "action-quote",
     *_COMMAND_PROFILE_ACTION_QUOTE_PROFILE_SURFACES,
@@ -16675,7 +16994,21 @@ _COMMAND_PROFILE_SUPPORTED_SURFACES = [
 ]
 
 
+_COMMAND_PROFILE_SURFACE_ALIASES = {
+    "speedboard": "latency-speedboard",
+    "task-ledger-apply": "task-ledger",
+    "task-ledger-apply.py": "task-ledger",
+}
+
+
 _COMMAND_PROFILE_ACTION_KIND_REDIRECTS = {
+    "bash-find": {
+        "action_kind": "bash_find",
+        "owner_surface": "process_bottlenecks",
+        "owner_check_command": "./repo-python kernel.py --process-bottlenecks --process-action-kind bash_find",
+        "force_live_command": "./repo-python kernel.py --process-bottlenecks --force --process-action-kind bash_find",
+        "reason": "bash_find is a process-audit action kind, not a kernel command-profile surface.",
+    },
     "bash-grep": {
         "action_kind": "bash_grep",
         "owner_surface": "process_bottlenecks",
@@ -16943,6 +17276,7 @@ def _infer_command_profile_surface(
     coverage_matrix_query: str | None,
 ) -> str:
     surface = str(requested_surface or "auto").strip().lower().replace("_", "-")
+    surface = _COMMAND_PROFILE_SURFACE_ALIASES.get(surface, surface)
     if surface not in {"", "auto"}:
         return surface
     if entry_task is not None:
@@ -17113,18 +17447,26 @@ def cmd_command_profile(
             context_budget=context_budget,
             metabolism_profile=metabolism_profile,
             profile_sink=phases,
+            output_profile="cli" if str(metabolism_profile or "").strip().lower() == "quick" else "library",
         )
         if str(metabolism_profile or "").strip().lower() == "quick":
             compaction_started = perf_counter()
-            payload = compact_quick_navigation_metabolism_packet_for_cli(
-                payload,
-                context_budget=context_budget,
+            already_compacted = (
+                isinstance(payload, Mapping)
+                and isinstance(payload.get("budget"), Mapping)
+                and payload["budget"].get("cli_compacted_for_output") is True
             )
+            if not already_compacted:
+                payload = compact_quick_navigation_metabolism_packet_for_cli(
+                    payload,
+                    context_budget=context_budget,
+                )
             phases.append(
                 {
                     "phase": "navigation_metabolism_cli_compaction",
                     "ms": round((perf_counter() - compaction_started) * 1000, 3),
                     "output_bytes": _command_profile_payload_bytes(payload),
+                    "skipped": already_compacted,
                 }
             )
         phases.append(
@@ -17404,6 +17746,7 @@ def cmd_command_profile(
             window_s=900,
             event_limit=profile_event_limit,
             include_processes=False,
+            include_resident_relief=False,
             profile_sink=host_pressure_phases,
         )
         compact_packet = compact_progress_pressure_packet(packet)
@@ -17418,6 +17761,7 @@ def cmd_command_profile(
                 "output_profile": "compact_profile",
                 "event_limit": profile_event_limit,
                 "include_processes": False,
+                "include_resident_relief": False,
             }
         )
         phases.extend(host_pressure_phases)
@@ -17429,6 +17773,7 @@ def cmd_command_profile(
             "surface": "host-pressure",
             "profiled_command": (
                 "./repo-python kernel.py --host-pressure --host-pressure-no-processes --host-pressure-compact "
+                "--host-pressure-admission-only "
                 f"--host-pressure-event-limit {profile_event_limit} --json"
             ),
             "summary": dict(summary),
@@ -17476,6 +17821,49 @@ def cmd_command_profile(
             }
         )
         surface = "process-bottlenecks"
+    elif surface in {"process-audit", "process_audit"}:
+        process_audit_started = perf_counter()
+        audit, cache_status = _load_process_audit_cache()
+        sources = _process_trace_sources()
+        compact = _compact_process_audit(audit)
+        payload = {
+            "kind": "kernel.navigate.process_audit",
+            "schema_version": "process_audit_v1",
+            "output_profile": "compact_process_audit_default",
+            "summary": compact["summary"],
+            "source_freshness": cache_status,
+            "sources": sources,
+            "payload": {
+                "findings": compact["slow_action_shapes"],
+                "bottlenecks": compact["top_bottlenecks"],
+                "patterns": compact["top_patterns"],
+                "context_yield_attribution": compact["context_yield_attribution"],
+                "mode_control": compact["mode_control"],
+                "parse_failure_count": compact["parse_failure_count"],
+                "pattern_counts": compact["pattern_counts"],
+                "next_reads": sources["derived"],
+            },
+        }
+        phases.append(
+            {
+                "phase": "process_audit_status_packet",
+                "ms": round((perf_counter() - process_audit_started) * 1000, 3),
+                "output_bytes": _command_profile_payload_bytes(payload),
+                "source_mode": cache_status.get("mode"),
+                "source_status": cache_status.get("status"),
+                "finding_count": compact["summary"].get("finding_count"),
+                "bottleneck_count": len(compact["top_bottlenecks"]),
+                "pattern_count": len(compact["top_patterns"]),
+            }
+        )
+        phases.append(
+            {
+                "phase": "process_audit_output_shape",
+                "ms": 0.0,
+                **_command_profile_output_shape(payload),
+            }
+        )
+        surface = "process-audit"
     elif surface in {"process-summary", "process_summary"}:
         from system.lib.agent_execution_trace import build_process_summary_route_packet
 
@@ -17614,8 +18002,7 @@ def cmd_command_profile(
             include_git=False if no_git_surface else latency_seed_include_git,
             profile_sink=phases,
         )
-        if no_git_surface or not latency_seed_include_git:
-            payload = compact_latency_seed_digest_for_cli(payload)
+        payload = compact_latency_seed_digest_for_cli(payload)
         phases.append(
             {
                 "phase": "latency_seed_digest_output_shape",
@@ -17632,6 +18019,12 @@ def cmd_command_profile(
         written_speedboard = latency_speedboard.load_written_speedboard(repo_root)
         materialized_read_model_source = "written_speedboard" if written_speedboard else "rebuilt_in_memory"
         materialized_board = written_speedboard or latency_speedboard.build_speedboard(repo_root)
+        if written_speedboard:
+            materialized_board = latency_speedboard.overlay_materialized_remaining_bottlenecks(
+                repo_root,
+                materialized_board,
+                limit=3,
+            )
         materialized_summary = latency_speedboard.summarize_speedboard(
             materialized_board,
             preview_limit=3,
@@ -17699,7 +18092,8 @@ def cmd_command_profile(
             )
             host_pressure_check_command = (
                 "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
-                f"--host-pressure-compact --host-pressure-event-limit {profile_event_limit}"
+                "--host-pressure-compact --host-pressure-admission-only "
+                f"--host-pressure-event-limit {profile_event_limit}"
             )
             live_summary = {
                 "remaining_bottlenecks": [],
@@ -18142,7 +18536,10 @@ def cmd_command_profile(
             ),
         }
     elif surface == "generated-state-drainer":
-        from system.lib.generated_state_drainer import build_generated_projection_settlement_fast_plan
+        from system.lib.generated_state_drainer import (
+            build_generated_projection_settlement_fast_plan,
+            settle_generated_projection_owners,
+        )
 
         fast_plan_started = perf_counter()
         fast_plan_payload = build_generated_projection_settlement_fast_plan(state.REPO_ROOT)
@@ -18158,11 +18555,44 @@ def cmd_command_profile(
                 "output_profile": "compact_profile",
             }
         )
+        dry_run_settle_started = perf_counter()
+        dry_run_settle_payload = settle_generated_projection_owners(
+            state.REPO_ROOT,
+            dry_run=True,
+            fast_plan=True,
+            max_passes=1,
+            progress_callback=None,
+        )
+        compact_dry_run_settle_payload = _compact_generated_state_settle_for_profile(
+            dry_run_settle_payload
+        )
+        dry_run_settle_full_output_bytes = _command_profile_payload_bytes(
+            dry_run_settle_payload
+        )
+        dry_run_settle_compact_output_bytes = _command_profile_payload_bytes(
+            compact_dry_run_settle_payload
+        )
+        phases.append(
+            {
+                "phase": "settle_dry_run_fast_plan",
+                "ms": round((perf_counter() - dry_run_settle_started) * 1000, 3),
+                "output_bytes": dry_run_settle_compact_output_bytes,
+                "full_output_bytes": dry_run_settle_full_output_bytes,
+                "output_profile": "compact_profile",
+                "status": dry_run_settle_payload.get("status")
+                if isinstance(dry_run_settle_payload, Mapping)
+                else None,
+                "owner_count": len(dry_run_settle_payload.get("owners") or [])
+                if isinstance(dry_run_settle_payload, Mapping)
+                else None,
+            }
+        )
         payload = {
             "schema": "generated_state_drainer_command_profile_payload_v0",
             "surface": "generated-state-drainer",
             "profiled_commands": [
                 "./repo-python tools/meta/control/generated_state_drainer.py settlement-plan --fast",
+                "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run --fast-plan",
             ],
             "fast_plan_summary": {
                 "status": fast_plan_payload.get("status") if isinstance(fast_plan_payload, Mapping) else None,
@@ -18192,9 +18622,43 @@ def cmd_command_profile(
                 "full_plan_command": compact_fast_plan_payload.get("full_plan_command"),
                 "compact_plan_command": compact_fast_plan_payload.get("compact_plan_command"),
             },
+            "dry_run_settle_summary": {
+                "status": dry_run_settle_payload.get("status")
+                if isinstance(dry_run_settle_payload, Mapping)
+                else None,
+                "pass_count": dry_run_settle_payload.get("pass_count")
+                if isinstance(dry_run_settle_payload, Mapping)
+                else None,
+                "owner_count": len(dry_run_settle_payload.get("owners") or [])
+                if isinstance(dry_run_settle_payload, Mapping)
+                else None,
+                "settlement_done": dry_run_settle_payload.get("settlement_done")
+                if isinstance(dry_run_settle_payload, Mapping)
+                else None,
+            },
+            "dry_run_settle_output_profile": {
+                "schema": compact_dry_run_settle_payload.get("schema"),
+                "output_profile": "compact_profile",
+                "compact_output_bytes": dry_run_settle_compact_output_bytes,
+                "full_output_bytes": dry_run_settle_full_output_bytes,
+                "omission_status": (
+                    compact_dry_run_settle_payload.get("omission_receipt", {}).get("status")
+                    if isinstance(compact_dry_run_settle_payload.get("omission_receipt"), Mapping)
+                    else None
+                ),
+                "compact_settle_command": compact_dry_run_settle_payload.get(
+                    "compact_settle_command"
+                ),
+                "full_settle_command": compact_dry_run_settle_payload.get(
+                    "full_settle_command"
+                ),
+            },
             "status_drilldown_command": "./repo-python tools/meta/control/generated_state_drainer.py status",
             "full_authority_command": "./repo-python tools/meta/control/generated_state_drainer.py settlement-plan --full-diff-stat",
-            "privacy_boundary": "path/status/count metadata only; does not run settle, commit, or store stdout/stderr bodies",
+            "privacy_boundary": (
+                "path/status/count metadata only; dry-run settle records no commits and "
+                "does not store stdout/stderr bodies"
+            ),
         }
     elif surface in {"task-ledger", "task_ledger"}:
         repo_root = _repo_root_for_static_registry()
@@ -18338,15 +18802,17 @@ def cmd_command_profile(
     else:
         action_kind_redirect = _COMMAND_PROFILE_ACTION_KIND_REDIRECTS.get(surface)
         if action_kind_redirect is not None:
+            action_kind = action_kind_redirect["action_kind"]
             owner_check_command = action_kind_redirect["owner_check_command"]
             force_live_command = action_kind_redirect["force_live_command"]
+            metabolism_query = f"slow {action_kind} owner route"
             return emit_json(
                 {
                     "kind": "command_profile",
                     "schema_version": "command_profile_action_kind_redirect_v0",
                     "status": "action_kind_redirect",
                     "surface": surface,
-                    "action_kind": action_kind_redirect["action_kind"],
+                    "action_kind": action_kind,
                     "owner_surface": action_kind_redirect["owner_surface"],
                     "reason": action_kind_redirect["reason"],
                     "owner_check_command": owner_check_command,
@@ -18356,7 +18822,7 @@ def cmd_command_profile(
                         owner_check_command,
                         force_live_command,
                         (
-                            './repo-python kernel.py --navigation-metabolism "slow bash grep owner route" '
+                            f'./repo-python kernel.py --navigation-metabolism "{metabolism_query}" '
                             "--metabolism-profile quick --context-budget 12000"
                         ),
                     ],
@@ -18419,6 +18885,10 @@ def cmd_command_profile(
         profile["profiled_commands"] = list(payload.get("profiled_commands") or [])
         if isinstance(payload.get("fast_plan_output_profile"), Mapping):
             profile["fast_plan_output_profile"] = payload.get("fast_plan_output_profile")
+        if isinstance(payload.get("dry_run_settle_output_profile"), Mapping):
+            profile["dry_run_settle_output_profile"] = payload.get(
+                "dry_run_settle_output_profile"
+            )
     if surface == "pulse" and isinstance(payload, Mapping):
         profile["pulse_profile"] = payload
     if (
@@ -18832,6 +19302,7 @@ def cmd_navigation_metabolism(
             query=query,
             context_budget=context_budget,
             metabolism_profile=profile,
+            output_profile="cli" if profile == "quick" else "library",
         )
         receipt = maybe_route_to_sidecar(
             payload,
@@ -18841,10 +19312,16 @@ def cmd_navigation_metabolism(
         if receipt is not None:
             return emit_json(receipt)
         if profile == "quick":
-            payload = compact_quick_navigation_metabolism_packet_for_cli(
-                payload,
-                context_budget=context_budget,
+            already_compacted = (
+                isinstance(payload, Mapping)
+                and isinstance(payload.get("budget"), Mapping)
+                and payload["budget"].get("cli_compacted_for_output") is True
             )
+            if not already_compacted:
+                payload = compact_quick_navigation_metabolism_packet_for_cli(
+                    payload,
+                    context_budget=context_budget,
+                )
         return emit_json(payload)
     except _NavigationMetabolismTimeout:
         payload = _navigation_metabolism_timeout_packet(
@@ -19812,25 +20289,112 @@ def _process_trace_sources() -> dict[str, list[str]]:
     }
 
 
-def _process_build(*, since_ts: str | None = None, session_limit: int | None = None) -> dict[str, Any]:
+def _process_build(
+    *,
+    since_ts: str | None = None,
+    session_limit: int | None = None,
+    include_context_yield_attribution: bool = True,
+    aggregate_action_kinds: Sequence[str] | None = None,
+    parse_codex_output_payloads: bool = True,
+    build_profile: str = "full",
+) -> dict[str, Any]:
     return build_agent_execution_trace(
         repo_root=state.REPO_ROOT,
         since_ts=since_ts,
         session_limit=session_limit,
         include_output_previews=False,
+        include_context_yield_attribution=include_context_yield_attribution,
+        aggregate_action_kinds=aggregate_action_kinds,
+        parse_codex_output_payloads=parse_codex_output_payloads,
+        build_profile=build_profile,
     )
+
+
+def _process_audit_static_source_paths() -> list[Path]:
+    return [
+        state.REPO_ROOT / "system/lib/agent_execution_trace.py",
+        state.REPO_ROOT / "system/lib/kernel/commands/navigate.py",
+        state.REPO_ROOT / "codex/standards/std_agent_execution_trace.json",
+        PROCESS_TRACE_RULES_PATH,
+    ]
+
+
+def _process_audit_cache_freshness(
+    cache_path: Path,
+    source_paths: Sequence[Path],
+) -> dict[str, Any]:
+    try:
+        cache_mtime_ns = cache_path.stat().st_mtime_ns
+    except OSError:
+        return {
+            "status": "missing",
+            "static_source_status": "cache_missing",
+        }
+
+    stale_sources: list[dict[str, Any]] = []
+    missing_sources: list[str] = []
+    repo_root = getattr(state, "REPO_ROOT", None)
+    for source_path in source_paths:
+        try:
+            source_stat = source_path.stat()
+        except OSError:
+            missing_sources.append(str(source_path))
+            continue
+        if source_stat.st_mtime_ns > cache_mtime_ns:
+            if repo_root is None:
+                rel = str(source_path)
+            else:
+                try:
+                    rel = str(source_path.relative_to(repo_root))
+                except ValueError:
+                    rel = str(source_path)
+            stale_sources.append(
+                {
+                    "path": rel,
+                    "mtime_ns": source_stat.st_mtime_ns,
+                }
+            )
+
+    if stale_sources:
+        return {
+            "status": "stale_static_sources",
+            "static_source_status": "source_newer_than_cached_audit",
+            "stale_source_count": len(stale_sources),
+            "stale_sources_preview": stale_sources[:5],
+            "missing_source_count": len(missing_sources),
+            "patch_selection_policy": "refresh_or_force_live_before_selecting_process_audit_patch",
+            "authoritative_decision_command": "./repo-python kernel.py --process-bottlenecks --force",
+            "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
+        }
+
+    return {
+        "status": "hit",
+        "static_source_status": "cached_audit_current_for_static_trace_inputs",
+        "missing_source_count": len(missing_sources),
+    }
 
 
 def _load_process_audit_cache() -> tuple[dict[str, Any], dict[str, Any]]:
     cache_path = state.REPO_ROOT / PROCESS_AUDIT_PATH.relative_to(state.REPO_ROOT)
     if cache_path.exists():
         audit = load_execution_trace_audit(repo_root=state.REPO_ROOT, build_if_missing=False)
+        freshness = _process_audit_cache_freshness(
+            cache_path,
+            _process_audit_static_source_paths(),
+        )
+        status = str(freshness.get("status") or "hit")
         return audit, {
             "mode": "cached_audit",
-            "status": "hit",
+            "status": status,
             "cache_path": str(PROCESS_AUDIT_PATH.relative_to(state.REPO_ROOT)),
             "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
             "full_live_command": "./repo-python kernel.py --process-audit --full",
+            "force_live_command": "./repo-python kernel.py --process-bottlenecks --force",
+            **{
+                key: value
+                for key, value in freshness.items()
+                if key not in {"status", "refresh_command"}
+            },
         }
     return {
         "kind": "agent_execution_trace_audit",
@@ -19891,6 +20455,55 @@ def _load_process_patterns_cache() -> tuple[dict[str, Any], dict[str, Any]]:
             "default process-patterns avoids live trace parsing when the generated "
             "patterns read model is absent"
         ),
+    }
+
+
+PROCESS_PATTERN_SESSION_PREVIEW_LIMIT = 5
+
+
+def _compact_process_pattern_rows(
+    rows: Sequence[Any],
+    *,
+    session_preview_limit: int = PROCESS_PATTERN_SESSION_PREVIEW_LIMIT,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    compacted: list[dict[str, Any]] = []
+    total_hit_count = 0
+    total_omitted_count = 0
+    row_count_with_hits = 0
+
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        session_hits = list(row.get("session_id_hits") or [])
+        session_hit_count = len(session_hits)
+        omitted_count = max(0, session_hit_count - session_preview_limit)
+        next_row = {str(key): value for key, value in row.items() if key != "session_id_hits"}
+        if session_hit_count:
+            row_count_with_hits += 1
+            next_row["session_id_hit_count"] = session_hit_count
+            next_row["session_id_hits_preview"] = session_hits[:session_preview_limit]
+            next_row["session_id_hits_omitted"] = omitted_count
+        compacted.append(next_row)
+        total_hit_count += session_hit_count
+        total_omitted_count += omitted_count
+
+    return compacted, {
+        "profile": "compact_process_patterns_default_v0",
+        "applies_when": "default cached --process-patterns route with no --after/--limit window",
+        "session_id_hit_preview_limit": session_preview_limit,
+        "pattern_rows_with_session_hits": row_count_with_hits,
+        "total_session_id_hit_count": total_hit_count,
+        "total_session_id_hits_omitted": total_omitted_count,
+        "omitted_fields": [
+            "pattern.session_id_hits beyond session_id_hits_preview",
+        ],
+        "full_hit_list_sources": [
+            str(PROCESS_PATTERNS_PATH.relative_to(state.REPO_ROOT)),
+        ],
+        "drilldown_routes": [
+            "./repo-python kernel.py --process-trace <session_id>",
+            "./repo-python kernel.py --process-patterns --after <iso> --limit <n>",
+        ],
     }
 
 
@@ -20081,6 +20694,58 @@ def _process_bottleneck_ranking_status(decision_authority: Mapping[str, Any]) ->
     return "available_cached_triage"
 
 
+def _process_bottleneck_filtered_cache_check_command(action_kinds: Sequence[str]) -> str:
+    command = PROCESS_TRACE_CACHE_CHECK_COMMAND
+    for action_kind in action_kinds:
+        command = f"{command} --action-kind {shlex.quote(action_kind)}"
+    return command
+
+
+def _process_bottleneck_filtered_status_command(
+    action_kinds: Sequence[str],
+    *,
+    force: bool = False,
+) -> str:
+    command = "./repo-python kernel.py --process-bottlenecks"
+    if force:
+        command = f"{command} --force"
+    for action_kind in action_kinds:
+        command = f"{command} --process-action-kind {shlex.quote(action_kind)}"
+    return command
+
+
+def _with_filtered_process_cache_check(
+    row: Mapping[str, Any],
+    *,
+    action_kinds: Sequence[str],
+) -> dict[str, Any]:
+    updated = dict(row)
+    if not action_kinds:
+        return updated
+    command = _process_bottleneck_filtered_cache_check_command(action_kinds)
+    status_command = _process_bottleneck_filtered_status_command(action_kinds)
+    force_live_command = _process_bottleneck_filtered_status_command(
+        action_kinds,
+        force=True,
+    )
+    updated["cache_check_command"] = command
+    if updated.get("safe_first_command") in {
+        PROCESS_TRACE_CACHE_CHECK_COMMAND,
+        "./repo-python kernel.py --process-bottlenecks",
+        PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND,
+    }:
+        updated["safe_first_command"] = status_command
+    if updated.get("status_after_materialize_command") == PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND:
+        updated["status_after_materialize_command"] = status_command
+    updated["status_command"] = status_command
+    updated["force_live_command"] = force_live_command
+    updated["authoritative_decision_command"] = force_live_command
+    updated["filtered_cache_check_command"] = command
+    updated["filtered_status_command"] = status_command
+    updated["filtered_force_live_command"] = force_live_command
+    return updated
+
+
 def _compact_missing_process_bottleneck_cache_status(cache_status: Mapping[str, Any]) -> dict[str, Any]:
     def compact_window(value: Any) -> dict[str, Any]:
         if not isinstance(value, Mapping):
@@ -20204,12 +20869,20 @@ def _process_bottleneck_speedboard_path(repo_root: Path | None = None) -> Path:
 
 
 PROCESS_BOTTLENECK_DEFAULT_SESSION_LIMIT = 20
+PROCESS_BOTTLENECK_DEFAULT_STATUS_ROW_LIMIT = 4
+PROCESS_BOTTLENECK_DEFAULT_OUTPUT_ROW_LIMIT = 2
+PROCESS_BOTTLENECK_DEFAULT_CONTEXT_ROW_LIMIT = 2
 PROCESS_BOTTLENECK_STATUS_ROW_LIMIT = 6
 PROCESS_BOTTLENECK_OUTPUT_ROW_LIMIT = 5
 PROCESS_BOTTLENECK_CONTEXT_ROW_LIMIT = 4
-PROCESS_BOTTLENECK_DEFAULT_EXAMPLE_LIMIT = 2
+PROCESS_BOTTLENECK_FILTERED_CONTEXT_ROW_LIMIT = 0
+PROCESS_BOTTLENECK_DEFAULT_EXAMPLE_LIMIT = 1
 PROCESS_BOTTLENECK_FORCE_EXAMPLE_LIMIT = 1
+PROCESS_BOTTLENECK_FILTERED_EXAMPLE_LIMIT = 0
+PROCESS_BOTTLENECK_FILTERED_KERNEL_FLAG_LIMIT = 3
+PROCESS_BOTTLENECK_DEFAULT_TARGET_BYTES = 22_000
 PROCESS_BOTTLENECK_FORCE_TARGET_BYTES = 30_000
+PROCESS_BOTTLENECK_FILTERED_TARGET_BYTES = 12_000
 
 
 def _process_bottleneck_cached_window_status(
@@ -20790,7 +21463,14 @@ def _compact_audit_findings(rows: Sequence[Any], *, limit: int = 8) -> list[dict
     return compact
 
 
-def _compact_process_bottlenecks(value: Mapping[str, Any] | None, *, limit: int = 8) -> dict[str, Any]:
+def _compact_process_bottlenecks(
+    value: Mapping[str, Any] | None,
+    *,
+    limit: int = 8,
+    example_limit: int = 3,
+    hint_limit: int = 3,
+    kernel_flag_limit: int = 5,
+) -> dict[str, Any]:
     if not isinstance(value, Mapping):
         return {}
     items = sorted(
@@ -20810,14 +21490,146 @@ def _compact_process_bottlenecks(value: Mapping[str, Any] | None, *, limit: int 
             "total_duration_ms": row.get("total_duration_ms"),
             "slow_count": row.get("slow_count"),
             "threshold_ms": row.get("threshold_ms"),
-            "example_spans": _compact_bottleneck_preview(list(row.get("example_spans") or []), limit=3),
-            "repair_hints": list(row.get("repair_hints") or [])[:3],
+            "repair_hints": _compact_process_repair_hints(
+                list(row.get("repair_hints") or []),
+                limit=hint_limit,
+            ),
         }
+        source_examples = list(row.get("example_spans") or [])
+        example_spans = _compact_bottleneck_preview(source_examples, limit=example_limit)
+        if example_spans:
+            row_out["example_spans"] = example_spans
+            row_out["example_count"] = len(source_examples)
+            row_out["examples_omitted"] = max(0, len(source_examples) - len(example_spans))
         by_flag = list(row.get("by_kernel_flag") or [])
         if by_flag:
-            row_out["by_kernel_flag"] = by_flag[:5]
+            row_out["by_kernel_flag"] = by_flag[:kernel_flag_limit]
         compact[str(key)] = row_out
     return compact
+
+
+def _compact_process_repair_hints(rows: Sequence[Any], *, limit: int = 2) -> list[dict[str, Any]]:
+    compact: list[dict[str, Any]] = []
+    ranked_rows = sorted(
+        enumerate(rows),
+        key=lambda item: (
+            COMPACT_REPAIR_HINT_PRIORITIES.get(
+                str(item[1].get("hint_id") or "") if isinstance(item[1], Mapping) else "",
+                50,
+            ),
+            item[0],
+        ),
+    )
+    for _index, row in ranked_rows[: max(0, limit)]:
+        if not isinstance(row, Mapping):
+            continue
+        hint_id = row.get("hint_id")
+        concrete_preferred_next = row.get("concrete_preferred_next")
+        preferred_next = row.get("preferred_next")
+        owner_surface = row.get("owner_surface")
+        if hint_id == "route_kernel_flag_through_command_surface" and concrete_preferred_next:
+            preferred_next = None
+            owner_surface = None
+        compact.append(
+            _drop_none(
+                {
+                    "hint_id": hint_id,
+                    "kernel_flag": row.get("kernel_flag"),
+                    "concrete_preferred_next": concrete_preferred_next,
+                    "preferred_next": preferred_next,
+                    "owner_surface": owner_surface,
+                    "pre_action_card": row.get("pre_action_card"),
+                    "scope_narrowing": row.get("scope_narrowing"),
+                }
+            )
+        )
+    return compact
+
+
+def _kernel_flag_quote_scope(flag: str) -> str:
+    scope = flag.strip().lstrip("-").strip()
+    scope = re.sub(r"[^A-Za-z0-9_.:-]+", "-", scope).strip("-")
+    return scope or "kernel"
+
+
+def _kernel_flag_command_surface_hint(flag: str) -> dict[str, Any]:
+    scope = _kernel_flag_quote_scope(flag)
+    return {
+        "hint_id": "route_kernel_flag_through_command_surface",
+        "kernel_flag": flag,
+        "concrete_preferred_next": (
+            "./repo-python tools/meta/control/action_quote.py "
+            f"--action kernel_command --scope {scope}"
+        ),
+    }
+
+
+def _kernel_flag_process_repair_hints(by_flag: Sequence[Any], *, limit: int = 2) -> list[dict[str, Any]]:
+    hints: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for row in by_flag:
+        if not isinstance(row, Mapping):
+            continue
+        flag = str(row.get("kernel_flag") or "")
+        if flag == "--session-diagnostics":
+            hint = {
+                "hint_id": "route_session_diagnostics_through_command_surface",
+                "preferred_next": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action command_surface_inventory --scope session-diagnostics"
+                ),
+                "owner_surface": (
+                    "./repo-python kernel.py --session-diagnostics "
+                    "--lens all --last 10 --store both --json --diagnostics-summary"
+                ),
+            }
+        elif flag == "--process-bottlenecks":
+            hint = {
+                "hint_id": "use_cached_or_filtered_process_bottleneck_status",
+                "concrete_preferred_next": (
+                    "./repo-python kernel.py --process-bottlenecks "
+                    "--process-action-kind kernel_command"
+                ),
+                "preferred_next": (
+                    "./repo-python kernel.py --process-bottlenecks "
+                    "--process-action-kind <action-kind>"
+                ),
+                "owner_surface": (
+                    "./repo-python tools/meta/factory/build_agent_execution_trace.py "
+                    "--cached-summary --limit 6"
+                ),
+            }
+        else:
+            hint = _kernel_flag_command_surface_hint(flag)
+        hint_id = str(hint.get("hint_id") or "")
+        if hint_id in seen:
+            continue
+        seen.add(hint_id)
+        hints.append(hint)
+        if len(hints) >= max(0, limit):
+            break
+    return hints
+
+
+def _merge_process_repair_hints(
+    *groups: Sequence[Mapping[str, Any]],
+    limit: int = 2,
+) -> list[dict[str, Any]]:
+    merged: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for group in groups:
+        for hint in group:
+            if not isinstance(hint, Mapping):
+                continue
+            hint_id = str(hint.get("hint_id") or "")
+            if hint_id and hint_id in seen:
+                continue
+            if hint_id:
+                seen.add(hint_id)
+            merged.append(dict(hint))
+            if len(merged) >= max(0, limit):
+                return merged
+    return merged
 
 
 def _compact_process_bottleneck_rows(
@@ -20825,6 +21637,8 @@ def _compact_process_bottleneck_rows(
     *,
     limit: int = 8,
     example_limit: int = PROCESS_BOTTLENECK_DEFAULT_EXAMPLE_LIMIT,
+    hint_limit: int = 2,
+    kernel_flag_limit: int = 5,
 ) -> list[dict[str, Any]]:
     compact: list[dict[str, Any]] = []
     for row in list(rows)[:limit]:
@@ -20832,6 +21646,14 @@ def _compact_process_bottleneck_rows(
             continue
         hints = row.get("repair_hints")
         by_flag = list(row.get("by_kernel_flag") or [])
+        repair_hints = _compact_process_repair_hints(list(hints or []), limit=hint_limit)
+        if str(row.get("action_kind") or "") == "kernel_command":
+            repair_hints = _merge_process_repair_hints(
+                _kernel_flag_process_repair_hints(by_flag, limit=hint_limit),
+                repair_hints,
+                limit=hint_limit,
+            )
+        bounded_kernel_flag_limit = max(0, int(kernel_flag_limit))
         compact.append(
             _drop_none(
                 {
@@ -20850,8 +21672,12 @@ def _compact_process_bottleneck_rows(
                         list(row.get("example_spans") or []),
                         limit=example_limit,
                     ),
-                    "repair_hints": list(hints or [])[:2],
-                    "by_kernel_flag": (by_flag[:5] if by_flag else None),
+                    "repair_hints": repair_hints,
+                    "by_kernel_flag": (
+                        by_flag[:bounded_kernel_flag_limit]
+                        if by_flag and bounded_kernel_flag_limit
+                        else None
+                    ),
                 }
             )
         )
@@ -20859,17 +21685,32 @@ def _compact_process_bottleneck_rows(
 
 
 def _select_process_output_repair_hints(row: Mapping[str, Any], *, limit: int = 1) -> list[Any]:
-    hints = [hint for hint in list(row.get("repair_hints") or []) if isinstance(hint, Mapping)]
-    if not hints:
-        return []
+    hints: list[Mapping[str, Any]] = []
+    seen_hint_ids: set[str] = set()
+    for key in ("output_repair_hints", "repair_hints"):
+        for hint in list(row.get(key) or []):
+            if not isinstance(hint, Mapping):
+                continue
+            hint_id = str(hint.get("hint_id") or "")
+            if hint_id and hint_id in seen_hint_ids:
+                continue
+            if hint_id:
+                seen_hint_ids.add(hint_id)
+            hints.append(hint)
     priority = {
-        "replace_raw_search_scan_with_owner_route": 0,
-        "replace_find_scan_with_rg_files_or_option_surface": 1,
-        "prefer_bounded_read_or_identifier_search": 2,
-        "prefer_card_or_section_before_full_doc_read": 3,
-        "replace_output_file_read_with_status_surface": 4,
-        "replace_tmp_artifact_scan_with_owner_summary": 5,
-        "replace_polling_with_status_surface": 6,
+        "replace_git_shell_chain_with_state_snapshot": 0,
+        "replace_git_object_find_scan_with_gc_maintenance_check": 1,
+        "replace_raw_search_scan_with_owner_route": 2,
+        "replace_find_scan_with_rg_files_or_option_surface": 3,
+        "prefer_bounded_read_or_identifier_search": 4,
+        "prefer_card_or_section_before_full_doc_read": 5,
+        "replace_output_file_read_with_status_surface": 6,
+        "replace_inline_python_data_probe_with_owner_tool": 7,
+        "replace_python_module_tail_with_compact_cli_mode": 8,
+        "replace_tmp_artifact_scan_with_owner_summary": 9,
+        "replace_polling_with_status_surface": 10,
+        "replace_shell_limiter_with_compact_packet": 11,
+        "route_unclassified_bash_output_through_action_quote": 12,
     }
     ranked = sorted(
         enumerate(hints),
@@ -20878,7 +21719,20 @@ def _select_process_output_repair_hints(row: Mapping[str, Any], *, limit: int = 
             item[0],
         ),
     )
-    return [hint for _, hint in ranked[: max(0, limit)]]
+    repair_hints = _compact_process_repair_hints(
+        [hint for _, hint in ranked[: max(0, limit)]],
+        limit=limit,
+    )
+    if str(row.get("action_kind") or "") == "kernel_command":
+        return _merge_process_repair_hints(
+            _kernel_flag_process_repair_hints(
+                list(row.get("by_kernel_flag") or []),
+                limit=limit,
+            ),
+            repair_hints,
+            limit=limit,
+        )
+    return repair_hints
 
 
 def _compact_process_output_producers(rows: Sequence[Any], *, limit: int = 5) -> list[dict[str, Any]]:
@@ -20899,6 +21753,37 @@ def _compact_process_output_producers(rows: Sequence[Any], *, limit: int = 5) ->
             )
         )
     return compact
+
+
+def _inherit_process_output_producer_bottleneck_evidence(
+    output_rows: Sequence[Any],
+    bottleneck_rows: Sequence[Any],
+) -> list[Any]:
+    bottleneck_by_kind: dict[str, Mapping[str, Any]] = {}
+    for row in bottleneck_rows:
+        if not isinstance(row, Mapping):
+            continue
+        kind = str(row.get("action_kind") or "").strip()
+        if kind and kind not in bottleneck_by_kind:
+            bottleneck_by_kind[kind] = row
+
+    enriched: list[Any] = []
+    for row in output_rows:
+        if not isinstance(row, Mapping):
+            enriched.append(row)
+            continue
+        kind = str(row.get("action_kind") or "").strip()
+        bottleneck = bottleneck_by_kind.get(kind)
+        if not bottleneck:
+            enriched.append(row)
+            continue
+        row_out = dict(row)
+        if not row_out.get("repair_hints") and bottleneck.get("repair_hints"):
+            row_out["repair_hints"] = bottleneck.get("repair_hints")
+        if not row_out.get("by_kernel_flag") and bottleneck.get("by_kernel_flag"):
+            row_out["by_kernel_flag"] = bottleneck.get("by_kernel_flag")
+        enriched.append(row_out)
+    return enriched
 
 
 def _compact_context_yield_example(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -20922,12 +21807,52 @@ def _compact_context_yield_example(row: Mapping[str, Any]) -> dict[str, Any]:
     )
 
 
-def _compact_context_yield_steering(value: Any) -> dict[str, Any] | None:
+def _context_yield_scope_candidate(examples: Sequence[Mapping[str, Any]]) -> str | None:
+    actionable_statuses = {
+        "ungoverned",
+        "governed_route_available_but_not_used",
+        "needs_owner_patch",
+    }
+    preferred_examples = [
+        example
+        for example in examples
+        if str(example.get("governance_status") or "") in actionable_statuses
+    ]
+    for example in preferred_examples or list(examples):
+        for path in example.get("target_paths") or []:
+            scope = str(path or "").strip()
+            if (
+                scope
+                and scope not in {".", "./"}
+                and "<" not in scope
+                and ">" not in scope
+                and "\n" not in scope
+            ):
+                return scope
+    return None
+
+
+def _concrete_context_yield_route(route: Any, scope: str | None) -> str | None:
+    route_text = str(route or "").strip()
+    if not route_text or not scope:
+        return None
+    quoted_scope = shlex.quote(scope)
+    for placeholder in ("<term-or-root>", "<host-path-or-term>", "<path-or-owner>"):
+        if placeholder in route_text:
+            return route_text.replace(placeholder, quoted_scope)
+    return None
+
+
+def _compact_context_yield_steering(
+    value: Any,
+    *,
+    include_diagnostics: bool = True,
+) -> dict[str, Any] | None:
     if not isinstance(value, Mapping):
         return None
     clusters = value.get("command_shape_clusters")
     compact_clusters = None
-    if isinstance(clusters, Mapping):
+    if include_diagnostics and isinstance(clusters, Mapping):
         compact_clusters = _drop_none(
             {
                 "status": clusters.get("status"),
@@ -20938,10 +21863,19 @@ def _compact_context_yield_steering(value: Any) -> dict[str, Any] | None:
     return _drop_none(
         {
             "replacement_route": value.get("replacement_route"),
+            "concrete_replacement_route": value.get("concrete_replacement_route"),
+            "preferred_quote_route": value.get("preferred_quote_route"),
+            "concrete_preferred_quote_route": value.get("concrete_preferred_quote_route"),
+            "quote_routes": list(value.get("quote_routes") or [])[:3]
+            if value.get("quote_routes")
+            else None,
+            "pre_action_card": value.get("pre_action_card") if include_diagnostics else None,
+            "scope_hint": value.get("scope_hint"),
+            "scope_narrowing": value.get("scope_narrowing"),
             "applies_to_status": value.get("applies_to_status"),
             "applies_to_count": value.get("applies_to_count"),
             "accepted_case_guard": _agent_wake_truncate(value.get("accepted_case_guard"), 220)
-            if value.get("accepted_case_guard")
+            if include_diagnostics and value.get("accepted_case_guard")
             else None,
             "command_shape_clusters": compact_clusters,
         }
@@ -21014,12 +21948,13 @@ def _compact_context_yield_attribution(
         reverse=True,
     )
     compact_rows: list[dict[str, Any]] = []
-    for row in enriched_rows[:row_limit]:
+    for row_index, row in enumerate(enriched_rows[:row_limit]):
         examples = [example for example in list(row.get("examples") or []) if isinstance(example, Mapping)]
         compact_examples = [
             _compact_context_yield_example(example)
             for example in examples[:example_limit]
         ]
+        scope_candidate = _context_yield_scope_candidate(examples)
         active_bytes = int(row.get("_compact_active_bytes") or 0)
         span_count = int(row.get("_compact_span_count") or 0)
         actionable_active_bytes = int(row.get("_compact_actionable_active_bytes") or 0)
@@ -21036,6 +21971,39 @@ def _compact_context_yield_attribution(
             )
         else:
             owner_coverage = None
+        steering = _compact_context_yield_steering(
+            row.get("steering"),
+            include_diagnostics=row_index == 0,
+        )
+        if steering and scope_candidate:
+            steering = dict(steering)
+            concrete_quote_route = _concrete_context_yield_route(
+                steering.get("preferred_quote_route"),
+                scope_candidate,
+            )
+            concrete_replacement_route = _concrete_context_yield_route(
+                steering.get("replacement_route") or row.get("owner_surface") or row.get("existing_route"),
+                scope_candidate,
+            )
+            pre_action_card = (
+                dict(steering.get("pre_action_card"))
+                if isinstance(steering.get("pre_action_card"), Mapping)
+                else None
+            )
+            concrete_first_route = (
+                _concrete_context_yield_route(pre_action_card.get("first_route"), scope_candidate)
+                if pre_action_card
+                else None
+            )
+            if concrete_quote_route:
+                steering["concrete_preferred_quote_route"] = concrete_quote_route
+            if concrete_replacement_route:
+                steering["concrete_replacement_route"] = concrete_replacement_route
+            if pre_action_card and concrete_first_route:
+                pre_action_card["concrete_first_route"] = concrete_first_route
+                steering["pre_action_card"] = pre_action_card
+            if concrete_quote_route or concrete_replacement_route or concrete_first_route:
+                steering["scope_hint"] = scope_candidate
         compact_rows.append(
             _drop_none(
                 {
@@ -21054,7 +22022,7 @@ def _compact_context_yield_attribution(
                     "safety_gate": row.get("safety_gate"),
                     "governance_status_counts": dict(row.get("governance_status_counts") or {}),
                     "owner_coverage": owner_coverage,
-                    "steering": _compact_context_yield_steering(row.get("steering")),
+                    "steering": steering,
                     "examples": compact_examples if compact_examples else None,
                     "example_count": len(examples),
                     "examples_omitted": max(0, len(examples) - len(compact_examples)),
@@ -21093,6 +22061,11 @@ def _compact_context_yield_attribution(
         "rows_returned": len(compact_rows),
         "rows_available": len(enriched_rows),
         "rows_omitted": max(0, len(enriched_rows) - len(compact_rows)),
+        "steering_compaction": {
+            "full_steering_rows": 1 if compact_rows else 0,
+            "route_only_steering_rows": max(0, len(compact_rows) - 1),
+            "route_fields_preserved_on_all_rows": True,
+        },
         "privacy_boundary": value.get("privacy_boundary"),
         "full_payload_routes": [
             "./repo-python kernel.py --process-audit",
@@ -21111,8 +22084,11 @@ def _compact_context_yield_attribution(
 def _process_bottleneck_next_commands(
     context_yield_attribution: Mapping[str, Any],
     *,
+    top_bottlenecks: Sequence[Mapping[str, Any]] | None = None,
+    top_output_producers: Sequence[Mapping[str, Any]] | None = None,
     decision_authority: Mapping[str, Any] | None = None,
     cache_status: Mapping[str, Any] | None = None,
+    allow_template_repair_hints: bool = False,
 ) -> list[dict[str, Any]]:
     next_commands: list[dict[str, Any]] = []
     authority = decision_authority if isinstance(decision_authority, Mapping) else {}
@@ -21201,40 +22177,257 @@ def _process_bottleneck_next_commands(
                 "reason": "Force live ranking only when current authority is required.",
             },
         ]
-    for row in context_yield_attribution.get("rows") or []:
-        if not isinstance(row, Mapping):
-            continue
-        steering = row.get("steering") if isinstance(row.get("steering"), Mapping) else {}
-        route = (
-            str(row.get("owner_surface") or "").strip()
-            or str(row.get("existing_route") or "").strip()
-            or str(steering.get("replacement_route") or "").strip()
+    seen_commands: set[str] = set()
+    deferred_probe_commands: list[dict[str, str]] = []
+    promoted_non_probe_hint = False
+
+    def add_next_command(command: str, reason: str) -> bool:
+        if command in seen_commands:
+            return False
+        next_commands.append({"command": command, "reason": reason})
+        seen_commands.add(command)
+        return True
+
+    def defer_probe_command(command: str, reason: str) -> None:
+        if command in seen_commands:
+            return
+        if any(row.get("command") == command for row in deferred_probe_commands):
+            return
+        deferred_probe_commands.append({"command": command, "reason": reason})
+
+    def is_status_probe_command(command: str) -> bool:
+        return (
+            " --status-only" in command
+            or " authority-health --projection-check" in command
+            or " drain-deferred-rebuilds " in command
         )
-        if not route:
-            continue
-        motif = str(row.get("motif") or "top context-yield motif").strip()
-        next_commands.append(
-            {
-                "command": route,
-                "reason": (
-                    f"Use the owner route for top context-yield motif {motif!r} "
-                    "before opening raw bodies or broad audit drilldowns."
-                ),
-            }
-        )
-        break
-    next_commands.extend(
-        [
-            {
-                "command": "./repo-python kernel.py --process-audit",
-                "reason": "Open the full audit with findings and per-session preview.",
-            },
-            {
-                "command": "./repo-python kernel.py --process-bottlenecks --force",
-                "reason": "Force a live in-memory rebuild when the cached summary is not fresh enough for the decision.",
-            },
+
+    def is_unrunnable_command_template(command: str) -> bool:
+        if "..." in command:
+            return True
+        if allow_template_repair_hints:
+            return False
+        return "<" in command or ">" in command
+
+    def is_self_status_command(command: str) -> bool:
+        return command in {
+            "./repo-python kernel.py --process-bottlenecks",
+            PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND,
+        }
+
+    def first_ranked_action_kind() -> str:
+        for rows in (top_bottlenecks, top_output_producers):
+            for row in rows or []:
+                if not isinstance(row, Mapping):
+                    continue
+                action_kind = str(row.get("action_kind") or "").strip()
+                if action_kind:
+                    return action_kind
+        return ""
+
+    def scoped_status_followup() -> tuple[str, str]:
+        candidate_commands = [
+            str(freshness.get("filtered_status_command") or "").strip(),
+            str(authority.get("filtered_status_command") or "").strip(),
+            str(freshness.get("status_command") or "").strip(),
+            str(authority.get("status_command") or "").strip(),
         ]
-    )
+        for command in candidate_commands:
+            if " --process-action-kind " in f" {command} " and " --force" not in f" {command} ":
+                return (
+                    command,
+                    "Read the currently scoped action-kind status before any live rebuild.",
+                )
+        action_kind = first_ranked_action_kind()
+        if action_kind:
+            return (
+                _process_bottleneck_filtered_status_command([action_kind]),
+                (
+                    f"Read only top action kind {action_kind!r} from the current read model "
+                    "instead of repeating a live ranking."
+                ),
+            )
+        force_candidates = [
+            str(freshness.get("filtered_force_live_command") or "").strip(),
+            str(authority.get("filtered_force_live_command") or "").strip(),
+            str(freshness.get("force_live_command") or "").strip(),
+            str(authority.get("authoritative_decision_command") or "").strip(),
+        ]
+        for command in force_candidates:
+            if " --process-action-kind " in f" {command} ":
+                return (
+                    command,
+                    "Refresh the currently scoped action-kind ranking without widening to a broad live rebuild.",
+                )
+        return (
+            str(freshness.get("force_live_command") or PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND),
+            "Force a live in-memory rebuild when the cached summary is not fresh enough for the decision.",
+        )
+
+    def as_int(value: Any) -> int:
+        try:
+            return int(value or 0)
+        except (TypeError, ValueError):
+            return 0
+
+    def should_promote_context_yield_first() -> bool:
+        rows = context_yield_attribution.get("rows")
+        if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
+            return False
+        first = next((row for row in rows if isinstance(row, Mapping)), None)
+        if not first:
+            return False
+        if str(first.get("next_wave_score") or "").strip().lower() != "high":
+            return False
+        return (
+            as_int(first.get("actionable_active_bytes")) >= 128_000
+            or as_int(first.get("active_bytes")) >= 1_000_000
+            or as_int(first.get("actionable_span_count")) >= 20
+        )
+
+    context_yield_promoted = False
+
+    def promote_context_yield_commands() -> bool:
+        nonlocal context_yield_promoted
+        if context_yield_promoted:
+            return False
+        promoted = False
+        for row in context_yield_attribution.get("rows") or []:
+            if not isinstance(row, Mapping):
+                continue
+            steering = row.get("steering") if isinstance(row.get("steering"), Mapping) else {}
+            route = (
+                str(steering.get("concrete_replacement_route") or "").strip()
+                or str(row.get("owner_surface") or "").strip()
+                or str(row.get("existing_route") or "").strip()
+                or str(steering.get("replacement_route") or "").strip()
+            )
+            quote_route = (
+                str(steering.get("concrete_preferred_quote_route") or "").strip()
+                or str(steering.get("preferred_quote_route") or "").strip()
+            )
+            pre_action_card = steering.get("pre_action_card")
+            pre_action_route = ""
+            if isinstance(pre_action_card, Mapping):
+                pre_action_route = (
+                    str(pre_action_card.get("concrete_first_route") or "").strip()
+                    or str(pre_action_card.get("first_route") or "").strip()
+                )
+            if not route and not quote_route:
+                continue
+            motif = str(row.get("motif") or "top context-yield motif").strip()
+            if (
+                pre_action_route
+                and pre_action_route not in {quote_route, route}
+                and pre_action_route not in seen_commands
+            ):
+                promoted = add_next_command(
+                    pre_action_route,
+                    (
+                        f"Use the route-first command card for top context-yield motif {motif!r} "
+                        "before choosing inventory terms or opening raw bodies."
+                    ),
+                ) or promoted
+            if quote_route and quote_route not in seen_commands:
+                promoted = add_next_command(
+                    quote_route,
+                    (
+                        f"Use the compact quote route for top context-yield motif {motif!r} "
+                        "before opening raw bodies or broad audit drilldowns."
+                    ),
+                ) or promoted
+            if route and route != quote_route and route not in seen_commands:
+                promoted = add_next_command(
+                    route,
+                    (
+                        f"Use the owner route for top context-yield motif {motif!r} "
+                        "when the quote route needs source drilldown."
+                    ),
+                ) or promoted
+            context_yield_promoted = True
+            return promoted
+        return False
+
+    promote_context_first = should_promote_context_yield_first()
+    if promote_context_first:
+        promoted_non_probe_hint = promote_context_yield_commands() or promoted_non_probe_hint
+
+    process_hint_selected = False
+
+    def promote_process_repair_hint(rows: Sequence[Mapping[str, Any]] | None, *, row_role: str) -> bool:
+        nonlocal promoted_non_probe_hint, process_hint_selected
+        for row in rows or []:
+            if not isinstance(row, Mapping):
+                continue
+            action_kind = str(row.get("action_kind") or f"top process {row_role}").strip()
+            for hint in row.get("repair_hints") or []:
+                if not isinstance(hint, Mapping):
+                    continue
+                candidates: list[str] = []
+                concrete_preferred = str(hint.get("concrete_preferred_next") or "").strip()
+                if concrete_preferred:
+                    candidates.append(concrete_preferred)
+                preferred = str(hint.get("preferred_next") or "").strip()
+                if preferred:
+                    candidates.append(preferred)
+                for command in hint.get("replacement_commands") or []:
+                    command_text = str(command or "").strip()
+                    if command_text:
+                        candidates.append(command_text)
+                for command in candidates:
+                    if not command.startswith("./repo-"):
+                        continue
+                    if is_unrunnable_command_template(command):
+                        continue
+                    if is_self_status_command(command):
+                        continue
+                    if command in seen_commands:
+                        continue
+                    hint_id = str(hint.get("hint_id") or "process_bottleneck_repair").strip()
+                    reason = (
+                        f"Use concrete repair hint {hint_id!r} for top process "
+                        f"{row_role} {action_kind!r} before broader context-yield fallback."
+                    )
+                    if is_status_probe_command(command):
+                        defer_probe_command(
+                            command,
+                            (
+                                f"Use status/projection guard-rail hint {hint_id!r} for top process "
+                                f"{row_role} {action_kind!r} after non-probe routes; repeat only when "
+                                "current projection state is the question."
+                            ),
+                        )
+                        continue
+                    if process_hint_selected:
+                        continue
+                    if add_next_command(command, reason):
+                        promoted_non_probe_hint = True
+                        process_hint_selected = True
+                    break
+        return process_hint_selected
+
+    promote_process_repair_hint(top_bottlenecks, row_role="bottleneck")
+    bottleneck_hint_selected = process_hint_selected
+    process_hint_selected = False
+    promote_process_repair_hint(top_output_producers, row_role="output producer")
+    process_hint_selected = bottleneck_hint_selected or process_hint_selected
+    promote_context_yield_commands()
+    deferred_probe_limit = 1 if promoted_non_probe_hint else len(deferred_probe_commands)
+    for row in deferred_probe_commands[:deferred_probe_limit]:
+        command = row["command"]
+        if command not in seen_commands:
+            next_commands.append(dict(row))
+            seen_commands.add(command)
+    for command, reason in (
+        (
+            "./repo-python kernel.py --process-audit",
+            "Open the full audit with findings and per-session preview.",
+        ),
+        scoped_status_followup(),
+    ):
+        if command not in seen_commands:
+            next_commands.append({"command": command, "reason": reason})
+            seen_commands.add(command)
     return next_commands
 
 
@@ -21274,27 +22467,81 @@ def _compact_process_audit(audit: Mapping[str, Any]) -> dict[str, Any]:
                 for row in list(audit.get("findings") or [])
                 if isinstance(row, Mapping) and row.get("rule") == "slow_action_shape"
             ],
-            limit=8,
+            limit=5,
         ),
         "pattern_counts": dict(summary.get("pattern_counts") or {}),
-        "top_patterns": _compact_pattern_rows(list(audit.get("patterns") or []), limit=8),
-        "top_bottlenecks": _compact_process_bottlenecks(audit.get("bottlenecks"), limit=8),
+        "top_patterns": _compact_pattern_rows(list(audit.get("patterns") or []), limit=5),
+        "top_bottlenecks": _compact_process_bottlenecks(
+            audit.get("bottlenecks"),
+            limit=4,
+            example_limit=0,
+            hint_limit=2,
+            kernel_flag_limit=2,
+        ),
         "context_yield_attribution": _compact_context_yield_attribution(
             audit.get("context_yield_attribution"),
-            row_limit=6,
-            example_limit=1,
+            row_limit=3,
+            example_limit=0,
         ),
-        "mode_control": _compact_process_mode_control(audit.get("mode_control")),
+        "mode_control": _compact_process_mode_control(
+            audit.get("mode_control"),
+            signal_limit=3,
+            example_limit=0,
+        ),
         "parse_failure_count": len(audit.get("parse_failures") or []),
     }
 
 
-def _compact_process_mode_control(value: Any) -> dict[str, Any]:
+def _process_audit_next_commands(cache_status: Mapping[str, Any]) -> list[dict[str, str]]:
+    base = [
+        {
+            "command": "./repo-python kernel.py --process-bottlenecks",
+            "reason": "Browse the top N slowest action shapes and longest spans.",
+        },
+        {
+            "command": "./repo-python kernel.py --process-patterns",
+            "reason": "Browse recurring process patterns and session hit lists.",
+        },
+        {
+            "command": "./repo-python kernel.py --process-audit --full",
+            "reason": "Open full audit rows only after the compact packet identifies the needed evidence.",
+        },
+    ]
+    if cache_status.get("status") != "stale_static_sources":
+        return base
+    authoritative = str(
+        cache_status.get("authoritative_decision_command")
+        or cache_status.get("force_live_command")
+        or "./repo-python kernel.py --process-bottlenecks --force"
+    )
+    refresh = str(cache_status.get("refresh_command") or PROCESS_TRACE_REFRESH_COMMAND)
+    return [
+        {
+            "command": authoritative,
+            "reason": (
+                "Cached process-audit static inputs are stale; use the live bottleneck "
+                "packet before selecting a speed patch target."
+            ),
+        },
+        {
+            "command": refresh,
+            "reason": "Refresh the generated process-audit read model when host pressure allows.",
+        },
+        *base,
+    ]
+
+
+def _compact_process_mode_control(
+    value: Any,
+    *,
+    signal_limit: int = 6,
+    example_limit: int = 1,
+) -> dict[str, Any]:
     if not isinstance(value, Mapping):
         return {}
     signals = [row for row in list(value.get("signals") or []) if isinstance(row, Mapping)]
     compact_signals: list[dict[str, Any]] = []
-    for row in signals[:6]:
+    for row in signals[:signal_limit]:
         examples = [example for example in list(row.get("examples") or []) if isinstance(example, Mapping)]
         compact_examples = [
             _drop_none(
@@ -21314,7 +22561,7 @@ def _compact_process_mode_control(value: Any) -> dict[str, Any]:
                     else None,
                 }
             )
-            for example in examples[:1]
+            for example in examples[:example_limit]
         ]
         compact_signals.append(
             _drop_none(
@@ -21557,6 +22804,17 @@ def cmd_process_audit(
                 "finding_rows_available": len(audit.get("findings") or []),
                 "pattern_rows_emitted": len(compact["top_patterns"]),
                 "pattern_rows_available": len(audit.get("patterns") or []),
+                "target_bytes": 30000,
+                "row_limits": {
+                    "findings": 5,
+                    "patterns": 5,
+                    "bottlenecks": 4,
+                    "context_yield_rows": 3,
+                    "mode_control_signals": 3,
+                    "examples_per_bottleneck": 0,
+                    "examples_per_context_yield_row": 0,
+                    "examples_per_mode_control_signal": 0,
+                },
                 "full_payload_command": "./repo-python kernel.py --process-audit --full",
             },
         }
@@ -21592,20 +22850,7 @@ def cmd_process_audit(
             "sources": sources,
             "payload": emitted_payload,
             "output_economy": output_economy,
-            "next": [
-                {
-                    "command": "./repo-python kernel.py --process-bottlenecks",
-                    "reason": "Browse the top N slowest action shapes and longest spans.",
-                },
-                {
-                    "command": "./repo-python kernel.py --process-patterns",
-                    "reason": "Browse recurring process patterns and session hit lists.",
-                },
-                {
-                    "command": "./repo-python kernel.py --process-audit --full",
-                    "reason": "Open full audit rows only after the compact packet identifies the needed evidence.",
-                },
-            ],
+            "next": _process_audit_next_commands(cache_status),
             "warnings": [],
         }
     )
@@ -21616,7 +22861,14 @@ def _build_process_bottlenecks_packet(
     since_ts: str | None = None,
     session_limit: int | None = None,
     force_live: bool = False,
+    action_kinds: Sequence[str] | None = None,
 ) -> dict[str, Any]:
+    requested_action_kinds = [
+        str(action_kind or "").strip()
+        for action_kind in (action_kinds or [])
+        if str(action_kind or "").strip()
+    ]
+    requested_action_kind_set = set(requested_action_kinds)
     cache_status: dict[str, Any] = {
         "mode": "live_in_memory",
         "status": "forced" if force_live else "cache_unavailable",
@@ -21643,7 +22895,14 @@ def _build_process_bottlenecks_packet(
                 canonical_cache_status["speedboard_fallback"] = cache_status
                 cache_status = canonical_cache_status
     if summary is None and force_live:
-        payload = _process_build(since_ts=since_ts, session_limit=effective_session_limit)
+        payload = _process_build(
+            since_ts=since_ts,
+            session_limit=effective_session_limit,
+            include_context_yield_attribution=False,
+            aggregate_action_kinds=requested_action_kinds if requested_action_kind_set else None,
+            parse_codex_output_payloads=False,
+            build_profile="bottleneck_rankings",
+        )
         summary = payload["summary"]
         cache_status = {
             "mode": "live_in_memory",
@@ -21696,6 +22955,20 @@ def _build_process_bottlenecks_packet(
         cache_status = _compact_missing_process_bottleneck_cache_status(cache_status)
     else:
         cache_status["decision_authority"] = decision_authority
+    if requested_action_kinds:
+        decision_authority = _with_filtered_process_cache_check(
+            decision_authority,
+            action_kinds=requested_action_kinds,
+        )
+        cache_status = _with_filtered_process_cache_check(
+            cache_status,
+            action_kinds=requested_action_kinds,
+        )
+        if isinstance(cache_status.get("decision_authority"), Mapping):
+            cache_status["decision_authority"] = _with_filtered_process_cache_check(
+                cache_status["decision_authority"],
+                action_kinds=requested_action_kinds,
+            )
     warnings = []
     if decision_authority.get("status") == "advisory_only_stale_read_model":
         warnings.append(
@@ -21721,16 +22994,64 @@ def _build_process_bottlenecks_packet(
         )
     top_bottlenecks_all = list(summary.get("top_bottlenecks") or [])
     top_output_producers_all = list(summary.get("top_output_producers") or [])
+    if requested_action_kind_set:
+        top_bottlenecks_all_before_filter = list(top_bottlenecks_all)
+        top_output_producers_all_before_filter = list(top_output_producers_all)
+        top_bottlenecks_all = [
+            row
+            for row in top_bottlenecks_all
+            if isinstance(row, Mapping) and str(row.get("action_kind") or "").strip() in requested_action_kind_set
+        ]
+        top_output_producers_all = [
+            row
+            for row in top_output_producers_all
+            if isinstance(row, Mapping) and str(row.get("action_kind") or "").strip() in requested_action_kind_set
+        ]
+        matched_action_kinds = sorted(
+            {
+                str(row.get("action_kind") or "").strip()
+                for row in [*top_bottlenecks_all, *top_output_producers_all]
+                if isinstance(row, Mapping) and str(row.get("action_kind") or "").strip()
+            }
+        )
+        missing_action_kinds = [
+            action_kind for action_kind in requested_action_kinds if action_kind not in matched_action_kinds
+        ]
+        action_kind_filter = {
+            "requested": requested_action_kinds,
+            "matched": matched_action_kinds,
+            "missing": missing_action_kinds,
+            "source_top_bottleneck_count": len(top_bottlenecks_all_before_filter),
+            "source_top_output_producer_count": len(top_output_producers_all_before_filter),
+            "filtered_top_bottleneck_count": len(top_bottlenecks_all),
+            "filtered_top_output_producer_count": len(top_output_producers_all),
+        }
+    else:
+        action_kind_filter = None
     compact_default = not force_live
     if compact_default:
+        row_example_limit = (
+            PROCESS_BOTTLENECK_FILTERED_EXAMPLE_LIMIT
+            if requested_action_kind_set
+            else PROCESS_BOTTLENECK_DEFAULT_EXAMPLE_LIMIT
+        )
+        kernel_flag_limit = (
+            PROCESS_BOTTLENECK_FILTERED_KERNEL_FLAG_LIMIT if requested_action_kind_set else 5
+        )
         top_bottlenecks = _compact_process_bottleneck_rows(
             top_bottlenecks_all,
-            limit=PROCESS_BOTTLENECK_STATUS_ROW_LIMIT,
-            example_limit=PROCESS_BOTTLENECK_DEFAULT_EXAMPLE_LIMIT,
+            limit=PROCESS_BOTTLENECK_DEFAULT_STATUS_ROW_LIMIT,
+            example_limit=row_example_limit,
+            hint_limit=1,
+            kernel_flag_limit=kernel_flag_limit,
+        )
+        top_output_producers_all = _inherit_process_output_producer_bottleneck_evidence(
+            top_output_producers_all,
+            top_bottlenecks_all,
         )
         top_output_producers = _compact_process_output_producers(
             top_output_producers_all,
-            limit=PROCESS_BOTTLENECK_OUTPUT_ROW_LIMIT,
+            limit=PROCESS_BOTTLENECK_DEFAULT_OUTPUT_ROW_LIMIT,
         )
         if decision_authority.get("status") == "read_model_missing_live_required":
             output_economy = {
@@ -21739,7 +23060,12 @@ def _build_process_bottlenecks_packet(
                 "top_bottlenecks_available": 0,
                 "top_output_producers_available": 0,
                 "full_payload_routes": [
-                    "./repo-python kernel.py --process-bottlenecks --force",
+                    _process_bottleneck_filtered_status_command(
+                        requested_action_kinds,
+                        force=True,
+                    )
+                    if requested_action_kind_set
+                    else "./repo-python kernel.py --process-bottlenecks --force",
                     "./repo-python kernel.py --process-audit",
                 ],
             }
@@ -21750,68 +23076,120 @@ def _build_process_bottlenecks_packet(
                     "Default process-bottlenecks is a first-triage owner status route; "
                     "full per-span evidence remains behind force-live and process-audit drilldowns."
                 ),
+                "target_bytes": (
+                    PROCESS_BOTTLENECK_FILTERED_TARGET_BYTES
+                    if requested_action_kind_set
+                    else PROCESS_BOTTLENECK_DEFAULT_TARGET_BYTES
+                ),
                 "top_bottlenecks_emitted": len(top_bottlenecks),
                 "top_bottlenecks_available": len(top_bottlenecks_all),
                 "top_output_producers_emitted": len(top_output_producers),
                 "top_output_producers_available": len(top_output_producers_all),
+                "action_kind_filter": action_kind_filter,
                 "row_limits": {
-                    "top_bottlenecks": PROCESS_BOTTLENECK_STATUS_ROW_LIMIT,
-                    "top_output_producers": PROCESS_BOTTLENECK_OUTPUT_ROW_LIMIT,
-                    "context_yield_rows": PROCESS_BOTTLENECK_CONTEXT_ROW_LIMIT,
-                    "examples_per_bottleneck": PROCESS_BOTTLENECK_DEFAULT_EXAMPLE_LIMIT,
+                    "top_bottlenecks": PROCESS_BOTTLENECK_DEFAULT_STATUS_ROW_LIMIT,
+                    "top_output_producers": PROCESS_BOTTLENECK_DEFAULT_OUTPUT_ROW_LIMIT,
+                    "context_yield_rows": (
+                        PROCESS_BOTTLENECK_FILTERED_CONTEXT_ROW_LIMIT
+                        if requested_action_kind_set
+                        else PROCESS_BOTTLENECK_DEFAULT_CONTEXT_ROW_LIMIT
+                    ),
+                    "examples_per_bottleneck": row_example_limit,
                 },
                 "omitted_fields": [
                     "full example span normalized_command bodies",
-                    "example spans beyond two per action kind",
-                    "top bottleneck rows beyond first six",
-                    "top output-producer rows beyond first five",
+                    "example spans beyond one per action kind",
+                    "secondary repair hints per bottleneck row",
+                    "top bottleneck rows beyond first four",
+                    "top output-producer rows beyond first two",
                     "full context-yield attribution examples and drilldown rows",
                 ],
                 "full_payload_routes": [
-                    "./repo-python kernel.py --process-bottlenecks --force",
+                    _process_bottleneck_filtered_status_command(
+                        requested_action_kinds,
+                        force=True,
+                    )
+                    if requested_action_kind_set
+                    else "./repo-python kernel.py --process-bottlenecks --force",
                     "./repo-python kernel.py --process-audit",
                 ],
             }
     else:
+        row_example_limit = (
+            PROCESS_BOTTLENECK_FILTERED_EXAMPLE_LIMIT
+            if requested_action_kind_set
+            else PROCESS_BOTTLENECK_FORCE_EXAMPLE_LIMIT
+        )
+        kernel_flag_limit = (
+            PROCESS_BOTTLENECK_FILTERED_KERNEL_FLAG_LIMIT if requested_action_kind_set else 5
+        )
         top_bottlenecks = _compact_process_bottleneck_rows(
             top_bottlenecks_all,
             limit=PROCESS_BOTTLENECK_STATUS_ROW_LIMIT,
-            example_limit=PROCESS_BOTTLENECK_FORCE_EXAMPLE_LIMIT,
+            example_limit=row_example_limit,
+            hint_limit=2 if requested_action_kind_set else 1,
+            kernel_flag_limit=kernel_flag_limit,
+        )
+        top_output_producers_all = _inherit_process_output_producer_bottleneck_evidence(
+            top_output_producers_all,
+            top_bottlenecks_all,
         )
         top_output_producers = _compact_process_output_producers(
             top_output_producers_all,
             limit=PROCESS_BOTTLENECK_OUTPUT_ROW_LIMIT,
         )
         output_economy = {
-            "profile": "force_live_authoritative_rankings_compact_context_yield",
+            "profile": "force_live_authoritative_rankings_fast_metrics",
             "reason": (
                 "--force requested a live in-memory rebuild for ranking rows; "
-                "the emitted owner packet keeps the same row budget as the cheap status route "
-                "because raw examples belong behind process-audit."
+                "the emitted owner packet uses a bottleneck-rankings build profile and "
+                "keeps context-yield attribution behind process-audit."
             ),
-            "target_bytes": PROCESS_BOTTLENECK_FORCE_TARGET_BYTES,
+            "target_bytes": (
+                PROCESS_BOTTLENECK_FILTERED_TARGET_BYTES
+                if requested_action_kind_set
+                else PROCESS_BOTTLENECK_FORCE_TARGET_BYTES
+            ),
             "top_bottlenecks_emitted": len(top_bottlenecks),
             "top_bottlenecks_available": len(top_bottlenecks_all),
             "top_output_producers_emitted": len(top_output_producers),
             "top_output_producers_available": len(top_output_producers_all),
+            "action_kind_filter": action_kind_filter,
             "row_limits": {
                 "top_bottlenecks": PROCESS_BOTTLENECK_STATUS_ROW_LIMIT,
                 "top_output_producers": PROCESS_BOTTLENECK_OUTPUT_ROW_LIMIT,
-                "context_yield_rows": PROCESS_BOTTLENECK_CONTEXT_ROW_LIMIT,
-                "examples_per_bottleneck": PROCESS_BOTTLENECK_FORCE_EXAMPLE_LIMIT,
+                "context_yield_rows": 0,
+                "examples_per_bottleneck": row_example_limit,
             },
             "omitted_fields": [
                 "raw top-bottleneck example rows",
                 "raw top output-producer rows",
+                "live context-yield attribution rows",
                 "full context-yield attribution examples and drilldown rows",
             ],
-            "full_payload_routes": [
-                "./repo-python kernel.py --process-audit",
-            ],
+            "full_payload_routes": (
+                [
+                    "./repo-python kernel.py --process-audit",
+                    _process_bottleneck_filtered_status_command(
+                        requested_action_kinds,
+                        force=True,
+                    ),
+                ]
+                if requested_action_kind_set
+                else ["./repo-python kernel.py --process-audit"]
+            ),
         }
     context_yield_attribution = _compact_context_yield_attribution(
         summary.get("context_yield_attribution"),
-        row_limit=PROCESS_BOTTLENECK_CONTEXT_ROW_LIMIT,
+        row_limit=(
+            PROCESS_BOTTLENECK_FILTERED_CONTEXT_ROW_LIMIT
+            if requested_action_kind_set
+            else (
+                PROCESS_BOTTLENECK_DEFAULT_CONTEXT_ROW_LIMIT
+                if compact_default
+                else PROCESS_BOTTLENECK_CONTEXT_ROW_LIMIT
+            )
+        ),
         example_limit=0,
     )
     ranking_status = _process_bottleneck_ranking_status(decision_authority)
@@ -21833,6 +23211,7 @@ def _build_process_bottlenecks_packet(
             "after": since_ts,
             "limit": effective_session_limit,
             "force_live": force_live,
+            "action_kinds": requested_action_kinds,
         },
         "summary": {
             "action_kind_count": len(summary.get("top_bottlenecks") or []),
@@ -21841,6 +23220,7 @@ def _build_process_bottlenecks_packet(
             "ranking_status": ranking_status,
             "decision_status": decision_authority.get("status"),
             "read_model_status": cache_status.get("status"),
+            "filtered_action_kind_count": len(top_bottlenecks_all) if requested_action_kind_set else None,
         },
         "source_freshness": cache_status,
         "decision_authority": decision_authority,
@@ -21850,13 +23230,17 @@ def _build_process_bottlenecks_packet(
             "top_output_producers": top_output_producers,
             "context_yield_attribution": context_yield_attribution,
             "summary": dict(summary.get("summary") or {}),
+            "action_kind_filter": action_kind_filter,
             "next_reads": next_reads,
             "output_economy": output_economy,
         },
         "next": _process_bottleneck_next_commands(
             context_yield_attribution,
+            top_bottlenecks=top_bottlenecks,
+            top_output_producers=top_output_producers,
             decision_authority=decision_authority,
             cache_status=cache_status,
+            allow_template_repair_hints=bool(requested_action_kind_set),
         ),
         "warnings": warnings,
     }
@@ -21867,6 +23251,7 @@ def cmd_process_bottlenecks(
     since_ts: str | None = None,
     session_limit: int | None = None,
     force_live: bool = False,
+    action_kinds: Sequence[str] | None = None,
 ) -> int:
     """[ACTION]
     - Teleology: Emit the top-N slowest action shapes with percentiles and a longest-span preview.
@@ -21881,6 +23266,7 @@ def cmd_process_bottlenecks(
             since_ts=since_ts,
             session_limit=session_limit,
             force_live=force_live,
+            action_kinds=action_kinds,
         )
     )
 
@@ -21896,6 +23282,12 @@ def _build_latency_speedboard_route_packet(
     written_speedboard = latency_speedboard.load_written_speedboard(root)
     source_mode = "written_read_model" if written_speedboard else "in_memory_measurement_summary"
     board = written_speedboard or latency_speedboard.build_speedboard(root)
+    if written_speedboard:
+        board = latency_speedboard.overlay_materialized_remaining_bottlenecks(
+            root,
+            board,
+            limit=max(1, int(preview_limit)),
+        )
     summary = latency_speedboard.summarize_speedboard(
         board,
         preview_limit=preview_limit,
@@ -21975,7 +23367,7 @@ def cmd_artifact_discovery_inventory(scope_paths: Sequence[str] | None = None) -
 
     scopes = [str(item).strip() for item in list(scope_paths or []) if str(item).strip()]
     payload = build_action_quote(
-        state.REPO_ROOT,
+        _repo_root_for_static_registry(),
         action_id="artifact_discovery_inventory",
         scope_paths=scopes,
     )
@@ -21996,6 +23388,36 @@ def cmd_artifact_discovery_inventory(scope_paths: Sequence[str] | None = None) -
     return emit_json(payload)
 
 
+def cmd_command_surface_inventory() -> int:
+    """[ACTION]
+    - Teleology: Expose the bounded command/action discovery inventory through the kernel first-contact surface.
+    - Mechanism: Delegate to action_quote's command_surface_inventory owner implementation and annotate the result with the kernel route.
+    - Guarantee: Emits command/action metadata only; does not scan raw artifact bodies or mutate state.
+    - When-needed: Use before broad command grep/help scans or when selecting an existing owner action.
+    - Escalates-to: system/lib/action_quote.py; tools/meta/control/action_quote.py
+    - Navigation-group: kernel_lib
+    """
+    from system.lib.action_quote import build_action_quote
+
+    payload = build_action_quote(
+        _repo_root_for_static_registry(),
+        action_id="command_surface_inventory",
+    )
+    kernel_command = "./repo-python kernel.py --command-surface-inventory"
+    payload["kind"] = "kernel.navigate.command_surface_inventory"
+    payload["kernel_route"] = {
+        "command": kernel_command,
+        "owner_implementation": (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action command_surface_inventory"
+        ),
+        "privacy_boundary": "command_action_metadata_only_no_artifact_bodies",
+    }
+    payload["suggested_command"] = kernel_command
+    payload["replacement_command"] = kernel_command
+    return emit_json(payload)
+
+
 def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | None = None) -> int:
     """[ACTION]
     - Teleology: Emit recurring process patterns (anti-patterns and positive patterns) with per-session hit lists.
@@ -22008,9 +23430,12 @@ def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | No
     cache_status: dict[str, Any]
     if since_ts is None and session_limit is None:
         patterns, cache_status = _load_process_patterns_cache()
+        pattern_rows, output_economy = _compact_process_pattern_rows(list(patterns.get("patterns") or []))
     else:
         payload = _process_build(since_ts=since_ts, session_limit=session_limit)
         patterns = payload["patterns"]
+        pattern_rows = list(patterns.get("patterns") or [])
+        output_economy = None
         cache_status = {
             "mode": "live_in_memory",
             "status": "explicit_window",
@@ -22032,8 +23457,9 @@ def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | No
             "source_freshness": cache_status,
             "sources": sources,
             "payload": {
-                "patterns": list(patterns.get("patterns") or []),
+                "patterns": pattern_rows,
                 "next_reads": sources["derived"],
+                **({"output_economy": output_economy} if output_economy is not None else {}),
             },
             "next": [
                 {
@@ -23113,6 +24539,35 @@ def _phase_output_mode_packet(
         for item in list(result.suggested_next or [])[:3]
         if isinstance(item, Mapping) and str(item.get("command") or "").strip()
     ]
+    def _phase_summary_source_refs(values: Sequence[Any], *, limit: int) -> dict[str, Any]:
+        refs = [str(value or "").strip() for value in list(values or []) if str(value or "").strip()]
+        compact_refs = [Path(ref).name for ref in refs[:limit]]
+        return {
+            "refs": compact_refs,
+            "count": len(refs),
+            "omitted": max(0, len(refs) - len(compact_refs)),
+            "full_drilldown": full_command,
+        }
+
+    def _phase_summary_residual_lanes() -> list[dict[str, Any]]:
+        compact_rows: list[dict[str, Any]] = []
+        for row in phase_residual_lane_catalog():
+            if not isinstance(row, Mapping):
+                continue
+            compact_rows.append(
+                {
+                    "lane_id": row.get("lane_id"),
+                    "status": row.get("status"),
+                    "entry_command_template": row.get("entry_command_template"),
+                    "entry_command": row.get("entry_command"),
+                    "task_alignment_command": row.get("task_alignment_command"),
+                    "owner": row.get("owner"),
+                    "owner_surface_count": len(list(row.get("owner_surfaces") or [])),
+                    "write_scope_policy": row.get("write_scope_policy"),
+                }
+            )
+        return compact_rows
+
     packet: dict[str, Any] = {
         "kind": result.kind,
         "kernel_version": state.KERNEL_VERSION,
@@ -23143,8 +24598,8 @@ def _phase_output_mode_packet(
             ),
         },
         "sources": {
-            "live": list(result.live_sources or [])[:6],
-            "derived": list(result.derived_sources or [])[:4],
+            "live": _phase_summary_source_refs(result.live_sources or [], limit=4),
+            "derived": _phase_summary_source_refs(result.derived_sources or [], limit=3),
             "derived_required": result.derived_required,
         },
         "payload": {
@@ -23214,8 +24669,8 @@ def _phase_output_mode_packet(
                 "wave_id": active_wave.get("wave_id"),
                 "mode": active_wave.get("mode"),
                 "status": active_wave.get("status"),
-                "objective": active_wave.get("objective"),
-                "bounded_question": active_wave.get("bounded_question"),
+                "objective": _agent_wake_truncate(active_wave.get("objective"), 360),
+                "bounded_question": _agent_wake_truncate(active_wave.get("bounded_question"), 220),
                 "selected_for_current_task": (
                     None
                     if not isinstance(task_phase_alignment, Mapping)
@@ -23241,7 +24696,7 @@ def _phase_output_mode_packet(
             if stage_guidance
             else None,
             "task_phase_alignment": task_phase_alignment,
-            "available_residual_lanes": phase_residual_lane_catalog(),
+            "available_residual_lanes": _phase_summary_residual_lanes(),
             "command_budget": {
                 "purpose": "Bound phase reentry when the full phase card is unnecessary.",
                 "summary_command": summary_command,

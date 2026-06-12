@@ -109,6 +109,43 @@
       "renaming paths without an expansion table"
     ]
   },
+  "command_status_integrity_contract": {
+    "name": "presentation_filters_do_not_own_command_status",
+    "rule": "When command output is compressed, tailed, grepped, paged, notified, or otherwise presented through a filter, the projected packet must preserve the original runner status separately from the displayed excerpt. A presentation filter is not a validation receipt unless the runner explicitly preserves the upstream command status.",
+    "applies_to": [
+      "kernel command output projections",
+      "validation command receipts",
+      "background task notifications",
+      "test-floor summaries",
+      "dogfood harness summaries"
+    ],
+    "required_fields_for_validation_projection": [
+      "command_line",
+      "runner_identity",
+      "raw_exit_status",
+      "status_source",
+      "shell_pipeline_policy",
+      "presentation_filter",
+      "authoritative_status",
+      "full_output_ref_or_log_ref",
+      "excerpt_ref_or_tail",
+      "status_derivation"
+    ],
+    "status_source_rule": "Use the test runner, owner tool, or structured receipt exit code as authoritative. If output is piped to another process, require pipe-status preservation such as `set -o pipefail`, PIPESTATUS readback, or an owner wrapper that records the upstream exit status.",
+    "classification_rule": "If the excerpt says green but raw_exit_status is nonzero, classify as validation_state_misreport. If raw_exit_status is absent because only a tail, grep result, notification, or copied terminal excerpt is available, classify validation as not_run_or_unproven until the owner runner is rerun or a durable receipt is read.",
+    "allowed_excerpt_uses": [
+      "triage summary after raw status is already preserved",
+      "human-readable failure tail paired with full log path",
+      "compact notification paired with structured receipt id"
+    ],
+    "forbidden_patterns": [
+      "treating `pytest | tail` exit status as pytest status without pipefail or PIPESTATUS proof",
+      "reporting a background notification's last line as validation green",
+      "citing a grep/head/tail excerpt as the only proof that a command passed",
+      "dropping the full log or raw status when compression trims output"
+    ],
+    "success_signal": "A compact command-output packet can be small, but still lets a reader answer: what command ran, what process supplied the authoritative status, whether presentation filters were used, where the full output lives, and whether the validator is passed, failed, blocked, or not_run."
+  },
   "diff_review_context_contract": {
     "name": "tiered_diff_review_before_raw_patch",
     "owner_surface": "tools/meta/control/git_state_snapshot.py --diff-review",

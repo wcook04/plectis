@@ -127,14 +127,16 @@ LEDGER_FILENAME_BY_SLOT = {
     "B3": "B3 Compact Ledger.md",
     "B6": "B6 Autonomous Seed Ledger.md",
     "B7": "B7 Codex Goal Author Ledger.md",
+    "B7.1": "B7 Codex Goal Author Ledger.md",
 }
 
-# B2.2 and B2.3 are B2-family continuation variants. A3, B6, and B7 are
-# autonomous/goal authoring slots. These are captured and shown in summaries,
-# but coverage gates stay on the four historical primary slots.
+# B2.2/B2.3/B2.4 are B2-family continuation variants. B7.1 is a B7-family
+# orchestrator-goal variant. A3, B6, and B7-family slots are captured and shown
+# in summaries, but coverage gates stay on the four historical primary slots.
 DEFAULT_REQUIRED_COVERAGE_SLOTS = ["A0", "B1", "B2", "B3"]
 SLOT_ALIASES_BY_DIR_SLOT = {
-    "B2": {"B2.2", "B2.3"},
+    "B2": {"B2.2", "B2.3", "B2.4"},
+    "B7": {"B7.1"},
 }
 
 DEFAULT_REVIEW_LIMIT = 12

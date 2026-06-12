@@ -644,25 +644,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020",
+      "body_digest": "sha256:1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020",
-        "source_line_count": 9714,
+        "source_body_digest": "sha256:1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+        "source_line_count": 9790,
         "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020",
-        "target_line_count": 9714,
+        "target_body_digest": "sha256:1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+        "target_line_count": 9790,
         "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 9714,
+      "body_line_count": 9790,
       "claim_ceiling": "public navigation route-plane control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -1733,24 +1733,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392",
+      "body_digest": "sha256:1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392",
-        "source_line_count": 2866,
+        "source_body_digest": "sha256:1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922",
+        "source_line_count": 3151,
         "source_ref": "tools/meta/control/scoped_commit.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392",
-        "target_line_count": 2866,
+        "target_body_digest": "sha256:1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922",
+        "target_line_count": 3151,
         "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 2866,
+      "body_line_count": 3151,
       "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -1797,24 +1797,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:7ecb62c04e6ca095e6e998c98081de8164d1bcddf3bb2f54736384576eba516e",
+      "body_digest": "sha256:b99fe434ef686c3f998b8845f38332eb027a21c1a26e0760654fa71cc01f07d1",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:7ecb62c04e6ca095e6e998c98081de8164d1bcddf3bb2f54736384576eba516e",
-        "source_line_count": 15635,
+        "source_body_digest": "sha256:b99fe434ef686c3f998b8845f38332eb027a21c1a26e0760654fa71cc01f07d1",
+        "source_line_count": 15792,
         "source_ref": "system/lib/task_ledger_events.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:7ecb62c04e6ca095e6e998c98081de8164d1bcddf3bb2f54736384576eba516e",
-        "target_line_count": 15635,
+        "target_body_digest": "sha256:b99fe434ef686c3f998b8845f38332eb027a21c1a26e0760654fa71cc01f07d1",
+        "target_line_count": 15792,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 15635,
+      "body_line_count": 15792,
       "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -1862,24 +1862,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:b85a0117f156aea397e02352d78ee0044f9274ecdd528e8b6aec4d6697c055da",
+      "body_digest": "sha256:9fc305a85d81a28b1b2b3a577bcb3725b61a5ab3271e300b60b59cbcd5fbd416",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b85a0117f156aea397e02352d78ee0044f9274ecdd528e8b6aec4d6697c055da",
-        "source_line_count": 5227,
+        "source_body_digest": "sha256:9fc305a85d81a28b1b2b3a577bcb3725b61a5ab3271e300b60b59cbcd5fbd416",
+        "source_line_count": 5231,
         "source_ref": "tools/meta/factory/task_ledger_apply.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b85a0117f156aea397e02352d78ee0044f9274ecdd528e8b6aec4d6697c055da",
-        "target_line_count": 5227,
+        "target_body_digest": "sha256:9fc305a85d81a28b1b2b3a577bcb3725b61a5ab3271e300b60b59cbcd5fbd416",
+        "target_line_count": 5231,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 5227,
+      "body_line_count": 5231,
       "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2057,24 +2057,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:098d9f4719f0cab8259ca64273aecb5ce21e0da7a6f014805efd2f048c061843",
+      "body_digest": "sha256:7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:098d9f4719f0cab8259ca64273aecb5ce21e0da7a6f014805efd2f048c061843",
-        "source_line_count": 8187,
+        "source_body_digest": "sha256:7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799",
+        "source_line_count": 8223,
         "source_ref": "tools/meta/factory/work_ledger.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:098d9f4719f0cab8259ca64273aecb5ce21e0da7a6f014805efd2f048c061843",
-        "target_line_count": 8187,
+        "target_body_digest": "sha256:7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799",
+        "target_line_count": 8223,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 8187,
+      "body_line_count": 8223,
       "claim_ceiling": "public Work Ledger control source-module body import only; not live Work Ledger mutation, Task Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2187,24 +2187,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:06b5156383f4ef7163194f2c2d8edf206bd54ed7d9e7064ffd2c0f027a5e292c",
+      "body_digest": "sha256:bb439f0fddb9421edfd4a207dd7cf4b487fd83ad814ec71e143b0a1e598f16dc",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:06b5156383f4ef7163194f2c2d8edf206bd54ed7d9e7064ffd2c0f027a5e292c",
-        "source_line_count": 11841,
+        "source_body_digest": "sha256:bb439f0fddb9421edfd4a207dd7cf4b487fd83ad814ec71e143b0a1e598f16dc",
+        "source_line_count": 12221,
         "source_ref": "system/lib/work_ledger_runtime.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:06b5156383f4ef7163194f2c2d8edf206bd54ed7d9e7064ffd2c0f027a5e292c",
-        "target_line_count": 11841,
+        "target_body_digest": "sha256:bb439f0fddb9421edfd4a207dd7cf4b487fd83ad814ec71e143b0a1e598f16dc",
+        "target_line_count": 12221,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 11841,
+      "body_line_count": 12221,
       "claim_ceiling": "public Work Ledger control source-module body import only; not live Work Ledger mutation, Task Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2252,24 +2252,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:106a5c8ac4da0b495666b9c6200d106d6925c818cc2e7648625caa5f0c00d901",
+      "body_digest": "sha256:00e2d1c837e856e60ecdf38c1ade2866222a67b3bd453addc892daf7050390c4",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:106a5c8ac4da0b495666b9c6200d106d6925c818cc2e7648625caa5f0c00d901",
-        "source_line_count": 953,
+        "source_body_digest": "sha256:00e2d1c837e856e60ecdf38c1ade2866222a67b3bd453addc892daf7050390c4",
+        "source_line_count": 990,
         "source_ref": "codex/standards/std_work_ledger.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:106a5c8ac4da0b495666b9c6200d106d6925c818cc2e7648625caa5f0c00d901",
-        "target_line_count": 953,
+        "target_body_digest": "sha256:00e2d1c837e856e60ecdf38c1ade2866222a67b3bd453addc892daf7050390c4",
+        "target_line_count": 990,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 953,
+      "body_line_count": 990,
       "claim_ceiling": "public Work Ledger control source-module body import only; not live Work Ledger mutation, Task Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2527,24 +2527,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:589a7f5476e3a77b397628cb5f79bf2d0493eddc2c8a1a805401ba404335205d",
+      "body_digest": "sha256:49df92e4f7433956c4c34b3f932f5b4dbec5afe7673fd646f63cb162d00eb62b",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_output_projection_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:589a7f5476e3a77b397628cb5f79bf2d0493eddc2c8a1a805401ba404335205d",
-        "source_line_count": 322,
+        "source_body_digest": "sha256:49df92e4f7433956c4c34b3f932f5b4dbec5afe7673fd646f63cb162d00eb62b",
+        "source_line_count": 359,
         "source_ref": "codex/standards/std_command_output_projection.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:589a7f5476e3a77b397628cb5f79bf2d0493eddc2c8a1a805401ba404335205d",
-        "target_line_count": 322,
+        "target_body_digest": "sha256:49df92e4f7433956c4c34b3f932f5b4dbec5afe7673fd646f63cb162d00eb62b",
+        "target_line_count": 359,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 322,
+      "body_line_count": 359,
       "claim_ceiling": "public command-output projection/source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2577,24 +2577,24 @@
         "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
       ],
       "body_copied": true,
-      "body_digest": "sha256:2575646208d89022fb06bfe709aec5599cb43d87c50b15c6a68d02e4414abe52",
+      "body_digest": "sha256:577b7ac25661565d68d84a541cb57c35e004e5968b41d55a6a97399d4359da1b",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
         ],
-        "source_body_digest": "sha256:2575646208d89022fb06bfe709aec5599cb43d87c50b15c6a68d02e4414abe52",
-        "source_line_count": 10598,
+        "source_body_digest": "sha256:577b7ac25661565d68d84a541cb57c35e004e5968b41d55a6a97399d4359da1b",
+        "source_line_count": 14036,
         "source_ref": "tools/meta/observability/cli_prompt_trace.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:2575646208d89022fb06bfe709aec5599cb43d87c50b15c6a68d02e4414abe52",
-        "target_line_count": 10598,
+        "target_body_digest": "sha256:577b7ac25661565d68d84a541cb57c35e004e5968b41d55a6a97399d4359da1b",
+        "target_line_count": 14036,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 10598,
+      "body_line_count": 14036,
       "claim_ceiling": "exact source body import only; public validation instantiates fixture Turn objects and does not read live session JSONL, provider payload bodies, browser/HUD state, account/session state, cookies, credentials, or recipient-send material",
       "classification": [
         "copied_non_secret_macro_body"
@@ -2625,23 +2625,23 @@
         "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
       ],
       "body_copied": true,
-      "body_digest": "sha256:225fab165f6aea966845e98045628f9f45be7032e850c9692b80bf4b7f789bc6",
+      "body_digest": "sha256:7481b338e86482a98dccd8f1471aeeae9f4ae570b6ad1594a4cf0a410654503d",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
         ],
-        "source_body_digest": "sha256:225fab165f6aea966845e98045628f9f45be7032e850c9692b80bf4b7f789bc6",
-        "source_line_count": 2321,
+        "source_body_digest": "sha256:7481b338e86482a98dccd8f1471aeeae9f4ae570b6ad1594a4cf0a410654503d",
+        "source_line_count": 3354,
         "source_ref": "system/server/tests/test_cli_prompt_trace_capsule.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:225fab165f6aea966845e98045628f9f45be7032e850c9692b80bf4b7f789bc6",
-        "target_line_count": 2321,
+        "target_body_digest": "sha256:7481b338e86482a98dccd8f1471aeeae9f4ae570b6ad1594a4cf0a410654503d",
+        "target_line_count": 3354,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 2321,
+      "body_line_count": 3354,
       "claim_ceiling": "exact test-body import only; validates public fixture semantics and does not export source provider logs or operator prompt bodies",
       "classification": [
         "copied_non_secret_macro_body"
@@ -2671,25 +2671,25 @@
         "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
       ],
       "body_copied": true,
-      "body_digest": "sha256:e43c8ed806f58c9a1fe299995498bf85eb2d7e8cef0cfc3bb13305f95f17ce15",
+      "body_digest": "sha256:29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e",
       "body_import_verification": {
         "runtime_consumed_by": [
           "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_trace_structurer_parser_source_module_runs_node_fixture_tests",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
         ],
-        "source_body_digest": "sha256:e43c8ed806f58c9a1fe299995498bf85eb2d7e8cef0cfc3bb13305f95f17ce15",
-        "source_line_count": 4045,
+        "source_body_digest": "sha256:29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e",
+        "source_line_count": 4260,
         "source_ref": "tools/agent_trace_structurer/parser.mjs",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:e43c8ed806f58c9a1fe299995498bf85eb2d7e8cef0cfc3bb13305f95f17ce15",
-        "target_line_count": 4045,
+        "target_body_digest": "sha256:29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e",
+        "target_line_count": 4260,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 4045,
+      "body_line_count": 4260,
       "claim_ceiling": "exact parser-body import only; parses supplied public/local fixture text and does not open browser/HUD live access, account sessions, cookies, credentials, or provider payload stores",
       "classification": [
         "copied_non_secret_macro_body"
@@ -2721,22 +2721,22 @@
         "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
       ],
       "body_copied": true,
-      "body_digest": "sha256:b75ace6f97f8ea859d455de90eb6e9089ed36c67ba7d7cd80d963f720a54084d",
+      "body_digest": "sha256:35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5",
       "body_import_verification": {
         "runtime_consumed_by": [
           "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_trace_structurer_parser_source_module_runs_node_fixture_tests",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
         ],
-        "source_body_digest": "sha256:b75ace6f97f8ea859d455de90eb6e9089ed36c67ba7d7cd80d963f720a54084d",
-        "source_line_count": 1249,
+        "source_body_digest": "sha256:35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5",
+        "source_line_count": 1382,
         "source_ref": "tools/agent_trace_structurer/parser.test.mjs",
         "source_symbol_refs": [
           "tools/agent_trace_structurer/parser.test.mjs"
         ],
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b75ace6f97f8ea859d455de90eb6e9089ed36c67ba7d7cd80d963f720a54084d",
-        "target_line_count": 1249,
+        "target_body_digest": "sha256:35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5",
+        "target_line_count": 1382,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
         "target_symbol_refs": [
           "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs"
@@ -2745,7 +2745,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1249,
+      "body_line_count": 1382,
       "claim_ceiling": "exact parser-test body import only; tests deterministic fixture strings and does not export live operator, provider, browser/HUD, account/session, cookie, credential, or recipient-send bodies",
       "classification": [
         "copied_non_secret_macro_body"
@@ -2862,25 +2862,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:4a13ba4c1750f18edfdbf0c7f6158cad8ba707043a537d57fedebf9a96550209",
+      "body_digest": "sha256:803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:4a13ba4c1750f18edfdbf0c7f6158cad8ba707043a537d57fedebf9a96550209",
-        "source_line_count": 10747,
+        "source_body_digest": "sha256:803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e",
+        "source_line_count": 10831,
         "source_ref": "system/lib/navigation_context_pack.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:4a13ba4c1750f18edfdbf0c7f6158cad8ba707043a537d57fedebf9a96550209",
-        "target_line_count": 10747,
+        "target_body_digest": "sha256:803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e",
+        "target_line_count": 10831,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 10747,
+      "body_line_count": 10831,
       "claim_ceiling": "public route-selection control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2929,25 +2929,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:044b97225b4b6016bfed9c2c2bd1e4fc2eb38662d79f34b903a8120ee28f9679",
+      "body_digest": "sha256:1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:044b97225b4b6016bfed9c2c2bd1e4fc2eb38662d79f34b903a8120ee28f9679",
-        "source_line_count": 8981,
+        "source_body_digest": "sha256:1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+        "source_line_count": 9790,
         "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:044b97225b4b6016bfed9c2c2bd1e4fc2eb38662d79f34b903a8120ee28f9679",
-        "target_line_count": 8981,
+        "target_body_digest": "sha256:1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+        "target_line_count": 9790,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 8981,
+      "body_line_count": 9790,
       "claim_ceiling": "public route-selection control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2996,25 +2996,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
+      "body_digest": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
-        "source_line_count": 17215,
+        "source_body_digest": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+        "source_line_count": 17364,
         "source_ref": "system/lib/standard_option_surface.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
-        "target_line_count": 17215,
+        "target_body_digest": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+        "target_line_count": 17364,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 17215,
+      "body_line_count": 17364,
       "claim_ceiling": "public route-selection control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -3130,25 +3130,25 @@
         "source_authority_above_macro_contracts": false
       },
       "body_copied": true,
-      "body_digest": "sha256:ddd0d520142f5b0c2700acbc030c310dcc69c13d5e5ef05c3516ce1717e170d0",
+      "body_digest": "sha256:f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_projection_sources_have_route_rows",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:ddd0d520142f5b0c2700acbc030c310dcc69c13d5e5ef05c3516ce1717e170d0",
-        "source_line_count": 3848,
+        "source_body_digest": "sha256:f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57",
+        "source_line_count": 3875,
         "source_ref": "codex/doctrine/agent_bootstrap_live.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:ddd0d520142f5b0c2700acbc030c310dcc69c13d5e5ef05c3516ce1717e170d0",
-        "target_line_count": 3848,
+        "target_body_digest": "sha256:f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57",
+        "target_line_count": 3875,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 3848,
+      "body_line_count": 3875,
       "claim_ceiling": "public bootstrap/routing route-surface source body import only; not live macro kernel execution, generated-state authority, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, private-root equivalence, release, publication, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -3195,18 +3195,18 @@
         "source_authority_above_macro_contracts": false
       },
       "body_copied": true,
-      "body_digest": "sha256:49b7292aa02402337615e7422596c21e05ab778b0ada491c9e3687b91e9d8840",
+      "body_digest": "sha256:c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_projection_sources_have_route_rows",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:49b7292aa02402337615e7422596c21e05ab778b0ada491c9e3687b91e9d8840",
+        "source_body_digest": "sha256:c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c",
         "source_line_count": 295,
         "source_ref": "codex/doctrine/routing_hologram.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:49b7292aa02402337615e7422596c21e05ab778b0ada491c9e3687b91e9d8840",
+        "target_body_digest": "sha256:c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c",
         "target_line_count": 295,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
         "verification_mode": "exact_source_digest_match",
@@ -3373,25 +3373,25 @@
         "preserve_agent_operating_packet_source_without_claiming_live_doctrine_or_raw_seed_authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:8f9c6fd501d8187623fe6ad617faeac6105d95644c1f71f31b3d48a7a1a45d68",
+      "body_digest": "sha256:bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_sources_have_runtime_principle_packet",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:8f9c6fd501d8187623fe6ad617faeac6105d95644c1f71f31b3d48a7a1a45d68",
-        "source_line_count": 4633,
+        "source_body_digest": "sha256:bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
+        "source_line_count": 4635,
         "source_ref": "codex/doctrine/agent_operating_packet.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:8f9c6fd501d8187623fe6ad617faeac6105d95644c1f71f31b3d48a7a1a45d68",
-        "target_line_count": 4633,
+        "target_body_digest": "sha256:bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
+        "target_line_count": 4635,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 4633,
+      "body_line_count": 4635,
       "claim_ceiling": "public agent-operating-packet source-body import only; not live doctrine refresh, raw-seed body read, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, source mutation, or release authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -3421,25 +3421,25 @@
         "preserve_agent_operating_packet_source_without_claiming_live_doctrine_or_raw_seed_authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:283180b178f23a7af2b6762f106d96ad81435cfa3d126f47d5cd1fd685c72e3d",
+      "body_digest": "sha256:981d9d330bda248d06947cec6312c78bc94341eb94467687b7708fdea600cb88",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_sources_have_runtime_principle_packet",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:283180b178f23a7af2b6762f106d96ad81435cfa3d126f47d5cd1fd685c72e3d",
-        "source_line_count": 1029,
+        "source_body_digest": "sha256:981d9d330bda248d06947cec6312c78bc94341eb94467687b7708fdea600cb88",
+        "source_line_count": 1183,
         "source_ref": "system/lib/agent_operating_packet.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:283180b178f23a7af2b6762f106d96ad81435cfa3d126f47d5cd1fd685c72e3d",
-        "target_line_count": 1029,
+        "target_body_digest": "sha256:981d9d330bda248d06947cec6312c78bc94341eb94467687b7708fdea600cb88",
+        "target_line_count": 1183,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_operating_packet.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1029,
+      "body_line_count": 1183,
       "claim_ceiling": "public agent-operating-packet source-body import only; not live doctrine refresh, raw-seed body read, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, source mutation, or release authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -3517,25 +3517,25 @@
         "preserve_active_execution_regression_body_without_claiming_live_task_or_work_ledger_authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:8d840d7c597e8525267e9bb28c9cf4af50bbb22f3d8bd0a6ff1e323a4d0b5f52",
+      "body_digest": "sha256:61d775e958191956c4f4d2cf07efe992069a431c5d9dc4598ea3c38f3369c01f",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:8d840d7c597e8525267e9bb28c9cf4af50bbb22f3d8bd0a6ff1e323a4d0b5f52",
-        "source_line_count": 821,
+        "source_body_digest": "sha256:61d775e958191956c4f4d2cf07efe992069a431c5d9dc4598ea3c38f3369c01f",
+        "source_line_count": 840,
         "source_ref": "system/server/tests/test_active_execution_constellation.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:8d840d7c597e8525267e9bb28c9cf4af50bbb22f3d8bd0a6ff1e323a4d0b5f52",
-        "target_line_count": 821,
+        "target_body_digest": "sha256:61d775e958191956c4f4d2cf07efe992069a431c5d9dc4598ea3c38f3369c01f",
+        "target_line_count": 840,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 821,
+      "body_line_count": 840,
       "claim_ceiling": "public active-execution constellation source-body import only; not live Task Ledger mutation, live Work Ledger mutation, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, private-state export, source mutation, phase demotion authority, or release authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -4509,25 +4509,25 @@
         "preserve_entrypoint_health_sources_without_claiming_live_macro_kernel_execution_or_generated_entrypoint_mutation_authority_in_microcosm"
       ],
       "body_copied": true,
-      "body_digest": "sha256:db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
+      "body_digest": "sha256:636ff4273adfc803dafac355f2ee27c53b6a0d47c9ed76fec0711b95b56ba30c",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
-        "source_line_count": 1073,
+        "source_body_digest": "sha256:636ff4273adfc803dafac355f2ee27c53b6a0d47c9ed76fec0711b95b56ba30c",
+        "source_line_count": 1105,
         "source_ref": "system/lib/entrypoint_health.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
-        "target_line_count": 1073,
+        "target_body_digest": "sha256:636ff4273adfc803dafac355f2ee27c53b6a0d47c9ed76fec0711b95b56ba30c",
+        "target_line_count": 1105,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1073,
+      "body_line_count": 1105,
       "body_text_in_receipt": false,
       "claim_ceiling": "public entrypoint health source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -4558,25 +4558,25 @@
         "preserve_entrypoint_health_sources_without_claiming_live_macro_kernel_execution_or_generated_entrypoint_mutation_authority_in_microcosm"
       ],
       "body_copied": true,
-      "body_digest": "sha256:29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
+      "body_digest": "sha256:dba59d279963ca8a7b9eede503629ce224f96e9e35c7de172d1ebbbea5739aee",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
-        "source_line_count": 516,
+        "source_body_digest": "sha256:dba59d279963ca8a7b9eede503629ce224f96e9e35c7de172d1ebbbea5739aee",
+        "source_line_count": 574,
         "source_ref": "system/server/tests/test_entrypoint_health.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
-        "target_line_count": 516,
+        "target_body_digest": "sha256:dba59d279963ca8a7b9eede503629ce224f96e9e35c7de172d1ebbbea5739aee",
+        "target_line_count": 574,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 516,
+      "body_line_count": 574,
       "body_text_in_receipt": false,
       "claim_ceiling": "public entrypoint health source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -4754,25 +4754,25 @@
         "preserve_navigation_fitness_sources_without_claiming_live_macro_kernel_execution_semantic_route_probe_provider_payload_or_private_session_state_authority_in_microcosm"
       ],
       "body_copied": true,
-      "body_digest": "sha256:c7c4b17657615356e124219b524a4f30ba1d025b507c75a54adacfe3f53c5ccd",
+      "body_digest": "sha256:3ec4cb7b7f86158d6447f59b1b7d2b24f8453b036e98475ce44455e1d1ab6f87",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:c7c4b17657615356e124219b524a4f30ba1d025b507c75a54adacfe3f53c5ccd",
-        "source_line_count": 360,
+        "source_body_digest": "sha256:3ec4cb7b7f86158d6447f59b1b7d2b24f8453b036e98475ce44455e1d1ab6f87",
+        "source_line_count": 365,
         "source_ref": "system/server/tests/test_navigation_fitness.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:c7c4b17657615356e124219b524a4f30ba1d025b507c75a54adacfe3f53c5ccd",
-        "target_line_count": 360,
+        "target_body_digest": "sha256:3ec4cb7b7f86158d6447f59b1b7d2b24f8453b036e98475ce44455e1d1ab6f87",
+        "target_line_count": 365,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_fitness.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 360,
+      "body_line_count": 365,
       "body_text_in_receipt": false,
       "claim_ceiling": "public navigation fitness source-body import only; not live macro kernel execution, semantic route probe authority, provider calls, credential export, account/session state, browser/HUD live access, private route state, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -6028,25 +6028,25 @@
         "preserve_trace_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
+      "body_digest": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
-        "source_line_count": 6828,
+        "source_body_digest": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
+        "source_line_count": 6898,
         "source_ref": "system/lib/agent_execution_trace.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
-        "target_line_count": 6828,
+        "target_body_digest": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
+        "target_line_count": 6898,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 6828,
+      "body_line_count": 6898,
       "body_text_in_receipt": false,
       "claim_ceiling": "public agent-execution trace source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -6128,25 +6128,25 @@
         "preserve_trace_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a",
+      "body_digest": "sha256:465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a",
-        "source_line_count": 2806,
+        "source_body_digest": "sha256:465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0",
+        "source_line_count": 5036,
         "source_ref": "system/server/tests/test_agent_execution_trace.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a",
-        "target_line_count": 2806,
+        "target_body_digest": "sha256:465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0",
+        "target_line_count": 5036,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 2806,
+      "body_line_count": 5036,
       "body_text_in_receipt": false,
       "claim_ceiling": "public agent-execution trace source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -6871,25 +6871,25 @@
         "preserve_handoff_linkage_projector_without_exporting_live_prompt_shelf_events_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "body_digest": "sha256:ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
-        "source_line_count": 331,
+        "source_body_digest": "sha256:ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
+        "source_line_count": 332,
         "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
-        "target_line_count": 331,
+        "target_body_digest": "sha256:ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
+        "target_line_count": 332,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 331,
+      "body_line_count": 332,
       "body_text_in_receipt": false,
       "claim_ceiling": "public operator handoff linkage projector source-body import only; not live ~/.claude or ~/.codex session scanning, prompt-shelf raw-event export, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -7562,24 +7562,24 @@
         "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
       ],
       "body_copied": true,
-      "body_digest": "sha256:b577bfd85d03d5c0499154a45ffbd15e2f32386f17aefec49c2baa27c90cc2c9",
+      "body_digest": "sha256:0456ce693c54e679383828a2e5834b4fb2332da377a2cd4bb8b7a370d67b17a4",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b577bfd85d03d5c0499154a45ffbd15e2f32386f17aefec49c2baa27c90cc2c9",
-        "source_line_count": 24942,
+        "source_body_digest": "sha256:0456ce693c54e679383828a2e5834b4fb2332da377a2cd4bb8b7a370d67b17a4",
+        "source_line_count": 26397,
         "source_ref": "system/lib/kernel/commands/navigate.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b577bfd85d03d5c0499154a45ffbd15e2f32386f17aefec49c2baa27c90cc2c9",
-        "target_line_count": 24942,
+        "target_body_digest": "sha256:0456ce693c54e679383828a2e5834b4fb2332da377a2cd4bb8b7a370d67b17a4",
+        "target_line_count": 26397,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 24942,
+      "body_line_count": 26397,
       "body_text_in_receipt": false,
       "claim_ceiling": "public Task Ledger startup-pressure source-body import only; not live Task Ledger row export, Work Ledger claim export, live kernel mutation, provider payload export, browser/HUD state export, credential export, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": [
@@ -8853,24 +8853,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:3877c2e958360df6ebe8570a4ecde187b4adac154ff689df6fe02f891d6bce66",
+      "body_digest": "sha256:4b4b1a875b077c218359815af4010f8a91557d972b6af082f891b5db0716b146",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:3877c2e958360df6ebe8570a4ecde187b4adac154ff689df6fe02f891d6bce66",
-        "source_line_count": 19760,
+        "source_body_digest": "sha256:4b4b1a875b077c218359815af4010f8a91557d972b6af082f891b5db0716b146",
+        "source_line_count": 19767,
         "source_ref": "system/server/world_model.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:3877c2e958360df6ebe8570a4ecde187b4adac154ff689df6fe02f891d6bce66",
-        "target_line_count": 19760,
+        "target_body_digest": "sha256:4b4b1a875b077c218359815af4010f8a91557d972b6af082f891b5db0716b146",
+        "target_line_count": 19767,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 19760,
+      "body_line_count": 19767,
       "body_text_in_receipt": false,
       "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [
@@ -8920,24 +8920,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:fee43592c844ac7f1d8efd621122ce097b06c6535a70aa97e8d65b9f4c24fc49",
+      "body_digest": "sha256:7dfe93f910653ce484c00142a21cbff7167528073dbc7974ce9535bf8e41303c",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:fee43592c844ac7f1d8efd621122ce097b06c6535a70aa97e8d65b9f4c24fc49",
-        "source_line_count": 10450,
+        "source_body_digest": "sha256:7dfe93f910653ce484c00142a21cbff7167528073dbc7974ce9535bf8e41303c",
+        "source_line_count": 10567,
         "source_ref": "system/server/main.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:fee43592c844ac7f1d8efd621122ce097b06c6535a70aa97e8d65b9f4c24fc49",
-        "target_line_count": 10450,
+        "target_body_digest": "sha256:7dfe93f910653ce484c00142a21cbff7167528073dbc7974ce9535bf8e41303c",
+        "target_line_count": 10567,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 10450,
+      "body_line_count": 10567,
       "body_text_in_receipt": false,
       "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [
@@ -9706,25 +9706,25 @@
         "preserve_prompt_shelf_runs_index_metadata_only_boundary_without_exporting_prompt_bodies_raw_prompt_shelf_event_bodies_provider_payloads_account_session_state_browser_hud_live_access_generated_runs_index_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:edc8dab34ff91e57a09f53e8ad90b52473953d9b1e1ed4591fb7ce73aaf9d860",
+      "body_digest": "sha256:266ac4300c63934bd3cf7707f0410d6a8809e8b853c22ac84ca4a4a215e273c1",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:edc8dab34ff91e57a09f53e8ad90b52473953d9b1e1ed4591fb7ce73aaf9d860",
-        "source_line_count": 1988,
+        "source_body_digest": "sha256:266ac4300c63934bd3cf7707f0410d6a8809e8b853c22ac84ca4a4a215e273c1",
+        "source_line_count": 1990,
         "source_ref": "tools/meta/observability/prompt_shelf_runs_index.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:edc8dab34ff91e57a09f53e8ad90b52473953d9b1e1ed4591fb7ce73aaf9d860",
-        "target_line_count": 1988,
+        "target_body_digest": "sha256:266ac4300c63934bd3cf7707f0410d6a8809e8b853c22ac84ca4a4a215e273c1",
+        "target_line_count": 1990,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_runs_index.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1988,
+      "body_line_count": 1990,
       "body_text_in_receipt": false,
       "claim_ceiling": "public prompt-shelf runs-index source-body import only; not live prompt-shelf raw-event body export, prompt-body export, provider calls, CLI subprocess authority outside public validation, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated runs-index state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -9810,25 +9810,25 @@
         "preserve_prompt_shelf_runs_index_metadata_only_boundary_without_exporting_prompt_bodies_raw_prompt_shelf_event_bodies_provider_payloads_account_session_state_browser_hud_live_access_generated_runs_index_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:f94e3eaaf4b895cb9558c2945610fdfb4013668b835909126c926500a676e830",
+      "body_digest": "sha256:e1ad6595827844a14dd36cb02303a5a14690790232443a5387b156c841176f4d",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:f94e3eaaf4b895cb9558c2945610fdfb4013668b835909126c926500a676e830",
-        "source_line_count": 1122,
+        "source_body_digest": "sha256:e1ad6595827844a14dd36cb02303a5a14690790232443a5387b156c841176f4d",
+        "source_line_count": 1126,
         "source_ref": "system/server/tests/test_prompt_shelf_runs_index.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:f94e3eaaf4b895cb9558c2945610fdfb4013668b835909126c926500a676e830",
-        "target_line_count": 1122,
+        "target_body_digest": "sha256:e1ad6595827844a14dd36cb02303a5a14690790232443a5387b156c841176f4d",
+        "target_line_count": 1126,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1122,
+      "body_line_count": 1126,
       "body_text_in_receipt": false,
       "claim_ceiling": "public prompt-shelf runs-index source-body import only; not live prompt-shelf raw-event body export, prompt-body export, provider calls, CLI subprocess authority outside public validation, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated runs-index state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -9862,25 +9862,25 @@
         "preserve_option_surface_sources_without_exporting_generated_outputs_prompt_provider_payloads_raw_seed_bodies_account_session_state_browser_hud_live_access_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
+      "body_digest": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
-        "source_line_count": 17215,
+        "source_body_digest": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+        "source_line_count": 17364,
         "source_ref": "system/lib/standard_option_surface.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
-        "target_line_count": 17215,
+        "target_body_digest": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+        "target_line_count": 17364,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 17215,
+      "body_line_count": 17364,
       "body_text_in_receipt": false,
       "claim_ceiling": "public standard option-surface source-body import only; not generated option-surface output authority, Task Ledger mutation authority, provider calls, provider payload export, raw seed body export, prompt-body export, account/session state, cookies, browser/HUD live access, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -9914,25 +9914,25 @@
         "preserve_option_surface_sources_without_exporting_generated_outputs_prompt_provider_payloads_raw_seed_bodies_account_session_state_browser_hud_live_access_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:6465d56610e2936f57d8fd4c6b300b3da5720c64d3c45dac413a9bdcfc6095cd",
+      "body_digest": "sha256:d9547b925bd97653303dab04c9d8493c62bea20567364fdb7603d1d0534cd5fe",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:6465d56610e2936f57d8fd4c6b300b3da5720c64d3c45dac413a9bdcfc6095cd",
-        "source_line_count": 6306,
+        "source_body_digest": "sha256:d9547b925bd97653303dab04c9d8493c62bea20567364fdb7603d1d0534cd5fe",
+        "source_line_count": 6330,
         "source_ref": "system/server/tests/test_standard_option_surface.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:6465d56610e2936f57d8fd4c6b300b3da5720c64d3c45dac413a9bdcfc6095cd",
-        "target_line_count": 6306,
+        "target_body_digest": "sha256:d9547b925bd97653303dab04c9d8493c62bea20567364fdb7603d1d0534cd5fe",
+        "target_line_count": 6330,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_standard_option_surface.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 6306,
+      "body_line_count": 6330,
       "body_text_in_receipt": false,
       "claim_ceiling": "public standard option-surface source-body import only; not generated option-surface output authority, Task Ledger mutation authority, provider calls, provider payload export, raw seed body export, prompt-body export, account/session state, cookies, browser/HUD live access, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -10187,25 +10187,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:b16dd1df0188cf5c378901167b215d3af549edc3c1dda5eeadbe5c458a7de5e6",
+      "body_digest": "sha256:b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b16dd1df0188cf5c378901167b215d3af549edc3c1dda5eeadbe5c458a7de5e6",
-        "source_line_count": 4274,
+        "source_body_digest": "sha256:b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
+        "source_line_count": 4750,
         "source_ref": "system/lib/generated_state_drainer.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b16dd1df0188cf5c378901167b215d3af549edc3c1dda5eeadbe5c458a7de5e6",
-        "target_line_count": 4274,
+        "target_body_digest": "sha256:b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
+        "target_line_count": 4750,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_state_drainer.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 4274,
+      "body_line_count": 4750,
       "body_text_in_receipt": false,
       "claim_ceiling": "public generated-projection control source-module body import only; not generated projection output authority, live Task Ledger or Work Ledger mutation, owner repair execution, provider calls, prompt/provider body export, browser/HUD live access, account/session state, credential export, release, publication, source mutation, private-root equivalence, or whole-system correctness authority",
       "classification": [
@@ -10257,25 +10257,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:28fcd68e9dbd86474bbb51023b8635cb499c829a23b371682606cccefd8478b5",
+      "body_digest": "sha256:70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:28fcd68e9dbd86474bbb51023b8635cb499c829a23b371682606cccefd8478b5",
-        "source_line_count": 3748,
+        "source_body_digest": "sha256:70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa",
+        "source_line_count": 4667,
         "source_ref": "system/server/tests/test_generated_state_drainer.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:28fcd68e9dbd86474bbb51023b8635cb499c829a23b371682606cccefd8478b5",
-        "target_line_count": 3748,
+        "target_body_digest": "sha256:70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa",
+        "target_line_count": 4667,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 3748,
+      "body_line_count": 4667,
       "body_text_in_receipt": false,
       "claim_ceiling": "public generated-projection control source-module body import only; not generated projection output authority, live Task Ledger or Work Ledger mutation, owner repair execution, provider calls, prompt/provider body export, browser/HUD live access, account/session state, credential export, release, publication, source mutation, private-root equivalence, or whole-system correctness authority",
       "classification": [
@@ -10462,25 +10462,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:f889adac224ea73b19712ba56ea7546849191431f66ed64a8c3e4c54793ddf6b",
+      "body_digest": "sha256:676d93a5a118556b10a611a97af8f2fca3e0cbefccab7685384afb4433a1054c",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:f889adac224ea73b19712ba56ea7546849191431f66ed64a8c3e4c54793ddf6b",
-        "source_line_count": 7055,
+        "source_body_digest": "sha256:676d93a5a118556b10a611a97af8f2fca3e0cbefccab7685384afb4433a1054c",
+        "source_line_count": 8227,
         "source_ref": "system/server/tests/test_work_ledger_core.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:f889adac224ea73b19712ba56ea7546849191431f66ed64a8c3e4c54793ddf6b",
-        "target_line_count": 7055,
+        "target_body_digest": "sha256:676d93a5a118556b10a611a97af8f2fca3e0cbefccab7685384afb4433a1054c",
+        "target_line_count": 8227,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_ledger_core.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 7055,
+      "body_line_count": 8227,
       "claim_ceiling": "public shared-worktree git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -10527,25 +10527,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:02ebaf7ee5216e2b60f704930e0a1d8e36b567b397d0da13d8248e4a5bbef387",
+      "body_digest": "sha256:58d2f4412c4e8d9cc86fad3b47a77b5e3768ebf959d7f26d2383c3cef8a113fd",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:02ebaf7ee5216e2b60f704930e0a1d8e36b567b397d0da13d8248e4a5bbef387",
-        "source_line_count": 3197,
+        "source_body_digest": "sha256:58d2f4412c4e8d9cc86fad3b47a77b5e3768ebf959d7f26d2383c3cef8a113fd",
+        "source_line_count": 4317,
         "source_ref": ".claude/hooks/runtime_hook.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:02ebaf7ee5216e2b60f704930e0a1d8e36b567b397d0da13d8248e4a5bbef387",
-        "target_line_count": 3197,
+        "target_body_digest": "sha256:58d2f4412c4e8d9cc86fad3b47a77b5e3768ebf959d7f26d2383c3cef8a113fd",
+        "target_line_count": 4317,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 3197,
+      "body_line_count": 4317,
       "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -10592,25 +10592,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:6b323c5abea760b652505aad46d41f4327ddc99963e440a4bf21a1b40a2b6d44",
+      "body_digest": "sha256:4fec878456b30c5de48bcaf76e817ec21c729ee9e21341ac9c76d6b026b361eb",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:6b323c5abea760b652505aad46d41f4327ddc99963e440a4bf21a1b40a2b6d44",
-        "source_line_count": 2005,
+        "source_body_digest": "sha256:4fec878456b30c5de48bcaf76e817ec21c729ee9e21341ac9c76d6b026b361eb",
+        "source_line_count": 2070,
         "source_ref": "run_git.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:6b323c5abea760b652505aad46d41f4327ddc99963e440a4bf21a1b40a2b6d44",
-        "target_line_count": 2005,
+        "target_body_digest": "sha256:4fec878456b30c5de48bcaf76e817ec21c729ee9e21341ac9c76d6b026b361eb",
+        "target_line_count": 2070,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 2005,
+      "body_line_count": 2070,
       "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -11002,7 +11002,7 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:b08aa317822f51e8bf5d758aac03399d8946a22252d4ca0ccaf902d6a41089a7",
+      "body_digest": "sha256:d73337db6a56effd68133dc4308e0a3515b46469a35543de306aae2fca66f36b",
       "body_import_verification": {
         "boundary": "orchestration_overnight_control_source_open_body_without_live_launchd_bridge_provider_browser_session_raw_seed_generated_state_or_release_authority",
         "required_anchors": [
@@ -11017,18 +11017,18 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b08aa317822f51e8bf5d758aac03399d8946a22252d4ca0ccaf902d6a41089a7",
-        "source_line_count": 974,
+        "source_body_digest": "sha256:d73337db6a56effd68133dc4308e0a3515b46469a35543de306aae2fca66f36b",
+        "source_line_count": 1009,
         "source_ref": "pipeline_overnight.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b08aa317822f51e8bf5d758aac03399d8946a22252d4ca0ccaf902d6a41089a7",
-        "target_line_count": 974,
+        "target_body_digest": "sha256:d73337db6a56effd68133dc4308e0a3515b46469a35543de306aae2fca66f36b",
+        "target_line_count": 1009,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 974,
+      "body_line_count": 1009,
       "body_text_in_receipt": false,
       "claim_ceiling": "public orchestration/overnight control source-body import only; not live launchd control, provider calls, bridge dispatch, browser/HUD access, account/session state, raw-seed body export, generated-state mutation, recipient-send, publication, release, private-root equivalence, or whole-system correctness authority",
       "classification": [
@@ -11230,7 +11230,7 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:d5f440c72d24903cf2a31e6ab4f95170923d340a9a268e645765beaebaa6d147",
+      "body_digest": "sha256:6fa2df3fb1acc9fffd9b2b7d95689a2e405a12ca05d41cd7a1d1c863e630f4da",
       "body_import_verification": {
         "boundary": "orchestration_overnight_control_source_open_body_without_live_launchd_bridge_provider_browser_session_raw_seed_generated_state_or_release_authority",
         "required_anchors": [
@@ -11245,18 +11245,18 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:d5f440c72d24903cf2a31e6ab4f95170923d340a9a268e645765beaebaa6d147",
-        "source_line_count": 836,
+        "source_body_digest": "sha256:6fa2df3fb1acc9fffd9b2b7d95689a2e405a12ca05d41cd7a1d1c863e630f4da",
+        "source_line_count": 896,
         "source_ref": "system/server/tests/test_pipeline_overnight.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:d5f440c72d24903cf2a31e6ab4f95170923d340a9a268e645765beaebaa6d147",
-        "target_line_count": 836,
+        "target_body_digest": "sha256:6fa2df3fb1acc9fffd9b2b7d95689a2e405a12ca05d41cd7a1d1c863e630f4da",
+        "target_line_count": 896,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 836,
+      "body_line_count": 896,
       "body_text_in_receipt": false,
       "claim_ceiling": "public orchestration/overnight control source-body import only; not live launchd control, provider calls, bridge dispatch, browser/HUD access, account/session state, raw-seed body export, generated-state mutation, recipient-send, publication, release, private-root equivalence, or whole-system correctness authority",
       "classification": [

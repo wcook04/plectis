@@ -20,6 +20,7 @@ from system.lib.standard_option_surface import candidate_to_runtime_packet
 
 SCHEMA_VERSION = "agent_operating_packet_v0"
 STRIP_SCHEMA_VERSION = "agent_operating_packet_strip_v0"
+CARD_SCHEMA_VERSION = "agent_operating_packet_card_v0"
 
 RAW_SEED_PRINCIPLES_REL = (
     "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/"
@@ -40,6 +41,8 @@ DEFAULT_MAX_GLOBAL_PRINCIPLES = 7
 DEFAULT_MAX_FREQUENT_PRINCIPLES = 12
 DEFAULT_MAX_AGENT_PRINCIPLES = 16
 DEFAULT_MAX_AXIOM_GLANCE_ROWS = 14
+DEFAULT_CARD_FREQUENT_PRINCIPLE_ROWS = 5
+DEFAULT_CARD_AXIOM_ROWS = 5
 DEFAULT_AGENT_PRINCIPLE_SCOPE_IDS = (
     "global.integration_stewardship",
     "global.agent_action_discipline",
@@ -357,6 +360,155 @@ def _agent_lens_row(row: Mapping[str, Any], *, why_selected: str) -> dict[str, A
         "route": (row.get("route") or {}).get("card")
         if isinstance(row.get("route"), Mapping)
         else f"./repo-python kernel.py --option-surface principles --band card --ids {source_id}",
+    }
+
+
+def _card_route(row: Mapping[str, Any]) -> str:
+    route = row.get("route")
+    if isinstance(route, Mapping):
+        card = _string(route.get("card"))
+        if card:
+            return card
+    source_id = _string(row.get("source_id"))
+    if row.get("source_kind") == "axiom_candidate":
+        return f"./repo-python kernel.py --option-surface axiom_candidates --band card --ids {source_id}"
+    return f"./repo-python kernel.py --option-surface principles --band card --ids {source_id}"
+
+
+def _principle_card_preview_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        key: value
+        for key, value in {
+            "id": _string(row.get("source_id")),
+            "tiny": _string(row.get("tiny") or row.get("title")),
+            "capsule_class": _string(row.get("capsule_class")),
+            "runtime_priority": _string(row.get("runtime_priority")),
+            "scope_id": _string(row.get("scope_id")),
+            "flag": _string(row.get("flag")),
+            "card_route": _card_route(row),
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _axiom_card_preview_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        key: value
+        for key, value in {
+            "id": _string(row.get("source_id")),
+            "tiny": _string(row.get("tiny") or row.get("title")),
+            "flag": _string(row.get("flag")),
+            "use_mode": _string(row.get("use_mode")),
+            "eligible_for_runtime_pressure": bool(row.get("eligible_for_runtime_pressure")),
+            "card_route": _card_route(row),
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _selection_policy_summary(packet: Mapping[str, Any]) -> dict[str, Any]:
+    policy = packet.get("selection_policy") if isinstance(packet.get("selection_policy"), Mapping) else {}
+    summary: dict[str, Any] = {}
+    for key in ("global_always", "global_frequent", "agent_principles", "situational", "axiom_candidates"):
+        row = policy.get(key)
+        if not isinstance(row, Mapping):
+            continue
+        summary[key] = {
+            field: row.get(field)
+            for field in ("runtime_behavior", "max_rows")
+            if row.get(field) not in (None, "", [], {})
+        }
+    return summary
+
+
+def build_agent_operating_packet_card(
+    packet: Mapping[str, Any] | None,
+    *,
+    max_frequent_principles: int = DEFAULT_CARD_FREQUENT_PRINCIPLE_ROWS,
+    max_axiom_rows: int = DEFAULT_CARD_AXIOM_ROWS,
+) -> dict[str, Any]:
+    """Return a route-rich but output-bounded card for interactive drilldowns."""
+    if not isinstance(packet, Mapping) or not packet:
+        return {
+            "kind": "agent_operating_packet_card",
+            "schema_version": CARD_SCHEMA_VERSION,
+            "status": "missing",
+            "source_ref": DEFAULT_TARGET_REL,
+        }
+
+    strip = build_agent_operating_packet_strip(packet)
+    capsule = packet.get("global_runtime_capsule") if isinstance(packet.get("global_runtime_capsule"), Mapping) else {}
+    global_rows = [row for row in (capsule.get("principles") or []) if isinstance(row, Mapping)]
+    frequent_rows = [row for row in (packet.get("frequent_principles") or []) if isinstance(row, Mapping)]
+    agent_packet = packet.get("agent_principles") if isinstance(packet.get("agent_principles"), Mapping) else {}
+    agent_rows = [row for row in (agent_packet.get("rows") or []) if isinstance(row, Mapping)]
+    axiom_pressure = packet.get("candidate_axiom_pressure") if isinstance(packet.get("candidate_axiom_pressure"), Mapping) else {}
+    axiom_rows = [row for row in (axiom_pressure.get("rows") or []) if isinstance(row, Mapping)]
+
+    frequent_preview = frequent_rows[: max(0, max_frequent_principles)]
+    axiom_preview = axiom_rows[: max(0, max_axiom_rows)]
+    metrics = packet.get("budget_metrics") if isinstance(packet.get("budget_metrics"), Mapping) else {}
+
+    return {
+        "kind": "agent_operating_packet_card",
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": strip.get("status") or "available",
+        "source_ref": DEFAULT_TARGET_REL,
+        "authority_posture": _string(packet.get("authority_posture") or "generated_projection_not_source_authority"),
+        "purpose": packet.get("purpose"),
+        "selection_policy_summary": _selection_policy_summary(packet),
+        "global_runtime_capsule": {
+            "injection_policy": capsule.get("injection_policy"),
+            "authority_boundary": capsule.get("authority_boundary"),
+            "global_principle_ids": strip.get("global_principle_ids") or [
+                _string(row.get("source_id")) for row in global_rows if row.get("source_id")
+            ],
+            "principles_preview": [_principle_card_preview_row(row) for row in global_rows],
+            "row_count": len(global_rows),
+        },
+        "frequent_principles": {
+            "row_count": len(frequent_rows),
+            "ids_preview": [_string(row.get("source_id")) for row in frequent_rows[:12] if row.get("source_id")],
+            "rows_preview": [_principle_card_preview_row(row) for row in frequent_preview],
+            "omitted_count": max(0, len(frequent_rows) - len(frequent_preview)),
+        },
+        "agent_principles": {
+            "artifact_role": agent_packet.get("artifact_role"),
+            "runtime_doctrine_type": agent_packet.get("runtime_doctrine_type"),
+            "row_count": len(agent_rows),
+            "ids": strip.get("agent_principle_ids") or [
+                _string(row.get("source_id")) for row in agent_rows if row.get("source_id")
+            ],
+            "route": "./repo-python kernel.py --agent-principles --band card",
+        },
+        "candidate_axiom_pressure": {
+            "authority_posture": axiom_pressure.get("authority_posture"),
+            "non_law_warning": axiom_pressure.get("non_law_warning"),
+            "row_count": len(axiom_rows),
+            "ids_preview": [_string(row.get("source_id")) for row in axiom_rows[:12] if row.get("source_id")],
+            "rows_preview": [_axiom_card_preview_row(row) for row in axiom_preview],
+            "omitted_count": max(0, len(axiom_rows) - len(axiom_preview)),
+        },
+        "classification_summary": packet.get("classification_summary"),
+        "budget_metrics": metrics,
+        "commands": packet.get("commands"),
+        "source_refs": packet.get("source_refs"),
+        "omission_receipt": {
+            "omitted": [
+                "full principle row statement_band fields",
+                "full route maps",
+                "projection capsule receipts",
+                "full candidate axiom rows",
+                "principle_classification_index",
+            ],
+            "reason": "The card band is an interactive drilldown overview; full source authority and row evidence stay behind option-surface card/tape routes.",
+            "drilldowns": {
+                "full_packet": "./repo-python kernel.py --agent-operating-packet --band full",
+                "agent_principles": "./repo-python kernel.py --agent-principles --band card",
+                "principle_clusters": "./repo-python kernel.py --option-surface principles --band cluster_flag",
+                "axiom_candidates": "./repo-python kernel.py --option-surface axiom_candidates --band flag",
+            },
+        },
     }
 
 
@@ -1015,11 +1167,13 @@ def render_agent_operating_packet_markdown(
 
 
 __all__ = [
+    "CARD_SCHEMA_VERSION",
     "DEFAULT_TARGET_REL",
     "GLOBAL_CONSTITUTIONAL_SCOPE_ID",
     "SCHEMA_VERSION",
     "STRIP_SCHEMA_VERSION",
     "build_agent_operating_packet",
+    "build_agent_operating_packet_card",
     "build_agent_principle_authoring_packet",
     "build_agent_principle_lens",
     "build_agent_operating_packet_strip",

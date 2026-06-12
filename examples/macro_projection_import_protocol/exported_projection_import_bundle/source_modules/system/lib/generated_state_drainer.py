@@ -10,6 +10,7 @@ from __future__ import annotations
 import errno
 import hashlib
 import json
+import os
 import subprocess
 import time
 from contextlib import contextmanager
@@ -34,9 +35,15 @@ SETTLEMENT_SCHEMA = "generated_projection_settlement_v0"
 WORK_LEDGER_OWNER_ID = "work_ledger_index_projection"
 TASK_LEDGER_OWNER_ID = "task_ledger_projection"
 SYSTEM_ATLAS_OWNER_ID = "system_atlas_projection"
+FRONTEND_NAVIGATION_GRAPH_OWNER_ID = "frontend_navigation_graph_projection"
+MICROCOSM_PUBLIC_SITE_OWNER_ID = "microcosm_public_site_projection"
+MICROCOSM_ORGAN_ATLAS_OWNER_ID = "microcosm_organ_atlas_projection"
 WORK_LEDGER_REFRESH_ACTION = "work_ledger_projection_refresh"
 TASK_LEDGER_REFRESH_ACTION = "task_ledger_projection_refresh"
 SYSTEM_ATLAS_REFRESH_ACTION = "system_atlas_projection_refresh"
+FRONTEND_NAVIGATION_GRAPH_REFRESH_ACTION = "frontend_navigation_graph_projection_refresh"
+MICROCOSM_PUBLIC_SITE_REFRESH_ACTION = "microcosm_public_site_projection_refresh"
+MICROCOSM_ORGAN_ATLAS_REFRESH_ACTION = "microcosm_organ_atlas_projection_refresh"
 SYSTEM_ATLAS_OWNER_REBUILD_REFRESH_POLICY = "rebuild_generated_atlas_with_owner_builder_then_check"
 SYSTEM_ATLAS_TOLERATED_CHURN_REFRESH_POLICIES = frozenset(
     {
@@ -56,7 +63,15 @@ SYSTEM_ATLAS_APPEND_EXEMPT_SAFE_SOURCE_COUPLING_STATUSES = frozenset(
     }
 )
 APPEND_EXEMPT_LANDING_MODE = "append-exempt"
-SUPPORTED_LANDING_OWNER_IDS = (WORK_LEDGER_OWNER_ID, TASK_LEDGER_OWNER_ID, SYSTEM_ATLAS_OWNER_ID)
+TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV = "AIW_SCOPED_COMMIT_ALLOW_TASK_LEDGER_MONOLITH"
+SUPPORTED_LANDING_OWNER_IDS = (
+    WORK_LEDGER_OWNER_ID,
+    TASK_LEDGER_OWNER_ID,
+    SYSTEM_ATLAS_OWNER_ID,
+    FRONTEND_NAVIGATION_GRAPH_OWNER_ID,
+    MICROCOSM_PUBLIC_SITE_OWNER_ID,
+    MICROCOSM_ORGAN_ATLAS_OWNER_ID,
+)
 SUPPORTED_SETTLEMENT_OWNER_IDS = (TASK_LEDGER_OWNER_ID, WORK_LEDGER_OWNER_ID, SYSTEM_ATLAS_OWNER_ID)
 PROJECTION_OWNER_ID_ALIASES = {
     "work_ledger": WORK_LEDGER_OWNER_ID,
@@ -65,6 +80,18 @@ PROJECTION_OWNER_ID_ALIASES = {
     "task-ledger": TASK_LEDGER_OWNER_ID,
     "system_atlas": SYSTEM_ATLAS_OWNER_ID,
     "system-atlas": SYSTEM_ATLAS_OWNER_ID,
+    "frontend_navigation": FRONTEND_NAVIGATION_GRAPH_OWNER_ID,
+    "frontend-navigation": FRONTEND_NAVIGATION_GRAPH_OWNER_ID,
+    "frontend_navigation_graph": FRONTEND_NAVIGATION_GRAPH_OWNER_ID,
+    "frontend-navigation-graph": FRONTEND_NAVIGATION_GRAPH_OWNER_ID,
+    "microcosm_public_site": MICROCOSM_PUBLIC_SITE_OWNER_ID,
+    "microcosm-public-site": MICROCOSM_PUBLIC_SITE_OWNER_ID,
+    "microcosm_site": MICROCOSM_PUBLIC_SITE_OWNER_ID,
+    "microcosm-site": MICROCOSM_PUBLIC_SITE_OWNER_ID,
+    "microcosm_organ_atlas": MICROCOSM_ORGAN_ATLAS_OWNER_ID,
+    "microcosm-organ-atlas": MICROCOSM_ORGAN_ATLAS_OWNER_ID,
+    "organ_atlas": MICROCOSM_ORGAN_ATLAS_OWNER_ID,
+    "organ-atlas": MICROCOSM_ORGAN_ATLAS_OWNER_ID,
 }
 TASK_LEDGER_SOURCE_LOCK_ATTEMPTS = 60
 TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S = 0.1
@@ -129,12 +156,40 @@ def _task_ledger_lock_file_facts(lock_path: Path) -> dict[str, Any]:
             "lock_file_exists": True,
             "lock_file_stat_error": str(exc),
         }
-    return {
+    facts: dict[str, Any] = {
         "lock_file_exists": True,
         "lock_file_size": stat.st_size,
         "lock_file_mtime_epoch_s": stat.st_mtime,
         "lock_file_age_s": round(max(0.0, time.time() - stat.st_mtime), 3),
     }
+    try:
+        raw_holder = lock_path.read_text(encoding="utf-8").strip()
+    except OSError as exc:
+        facts["lock_holder_metadata_status"] = "read_error"
+        facts["lock_holder_metadata_error"] = str(exc)
+        return facts
+    if not raw_holder:
+        facts["lock_holder_metadata_status"] = "empty"
+        return facts
+    try:
+        holder = json.loads(raw_holder)
+    except json.JSONDecodeError as exc:
+        facts["lock_holder_metadata_status"] = "invalid_json"
+        facts["lock_holder_metadata_error"] = str(exc)
+        return facts
+    if not isinstance(holder, dict):
+        facts["lock_holder_metadata_status"] = "invalid_shape"
+        return facts
+    facts["lock_holder_metadata_status"] = "present"
+    facts["lock_holder"] = {
+        "schema": holder.get("schema"),
+        "pid": holder.get("pid"),
+        "ppid": holder.get("ppid"),
+        "created_at": holder.get("created_at"),
+        "lock_path": holder.get("lock_path"),
+        "argv": holder.get("argv"),
+    }
+    return facts
 
 
 @contextmanager
@@ -507,6 +562,24 @@ def _registry_artifact_paths(repo_root: Path, owner_id: str) -> list[str]:
     return _registry_existing_paths(repo_root, owner.artifacts)
 
 
+def _registry_projection_row_paths(repo_root: Path, pathspecs: Sequence[str]) -> list[str]:
+    paths: list[str] = []
+    for pathspec in pathspecs:
+        spec = str(pathspec or "").strip()
+        if not spec:
+            continue
+        if any(char in spec for char in "*?[]"):
+            matches = [
+                str(path.relative_to(repo_root))
+                for path in sorted(repo_root.glob(spec))
+                if path.is_file()
+            ]
+            paths.extend(matches or [spec])
+            continue
+        paths.append(spec)
+    return sorted(dict.fromkeys(paths))
+
+
 def _registry_source_authority_paths(repo_root: Path, owner_id: str) -> list[str]:
     owner = generated_projection_registry.get_projection_owner(owner_id)
     return _registry_existing_paths(repo_root, owner.source_authorities)
@@ -662,6 +735,111 @@ def _work_ledger_projection_rows(repo_root: Path, status_map: Mapping[str, str])
     return rows, check
 
 
+def _work_ledger_phase_from_artifact_path(rel_path: str) -> str | None:
+    parts = Path(str(rel_path or "")).parts
+    if len(parts) < 4:
+        return None
+    if parts[0] != "codex" or parts[1] != "ledger":
+        return None
+    if parts[3] not in {"work_ledger.jsonl", "work_ledger_index.json"}:
+        return None
+    return parts[2]
+
+
+def _work_ledger_targeted_landing_status(
+    repo_root: Path,
+    status_map: Mapping[str, str],
+) -> dict[str, Any] | None:
+    owner = generated_projection_registry.get_projection_owner(WORK_LEDGER_OWNER_ID)
+    source_paths = _work_ledger_source_artifact_paths(repo_root)
+    projection_paths = _work_ledger_projection_artifact_paths(repo_root)
+    dirty_sources = _dirty_existing_paths(repo_root, source_paths, status_map=status_map)
+    dirty_projections = _dirty_existing_paths(repo_root, projection_paths, status_map=status_map)
+    target_phases = sorted(
+        {
+            phase
+            for rel_path in [*dirty_sources, *dirty_projections]
+            for phase in [_work_ledger_phase_from_artifact_path(rel_path)]
+            if phase
+        }
+    )
+    if not target_phases:
+        return None
+
+    rows: list[dict[str, Any]] = []
+    check_rows: list[dict[str, Any]] = []
+    seen_paths: set[str] = set()
+    for phase_id in target_phases:
+        try:
+            check = work_ledger.check_project_phase(
+                repo_root,
+                phase_id=phase_id,
+                target_only=True,
+            )
+        except Exception:
+            return None
+        projection_results = list(check.get("projection_results") or [])
+        check_rows.append(
+            {
+                "family_id": check.get("family_id"),
+                "ok": bool(check.get("ok")),
+                "target_only": True,
+                "projection_results": projection_results,
+            }
+        )
+        family_id = str(check.get("family_id") or "").strip()
+        source_hash = _family_event_hash(repo_root, family_id) if family_id else None
+        for projection in projection_results:
+            rel_path = str(projection.get("index_path") or "").strip()
+            if not rel_path or rel_path in seen_paths:
+                continue
+            seen_paths.add(rel_path)
+            path = repo_root / rel_path
+            freshness = "fresh" if projection.get("fresh") else str(
+                projection.get("reason") or "projection_stale"
+            )
+            rows.append(
+                {
+                    "generated_path": rel_path,
+                    "owner_id": owner.owner_id,
+                    "owner_tool": _command_text(owner.repair_command),
+                    "check_command": _command_text(owner.check_command),
+                    "source_authority": "codex/ledger/*/work_ledger.jsonl",
+                    "source_event_hash": source_hash,
+                    "projection_hash": _hash_file(path),
+                    "freshness_status": freshness,
+                    "dirty_status": _dirty_status(rel_path, status_map),
+                    "durable_projection": True,
+                    "commit_policy": "serial_drainer_only",
+                    "bloat_class": "work_ledger_event_or_projection",
+                    "recommended_owner_action": "none" if projection.get("fresh") else _command_text(owner.repair_command),
+                    "safe_to_commit_by_agent": False,
+                    "apply_supported": True,
+                    "phase_id": projection.get("phase_id"),
+                    "family_id": family_id,
+                    "counts": projection.get("counts"),
+                    "target_only_landing_check": True,
+                }
+            )
+    if not rows:
+        return None
+    return {
+        "schema": STATUS_SCHEMA,
+        "repo_root": str(repo_root),
+        "summary": _projection_summary(rows),
+        "projection_targets": rows,
+        "dirty_generated_paths": [row for row in rows if row.get("dirty_status") != "clean"],
+        "owner_checks": {
+            WORK_LEDGER_OWNER_ID: {
+                "ok": all(row.get("ok") for row in check_rows),
+                "mode": "target_only_landing_check",
+                "families": check_rows,
+            }
+        },
+        "target_only_landing_check": True,
+    }
+
+
 def _task_ledger_projection_rows(repo_root: Path, status_map: Mapping[str, str]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     owner = generated_projection_registry.get_projection_owner(TASK_LEDGER_OWNER_ID)
     if not (repo_root / task_ledger_events.EVENTS_REL).exists():
@@ -803,7 +981,7 @@ def _registered_projection_rows(
         freshness = "projection_stale"
         recommended_owner_action = _command_text(owner.repair_command)
     rows: list[dict[str, Any]] = []
-    for rel_path in owner.artifacts:
+    for rel_path in _registry_projection_row_paths(repo_root, owner.artifacts):
         rel = str(rel_path)
         path = repo_root / rel
         rows.append(
@@ -938,13 +1116,41 @@ def _owner_repair_action(owner_id: str) -> str:
         return TASK_LEDGER_REFRESH_ACTION
     if owner_id == SYSTEM_ATLAS_OWNER_ID:
         return SYSTEM_ATLAS_REFRESH_ACTION
+    if owner_id == FRONTEND_NAVIGATION_GRAPH_OWNER_ID:
+        return FRONTEND_NAVIGATION_GRAPH_REFRESH_ACTION
+    if owner_id == MICROCOSM_PUBLIC_SITE_OWNER_ID:
+        return MICROCOSM_PUBLIC_SITE_REFRESH_ACTION
+    if owner_id == MICROCOSM_ORGAN_ATLAS_OWNER_ID:
+        return MICROCOSM_ORGAN_ATLAS_REFRESH_ACTION
     return f"{owner_id}_refresh"
 
 
 def _owner_tool_label(owner_id: str) -> str:
-    return "System Atlas" if owner_id == SYSTEM_ATLAS_OWNER_ID else (
-        "Work Ledger" if owner_id == WORK_LEDGER_OWNER_ID else "Task Ledger"
-    )
+    if owner_id == SYSTEM_ATLAS_OWNER_ID:
+        return "System Atlas"
+    if owner_id == WORK_LEDGER_OWNER_ID:
+        return "Work Ledger"
+    if owner_id == TASK_LEDGER_OWNER_ID:
+        return "Task Ledger"
+    if owner_id == FRONTEND_NAVIGATION_GRAPH_OWNER_ID:
+        return "Frontend Navigation Graph"
+    if owner_id == MICROCOSM_PUBLIC_SITE_OWNER_ID:
+        return "Microcosm Public Site"
+    if owner_id == MICROCOSM_ORGAN_ATLAS_OWNER_ID:
+        return "Microcosm Organ Atlas"
+    return owner_id.replace("_", " ").title()
+
+
+def _supported_refresh_action_owner_ids() -> dict[str, str]:
+    return {_owner_repair_action(owner_id): owner_id for owner_id in SUPPORTED_LANDING_OWNER_IDS}
+
+
+def supported_generated_state_refresh_action_owner_ids() -> dict[str, str]:
+    return dict(_supported_refresh_action_owner_ids())
+
+
+def supported_generated_state_refresh_actions() -> list[str]:
+    return list(_supported_refresh_action_owner_ids())
 
 
 def _source_coupling_route_hints(source_coupling: Mapping[str, Any]) -> list[str]:
@@ -1005,6 +1211,20 @@ def _system_atlas_source_coupling_allows_append_exempt_landing(
             "unknown_git_status_source_count",
         )
     )
+
+
+def _source_coupling_blocks_owner_refresh(owner_id: str, source_coupling: Mapping[str, Any]) -> bool:
+    status = str(source_coupling.get("status") or "").strip()
+    if not status:
+        return False
+    if owner_id == SYSTEM_ATLAS_OWNER_ID and (
+        _system_atlas_source_coupling_allows_owner_refresh(source_coupling)
+        or _system_atlas_source_coupling_allows_append_exempt_landing(source_coupling)
+    ):
+        return False
+    if bool(source_coupling.get("safe_to_commit_generated_outputs_without_sources")):
+        return False
+    return True
 
 
 def _filter_system_atlas_append_exempt_safe_source_paths(
@@ -1092,8 +1312,17 @@ def build_generated_state_drainer_status(
         atlas_rows, atlas_check = _registered_projection_rows(repo_root, status_map, SYSTEM_ATLAS_OWNER_ID)
         projection_rows.extend(atlas_rows)
         checks[SYSTEM_ATLAS_OWNER_ID] = atlas_check
+    known = {row.owner_id for row in generated_projection_registry.iter_projection_owners()}
+    registered_requested_owner_ids = sorted(
+        requested - {WORK_LEDGER_OWNER_ID, TASK_LEDGER_OWNER_ID, SYSTEM_ATLAS_OWNER_ID}
+    )
+    for owner_id in registered_requested_owner_ids:
+        if owner_id not in known:
+            continue
+        owner_rows, owner_check = _registered_projection_rows(repo_root, status_map, owner_id)
+        projection_rows.extend(owner_rows)
+        checks[owner_id] = owner_check
     if requested:
-        known = {row.owner_id for row in generated_projection_registry.iter_projection_owners()}
         missing = sorted(requested - known)
     else:
         missing = []
@@ -1141,6 +1370,8 @@ def build_generated_projection_landing_plan(
         }
 
     status_map = status_map if status_map is not None else _git_status_map(repo_root)
+    if status is None and owner == WORK_LEDGER_OWNER_ID:
+        status = _work_ledger_targeted_landing_status(repo_root, status_map)
     status = status or build_generated_state_drainer_status(repo_root, owner_ids=[owner], status_map=status_map)
     projection_rows = [
         row for row in list(status.get("projection_targets") or []) if row.get("owner_id") == owner
@@ -1209,11 +1440,7 @@ def build_generated_projection_landing_plan(
         owner == SYSTEM_ATLAS_OWNER_ID
         and _system_atlas_source_coupling_allows_owner_refresh(source_coupling)
     )
-    source_coupling_unsettled = (
-        owner == SYSTEM_ATLAS_OWNER_ID
-        and source_coupling_status == "source_inputs_changed_since_artifact_generation"
-        and not source_coupling_allows_owner_refresh
-    )
+    source_coupling_unsettled = _source_coupling_blocks_owner_refresh(owner, source_coupling)
     manifest_rel = _landing_manifest_rel(owner)
     manifest_dirty = _dirty_status(str(manifest_rel), status_map) != "clean" or not (repo_root / manifest_rel).exists()
     diff_stat = _projection_diff_stat(
@@ -1305,8 +1532,13 @@ def build_generated_projection_landing_plan(
                 "a normal Task Ledger event for projection landing changes the source event "
                 "hash after projection refresh."
                 if owner == TASK_LEDGER_OWNER_ID
-                else "System Atlas projections are derived from registry-declared source authorities; "
-                "the owner builder must settle source-coupling drift before projection landing."
+                else (
+                    "System Atlas projections are derived from registry-declared source authorities; "
+                    "the owner builder must settle source-coupling drift before projection landing."
+                    if owner == SYSTEM_ATLAS_OWNER_ID
+                    else f"{_owner_tool_label(owner)} projections are derived from registry-declared "
+                    "source authorities; refresh and landing must stay inside the owner builder lane."
+                )
             )
         ),
         "scoped_commit_directly_appends_work_ledger_event": False,
@@ -1326,7 +1558,7 @@ def build_generated_projection_landing_plan(
             "summary": summary,
         },
     }
-    if source_coupling_status and owner == SYSTEM_ATLAS_OWNER_ID:
+    if source_coupling_status:
         result["source_coupling"] = _compact_source_coupling(source_coupling)
         result["source_coupling_owner_route_hints"] = _source_coupling_route_hints(source_coupling)
     if advisory_projection_rows:
@@ -1347,7 +1579,8 @@ def build_generated_projection_landing_plan(
     if source_coupling_unsettled:
         result["owner_handoff_class"] = "source_coupling_source_owner_handoff"
         result["required_owner_resolution"] = (
-            "Settle or claim the changed System Atlas source inputs before refreshing generated Atlas outputs."
+            f"Settle or claim the changed {_owner_tool_label(owner)} source inputs "
+            "before refreshing generated outputs."
         )
     return result
 
@@ -1365,16 +1598,23 @@ def build_generated_projection_landing_manifest(
     source_paths_to_stage = [str(path) for path in landing_plan.get("source_authority_paths_to_stage") or []]
     projection_paths = [str(path) for path in landing_plan.get("projection_paths") or []]
     event_name = _owner_tool_label(owner)
+    if owner in {WORK_LEDGER_OWNER_ID, TASK_LEDGER_OWNER_ID}:
+        source_inclusion_reason = (
+            f"Dirty {event_name} source event logs are included because the refreshed projections "
+            f"summarize them; no {event_name} event is appended after projection refresh."
+        )
+    else:
+        source_inclusion_reason = (
+            f"Dirty {event_name} source authority paths are included because the refreshed projections "
+            "summarize them; no derived projection event is appended after projection refresh."
+        )
     manifest: dict[str, Any] = {
         "schema": LANDING_MANIFEST_SCHEMA,
         "owner_id": owner,
         "source_authority": landing_plan.get("source_authority"),
         "source_authority_paths": source_paths,
         "source_authority_paths_included": source_paths_to_stage,
-        "source_inclusion_reason": (
-            f"Dirty {event_name} source event logs are included because the refreshed projections "
-            f"summarize them; no {event_name} event is appended after projection refresh."
-        ),
+        "source_inclusion_reason": source_inclusion_reason,
         "source_event_hashes": landing_plan.get("source_event_hashes") or {},
         "source_path_hashes": landing_plan.get("source_path_hashes") or {},
         "projection_paths": projection_paths,
@@ -1518,6 +1758,60 @@ def _refresh_work_ledger_projection_for_landing_plan(
     }
 
 
+def _optional_int(value: object) -> int | None:
+    try:
+        return int(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+
+
+def _task_ledger_projection_manifest_staleness(repo_root: Path) -> dict[str, Any]:
+    manifest = _read_json_dict(repo_root / task_ledger_events.PROJECTION_MANIFEST_REL)
+    if manifest.get("schema_version") != task_ledger_events.TASK_LEDGER_PROJECTION_MANIFEST_SCHEMA:
+        return {
+            "schema": "task_ledger_projection_manifest_staleness_v0",
+            "status": "missing_or_unrecognized_manifest",
+            "stale": True,
+            "reason": "projection_manifest_missing_or_unrecognized",
+            "projection_event_count": None,
+            "authority_event_count": None,
+            "authority_tail_hash_matches": None,
+        }
+    try:
+        health = task_ledger_events._authority_health_unlocked(repo_root)
+    except Exception as exc:
+        return {
+            "schema": "task_ledger_projection_manifest_staleness_v0",
+            "status": "authority_health_unavailable",
+            "stale": True,
+            "reason": "authority_health_unavailable",
+            "error": str(exc),
+            "projection_event_count": _optional_int(manifest.get("authority_event_count")),
+            "authority_event_count": None,
+            "authority_tail_hash_matches": None,
+        }
+    projection_event_count = _optional_int(manifest.get("authority_event_count"))
+    authority_event_count = _optional_int(health.get("authority_event_count"))
+    manifest_tail_hash = str(manifest.get("authority_tail_hash") or "").strip() or None
+    authority_tail_hash = str(health.get("tail_hash") or "").strip() or None
+    count_matches = (
+        projection_event_count is not None
+        and authority_event_count is not None
+        and projection_event_count == authority_event_count
+    )
+    tail_matches = manifest_tail_hash == authority_tail_hash
+    stale = not (count_matches and tail_matches)
+    return {
+        "schema": "task_ledger_projection_manifest_staleness_v0",
+        "status": "stale" if stale else "fresh",
+        "stale": stale,
+        "reason": "projection_manifest_authority_mismatch" if stale else "projection_manifest_matches_authority",
+        "projection_event_count": projection_event_count,
+        "authority_event_count": authority_event_count,
+        "authority_tail_hash_matches": tail_matches,
+    }
+
+
 def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict[str, Any]:
     """Build an apply-safe Task Ledger landing plan while the writer lock is held."""
     status_map = _git_status_map(repo_root)
@@ -1531,11 +1825,28 @@ def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict
     source_path_hashes = _path_hashes(repo_root, source_paths)
     projection_hashes = _path_hashes(repo_root, projection_paths)
     source_event_hash = source_path_hashes.get(str(task_ledger_events.EVENTS_REL))
+    manifest_staleness = _task_ledger_projection_manifest_staleness(repo_root)
+    status_text = str(row.get("status") or "")
+    freshness_status = row.get("freshness_status")
+    blocked_by = list(row.get("blocked_by") or [])
+    required_next_command = row.get("required_next_command")
+    can_apply = bool(row.get("can_apply")) and status_text != "refresh_required"
+    stale_projection_paths: list[str] = []
+    if manifest_staleness.get("stale"):
+        status_text = "refresh_required"
+        freshness_status = "stale"
+        blocked_by = ["projection_not_fresh"]
+        required_next_command = (
+            "./repo-python tools/meta/control/generated_state_drainer.py apply --only "
+            f"{TASK_LEDGER_REFRESH_ACTION}"
+        )
+        can_apply = False
+        stale_projection_paths = [str(task_ledger_events.LEDGER_REL)]
     return {
         "schema": LANDING_PLAN_SCHEMA,
         "ok": row.get("status") != "source_authority_missing",
         "owner_id": TASK_LEDGER_OWNER_ID,
-        "status": row.get("status"),
+        "status": status_text,
         "source_authority": row.get("source_authority"),
         "source_authority_paths": source_paths,
         "source_authority_paths_to_stage": [
@@ -1560,10 +1871,11 @@ def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict
         ),
         "source_path_hashes": source_path_hashes,
         "projection_paths": projection_paths,
-        "stale_projection_paths": [],
+        "stale_projection_paths": stale_projection_paths,
         "stale_projection_targets": [],
         "projection_hashes": projection_hashes,
-        "freshness_status": row.get("freshness_status"),
+        "projection_manifest_staleness": manifest_staleness,
+        "freshness_status": freshness_status,
         "dirty_status": row.get("dirty_status"),
         "source_dirty_status": row.get("source_dirty_status"),
         "diff_stat": row.get("diff_stat") or {},
@@ -1592,15 +1904,16 @@ def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict
         "marker_epoch_policy_verified": False,
         "recommended_mode": "append_exempt_projection_landing",
         "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
-        "can_apply": bool(row.get("can_apply")) and row.get("status") != "refresh_required",
-        "blocked_by": row.get("blocked_by") or [],
-        "required_next_command": row.get("required_next_command"),
+        "can_apply": can_apply,
+        "blocked_by": blocked_by,
+        "required_next_command": required_next_command,
         "status_ref": {
             "schema": "generated_projection_settlement_fast_owner_row_v0",
             "summary": {
                 "status": row.get("status"),
                 "freshness_status": row.get("freshness_status"),
                 "dirty_status": row.get("dirty_status"),
+                "projection_manifest_staleness": manifest_staleness.get("status"),
             },
         },
     }
@@ -1628,6 +1941,26 @@ def _task_ledger_landing_retry_later_payload(
     if plan is not None:
         payload["plan"] = dict(plan)
     return payload
+
+
+@contextmanager
+def _task_ledger_monolith_settlement_override() -> Iterator[dict[str, Any]]:
+    previous_value = os.environ.get(TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV)
+    os.environ[TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV] = "1"
+    receipt = {
+        "schema": "task_ledger_monolith_settlement_override_v0",
+        "status": "override_set_for_commit",
+        "override_env": TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV,
+        "reason": "task_ledger_projection_append_exempt_settlement",
+        "previous_env_present": previous_value is not None,
+    }
+    try:
+        yield receipt
+    finally:
+        if previous_value is None:
+            os.environ.pop(TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV, None)
+        else:
+            os.environ[TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV] = previous_value
 
 
 def _land_task_ledger_projection_bundle_locked(
@@ -1745,7 +2078,9 @@ def _land_task_ledger_projection_bundle_locked(
             lock_mode=source_lock.get("mode"),
             hold_scope="plan_refresh_manifest_commit",
         )
+        refresh_attempted = False
         if plan.get("status") == "refresh_required":
+            refresh_attempted = True
             refresh_started = time.perf_counter()
             _emit_progress(
                 progress_callback,
@@ -1804,6 +2139,42 @@ def _land_task_ledger_projection_bundle_locked(
                 dirty_status=plan.get("dirty_status"),
                 source_dirty_status=plan.get("source_dirty_status"),
             )
+        if plan.get("status") == "refresh_required":
+            if not refresh_attempted:
+                refresh_started = time.perf_counter()
+                _emit_progress(
+                    progress_callback,
+                    surface="landing",
+                    event="refresh_start",
+                    owner_id=TASK_LEDGER_OWNER_ID,
+                    status=plan.get("status"),
+                )
+                rebuild_result = task_ledger_events._rebuild_projections_with_health_unlocked(
+                    repo_root
+                )
+                if not bool(rebuild_result.get("ok")):
+                    return {
+                        "schema": LANDING_SCHEMA,
+                        "ok": False,
+                        "dry_run": False,
+                        "owner_id": TASK_LEDGER_OWNER_ID,
+                        "status": "failed",
+                        "reason": "task_ledger_projection_rebuild_failed",
+                        "projection_result": rebuild_result,
+                        "plan": plan,
+                        "normal_source_event_after_refresh_allowed": False,
+                        "normal_task_ledger_event_after_refresh_allowed": False,
+                    }
+                plan = _task_ledger_locked_landing_plan_from_current_state(repo_root)
+                _emit_progress(
+                    progress_callback,
+                    surface="landing",
+                    event="refresh_done",
+                    owner_id=TASK_LEDGER_OWNER_ID,
+                    status=plan.get("status"),
+                    dirty_status=plan.get("dirty_status"),
+                    wall_ms=round((time.perf_counter() - refresh_started) * 1000.0, 3),
+                )
         if plan.get("status") == "refresh_required":
             return {
                 "schema": LANDING_SCHEMA,
@@ -1948,6 +2319,7 @@ def _land_task_ledger_projection_bundle_locked(
                     else {}
                 ),
             }
+        monolith_override: dict[str, Any] | None = None
         try:
             if commit_func is None:
                 from tools.meta.control.scoped_commit import perform_scoped_commit
@@ -1964,15 +2336,16 @@ def _land_task_ledger_projection_bundle_locked(
                 owner_id=TASK_LEDGER_OWNER_ID,
                 path_count=len(paths_to_commit),
             )
-            commit_result = commit_callable(
-                repo_root=repo_root,
-                paths=paths_to_commit,
-                message=f"Land {_owner_tool_label(TASK_LEDGER_OWNER_ID)} projections append-exempt",
-                allow_untracked=True,
-                allow_multi_hunk_full_paths=True,
-                collect_full_path_hunk_counts=False,
-                work_ledger_session_id=work_ledger_session_id,
-            )
+            with _task_ledger_monolith_settlement_override() as monolith_override:
+                commit_result = commit_callable(
+                    repo_root=repo_root,
+                    paths=paths_to_commit,
+                    message=f"Land {_owner_tool_label(TASK_LEDGER_OWNER_ID)} projections append-exempt",
+                    allow_untracked=True,
+                    allow_multi_hunk_full_paths=True,
+                    collect_full_path_hunk_counts=False,
+                    work_ledger_session_id=work_ledger_session_id,
+                )
             _emit_progress(
                 progress_callback,
                 surface="landing",
@@ -1993,6 +2366,11 @@ def _land_task_ledger_projection_bundle_locked(
                 "error": str(exc),
                 "paths_to_stage": paths_to_commit,
                 "declared_paths_to_stage": paths_to_stage,
+                **(
+                    {"task_ledger_monolith_settlement_override": monolith_override}
+                    if monolith_override is not None
+                    else {}
+                ),
             }
         refreshed_index_paths = _refresh_index_only_projection_residue(repo_root, paths_to_stage)
         _emit_progress(
@@ -2016,6 +2394,8 @@ def _land_task_ledger_projection_bundle_locked(
             "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
             "normal_source_event_after_refresh_allowed": False,
             "normal_task_ledger_event_after_refresh_allowed": False,
+            "task_ledger_monolith_settlement_override": monolith_override,
+            "scoped_commit_task_ledger_monolith_guard": commit_result.get("task_ledger_monolith_guard"),
         }
         if refreshed_index_paths:
             result["paths_index_refreshed"] = refreshed_index_paths
@@ -2471,6 +2851,7 @@ def _settlement_owner_row(plan: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "landing_manifest_path": plan.get("landing_manifest_path"),
         "normal_source_event_after_refresh_allowed": False,
+        "source_authority": plan.get("source_authority"),
         "path_count": len(plan.get("projection_paths") or []),
         "diff_stat": plan.get("diff_stat") or {},
         "path_bundle": {
@@ -2987,6 +3368,19 @@ def _settlement_source_moved_owner_ids(plan: Mapping[str, Any]) -> list[str]:
     return owner_ids
 
 
+def _settlement_refresh_source_moved_owner_ids(plan: Mapping[str, Any]) -> list[str]:
+    owner_ids: list[str] = []
+    for owner in plan.get("owners") or []:
+        if not isinstance(owner, Mapping):
+            continue
+        if owner.get("required_action") != "refresh_then_land_append_exempt":
+            continue
+        owner_id = str(owner.get("owner_id") or "")
+        if owner_id and owner_id in _settlement_source_moved_owner_ids({"owners": [owner]}):
+            owner_ids.append(owner_id)
+    return owner_ids
+
+
 def _settlement_source_moved_residual_fields(owner_ids: Sequence[str]) -> dict[str, Any]:
     owner_ids = [str(owner_id) for owner_id in owner_ids if str(owner_id)]
     return {
@@ -3263,6 +3657,56 @@ def _settlement_source_bundle_by_owner(plan: Mapping[str, Any]) -> dict[str, Any
             or owner.get("landing_manifest_path"),
         }
     return bundles
+
+
+def _fast_task_ledger_landing_plan_for_owner(owner: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    """Reuse cached-status rows when Task Ledger source dirt forces locked replan.
+
+    The mutating Task Ledger landing path rebuilds the apply-safe plan under the
+    writer lock after refresh or whenever source authority is dirty. Passing the
+    fast row avoids an expensive pre-lock full landing-plan rebuild while keeping
+    manifest and commit inputs sourced from the locked post-refresh plan.
+    """
+    if str(owner.get("owner_id") or "") != TASK_LEDGER_OWNER_ID:
+        return None
+    if owner.get("required_action") not in {
+        "land_append_exempt",
+        "refresh_then_land_append_exempt",
+    }:
+        return None
+    if owner.get("source_dirty_status") != "dirty":
+        return None
+    if owner.get("status") not in {"append_exempt_manifest_available", "refresh_required"}:
+        return None
+    if not bool(owner.get("can_apply")):
+        return None
+    return owner
+
+
+def _landing_plan_for_settlement_owner(owner: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    if owner.get("required_action") not in {
+        "land_append_exempt",
+        "refresh_then_land_append_exempt",
+    }:
+        return None
+    if owner.get("status") not in {"append_exempt_manifest_available", "refresh_required"}:
+        return None
+    if not bool(owner.get("can_apply")):
+        return None
+    path_bundle = owner.get("path_bundle") if isinstance(owner.get("path_bundle"), Mapping) else {}
+    if not (owner.get("projection_paths") or path_bundle.get("projection_paths")):
+        return None
+    plan = dict(owner)
+    for key in (
+        "source_authority_paths",
+        "source_authority_paths_to_stage",
+        "projection_paths",
+        "projection_paths_to_stage",
+        "landing_manifest_path",
+    ):
+        if plan.get(key) is None and path_bundle.get(key) is not None:
+            plan[key] = path_bundle.get(key)
+    return plan
 
 
 def _settlement_omitted_audit_or_source_sidecars(
@@ -3799,10 +4243,41 @@ def settle_generated_projection_owners(
                 "eventful_closeout_allowed_after_settlement": False,
             })
         if not dry_run:
+            progress = _settlement_progress_summary(owner_results)
+            source_moved_owner_ids = _settlement_refresh_source_moved_owner_ids(active_plan)
+            if progress.get("commit_count") and source_moved_owner_ids:
+                status = "settlement_residual_source_moved"
+                return _with_timing({
+                    "schema": SETTLEMENT_SCHEMA,
+                    "ok": True,
+                    "dry_run": False,
+                    "status": status,
+                    "reason": "source_authority_moved_during_settlement",
+                    "partial_success": True,
+                    "residual_class": "concurrent_source_authority_moved",
+                    "pass_count": pass_index - 1,
+                    "max_passes": pass_limit,
+                    "current_pass_index": pass_index,
+                    "progress": progress,
+                    "residual_owners": _settlement_residual_owner_rows(active_plan),
+                    **_settlement_source_moved_residual_fields(source_moved_owner_ids),
+                    "owners": owner_results,
+                    "progress_events": progress_events,
+                    "before_plan": _public_settlement_plan(before),
+                    "final_plan": _public_settlement_plan(active_plan),
+                    **controls,
+                    **_settlement_closeout_fields(
+                        repo_root,
+                        status=status,
+                        dry_run=False,
+                        final_plan=active_plan,
+                    ),
+                    "normal_source_event_after_refresh_allowed": False,
+                    "eventful_closeout_allowed_after_settlement": False,
+                })
             residual_signature = _settlement_residual_signature(active_plan)
             previous_pass_index = seen_residual_signatures.get(residual_signature or "")
             if residual_signature and previous_pass_index is not None:
-                progress = _settlement_progress_summary(owner_results)
                 source_moved_owner_ids = _settlement_source_moved_owner_ids(active_plan)
                 freshness_only_owner_ids = _settlement_freshness_only_owner_ids(active_plan)
                 source_moved_after_progress = bool(
@@ -3924,6 +4399,10 @@ def settle_generated_projection_owners(
                 }
             else:
                 landing_plan = owner.get("_landing_plan")
+                if not isinstance(landing_plan, Mapping):
+                    landing_plan = _fast_task_ledger_landing_plan_for_owner(owner)
+                if not isinstance(landing_plan, Mapping):
+                    landing_plan = _landing_plan_for_settlement_owner(owner)
                 landing_kwargs: dict[str, Any] = {
                     "owner_id": owner_id,
                     "mode": APPEND_EXEMPT_LANDING_MODE,
@@ -4197,8 +4676,9 @@ def apply_generated_state_drainer(
     dry_run: bool = False,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
-    supported_actions = [WORK_LEDGER_REFRESH_ACTION, TASK_LEDGER_REFRESH_ACTION, SYSTEM_ATLAS_REFRESH_ACTION]
-    if only not in set(supported_actions):
+    action_owner_ids = _supported_refresh_action_owner_ids()
+    supported_actions = supported_generated_state_refresh_actions()
+    if only not in action_owner_ids:
         return {
             "schema": APPLY_SCHEMA,
             "ok": False,
@@ -4208,19 +4688,14 @@ def apply_generated_state_drainer(
             "reason": "unsupported_action",
             "supported_actions": supported_actions,
         }
-    owner_id = (
-        WORK_LEDGER_OWNER_ID
-        if only == WORK_LEDGER_REFRESH_ACTION
-        else TASK_LEDGER_OWNER_ID
-        if only == TASK_LEDGER_REFRESH_ACTION
-        else SYSTEM_ATLAS_OWNER_ID
-    )
+    owner_id = action_owner_ids[only]
+    owner_row = generated_projection_registry.get_projection_owner(owner_id)
     before = build_generated_state_drainer_status(repo_root, owner_ids=[owner_id])
     stale_count = int(before.get("summary", {}).get("stale_count") or 0)
     action = {
         "action_id": only,
         "owner_id": owner_id,
-        "owner_tool": _command_text(generated_projection_registry.get_projection_owner(owner_id).repair_command),
+        "owner_tool": _command_text(owner_row.repair_command),
         "would_mutate": stale_count > 0,
         "commit_policy": "serial_drainer_only",
         "scope": (
@@ -4229,6 +4704,8 @@ def apply_generated_state_drainer(
             else "state/task_ledger/{ledger.json,sign_offs.json,views/*.json}"
             if owner_id == TASK_LEDGER_OWNER_ID
             else "state/system_atlas/*,docs/system_atlas/generated*.md"
+            if owner_id == SYSTEM_ATLAS_OWNER_ID
+            else ",".join(owner_row.artifacts)
         ),
     }
     if dry_run:
@@ -4245,7 +4722,6 @@ def apply_generated_state_drainer(
     elif owner_id == TASK_LEDGER_OWNER_ID:
         projection_result = task_ledger_events.rebuild_projections(repo_root)
     else:
-        owner_row = generated_projection_registry.get_projection_owner(owner_id)
         proc = subprocess.run(
             [str(part) for part in owner_row.repair_command],
             cwd=repo_root,

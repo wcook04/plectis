@@ -213,6 +213,11 @@ def test_entrypoint_health_cli_and_metabolism_quick_profile_are_compact() -> Non
     entrypoint_payload = json.loads(entrypoint.stdout)
     assert entrypoint_payload["kind"] == "entrypoint_health"
     assert entrypoint_payload["summary"]["contract_status"] == "valid"
+    assert entrypoint_payload["command_node_cache"]["entrypoint_health"]["status"] in {
+        "hit",
+        "miss_built",
+        "stale_ok_hit",
+    }
     assert len(entrypoint.stdout.encode("utf-8")) <= 12000 * 4
 
     quick = subprocess.run(

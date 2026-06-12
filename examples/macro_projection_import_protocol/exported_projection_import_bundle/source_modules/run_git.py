@@ -1276,7 +1276,72 @@ def run_hook_pre_commit() -> int:
     return 0
 
 
+LOCAL_ONLY_REF_PUSH_OVERRIDE_ENV = "AIW_ALLOW_RESCUE_PUSH"
+
+
+def _ref_is_local_only(ref: str) -> bool:
+    """rescue/* and refs/aiw/* are local-only recovery namespaces.
+
+    `checkpoint --rescue-ref` writes `refs/aiw/rescue/*`, and a clean-slate flush
+    leaves `rescue/*` tags pinning the pre-flush history. Pushing either re-uploads
+    the exact object graph a clean-slate publish removed, so they must never leave
+    the machine without an explicit override.
+    """
+    token = (ref or "").strip()
+    if not token:
+        return False
+    if "rescue/" in token:
+        return True
+    if token.startswith("refs/aiw/"):
+        return True
+    return False
+
+
+def _local_only_ref_push_violations(updates: list[PushUpdate]) -> list[GitPolicyViolation]:
+    violations: list[GitPolicyViolation] = []
+    for update in updates:
+        # A deletion (zero local oid) sends no objects; allow rescue-ref cleanup.
+        if _zero_oid(update.local_oid):
+            continue
+        matched_ref = next(
+            (ref for ref in (update.remote_ref, update.local_ref) if _ref_is_local_only(ref)),
+            None,
+        )
+        if matched_ref is None:
+            continue
+        violations.append(
+            GitPolicyViolation(
+                category="local_only_ref_push",
+                path=matched_ref,
+                detail=(
+                    f"Refusing to push local-only ref '{matched_ref}'. rescue/* and "
+                    "refs/aiw/* refs preserve pre-flush and dirty-tree-bankruptcy history "
+                    "locally; pushing them re-contaminates the remote with the history a "
+                    "clean-slate publish removed."
+                ),
+                remediation=(
+                    "Keep rescue/aiw refs local for recovery, or back them up off-repo with "
+                    "`git bundle create <file> <ref>`. To override for one intentional push, "
+                    f"set {LOCAL_ONLY_REF_PUSH_OVERRIDE_ENV}=1."
+                ),
+                source="push",
+            )
+        )
+    return violations
+
+
 def run_hook_pre_push(remote_name: str, stdin_text: str | None = None) -> int:
+    if not os.environ.get(LOCAL_ONLY_REF_PUSH_OVERRIDE_ENV):
+        local_only_violations = _local_only_ref_push_violations(
+            _parse_push_stdin(stdin_text or "")
+        )
+        if local_only_violations:
+            _print_violations(
+                local_only_violations,
+                stream=sys.stderr,
+                heading="Git policy blocked the push.",
+            )
+            return 1
     violations = audit_push(remote_name=remote_name, stdin_text=stdin_text)
     if violations:
         _print_violations(

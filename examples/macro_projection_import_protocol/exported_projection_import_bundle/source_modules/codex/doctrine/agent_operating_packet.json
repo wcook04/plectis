@@ -1,7 +1,7 @@
 {
   "kind": "agent_operating_packet",
   "schema_version": "agent_operating_packet_v0",
-  "generated_at": "2026-06-03T14:26:11.471775+00:00",
+  "generated_at": "2026-06-11T07:44:48.229420+00:00",
   "authority_posture": "generated_projection_not_source_authority",
   "purpose": "Compact Type A runtime doctrine frame: always-global active principles plus routed frequent/situational principles and candidate axiom pressure.",
   "source_refs": [
@@ -285,7 +285,9 @@
           "axiom_candidate_common_sense_up_propagates",
           "axiom_candidate_availability_before_invention"
         ],
-        "teleology_refs": [],
+        "teleology_refs": [
+          "tel_macro_prompt_refinement_metabolism"
+        ],
         "route": {
           "card": "./repo-python kernel.py --option-surface principles --band card --ids pri_115",
           "tape": "./repo-python kernel.py --option-surface principles --band tape --ids pri_115",
@@ -4621,9 +4623,9 @@
   "warnings": [],
   "budget_metrics": {
     "metric": "utf8_json_bytes",
-    "compact_full_packet_bytes": 180038,
-    "pretty_full_packet_bytes": 220670,
-    "global_runtime_capsule_bytes": 13742,
+    "compact_full_packet_bytes": 180078,
+    "pretty_full_packet_bytes": 220730,
+    "global_runtime_capsule_bytes": 13782,
     "entry_strip_bytes": 2682,
     "global_principle_count": 7,
     "agent_principle_count": 17,

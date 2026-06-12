@@ -167,6 +167,7 @@ ENTRY_PACKET_INLINE_TARGET_BYTES = 18000
 ENTRY_PACKET_ADMISSION_RECEIPT_HEADROOM_BYTES = 1600
 ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES = 16000
 ENTRY_PACKET_NAVIGATION_MIN_SAVED_BYTES = 12000
+ENTRY_PACKET_SPEED_REFINEMENT_TARGET_BYTES = 12500
 
 
 def _utc_now() -> str:
@@ -2263,6 +2264,39 @@ def _hard_compact_closeout_git_state_for_admission(
     }
 
 
+def _hard_compact_host_resource_pressure_for_admission(
+    host_resource_pressure: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(host_resource_pressure, dict):
+        return host_resource_pressure
+    return {
+        key: value
+        for key, value in {
+            "schema": host_resource_pressure.get("schema"),
+            "status": host_resource_pressure.get("status"),
+            "admission": host_resource_pressure.get("admission"),
+            "normal_work_allowed": host_resource_pressure.get("normal_work_allowed"),
+            "primary_pressure_component": host_resource_pressure.get("primary_pressure_component"),
+            "primary_pressure_status": host_resource_pressure.get("primary_pressure_status"),
+            "primary_repair_command": host_resource_pressure.get("primary_repair_command"),
+            "task_ledger_write_admission": host_resource_pressure.get("task_ledger_write_admission"),
+            "recommended_actions": [
+                {
+                    key: action.get(key)
+                    for key in ("action_id", "label", "command", "component_id", "rank", "safety")
+                    if action.get(key) not in (None, "", [], {})
+                }
+                for action in list(host_resource_pressure.get("recommended_actions") or [])[:3]
+                if isinstance(action, dict)
+            ],
+            "drilldown": "./repo-python -m system.lib.resource_pressure --compact",
+            "trimmed_for_entry_admission": True,
+            "hard_ceiling_handle_compacted": True,
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
 def _compact_route_lease_for_admission(route_lease: dict[str, Any] | None) -> dict[str, Any] | None:
     if not isinstance(route_lease, dict):
         return route_lease
@@ -2611,21 +2645,23 @@ def _hard_compact_candidate_runtime_pressure_for_admission(
     compact = {
         "count": pressure.get("count", 0),
         "suppressed_count": pressure.get("suppressed_count", 0),
-        "filter_policy": pressure.get("filter_policy"),
-        "contract_ref": pressure.get("contract_ref"),
-        "omission_receipt": {
-            "omitted": ["row_detail", "suppression_reasons", "policy_prose"],
-            "reason": "Keeps candidate-pressure presence and route handles.",
-            "drilldown": "codex/standards/std_agent_entry_surface.json::candidate_runtime_pressure_contract",
-        },
         "trimmed_for_entry_admission": True,
         "hard_ceiling_handle_compacted": True,
     }
+    for key in ("filter_policy", "contract_ref"):
+        if pressure.get(key) not in (None, "", [], {}):
+            compact[key] = pressure.get(key)
     if compact_rows:
+        compact["omission_receipt"] = {
+            "omitted": ["row_detail", "suppression_reasons", "policy_prose"],
+            "reason": "Keeps candidate-pressure presence and route handles.",
+            "drilldown": (
+                pressure.get("contract_ref")
+                or "codex/standards/std_agent_entry_surface.json::candidate_runtime_pressure_contract"
+            ),
+        }
         compact["rows"] = compact_rows
         compact["rows_omitted_for_entry_admission"] = max(0, len(rows) - len(compact_rows))
-    else:
-        compact["rows"] = []
     return compact
 
 
@@ -2647,6 +2683,23 @@ def _hard_compact_type_b_candidate_lens_for_admission(
     closeout_probe = (
         lens.get("closeout_probe") if isinstance(lens.get("closeout_probe"), dict) else {}
     )
+    evidence_pack_workflow = (
+        closeout_probe.get("evidence_pack_workflow")
+        if isinstance(closeout_probe.get("evidence_pack_workflow"), dict)
+        else {}
+    )
+    compact_evidence_pack_workflow = {
+        key: evidence_pack_workflow.get(key)
+        for key in (
+            "schema_version",
+            "product",
+            "path_list_role",
+            "required_evidence_classes",
+            "acquisition_loop",
+            "verify_step",
+        )
+        if evidence_pack_workflow.get(key) not in (None, "", [], {})
+    }
     true_decision_gates = {
         key: value
         for key, value in decision_gates.items()
@@ -2676,9 +2729,14 @@ def _hard_compact_type_b_candidate_lens_for_admission(
         "prompt_shape": compact_shape,
         "closeout_probe": {
             key: closeout_probe.get(key)
-            for key in ("expected_packet_fields", "source_excerpt_command", "import_command")
+            for key in ("path_list_role", "source_excerpt_command", "import_command")
             if closeout_probe.get(key) not in (None, "", [], {})
-        },
+        }
+        | (
+            {"evidence_pack_workflow": compact_evidence_pack_workflow}
+            if compact_evidence_pack_workflow
+            else {}
+        ),
         "omission_receipt": {
             "reason": "Entry admission keeps the Type B candidate handle; prompt-ledger import carries packet-shape detail.",
             "drilldown": closeout_probe.get("import_command")
@@ -2778,8 +2836,20 @@ def _hard_compact_work_landing_readiness_for_admission(
     return {
         "schema": source.get("schema") or "work_landing_transaction_readiness_contract_v0",
         "projection_role": source.get("projection_role") or "entry_admission_compacted_hint",
+        "source_contract_owner": (
+            source.get("source_contract_owner")
+            or "system/lib/work_landing_status.py::_transaction_readiness_contract"
+        ),
         "status": source.get("status") or status,
         "target_id": source.get("target_id") or target_id,
+        "axis_order": axis_order,
+        "axes": {
+            "validation_state": {
+                key: validation_axis.get(key)
+                for key in ("status", "policy")
+                if validation_axis.get(key) not in (None, "", [], {})
+            }
+        },
         "allowed_next_action_status": allowed_next_action.get("status"),
         "control_summary": control_summary,
         "axis_count": len(axis_order),
@@ -2793,9 +2863,10 @@ def _hard_compact_transaction_control_plane_for_admission(
     if not isinstance(payload, dict):
         return payload
     drilldown = payload.get("next_action") or "./repo-python tools/meta/control/mission_transaction_preflight.py --control-summary"
-    return {
+    compact = {
         "schema": payload.get("schema") or "transaction_control_plane_summary_v0",
         "status": payload.get("status"),
+        "consumer_surface": payload.get("consumer_surface"),
         "target_id": payload.get("target_id"),
         "next_action": payload.get("next_action"),
         "work_landing_readiness": _hard_compact_work_landing_readiness_for_admission(
@@ -2824,6 +2895,14 @@ def _hard_compact_transaction_control_plane_for_admission(
         "trimmed_for_entry_admission": True,
         "hard_ceiling_handle_compacted": True,
     }
+    github_gate = payload.get("github_push_bloat_gate")
+    if isinstance(github_gate, dict):
+        compact["github_push_bloat_gate"] = {
+            key: github_gate.get(key)
+            for key in ("schema", "status", "decision", "gate_status")
+            if github_gate.get(key) not in (None, "", [], {})
+        }
+    return compact
 
 
 def _hard_compact_active_execution_constellation_for_admission(
@@ -2967,6 +3046,23 @@ def _entry_packet_section_sizes(packet: dict[str, Any]) -> list[dict[str, Any]]:
         for key, value in packet.items()
     ]
     return sorted(rows, key=lambda row: int(row["bytes"]), reverse=True)
+
+
+def _compact_command_node_cache_for_admission(cache: Any) -> dict[str, Any] | None:
+    if not isinstance(cache, dict):
+        return None
+    compact: dict[str, Any] = {}
+    for node_id, node in cache.items():
+        if not isinstance(node, dict):
+            continue
+        compact_node = {
+            key: node.get(key)
+            for key in ("status",)
+            if node.get(key) not in (None, "", [], {})
+        }
+        if compact_node:
+            compact[str(node_id)] = compact_node
+    return compact or None
 
 
 def _entry_admission_task_requests_full_diagnostics(task_text: str | None) -> bool:
@@ -3212,6 +3308,296 @@ def _hard_compact_python_target_resolution_for_admission(
     }
 
 
+def _compact_speed_refinement_entry_for_admission(packet: dict[str, Any]) -> list[str]:
+    """Trim speed-refinement entry packets to a route handoff, not a diagnostic body."""
+    compacted_sections: list[str] = []
+
+    def replace_if_smaller(section: str, compact: dict[str, Any] | None) -> None:
+        if compact is None:
+            return
+        existing = packet.get(section)
+        if not isinstance(existing, dict):
+            return
+        cleaned = {
+            key: value
+            for key, value in compact.items()
+            if value not in (None, "", [], {})
+        }
+        if _pretty_json_bytes(cleaned) < _pretty_json_bytes(existing):
+            packet[section] = cleaned
+            compacted_sections.append(section)
+
+    host_resource_pressure = packet.get("host_resource_pressure")
+    if isinstance(host_resource_pressure, dict):
+        recommended_action_commands = []
+        for row in list(host_resource_pressure.get("recommended_actions") or [])[:2]:
+            if not isinstance(row, dict):
+                continue
+            command = row.get("command")
+            if command not in (None, "", [], {}):
+                recommended_action_commands.append(command)
+        replace_if_smaller(
+            "host_resource_pressure",
+            {
+                "schema": host_resource_pressure.get("schema"),
+                "status": host_resource_pressure.get("status"),
+                "admission": host_resource_pressure.get("admission"),
+                "normal_work_allowed": host_resource_pressure.get("normal_work_allowed"),
+                "primary_pressure_component": host_resource_pressure.get("primary_pressure_component"),
+                "primary_pressure_status": host_resource_pressure.get("primary_pressure_status"),
+                "primary_repair_command": host_resource_pressure.get("primary_repair_command"),
+                "task_ledger_write_admission": host_resource_pressure.get(
+                    "task_ledger_write_admission"
+                ),
+                "recommended_action_commands": recommended_action_commands,
+                "drilldown": host_resource_pressure.get("drilldown"),
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    closeout_git_state = packet.get("closeout_git_state")
+    if isinstance(closeout_git_state, dict):
+        scoped_gate = (
+            closeout_git_state.get("scoped_work_gate")
+            if isinstance(closeout_git_state.get("scoped_work_gate"), dict)
+            else {}
+        )
+        replace_if_smaller(
+            "closeout_git_state",
+            {
+                "schema": closeout_git_state.get("schema"),
+                "status": closeout_git_state.get("status"),
+                "reason": closeout_git_state.get("reason"),
+                "dirty_total": closeout_git_state.get("dirty_total"),
+                "staged_total": closeout_git_state.get("staged_total"),
+                "scoped_work_allowed": closeout_git_state.get("scoped_work_allowed"),
+                "scoped_work_gate": {
+                    key: scoped_gate.get(key)
+                    for key in (
+                        "status",
+                        "required_lane",
+                        "private_index_scoped_commit_allowed",
+                    )
+                    if scoped_gate.get(key) not in (None, "", [], {})
+                },
+                "drilldown": closeout_git_state.get("drilldown")
+                or "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions",
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    agent_operating_packet = packet.get("agent_operating_packet")
+    if isinstance(agent_operating_packet, dict):
+        replace_if_smaller(
+            "agent_operating_packet",
+            {
+                "kind": agent_operating_packet.get("kind"),
+                "schema_version": agent_operating_packet.get("schema_version"),
+                "status": agent_operating_packet.get("status"),
+                "route": agent_operating_packet.get("route"),
+                "agent_principles_route": agent_operating_packet.get("agent_principles_route"),
+                "principle_id_counts": agent_operating_packet.get("principle_id_counts"),
+                "omission_receipt": agent_operating_packet.get("omission_receipt"),
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    agent_principle_lens = packet.get("agent_principle_lens")
+    if isinstance(agent_principle_lens, dict):
+        invocation = (
+            agent_principle_lens.get("invocation")
+            if isinstance(agent_principle_lens.get("invocation"), dict)
+            else {}
+        )
+        selected_ids = list(agent_principle_lens.get("selected_ids") or [])
+        principle_drilldown = (
+            (agent_principle_lens.get("omission_receipt") or {}).get("drilldown")
+            if isinstance(agent_principle_lens.get("omission_receipt"), dict)
+            else None
+        ) or invocation.get("selected_principle_cards")
+        replace_if_smaller(
+            "agent_principle_lens",
+            {
+                "kind": agent_principle_lens.get("kind"),
+                "schema_version": agent_principle_lens.get("schema_version"),
+                "status": agent_principle_lens.get("status"),
+                "selected_lane_id": agent_principle_lens.get("selected_lane_id"),
+                "selected_ids": selected_ids[:4],
+                "selected_id_count": len(selected_ids),
+                "row_count": agent_principle_lens.get("row_count"),
+                "agent_operating_packet": invocation.get("agent_operating_packet"),
+                "omission_receipt": {
+                    "drilldown": principle_drilldown,
+                    "reason": "Speed-refinement entry keeps selected principle ids and drilldown only.",
+                },
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    diagnostics = packet.get("entry_surface_diagnostics")
+    if isinstance(diagnostics, dict):
+        first_row: dict[str, Any] | None = None
+        first_drilldown = None
+        for row in diagnostics.get("rows") or []:
+            if not isinstance(row, dict):
+                continue
+            first_row = {
+                key: row.get(key)
+                for key in ("diagnostic_id", "severity", "is_hard_gate")
+                if row.get(key) not in (None, "", [], {})
+            }
+            first_drilldown = row.get("drilldown")
+            break
+        diagnostics_drilldown = (
+            (diagnostics.get("omission_receipt") or {}).get("drilldown")
+            if isinstance(diagnostics.get("omission_receipt"), dict)
+            else None
+        ) or first_drilldown
+        replace_if_smaller(
+            "entry_surface_diagnostics",
+            {
+                "triggered": diagnostics.get("triggered"),
+                "trigger_source": diagnostics.get("trigger_source"),
+                "non_blocking": diagnostics.get("non_blocking"),
+                "diagnostic_family": diagnostics.get("diagnostic_family"),
+                "count": diagnostics.get("count"),
+                "first_row": first_row,
+                "omission_receipt": {
+                    "drilldown": diagnostics_drilldown,
+                    "reason": "Speed-refinement entry keeps diagnostic status and first handle only.",
+                },
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    route_lease = packet.get("route_lease")
+    if isinstance(route_lease, dict):
+        replace_if_smaller(
+            "route_lease",
+            {
+                "schema_version": route_lease.get("schema_version"),
+                "issued_by": route_lease.get("issued_by"),
+                "mode_contract": route_lease.get("mode_contract"),
+                "selected_lane_id": route_lease.get("selected_lane_id"),
+                "invalidation_inputs": route_lease.get("invalidation_inputs"),
+                "budget": route_lease.get("budget"),
+                "permitted_direct_actions": list(route_lease.get("permitted_direct_actions") or [])[:4],
+                "requires_kernel_when": list(route_lease.get("requires_kernel_when") or [])[:2],
+                "do_not_call_kernel_for": list(route_lease.get("do_not_call_kernel_for") or [])[:2],
+                "policy_counts": route_lease.get("policy_counts"),
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    navigation_index_spine = packet.get("navigation_index_spine")
+    if isinstance(navigation_index_spine, dict):
+        task_openings = (
+            navigation_index_spine.get("task_conditioned_openings")
+            if isinstance(navigation_index_spine.get("task_conditioned_openings"), dict)
+            else {}
+        )
+        first_opening = (
+            task_openings.get("first_opening")
+            if isinstance(task_openings.get("first_opening"), dict)
+            else {}
+        )
+        currentness = (
+            navigation_index_spine.get("currentness")
+            if isinstance(navigation_index_spine.get("currentness"), dict)
+            else {}
+        )
+        source_coupling = (
+            navigation_index_spine.get("source_coupling")
+            if isinstance(navigation_index_spine.get("source_coupling"), dict)
+            else {}
+        )
+        replace_if_smaller(
+            "navigation_index_spine",
+            {
+                "schema_version": navigation_index_spine.get("schema_version"),
+                "output_profile": navigation_index_spine.get("output_profile"),
+                "currentness": {
+                    key: currentness.get(key)
+                    for key in ("status", "freshness_command")
+                    if currentness.get(key) not in (None, "", [], {})
+                },
+                "source_coupling": {
+                    key: source_coupling.get(key)
+                    for key in (
+                        "status",
+                        "safe_to_commit_generated_outputs_without_sources",
+                    )
+                    if source_coupling.get(key) not in (None, "", [], {})
+                },
+                "omission_receipt": navigation_index_spine.get("omission_receipt"),
+                "admission_trimmed_for_entry_packet": True,
+                "task_conditioned_openings": {
+                    "first_opening": {
+                        key: first_opening.get(key)
+                        for key in ("kind_id", "command", "matched_intent_id")
+                        if first_opening.get(key) not in (None, "", [], {})
+                    },
+                    "selected_opening_count": task_openings.get("selected_opening_count"),
+                },
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    for section in ("compliance_diagnostics", "paper_module_freshness_diagnostics"):
+        diagnostics_packet = packet.get(section)
+        if not isinstance(diagnostics_packet, dict) or diagnostics_packet.get("triggered"):
+            continue
+        replace_if_smaller(
+            section,
+            {
+                "status": diagnostics_packet.get("status"),
+                "triggered": diagnostics_packet.get("triggered"),
+                "diagnostic_family": diagnostics_packet.get("diagnostic_family"),
+                "drilldown": diagnostics_packet.get("drilldown"),
+                "reason": diagnostics_packet.get("reason"),
+                "trimmed_for_entry_admission": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    top_schedulable = packet.get("top_schedulable_workitem")
+    if isinstance(top_schedulable, dict) and top_schedulable.get("projection_placeholder"):
+        replace_if_smaller(
+            "top_schedulable_workitem",
+            {
+                "id": top_schedulable.get("id"),
+                "state": top_schedulable.get("state"),
+                "projection_placeholder": True,
+                "drilldown_command": top_schedulable.get("drilldown_command"),
+                "hard_ceiling_handle_compacted": True,
+                "speed_refinement_handle_compacted": True,
+            },
+        )
+
+    allowed_drilldowns = packet.get("allowed_drilldowns")
+    if isinstance(allowed_drilldowns, list):
+        compact_allowed = [
+            {
+                key: row.get(key)
+                for key in ("command", "surface_role")
+                if isinstance(row, dict) and row.get(key) not in (None, "", [], {})
+            }
+            for row in allowed_drilldowns[:3]
+            if isinstance(row, dict)
+        ]
+        if _pretty_json_bytes(compact_allowed) < _pretty_json_bytes(allowed_drilldowns):
+            packet["allowed_drilldowns"] = compact_allowed
+            compacted_sections.append("allowed_drilldowns")
+
+    return compacted_sections
+
+
 def _apply_entry_hard_compaction_steps(
     packet: dict[str, Any],
     *,
@@ -3220,9 +3606,12 @@ def _apply_entry_hard_compaction_steps(
     preserve_capture_reflex: bool = False,
     preserve_observed_state: bool = False,
     preserve_suppressed_rows: bool = False,
+    skip_sections: set[str] | None = None,
 ) -> None:
+    skip = skip_sections or set()
     steps: list[tuple[str, Callable[[Any], Any]]] = [
         ("active_execution_constellation", _hard_compact_active_execution_constellation_for_admission),
+        ("transaction_control_plane", _hard_compact_transaction_control_plane_for_admission),
         ("compliance_diagnostics", _hard_compact_triggered_diagnostics_for_admission),
         ("paper_module_freshness_diagnostics", _hard_compact_triggered_diagnostics_for_admission),
         ("python_target_resolution", _hard_compact_python_target_resolution_for_admission),
@@ -3243,6 +3632,7 @@ def _apply_entry_hard_compaction_steps(
         ),
         ("route_lease", _hard_compact_route_lease_for_admission),
         ("closeout_git_state", _hard_compact_closeout_git_state_for_admission),
+        ("host_resource_pressure", _hard_compact_host_resource_pressure_for_admission),
         ("agent_operating_packet", _hard_compact_agent_operating_packet_for_admission),
         ("active_phase", _hard_compact_active_phase_for_admission),
         ("speed_refinement_routes", _hard_compact_speed_refinement_routes_for_admission),
@@ -3260,6 +3650,8 @@ def _apply_entry_hard_compaction_steps(
     for section, compact_value in steps:
         if _pretty_json_bytes(packet) <= hard_target_bytes:
             break
+        if section in skip:
+            continue
         if packet.get(section) is None:
             continue
         before_section_bytes = _pretty_json_bytes(packet.get(section))
@@ -3276,9 +3668,11 @@ def _compact_entry_section_receipts_for_inline_target(packet: dict[str, Any]) ->
         "entry_surface_diagnostics",
         "route_lease",
         "closeout_git_state",
+        "host_resource_pressure",
         "agent_operating_packet",
         "agent_principle_lens",
         "candidate_runtime_pressure",
+        "transaction_control_plane",
         "top_schedulable_workitem",
         "top_ready_workitem",
     )
@@ -3330,6 +3724,9 @@ def _apply_entry_payload_admission(
     full_diagnostics_requested = _entry_admission_task_requests_full_diagnostics(task_text)
     hard_compacted_sections: list[str] = []
 
+    if not full_diagnostics_requested and packet.pop("debug_trace_command", None) is not None:
+        hard_compacted_sections.append("debug_trace_command")
+
     if packet.get("top_schedulable_workitem") is not None:
         packet["top_schedulable_workitem"] = _compact_entry_workitem_handoff_for_admission(
             packet.get("top_schedulable_workitem")
@@ -3346,6 +3743,9 @@ def _apply_entry_payload_admission(
     )
     packet["closeout_git_state"] = _compact_closeout_git_state_for_admission(
         packet.get("closeout_git_state")
+    )
+    packet["host_resource_pressure"] = _hard_compact_host_resource_pressure_for_admission(
+        packet.get("host_resource_pressure")
     )
     packet["route_lease"] = _compact_route_lease_for_admission(packet.get("route_lease"))
     if selected_lane_id == "navigation_enforcement":
@@ -3380,6 +3780,11 @@ def _apply_entry_payload_admission(
     if selected_lane_id != "navigation_enforcement":
         hard_target_bytes = ENTRY_PACKET_INLINE_TARGET_BYTES - ENTRY_PACKET_ADMISSION_RECEIPT_HEADROOM_BYTES
         if not full_diagnostics_requested:
+            skip_sections = (
+                {"navigation_index_spine"}
+                if selected_lane_id == "system_comprehension_atlas"
+                else set()
+            )
             _apply_entry_hard_compaction_steps(
                 packet,
                 hard_target_bytes=hard_target_bytes,
@@ -3387,9 +3792,15 @@ def _apply_entry_payload_admission(
                 preserve_capture_reflex=selected_lane_id == "agent_principle_authoring",
                 preserve_observed_state=True,
                 preserve_suppressed_rows=selected_lane_id != "active_execution_constellation",
+                skip_sections=skip_sections,
             )
 
-    if packet.pop("command_node_cache", None) is not None:
+    command_node_cache = packet.get("command_node_cache")
+    compact_command_node_cache = _compact_command_node_cache_for_admission(command_node_cache)
+    if compact_command_node_cache:
+        packet["command_node_cache"] = compact_command_node_cache
+        hard_compacted_sections.append("command_node_cache")
+    elif packet.pop("command_node_cache", None) is not None:
         hard_compacted_sections.append("command_node_cache")
 
     after_bytes_without_receipt = _pretty_json_bytes(packet)
@@ -3490,14 +3901,25 @@ def _apply_entry_payload_admission(
                     "status": closeout_git_state.get("status"),
                     "reason": closeout_git_state.get("reason"),
                     "dirty_total": closeout_git_state.get("dirty_total"),
+                    "staged_total": closeout_git_state.get("staged_total"),
+                    "ahead": closeout_git_state.get("ahead"),
+                    "behind": closeout_git_state.get("behind"),
+                    "closeout_ready": closeout_git_state.get("closeout_ready"),
+                    "clean_closeout_ready": closeout_git_state.get("clean_closeout_ready"),
                     "scoped_work_allowed": closeout_git_state.get("scoped_work_allowed"),
                     "scoped_work_gate": closeout_git_state.get("scoped_work_gate"),
+                    "worktrees": closeout_git_state.get("worktrees"),
                     "recommended_lane": closeout_git_state.get("recommended_lane"),
                     "drilldown": "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions",
                     "trimmed_for_entry_admission": True,
                 }.items()
                 if value not in (None, "", [], {})
             }
+        host_resource_pressure = packet.get("host_resource_pressure")
+        if isinstance(host_resource_pressure, dict):
+            packet["host_resource_pressure"] = _hard_compact_host_resource_pressure_for_admission(
+                host_resource_pressure
+            )
         mutation_governance = packet.get("mutation_governance")
         latest_gate = (
             mutation_governance.get("latest_intent_gate")
@@ -3513,6 +3935,7 @@ def _apply_entry_payload_admission(
                     "repo_patch_allowed",
                     "prohibit_file_writes",
                     "prohibit_seed_reentry",
+                    "force_mode",
                 )
                 if latest_gate.get(key) not in (None, "", [], {})
             }
@@ -3522,6 +3945,15 @@ def _apply_entry_payload_admission(
                 "latest_intent_gate": compact_latest_gate,
                 "trimmed_for_entry_admission": True,
             }
+        transaction_control_plane = packet.get("transaction_control_plane")
+        compact_transaction_control_plane = _hard_compact_transaction_control_plane_for_admission(
+            transaction_control_plane if isinstance(transaction_control_plane, dict) else None
+        )
+        if compact_transaction_control_plane != transaction_control_plane:
+            packet["transaction_control_plane"] = compact_transaction_control_plane
+            packet["entry_payload_admission"][
+                "post_receipt_compacted_section_count"
+            ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
         allowed = packet.get("allowed_drilldowns")
         if isinstance(allowed, list):
             compact_allowed = [
@@ -3618,6 +4050,8 @@ def _apply_entry_payload_admission(
                     "invalidation_inputs",
                     "budget",
                     "permitted_direct_actions",
+                    "requires_kernel_when",
+                    "do_not_call_kernel_for",
                     "policy_counts",
                     "omitted_policy_tail_counts",
                     "trimmed_for_entry_admission",
@@ -3626,7 +4060,7 @@ def _apply_entry_payload_admission(
                 if route_lease.get(key) not in (None, "", [], {})
             }
         spine = packet.get("navigation_index_spine")
-        if isinstance(spine, dict):
+        if isinstance(spine, dict) and selected_lane_id != "system_comprehension_atlas":
             task_openings = (
                 spine.get("task_conditioned_openings")
                 if isinstance(spine.get("task_conditioned_openings"), dict)
@@ -3641,11 +4075,11 @@ def _apply_entry_payload_admission(
                     "available",
                     "output_profile",
                     "summary",
-                    "top_projection_gaps",
+                    "route_digest",
+                    "coverage_closure",
                     "entry_policy",
                     "currentness",
                     "source_coupling",
-                    "evidence_drilldowns",
                     "omission_receipt",
                     "admission_trimmed_for_entry_packet",
                     "hard_ceiling_handle_compacted",
@@ -3663,7 +4097,151 @@ def _apply_entry_payload_admission(
                 )
                 if task_openings.get(key) not in (None, "", [], {})
             }
+            if _pretty_json_bytes(packet) > ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES:
+                first_opening = task_openings.get("first_opening")
+                compact_openings: dict[str, Any] = {}
+                if isinstance(first_opening, dict):
+                    compact_openings["first_opening"] = {
+                        key: first_opening.get(key)
+                        for key in ("kind_id", "command", "matched_intent_id")
+                        if first_opening.get(key) not in (None, "", [], {})
+                    }
+                matched_intent_ids = list(task_openings.get("matched_intent_ids") or [])
+                if matched_intent_ids:
+                    compact_openings["matched_intent_ids"] = matched_intent_ids[:2]
+                    compact_openings["matched_intent_ids_omitted"] = max(0, len(matched_intent_ids) - 2)
+                if task_openings.get("selected_opening_count") not in (None, "", [], {}):
+                    compact_openings["selected_opening_count"] = task_openings.get("selected_opening_count")
+                packet["navigation_index_spine"] = {
+                    key: packet["navigation_index_spine"].get(key)
+                    for key in (
+                        "schema_version",
+                        "output_profile",
+                        "currentness",
+                        "source_coupling",
+                        "omission_receipt",
+                        "admission_trimmed_for_entry_packet",
+                        "hard_ceiling_handle_compacted",
+                    )
+                    if packet["navigation_index_spine"].get(key) not in (None, "", [], {})
+                }
+                if compact_openings:
+                    packet["navigation_index_spine"]["task_conditioned_openings"] = compact_openings
+                packet["entry_payload_admission"][
+                    "post_receipt_compacted_section_count"
+                ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
+        active_execution = packet.get("active_execution_constellation")
+        if (
+            isinstance(active_execution, dict)
+            and _pretty_json_bytes(packet) > ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES
+        ):
+            work_priority = (
+                active_execution.get("work_priority")
+                if isinstance(active_execution.get("work_priority"), dict)
+                else {}
+            )
+            compact_lanes: list[dict[str, Any]] = []
+            for lane in list(work_priority.get("lanes") or [])[:4]:
+                if not isinstance(lane, dict):
+                    continue
+                top = lane.get("top") if isinstance(lane.get("top"), dict) else {}
+                compact_lane = {
+                    key: lane.get(key)
+                    for key in ("lane_id", "executable_now", "blocked")
+                    if lane.get(key) not in (None, "", [], {})
+                }
+                if top:
+                    compact_lane["top"] = {
+                        key: top.get(key)
+                        for key in ("id", "state", "schedulable")
+                        if top.get(key) not in (None, "", [], {})
+                    }
+                compact_lanes.append(compact_lane)
+            live_sessions = (
+                active_execution.get("live_sessions")
+                if isinstance(active_execution.get("live_sessions"), dict)
+                else {}
+            )
+            live_counts = live_sessions.get("counts") if isinstance(live_sessions.get("counts"), dict) else {}
+            compact_live_counts = {
+                key: live_counts.get(key)
+                for key in (
+                    "active_claims",
+                    "effective_active_sessions",
+                    "orphaned_active_sessions",
+                    "claim_collisions",
+                )
+                if live_counts.get(key) not in (None, "", [], {})
+            }
+            declared_anchor = (
+                active_execution.get("declared_anchor")
+                if isinstance(active_execution.get("declared_anchor"), dict)
+                else {}
+            )
+            demotion_guard = (
+                active_execution.get("demotion_guard")
+                if isinstance(active_execution.get("demotion_guard"), dict)
+                else {}
+            )
+            continuation_policy = (
+                active_execution.get("continuation_selection_policy")
+                if isinstance(active_execution.get("continuation_selection_policy"), dict)
+                else {}
+            )
+            projection_freshness_status = active_execution.get("projection_freshness_status")
+            packet["active_execution_constellation"] = {
+                "kind": active_execution.get("kind") or "active_execution_constellation",
+                "schema_version": active_execution.get("schema_version") or "active_execution_constellation_v0",
+                "view_profile": "entry_admission_hard_compact",
+                "declared_anchor": {
+                    key: declared_anchor.get(key)
+                    for key in ("phase_id", "status")
+                    if declared_anchor.get(key) not in (None, "", [], {})
+                },
+                "projection_freshness": {"status": projection_freshness_status}
+                if projection_freshness_status not in (None, "", [], {})
+                else {},
+                "projection_freshness_status": projection_freshness_status,
+                "work_priority": {
+                    "view_counts": work_priority.get("view_counts") if isinstance(work_priority, dict) else {},
+                    "lanes": compact_lanes,
+                    "drilldown": "./repo-python kernel.py --pulse",
+                },
+                "live_sessions": {
+                    "counts": compact_live_counts,
+                    "claim_topology_summary": {},
+                },
+                "demotion_guard": {
+                    "status": demotion_guard.get("status"),
+                    "closeable": demotion_guard.get("closeable"),
+                    "blocker_count": demotion_guard.get("blocker_count"),
+                    "blocker_topology": {},
+                },
+                "continuation_selection_policy": {
+                    "status": continuation_policy.get("status"),
+                },
+                "omission_receipt": {
+                    "reason": "Entry admission keeps scheduler lanes and counts; pulse/full projection carries topology.",
+                    "drilldown": "./repo-python kernel.py --pulse",
+                },
+                "trimmed_for_entry_admission": True,
+                "hard_ceiling_handle_compacted": True,
+            }
+            packet["entry_payload_admission"][
+                "post_receipt_compacted_section_count"
+            ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
         refresh_admission_size()
+        if (
+            int(packet["entry_payload_admission"].get("output_bytes") or 0)
+            > ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES
+            and not str(task_text or "").lower().strip().startswith("command substrate fast path")
+            and selected_lane_id != "system_comprehension_atlas"
+            and packet.pop("command_node_cache", None) is not None
+        ):
+            packet["entry_payload_admission"][
+                "post_receipt_compacted_section_count"
+            ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
+            refresh_admission_size()
     if (
         packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
         and not full_diagnostics_requested
@@ -3678,6 +4256,27 @@ def _apply_entry_payload_admission(
                 "post_receipt_compacted_section_count"
             ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
         refresh_admission_size()
+    if (
+        packet.get("speed_refinement_routes") is not None
+        and selected_lane_id == "navigation_enforcement"
+        and not full_diagnostics_requested
+        and int(packet["entry_payload_admission"].get("output_bytes") or 0)
+        > ENTRY_PACKET_SPEED_REFINEMENT_TARGET_BYTES
+    ):
+        speed_compacted_sections = _compact_speed_refinement_entry_for_admission(packet)
+        if speed_compacted_sections:
+            packet["entry_payload_admission"]["speed_refinement_target_bytes"] = (
+                ENTRY_PACKET_SPEED_REFINEMENT_TARGET_BYTES
+            )
+            packet["entry_payload_admission"][
+                "speed_refinement_compacted_sections"
+            ] = speed_compacted_sections
+            packet["entry_payload_admission"][
+                "post_receipt_compacted_section_count"
+            ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + len(
+                speed_compacted_sections
+            )
+            refresh_admission_size()
     return packet
 
 
@@ -6312,6 +6911,59 @@ def _task_mentions_active_execution_constellation(repo_root: Path, task: str | N
     if any(phrase in text for phrase in phrases):
         return True
     tokens = set(text.split())
+    active_owner_context = bool(
+        {
+            "agent",
+            "agents",
+            "codex",
+            "claude",
+            "session",
+            "sessions",
+            "thread",
+            "threads",
+            "work",
+            "ledger",
+            "claim",
+            "claims",
+            "owner",
+            "owners",
+            "head",
+        }
+        & tokens
+    )
+    contention_phrases = (
+        "concurrent agent",
+        "concurrent agents",
+        "concurrent codex",
+        "parallel codex",
+        "two agents",
+        "another agent",
+        "other agent",
+        "sibling agent",
+        "sibling session",
+        "same path",
+        "same file",
+        "same files",
+        "same source",
+        "active claim",
+        "active claims",
+        "live claim",
+        "live claims",
+        "path claim",
+        "path claims",
+        "claim collision",
+        "claimed path",
+        "claimed file",
+        "work ledger claim",
+        "head raced",
+        "head moved",
+        "actively editing",
+        "actively edited",
+        "step on each other",
+        "stand down",
+    )
+    if active_owner_context and any(phrase in text for phrase in contention_phrases):
+        return True
     mentions_phase = "subphase" in tokens or ("sub" in tokens and "phase" in tokens)
     mentions_runtime = bool({"active", "current", "stale", "stagnant", "static", "concurrency"} & tokens)
     mentions_work_ledger = "workitem" in tokens or ("work" in tokens and "ledger" in tokens)
@@ -6491,6 +7143,47 @@ def _task_mentions_autonomous_seed_framework(task: str | None) -> bool:
         "no null edit",
     )
     return any(phrase in text for phrase in phrases)
+
+
+def _task_mentions_autonomous_continuation(task: str | None) -> bool:
+    text = " ".join(str(task or "").strip().casefold().replace("-", " ").replace("_", " ").split())
+    if not text:
+        return False
+    phrases = (
+        "queued continuation seed",
+        "autonomous continuation",
+        "type a autonomous continuation",
+        "type a continuation",
+        "a3 autonomous continue",
+        "recover truth from substrate",
+        "recover local truth",
+        "latest response bundle",
+        "response bundle",
+        "saved trace capsule",
+        "read saved trace capsule",
+        "inline paste",
+        "inline pasted trace",
+        "land concrete improvement",
+        "next best continuation",
+        "choose the next best continuation",
+        "choose continuation or pivot",
+        "no null continuation",
+    )
+    if any(phrase in text for phrase in phrases):
+        return True
+    terms = {
+        part.strip(".,:;!?()[]{}\"'`")
+        for part in text.split()
+        if part.strip(".,:;!?()[]{}\"'`")
+    }
+    return (
+        {"continuation", "seed"} <= terms
+        and (
+            {"trace", "capsule"} <= terms
+            or {"response", "bundle"} <= terms
+            or "substrate" in terms
+        )
+    )
 
 
 def _task_mentions_autonomous_seed_replay_continuity(task: str | None) -> bool:
@@ -7812,6 +8505,11 @@ def build_entry_packet(
     )
     is_mechanism_workitem_affinity = _task_mentions_mechanism_workitem_affinity(task_text)
     is_doctrine_population = _task_mentions_doctrine_population(task_text)
+    is_autonomous_continuation = (
+        _task_mentions_autonomous_continuation(task_text)
+        and not is_type_b_to_type_a_handoff
+        and not is_doctrine_population
+    )
     is_local_to_general_propagation = (
         (
             _task_mentions_local_to_general_propagation(repo_root, task_text)
@@ -7819,6 +8517,7 @@ def build_entry_packet(
         )
         and not is_type_b_to_type_a_handoff
         and not is_doctrine_population
+        and not is_autonomous_continuation
     )
     is_agent_principle_authoring = (
         _task_mentions_agent_principle_authoring(task_text)
@@ -7842,12 +8541,14 @@ def build_entry_packet(
         _task_mentions_navigation_repair(task_text)
         and not is_doctrine_population
         and not mentions_autonomous_seed_replay_continuity
+        and not is_autonomous_continuation
     )
     is_autonomous_seed_framework = (
         mentions_autonomous_seed_framework
         and (not is_speed_refinement or mentions_autonomous_seed_replay_continuity)
         and not is_doctrine_population
         and not is_navigation_repair
+        and not is_autonomous_continuation
     )
     is_speed_refinement_only = (
         is_speed_refinement
@@ -7866,6 +8567,7 @@ def build_entry_packet(
         and not is_doctrine_population
         and not is_navigation_repair
         and not is_local_to_general_propagation
+        and not is_autonomous_continuation
     )
     is_frontend_capability_discovery = _task_mentions_frontend_capability_discovery(task_text)
     frontend_capability_slices = (
@@ -7912,6 +8614,7 @@ def build_entry_packet(
         and not is_agent_principle_authoring
         and not is_organisation_control_plane
         and not is_local_to_general_propagation
+        and not is_autonomous_continuation
         and state_axis is None
         and not is_state_axis_overview
         and not is_projection_closure_audit
@@ -7941,6 +8644,7 @@ def build_entry_packet(
         and not is_organisation_control_plane
         and not is_mechanism_workitem_affinity
         and not is_local_to_general_propagation
+        and not is_autonomous_continuation
         and state_axis is None
         and not is_state_axis_overview
     ) or is_projection_closure_audit or is_speed_refinement_only
@@ -7981,6 +8685,7 @@ def build_entry_packet(
         and not is_active_execution_constellation
         and not is_agent_trouble_diagnosis_only
         and not is_cap_reflex_improvement
+        and not is_autonomous_continuation
         and not is_navigation
         and not is_local_to_general_propagation
         and not is_publication_lane_push_recovery
@@ -8001,6 +8706,8 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "projection_closure_audit"
             if is_projection_closure_audit
+            else "autonomous_continuation"
+            if is_autonomous_continuation
             else "local_to_general_propagation"
             if is_local_to_general_propagation
             else "type_a_autonomous_seed_framework"
@@ -8056,6 +8763,8 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "Task asks what doctrine/state is not projected; route to the projection-closure audit ratchet."
             if is_projection_closure_audit
+            else "Task is a queued Type A autonomous continuation seed; recover Trace Capsule, response-bundle, inline-paste, and live substrate evidence before choosing a no-null continuation or pivot through the autonomous-continuation owner."
+            if is_autonomous_continuation
             else "Task asks to turn a local lesson, operator snippet, agent trace/meta-diagnostics row, failure-class packet, or runtime/launcher receipt gap into a non-overfit system refinement; open local-to-general context before mutating an owner surface."
             if is_local_to_general_propagation
             else "Task asks about autonomous seeds, wake prompts, repeated prompt clusters, or seed cohorts; open the Type A autonomous-seed framework, prompt-authoring standard, seed corpus, and wake-prompt diagnostics before generic cognitive-operator routing."
@@ -8119,6 +8828,8 @@ def build_entry_packet(
         if is_disclosure_query and task_text and not is_projection_closure_audit
         else "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json --diagnostics-summary"
         if is_trace_diagnostics_generalization
+        else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
+        if is_autonomous_continuation and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_local_to_general_propagation and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
@@ -8277,6 +8988,8 @@ def build_entry_packet(
         if is_disclosure_query and not is_projection_closure_audit
         else "projection_closure_audit"
         if is_projection_closure_audit
+        else "autonomous_continuation"
+        if is_autonomous_continuation
         else "local_to_general_propagation"
         if is_local_to_general_propagation
         else "type_a_autonomous_seed_framework"
@@ -8460,6 +9173,39 @@ def build_entry_packet(
             "error_type": type(exc).__name__,
             "error": str(exc)[:240],
         }
+    try:
+        from system.lib import resource_pressure as _resource_pressure
+
+        host_resource_pressure = _resource_pressure.compact_host_resource_pressure_packet(
+            _resource_pressure.build_host_resource_pressure_packet(repo_root)
+        )
+        host_resource_pressure["entry_policy"] = (
+            "Agents should use these cleanup and owner-check command groups when resource "
+            "pressure appears during entry, preflight, commit preflight, or closeout."
+        )
+        host_resource_pressure["drilldown"] = "./repo-python -m system.lib.resource_pressure --compact"
+        host_resource_pressure_cache = {
+            "status": "generated",
+            "fingerprint": _resource_pressure.resource_pressure_cache_fingerprint(
+                host_resource_pressure
+            ),
+        }
+    except Exception as exc:
+        host_resource_pressure = {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "unknown",
+            "admission": "unknown",
+            "normal_work_allowed": True,
+            "reason": "host_resource_pressure_projection_failed",
+            "error": str(exc)[:240],
+            "drilldown": "./repo-python -m system.lib.resource_pressure --compact",
+        }
+        host_resource_pressure_cache = {
+            "status": "error",
+            "reason": "host_resource_pressure_projection_failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:240],
+        }
     navigation_index_spine = None
     if recognized_situation in {
         "system_comprehension_atlas",
@@ -8483,6 +9229,7 @@ def build_entry_packet(
         )
     command_node_cache = {
         "entry_closeout_git_state": closeout_git_state_cache,
+        "entry_host_resource_pressure": host_resource_pressure_cache,
     }
     if isinstance(navigation_index_spine, dict) and isinstance(navigation_index_spine.get("cache"), dict):
         command_node_cache["entry_navigation_index_spine"] = navigation_index_spine["cache"]
@@ -8586,6 +9333,7 @@ def build_entry_packet(
         "speed_refinement_routes": _speed_refinement_routes_card() if is_speed_refinement_only else None,
         "transaction_control_plane": transaction_control_plane,
         "closeout_git_state": closeout_git_state,
+        "host_resource_pressure": host_resource_pressure,
         "command_node_cache": command_node_cache,
         "mutation_governance": {
             "latest_intent_gate": latest_intent_gate,
@@ -8949,13 +9697,73 @@ def cmd_constitution_workspace_replay(
     return kernel_output.emit_json(payload)
 
 
+def cached_entry_packet(
+    repo_root: Path,
+    *,
+    task: str | None = None,
+    context_budget: int = 12000,
+    include_transaction_control_plane: bool | None = None,
+) -> dict[str, Any]:
+    """Return the normal entry packet through a short exact-task cache."""
+    if include_transaction_control_plane is True:
+        return build_entry_packet(
+            repo_root,
+            task=task,
+            context_budget=context_budget,
+            include_transaction_control_plane=True,
+        )
+
+    from system.lib.command_node_cache import cached_command_node
+    from system.lib.kernel.entry_fast import (
+        DEFAULT_ENTRY_PACKET_CACHE_TTL_S,
+        ENTRY_PACKET_CACHE_NODE_ID,
+        default_entry_packet_cache_manifest,
+    )
+
+    task_text = str(task or "").strip()
+    cache_key, input_paths = default_entry_packet_cache_manifest(
+        repo_root,
+        task=task_text,
+        context_budget=context_budget,
+        include_transaction_control_plane=False,
+    )
+
+    def _build() -> dict[str, Any]:
+        return build_entry_packet(
+            repo_root,
+            task=task_text,
+            context_budget=context_budget,
+            include_transaction_control_plane=False,
+        )
+
+    payload, cache_status = cached_command_node(
+        repo_root,
+        node_id=ENTRY_PACKET_CACHE_NODE_ID,
+        key=cache_key,
+        input_paths=input_paths,
+        ttl_s=DEFAULT_ENTRY_PACKET_CACHE_TTL_S,
+        builder=_build,
+        freshness_policy="ttl_for_dynamic_entry_packet_plus_static_source_manifest",
+        dynamic_inputs_manifested=False,
+    )
+    packet = dict(payload) if isinstance(payload, dict) else _build()
+    cache_nodes = packet.get("command_node_cache")
+    if not isinstance(cache_nodes, dict):
+        cache_nodes = {}
+    else:
+        cache_nodes = dict(cache_nodes)
+    cache_nodes["entry_packet_exact"] = cache_status
+    packet["command_node_cache"] = cache_nodes
+    return packet
+
+
 def cmd_entry(
     task: str | None = None,
     *,
     context_budget: int = 12000,
     include_transaction_control_plane: bool | None = None,
 ) -> int:
-    payload = build_entry_packet(
+    payload = cached_entry_packet(
         kernel_state.REPO_ROOT,
         task=task,
         context_budget=context_budget,
@@ -8977,5 +9785,6 @@ __all__ = [
     "build_what_am_i_record",
     "build_constitution_workspace_replay",
     "write_constitution_workspace_receipt",
+    "cached_entry_packet",
     "build_entry_packet",
 ]

@@ -64,6 +64,7 @@ from system.lib.navigation_surface_contracts import (
     ENTRY_REPLACEMENT,
     atlas_projection_contract,
 )
+from system.lib.autonomous_seed_launch import derive_type_a_seed_launch_governance
 from system.lib.principle_projection import resolve_principle_capsule
 from system.lib import prompt_ledger_events, task_ledger_events
 from system.lib.teleology_intent_capsule import build_teleology_intent_capsule
@@ -1122,6 +1123,75 @@ def _card_row(module: dict[str, Any], *, index: dict[str, Any], repo_root: Path)
     if compression.get("safe_drilldown"):
         update["safe_drilldown"] = compression["safe_drilldown"]
     row.update(update)
+    return row
+
+
+def _paper_module_preview_list(previews: Mapping[str, Any], key: str, *, limit: int, max_chars: int) -> list[str]:
+    raw = previews.get(key)
+    if isinstance(raw, list):
+        values = raw
+    elif isinstance(raw, str) and raw.strip():
+        values = [raw]
+    else:
+        return []
+    return [_truncate_words(str(item), max_chars=max_chars) for item in values[:limit] if str(item).strip()]
+
+
+def _paper_module_context_row(module: dict[str, Any], *, index: dict[str, Any], repo_root: Path) -> dict[str, Any]:
+    row = _card_row(module, index=index, repo_root=repo_root)
+    slug = str(row.get("slug") or "")
+    previews = module.get("previews") if isinstance(module.get("previews"), dict) else {}
+    module_file = repo_root / str(module.get("file") or "")
+    depends_on = [str(item) for item in list(module.get("depends_on") or [])]
+    depended_on_by = [str(item) for item in list(module.get("depended_on_by") or [])]
+    gap = (
+        _extract_markdown_section(module_file, "Gap / What Will is signaling", max_chars=700)
+        or _extract_markdown_section(module_file, "Gap", max_chars=700)
+    )
+    deliverables = _paper_module_preview_list(previews, "deliverables", limit=8, max_chars=260)
+    code_loci = _paper_module_preview_list(previews, "code_loci", limit=12, max_chars=180)
+    planned_surfaces = _paper_module_preview_list(previews, "planned_surfaces", limit=8, max_chars=180)
+    row.update(
+        {
+            "row_id": f"paper_module:{slug}::context",
+            "band": "context",
+            "section_summaries": {
+                "tldr": _truncate_words(str(previews.get("tldr") or ""), max_chars=900),
+                "intent": _extract_markdown_section(module_file, "Intent", max_chars=900),
+                "gap": gap,
+            },
+            "ontology_table_summary": (
+                _extract_markdown_section(module_file, "Ontology table", max_chars=700)
+                or _extract_markdown_section(module_file, "Ontology", max_chars=700)
+            ),
+            "deliverables": deliverables,
+            "code_loci_summary": {
+                "top_paths": code_loci,
+                "planned_surfaces": planned_surfaces,
+                "freshness": module.get("code_loci_freshness") or {},
+            },
+            "dependency_edges": {
+                "depends_on": depends_on[:12],
+                "depends_on_omitted": max(len(depends_on) - 12, 0),
+                "depended_on_by": depended_on_by[:12],
+                "depended_on_by_omitted": max(len(depended_on_by) - 12, 0),
+            },
+            "evidence_commands": [
+                f"./repo-python kernel.py --paper-module {slug}",
+                f"./repo-python kernel.py --option-surface paper_modules --band card --ids {slug}",
+            ],
+            "omission_receipt": {
+                "omitted": [
+                    "full markdown body",
+                    "full section text beyond bounded summaries",
+                    "transitive dependency closure beyond first-order edges",
+                    "full validation report payload",
+                ],
+                "reason": "The context band is a bounded task packet; source authority stays in authored markdown and generated paper-module sidecars.",
+                "drilldown": f"./repo-python kernel.py --paper-module {slug}",
+            },
+        }
+    )
     return row
 
 
@@ -14902,6 +14972,25 @@ def _type_a_seed_axis(entry: Mapping[str, Any], key: str) -> str:
     return value or "missing"
 
 
+def _type_a_seed_launch_shape(entry: Mapping[str, Any]) -> Mapping[str, Any]:
+    payload = _type_a_seed_payload(entry)
+    launch_shape = payload.get("launch_shape")
+    return launch_shape if isinstance(launch_shape, Mapping) else {}
+
+
+def _type_a_seed_launch_axis(entry: Mapping[str, Any], key: str) -> str:
+    value = str(_type_a_seed_launch_shape(entry).get(key) or "").strip()
+    return value or "missing"
+
+
+def _type_a_seed_launch_governance_from_shape(launch_shape: Mapping[str, Any]) -> dict[str, Any]:
+    return derive_type_a_seed_launch_governance(launch_shape)
+
+
+def _type_a_seed_launch_governance(entry: Mapping[str, Any]) -> dict[str, Any]:
+    return _type_a_seed_launch_governance_from_shape(_type_a_seed_launch_shape(entry))
+
+
 def _type_a_seed_cluster_id(entry: Mapping[str, Any]) -> str:
     return f"lane:{_normalize_cluster_id(_type_a_seed_axis(entry, 'lane'))}"
 
@@ -14934,6 +15023,23 @@ def _type_a_seed_cluster_rows(entries: list[dict[str, Any]]) -> list[dict[str, A
         depth_tier_counts = Counter(_type_a_seed_axis(entry, "depth_tier") for entry in group_entries)
         mode_counts = Counter(_type_a_seed_axis(entry, "mode") for entry in group_entries)
         execution_mode_counts = Counter(_type_a_seed_axis(entry, "execution_mode") for entry in group_entries)
+        resource_weight_counts = Counter(
+            _type_a_seed_launch_axis(entry, "resource_weight")
+            for entry in group_entries
+        )
+        producer_dependency_counts = Counter(
+            _type_a_seed_launch_axis(entry, "producer_dependency")
+            for entry in group_entries
+        )
+        governance_rows = [_type_a_seed_launch_governance(entry) for entry in group_entries]
+        launch_order_counts = Counter(
+            str(row.get("launch_order") or "missing")
+            for row in governance_rows
+        )
+        producer_policy_counts = Counter(
+            str(row.get("producer_policy") or "missing")
+            for row in governance_rows
+        )
         latest_json_mtime = max(
             (str(entry.get("json_mtime") or "") for entry in group_entries),
             default="",
@@ -14952,6 +15058,21 @@ def _type_a_seed_cluster_rows(entries: list[dict[str, Any]]) -> list[dict[str, A
                 "depth_tier_counts": dict(sorted(depth_tier_counts.items())),
                 "mode_counts": dict(sorted(mode_counts.items())),
                 "execution_mode_counts": dict(sorted(execution_mode_counts.items())),
+                "resource_weight_counts": dict(sorted(resource_weight_counts.items())),
+                "producer_dependency_counts": dict(sorted(producer_dependency_counts.items())),
+                "launch_governance": {
+                    "status": "metadata_derived",
+                    "launch_order_counts": dict(sorted(launch_order_counts.items())),
+                    "producer_policy_counts": dict(sorted(producer_policy_counts.items())),
+                    "host_heavy_count": resource_weight_counts.get("host_heavy", 0),
+                    "producer_wait_count": producer_dependency_counts.get("producer_wait", 0),
+                    "producer_degraded_count": producer_dependency_counts.get("producer_degraded", 0),
+                    "missing_shape_count": resource_weight_counts.get("missing", 0),
+                    "controller_rule": (
+                        "Prefer cheap independent lanes first; serialize or defer host-heavy lanes "
+                        "under host pressure; distinguish producer_wait from producer_degraded before launch."
+                    ),
+                },
                 "navigation_map_count": sum(1 for entry in group_entries if entry.get("navigation_map_exists")),
                 "verification_command_count": sum(
                     len(entry.get("verification_commands") or []) for entry in group_entries
@@ -15013,6 +15134,10 @@ def _type_a_seed_base_row(entry: Mapping[str, Any], *, band: str) -> dict[str, A
     current_focus = _truncate_words(str(payload.get("current_focus") or ""), max_chars=300)
     next_wave = entry.get("next_wave") if isinstance(entry.get("next_wave"), Mapping) else {}
     next_objective = _truncate_words(str(next_wave.get("objective") or ""), max_chars=260)
+    launch_shape_payload = payload.get("launch_shape")
+    launch_shape = dict(launch_shape_payload) if isinstance(launch_shape_payload, Mapping) else {}
+    launch_shape_status = "present" if launch_shape else "launch_shape_missing_advisory"
+    launch_governance = _type_a_seed_launch_governance_from_shape(launch_shape)
     verification_commands = list(entry.get("verification_commands") or [])
     watchpoints = [
         _truncate_words(str(item), max_chars=180)
@@ -15106,6 +15231,18 @@ def _type_a_seed_base_row(entry: Mapping[str, Any], *, band: str) -> dict[str, A
             "depth_tier": payload.get("depth_tier"),
             "mode": payload.get("mode"),
         },
+        "launch_shape": {
+            "status": launch_shape_status,
+            "resource_weight": launch_shape.get("resource_weight"),
+            "validation_profile": launch_shape.get("validation_profile"),
+            "snapshot_policy": launch_shape.get("snapshot_policy"),
+            "producer_dependency": launch_shape.get("producer_dependency"),
+            "degraded_mode_policy": launch_shape.get("degraded_mode_policy"),
+            "watch_condition": launch_shape.get("watch_condition"),
+            "source_field": "launch_shape",
+            "missing_shape_is_advisory": not bool(launch_shape),
+        },
+        "launch_governance": launch_governance,
         "purpose": goal or next_objective,
         "governing_doctrine": [
             str(TYPE_A_AUTONOMOUS_SEED_STANDARD),
@@ -15163,7 +15300,8 @@ def _type_a_seed_base_row(entry: Mapping[str, Any], *, band: str) -> dict[str, A
             "public_release_safe": False,
             "allowed_payload": (
                 "seed ids, source refs, owner commands, bounded goal/current-focus summaries, "
-                "validation routes, currentness, and private-root disclosure posture"
+                "launch-shape metadata, launch-governance hints, validation routes, currentness, "
+                "and private-root disclosure posture"
             ),
             "forbidden_payload": (
                 "raw_seed.md bodies, full seed markdown bodies, operator chat, prompt-shelf raw text, "
@@ -15329,7 +15467,11 @@ def build_type_a_autonomous_seeds_option_surface(
                 else "type_a_autonomous_seed_metadata_owner_card"
             ),
             "drilldown_by": "lane" if band == "cluster_flag" else "seed_id",
-            "grouping_keys": ["lane", "scope_shape", "depth_tier", "mode"] if band == "cluster_flag" else [],
+            "grouping_keys": (
+                ["lane", "scope_shape", "depth_tier", "mode", "resource_weight", "producer_dependency"]
+                if band == "cluster_flag"
+                else []
+            ),
             "cluster_count": len(rows) if band == "cluster_flag" else None,
             "navigation_map_count": navigation_map_count,
             "privacy_boundary": "metadata-only; raw seed/operator/proof bodies stay behind source routes",
@@ -15851,7 +15993,8 @@ def build_option_surface(
     selected_ids = parse_ids(ids)
     generated_at = _utc_now()
 
-    if normalized_band not in OPTION_SURFACE_BANDS:
+    paper_module_context_band = normalized_kind == "paper_modules" and normalized_band == "context"
+    if normalized_band not in OPTION_SURFACE_BANDS and not paper_module_context_band:
         return _with_option_surface_contract(
             _profile_gap_payload(
                 repo_root=root,
@@ -16398,6 +16541,8 @@ def build_option_surface(
         rows = [_atom_row(module, index=index) for module in rows_source]
     elif normalized_band == "card":
         rows = [_card_row(module, index=index, repo_root=root) for module in rows_source]
+    elif normalized_band == "context":
+        rows = [_paper_module_context_row(module, index=index, repo_root=root) for module in rows_source]
     else:
         rows = [_flag_row(module, index=index) for module in rows_source]
 
@@ -16417,7 +16562,7 @@ def build_option_surface(
         "governing_standard": {
             "ref": str(PAPER_MODULE_STANDARD),
             "schema_version": _load_json(standard_path).get("schema_version"),
-            "owned_bands": ["cluster_flag", "atom", "flag", "card"],
+            "owned_bands": ["cluster_flag", "atom", "flag", "card", "context"],
         },
         "theory_ref": f"{NAVIGATION_THEORY}::Refinement: Option Surface, Not Trigger Zoo",
         "skill_ref": str(PROFILE_SKILL),
@@ -16505,6 +16650,10 @@ def build_option_surface(
             {
                 "command": "./repo-python kernel.py --option-surface paper_modules --band card --ids <slug1>,<slug2>",
                 "reason": "Drill selected ids without guessing hidden keywords.",
+            },
+            {
+                "command": "./repo-python kernel.py --option-surface paper_modules --band context --ids <slug>",
+                "reason": "Open the bounded task packet for one paper module before source-authority evidence.",
             },
         ],
         "warnings": [],

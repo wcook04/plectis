@@ -38,9 +38,9 @@
       "anchor_count": 7,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 12603,
+      "byte_count": 12649,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 331,
+      "line_count": 332,
       "material_class": "public_macro_tool_body",
       "module_id": "operator_handoff_prompt_fingerprints_dependency_body_import",
       "required_anchors": [
@@ -56,9 +56,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
       "source_role": "Macro prompt-shelf fingerprint matching dependency reused by operator_handoff_linkage for deterministic normalization, anchors, and token overlap without introducing a new fuzzy matching package.",
-      "source_sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "source_sha256": "ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
-      "target_sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857"
+      "target_sha256": "ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431"
     },
     {
       "anchor_count": 7,

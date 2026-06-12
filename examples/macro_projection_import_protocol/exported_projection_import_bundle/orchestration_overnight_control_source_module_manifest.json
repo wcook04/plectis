@@ -58,9 +58,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 37358,
+      "byte_count": 38742,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 974,
+      "line_count": 1009,
       "material_class": "public_macro_tool_body",
       "module_id": "pipeline_overnight_control_body_import",
       "required_anchors": [
@@ -74,9 +74,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_orchestration_launchd_bridge_provider_browser_session_export",
       "source_ref": "pipeline_overnight.py",
       "source_role": "Unattended synth-refresh, phase-harbor, launch-agent, wake-agent, and overnight re-arm control entrypoint.",
-      "source_sha256": "b08aa317822f51e8bf5d758aac03399d8946a22252d4ca0ccaf902d6a41089a7",
+      "source_sha256": "d73337db6a56effd68133dc4308e0a3515b46469a35543de306aae2fca66f36b",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
-      "target_sha256": "b08aa317822f51e8bf5d758aac03399d8946a22252d4ca0ccaf902d6a41089a7"
+      "target_sha256": "d73337db6a56effd68133dc4308e0a3515b46469a35543de306aae2fca66f36b"
     },
     {
       "anchor_count": 5,
@@ -130,9 +130,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 30476,
+      "byte_count": 32387,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 836,
+      "line_count": 896,
       "material_class": "public_macro_tool_body",
       "module_id": "pipeline_overnight_test_body_import",
       "required_anchors": [
@@ -146,9 +146,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_orchestration_launchd_bridge_provider_browser_session_export",
       "source_ref": "system/server/tests/test_pipeline_overnight.py",
       "source_role": "Focused overnight-pipeline regressions for synth-refresh separation, dock-gated refresh, abort restoration, and launch-agent permission fallback.",
-      "source_sha256": "d5f440c72d24903cf2a31e6ab4f95170923d340a9a268e645765beaebaa6d147",
+      "source_sha256": "6fa2df3fb1acc9fffd9b2b7d95689a2e405a12ca05d41cd7a1d1c863e630f4da",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
-      "target_sha256": "d5f440c72d24903cf2a31e6ab4f95170923d340a9a268e645765beaebaa6d147"
+      "target_sha256": "6fa2df3fb1acc9fffd9b2b7d95689a2e405a12ca05d41cd7a1d1c863e630f4da"
     },
     {
       "anchor_count": 5,

@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 300634,
+      "byte_count": 304224,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 6828,
+      "line_count": 6898,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_source_body_import",
       "required_anchors": [
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro process-trace builder that turns observable Claude/Codex tool-call records into span, route-compliance, bottleneck, and compactness ledgers while excluding prompt bodies, hidden reasoning, and raw tool-output bodies.",
-      "source_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
+      "source_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f"
+      "target_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709"
     },
     {
       "anchor_count": 5,
@@ -57,9 +57,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 118552,
+      "byte_count": 212607,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2806,
+      "line_count": 5036,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_test_body_import",
       "required_anchors": [
@@ -73,9 +73,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/server/tests/test_agent_execution_trace.py",
       "source_role": "Focused regression-test body for the macro agent-execution trace pipeline, using synthetic JSONL fixtures instead of live Claude/Codex account/session state.",
-      "source_sha256": "5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a",
+      "source_sha256": "465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
-      "target_sha256": "5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a"
+      "target_sha256": "465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0"
     },
     {
       "anchor_count": 5,

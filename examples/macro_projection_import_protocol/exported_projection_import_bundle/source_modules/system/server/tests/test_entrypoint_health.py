@@ -2,9 +2,13 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
+from system.lib import agent_bootstrap_projection
 from system.lib import entrypoint_health
+from system.lib import routing_projection
 from system.lib.entrypoint_health import build_entrypoint_health
 
 
@@ -137,6 +141,60 @@ def test_entrypoint_health_can_skip_generated_targets_for_quick_callers(tmp_path
     assert primary_only["summary"]["generated_target_scan_status"] == "deferred_by_caller"
 
 
+def test_cached_entrypoint_health_reuses_command_node_cache(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    calls = {"count": 0}
+
+    def fake_build(_root, *, include_generated_targets=True):
+        calls["count"] += 1
+        return {
+            "kind": "entrypoint_health",
+            "schema_version": "entrypoint_health_v0",
+            "summary": {
+                "contract_status": "valid",
+                "file_count": 4,
+                "generated_target_scan_status": (
+                    "available" if include_generated_targets else "deferred_by_caller"
+                ),
+            },
+            "instruction_files": [],
+            "forbidden_first_contact_hits": [],
+        }
+
+    monkeypatch.setattr(entrypoint_health, "build_entrypoint_health", fake_build)
+
+    first_payload, first_status = entrypoint_health.cached_entrypoint_health(tmp_path)
+    second_payload, second_status = entrypoint_health.cached_entrypoint_health(tmp_path)
+
+    assert first_payload["kind"] == "entrypoint_health"
+    assert second_payload["summary"]["contract_status"] == "valid"
+    assert first_status["status"] in {"miss_built", "stale_ok_hit"}
+    assert second_status["status"] == "hit"
+    assert calls["count"] == 1
+
+
+def test_entrypoint_health_kernel_fast_dispatch_exposes_cache_receipt() -> None:
+    proc = subprocess.run(
+        [sys.executable, "kernel.py", "--entrypoint-health"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert proc.returncode == 0
+    payload = json.loads(proc.stdout)
+    assert payload["kind"] == "entrypoint_health"
+    assert payload["summary"]["contract_status"] == "valid"
+    assert payload["command_node_cache"]["entrypoint_health"]["status"] in {
+        "hit",
+        "miss_built",
+        "stale_ok_hit",
+    }
+
+
 def test_generated_region_content_sync_reports_renderer_drift(
     tmp_path: Path,
     monkeypatch,
@@ -213,17 +271,17 @@ def test_expected_managed_regions_reuses_agent_operating_packet_for_instruction_
         seen["agent_operating_packet"] = agent_operating_packet
         return {}, "expected instruction\n", "projected seed\n"
 
-    monkeypatch.setattr(entrypoint_health, "load_agent_bootstrap_config", lambda _root: cfg)
+    monkeypatch.setattr(agent_bootstrap_projection, "load_agent_bootstrap_config", lambda _root: cfg)
     monkeypatch.setattr(
-        entrypoint_health,
+        agent_bootstrap_projection,
         "build_bootstrap_projection_context",
         lambda _root, config=None, refresh_orchestration=False: context,
     )
-    monkeypatch.setattr(entrypoint_health, "render_live_markdown", lambda *args, **kwargs: "live\n")
-    monkeypatch.setattr(entrypoint_health, "render_paper_module_index_markdown", lambda _root: "paper\n")
-    monkeypatch.setattr(entrypoint_health, "build_routing_payload", lambda _root: {})
-    monkeypatch.setattr(entrypoint_health, "render_routing_markdown", lambda _payload: "routing\n")
-    monkeypatch.setattr(entrypoint_health, "stabilize_instruction_discovery_target", fake_stabilize)
+    monkeypatch.setattr(agent_bootstrap_projection, "render_live_markdown", lambda *args, **kwargs: "live\n")
+    monkeypatch.setattr(agent_bootstrap_projection, "render_paper_module_index_markdown", lambda _root: "paper\n")
+    monkeypatch.setattr(routing_projection, "build_routing_payload", lambda _root: {})
+    monkeypatch.setattr(routing_projection, "render_routing_markdown", lambda _payload: "routing\n")
+    monkeypatch.setattr(agent_bootstrap_projection, "stabilize_instruction_discovery_target", fake_stabilize)
 
     expected, status = entrypoint_health._expected_managed_regions(tmp_path)
 
@@ -405,7 +463,7 @@ def test_entry_surface_diagnostic_structural_trigger_uses_fast_source_coupling_r
         fail_full_renderer_check,
     )
     monkeypatch.setattr(
-        entrypoint_health,
+        routing_projection,
         "routing_status",
         lambda _root: {
             "source_coupling": {

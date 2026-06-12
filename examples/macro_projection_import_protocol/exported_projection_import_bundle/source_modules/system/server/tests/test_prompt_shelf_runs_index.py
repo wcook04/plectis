@@ -912,6 +912,7 @@ def test_coverage_render_surfaces_non_required_b2_2_variant():
         _build_entry("B2.2", "b22-1"),
         _build_entry("B6", "b6-1"),
         _build_entry("B7", "b7-1"),
+        _build_entry("B7.1", "b71-1"),
     ]
     report = idx_mod.coverage_report(entries)
     text = idx_mod.render_coverage(report)
@@ -919,9 +920,11 @@ def test_coverage_render_surfaces_non_required_b2_2_variant():
     assert "B2.2:   1 runs" in text
     assert "B6:   1 runs" in text
     assert "B7:   1 runs" in text
+    assert "B7.1:   1 runs" in text
     assert "B2.2" not in report.required_slots
     assert "B6" not in report.required_slots
     assert "B7" not in report.required_slots
+    assert "B7.1" not in report.required_slots
     assert sorted(report.missing_slots) == ["B1", "B3"]
 
 
@@ -934,6 +937,7 @@ _SLOT_ANCHOR_PROBE = {
     "B3": "compact this chat or pasted context",
     "B6": "you are high-class type b helping author an autonomous seed",
     "B7": "b7 codex goal author",
+    "B7.1": "b7.1 codex orchestrator goal author",
 }
 
 

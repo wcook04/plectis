@@ -327,6 +327,51 @@ def test_bootstrap_session_can_write_initial_pass_heartbeat(tmp_path: Path) -> N
     assert status["sessions"]["sess_heartbeat"]["last_activity_action"] == "session-heartbeat"
 
 
+def test_cli_session_heartbeat_accepts_common_closeout_aliases(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id="sess_heartbeat_alias",
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    args = work_ledger_cli.build_parser().parse_args(
+        [
+            "heartbeat",
+            "--session-id",
+            "sess_heartbeat_alias",
+            "--status",
+            "complete",
+            "--note",
+            "Closed heartbeat through compatibility aliases.",
+            "--scope-ref",
+            "tools/meta/factory/work_ledger.py",
+        ]
+    )
+
+    assert args.func(args) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["schema"] == "work_ledger_session_heartbeat_result_v1"
+    assert payload["command"] == "session-heartbeat"
+    assert payload["action"] == "done"
+
+    status = work_ledger_runtime.load_runtime_status(tmp_path)
+    heartbeat = status["sessions"]["sess_heartbeat_alias"]["pass_heartbeat"]
+    assert heartbeat["pass_state"] == "done"
+    assert heartbeat["current_pass_line"] == "Closed heartbeat through compatibility aliases."
+    assert heartbeat["scope_refs"] == [
+        {"kind": "ref", "ref": "tools/meta/factory/work_ledger.py"}
+    ]
+    assert status["sessions"]["sess_heartbeat_alias"]["last_activity_action"] == "session-heartbeat"
+
+
 def test_bootstrap_session_can_apply_external_observations_in_same_transaction(
     tmp_path: Path,
 ) -> None:
@@ -1300,6 +1345,9 @@ def test_project_check_summarizes_family_fanout_stale_indexes(tmp_path: Path) ->
     assert diagnostics[0]["family_id"] == "09"
     assert diagnostics[0]["stale_projection_count"] == 2
     assert diagnostics[0]["fresh_projection_count"] == 1
+    assert diagnostics[0]["authority_advanced_since_projection_count"] == 2
+    assert diagnostics[0]["projection_race_class"] == "source_authority_advanced_since_projection"
+    assert diagnostics[0]["settlement_disposition"] == "rerun_projection_after_authority_quiesces"
     assert diagnostics[0]["stale_phase_ids"] == ["09_35", "09_36"]
     assert diagnostics[0]["stale_index_paths"] == [
         "codex/ledger/09_35/work_ledger_index.json",
@@ -1309,6 +1357,76 @@ def test_project_check_summarizes_family_fanout_stale_indexes(tmp_path: Path) ->
         "./repo-python tools/meta/factory/work_ledger.py project --all"
     )
     assert diagnostics[0]["commit_scope"] == diagnostics[0]["stale_index_paths"]
+    stale_rows = [
+        row
+        for family in check["families"]
+        for row in family["projection_results"]
+        if not row["fresh"]
+    ]
+    assert {row["reason"] for row in stale_rows} == {"source_authority_advanced_since_projection"}
+    assert {row["event_count_delta"] for row in stale_rows} == {1}
+
+
+def test_project_check_reports_authority_change_during_check(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.append_event(
+        tmp_path,
+        {
+            "schema": work_ledger.WORK_LEDGER_SCHEMA,
+            "event_id": "wle_window00000000",
+            "td_id": "td_window000000000",
+            "event_kind": "todo_open",
+            "actor": "codex",
+            "actor_session_id": "sess_projection",
+            "phase_id": "09_35",
+            "family_id": "09",
+            "created_at": "2026-05-11T00:00:00+00:00",
+            "valid_at": "2026-05-11T00:00:00+00:00",
+            "title": "Projection window baseline",
+        },
+        projection_mode="family",
+    )
+    original_check_family_projections = work_ledger.check_family_projections
+    injected = False
+
+    def check_with_concurrent_append(*args, **kwargs):
+        nonlocal injected
+        rows = original_check_family_projections(*args, **kwargs)
+        if not injected:
+            injected = True
+            work_ledger.append_event(
+                tmp_path,
+                {
+                    "schema": work_ledger.WORK_LEDGER_SCHEMA,
+                    "event_id": "wle_windowappend00",
+                    "td_id": "td_windowappend000",
+                    "event_kind": "todo_open",
+                    "actor": "codex",
+                    "actor_session_id": "sess_projection",
+                    "phase_id": "09_35",
+                    "family_id": "09",
+                    "created_at": "2026-05-11T00:01:00+00:00",
+                    "valid_at": "2026-05-11T00:01:00+00:00",
+                    "title": "Concurrent append during freshness check",
+                },
+                projection_mode="append_event_target_only",
+            )
+        return rows
+
+    monkeypatch.setattr(work_ledger, "check_family_projections", check_with_concurrent_append)
+
+    check = work_ledger.check_project_all(tmp_path)
+
+    assert check["ok"] is False
+    assert check["authority_check_window"]["status"] == "authority_changed_during_check"
+    assert check["authority_check_window"]["changed_family_count"] == 1
+    diagnostics = check["projection_race_diagnostics"]
+    assert diagnostics[0]["diagnostic_id"] == "work_ledger_projection_authority_window_race"
+    assert diagnostics[0]["race_class"] == "authority_changed_during_check"
+    assert diagnostics[0]["disposition"] == "do_not_treat_check_as_final_closeout_evidence"
 
 
 def test_phase_project_check_passes_when_selected_phase_is_fresh(tmp_path: Path) -> None:
@@ -2354,6 +2472,193 @@ def test_session_finalize_append_exempt_releases_path_claim_without_stale(
     assert status["triggers"]["stale_session_ready"] is False
 
 
+def test_session_finalize_append_exempt_can_require_post_commit_containment(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    session_id = "codex_commit_contained"
+    receipt = work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id=session_id,
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )["read_receipt_id"]
+    claim = work_ledger_runtime.claim_work_path(
+        tmp_path,
+        session_id=session_id,
+        path="tools/meta/factory/work_ledger.py",
+        lease_minutes=30,
+    )
+    assert claim["status"] == "claimed"
+
+    containment_calls: list[dict[str, object]] = []
+
+    def fake_containment_receipt(
+        repo_root: Path,
+        *,
+        commit_ref: str,
+        paths: list[str],
+        path_limit: int = 40,
+        recent_limit: int = 5,
+    ) -> dict[str, object]:
+        containment_calls.append(
+            {
+                "repo_root": str(repo_root),
+                "commit_ref": commit_ref,
+                "paths": list(paths),
+                "path_limit": path_limit,
+                "recent_limit": recent_limit,
+            }
+        )
+        return {
+            "schema": "post_commit_containment_receipt_v0",
+            "status": "contained_head_advanced_paths_unchanged",
+            "ok": True,
+            "closeout_safe": True,
+            "commit_ref": commit_ref,
+            "path_scope": {"paths": list(paths), "count": len(paths)},
+        }
+
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "build_post_commit_containment_receipt",
+        fake_containment_receipt,
+    )
+
+    assert work_ledger_cli.cmd_session_finalize(
+        SimpleNamespace(
+            session_id=session_id,
+            action="codex-turn-end",
+            read_receipt_id=receipt,
+            append_exempt_reason="scoped commit carries the durable evidence",
+            append_exempt_ref=["commit:abc123"],
+            append_exempt_td_id=[],
+            append_exempt_work_item_id=[],
+            require_post_commit_containment=True,
+            post_commit_containment_commit="",
+            post_commit_containment_scope=["tools/meta/factory/work_ledger.py"],
+            allow_missing_append=False,
+            no_release_claims=False,
+            full=False,
+            limit=8,
+        )
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert containment_calls == [
+        {
+            "repo_root": str(tmp_path),
+            "commit_ref": "abc123",
+            "paths": ["tools/meta/factory/work_ledger.py"],
+            "path_limit": 40,
+            "recent_limit": 5,
+        }
+    ]
+    guard = payload["post_commit_containment_guard"]
+    assert guard["status"] == "contained_head_advanced_paths_unchanged"
+    assert guard["closeout_safe"] is True
+    assert guard["receipt"]["path_scope"]["paths"] == ["tools/meta/factory/work_ledger.py"]
+    assert payload["session"]["append_exempt"] is True
+    assert payload["session"]["stale"] is False
+
+    status = work_ledger_runtime.load_runtime_status(tmp_path)
+    session = status["sessions"][session_id]
+    assert session["ended_at"]
+    assert session["append_exempt"] is True
+    assert all(claim["released_at"] for claim in session["claims"])
+    assert status["counts"]["stale_sessions"] == 0
+
+
+def test_session_finalize_append_exempt_blocks_unsafe_post_commit_containment(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    session_id = "codex_commit_containment_blocked"
+    receipt = work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id=session_id,
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )["read_receipt_id"]
+    claim = work_ledger_runtime.claim_work_path(
+        tmp_path,
+        session_id=session_id,
+        path="tools/meta/factory/work_ledger.py",
+        lease_minutes=30,
+    )
+    assert claim["status"] == "claimed"
+
+    def fake_containment_receipt(
+        repo_root: Path,
+        *,
+        commit_ref: str,
+        paths: list[str],
+        path_limit: int = 40,
+        recent_limit: int = 5,
+    ) -> dict[str, object]:
+        assert str(repo_root) == str(tmp_path)
+        return {
+            "schema": "post_commit_containment_receipt_v0",
+            "status": "contained_paths_worktree_dirty",
+            "ok": False,
+            "closeout_safe": False,
+            "reason": "OwnedPathsDirtyAfterCommit",
+            "commit_ref": commit_ref,
+            "path_scope": {"paths": list(paths), "count": len(paths)},
+        }
+
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "build_post_commit_containment_receipt",
+        fake_containment_receipt,
+    )
+
+    assert work_ledger_cli.cmd_session_finalize(
+        SimpleNamespace(
+            session_id=session_id,
+            action="codex-turn-end",
+            read_receipt_id=receipt,
+            append_exempt_reason="scoped commit carries the durable evidence",
+            append_exempt_ref=["commit:abc123"],
+            append_exempt_td_id=[],
+            append_exempt_work_item_id=[],
+            require_post_commit_containment=True,
+            post_commit_containment_commit="",
+            post_commit_containment_scope=["tools/meta/factory/work_ledger.py"],
+            allow_missing_append=False,
+            no_release_claims=False,
+            full=False,
+            limit=8,
+        )
+    ) == 2
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "blocked"
+    assert payload["mutation_performed"] is False
+    assert payload["blocked_by"] == ["post_commit_containment_not_safe"]
+    guard = payload["post_commit_containment_guard"]
+    assert guard["status"] == "contained_paths_worktree_dirty"
+    assert guard["closeout_safe"] is False
+    assert payload["session"]["append_exempt"] is False
+    assert payload["session"]["ended_at"] is None
+
+    status = work_ledger_runtime.load_runtime_status(tmp_path)
+    session = status["sessions"][session_id]
+    assert session["ended_at"] is None
+    assert session["append_exempt"] is False
+    assert session["stale"] is False
+    assert any(not claim["released_at"] for claim in session["claims"])
+    assert status["counts"]["stale_sessions"] == 0
+
+
 def test_session_finalize_append_exempt_repairs_ended_stale_session(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -2760,10 +3065,125 @@ def test_cohort_overview_separates_orphaned_active_sessions_from_live_pressure()
         "session-sweep --dry-run --orphan-after-hours 4"
     )
     assert orphan_card["drilldown"] == visibility_sweep
+    assert orphan_card["details"]["visibility_threshold_hours"] == "4"
+    assert orphan_card["details"]["auto_sweep_threshold_hours"] == "24"
+    assert orphan_card["details"]["dry_run_command"] == visibility_sweep
+    assert "thresholded dry-run" in orphan_card["summary"]
     orphan_repair = next(
         row for row in overview["repair_rows"] if row["row_id"] == "orphaned_session_sweep"
     )
     assert orphan_repair["safe_next_command"] == visibility_sweep
+    assert orphan_repair["details"]["visibility_threshold_hours"] == "4"
+    assert orphan_repair["details"]["auto_sweep_threshold_hours"] == "24"
+    assert orphan_repair["details"]["dry_run_command"] == visibility_sweep
+    orphan_recommendation = next(
+        action
+        for action in overview["recommended_actions"]
+        if "thresholded orphan dry-run" in action
+    )
+    assert "--orphan-after-hours 4" in orphan_recommendation
+
+
+def test_cohort_overview_demotes_completed_blocked_sessions_from_unknown_scope() -> None:
+    now = datetime(2026, 4, 21, 12, 0, tzinfo=timezone.utc)
+    recent = (now - timedelta(minutes=10)).isoformat()
+    expired = (now - timedelta(minutes=5)).isoformat()
+    status = {
+        "generated_at": now.isoformat(),
+        "counts": {"active_sessions": 2},
+        "sessions": {
+            f"blocked_{index}": {
+                "session_id": f"blocked_{index}",
+                "actor": "codex",
+                "phase_id": "09_35",
+                "family_id": "09",
+                "bootstrapped_at": recent,
+                "last_activity_at": recent,
+                "touched_work": True,
+                "touched_td_ids": [],
+                "claims": [
+                    {
+                        "claim_id": f"wlc_expired_{index}",
+                        "scope_kind": work_ledger_runtime.CLAIM_SCOPE_PATH,
+                        "scope_id": f"microcosm-substrate/blocked_{index}.py",
+                        "path": f"microcosm-substrate/blocked_{index}.py",
+                        "claimed_at": recent,
+                        "leased_until": expired,
+                        "expired_at": expired,
+                        "release_reason": "lease_expired",
+                    }
+                ],
+                "pass_heartbeat": {
+                    "schema": work_ledger_runtime.PASS_HEARTBEAT_SCHEMA,
+                    "pass_id": f"wlp_blocked_{index}",
+                    "pass_seq": 1,
+                    "pass_state": "blocked",
+                    "current_pass_line": "Blocked on an external owner lane.",
+                    "last_pass_result_line": "Blocked receipt recorded; no active claim remains.",
+                    "updated_at": recent,
+                    "expires_at": (now + timedelta(hours=4)).isoformat(),
+                    "last_pass_completed_at": recent,
+                    "source": "manual_cli",
+                },
+            }
+            for index in range(2)
+        },
+    }
+
+    overview = work_ledger_runtime.build_session_cohort_overview(status, now=now)
+    cards = {str(card["card_id"]): card for card in overview["monitor_cards"]}
+
+    assert overview["counts"]["effective_active_sessions"] == 2
+    assert overview["counts"]["unclaimed_touched_sessions"] == 0
+    assert "unknown_scope_parallelism" not in overview["contention"]["signals"]
+    assert overview["contention"]["unknown_scope_active_sessions"] == []
+    assert cards["scope_hygiene"]["status"] == "clear"
+    assert overview["recommended_landing_lane"] == "claim_then_scoped_landing"
+
+
+def test_cohort_overview_demotes_completed_blocked_touches_from_unclaimed_pressure() -> None:
+    now = datetime(2026, 4, 21, 12, 0, tzinfo=timezone.utc)
+    recent = (now - timedelta(minutes=10)).isoformat()
+    status = {
+        "generated_at": now.isoformat(),
+        "counts": {"active_sessions": 1},
+        "sessions": {
+            "blocked_handoff": {
+                "session_id": "blocked_handoff",
+                "actor": "codex",
+                "phase_id": "09_35",
+                "family_id": "09",
+                "bootstrapped_at": recent,
+                "last_activity_at": recent,
+                "touched_work": True,
+                "touched_td_ids": [],
+                "touched_work_item_ids": ["cap_blocked_handoff"],
+                "claims": [],
+                "pass_heartbeat": {
+                    "schema": work_ledger_runtime.PASS_HEARTBEAT_SCHEMA,
+                    "pass_id": "wlp_blocked_handoff",
+                    "pass_seq": 1,
+                    "pass_state": "blocked",
+                    "current_pass_line": "Blocked on a durable handoff.",
+                    "last_pass_result_line": "Patch handoff recorded; no active claim remains.",
+                    "updated_at": recent,
+                    "expires_at": (now + timedelta(hours=4)).isoformat(),
+                    "last_pass_completed_at": recent,
+                    "source": "manual_cli",
+                },
+            }
+        },
+    }
+
+    overview = work_ledger_runtime.build_session_cohort_overview(status, now=now)
+    cards = {str(card["card_id"]): card for card in overview["monitor_cards"]}
+
+    assert overview["counts"]["effective_active_sessions"] == 1
+    assert overview["counts"]["unclaimed_touched_sessions"] == 0
+    assert "unclaimed_touched_work" not in overview["contention"]["signals"]
+    assert overview["contention"]["unclaimed_touched_sessions"] == []
+    assert cards["scope_hygiene"]["status"] == "clear"
+    assert overview["recommended_landing_lane"] == "claim_then_scoped_landing"
 
 
 def test_cohort_overview_does_not_compact_ended_history_for_live_pressure(
@@ -3519,9 +3939,16 @@ def test_cli_session_preflight_bootstraps_claims_and_prints_closeout_commands(
     assert payload["overview_summary"]["counts"]["active_claims"] == 3
     assert payload["closeout_rule"]["status"] == "append_or_append_exempt_before_finalize"
     assert payload["closeout_rule"]["read_receipt_id"] == payload["read_receipt_id"]
+    assert "rule" not in payload["closeout_rule"]
+    assert payload["closeout_rule"]["rule_ref"] == "append_or_append_exempt_before_finalize"
+    assert payload["work_admission"]["result"] == "allow"
+    assert payload["work_admission"]["host_pressure_status"] == "not_consulted_for_cheap_work"
+    assert "admission_consumer_coverage_summary" not in payload["work_admission"]
     assert payload["closeout_plan"]["schema"] == "work_ledger_closeout_plan_v1"
-    assert payload["closeout_plan"]["recommended_sequence"] == payload["closeout_commands"]
     commands = payload["closeout_commands"]
+    assert payload["closeout_plan"]["mode"] == "compact"
+    assert payload["closeout_plan"]["recommended_sequence_ref"] == "closeout_commands"
+    assert payload["closeout_plan"]["recommended_sequence_count"] == len(commands)
     assert commands[-1] == (
         "./repo-python tools/meta/factory/work_ledger.py "
         "session-finalize --session-id codex_preflight --action codex-turn-end"
@@ -3531,18 +3958,75 @@ def test_cli_session_preflight_bootstraps_claims_and_prints_closeout_commands(
         and f"--read-receipt-id {payload['read_receipt_id']}" in command
         for command in commands
     )
+    assert all("commands" not in role for role in payload["closeout_plan"]["command_roles"])
     assert payload["closeout_plan"]["alternative_commands"]
     assert any(
-        "--append-exempt-reason" in item["command"]
-        and f"--read-receipt-id {payload['read_receipt_id']}" in item["command"]
+        item["command_omitted"] is True
+        and item["role"] == "commit_or_projection_closeout"
         and item["do_not_follow_with_bare_finalize"] is True
         for item in payload["closeout_plan"]["alternative_commands"]
     )
+    assert any(
+        item["command_omitted"] is True
+        and item["role"] == "commit_closeout_with_post_commit_containment"
+        and item["do_not_follow_with_bare_finalize"] is True
+        for item in payload["closeout_plan"]["alternative_commands"]
+    )
+    assert any(
+        role["role"] == "commit_finalize_with_post_commit_containment"
+        and role["finalizes_session"] is True
+        for role in payload["closeout_plan"]["command_roles"]
+    )
+    assert payload["closeout_plan"]["commands_omitted"] >= 1
 
     status = work_ledger_runtime.load_runtime_status(tmp_path)
     session = status["sessions"]["codex_preflight"]
     assert session["read_receipt_id"] == payload["read_receipt_id"]
     assert len(session["claims"]) == 3
+
+
+def test_compact_session_preflight_bounds_legacy_closeout_command_list() -> None:
+    payload = work_ledger_cli._compact_preflight_payload(
+        {
+            "schema": "work_ledger_session_preflight_v1",
+            "mode": "full",
+            "session_id": "codex_preflight_many_commands",
+            "actor": "codex",
+            "phase_id": "09_35",
+            "family_id": "09",
+            "read_receipt_id": "wlr_many",
+            "claims": [],
+            "overview": {},
+            "closeout_plan": {
+                "schema": "work_ledger_closeout_plan_v1",
+                "read_receipt_id": "wlr_many",
+                "recommended_sequence": [
+                    "progress command",
+                    "close command",
+                    "finalize command",
+                ],
+                "command_roles": [],
+                "alternative_commands": [],
+            },
+            "closeout_commands": [
+                "progress command",
+                "close command",
+                "finalize command",
+            ],
+        }
+    )
+
+    assert payload["closeout_commands"] == ["progress command", "finalize command"]
+    assert payload["closeout_command_summary"] == {
+        "total": 3,
+        "returned": 2,
+        "omitted": 1,
+        "selection": "first_step_and_finalizer",
+        "full_payload_drilldown": (
+            "./repo-python tools/meta/factory/work_ledger.py session-preflight "
+            "--full <same args>"
+        ),
+    }
 
 
 def test_cli_session_preflight_path_only_claim_recommends_append_exempt_finalize(
@@ -3581,12 +4065,15 @@ def test_cli_session_preflight_path_only_claim_recommends_append_exempt_finalize
     payload = json.loads(capsys.readouterr().out)
 
     assert payload["closeout_plan"]["schema"] == "work_ledger_closeout_plan_v1"
-    assert payload["closeout_commands"] == payload["closeout_plan"]["recommended_sequence"]
+    assert payload["closeout_plan"]["mode"] == "compact"
+    assert payload["closeout_plan"]["recommended_sequence_ref"] == "closeout_commands"
+    assert payload["closeout_plan"]["recommended_sequence_count"] == len(payload["closeout_commands"])
     assert len(payload["closeout_commands"]) == 1
     assert "--append-exempt-reason" in payload["closeout_commands"][0]
     assert "--read-receipt-id" in payload["closeout_commands"][0]
     assert "session-finalize --session-id codex_path_only" in payload["closeout_commands"][0]
     assert not payload["closeout_plan"]["alternative_commands"]
+    assert all("commands" not in role for role in payload["closeout_plan"]["command_roles"])
     bare_finalize = [
         role
         for role in payload["closeout_plan"]["command_roles"]
@@ -3598,6 +4085,49 @@ def test_cli_session_preflight_path_only_claim_recommends_append_exempt_finalize
     session = status["sessions"]["codex_path_only"]
     assert session["read_receipt_id"] == payload["read_receipt_id"]
     assert len(session["claims"]) == 1
+
+
+def test_cli_session_preflight_counts_extended_claims_as_claimed(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    args = SimpleNamespace(
+        session_id="codex_extend_claims",
+        session_slug="meta",
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+        td_id=[],
+        path=["tools/meta/factory/work_ledger.py"],
+        lease_minutes=30,
+        note="bounded preflight test",
+        require_exclusive=True,
+        skip_import_codex=True,
+        skip_import_claude=True,
+        since_minutes=60,
+        import_limit=20,
+        bootstrap_limit=8,
+        overview_limit=5,
+        db_path=None,
+        include_all_cwds=False,
+        include_all_workspaces=False,
+        full=False,
+    )
+
+    assert work_ledger_cli.cmd_session_preflight(args) == 0
+    capsys.readouterr()
+    assert work_ledger_cli.cmd_session_preflight(args) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["claims"][0]["status"] == "extended"
+    assert payload["claim_summary"]["requested"] == 1
+    assert payload["claim_summary"]["claimed"] == 1
+    assert payload["claim_summary"]["extended"] == 1
+    assert payload["claim_summary"]["refused"] == 0
 
 
 def test_session_preflight_accepts_common_shorthand_aliases() -> None:
@@ -3689,9 +4219,21 @@ def test_cli_session_preflight_can_publish_initial_heartbeat(
         "tools/meta/factory/work_ledger.py",
     ]
     assert payload["overview_summary"]["heartbeat_participation"]["projected_unknown_count"] == 0
-    assert payload["overview_summary"]["heartbeat_participation"]["explicit_session_ids"] == [
+    assert "explicit_session_ids" not in payload["overview_summary"]["heartbeat_participation"]
+    assert payload["overview_summary"]["heartbeat_participation"]["explicit_session_count"] == 1
+    assert payload["overview_summary"]["heartbeat_participation"]["explicit_session_ids_preview"] == [
         "codex_preflight_heartbeat"
     ]
+    assert payload["overview_summary"]["heartbeat_participation"]["explicit_session_ids_omitted"] == 0
+    assert (
+        payload["overview_summary"]["heartbeat_participation"]["full_payload_drilldown"]
+        == "./repo-python tools/meta/factory/work_ledger.py session-preflight --full <same args>"
+    )
+    contract = payload["heartbeat_participation_contract"]
+    assert contract["status"] == "recommended_for_participating_sessions"
+    assert contract["when_count"] == 4
+    assert contract["command_template_ref"] == "session-heartbeat --help"
+    assert "command_template" not in contract
 
     status = work_ledger_runtime.load_runtime_status(tmp_path)
     session = status["sessions"]["codex_preflight_heartbeat"]
@@ -4123,6 +4665,87 @@ def test_cli_session_preflight_omits_long_overlap_title_cargo(
             "sed -n '1,20p' tools/meta/factory/work_ledger.py"
         ]
 
+    assert work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_preflight_long_overlap_title_full",
+            session_slug="overlap",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=["tools/meta/factory/work_ledger.py"],
+            lease_minutes=30,
+            note=None,
+            require_exclusive=False,
+            skip_import_codex=False,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=5,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=str(db_path),
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=True,
+            raw_full=False,
+        )
+    ) == 0
+    full_out = capsys.readouterr().out
+    full_payload = json.loads(full_out)
+
+    assert full_payload["mode"] == "full"
+    assert full_payload["full_payload_mode"] == "bounded"
+    assert "UNBOUNDED_TITLE_CARGO_SENTINEL" not in full_out
+    assert len(full_out) < len(long_title)
+    assert full_payload["codex_import"]["mode"] == "bounded_full"
+    assert full_payload["bootstrap"]["schema"] == "work_ledger_bootstrap_v1"
+    assert full_payload["overview"]["schema"] == "work_ledger_session_cohort_overview_v1"
+    assert "--full --raw-full" in full_payload["raw_full_payload_hint"]
+    assert full_payload["observed_path_overlaps"][0]["title_full_omitted"] is True
+
+
+def test_compact_preflight_limits_observed_overlap_rows() -> None:
+    rows = [
+        {
+            "requested_path": "tools/meta/factory/work_ledger.py",
+            "session_id": f"codex:peer-{index}",
+            "updated_at": "2026-06-04T00:00:00+00:00",
+            "mutation_paths": ["tools/meta/factory/work_ledger.py"],
+            "referenced_paths": ["tools/meta/factory/work_ledger.py"],
+            "recent_commands": ["sed -n '1,20p' tools/meta/factory/work_ledger.py"],
+            "title_bytes": 17,
+            "title_hash": "sha256:test",
+            "title_kind": "session_title",
+            "title_full_omitted": False,
+            "title_preview": f"Peer overlap {index}",
+        }
+        for index in range(work_ledger_cli.COMPACT_OBSERVED_PATH_OVERLAP_LIMIT + 3)
+    ]
+
+    compact = work_ledger_cli._compact_preflight_payload(
+        {
+            "schema": "work_ledger_session_preflight_v1",
+            "session_id": "codex_preflight_overlap_limit",
+            "claims": [],
+            "observed_path_overlaps": rows,
+        }
+    )
+
+    assert len(compact["observed_path_overlaps"]) == (
+        work_ledger_cli.COMPACT_OBSERVED_PATH_OVERLAP_LIMIT
+    )
+    assert compact["observed_path_overlap_summary"]["total"] == len(rows)
+    assert compact["observed_path_overlap_summary"]["returned"] == (
+        work_ledger_cli.COMPACT_OBSERVED_PATH_OVERLAP_LIMIT
+    )
+    assert compact["observed_path_overlap_summary"]["omitted"] == 3
+    assert compact["observed_path_overlap_summary"]["row_limit"] == (
+        work_ledger_cli.COMPACT_OBSERVED_PATH_OVERLAP_LIMIT
+    )
+    assert "session-preflight --full" in compact["observed_path_overlap_summary"][
+        "full_payload_drilldown"
+    ]
+
 
 def test_cli_session_preflight_flags_shared_worktree_git_stash(
     tmp_path: Path,
@@ -4150,6 +4773,12 @@ def test_cli_session_preflight_flags_shared_worktree_git_stash(
                 },
             }
         )
+    )
+    long_title = (
+        "PACKET v=3.2\n"
+        "thread: shared git risk metadata cargo\n"
+        + ("shared worktree git risk title cargo " * 900)
+        + "GIT_RISK_TITLE_CARGO_SENTINEL"
     )
     conn = sqlite3.connect(db_path)
     try:
@@ -4184,7 +4813,7 @@ def test_cli_session_preflight_flags_shared_worktree_git_stash(
                 "peer-stash",
                 now_epoch - 90,
                 now_epoch,
-                "Peer uses stash",
+                long_title,
                 "",
                 "high",
                 111,
@@ -4222,13 +4851,22 @@ def test_cli_session_preflight_flags_shared_worktree_git_stash(
             full=False,
         )
     ) == 0
-    payload = json.loads(capsys.readouterr().out)
+    out = capsys.readouterr().out
+    payload = json.loads(out)
 
+    assert "GIT_RISK_TITLE_CARGO_SENTINEL" not in out
     risks = payload["shared_worktree_git_risks"]
     assert len(risks) == 1
     assert risks[0]["risk"] == "shared_git_stash"
     assert risks[0]["session_id"] == "codex:peer-stash"
+    assert "title" not in risks[0]
+    assert risks[0]["title_preview"].startswith("PACKET v=3.2 thread: shared git risk")
+    assert risks[0]["title_hash"].startswith("sha256:")
+    assert risks[0]["title_bytes"] >= len(risks[0]["title_preview"])
+    assert isinstance(risks[0]["title_full_omitted"], bool)
     assert "git stash push" in risks[0]["command"]
+    assert risks[0]["command_bytes"] >= len(risks[0]["command"])
+    assert risks[0]["command_hash"].startswith("sha256:")
     assert "shared dirty or artifact-bearing worktree" in risks[0]["advice"]
 
 
@@ -4391,6 +5029,199 @@ def test_cli_session_preflight_write_profile_expands_generated_write_claims(
     assert claimed_paths == active_claim_paths
 
 
+def test_cli_session_preflight_write_profile_exposes_source_input_fence(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    assert work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_preflight_lattice_profile",
+            session_slug="projection",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=[],
+            write_profile=["microcosm_doctrine_lattice_projection"],
+            lease_minutes=30,
+            note=None,
+            host_pressure_policy="warn",
+            work_admission_class="source_patch",
+            require_exclusive=False,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=False,
+        )
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    profile = payload["write_profiles"][0]
+    assert profile["profile"] == "microcosm_doctrine_lattice_projection"
+    assert "microcosm-substrate/atlas/doctrine_lattice_projection.json" in profile["paths"]
+    assert "microcosm-substrate/core/paper_module_capsules.json" in profile["source_input_paths"]
+    assert profile["source_input_claim_policy"] == (
+        "must_be_clean_committed_or_owned_before_landing_outputs"
+    )
+    claimed_paths = {
+        claim["path"]
+        for claim in payload["claims"]
+        if claim["status"] == "claimed"
+    }
+    assert "microcosm-substrate/core/paper_module_capsules.json" not in claimed_paths
+    assert "microcosm-substrate/atlas/doctrine_lattice_projection.json" in claimed_paths
+
+
+def test_cli_session_preflight_public_site_profile_exposes_source_input_fence(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    assert work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_preflight_public_site_profile",
+            session_slug="projection",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=[],
+            write_profile=["microcosm_public_site_projection"],
+            lease_minutes=30,
+            note=None,
+            host_pressure_policy="warn",
+            work_admission_class=None,
+            require_exclusive=False,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=False,
+        )
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    profile = payload["write_profiles"][0]
+    assert profile["profile"] == "microcosm_public_site_projection"
+    assert "sites/microcosm/content-graph.json" in profile["paths"]
+    assert "sites/microcosm/docs" in profile["paths"]
+    assert "microcosm-substrate/paper_modules" in profile["source_input_paths"]
+    assert "tools/meta/dissemination/build_microcosm_public_site.py" in profile[
+        "source_input_paths"
+    ]
+    assert payload["work_creation_classification"]["work_class"] == "projection_rebuild"
+    claimed_paths = {
+        claim["path"]
+        for claim in payload["claims"]
+        if claim["status"] == "claimed"
+    }
+    assert "sites/microcosm/content-graph.json" in claimed_paths
+    assert "microcosm-substrate/paper_modules" not in claimed_paths
+
+
+def test_work_ledger_standard_write_profiles_match_runtime_constants() -> None:
+    standard = json.loads(
+        (work_ledger_cli.REPO_ROOT / "codex/standards/std_work_ledger.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    contract = standard["session_preflight_contract"]
+
+    expected_profiles = {
+        profile: list(paths)
+        for profile, paths in work_ledger_cli.WRITE_PROFILE_PATHS.items()
+    }
+    expected_source_inputs = {
+        profile: list(paths)
+        for profile, paths in work_ledger_cli.WRITE_PROFILE_SOURCE_INPUT_PATHS.items()
+    }
+
+    assert contract["write_profiles"] == expected_profiles
+    assert contract["write_profile_source_inputs"] == expected_source_inputs
+    assert set(contract["write_profile_source_inputs"]) <= set(contract["write_profiles"])
+
+
+def test_cli_session_preflight_blocks_source_coupled_profile_before_claiming_outputs(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id="paper_module_owner",
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )
+    work_ledger_runtime.claim_work_path(
+        tmp_path,
+        session_id="paper_module_owner",
+        path="microcosm-substrate/core/paper_module_capsules.json",
+        lease_minutes=30,
+    )
+
+    result = work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="lattice_builder",
+            session_slug="projection",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=[],
+            write_profile=["microcosm_doctrine_lattice_projection"],
+            lease_minutes=30,
+            note=None,
+            host_pressure_policy="warn",
+            work_admission_class="source_patch",
+            require_exclusive=True,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=True,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert result == 2
+    assert payload["status"] == "blocked_by_source_input_claim"
+    assert payload["read_receipt_id"] is None
+    assert payload["claim_summary"]["claimed"] == 0
+    assert payload["source_input_collision_count"] == 1
+    assert payload["source_input_collisions"][0]["session_id"] == "paper_module_owner"
+    status = work_ledger_runtime.load_runtime_status(tmp_path)
+    assert "lattice_builder" not in status["sessions"]
+
+
 def test_cli_session_preflight_blocks_heavy_work_before_claims_under_host_pressure(
     tmp_path: Path,
     monkeypatch,
@@ -4458,6 +5289,143 @@ def test_cli_session_preflight_blocks_heavy_work_before_claims_under_host_pressu
     }
     assert payload["work_admission"]["result"] == "queue_until_pressure_clears"
     assert payload["work_admission"]["new_heavy_work_launched"] is False
+
+
+def test_cli_session_preflight_allows_light_patch_claims_under_resource_pressure(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(
+        work_ledger_cli.resource_pressure,
+        "build_host_resource_pressure_packet",
+        lambda _repo_root: {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "critical",
+            "admission": "repair_only",
+            "normal_work_allowed": False,
+            "git_object_pressure": {"status": "critical"},
+            "task_ledger_authority_storage": {"status": "critical"},
+            "disk_pressure": {"status": "ok"},
+            "owner_lanes": {"git_prune_policy": "repair-command"},
+        },
+    )
+
+    rc = work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_light_patch_resource",
+            session_slug="ordinary",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=["README.md"],
+            write_profile=[],
+            lease_minutes=30,
+            note=None,
+            host_pressure_policy="auto",
+            work_admission_class="edit_light_patch",
+            require_exclusive=False,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=False,
+            heartbeat_current_pass_line=None,
+            heartbeat_last_pass_result_line=None,
+            heartbeat_clip_lines=False,
+            heartbeat_scope_ref=[],
+            heartbeat_state="inspecting",
+            heartbeat_source="manual_cli",
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert payload["claim_summary"]["claimed"] == 1
+    assert payload["host_resource_pressure"]["status"] == "critical"
+    assert payload["work_creation_classification"]["work_class"] == "edit_light_patch"
+    assert payload["work_admission"]["allow"] is True
+    assert payload["work_admission"]["status"] == "cheap_or_attach_allowed"
+
+
+def test_cli_session_preflight_blocks_heavy_non_repair_work_under_resource_pressure(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(
+        work_ledger_cli.resource_pressure,
+        "build_host_resource_pressure_packet",
+        lambda _repo_root: {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "critical",
+            "admission": "repair_only",
+            "normal_work_allowed": False,
+            "git_object_pressure": {"status": "critical"},
+            "task_ledger_authority_storage": {"status": "critical"},
+            "disk_pressure": {"status": "ok"},
+            "owner_lanes": {"git_prune_policy": "repair-command"},
+        },
+    )
+
+    def fail_bootstrap(*_args, **_kwargs):
+        raise AssertionError("resource-pressure block must not create Work Ledger claims")
+
+    monkeypatch.setattr(work_ledger_runtime, "bootstrap_session", fail_bootstrap)
+
+    rc = work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_blocked_resource_heavy",
+            session_slug="ordinary",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=["README.md"],
+            write_profile=[],
+            lease_minutes=30,
+            note=None,
+            host_pressure_policy="auto",
+            work_admission_class="projection_rebuild",
+            require_exclusive=False,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=True,
+            heartbeat_current_pass_line=None,
+            heartbeat_last_pass_result_line=None,
+            heartbeat_clip_lines=False,
+            heartbeat_scope_ref=[],
+            heartbeat_state="inspecting",
+            heartbeat_source="manual_cli",
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == work_admission.ADMISSION_TEMPFAIL
+    assert payload["status"] == "blocked_by_host_resource_pressure"
+    assert payload["claim_summary"]["claimed"] == 0
+    assert payload["host_resource_pressure"]["status"] == "critical"
+    assert payload["work_creation_classification"]["heavy"] is True
+    assert payload["work_admission"]["resource_pressure_result"] == (
+        "critical_resource_pressure_heavy_work_blocked"
+    )
 
 
 def test_cli_helper_lease_admission_blocks_new_helper_under_host_pressure(
@@ -5481,6 +6449,90 @@ def test_mutation_check_blocks_when_exclusive_path_claim_collides(
     assert payload["status"] == "blocked"
     assert payload["collisions"][0]["requested_path"] == "annexes"
     assert payload["collisions"][0]["session_id"] == "other_agent"
+
+
+def test_mutation_check_blocks_source_input_claim_for_source_coupled_profile(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id="paper_module_owner",
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )
+    work_ledger_runtime.claim_work_path(
+        tmp_path,
+        session_id="paper_module_owner",
+        path="microcosm-substrate/core/paper_module_capsules.json",
+        lease_minutes=30,
+    )
+
+    result = work_ledger_cli.cmd_mutation_check(
+        SimpleNamespace(
+            session_id="lattice_builder",
+            path=[],
+            write_profile=["microcosm_doctrine_lattice_projection"],
+            require_exclusive=True,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert result == 2
+    assert payload["status"] == "blocked"
+    assert payload["collision_count"] == 0
+    assert payload["source_input_collision_count"] == 1
+    assert payload["source_input_collisions"][0]["session_id"] == "paper_module_owner"
+    assert payload["source_input_collisions"][0]["requested_path"] == (
+        "microcosm-substrate/core/paper_module_capsules.json"
+    )
+    assert "clean committed snapshot" in " ".join(payload["recommended_actions"])
+
+
+def test_mutation_check_blocks_public_site_profile_when_source_family_is_claimed(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id="paper_module_owner",
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )
+    work_ledger_runtime.claim_work_path(
+        tmp_path,
+        session_id="paper_module_owner",
+        path="microcosm-substrate/paper_modules/tactic_portfolio_availability.md",
+        lease_minutes=30,
+    )
+
+    result = work_ledger_cli.cmd_mutation_check(
+        SimpleNamespace(
+            session_id="site_builder",
+            path=[],
+            write_profile=["microcosm_public_site_projection"],
+            require_exclusive=True,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert result == 2
+    assert payload["status"] == "blocked"
+    assert payload["source_input_collision_count"] == 1
+    assert payload["source_input_collisions"][0]["session_id"] == "paper_module_owner"
+    assert payload["source_input_collisions"][0]["requested_path"] == (
+        "microcosm-substrate/paper_modules"
+    )
 
 
 def test_mutation_check_blocks_path_claim_beyond_cohort_preview(
@@ -6751,6 +7803,49 @@ def test_session_message_cli_dry_run_surfaces_inbox_commands(capsys: pytest.Capt
     )
 
 
+def test_session_message_inbox_cli_accepts_compat_alias_and_include_acked(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    message_path = tmp_path / "state/work_ledger/session_messages.jsonl"
+    message_path.parent.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_MESSAGES", message_path)
+
+    message = work_ledger_runtime.build_session_message_receipt(
+        message_id="smsg_compat",
+        from_session_id="requester",
+        to_session_id="owner_session",
+        message_type="query_state",
+        subject="state check",
+        body="Please publish current state.",
+        requires_ack=True,
+        issued_at="2026-06-01T22:00:00+00:00",
+    )
+    message_path.write_text(json.dumps({"session_message": message}) + "\n", encoding="utf-8")
+
+    for command in ("session-message-inbox", "session-inbox"):
+        args = work_ledger_cli.build_parser().parse_args(
+            [
+                command,
+                "--session-id",
+                "owner_session",
+                "--limit",
+                "5",
+                "--include-acked",
+            ]
+        )
+
+        assert args.func(args) == 0
+        payload = json.loads(capsys.readouterr().out)
+
+        assert payload["schema"] == work_ledger_runtime.SESSION_MESSAGE_INBOX_SURFACE_SCHEMA
+        assert payload["session_id"] == "owner_session"
+        assert payload["counts"]["pending_message_count"] == 1
+        assert payload["latest_messages"][0]["message_id"] == "smsg_compat"
+
+
 def test_session_claim_filtered_scan_limit_scans_before_filtering() -> None:
     assert (
         work_ledger_cli._session_claims_scan_limit(
@@ -6946,6 +8041,7 @@ def test_cohort_overview_flags_touched_threads_without_live_claim(tmp_path: Path
     assert overview["counts"]["unclaimed_touched_sessions"] == 1
     assert "unclaimed_touched_work" in overview["contention"]["signals"]
     assert overview["contention"]["risk_level"] == "watch"
+    assert overview["recommended_landing_lane"] == "claim_touched_work_before_landing"
     row = overview["contention"]["unclaimed_touched_sessions"][0]
     assert row["session_id"] == "codex_unclaimed"
     assert row["unclaimed_touched_td_ids"] == ["td_unclaimed"]
@@ -6966,6 +8062,82 @@ def test_cohort_overview_flags_touched_threads_without_live_claim(tmp_path: Path
     overview_after_claim = work_ledger_runtime.load_runtime_status(tmp_path)["cohort_overview"]
     assert overview_after_claim["counts"]["unclaimed_touched_sessions"] == 0
     assert "unclaimed_touched_work" not in overview_after_claim["contention"]["signals"]
+    assert (
+        overview_after_claim["recommended_landing_lane"]
+        == "scoped_landing_with_full_index_inspection"
+    )
+
+
+def test_cohort_overview_path_like_touch_is_covered_by_path_claim(tmp_path: Path) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    session_id = "codex_path_touch"
+    path = "microcosm-substrate/src/microcosm_core/organs/batch9_macro_engines_capsule.py"
+    work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id=session_id,
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )
+
+    work_ledger_runtime.mark_session_activity(
+        tmp_path,
+        session_id=session_id,
+        action="tool-use",
+        td_id=path,
+    )
+    overview_before_claim = work_ledger_runtime.load_runtime_status(tmp_path)["cohort_overview"]
+    assert overview_before_claim["counts"]["unclaimed_touched_sessions"] == 1
+    row = overview_before_claim["contention"]["unclaimed_touched_sessions"][0]
+    assert row["unclaimed_touched_path_ids"] == [path]
+    assert row["unclaimed_touched_td_ids"] == []
+
+    work_ledger_runtime.claim_work_path(
+        tmp_path,
+        session_id=session_id,
+        path=path,
+        lease_minutes=30,
+    )
+
+    overview_after_claim = work_ledger_runtime.load_runtime_status(tmp_path)["cohort_overview"]
+    assert overview_after_claim["counts"]["unclaimed_touched_sessions"] == 0
+    assert "unclaimed_touched_work" not in overview_after_claim["contention"]["signals"]
+
+
+def test_cohort_overview_path_like_touch_normalizes_equivalent_paths(tmp_path: Path) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    path = "microcosm-substrate/src/microcosm_core/organs/batch9_macro_engines_capsule.py"
+    variants = {
+        "codex_dot_path_touch": f"./{path}",
+        "codex_absolute_path_touch": str(tmp_path / path),
+    }
+
+    for session_id, touched_path in variants.items():
+        work_ledger_runtime.bootstrap_session(
+            tmp_path,
+            session_id=session_id,
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+        )
+        work_ledger_runtime.mark_session_activity(
+            tmp_path,
+            session_id=session_id,
+            action="tool-use",
+            td_id=touched_path,
+        )
+        work_ledger_runtime.claim_work_path(
+            tmp_path,
+            session_id=session_id,
+            path=path,
+            lease_minutes=30,
+        )
+
+    overview = work_ledger_runtime.load_runtime_status(tmp_path)["cohort_overview"]
+    assert overview["counts"]["unclaimed_touched_sessions"] == 0
+    assert "unclaimed_touched_work" not in overview["contention"]["signals"]
 
 
 def test_cohort_overview_awareness_cards_demote_unknown_and_orphaned_passes() -> None:

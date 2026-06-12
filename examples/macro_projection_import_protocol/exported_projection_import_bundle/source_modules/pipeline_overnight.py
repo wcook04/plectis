@@ -20,7 +20,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
+import signal
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -59,6 +61,7 @@ from system.lib.seed_pipeline_controller import write_controller_artifacts
 VALID_WAKE_AGENTS = {"auto", "none", "codex", "claude", "both"}
 VALID_REFRESH_MODES = {"auto", "always", "never"}
 SYNTH_REFRESH_DEFER_FILENAME = "synth_refresh_deferred.json"
+LAUNCH_AGENT_INSTALL_TIMEOUT_SECONDS = 15.0
 INSTALL_SCRIPTS = {
     PIPELINE_AUTOPILOT_LABEL: REPO_ROOT / "pipeline_autopilot_install.sh",
     CODEX_SIGNAL_WATCHER_LABEL: REPO_ROOT / "pipeline_signal_install.sh",
@@ -534,15 +537,38 @@ def _sync_synth(phase_ref: str) -> dict[str, Any]:
     return payload
 
 
+def _run_launch_agent_install_script(script: Path) -> tuple[subprocess.CompletedProcess[str], bool]:
+    command = ["/bin/bash", str(script)]
+    proc = subprocess.Popen(
+        command,
+        cwd=str(REPO_ROOT),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        start_new_session=True,
+    )
+    try:
+        stdout, stderr = proc.communicate(timeout=LAUNCH_AGENT_INSTALL_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        for kill_signal in (signal.SIGTERM, signal.SIGKILL):
+            try:
+                os.killpg(proc.pid, kill_signal)
+            except OSError:
+                pass
+            try:
+                stdout, stderr = proc.communicate(timeout=2.0)
+                break
+            except subprocess.TimeoutExpired:
+                continue
+        else:
+            stdout, stderr = proc.communicate()
+        return subprocess.CompletedProcess(command, 124, stdout=stdout, stderr=stderr), True
+    return subprocess.CompletedProcess(command, int(proc.returncode or 0), stdout=stdout, stderr=stderr), False
+
+
 def _install_launch_agent(label: str) -> dict[str, Any]:
     script = INSTALL_SCRIPTS[label]
-    result = subprocess.run(
-        ["/bin/bash", str(script)],
-        cwd=str(REPO_ROOT),
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    result, timed_out = _run_launch_agent_install_script(script)
     payload = {
         "label": label,
         "script": _relative(script),
@@ -551,7 +577,15 @@ def _install_launch_agent(label: str) -> dict[str, Any]:
         "stderr": _string(result.stderr) or None,
         "status": "installed" if result.returncode == 0 else "failed",
         "permission_blocked": False,
+        "timed_out": timed_out,
     }
+    if timed_out:
+        payload["status"] = "skipped_timeout"
+        payload["warning"] = (
+            f"LaunchAgent install timed out after {LAUNCH_AGENT_INSTALL_TIMEOUT_SECONDS:g}s; "
+            "overnight arming continued without waiting for that watcher."
+        )
+        return payload
     if result.returncode != 0:
         combined = " ".join(
             part for part in (payload["stdout"], payload["stderr"]) if isinstance(part, str) and part
@@ -564,7 +598,8 @@ def _install_launch_agent(label: str) -> dict[str, Any]:
                 "phase arming will continue without installing that watcher."
             )
             return payload
-        raise RuntimeError(f"launch agent install failed for {label}: {payload['stderr'] or payload['stdout'] or 'unknown error'}")
+        payload["warning"] = "LaunchAgent install failed; overnight arming continued without that watcher."
+        return payload
     return payload
 
 
@@ -750,9 +785,9 @@ def arm_overnight(
 
         resolved_wake_agent = resolve_wake_agent(wake_agent, repo_root=REPO_ROOT)
         launch_labels = _desired_launch_labels(resolved_wake_agent)
-        launch_results = [_install_launch_agent(label) for label in launch_labels]
         control_state = mark_pipeline_resumed(repo_root=REPO_ROOT, sleep_policy=sleep_policy)
         control_state = ensure_wake_lock(sleep_policy=sleep_policy, repo_root=REPO_ROOT)
+        launch_results = [_install_launch_agent(label) for label in launch_labels]
 
         return {
             "action": "arm_overnight",

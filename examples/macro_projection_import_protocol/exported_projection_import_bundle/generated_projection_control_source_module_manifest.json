@@ -34,9 +34,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 177750,
+      "byte_count": 198765,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4274,
+      "line_count": 4750,
       "material_class": "public_macro_tool_body",
       "material_id": "generated_state_drainer_body_import",
       "module_id": "generated_state_drainer_body_import",
@@ -51,17 +51,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_generated_projection_output_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": "system/lib/generated_state_drainer.py",
       "source_role": "Generated-state settlement and landing planner that maps dirty generated projections to owner checks, refresh actions, scoped commits, and fixed-point settlement without broad staging.",
-      "source_sha256": "b16dd1df0188cf5c378901167b215d3af549edc3c1dda5eeadbe5c458a7de5e6",
+      "source_sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_state_drainer.py",
-      "target_sha256": "b16dd1df0188cf5c378901167b215d3af549edc3c1dda5eeadbe5c458a7de5e6"
+      "target_sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 153556,
+      "byte_count": 191229,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 3748,
+      "line_count": 4667,
       "material_class": "public_macro_tool_body",
       "material_id": "generated_state_drainer_test_body_import",
       "module_id": "generated_state_drainer_test_body_import",
@@ -76,9 +76,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_generated_projection_output_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": "system/server/tests/test_generated_state_drainer.py",
       "source_role": "Focused generated-state drainer regression suite covering stale/dirty owner classification, landing manifests, append-exempt landing, fixed-point settlement, and unsupported-owner refusals.",
-      "source_sha256": "28fcd68e9dbd86474bbb51023b8635cb499c829a23b371682606cccefd8478b5",
+      "source_sha256": "70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer.py",
-      "target_sha256": "28fcd68e9dbd86474bbb51023b8635cb499c829a23b371682606cccefd8478b5"
+      "target_sha256": "70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa"
     },
     {
       "anchor_count": 5,

@@ -30,9 +30,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 34097,
+      "byte_count": 34993,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 821,
+      "line_count": 840,
       "material_class": "public_macro_tool_body",
       "module_id": "active_execution_constellation_test_body_import",
       "required_anchors": [
@@ -46,9 +46,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/server/tests/test_active_execution_constellation.py",
       "source_role": "Focused active-execution constellation regression suite covering dormant anchors, Work Ledger pass-awareness cards, claim topology, entry routing, phase overlay behavior, and pulse integration.",
-      "source_sha256": "8d840d7c597e8525267e9bb28c9cf4af50bbb22f3d8bd0a6ff1e323a4d0b5f52",
+      "source_sha256": "61d775e958191956c4f4d2cf07efe992069a431c5d9dc4598ea3c38f3369c01f",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
-      "target_sha256": "8d840d7c597e8525267e9bb28c9cf4af50bbb22f3d8bd0a6ff1e323a4d0b5f52"
+      "target_sha256": "61d775e958191956c4f4d2cf07efe992069a431c5d9dc4598ea3c38f3369c01f"
     }
   ],
   "public_runtime_policy": "public validation uses exact copied active-execution constellation source bodies with digest and anchor checks; live Work Ledger, Task Ledger, provider, browser, account/session, and private-state authority are not exported.",

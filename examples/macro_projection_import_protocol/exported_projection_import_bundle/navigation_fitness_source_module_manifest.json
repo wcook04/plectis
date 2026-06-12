@@ -1,11 +1,62 @@
 {
-  "schema_version": "macro_projection_navigation_fitness_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "navigation_fitness_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys",
   "body_storage_policy": "exact_non_secret_navigation_fitness_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "navigation_fitness_source_modules_import",
+  "module_count": 2,
+  "modules": [
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 68731,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1667,
+      "material_class": "public_macro_tool_body",
+      "module_id": "navigation_fitness_body_import",
+      "required_anchors": [
+        "FITNESS_TASKS: tuple[FitnessTask, ...] = (",
+        "HELDOUT_TASKS: tuple[FitnessTask, ...] = (",
+        "ADVERSARIAL_TASKS: tuple[FitnessTask, ...] = (",
+        "def build_navigation_fitness(",
+        "\"schema_version\": \"navigation_fitness_v0\""
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/navigation_fitness.py",
+      "source_role": "Cold-task navigation fitness harness that evaluates whether first-contact packets expose expected stable ids, latency debt, route timeouts, and drilldown availability for navigation metabolism.",
+      "source_sha256": "aeff6529d8aaaaf7a4263887160f1434b1469c386cde516fa39fc7b2ea8fb507",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_fitness.py",
+      "target_sha256": "aeff6529d8aaaaf7a4263887160f1434b1469c386cde516fa39fc7b2ea8fb507"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 15542,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 365,
+      "material_class": "public_macro_tool_body",
+      "module_id": "navigation_fitness_test_body_import",
+      "required_anchors": [
+        "test_navigation_fitness_smoke_proves_expected_ids_without_legacy_first_routes",
+        "test_navigation_fitness_baseline_covers_twenty_task_families",
+        "test_navigation_fitness_heldout_and_adversarial_suites_are_nonliteral",
+        "test_navigation_fitness_cli_and_semantic_modes_are_explicit",
+        "test_route_timeout_emits_timeout_debt_with_repair_owner_and_hidden_ids"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/server/tests/test_navigation_fitness.py",
+      "source_role": "Focused regression tests for navigation fitness smoke, baseline, heldout, adversarial, CLI, semantic, latency, and route-timeout debt behavior.",
+      "source_sha256": "3ec4cb7b7f86158d6447f59b1b7d2b24f8453b036e98475ce44455e1d1ab6f87",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_fitness.py",
+      "target_sha256": "3ec4cb7b7f86158d6447f59b1b7d2b24f8453b036e98475ce44455e1d1ab6f87"
+    }
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing navigation fitness regression contract; copied source modules are body evidence, not authority to run live macro kernel routing state, semantic route probes, provider payload access, or private session state.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "schema_version": "macro_projection_navigation_fitness_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -18,58 +69,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing navigation fitness regression contract; copied source modules are body evidence, not authority to run live macro kernel routing state, semantic route probes, provider payload access, or private session state.",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "navigation_fitness_body_import",
-      "source_ref": "system/lib/navigation_fitness.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_fitness.py",
-      "source_role": "Cold-task navigation fitness harness that evaluates whether first-contact packets expose expected stable ids, latency debt, route timeouts, and drilldown availability for navigation metabolism.",
-      "required_anchors": [
-        "FITNESS_TASKS: tuple[FitnessTask, ...] = (",
-        "HELDOUT_TASKS: tuple[FitnessTask, ...] = (",
-        "ADVERSARIAL_TASKS: tuple[FitnessTask, ...] = (",
-        "def build_navigation_fitness(",
-        "\"schema_version\": \"navigation_fitness_v0\""
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "aeff6529d8aaaaf7a4263887160f1434b1469c386cde516fa39fc7b2ea8fb507",
-      "target_sha256": "aeff6529d8aaaaf7a4263887160f1434b1469c386cde516fa39fc7b2ea8fb507",
-      "sha256_match": true,
-      "line_count": 1667,
-      "byte_count": 68731,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "navigation_fitness_test_body_import",
-      "source_ref": "system/server/tests/test_navigation_fitness.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_fitness.py",
-      "source_role": "Focused regression tests for navigation fitness smoke, baseline, heldout, adversarial, CLI, semantic, latency, and route-timeout debt behavior.",
-      "required_anchors": [
-        "test_navigation_fitness_smoke_proves_expected_ids_without_legacy_first_routes",
-        "test_navigation_fitness_baseline_covers_twenty_task_families",
-        "test_navigation_fitness_heldout_and_adversarial_suites_are_nonliteral",
-        "test_navigation_fitness_cli_and_semantic_modes_are_explicit",
-        "test_route_timeout_emits_timeout_debt_with_repair_owner_and_hidden_ids"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "c7c4b17657615356e124219b524a4f30ba1d025b507c75a54adacfe3f53c5ccd",
-      "target_sha256": "c7c4b17657615356e124219b524a4f30ba1d025b507c75a54adacfe3f53c5ccd",
-      "sha256_match": true,
-      "line_count": 360,
-      "byte_count": 15387,
-      "anchor_count": 5
-    }
-  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",

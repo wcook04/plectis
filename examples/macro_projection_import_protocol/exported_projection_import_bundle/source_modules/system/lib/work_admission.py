@@ -673,7 +673,10 @@ def classify_work_creation_request(
     elif lane == "subphase_wave":
         work_class = TRANCHE_SUBPHASE_WAVE
         reason = "Starting a subphase tranche can create new parallel work."
-    elif any(profile in PROJECTION_WRITE_PROFILES for profile in profile_names):
+    elif any(
+        profile in PROJECTION_WRITE_PROFILES or profile.endswith("_projection")
+        for profile in profile_names
+    ):
         work_class = PROJECTION_REBUILD
         reason = "Write profile expands to generated projection rebuild outputs."
     elif plane in {"projection", "paper_module"}:
@@ -1628,9 +1631,14 @@ def _inline_items(items: Sequence[str], *, empty: str = "the requested shared su
     return ", ".join(f"`{item}`" for item in items)
 
 
-def _session_yield_request_card(row: Mapping[str, Any]) -> dict[str, Any]:
+def _session_yield_request_card(
+    row: Mapping[str, Any],
+    *,
+    latest_result: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     request = _session_yield_request_payload(row)
     coordination = _as_mapping(request.get("coordination_request"))
+    result = _as_mapping(latest_result)
     held_paths = _bounded_text_items(coordination.get("held_paths"), limit=3)
     avoid_paths = _bounded_text_items(coordination.get("avoid_paths"), limit=3)
     avoid_sessions = _bounded_text_items(coordination.get("avoid_session_ids"), limit=3)
@@ -1638,6 +1646,8 @@ def _session_yield_request_card(row: Mapping[str, Any]) -> dict[str, Any]:
         bool(coordination.get(field))
         for field in ("message", "acknowledgement_template", "requested_action_note")
     )
+    folded_result = result.get("result") if result else request.get("result")
+    folded_accepted = bool(result.get("accepted")) if result else bool(request.get("accepted"))
     return {
         "schema": "session_yield_request_card_v1",
         "request_id": request.get("request_id") or coordination.get("request_id"),
@@ -1645,8 +1655,17 @@ def _session_yield_request_card(row: Mapping[str, Any]) -> dict[str, Any]:
         "target_id": coordination.get("target_session_id") or request.get("target_id"),
         "target_class": request.get("target_class") or coordination.get("target_class"),
         "requested_action": request.get("requested_action") or coordination.get("requested_action"),
-        "result": request.get("result"),
-        "accepted": bool(request.get("accepted")),
+        "request_result": request.get("result"),
+        "result": folded_result,
+        "accepted": folded_accepted,
+        "applied": bool(result.get("applied")) if result else False,
+        "applied_action": result.get("applied_action") if result else None,
+        "pending": not bool(result) and request.get("result") == "requested",
+        "resolved": bool(result),
+        "latest_result_status": result.get("status") if result else None,
+        "latest_result_delivery": result.get("delivery") if result else None,
+        "result_note_preview": _session_yield_short_text(result.get("result_note")) if result else None,
+        "result_note_omitted": bool(result.get("result_note")) if result else False,
         "owner_status": request.get("owner_status"),
         "pressure_mode": request.get("pressure_mode"),
         "requester_label": coordination.get("requester_label"),
@@ -2362,13 +2381,22 @@ def build_session_yield_control_surface(
         return payload
 
     compact_card_limit = min(5, bounded_limit)
+    latest_request_cards: list[dict[str, Any]] = []
+    for request in list(reversed(requests))[:compact_card_limit]:
+        request_id = str(request.get("request_id") or "")
+        target_id = str(request.get("target_id") or "")
+        latest_result = latest_result_by_request.get(request_id) or latest_result_by_target.get(
+            target_id
+        )
+        latest_request_cards.append(
+            _session_yield_request_card(request, latest_result=latest_result)
+        )
+
     compact_payload = {
         "schema": SESSION_YIELD_CONTROL_SURFACE_SCHEMA,
         "output_profile": "compact",
         "card_limit": compact_card_limit,
-        "latest_request_cards": [
-            _session_yield_request_card(row) for row in list(reversed(requests))[:compact_card_limit]
-        ],
+        "latest_request_cards": latest_request_cards,
         "latest_result_cards": [
             _session_yield_result_card(row) for row in list(reversed(results))[:compact_card_limit]
         ],

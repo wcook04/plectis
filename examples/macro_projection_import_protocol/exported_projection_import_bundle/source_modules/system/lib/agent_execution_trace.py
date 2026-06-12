@@ -1042,10 +1042,27 @@ def _first_concrete_test_scope(examples: Iterable[Mapping[str, Any]]) -> str | N
     return None
 
 
+def _is_projection_heavy_validation_command(command_lower: str, targets: tuple[str, ...]) -> bool:
+    text = " ".join((command_lower, " ".join(path.lower() for path in targets)))
+    if "build_microcosm_public_site.py" in text or "test_build_microcosm_public_site.py" in text:
+        return True
+    if re.search(r"\btools/meta/[^ ]*/tests/test_build_[\w_]+\.py\b", text):
+        return True
+    if re.search(r"\btools/meta/[^ ]*/build_[\w_]+\.py\b", text) and (
+        "--write --validate" in text
+        or "--check --validate" in text
+        or "repo-pytest" in text
+        or "pytest" in text
+    ):
+        return True
+    return False
+
+
 @lru_cache(maxsize=8192)
 def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]) -> tuple[str, ...]:
     lower = command.lower()
     tags: list[str] = []
+    projection_heavy_validation = _is_projection_heavy_validation_command(lower, targets)
     git_diff_command = re.search(r"(?:^|[;&|]\s*)(?:\./repo-git|git)\s+diff\b", lower)
     git_metadata_probe_command = re.search(
         r"(?:^|[;&|]\s*)(?:\./repo-git|git)\s+rev-parse\b",
@@ -1111,11 +1128,17 @@ def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]
             tags.append("suite_wide_vitest")
         if "git stash" in lower:
             tags.append("stash_wrapped_test")
+        if projection_heavy_validation:
+            tags.append("projection_heavy_validation")
     if kind == "repo_tool_command":
         if any(path.startswith("tools/meta/factory/") for path in targets):
             tags.append("factory_builder")
         if any(path.startswith("tools/meta/") for path in targets):
             tags.append("repo_meta_tool")
+        if projection_heavy_validation:
+            tags.append("projection_heavy_validation")
+            if "--write --validate" in lower:
+                tags.append("projection_write_validate")
     if _is_work_ledger_session_preflight_command(lower) or _is_mission_transaction_preflight_command(lower):
         tags.append("preflight_full_drilldown" if "--full" in lower else "preflight_compact_owner_status")
     if kind == "kernel_command":
@@ -1643,6 +1666,30 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 focused_hint["concrete_preferred_next"] = concrete_next
                 focused_hint["replacement_commands"] = [concrete_next]
             hints.append(focused_hint)
+        if tag_counts.get("projection_heavy_validation"):
+            hints.append({
+                "hint_id": "route_projection_heavy_validation_contract",
+                "reason": (
+                    "Slow focused tests still rebuild generated projections, so node-id narrowing "
+                    "alone does not remove the wait tax or stale-contract churn."
+                ),
+                "preferred_next": (
+                    "Use the owner card/check route, run a literal stale-contract scan over the "
+                    "owned source/test/generated scope, then run the smallest focused regression "
+                    "before any broader projection rebuild suite."
+                ),
+                "quote_surface": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action test_or_build_command --scope <projection-test-or-builder>"
+                ),
+                "replacement_commands": [
+                    (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action test_or_build_command --scope <projection-test-or-builder>"
+                    ),
+                    "./repo-python kernel.py --command-profile <projection-owner-surface>",
+                ],
+            })
         if tag_counts.get("suite_wide_pytest") or tag_counts.get("suite_wide_vitest"):
             hints.append({
                 "hint_id": "scope_tests_before_full_suite",
@@ -1699,6 +1746,29 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "replacement_commands": [
                     COMMAND_SURFACE_QUOTE_COMMAND,
                     "./repo-python kernel.py --command-profile <owner-surface>",
+                ],
+            })
+        if tag_counts.get("projection_heavy_validation"):
+            hints.append({
+                "hint_id": "prefer_projection_check_before_write_validate",
+                "reason": (
+                    "Projection builders can spend most of the session in repeated write/validate "
+                    "cycles when source, tests, and generated artifacts carry mixed old/new contract names."
+                ),
+                "preferred_next": (
+                    "Run the owner --check/--validate or compact status first; after source/test "
+                    "alignment, perform one write/validate regeneration and then focused readback tests."
+                ),
+                "quote_surface": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action repo_tool_command --scope <projection-builder>"
+                ),
+                "replacement_commands": [
+                    "./repo-python kernel.py --command-profile <projection-owner-surface>",
+                    (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action repo_tool_command --scope <projection-builder>"
+                    ),
                 ],
             })
         if tag_counts.get("output_limited"):

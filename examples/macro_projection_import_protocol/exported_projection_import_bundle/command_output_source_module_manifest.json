@@ -81,9 +81,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 18191,
+      "byte_count": 20724,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 322,
+      "line_count": 359,
       "material_class": "public_macro_tool_body",
       "module_id": "command_output_projection_standard_body_import",
       "required_anchors": [
@@ -97,9 +97,9 @@
       "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
       "source_ref": "codex/standards/std_command_output_projection.json",
       "source_role": "Command-output projection standard governing envelope fields, packet factoring, row-id shape, drilldown/evidence/currentness/omission contracts, and sidecar-adjacent command-output posture",
-      "source_sha256": "589a7f5476e3a77b397628cb5f79bf2d0493eddc2c8a1a805401ba404335205d",
+      "source_sha256": "49df92e4f7433956c4c34b3f932f5b4dbec5afe7673fd646f63cb162d00eb62b",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
-      "target_sha256": "589a7f5476e3a77b397628cb5f79bf2d0493eddc2c8a1a805401ba404335205d"
+      "target_sha256": "49df92e4f7433956c4c34b3f932f5b4dbec5afe7673fd646f63cb162d00eb62b"
     }
   ],
   "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",

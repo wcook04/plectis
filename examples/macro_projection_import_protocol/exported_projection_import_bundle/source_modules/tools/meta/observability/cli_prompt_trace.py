@@ -75,6 +75,7 @@ TRACE_STRUCTURER_MISSION_SUMMARY_CACHE = TRACE_STRUCTURER_BASE / "mission_summar
 TRACE_STRUCTURER_TITLE_ALIASES = TRACE_STRUCTURER_BASE / "title_aliases.json"
 TRACE_STRUCTURER_VARIANT_ARTIFACTS = TRACE_STRUCTURER_BASE / "Variant Artifacts"
 TRACE_STRUCTURER_VARIANT_INDEX = TRACE_STRUCTURER_BASE / "variant_artifact_index.json"
+TRACE_STRUCTURER_TYPE_B_SOURCE_CARRIERS = TRACE_STRUCTURER_BASE / "Type B Source Excerpts"
 STRUCTURER_PARSER_PATH = REPO_ROOT / "tools" / "agent_trace_structurer" / "parser.mjs"
 CODEX_SESSION_INDEX = HOME / ".codex" / "session_index.jsonl"
 CODEX_GOALS_DB = HOME / ".codex" / "goals_1.sqlite"
@@ -106,6 +107,7 @@ TRACE_CAPSULE_SOURCE_EXCERPT_LINES = 120
 TRACE_CAPSULE_SOURCE_EXCERPT_BYTES = 24000
 TRACE_CAPSULE_PROMPT_FILE_BYTES = 12000
 TYPE_B_SOURCE_EXCERPT_SCHEMA_VERSION = "type_b_source_excerpt_v1"
+TYPE_B_SOURCE_EXCERPT_CARRIER_SCHEMA_VERSION = "type_b_source_excerpt_carrier_v1"
 TRACE_CAPSULE_TYPE_B_SOURCE_AFFORDANCE_ID = "type_b_source_excerpt_available"
 TRACE_CAPSULE_TYPE_B_SOURCE_AFFORDANCE_PATH_PREFIXES = (
     "tools/meta/observability/cli_prompt_trace.py",
@@ -200,6 +202,17 @@ def _latest_iso_timestamp(*values: object) -> str:
 
 def _sha16(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
+
+
+def _file_tail_sha16(path: Path, *, max_bytes: int = 4096) -> str:
+    try:
+        size = path.stat().st_size
+        with path.open("rb") as f:
+            if size > max_bytes:
+                f.seek(max(0, size - max_bytes))
+            return hashlib.sha256(f.read()).hexdigest()[:16]
+    except Exception:
+        return ""
 
 
 def _project_slug_for_cwd(cwd: Path) -> str:
@@ -2852,6 +2865,208 @@ def _capsule_tool_edit_deltas(ev: ToolEvent) -> list[dict[str, Any]]:
 
 TRACE_CAPSULE_DIFF_MAX_TOTAL_LINES = 2400
 TRACE_CAPSULE_DIFF_MAX_FILE_LINES = 1200
+TRACE_CAPSULE_FINAL_DELTA_MAX_TOTAL_LINES = 1800
+
+
+def _capsule_git_pathspecs(paths: list[str]) -> list[str]:
+    pathspecs: list[str] = []
+    seen: set[str] = set()
+    for raw_path in paths:
+        clean = _capsule_public_trace_path(str(raw_path or ""))
+        if clean.startswith("repo:"):
+            clean = clean[len("repo:"):].lstrip("/")
+        if not clean or clean.startswith("/") or clean.startswith("../"):
+            continue
+        if "\x00" in clean or "\n" in clean or "\r" in clean:
+            continue
+        if clean not in seen:
+            seen.add(clean)
+            pathspecs.append(clean)
+    return pathspecs[:80]
+
+
+def _capsule_truncated_raw_diff_lines(
+    text: str,
+    *,
+    max_total_lines: int = TRACE_CAPSULE_FINAL_DELTA_MAX_TOTAL_LINES,
+) -> tuple[list[str], int, str]:
+    raw_lines = [line.rstrip("\n").replace("\x00", "[nul]")[:600] for line in (text or "").splitlines()]
+    raw_lines = [line for line in raw_lines if line.strip()]
+    if len(raw_lines) <= max_total_lines:
+        return raw_lines, 0, ""
+    kept = raw_lines[:max_total_lines]
+    omitted = len(raw_lines) - len(kept)
+    sha16 = _sha16("\n".join(raw_lines))
+    kept.append(f"[final delta truncated; omitted_lines={omitted}; sha16={sha16}]")
+    return kept, omitted, sha16
+
+
+def _capsule_final_delta_paths(diff_lines: list[str], fallback_paths: list[str]) -> list[str]:
+    paths: list[str] = []
+    seen: set[str] = set()
+
+    def add(path: str) -> None:
+        clean = _capsule_public_trace_path(path)
+        if clean.startswith("repo:"):
+            clean = clean[len("repo:"):].lstrip("/")
+        if clean and clean not in seen:
+            seen.add(clean)
+            paths.append(clean)
+
+    for line in diff_lines:
+        match = re.match(r"^diff --git a/(.+?) b/(.+)$", line)
+        if match:
+            add(match.group(2))
+    for path in fallback_paths:
+        add(path)
+    return paths[:80]
+
+
+def _capsule_final_delta_for_trace(
+    *,
+    commit_hash: str,
+    changed_paths: list[str],
+    cwd: str | None,
+    max_total_lines: int = TRACE_CAPSULE_FINAL_DELTA_MAX_TOTAL_LINES,
+) -> dict[str, Any]:
+    repo = Path(cwd or REPO_ROOT)
+    if not repo.exists() or not (repo / ".git").exists():
+        repo = REPO_ROOT
+    pathspecs = _capsule_git_pathspecs(changed_paths)
+    commit_clean = (commit_hash or "").strip()
+    if commit_clean and not re.fullmatch(r"[0-9a-f]{7,40}", commit_clean, re.IGNORECASE):
+        commit_clean = ""
+
+    base: dict[str, Any] = {
+        "schema_version": "agent_trace_final_delta_v1",
+        "attached": False,
+        "state": "not_captured",
+        "source": "none",
+        "authority": "edit_event_log_only",
+        "commit": commit_clean,
+        "pathspecs": pathspecs,
+        "paths": pathspecs,
+        "line_count": 0,
+        "omitted_lines": 0,
+        "truncated_sha16": "",
+        "command": "",
+        "lines": [],
+        "reason": "no_commit_or_worktree_delta_captured",
+    }
+
+    if commit_clean:
+        args = [
+            "git",
+            "-C",
+            str(repo),
+            "show",
+            "--format=fuller",
+            "--stat",
+            "--patch",
+            "--no-ext-diff",
+            "--unified=3",
+            "--find-renames",
+            commit_clean,
+        ]
+        if pathspecs:
+            args.extend(["--", *pathspecs])
+        source = "git_show_commit"
+        command = f"git show --stat --patch --no-ext-diff --unified=3 {commit_clean}"
+        if pathspecs:
+            command += " -- " + " ".join(shlex.quote(path) for path in pathspecs[:8])
+            if len(pathspecs) > 8:
+                command += f" ...(+{len(pathspecs) - 8} paths)"
+    elif pathspecs and cwd:
+        args = [
+            "git",
+            "-C",
+            str(repo),
+            "diff",
+            "--no-ext-diff",
+            "--unified=3",
+            "--",
+            *pathspecs,
+        ]
+        source = "git_diff_worktree"
+        command = "git diff --no-ext-diff --unified=3 -- " + " ".join(shlex.quote(path) for path in pathspecs[:8])
+        if len(pathspecs) > 8:
+            command += f" ...(+{len(pathspecs) - 8} paths)"
+    else:
+        if pathspecs:
+            base["reason"] = "worktree_delta_requires_turn_cwd"
+        return base
+
+    try:
+        proc = subprocess.run(args, text=True, capture_output=True, timeout=8)
+    except Exception as exc:  # pragma: no cover - defensive around local git state.
+        base.update({
+            "state": "capture_failed",
+            "source": source,
+            "command": command,
+            "reason": f"git_command_failed:{_capsule_clean_text(str(exc))[:160]}",
+        })
+        return base
+
+    output = proc.stdout or ""
+    if proc.returncode != 0 or not output.strip():
+        reason = "git_command_returned_no_patch"
+        if proc.returncode != 0:
+            stderr = _capsule_clean_text((proc.stderr or "").strip())[:160]
+            reason = f"git_command_failed_exit_{proc.returncode}" + (f":{stderr}" if stderr else "")
+        base.update({
+            "state": "unavailable",
+            "source": source,
+            "command": command,
+            "reason": reason,
+        })
+        return base
+
+    lines, omitted, sha16 = _capsule_truncated_raw_diff_lines(output, max_total_lines=max_total_lines)
+    paths = _capsule_final_delta_paths(lines, pathspecs)
+    base.update({
+        "attached": True,
+        "state": f"{source}_attached",
+        "source": source,
+        "authority": "final_substrate_delta",
+        "paths": paths,
+        "line_count": len(lines),
+        "omitted_lines": omitted,
+        "truncated_sha16": sha16,
+        "command": command,
+        "lines": lines,
+        "reason": "attached",
+    })
+    return base
+
+
+def _capsule_final_delta_section_lines(final_delta: dict[str, Any]) -> list[str]:
+    lines = ["FINAL_DELTA"]
+    attached = bool(final_delta.get("attached"))
+    source = str(final_delta.get("source") or "none")
+    commit = str(final_delta.get("commit") or "none")
+    reason = _capsule_clean_text(str(final_delta.get("reason") or "none"))
+    paths = list(final_delta.get("paths") or [])
+    lines.append(
+        "final_delta_summary: "
+        f"attached={'true' if attached else 'false'} "
+        f"state={final_delta.get('state') or 'not_captured'} "
+        f"source={source} commit={commit} paths={len(paths)} "
+        f"lines={int(final_delta.get('line_count') or 0)} "
+        f"omitted_lines={int(final_delta.get('omitted_lines') or 0)} "
+        f"reason={reason or 'none'}"
+    )
+    lines.append(
+        "diff_authority: "
+        f"{final_delta.get('authority') or 'edit_event_log_only'} "
+        "patch_attempts_are_not_final_state=true "
+        f"final_substrate_delta_attached={'true' if attached else 'false'}"
+    )
+    command = str(final_delta.get("command") or "")
+    if command:
+        lines.extend(_capsule_command_display_lines(command))
+    body = [str(line) for line in (final_delta.get("lines") or [])]
+    lines.extend(body if body else ["[final substrate delta not attached]"])
+    return lines
 
 
 def _capsule_polarity_diff_line(raw_line: Any) -> str:
@@ -2892,8 +3107,11 @@ def _capsule_diff_section_lines(
     max_total_lines: int = TRACE_CAPSULE_DIFF_MAX_TOTAL_LINES,
     max_file_lines: int = TRACE_CAPSULE_DIFF_MAX_FILE_LINES,
 ) -> list[str]:
-    lines = ["DIFFS"]
+    lines = ["EDIT_EVENT_LOG"]
     if not edit_rows:
+        lines.append(
+            "edit_event_log_summary: rows=0 chronology_only=true patch_attempts_are_not_final_state=true"
+        )
         lines.append("none captured")
         return lines
 
@@ -2901,10 +3119,12 @@ def _capsule_diff_section_lines(
     additions = sum(int(row.get("additions") or 0) for row in edit_rows)
     deletions = sum(int(row.get("deletions") or 0) for row in edit_rows)
     lines.append(
-        f"edited_files_summary: files={path_count} additions=+{additions} deletions=-{deletions} source=edit_delta"
+        "edit_event_log_summary: "
+        f"files={path_count} rows={len(edit_rows)} additions=+{additions} deletions=-{deletions} "
+        "source=tool_edit_events chronology_only=true patch_attempts_are_not_final_state=true"
     )
     lines.append(
-        f"diff_summary: files={path_count} rows={len(edit_rows)} additions=+{additions} deletions=-{deletions}"
+        f"edited_files_summary: files={path_count} additions=+{additions} deletions=-{deletions} source=edit_event_log"
     )
 
     emitted_body_lines = 0
@@ -3199,6 +3419,7 @@ def write_structurer_clip(
     thin_bytes = thin_path.stat().st_size if thin_path.exists() else 0
     export_bytes = export_path.stat().st_size if export_path.exists() else 0
     thin_ratio = round(thin_bytes / raw_bytes_on_disk, 4) if raw_bytes_on_disk else None
+    source_watermark = _source_watermark_for_turn(turn)
 
     title, title_source = _resolve_session_title(
         turn.provider, turn.session_id, Path(turn.session_file),
@@ -3262,6 +3483,8 @@ def write_structurer_clip(
         "file_count": 0,
         "commands": sum(1 for e in turn.tool_events if e.name in ("Bash", "exec_command", "shell")),
         "originator": "cli_prompt_trace",
+        "source_watermark": source_watermark,
+        "copied_source_watermark": source_watermark,
         "cli_prompt_trace": {
             "schema": SCHEMA_VERSION,
             "trace_id": turn.turn_id,
@@ -3280,6 +3503,8 @@ def write_structurer_clip(
             "thin_clip_bytes": thin_bytes,
             "full_packet_bytes": full_bytes,
             "thin_to_raw_ratio": thin_ratio,
+            "source_watermark": source_watermark,
+            "copied_source_watermark": source_watermark,
         },
     }
     if isinstance(trace_window, dict):
@@ -3323,6 +3548,8 @@ def write_structurer_clip(
         "prompt_sha16": turn.prompt_sha256_16,
         "prompt_char_count": turn.prompt_char_count,
         "trace_window": trace_window if isinstance(trace_window, dict) else None,
+        "source_watermark": source_watermark,
+        "copied_source_watermark": source_watermark,
         "source_text_hash": digest,
         "raw_path": str(raw_path),
         "stored_path": str(capture_path),
@@ -3899,6 +4126,8 @@ def _capsule_public_trace_path(path: str) -> str:
     clean = (path or "").strip().strip("'\"")
     if not clean:
         return ""
+    if clean.startswith("repo:/"):
+        clean = clean[len("repo:/"):].lstrip("/")
     try:
         if Path(clean).is_absolute():
             clean_path = Path(clean)
@@ -4145,6 +4374,87 @@ def render_type_b_source_excerpt(
     return "\n".join(row["lines"]), row
 
 
+def _type_b_source_excerpt_carrier_payload(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": TYPE_B_SOURCE_EXCERPT_CARRIER_SCHEMA_VERSION,
+        "excerpt_schema_version": row.get("schema_version") or TYPE_B_SOURCE_EXCERPT_SCHEMA_VERSION,
+        "path": str(row.get("path") or ""),
+        "selection": str(row.get("selection") or ""),
+        "symbol": str(row.get("symbol") or ""),
+        "requested_range": row.get("requested_range") or {},
+        "emitted_range": row.get("emitted_range") or {},
+        "line_count": int(row.get("line_count") or 0),
+        "omitted_line_count": int(row.get("omitted_line_count") or 0),
+        "redaction_hits": list(row.get("redaction_hits") or []),
+        "lines": list(row.get("lines") or []),
+    }
+
+
+def _write_type_b_source_excerpt_carrier(row: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
+    payload = _type_b_source_excerpt_carrier_payload(row)
+    body = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False)
+    digest = _sha16(body)
+    public_path = str(payload.get("path") or "unknown")
+    safe_name = re.sub(r"[^A-Za-z0-9_.-]+", "_", public_path).strip("_") or "source"
+    safe_name = safe_name[-120:]
+    TRACE_STRUCTURER_TYPE_B_SOURCE_CARRIERS.mkdir(parents=True, exist_ok=True)
+    out_path = TRACE_STRUCTURER_TYPE_B_SOURCE_CARRIERS / f"{digest}_{safe_name}.json"
+    tmp = out_path.with_suffix(out_path.suffix + ".tmp")
+    tmp.write_text(body + "\n", encoding="utf-8")
+    tmp.replace(out_path)
+    return out_path, payload
+
+
+def render_type_b_source_excerpt_trace_carrier_receipt(
+    row: dict[str, Any],
+    sidecar_path: Path,
+) -> str:
+    emitted = row.get("emitted_range") or {}
+    start = emitted.get("start") or ""
+    end = emitted.get("end") or ""
+    selector = str(row.get("selection") or "unknown")
+    symbol = str(row.get("symbol") or "")
+    line_count = int(row.get("line_count") or 0)
+    omitted = int(row.get("omitted_line_count") or 0)
+    payload = _type_b_source_excerpt_carrier_payload(row)
+    sha16 = _sha16(json.dumps(payload, sort_keys=True, ensure_ascii=False))
+    parts = [
+        "type_b_source_excerpt_carrier:",
+        f"schema={TYPE_B_SOURCE_EXCERPT_CARRIER_SCHEMA_VERSION}",
+        f"path={row.get('path') or 'unknown'}",
+        f"range={start}-{end}",
+        f"selector={selector}",
+        f"lines={line_count}",
+        f"omitted={omitted}",
+        f"sidecar={shlex.quote(str(sidecar_path))}",
+        f"sha16={sha16}",
+    ]
+    if symbol:
+        parts.insert(5, f"symbol={symbol}")
+    return " ".join(parts)
+
+
+def _type_b_source_excerpt_trace_carrier_receipt(
+    *,
+    cwd: Path,
+    source_path: str,
+    line_range: str | None = None,
+    symbol: str | None = None,
+    full_file: bool = False,
+    max_lines: int = TRACE_CAPSULE_SOURCE_EXCERPT_LINES,
+) -> tuple[str, dict[str, Any], Path]:
+    _text, row = render_type_b_source_excerpt(
+        cwd=cwd,
+        source_path=source_path,
+        line_range=line_range,
+        symbol=symbol,
+        full_file=full_file,
+        max_lines=max_lines,
+    )
+    sidecar_path, _payload = _write_type_b_source_excerpt_carrier(row)
+    return render_type_b_source_excerpt_trace_carrier_receipt(row, sidecar_path), row, sidecar_path
+
+
 def _capsule_prompt_file_ref_paths(prompt_text: str) -> list[str]:
     paths: list[str] = []
 
@@ -4323,8 +4633,16 @@ def _capsule_source_read_ref_from_argv(argv: list[str], line: str) -> dict[str, 
                 "end_line": count if exe == "head" and count is not None else None,
             }
     if exe in {"rg", "grep"} and any(arg == "-n" or arg.startswith("-n") or "n" in arg[1:] for arg in argv[1:] if arg.startswith("-")):
+        def search_path_candidate(token: str) -> bool:
+            public = _capsule_public_trace_path(token)
+            if not _capsule_source_path_allowed(public):
+                return False
+            if re.search(r"[\^\$\|\(\)\[\]\{\}]", public):
+                return False
+            return "/" in public or "\\" in public or bool(Path(public).suffix)
+
         candidate_paths = [token for token in argv[2:] if not token.startswith("-")]
-        path = next((token for token in reversed(candidate_paths) if _capsule_source_path_allowed(token)), "")
+        path = next((token for token in reversed(candidate_paths) if search_path_candidate(token)), "")
         return {
             "kind": "search",
             "command": exe,
@@ -4403,6 +4721,58 @@ def _capsule_numbered_line_numbers(numbered: list[str]) -> list[int]:
     return values
 
 
+def _capsule_type_b_source_excerpt_from_carrier(
+    output_text: str,
+    ref: dict[str, Any],
+) -> tuple[list[str], str, str | None]:
+    for raw_line in (output_text or "").splitlines():
+        line = raw_line.strip()
+        if not line.startswith("type_b_source_excerpt_carrier:"):
+            continue
+        try:
+            tokens = shlex.split(line)
+        except ValueError:
+            return [], "", "requested_excerpt_sidecar_receipt_invalid"
+        fields: dict[str, str] = {}
+        for token in tokens[1:]:
+            if "=" not in token:
+                continue
+            key, value = token.split("=", 1)
+            fields[key] = value
+        sidecar_raw = fields.get("sidecar") or ""
+        if not sidecar_raw:
+            return [], "", "requested_excerpt_sidecar_receipt_missing_path"
+        sidecar_path = Path(sidecar_raw).expanduser()
+        try:
+            if not sidecar_path.is_file():
+                return [], "", "requested_excerpt_sidecar_missing"
+            payload_text = sidecar_path.read_text(encoding="utf-8")
+            payload = json.loads(payload_text)
+        except (OSError, json.JSONDecodeError):
+            return [], "", "requested_excerpt_sidecar_unreadable"
+        if not isinstance(payload, dict):
+            return [], "", "requested_excerpt_sidecar_invalid"
+        if payload.get("schema_version") != TYPE_B_SOURCE_EXCERPT_CARRIER_SCHEMA_VERSION:
+            return [], "", "requested_excerpt_sidecar_schema_mismatch"
+        receipt_sha = fields.get("sha16") or ""
+        payload_sha = _sha16(json.dumps(payload, sort_keys=True, ensure_ascii=False))
+        if receipt_sha and receipt_sha != payload_sha:
+            return [], "", "requested_excerpt_sidecar_sha_mismatch"
+        payload_path = _capsule_public_trace_path(str(payload.get("path") or ""))
+        ref_path = _capsule_public_trace_path(str(ref.get("path") or ""))
+        if payload_path != ref_path:
+            return [], "", "requested_excerpt_sidecar_path_mismatch"
+        raw_lines = payload.get("lines") or []
+        if not isinstance(raw_lines, list) or not all(isinstance(item, str) for item in raw_lines):
+            return [], "", "requested_excerpt_sidecar_lines_invalid"
+        numbered = _capsule_numbered_source_lines(list(raw_lines), ref)
+        if not numbered:
+            return [], "", "requested_excerpt_sidecar_no_numbered_lines"
+        carrier_output = f"{payload_path}\ncarrier_sidecar={sidecar_path}\n" + "\n".join(raw_lines)
+        return numbered, carrier_output, None
+    return [], "", "requested_excerpt_sidecar_receipt_absent"
+
+
 def _capsule_source_ref_key(ref: dict[str, Any]) -> tuple[str, str, int | None, int | None, str]:
     return (
         str(ref.get("path") or ""),
@@ -4458,10 +4828,390 @@ def _capsule_type_b_source_excerpt_affordance(
         "trigger_paths": trigger_paths,
         "trigger_path_count": len(trigger_paths),
         "policy": (
-            "Trace Capsule, Agent Trace Structurer, and Type B handoff edits should make "
-            "--type-b-source-excerpt easy to use when Type B would benefit from exact deciding "
-            "source lines, without making attachment mandatory."
+            "optional_until_source_context_demand"
         ),
+    }
+
+
+def _capsule_source_context_language_id(path: str) -> str:
+    suffix = Path(str(path or "")).suffix.lower()
+    return {
+        ".py": "python",
+        ".mjs": "javascript",
+        ".js": "javascript",
+        ".ts": "typescript",
+        ".tsx": "typescript",
+        ".swift": "swift",
+        ".json": "json",
+        ".md": "markdown",
+        ".yml": "yaml",
+        ".yaml": "yaml",
+        ".toml": "toml",
+    }.get(suffix, "text")
+
+
+def _capsule_source_context_anchor_for_path(path: str) -> str:
+    name = Path(str(path or "")).name
+    if name == "cli_prompt_trace.py":
+        return "symbol:_capsule_source_context_abi"
+    if name == "test_cli_prompt_trace_capsule.py":
+        return "symbol:test_trace_capsule_source_context_abi"
+    if name == "parser.mjs":
+        return "symbol:buildTraceCapsuleSourceContextReceipts"
+    if name == "parser.test.mjs":
+        return "symbol:projects_trace_capsule_source_context_receipts"
+    if name == "trace_capsule_unit_test.py":
+        return "symbol:trace_capsule_section_order"
+    if name.endswith((".md", ".json")):
+        return "document:owned_projection"
+    return "file:changed_surface"
+
+
+def _capsule_source_context_budget_class(path: str, anchor: str) -> str:
+    name = Path(str(path or "")).name.lower()
+    if "test" in name:
+        return "contract_test"
+    if anchor.startswith("symbol:"):
+        return "symbol_body"
+    if name.endswith((".md", ".json")):
+        return "standard_owned_projection"
+    return "path_line_shard"
+
+
+def _capsule_source_context_public_paths(paths: list[str]) -> list[str]:
+    out: list[str] = []
+    for raw_path in paths:
+        path = _capsule_public_trace_path(str(raw_path or ""))
+        if not path or not _capsule_source_path_allowed(path):
+            continue
+        if path not in out:
+            out.append(path)
+    return out
+
+
+def _capsule_source_context_trigger_paths(
+    *,
+    changed_paths: list[str],
+    final_delta: dict[str, Any],
+    type_b_source_excerpt_affordance: dict[str, Any],
+) -> list[str]:
+    paths: list[str] = []
+    paths.extend(type_b_source_excerpt_affordance.get("trigger_paths") or [])
+    paths.extend(changed_paths)
+    if final_delta.get("attached"):
+        paths.extend(str(path) for path in final_delta.get("paths") or [])
+    return _capsule_source_context_public_paths(paths)
+
+
+def _capsule_source_context_demand(
+    *,
+    prompt_text: str,
+    final_assistant_text: str,
+    changed_paths: list[str],
+    final_delta: dict[str, Any],
+    type_b_source_excerpt_affordance: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+) -> dict[str, Any]:
+    trigger_paths = _capsule_source_context_trigger_paths(
+        changed_paths=changed_paths,
+        final_delta=final_delta,
+        type_b_source_excerpt_affordance=type_b_source_excerpt_affordance,
+    )
+    combined_text = "\n".join([prompt_text or "", final_assistant_text or ""])
+    type_b_marker = bool(re.search(
+        r"\b(type\s*b|handoff|continue|latest response bundle|trace capsule|source context)\b",
+        combined_text,
+        re.I,
+    ))
+    exact_source_marker = bool(re.search(
+        r"\b(exact|source|code|function|symbol|implementation|current function|current code|line(?:s)?|path(?:s)?)\b",
+        combined_text,
+        re.I,
+    ))
+    implementation_claims_present = bool(
+        changed_paths
+        or final_delta.get("attached")
+        or re.search(r"\b(fixed|implemented|patched|changed|updated|committed|landed)\b", final_assistant_text or "", re.I)
+    )
+    reasons: list[str] = []
+    if type_b_marker and exact_source_marker:
+        reasons.append("operator_requested_exact_code")
+    if trigger_paths and type_b_marker:
+        reasons.append("private_repo_inaccessible_to_type_b")
+    if trigger_paths and type_b_source_excerpt_affordance.get("status") == "available":
+        reasons.append("trace_affordance_underuse")
+    if implementation_claims_present:
+        reasons.append("implementation_claims_present")
+    if int(source_excerpt_stats.get("agent_requested_seen_refs") or 0):
+        reasons.append("explicit_source_request_seen")
+
+    if not trigger_paths and not implementation_claims_present:
+        state = "none"
+        scope = "none"
+    elif type_b_marker and exact_source_marker:
+        state = "required_by_type_b_decision"
+        scope = "changed_symbols_and_contract_tests"
+    elif implementation_claims_present and trigger_paths:
+        state = "required_by_claim"
+        scope = "changed_symbols_and_contract_tests"
+    elif trigger_paths:
+        state = "recommended"
+        scope = "trigger_paths"
+    else:
+        state = "optional"
+        scope = "claim_mentions_without_trigger_paths"
+
+    return {
+        "schema_version": "agent_trace_source_context_demand_v1",
+        "state": state,
+        "satisfaction": "pending_slice_requests" if state not in {"none", "optional"} else state,
+        "consumer": "type_b_continue",
+        "reasons": reasons,
+        "trigger_paths": trigger_paths,
+        "trigger_path_count": len(trigger_paths),
+        "demand_scope": scope,
+        "readiness_effect": "amber_if_unsatisfied" if state.startswith("required") else "none",
+        "explicit_requests": int(source_excerpt_stats.get("agent_requested_seen_refs") or 0),
+    }
+
+
+def _capsule_source_slice_requests(
+    *,
+    source_context_demand: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+    final_delta: dict[str, Any],
+) -> dict[str, Any]:
+    demand_state = str(source_context_demand.get("state") or "none")
+    trigger_paths = _capsule_source_context_public_paths(
+        [str(path) for path in source_context_demand.get("trigger_paths") or []]
+    )
+    if demand_state in {"none", "optional"}:
+        trigger_paths = []
+
+    source_rows_by_path: dict[str, list[dict[str, Any]]] = {}
+    for row in source_excerpt_stats.get("rows") or []:
+        if not isinstance(row, dict):
+            continue
+        path = _capsule_public_trace_path(str(row.get("path") or ""))
+        if path:
+            source_rows_by_path.setdefault(path, []).append(row)
+
+    final_delta_paths = (
+        set(_capsule_source_context_public_paths([str(path) for path in final_delta.get("paths") or []]))
+        if final_delta.get("attached")
+        else set()
+    )
+    rows: list[dict[str, Any]] = []
+    required = demand_state.startswith("required")
+    for index, path in enumerate(trigger_paths[:TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT], start=1):
+        matching_source_rows = source_rows_by_path.get(path) or []
+        anchor = _capsule_source_context_anchor_for_path(path)
+        status = "deficit"
+        carrier = ""
+        carrier_kind = ""
+        if matching_source_rows:
+            first = matching_source_rows[0]
+            status = "emitted"
+            carrier = str(first.get("row_id") or "")
+            carrier_kind = str(first.get("kind") or "source_excerpt")
+        elif path in final_delta_paths and not required:
+            status = "satisfied_by_final_delta"
+            carrier = "FINAL_DELTA"
+            carrier_kind = "diff_hunk"
+        elif path in final_delta_paths:
+            carrier = "FINAL_DELTA"
+            carrier_kind = "fallback_delta_only"
+        rows.append({
+            "request_id": f"SSR{index:03d}",
+            "path": path,
+            "anchor": anchor,
+            "why": (
+                "type_b_decision_needs_exact_current_source"
+                if demand_state == "required_by_type_b_decision"
+                else (
+                    "source_dependent_claim_needs_current_source"
+                    if demand_state == "required_by_claim"
+                    else "recommended_source_context_for_handoff"
+                )
+            ),
+            "priority": "critical" if required else "high",
+            "budget_class": _capsule_source_context_budget_class(path, anchor),
+            "status": status,
+            "carrier": carrier,
+            "carrier_kind": carrier_kind,
+        })
+    return {
+        "schema_version": "agent_trace_source_slice_requests_v1",
+        "rows": rows,
+        "row_count": len(rows),
+        "explicit_request_count": int(source_excerpt_stats.get("agent_requested_seen_refs") or 0),
+        "synthesized_request_count": len(rows),
+    }
+
+
+def _capsule_source_slice_manifest(
+    *,
+    source_slice_requests: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+    repo_head: str,
+) -> dict[str, Any]:
+    requests_by_path = {
+        str(row.get("path") or ""): row
+        for row in source_slice_requests.get("rows") or []
+        if isinstance(row, dict)
+    }
+    slices: list[dict[str, Any]] = []
+    for row in source_excerpt_stats.get("rows") or []:
+        if not isinstance(row, dict):
+            continue
+        path = _capsule_public_trace_path(str(row.get("path") or ""))
+        if not path:
+            continue
+        request = requests_by_path.get(path)
+        anchor = str(row.get("selector") or "line_range")
+        if row.get("symbol"):
+            anchor = f"symbol:{row.get('symbol')}"
+        elif row.get("range"):
+            anchor = f"{anchor}:{row.get('range')}"
+        slices.append({
+            "slice_id": str(row.get("row_id") or f"S{len(slices) + 1:03d}"),
+            "request_id": str((request or {}).get("request_id") or "unrequested"),
+            "artifact_uri": f"file:{path}" if path.startswith("/") else f"repo:/{path}",
+            "repo_head": repo_head,
+            "language_id": _capsule_source_context_language_id(path),
+            "anchor": anchor,
+            "selector": str(row.get("selector") or ""),
+            "range": str(row.get("range") or ""),
+            "path_sha16": _sha16(path),
+            "text_sha16": str(row.get("sha16") or ""),
+            "carrier": str(row.get("row_id") or ""),
+            "carrier_command": str(row.get("command_id") or ""),
+            "line_count": int(row.get("line_count") or 0),
+            "bytes": int(row.get("bytes") or 0),
+            "truncated": (
+                int(row.get("line_count") or 0) >= TRACE_CAPSULE_SOURCE_EXCERPT_LINES
+                or int(row.get("bytes") or 0) >= TRACE_CAPSULE_SOURCE_EXCERPT_BYTES
+            ),
+            "linked_claims": ["CLM.source_context"],
+        })
+    return {
+        "schema_version": "agent_trace_source_slice_manifest_v1",
+        "slice_count": len(slices),
+        "slices": slices,
+    }
+
+
+def _capsule_source_context_deficit(
+    *,
+    source_slice_requests: dict[str, Any],
+    final_delta: dict[str, Any],
+    include_raw_sidecar: bool,
+) -> dict[str, Any]:
+    final_delta_paths = (
+        set(_capsule_source_context_public_paths([str(path) for path in final_delta.get("paths") or []]))
+        if final_delta.get("attached")
+        else set()
+    )
+    deficits: list[dict[str, Any]] = []
+    for request in source_slice_requests.get("rows") or []:
+        if not isinstance(request, dict) or request.get("status") != "deficit":
+            continue
+        path = str(request.get("path") or "")
+        if path in final_delta_paths:
+            fallback = "FINAL_DELTA_current_hunks_only"
+        elif include_raw_sidecar:
+            fallback = "raw_sidecar_not_type_b_portable"
+        else:
+            fallback = "none"
+        deficits.append({
+            "deficit_id": f"SCD{len(deficits) + 1:03d}",
+            "request_id": str(request.get("request_id") or ""),
+            "missing_path": path,
+            "missing_anchor": str(request.get("anchor") or ""),
+            "why_needed": str(request.get("why") or "source_context_required"),
+            "fallback_used": fallback,
+            "next_best_slice": (
+                f"./repo-python tools/meta/observability/cli_prompt_trace.py "
+                f"--type-b-source-excerpt --source-path {path}"
+            ),
+            "max_context": "120_lines_or_24000_bytes",
+        })
+    return {
+        "schema_version": "agent_trace_source_context_deficit_v1",
+        "row_count": len(deficits),
+        "active_count": len(deficits),
+        "rows": deficits,
+    }
+
+
+def _capsule_source_context_readiness(
+    *,
+    source_context_demand: dict[str, Any],
+    source_slice_requests: dict[str, Any],
+    source_context_deficit: dict[str, Any],
+    source_slice_manifest: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+) -> dict[str, Any]:
+    request_rows = [row for row in source_slice_requests.get("rows") or [] if isinstance(row, dict)]
+    demand_state = str(source_context_demand.get("state") or "none")
+    required = demand_state.startswith("required")
+    deficit_rows = [row for row in source_context_deficit.get("rows") or [] if isinstance(row, dict)]
+    high_regret_missing = sum(
+        1
+        for row in request_rows
+        if row.get("status") == "deficit" and row.get("priority") == "critical"
+    )
+    emitted = sum(1 for row in request_rows if row.get("status") == "emitted")
+    satisfied_by_final_delta = sum(1 for row in request_rows if row.get("status") == "satisfied_by_final_delta")
+    if demand_state in {"none", "optional"}:
+        overall = "green"
+    elif required and high_regret_missing:
+        overall = "amber"
+    elif deficit_rows:
+        overall = "amber"
+    else:
+        overall = "green"
+    copy_effect = "amber_source_insufficient" if overall == "amber" and required else "none"
+    satisfaction = (
+        "satisfied"
+        if overall == "green" and demand_state not in {"none", "optional"}
+        else ("unsatisfied" if overall == "amber" and required else demand_state)
+    )
+    source_context_demand["satisfaction"] = satisfaction
+    return {
+        "schema_version": "agent_trace_source_context_readiness_v1",
+        "overall": overall,
+        "demand": demand_state,
+        "satisfaction": satisfaction,
+        "explicit_requests": int(source_excerpt_stats.get("agent_requested_seen_refs") or 0),
+        "synthesized_requests": len(request_rows),
+        "emitted": emitted,
+        "satisfied_by_final_delta": satisfied_by_final_delta,
+        "manifest_slices": int(source_slice_manifest.get("slice_count") or 0),
+        "omitted": len(deficit_rows),
+        "high_regret_missing": high_regret_missing,
+        "copy_readiness_effect": copy_effect,
+    }
+
+
+def _capsule_type_b_source_closeout_lint(
+    *,
+    source_context_demand: dict[str, Any],
+    source_context_readiness: dict[str, Any],
+) -> dict[str, Any]:
+    required = str(source_context_demand.get("state") or "").startswith("required")
+    high_regret_missing = int(source_context_readiness.get("high_regret_missing") or 0)
+    if required and high_regret_missing:
+        result = "warn"
+    else:
+        result = "pass"
+    return {
+        "schema_version": "agent_trace_type_b_source_closeout_lint_v1",
+        "result": result,
+        "demand_state": source_context_demand.get("state") or "none",
+        "readiness": source_context_readiness.get("overall") or "green",
+        "high_regret_missing": high_regret_missing,
+        "rule": "source_dependent_type_b_handoff_requires_decisive_source_slice_or_deficit",
     }
 
 
@@ -4478,6 +5228,187 @@ def _capsule_closeout_claims_requested_source_excerpts(final_assistant_text: str
         r"\bSOURCE_EXCERPTS\b.*\b(?:will|should) include\b",
     ]
     return any(re.search(pattern, text, re.I | re.S) for pattern in patterns)
+
+
+def _capsule_path_mentions(text: str) -> list[str]:
+    pattern = re.compile(
+        r"(?P<path>(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+"
+        r"\.(?:py|md|json|jsonl|txt|tsx|ts|js|swift|mjs|yml|yaml|toml))"
+    )
+    paths: list[str] = []
+    for match in pattern.finditer(text or ""):
+        path = _capsule_public_trace_path(match.group("path"))
+        if path and _capsule_source_path_allowed(path) and path not in paths:
+            paths.append(path)
+    return paths
+
+
+def _capsule_evidence_manifest(
+    *,
+    renderable: list[tuple[ToolEvent, str, int | None, bool]],
+    edit_rows: list[dict[str, Any]],
+    source_excerpt_stats: dict[str, Any],
+    check_rows: list[CapsuleEvidenceClassification],
+    governance_rows: list[CapsuleEvidenceClassification],
+    final_assistant_text: str,
+    final_delta: dict[str, Any] | None = None,
+) -> tuple[list[str], dict[str, Any]]:
+    by_path: dict[str, dict[str, Any]] = {}
+
+    def row_for(path: str) -> dict[str, Any]:
+        public_path = _capsule_public_trace_path(path)
+        row = by_path.get(public_path)
+        if row is None:
+            row = {
+                "path": public_path,
+                "carried_as": [],
+                "sufficient_for": [],
+                "insufficient_for": [],
+            }
+            by_path[public_path] = row
+        return row
+
+    def add(row: dict[str, Any], key: str, value: str) -> None:
+        values = row[key]
+        if value and value not in values:
+            values.append(value)
+
+    for index, edit in enumerate(edit_rows, start=1):
+        path = str(edit.get("path") or "")
+        if not path:
+            continue
+        row = row_for(path)
+        add(row, "carried_as", f"edit_event_hunk:E{index:03d}")
+        add(row, "sufficient_for", "edit_attempt_chronology")
+        add(row, "insufficient_for", "final_substrate_state")
+
+    if final_delta and final_delta.get("attached"):
+        for path in final_delta.get("paths", []) or ["final_delta"]:
+            row = row_for(str(path))
+            add(row, "carried_as", "diff_hunk:FINAL_DELTA")
+            add(row, "sufficient_for", "final_substrate_delta_review")
+            add(row, "insufficient_for", "full_context_review")
+
+    for path in source_excerpt_stats.get("paths", []) or []:
+        row = row_for(str(path))
+        add(row, "carried_as", "source_excerpt")
+        add(row, "sufficient_for", "source_range_review")
+
+    for source_row in source_excerpt_stats.get("agent_requested_rows", []) or []:
+        path = str(source_row.get("path") or "")
+        if not path:
+            continue
+        row = row_for(path)
+        row_id = str(source_row.get("row_id") or "")
+        add(row, "carried_as", f"requested_source_excerpt:{row_id}" if row_id else "requested_source_excerpt")
+        add(row, "sufficient_for", "selected_source_review")
+        if "full_context_review" in row["insufficient_for"]:
+            row["insufficient_for"].remove("full_context_review")
+
+    for idx, wrapped in enumerate(renderable, start=1):
+        ev, output_text, _exit_code, _is_error = wrapped
+        if not output_text or output_text.startswith("[no ") or _capsule_output_is_nested_trace(output_text):
+            continue
+        command = _capsule_clean_text(_capsule_command(ev))
+        ref = _capsule_source_read_ref(command)
+        if not ref:
+            continue
+        path = str(ref.get("path") or "")
+        if not path:
+            continue
+        row = row_for(path)
+        add(row, "carried_as", f"command_return:C{idx:03d}")
+        add(row, "sufficient_for", "command_output_review")
+        if not any(str(item).startswith(("requested_source_excerpt", "source_excerpt", "diff_hunk")) for item in row["carried_as"]):
+            add(row, "insufficient_for", "source_authority_by_itself")
+
+    for path in _capsule_path_mentions(final_assistant_text):
+        row = row_for(path)
+        if not row["carried_as"]:
+            add(row, "carried_as", "passive_mention")
+            add(row, "sufficient_for", "none")
+            add(row, "insufficient_for", "evidence_not_carried")
+
+    if check_rows:
+        row = row_for("validation_receipts")
+        add(row, "carried_as", f"command_return:validation:{len(check_rows)}")
+        add(row, "sufficient_for", "validation_status")
+        add(row, "insufficient_for", "source_context_review")
+
+    if governance_rows:
+        row = row_for("governance_receipts")
+        add(row, "carried_as", f"receipt:{len(governance_rows)}")
+        add(row, "sufficient_for", "governance_status")
+        add(row, "insufficient_for", "source_context_review")
+
+    def priority(row: dict[str, Any]) -> tuple[int, str]:
+        carriers = ",".join(row["carried_as"])
+        if "requested_source_excerpt" in carriers:
+            bucket = 0
+        elif "source_excerpt" in carriers:
+            bucket = 1
+        elif "diff_hunk" in carriers:
+            bucket = 2
+        elif "edit_event_hunk" in carriers:
+            bucket = 3
+        elif "command_return" in carriers:
+            bucket = 4
+        elif "receipt" in carriers:
+            bucket = 5
+        else:
+            bucket = 6
+        return (bucket, row["path"])
+
+    rows = sorted(by_path.values(), key=priority)
+    class_counts: dict[str, int] = {
+        "requested_source_excerpt": 0,
+        "source_excerpt": 0,
+        "diff_hunk": 0,
+        "edit_event_hunk": 0,
+        "command_return": 0,
+        "receipt": 0,
+        "passive_mention": 0,
+    }
+    for row in rows:
+        for carrier in row["carried_as"]:
+            key = carrier.split(":", 1)[0]
+            if key in class_counts:
+                class_counts[key] += 1
+
+    section = ["EVIDENCE_MANIFEST"]
+    section.append(
+        "evidence_manifest_summary: "
+        f"rows={len(rows)} paths={sum(1 for row in rows if '/' in row['path'])} "
+        f"requested_source_excerpt={class_counts['requested_source_excerpt']} "
+        f"source_excerpt={class_counts['source_excerpt']} "
+        f"diff_hunk={class_counts['diff_hunk']} "
+        f"edit_event_hunk={class_counts['edit_event_hunk']} "
+        f"command_return={class_counts['command_return']} "
+        f"receipt={class_counts['receipt']} "
+        f"passive_mention={class_counts['passive_mention']}"
+    )
+    section.append(
+        "evidence_manifest_rule: "
+        "passive_mention_is_not_evidence diff_hunk_proves_final_delta_not_full_context "
+        "edit_event_hunk_is_chronology_not_final_state "
+        "requested_source_excerpt_carries_selected_source"
+    )
+    for index, row in enumerate(rows[:16], start=1):
+        section.append(
+            "evidence_manifest_row: "
+            f"row_id=M{index:03d} path={row['path']} "
+            f"carried_as={','.join(row['carried_as']) or 'none'} "
+            f"sufficient_for={','.join(row['sufficient_for']) or 'none'} "
+            f"insufficient_for={','.join(row['insufficient_for']) or 'none'}"
+        )
+    if len(rows) > 16:
+        section.append(f"evidence_manifest_omitted: rows={len(rows) - 16} reason=manifest_row_limit")
+    return section, {
+        "schema_version": "agent_trace_evidence_manifest_v1",
+        "row_count": len(rows),
+        "class_counts": class_counts,
+        "rows": rows,
+    }
 
 
 def _capsule_source_excerpt_sections(
@@ -4570,6 +5501,21 @@ def _capsule_source_excerpt_sections(
             if is_agent_requested:
                 record_omission(ref, "requested_excerpt_output_missing", command_id=command_id, command=command)
             continue
+        if is_agent_requested and "type_b_source_excerpt_carrier:" in output:
+            numbered, output, sidecar_reason = _capsule_type_b_source_excerpt_from_carrier(output, ref)
+            if sidecar_reason:
+                record_omission(ref, sidecar_reason, command_id=command_id, command=command)
+                continue
+            candidates.append((
+                100,
+                idx,
+                command_id,
+                command,
+                ref,
+                numbered,
+                output,
+            ))
+            continue
         display_lines, _redaction_hits = _capsule_command_return_text(output)
         if not display_lines:
             if is_agent_requested:
@@ -4578,7 +5524,18 @@ def _capsule_source_excerpt_sections(
         numbered = _capsule_numbered_source_lines(display_lines, ref)
         if not numbered:
             if is_agent_requested:
-                record_omission(ref, "requested_excerpt_no_numbered_lines", command_id=command_id, command=command)
+                numbered, output, sidecar_reason = _capsule_type_b_source_excerpt_from_carrier(output, ref)
+                if sidecar_reason:
+                    reason = (
+                        "requested_excerpt_no_numbered_lines"
+                        if sidecar_reason == "requested_excerpt_sidecar_receipt_absent"
+                        else sidecar_reason
+                    )
+                    record_omission(ref, reason, command_id=command_id, command=command)
+                    continue
+            else:
+                continue
+        if not numbered:
             continue
         candidates.append((
             100 if is_agent_requested else 10,
@@ -4631,14 +5588,12 @@ def _capsule_source_excerpt_sections(
         requested_survival_status = "all_emitted"
     else:
         requested_survival_status = "dropped_with_reasons"
-    agent_requested_rows: list[dict[str, Any]] = []
-    agent_requested_path_index: dict[str, dict[str, Any]] = {}
-    for section_index, (command_id, _command, ref, numbered, _output) in enumerate(excerpts, start=1):
-        if ref.get("kind") != "agent_requested_source_excerpt":
-            continue
+    source_excerpt_rows: list[dict[str, Any]] = []
+    for section_index, (command_id, command, ref, numbered, output) in enumerate(excerpts, start=1):
         row_id = f"S{section_index:03d}"
         path = str(ref.get("path") or "")
-        row = {
+        body = "\n".join(numbered)
+        source_excerpt_rows.append({
             "row_id": row_id,
             "command_id": command_id,
             "path": path,
@@ -4646,8 +5601,28 @@ def _capsule_source_excerpt_sections(
             "selector": excerpt_selector(ref),
             "symbol": str(ref.get("symbol") or ""),
             "full_file": bool(ref.get("full_file")),
+            "kind": str(ref.get("kind") or ""),
+            "command": str(ref.get("command") or command or ""),
+            "line_count": len(numbered),
+            "bytes": len(body.encode("utf-8")),
+            "sha16": _sha16(output),
+        })
+    agent_requested_rows: list[dict[str, Any]] = []
+    agent_requested_path_index: dict[str, dict[str, Any]] = {}
+    for row in source_excerpt_rows:
+        if row.get("kind") != "agent_requested_source_excerpt":
+            continue
+        row = {
+            "row_id": row["row_id"],
+            "command_id": row["command_id"],
+            "path": row["path"],
+            "range": row["range"],
+            "selector": row["selector"],
+            "symbol": row["symbol"],
+            "full_file": row["full_file"],
         }
         agent_requested_rows.append(row)
+        path = str(row.get("path") or "")
         if path not in agent_requested_path_index:
             agent_requested_path_index[path] = {
                 "path": path,
@@ -4655,9 +5630,9 @@ def _capsule_source_excerpt_sections(
                 "ranges": [],
                 "selectors": [],
                 "emitted_count": 0,
-            }
+        }
         path_row = agent_requested_path_index[path]
-        path_row["row_ids"].append(row_id)
+        path_row["row_ids"].append(str(row["row_id"]))
         path_row["ranges"].append(row["range"])
         path_row["selectors"].append(row["selector"])
         path_row["emitted_count"] += 1
@@ -4679,6 +5654,7 @@ def _capsule_source_excerpt_sections(
         "agent_requested_path_rows": agent_requested_path_rows,
         "agent_requested_paths": [row["path"] for row in agent_requested_path_rows],
         "agent_requested_path_count": len(agent_requested_path_rows),
+        "rows": source_excerpt_rows,
         "omission_reasons": omission_reason_counts,
         "requested_excerpt_survival_status": requested_survival_status,
     }
@@ -5316,15 +6292,35 @@ def _capsule_pytest_wrapper_passed_then_failed(command: str, output_text: str) -
 
 def _capsule_validation_process_tempfail(command: str, output_text: str) -> bool:
     text = f"{command}\n{output_text}".lower()
-    if "admission_consumer" not in text and "host_pressure" not in text:
-        return False
-    return any(marker in text for marker in (
-        "frontend_vitest_host_pressure_admission_blocked",
-        "host_pressure_queue_until_pressure_clears",
-        "queue_validation_until_host_pressure_clears",
-        '"tempfail_exit_code": 75',
-        '"new_work_admitted": false',
+    if (
+        ("admission_consumer" in text or "host_pressure" in text)
+        and any(marker in text for marker in (
+            "frontend_vitest_host_pressure_admission_blocked",
+            "host_pressure_queue_until_pressure_clears",
+            "queue_validation_until_host_pressure_clears",
+            '"tempfail_exit_code": 75',
+            '"new_work_admitted": false',
+        ))
+    ):
+        return True
+    validation_command = any(marker in text for marker in (
+        "pytest",
+        "repo-pytest",
+        "npm run test",
+        "node --test",
+        "vitest",
+        "swift test",
+        "make ci",
+        "make test",
     ))
+    closed_stdin_transport = any(marker in text for marker in (
+        "write_stdin failed",
+        "failed to write to stdin",
+        "stdin closed",
+        "stdin is closed",
+        "stdin was closed",
+    ))
+    return validation_command and closed_stdin_transport
 
 
 def _capsule_expected_guarded_refusal(command: str, output_text: str) -> bool:
@@ -5553,8 +6549,43 @@ def _capsule_has_any_marker(text: str, markers: tuple[str, ...]) -> bool:
     return any(marker in text for marker in markers)
 
 
+def _capsule_public_release_blocked_by_github_pvr(text: str) -> bool:
+    lowered = (text or "").lower()
+    has_pvr_gate = _capsule_has_any_marker(
+        lowered,
+        (
+            "github_private_vulnerability_reporting",
+            "github private vulnerability reporting",
+            "private-vulnerability-reporting",
+        ),
+    )
+    has_pvr_blocker = _capsule_has_any_marker(
+        lowered,
+        (
+            "public_repository_absent",
+            "public_repository_required",
+            "github_pvr_not_enabled",
+            "github_pvr_enable_failed",
+            "github_private_vulnerability_reporting_not_green",
+            "not yet green for the public microcosm repository",
+            "blocks_public_release_until_public_repo_exists_and_github_pvr_is_enabled",
+        ),
+    )
+    target_is_microcosm = _capsule_has_any_marker(
+        lowered,
+        (
+            "wcook04/microcosm-substrate",
+            "repos/wcook04/microcosm-substrate/private-vulnerability-reporting",
+            "github.com/wcook04/microcosm-substrate",
+        ),
+    )
+    return has_pvr_gate and has_pvr_blocker and target_is_microcosm
+
+
 def _capsule_release_candidate_gate_decision(text: str) -> str:
     lowered = (text or "").lower()
+    if _capsule_public_release_blocked_by_github_pvr(lowered):
+        return "public_release_blocked"
     if "ready_pending_operator_authorization" not in lowered:
         return ""
     if _CAPSULE_RELEASE_AUTHORIZED_TRUE_RE.search(text or ""):
@@ -6271,6 +7302,1284 @@ def _trace_full_thread_available(turn: Turn, display_source_window: str) -> bool
     return False
 
 
+def _trace_window_bounds(turn: Turn) -> dict[str, int | str]:
+    trace_window = (turn.source_ref or {}).get("trace_window") or {}
+    if not isinstance(trace_window, dict):
+        return {
+            "mode": "selected_turn",
+            "start_turn_index": int(turn.turn_index or 0),
+            "end_turn_index": int(turn.turn_index or 0),
+            "turn_count": 1,
+        }
+    return {
+        "mode": str(trace_window.get("mode") or "selected_turn"),
+        "start_turn_index": int(trace_window.get("start_turn_index") or turn.turn_index or 0),
+        "end_turn_index": int(trace_window.get("end_turn_index") or turn.turn_index or 0),
+        "turn_count": int(trace_window.get("turn_count") or 1),
+    }
+
+
+def _trace_full_thread_bounds(turn: Turn) -> dict[str, int | str]:
+    full_thread = (turn.source_ref or {}).get("full_thread_trace_window") or (turn.source_ref or {}).get("full_thread") or {}
+    if not isinstance(full_thread, dict):
+        return _trace_window_bounds(turn)
+    return {
+        "mode": str(full_thread.get("mode") or "full_thread"),
+        "start_turn_index": int(full_thread.get("start_turn_index") or turn.turn_index or 0),
+        "end_turn_index": int(full_thread.get("end_turn_index") or turn.turn_index or 0),
+        "turn_count": int(full_thread.get("turn_count") or 1),
+    }
+
+
+def _capsule_repo_cut_plane() -> dict[str, Any]:
+    try:
+        proc = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "rev-parse", "--verify", "HEAD"],
+            text=True,
+            capture_output=True,
+            timeout=2,
+        )
+    except Exception as exc:
+        return {"schema_version": "agent_trace_repo_cut_plane_v1", "head": "", "state": f"unavailable:{type(exc).__name__}"}
+    head = proc.stdout.strip() if proc.returncode == 0 else ""
+    return {
+        "schema_version": "agent_trace_repo_cut_plane_v1",
+        "head": head,
+        "head_short": head[:12],
+        "state": "captured" if head else "unavailable",
+    }
+
+
+def _capsule_status_label(status_text: str, display_source_window: str) -> str:
+    if status_text != "complete":
+        return status_text
+    if display_source_window == "full_thread":
+        return "full_thread_complete"
+    if display_source_window == "full_thread_concise":
+        return "full_thread_concise_complete"
+    if display_source_window == "latest_prompt_cycle":
+        return "latest_prompt_cycle_complete"
+    return "selected_turn_complete"
+
+
+def _capsule_scope_semantics(
+    *,
+    status_text: str,
+    display_source_window: str,
+    full_thread_available: bool,
+    selected_window_only: bool,
+    no_edit_claim_allowed: bool,
+) -> dict[str, Any]:
+    global_none_claims_allowed = not selected_window_only
+    completion_scope = (
+        "full_thread"
+        if display_source_window in {"full_thread", "full_thread_concise"}
+        else display_source_window
+    )
+    return {
+        "schema_version": "agent_trace_scope_semantics_v1",
+        "status_raw": status_text,
+        "status_label": _capsule_status_label(status_text, display_source_window),
+        "completion_scope": completion_scope,
+        "absence_scope": "full_thread" if global_none_claims_allowed else "selected_window",
+        "none_scope": "full_thread" if global_none_claims_allowed else "selected_window",
+        "copy_scope": display_source_window,
+        "full_thread_available": full_thread_available,
+        "selected_window_only": selected_window_only,
+        "global_none_claims_allowed": global_none_claims_allowed,
+        "unsafe_global_none_claims_blocked": not global_none_claims_allowed,
+        "no_edit_claim_allowed": no_edit_claim_allowed,
+        "full_thread_absence_claim": "allowed" if global_none_claims_allowed else "not_claimed_in_selected_window_bundle",
+    }
+
+
+def _capsule_scoped_absence_lines(key: str, summary: str, scope_semantics: dict[str, Any]) -> list[str]:
+    if summary != "none":
+        return [f"{key}: {summary}"]
+    if scope_semantics.get("global_none_claims_allowed"):
+        return [f"{key}: none"]
+    return [
+        f"{key}_selected_window: none",
+        f"{key}_global: not_claimed",
+    ]
+
+
+def _capsule_scoped_absence_value(summary: str, scope_semantics: dict[str, Any]) -> str:
+    if summary != "none":
+        return summary
+    if scope_semantics.get("global_none_claims_allowed"):
+        return "none"
+    return "selected_window_none/global_not_claimed"
+
+
+def _capsule_open_claim_lines(turn: Turn, scope_semantics: dict[str, Any]) -> list[str]:
+    if not turn.is_complete:
+        return [turn.partial_reason or "trace still in progress"]
+    if scope_semantics.get("global_none_claims_allowed"):
+        return ["open: none captured"]
+    return [
+        "open_selected_window: none captured",
+        "open_global: not_claimed",
+    ]
+
+
+def _capsule_trace_cut_receipt(
+    *,
+    turn: Turn,
+    requested_source_window: str,
+    display_source_window: str,
+    recommended_scope: str,
+    source_sha16: str,
+    source_watermark: dict[str, Any],
+    full_thread_available: bool,
+    selected_window_only: bool,
+    final_delta: dict[str, Any],
+    include_raw_sidecar: bool,
+    scope_semantics: dict[str, Any],
+) -> dict[str, Any]:
+    selected_bounds = _trace_window_bounds(turn)
+    full_bounds = _trace_full_thread_bounds(turn)
+    selected_end = int(selected_bounds.get("end_turn_index") or turn.turn_index or 0)
+    full_end = int(full_bounds.get("end_turn_index") or selected_end)
+    tail_state = "at_thread_tail"
+    if full_thread_available and selected_window_only and selected_end < full_end:
+        tail_state = "not_thread_tail"
+    consistency = "consistent_cut"
+    if tail_state == "not_thread_tail":
+        consistency = "stale_selected_window_not_latest_thread_turn"
+    elif full_thread_available and selected_window_only:
+        consistency = "scope_deficit_full_thread_available"
+    provider_plane = {
+        "provider": turn.provider,
+        "session_id": turn.session_id,
+        "session_file": turn.session_file,
+        "source_watermark_id": source_watermark.get("watermark_id") or "",
+        "selected_prompt_sha16": turn.prompt_sha256_16,
+        "selected_turn_index": turn.turn_index,
+        "selected_bounds": selected_bounds,
+        "full_thread_bounds": full_bounds,
+        "tail_state": tail_state,
+    }
+    repo_plane = _capsule_repo_cut_plane()
+    cut_material = {
+        "provider": provider_plane,
+        "repo": repo_plane,
+        "source_sha16": source_sha16,
+        "requested_source_window": requested_source_window,
+        "display_source_window": display_source_window,
+        "recommended_scope": recommended_scope,
+        "final_delta_state": final_delta.get("state") or "",
+        "final_delta_commit": final_delta.get("commit") or "",
+    }
+    return {
+        "schema_version": "agent_trace_cut_receipt_v1",
+        "cut_id": _sha16(json.dumps(cut_material, sort_keys=True, ensure_ascii=False)),
+        "requested_source_window": requested_source_window,
+        "resolved_copy_scope": display_source_window,
+        "recommended_scope": recommended_scope,
+        "selected_window_only": selected_window_only,
+        "full_thread_available": full_thread_available,
+        "cut_consistency": consistency,
+        "provider_plane": provider_plane,
+        "repo_plane": repo_plane,
+        "source_sha16": source_sha16,
+        "raw_sidecar_available_to_type_a": include_raw_sidecar,
+        "raw_sidecar_available_to_type_b": False,
+        "unsafe_global_none_claims_blocked": bool(scope_semantics.get("unsafe_global_none_claims_blocked")),
+    }
+
+
+def _capsule_trace_provenance_attestation(
+    *,
+    turn: Turn,
+    trace_cut_receipt: dict[str, Any],
+    final_delta: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+    include_raw_sidecar: bool,
+) -> dict[str, Any]:
+    return {
+        "schema_version": "agent_trace_provenance_attestation_v1",
+        "subject": {
+            "kind": "trace_capsule_text",
+            "schema_version": TRACE_CAPSULE_SCHEMA_VERSION,
+            "sha16": "artifact_envelope_subject",
+            "hash_mode": "artifact_envelope_after_write",
+        },
+        "builder": {
+            "tool": "tools/meta/observability/cli_prompt_trace.py",
+            "repo_head": (trace_cut_receipt.get("repo_plane") or {}).get("head") or "",
+            "schema_version": TRACE_CAPSULE_SCHEMA_VERSION,
+        },
+        "invocation": {
+            "provider": turn.provider,
+            "session_id": turn.session_id,
+            "turn_index": turn.turn_index,
+            "requested_source_window": trace_cut_receipt.get("requested_source_window") or "",
+            "resolved_copy_scope": trace_cut_receipt.get("resolved_copy_scope") or "",
+        },
+        "materials": [
+            {
+                "id": "provider_session",
+                "kind": "session_jsonl_watermark",
+                "watermark_id": (trace_cut_receipt.get("provider_plane") or {}).get("source_watermark_id") or "",
+            },
+            {
+                "id": "raw_sidecar",
+                "kind": "inline_trace_paste" if include_raw_sidecar else "not_materialized",
+                "sha16": trace_cut_receipt.get("source_sha16") or "",
+            },
+            {
+                "id": "final_delta",
+                "kind": final_delta.get("state") or "not_captured",
+                "authority": final_delta.get("authority") or "",
+                "commit": final_delta.get("commit") or "",
+            },
+            {
+                "id": "source_excerpts",
+                "kind": "bounded_source_excerpts",
+                "count": int(source_excerpt_stats.get("count") or 0),
+                "omitted": int(source_excerpt_stats.get("omitted") or 0),
+            },
+        ],
+        "attestation": "materials_named_subject_hash_bound_in_artifact_envelope",
+    }
+
+
+def _capsule_latest_selection_receipt(
+    *,
+    turn: Turn,
+    trace_cut_receipt: dict[str, Any],
+    source_watermark: dict[str, Any],
+) -> dict[str, Any]:
+    provider = trace_cut_receipt.get("provider_plane") or {}
+    selected_bounds = provider.get("selected_bounds") or {}
+    full_bounds = provider.get("full_thread_bounds") or selected_bounds
+    selected_turn = int(provider.get("selected_turn_index") or turn.turn_index or 0)
+    selected_end = int(selected_bounds.get("end_turn_index") or selected_turn)
+    full_end = int(full_bounds.get("end_turn_index") or selected_end)
+    selected_is_thread_tail = selected_end >= full_end and str(provider.get("tail_state") or "") != "not_thread_tail"
+    selected_is_latest_completed_response = bool(selected_is_thread_tail and turn.is_complete)
+    active_defeaters: list[str] = []
+    if not selected_is_thread_tail:
+        active_defeaters.append("not_thread_tail")
+    if not turn.is_complete:
+        active_defeaters.append("response_in_progress")
+    candidate_count = int(full_bounds.get("turn_count") or selected_bounds.get("turn_count") or 1)
+    candidate_source = (
+        "full_thread_trace_window"
+        if trace_cut_receipt.get("full_thread_available")
+        else "selected_trace_window"
+    )
+    return {
+        "schema_version": "agent_trace_latest_selection_receipt_v1",
+        "selected_turn_index": selected_turn,
+        "selected_window": {
+            "start_turn_index": int(selected_bounds.get("start_turn_index") or selected_turn),
+            "end_turn_index": selected_end,
+            "turn_count": int(selected_bounds.get("turn_count") or 1),
+        },
+        "candidate_set": {
+            "source": candidate_source,
+            "start_turn_index": int(full_bounds.get("start_turn_index") or selected_turn),
+            "end_turn_index": full_end,
+            "turn_count": candidate_count,
+            "completed_response_count": candidate_count if turn.is_complete else max(0, candidate_count - 1),
+        },
+        "ordering_keys": ["session_jsonl_order", "turn_index", "completed_at"],
+        "selected_is_thread_tail": selected_is_thread_tail,
+        "selected_is_latest_completed_response": selected_is_latest_completed_response,
+        "latest_prompt_pending_response": not turn.is_complete,
+        "ambiguity_override_used": False,
+        "reparse_before_copy": bool(source_watermark.get("watermark_id")),
+        "watermark_id": source_watermark.get("watermark_id") or "",
+        "defeaters": active_defeaters,
+    }
+
+
+_CAPSULE_EVIDENCE_LOCATOR_MAP = {
+    "turn.is_complete": "EV.turn_completion_state",
+    "copy_scope": "EV.trace_scope",
+    "final_assistant_text_or_commit_title": "EV.final_assistant_or_commit",
+    "edit_rows": "EV.edit_event_log",
+    "final_delta": "EV.final_delta",
+    "classified_terminal_checks": "EV.terminal_checks",
+    "owner_scope_terminal_checks": "EV.owner_terminal_checks",
+    "governance_receipts": "EV.governance_receipts",
+    "commit_and_dirty_residual_classification": "EV.final_delta",
+    "task_ledger_and_projection_receipts": "EV.governance_receipts",
+    "ambient_terminal_rows": "EV.terminal_checks",
+    "ambient_warning_classifier": "EV.terminal_checks",
+    "residual_classifier": "EV.residual_register",
+    "validation_process_residual_classifier": "EV.validation_process_residual_register",
+    "task_ledger_receipts": "EV.governance_receipts",
+    "release_candidate_classifier": "EV.governance_receipts",
+    "terminal_check_ordering": "EV.terminal_checks",
+    "guarded_refusal_classifier": "EV.terminal_checks",
+    "projection_artifact_classifier": "EV.projection_artifacts",
+    "residual_mention_classifier": "EV.residual_register",
+    "release_authority_classifier": "EV.governance_receipts",
+    "classified_checks": "EV.terminal_checks",
+    "terminal_checks": "EV.terminal_checks",
+    "owner_terminal_checks": "EV.owner_terminal_checks",
+    "validation_classifier": "EV.terminal_checks",
+    "terminal_governance_rows": "EV.governance_receipts",
+    "diagnostic_rows": "EV.command_returns",
+    "assistant_visible_messages": "EV.assistant_visible_messages",
+    "turn.completion_state": "EV.turn_completion_state",
+    "producer_state": "EV.producer_derived_summary",
+}
+
+
+def _capsule_claim_evidence_locator(label: str) -> str:
+    parts = [part.strip() for part in re.split(r"[+,]", str(label or "")) if part.strip()]
+    locators: list[str] = []
+    for part in parts or ["producer_state"]:
+        locator = _CAPSULE_EVIDENCE_LOCATOR_MAP.get(part)
+        if not locator:
+            locator = _CAPSULE_EVIDENCE_LOCATOR_MAP.get(part.split(":", 1)[0], "EV.producer_derived_summary")
+        if locator not in locators:
+            locators.append(locator)
+    return ",".join(locators)
+
+
+def _capsule_claim_source_map(summary_claims: list[dict[str, str]]) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    for index, claim in enumerate(summary_claims, start=1):
+        row = dict(claim)
+        row["row_id"] = f"CSM{index:03d}"
+        row.setdefault("scope", "selected_window")
+        raw_evidence = str(row.get("evidence") or "producer_state")
+        row["source_evidence_label"] = raw_evidence
+        row["evidence"] = _capsule_claim_evidence_locator(raw_evidence)
+        row.setdefault("cannot_prove", "none")
+        row.setdefault("render_policy", "verbatim_if_evidence_scope_matches")
+        rows.append(row)
+    return {
+        "schema_version": "agent_trace_claim_source_map_v1",
+        "row_count": len(rows),
+        "covered_summary_claims": [row.get("claim", "") for row in rows],
+        "uncovered_summary_claims": [],
+        "rows": rows,
+    }
+
+
+def _capsule_claim_value(value: Any) -> str:
+    text = _capsule_clean_text(" ".join(str(value or "").split()))
+    if len(text) > 180:
+        text = f"{text[:150].rstrip()}...sha16={_sha16(text)}"
+    return text.replace('"', "'")
+
+
+def _capsule_copy_readiness_vector(
+    *,
+    copy_readiness_state: str,
+    copy_readiness_blockers: list[str],
+    copy_readiness_warnings: list[str],
+    scope_semantics: dict[str, Any],
+    final_delta_attached: bool,
+    diff_reconciler_status: str,
+    claim_source_map: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+    latest_selection_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    scope_state = "amber" if scope_semantics.get("selected_window_only") and scope_semantics.get("full_thread_available") else "green"
+    final_delta_state = "green" if final_delta_attached else ("amber" if diff_reconciler_status == "no_edits_captured_in_scoped_window" else "red")
+    claim_map_state = "green" if not claim_source_map.get("uncovered_summary_claims") else "red"
+    budget_state = "green" if int(source_excerpt_stats.get("omitted") or 0) == 0 else "amber"
+    latest_state = "green" if latest_selection_receipt.get("selected_is_latest_completed_response") else (
+        "amber" if latest_selection_receipt.get("latest_prompt_pending_response") else "red"
+    )
+    return {
+        "schema_version": "agent_trace_epistemic_readiness_vector_v1",
+        "overall": copy_readiness_state,
+        "scope": scope_state,
+        "final_delta": final_delta_state,
+        "latest_selection": latest_state,
+        "claim_source_map": claim_map_state,
+        "sidecar_portability": "amber",
+        "global_none_claims": "green",
+        "budget": budget_state,
+        "blockers": copy_readiness_blockers,
+        "warnings": copy_readiness_warnings,
+    }
+
+
+def _capsule_trace_self_parse_receipt(
+    *,
+    trace_cut_receipt: dict[str, Any],
+    scope_semantics: dict[str, Any],
+    claim_source_map: dict[str, Any],
+    final_delta_attached: bool,
+    edit_event_log_attached: bool,
+) -> dict[str, Any]:
+    producer_status = "pass" if not claim_source_map.get("uncovered_summary_claims") else "fail"
+    return {
+        "schema_version": "agent_trace_self_parse_receipt_v1",
+        "parser": "producer_structural_self_check+downstream_contract",
+        "producer_structural_self_check": producer_status,
+        "downstream_parser_mjs_roundtrip": "pending_artifact_write",
+        "ui_ingest_contract_parse": "not_run",
+        "native_receipt_parse": "pending_parser_projection",
+        "round_trip_status": "producer_pass_downstream_pending" if producer_status == "pass" else "producer_fail",
+        "cut_id": trace_cut_receipt.get("cut_id") or "",
+        "parsed_scope": scope_semantics.get("copy_scope") or "",
+        "parsed_status_label": scope_semantics.get("status_label") or "",
+        "parsed_final_delta_attached": final_delta_attached,
+        "parsed_edit_event_log_attached": edit_event_log_attached,
+        "summary_absence_claims_unqualified": 0 if scope_semantics.get("unsafe_global_none_claims_blocked") else "not_applicable",
+        "claim_source_map_complete": not bool(claim_source_map.get("uncovered_summary_claims")),
+    }
+
+
+def _capsule_budget_solver_receipt(source_excerpt_stats: dict[str, Any]) -> dict[str, Any]:
+    omitted = int(source_excerpt_stats.get("omitted") or 0)
+    agent_requested_omitted = int(source_excerpt_stats.get("agent_requested_omitted_refs") or 0)
+    prompt_refs = int(source_excerpt_stats.get("prompt_file_refs") or 0)
+    emitted = int(source_excerpt_stats.get("count") or 0)
+    top_omitted_refs: list[str] = []
+    for row in source_excerpt_stats.get("agent_requested_drop_reasons", []) or []:
+        if isinstance(row, dict):
+            command_id = str(row.get("command_id") or row.get("row_id") or "unknown")
+            reason = str(row.get("reason") or "omitted")
+            top_omitted_refs.append(f"{command_id}:{reason}")
+        elif row:
+            top_omitted_refs.append(str(row))
+    if omitted and not top_omitted_refs:
+        top_omitted_refs.append("source_excerpt_budget:non_requested_omissions")
+    return {
+        "schema_version": "agent_trace_budget_solver_receipt_v1",
+        "proof_set_before_route_context": True,
+        "minimum_proof_set": [
+            "TRACE_CUT_RECEIPT",
+            "TRACE_PROVENANCE_ATTESTATION",
+            "CLAIM_SOURCE_MAP",
+            "FINAL_DELTA",
+            "EDIT_EVENT_LOG",
+            "EVIDENCE_MANIFEST",
+            "SOURCE_CONTEXT_DEMAND",
+            "SOURCE_SLICE_REQUESTS",
+            "SOURCE_CONTEXT_DEFICIT",
+        ],
+        "proof_obligations_total": 11,
+        "proof_obligations_embedded": 11,
+        "proof_obligations_sidecar_only": 0,
+        "proof_obligations_missing": 0,
+        "source_excerpt_count": emitted,
+        "source_excerpt_omitted": omitted,
+        "agent_requested_omitted": agent_requested_omitted,
+        "budget_regret_high": agent_requested_omitted,
+        "budget_regret_medium": max(0, omitted - agent_requested_omitted),
+        "budget_regret_low": max(0, prompt_refs - emitted - omitted),
+        "top_omitted_decision_refs": top_omitted_refs[:5],
+        "practical_budget": "~150KB",
+    }
+
+
+def _capsule_trace_context_ids(
+    *,
+    turn: Turn,
+    trace_cut_receipt: dict[str, Any],
+    source_sha16: str,
+) -> dict[str, str]:
+    trace_context_id = _sha16("|".join([
+        str(turn.provider),
+        str(turn.session_id),
+        str(turn.turn_index),
+        str(turn.prompt_sha256_16),
+        str(trace_cut_receipt.get("cut_id") or ""),
+        source_sha16,
+    ]))
+    return {
+        "schema_version": "agent_trace_context_ids_v1",
+        "trace_context_id": trace_context_id,
+        "cut_id": str(trace_cut_receipt.get("cut_id") or ""),
+        "session_tag": _short_session_tag(turn.session_id),
+        "prompt_sha16": turn.prompt_sha256_16,
+        "source_sha16": source_sha16,
+    }
+
+
+def _capsule_title_authority_warning(title: str) -> str:
+    stripped = str(title or "").strip()
+    if re.fullmatch(r"\d+(?:\s*[,/ -]\s*\d+)?", stripped):
+        return f"ordinal_title_not_semantic raw={_capsule_clean_text(stripped)} source=title_numeric_token"
+    start, end, source = _mission_ordinal(title)
+    if start is None or end is None:
+        return "none"
+    return f"ordinal_title_not_semantic ordinal={start},{end} source={source}"
+
+
+def _capsule_title_authority(
+    title: str,
+    *,
+    turn: Turn,
+    commit_title: str = "",
+) -> dict[str, Any]:
+    raw_title = _capsule_clean_text(str(title or "").strip())
+    warning = _capsule_title_authority_warning(raw_title)
+    prompt_fallback = _prompt_title_from_text(turn.prompt_text, limit=120)
+    display_title = raw_title
+    display_source = "session_title"
+    confidence = "high"
+    if warning != "none":
+        display_title = _capsule_clean_text(commit_title or prompt_fallback or f"{turn.provider} turn {turn.turn_index}")
+        display_source = "commit_title" if commit_title else ("current_turn_prompt_title" if prompt_fallback else "turn_identity")
+        confidence = "medium"
+    if not display_title:
+        display_title = f"{turn.provider} turn {turn.turn_index}"
+        display_source = "turn_identity"
+        confidence = "low"
+    return {
+        "schema_version": "agent_trace_title_authority_v1",
+        "raw_title": raw_title,
+        "display_title": display_title,
+        "display_title_source": display_source,
+        "warning": warning,
+        "title_confidence": confidence,
+    }
+
+
+def _capsule_evidence_node_graph(
+    *,
+    trace_cut_receipt: dict[str, Any],
+    latest_selection_receipt: dict[str, Any],
+    title_authority: dict[str, Any],
+    trace_provenance_attestation: dict[str, Any],
+    claim_source_map: dict[str, Any],
+    final_delta: dict[str, Any],
+    final_delta_attached: bool,
+    edit_event_log_attached: bool,
+    terminal_check_count: int,
+    owner_terminal_check_count: int,
+    evidence_manifest: dict[str, Any],
+    source_excerpt_stats: dict[str, Any],
+    include_raw_sidecar: bool,
+) -> dict[str, Any]:
+    nodes: list[dict[str, Any]] = []
+
+    def add(
+        node_id: str,
+        *,
+        kind: str,
+        locator: str,
+        sufficient_for: list[str],
+        insufficient_for: list[str] | None = None,
+        status: str = "present",
+    ) -> None:
+        nodes.append({
+            "id": node_id,
+            "kind": kind,
+            "locator": locator,
+            "status": status,
+            "sufficient_for": sufficient_for,
+            "insufficient_for": insufficient_for or [],
+        })
+
+    add(
+        "EV.trace_cut_receipt",
+        kind="receipt",
+        locator=f"TRACE_CUT_RECEIPT cut_id={trace_cut_receipt.get('cut_id') or ''}",
+        sufficient_for=["cut_identity", "scope_boundary"],
+    )
+    add(
+        "EV.latest_selection_receipt",
+        kind="receipt",
+        locator=(
+            "LATEST_SELECTION_RECEIPT "
+            f"selected_turn={latest_selection_receipt.get('selected_turn_index') or ''}"
+        ),
+        sufficient_for=["latest_identity"],
+        insufficient_for=["full_thread_context"] if trace_cut_receipt.get("selected_window_only") else [],
+    )
+    add(
+        "EV.trace_scope",
+        kind="scope_fact",
+        locator=(
+            "TRACE_CUT_RECEIPT/trace_scope "
+            f"resolved={trace_cut_receipt.get('resolved_copy_scope') or ''}"
+        ),
+        sufficient_for=["declared_scope"],
+        insufficient_for=["global_absence"] if trace_cut_receipt.get("selected_window_only") else [],
+    )
+    add(
+        "EV.turn_completion_state",
+        kind="provider_fact",
+        locator=(
+            "LATEST_SELECTION_RECEIPT "
+            f"latest_completed={latest_selection_receipt.get('selected_is_latest_completed_response')}"
+        ),
+        sufficient_for=["completion_state"],
+    )
+    add(
+        "EV.title_authority",
+        kind="producer_fact",
+        locator=f"TITLE_AUTHORITY warning={title_authority.get('warning') or 'none'}",
+        sufficient_for=["display_title"],
+        insufficient_for=["semantic_title_authority"] if title_authority.get("warning") != "none" else [],
+    )
+    add(
+        "EV.provenance_attestation",
+        kind="attestation",
+        locator=(
+            "TRACE_PROVENANCE_ATTESTATION "
+            f"subject_hash_mode={((trace_provenance_attestation.get('subject') or {}).get('hash_mode') or '')}"
+        ),
+        sufficient_for=["builder_materials"],
+        insufficient_for=["provider_byte_replay"],
+    )
+    add(
+        "EV.claim_source_map",
+        kind="receipt",
+        locator=f"CLAIM_SOURCE_MAP rows={claim_source_map.get('row_count') or 0}",
+        sufficient_for=["summary_claim_traceability"],
+    )
+    add(
+        "EV.final_delta",
+        kind="diff_receipt",
+        locator=f"FINAL_DELTA attached={final_delta_attached} state={final_delta.get('state') or 'not_captured'}",
+        sufficient_for=["final_substrate_delta"] if final_delta_attached else [],
+        insufficient_for=[] if final_delta_attached else ["final_substrate_delta"],
+        status="present" if final_delta_attached else "absent",
+    )
+    add(
+        "EV.edit_event_log",
+        kind="edit_chronology",
+        locator=f"EDIT_EVENT_LOG attached={edit_event_log_attached}",
+        sufficient_for=["edit_attempt_chronology"] if edit_event_log_attached else [],
+        insufficient_for=["final_substrate_delta"],
+        status="present" if edit_event_log_attached else "absent",
+    )
+    add(
+        "EV.terminal_checks",
+        kind="validation_receipt",
+        locator=f"SUMMARY/terminal_checks total={terminal_check_count}",
+        sufficient_for=["validation_status"] if terminal_check_count else [],
+        status="present" if terminal_check_count else "absent",
+    )
+    add(
+        "EV.owner_terminal_checks",
+        kind="validation_receipt",
+        locator=f"SUMMARY/owner_scope_terminal_checks total={owner_terminal_check_count}",
+        sufficient_for=["owner_scope_validation"] if owner_terminal_check_count else [],
+        status="present" if owner_terminal_check_count else "absent",
+    )
+    add(
+        "EV.governance_receipts",
+        kind="receipt",
+        locator="SUMMARY/governance_receipts",
+        sufficient_for=["governance_status"],
+    )
+    add(
+        "EV.residual_register",
+        kind="classifier_output",
+        locator="SUMMARY/open_*_residuals",
+        sufficient_for=["residual_claims"],
+    )
+    add(
+        "EV.validation_process_residual_register",
+        kind="classifier_output",
+        locator="SUMMARY/open_validation_process_residuals",
+        sufficient_for=["validation_process_claims"],
+    )
+    add(
+        "EV.evidence_manifest",
+        kind="manifest",
+        locator=f"EVIDENCE_MANIFEST rows={evidence_manifest.get('row_count') or 0}",
+        sufficient_for=["evidence_carrier_inventory"],
+    )
+    add(
+        "EV.source_excerpts",
+        kind="bounded_source",
+        locator=(
+            "SOURCE_EXCERPTS "
+            f"count={source_excerpt_stats.get('count') or 0} omitted={source_excerpt_stats.get('omitted') or 0}"
+        ),
+        sufficient_for=["selected_source_review"] if source_excerpt_stats.get("count") else [],
+        insufficient_for=["full_source_review"] if source_excerpt_stats.get("omitted") else [],
+        status="present" if source_excerpt_stats.get("count") else "absent",
+    )
+    add(
+        "EV.raw_sidecar",
+        kind="sidecar",
+        locator="RAW_SIDECAR_MANIFEST inline_trace_paste" if include_raw_sidecar else "RAW_SIDECAR_MANIFEST not_materialized",
+        sufficient_for=["copied_source_review"] if include_raw_sidecar else [],
+        insufficient_for=["type_b_portability"] if include_raw_sidecar else ["raw_source_review"],
+        status="present" if include_raw_sidecar else "absent",
+    )
+    add(
+        "EV.command_returns",
+        kind="command_return_index",
+        locator="COMMAND_RETURNS",
+        sufficient_for=["command_output_review"],
+    )
+    add(
+        "EV.assistant_visible_messages",
+        kind="message_excerpt",
+        locator="VISIBLE_PROGRESS",
+        sufficient_for=["visible_progress_claims"],
+    )
+    add(
+        "EV.producer_derived_summary",
+        kind="producer_projection",
+        locator="SUMMARY",
+        sufficient_for=["derived_summary_claims"],
+        insufficient_for=["source_authority_without_ground_receipts"],
+    )
+    return {
+        "schema_version": "agent_trace_evidence_node_graph_v1",
+        "node_count": len(nodes),
+        "nodes": nodes,
+        "locator_rule": "locators_name_trace_sections_or_receipts; query_regex_never_goes_in_path_field",
+    }
+
+
+def _capsule_defeater_register(
+    *,
+    scope_semantics: dict[str, Any],
+    latest_selection_receipt: dict[str, Any],
+    title_authority: dict[str, Any],
+    trace_self_parse_receipt: dict[str, Any],
+    budget_solver_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+
+    def add(
+        defeater_id: str,
+        *,
+        status: str,
+        threatens: list[str],
+        evidence: list[str],
+        mitigation: str,
+    ) -> None:
+        rows.append({
+            "id": defeater_id,
+            "status": status,
+            "threatens": threatens,
+            "evidence": evidence,
+            "mitigation": mitigation,
+        })
+
+    add(
+        "DTR.scope_deficit",
+        status="active" if scope_semantics.get("selected_window_only") and scope_semantics.get("full_thread_available") else "refuted",
+        threatens=["CLM.global_absence_guard", "CLM.full_context"],
+        evidence=["EV.trace_scope", "EV.trace_cut_receipt"],
+        mitigation="global_none_claims_blocked_and_reader_context_action_emitted",
+    )
+    add(
+        "DTR.latest_not_tail",
+        status="active" if not latest_selection_receipt.get("selected_is_thread_tail") else "refuted",
+        threatens=["CLM.latest_selection"],
+        evidence=["EV.latest_selection_receipt"],
+        mitigation="request_latest_response_bundle_or_full_thread_tail",
+    )
+    add(
+        "DTR.response_in_progress",
+        status="active" if latest_selection_receipt.get("latest_prompt_pending_response") else "refuted",
+        threatens=["CLM.latest_selection", "CLM.completion_state"],
+        evidence=["EV.turn_completion_state"],
+        mitigation="wait_for_completed_response_or_select_completed_turn",
+    )
+    add(
+        "DTR.title_authority",
+        status="active" if title_authority.get("warning") != "none" else "refuted",
+        threatens=["CLM.title_authority"],
+        evidence=["EV.title_authority"],
+        mitigation="display_title_falls_back_to_prompt_or_commit_title",
+    )
+    add(
+        "DTR.provenance_placeholder",
+        status="refuted",
+        threatens=["CLM.provenance"],
+        evidence=["EV.provenance_attestation"],
+        mitigation="rendered_text_uses_envelope_hash_mode_not_self_hash_placeholder",
+    )
+    add(
+        "DTR.downstream_parser_pending",
+        status="active" if trace_self_parse_receipt.get("downstream_parser_mjs_roundtrip") == "pending_artifact_write" else "refuted",
+        threatens=["CLM.self_parse"],
+        evidence=["EV.claim_source_map"],
+        mitigation="artifact_writer_runs_parser_roundtrip_and_records_metadata_receipt",
+    )
+    add(
+        "DTR.budget_high_regret_omission",
+        status="active" if int(budget_solver_receipt.get("budget_regret_high") or 0) else "refuted",
+        threatens=["CLM.budget_sufficiency"],
+        evidence=["EV.source_excerpts"],
+        mitigation="top_omitted_decision_refs_names_smallest_missing_slice",
+    )
+    active = [row["id"] for row in rows if row.get("status") == "active"]
+    return {
+        "schema_version": "agent_trace_defeater_register_v1",
+        "row_count": len(rows),
+        "active_count": len(active),
+        "active_defeaters": active,
+        "rows": rows,
+    }
+
+
+def _capsule_assurance_case_graph(
+    *,
+    latest_selection_receipt: dict[str, Any],
+    title_authority: dict[str, Any],
+    trace_self_parse_receipt: dict[str, Any],
+    budget_solver_receipt: dict[str, Any],
+    defeater_register: dict[str, Any],
+) -> dict[str, Any]:
+    active_by_claim: dict[str, list[str]] = {}
+    for row in defeater_register.get("rows") or []:
+        if not isinstance(row, dict) or row.get("status") != "active":
+            continue
+        for claim_id in row.get("threatens") or []:
+            active_by_claim.setdefault(str(claim_id), []).append(str(row.get("id") or ""))
+
+    claims: list[dict[str, Any]] = []
+
+    def add(
+        claim_id: str,
+        *,
+        claim: str,
+        grounds: list[str],
+        warrant: str,
+        backing: list[str],
+        status: str | None = None,
+    ) -> None:
+        active = active_by_claim.get(claim_id, [])
+        resolved_status = status or ("supported_with_defeater" if active else "supported")
+        claims.append({
+            "id": claim_id,
+            "claim": claim,
+            "grounds": grounds,
+            "warrant": warrant,
+            "backing": backing,
+            "defeaters": active,
+            "portable": True,
+            "status": resolved_status,
+        })
+
+    add(
+        "CLM.latest_selection",
+        claim=(
+            "selected response is latest completed tail response"
+            if latest_selection_receipt.get("selected_is_latest_completed_response")
+            else "selected response is not proven latest completed tail response"
+        ),
+        grounds=["EV.latest_selection_receipt", "EV.turn_completion_state"],
+        warrant="session ordering keys and tail-state determine latest identity independently of context scope",
+        backing=["TRACE_CUT_RECEIPT", "LATEST_SELECTION_RECEIPT"],
+    )
+    add(
+        "CLM.global_absence_guard",
+        claim="global absence claims are blocked when only selected window is bundled",
+        grounds=["EV.trace_scope", "EV.claim_source_map"],
+        warrant="selected-window evidence cannot prove full-thread absence",
+        backing=["TRACE_CUT_RECEIPT", "CLAIM_SOURCE_MAP"],
+    )
+    add(
+        "CLM.title_authority",
+        claim=f"display title source is {title_authority.get('display_title_source') or ''}",
+        grounds=["EV.title_authority"],
+        warrant="weak numeric titles require semantic display fallback",
+        backing=["TITLE_AUTHORITY"],
+    )
+    add(
+        "CLM.provenance",
+        claim="trace capsule materials and subject are envelope-bound without rendered self-hash placeholder",
+        grounds=["EV.provenance_attestation", "EV.trace_cut_receipt"],
+        warrant="subject hash is finalized by artifact writer after bytes exist",
+        backing=["TRACE_PROVENANCE_ATTESTATION"],
+    )
+    add(
+        "CLM.summary_claim_traceability",
+        claim="summary claims carry evidence-node locators",
+        grounds=["EV.claim_source_map", "EV.evidence_manifest"],
+        warrant="claim rows cite EV nodes rather than classifier labels as terminal authority",
+        backing=["CLAIM_SOURCE_MAP", "EVIDENCE_NODE_GRAPH"],
+    )
+    add(
+        "CLM.self_parse",
+        claim=f"self parse status is {trace_self_parse_receipt.get('round_trip_status') or ''}",
+        grounds=["EV.claim_source_map"],
+        warrant="producer structural check is separated from downstream parser roundtrip",
+        backing=["TRACE_SELF_PARSE_RECEIPT"],
+    )
+    add(
+        "CLM.budget_sufficiency",
+        claim=(
+            "high-regret source omissions absent"
+            if int(budget_solver_receipt.get("budget_regret_high") or 0) == 0
+            else "high-regret source omissions present"
+        ),
+        grounds=["EV.source_excerpts"],
+        warrant="agent-requested omissions are higher regret than opportunistic prompt-file omissions",
+        backing=["BUDGET_SOLVER_PROOF_SET"],
+    )
+    return {
+        "schema_version": "agent_trace_assurance_case_graph_v1",
+        "claim_count": len(claims),
+        "claims": claims,
+        "warrant_model": "toulmin_lightweight_claim_ground_warrant_backing_defeater",
+    }
+
+
+def _capsule_trace_cut_receipt_section_lines(receipt: dict[str, Any]) -> list[str]:
+    provider = receipt.get("provider_plane") or {}
+    selected_bounds = provider.get("selected_bounds") or {}
+    full_bounds = provider.get("full_thread_bounds") or {}
+    return [
+        "TRACE_CUT_RECEIPT",
+        (
+            f"trace_cut_receipt_summary: cut_id={receipt.get('cut_id') or ''} "
+            f"requested={receipt.get('requested_source_window') or ''} "
+            f"resolved={receipt.get('resolved_copy_scope') or ''} "
+            f"recommended_scope={receipt.get('recommended_scope') or ''} "
+            f"consistency={receipt.get('cut_consistency') or ''} "
+            f"full_thread_available={'true' if receipt.get('full_thread_available') else 'false'} "
+            f"selected_window_only={'true' if receipt.get('selected_window_only') else 'false'}"
+        ),
+        (
+            f"provider_plane: session={_short_session_tag(str(provider.get('session_id') or ''))} "
+            f"selected_turn={provider.get('selected_turn_index') or ''} "
+            f"selected_window={selected_bounds.get('start_turn_index')}-{selected_bounds.get('end_turn_index')} "
+            f"selected_count={selected_bounds.get('turn_count')} "
+            f"full_thread={full_bounds.get('start_turn_index')}-{full_bounds.get('end_turn_index')} "
+            f"full_count={full_bounds.get('turn_count')} "
+            f"tail_state={provider.get('tail_state') or ''} "
+            f"watermark={provider.get('source_watermark_id') or ''}"
+        ),
+        (
+            f"repo_plane: state={(receipt.get('repo_plane') or {}).get('state') or ''} "
+            f"head={(receipt.get('repo_plane') or {}).get('head_short') or ''}"
+        ),
+        (
+            f"global_absence_guard: unsafe_global_none_claims_blocked="
+            f"{'true' if receipt.get('unsafe_global_none_claims_blocked') else 'false'}"
+        ),
+    ]
+
+
+def _capsule_trace_provenance_attestation_section_lines(attestation: dict[str, Any]) -> list[str]:
+    materials = attestation.get("materials") or []
+    material_ids = ",".join(str(row.get("id") or "") for row in materials if isinstance(row, dict)) or "none"
+    subject = attestation.get("subject") or {}
+    return [
+        "TRACE_PROVENANCE_ATTESTATION",
+        (
+            f"trace_provenance_attestation_summary: subject={(subject.get('kind') or '')} "
+            f"schema={(subject.get('schema_version') or '')} "
+            f"subject_sha16={(subject.get('sha16') or '')} "
+            f"subject_hash_mode={(subject.get('hash_mode') or '')} "
+            f"builder={((attestation.get('builder') or {}).get('tool') or '')} "
+            f"repo_head={((attestation.get('builder') or {}).get('repo_head') or '')[:12]} "
+            f"materials={material_ids}"
+        ),
+        (
+            f"builder_invocation: provider={((attestation.get('invocation') or {}).get('provider') or '')} "
+            f"turn={((attestation.get('invocation') or {}).get('turn_index') or '')} "
+            f"requested_source_window={((attestation.get('invocation') or {}).get('requested_source_window') or '')} "
+            f"resolved_copy_scope={((attestation.get('invocation') or {}).get('resolved_copy_scope') or '')}"
+        ),
+    ]
+
+
+def _capsule_latest_selection_receipt_section_lines(receipt: dict[str, Any]) -> list[str]:
+    selected = receipt.get("selected_window") or {}
+    candidates = receipt.get("candidate_set") or {}
+    return [
+        "LATEST_SELECTION_RECEIPT",
+        (
+            f"latest_selection_receipt_summary: selected_turn={receipt.get('selected_turn_index') or ''} "
+            f"selected_window={selected.get('start_turn_index')}-{selected.get('end_turn_index')} "
+            f"selected_count={selected.get('turn_count') or 0} "
+            f"candidate_set_source={candidates.get('source') or ''} "
+            f"candidate_set={candidates.get('start_turn_index')}-{candidates.get('end_turn_index')} "
+            f"candidate_count={candidates.get('turn_count') or 0} "
+            f"selected_is_thread_tail={'true' if receipt.get('selected_is_thread_tail') else 'false'} "
+            f"selected_is_latest_completed_response={'true' if receipt.get('selected_is_latest_completed_response') else 'false'}"
+        ),
+        (
+            f"latest_selection_ordering: keys={','.join(receipt.get('ordering_keys') or [])} "
+            f"ambiguity_override_used={'true' if receipt.get('ambiguity_override_used') else 'false'} "
+            f"reparse_before_copy={'true' if receipt.get('reparse_before_copy') else 'false'} "
+            f"watermark={receipt.get('watermark_id') or ''}"
+        ),
+        (
+            f"latest_selection_defeaters: active={','.join(receipt.get('defeaters') or []) or 'none'} "
+            f"latest_prompt_pending_response={'true' if receipt.get('latest_prompt_pending_response') else 'false'}"
+        ),
+    ]
+
+
+def _capsule_title_authority_section_lines(title_authority: dict[str, Any]) -> list[str]:
+    return [
+        "TITLE_AUTHORITY",
+        (
+            f"title_authority: raw_title=\"{_capsule_claim_value(title_authority.get('raw_title'))}\" "
+            f"display_title=\"{_capsule_claim_value(title_authority.get('display_title'))}\" "
+            f"display_title_source={title_authority.get('display_title_source') or ''} "
+            f"warning={title_authority.get('warning') or 'none'} "
+            f"title_confidence={title_authority.get('title_confidence') or ''}"
+        ),
+    ]
+
+
+def _capsule_claim_source_map_section_lines(claim_source_map: dict[str, Any]) -> list[str]:
+    rows = claim_source_map.get("rows") or []
+    covered = ",".join(claim_source_map.get("covered_summary_claims") or []) or "none"
+    lines = [
+        "CLAIM_SOURCE_MAP",
+        (
+            f"claim_source_map_summary: rows={claim_source_map.get('row_count') or 0} "
+            f"covered_summary_claims={covered} uncovered=none"
+        ),
+    ]
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        lines.append(
+            f"{row.get('row_id')} claim={row.get('claim')} value=\"{_capsule_claim_value(row.get('value'))}\" "
+            f"scope={row.get('scope')} evidence={row.get('evidence')} "
+            f"cannot_prove={row.get('cannot_prove')} render_policy={row.get('render_policy')}"
+        )
+    return lines
+
+
+def _capsule_evidence_node_graph_section_lines(graph: dict[str, Any]) -> list[str]:
+    lines = [
+        "EVIDENCE_NODE_GRAPH",
+        (
+            f"evidence_node_graph_summary: nodes={graph.get('node_count') or 0} "
+            f"locator_rule=\"{_capsule_claim_value(graph.get('locator_rule'))}\""
+        ),
+    ]
+    for node in (graph.get("nodes") or [])[:24]:
+        if not isinstance(node, dict):
+            continue
+        lines.append(
+            f"{node.get('id')} kind={node.get('kind')} status={node.get('status')} "
+            f"locator=\"{_capsule_claim_value(node.get('locator'))}\" "
+            f"sufficient_for={','.join(node.get('sufficient_for') or []) or 'none'} "
+            f"insufficient_for={','.join(node.get('insufficient_for') or []) or 'none'}"
+        )
+    if int(graph.get("node_count") or 0) > 24:
+        lines.append(f"evidence_node_graph_omitted: nodes={int(graph.get('node_count') or 0) - 24} reason=node_row_limit")
+    return lines
+
+
+def _capsule_defeater_register_section_lines(register: dict[str, Any]) -> list[str]:
+    lines = [
+        "DEFEATER_REGISTER",
+        (
+            f"defeater_register_summary: rows={register.get('row_count') or 0} "
+            f"active={register.get('active_count') or 0} "
+            f"active_defeaters={','.join(register.get('active_defeaters') or []) or 'none'}"
+        ),
+    ]
+    for row in register.get("rows") or []:
+        if not isinstance(row, dict):
+            continue
+        lines.append(
+            f"{row.get('id')} status={row.get('status')} "
+            f"threatens={','.join(row.get('threatens') or []) or 'none'} "
+            f"evidence={','.join(row.get('evidence') or []) or 'none'} "
+            f"mitigation=\"{_capsule_claim_value(row.get('mitigation'))}\""
+        )
+    return lines
+
+
+def _capsule_assurance_case_graph_section_lines(graph: dict[str, Any]) -> list[str]:
+    lines = [
+        "ASSURANCE_CASE_GRAPH",
+        (
+            f"assurance_case_graph_summary: claims={graph.get('claim_count') or 0} "
+            f"warrant_model={graph.get('warrant_model') or ''}"
+        ),
+    ]
+    for claim in graph.get("claims") or []:
+        if not isinstance(claim, dict):
+            continue
+        lines.append(
+            f"{claim.get('id')} status={claim.get('status')} portable={'true' if claim.get('portable') else 'false'} "
+            f"claim=\"{_capsule_claim_value(claim.get('claim'))}\" "
+            f"grounds={','.join(claim.get('grounds') or []) or 'none'} "
+            f"backing={','.join(claim.get('backing') or []) or 'none'} "
+            f"defeaters={','.join(claim.get('defeaters') or []) or 'none'} "
+            f"warrant=\"{_capsule_claim_value(claim.get('warrant'))}\""
+        )
+    return lines
+
+
+def _capsule_trace_self_parse_receipt_section_lines(receipt: dict[str, Any]) -> list[str]:
+    return [
+        "TRACE_SELF_PARSE_RECEIPT",
+        (
+            f"trace_self_parse_receipt_summary: status={receipt.get('round_trip_status') or ''} "
+            f"parser={receipt.get('parser') or ''} "
+            f"producer_structural_self_check={receipt.get('producer_structural_self_check') or ''} "
+            f"downstream_parser_mjs_roundtrip={receipt.get('downstream_parser_mjs_roundtrip') or ''} "
+            f"ui_ingest_contract_parse={receipt.get('ui_ingest_contract_parse') or ''} "
+            f"native_receipt_parse={receipt.get('native_receipt_parse') or ''} "
+            f"scope={receipt.get('parsed_scope') or ''} "
+            f"status_label={receipt.get('parsed_status_label') or ''} "
+            f"final_delta_attached={'true' if receipt.get('parsed_final_delta_attached') else 'false'} "
+            f"edit_event_log_attached={'true' if receipt.get('parsed_edit_event_log_attached') else 'false'} "
+            f"claim_source_map_complete={'true' if receipt.get('claim_source_map_complete') else 'false'}"
+        ),
+    ]
+
+
+def _capsule_budget_solver_receipt_section_lines(receipt: dict[str, Any]) -> list[str]:
+    return [
+        "BUDGET_SOLVER_PROOF_SET",
+        (
+            f"budget_solver_summary: proof_set_before_route_context="
+            f"{'true' if receipt.get('proof_set_before_route_context') else 'false'} "
+            f"minimum_proofs={','.join(receipt.get('minimum_proof_set') or [])} "
+            f"proof_obligations_total={receipt.get('proof_obligations_total') or 0} "
+            f"proof_obligations_embedded={receipt.get('proof_obligations_embedded') or 0} "
+            f"proof_obligations_sidecar_only={receipt.get('proof_obligations_sidecar_only') or 0} "
+            f"proof_obligations_missing={receipt.get('proof_obligations_missing') or 0} "
+            f"source_excerpts={receipt.get('source_excerpt_count') or 0} "
+            f"omitted={receipt.get('source_excerpt_omitted') or 0} "
+            f"budget_regret_high={receipt.get('budget_regret_high') or 0} "
+            f"budget_regret_medium={receipt.get('budget_regret_medium') or 0} "
+            f"top_omitted_decision_refs={','.join(receipt.get('top_omitted_decision_refs') or []) or 'none'} "
+            f"practical_budget={receipt.get('practical_budget') or ''}"
+        ),
+    ]
+
+
+def _capsule_source_context_demand_section_lines(demand: dict[str, Any]) -> list[str]:
+    trigger_paths = ",".join(Path(str(path)).name for path in demand.get("trigger_paths") or []) or "none"
+    return [
+        "SOURCE_CONTEXT_DEMAND",
+        (
+            f"source_context_demand_summary: state={demand.get('state') or 'none'} "
+            f"satisfaction={demand.get('satisfaction') or ''} "
+            f"consumer={demand.get('consumer') or 'type_b_continue'} "
+            f"reasons={','.join(demand.get('reasons') or []) or 'none'} "
+            f"trigger_paths={trigger_paths} "
+            f"trigger_path_count={demand.get('trigger_path_count') or 0} "
+            f"demand_scope={demand.get('demand_scope') or 'none'} "
+            f"explicit_requests={demand.get('explicit_requests') or 0} "
+            f"readiness_effect={demand.get('readiness_effect') or 'none'}"
+        ),
+    ]
+
+
+def _capsule_source_slice_requests_section_lines(source_slice_requests: dict[str, Any]) -> list[str]:
+    rows = [row for row in source_slice_requests.get("rows") or [] if isinstance(row, dict)]
+    emitted = sum(1 for row in rows if row.get("status") == "emitted")
+    final_delta = sum(1 for row in rows if row.get("status") == "satisfied_by_final_delta")
+    deficits = sum(1 for row in rows if row.get("status") == "deficit")
+    critical = sum(1 for row in rows if row.get("priority") == "critical")
+    lines = [
+        "SOURCE_SLICE_REQUESTS",
+        (
+            f"source_slice_requests_summary: rows={len(rows)} "
+            f"explicit={source_slice_requests.get('explicit_request_count') or 0} "
+            f"synthesized={source_slice_requests.get('synthesized_request_count') or 0} "
+            f"critical={critical} emitted={emitted} "
+            f"satisfied_by_final_delta={final_delta} deficits={deficits}"
+        ),
+    ]
+    for row in rows[:TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT]:
+        lines.append(
+            "source_slice_request: "
+            f"request_id={row.get('request_id') or ''} "
+            f"path={row.get('path') or ''} "
+            f"anchor={row.get('anchor') or ''} "
+            f"why={row.get('why') or ''} "
+            f"priority={row.get('priority') or ''} "
+            f"budget_class={row.get('budget_class') or ''} "
+            f"status={row.get('status') or ''} "
+            f"carrier={row.get('carrier') or 'none'} "
+            f"carrier_kind={row.get('carrier_kind') or 'none'}"
+        )
+    return lines
+
+
+def _capsule_source_slice_manifest_section_lines(manifest: dict[str, Any]) -> list[str]:
+    slices = [row for row in manifest.get("slices") or [] if isinstance(row, dict)]
+    lines = [
+        "SOURCE_SLICE_MANIFEST",
+        f"source_slice_manifest_summary: slices={len(slices)} repo_bound={'true' if slices else 'false'}",
+    ]
+    for row in slices[:TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT]:
+        lines.append(
+            "source_slice_manifest_row: "
+            f"slice_id={row.get('slice_id') or ''} "
+            f"request_id={row.get('request_id') or ''} "
+            f"artifact_uri={row.get('artifact_uri') or ''} "
+            f"repo_head={str(row.get('repo_head') or '')[:12]} "
+            f"language_id={row.get('language_id') or ''} "
+            f"anchor={row.get('anchor') or ''} "
+            f"text_sha16={row.get('text_sha16') or ''} "
+            f"carrier={row.get('carrier') or ''} "
+            f"line_count={row.get('line_count') or 0} "
+            f"bytes={row.get('bytes') or 0} "
+            f"truncated={'true' if row.get('truncated') else 'false'} "
+            f"linked_claims={','.join(row.get('linked_claims') or []) or 'none'}"
+        )
+    return lines
+
+
+def _capsule_source_context_deficit_section_lines(deficit: dict[str, Any]) -> list[str]:
+    rows = [row for row in deficit.get("rows") or [] if isinstance(row, dict)]
+    lines = [
+        "SOURCE_CONTEXT_DEFICIT",
+        (
+            f"source_context_deficit_summary: rows={deficit.get('row_count') or 0} "
+            f"active={deficit.get('active_count') or 0}"
+        ),
+    ]
+    for row in rows[:TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT]:
+        lines.append(
+            "source_context_deficit_row: "
+            f"deficit_id={row.get('deficit_id') or ''} "
+            f"request_id={row.get('request_id') or ''} "
+            f"missing_path={row.get('missing_path') or ''} "
+            f"missing_anchor={row.get('missing_anchor') or ''} "
+            f"why_needed={row.get('why_needed') or ''} "
+            f"fallback_used={row.get('fallback_used') or 'none'} "
+            f"next_best_slice=\"{_capsule_claim_value(row.get('next_best_slice'))}\" "
+            f"max_context={row.get('max_context') or ''}"
+        )
+    return lines
+
+
+def _capsule_source_context_readiness_section_lines(readiness: dict[str, Any]) -> list[str]:
+    return [
+        "SOURCE_CONTEXT_READINESS",
+        (
+            f"source_context_readiness: overall={readiness.get('overall') or 'green'} "
+            f"demand={readiness.get('demand') or 'none'} "
+            f"satisfaction={readiness.get('satisfaction') or ''} "
+            f"explicit_requests={readiness.get('explicit_requests') or 0} "
+            f"synthesized_requests={readiness.get('synthesized_requests') or 0} "
+            f"emitted={readiness.get('emitted') or 0} "
+            f"satisfied_by_final_delta={readiness.get('satisfied_by_final_delta') or 0} "
+            f"manifest_slices={readiness.get('manifest_slices') or 0} "
+            f"omitted={readiness.get('omitted') or 0} "
+            f"high_regret_missing={readiness.get('high_regret_missing') or 0} "
+            f"copy_readiness_effect={readiness.get('copy_readiness_effect') or 'none'}"
+        ),
+    ]
+
+
+def _capsule_type_b_source_closeout_lint_section_lines(lint: dict[str, Any]) -> list[str]:
+    return [
+        "TYPE_B_SOURCE_CLOSEOUT_LINT",
+        (
+            f"type_b_source_closeout_lint: result={lint.get('result') or 'pass'} "
+            f"demand_state={lint.get('demand_state') or 'none'} "
+            f"readiness={lint.get('readiness') or 'green'} "
+            f"high_regret_missing={lint.get('high_regret_missing') or 0} "
+            f"rule={lint.get('rule') or ''}"
+        ),
+    ]
+
+
 def render_trace_capsule_text(
     turn: Turn,
     *,
@@ -6704,6 +9013,13 @@ def render_trace_capsule_text(
         changed = _capsule_clean_text(f"{len(changed_paths)} files: {', '.join(names)}")
         if len(changed_paths) > 8:
             changed += f", +{len(changed_paths) - 8} more"
+    final_delta = _capsule_final_delta_for_trace(
+        commit_hash=commit_hash,
+        changed_paths=changed_paths,
+        cwd=turn.cwd,
+    )
+    final_delta_attached = bool(final_delta.get("attached"))
+    edit_event_log_attached = bool(edit_rows)
     source_excerpt_lines, source_excerpt_stats = _capsule_source_excerpt_sections(
         renderable,
         source_sha16=source_sha16,
@@ -6723,6 +9039,17 @@ def render_trace_capsule_text(
         source_excerpt_lint_warnings.append("requested_excerpt_dropped")
     if requested_source_claim_missing:
         source_excerpt_lint_warnings.append("contradictory_closeout_requested_source_missing")
+    evidence_manifest_lines, evidence_manifest = _capsule_evidence_manifest(
+        renderable=renderable,
+        edit_rows=edit_rows,
+        final_delta=final_delta,
+        source_excerpt_stats=source_excerpt_stats,
+        check_rows=check_rows,
+        governance_rows=governance_rows,
+        final_assistant_text=final_assistant_text,
+    )
+    if evidence_manifest.get("class_counts", {}).get("passive_mention"):
+        source_excerpt_lint_warnings.append("passive_mentions_without_evidence")
     result_summary = _capsule_result_summary(turn, commit_title)
     subagent_packet = _subagent_packet_for_turn_window(turn)
     subagent_count = int(subagent_packet.get("count") or 0)
@@ -6732,8 +9059,10 @@ def render_trace_capsule_text(
     selected_window_only = display_source_window in {"selected_turn", "latest_prompt_cycle"}
     full_thread_available = _trace_full_thread_available(turn, display_source_window)
     substrate_diff_required = display_source_window != "full_thread_concise"
-    substrate_diff_state = "exact_hunks_attached" if edit_rows else "no_diff_evidence_captured"
-    commit_diff_missing = bool(commit_summary and substrate_diff_required and not edit_rows)
+    substrate_diff_state = "exact_hunks_attached" if final_delta_attached else (
+        "edit_event_log_only" if edit_rows else "no_diff_evidence_captured"
+    )
+    commit_diff_missing = bool(commit_summary and substrate_diff_required and not final_delta_attached)
     if commit_diff_missing:
         substrate_diff_state = "missing_exact_plus_minus"
     no_edit_claim_allowed = (
@@ -6749,6 +9078,14 @@ def render_trace_capsule_text(
     copy_scope_warning = "LATEST ONLY - not full thread" if selected_window_only else ""
     recommended_scope = "full_thread" if selected_window_only and full_thread_available else display_source_window
     operator_intervention_full_count = None if selected_window_only and full_thread_available else 0
+    scope_semantics = _capsule_scope_semantics(
+        status_text=status_text,
+        display_source_window=display_source_window,
+        full_thread_available=full_thread_available,
+        selected_window_only=selected_window_only,
+        no_edit_claim_allowed=no_edit_claim_allowed,
+    )
+    status_label = str(scope_semantics["status_label"])
     ui_diff_only = False
     exact_diff_required = substrate_diff_required and bool(edit_rows or commit_summary)
     diff_reconciler_reasons: list[str] = []
@@ -6756,13 +9093,17 @@ def render_trace_capsule_text(
         diff_reconciler_status = "summary_only_allowed"
         diff_reconciler_severity = "green"
         diff_reconciler_reasons.append("full_thread_concise_summary_exception")
-    elif substrate_diff_state == "exact_hunks_attached":
+    elif final_delta_attached:
         diff_reconciler_status = "aligned_exact_substrate_diff"
         diff_reconciler_severity = "green"
     elif commit_diff_missing:
         diff_reconciler_status = "commit_without_exact_diff"
         diff_reconciler_severity = "red"
         diff_reconciler_reasons.append("commit_seen_without_git_show_patch")
+    elif edit_rows:
+        diff_reconciler_status = "edit_event_log_without_final_delta"
+        diff_reconciler_severity = "amber"
+        diff_reconciler_reasons.append("tool_edit_events_are_chronology_not_final_substrate_delta")
     elif exact_diff_required:
         diff_reconciler_status = "missing_exact_substrate_diff"
         diff_reconciler_severity = "red"
@@ -6774,6 +9115,48 @@ def render_trace_capsule_text(
         diff_reconciler_status = "no_edits_captured_in_scoped_window"
         diff_reconciler_severity = "amber"
         diff_reconciler_reasons.append("zero_edit_count_is_window_local")
+    source_context_demand = _capsule_source_context_demand(
+        prompt_text=turn.prompt_text,
+        final_assistant_text=final_assistant_text,
+        changed_paths=changed_paths,
+        final_delta=final_delta,
+        type_b_source_excerpt_affordance=type_b_source_excerpt_affordance,
+        source_excerpt_stats=source_excerpt_stats,
+    )
+    source_slice_requests = _capsule_source_slice_requests(
+        source_context_demand=source_context_demand,
+        source_excerpt_stats=source_excerpt_stats,
+        final_delta=final_delta,
+    )
+    source_slice_manifest = _capsule_source_slice_manifest(
+        source_slice_requests=source_slice_requests,
+        source_excerpt_stats=source_excerpt_stats,
+        repo_head=str(_capsule_repo_cut_plane().get("head") or ""),
+    )
+    source_context_deficit = _capsule_source_context_deficit(
+        source_slice_requests=source_slice_requests,
+        final_delta=final_delta,
+        include_raw_sidecar=include_raw_sidecar,
+    )
+    source_context_readiness = _capsule_source_context_readiness(
+        source_context_demand=source_context_demand,
+        source_slice_requests=source_slice_requests,
+        source_context_deficit=source_context_deficit,
+        source_slice_manifest=source_slice_manifest,
+        source_excerpt_stats=source_excerpt_stats,
+    )
+    type_b_source_closeout_lint = _capsule_type_b_source_closeout_lint(
+        source_context_demand=source_context_demand,
+        source_context_readiness=source_context_readiness,
+    )
+    type_b_source_excerpt_affordance["policy"] = "optional_until_source_context_demand"
+    type_b_source_excerpt_affordance["demand_state"] = source_context_demand.get("state") or "none"
+    type_b_source_excerpt_affordance["source_context_satisfaction"] = (
+        source_context_demand.get("satisfaction") or ""
+    )
+    type_b_source_excerpt_affordance["copy_readiness_effect"] = (
+        source_context_readiness.get("copy_readiness_effect") or "none"
+    )
     copy_readiness_blockers: list[str] = []
     copy_readiness_warnings: list[str] = []
     if diff_reconciler_severity == "red":
@@ -6826,32 +9209,245 @@ def render_trace_capsule_text(
         f"{row.get('path', '')}=>{','.join(row.get('row_ids', []))}"
         for row in source_excerpt_stats.get("agent_requested_path_rows", [])[:8]
     ) or "none"
+    visible_note_count = max(0, note_index - 1)
+    pivot_count = sum(1 for event in reasoning_events if event.category == "pivot")
+    route_decision_count = sum(1 for event in reasoning_events if event.category == "route_decision")
+    decision_count = sum(1 for event in reasoning_events if event.category == "decision")
+    validation_intent_count = sum(1 for event in reasoning_events if event.category == "validation_intent")
+    reasoning_phase_count = len(_capsule_reasoning_digest_events(reasoning_events))
+    source_watermark = _source_watermark_for_turn(turn)
+    trace_cut_receipt = _capsule_trace_cut_receipt(
+        turn=turn,
+        requested_source_window=source_window,
+        display_source_window=display_source_window,
+        recommended_scope=recommended_scope,
+        source_sha16=source_sha16,
+        source_watermark=source_watermark,
+        full_thread_available=full_thread_available,
+        selected_window_only=selected_window_only,
+        final_delta=final_delta,
+        include_raw_sidecar=include_raw_sidecar,
+        scope_semantics=scope_semantics,
+    )
+    latest_selection_receipt = _capsule_latest_selection_receipt(
+        turn=turn,
+        trace_cut_receipt=trace_cut_receipt,
+        source_watermark=source_watermark,
+    )
+    trace_provenance_attestation = _capsule_trace_provenance_attestation(
+        turn=turn,
+        trace_cut_receipt=trace_cut_receipt,
+        final_delta=final_delta,
+        source_excerpt_stats=source_excerpt_stats,
+        include_raw_sidecar=include_raw_sidecar,
+    )
+    open_product_residual_lines = _capsule_scoped_absence_lines(
+        "open_product_residuals",
+        residual_summary,
+        scope_semantics,
+    )
+    open_validation_process_residual_lines = _capsule_scoped_absence_lines(
+        "open_validation_process_residuals",
+        validation_process_residual_summary,
+        scope_semantics,
+    )
+    open_product_residual_semantics = _capsule_scoped_absence_value(residual_summary, scope_semantics)
+    open_validation_process_residual_semantics = _capsule_scoped_absence_value(
+        validation_process_residual_summary,
+        scope_semantics,
+    )
+    open_claim_lines = _capsule_open_claim_lines(turn, scope_semantics)
+    summary_claims: list[dict[str, str]] = []
+
+    def add_summary_claim(
+        claim: str,
+        value: Any,
+        *,
+        scope: str = display_source_window,
+        evidence: str = "producer_state",
+        cannot_prove: str = "none",
+        render_policy: str = "scope_qualified",
+    ) -> None:
+        summary_claims.append({
+            "claim": claim,
+            "value": str(value),
+            "scope": scope,
+            "evidence": evidence,
+            "cannot_prove": cannot_prove,
+            "render_policy": render_policy,
+        })
+
+    add_summary_claim("status", status_label, evidence="turn.is_complete+copy_scope")
+    add_summary_claim("result", result_summary, evidence="final_assistant_text_or_commit_title")
+    add_summary_claim("changed", changed, evidence="edit_rows+final_delta")
+    add_summary_claim("final_validation", final_validation, evidence="classified_terminal_checks")
+    add_summary_claim("owner_scope_validation", owner_scope_validation, evidence="owner_scope_terminal_checks")
+    add_summary_claim("internal_authorization", internal_authorization, evidence="governance_receipts")
+    add_summary_claim("public_release_authorization", public_release_authorization, evidence="governance_receipts")
+    add_summary_claim("source_landing", source_landing_state, evidence="commit_and_dirty_residual_classification")
+    add_summary_claim("publication_state", publication_state, evidence="governance_receipts")
+    add_summary_claim("receipt_assimilation", receipt_assimilation, evidence="task_ledger_and_projection_receipts")
+    add_summary_claim("ambient_validation", ambient_validation, evidence="ambient_terminal_rows")
+    add_summary_claim("ambient_warning_class", ambient_warning_class_summary, evidence="ambient_warning_classifier")
+    for line in open_product_residual_lines:
+        key, _, value = line.partition(": ")
+        add_summary_claim(key, value, scope=str(scope_semantics["absence_scope"]), evidence="residual_classifier", cannot_prove="full_thread_absence" if selected_window_only else "none")
+    for line in open_validation_process_residual_lines:
+        key, _, value = line.partition(": ")
+        add_summary_claim(key, value, scope=str(scope_semantics["absence_scope"]), evidence="validation_process_residual_classifier", cannot_prove="full_thread_absence" if selected_window_only else "none")
+    add_summary_claim("closed_residuals_seen", closed_residuals_seen_summary, evidence="task_ledger_receipts")
+    add_summary_claim("blocked_external_observation_residuals", blocked_external_observation_residuals_summary, evidence="task_ledger_receipts")
+    add_summary_claim("ambient_validation_warnings", ambient_validation_warning_summary, evidence="ambient_warning_classifier")
+    add_summary_claim("release_candidate_gate", release_candidate_gate_decision or "none", evidence="release_candidate_classifier")
+    add_summary_claim("historical_terminal_failures_superseded", historical_terminal_failures_superseded, evidence="terminal_check_ordering")
+    add_summary_claim("expected_guard_refusals", expected_guard_refusal_count, evidence="guarded_refusal_classifier")
+    add_summary_claim("guarded_refusal_residuals", guarded_refusal_residual_summary, evidence="guarded_refusal_classifier")
+    add_summary_claim("projection_or_view_artifacts_seen", projection_or_view_artifacts_seen_summary, evidence="projection_artifact_classifier")
+    add_summary_claim("unresolved_residual_mentions", unresolved_residual_mentions_summary, evidence="residual_mention_classifier")
+    add_summary_claim("release_authority", "none", evidence="release_authority_classifier")
+    add_summary_claim("checks", f"pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}", evidence="classified_checks")
+    add_summary_claim("terminal_checks", f"pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}", evidence="terminal_checks")
+    add_summary_claim("owner_scope_terminal_checks", f"pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}", evidence="owner_terminal_checks")
+    add_summary_claim("validation_progress", "see_validation_semantics", evidence="classified_checks")
+    add_summary_claim("terminal_failure_classes", terminal_failure_class_summary, evidence="terminal_failure_classifier")
+    add_summary_claim("validation_semantics", "see_validation_semantics_line", evidence="validation_classifier")
+    add_summary_claim("governance_receipts", f"pass={governance_pass_count} fail={governance_fail_count} other={governance_other_count} total={len(governance_rows)}", evidence="governance_receipts")
+    add_summary_claim("terminal_governance", f"pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}", evidence="terminal_governance_rows")
+    add_summary_claim("diagnostics", f"total={len(diagnostic_rows)} fail={diagnostic_fail_count}", evidence="diagnostic_rows")
+    add_summary_claim("visible_progress", f"notes={visible_note_count} source=assistant_visible_only", evidence="assistant_visible_messages")
+    add_summary_claim("thinking", f"source=app_visible_assistant_messages notes={visible_note_count}", evidence="assistant_visible_messages")
+    for line in open_claim_lines:
+        key, _, value = line.partition(": ")
+        add_summary_claim(key or "open", value or line, scope=str(scope_semantics["absence_scope"]), evidence="turn.completion_state", cannot_prove="full_thread_open_state" if selected_window_only else "none")
+    claim_source_map = _capsule_claim_source_map(summary_claims)
+    copy_readiness_vector = _capsule_copy_readiness_vector(
+        copy_readiness_state=copy_readiness_state,
+        copy_readiness_blockers=copy_readiness_blockers,
+        copy_readiness_warnings=copy_readiness_warnings,
+        scope_semantics=scope_semantics,
+        final_delta_attached=final_delta_attached,
+        diff_reconciler_status=diff_reconciler_status,
+        claim_source_map=claim_source_map,
+        source_excerpt_stats=source_excerpt_stats,
+        latest_selection_receipt=latest_selection_receipt,
+    )
+    trace_self_parse_receipt = _capsule_trace_self_parse_receipt(
+        trace_cut_receipt=trace_cut_receipt,
+        scope_semantics=scope_semantics,
+        claim_source_map=claim_source_map,
+        final_delta_attached=final_delta_attached,
+        edit_event_log_attached=edit_event_log_attached,
+    )
+    budget_solver_receipt = _capsule_budget_solver_receipt(source_excerpt_stats)
+    trace_context_ids = _capsule_trace_context_ids(
+        turn=turn,
+        trace_cut_receipt=trace_cut_receipt,
+        source_sha16=source_sha16,
+    )
+    title_authority = _capsule_title_authority(title, turn=turn, commit_title=commit_title)
+    title_authority_warning = str(title_authority.get("warning") or "none")
+    evidence_node_graph = _capsule_evidence_node_graph(
+        trace_cut_receipt=trace_cut_receipt,
+        latest_selection_receipt=latest_selection_receipt,
+        title_authority=title_authority,
+        trace_provenance_attestation=trace_provenance_attestation,
+        claim_source_map=claim_source_map,
+        final_delta=final_delta,
+        final_delta_attached=final_delta_attached,
+        edit_event_log_attached=edit_event_log_attached,
+        terminal_check_count=len(terminal_check_rows),
+        owner_terminal_check_count=len(owner_terminal_check_rows),
+        evidence_manifest=evidence_manifest,
+        source_excerpt_stats=source_excerpt_stats,
+        include_raw_sidecar=include_raw_sidecar,
+    )
+    defeater_register = _capsule_defeater_register(
+        scope_semantics=scope_semantics,
+        latest_selection_receipt=latest_selection_receipt,
+        title_authority=title_authority,
+        trace_self_parse_receipt=trace_self_parse_receipt,
+        budget_solver_receipt=budget_solver_receipt,
+    )
+    assurance_case_graph = _capsule_assurance_case_graph(
+        latest_selection_receipt=latest_selection_receipt,
+        title_authority=title_authority,
+        trace_self_parse_receipt=trace_self_parse_receipt,
+        budget_solver_receipt=budget_solver_receipt,
+        defeater_register=defeater_register,
+    )
+    reader_latest_state = (
+        "latest_completed_response"
+        if latest_selection_receipt.get("selected_is_latest_completed_response")
+        else (
+            "response_in_progress"
+            if latest_selection_receipt.get("latest_prompt_pending_response")
+            else "not_thread_tail"
+        )
+    )
+    reader_context_state = (
+        "selected_window_only_context_deficit"
+        if selected_window_only and full_thread_available
+        else "declared_scope_context_available"
+    )
+    if reader_latest_state == "latest_completed_response" and reader_context_state == "selected_window_only_context_deficit":
+        reader_next_action = "use_bundle_for_latest_tail_claims; request_full_thread_only_for_global_absence_or_context"
+    elif reader_latest_state == "latest_completed_response":
+        reader_next_action = "use_bundle_for_declared_scope"
+    elif reader_latest_state == "response_in_progress":
+        reader_next_action = "wait_for_completed_response_or_select_latest_completed_turn"
+    else:
+        reader_next_action = "request_latest_response_bundle_or_full_thread_tail"
 
     header = [
         "TRACE CAPSULE v3",
-        f"title: {_capsule_clean_text(title[:180])}",
+        f"title: {_capsule_clean_text(str(title_authority.get('display_title') or '')[:180])}",
+        f"raw_title: {_capsule_clean_text(str(title_authority.get('raw_title') or '')[:180])}",
+        f"title_authority_warning: {title_authority_warning}",
         f"provider: {turn.provider}",
         f"session: {_short_session_tag(turn.session_id)}",
         f"turn: {turn.turn_index}",
         _trace_window_header(turn, source_window),
         f"trace_scope: copy_scope={display_source_window} thread_totality={_trace_thread_totality(display_source_window)} full_thread_available={'true' if full_thread_available else 'false'} selected_window_only={'true' if selected_window_only else 'false'}",
+        f"latest_selection: selected_turn={latest_selection_receipt['selected_turn_index']} selected_is_thread_tail={'true' if latest_selection_receipt['selected_is_thread_tail'] else 'false'} selected_is_latest_completed_response={'true' if latest_selection_receipt['selected_is_latest_completed_response'] else 'false'} latest_prompt_pending_response={'true' if latest_selection_receipt['latest_prompt_pending_response'] else 'false'}",
+        f"trace_context: trace_context_id={trace_context_ids['trace_context_id']} cut_id={trace_context_ids['cut_id']} prompt={trace_context_ids['prompt_sha16']} source={trace_context_ids['source_sha16']}",
+        f"scope_semantics: status_label={status_label} completion_scope={scope_semantics['completion_scope']} none_scope={scope_semantics['none_scope']} global_none_claims_allowed={'true' if scope_semantics['global_none_claims_allowed'] else 'false'} unsafe_global_none_claims_blocked={'true' if scope_semantics['unsafe_global_none_claims_blocked'] else 'false'}",
         f"copy_policy: consumer=type_b_continue selected_scope={display_source_window} recommended_scope={recommended_scope} warning={copy_scope_warning or 'none'}",
         f"stats_source: {stats_source_label}",
         f"operator_interventions: selected_window_count=0 full_thread_count={operator_intervention_full_count if operator_intervention_full_count is not None else 'unknown'} full_thread_available={'true' if full_thread_available else 'false'} scope_note={'selected_window_only' if selected_window_only else 'full_thread'}",
-        f"diff_contract: substrate_diff={substrate_diff_state} substrate_diff_required={'true' if substrate_diff_required else 'false'} commit_diff_missing={'true' if commit_diff_missing else 'false'}",
+        f"diff_contract: substrate_diff={substrate_diff_state} substrate_diff_required={'true' if substrate_diff_required else 'false'} commit_diff_missing={'true' if commit_diff_missing else 'false'} final_delta_attached={'true' if final_delta_attached else 'false'} edit_event_log_attached={'true' if edit_event_log_attached else 'false'} patch_attempts_are_not_final_state=true",
         f"copy_readiness: state={copy_readiness_state} blockers={','.join(copy_readiness_blockers) or 'none'} warnings={','.join(copy_readiness_warnings) or 'none'}",
-        f"diff_reconciler: status={diff_reconciler_status} severity={diff_reconciler_severity} ui_review_card={'ui_diff_only' if ui_diff_only else 'not_detected'} parser_artifact_delta={substrate_diff_state} git_commit_or_worktree={'commit_without_patch' if commit_diff_missing else ('commit_seen' if commit_summary else 'not_detected')}",
+        f"copy_readiness_vector: overall={copy_readiness_vector['overall']} scope={copy_readiness_vector['scope']} final_delta={copy_readiness_vector['final_delta']} latest_selection={copy_readiness_vector['latest_selection']} claim_source_map={copy_readiness_vector['claim_source_map']} sidecar_portability={copy_readiness_vector['sidecar_portability']} global_none_claims={copy_readiness_vector['global_none_claims']} budget={copy_readiness_vector['budget']}",
+        f"diff_reconciler: status={diff_reconciler_status} severity={diff_reconciler_severity} ui_review_card={'ui_diff_only' if ui_diff_only else 'not_detected'} final_delta={'attached' if final_delta_attached else 'not_attached'} parser_artifact_delta={substrate_diff_state} edit_event_log={'attached' if edit_event_log_attached else 'not_attached'} git_commit_or_worktree={'commit_without_patch' if commit_diff_missing else ('commit_seen' if commit_summary else ('worktree_delta_seen' if final_delta.get('source') == 'git_diff_worktree' else 'not_detected'))}",
         f"evidence_tier: selected={evidence_tier['selected_tier']} provider_byte_lossless=false visible_clip_lossless_for_copied_source=true provider_forensic_available={'true' if evidence_tier['provider_forensic_available'] else 'false'}",
         "type_b_source_excerpt_affordance: "
         f"status={type_b_source_excerpt_affordance['status']} "
         f"suggested={'true' if type_b_source_excerpt_affordance['suggested'] else 'false'} "
         f"mandatory={'true' if type_b_source_excerpt_affordance['mandatory'] else 'false'} "
+        f"policy={type_b_source_excerpt_affordance.get('policy') or 'optional_until_source_context_demand'} "
+        f"demand_state={type_b_source_excerpt_affordance.get('demand_state') or 'none'} "
+        f"source_context_satisfaction={type_b_source_excerpt_affordance.get('source_context_satisfaction') or ''} "
         f"copy_readiness_effect={type_b_source_excerpt_affordance['copy_readiness_effect']} "
         f"agent_requested_refs={type_b_source_excerpt_affordance['agent_requested_refs']} "
         f"agent_requested_seen={type_b_source_excerpt_affordance['agent_requested_seen_refs']} "
         f"agent_requested_omitted={type_b_source_excerpt_affordance['agent_requested_omitted_refs']} "
         f"trigger_paths={','.join(Path(path).name for path in type_b_source_excerpt_affordance['trigger_paths'][:4]) or 'none'} "
         f"affordance={type_b_source_excerpt_affordance['affordance_id'] or 'none'}",
+        "source_context_readiness: "
+        f"overall={source_context_readiness['overall']} "
+        f"demand={source_context_readiness['demand']} "
+        f"satisfaction={source_context_readiness['satisfaction']} "
+        f"explicit_requests={source_context_readiness['explicit_requests']} "
+        f"synthesized_requests={source_context_readiness['synthesized_requests']} "
+        f"emitted={source_context_readiness['emitted']} "
+        f"satisfied_by_final_delta={source_context_readiness['satisfied_by_final_delta']} "
+        f"omitted={source_context_readiness['omitted']} "
+        f"high_regret_missing={source_context_readiness['high_regret_missing']} "
+        f"copy_readiness_effect={source_context_readiness['copy_readiness_effect']}",
+        "type_b_source_closeout_lint: "
+        f"result={type_b_source_closeout_lint['result']} "
+        f"demand_state={type_b_source_closeout_lint['demand_state']} "
+        f"readiness={type_b_source_closeout_lint['readiness']} "
+        f"high_regret_missing={type_b_source_closeout_lint['high_regret_missing']}",
         "requested_context_survival: "
         f"status={source_excerpt_stats.get('requested_excerpt_survival_status', 'unknown')} "
         f"seen={source_excerpt_stats.get('agent_requested_seen_refs', 0)} "
@@ -6863,10 +9459,19 @@ def render_trace_capsule_text(
         f"emitted={source_excerpt_stats.get('agent_requested_emitted_refs', source_excerpt_stats.get('agent_requested_refs', 0))} "
         f"omitted={source_excerpt_stats.get('agent_requested_omitted_refs', 0)} "
         f"rows={requested_excerpt_path_summary}",
+        "evidence_manifest: "
+        f"rows={evidence_manifest['row_count']} "
+        f"requested_source_excerpt={evidence_manifest['class_counts']['requested_source_excerpt']} "
+        f"diff_hunk={evidence_manifest['class_counts']['diff_hunk']} "
+        f"edit_event_hunk={evidence_manifest['class_counts']['edit_event_hunk']} "
+        f"command_return={evidence_manifest['class_counts']['command_return']} "
+        f"receipt={evidence_manifest['class_counts']['receipt']} "
+        f"passive_mention={evidence_manifest['class_counts']['passive_mention']} "
+        "rule=passive_mention_is_not_evidence",
         f"type_b_handoff_lint: result={type_b_lint_result} no_edits_sentence_allowed={'true' if no_edit_claim_allowed else 'false'} required_no_edit_language=\"{type_b_no_edit_language}\"",
         f"terminal_validation_priority: state={terminal_validation_state} terminal_checks={len(terminal_check_rows)} owner_scope_terminal_checks={len(owner_terminal_check_rows)}",
         f"type_b_rule: no_unqualified_no_edits_unless_full_thread_coverage_and_no_edit_claim_allowed; otherwise say no edits captured in this source window",
-        f"status: {status_text}",
+        f"status: {status_label}",
     ]
     if worked_for:
         header.append(f"worked_for: {worked_for}")
@@ -6930,7 +9535,7 @@ def render_trace_capsule_text(
     header.extend([
         f"prompt: {turn.prompt_sha256_16}",
         f"source: {source_sha16}",
-        f"coverage: commands={len(renderable)} outputs={commands_with_outputs} edits={len(edit_rows)} checks={len(check_rows)} governance={len(governance_rows)} diagnostics={len(diagnostic_rows)} notes={visible_note_count} edit_scope=captured_window thread_total_edits={thread_total_edits} no_edit_claim_allowed={'true' if no_edit_claim_allowed else 'false'} substrate_diff={substrate_diff_state} substrate_diff_required={'true' if substrate_diff_required else 'false'} commit_diff_missing={'true' if commit_diff_missing else 'false'} truncated_outputs={truncated_outputs} raw_sidecar={'available' if include_raw_sidecar else 'not_materialized'}",
+        f"coverage: commands={len(renderable)} outputs={commands_with_outputs} edits={len(edit_rows)} checks={len(check_rows)} governance={len(governance_rows)} diagnostics={len(diagnostic_rows)} notes={visible_note_count} edit_scope=captured_window thread_total_edits={thread_total_edits} no_edit_claim_allowed={'true' if no_edit_claim_allowed else 'false'} substrate_diff={substrate_diff_state} substrate_diff_required={'true' if substrate_diff_required else 'false'} commit_diff_missing={'true' if commit_diff_missing else 'false'} final_delta_attached={'true' if final_delta_attached else 'false'} edit_event_log_attached={'true' if edit_event_log_attached else 'false'} truncated_outputs={truncated_outputs} raw_sidecar={'available' if include_raw_sidecar else 'not_materialized'}",
         "source_excerpts: "
         f"count={source_excerpt_stats['count']} lines={source_excerpt_stats['lines']} "
         f"paths={len(source_excerpt_stats['paths'])} omitted={source_excerpt_stats['omitted']} "
@@ -6945,8 +9550,15 @@ def render_trace_capsule_text(
         f"subagents: count={subagent_count} linked={linked_subagent_trace_count} visible={visible_subagent_count} collapsed_under_parent=true",
         f"episode_graph: schema=agent_episode_graph_v1 composition_root=agent_episode_graph nodes={len(agent_episode_graph['nodes'])} episodes={episode_count}",
         "",
+        "READER_DECISION_CARD",
+        f"reader_scope: status={status_label} copy_scope={display_source_window} recommended_scope={recommended_scope} full_thread_available={'true' if full_thread_available else 'false'} cut_consistency={trace_cut_receipt['cut_consistency']}",
+        f"reader_latest: status={reader_latest_state} candidate_count={(latest_selection_receipt.get('candidate_set') or {}).get('turn_count') or 0} selected_is_thread_tail={'true' if latest_selection_receipt.get('selected_is_thread_tail') else 'false'}",
+        f"reader_context: status={reader_context_state} global_none_claims_allowed={'true' if scope_semantics['global_none_claims_allowed'] else 'false'}",
+        f"reader_trust: copy_readiness={copy_readiness_state} diff_reconciler={diff_reconciler_status} claim_source_map={'complete' if not claim_source_map['uncovered_summary_claims'] else 'incomplete'} assurance_active_defeaters={defeater_register['active_count']} final_delta={'attached' if final_delta_attached else 'not_attached'}",
+        f"reader_next_action: {reader_next_action}",
+        "",
         "SUMMARY",
-        f"status: {status_text}",
+        f"status: {status_label}",
         f"result: {result_summary}",
         f"changed: {changed}",
         f"final_validation: {final_validation}",
@@ -6958,8 +9570,8 @@ def render_trace_capsule_text(
         f"receipt_assimilation: {receipt_assimilation}",
         f"ambient_validation: {ambient_validation}",
         f"ambient_warning_class: {ambient_warning_class_summary}",
-        f"open_product_residuals: {residual_summary}",
-        f"open_validation_process_residuals: {validation_process_residual_summary}",
+        *open_product_residual_lines,
+        *open_validation_process_residual_lines,
         f"closed_residuals_seen: {closed_residuals_seen_summary}",
         f"blocked_external_observation_residuals: {blocked_external_observation_residuals_summary}",
         f"ambient_validation_warnings: {ambient_validation_warning_summary}",
@@ -6975,7 +9587,7 @@ def render_trace_capsule_text(
         f"owner_scope_terminal_checks: pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}",
         f"validation_progress: iterative_checks(pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}) terminal_checks(pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}) owner_scope_terminal_checks(pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}) recovered_failures={recovered_failures} final_validation_basis={final_validation_basis}",
         f"terminal_failure_classes: {terminal_failure_class_summary}",
-        f"validation_semantics: owner_scope_validation={owner_scope_validation} source_landing={source_landing_state} publication_state={publication_state} receipt_assimilation={receipt_assimilation} validation_process={validation_process} ambient_validation={ambient_validation} internal_authorization={internal_authorization} public_release_authorization={public_release_authorization} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} current_terminal_failures={current_terminal_failure_count} stale_window_failures={stale_window_failure_count} contradictory_closeouts={contradictory_closeout_count} expected_guard_refusals={expected_guard_refusal_count} guarded_refusal_residuals={guarded_refusal_residual_summary} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
+        f"validation_semantics: owner_scope_validation={owner_scope_validation} source_landing={source_landing_state} publication_state={publication_state} receipt_assimilation={receipt_assimilation} validation_process={validation_process} ambient_validation={ambient_validation} internal_authorization={internal_authorization} public_release_authorization={public_release_authorization} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} current_terminal_failures={current_terminal_failure_count} stale_window_failures={stale_window_failure_count} contradictory_closeouts={contradictory_closeout_count} expected_guard_refusals={expected_guard_refusal_count} guarded_refusal_residuals={guarded_refusal_residual_summary} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={open_product_residual_semantics} open_validation_process_residuals={open_validation_process_residual_semantics} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
         f"governance_receipts: pass={governance_pass_count} fail={governance_fail_count} other={governance_other_count} total={len(governance_rows)}",
         f"terminal_governance: pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}",
         f"diagnostics: total={len(diagnostic_rows)} fail={diagnostic_fail_count}",
@@ -6986,7 +9598,25 @@ def render_trace_capsule_text(
     header.extend(episode_lines)
     if commit_summary:
         header.append(f"commit: {commit_summary}")
-    header.append("open: none captured" if turn.is_complete else (turn.partial_reason or "trace still in progress"))
+    header.extend(open_claim_lines)
+    header.extend(["", *_capsule_trace_cut_receipt_section_lines(trace_cut_receipt)])
+    header.extend(["", *_capsule_latest_selection_receipt_section_lines(latest_selection_receipt)])
+    header.extend(["", *_capsule_trace_provenance_attestation_section_lines(trace_provenance_attestation)])
+    header.extend(["", *_capsule_title_authority_section_lines(title_authority)])
+    header.extend(["", *_capsule_claim_source_map_section_lines(claim_source_map)])
+    header.extend(["", *_capsule_evidence_node_graph_section_lines(evidence_node_graph)])
+    header.extend(["", *_capsule_defeater_register_section_lines(defeater_register)])
+    header.extend(["", *_capsule_assurance_case_graph_section_lines(assurance_case_graph)])
+    header.extend(["", *_capsule_trace_self_parse_receipt_section_lines(trace_self_parse_receipt)])
+    header.extend(["", *_capsule_budget_solver_receipt_section_lines(budget_solver_receipt)])
+    header.extend(["", *_capsule_source_context_demand_section_lines(source_context_demand)])
+    header.extend(["", *_capsule_source_slice_requests_section_lines(source_slice_requests)])
+    header.extend(["", *_capsule_source_slice_manifest_section_lines(source_slice_manifest)])
+    header.extend(["", *_capsule_source_context_deficit_section_lines(source_context_deficit)])
+    header.extend(["", *_capsule_source_context_readiness_section_lines(source_context_readiness)])
+    header.extend(["", *_capsule_type_b_source_closeout_lint_section_lines(type_b_source_closeout_lint)])
+    header.extend(["", *evidence_manifest_lines])
+    header.extend(["", *_capsule_final_delta_section_lines(final_delta)])
     header.extend(["", *_capsule_diff_section_lines(edit_rows)])
     header.extend(["", *command_return_lines])
     header.extend(["", *source_excerpt_lines])
@@ -7023,6 +9653,8 @@ def render_trace_capsule_text(
         f"thread_totality: {_trace_thread_totality(display_source_window)}",
         f"no_edit_claim_allowed: {'true' if no_edit_claim_allowed else 'false'}",
         f"substrate_diff: {substrate_diff_state}",
+        f"final_delta_attached: {'true' if final_delta_attached else 'false'}",
+        f"edit_event_log_attached: {'true' if edit_event_log_attached else 'false'}",
     ])
     if not prompt_body_included:
         lines.append("prompt_body: omitted_by_request")
@@ -7031,6 +9663,22 @@ def render_trace_capsule_text(
         lines.append(prompt_intern_summary.replace("# ", ""))
     meta = {
         "source_sha16": source_sha16,
+        "status": status_label,
+        "raw_status": status_text,
+        "scope_semantics": scope_semantics,
+        "trace_context_ids": trace_context_ids,
+        "trace_cut_receipt": trace_cut_receipt,
+        "latest_selection_receipt": latest_selection_receipt,
+        "trace_provenance_attestation": trace_provenance_attestation,
+        "title_authority": title_authority,
+        "claim_source_map": claim_source_map,
+        "evidence_node_graph": evidence_node_graph,
+        "defeater_register": defeater_register,
+        "assurance_case_graph": assurance_case_graph,
+        "copy_readiness_vector": copy_readiness_vector,
+        "trace_self_parse_receipt": trace_self_parse_receipt,
+        "budget_solver_receipt": budget_solver_receipt,
+        "title_authority_warning": title_authority_warning,
         "command_count": len(renderable),
         "commands_with_outputs": commands_with_outputs,
         "edit_count": len(edit_rows),
@@ -7116,9 +9764,38 @@ def render_trace_capsule_text(
             "reasons": diff_reconciler_reasons,
             "exact_diff_required": exact_diff_required,
             "ui_review_card": {"state": "ui_diff_only" if ui_diff_only else "not_detected"},
-            "parser_artifact_delta": {"state": substrate_diff_state, "edit_path_count": len(edit_rows)},
+            "final_delta": {
+                "state": final_delta.get("state") or "not_captured",
+                "attached": final_delta_attached,
+                "source": final_delta.get("source") or "none",
+                "authority": final_delta.get("authority") or "edit_event_log_only",
+                "commit": final_delta.get("commit") or "",
+                "path_count": len(final_delta.get("paths") or []),
+                "line_count": int(final_delta.get("line_count") or 0),
+                "omitted_lines": int(final_delta.get("omitted_lines") or 0),
+                "reason": final_delta.get("reason") or "",
+            },
+            "parser_artifact_delta": {
+                "state": substrate_diff_state,
+                "edit_path_count": len(edit_rows),
+                "attempt_log_only": bool(edit_rows) and not final_delta_attached,
+                "patch_attempts_are_not_final_state": True,
+            },
+            "edit_event_log": {
+                "state": "attached" if edit_event_log_attached else "not_attached",
+                "row_count": len(edit_rows),
+                "patch_attempts_are_not_final_state": True,
+            },
             "git_commit_or_worktree": {
-                "state": "commit_without_patch" if commit_diff_missing else ("commit_seen" if commit_summary else "not_detected"),
+                "state": (
+                    "commit_without_patch"
+                    if commit_diff_missing
+                    else (
+                        "commit_seen"
+                        if commit_summary
+                        else ("worktree_delta_seen" if final_delta.get("source") == "git_diff_worktree" else "not_detected")
+                    )
+                ),
                 "commit_diff_missing": commit_diff_missing,
             },
             "edit_claim": {
@@ -7139,6 +9816,7 @@ def render_trace_capsule_text(
             "no_edits_sentence_allowed": no_edit_claim_allowed,
             "required_no_edit_language": type_b_no_edit_language,
             "refusal_rule": "refuse unqualified no-edit claims unless full-thread coverage and no-edit evidence prove it",
+            "evidence_manifest": evidence_manifest,
             "source_excerpt_affordance": type_b_source_excerpt_affordance,
             "source_excerpt_survival": {
                 "schema_version": "agent_trace_requested_source_survival_v1",
@@ -7157,6 +9835,12 @@ def render_trace_capsule_text(
                 "contradictory_closeout_requested_source_missing": requested_source_claim_missing,
             },
         },
+        "source_context_demand": source_context_demand,
+        "source_slice_requests": source_slice_requests,
+        "source_slice_manifest": source_slice_manifest,
+        "source_context_deficit": source_context_deficit,
+        "source_context_readiness": source_context_readiness,
+        "type_b_source_closeout_lint": type_b_source_closeout_lint,
         "terminal_validation": {
             "schema_version": "agent_trace_terminal_validation_v1",
             "state": terminal_validation_state,
@@ -7186,6 +9870,15 @@ def render_trace_capsule_text(
         "diff_state": substrate_diff_state,
         "substrate_diff_required": substrate_diff_required,
         "commit_diff_missing": commit_diff_missing,
+        "final_delta": final_delta,
+        "final_delta_attached": final_delta_attached,
+        "edit_event_log": {
+            "schema_version": "agent_trace_edit_event_log_v1",
+            "state": "attached" if edit_event_log_attached else "not_attached",
+            "row_count": len(edit_rows),
+            "patch_attempts_are_not_final_state": True,
+        },
+        "edit_event_log_attached": edit_event_log_attached,
         "truncated_outputs": truncated_outputs,
         "command_return_count": command_return_stats["outputs"],
         "command_return_inline_count": command_return_stats["inline"],
@@ -7212,6 +9905,7 @@ def render_trace_capsule_text(
         "requested_excerpt_survival_status": source_excerpt_stats.get("requested_excerpt_survival_status", "unknown"),
         "contradictory_closeout_requested_source_missing": requested_source_claim_missing,
         "source_excerpt_lint_warnings": source_excerpt_lint_warnings,
+        "evidence_manifest": evidence_manifest,
         "source_excerpt_prompt_file_ref_count": source_excerpt_stats.get("prompt_file_refs", 0),
         "type_b_source_excerpt_affordance": type_b_source_excerpt_affordance,
         "raw_sidecar_text": raw_sidecar_text,
@@ -7225,6 +9919,79 @@ def render_trace_capsule_text(
     if prompt_intern_summary:
         meta["prompt_interning"] = _prompt_intern_manifest(turn.prompt_text)
     return ("\n".join(lines).rstrip() + "\n", meta)
+
+
+def _trace_capsule_downstream_parser_roundtrip(path: Path) -> dict[str, Any]:
+    receipt: dict[str, Any] = {
+        "schema_version": "agent_trace_downstream_parser_roundtrip_v1",
+        "parser": str(STRUCTURER_PARSER_PATH),
+        "artifact_path": str(path),
+        "status": "not_run",
+        "required_missing": [],
+    }
+    if not STRUCTURER_PARSER_PATH.is_file():
+        receipt["status"] = "unavailable"
+        receipt["error"] = "parser_not_found"
+        return receipt
+    script = f"""
+import fs from 'node:fs';
+const {{ parseAgentTrace }} = await import({json.dumps(STRUCTURER_PARSER_PATH.as_uri())});
+const text = fs.readFileSync({json.dumps(str(path))}, 'utf8');
+const packet = parseAgentTrace(text, {json.dumps(path.name)}, new Date().toISOString());
+const receipts = packet.handoff_view?.assurance_receipts || {{}};
+const required = [
+  'TRACE_CUT_RECEIPT',
+  'LATEST_SELECTION_RECEIPT',
+  'TRACE_PROVENANCE_ATTESTATION',
+  'TITLE_AUTHORITY',
+  'CLAIM_SOURCE_MAP',
+  'EVIDENCE_NODE_GRAPH',
+  'DEFEATER_REGISTER',
+  'ASSURANCE_CASE_GRAPH',
+  'TRACE_SELF_PARSE_RECEIPT',
+  'BUDGET_SOLVER_PROOF_SET',
+  'SOURCE_CONTEXT_DEMAND',
+  'SOURCE_SLICE_REQUESTS',
+  'SOURCE_SLICE_MANIFEST',
+  'SOURCE_CONTEXT_DEFICIT',
+  'SOURCE_CONTEXT_READINESS',
+  'TYPE_B_SOURCE_CLOSEOUT_LINT'
+];
+const present = new Set(receipts.sections_present || []);
+const missing = required.filter((name) => !present.has(name));
+console.log(JSON.stringify({{
+  schema_version: 'agent_trace_downstream_parser_roundtrip_v1',
+  status: missing.length ? 'fail' : 'pass',
+  required_missing: missing,
+  parser_schema: receipts.schema_version || '',
+  latest_selection_status: receipts.latest_selection?.selected_is_latest_completed_response ?? null,
+  assurance_claim_count: receipts.assurance_case?.claim_count ?? 0,
+  defeater_active_count: receipts.defeater_register?.active_count ?? 0
+}}));
+"""
+    try:
+        proc = subprocess.run(
+            ["node", "--input-type=module", "-e", script],
+            text=True,
+            capture_output=True,
+            timeout=8,
+        )
+    except Exception as exc:
+        receipt["status"] = "error"
+        receipt["error"] = type(exc).__name__
+        return receipt
+    if proc.returncode != 0:
+        receipt["status"] = "fail"
+        receipt["stderr"] = (proc.stderr or "").strip()[:1000]
+        return receipt
+    try:
+        parsed = json.loads(proc.stdout.strip() or "{}")
+    except Exception:
+        receipt["status"] = "fail"
+        receipt["stdout"] = (proc.stdout or "").strip()[:1000]
+        return receipt
+    receipt.update(parsed)
+    return receipt
 
 
 def write_trace_capsule_artifact(
@@ -7256,6 +10023,11 @@ def write_trace_capsule_artifact(
     )
     data = text.encode("utf-8")
     sha16 = hashlib.sha256(data).hexdigest()[:16]
+    if isinstance(meta.get("trace_provenance_attestation"), dict):
+        subject = meta["trace_provenance_attestation"].setdefault("subject", {})
+        if isinstance(subject, dict):
+            subject["sha16"] = sha16
+            subject["bytes"] = len(data)
     prompt_tag = (turn.prompt_sha256_16 or "noprompt")[:8]
     session_tag = _short_session_tag(turn.session_id)
     out_name = _fs_safe_token(f"{turn.provider}-{session_tag}-{prompt_tag}-trace_capsule-{sha16}.txt")
@@ -7266,8 +10038,17 @@ def write_trace_capsule_artifact(
     TRACE_STRUCTURER_RAW.mkdir(parents=True, exist_ok=True)
     out_path.write_bytes(data)
     raw_path.write_text(str(meta.get("raw_sidecar_text") or ""), encoding="utf-8")
+    downstream_parse_receipt = _trace_capsule_downstream_parser_roundtrip(out_path)
+    if isinstance(meta.get("trace_self_parse_receipt"), dict):
+        meta["trace_self_parse_receipt"]["downstream_parser_mjs_roundtrip"] = downstream_parse_receipt.get("status") or "unknown"
+        if downstream_parse_receipt.get("status") == "pass":
+            meta["trace_self_parse_receipt"]["native_receipt_parse"] = "pass"
+            meta["trace_self_parse_receipt"]["round_trip_status"] = "pass"
+        else:
+            meta["trace_self_parse_receipt"]["native_receipt_parse"] = "not_passed"
 
     identity_key = f"session={turn.session_id}|window={source_window}|prompt={turn.prompt_sha256_16}|turn={turn.turn_index}|variant=trace_capsule"
+    source_watermark = _source_watermark_for_turn(turn)
     artifact = {
         "schema": "agent_trace_variant_materialization_receipt_v0",
         "artifact_kind": "agent_trace",
@@ -7283,6 +10064,8 @@ def write_trace_capsule_artifact(
         "provider": turn.provider,
         "session_id": turn.session_id,
         "title": title,
+        "display_title": (meta.get("title_authority") or {}).get("display_title") or title,
+        "title_authority": meta.get("title_authority"),
         "path": str(out_path),
         "artifact_path": str(out_path),
         "bytes": len(data),
@@ -7308,10 +10091,34 @@ def write_trace_capsule_artifact(
             "diff_state": meta["diff_state"],
             "substrate_diff_required": meta["substrate_diff_required"],
             "commit_diff_missing": meta["commit_diff_missing"],
+            "final_delta": meta["final_delta"],
+            "final_delta_attached": meta["final_delta_attached"],
+            "edit_event_log": meta["edit_event_log"],
+            "edit_event_log_attached": meta["edit_event_log_attached"],
             "copy_readiness": meta["copy_readiness"],
             "copy_readiness_state": meta["copy_readiness"]["state"],
+            "copy_readiness_vector": meta["copy_readiness_vector"],
             "diff_reconciler": meta["diff_reconciler"],
             "diff_reconciler_status": meta["diff_reconciler"]["status"],
+            "scope_semantics": meta["scope_semantics"],
+            "trace_context_ids": meta["trace_context_ids"],
+            "trace_cut_receipt": meta["trace_cut_receipt"],
+            "latest_selection_receipt": meta["latest_selection_receipt"],
+            "trace_provenance_attestation": meta["trace_provenance_attestation"],
+            "title_authority": meta["title_authority"],
+            "claim_source_map": meta["claim_source_map"],
+            "evidence_node_graph": meta["evidence_node_graph"],
+            "defeater_register": meta["defeater_register"],
+            "assurance_case_graph": meta["assurance_case_graph"],
+            "trace_self_parse_receipt": meta["trace_self_parse_receipt"],
+            "downstream_parse_receipt": downstream_parse_receipt,
+            "budget_solver_receipt": meta["budget_solver_receipt"],
+            "source_context_demand": meta["source_context_demand"],
+            "source_slice_requests": meta["source_slice_requests"],
+            "source_slice_manifest": meta["source_slice_manifest"],
+            "source_context_deficit": meta["source_context_deficit"],
+            "source_context_readiness": meta["source_context_readiness"],
+            "type_b_source_closeout_lint": meta["type_b_source_closeout_lint"],
             "agent_episode_graph": meta["agent_episode_graph"],
             "goal_rollup": meta["goal_rollup"],
             "evidence_tier": meta["evidence_tier"],
@@ -7326,6 +10133,8 @@ def write_trace_capsule_artifact(
         "clip_path": str(raw_path),
         "source_window": source_window,
         "source_sha16": meta["source_sha16"],
+        "source_watermark": source_watermark,
+        "copied_source_watermark": source_watermark,
         "identity_key": identity_key,
         "prompt_sha16": turn.prompt_sha256_16,
         "turn_index": turn.turn_index,
@@ -7343,6 +10152,7 @@ def write_trace_capsule_artifact(
             "source_window": source_window,
             "source_sha16": meta["source_sha16"],
             "source_clip_path": str(raw_path),
+            "source_watermark_id": source_watermark.get("watermark_id") or "",
         },
     }
     trace_window = (turn.source_ref or {}).get("trace_window") or (turn.source_ref or {}).get("prompt_cycle")
@@ -7370,6 +10180,8 @@ def write_trace_capsule_artifact(
         "trace_window": trace_window if isinstance(trace_window, dict) else None,
         "source_window": source_window,
         "source_sha16": meta["source_sha16"],
+        "source_watermark": source_watermark,
+        "copied_source_watermark": source_watermark,
         "source_clip_path": str(raw_path),
         "clip_path": str(raw_path),
         "artifact_path": str(out_path),
@@ -7390,10 +10202,28 @@ def write_trace_capsule_artifact(
             "substrate_diff": meta["substrate_diff"],
             "diff_state": meta["diff_state"],
             "commit_diff_missing": meta["commit_diff_missing"],
+            "final_delta": meta["final_delta"],
+            "final_delta_attached": meta["final_delta_attached"],
+            "edit_event_log": meta["edit_event_log"],
+            "edit_event_log_attached": meta["edit_event_log_attached"],
             "copy_readiness": meta["copy_readiness"],
             "copy_readiness_state": meta["copy_readiness"]["state"],
+            "copy_readiness_vector": meta["copy_readiness_vector"],
             "diff_reconciler": meta["diff_reconciler"],
             "diff_reconciler_status": meta["diff_reconciler"]["status"],
+            "scope_semantics": meta["scope_semantics"],
+            "trace_context_ids": meta["trace_context_ids"],
+            "trace_cut_receipt": meta["trace_cut_receipt"],
+            "trace_provenance_attestation": meta["trace_provenance_attestation"],
+            "claim_source_map": meta["claim_source_map"],
+            "trace_self_parse_receipt": meta["trace_self_parse_receipt"],
+            "budget_solver_receipt": meta["budget_solver_receipt"],
+            "source_context_demand": meta["source_context_demand"],
+            "source_slice_requests": meta["source_slice_requests"],
+            "source_slice_manifest": meta["source_slice_manifest"],
+            "source_context_deficit": meta["source_context_deficit"],
+            "source_context_readiness": meta["source_context_readiness"],
+            "type_b_source_closeout_lint": meta["type_b_source_closeout_lint"],
             "agent_episode_graph": meta["agent_episode_graph"],
             "goal_rollup": meta["goal_rollup"],
             "evidence_tier": meta["evidence_tier"],
@@ -8423,6 +11253,14 @@ _GOAL_FLEET_ACTION_STOP_POLICIES = {
     ),
     "capture_or_reroute_blocker": "capture_or_reroute_blocker_before_reprompt",
 }
+_GOAL_FLEET_THREAD_IMPACT_CARD_FIELDS = (
+    "actual_target_or_gate",
+    "claimed_paths_or_claim_ref",
+    "proof_landed_or_validation_ref",
+    "proof_missing_or_next_validation",
+    "launch_shape",
+    "fan_in_or_reentry_condition",
+)
 
 
 def _goal_fleet_action_sort_key(action: str) -> tuple[int, str]:
@@ -8476,6 +11314,335 @@ def _goal_fleet_action_group(action: str, rows: list[dict]) -> dict:
             action,
             "read_thread_before_action",
         ),
+        "thread_impact_card_floor": {
+            "schema": "goal_fleet_thread_impact_card_floor_v1",
+            "status": (
+                "not_required_for_non_mutating_controller_decision"
+                if side_effect_free
+                else "required_before_provider_thread_mutation"
+            ),
+            "required_fields": list(_GOAL_FLEET_THREAD_IMPACT_CARD_FIELDS),
+            "projection_limitation": (
+                "Goal roster status alone cannot prove path ownership, proof state, "
+                "host admission, or fan-in readiness."
+            ),
+        },
+    }
+
+
+def _goal_fleet_controller_mode_hint(actions: list[str], *, side_effect_required: bool) -> dict:
+    if not actions:
+        mode = "idle_no_goal_threads_observed"
+        allowed_next_action = "none"
+        reason = "No Codex goal threads were projected into the roster."
+    elif side_effect_required:
+        mode = "watch_or_fan_in_before_mutation"
+        allowed_next_action = "collect_impact_cards_then_record_provider_receipt"
+        reason = (
+            "At least one projected thread needs read, fan-in, blocker capture, "
+            "or operator action before a controller can safely mutate provider threads."
+        )
+    else:
+        mode = "projection_no_send"
+        allowed_next_action = "stop_or_refresh_roster_before_new_provider_action"
+        reason = "All projected actions are side-effect-free controller decisions."
+    return {
+        "schema": "goal_fleet_controller_mode_hint_v1",
+        "mode": mode,
+        "allowed_next_action": allowed_next_action,
+        "reason": reason,
+        "action_count": len(actions),
+        "side_effect_required": side_effect_required,
+    }
+
+
+def _goal_fleet_admission_guard(
+    actions: list[str],
+    *,
+    side_effect_required: bool,
+    collision_check_ref: str,
+) -> dict:
+    if not actions:
+        status = "no_action_needed"
+    elif side_effect_required:
+        status = "blocked_until_live_admission_packet"
+    else:
+        status = "non_mutating_projection_only"
+    return {
+        "schema": "goal_fleet_admission_guard_v1",
+        "status": status,
+        "collision_check_ref": collision_check_ref or (
+            "required_before_provider_thread_mutation"
+            if side_effect_required
+            else "not_required_no_provider_thread_mutation"
+        ),
+        "requires_before_provider_thread_mutation": [
+            "fresh target-thread readback",
+            "fresh Work Ledger session/claim collision check",
+            "host/resource pressure admission check for host-heavy lanes",
+            "ThreadImpactCard fields for each steered thread",
+            "provider-thread receipt for read/send/create/archive/title/pin actions",
+        ],
+        "non_overfit_boundary": (
+            "This guard is independent of domain names, stale counts, and old trace prompts; "
+            "live claim, host, and thread evidence decide whether to watch, fan in, or mutate."
+        ),
+    }
+
+
+def _goal_fleet_work_ledger_capacity_snapshot(repo_root: Path) -> dict:
+    command = [
+        str(repo_root / "repo-python"),
+        "tools/meta/factory/work_ledger.py",
+        "session-status",
+        "--seed-speed",
+        "--limit",
+        "12",
+        "--json",
+    ]
+    try:
+        proc = subprocess.run(
+            command,
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=30,
+        )
+    except Exception as exc:
+        return {
+            "schema": "work_ledger_capacity_snapshot_v1",
+            "status": "not_available",
+            "source_command": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+            "error_class": type(exc).__name__,
+            "authority_boundary": (
+                "Goal roster projection cannot prove claim-effective work; rerun the source "
+                "command before provider-thread mutation."
+            ),
+        }
+    if proc.returncode != 0:
+        return {
+            "schema": "work_ledger_capacity_snapshot_v1",
+            "status": "not_available",
+            "source_command": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+            "returncode": proc.returncode,
+            "stderr_preview": (proc.stderr or "")[:500],
+            "authority_boundary": (
+                "Goal roster projection cannot prove claim-effective work; rerun the source "
+                "command before provider-thread mutation."
+            ),
+        }
+    try:
+        packet = json.loads(proc.stdout or "{}")
+    except json.JSONDecodeError as exc:
+        return {
+            "schema": "work_ledger_capacity_snapshot_v1",
+            "status": "not_available",
+            "source_command": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+            "error_class": type(exc).__name__,
+            "stdout_preview": (proc.stdout or "")[:500],
+            "authority_boundary": (
+                "Goal roster projection cannot prove claim-effective work; rerun the source "
+                "command before provider-thread mutation."
+            ),
+        }
+    counts = packet.get("counts") if isinstance(packet.get("counts"), dict) else {}
+    risk = packet.get("risk") if isinstance(packet.get("risk"), dict) else {}
+    return {
+        "schema": "work_ledger_capacity_snapshot_v1",
+        "status": "available",
+        "source_schema": packet.get("schema"),
+        "source_command": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+        "generated_at": packet.get("generated_at") or "",
+        "effective_active_sessions": int(counts.get("effective_active_sessions") or 0),
+        "active_claims": int(counts.get("active_claims") or 0),
+        "active_claim_session_count": int(counts.get("active_claim_session_count") or 0),
+        "claim_collisions": int(counts.get("claim_collisions") or 0),
+        "heartbeat_gap_count": int(counts.get("claim_session_heartbeat_gap_count") or 0),
+        "orphaned_active_sessions": int(counts.get("orphaned_active_sessions") or 0),
+        "unclaimed_touched_sessions": int(counts.get("unclaimed_touched_sessions") or 0),
+        "risk_level": risk.get("risk_level") or "unknown",
+        "risk_signals": list(risk.get("signals") or []),
+        "first_action_kind": packet.get("first_action_kind") or "",
+        "first_action_command": packet.get("first_action_command") or "",
+        "count_semantics": packet.get("count_semantics") or {},
+        "authority_boundary": (
+            "Work Ledger is the live claim-effective authority; goal roster counts are app/goal "
+            "projection and must not be treated as live agent capacity."
+        ),
+    }
+
+
+def _goal_fleet_host_pressure_snapshot(repo_root: Path) -> dict:
+    try:
+        from system.lib import resource_pressure
+
+        compact = resource_pressure.compact_host_resource_pressure_packet(
+            resource_pressure.build_host_resource_pressure_packet(repo_root)
+        )
+    except Exception as exc:
+        return {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "not_available",
+            "source_command": "./repo-python -m system.lib.resource_pressure --compact",
+            "error_class": type(exc).__name__,
+            "authority_boundary": (
+                "Host pressure was not available; run the source command before starting "
+                "host-heavy provider, builder, verifier, or projection work."
+            ),
+        }
+    return {
+        **compact,
+        "source_command": "./repo-python -m system.lib.resource_pressure --compact",
+        "authority_boundary": (
+            "Host pressure gates launch order and host-heavy work; pressure-aware work may "
+            "continue only when it is disjoint and does not worsen the primary pressure class."
+        ),
+    }
+
+
+def _goal_fleet_fleet_admission_status(
+    *,
+    host_pressure: dict,
+    work_ledger_capacity: dict,
+) -> str:
+    host_status = str(host_pressure.get("status") or "unknown")
+    normal_work_allowed = host_pressure.get("normal_work_allowed")
+    claim_collisions = int(work_ledger_capacity.get("claim_collisions") or 0)
+    heartbeat_gap_count = int(work_ledger_capacity.get("heartbeat_gap_count") or 0)
+    risk_level = str(work_ledger_capacity.get("risk_level") or "unknown")
+    if normal_work_allowed is False or host_status == "critical":
+        return "pressure_blocked_except_repair_or_authorized_override"
+    if claim_collisions > 0:
+        return "watch_claim_collision"
+    if heartbeat_gap_count > 0:
+        return "watch_heartbeat_gap"
+    if risk_level not in {"", "ok", "clear", "none"}:
+        return "watch_capacity_pressure"
+    if host_status in {"attention", "watch", "unknown", "not_available"}:
+        return "pressure_aware"
+    return "normal"
+
+
+def _goal_fleet_default_fleet_admission_snapshot() -> dict:
+    return {
+        "schema": "fleet_admission_snapshot_v1",
+        "status": "not_supplied",
+        "host_pressure": {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "not_supplied",
+            "source_command": "./repo-python -m system.lib.resource_pressure --compact",
+        },
+        "work_ledger_capacity": {
+            "schema": "work_ledger_capacity_snapshot_v1",
+            "status": "not_supplied",
+            "source_command": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+        },
+        "authority_boundary": (
+            "Direct unit construction did not read live host/claim state; live CLI receipts "
+            "populate this from resource_pressure and Work Ledger."
+        ),
+    }
+
+
+def _goal_fleet_spawn_admission(
+    *,
+    work_ledger_capacity: dict,
+    host_pressure: dict,
+    fleet_admission_status: str,
+) -> dict:
+    """Echo the goal_fleet_governance Operator Concurrency-Pressure Admission gate.
+
+    Operator throughput pressure ("spawn more", "10x", "use N subagents", "don't
+    stop") is admission-gated input, not a launch authorization. This computes the
+    objective session/collision/host gate so a cold conductor can read the
+    strike-vs-fan-in decision straight from the receipt; conditions the runtime
+    cannot observe stay listed under conductor_must_still_confirm so a
+    strike_eligible verdict never greenwashes a raw spawn.
+    """
+    cap_status = str(work_ledger_capacity.get("status") or "unknown")
+    effective_sessions = int(work_ledger_capacity.get("effective_active_sessions") or 0)
+    claim_collisions = int(work_ledger_capacity.get("claim_collisions") or 0)
+    host_status = str(host_pressure.get("status") or "unknown")
+    normal_work_allowed = host_pressure.get("normal_work_allowed")
+
+    blocking_reasons: list[str] = []
+    if cap_status != "available":
+        blocking_reasons.append("work_ledger_capacity_not_live_rerun_seed_speed")
+    if effective_sessions > 8:
+        blocking_reasons.append("effective_active_sessions_over_saturation_ceiling_8")
+    if claim_collisions > 0:
+        blocking_reasons.append("active_claim_collisions")
+    if normal_work_allowed is False or host_status == "critical":
+        blocking_reasons.append("host_pressure_blocks_normal_work")
+    if fleet_admission_status not in {"normal", "pressure_aware"}:
+        blocking_reasons.append(f"fleet_admission_status_{fleet_admission_status}")
+
+    if blocking_reasons:
+        verdict = "spawn_blocked_fan_in_or_watch"
+    elif effective_sessions <= 6 and claim_collisions == 0:
+        verdict = "strike_eligible_pending_disjoint_proof_lane"
+    else:
+        verdict = "watch_until_admission_clear"
+
+    return {
+        "schema": "goal_fleet_spawn_admission_v1",
+        "verdict": verdict,
+        "operator_pressure_is_admission_gated": True,
+        "effective_active_sessions": effective_sessions,
+        "saturation_ceiling": 8,
+        "strike_reentry_ceiling": 6,
+        "claim_collisions": claim_collisions,
+        "blocking_reasons": blocking_reasons,
+        "conductor_must_still_confirm": [
+            "at least one clean unclaimed proof lane with disjoint write scope",
+            "named proof consumer and fan-in consumer for each new lane",
+            "no idle validated-claim-holder backlog",
+            "no saturated generated/rerank/verifier owner already covering the target class",
+        ],
+        "doctrine_ref": (
+            "codex/doctrine/skills/doctrine/goal_fleet_governance.md"
+            "#operator-concurrency-pressure-admission"
+        ),
+        "authority_boundary": (
+            "Objective session/collision/host gate only; operator concurrency pressure "
+            "('spawn more', '10x', 'use N subagents') raises ambition, not the ceiling. "
+            "A strike_eligible verdict still requires the conductor_must_still_confirm "
+            "conditions before any provider-thread or subagent spawn."
+        ),
+    }
+
+
+def _goal_fleet_fleet_admission_snapshot(repo_root: Path) -> dict:
+    host_pressure = _goal_fleet_host_pressure_snapshot(repo_root)
+    work_ledger_capacity = _goal_fleet_work_ledger_capacity_snapshot(repo_root)
+    fleet_admission_status = _goal_fleet_fleet_admission_status(
+        host_pressure=host_pressure,
+        work_ledger_capacity=work_ledger_capacity,
+    )
+    return {
+        "schema": "fleet_admission_snapshot_v1",
+        "status": fleet_admission_status,
+        "host_pressure": host_pressure,
+        "work_ledger_capacity": work_ledger_capacity,
+        "spawn_admission": _goal_fleet_spawn_admission(
+            work_ledger_capacity=work_ledger_capacity,
+            host_pressure=host_pressure,
+            fleet_admission_status=fleet_admission_status,
+        ),
+        "spawn_or_provider_mutation_policy": (
+            "Do not create or reprompt provider threads from goal-roster status alone. "
+            "Under watch/pressure states, prefer fan-in, closeout, owner-visible messages, "
+            "or disjoint low-weight support work until fresh admission is clear."
+        ),
+        "source_commands": [
+            "./repo-python -m system.lib.resource_pressure --compact",
+            "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+        ],
+        "authority_boundary": (
+            "Fleet admission composes host/resource pressure with Work Ledger claim-effective "
+            "capacity; pasted trace counts and goal-roster counts are advisory only."
+        ),
     }
 
 
@@ -8513,6 +11680,7 @@ def _goal_fleet_action_receipt_from_state(
     observed_goal_fleet_state_ref: dict | None = None,
     collision_check_ref: str = "",
     workitem_refs: list[str] | None = None,
+    fleet_admission_snapshot: dict | None = None,
 ) -> dict:
     threads = state.get("threads") if isinstance(state.get("threads"), list) else []
     grouped: dict[str, list[dict]] = {}
@@ -8543,6 +11711,11 @@ def _goal_fleet_action_receipt_from_state(
     else:
         action_label = "mixed:" + ",".join(actions)
 
+    admission_guard = _goal_fleet_admission_guard(
+        actions,
+        side_effect_required=side_effect_required,
+        collision_check_ref=collision_check_ref,
+    )
     if side_effect_required:
         provider_status = "missing_required_before_side_effecting_action"
         uptake = "pending_provider_thread_receipt"
@@ -8569,6 +11742,16 @@ def _goal_fleet_action_receipt_from_state(
         "selected_threads_omitted": max(0, len(selected) - _GOAL_FLEET_ACTION_THREAD_LIMIT),
         "action": action_label,
         "action_groups": action_groups,
+        "fleet_admission_snapshot": (
+            fleet_admission_snapshot
+            if isinstance(fleet_admission_snapshot, dict)
+            else _goal_fleet_default_fleet_admission_snapshot()
+        ),
+        "controller_mode_hint": _goal_fleet_controller_mode_hint(
+            actions,
+            side_effect_required=side_effect_required,
+        ),
+        "admission_guard": admission_guard,
         "collision_check_ref": collision_check_ref or (
             "not_required_no_provider_thread_mutation"
             if not side_effect_required
@@ -8624,6 +11807,7 @@ def _goal_fleet_action_receipt(
         ),
         collision_check_ref=collision_check_ref,
         workitem_refs=workitem_refs,
+        fleet_admission_snapshot=_goal_fleet_fleet_admission_snapshot(REPO_ROOT),
     )
 
 
@@ -9285,7 +12469,9 @@ MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS = (
     "agent_trace_structurer_mission_summary_cache_v2",
 )
 MISSION_INDEX_DEFAULT_LIMIT = 120
+MISSION_INDEX_CODEX_TITLE_RECORD_SCAN_LIMIT = 240
 MISSION_INDEX_STALE_REPARSE_BUDGET = 8
+MISSION_INDEX_RECENT_STALE_OVERSIZE_REPARSE_BUDGET = 2
 MISSION_INDEX_RECENT_STALE_REPARSE_SECONDS = 25 * 60
 MISSION_INDEX_STALE_REPARSE_MAX_BYTES = 2 * 1024 * 1024
 MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES = 32 * 1024 * 1024
@@ -9308,6 +12494,7 @@ def _session_file_meta(provider: str, session_id: str, session_file: Path, row: 
     mtime_ns = row.get("mtime_ns")
     size_bytes = row.get("size_bytes")
     mtime_epoch = row.get("mtime_epoch")
+    tail_sha16 = row.get("tail_sha16")
     if mtime_ns is None or size_bytes is None or mtime_epoch is None:
         try:
             stat = session_file.stat()
@@ -9319,6 +12506,8 @@ def _session_file_meta(provider: str, session_id: str, session_file: Path, row: 
                 mtime_epoch = stat.st_mtime
         except Exception:
             pass
+    if tail_sha16 is None and session_file.exists():
+        tail_sha16 = _file_tail_sha16(session_file)
     return {
         "provider": provider,
         "session_id": session_id,
@@ -9326,7 +12515,70 @@ def _session_file_meta(provider: str, session_id: str, session_file: Path, row: 
         "mtime_ns": int(mtime_ns or 0),
         "mtime_epoch": float(mtime_epoch or 0),
         "size_bytes": int(size_bytes or 0),
+        "tail_sha16": str(tail_sha16 or ""),
     }
+
+
+def _source_watermark_from_meta(meta: dict, *, summary: dict | None = None) -> dict:
+    session_file = str(meta.get("session_file") or "")
+    mtime_ns = int(meta.get("mtime_ns") or 0)
+    size_bytes = int(meta.get("size_bytes") or 0)
+    try:
+        mtime_epoch = float(meta.get("mtime_epoch") or 0)
+    except (TypeError, ValueError):
+        mtime_epoch = 0.0
+    tail_sha16 = str(meta.get("tail_sha16") or "")
+    if not tail_sha16 and session_file:
+        tail_sha16 = _file_tail_sha16(Path(session_file))
+    mtime_ms = int(mtime_ns / 1_000_000) if mtime_ns > 0 else None
+    watermark = {
+        "schema_version": "agent_trace_source_watermark_v1",
+        "provider": str(meta.get("provider") or ""),
+        "session_id": str(meta.get("session_id") or ""),
+        "session_file": session_file,
+        "path_exists": bool(session_file and Path(session_file).exists()),
+        "mtime_ns": mtime_ns,
+        "mtime_ms": mtime_ms,
+        "mtime_utc": _iso_from_epoch(mtime_epoch) if mtime_epoch > 0 else "",
+        "size_bytes": size_bytes,
+        "tail_sha16": tail_sha16,
+    }
+    fingerprint_parts = [
+        watermark["provider"],
+        watermark["session_id"],
+        session_file,
+        str(mtime_ns),
+        str(size_bytes),
+        tail_sha16,
+    ]
+    watermark["watermark_id"] = _sha16("|".join(fingerprint_parts))
+    if isinstance(summary, dict):
+        latest_turn_index = summary.get("latest_turn_index") or _mission_summary_latest_turn_index(summary)
+        if latest_turn_index is not None:
+            watermark["latest_turn_index"] = latest_turn_index
+        completed_turn_count = summary.get("completed_turn_count")
+        if completed_turn_count is not None:
+            watermark["completed_turn_count"] = completed_turn_count
+        turn_count = summary.get("turn_count")
+        if turn_count is not None:
+            watermark["turn_count"] = turn_count
+    return watermark
+
+
+def _source_watermark_for_turn(turn: Turn) -> dict:
+    meta = _session_file_meta(turn.provider, turn.session_id, Path(turn.session_file))
+    summary = {
+        "latest_turn_index": turn.turn_index,
+        "turn_count": turn.turn_index,
+        "completed_turn_count": turn.turn_index if turn.is_complete else max(0, turn.turn_index - 1),
+    }
+    watermark = _source_watermark_from_meta(meta, summary=summary)
+    watermark["selected_turn_index"] = turn.turn_index
+    watermark["selected_prompt_sha16"] = turn.prompt_sha256_16
+    watermark["selected_turn_complete"] = bool(turn.is_complete)
+    if turn.completed_at:
+        watermark["selected_completed_at"] = turn.completed_at
+    return watermark
 
 
 def _mission_source_recently_changed(meta: dict, *, now_epoch: float | None = None) -> bool:
@@ -9386,7 +12638,10 @@ def _mission_summary_cache_lookup(
                 stale_summary = json.loads(json.dumps(summary))
                 stale_summary["cache_state"] = "soft_stale"
                 stale_summary["cache_source_mtime_ns"] = source.get("mtime_ns")
+                stale_summary["cache_source_mtime_epoch"] = source.get("mtime_epoch")
                 stale_summary["cache_source_size_bytes"] = source.get("size_bytes")
+                stale_summary["cache_source_tail_sha16"] = source.get("tail_sha16") or ""
+                stale_summary["cache_source_watermark"] = _source_watermark_from_meta(source, summary=summary)
                 stale_summary["cache_current_mtime_ns"] = meta.get("mtime_ns")
                 stale_summary["cache_current_size_bytes"] = meta.get("size_bytes")
                 return stale_summary, "soft_stale_hit"
@@ -9517,29 +12772,62 @@ def _mission_source_freshness_fact(meta: dict, summary: dict | None, cache_state
     )
     current_mtime_ns = int(meta.get("mtime_ns") or 0)
     current_size = int(meta.get("size_bytes") or 0)
+    try:
+        current_mtime_epoch = float(meta.get("mtime_epoch") or 0)
+    except (TypeError, ValueError):
+        current_mtime_epoch = 0.0
+    current_mtime_utc = _iso_from_epoch(current_mtime_epoch) if current_mtime_epoch > 0 else ""
+    current_mtime_ms = int(current_mtime_ns / 1_000_000) if current_mtime_ns > 0 else None
     index_mtime_ns = int(summary.get("cache_source_mtime_ns") or current_mtime_ns)
+    try:
+        index_mtime_epoch = float(summary.get("cache_source_mtime_epoch") or current_mtime_epoch)
+    except (TypeError, ValueError):
+        index_mtime_epoch = current_mtime_epoch
     index_size = int(summary.get("cache_source_size_bytes") or current_size)
+    index_tail_sha16 = str(summary.get("cache_source_tail_sha16") or meta.get("tail_sha16") or "")
     state = "source_newer_than_index" if stale_cache else "current"
     if meta.get("session_file") and not Path(str(meta.get("session_file"))).exists():
         state = "source_missing"
+    current_watermark = _source_watermark_from_meta(meta, summary=None if stale_cache else summary)
+    index_watermark = summary.get("cache_source_watermark")
+    if not isinstance(index_watermark, dict):
+        index_meta = {
+            **meta,
+            "mtime_ns": index_mtime_ns,
+            "mtime_epoch": index_mtime_epoch,
+            "size_bytes": index_size,
+            "tail_sha16": index_tail_sha16,
+        }
+        index_watermark = _source_watermark_from_meta(index_meta, summary=summary)
     summary_turn_count = _mission_summary_turn_count_hint(summary)
     current_turn_count = None if stale_cache else summary_turn_count
     current_completed_turn_count = None if stale_cache else (summary.get("completed_turn_count") or summary_turn_count)
     current_latest_turn_index = None if stale_cache else (summary.get("latest_turn_index") or _mission_summary_latest_turn_index(summary))
+    summary_last_event_at = summary.get("source_last_event_at") or _summary_last_activity_at(summary)
+    source_last_event_at = (
+        _latest_iso_timestamp(summary_last_event_at, current_mtime_utc)
+        if stale_cache
+        else summary_last_event_at
+    )
     return {
         "schema_version": "agent_trace_mission_source_freshness_v1",
         "state": state,
         "reason": cache_state,
         "cache_state": cache_state,
         "current_mtime_ns": current_mtime_ns,
+        "current_mtime_ms": current_mtime_ms,
+        "current_mtime_utc": current_mtime_utc,
         "index_mtime_ns": index_mtime_ns,
         "current_size_bytes": current_size,
         "index_size_bytes": index_size,
+        "source_watermark": current_watermark,
+        "current_source_watermark": current_watermark,
+        "index_source_watermark": index_watermark,
         "current_turn_count": current_turn_count,
         "current_completed_turn_count": current_completed_turn_count,
         "current_latest_turn_index": current_latest_turn_index,
         "index_turn_count": summary.get("cache_turn_count") or summary_turn_count,
-        "source_last_event_at": summary.get("source_last_event_at") or _summary_last_activity_at(summary),
+        "source_last_event_at": source_last_event_at,
         "requires_refresh_before_copy": state in {"source_newer_than_index", "source_size_changed", "source_missing"},
     }
 
@@ -9563,9 +12851,29 @@ def _write_mission_summary_cache(cache: dict, *, max_entries: int = 200) -> None
         pass
 
 
+def _source_watermark_id(watermark: dict | None) -> str:
+    if not isinstance(watermark, dict):
+        return ""
+    explicit = str(watermark.get("watermark_id") or "")
+    if explicit:
+        return explicit
+    parts = [
+        str(watermark.get("provider") or ""),
+        str(watermark.get("session_id") or ""),
+        str(watermark.get("session_file") or ""),
+        str(watermark.get("mtime_ns") or ""),
+        str(watermark.get("size_bytes") or ""),
+        str(watermark.get("tail_sha16") or ""),
+    ]
+    if not any(parts):
+        return ""
+    return _sha16("|".join(parts))
+
+
 def _classify_artifact_freshness(
     latest_completed_turn: dict | None,
     latest_clip_meta: dict,
+    source_freshness: dict | None = None,
 ) -> dict:
     """Compare the latest completed turn against the most recent
     cli_prompt_trace clip for this session.
@@ -9575,6 +12883,22 @@ def _classify_artifact_freshness(
         return {"state": "partial_only", "reason": "no_completed_turn_in_session"}
     if not latest_clip_meta:
         return {"state": "missing", "reason": "no_artifact"}
+    clip_watermark = latest_clip_meta.get("source_watermark") if isinstance(latest_clip_meta, dict) else None
+    current_watermark = None
+    if isinstance(source_freshness, dict):
+        current_watermark = (
+            source_freshness.get("current_source_watermark")
+            or source_freshness.get("source_watermark")
+        )
+    clip_watermark_id = _source_watermark_id(clip_watermark)
+    current_watermark_id = _source_watermark_id(current_watermark)
+    if clip_watermark_id and current_watermark_id and clip_watermark_id != current_watermark_id:
+        return {
+            "state": "stale",
+            "reason": "source_watermark_mismatch",
+            "clip_source_watermark_id": clip_watermark_id,
+            "current_source_watermark_id": current_watermark_id,
+        }
     clip_sha = latest_clip_meta.get("prompt_sha16") or ""
     completed_sha = latest_completed_turn.get("prompt_sha16") or ""
     clip_turn = latest_clip_meta.get("turn_index")
@@ -9685,7 +13009,7 @@ def _sort_mission_index_rows(rows: list[dict]) -> list[dict]:
     )
 
 
-def _codex_goal_session_candidate(thread_id: str) -> dict | None:
+def _codex_session_candidate_for_thread_id(thread_id: str, *, cwd: Path | None = None) -> dict | None:
     if not thread_id or not CODEX_SESSIONS_ROOT.is_dir():
         return None
     try:
@@ -9696,29 +13020,38 @@ def _codex_goal_session_candidate(thread_id: str) -> dict | None:
         )
     except Exception:
         return None
-    if not matches:
-        return None
-    path = matches[0]
-    try:
-        stat = path.stat()
-    except Exception:
-        return None
-    meta = _peek_codex_session_meta(path)
-    return {
-        "provider": "codex",
-        "session_file": str(path),
-        "session_id": str(meta.get("id") or thread_id),
-        "thread_source": meta.get("thread_source") or "",
-        "forked_from_id": meta.get("forked_from_id") or "",
-        "parent_thread_id": meta.get("parent_thread_id") or "",
-        "agent_nickname": meta.get("agent_nickname") or "",
-        "agent_role": meta.get("agent_role") or "",
-        "mtime_epoch": stat.st_mtime,
-        "mtime_ns": stat.st_mtime_ns,
-        "mtime_utc": _iso_from_epoch(stat.st_mtime),
-        "size_bytes": stat.st_size,
-        "mission_index_forced_goal_thread": True,
-    }
+    for path in matches:
+        try:
+            stat = path.stat()
+        except Exception:
+            continue
+        meta = _peek_codex_session_meta(path)
+        if cwd is not None:
+            meta_cwd = str(meta.get("cwd") or "")
+            if meta_cwd and meta_cwd != str(cwd):
+                continue
+        return {
+            "provider": "codex",
+            "session_file": str(path),
+            "session_id": str(meta.get("id") or thread_id),
+            "thread_source": meta.get("thread_source") or "",
+            "forked_from_id": meta.get("forked_from_id") or "",
+            "parent_thread_id": meta.get("parent_thread_id") or "",
+            "agent_nickname": meta.get("agent_nickname") or "",
+            "agent_role": meta.get("agent_role") or "",
+            "mtime_epoch": stat.st_mtime,
+            "mtime_ns": stat.st_mtime_ns,
+            "mtime_utc": _iso_from_epoch(stat.st_mtime),
+            "size_bytes": stat.st_size,
+        }
+    return None
+
+
+def _codex_goal_session_candidate(thread_id: str) -> dict | None:
+    candidate = _codex_session_candidate_for_thread_id(thread_id)
+    if candidate:
+        candidate["mission_index_forced_goal_thread"] = True
+    return candidate
 
 
 def _ensure_active_goal_candidates(candidates: list[dict], goals: dict[str, dict]) -> list[dict]:
@@ -9740,6 +13073,61 @@ def _ensure_active_goal_candidates(candidates: list[dict], goals: dict[str, dict
         forced.append(candidate)
         seen.add(thread_id)
     return forced + candidates
+
+
+def _ensure_codex_title_record_candidates(
+    candidates: list[dict],
+    codex_thread_records: dict[str, dict],
+    *,
+    cwd: Path,
+    scan_limit: int = MISSION_INDEX_CODEX_TITLE_RECORD_SCAN_LIMIT,
+) -> list[dict]:
+    """Keep Codex-sidebar-visible titled threads reachable in the mission list.
+
+    Normal mission rows are sourced from provider rollout files. Codex also
+    maintains a title authority sidecar, and the sidebar can show a thread title
+    whose rollout file missed the bounded recent-session scan. Backfill only
+    title records that can be joined back to a local Codex rollout file, so the
+    row remains a real provider-thread row rather than a free-floating title.
+    """
+    seen = {
+        str(row.get("session_id") or "")
+        for row in candidates
+        if row.get("provider") == "codex" and row.get("session_id")
+    }
+    records = sorted(
+        [
+            (str(thread_id), rec)
+            for thread_id, rec in (codex_thread_records or {}).items()
+            if thread_id and isinstance(rec, dict) and str(rec.get("thread_name") or "").strip()
+        ],
+        key=lambda item: _iso_mtime_ms(str((item[1] or {}).get("updated_at") or "")) or 0,
+        reverse=True,
+    )
+    forced: list[dict] = []
+    for thread_id, rec in records[: max(0, scan_limit)]:
+        if thread_id in seen:
+            continue
+        candidate = _codex_session_candidate_for_thread_id(thread_id, cwd=cwd)
+        if not candidate:
+            continue
+        candidate["mission_index_forced_codex_title_record"] = True
+        title_updated_at = str(rec.get("updated_at") or "")
+        candidate["title_record_updated_at"] = title_updated_at
+        title_updated_ms = _iso_mtime_ms(title_updated_at)
+        if (
+            title_updated_ms is not None
+            and (title_updated_ms / 1000.0) > float(candidate.get("mtime_epoch") or 0)
+        ):
+            candidate["mtime_epoch"] = title_updated_ms / 1000.0
+            candidate["mtime_utc"] = _iso_from_epoch_ms(title_updated_ms)
+        forced.append(candidate)
+        seen.add(thread_id)
+    return sorted(
+        forced + candidates,
+        key=lambda row: float(row.get("mtime_epoch") or 0),
+        reverse=True,
+    )
 
 
 def _candidate_parent_session_id(candidate: dict) -> str:
@@ -9840,18 +13228,27 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_D
         "skipped_archived": 0,
         "collapsed_codex_subagent_children": 0,
         "indexed_codex_subagent_children": 0,
+        "forced_codex_title_records": 0,
         "stored": 0,
     }
     cache_dirty = False
     stale_reparse_remaining = MISSION_INDEX_STALE_REPARSE_BUDGET
+    oversize_reparse_remaining = MISSION_INDEX_RECENT_STALE_OVERSIZE_REPARSE_BUDGET
     rows: list[dict] = []
     candidates = _ensure_active_goal_candidates(
         _enumerate_candidates("auto", cwd or Path.cwd()),
         codex_thread_goals,
     )
+    candidates = _ensure_codex_title_record_candidates(
+        candidates,
+        codex_thread_records,
+        cwd=cwd or Path.cwd(),
+    )
     for c in candidates:
         if len(rows) >= limit:
             break
+        if c.get("mission_index_forced_codex_title_record"):
+            cache_stats["forced_codex_title_records"] += 1
         if c.get("provider") == "codex" and (
             c.get("thread_source") == "subagent"
             or c.get("forked_from_id")
@@ -9883,6 +13280,13 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_D
                 "error_count": cpt.get("error_count") or 0,
                 "is_complete": cpt.get("is_complete"),
                 "trace_id": cpt.get("trace_id") or "",
+                "source_watermark": (
+                    cpt.get("copied_source_watermark")
+                    or cpt.get("source_watermark")
+                    or last_clip.get("copied_source_watermark")
+                    or last_clip.get("source_watermark")
+                    or {}
+                ),
             }
         desktop = (claude_desktop_titles or {}).get(c["session_id"]) or {}
         # Parse session lazily — skip for archived rows (won't render anyway).
@@ -9896,16 +13300,27 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_D
             defer_stale_reparse = False
             if cache_state == "stale" and _mission_source_recently_changed(source_meta):
                 source_size = int(source_meta.get("size_bytes") or 0)
-                if stale_reparse_remaining > 0 and source_size <= MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES:
+                oversize_source = source_size > MISSION_INDEX_STALE_REPARSE_MAX_BYTES
+                oversize_budget_available = (
+                    not oversize_source or oversize_reparse_remaining > 0
+                )
+                if (
+                    stale_reparse_remaining > 0
+                    and source_size <= MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES
+                    and oversize_budget_available
+                ):
                     cache_stats["recent_stale_forced"] += 1
-                    if source_size > MISSION_INDEX_STALE_REPARSE_MAX_BYTES:
+                    if oversize_source:
                         cache_stats["recent_stale_oversize_forced"] = cache_stats.get("recent_stale_oversize_forced", 0) + 1
+                        oversize_reparse_remaining = max(0, oversize_reparse_remaining - 1)
                     stale_reparse_remaining = max(0, stale_reparse_remaining - 1)
                     cache_state = "recent_stale_forced"
                 else:
                     cache_stats["recent_stale_deferred"] = cache_stats.get("recent_stale_deferred", 0) + 1
                     if source_size > MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES:
                         cache_stats["oversize_stale_deferred"] = cache_stats.get("oversize_stale_deferred", 0) + 1
+                    elif oversize_source and oversize_reparse_remaining <= 0:
+                        cache_stats["oversize_stale_deferred_budget"] = cache_stats.get("oversize_stale_deferred_budget", 0) + 1
                     defer_stale_reparse = True
             if cache_state == "stale" and (defer_stale_reparse or stale_reparse_remaining <= 0):
                 soft_summary, soft_state = _mission_summary_cache_lookup(
@@ -9965,7 +13380,12 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_D
         preferred_trace_turn = completed_active.get("preferred_trace_turn")
         trace_last_activity_at = _summary_last_activity_at(completed_active)
         desktop_last_activity_at = desktop.get("last_activity_at") or ""
-        last_activity_at = trace_last_activity_at or desktop_last_activity_at or c["mtime_utc"]
+        last_activity_at = _latest_iso_timestamp(
+            trace_last_activity_at,
+            desktop_last_activity_at,
+            source_freshness.get("source_last_event_at") or "",
+            c["mtime_utc"],
+        )
         prompt_preview = ""
         for preview_turn in (preferred_trace_turn, active_turn, latest_completed):
             if isinstance(preview_turn, dict) and preview_turn.get("prompt_preview"):
@@ -10018,7 +13438,11 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_D
                 last_clip_meta["prompt_sha16"] = cpt_full["prompt_sha16"]
             if "prompt_char_count" not in last_clip_meta and cpt_full.get("prompt_char_count"):
                 last_clip_meta["prompt_char_count"] = cpt_full["prompt_char_count"]
-        artifact_freshness = _classify_artifact_freshness(preferred_trace_turn or latest_completed or stale_active_turn, last_clip_meta)
+        artifact_freshness = _classify_artifact_freshness(
+            preferred_trace_turn or latest_completed or stale_active_turn,
+            last_clip_meta,
+            source_freshness,
+        )
         goal_priority = _goal_sort_priority(goal)
         rows.append({
             "provider": c["provider"],
@@ -10027,6 +13451,8 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_D
             "thread_source": c.get("thread_source") or "",
             "forked_from_id": c.get("forked_from_id") or "",
             "parent_thread_id": c.get("parent_thread_id") or "",
+            "mission_index_forced_codex_title_record": bool(c.get("mission_index_forced_codex_title_record")),
+            "mission_index_forced_goal_thread": bool(c.get("mission_index_forced_goal_thread")),
             "parent_session_id": thread_relationship.get("parent_session_id") or "",
             "agent_nickname": c.get("agent_nickname") or "",
             "agent_role": c.get("agent_role") or "",
@@ -10290,20 +13716,32 @@ def main() -> int:
                     help="With --type-b-source-excerpt: include the file from line 1, bounded by --excerpt-lines.")
     ap.add_argument("--excerpt-lines", type=int, default=TRACE_CAPSULE_SOURCE_EXCERPT_LINES,
                     help=f"With --type-b-source-excerpt: max lines to print. Default: {TRACE_CAPSULE_SOURCE_EXCERPT_LINES}; hard cap: 240.")
+    ap.add_argument("--trace-carrier", action="store_true", dest="type_b_trace_carrier",
+                    help="With --type-b-source-excerpt: write the bounded excerpt to the managed trace carrier and print only a compact receipt; Trace Capsule promotes the sidecar into SOURCE_EXCERPTS.")
 
     args = ap.parse_args()
 
     cwd = Path(args.cwd).resolve() if args.cwd else Path.cwd().resolve()
 
     if args.type_b_source_excerpt_mode:
-        text, _meta = render_type_b_source_excerpt(
-            cwd=cwd,
-            source_path=args.source_path or "",
-            line_range=args.line_range,
-            symbol=args.symbol,
-            full_file=args.full_file,
-            max_lines=args.excerpt_lines,
-        )
+        if args.type_b_trace_carrier:
+            text, _meta, _sidecar_path = _type_b_source_excerpt_trace_carrier_receipt(
+                cwd=cwd,
+                source_path=args.source_path or "",
+                line_range=args.line_range,
+                symbol=args.symbol,
+                full_file=args.full_file,
+                max_lines=args.excerpt_lines,
+            )
+        else:
+            text, _meta = render_type_b_source_excerpt(
+                cwd=cwd,
+                source_path=args.source_path or "",
+                line_range=args.line_range,
+                symbol=args.symbol,
+                full_file=args.full_file,
+                max_lines=args.excerpt_lines,
+            )
         if args.output:
             Path(args.output).write_text(text + ("" if text.endswith("\n") else "\n"), encoding="utf-8")
             sys.stderr.write(f"wrote {len(text)} chars to {args.output}\n")

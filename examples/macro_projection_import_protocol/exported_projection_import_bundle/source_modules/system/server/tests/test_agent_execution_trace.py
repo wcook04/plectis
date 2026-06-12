@@ -28,6 +28,7 @@ import pytest
 
 from tools.meta.factory import build_agent_execution_trace as trace_cli
 from system.lib import agent_execution_trace as trace_lib
+from system.lib import process_bottlenecks_status
 from system.lib.kernel.commands import navigate
 from system.lib.agent_execution_trace import (
     build_process_trace_route_packet,
@@ -135,6 +136,136 @@ def test_process_summary_missing_cache_returns_pressure_safe_status(tmp_path: Pa
         "./repo-python tools/meta/factory/build_agent_execution_trace.py"
     )
     assert "--summary" not in json.dumps(payload)
+
+
+def test_cached_summary_action_kind_filter_selects_before_limit(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    standard = tmp_path / "codex/standards/std_agent_execution_trace.json"
+    standard.parent.mkdir(parents=True, exist_ok=True)
+    standard.write_text("{}", encoding="utf-8")
+    summary_path = tmp_path / "codex/hologram/process/summary.json"
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(
+        json.dumps(
+            {
+                "summary": {"session_count": 4},
+                "top_bottlenecks": [
+                    {"action_kind": "repo_tool_command", "count": 10},
+                    {"action_kind": "bash_cat", "count": 8},
+                    {"action_kind": "read_file", "count": 6},
+                ],
+                "top_output_producers": [
+                    {"action_kind": "bash_cat", "span_count": 3},
+                    {"action_kind": "read_file", "span_count": 2},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = trace_lib.load_process_bottleneck_summary_cache(
+        repo_root=tmp_path,
+        limit=1,
+        action_kinds=["read_file"],
+    )
+
+    assert payload["query"] == {"limit": 1, "action_kinds": ["read_file"]}
+    assert payload["summary"]["row_count"] == 1
+    assert payload["summary"]["filtered_action_kind_count"] == 1
+    assert payload["payload"]["top_bottlenecks"] == [{"action_kind": "read_file", "count": 6}]
+    assert payload["payload"]["top_output_producers"] == [
+        {"action_kind": "read_file", "span_count": 2}
+    ]
+    action_filter = payload["payload"]["action_kind_filter"]
+    assert action_filter["requested"] == ["read_file"]
+    assert action_filter["matched"] == ["read_file"]
+    assert action_filter["missing"] == []
+    assert action_filter["source_top_bottleneck_count"] == 3
+    assert payload["refresh"]["cache_check_command"].endswith(
+        "--cached-summary --limit 1 --action-kind read_file"
+    )
+
+
+def test_cached_summary_cli_action_kind_filter_compacts_cards(
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    _seed_rules(tmp_path)
+    standard = tmp_path / "codex/standards/std_agent_execution_trace.json"
+    standard.parent.mkdir(parents=True, exist_ok=True)
+    standard.write_text("{}", encoding="utf-8")
+    summary_path = tmp_path / "codex/hologram/process/summary.json"
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(
+        json.dumps(
+            {
+                "summary": {"session_count": 2},
+                "top_bottlenecks": [
+                    {"action_kind": "repo_tool_command", "count": 10},
+                    {
+                        "action_kind": "bash_cat",
+                        "count": 8,
+                        "repair_hints": [{"hint_id": "replace_git_shell_chain"}],
+                    },
+                ],
+                "top_output_producers": [
+                    {"action_kind": "repo_tool_command", "span_count": 5},
+                    {"action_kind": "bash_cat", "span_count": 3},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    rc = trace_cli.main(
+        [
+            "--repo-root",
+            str(tmp_path),
+            "--cached-summary",
+            "--limit",
+            "2",
+            "--action-kind",
+            "bash_cat",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert payload["query"]["action_kinds"] == ["bash_cat"]
+    assert payload["summary"]["filtered_action_kind_count"] == 1
+    assert payload["action_kind_filter"]["matched"] == ["bash_cat"]
+    assert payload["top_bottleneck_cards"] == [
+        {
+            "action_kind": "bash_cat",
+            "count": 8,
+            "repair_hint_cards": [{"hint_id": "replace_git_shell_chain"}],
+        }
+    ]
+    assert payload["top_output_producer_cards"] == [{"action_kind": "bash_cat"}]
+    assert payload["output_economy"]["profile"] == "compact_cached_summary_action_kind_filter"
+    assert "--action-kind bash_cat" in payload["safe_commands"]["full_cached_summary_command"]
+
+    rc = trace_cli.main(
+        [
+            "--repo-root",
+            str(tmp_path),
+            "--cached-summary",
+            "--check",
+            "--limit",
+            "2",
+            "--action-kind",
+            "missing_kind",
+        ]
+    )
+    check_payload = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert check_payload["summary"]["filtered_action_kind_count"] == 0
+    assert check_payload["action_kind_filter"]["missing"] == ["missing_kind"]
+    assert (
+        check_payload["output_economy"]["profile"]
+        == "compact_cached_summary_check_action_kind_filter"
+    )
 
 
 def test_process_summary_followups_preserve_explicit_window(monkeypatch, tmp_path: Path) -> None:
@@ -1044,6 +1175,196 @@ def test_command_shape_tag_cache_returns_fresh_lists() -> None:
     assert "caller_mutation" not in second
 
 
+def test_repo_git_rev_parse_gets_git_state_snapshot_hint() -> None:
+    command = "./repo-git rev-parse HEAD"
+
+    tags = trace_lib._command_shape_tags("bash_cat", command, [])
+    assert "git_state_shell_chain" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "bash_cat",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+
+    assert hints[0]["hint_id"] == "replace_git_shell_chain_with_state_snapshot"
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
+    )
+    assert hints[0]["owner_surface"] == (
+        "./repo-python tools/meta/control/git_state_snapshot.py --scope <path> --path-limit 40 "
+        "--recent-limit 3 --skip-git-metadata-write-probe --compact"
+    )
+
+
+def test_inline_python_data_probe_gets_specific_bottleneck_hint() -> None:
+    command = (
+        "cd /Users/operator/src/ai_workflow/microcosm-substrate && "
+        "python3 -c \"import json; "
+        "cov=json.load(open('core/doctrine_lattice_coverage.json')); "
+        "atlas=json.load(open('core/organ_atlas.json')); print(len(cov), len(atlas))\""
+    )
+
+    tags = trace_lib._command_shape_tags(
+        "bash_other",
+        command,
+        ["core/doctrine_lattice_coverage.json", "core/organ_atlas.json"],
+    )
+    assert "python_inline" in tags
+    assert "inline_python_data_probe" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "bash_other",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[0] == "replace_inline_python_data_probe_with_owner_tool"
+    inline_hint = hints[0]
+    assert inline_hint["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage "
+        "--action-kind bash_other"
+    )
+    assert inline_hint["replacement_commands"][0] == inline_hint["preferred_next"]
+    assert inline_hint["replacement_commands"][1] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_other --scope <path-or-owner>"
+    )
+    assert inline_hint["replacement_commands"][2] == (
+        "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>"
+    )
+    assert inline_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>"
+    )
+
+
+def test_focused_test_target_hint_precedes_suite_wide_guidance() -> None:
+    hints = trace_lib._bottleneck_repair_hints(
+        "test_or_build_command",
+        [
+            {
+                "normalized_command": "./repo-pytest system/server/tests/test_agent_execution_trace.py",
+                "target_paths": ["system/server/tests/test_agent_execution_trace.py"],
+                "command_shape_tags": ["focused_test_target", "output_limited"],
+            },
+            {
+                "normalized_command": "./repo-pytest",
+                "command_shape_tags": ["suite_wide_pytest"],
+            },
+        ],
+    )
+
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[:2] == [
+        "route_focused_validation_through_action_quote",
+        "scope_tests_before_full_suite",
+    ]
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action test_or_build_command "
+        "--scope <path-or-node> --session-id <work-ledger-session>"
+    )
+    assert hints[0]["concrete_preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action test_or_build_command "
+        "--scope system/server/tests/test_agent_execution_trace.py"
+    )
+    assert hints[0]["replacement_commands"] == [hints[0]["concrete_preferred_next"]]
+
+
+def test_python_heredoc_data_probe_gets_specific_bottleneck_hint() -> None:
+    command = (
+        "python3 - <<'PY'\n"
+        "import json, subprocess, time\n"
+        "from pathlib import Path\n"
+        "repo = Path('/Users/operator/src/ai_workflow')\n"
+        "print(json.dumps({'repo': str(repo)}))\n"
+        "PY"
+    )
+
+    tags = trace_lib._command_shape_tags("bash_cat", command, [])
+    assert "python_inline" in tags
+    assert "inline_python_data_probe" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "bash_cat",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    assert hints[0]["hint_id"] == "replace_inline_python_data_probe_with_owner_tool"
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage "
+        "--action-kind bash_cat"
+    )
+
+
+def test_unclassified_bash_other_gets_action_quote_fallback_hint() -> None:
+    hints = trace_lib._bottleneck_repair_hints(
+        "bash_other",
+        [
+            {
+                "normalized_command": "printf '%s\\n' \"$SOME_LOCAL_STATE\"",
+                "command_shape_tags": [],
+            }
+        ],
+    )
+
+    assert hints == [
+        {
+            "hint_id": "route_unclassified_bash_output_through_action_quote",
+            "reason": "Output-heavy shell examples did not match a narrower command-shape owner.",
+            "preferred_next": "./repo-python tools/meta/control/action_quote.py --action bash_other --scope <path-or-owner>",
+            "quote_surface": "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>",
+            "replacement_commands": [
+                "./repo-python tools/meta/control/action_quote.py --action bash_other --scope <path-or-owner>",
+                "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>",
+                "./repo-python kernel.py --command-profile <owner-surface>",
+            ],
+        }
+    ]
+
+
+def test_unknown_tool_wait_hint_uses_exact_action_quote_alias() -> None:
+    hints = trace_lib._bottleneck_repair_hints("unknown_tool", [{"command_shape_tags": []}])
+
+    assert hints[0]["hint_id"] == "replace_long_tool_wait_with_process_summary"
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action unknown_tool "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
+    assert hints[0]["replacement_commands"][0] == hints[0]["preferred_next"]
+    assert hints[0]["owner_surface"] == "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+
+
+def test_python_module_cli_output_limiter_gets_compact_mode_hint() -> None:
+    command = "PYTHONPATH=src python3 -m microcosm_core circuit-attribution 2>&1 | tail -55"
+
+    tags = trace_lib._command_shape_tags("bash_cat", command, [])
+    assert "output_limited" in tags
+    assert "python_module_cli" in tags
+    assert "python_module_cli_output_limited" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "bash_cat",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[0] == "replace_python_module_tail_with_compact_cli_mode"
+    assert hint_ids.index("replace_python_module_tail_with_compact_cli_mode") < hint_ids.index(
+        "replace_shell_limiter_with_compact_packet"
+    )
+    module_hint = next(
+        row for row in hints if row["hint_id"] == "replace_python_module_tail_with_compact_cli_mode"
+    )
+    assert module_hint["preferred_next"] == (
+        "PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core circuit-attribution --card"
+    )
+    assert module_hint["replacement_commands"][0] == (
+        "PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core circuit-attribution --card"
+    )
+    assert module_hint["replacement_commands"][1] == (
+        "./repo-python tools/meta/control/action_quote.py --action command_surface --scope <module-or-command>"
+    )
+    assert "--card route" in module_hint["specific_replacement_reason"]
+    assert module_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>"
+    )
+
+
 def test_codex_namespaced_exec_command_classifies_kernel_shape(tmp_path: Path) -> None:
     _seed_rules(tmp_path)
     codex_dir = tmp_path / "home_codex" / ".codex" / "sessions" / "2026" / "04" / "21"
@@ -1213,14 +1534,62 @@ def test_codex_session_io_and_control_tools_are_not_unknown(tmp_path: Path) -> N
     assert wait_span["output_line_count"] == 3
     assert "exec_session_poll" in wait_span["shape_tags"]
     assert result["audit"]["bottlenecks"]["exec_session_io"]["slow_count"] == 1
+    assert result["audit"]["bottlenecks"]["exec_session_io"]["actionability_class"] == "wait_state_polling"
+    assert result["audit"]["bottlenecks"]["exec_session_io"]["optimization_priority_score"] == 35
     wait_hint = result["audit"]["bottlenecks"]["exec_session_io"]["repair_hints"][0]
     assert wait_hint["hint_id"] == "inspect_preceding_exec_or_add_status_surface"
     assert wait_hint["preferred_next"] == (
-        "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+        "./repo-python tools/meta/control/action_quote.py --action exec_session_io "
+        "--scope <session_id|claude:latest|codex:latest>"
     )
     assert wait_hint["owner_surface"] == "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+    assert wait_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action exec_session_io "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
+    assert wait_hint["replacement_commands"][0] == (
+        "./repo-python tools/meta/control/action_quote.py --action exec_session_io "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
+    assert (
+        "./repo-python tools/meta/control/action_quote.py --action process_summary_status "
+        "--scope <session_id|claude:latest|codex:latest>"
+    ) in wait_hint["replacement_commands"]
     assert "./repo-python kernel.py --process-trace <session_id>" in wait_hint["replacement_commands"]
     assert "raw task-output bodies" in wait_hint["privacy_boundary"]
+
+
+def test_configured_exec_waits_rank_below_direct_command_bottlenecks() -> None:
+    configured_wait = {
+        "action_kind": "exec_session_io",
+        "p95_ms": 180000,
+        "slow_count": 12,
+        "total_duration_ms": 900000,
+        **trace_lib._bottleneck_actionability(
+            "exec_session_io",
+            [{"command_shape_tags": ["exec_session_poll", "configured_wait"]}],
+        ),
+    }
+    repo_tool = {
+        "action_kind": "repo_tool_command",
+        "p95_ms": 30000,
+        "slow_count": 2,
+        "total_duration_ms": 60000,
+        **trace_lib._bottleneck_actionability("repo_tool_command", [{"command_shape_tags": ["factory_builder"]}]),
+    }
+
+    rows = sorted(
+        [configured_wait, repo_tool],
+        key=trace_lib._bottleneck_summary_sort_key,
+        reverse=True,
+    )
+
+    assert rows[0]["action_kind"] == "repo_tool_command"
+    assert rows[1]["actionability_class"] == "wait_state_polling"
+    assert rows[1]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action exec_session_io "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
 
 
 def test_repo_python_module_invocations_classify_by_primary_tool() -> None:
@@ -1285,13 +1654,20 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
             )
         },
     )
+    records += _claude_tool_use_pair(
+        use_id="toolu_python_tail",
+        tool_name="Bash",
+        start=t0 + timedelta(seconds=43),
+        end=t0 + timedelta(seconds=113),
+        input_body={"command": "PYTHONPATH=src python3 -m microcosm_core circuit-attribution 2>&1 | tail -55"},
+    )
     # Output-limited test/build and repo-tool pipelines should be attributed to
     # the primary command, not to the trailing grep/head/tail limiter.
     records += _claude_tool_use_pair(
         use_id="toolu_pytest_tail",
         tool_name="Bash",
-        start=t0 + timedelta(seconds=44),
-        end=t0 + timedelta(seconds=164),
+        start=t0 + timedelta(seconds=114),
+        end=t0 + timedelta(seconds=234),
         input_body={
             "command": (
                 "./repo-python -m pytest system/server/tests/test_x.py -q 2>&1 | "
@@ -1303,36 +1679,53 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     records += _claude_tool_use_pair(
         use_id="toolu_factory_grep",
         tool_name="Bash",
-        start=t0 + timedelta(seconds=165),
-        end=t0 + timedelta(seconds=225),
-        input_body={"command": "./repo-python tools/meta/factory/build_paper_module_index.py 2>&1 | grep -E \"modules|status\""},
+        start=t0 + timedelta(seconds=235),
+        end=t0 + timedelta(seconds=295),
+        input_body={
+            "command": (
+                "./repo-python tools/meta/factory/task_ledger_apply.py rebuild "
+                "--ignore-host-pressure 2>&1 | tail -20"
+            )
+        },
+    )
+    records += _claude_tool_use_pair(
+        use_id="toolu_task_ledger_capture",
+        tool_name="Bash",
+        start=t0 + timedelta(seconds=295),
+        end=t0 + timedelta(seconds=417),
+        input_body={
+            "command": (
+                "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
+                "--title 'slow capture' --statement-file tmp/capture.md"
+            )
+        },
     )
     records += _claude_tool_use_pair(
         use_id="toolu_task_output_read",
         tool_name="Read",
-        start=t0 + timedelta(seconds=226),
-        end=t0 + timedelta(seconds=286),
+        start=t0 + timedelta(seconds=418),
+        end=t0 + timedelta(seconds=478),
         input_body={"file_path": "/private/tmp/claude-501/-Users-example-src-ai_workflow/session/tasks/b123.output"},
     )
     records += _claude_tool_use_pair(
         use_id="toolu_find_head",
         tool_name="Bash",
-        start=t0 + timedelta(seconds=287),
-        end=t0 + timedelta(seconds=332),
+        start=t0 + timedelta(seconds=479),
+        end=t0 + timedelta(seconds=524),
         input_body={"command": "find . -name '*.py' 2>/dev/null | head -20"},
     )
     records += _claude_tool_use_pair(
         use_id="toolu_recursive_grep",
         tool_name="Bash",
-        start=t0 + timedelta(seconds=333),
-        end=t0 + timedelta(seconds=378),
+        start=t0 + timedelta(seconds=525),
+        end=t0 + timedelta(seconds=570),
         input_body={"command": "grep -rli -E \"clob-endpoint|orderbook\" tools/ system/ 2>/dev/null | head -20"},
     )
     records += _claude_tool_use_pair(
         use_id="toolu_background_poll",
         tool_name="Bash",
-        start=t0 + timedelta(seconds=379),
-        end=t0 + timedelta(seconds=499),
+        start=t0 + timedelta(seconds=571),
+        end=t0 + timedelta(seconds=691),
         input_body={
             "command": (
                 "until grep -q -E \"(Test Files|Error:)\" "
@@ -1344,15 +1737,15 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     records += _claude_tool_use_pair(
         use_id="toolu_doc_read",
         tool_name="Read",
-        start=t0 + timedelta(seconds=500),
-        end=t0 + timedelta(seconds=555),
+        start=t0 + timedelta(seconds=692),
+        end=t0 + timedelta(seconds=747),
         input_body={"file_path": str(tmp_path / "AGENTS.md")},
     )
     records += _claude_tool_use_pair(
         use_id="toolu_task_wait",
         tool_name="Task",
-        start=t0 + timedelta(seconds=556),
-        end=t0 + timedelta(seconds=686),
+        start=t0 + timedelta(seconds=748),
+        end=t0 + timedelta(seconds=878),
         input_body={"description": "long worker", "prompt": "summarize the subsystem"},
     )
     for rec in records:
@@ -1371,26 +1764,41 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     assert "test_or_build_command" in kinds
     assert "repo_tool_command" in kinds
     assert "task_tool" in kinds
-    assert audit["bottlenecks"]["bash_cat"]["count"] == 2
-    assert audit["bottlenecks"]["bash_cat"]["p50_ms"] == 20000
-    assert audit["bottlenecks"]["bash_cat"]["slow_count"] == 2
-    assert audit["bottlenecks"]["bash_cat"]["example_spans"][0]["duration_ms"] == 30000
+    assert audit["bottlenecks"]["bash_cat"]["count"] == 3
+    assert audit["bottlenecks"]["bash_cat"]["p50_ms"] == 30000
+    assert audit["bottlenecks"]["bash_cat"]["slow_count"] == 3
+    assert audit["bottlenecks"]["bash_cat"]["example_spans"][0]["duration_ms"] == 70000
     assert audit["bottlenecks"]["bash_cat"]["example_spans"][0]["session_id"]
     cat_hint_ids = {row["hint_id"] for row in audit["bottlenecks"]["bash_cat"]["repair_hints"]}
+    assert audit["bottlenecks"]["bash_cat"]["repair_hints"][0]["hint_id"] == "replace_shell_limiter_with_compact_packet"
     assert "replace_git_shell_chain_with_state_snapshot" in cat_hint_ids
     assert "replace_global_raw_diff_with_diff_review_context" in cat_hint_ids
     cat_hints = {
         row["hint_id"]: row for row in audit["bottlenecks"]["bash_cat"]["repair_hints"]
     }
     assert cat_hints["replace_git_shell_chain_with_state_snapshot"]["preferred_next"] == (
-        "./repo-python tools/meta/control/git_state_snapshot.py --path-limit 40 "
+        "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
+    )
+    assert cat_hints["replace_git_shell_chain_with_state_snapshot"]["owner_surface"] == (
+        "./repo-python tools/meta/control/git_state_snapshot.py --scope <path> --path-limit 40 "
         "--recent-limit 3 --skip-git-metadata-write-probe --compact"
+    )
+    assert (
+        "./repo-python tools/meta/control/git_state_snapshot.py --scope <path> "
+        "--path-limit 40 --recent-limit 3 --skip-git-metadata-write-probe --compact"
+        in cat_hints["replace_git_shell_chain_with_state_snapshot"]["replacement_commands"]
     )
     assert cat_hints["replace_global_raw_diff_with_diff_review_context"]["preferred_next"] == (
         "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --path-limit 40 "
         "--recent-limit 3 --skip-git-metadata-write-probe --compact"
     )
-    assert "global_raw_diff" in audit["bottlenecks"]["bash_cat"]["example_spans"][1]["command_shape_tags"]
+    assert cat_hints["replace_shell_limiter_with_compact_packet"]["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>"
+    )
+    assert any(
+        "global_raw_diff" in row["command_shape_tags"]
+        for row in audit["bottlenecks"]["bash_cat"]["example_spans"]
+    )
     assert audit["bottlenecks"]["test_or_build_command"]["count"] == 1
     assert audit["bottlenecks"]["test_or_build_command"]["max_ms"] == 120000
     assert audit["bottlenecks"]["test_or_build_command"]["total_output_bytes"] == len(("pytest line\n" * 25).encode("utf-8"))
@@ -1400,25 +1808,98 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     test_hint_ids = {row["hint_id"] for row in audit["bottlenecks"]["test_or_build_command"]["repair_hints"]}
     assert "avoid_tail_masked_test_runs" in test_hint_ids
     assert "route_focused_validation_through_action_quote" in test_hint_ids
+    assert audit["bottlenecks"]["test_or_build_command"]["repair_hints"][0]["hint_id"] == (
+        "route_focused_validation_through_action_quote"
+    )
+    assert audit["bottlenecks"]["test_or_build_command"]["repair_hints"][0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action test_or_build_command "
+        "--scope <path-or-node> --session-id <work-ledger-session>"
+    )
+    assert audit["bottlenecks"]["test_or_build_command"]["repair_hints"][0]["concrete_preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action test_or_build_command "
+        "--scope system/server/tests/test_x.py"
+    )
     assert audit["bottlenecks"]["task_tool"]["count"] == 1
     assert audit["bottlenecks"]["task_tool"]["max_ms"] == 130000
     task_hint_ids = {row["hint_id"] for row in audit["bottlenecks"]["task_tool"]["repair_hints"]}
     assert "replace_long_tool_wait_with_process_summary" in task_hint_ids
-    assert audit["bottlenecks"]["repo_tool_command"]["count"] == 1
-    assert audit["bottlenecks"]["repo_tool_command"]["max_ms"] == 60000
+    task_hints = {
+        row["hint_id"]: row for row in audit["bottlenecks"]["task_tool"]["repair_hints"]
+    }
+    assert task_hints["replace_long_tool_wait_with_process_summary"]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action task_tool "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
+    assert task_hints["replace_long_tool_wait_with_process_summary"]["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action process_summary_status "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
+    assert audit["bottlenecks"]["repo_tool_command"]["count"] == 2
+    assert audit["bottlenecks"]["repo_tool_command"]["max_ms"] == 122000
     repo_hint_ids = {row["hint_id"] for row in audit["bottlenecks"]["repo_tool_command"]["repair_hints"]}
+    repo_hints = {
+        row["hint_id"]: row for row in audit["bottlenecks"]["repo_tool_command"]["repair_hints"]
+    }
+    assert "use_task_ledger_rebuild_check_before_full_rebuild" in repo_hint_ids
+    assert repo_hints["use_task_ledger_rebuild_check_before_full_rebuild"]["preferred_next"] == (
+        "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress"
+    )
+    assert (
+        "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress"
+        in repo_hints["use_task_ledger_rebuild_check_before_full_rebuild"][
+            "replacement_commands"
+        ]
+    )
+    assert (
+        "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1 --quiet-progress"
+        in repo_hints["use_task_ledger_rebuild_check_before_full_rebuild"][
+            "replacement_commands"
+        ]
+    )
+    assert "append_task_ledger_capture_before_projection_rebuild" in repo_hint_ids
+    assert repo_hints["append_task_ledger_capture_before_projection_rebuild"]["preferred_next"] == (
+        "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
+        "--projection-rebuild-policy off ..."
+    )
+    assert (
+        "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1 --quiet-progress"
+        in repo_hints["append_task_ledger_capture_before_projection_rebuild"][
+            "replacement_commands"
+        ]
+    )
     assert "prefer_check_or_targeted_builder_mode" in repo_hint_ids
+    assert repo_hints["prefer_check_or_targeted_builder_mode"]["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>"
+    )
     assert "task_output_file" in audit["bottlenecks"]["read_file"]["example_spans"][0]["command_shape_tags"]
     assert "tmp_artifact_file" in audit["bottlenecks"]["read_file"]["example_spans"][0]["command_shape_tags"]
     read_hint_ids = {row["hint_id"] for row in audit["bottlenecks"]["read_file"]["repair_hints"]}
     assert "replace_output_file_read_with_status_surface" in read_hint_ids
     assert "prefer_card_or_section_before_full_doc_read" in read_hint_ids
+    read_hints = {
+        row["hint_id"]: row for row in audit["bottlenecks"]["read_file"]["repair_hints"]
+    }
+    assert read_hints["replace_output_file_read_with_status_surface"]["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action process_summary_status "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
+    assert read_hints["replace_tmp_file_read_with_structured_summary"]["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action process_summary_status "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
     doc_hint = next(
         row
         for row in audit["bottlenecks"]["read_file"]["repair_hints"]
         if row["hint_id"] == "prefer_card_or_section_before_full_doc_read"
     )
     assert doc_hint["owner_surface"] == './repo-python kernel.py --entry "<task>" --context-budget 12000'
+    assert doc_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action read_file --scope <path-or-topic>"
+    )
+    assert (
+        "./repo-python tools/meta/control/action_quote.py --action read_file --scope <path-or-topic>"
+        in doc_hint["replacement_commands"]
+    )
     assert './repo-python kernel.py --context-pack "<task>" --context-budget 12000' in doc_hint["replacement_commands"]
     assert "./repo-python kernel.py --docs-route <query-or-path>" in doc_hint["replacement_commands"]
     assert "./repo-python kernel.py --option-surface <kind_id> --band card --ids <row_id>" in doc_hint["replacement_commands"]
@@ -1430,24 +1911,62 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
         for row in audit["bottlenecks"]["bash_find"]["repair_hints"]
         if row["hint_id"] == "replace_find_scan_with_rg_files_or_option_surface"
     )
-    assert find_hint["preferred_next"].startswith("./repo-python kernel.py --artifact-discovery-inventory")
-    assert find_hint["owner_surface"].endswith("--artifact-discovery-inventory <term-or-root>")
+    assert find_hint["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_find --scope <term-or-root>"
+    )
+    assert find_hint["owner_surface"] == trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE
+    assert find_hint["quote_surface"].endswith("--action bash_find --scope <term-or-root>")
+    assert find_hint["replacement_commands"][0] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_find --scope <term-or-root>"
+    )
+    assert "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>" in find_hint["replacement_commands"]
+    assert (
+        "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>"
+        in find_hint["replacement_commands"]
+    )
     assert "rg --files <known-roots> | rg '<name-or-term>'" in find_hint["replacement_commands"]
     assert "metadata only" in find_hint["privacy_boundary"]
     assert "background_poll" in audit["bottlenecks"]["bash_grep"]["example_spans"][0]["command_shape_tags"]
     grep_hints = audit["bottlenecks"]["bash_grep"]["repair_hints"]
+    grep_hint_order = [row["hint_id"] for row in grep_hints]
     grep_hint_ids = {row["hint_id"] for row in grep_hints}
+    assert grep_hint_order.index("replace_raw_search_scan_with_owner_route") < grep_hint_order.index(
+        "replace_tmp_artifact_scan_with_owner_summary"
+    )
+    assert grep_hint_order.index("replace_tmp_artifact_scan_with_owner_summary") < grep_hint_order.index(
+        "replace_shell_limiter_with_compact_packet"
+    )
+    assert grep_hint_order.index("replace_raw_search_scan_with_owner_route") < grep_hint_order.index(
+        "replace_shell_limiter_with_compact_packet"
+    )
     polling_hint = next(row for row in grep_hints if row["hint_id"] == "replace_polling_with_status_surface")
     assert polling_hint["preferred_next"] == "./repo-python kernel.py --process-summary claude:latest"
     assert polling_hint["owner_surface"] == "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+    assert polling_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action process_summary_status "
+        "--scope <session_id|claude:latest|codex:latest>"
+    )
     assert "./repo-python kernel.py --process-trace <session_id>" in polling_hint["replacement_commands"]
     assert "raw task-output bodies" in polling_hint["privacy_boundary"]
     assert "replace_raw_search_scan_with_owner_route" in grep_hint_ids
     raw_search_hint = next(row for row in grep_hints if row["hint_id"] == "replace_raw_search_scan_with_owner_route")
-    assert raw_search_hint["preferred_next"].startswith(
-        "./repo-python kernel.py --artifact-discovery-inventory"
+    assert raw_search_hint["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
     )
-    assert raw_search_hint["owner_surface"].endswith("--artifact-discovery-inventory <term-or-root>")
+    assert raw_search_hint["owner_surface"] == trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE
+    assert "pre_action_card" not in raw_search_hint
+    assert "drop common glue words" in raw_search_hint["scope_narrowing"]
+    assert raw_search_hint["quote_surface"].endswith("--action bash_grep --scope <term-or-root>")
+    assert (
+        raw_search_hint["replacement_commands"][0]
+        == "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+    )
+    assert "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>" in raw_search_hint["replacement_commands"]
+    assert (
+        "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>"
+        in raw_search_hint["replacement_commands"]
+    )
+    assert './repo-python kernel.py --command-card "broad discovery inventory"' not in raw_search_hint["replacement_commands"]
     assert './repo-python kernel.py --entry "<task>" --context-budget 12000' in raw_search_hint["replacement_commands"]
     assert "metadata only" in raw_search_hint["privacy_boundary"]
     assert result["summary"]["top_output_producers"][0]["action_kind"] == "test_or_build_command"
@@ -1455,6 +1974,94 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     # Confirm slow_action_shape finding fired
     rules = {f["rule"] for f in audit["findings"]}
     assert "slow_action_shape" in rules
+
+
+def test_host_filesystem_find_bottleneck_prefers_host_quote(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    slug = _claude_project_slug_for(tmp_path)
+    project_dir = tmp_path / "home_claude" / ".claude" / "projects" / slug
+    t0 = datetime(2026, 4, 21, 20, 0, 0, tzinfo=timezone.utc)
+    records = _claude_tool_use_pair(
+        use_id="toolu_host_find",
+        tool_name="Bash",
+        start=t0,
+        end=t0 + timedelta(seconds=45),
+        input_body={
+            "command": (
+                "find /Users/operator -maxdepth 4 -type d "
+                "\\( -iname '*Google Drive*' -o -iname '*GoogleDrive*' "
+                "-o -iname '*googledrive*' \\) -print | head -20"
+            )
+        },
+    )
+    for rec in records:
+        rec["cwd"] = str(tmp_path)
+    _write_claude_session(project_dir / "host-find.jsonl", records)
+
+    result = build_agent_execution_trace(
+        repo_root=tmp_path,
+        rules_path=tmp_path / "codex/doctrine/process/trace_rules.json",
+        home=tmp_path / "home_claude",
+        session_files_codex=[],
+    )
+
+    hints = result["audit"]["bottlenecks"]["bash_find"]["repair_hints"]
+    assert hints[0]["hint_id"] == "replace_host_find_scan_with_host_filesystem_quote"
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_find "
+        "--scope <host-path-or-term>"
+    )
+    assert hints[0]["owner_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action host_filesystem_discovery "
+        "--scope <host-path-or-term>"
+    )
+    assert "mdfind -onlyin \"$HOME\" '<name predicate>' | head -20" in hints[0]["replacement_commands"]
+    assert hints[0]["pre_action_card"]["status"] == "host_filesystem_scope_first"
+    assert "does not walk host paths" in hints[0]["privacy_boundary"]
+    hint_ids = {row["hint_id"] for row in hints}
+    assert "replace_find_scan_with_rg_files_or_option_surface" in hint_ids
+
+
+def test_git_object_find_bottleneck_prefers_git_maintenance(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    slug = _claude_project_slug_for(tmp_path)
+    project_dir = tmp_path / "home_claude" / ".claude" / "projects" / slug
+    t0 = datetime(2026, 4, 21, 20, 0, 0, tzinfo=timezone.utc)
+    records = _claude_tool_use_pair(
+        use_id="toolu_git_object_find",
+        tool_name="Bash",
+        start=t0,
+        end=t0 + timedelta(seconds=31),
+        input_body={
+            "command": (
+                "top_objects=$(find .git/objects -type f -path '.git/objects/??/*' "
+                "-exec stat -f '%z %N' {} + | sort -nr | head -40)"
+            )
+        },
+    )
+    for rec in records:
+        rec["cwd"] = str(tmp_path)
+    _write_claude_session(project_dir / "git-object-find.jsonl", records)
+
+    result = build_agent_execution_trace(
+        repo_root=tmp_path,
+        rules_path=tmp_path / "codex/doctrine/process/trace_rules.json",
+        home=tmp_path / "home_claude",
+        session_files_codex=[],
+    )
+
+    hints = result["audit"]["bottlenecks"]["bash_find"]["repair_hints"]
+    assert hints[0]["hint_id"] == "replace_git_object_find_scan_with_gc_maintenance_check"
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/git_gc_maintenance.py --check"
+    )
+    assert hints[0]["pre_action_card"]["status"] == "git_object_status_first"
+    assert hints[0]["replacement_commands"][0] == (
+        "./repo-python tools/meta/control/git_gc_maintenance.py --check"
+    )
+    assert "replace_find_scan_with_rg_files_or_option_surface" in {
+        row["hint_id"] for row in hints
+    }
 
 
 def test_read_file_bottleneck_generic_hint_for_unclassified_source_reads(tmp_path: Path) -> None:
@@ -1489,6 +2096,16 @@ def test_read_file_bottleneck_generic_hint_for_unclassified_source_reads(tmp_pat
         if row["hint_id"] == "prefer_bounded_read_or_identifier_search"
     )
     assert hint["owner_surface"] == "known_path_bounded_read"
+    assert hint["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py --action read_file --scope <path-or-topic>"
+    )
+    assert hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action read_file --scope <path-or-topic>"
+    )
+    assert (
+        hint["replacement_commands"][0]
+        == "./repo-python tools/meta/control/action_quote.py --action read_file --scope <path-or-topic>"
+    )
     assert "rg -n '<symbol-or-error>' <known-path-or-root>" in hint["replacement_commands"]
     assert "sed -n '<start>,<end>p' <known-path>" in hint["replacement_commands"]
     assert hint["replacement_commands"][-1] == './repo-python kernel.py --context-pack "<task>" --context-budget 12000'
@@ -1560,6 +2177,12 @@ def test_kernel_command_by_kernel_flag_aggregation(tmp_path: Path) -> None:
     bottlenecks = result["audit"]["bottlenecks"]
     assert "kernel_command" in bottlenecks
     kc_row = bottlenecks["kernel_command"]
+    assert kc_row["repair_hints"][0]["hint_id"] == "route_kernel_flag_through_command_surface"
+    assert kc_row["repair_hints"][0]["kernel_flag"] == "--paper-module-coverage"
+    assert kc_row["repair_hints"][0]["concrete_preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action kernel_command --scope paper-module-coverage"
+    )
     by_flag = kc_row.get("by_kernel_flag") or []
     flag_names = {row["kernel_flag"] for row in by_flag}
     assert "--entry" in flag_names
@@ -1722,15 +2345,32 @@ def test_context_yield_attribution_classifies_known_motifs(tmp_path: Path) -> No
     assert raw_body["owner_coverage"]["route_available"] is True
     assert raw_body["owner_coverage"]["route_used"] is False
     assert raw_body["owner_coverage"]["route_gap"] == "route_available_but_not_used_for_active_examples"
-    assert raw_body["decision"]["patch_owner_surface"].endswith("--artifact-discovery-inventory <term-or-root>")
+    assert raw_body["decision"]["patch_owner_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action artifact_discovery_inventory --scope <term-or-root>"
+    )
     steering = raw_body["steering"]
     assert steering["point_of_use_surface"] == "./repo-python kernel.py --process-bottlenecks --force"
-    assert steering["replacement_route"].endswith("--artifact-discovery-inventory <term-or-root>")
+    assert steering["replacement_route"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action artifact_discovery_inventory --scope <term-or-root>"
+    )
+    assert steering["preferred_quote_route"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+    )
+    assert (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+        in steering["quote_routes"]
+    )
     assert steering["applies_to_status"] == "governed_route_available_but_not_used"
     assert steering["applies_to_count"] >= 1
     assert "accepted_required_context" in steering["does_not_apply_to"]
     assert "false_positive" in steering["does_not_apply_to"]
     assert "Scoped low-output rg/find" in steering["accepted_case_guard"]
+    assert "object-specific terms" in steering["scope_narrowing"]
+    assert steering["pre_action_card"]["status"] == "route_first_for_broad_discovery"
+    assert steering["pre_action_card"]["first_route"].endswith("--action bash_grep --scope <term-or-root>")
+    assert "drop glue words" in steering["pre_action_card"]["scope_rule"]
     assert steering["command_shape_clusters"]["status"] == "governed_route_available_but_not_used"
     assert steering["command_shape_clusters"]["tag_counts"]["raw_search_scan"] >= 1
     assert steering["command_shape_clusters"]["action_kind_counts"]["bash_grep"] >= 1
@@ -2113,6 +2753,97 @@ def test_paper_module_output_limiter_bottleneck_routes_to_action_quote(tmp_path:
     assert "paper_module_index" in quote_hint["preferred_next"]
 
 
+def test_kernel_context_pack_limiter_gets_selected_lens_hint() -> None:
+    command = './repo-python kernel.py --context-pack "speed refinement" --context-budget 12000 2>&1 | head -80'
+
+    tags = trace_lib._command_shape_tags("kernel_command", command, [])
+    assert "output_limited" in tags
+    assert "context_pack" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "kernel_command",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[0] == "replace_context_pack_limiter_with_selected_lens"
+    assert hint_ids.index("replace_context_pack_limiter_with_selected_lens") < hint_ids.index(
+        "replace_kernel_output_limiter_with_compact_mode"
+    )
+    limiter_hint = next(row for row in hints if row["hint_id"] == "replace_kernel_output_limiter_with_compact_mode")
+    assert limiter_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action kernel_command --scope <task-or-route>"
+    )
+    assert limiter_hint["replacement_commands"][0].endswith("--action kernel_command --scope <task-or-route>")
+    lens_hint = hints[0]
+    assert lens_hint["replacement_commands"][-1] == (
+        "./repo-python kernel.py --row <kind_id>:<row_id> --band card"
+    )
+
+
+def test_kernel_entry_limiter_gets_bounded_entry_hint() -> None:
+    command = './repo-python kernel.py --entry "assess current speed surface" 2>&1 | head -80'
+
+    tags = trace_lib._command_shape_tags("kernel_command", command, [])
+    assert "output_limited" in tags
+    assert "entry_packet" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "kernel_command",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[0] == "replace_entry_limiter_with_bounded_entry_or_context_pack"
+    assert hint_ids.index("replace_entry_limiter_with_bounded_entry_or_context_pack") < hint_ids.index(
+        "replace_kernel_output_limiter_with_compact_mode"
+    )
+    entry_hint = hints[0]
+    assert entry_hint["quote_surface"] == (
+        "./repo-python tools/meta/control/action_quote.py --action kernel_command --scope <task-or-route>"
+    )
+    assert (
+        "./repo-python tools/meta/control/action_quote.py --action kernel_command --scope <task-or-route>"
+        in entry_hint["replacement_commands"]
+    )
+
+
+def test_kernel_host_pressure_packet_gets_compact_recheck_hint() -> None:
+    command = (
+        "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
+        "--host-pressure-compact --host-pressure-event-limit 500"
+    )
+
+    tags = trace_lib._command_shape_tags("kernel_command", command, [])
+    assert "host_pressure_packet" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "kernel_command",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[0] == "replace_host_pressure_full_packet_with_compact_recheck"
+    host_hint = hints[0]
+    assert host_hint["replacement_commands"][0].endswith("--host-pressure-event-limit 100")
+
+
+def test_kernel_inventory_limiter_gets_cluster_or_card_hint() -> None:
+    command = "./repo-python kernel.py --kind-atlas 2>&1 | head -80"
+
+    tags = trace_lib._command_shape_tags("kernel_command", command, [])
+    assert "output_limited" in tags
+    assert "kind_atlas_packet" in tags
+
+    hints = trace_lib._bottleneck_repair_hints(
+        "kernel_command",
+        [{"normalized_command": command, "command_shape_tags": tags}],
+    )
+    hint_ids = [row["hint_id"] for row in hints]
+    assert hint_ids[0] == "replace_inventory_limiter_with_cluster_or_card_band"
+    inventory_hint = hints[0]
+    assert inventory_hint["replacement_commands"][0] == (
+        "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag"
+    )
+
+
 def test_output_contract_shapes(tmp_path: Path) -> None:
     _seed_rules(tmp_path)
     result = build_agent_execution_trace(
@@ -2205,7 +2936,72 @@ def test_kernel_route_process_audit_shape() -> None:
     assert payload["payload"]["output_economy"]["full_payload_command"] == (
         "./repo-python kernel.py --process-audit --full"
     )
-    assert len(result.stdout.encode()) < 60_000
+    assert payload["payload"]["output_economy"]["target_bytes"] == 30_000
+    assert len(payload["payload"]["findings"]) <= 5
+    assert len(payload["payload"]["patterns"]) <= 5
+    assert len(payload["payload"]["bottlenecks"]) <= 4
+    assert payload["payload"]["context_yield_attribution"]["rows_returned"] <= 3
+    for row in payload["payload"]["bottlenecks"].values():
+        assert "example_spans" not in row
+    assert len(result.stdout.encode()) < 30_000
+
+
+def test_process_audit_cache_freshness_marks_stale_static_sources(tmp_path: Path) -> None:
+    cache = tmp_path / "codex/hologram/process/audit.json"
+    source = tmp_path / "system/lib/agent_execution_trace.py"
+    cache.parent.mkdir(parents=True)
+    source.parent.mkdir(parents=True)
+    cache.write_text("{}", encoding="utf-8")
+    source.write_text("# changed\n", encoding="utf-8")
+    os.utime(cache, ns=(100, 100))
+    os.utime(source, ns=(200, 200))
+
+    freshness = navigate._process_audit_cache_freshness(cache, [source])
+
+    assert freshness["status"] == "stale_static_sources"
+    assert freshness["static_source_status"] == "source_newer_than_cached_audit"
+    assert freshness["patch_selection_policy"] == (
+        "refresh_or_force_live_before_selecting_process_audit_patch"
+    )
+    assert freshness["authoritative_decision_command"] == (
+        "./repo-python kernel.py --process-bottlenecks --force"
+    )
+    assert freshness["stale_source_count"] == 1
+
+
+def test_process_audit_stale_cache_next_commands_start_with_live_decision() -> None:
+    next_commands = navigate._process_audit_next_commands(
+        {
+            "status": "stale_static_sources",
+            "authoritative_decision_command": "./repo-python kernel.py --process-bottlenecks --force",
+            "refresh_command": "./repo-python tools/meta/factory/build_agent_execution_trace.py",
+        }
+    )
+
+    assert next_commands[0]["command"] == "./repo-python kernel.py --process-bottlenecks --force"
+    assert next_commands[1]["command"] == (
+        "./repo-python tools/meta/factory/build_agent_execution_trace.py"
+    )
+
+
+def test_kernel_command_profile_process_audit_shape() -> None:
+    result = subprocess.run(
+        [str(REPO_ROOT / "repo-python"), "kernel.py", "--command-profile", "process-audit"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=True,
+    )
+    payload = json.loads(result.stdout)
+    assert payload["kind"] == "command_profile"
+    assert payload["surface"] == "process-audit"
+    phases = {phase["phase"]: phase for phase in payload["phases"]}
+    assert phases["process_audit_status_packet"]["output_bytes"] < 30_000
+    assert phases["process_audit_status_packet"]["source_mode"] in {
+        "cached_audit",
+        "live_in_memory",
+    }
+    assert "process_audit_output_shape" in phases
 
 
 def test_kernel_route_process_audit_full_shape() -> None:
@@ -2289,6 +3085,12 @@ def test_kernel_route_process_patterns_default_uses_cached_read_model() -> None:
     assert payload["query"]["after"] is None
     assert payload["query"]["limit"] is None
     assert isinstance(payload["payload"]["patterns"], list)
+    assert payload["payload"]["output_economy"]["profile"] == "compact_process_patterns_default_v0"
+    for pattern in payload["payload"]["patterns"]:
+        assert "session_id_hits" not in pattern
+        if pattern.get("session_id_hit_count"):
+            assert len(pattern["session_id_hits_preview"]) <= 5
+            assert pattern["session_id_hits_omitted"] == max(0, pattern["session_id_hit_count"] - 5)
 
 
 def test_kernel_route_process_bottlenecks_after_window_shape() -> None:
@@ -2377,29 +3179,53 @@ def test_navigation_mechanism_validator_cli_passes() -> None:
 
 
 def test_kernel_route_process_summary_shape() -> None:
+    process_window = ["--limit", "1"]
     trace_result = subprocess.run(
-        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-trace", "latest", "--process-trace-format", "json"],
+        [
+            str(REPO_ROOT / "repo-python"),
+            "kernel.py",
+            "--process-trace",
+            "latest",
+            "--process-trace-format",
+            "json",
+            *process_window,
+        ],
         capture_output=True,
         text=True,
         cwd=REPO_ROOT,
         check=True,
     )
     tape_result = subprocess.run(
-        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-trace", "latest", "--process-trace-max-chars", "3000"],
+        [
+            str(REPO_ROOT / "repo-python"),
+            "kernel.py",
+            "--process-trace",
+            "latest",
+            "--process-trace-max-chars",
+            "3000",
+            *process_window,
+        ],
         capture_output=True,
         text=True,
         cwd=REPO_ROOT,
         check=True,
     )
     audit_result = subprocess.run(
-        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-audit"],
+        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-audit", *process_window],
         capture_output=True,
         text=True,
         cwd=REPO_ROOT,
         check=True,
     )
     summary_result = subprocess.run(
-        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-summary", "latest", "--force"],
+        [
+            str(REPO_ROOT / "repo-python"),
+            "kernel.py",
+            "--process-summary",
+            "latest",
+            "--force",
+            *process_window,
+        ],
         capture_output=True,
         text=True,
         cwd=REPO_ROOT,
@@ -2412,6 +3238,7 @@ def test_kernel_route_process_summary_shape() -> None:
     assert payload["query"]["force_live"] is True
     assert payload["source_freshness"]["mode"] == "live_in_memory"
     assert payload["source_freshness"]["dynamic_rollout_status"] == "revalidated_live_in_memory"
+    assert payload["source_freshness"]["requested_window"]["session_limit"] == 1
     assert payload["identity_scope"]["schema_version"] == "process_summary_identity_scope_v1"
     assert payload["identity_scope"]["selection_basis"] == "latest_ended_session"
     assert payload["identity_scope"]["current_session_claim"] == "not_claimed"
@@ -2422,15 +3249,24 @@ def test_kernel_route_process_summary_shape() -> None:
     assert len(payload["payload"]["session"]["summary_thought_trace"].get("candidate_signals", [])) <= 2
     assert "task_result_reads" in payload["payload"]["session"]
     assert "count" in payload["payload"]["session"]["task_result_reads"]
+    assert payload["payload"]["session"]["chronological_trace_outline"] == {
+        "omitted": True,
+        "reason": "process_summary_default_uses_trace_drilldown_for_ordered_outline",
+        "drilldown": (
+            f"./repo-python kernel.py --process-trace "
+            f"{payload['payload']['session']['session_id']}"
+        ),
+    }
     assert "audit_summary" in payload["payload"]
     assert payload["payload"]["output_economy"]["profile"] == "compact_owner_route"
-    assert payload["payload"]["output_economy"]["default_target_bytes"] == 20_000
+    assert payload["payload"]["output_economy"]["default_target_bytes"] == 16_000
     assert payload["payload"]["output_economy"]["raw_bodies_omitted"] is True
     assert "session.spans" in payload["payload"]["output_economy"]["omitted_fields"]
+    assert "session.chronological_trace_outline.rows" in payload["payload"]["output_economy"]["omitted_fields"]
     assert "spans" not in payload["payload"]["session"]
     assert "turns" not in payload["payload"]["session"]
     assert "findings" not in payload["payload"]["audit_summary"]
-    assert len(summary_result.stdout.encode()) <= 20_000
+    assert len(summary_result.stdout.encode()) <= 16_000
     assert len(summary_result.stdout) < len(trace_result.stdout) + len(audit_result.stdout)
     assert tape_result.stdout.startswith("trace ")
     assert "\n000" in tape_result.stdout
@@ -2470,12 +3306,29 @@ def test_kernel_route_process_bottlenecks_shape() -> None:
         )
     assert isinstance(payload["payload"]["top_bottlenecks"], list)
     assert isinstance(payload["payload"]["top_output_producers"], list)
+    output_economy = payload["payload"]["output_economy"]
+    assert output_economy["profile"] in {
+        "compact_owner_status",
+        "compact_missing_read_model_status",
+    }
+    if output_economy["profile"] == "compact_owner_status":
+        assert output_economy["target_bytes"] == 22_000
+        assert output_economy["row_limits"] == {
+            "top_bottlenecks": 4,
+            "top_output_producers": 2,
+            "context_yield_rows": 2,
+            "examples_per_bottleneck": 1,
+        }
+        assert len(payload["payload"]["top_bottlenecks"]) <= 4
+        assert len(payload["payload"]["top_output_producers"]) <= 2
     if payload["payload"]["top_bottlenecks"]:
         assert "example_spans" in payload["payload"]["top_bottlenecks"][0]
         assert "repair_hints" in payload["payload"]["top_bottlenecks"][0]
+        for row in payload["payload"]["top_bottlenecks"]:
+            assert len(row.get("example_spans") or []) <= 1
     context_yield = payload["payload"]["context_yield_attribution"]
     assert context_yield["output_profile"] == "compact_context_yield_status"
-    assert context_yield["rows_returned"] <= 4
+    assert context_yield["rows_returned"] <= 2
     assert context_yield["rows_available"] >= context_yield["rows_returned"]
     assert "./repo-python kernel.py --process-audit" in context_yield["full_payload_routes"]
     for row in context_yield["rows"]:
@@ -2484,7 +3337,643 @@ def test_kernel_route_process_bottlenecks_shape() -> None:
         assert "actionable_span_count" in row
         assert "omission_receipt" not in row
         assert row.get("examples") in (None, [])
-    assert len(result.stdout.encode()) < 35_000
+    assert len(result.stdout.encode()) <= 22_000
+
+
+def test_process_bottlenecks_action_kind_filter_compacts_to_requested_row(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "repo_tool_command",
+                        "count": 10,
+                        "p95_ms": 30_000,
+                        "example_spans": [{"normalized_command": "task ledger rebuild"}],
+                        "repair_hints": [{"hint_id": "task_ledger_status"}],
+                    },
+                    {
+                        "action_kind": "bash_cat",
+                        "count": 8,
+                        "p95_ms": 8_000,
+                        "example_spans": [{"normalized_command": "git status chain"}],
+                        "by_kernel_flag": [
+                            {"kernel_flag": "--one", "count": 8},
+                            {"kernel_flag": "--two", "count": 7},
+                            {"kernel_flag": "--three", "count": 6},
+                            {"kernel_flag": "--four", "count": 5},
+                        ],
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_git_shell_chain_with_state_snapshot",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action git_state_shell_chain"
+                                ),
+                            }
+                        ],
+                    },
+                ],
+                "top_output_producers": [
+                    {"action_kind": "repo_tool_command", "span_count": 4},
+                    {"action_kind": "bash_cat", "span_count": 3},
+                ],
+                "context_yield_attribution": {
+                    "rows": [
+                        {"motif": "raw_body_before_selection", "active_bytes": 2_000_000},
+                        {"motif": "tool_result_carryover", "active_bytes": 100_000},
+                    ]
+                },
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["bash_cat"])
+
+    assert payload["query"]["action_kinds"] == ["bash_cat"]
+    assert [row["action_kind"] for row in payload["payload"]["top_bottlenecks"]] == ["bash_cat"]
+    assert [row["action_kind"] for row in payload["payload"]["top_output_producers"]] == ["bash_cat"]
+    action_filter = payload["payload"]["action_kind_filter"]
+    assert action_filter["requested"] == ["bash_cat"]
+    assert action_filter["matched"] == ["bash_cat"]
+    assert action_filter["filtered_top_bottleneck_count"] == 1
+    assert payload["payload"]["top_bottlenecks"][0]["example_spans"] == []
+    assert [
+        row["kernel_flag"]
+        for row in payload["payload"]["top_bottlenecks"][0]["by_kernel_flag"]
+    ] == ["--one", "--two", "--three"]
+    assert payload["payload"]["context_yield_attribution"]["rows_returned"] == 0
+    output_economy = payload["payload"]["output_economy"]
+    assert output_economy["target_bytes"] == 12_000
+    assert output_economy["row_limits"]["context_yield_rows"] == 0
+    assert output_economy["row_limits"]["examples_per_bottleneck"] == 0
+    assert payload["source_freshness"]["cache_check_command"].endswith(
+        "--cached-summary --limit 6 --action-kind bash_cat"
+    )
+    assert payload["decision_authority"]["cache_check_command"].endswith(
+        "--cached-summary --limit 6 --action-kind bash_cat"
+    )
+    assert payload["next"][0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
+    )
+
+
+def test_process_bottlenecks_action_kind_filter_promotes_template_repair_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "bash_grep",
+                        "count": 12,
+                        "example_spans": [{"normalized_command": "grep -r term state codex"}],
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_raw_search_scan_with_owner_route",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action bash_grep --scope <term-or-root>"
+                                ),
+                            }
+                        ],
+                    }
+                ],
+                "top_output_producers": [{"action_kind": "bash_grep", "span_count": 4}],
+                "context_yield_attribution": {
+                    "rows": [{"motif": "raw_body_before_selection", "active_bytes": 2_000_000}]
+                },
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["bash_grep"])
+
+    assert payload["next"][0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action bash_grep --scope <term-or-root>"
+    )
+    assert "replace_raw_search_scan_with_owner_route" in payload["next"][0]["reason"]
+    assert payload["payload"]["context_yield_attribution"]["rows_returned"] == 0
+
+
+def test_process_bottlenecks_action_kind_filter_promotes_concrete_repair_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    concrete_next = (
+        "./repo-python tools/meta/control/action_quote.py --action test_or_build_command "
+        "--scope system/server/tests/test_agent_execution_trace.py"
+    )
+
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "test_or_build_command",
+                        "count": 12,
+                        "example_spans": [],
+                        "repair_hints": [
+                            {
+                                "hint_id": "route_focused_validation_through_action_quote",
+                                "concrete_preferred_next": concrete_next,
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action test_or_build_command --scope <path-or-node> "
+                                    "--session-id <work-ledger-session>"
+                                ),
+                            }
+                        ],
+                    }
+                ],
+                "top_output_producers": [{"action_kind": "test_or_build_command", "span_count": 4}],
+                "context_yield_attribution": {
+                    "rows": [{"motif": "raw_body_before_selection", "active_bytes": 2_000_000}]
+                },
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["test_or_build_command"])
+
+    assert (
+        payload["payload"]["top_bottlenecks"][0]["repair_hints"][0]["concrete_preferred_next"]
+        == concrete_next
+    )
+    assert payload["next"][0]["command"] == concrete_next
+    assert "route_focused_validation_through_action_quote" in payload["next"][0]["reason"]
+
+
+def test_process_bottlenecks_action_kind_filter_promotes_output_repair_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "bash_grep",
+                        "count": 12,
+                        "example_spans": [{"normalized_command": "grep -r term state codex"}],
+                        "repair_hints": [],
+                    }
+                ],
+                "top_output_producers": [
+                    {
+                        "action_kind": "bash_grep",
+                        "span_count": 4,
+                        "output_repair_hints": [
+                            {
+                                "hint_id": "replace_raw_search_scan_with_owner_route",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action bash_grep --scope <term-or-root>"
+                                ),
+                            }
+                        ],
+                    }
+                ],
+                "context_yield_attribution": {
+                    "rows": [{"motif": "raw_body_before_selection", "active_bytes": 2_000_000}]
+                },
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["bash_grep"])
+
+    assert payload["payload"]["top_bottlenecks"][0]["repair_hints"] == []
+    assert payload["payload"]["top_output_producers"][0]["repair_hints"][0]["hint_id"] == (
+        "replace_raw_search_scan_with_owner_route"
+    )
+    assert payload["next"][0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action bash_grep --scope <term-or-root>"
+    )
+    assert "output producer" in payload["next"][0]["reason"]
+    assert payload["payload"]["context_yield_attribution"]["rows_returned"] == 0
+
+
+def test_process_bottlenecks_prefers_host_find_repair_hint() -> None:
+    host_hint = {
+        "hint_id": "replace_host_find_scan_with_host_filesystem_quote",
+        "preferred_next": (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action bash_find --scope <host-path-or-term>"
+        ),
+        "owner_surface": (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action host_filesystem_discovery --scope <host-path-or-term>"
+        ),
+    }
+    generic_hint = {
+        "hint_id": "replace_find_scan_with_rg_files_or_option_surface",
+        "preferred_next": (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action bash_find --scope <term-or-root>"
+        ),
+    }
+
+    compact = process_bottlenecks_status._compact_process_output_producers(
+        [
+            {
+                "action_kind": "bash_find",
+                "span_count": 12,
+                "repair_hints": [generic_hint, host_hint],
+            }
+        ],
+        limit=1,
+    )
+
+    assert compact[0]["repair_hints"] == [host_hint]
+
+
+def test_process_summary_compacts_kernel_flag_bottleneck_rows() -> None:
+    compact = trace_lib._summary_compact_process_bottlenecks(
+        {
+            "kernel_command": {
+                "count": 3,
+                "total_duration_ms": 6000,
+                "optimization_priority_score": 100,
+                "by_kernel_flag": [
+                    {
+                        "kernel_flag": "--process-bottlenecks",
+                        "count": 2,
+                        "p95_ms": 3000,
+                        "total_duration_ms": 5000,
+                        "slow_count": 1,
+                        "max_output_bytes": 9000,
+                    },
+                    {
+                        "kernel_flag": "--session-diagnostics",
+                        "count": 1,
+                        "p95_ms": 2000,
+                        "total_duration_ms": 1000,
+                        "slow_count": 0,
+                    },
+                    {
+                        "kernel_flag": "--entry",
+                        "count": 1,
+                        "p95_ms": 1000,
+                        "total_duration_ms": 1000,
+                        "slow_count": 0,
+                    },
+                ],
+            }
+        },
+        limit=1,
+        example_limit=0,
+    )
+
+    row = compact["kernel_command"]
+    assert "by_kernel_flag" not in row
+    assert row["by_kernel_flag_count"] == 3
+    assert row["by_kernel_flag_omitted"] == 1
+    assert row["by_kernel_flag_top"] == [
+        {
+            "kernel_flag": "--process-bottlenecks",
+            "count": 2,
+            "p95_ms": 3000,
+            "total_duration_ms": 5000,
+            "slow_count": 1,
+        },
+        {
+            "kernel_flag": "--session-diagnostics",
+            "count": 1,
+            "p95_ms": 2000,
+            "total_duration_ms": 1000,
+            "slow_count": 0,
+        },
+    ]
+
+
+def test_process_bottlenecks_action_kind_filter_derives_kernel_flag_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "kernel_command",
+                        "count": 86,
+                        "p95_ms": 30_140,
+                        "example_spans": [],
+                        "repair_hints": [],
+                        "by_kernel_flag": [
+                            {"kernel_flag": "--session-diagnostics", "count": 86},
+                            {"kernel_flag": "--process-bottlenecks", "count": 28},
+                        ],
+                    }
+                ],
+                "top_output_producers": [{"action_kind": "kernel_command", "span_count": 86}],
+                "context_yield_attribution": {
+                    "rows": [{"motif": "raw_body_before_selection", "active_bytes": 2_000_000}]
+                },
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["kernel_command"])
+
+    hints = payload["payload"]["top_bottlenecks"][0]["repair_hints"]
+    assert hints[0]["hint_id"] == "route_session_diagnostics_through_command_surface"
+    assert hints[0]["preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action command_surface_inventory --scope session-diagnostics"
+    )
+    assert payload["next"][0]["command"] == hints[0]["preferred_next"]
+
+
+def test_process_bottlenecks_action_kind_filter_derives_generic_kernel_flag_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "kernel_command",
+                        "count": 86,
+                        "p95_ms": 30_140,
+                        "example_spans": [],
+                        "repair_hints": [],
+                        "by_kernel_flag": [
+                            {"kernel_flag": "--agent-operating-packet", "count": 2},
+                            {"kernel_flag": "--route-refresh", "count": 1},
+                        ],
+                    }
+                ],
+                "top_output_producers": [{"action_kind": "kernel_command", "span_count": 86}],
+                "context_yield_attribution": {
+                    "rows": [{"motif": "raw_body_before_selection", "active_bytes": 2_000_000}]
+                },
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["kernel_command"])
+
+    hints = payload["payload"]["top_bottlenecks"][0]["repair_hints"]
+    assert hints[0]["hint_id"] == "route_kernel_flag_through_command_surface"
+    assert hints[0]["kernel_flag"] == "--agent-operating-packet"
+    assert hints[0]["concrete_preferred_next"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action kernel_command --scope agent-operating-packet"
+    )
+    assert payload["next"][0]["command"] == hints[0]["concrete_preferred_next"]
+
+
+def test_process_bottlenecks_bottleneck_rows_prioritize_raw_search_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "bash_grep",
+                        "count": 34,
+                        "p95_ms": 64_540,
+                        "example_spans": [],
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_python_module_tail_with_compact_cli_mode",
+                                "preferred_next": "Use a compact module mode.",
+                            },
+                            {
+                                "hint_id": "replace_raw_search_scan_with_owner_route",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action bash_grep --scope <term-or-root>"
+                                ),
+                                "owner_surface": (
+                                    "./repo-python kernel.py "
+                                    "--artifact-discovery-inventory <term-or-root>"
+                                ),
+                            },
+                        ],
+                    }
+                ],
+                "top_output_producers": [],
+                "context_yield_attribution": {"rows": []},
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["bash_grep"])
+
+    hints = payload["payload"]["top_bottlenecks"][0]["repair_hints"]
+    assert hints[0]["hint_id"] == "replace_raw_search_scan_with_owner_route"
+    assert payload["next"][0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action bash_grep --scope <term-or-root>"
+    )
+
+
+def test_process_bottlenecks_output_producer_inherits_kernel_flag_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "kernel_command",
+                        "count": 86,
+                        "p95_ms": 30_140,
+                        "example_spans": [],
+                        "repair_hints": [],
+                        "by_kernel_flag": [
+                            {"kernel_flag": "--session-diagnostics", "count": 86},
+                        ],
+                    }
+                ],
+                "top_output_producers": [
+                    {
+                        "action_kind": "kernel_command",
+                        "span_count": 86,
+                        "total_output_bytes": 1_600_000,
+                    }
+                ],
+                "context_yield_attribution": {"rows": []},
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet()
+
+    output_hints = payload["payload"]["top_output_producers"][0]["repair_hints"]
+    assert output_hints == [
+        {
+            "hint_id": "route_session_diagnostics_through_command_surface",
+            "preferred_next": (
+                "./repo-python tools/meta/control/action_quote.py "
+                "--action command_surface_inventory --scope session-diagnostics"
+            ),
+            "owner_surface": (
+                "./repo-python kernel.py --session-diagnostics "
+                "--lens all --last 10 --store both --json --diagnostics-summary"
+            ),
+        }
+    ]
+
+
+def test_process_bottlenecks_output_producer_prefers_specific_bash_other_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_process_build(**_: object) -> dict:
+        return {
+            "summary": {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "bash_other",
+                        "count": 86,
+                        "p95_ms": 4_200,
+                        "example_spans": [],
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_inline_python_data_probe_with_owner_tool",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action process_bottleneck_triage --action-kind bash_other"
+                                ),
+                            }
+                        ],
+                    }
+                ],
+                "top_output_producers": [
+                    {
+                        "action_kind": "bash_other",
+                        "span_count": 86,
+                        "total_output_bytes": 1_600_000,
+                        "output_repair_hints": [
+                            {
+                                "hint_id": "route_unclassified_bash_output_through_action_quote",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action bash_other --scope <path-or-owner>"
+                                ),
+                            }
+                        ],
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_inline_python_data_probe_with_owner_tool",
+                                "preferred_next": (
+                                    "./repo-python tools/meta/control/action_quote.py "
+                                    "--action process_bottleneck_triage --action-kind bash_other"
+                                ),
+                            }
+                        ],
+                    }
+                ],
+                "context_yield_attribution": {"rows": []},
+            }
+        }
+
+    monkeypatch.setattr(navigate, "_process_build", fake_process_build)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(
+        force_live=True,
+        action_kinds=["bash_other"],
+    )
+
+    output_hints = payload["payload"]["top_output_producers"][0]["repair_hints"]
+    assert output_hints[0]["hint_id"] == "replace_inline_python_data_probe_with_owner_tool"
+    assert payload["next"][0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action process_bottleneck_triage --action-kind bash_other"
+    )
+
+
+def test_process_bottlenecks_kernel_flag_hint_precedes_generic_kernel_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_load_summary(**_: object) -> tuple[dict, dict]:
+        return (
+            {
+                "kind": "agent_execution_trace_summary",
+                "summary": {"session_count": 4, "window": {"session_limit": 20}},
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "kernel_command",
+                        "count": 86,
+                        "p95_ms": 30_140,
+                        "example_spans": [],
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_kernel_output_limiter_with_compact_mode",
+                                "preferred_next": "Use a compact kernel mode.",
+                            }
+                        ],
+                        "by_kernel_flag": [
+                            {"kernel_flag": "--session-diagnostics", "count": 86},
+                        ],
+                    }
+                ],
+                "top_output_producers": [{"action_kind": "kernel_command", "span_count": 86}],
+                "context_yield_attribution": {"rows": []},
+            },
+            {"mode": "cached_summary", "status": "fresh"},
+        )
+
+    monkeypatch.setattr(navigate, "_load_process_bottleneck_summary_cache", fake_load_summary)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(action_kinds=["kernel_command"])
+
+    hints = payload["payload"]["top_bottlenecks"][0]["repair_hints"]
+    assert hints[0]["hint_id"] == "route_session_diagnostics_through_command_surface"
+    assert payload["next"][0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action command_surface_inventory --scope session-diagnostics"
+    )
 
 
 def test_process_bottleneck_next_commands_start_with_top_context_route() -> None:
@@ -2492,18 +3981,399 @@ def test_process_bottleneck_next_commands_start_with_top_context_route() -> None
         "rows": [
             {
                 "motif": "raw_body_before_selection",
-                "owner_surface": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
                 "existing_route": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+                "steering": {
+                    "preferred_quote_route": (
+                        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+                    ),
+                    "pre_action_card": {
+                        "first_route": (
+                            "./repo-python tools/meta/control/action_quote.py "
+                            "--action bash_grep --scope <term-or-root>"
+                        ),
+                    },
+                },
             }
         ]
     }
 
     next_commands = navigate._process_bottleneck_next_commands(context_yield)
 
-    assert next_commands[0]["command"] == "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
+    assert next_commands[0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+    )
     assert "raw_body_before_selection" in next_commands[0]["reason"]
-    assert next_commands[1]["command"] == "./repo-python kernel.py --process-audit"
-    assert next_commands[2]["command"] == "./repo-python kernel.py --process-bottlenecks --force"
+    assert not next_commands[0]["command"].startswith("{")
+    assert next_commands[1]["command"] == trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE
+    assert next_commands[2]["command"] == "./repo-python kernel.py --process-audit"
+    assert next_commands[3]["command"] == "./repo-python kernel.py --process-bottlenecks --force"
+
+
+def test_context_yield_next_commands_use_concrete_scope_hint() -> None:
+    upstream_steering = trace_lib._context_yield_steering(
+        motif="raw_body_before_selection",
+        status_counts={"governed_route_available_but_not_used": 1},
+        meta={"existing_route": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE},
+        raw_row={
+            "examples": [
+                {
+                    "governance_status": "governed_route_available_but_not_used",
+                    "target_paths": ["system/lib/kernel/commands/navigate.py"],
+                }
+            ],
+            "governance_status_tag_counts": {},
+            "governance_status_action_counts": {
+                "governed_route_available_but_not_used": {"bash_grep": 1}
+            },
+            "governance_status_target_counts": {},
+        },
+    )
+    assert upstream_steering["concrete_preferred_quote_route"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep "
+        "--scope system/lib/kernel/commands/navigate.py"
+    )
+    upstream_from_counts = trace_lib._context_yield_steering(
+        motif="raw_body_before_selection",
+        status_counts={"governed_route_available_but_not_used": 2},
+        meta={"existing_route": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE},
+        raw_row={
+            "examples": [],
+            "governance_status_tag_counts": {},
+            "governance_status_action_counts": {
+                "governed_route_available_but_not_used": {"bash_grep": 2}
+            },
+            "governance_status_target_counts": {},
+            "governance_status_path_counts": {
+                "governed_route_available_but_not_used": {
+                    "system/lib/kernel/commands/navigate.py": 2
+                }
+            },
+        },
+    )
+    assert upstream_from_counts["scope_hint"] == "system/lib/kernel/commands/navigate.py"
+    compact_from_upstream = navigate._compact_context_yield_attribution(
+        {
+            "rows": [
+                {
+                    "motif": "raw_body_before_selection",
+                    "active_bytes": 2_000_000,
+                    "actionable_active_bytes": 2_000_000,
+                    "span_count": 24,
+                    "actionable_span_count": 24,
+                    "next_wave_score": "high",
+                    "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                    "steering": upstream_from_counts,
+                    "examples": [],
+                }
+            ]
+        },
+        row_limit=1,
+        example_limit=0,
+    )
+    assert compact_from_upstream["rows"][0]["steering"]["concrete_replacement_route"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action artifact_discovery_inventory --scope system/lib/kernel/commands/navigate.py"
+    )
+
+    context_yield = {
+        "rows": [
+            {
+                "motif": "raw_body_before_selection",
+                "active_bytes": 2_000_000,
+                "actionable_active_bytes": 2_000_000,
+                "span_count": 24,
+                "actionable_span_count": 24,
+                "next_wave_score": "high",
+                "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                "steering": {
+                    "replacement_route": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                    "preferred_quote_route": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action bash_grep --scope <term-or-root>"
+                    ),
+                    "pre_action_card": {
+                        "first_route": (
+                            "./repo-python tools/meta/control/action_quote.py "
+                            "--action bash_grep --scope <term-or-root>"
+                        ),
+                    },
+                },
+                "examples": [
+                    {
+                        "action_kind": "bash_grep",
+                        "governance_status": "governed_route_available_but_not_used",
+                        "target_paths": ["system/lib/kernel/commands/navigate.py"],
+                        "normalized_command": "rg process_bottleneck system/lib/kernel/commands/navigate.py",
+                    }
+                ],
+            }
+        ]
+    }
+
+    compact = navigate._compact_context_yield_attribution(
+        context_yield,
+        row_limit=1,
+        example_limit=0,
+    )
+    row = compact["rows"][0]
+    steering = row["steering"]
+
+    assert row.get("examples") in (None, [])
+    assert steering["scope_hint"] == "system/lib/kernel/commands/navigate.py"
+    assert steering["concrete_preferred_quote_route"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep "
+        "--scope system/lib/kernel/commands/navigate.py"
+    )
+    assert steering["concrete_replacement_route"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action artifact_discovery_inventory --scope system/lib/kernel/commands/navigate.py"
+    )
+
+    next_commands = navigate._process_bottleneck_next_commands(compact)
+
+    assert next_commands[0]["command"] == steering["concrete_preferred_quote_route"]
+    assert next_commands[1]["command"] == steering["concrete_replacement_route"]
+
+
+def test_process_bottleneck_next_commands_promote_concrete_top_repair() -> None:
+    context_yield = {
+        "rows": [
+            {
+                "motif": "raw_body_before_selection",
+                "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                "steering": {
+                    "preferred_quote_route": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action bash_grep --scope <term-or-root>"
+                    ),
+                },
+            }
+        ]
+    }
+    top_bottlenecks = [
+        {
+            "action_kind": "test_or_build_command",
+            "repair_hints": [
+                {
+                    "hint_id": "route_focused_validation_through_action_quote",
+                    "concrete_preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action test_or_build_command --scope system/server/tests/test_agent_execution_trace.py"
+                    ),
+                    "preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action test_or_build_command --scope <path-or-node>"
+                    ),
+                }
+            ],
+        },
+        {
+            "action_kind": "kernel_command",
+            "repair_hints": [
+                {
+                    "hint_id": "replace_process_diagnostic_limiter_with_status_packet",
+                    "preferred_next": "./repo-python kernel.py --process-bottlenecks",
+                }
+            ],
+        },
+        {
+            "action_kind": "bash_cat",
+            "repair_hints": [
+                {
+                    "hint_id": "replace_git_shell_chain_with_state_snapshot",
+                    "preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action git_state_shell_chain"
+                    ),
+                }
+            ],
+        },
+    ]
+
+    next_commands = navigate._process_bottleneck_next_commands(
+        context_yield,
+        top_bottlenecks=top_bottlenecks,
+    )
+
+    assert next_commands[0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action test_or_build_command --scope system/server/tests/test_agent_execution_trace.py"
+    )
+    assert "route_focused_validation_through_action_quote" in next_commands[0]["reason"]
+    assert next_commands[1]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+    )
+    assert next_commands[2]["command"] == (
+        trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE
+    )
+
+
+def test_process_bottleneck_next_commands_also_promote_output_repair() -> None:
+    top_bottlenecks = [
+        {
+            "action_kind": "kernel_command",
+            "repair_hints": [
+                {
+                    "hint_id": "route_session_diagnostics_through_command_surface",
+                    "preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action command_surface_inventory --scope session-diagnostics"
+                    ),
+                }
+            ],
+        }
+    ]
+    top_output_producers = [
+        {
+            "action_kind": "bash_other",
+            "repair_hints": [
+                {
+                    "hint_id": "replace_git_shell_chain_with_state_snapshot",
+                    "preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action git_state_shell_chain"
+                    ),
+                }
+            ],
+        }
+    ]
+
+    next_commands = navigate._process_bottleneck_next_commands(
+        {},
+        top_bottlenecks=top_bottlenecks,
+        top_output_producers=top_output_producers,
+    )
+
+    assert next_commands[0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py "
+        "--action command_surface_inventory --scope session-diagnostics"
+    )
+    assert "top process bottleneck" in next_commands[0]["reason"]
+    assert next_commands[1]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
+    )
+    assert "top process output producer" in next_commands[1]["reason"]
+
+
+def test_process_bottleneck_next_commands_defer_status_probe_repair() -> None:
+    context_yield = {
+        "rows": [
+            {
+                "motif": "raw_body_before_selection",
+                "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                "steering": {
+                    "preferred_quote_route": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action bash_grep --scope <term-or-root>"
+                    ),
+                },
+            }
+        ]
+    }
+    top_bottlenecks = [
+        {
+            "action_kind": "repo_tool_command",
+            "repair_hints": [
+                {
+                    "hint_id": "use_task_ledger_rebuild_check_before_full_rebuild",
+                    "preferred_next": (
+                        "./repo-python tools/meta/factory/task_ledger_apply.py "
+                        "rebuild --status-only --quiet-progress"
+                    ),
+                    "replacement_commands": [
+                        (
+                            "./repo-python tools/meta/factory/task_ledger_apply.py "
+                            "rebuild --status-only --quiet-progress"
+                        ),
+                        (
+                            "./repo-python tools/meta/factory/task_ledger_apply.py "
+                            "drain-deferred-rebuilds --limit 1 --quiet-progress"
+                        ),
+                    ],
+                },
+                {
+                    "hint_id": "append_task_ledger_capture_before_projection_rebuild",
+                    "preferred_next": (
+                        "./repo-python tools/meta/factory/task_ledger_apply.py "
+                        "quick-capture --projection-rebuild-policy off ..."
+                    ),
+                }
+            ],
+        }
+    ]
+
+    next_commands = navigate._process_bottleneck_next_commands(
+        context_yield,
+        top_bottlenecks=top_bottlenecks,
+    )
+
+    assert next_commands[0]["command"] == (
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+    )
+    assert next_commands[1]["command"] == (
+        trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE
+    )
+    assert next_commands[2]["command"] == (
+        "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress"
+    )
+    assert "status/projection guard-rail" in next_commands[2]["reason"]
+    assert all("..." not in row["command"] for row in next_commands)
+
+
+def test_process_bottleneck_next_commands_keep_one_status_probe_after_non_probe() -> None:
+    concrete_next = (
+        "./repo-python tools/meta/control/action_quote.py --action test_or_build_command "
+        "--scope tests/test_task_ledger_events_projection.py"
+    )
+    top_bottlenecks = [
+        {
+            "action_kind": "test_or_build_command",
+            "repair_hints": [
+                {
+                    "hint_id": "route_focused_validation_through_action_quote",
+                    "concrete_preferred_next": concrete_next,
+                    "preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action test_or_build_command --scope <path-or-node>"
+                    ),
+                }
+            ],
+        },
+        {
+            "action_kind": "repo_tool_command",
+            "repair_hints": [
+                {
+                    "hint_id": "use_task_ledger_rebuild_check_before_full_rebuild",
+                    "preferred_next": (
+                        "./repo-python tools/meta/factory/task_ledger_apply.py "
+                        "rebuild --status-only --quiet-progress"
+                    ),
+                    "replacement_commands": [
+                        (
+                            "./repo-python tools/meta/factory/task_ledger_apply.py "
+                            "drain-deferred-rebuilds --limit 1 --quiet-progress"
+                        )
+                    ],
+                }
+            ],
+        },
+    ]
+
+    next_commands = navigate._process_bottleneck_next_commands(
+        {},
+        top_bottlenecks=top_bottlenecks,
+    )
+
+    assert next_commands[0]["command"] == concrete_next
+    assert next_commands[1]["command"] == (
+        "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress"
+    )
+    assert "status/projection guard-rail" in next_commands[1]["reason"]
+    assert all(
+        "drain-deferred-rebuilds" not in row["command"]
+        for row in next_commands
+    )
 
 
 def test_process_bottleneck_live_build_skips_output_previews(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -2522,6 +4392,69 @@ def test_process_bottleneck_live_build_skips_output_previews(monkeypatch: pytest
     assert observed["since_ts"] == "2026-01-01T00:00:00+00:00"
     assert observed["session_limit"] == 6
     assert observed["include_output_previews"] is False
+    assert observed["include_context_yield_attribution"] is True
+    assert observed["aggregate_action_kinds"] is None
+    assert observed["parse_codex_output_payloads"] is True
+    assert observed["build_profile"] == "full"
+
+
+def test_process_bottlenecks_force_uses_fast_ranking_profile(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed = {}
+
+    def fake_process_build(**kwargs: object) -> dict:
+        observed.update(kwargs)
+        return {
+            "summary": {
+                "kind": "agent_execution_trace_summary",
+                "summary": {
+                    "session_count": 4,
+                    "window": {"session_limit": 20},
+                    "codex_output_payload_mode": "raw_payload_fast_metrics",
+                    "build_profile": "bottleneck_rankings",
+                },
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "kernel_command",
+                        "count": 3,
+                        "p95_ms": 15_000,
+                        "example_spans": [],
+                        "repair_hints": [],
+                    }
+                ],
+                "top_output_producers": [],
+                "context_yield_attribution": {
+                    "kind": "context_yield_attribution_packet",
+                    "schema_version": "context_yield_attribution_packet_v0",
+                    "generated_at": "2026-01-01T00:00:00+00:00",
+                    "summary": {
+                        "session_count": 4,
+                        "span_count": 20,
+                        "motif_count": 0,
+                        "computation_status": "skipped",
+                        "skip_reason": (
+                            "caller_requested_bottleneck_rankings_without_context_yield_rows"
+                        ),
+                    },
+                    "rows": [],
+                },
+            }
+        }
+
+    monkeypatch.setattr(navigate, "_process_build", fake_process_build)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(force_live=True)
+
+    assert observed["include_context_yield_attribution"] is False
+    assert observed["aggregate_action_kinds"] is None
+    assert observed["parse_codex_output_payloads"] is False
+    assert observed["build_profile"] == "bottleneck_rankings"
+    assert payload["payload"]["context_yield_attribution"]["rows_returned"] == 0
+    assert payload["payload"]["context_yield_attribution"]["summary"]["computation_status"] == "skipped"
+    assert payload["payload"]["output_economy"]["profile"] == "force_live_authoritative_rankings_fast_metrics"
+    assert payload["payload"]["output_economy"]["row_limits"]["context_yield_rows"] == 0
 
 
 def test_kernel_route_process_bottlenecks_force_compacts_owner_packet() -> None:
@@ -2536,12 +4469,12 @@ def test_kernel_route_process_bottlenecks_force_compacts_owner_packet() -> None:
     assert payload["kind"] == "kernel.navigate.process_bottlenecks"
     assert payload["query"]["force_live"] is True
     output_economy = payload["payload"]["output_economy"]
-    assert output_economy["profile"] == "force_live_authoritative_rankings_compact_context_yield"
+    assert output_economy["profile"] == "force_live_authoritative_rankings_fast_metrics"
     assert output_economy["target_bytes"] == 30_000
     assert output_economy["row_limits"] == {
         "top_bottlenecks": 6,
         "top_output_producers": 5,
-        "context_yield_rows": 4,
+        "context_yield_rows": 0,
         "examples_per_bottleneck": 1,
     }
     assert "raw top-bottleneck example rows" in output_economy["omitted_fields"]
@@ -2552,14 +4485,73 @@ def test_kernel_route_process_bottlenecks_force_compacts_owner_packet() -> None:
         assert len(row.get("example_spans") or []) <= 1
     context_yield = payload["payload"]["context_yield_attribution"]
     assert context_yield["output_profile"] == "compact_context_yield_status"
-    assert context_yield["rows_returned"] <= 4
-    for row in context_yield["rows"]:
-        assert "example_count" in row
-        assert "actionable_active_bytes" in row
-        assert "actionable_span_count" in row
-        assert "omission_receipt" not in row
-        assert row.get("examples") in (None, [])
+    assert context_yield["rows_returned"] == 0
+    assert context_yield["summary"]["computation_status"] == "skipped"
+    assert context_yield["summary"]["skip_reason"] == (
+        "caller_requested_bottleneck_rankings_without_context_yield_rows"
+    )
     assert len(result.stdout.encode()) < 30_000
+
+
+def test_process_bottlenecks_filtered_force_skips_context_yield_attribution(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    observed = {}
+
+    def fake_process_build(**kwargs: object) -> dict:
+        observed.update(kwargs)
+        return {
+            "summary": {
+                "kind": "agent_execution_trace_summary",
+                "summary": {
+                    "session_count": 4,
+                    "window": {"session_limit": 20},
+                    "codex_output_payload_mode": "raw_payload_fast_metrics",
+                },
+                "top_bottlenecks": [
+                    {
+                        "action_kind": "repo_tool_command",
+                        "count": 12,
+                        "p95_ms": 12_000,
+                        "example_spans": [],
+                        "repair_hints": [],
+                    }
+                ],
+                "top_output_producers": [],
+                "context_yield_attribution": {
+                    "kind": "context_yield_attribution_packet",
+                    "schema_version": "context_yield_attribution_packet_v0",
+                    "generated_at": "2026-01-01T00:00:00+00:00",
+                    "summary": {
+                        "session_count": 4,
+                        "span_count": 20,
+                        "motif_count": 0,
+                        "computation_status": "skipped",
+                        "skip_reason": (
+                            "caller_requested_bottleneck_rankings_without_context_yield_rows"
+                        ),
+                    },
+                    "rows": [],
+                },
+            }
+        }
+
+    monkeypatch.setattr(navigate, "_process_build", fake_process_build)
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+
+    payload = navigate._build_process_bottlenecks_packet(
+        force_live=True,
+        action_kinds=["repo_tool_command"],
+    )
+
+    assert observed["include_context_yield_attribution"] is False
+    assert observed["aggregate_action_kinds"] == ["repo_tool_command"]
+    assert observed["parse_codex_output_payloads"] is False
+    assert observed["build_profile"] == "bottleneck_rankings"
+    assert payload["payload"]["context_yield_attribution"]["rows_returned"] == 0
+    assert payload["payload"]["context_yield_attribution"]["summary"]["computation_status"] == "skipped"
+    assert payload["payload"]["output_economy"]["row_limits"]["context_yield_rows"] == 0
+    assert payload["payload"]["summary"]["codex_output_payload_mode"] == "raw_payload_fast_metrics"
 
 
 def test_process_output_producer_compaction_keeps_first_repair_hint() -> None:
@@ -2580,7 +4572,8 @@ def test_process_output_producer_compaction_keeps_first_repair_hint() -> None:
                 },
                 {
                     "hint_id": "replace_raw_search_scan_with_owner_route",
-                    "owner_surface": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                    "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                    "scope_narrowing": "Use rare object terms before inventory.",
                 },
                 {"hint_id": "second_hint_stays_behind_full_row"},
             ],
@@ -2599,11 +4592,248 @@ def test_process_output_producer_compaction_keeps_first_repair_hint() -> None:
             "repair_hints": [
                 {
                     "hint_id": "replace_raw_search_scan_with_owner_route",
-                    "owner_surface": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                    "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                    "scope_narrowing": "Use rare object terms before inventory.",
                 }
             ],
         }
     ]
+
+
+def test_process_summary_compact_repair_hints_prioritize_concrete_owner_routes() -> None:
+    compact = trace_lib._summary_compact_repair_hints(
+        [
+            {
+                "hint_id": "replace_python_module_tail_with_compact_cli_mode",
+                "preferred_next": "Use a compact module mode.",
+            },
+            {
+                "hint_id": "replace_global_raw_diff_with_diff_review_context",
+                "preferred_next": "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --compact",
+            },
+            {
+                "hint_id": "replace_raw_search_scan_with_owner_route",
+                "preferred_next": "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>",
+                "owner_surface": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+            },
+            {
+                "hint_id": "replace_shell_limiter_with_compact_packet",
+                "preferred_next": "Use a compact packet.",
+            },
+        ],
+        limit=2,
+    )
+
+    assert [row["hint_id"] for row in compact] == [
+        "replace_raw_search_scan_with_owner_route",
+        "replace_global_raw_diff_with_diff_review_context",
+    ]
+    assert compact[0]["owner_surface"] == (
+        trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE
+    )
+
+
+def test_process_output_producer_compaction_prefers_output_specific_hints() -> None:
+    rows = [
+        {
+            "action_kind": "bash_other",
+            "span_count": 6,
+            "total_output_bytes": 160_000,
+            "max_output_bytes": 95_000,
+            "p95_output_bytes": 90_000,
+            "repair_hints": [
+                {
+                    "hint_id": "replace_shell_limiter_with_compact_packet",
+                    "preferred_next": "generic compact packet",
+                }
+            ],
+            "output_repair_hints": [
+                {
+                    "hint_id": "replace_shell_limiter_with_compact_packet",
+                    "preferred_next": "generic compact packet",
+                },
+                {
+                    "hint_id": "replace_git_shell_chain_with_state_snapshot",
+                    "preferred_next": (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action git_state_shell_chain"
+                    ),
+                    "owner_surface": (
+                        "./repo-python tools/meta/control/git_state_snapshot.py "
+                        "--scope <path> --path-limit 40 --recent-limit 3 "
+                        "--skip-git-metadata-write-probe --compact"
+                    ),
+                },
+            ],
+        }
+    ]
+
+    compact = navigate._compact_process_output_producers(rows)
+
+    assert compact[0]["repair_hints"] == [
+        {
+            "hint_id": "replace_git_shell_chain_with_state_snapshot",
+            "preferred_next": (
+                "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
+            ),
+            "owner_surface": (
+                "./repo-python tools/meta/control/git_state_snapshot.py "
+                "--scope <path> --path-limit 40 --recent-limit 3 "
+                "--skip-git-metadata-write-probe --compact"
+            ),
+        }
+    ]
+
+
+def test_process_output_producer_compaction_uses_kernel_flag_hints() -> None:
+    rows = [
+        {
+            "action_kind": "kernel_command",
+            "span_count": 86,
+            "total_output_bytes": 1_600_000,
+            "max_output_bytes": 40_160,
+            "p95_output_bytes": 40_159,
+            "repair_hints": [
+                {
+                    "hint_id": "replace_inventory_limiter_with_cluster_or_card_band",
+                    "preferred_next": (
+                        "./repo-python kernel.py --option-surface <kind_id> "
+                        "--band cluster_flag"
+                    ),
+                }
+            ],
+            "by_kernel_flag": [
+                {
+                    "kernel_flag": "--session-diagnostics",
+                    "count": 86,
+                    "p95_ms": 30_140,
+                    "max_ms": 30_490,
+                }
+            ],
+        }
+    ]
+
+    compact = navigate._compact_process_output_producers(rows)
+
+    assert compact[0]["repair_hints"] == [
+        {
+            "hint_id": "route_session_diagnostics_through_command_surface",
+            "preferred_next": (
+                "./repo-python tools/meta/control/action_quote.py "
+                "--action command_surface_inventory --scope session-diagnostics"
+            ),
+            "owner_surface": (
+                "./repo-python kernel.py --session-diagnostics "
+                "--lens all --last 10 --store both --json --diagnostics-summary"
+            ),
+        }
+    ]
+
+
+def test_context_yield_compaction_preserves_raw_discovery_steering_fields() -> None:
+    compact = navigate._compact_context_yield_attribution(
+        {
+            "kind": "context_yield_attribution_packet",
+            "schema_version": "context_yield_attribution_packet_v0",
+            "rows": [
+                {
+                    "motif": "raw_body_before_selection",
+                    "active_bytes": 100_000,
+                    "actionable_active_bytes": 90_000,
+                    "span_count": 4,
+                    "actionable_span_count": 3,
+                    "governance_status_counts": {
+                        "governed_route_available_but_not_used": 3,
+                    },
+                    "steering": {
+                        "replacement_route": trace_lib.ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                        "preferred_quote_route": "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>",
+                        "quote_routes": [
+                            "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>",
+                            "./repo-python tools/meta/control/action_quote.py --action bash_find --scope <term-or-root>",
+                        ],
+                        "scope_narrowing": "Use object-specific terms.",
+                        "applies_to_status": "governed_route_available_but_not_used",
+                        "applies_to_count": 3,
+                    },
+                }
+            ],
+        },
+        row_limit=1,
+        example_limit=0,
+    )
+
+    steering = compact["rows"][0]["steering"]
+    assert steering["scope_narrowing"] == "Use object-specific terms."
+    assert steering["preferred_quote_route"].endswith("--action bash_grep --scope <term-or-root>")
+    assert steering["quote_routes"] == [
+        "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>",
+        "./repo-python tools/meta/control/action_quote.py --action bash_find --scope <term-or-root>",
+    ]
+
+
+def test_context_yield_compaction_keeps_lower_row_routes_without_diagnostics() -> None:
+    rows = [
+        {
+            "motif": "raw_body_before_selection",
+            "active_bytes": 200_000 - index,
+            "actionable_active_bytes": 100_000 - index,
+            "span_count": 5,
+            "actionable_span_count": 4,
+            "steering": {
+                "replacement_route": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    f"--action artifact_discovery_inventory --scope term-{index}"
+                ),
+                "preferred_quote_route": (
+                    f"./repo-python tools/meta/control/action_quote.py --action bash_grep --scope term-{index}"
+                ),
+                "quote_routes": [
+                    f"./repo-python tools/meta/control/action_quote.py --action bash_grep --scope term-{index}",
+                ],
+                "pre_action_card": {
+                    "first_route": f"./repo-python tools/meta/control/action_quote.py --action bash_grep --scope term-{index}",
+                    "scope_rule": "Use rare terms.",
+                },
+                "scope_narrowing": "Use object-specific terms.",
+                "applies_to_status": "governed_route_available_but_not_used",
+                "applies_to_count": 4,
+                "accepted_case_guard": "Scoped low-output discovery remains accepted.",
+                "command_shape_clusters": {
+                    "status": "governed_route_available_but_not_used",
+                    "tag_counts": {"raw_search_scan": 4},
+                    "action_kind_counts": {"bash_grep": 4},
+                },
+            },
+        }
+        for index in range(2)
+    ]
+
+    compact = navigate._compact_context_yield_attribution(
+        {
+            "kind": "context_yield_attribution_packet",
+            "schema_version": "context_yield_attribution_packet_v0",
+            "rows": rows,
+        },
+        row_limit=2,
+        example_limit=0,
+    )
+
+    first_steering = compact["rows"][0]["steering"]
+    second_steering = compact["rows"][1]["steering"]
+    assert "pre_action_card" in first_steering
+    assert "command_shape_clusters" in first_steering
+    assert second_steering["replacement_route"].endswith("term-1")
+    assert second_steering["preferred_quote_route"].endswith("--scope term-1")
+    assert second_steering["scope_narrowing"] == "Use object-specific terms."
+    assert "pre_action_card" not in second_steering
+    assert "accepted_case_guard" not in second_steering
+    assert "command_shape_clusters" not in second_steering
+    assert compact["steering_compaction"] == {
+        "full_steering_rows": 1,
+        "route_only_steering_rows": 1,
+        "route_fields_preserved_on_all_rows": True,
+    }
 
 
 def test_kernel_route_process_trace_rejects_unknown() -> None:

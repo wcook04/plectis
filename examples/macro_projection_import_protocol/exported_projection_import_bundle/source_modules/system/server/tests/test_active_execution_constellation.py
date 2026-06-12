@@ -551,6 +551,25 @@ def test_entry_packet_routes_subphase_liveness_to_active_execution_constellation
     assert "claim_topology" not in payload["active_execution_constellation"]["live_sessions"]
 
 
+def test_entry_packet_routes_same_file_agent_contention_before_frontend_lane() -> None:
+    from system.lib.kernel.commands import comprehension_snapshot
+
+    payload = comprehension_snapshot.build_entry_packet(
+        REPO_ROOT,
+        task=(
+            "The noodle layout fix touches style.css and docs.js, but two Codex agents "
+            "are actively editing the same files and HEAD raced during the prior commit."
+        ),
+        context_budget=12000,
+    )
+
+    assert payload["recognized_situation"] == "active_execution_constellation"
+    assert payload["selected_lane"]["lane_id"] == "active_execution_constellation"
+    assert payload["next_action"]["command"] == "./repo-python kernel.py --pulse"
+    assert payload["active_execution_constellation"]["kind"] == "active_execution_constellation"
+    assert "frontend_capability" not in payload.get("recognized_situation", "")
+
+
 def test_general_entry_packet_defers_active_execution_constellation(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

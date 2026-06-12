@@ -11,26 +11,7 @@ import re
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from system.lib.agent_entrypoint_audit import GENERATED_BLOCK_MARKERS
-from system.lib.agent_bootstrap_projection import (
-    PAPER_MODULE_MARKERS,
-    PAPER_MODULE_PROJECTION_TARGET_HINTS,
-    build_bootstrap_projection_context,
-    load_agent_bootstrap_config,
-    load_canonical_option_surface_routes,
-    render_adapter_markdown,
-    render_live_markdown,
-    render_paper_module_index_markdown,
-    stabilize_instruction_discovery_target,
-)
-from system.lib.routing_projection import (
-    BEGIN_MARKER as ROUTING_BEGIN_MARKER,
-    END_MARKER as ROUTING_END_MARKER,
-    build_routing_payload,
-    render_routing_markdown,
-    routing_status,
-)
-
+from system.lib.command_node_cache import cached_command_node
 
 ENTRYPOINT_PATHS = ["AGENTS.override.md", "AGENTS.md", "CLAUDE.md", "CODEX.md"]
 GENERATED_ENTRYPOINT_GLOBS = [
@@ -38,6 +19,12 @@ GENERATED_ENTRYPOINT_GLOBS = [
     ".codex/skills/**/SKILL.md",
     "codex/doctrine/skills/**/*.md",
 ]
+ENTRYPOINT_HEALTH_CACHE_TTL_SECONDS = 600.0
+ENTRYPOINT_HEALTH_CACHE_INPUT_PATHS: tuple[str, ...] = (
+    *ENTRYPOINT_PATHS,
+    "codex/standards/std_agent_entry_surface.json",
+    "system/lib/entrypoint_health.py",
+)
 DEFAULT_BUDGETS = {
     "AGENTS.override.md": 17600,
     "AGENTS.md": 36045,
@@ -337,6 +324,29 @@ def build_entrypoint_health(
     }
 
 
+def cached_entrypoint_health(
+    repo_root: Path | str,
+    *,
+    include_generated_targets: bool = True,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Return direct entrypoint health through the shared command-node cache."""
+    root = Path(repo_root)
+    payload, status = cached_command_node(
+        root,
+        node_id="entrypoint_health.direct",
+        key={"include_generated_targets": bool(include_generated_targets)},
+        input_paths=ENTRYPOINT_HEALTH_CACHE_INPUT_PATHS,
+        ttl_s=ENTRYPOINT_HEALTH_CACHE_TTL_SECONDS,
+        freshness_policy="ttl_for_entrypoint_files_plus_generated_skill_tree",
+        dynamic_inputs_manifested=not include_generated_targets,
+        builder=lambda: build_entrypoint_health(
+            root,
+            include_generated_targets=include_generated_targets,
+        ),
+    )
+    return dict(payload) if isinstance(payload, Mapping) else {"status": "unavailable"}, status
+
+
 def _check_generated_region_markers(
     repo_root: Path, paths: list[str]
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
@@ -355,6 +365,8 @@ def _check_generated_region_markers(
     seen = 0
     balanced = 0
     empty_body = 0
+    from system.lib.agent_entrypoint_audit import GENERATED_BLOCK_MARKERS
+
     for raw in paths:
         path = repo_root / raw
         if not path.exists():
@@ -412,6 +424,24 @@ def _normalize_managed_region(text: str) -> str:
 def _expected_managed_regions(repo_root: Path) -> tuple[dict[tuple[str, str, str], str], dict[str, Any]]:
     """Render expected managed entry regions without mutating disk."""
     try:
+        from system.lib.agent_bootstrap_projection import (
+            PAPER_MODULE_MARKERS,
+            PAPER_MODULE_PROJECTION_TARGET_HINTS,
+            build_bootstrap_projection_context,
+            load_agent_bootstrap_config,
+            load_canonical_option_surface_routes,
+            render_adapter_markdown,
+            render_live_markdown,
+            render_paper_module_index_markdown,
+            stabilize_instruction_discovery_target,
+        )
+        from system.lib.routing_projection import (
+            BEGIN_MARKER as ROUTING_BEGIN_MARKER,
+            END_MARKER as ROUTING_END_MARKER,
+            build_routing_payload,
+            render_routing_markdown,
+        )
+
         cfg = load_agent_bootstrap_config(repo_root)
         context = build_bootstrap_projection_context(repo_root, config=cfg, refresh_orchestration=False)
         markers = cfg.get("markers") if isinstance(cfg.get("markers"), Mapping) else {}
@@ -591,6 +621,8 @@ def _check_generated_region_content_sync(
 
     status = "matched" if checked > 0 and not findings else "drift"
     try:
+        from system.lib.routing_projection import routing_status
+
         routing_projection_status = routing_status(repo_root)
     except Exception as exc:  # pragma: no cover - defensive diagnostic fallback
         routing_projection_status = {

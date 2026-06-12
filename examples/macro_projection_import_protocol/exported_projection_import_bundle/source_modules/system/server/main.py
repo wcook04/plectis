@@ -1430,6 +1430,15 @@ async def lifespan(app: FastAPI):
     except Exception as exc:  # pragma: no cover - defensive
         logger.warning("code map packet prewarm failed to schedule: %s", exc)
 
+    # Inspector's tree view is visible in recording takes and its cold scan can
+    # exceed the frontend capture budget. Prewarm it in the background; the
+    # route also has a schema-clean warming shell if the first request wins the
+    # race.
+    try:
+        _schedule_codex_tree_prewarm()
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("codex tree prewarm failed to schedule: %s", exc)
+
     # Prewarm the rest of the hot read-only surfaces sequentially on a single
     # daemon thread. Spawning one-thread-per-surface thrashes the GIL against
     # any inbound request that arrives during prewarm (uvicorn runs workers=1
@@ -4066,9 +4075,46 @@ async def websocket_endpoint(websocket: WebSocket):
 
 # --- INSPECTOR ENDPOINTS ---
 
+_CODEX_TREE_CACHE_NAME = "codex_tree"
+_CODEX_TREE_PREWARM_WAIT_S = 0.20
+
+
+def _codex_tree_cache_key() -> str:
+    return str(REPO_ROOT.resolve())
+
+
 def _build_codex_tree_payload() -> Dict[str, Any]:
-    tree, stats = inspector_service.scan_tree()
+    tree, stats = inspector_service.scan_tree(include_compliance=False)
     return {"tree": tree, "stats": stats}
+
+
+def _schedule_codex_tree_prewarm() -> None:
+    swr_prewarm(
+        _CODEX_TREE_CACHE_NAME,
+        _codex_tree_cache_key(),
+        _build_codex_tree_payload,
+    )
+
+
+def _warming_codex_tree_payload(reason: str) -> Dict[str, Any]:
+    return {
+        "tree": {
+            "path": ".",
+            "name": REPO_ROOT.name,
+            "node_type": "dir",
+            "status": "skip",
+            "error_count": 0,
+            "file_type": "",
+            "children": [],
+        },
+        "stats": {
+            "scanned_at": datetime.now(timezone.utc).isoformat(),
+            "total_files": 0,
+            "error_count": 0,
+            "files_by_type": {},
+            "status_counts": {"ok": 0, "warn": 0, "fail": 0, "skip": 0},
+        },
+    }
 
 
 @app.get("/api/codex/tree", response_model=CodexTreeResponse)
@@ -4082,12 +4128,18 @@ def get_codex_tree():
     - Guarantee: Returns {tree, stats} structure conforming to CodexTreeResponse.
     """
     try:
-        return swr_get(
-            "codex_tree",
-            str(REPO_ROOT.resolve()),
-            _build_codex_tree_payload,
-            ttl_s=60.0,
-        )
+        key = _codex_tree_cache_key()
+        cached = swr_peek(_CODEX_TREE_CACHE_NAME, key)
+        if isinstance(cached, dict):
+            return cached
+        _schedule_codex_tree_prewarm()
+        if _CODEX_TREE_PREWARM_WAIT_S > 0:
+            time.sleep(_CODEX_TREE_PREWARM_WAIT_S)
+            cached = swr_peek(_CODEX_TREE_CACHE_NAME, key)
+            if isinstance(cached, dict):
+                return cached
+        logger.info("Inspector tree returned warming shell (prewarm in flight)")
+        return _warming_codex_tree_payload("miss")
     except Exception as e:
         logger.exception("Inspector tree scan failed")
         raise HTTPException(status_code=500, detail=str(e))
@@ -8042,7 +8094,38 @@ def world_model_imagination_detail(id_or_slug: str):
     return imagination_detail(id_or_slug)
 
 
+def _market_read_model_status(payload: Mapping[str, Any] | None) -> str:
+    if not isinstance(payload, Mapping):
+        return ""
+    status = payload.get("projection_status")
+    if isinstance(status, Mapping):
+        return str(status.get("status") or "")
+    return ""
+
+
+def _market_read_model_situation_count(payload: Mapping[str, Any] | None) -> int:
+    if not isinstance(payload, Mapping):
+        return 0
+    queue = payload.get("situation_queue")
+    if not isinstance(queue, Mapping):
+        return 0
+    items = queue.get("items")
+    return len(items) if isinstance(items, list) else 0
+
+
+def _market_read_model_populated(payload: Mapping[str, Any] | None) -> bool:
+    return (
+        isinstance(payload, Mapping)
+        and payload.get("schema_version") == "market_dashboard_read_model_v0"
+        and _market_read_model_status(payload) == "in_sync"
+        and _market_read_model_situation_count(payload) > 0
+    )
+
+
 def _latest_market_dashboard_read_model_payload() -> Dict[str, Any]:
+    direct_payload = _load_latest_market_dashboard_read_model(REPO_ROOT)
+    if _market_read_model_populated(direct_payload):
+        return direct_payload
     try:
         snapshot = world_model_loader.load_market_feeds_snapshot(REPO_ROOT)
         payload = snapshot.get("latest_market_dashboard_read_model")
@@ -8050,7 +8133,7 @@ def _latest_market_dashboard_read_model_payload() -> Dict[str, Any]:
             return payload
     except Exception:
         logger.exception("Market feeds snapshot failed while loading market intelligence read model")
-    return _load_latest_market_dashboard_read_model(REPO_ROOT)
+    return direct_payload
 
 
 @app.get("/api/market/intelligence/latest", response_model=MarketDashboardReadModelResponse)
@@ -10294,6 +10377,26 @@ def demo_take_action_export_video(take_id: str, mode: str = Query("calibration",
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@app.post("/api/demo-takes/{take_id}/actions/archive-originals")
+def demo_take_action_archive_originals(
+    take_id: str,
+    payload: Optional[Dict[str, Any]] = Body(default=None),
+    mode: str = Query("calibration", pattern="^(calibration|production)$"),
+) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    recording_state = _demo_take_recording_state_snapshot()
+    try:
+        return projection.archive_originals_operation(
+            take_id,
+            payload=payload or {},
+            mode=mode,
+            repo_root=REPO_ROOT,
+            active_take=recording_state.get("active_take"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @app.get("/api/demo-takes")
 def demo_takes_list(mode: str = Query("calibration", pattern="^(calibration|production)$"), limit: int = Query(50, ge=1, le=200)) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
@@ -10304,6 +10407,20 @@ def demo_takes_list(mode: str = Query("calibration", pattern="^(calibration|prod
 def demo_take_exports(limit: int = Query(50, ge=1, le=200)) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
     return projection.build_export_index(repo_root=REPO_ROOT, limit=limit)
+
+
+@app.get("/api/demo-takes/exports/publication-gate")
+def demo_take_export_publication_gate(
+    asset_path: Optional[str] = Query(default=None),
+    limit: int = Query(50, ge=1, le=200),
+) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    try:
+        return projection.build_export_publication_gate(repo_root=REPO_ROOT, asset_path=asset_path, limit=limit)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/demo-takes/exports/asset/{relative_path:path}")
@@ -10317,10 +10434,10 @@ def demo_take_export_asset(relative_path: str):
         raise HTTPException(status_code=404, detail="export asset not found")
     return FileResponse(
         target,
-        media_type=None,
+        media_type=projection.export_asset_mime_type(relative_path),
         stat_result=target.stat(),
         content_disposition_type="inline",
-        headers={"Accept-Ranges": "bytes"},
+        headers={"Accept-Ranges": "bytes", "X-Content-Type-Options": "nosniff"},
     )
 
 

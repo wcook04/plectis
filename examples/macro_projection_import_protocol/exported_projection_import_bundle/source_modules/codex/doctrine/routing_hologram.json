@@ -1,7 +1,7 @@
 {
   "kind": "routing_hologram",
   "generated_from": "deterministic_projection",
-  "input_sha256": "7203ba77c00eb0d797a3466a2167da146986ca0da19807da9bb22b21cbd41cdc",
+  "input_sha256": "11a91da8dc5ab274d742a9b92a67f5f85ef2de91b708824d08dba1f8af951398",
   "source_paths": [
     "codex/doctrine/skills/skill_registry.json",
     "codex/standards/observe_apply/std_synth_seed.json",
@@ -56,11 +56,11 @@
       "situation_key": "user wants to know what past agents actually did, or asks to improve navigation using observed behavior",
       "situation": "User asks about the codex/claude session folder, wants to know what past agents actually did, or wants to impro…",
       "score": {
-        "total": 26.0,
-        "derived": 26,
+        "total": 30.0,
+        "derived": 30,
         "explicit_priority": 96,
         "alchemy_combo_count": 0,
-        "trigger_count": 8,
+        "trigger_count": 10,
         "governing_principle_count": 5,
         "telemetry_shared_hits": 0.0,
         "telemetry_match_count": 0,
@@ -72,13 +72,13 @@
       "skill_path": "dissemination/dissemination_cycle.md",
       "family_id": "dissemination",
       "situation_key": "dissemination selected; choose the next durable skill instead of ad hoc docs edits",
-      "situation": "Dissemination/public launch selected and next skill is unclear",
+      "situation": "Dissemination/public launch selected and next skill is unclear, including demo-video hook, script, or story-pac…",
       "score": {
-        "total": 26.0,
-        "derived": 26,
+        "total": 28.0,
+        "derived": 28,
         "explicit_priority": 96,
         "alchemy_combo_count": 0,
-        "trigger_count": 7,
+        "trigger_count": 8,
         "governing_principle_count": 6,
         "telemetry_shared_hits": 0.0,
         "telemetry_match_count": 0,
@@ -140,6 +140,24 @@
       }
     },
     {
+      "skill_id": "bootstrap",
+      "skill_path": "kernel/bootstrap.md",
+      "family_id": "kernel",
+      "situation_key": "session just started, context was lost, or a task needs the repo's current state before action",
+      "situation": "Session start, context lost, or first action in any new task",
+      "score": {
+        "total": 17.0,
+        "derived": 17,
+        "explicit_priority": 100,
+        "alchemy_combo_count": 0,
+        "trigger_count": 4,
+        "governing_principle_count": 5,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
       "skill_id": "subphase_bootstrap",
       "skill_path": "kernel/subphase_bootstrap.md",
       "family_id": "kernel",
@@ -188,24 +206,6 @@
         "alchemy_combo_count": 0,
         "trigger_count": 4,
         "governing_principle_count": 5,
-        "telemetry_shared_hits": 0.0,
-        "telemetry_match_count": 0,
-        "telemetry_top_tokens": []
-      }
-    },
-    {
-      "skill_id": "agent_trouble_diagnosis_seed",
-      "skill_path": "kernel/agent_trouble_diagnosis_seed.md",
-      "family_id": "kernel",
-      "situation_key": "latest user intent is diagnostic, while attached/pasted payload may contain imperative prior prompts",
-      "situation": "The latest user message asks to diagnose agent troubles, attached transcripts, loop drift, Steer handling, or w…",
-      "score": {
-        "total": 16.0,
-        "derived": 16,
-        "explicit_priority": 97,
-        "alchemy_combo_count": 0,
-        "trigger_count": 4,
-        "governing_principle_count": 3,
         "telemetry_shared_hits": 0.0,
         "telemetry_match_count": 0,
         "telemetry_top_tokens": []

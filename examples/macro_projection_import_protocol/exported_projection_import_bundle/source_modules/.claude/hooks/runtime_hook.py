@@ -67,6 +67,7 @@ NAVIGATION_HINT_CARD_PATH = REPO_ROOT / "tools/meta/control/runtime_hook_navigat
 ORCHESTRATION_EVENTS_REL = "tools/meta/control/orchestration_events.jsonl"
 HOOK_SIGNAL_FALLBACK_REL = "tools/meta/control/runtime_hook_signals.jsonl"
 AGENT_OBSERVABILITY_FALLBACK_REL = "tools/meta/control/runtime_hook_agent_observability.jsonl"
+STOP_HOOK_RESPONSE_LOG_REL = "tools/meta/control/runtime_hook_stop_responses.jsonl"
 TYPE_B_CANDIDATE_QUEUE_REL = "state/prompt_ledger/type_b_candidate_queue.jsonl"
 CLOSEOUT_BASELINE_EVENT_KIND = "closeout_session_baseline"
 MAX_CLOSEOUT_BASELINE_SCAN_BYTES = 512_000
@@ -92,6 +93,19 @@ TODO_RESIDUAL_CUE_RE = re.compile(
 )
 ENABLE_WORK_LEDGER_HOOK_RUNTIME_ENV = "AIW_RUNTIME_HOOK_ENABLE_WORK_LEDGER"
 ENABLE_METABOLISM_HOOK_RUNTIME_ENV = "AIW_RUNTIME_HOOK_ENABLE_METABOLISM"
+TASK_LEDGER_REBUILD_STATUS_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py rebuild "
+    "--status-only --quiet-progress"
+)
+TASK_LEDGER_FULL_REBUILD_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --ignore-host-pressure"
+)
+TASK_LEDGER_QUICK_CAPTURE_FAST_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
+    "--created-by <agent_id> --confidence 0.85 --title '<title>' --summary '<summary>' "
+    "--tag <tag> --projection-rebuild-policy off"
+)
+TASK_LEDGER_REBUILD_STATUS_FLAGS = {"--status-only", "--check"}
 
 CLOSEOUT_TERMINAL_CLAIM_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -145,6 +159,104 @@ CLOSEOUT_EXECUTOR_BLOCKER_EVIDENCE_RE = re.compile(
 UNCOMMITTED_CLOSEOUT_HINT_RE = re.compile(
     r"\b(uncommitted|scope[- ]commit|scoped commit|ready for review|ready to commit)\b",
     re.IGNORECASE,
+)
+CLOSEOUT_SCOPED_LOCAL_QUALIFIER_RE = re.compile(
+    r"\b("
+    r"on my side|my side|this turn|this slice|this scoped closeout|"
+    r"scoped closeout|task closeout|owned slice|owned path|owned paths|"
+    r"my owned|local slice|local landing|this run's owned|this runs owned"
+    r")\b",
+    re.IGNORECASE,
+)
+CLOSEOUT_HELD_OR_BOUND_EVIDENCE_RE = re.compile(
+    r"\b("
+    r"held closeout|closeout held|held[- ]foreign|foreign dirty|"
+    r"publication blocked|publication held|push blocked|push held|"
+    r"blocked|blocker|uncommitted|not committed|validated[- ]and[- ]captured|"
+    r"captured|bound and cited|bound residual|bound residuals|"
+    r"residuals? (?:are )?(?:bound|captured|cited)|cap_[a-z0-9_]+|"
+    r"scoped commit|head[- ]cas|cas churn|not mine|concurrent lane|"
+    r"pre[- ]existing|active claim|owner[- ]finalizer"
+    r")\b",
+    re.IGNORECASE,
+)
+BOUNDED_CLOSEOUT_EVIDENCE_RE = re.compile(
+    r"\b(?:cap_[a-z0-9_]+|wie_[0-9a-z_]+|new_commit|commit:?\s*`?[0-9a-f]{7,40}|"
+    r"committed locally|scoped commit|scoped_commit\.py|validated|validation|"
+    r"tests? pass(?:ed)?|verified|captured)\b",
+    re.IGNORECASE,
+)
+BOUNDED_CLOSEOUT_SCOPE_RE = re.compile(
+    r"\b(?:this slice|this turn|owned paths?|owned slice|scoped|local|patch|"
+    r"files?|builder|dashboard|report|what i built|what changed)\b",
+    re.IGNORECASE,
+)
+LOCAL_CLOSEOUT_TERMINAL_PHRASES = {
+    "closeout complete",
+    "closeout is complete",
+    "closeout ready",
+    "closeout is ready",
+    "closeout settled",
+    "closeout is settled",
+}
+# Closeout terminal-claim tokens classified by whether they may be cleared as a
+# SCOPED held closeout. The two callers pass different vocabularies -- the hard
+# block path passes egress phrases (e.g. "committed and pushed"); the advisory
+# context path passes hook claim_ids (e.g. "committed_and_pushed") -- so each
+# class lists BOTH. Global-cleanliness assertions claim whole-tree state and are
+# NEVER scoped-clearable on a dirty tree. Owned-landing assertions ("my slice
+# committed/pushed") MAY be scoped-held on the same evidence bar as the
+# closeout-local family PLUS a concrete landing receipt, so a true bounded
+# closeout no longer needs a hand-written proof paragraph to clear the gate.
+GLOBAL_CLEAN_NEVER_SCOPED_TOKENS = {
+    "working tree clean",
+    "working tree is clean",
+    "worktree clean",
+    "worktree is clean",
+    "repo clean",
+    "repo is clean",
+    "repository clean",
+    "repository is clean",
+    "working_tree_clean",
+}
+OWNED_LANDING_SCOPED_TOKENS = {
+    "clean and pushed",
+    "clean-and-pushed",
+    "committed and pushed",
+    "commit pushed",
+    "pushed to origin",
+    "pushed to remote",
+    "published to origin",
+    "published to remote",
+    "committed_and_pushed",
+    "clean_and_pushed",
+    "pushed_to_remote",
+    "remote_ref_verified",
+}
+CLOSEOUT_LOCAL_SCOPED_TOKENS = set(LOCAL_CLOSEOUT_TERMINAL_PHRASES) | {"closeout_complete"}
+CLOSEOUT_SCOPED_CLEAN_TERMINAL_IDS = {"working_tree_clean"}
+CLOSEOUT_SCOPED_CLEAN_GLOBAL_CUE_RE = re.compile(
+    r"\b("
+    r"repo|repository|whole tree|entire tree|whole worktree|entire worktree|"
+    r"whole working tree|entire working tree|repo-wide|repository-wide|"
+    r"global|everything|all files|all paths|clean-and-pushed|"
+    r"clean and pushed|pushed|published|origin|remote"
+    r")\b",
+    re.IGNORECASE,
+)
+CLOSEOUT_SCOPED_CLEAN_SCOPE_CUE_RE = re.compile(
+    r"\b("
+    r"owned paths?|owned slice|scoped paths?|this path|this file|path[- ]scoped|"
+    r"file[- ]scoped|path status|owned path status|git status --short|"
+    r"status for|status on|clean for|clean on"
+    r")\b",
+    re.IGNORECASE,
+)
+CLOSEOUT_SCOPED_CLEAN_PATH_TOKEN_RE = re.compile(
+    r"(`[^`\n]{1,200}`|"
+    r"(?<![\w./-])(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+(?:\.[A-Za-z0-9]{1,16})?|"
+    r"(?<![\w.-])[A-Za-z0-9_.-]+\."
+    r"(?:py|js|mjs|ts|tsx|jsx|md|json|html|css|swift|sh|toml|ya?ml|txt)\b)"
 )
 REPO_SUBSTRATE_PATH_HINT_RE = re.compile(
     r"(?<![\w./])("
@@ -222,13 +334,94 @@ BASH_VERB_TOOL_SUGGESTIONS = {
     "awk": "Use `Read` + parse the structured payload in your tool call; for kernel output use the JSON shape directly.",
     "echo": "Output text directly in your message; use `Write` (Claude tool) for file content.",
 }
+BROAD_DISCOVERY_ROOTS = {
+    ".",
+    "./",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CODEX.md",
+    ".claude",
+    "codex",
+    "docs",
+    "formal_math",
+    "microcosm-substrate",
+    "obsidian",
+    "sites",
+    "state",
+    "system",
+    "tools",
+}
+GENERATED_PROJECTION_SEARCH_ROOTS = {
+    "codex/hologram",
+    "state",
+}
+GENERATED_PROJECTION_PARENT_ROOTS = {
+    "codex",
+}
+SEARCH_INVENTORY_SCOPE_FLAGS_TAKING_VALUE = {
+    "-A",
+    "-B",
+    "-C",
+    "-m",
+    "-t",
+    "--after-context",
+    "--before-context",
+    "--context",
+    "--glob",
+    "--max-count",
+    "--max-depth",
+    "--type",
+}
+FIND_SCOPE_PATTERN_FLAGS = {"-name", "-iname", "-path", "-ipath"}
+FIND_SCOPE_FLAGS_TAKING_VALUE = {
+    "-maxdepth",
+    "-mindepth",
+    "-type",
+    "-size",
+    "-mtime",
+    "-newer",
+}
+SEARCH_INVENTORY_COMMON_SCOPE_TERMS = {
+    "",
+    ".",
+    "/",
+    "./",
+    "and",
+    "body",
+    "bodies",
+    "codex",
+    "data",
+    "doc",
+    "docs",
+    "file",
+    "files",
+    "find",
+    "grep",
+    "json",
+    "lib",
+    "log",
+    "logs",
+    "md",
+    "meta",
+    "path",
+    "py",
+    "rg",
+    "schema",
+    "search",
+    "state",
+    "system",
+    "test",
+    "tests",
+    "tool",
+    "tools",
+}
 # Tokens whose presence in a shell segment marks that segment as a kernel/repo
 # command invocation. Used to detect post-pipe filter use of fallthrough verbs
 # (e.g. `kernel.py --pulse | head -100`) so the hint can specifically point at
 # the kernel command's own compact / full / structured-payload modes instead of
 # emitting the generic verb suggestion.
 KERNEL_COMMAND_TOKEN_HINTS = ("kernel.py", "repo-python")
-SHELL_COMMAND_BOUNDARIES = {";", "&", "&&", "||", "|", "|&"}
+SHELL_COMMAND_BOUNDARIES = {";", "&", "&&", "||", "|", "|&", "\n"}
 SHELL_TRANSPARENT_PREFIXES = {"command", "builtin", "time", "noglob"}
 SHELL_SEGMENT_PREFIXES = {"cd", "pushd", "popd", "set", "export", "ulimit"}
 REPO_PYTHON_COMMAND_WORDS = {"repo-python", "python", "python3", "python3.11", "kernel.py"}
@@ -264,6 +457,46 @@ HIGH_VOLUME_READ_PREFIXES = {
         "before opening individual view JSON."
     ),
 }
+GENERIC_HIGH_VOLUME_READ_BYTES = 64 * 1024
+TASK_OUTPUT_PATH_MARKERS = (
+    "/private/tmp/",
+    "/tmp/",
+    "private/tmp/",
+    "tmp/",
+)
+TASK_OUTPUT_NAME_MARKERS = (
+    "/tasks/",
+    "task-output",
+    "task_output",
+    "tool-result",
+    "tool_result",
+)
+TASK_OUTPUT_POLLING_WORDS = {
+    "awk",
+    "cat",
+    "grep",
+    "head",
+    "python",
+    "python3",
+    "python3.11",
+    "rg",
+    "sed",
+    "tail",
+    "wc",
+}
+PROCESS_SUMMARY_ROUTE = "./repo-python kernel.py --process-summary <explicit_session_id|claude:latest|codex:latest>"
+INLINE_PYTHON_DATA_PROBE_MARKERS = (
+    ".read_bytes(",
+    ".read_text(",
+    "glob(",
+    "json.load(",
+    "json.loads(",
+    "open(",
+    "os.listdir(",
+    "pathlib.path(",
+    "readlines(",
+    "yaml.safe_load(",
+)
 HIGH_VOLUME_READ_FILES = {
     "state/task_ledger/ledger.json": (
         "The full Task Ledger ledger is high-cardinality private state. Use "
@@ -514,6 +747,90 @@ def _read_json_file_safe(path: Path) -> Dict[str, Any]:
 
 def _string(value: Any) -> str:
     return str(value).strip() if value is not None else ""
+
+
+def _stable_json_digest(value: Any) -> str:
+    try:
+        encoded = json.dumps(
+            value,
+            sort_keys=True,
+            ensure_ascii=False,
+            default=str,
+        ).encode("utf-8")
+    except Exception:
+        encoded = str(value).encode("utf-8", errors="replace")
+    return hashlib.sha256(encoded).hexdigest()[:32]
+
+
+def _build_stop_hook_response_log_row(
+    payload: Dict[str, Any],
+    response: Dict[str, Any],
+    *,
+    branch: str,
+    exit_code: int,
+) -> Dict[str, Any]:
+    """Build the append-only row used to refine Stop-hook behavior later."""
+    last_msg = _string(payload.get("last_assistant_message"))
+    row: Dict[str, Any] = {
+        "schema_version": "runtime_hook_stop_response_v0",
+        "ts": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "source": "claude_hook",
+        "kind": "stop_hook_response",
+        "session_id": _string(payload.get("session_id")) or None,
+        "transcript_path": _string(payload.get("transcript_path")) or None,
+        "cwd": _string(payload.get("cwd")) or None,
+        "stop_hook_active": bool(payload.get("stop_hook_active")),
+        "branch": branch,
+        "exit_code": exit_code,
+        "response_digest": _stable_json_digest(response),
+        "response": _compact_hook_value(response),
+    }
+    if last_msg:
+        row["last_assistant_message_digest"] = _stable_json_digest(last_msg)
+        row["last_assistant_message_preview"] = _compact_hook_value(last_msg)
+    return row
+
+
+def _record_stop_hook_response_safe(
+    payload: Dict[str, Any],
+    response: Dict[str, Any],
+    *,
+    branch: str,
+    exit_code: int,
+) -> None:
+    """Append the actual Stop hook response object without affecting hook flow."""
+    try:
+        log_path = REPO_ROOT / STOP_HOOK_RESPONSE_LOG_REL
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        row = _build_stop_hook_response_log_row(
+            payload,
+            response,
+            branch=branch,
+            exit_code=exit_code,
+        )
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+    except Exception:
+        return
+
+
+def _print_stop_hook_response(
+    payload: Dict[str, Any],
+    response: Dict[str, Any],
+    *,
+    branch: str,
+    exit_code: int,
+) -> None:
+    _record_stop_hook_response_safe(
+        payload,
+        response,
+        branch=branch,
+        exit_code=exit_code,
+    )
+    try:
+        print(json.dumps(response, ensure_ascii=False))
+    except Exception:
+        pass
 
 
 def _stamp_active_session_safe(action: str, payload: Dict[str, Any]) -> None:
@@ -957,6 +1274,9 @@ def _type_b_closeout_context(payload: Dict[str, Any]) -> str:
     row = _recent_type_b_candidate_for_session(session_id)
     if not row:
         return ""
+    last_msg = _string(payload.get("last_assistant_message"))
+    if _message_reports_bounded_closeout_evidence(last_msg):
+        return ""
     probe = row.get("closeout_probe") if isinstance(row.get("closeout_probe"), dict) else {}
     fields = probe.get("expected_packet_fields") if isinstance(probe.get("expected_packet_fields"), list) else []
     field_text = ", ".join(str(item) for item in fields[:7] if str(item).strip())
@@ -1178,8 +1498,9 @@ def _seed_substrate_edit_counterinject(payload: Dict[str, Any]) -> str:
 
 def _shell_tokens(command: str) -> List[str]:
     try:
-        lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|")
+        lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|\n")
         lexer.whitespace_split = True
+        lexer.whitespace = " \t\r"
         lexer.commenters = ""
         return list(lexer)
     except Exception:
@@ -1376,6 +1697,134 @@ def _bash_command_efficiency_counterinject(payload: Dict[str, Any]) -> str:
     )
 
 
+def _input_value_is_present(value: Any) -> bool:
+    return value not in (None, "", 0)
+
+
+def _read_tool_input_is_bounded(tool_input: Mapping[str, Any]) -> bool:
+    return any(_input_value_is_present(tool_input.get(key)) for key in ("offset", "limit"))
+
+
+def _looks_like_task_output_path(value: str) -> bool:
+    pathish = value.strip().strip("'\"")
+    if not pathish:
+        return False
+    normalized = pathish.replace("\\", "/").lower()
+    if not any(marker in normalized for marker in TASK_OUTPUT_PATH_MARKERS):
+        return False
+    if "/tasks/" in normalized and normalized.endswith(".output"):
+        return True
+    return any(marker in normalized for marker in TASK_OUTPUT_NAME_MARKERS)
+
+
+def _bash_mentions_task_output_polling(command: str) -> bool:
+    if not _looks_like_task_output_path(command):
+        return False
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        tokens = command.split()
+    normalized_tokens = {
+        _normalise_shell_command_word(token).strip()
+        for token in tokens
+        if token.strip()
+    }
+    return bool(normalized_tokens & TASK_OUTPUT_POLLING_WORDS)
+
+
+def _task_output_process_summary_counterinject(payload: Dict[str, Any]) -> str:
+    tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
+    tool_input = payload.get("tool_input") or payload.get("input") or {}
+    if not isinstance(tool_input, dict):
+        return ""
+
+    if tool_name == "Read":
+        raw_path = str(tool_input.get("file_path") or tool_input.get("path") or "").strip()
+        if not raw_path or _read_tool_input_is_bounded(tool_input):
+            return ""
+        if not _looks_like_task_output_path(raw_path):
+            return ""
+        return (
+            "## Task/tool output carryover hint\n"
+            f"`{raw_path}` looks like a temporary task-output or tool-result artifact. "
+            "Process telemetry ranks raw rereads of these files as a high context-yield "
+            "waste pattern.\n\n"
+            f"Use `{PROCESS_SUMMARY_ROUTE}` first. Reopen the raw artifact only when the "
+            "process-summary packet selected this exact body as non-recomputable evidence."
+        )
+
+    if tool_name != "Bash":
+        return ""
+    command = str(tool_input.get("command") or "").strip()
+    if not command or not _bash_mentions_task_output_polling(command):
+        return ""
+    return (
+        "## Task/tool output carryover hint\n"
+        "The pending Bash command appears to poll or parse a temporary task-output/tool-result "
+        "artifact. Process telemetry ranks this as `tool_result_carryover`: it spends context "
+        "on raw command bodies when metadata is usually enough.\n\n"
+        f"Use `{PROCESS_SUMMARY_ROUTE}` first. Continue with the raw temp artifact only when "
+        "you need the unrecoverable stdout/stderr body for the next action."
+    )
+
+
+def _segment_inline_python_code(words: List[str]) -> str:
+    if not words:
+        return ""
+    first = _normalise_shell_command_word(words[0])
+    if first not in {"python", "python3", "python3.11"}:
+        return ""
+    if "-c" not in words:
+        return ""
+    try:
+        code_index = words.index("-c") + 1
+    except ValueError:
+        return ""
+    if code_index >= len(words):
+        return ""
+    return str(words[code_index] or "")
+
+
+def _bash_mentions_inline_python_data_probe(command: str) -> bool:
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return False
+    for segment in _split_command_segments(tokens):
+        _env_assignments, words = _strip_segment_wrappers(segment)
+        code = _segment_inline_python_code(words)
+        if not code:
+            continue
+        normalized_code = code.lower()
+        if any(marker in normalized_code for marker in INLINE_PYTHON_DATA_PROBE_MARKERS):
+            return True
+    return False
+
+
+def _inline_python_data_probe_counterinject(payload: Dict[str, Any]) -> str:
+    tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
+    if tool_name != "Bash":
+        return ""
+    tool_input = payload.get("tool_input") or payload.get("input") or {}
+    if not isinstance(tool_input, dict):
+        return ""
+    command = str(tool_input.get("command") or "").strip()
+    if not command or not _bash_mentions_inline_python_data_probe(command):
+        return ""
+    return (
+        "## Inline Python data-probe hint\n"
+        "The pending Bash command uses `python -c` / `python3 -c` to read or reshape local "
+        "data. Process telemetry ranks that shape under `bash_other` output waste: it often "
+        "pulls raw JSON/projection bodies into context before an owner surface has selected "
+        "the row.\n\n"
+        "Use `./repo-python tools/meta/control/action_quote.py --action bash_other --scope "
+        "<path-or-owner>`, `./repo-python tools/meta/control/action_quote.py --action "
+        "command_surface_inventory --scope <surface>`, or `./repo-python kernel.py "
+        "--command-profile <owner-surface>` first. Continue with inline Python only for a "
+        "small, selected, one-off calculation."
+    )
+
+
 def _high_volume_read_counterinject(payload: Dict[str, Any]) -> str:
     tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
     if tool_name != "Read":
@@ -1392,17 +1841,33 @@ def _high_volume_read_counterinject(payload: Dict[str, Any]) -> str:
     except Exception:
         rel_path = raw_path
     rel_path = rel_path.lstrip("./")
+    read_is_bounded = _read_tool_input_is_bounded(tool_input)
     message = HIGH_VOLUME_READ_FILES.get(rel_path)
     if message is None:
         for prefix, hint in HIGH_VOLUME_READ_PREFIXES.items():
             if rel_path.startswith(prefix):
                 message = hint
                 break
+    if message is None and not read_is_bounded:
+        candidate = path if path.is_absolute() else REPO_ROOT / rel_path
+        try:
+            size_bytes = candidate.stat().st_size if candidate.is_file() else 0
+        except OSError:
+            size_bytes = 0
+        if size_bytes >= GENERIC_HIGH_VOLUME_READ_BYTES:
+            size_kib = max(1, round(size_bytes / 1024))
+            message = (
+                f"This file is about {size_kib} KiB. Before opening the whole body, "
+                "use `Read` with `offset` / `limit`, "
+                "`./repo-python tools/meta/control/action_quote.py --action read_file --scope "
+                f"{shlex.quote(rel_path)}`, or `./repo-python kernel.py --compile "
+                f"{shlex.quote(rel_path)}` when a structured file card is enough."
+            )
     if not message:
         return ""
     return (
-        "## High-volume projection read hint\n"
-        f"`{rel_path}` is a high-volume projection surface. {message}\n\n"
+        "## High-volume read hint\n"
+        f"`{rel_path}` is a high-volume read target. {message}\n\n"
         "Continue only if a control packet already selected this exact file as evidence."
     )
 
@@ -1423,6 +1888,140 @@ def _command_mentions_existing_path(command: str) -> bool:
         if candidate.exists():
             return True
     return False
+
+
+def _command_mentions_selected_discovery_path(command: str) -> bool:
+    """Return True when a search command names a selected concrete target path."""
+    repo_root = REPO_ROOT.resolve()
+    for token in _shell_tokens(command):
+        stripped = token.strip("'\"")
+        if not stripped or stripped.startswith("-"):
+            continue
+        path = Path(stripped)
+        candidate = (REPO_ROOT / path).resolve() if not path.is_absolute() else path.resolve()
+        try:
+            rel_path = candidate.relative_to(repo_root)
+        except ValueError:
+            continue
+        rel_text = str(rel_path)
+        if rel_text in {"", "."}:
+            rel_text = "."
+        if rel_text in BROAD_DISCOVERY_ROOTS:
+            continue
+        if candidate.is_file():
+            return True
+        if candidate.is_dir() and "/" in rel_text:
+            return True
+    return False
+
+
+def _command_mentions_generated_projection_search(command: str) -> bool:
+    """Return True for broad search shapes likely to dump generated projections."""
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return False
+    mentions_json_glob = False
+    mentions_parent_root = False
+    for token in tokens:
+        stripped = token.strip("'\"")
+        if not stripped or stripped.startswith("-"):
+            continue
+        if ".json" in stripped or stripped in {"*.json", "**/*.json"}:
+            mentions_json_glob = True
+        rel_text = stripped.lstrip("./")
+        if rel_text in GENERATED_PROJECTION_PARENT_ROOTS:
+            mentions_parent_root = True
+        for root in GENERATED_PROJECTION_SEARCH_ROOTS:
+            if rel_text == root or rel_text.startswith(f"{root}/"):
+                return True
+    return mentions_parent_root and mentions_json_glob
+
+
+def _search_inventory_scope_terms(command: str) -> List[str]:
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return []
+
+    candidates: List[str] = []
+
+    def add_candidate(raw: str) -> None:
+        for part in re.split(r"[|,\s]+", raw):
+            cleaned = part.strip().strip("'\"`(){}[];,")
+            cleaned = cleaned.strip("*?!^$").strip()
+            cleaned = cleaned.replace("\\/", "/")
+            if not cleaned or cleaned.startswith("-"):
+                continue
+            if cleaned.startswith("*.") or cleaned.startswith("."):
+                continue
+            lowered = cleaned.lower().lstrip("./")
+            if lowered in SEARCH_INVENTORY_COMMON_SCOPE_TERMS:
+                continue
+            if lowered in BROAD_DISCOVERY_ROOTS:
+                continue
+            if len(cleaned) < 3:
+                continue
+            if "/" in cleaned and Path(cleaned).suffix:
+                continue
+            if cleaned not in candidates:
+                candidates.append(cleaned)
+
+    for segment in _split_command_segments(tokens):
+        _env_assignments, words = _strip_segment_wrappers(segment)
+        if not words:
+            continue
+        verb = _normalise_shell_command_word(words[0])
+        if verb not in {"grep", "rg", "find"}:
+            continue
+        i = 1
+        while i < len(words):
+            token = words[i]
+            if token in SHELL_COMMAND_BOUNDARIES:
+                break
+            if token in {">", ">>", "2>", "2>>"} or re.match(r"^\d*>>?", token):
+                break
+            if token.startswith("-"):
+                if verb == "find" and token in FIND_SCOPE_PATTERN_FLAGS and i + 1 < len(words):
+                    add_candidate(words[i + 1])
+                    i += 2
+                    continue
+                if token in SEARCH_INVENTORY_SCOPE_FLAGS_TAKING_VALUE or (
+                    verb == "find" and token in FIND_SCOPE_FLAGS_TAKING_VALUE
+                ):
+                    i += 2
+                    continue
+                i += 1
+                continue
+            if token.startswith(">") or token in {"head", "tail", "xargs"}:
+                break
+            add_candidate(token)
+            i += 1
+        if candidates:
+            break
+    return candidates[:3]
+
+
+def _search_inventory_action_for_verb(verb: str) -> str:
+    if verb == "find":
+        return "bash_find"
+    if verb in {"grep", "rg"}:
+        return "bash_grep"
+    return "artifact_discovery_inventory"
+
+
+def _search_inventory_quote_command(scopes: List[str], *, verb: str = "") -> str:
+    action = _search_inventory_action_for_verb(verb)
+    base = f"./repo-python tools/meta/control/action_quote.py --action {action}"
+    if not scopes:
+        return f"{base} --scope <term-or-root>"
+    scope_args = " ".join(f"--scope {shlex.quote(scope)}" for scope in scopes)
+    return f"{base} {scope_args}"
+
+
+def _search_inventory_kernel_command(scopes: List[str]) -> str:
+    scope = shlex.quote(scopes[0]) if scopes else "<term-or-root>"
+    return f"./repo-python kernel.py --artifact-discovery-inventory {scope}"
 
 
 def _tool_input_mentions_existing_path(tool_input: Dict[str, Any]) -> bool:
@@ -1474,6 +2073,15 @@ def _typed_discovery_first_contact_counterinject(payload: Dict[str, Any]) -> str
 # assignments and the scoped_commit.py / ./checkpoint actuators are the
 # allowed paths; the explicit operator override is `AIW_ALLOW_RAW_GIT_COMMIT=1`.
 BANNED_RAW_GIT_SUBCOMMANDS = ("add", "commit")
+READ_ONLY_GIT_STATE_SUBCOMMANDS = {
+    "branch",
+    "diff",
+    "log",
+    "rev-parse",
+    "show",
+    "status",
+}
+READ_ONLY_GIT_STATE_PATH_SUBCOMMANDS = {"diff", "status"}
 # Sanctioned-actuator command-start tokens. A segment whose first non-env,
 # non-wrapper token starts with one of these is allowed regardless of
 # subsequent git-shaped tokens (the actuator itself is responsible for
@@ -1626,6 +2234,36 @@ def _segment_has_explicit_override(env_assignments: List[str]) -> bool:
     return False
 
 
+def _git_state_scope_candidates(subcommand: str, args: List[str]) -> List[str]:
+    if subcommand not in READ_ONLY_GIT_STATE_PATH_SUBCOMMANDS:
+        return []
+    candidates: List[str] = []
+    after_separator = False
+    for arg in args:
+        if arg == "--":
+            after_separator = True
+            continue
+        if arg.startswith("-"):
+            continue
+        if after_separator or "/" in arg or "." in arg:
+            candidates.append(arg)
+    deduped: List[str] = []
+    for candidate in candidates:
+        if candidate not in deduped:
+            deduped.append(candidate)
+    return deduped[:3]
+
+
+def _git_state_snapshot_command(scopes: List[str] | None = None) -> str:
+    scope_args = " ".join(f"--scope {shlex.quote(scope)}" for scope in (scopes or []))
+    scope_prefix = f"{scope_args} " if scope_args else ""
+    return (
+        "./repo-python tools/meta/control/git_state_snapshot.py "
+        f"{scope_prefix}--path-limit 40 --recent-limit 3 "
+        "--skip-git-metadata-write-probe --compact"
+    )
+
+
 def _raw_shared_index_git_guard(payload: Dict[str, Any]) -> str:
     """Hard-block raw shared-index git invocations from agent sessions.
 
@@ -1714,6 +2352,174 @@ def _raw_shared_index_git_guard(payload: Dict[str, Any]) -> str:
     return ""
 
 
+def _git_state_shell_chain_counterinject(payload: Dict[str, Any]) -> str:
+    tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
+    if tool_name != "Bash":
+        return ""
+    tool_input = payload.get("tool_input") or payload.get("input") or {}
+    if not isinstance(tool_input, dict):
+        return ""
+    command = str(tool_input.get("command") or "").strip()
+    if not command:
+        return ""
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return ""
+
+    matched_subcommands: List[str] = []
+    scoped_paths: List[str] = []
+    for segment in _split_command_segments(tokens):
+        env_assignments, words = _strip_segment_wrappers(segment)
+        if not words:
+            continue
+        if _segment_is_sanctioned_actuator(words):
+            continue
+        if _segment_has_explicit_override(env_assignments):
+            continue
+        first = _normalise_shell_command_word(words[0])
+        if first != "git":
+            continue
+        subcommand = _git_subcommand(words[1:])
+        if subcommand in READ_ONLY_GIT_STATE_SUBCOMMANDS:
+            matched_subcommands.append(subcommand)
+            scoped_paths.extend(
+                candidate
+                for candidate in _git_state_scope_candidates(subcommand, words[2:])
+                if candidate not in scoped_paths
+            )
+
+    if not matched_subcommands:
+        return ""
+
+    unique_subcommands = ", ".join(f"`git {name}`" for name in sorted(set(matched_subcommands)))
+    scoped_snapshot = _git_state_snapshot_command(scoped_paths[:3]) if scoped_paths else ""
+    broad_snapshot = _git_state_snapshot_command()
+    scoped_sentence = (
+        f"For this command's path scope, use `{scoped_snapshot}`. "
+        if scoped_snapshot
+        else ""
+    )
+    return (
+        "## Git state snapshot hint\n"
+        f"The pending Bash command reads git state via {unique_subcommands}. Process telemetry "
+        "classifies repeated git status/log/diff shell chains as a slow command shape.\n\n"
+        "Ask the quote plane first: "
+        "`./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain`. "
+        f"{scoped_sentence}Otherwise use the compact owner surface: "
+        f"`{broad_snapshot}`. For patch review, use "
+        "`./repo-python tools/meta/control/git_state_snapshot.py --diff-review --path-limit 40 "
+        "--recent-limit 3 --skip-git-metadata-write-probe --compact`.\n\n"
+        "Continue if this command is a narrow one-off git proof after the compact snapshot already "
+        "selected the exact ref/path."
+    )
+
+
+def _segment_invokes_task_ledger_full_rebuild(words: List[str]) -> bool:
+    for idx, word in enumerate(words):
+        if _normalise_shell_command_word(word) != "task_ledger_apply.py":
+            continue
+        if idx + 1 >= len(words) or words[idx + 1] != "rebuild":
+            continue
+        rebuild_args = words[idx + 2 :]
+        if any(flag in TASK_LEDGER_REBUILD_STATUS_FLAGS for flag in rebuild_args):
+            return False
+        return True
+    return False
+
+
+def _quick_capture_has_projection_off(args: List[str]) -> bool:
+    for idx, arg in enumerate(args):
+        if arg == "--ignore-host-pressure":
+            return True
+        if arg == "--projection-rebuild-policy=off":
+            return True
+        if arg == "--projection-rebuild-policy" and idx + 1 < len(args):
+            return args[idx + 1] == "off"
+    return False
+
+
+def _segment_invokes_slow_task_ledger_quick_capture(words: List[str]) -> bool:
+    for idx, word in enumerate(words):
+        if _normalise_shell_command_word(word) != "task_ledger_apply.py":
+            continue
+        if idx + 1 >= len(words) or words[idx + 1] != "quick-capture":
+            continue
+        quick_capture_args = words[idx + 2 :]
+        if _quick_capture_has_projection_off(quick_capture_args):
+            return False
+        return True
+    return False
+
+
+def _task_ledger_rebuild_status_counterinject(payload: Dict[str, Any]) -> str:
+    tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
+    if tool_name != "Bash":
+        return ""
+    tool_input = payload.get("tool_input") or payload.get("input") or {}
+    if not isinstance(tool_input, dict):
+        return ""
+    command = str(tool_input.get("command") or "").strip()
+    if not command or "task_ledger_apply.py" not in command or "rebuild" not in command:
+        return ""
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return ""
+
+    for segment in _split_command_segments(tokens):
+        _env_assignments, words = _strip_segment_wrappers(segment)
+        if not words:
+            continue
+        if _segment_invokes_task_ledger_full_rebuild(words):
+            return (
+                "## Task Ledger rebuild status hint\n"
+                "The pending Bash command starts a full Task Ledger projection rebuild. "
+                "Process telemetry ranks first-contact full rebuilds and piped-tail rebuilds "
+                "as a slow `repo_tool_command` shape.\n\n"
+                "Run the cheap owner status route first: "
+                f"`{TASK_LEDGER_REBUILD_STATUS_COMMAND}`.\n\n"
+                "Continue to the full rebuild only when the status check reports medium/high "
+                "rebuild priority, a deferred rebuild is queued, generated card/projection "
+                "visibility is required for closeout, or the operator explicitly requested a "
+                f"projection rebuild. Full route: `{TASK_LEDGER_FULL_REBUILD_COMMAND}`."
+            )
+    return ""
+
+
+def _task_ledger_quick_capture_counterinject(payload: Dict[str, Any]) -> str:
+    tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
+    if tool_name != "Bash":
+        return ""
+    tool_input = payload.get("tool_input") or payload.get("input") or {}
+    if not isinstance(tool_input, dict):
+        return ""
+    command = str(tool_input.get("command") or "").strip()
+    if not command or "task_ledger_apply.py" not in command or "quick-capture" not in command:
+        return ""
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return ""
+
+    for segment in _split_command_segments(tokens):
+        _env_assignments, words = _strip_segment_wrappers(segment)
+        if not words:
+            continue
+        if _segment_invokes_slow_task_ledger_quick_capture(words):
+            return (
+                "## Task Ledger quick-capture fast path\n"
+                "The pending Bash command appends a Task Ledger quick-capture without the "
+                "append-only projection policy. Process telemetry ranks quick-capture plus "
+                "projection rebuild/output limiting as a slow `repo_tool_command` shape.\n\n"
+                "For ordinary residual capture, append authority first with: "
+                f"`{TASK_LEDGER_QUICK_CAPTURE_FAST_COMMAND}`.\n\n"
+                "Run a projection rebuild separately only when card/projection visibility is "
+                f"needed for closeout, after checking `{TASK_LEDGER_REBUILD_STATUS_COMMAND}`."
+            )
+    return ""
+
+
 def _bash_native_fallthrough_counterinject(payload: Dict[str, Any]) -> str:
     tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
     if tool_name != "Bash":
@@ -1736,11 +2542,42 @@ def _bash_native_fallthrough_counterinject(payload: Dict[str, Any]) -> str:
         "`--compile`. If `Grep` / `Glob` are not in the active tool set, Bash `grep` / "
         "`find` remain acceptable narrow fallbacks.",
     )
+    inventory_scopes = _search_inventory_scope_terms(command) if verb in {"grep", "rg", "find"} else []
     route_repair_note = ""
     if verb in {"grep", "rg", "find"} and not _command_mentions_existing_path(command):
         route_message = _navigation_hint_message("anti_pattern_grep_before_kernel")
         if route_message:
             route_repair_note = "\n\n**Route intervention:** " + route_message
+    broad_discovery_note = ""
+    if verb in {"grep", "rg", "find"} and not _command_mentions_selected_discovery_path(command):
+        quote_command = _search_inventory_quote_command(inventory_scopes, verb=verb)
+        kernel_inventory_command = _search_inventory_kernel_command(inventory_scopes)
+        broad_discovery_note = (
+            "\n\n**Broad discovery route:** Before raw recursive search over repo roots, use "
+            f"`{quote_command}` or `{kernel_inventory_command}`. These routes emit path, suffix, size, match-count, and line-preview "
+            "metadata without pulling raw bodies into context."
+        )
+        if verb == "find" and re.search(r"(^|[;&|]\s*)find\s+/", command):
+            broad_discovery_note += (
+                "\n\n**Root find warning:** `find / ... | head` is one of the slow command shapes "
+                "in current process telemetry. Use a rare token or path fragment with "
+                f"`{kernel_inventory_command}` first, "
+                "then open only the selected path."
+            )
+    generated_projection_note = ""
+    if verb in {"grep", "rg", "find"} and _command_mentions_generated_projection_search(command):
+        command_surface_scope = (
+            f"--scope {shlex.quote(inventory_scopes[0])}" if inventory_scopes else "--scope <surface>"
+        )
+        kernel_inventory_command = _search_inventory_kernel_command(inventory_scopes)
+        generated_projection_note = (
+            "\n\n**Generated projection search warning:** This search shape includes generated "
+            "projection roots or broad `codex` JSON globs. Prefer "
+            "`./repo-python tools/meta/control/action_quote.py --action command_surface_inventory "
+            f"{command_surface_scope}` or `{kernel_inventory_command}` first. If raw search is still needed, exclude generated projections "
+            "such as `codex/hologram/**` and broad `state/**` unless a control packet selected "
+            "that exact generated file."
+        )
 
     context_note = ""
     try:
@@ -1760,7 +2597,8 @@ def _bash_native_fallthrough_counterinject(payload: Dict[str, Any]) -> str:
         "## Navigation training-loop hint\n"
         f"The pending Bash command invokes `{verb}` as a shell command. Session diagnostics show "
         f"this verb is a dominant navigation fallthrough in this repo.\n\n"
-        f"**Better move for `{verb}`:** {suggestion}{route_repair_note}{context_note}\n\n"
+        f"**Better move for `{verb}`:** {suggestion}{route_repair_note}{broad_discovery_note}"
+        f"{generated_projection_note}{context_note}\n\n"
         "Other typed kernel surfaces if you need broader navigation: `--info`, `--pulse`, "
         "`--paper-module`, `--docs-route`, `--navigate`, `--locate`, `--compile`. If this is an "
         "exact literal check after the target is already known, continue; this hint is steering, "
@@ -1980,7 +2818,15 @@ def _closeout_git_state_packet() -> dict[str, Any]:
         )
 
         return compact_closeout_git_state_conditions(
-            build_closeout_git_state_conditions(REPO_ROOT, path_limit=5, recent_limit=1)
+            build_closeout_git_state_conditions(
+                REPO_ROOT,
+                path_limit=5,
+                recent_limit=1,
+                # Stop hook opts into the full-tree authority classification so it
+                # can machine-evidence a scoped-held closeout instead of trusting
+                # prose. The hot entry/pulse/statusline consumers leave it off.
+                include_dirty_authority_classification=True,
+            )
         )
     except Exception:
         return {}
@@ -2011,12 +2857,35 @@ def _message_claims_repo_substrate_work(message: str) -> bool:
     )
 
 
+def _message_reports_bounded_closeout_evidence(message: str) -> bool:
+    if not message.strip():
+        return False
+    return bool(
+        (BOUNDED_CLOSEOUT_EVIDENCE_RE.search(message) or _message_reports_local_landing_evidence(message))
+        and BOUNDED_CLOSEOUT_SCOPE_RE.search(message)
+    )
+
+
 def _closeout_git_state_stop_context(payload: Optional[Dict[str, Any]] = None) -> str:
     packet = _closeout_git_state_packet()
     if not packet:
         return ""
     last_msg = _string((payload or {}).get("last_assistant_message"))
     should_surface_closeout = _message_claims_repo_substrate_work(last_msg)
+    terminal_claims = _matched_closeout_terminal_claims(last_msg)
+    terminal_claim_is_global = bool(
+        terminal_claims
+        and not _closeout_terminal_violation_is_scoped_held(
+            last_msg, terminal_claims, packet
+        )
+    )
+    if (
+        not packet.get("closeout_ready")
+        and should_surface_closeout
+        and not terminal_claim_is_global
+        and _message_reports_bounded_closeout_evidence(last_msg)
+    ):
+        return ""
     if not packet.get("closeout_ready") and not should_surface_closeout:
         return ""
     publication = packet.get("publication") if isinstance(packet.get("publication"), dict) else {}
@@ -2063,8 +2932,36 @@ def _matched_closeout_terminal_claims(message: str) -> list[str]:
         prefix = message[max(0, match.start() - 28):match.start()]
         if CLOSEOUT_TERMINAL_NEGATION_RE.search(prefix):
             continue
+        if _closeout_terminal_claim_is_scoped_clean_status(message, match, claim_id):
+            continue
         claims.append(claim_id)
     return claims
+
+
+def _closeout_terminal_claim_is_scoped_clean_status(
+    message: str,
+    match: re.Match[str],
+    claim_id: str,
+) -> bool:
+    """Allow path-local clean evidence without laundering global tree state."""
+    if claim_id not in CLOSEOUT_SCOPED_CLEAN_TERMINAL_IDS:
+        return False
+    segment_start = max(
+        message.rfind(boundary, 0, match.start()) + 1
+        for boundary in (".", "!", "?", "\n", "\r")
+    )
+    segment_end = len(message)
+    for boundary in (".", "!", "?", "\n", "\r"):
+        idx = message.find(boundary, match.end())
+        if idx >= 0:
+            segment_end = min(segment_end, idx)
+    segment = message[segment_start:segment_end]
+    if CLOSEOUT_SCOPED_CLEAN_GLOBAL_CUE_RE.search(segment):
+        return False
+    return bool(
+        CLOSEOUT_SCOPED_CLEAN_SCOPE_CUE_RE.search(segment)
+        or CLOSEOUT_SCOPED_CLEAN_PATH_TOKEN_RE.search(segment)
+    )
 
 
 _OPERATOR_CLOSEOUT_HOLD_PATH = REPO_ROOT / ".claude" / "state" / "operator_closeout_hold.json"
@@ -2143,21 +3040,152 @@ def _closeout_git_state_stop_block_reason(payload: Dict[str, Any]) -> str:
         terminal_violation.get("matched_terminal_claim_phrases", [])
     )
     held_phrases = list(terminal_violation.get("matched_held_state_phrases", []))
+    if _closeout_terminal_violation_is_scoped_held(
+        last_msg,
+        contradicting_claims,
+        packet,
+    ):
+        return ""
     condition = str(packet.get("reason") or "CloseoutConditionsNotReady")
     burst_cmd = _closeout_executor_command("run-burst", "--max-actions", "3", "--json")
     one_cmd = _closeout_executor_command("run-one", "--json")
+    # Render-safe claim families (W7): cite the semantic classes, not the raw
+    # trigger phrases, so the steering message does not parrot text the agent
+    # might echo back into closeout prose.
+    claim_classes = list(terminal_violation.get("matched_terminal_claim_classes", [])) or list(
+        contradicting_claims[:3]
+    )
+    # Typed authority fragment (W7): give a TYPED reason from the full-tree
+    # classification instead of a bare dirty count, so the agent can tell benign
+    # runtime/generated tail from unfinished owned source work.
+    classification = (
+        packet.get("dirty_authority_classification")
+        if isinstance(packet.get("dirty_authority_classification"), dict)
+        else {}
+    )
+    if classification:
+        if classification.get("safe_for_machine_accept"):
+            authority_fragment = (
+                f"Dirty-authority (full-tree): source={classification.get('source_dirty_count')} "
+                f"unclassified={classification.get('unclassified_dirty_count')} "
+                f"benign={classification.get('benign_dirty_count')}; the dirty remainder is "
+                "provably benign runtime/generated tail -- an owned-landing claim with a concrete "
+                "landing receipt (commit sha / cap id) is machine-cleared as scoped-held. "
+            )
+        else:
+            authority_fragment = (
+                f"Dirty-authority (full-tree, exact={str(bool(classification.get('classification_exact'))).lower()}): "
+                f"source={classification.get('source_dirty_count')} "
+                f"unclassified={classification.get('unclassified_dirty_count')} "
+                f"benign={classification.get('benign_dirty_count')}; source/unclassified dirt is present, "
+                "so this is NOT a machine-cleared benign tail -- settle it or name the typed held state. "
+            )
+    else:
+        authority_fragment = ""
     return (
         "Closeout/git-state contradiction: final response claims terminal state "
-        f"{contradicting_claims[:3]}, but closeout_git_state says dirty={packet.get('dirty_total')} "
+        f"{contradicting_claims[:3]} (claim families {claim_classes}), but "
+        f"closeout_git_state says dirty={packet.get('dirty_total')} "
         f"staged={packet.get('staged_total')} ahead={packet.get('ahead')} "
         f"behind={packet.get('behind')} publication={publication.get('status') or 'unknown'} "
-        f"closeout_ready=false reason={condition}. Continue only long enough to settle the "
+        f"closeout_ready=false reason={condition}. "
+        f"{authority_fragment}"
+        "Continue only long enough to settle the "
         "publication/dirty-state lane or state an explicit blocked/held closeout with evidence. "
         f"Held-state phrases elsewhere in the response do not clear asserted terminal claims: {held_phrases[:3]}. "
         f"Run closeout executor actuator: preferred {burst_cmd}; minimum {one_cmd}. "
         f"Recommended lane: {recommended.get('lane') or 'refresh_closeout_git_state'}; "
         f"actuator: {recommended.get('actuator') or './repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions'}."
     )
+
+
+def _closeout_machine_safe_for_accept(closeout_packet: Optional[Dict[str, Any]]) -> bool:
+    """True when the live closeout packet PROVES the dirty remainder is benign.
+
+    Reads the W7 full-tree ``dirty_authority_classification`` (built by
+    ``git_state_snapshot.classify_dirty_authority_paths``). ``safe_for_machine_accept``
+    is set only when the whole tree was scanned (``classification_exact``) and NO
+    ``source_surface``/``unclassified`` dirt remains -- i.e. there is no unfinished
+    owned SOURCE work that a terminal claim could be hiding. It deliberately does
+    NOT depend on owned-vs-foreign session resolution (deferred), because in the
+    pure-benign case there is no risky dirt to attribute.
+    """
+    if not isinstance(closeout_packet, dict):
+        return False
+    classification = closeout_packet.get("dirty_authority_classification")
+    if not isinstance(classification, dict):
+        return False
+    return bool(classification.get("safe_for_machine_accept"))
+
+
+def _closeout_terminal_violation_is_scoped_held(
+    message: str,
+    contradicting_claims: list[Any],
+    closeout_packet: Optional[Dict[str, Any]] = None,
+) -> bool:
+    """Allow a SCOPED owned-slice closeout claim without laundering global clean
+    state.
+
+    Owned-landing claims ("committed and pushed", "pushed to origin") are
+    eligible for scoped-held treatment on the SAME evidence bar as the
+    closeout-local family (scoped qualifier + held/bound evidence), PLUS a
+    concrete landing receipt (commit sha / cap id / scoped_commit). This removes
+    the prior asymmetry where "closeout complete, owned slice, foreign held"
+    cleared the gate but the equally-bounded "committed and pushed, owned slice,
+    foreign held" did not -- forcing a hand-written proof paragraph.
+
+    W7 MACHINE-EVIDENCED path: when the live closeout packet proves (over a
+    full-tree scan) that the ENTIRE dirty remainder is benign runtime/generated/
+    ambient -- no source or unclassified dirt -- an owned-landing claim with a
+    concrete landing receipt clears WITHOUT the hand-written held-evidence
+    paragraph. The machine did the work the prose was standing in for. This is
+    the safe half of the deferred oracle: it fires only when there is NO risky
+    dirt, so it never needs owned-vs-foreign attribution. Source-dirt-present
+    cases still fall through to the W5 prose path (owned/foreign hard acceptance
+    stays behind thread-exact session resolution, still deferred).
+
+    Global-cleanliness assertions ("working tree clean", "repo clean") are NEVER
+    scoped-clearable on a dirty tree: they claim whole-tree state, not an owned
+    slice.
+    """
+    normalized_claims = {
+        str(claim).strip().lower()
+        for claim in contradicting_claims
+        if str(claim).strip()
+    }
+    if not normalized_claims:
+        return False
+    # A global-cleanliness assertion can never be re-scoped to an owned slice --
+    # not by prose, not by the machine oracle.
+    if normalized_claims & GLOBAL_CLEAN_NEVER_SCOPED_TOKENS:
+        return False
+    eligible = OWNED_LANDING_SCOPED_TOKENS | CLOSEOUT_LOCAL_SCOPED_TOKENS
+    if any(claim not in eligible for claim in normalized_claims):
+        return False
+
+    is_owned_landing = bool(normalized_claims & OWNED_LANDING_SCOPED_TOKENS)
+    has_landing_receipt = bool(BOUNDED_CLOSEOUT_EVIDENCE_RE.search(message))
+
+    # W7 machine-evidenced acceptance: provably-benign dirt + owned-landing claim
+    # + concrete landing receipt clears without the prose held-evidence paragraph.
+    if (
+        is_owned_landing
+        and has_landing_receipt
+        and _closeout_machine_safe_for_accept(closeout_packet)
+    ):
+        return True
+
+    # W5 prose-evidenced fallback (retained for source-dirt cases until
+    # thread-exact owned-path resolution exists).
+    if not CLOSEOUT_SCOPED_LOCAL_QUALIFIER_RE.search(message):
+        return False
+    if not CLOSEOUT_HELD_OR_BOUND_EVIDENCE_RE.search(message):
+        return False
+    # Owned-landing claims must additionally cite a concrete landing/bound receipt
+    # so "committed and pushed" cannot clear on qualifier + held prose alone.
+    if is_owned_landing and not has_landing_receipt:
+        return False
+    return True
 
 
 def _resolve_current_session_id() -> Optional[str]:
@@ -2294,8 +3322,10 @@ def _message_reports_held_foreign_closeout(message: str) -> bool:
             r"\b(held[_ ]foreign|foreign[- ]owned|foreign dirt|"
             r"another session'?s (?:work|cluster|dirt|files?|component)|"
             r"outside (?:my|this session'?s|this actor'?s) (?:scope|ownership|owned)|"
+            r"pre[- ]existing (?:session )?dirt|concurrent (?:codex )?actor|"
+            r"dirty files belong to (?:the )?(?:concurrent|other|another)|"
             r"do(?:es)? not own|did not (?:author|touch|modify|write|create)|"
-            r"not (?:my|this session'?s) (?:work|cluster|files?|change)|"
+            r"not (?:my|this session'?s) (?:work|cluster|files?|paths?|change|changes)|"
             r"owned by another (?:session|actor))\b",
             message,
             re.IGNORECASE,
@@ -2320,12 +3350,32 @@ def _message_reports_publication_blocker(message: str) -> bool:
 
 
 def _message_reports_local_landing_evidence(message: str) -> bool:
+    if not message.strip():
+        return False
+    if re.search(
+        r"\b(landed_local_publication_blocked|scoped commit landed|"
+        r"local commit landed|committed locally|scoped_commit\.py|new_commit|commit [0-9a-f]{7,40})\b",
+        message,
+        re.IGNORECASE,
+    ):
+        return True
+    if re.search(
+        r"\b(?:my |this |the )?(?:owned|local|scoped) (?:slice|paths?|patch|landing)"
+        r".{0,80}\blanded\b.{0,40}\b(?:in|at|on)?\s*`?[0-9a-f]{7,40}`?\b",
+        message,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        return True
     return bool(
         re.search(
-            r"\b(landed_local_publication_blocked|scoped commit landed|"
-            r"local commit landed|committed locally|scoped_commit\.py|new_commit|commit [0-9a-f]{7,40})\b",
+            r"\ball\s+\d+\s+owned paths?\s+(?:report\s+)?clean\b",
             message,
             re.IGNORECASE,
+        )
+        and re.search(
+            r"\b(?:HEAD|commit|landed)\b.{0,40}\b[0-9a-f]{7,40}\b",
+            message,
+            re.IGNORECASE | re.DOTALL,
         )
     )
 
@@ -2672,11 +3722,11 @@ def _closeout_executor_null_stop_block_reason(payload: Dict[str, Any]) -> str:
     scheduler_action = _string(action.get("scheduler_action"))
     mission_verdict = plan.get("mission_closeout_verdict") if isinstance(plan.get("mission_closeout_verdict"), dict) else {}
     if (
-        mission_verdict.get("status") == "held_foreign_dirty"
+        mission_verdict.get("status") in {"held_foreign_dirty", "held_publication_foreign_dirty"}
         and mission_verdict.get("machine_classification_trust") is True
         and _message_reports_local_landing_evidence(last_msg)
     ):
-        # Machine-held foreign closeout. The executor resolved this actor's Work Ledger
+        # Machine-held foreign / held-publication-foreign closeout. The executor resolved this actor's Work Ledger
         # path-claim history, fed those prefixes into mission_closeout_verdict, and proved
         # the remaining dirty paths are outside the actor scope. A local landing receipt is
         # still required so a clean actor scope cannot be used as a silent no-op closeout.
@@ -2826,6 +3876,36 @@ def _additional_context(action: str, payload: Dict[str, Any]) -> str:
         if efficiency_block:
             blocks.append(efficiency_block)
         try:
+            git_state_block = _git_state_shell_chain_counterinject(payload)
+        except Exception:
+            git_state_block = ""
+        if git_state_block:
+            blocks.append(git_state_block)
+        try:
+            task_ledger_rebuild_block = _task_ledger_rebuild_status_counterinject(payload)
+        except Exception:
+            task_ledger_rebuild_block = ""
+        if task_ledger_rebuild_block:
+            blocks.append(task_ledger_rebuild_block)
+        try:
+            task_ledger_quick_capture_block = _task_ledger_quick_capture_counterinject(payload)
+        except Exception:
+            task_ledger_quick_capture_block = ""
+        if task_ledger_quick_capture_block:
+            blocks.append(task_ledger_quick_capture_block)
+        try:
+            task_output_block = _task_output_process_summary_counterinject(payload)
+        except Exception:
+            task_output_block = ""
+        if task_output_block:
+            blocks.append(task_output_block)
+        try:
+            inline_python_block = _inline_python_data_probe_counterinject(payload)
+        except Exception:
+            inline_python_block = ""
+        if inline_python_block:
+            blocks.append(inline_python_block)
+        try:
             high_volume_read_block = _high_volume_read_counterinject(payload)
         except Exception:
             high_volume_read_block = ""
@@ -2945,33 +4025,28 @@ def main(argv: List[str]) -> int:
         try:
             closeout_block_reason = _closeout_git_state_stop_block_reason(payload)
             if closeout_block_reason:
-                try:
-                    print(
-                        json.dumps(
-                            {"decision": "block", "reason": closeout_block_reason},
-                            ensure_ascii=False,
-                        )
-                    )
-                except Exception:
-                    pass
+                _print_stop_hook_response(
+                    payload,
+                    {"decision": "block", "reason": closeout_block_reason},
+                    branch="closeout_git_state",
+                    exit_code=stop_signal_exit,
+                )
                 return stop_signal_exit
 
             closeout_null_reason = _closeout_executor_null_stop_block_reason(payload)
             if closeout_null_reason:
-                try:
-                    print(
-                        json.dumps(
-                            {"decision": "block", "reason": closeout_null_reason},
-                            ensure_ascii=False,
-                        )
-                    )
-                except Exception:
-                    pass
+                _print_stop_hook_response(
+                    payload,
+                    {"decision": "block", "reason": closeout_null_reason},
+                    branch="closeout_executor_null_yield",
+                    exit_code=stop_signal_exit,
+                )
                 return stop_signal_exit
 
             from system.lib.egress_compliance import (
                 detect_capture_reflex_tripwire_without_capture,
                 detect_no_op_closeout_without_next_action,
+                detect_owner_blocked_closeout_misclassification,
                 detect_permission_gate_without_blocker,
                 detect_residual_deliverable_without_workitem,
                 detect_stale_dirty_snapshot_commit_blocker,
@@ -3003,15 +4078,12 @@ def main(argv: List[str]) -> int:
                         "if clean/already landed, retire the blocker and proceed "
                         "with scoped landing. If still real, cite the fresh proof."
                     )
-                    try:
-                        print(
-                            json.dumps(
-                                {"decision": "block", "reason": reason},
-                                ensure_ascii=False,
-                            )
-                        )
-                    except Exception:
-                        pass
+                    _print_stop_hook_response(
+                        payload,
+                        {"decision": "block", "reason": reason},
+                        branch="stale_dirty_snapshot_commit_blocker",
+                        exit_code=stop_signal_exit,
+                    )
                     return stop_signal_exit
                 no_op_rows = detect_no_op_closeout_without_next_action(last_msg)
                 no_op_violation = next(
@@ -3034,15 +4106,46 @@ def main(argv: List[str]) -> int:
                         "names like stewardship_checked or next_best_lane_checked do "
                         "not clear the gate by themselves."
                     )
-                    try:
-                        print(
-                            json.dumps(
-                                {"decision": "block", "reason": reason},
-                                ensure_ascii=False,
-                            )
-                        )
-                    except Exception:
-                        pass
+                    _print_stop_hook_response(
+                        payload,
+                        {"decision": "block", "reason": reason},
+                        branch="no_op_closeout",
+                        exit_code=stop_signal_exit,
+                    )
+                    return stop_signal_exit
+                owner_blocked_rows = detect_owner_blocked_closeout_misclassification(
+                    last_msg
+                )
+                owner_blocked_violation = next(
+                    (row for row in owner_blocked_rows if row.get("violation")),
+                    None,
+                )
+                if owner_blocked_violation:
+                    blocker_phrases = list(
+                        owner_blocked_violation.get("matched_blocker_phrases", [])
+                    )[:3]
+                    misleading_phrases = list(
+                        owner_blocked_violation.get("matched_misleading_phrases", [])
+                    )[:3]
+                    reason = (
+                        "Owner-blocked closeout egress check (per "
+                        "std_agent_entry_surface.json::common_sense_helpfulness_floor::"
+                        "closeout_truthfulness and std_work_ledger.json::"
+                        "blocked_primary_ambition_preservation_contract): final response "
+                        f"names active owner-claim/scoped-commit evidence {blocker_phrases} "
+                        f"but lacks typed owner-blocked closeout and disjoint-slice proof, "
+                        f"or uses misleading terminal language {misleading_phrases}. "
+                        "Continue only long enough to land any safe disjoint slice, or prove "
+                        "none is landable, then close as `partial_landed` or "
+                        "`verified_unlanded_owner_blocked` with owner_session_id, held "
+                        "surface, re-entry condition, and residual/projection visibility."
+                    )
+                    _print_stop_hook_response(
+                        payload,
+                        {"decision": "block", "reason": reason},
+                        branch="owner_blocked_closeout_misclassification",
+                        exit_code=stop_signal_exit,
+                    )
                     return stop_signal_exit
                 egress_rows = detect_permission_gate_without_blocker(last_msg)
                 violation_row = next(
@@ -3063,15 +4166,12 @@ def main(argv: List[str]) -> int:
                         "projection ownership / safety-changing validation failure / "
                         "cross-actor surface ownership)."
                     )
-                    try:
-                        print(
-                            json.dumps(
-                                {"decision": "block", "reason": reason},
-                                ensure_ascii=False,
-                            )
-                        )
-                    except Exception:
-                        pass
+                    _print_stop_hook_response(
+                        payload,
+                        {"decision": "block", "reason": reason},
+                        branch="permission_gate_without_blocker",
+                        exit_code=stop_signal_exit,
+                    )
                     return stop_signal_exit
                 capture_reflex_rows = detect_capture_reflex_tripwire_without_capture(
                     last_msg
@@ -3096,15 +4196,12 @@ def main(argv: List[str]) -> int:
                         "retire, or explicitly no-op the finding, then cite the "
                         "cap_id/receipt."
                     )
-                    try:
-                        print(
-                            json.dumps(
-                                {"decision": "block", "reason": reason},
-                                ensure_ascii=False,
-                            )
-                        )
-                    except Exception:
-                        pass
+                    _print_stop_hook_response(
+                        payload,
+                        {"decision": "block", "reason": reason},
+                        branch="capture_reflex_without_binding",
+                        exit_code=stop_signal_exit,
+                    )
                     return stop_signal_exit
                 residual_rows = detect_residual_deliverable_without_workitem(last_msg)
                 residual_violation = next(
@@ -3126,15 +4223,12 @@ def main(argv: List[str]) -> int:
                         "retire, or explicitly no-op the residual, then cite the "
                         "cap_id/receipt."
                     )
-                    try:
-                        print(
-                            json.dumps(
-                                {"decision": "block", "reason": reason},
-                                ensure_ascii=False,
-                            )
-                        )
-                    except Exception:
-                        pass
+                    _print_stop_hook_response(
+                        payload,
+                        {"decision": "block", "reason": reason},
+                        branch="residual_deliverable_without_workitem",
+                        exit_code=stop_signal_exit,
+                    )
                     return stop_signal_exit
         except Exception:
             # Egress check is non-load-bearing; never raise out of the
@@ -3174,22 +4268,48 @@ def main(argv: List[str]) -> int:
     except Exception:
         additional_context = ""
 
+    # Loop protection (Claude Code Stop hook contract). When Claude is already
+    # continuing as a result of a prior Stop hook, the payload carries
+    # stop_hook_active=True. The Stop-event block guards above already honor this
+    # flag (the `not stop_hook_active` gate); the additionalContext egress did
+    # not, so the advisory Stop blocks (Type B closeout probe, closeout/git-state
+    # nudge) re-injected on every re-invoked stop. When the dirty tree is held by
+    # another session's active Work Ledger claim, nothing this actor does clears
+    # it, so that re-injection becomes an infinite continuation loop. The advisory
+    # was already delivered on the first stop, so honor the flag here too and let a
+    # re-invoked stop yield cleanly. Empirically stop_hook_active=True on every
+    # looped stop (tools/meta/control/runtime_hook_stop_responses.jsonl,
+    # branch=additional_context).
+    if action == "stop" and bool(payload.get("stop_hook_active")):
+        additional_context = ""
+
     if additional_context:
         hook_event_name = CANONICAL_HOOK_NAMES.get(action, action)
-        try:
-            print(
-                json.dumps(
-                    {
-                        "hookSpecificOutput": {
-                            "hookEventName": hook_event_name,
-                            "additionalContext": additional_context,
-                        }
-                    },
-                    ensure_ascii=False,
-                )
+        response = {
+            "hookSpecificOutput": {
+                "hookEventName": hook_event_name,
+                "additionalContext": additional_context,
+            }
+        }
+        if action == "stop":
+            _print_stop_hook_response(
+                payload,
+                response,
+                branch="additional_context",
+                exit_code=stop_signal_exit,
             )
+            return stop_signal_exit
+        try:
+            print(json.dumps(response, ensure_ascii=False))
         except Exception:
             pass
+    elif action == "stop":
+        _record_stop_hook_response_safe(
+            payload,
+            {},
+            branch="empty_response",
+            exit_code=stop_signal_exit,
+        )
     return stop_signal_exit
 
 

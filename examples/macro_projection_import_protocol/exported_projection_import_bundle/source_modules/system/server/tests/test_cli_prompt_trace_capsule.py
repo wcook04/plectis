@@ -53,11 +53,12 @@ def _turn(
     turn_index: int = 1,
     prompt_text: str = "test prompt",
     assistant_text: str = "done",
+    session_file: str = "/tmp/session.jsonl",
 ) -> Turn:
     return Turn(
         provider="codex",
         session_id="session-for-test",
-        session_file="/tmp/session.jsonl",
+        session_file=session_file,
         turn_id=f"turn-for-test-{turn_index}",
         turn_index=turn_index,
         cwd=None,
@@ -190,6 +191,80 @@ def test_trace_capsule_header_scopes_totality_and_diff_contract() -> None:
     assert meta["commit_diff_missing"] is True
 
 
+def test_trace_capsule_separates_final_delta_from_edit_event_log(monkeypatch) -> None:
+    commit = "abc1234def5678"
+
+    def fake_final_delta(**_kwargs):
+        return {
+            "schema_version": "agent_trace_final_delta_v1",
+            "attached": True,
+            "state": "git_show_commit_attached",
+            "source": "git_show_commit",
+            "authority": "final_substrate_delta",
+            "commit": commit,
+            "pathspecs": ["tools/agent_trace_structurer/README.md"],
+            "paths": ["tools/agent_trace_structurer/README.md"],
+            "line_count": 5,
+            "omitted_lines": 0,
+            "truncated_sha16": "",
+            "command": "git show --stat --patch --no-ext-diff --unified=3",
+            "lines": [
+                f"commit {commit}",
+                "diff --git a/tools/agent_trace_structurer/README.md b/tools/agent_trace_structurer/README.md",
+                "@@ -1 +1 @@",
+                "-old",
+                "+new",
+            ],
+            "reason": "attached",
+        }
+
+    monkeypatch.setattr(trace, "_capsule_final_delta_for_trace", fake_final_delta)
+    turn = _turn(
+        [
+            _apply_patch_event(
+                1,
+                "*** Begin Patch\n"
+                "*** Update File: tools/agent_trace_structurer/README.md\n"
+                "@@\n"
+                "-old\n"
+                "+new\n"
+                "*** End Patch\n",
+            ),
+            _event(
+                2,
+                "./repo-python tools/meta/control/scoped_commit.py full-paths --path tools/agent_trace_structurer/README.md --message \"Update trace docs\"",
+                0,
+                json.dumps({"new_commit": commit}),
+            ),
+        ],
+        assistant_text=f"Committed {commit} Update trace docs.",
+    )
+
+    text, meta = render_trace_capsule_text(
+        turn,
+        title="Final Delta Contract",
+        source_window="selected_turn",
+    )
+
+    assert "FINAL_DELTA\n" in text
+    assert "final_delta_summary: attached=true state=git_show_commit_attached source=git_show_commit" in text
+    assert "diff_authority: final_substrate_delta patch_attempts_are_not_final_state=true final_substrate_delta_attached=true" in text
+    assert "EDIT_EVENT_LOG\n" in text
+    assert "edit_event_log_summary: files=1 rows=1" in text
+    assert "patch_attempts_are_not_final_state=true" in text
+    assert "DIFFS\n" not in text
+    assert text.index("FINAL_DELTA") < text.index("EDIT_EVENT_LOG")
+    assert "diff_contract: substrate_diff=exact_hunks_attached" in text
+    assert "final_delta_attached=true edit_event_log_attached=true patch_attempts_are_not_final_state=true" in text
+    assert "diff_reconciler: status=aligned_exact_substrate_diff severity=green" in text
+    assert meta["diff_state"] == "exact_hunks_attached"
+    assert meta["commit_diff_missing"] is False
+    assert meta["final_delta_attached"] is True
+    assert meta["edit_event_log"]["patch_attempts_are_not_final_state"] is True
+    assert meta["diff_reconciler"]["final_delta"]["attached"] is True
+    assert meta["diff_reconciler"]["edit_event_log"]["row_count"] == 1
+
+
 def test_trace_capsule_changed_summary_scopes_no_edit_selected_turn() -> None:
     text, meta = render_trace_capsule_text(
         _turn([], assistant_text="Validation only; no edits captured in this source window."),
@@ -297,6 +372,57 @@ def test_trace_capsule_promotes_agent_requested_source_excerpts_from_same_file(t
     assert meta["source_excerpt_count"] == 2
     assert meta["source_excerpt_agent_requested_count"] == 2
     assert meta["source_excerpt_paths"] == [str(source)]
+
+
+def test_trace_capsule_promotes_agent_requested_source_excerpts_from_trace_carrier_sidecar(tmp_path) -> None:
+    source = tmp_path / "quiet.py"
+    source.write_text(
+        "def quiet_target():\n"
+        "    return 'carried, not printed'\n",
+        encoding="utf-8",
+    )
+    _excerpt, excerpt_meta = trace.render_type_b_source_excerpt(
+        cwd=tmp_path,
+        source_path=str(source),
+        line_range="1-2",
+    )
+    payload = trace._type_b_source_excerpt_carrier_payload(excerpt_meta)
+    sidecar = tmp_path / "carrier with spaces.json"
+    sidecar.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    receipt = trace.render_type_b_source_excerpt_trace_carrier_receipt(excerpt_meta, sidecar)
+    assert "quiet_target" not in receipt
+    assert "carried, not printed" not in receipt
+
+    turn = _turn(
+        [
+            _event(
+                1,
+                f"./repo-python tools/meta/observability/cli_prompt_trace.py --type-b-source-excerpt --trace-carrier --source-path {source} --line-range 1-2",
+                0,
+                receipt + "\n",
+            )
+        ],
+        assistant_text="Prepared Type B handoff; use Copy Latest Trace.",
+    )
+
+    text, meta = render_trace_capsule_text(
+        turn,
+        title="Agent Requested Source Excerpt Carrier",
+        source_window="latest_prompt_cycle",
+    )
+
+    assert "SOURCE_EXCERPTS" in text
+    assert "source_excerpt_summary: count=1" in text
+    assert "agent_requested_seen=1 agent_requested_emitted=1 agent_requested_omitted=0" in text
+    assert "requested_excerpt_survival: status=all_emitted seen=1 emitted=1 omitted=0" in text
+    assert f"S001 C001 path={source} range=1-2 command=type_b_source_excerpt" in text
+    assert "| L1 def quiet_target():" in text
+    assert "| L2     return 'carried, not printed'" in text
+    assert "requested_excerpt_dropped:" not in text
+    assert meta["source_excerpt_agent_requested_seen_count"] == 1
+    assert meta["source_excerpt_agent_requested_emitted_count"] == 1
+    assert meta["source_excerpt_agent_requested_omitted_count"] == 0
+    assert meta["requested_excerpt_survival_status"] == "all_emitted"
 
 
 def test_trace_capsule_prioritizes_agent_requested_source_excerpts_under_saturation(tmp_path) -> None:
@@ -461,7 +587,7 @@ def test_trace_capsule_warns_when_closeout_claims_requested_source_but_none_emit
     assert meta["contradictory_closeout_requested_source_missing"] is True
 
 
-def test_trace_capsule_surfaces_type_b_source_excerpt_affordance_without_copy_penalty() -> None:
+def test_trace_capsule_surfaces_type_b_source_excerpt_affordance_with_source_context_warning() -> None:
     turn = _turn(
         [
             _apply_patch_event(
@@ -483,23 +609,27 @@ def test_trace_capsule_surfaces_type_b_source_excerpt_affordance_without_copy_pe
         source_window="latest_prompt_cycle",
     )
 
-    assert "type_b_source_excerpt_affordance: status=available suggested=true mandatory=false copy_readiness_effect=none" in text
+    assert "type_b_source_excerpt_affordance: status=available suggested=true mandatory=false" in text
+    assert "policy=optional_until_source_context_demand" in text
+    assert "demand_state=required_by_claim" in text
+    assert "copy_readiness_effect=amber_source_insufficient" in text
+    assert "source_context_readiness: overall=amber demand=required_by_claim" in text
     assert "affordance=type_b_source_excerpt_available" in text
-    assert "copy_readiness: state=green blockers=none warnings=none" in text
-    assert "type_b_handoff_lint: result=pass" in text
+    assert "copy_readiness: state=amber blockers=none warnings=edit_event_log_without_final_delta" in text
+    assert "type_b_handoff_lint: result=warn" in text
     assert "type_b_source_excerpt_available" not in meta["copy_readiness"]["warnings"]
     assert meta["type_b_source_excerpt_affordance"]["status"] == "available"
     assert meta["type_b_source_excerpt_affordance"]["suggested"] is True
     assert meta["type_b_source_excerpt_affordance"]["mandatory"] is False
-    assert meta["type_b_source_excerpt_affordance"]["copy_readiness_effect"] == "none"
+    assert meta["type_b_source_excerpt_affordance"]["copy_readiness_effect"] == "amber_source_insufficient"
+    assert meta["source_context_readiness"]["overall"] == "amber"
     assert meta["source_excerpt_agent_requested_count"] == 0
 
 
 def test_trace_capsule_marks_type_b_source_excerpt_affordance_used(tmp_path) -> None:
-    source = tmp_path / "README.md"
-    source.write_text("line one\nline two\n", encoding="utf-8")
+    source = trace.REPO_ROOT / "tools" / "agent_trace_structurer" / "README.md"
     excerpt, _meta = trace.render_type_b_source_excerpt(
-        cwd=tmp_path,
+        cwd=trace.REPO_ROOT,
         source_path=str(source),
         line_range="1-2",
     )
@@ -530,11 +660,78 @@ def test_trace_capsule_marks_type_b_source_excerpt_affordance_used(tmp_path) -> 
         source_window="latest_prompt_cycle",
     )
 
-    assert "type_b_source_excerpt_affordance: status=used suggested=false mandatory=false copy_readiness_effect=none" in text
+    assert "type_b_source_excerpt_affordance: status=used suggested=false mandatory=false" in text
+    assert "copy_readiness_effect=none" in text
+    assert "source_context_readiness: overall=green demand=required_by_type_b_decision" in text
     assert "command=type_b_source_excerpt" in text
     assert meta["type_b_source_excerpt_affordance"]["status"] == "used"
     assert meta["type_b_source_excerpt_affordance"]["suggested"] is False
     assert meta["source_excerpt_agent_requested_count"] == 1
+    assert meta["source_context_readiness"]["overall"] == "green"
+
+
+def test_trace_capsule_evidence_manifest_classifies_carrier_sufficiency(tmp_path) -> None:
+    source = tmp_path / "owner.py"
+    source.write_text("def selected_owner():\n    return 1\n", encoding="utf-8")
+    excerpt, _meta = trace.render_type_b_source_excerpt(
+        cwd=tmp_path,
+        source_path=str(source),
+        line_range="1-2",
+    )
+    turn = _turn(
+        [
+            _apply_patch_event(
+                1,
+                "*** Begin Patch\n"
+                "*** Update File: tools/agent_trace_structurer/README.md\n"
+                "@@\n"
+                "-old handoff text\n"
+                "+new evidence manifest text\n"
+                "*** End Patch\n",
+            ),
+            _event(
+                2,
+                f"./repo-python tools/meta/observability/cli_prompt_trace.py --type-b-source-excerpt --source-path {source} --line-range 1-2",
+                0,
+                excerpt + "\n",
+            ),
+        ],
+        assistant_text=(
+            "Updated tools/agent_trace_structurer/README.md, selected exact source, "
+            "and mentioned docs/passive_only.md."
+        ),
+    )
+
+    text, meta = render_trace_capsule_text(
+        turn,
+        title="Evidence Manifest Carrier Sufficiency",
+        source_window="latest_prompt_cycle",
+    )
+
+    assert "EVIDENCE_MANIFEST" in text
+    assert "evidence_manifest_summary:" in text
+    assert "requested_source_excerpt=1" in text
+    assert "diff_hunk=0" in text
+    assert "edit_event_hunk=1" in text
+    assert "passive_mention=1" in text
+    assert "path=tools/agent_trace_structurer/README.md carried_as=edit_event_hunk:E001" in text
+    assert "sufficient_for=edit_attempt_chronology insufficient_for=final_substrate_state" in text
+    assert f"path={source} " in text
+    assert "requested_source_excerpt:S001" in text
+    assert (
+        "path=docs/passive_only.md carried_as=passive_mention "
+        "sufficient_for=none insufficient_for=evidence_not_carried"
+    ) in text
+    assert "passive_mentions_without_evidence" in meta["copy_readiness"]["warnings"]
+    manifest = meta["evidence_manifest"]
+    assert manifest["class_counts"]["requested_source_excerpt"] == 1
+    assert manifest["class_counts"]["diff_hunk"] == 0
+    assert manifest["class_counts"]["edit_event_hunk"] == 1
+    assert manifest["class_counts"]["passive_mention"] == 1
+    readme_row = next(row for row in manifest["rows"] if row["path"] == "tools/agent_trace_structurer/README.md")
+    assert readme_row["carried_as"] == ["edit_event_hunk:E001"]
+    assert readme_row["sufficient_for"] == ["edit_attempt_chronology"]
+    assert readme_row["insufficient_for"] == ["final_substrate_state"]
 
 
 def test_trace_capsule_promotes_prompt_file_refs_to_source_excerpts(tmp_path) -> None:
@@ -607,10 +804,394 @@ def test_selected_trace_capsule_knows_full_thread_exists() -> None:
     assert "full_thread_available=true selected_window_only=true" in text
     assert "recommended_scope=full_thread" in text
     assert "copy_readiness: state=amber" in text
+    assert "copy_readiness_vector: overall=amber scope=amber" in text
+    assert "latest_selection=green" in text
+    assert "global_none_claims=green" in text
+    assert "scope_semantics: status_label=selected_turn_complete" in text
+    assert "latest_selection: selected_turn=2 selected_is_thread_tail=true selected_is_latest_completed_response=true" in text
+    assert "LATEST_SELECTION_RECEIPT" in text
+    assert "selected_is_latest_completed_response=true" in text
+    assert "reader_latest: status=latest_completed_response" in text
+    assert "reader_context: status=selected_window_only_context_deficit" in text
+    assert "reader_next_action: use_bundle_for_latest_tail_claims; request_full_thread_only_for_global_absence_or_context" in text
+    assert "open_product_residuals_selected_window: none" in text
+    assert "open_product_residuals_global: not_claimed" in text
+    assert "open_product_residuals: none" not in text
+    assert "open_selected_window: none captured" in text
+    assert "open_global: not_claimed" in text
+    assert "open: none captured" not in text
     assert meta["full_thread_available"] is True
     assert meta["thread_totality"] == "selected_turn_only"
+    assert meta["scope_semantics"]["unsafe_global_none_claims_blocked"] is True
     assert meta["copy_readiness"]["state"] == "amber"
+    assert meta["latest_selection_receipt"]["selected_is_latest_completed_response"] is True
+    assert meta["copy_readiness_vector"]["latest_selection"] == "green"
+    assert meta["copy_readiness_vector"]["scope"] == "amber"
+    assert meta["copy_readiness_vector"]["global_none_claims"] == "green"
     assert "selected_window_only_full_thread_available" in meta["copy_readiness"]["warnings"]
+
+
+def test_trace_capsule_cut_receipt_detects_selected_window_behind_full_thread() -> None:
+    selected = _turn([_event(1, "date", 0, "ok")], turn_index=1, prompt_text="first long prompt " * 5)
+    selected.source_ref = {
+        "full_thread_trace_window": {
+            "mode": "full_thread",
+            "start_turn_index": 1,
+            "end_turn_index": 2,
+            "turn_count": 2,
+        },
+    }
+    text, meta = render_trace_capsule_text(
+        selected,
+        title="Selected window behind full thread",
+        source_window="selected_turn",
+    )
+
+    assert "TRACE_CUT_RECEIPT" in text
+    assert "consistency=stale_selected_window_not_latest_thread_turn" in text
+    assert "selected_window=1-1 selected_count=1 full_thread=1-2 full_count=2 tail_state=not_thread_tail" in text
+    assert "selected_is_latest_completed_response=false" in text
+    assert "reader_next_action: request_latest_response_bundle_or_full_thread_tail" in text
+    assert meta["trace_cut_receipt"]["cut_consistency"] == "stale_selected_window_not_latest_thread_turn"
+    assert meta["trace_cut_receipt"]["provider_plane"]["tail_state"] == "not_thread_tail"
+    assert meta["latest_selection_receipt"]["selected_is_latest_completed_response"] is False
+    assert meta["copy_readiness_vector"]["latest_selection"] == "red"
+
+
+def test_trace_capsule_emits_provenance_claim_map_and_self_parse_receipts() -> None:
+    text, meta = render_trace_capsule_text(
+        _turn([_event(1, "./repo-pytest system/server/tests/test_docs_route.py", 0, "1 passed")]),
+        title="Trace Capsule Provenance Contract",
+        source_window="selected_turn",
+    )
+
+    assert "READER_DECISION_CARD" in text
+    assert "TRACE_PROVENANCE_ATTESTATION" in text
+    assert "computed_after_render" not in text
+    assert "subject_hash_mode=artifact_envelope_after_write" in text
+    assert "LATEST_SELECTION_RECEIPT" in text
+    assert "TITLE_AUTHORITY" in text
+    assert "CLAIM_SOURCE_MAP" in text
+    assert "EVIDENCE_NODE_GRAPH" in text
+    assert "DEFEATER_REGISTER" in text
+    assert "ASSURANCE_CASE_GRAPH" in text
+    assert "TRACE_SELF_PARSE_RECEIPT" in text
+    assert "BUDGET_SOLVER_PROOF_SET" in text
+    assert "claim=status" in text
+    assert "claim=status" in text and "evidence=EV.turn_completion_state,EV.trace_scope" in text
+    assert "claim=final_validation" in text
+    assert "claim=open_product_residuals_selected_window" in text
+    assert "claim_source_map_complete=true" in text
+    assert "downstream_parser_mjs_roundtrip=pending_artifact_write" in text
+    assert meta["trace_provenance_attestation"]["schema_version"] == "agent_trace_provenance_attestation_v1"
+    assert meta["trace_provenance_attestation"]["subject"]["sha16"] == "artifact_envelope_subject"
+    assert meta["trace_provenance_attestation"]["subject"]["hash_mode"] == "artifact_envelope_after_write"
+    assert meta["latest_selection_receipt"]["schema_version"] == "agent_trace_latest_selection_receipt_v1"
+    assert meta["title_authority"]["schema_version"] == "agent_trace_title_authority_v1"
+    assert meta["claim_source_map"]["schema_version"] == "agent_trace_claim_source_map_v1"
+    assert set(meta["claim_source_map"]["covered_summary_claims"]) >= {
+        "status",
+        "changed",
+        "final_validation",
+        "open_product_residuals_selected_window",
+        "open_selected_window",
+    }
+    status_row = next(row for row in meta["claim_source_map"]["rows"] if row["claim"] == "status")
+    assert status_row["evidence"] == "EV.turn_completion_state,EV.trace_scope"
+    assert meta["evidence_node_graph"]["schema_version"] == "agent_trace_evidence_node_graph_v1"
+    assert meta["defeater_register"]["schema_version"] == "agent_trace_defeater_register_v1"
+    assert meta["assurance_case_graph"]["schema_version"] == "agent_trace_assurance_case_graph_v1"
+    assert any(row["id"] == "DTR.scope_deficit" for row in meta["defeater_register"]["rows"])
+    assert meta["trace_self_parse_receipt"]["round_trip_status"] == "producer_pass_downstream_pending"
+    assert meta["budget_solver_receipt"]["proof_set_before_route_context"] is True
+    assert meta["budget_solver_receipt"]["proof_obligations_missing"] == 0
+
+
+def test_trace_capsule_warns_and_falls_back_for_numeric_title() -> None:
+    text, meta = render_trace_capsule_text(
+        _turn([], prompt_text="Fix the demo tape recording latest bundle selector."),
+        title="2",
+        source_window="selected_turn",
+    )
+
+    assert "title: Fix the demo tape recording latest bundle selector." in text
+    assert "raw_title: 2" in text
+    assert "title_authority_warning: ordinal_title_not_semantic raw=2 source=title_numeric_token" in text
+    assert "TITLE_AUTHORITY" in text
+    assert 'raw_title="2"' in text
+    assert "display_title_source=current_turn_prompt_title" in text
+    assert meta["title_authority"]["raw_title"] == "2"
+    assert meta["title_authority"]["display_title"] == "Fix the demo tape recording latest bundle selector."
+    assert meta["title_authority"]["warning"].startswith("ordinal_title_not_semantic")
+    assert any(row["id"] == "DTR.title_authority" and row["status"] == "active" for row in meta["defeater_register"]["rows"])
+
+
+def test_trace_capsule_budget_solver_names_high_regret_omissions(tmp_path) -> None:
+    source = tmp_path / "missing.py"
+    source.write_text("def target():\n    return 1\n", encoding="utf-8")
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [
+                _event(
+                    1,
+                    f"./repo-python tools/meta/observability/cli_prompt_trace.py --type-b-source-excerpt --source-path {source} --line-range 1-2",
+                    0,
+                    "",
+                )
+            ],
+            assistant_text="I used the affordance; the latest bundle should include SOURCE_EXCERPTS.",
+        ),
+        title="Budget Regret",
+        source_window="latest_prompt_cycle",
+    )
+
+    assert "budget_regret_high=1" in text
+    assert "top_omitted_decision_refs=C001:requested_excerpt_output_missing" in text
+    assert meta["budget_solver_receipt"]["budget_regret_high"] == 1
+    assert meta["budget_solver_receipt"]["top_omitted_decision_refs"] == ["C001:requested_excerpt_output_missing"]
+    assert any(
+        row["id"] == "DTR.budget_high_regret_omission" and row["status"] == "active"
+        for row in meta["defeater_register"]["rows"]
+    )
+
+
+def test_trace_capsule_source_context_requires_type_b_exact_source_demand() -> None:
+    patch = """*** Begin Patch
+*** Update File: tools/meta/observability/cli_prompt_trace.py
+@@
+-old source context
++new source context
+*** End Patch
+"""
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [_apply_patch_event(1, patch)],
+            prompt_text="Type B needs exact code and current source for the latest response bundle.",
+            assistant_text="Implemented the source context ABI for the Trace Capsule.",
+        ),
+        title="Source Context ABI",
+        source_window="selected_turn",
+    )
+
+    assert "SOURCE_CONTEXT_DEMAND" in text
+    assert "SOURCE_SLICE_REQUESTS" in text
+    assert "SOURCE_CONTEXT_DEFICIT" in text
+    assert "SOURCE_CONTEXT_READINESS" in text
+    assert "state=required_by_type_b_decision" in text
+    assert "copy_readiness_effect=amber_source_insufficient" in text
+    assert meta["source_context_demand"]["state"] == "required_by_type_b_decision"
+    assert meta["source_context_readiness"]["overall"] == "amber"
+    assert meta["source_context_readiness"]["high_regret_missing"] >= 1
+    assert meta["type_b_source_excerpt_affordance"]["demand_state"] == "required_by_type_b_decision"
+    assert meta["type_b_source_excerpt_affordance"]["copy_readiness_effect"] == "amber_source_insufficient"
+    assert meta["source_slice_requests"]["rows"][0]["status"] == "deficit"
+    assert meta["source_context_deficit"]["rows"][0]["fallback_used"] == "raw_sidecar_not_type_b_portable"
+    assert meta["type_b_source_closeout_lint"]["result"] == "warn"
+
+
+def test_trace_capsule_source_context_manifest_binds_explicit_slice_before_prompt_refs() -> None:
+    parser_path = (trace.REPO_ROOT / "tools/agent_trace_structurer/parser.mjs").resolve()
+    patch = """*** Begin Patch
+*** Update File: tools/meta/observability/cli_prompt_trace.py
+@@
+-old source context
++new source context
+*** End Patch
+"""
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [
+                _event(
+                    1,
+                    "./repo-python tools/meta/observability/cli_prompt_trace.py "
+                    "--type-b-source-excerpt --source-path tools/meta/observability/cli_prompt_trace.py "
+                    "--line-range 1-2",
+                    0,
+                    "1 import argparse\n2 import ast\n",
+                ),
+                _apply_patch_event(2, patch),
+            ],
+            prompt_text=(
+                "Type B needs exact code and current source.\n"
+                f"## Pasted text.txt: {parser_path}"
+            ),
+            assistant_text="Implemented the source context ABI and selected source excerpts.",
+        ),
+        title="Source Context Manifest",
+        source_window="selected_turn",
+    )
+
+    assert "requested_excerpt_row: row_id=S001" in text
+    assert "source_slice_manifest_row: slice_id=S001 request_id=SSR001" in text
+    assert meta["source_excerpt_agent_requested_rows"][0]["row_id"] == "S001"
+    assert meta["source_excerpt_prompt_file_ref_count"] >= 1
+    assert meta["source_slice_requests"]["rows"][0]["status"] == "emitted"
+    assert meta["source_slice_requests"]["rows"][0]["carrier"] == "S001"
+    assert meta["source_slice_manifest"]["slices"][0]["slice_id"] == "S001"
+    assert meta["source_slice_manifest"]["slices"][0]["request_id"] == "SSR001"
+    assert meta["source_context_readiness"]["overall"] == "green"
+
+
+def test_trace_capsule_source_context_not_required_for_status_only_closeout() -> None:
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [],
+            prompt_text="Status only: what happened in the current trace?",
+            assistant_text="No edits captured in this source window.",
+        ),
+        title="Status Only",
+        source_window="selected_turn",
+    )
+
+    assert "SOURCE_CONTEXT_DEMAND" in text
+    assert "source_context_demand_summary: state=none" in text
+    assert "source_slice_requests_summary: rows=0" in text
+    assert "source_context_readiness: overall=green demand=none" in text
+    assert meta["source_context_demand"]["state"] == "none"
+    assert meta["source_slice_requests"]["row_count"] == 0
+    assert meta["source_context_deficit"]["active_count"] == 0
+    assert meta["source_context_readiness"]["copy_readiness_effect"] == "none"
+
+
+def test_trace_capsule_evidence_manifest_keeps_queries_out_of_path_field() -> None:
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [
+                _event(
+                    1,
+                    "rg -n 'def target' tools/example.py",
+                    0,
+                    "tools/example.py:1:def target():\n",
+                ),
+                _event(
+                    2,
+                    "rg -n '^(TRACE_CUT_RECEIPT|TRACE_PROVENANCE_ATTESTATION)'",
+                    0,
+                    "tools/meta/observability/cli_prompt_trace.py:1:TRACE_CUT_RECEIPT\n",
+                ),
+            ],
+            assistant_text="Reviewed rg query 'def target' in tools/example.py.",
+        ),
+        title="Evidence Node Paths",
+        source_window="selected_turn",
+    )
+
+    assert "EVIDENCE_NODE_GRAPH" in text
+    for row in meta["evidence_manifest"]["rows"]:
+        assert "def target" not in row["path"]
+        assert "TRACE_CUT_RECEIPT|TRACE_PROVENANCE_ATTESTATION" not in row["path"]
+        assert not row["path"].startswith("/")
+    assert any(row["path"] == "search_results" for row in meta["evidence_manifest"]["rows"])
+    assert "query_regex_never_goes_in_path_field" in meta["evidence_node_graph"]["locator_rule"]
+
+
+def test_trace_capsule_artifact_records_copied_source_watermark(monkeypatch, tmp_path) -> None:
+    session_file = tmp_path / "session.jsonl"
+    session_file.write_text("session source v1\n", encoding="utf-8")
+    turn = _turn(
+        [_event(1, "./repo-python -m pytest focused", 0, "1 passed\n")],
+        session_file=str(session_file),
+    )
+    variant_dir = tmp_path / "Variant Artifacts"
+    raw_dir = tmp_path / "Raw Sources"
+
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_VARIANT_ARTIFACTS", variant_dir)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_RAW", raw_dir)
+    monkeypatch.setattr(trace, "_write_variant_index_entry", lambda *args, **kwargs: None)
+    monkeypatch.setattr(trace, "_resolve_session_title", lambda *args, **kwargs: ("Watermark Thread", "test"))
+
+    receipt = trace.write_trace_capsule_artifact(turn, source_window="selected_turn")
+
+    copied = receipt["copied_source_watermark"]
+    assert copied["schema_version"] == "agent_trace_source_watermark_v1"
+    assert copied["session_file"] == str(session_file)
+    assert copied["watermark_id"]
+    assert copied["tail_sha16"] == trace._file_tail_sha16(session_file)
+    artifact = receipt["variant_artifact"]
+    assert artifact["copied_source_watermark"]["watermark_id"] == copied["watermark_id"]
+    assert artifact["window_anchor"]["source_watermark_id"] == copied["watermark_id"]
+    assert artifact["trace_counts"]["trace_provenance_attestation"]["subject"]["sha16"] == artifact["sha16"]
+    assert artifact["trace_counts"]["trace_provenance_attestation"]["subject"]["bytes"] == artifact["bytes"]
+    assert artifact["trace_counts"]["latest_selection_receipt"]["selected_is_latest_completed_response"] is True
+    assert artifact["trace_counts"]["downstream_parse_receipt"]["status"] == "pass"
+    assert artifact["trace_counts"]["trace_self_parse_receipt"]["downstream_parser_mjs_roundtrip"] == "pass"
+    assert artifact["trace_counts"]["trace_self_parse_receipt"]["round_trip_status"] == "pass"
+
+
+def test_structurer_clip_history_records_copied_source_watermark(monkeypatch, tmp_path) -> None:
+    session_file = tmp_path / "session.jsonl"
+    session_file.write_text("session source v1\n", encoding="utf-8")
+    turn = _turn(
+        [_event(1, "./repo-python -m pytest focused", 0, "1 passed\n")],
+        session_file=str(session_file),
+    )
+    raw_dir = tmp_path / "Raw Sources"
+    captures_dir = tmp_path / "Captures"
+    clips_dir = tmp_path / "Clips"
+    exports_dir = tmp_path / "Exports"
+    history_path = tmp_path / "clipboard_history.json"
+
+    def parser_stub(raw_path: Path, capture_path: Path, thin_path: Path) -> dict:
+        capture_path.write_text('{"schema":"full"}', encoding="utf-8")
+        thin_path.write_text('{"schema":"thin"}', encoding="utf-8")
+        return {
+            "ok": True,
+            "input_lines": len(raw_path.read_text(encoding="utf-8").splitlines()),
+            "source_chunks": 1,
+            "trace_blocks": 1,
+            "artifacts": 0,
+            "entities": 0,
+            "sections": 1,
+        }
+
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_RAW", raw_dir)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_CAPTURES", captures_dir)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_CLIPS", clips_dir)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_EXPORTS", exports_dir)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_HISTORY", history_path)
+    monkeypatch.setattr(trace, "_build_thin_clip_via_node", parser_stub)
+    monkeypatch.setattr(trace, "_resolve_session_title", lambda *args, **kwargs: ("Watermark Thread", "test"))
+
+    receipt = trace.write_structurer_clip(turn)
+
+    copied = receipt["copied_source_watermark"]
+    history = json.loads(history_path.read_text(encoding="utf-8"))
+    history_cpt = history[0]["cli_prompt_trace"]
+    assert copied["schema_version"] == "agent_trace_source_watermark_v1"
+    assert history[0]["copied_source_watermark"]["watermark_id"] == copied["watermark_id"]
+    assert history_cpt["copied_source_watermark"]["watermark_id"] == copied["watermark_id"]
+
+
+def test_artifact_freshness_uses_source_watermark_mismatch() -> None:
+    clip_watermark = trace._source_watermark_from_meta({
+        "provider": "codex",
+        "session_id": "session-for-test",
+        "session_file": "/tmp/session.jsonl",
+        "mtime_ns": 1000,
+        "mtime_epoch": 1,
+        "size_bytes": 10,
+        "tail_sha16": "oldtail",
+    })
+    current_watermark = trace._source_watermark_from_meta({
+        "provider": "codex",
+        "session_id": "session-for-test",
+        "session_file": "/tmp/session.jsonl",
+        "mtime_ns": 2000,
+        "mtime_epoch": 2,
+        "size_bytes": 20,
+        "tail_sha16": "newtail",
+    })
+
+    freshness = trace._classify_artifact_freshness(
+        {"prompt_sha16": "promptsha", "turn_index": 3},
+        {"prompt_sha16": "promptsha", "turn_index": 3, "source_watermark": clip_watermark},
+        {"current_source_watermark": current_watermark},
+    )
+
+    assert freshness["state"] == "stale"
+    assert freshness["reason"] == "source_watermark_mismatch"
+    assert freshness["clip_source_watermark_id"] == clip_watermark["watermark_id"]
+    assert freshness["current_source_watermark_id"] == current_watermark["watermark_id"]
 
 
 def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp_path) -> None:
@@ -766,6 +1347,100 @@ def test_mission_index_sort_treats_active_goals_as_live() -> None:
     ]
 
 
+def test_mission_index_soft_stale_cache_uses_source_mtime_as_activity(monkeypatch, tmp_path) -> None:
+    thread_id = "stale-cache-thread"
+    session_file = tmp_path / "rollout-stale-cache-thread.jsonl"
+    session_file.write_text('{"type":"session_meta"}\n{"type":"newer_event"}\n', encoding="utf-8")
+    current_epoch = 1770170400.0
+    os.utime(session_file, (current_epoch, current_epoch))
+    stat = session_file.stat()
+    current_mtime_utc = trace._iso_from_epoch(stat.st_mtime)
+    old_completed_at = "2026-02-04T01:00:00+00:00"
+    current_meta = trace._session_file_meta("codex", thread_id, session_file)
+    old_meta = dict(current_meta)
+    old_meta["mtime_ns"] = 1
+    old_meta["mtime_epoch"] = 1.0
+    old_meta["size_bytes"] = 1
+    stale_summary = {
+        "turn_count": 1,
+        "completed_turn_count": 1,
+        "latest_turn_index": 1,
+        "source_last_event_at": old_completed_at,
+        "latest_completed_turn": {
+            "turn_index": 1,
+            "turn_id": "turn-1",
+            "completed_at": old_completed_at,
+            "started_at": "2026-02-04T00:59:00+00:00",
+            "last_event_at": old_completed_at,
+            "tool_count": 1,
+            "prompt_sha16": "oldprompt",
+            "prompt_title": "Old completed response",
+            "prompt_preview": "Old completed response",
+            "is_complete": True,
+        },
+        "preferred_trace_turn": {
+            "turn_index": 1,
+            "turn_id": "turn-1",
+            "completed_at": old_completed_at,
+            "last_event_at": old_completed_at,
+            "prompt_sha16": "oldprompt",
+            "prompt_title": "Old completed response",
+            "prompt_preview": "Old completed response",
+            "is_complete": True,
+        },
+    }
+    cache = {
+        "schema": trace.MISSION_SUMMARY_CACHE_SCHEMA,
+        "entries": {
+            trace._mission_summary_cache_key("codex", thread_id, session_file): {
+                "source": old_meta,
+                "summary": stale_summary,
+            }
+        },
+    }
+
+    def candidate():
+        return {
+            "provider": "codex",
+            "session_id": thread_id,
+            "session_file": str(session_file),
+            "mtime_epoch": stat.st_mtime,
+            "mtime_ns": stat.st_mtime_ns,
+            "mtime_utc": current_mtime_utc,
+            "size_bytes": stat.st_size,
+        }
+
+    monkeypatch.setattr(trace, "_enumerate_candidates", lambda _provider, _cwd: [candidate()])
+    monkeypatch.setattr(trace, "_load_codex_thread_title_records", lambda: {
+        thread_id: {"thread_name": "Stale cache thread", "updated_at": "2026-02-04T00:58:00Z"}
+    })
+    monkeypatch.setattr(trace, "_load_title_aliases", lambda: {})
+    monkeypatch.setattr(trace, "_load_claude_desktop_titles", lambda: {})
+    monkeypatch.setattr(trace, "_load_codex_thread_goals", lambda: {})
+    monkeypatch.setattr(trace, "_latest_clipboard_entry_for", lambda _session_id: None)
+    monkeypatch.setattr(trace, "_load_mission_summary_cache", lambda: cache)
+    monkeypatch.setattr(trace, "_write_mission_summary_cache", lambda _cache: None)
+    monkeypatch.setattr(trace, "MISSION_INDEX_STALE_REPARSE_BUDGET", 0)
+    monkeypatch.setattr(
+        trace,
+        "_latest_completed_turn_summary",
+        lambda _provider, _path: (_ for _ in ()).throw(
+            AssertionError("should not reparse when stale fallback is selected")
+        ),
+    )
+
+    index = trace.build_mission_index(cwd=tmp_path, limit=10)
+
+    row = index["rows"][0]
+    assert row["trace_summary_cache_state"] == "soft_stale"
+    assert row["latest_completed_turn"]["completed_at"] == old_completed_at
+    assert row["last_activity_at"] == current_mtime_utc
+    assert row["source_freshness"]["state"] == "source_newer_than_index"
+    assert row["source_freshness"]["current_mtime_utc"] == current_mtime_utc
+    assert row["source_freshness"]["source_last_event_at"] == current_mtime_utc
+    assert row["source_freshness"]["requires_refresh_before_copy"] is True
+
+
 def test_mission_index_forces_active_goal_threads_into_candidates(monkeypatch, tmp_path) -> None:
     thread_id = "019e6cf1-dc6e-74d2-ac8b-845d1771a238"
     sessions_root = tmp_path / "sessions"
@@ -796,6 +1471,84 @@ def test_mission_index_forces_active_goal_threads_into_candidates(monkeypatch, t
     assert [row["session_id"] for row in merged] == [thread_id]
     assert merged[0]["mission_index_forced_goal_thread"] is True
     assert merged[0]["session_file"] == str(session_file)
+
+
+def test_mission_index_backfills_codex_title_visible_threads(monkeypatch, tmp_path) -> None:
+    thread_id = "019e935d-dcc3-7a52-a85f-7b96c0b742d5"
+    sessions_root = tmp_path / "sessions"
+    session_file = sessions_root / "2026/06/04" / f"rollout-2026-06-04T17-01-02-{thread_id}.jsonl"
+    session_file.parent.mkdir(parents=True)
+    session_file.write_text(
+        json.dumps({
+            "type": "session_meta",
+            "payload": {
+                "id": thread_id,
+                "cwd": str(tmp_path),
+                "timestamp": "2026-06-04T17:01:02Z",
+            },
+        })
+        + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(trace, "CODEX_SESSIONS_ROOT", sessions_root)
+    monkeypatch.setattr(trace, "_enumerate_candidates", lambda _provider, _cwd: [])
+    monkeypatch.setattr(trace, "_load_codex_thread_title_records", lambda: {
+        thread_id: {"thread_name": "15", "updated_at": "2026-06-05T01:20:00Z"}
+    })
+    monkeypatch.setattr(trace, "_load_title_aliases", lambda: {})
+    monkeypatch.setattr(trace, "_load_claude_desktop_titles", lambda: {})
+    monkeypatch.setattr(trace, "_load_codex_thread_goals", lambda: {})
+    monkeypatch.setattr(trace, "_latest_clipboard_entry_for", lambda _session_id: None)
+    monkeypatch.setattr(trace, "_load_mission_summary_cache", lambda: {"schema": trace.MISSION_SUMMARY_CACHE_SCHEMA, "entries": {}})
+    monkeypatch.setattr(trace, "_write_mission_summary_cache", lambda _cache: None)
+    monkeypatch.setattr(trace, "_latest_completed_turn_summary", lambda _provider, _path: {
+        "turn_count": 1,
+        "completed_turn_count": 1,
+        "latest_turn_index": 1,
+        "latest_completed_turn": {
+            "turn_index": 1,
+            "turn_id": "turn-1",
+            "completed_at": "2026-06-05T01:16:20+00:00",
+            "started_at": "2026-06-05T01:15:00+00:00",
+            "last_event_at": "2026-06-05T01:16:20+00:00",
+            "tool_count": 0,
+            "prompt_sha16": "promptsha",
+            "prompt_title": "Fallback prompt title",
+            "prompt_preview": "Fallback prompt title",
+            "trace_window": {"start_turn_index": 1, "end_turn_index": 1, "turn_count": 1},
+            "full_thread_trace_window": {"start_turn_index": 1, "end_turn_index": 1, "turn_count": 1},
+            "full_thread_turn_count": 1,
+            "trace_variant_size_estimates": {},
+            "is_complete": True,
+        },
+        "preferred_trace_turn": {
+            "turn_index": 1,
+            "turn_id": "turn-1",
+            "completed_at": "2026-06-05T01:16:20+00:00",
+            "prompt_sha16": "promptsha",
+            "prompt_title": "Fallback prompt title",
+            "prompt_preview": "Fallback prompt title",
+            "trace_window": {"start_turn_index": 1, "end_turn_index": 1, "turn_count": 1},
+            "full_thread_trace_window": {"start_turn_index": 1, "end_turn_index": 1, "turn_count": 1},
+            "full_thread_turn_count": 1,
+            "trace_variant_size_estimates": {},
+            "is_complete": True,
+        },
+    })
+
+    index = trace.build_mission_index(cwd=tmp_path, limit=10)
+
+    rows_by_id = {row["session_id"]: row for row in index["rows"]}
+    assert set(rows_by_id) == {thread_id}
+    row = rows_by_id[thread_id]
+    assert row["title"] == "15"
+    assert row["display_title"] == "15"
+    assert row["source_title"] == "15"
+    assert row["title_source"] == "codex_thread_name"
+    assert row["mission_index_forced_codex_title_record"] is True
+    assert row["session_file"] == str(session_file)
+    assert index["active_rows"][0]["session_id"] == thread_id
+    assert index["perf"]["summary_cache"]["forced_codex_title_records"] == 1
 
 
 def test_mission_index_keeps_codex_child_threads_selectable(monkeypatch, tmp_path) -> None:
@@ -914,7 +1667,7 @@ def test_subagent_child_trace_carries_selectable_identity() -> None:
     assert dep["child_trace"]["parent_session_id"] == "parent-session"
 
 
-def test_mission_index_force_refreshes_recent_oversize_stale_goal_summary(monkeypatch, tmp_path) -> None:
+def test_mission_index_force_reparses_first_recent_oversize_stale_goal_summary(monkeypatch, tmp_path) -> None:
     session_file = tmp_path / "rollout-recent-goal.jsonl"
     session_file.write_text("{}\n", encoding="utf-8")
     now = 1_779_980_000.0
@@ -963,56 +1716,30 @@ def test_mission_index_force_refreshes_recent_oversize_stale_goal_summary(monkey
             "is_complete": True,
         },
     }
+    refreshed_summary = {
+        "turn_count": 3,
+        "completed_turn_count": 3,
+        "latest_turn_index": 3,
+        "latest_completed_turn": {
+            "turn_index": 3,
+            "turn_id": "turn-3",
+            "completed_at": "2026-05-31T17:10:00+00:00",
+            "started_at": "2026-05-31T17:05:00+00:00",
+            "last_event_at": "2026-05-31T17:10:00+00:00",
+            "tool_count": 42,
+            "prompt_sha16": "newprompt",
+            "prompt_preview": "newly completed response",
+            "trace_window": {"start_turn_index": 3, "end_turn_index": 3, "turn_count": 1},
+            "full_thread_trace_window": {"start_turn_index": 1, "end_turn_index": 3, "turn_count": 3},
+            "full_thread_turn_count": 3,
+            "is_complete": True,
+        },
+    }
     cache_key = trace._mission_summary_cache_key("codex", "goal-thread-long", session_file)
     cache = {"schema": trace.MISSION_SUMMARY_CACHE_SCHEMA, "entries": {
         cache_key: {"source": stale_source, "summary": stale_summary}
     }}
-    refreshed_summary = {
-        "turn_count": 5,
-        "completed_turn_count": 5,
-        "latest_turn_index": 5,
-        "source_last_event_at": "2026-05-31T23:02:24+00:00",
-        "latest_completed_turn": {
-            "turn_index": 5,
-            "turn_id": "turn-5",
-            "completed_at": "2026-05-31T23:02:24+00:00",
-            "started_at": "2026-05-31T22:00:00+00:00",
-            "last_event_at": "2026-05-31T23:02:24+00:00",
-            "tool_count": 731,
-            "prompt_sha16": "newprompt",
-            "prompt_preview": "new full goal turn",
-            "prompt_title": "Thread 4 long goal repair",
-            "trace_window": {"start_turn_index": 5, "end_turn_index": 5, "turn_count": 1},
-            "full_thread_trace_window": {"start_turn_index": 1, "end_turn_index": 5, "turn_count": 5},
-            "full_thread_turn_count": 5,
-            "trace_variant_size_estimates": {
-                "trace_capsule": {
-                    "latest_prompt_cycle": {"bytes": 391_000, "exact": True},
-                    "full_thread": {"bytes": 964_000, "exact": True},
-                }
-            },
-            "is_complete": True,
-        },
-        "preferred_trace_turn": {
-            "turn_index": 5,
-            "turn_id": "turn-5",
-            "completed_at": "2026-05-31T23:02:24+00:00",
-            "last_event_at": "2026-05-31T23:02:24+00:00",
-            "tool_count": 731,
-            "prompt_sha16": "newprompt",
-            "prompt_preview": "new full goal turn",
-            "trace_window": {"start_turn_index": 5, "end_turn_index": 5, "turn_count": 1},
-            "full_thread_trace_window": {"start_turn_index": 1, "end_turn_index": 5, "turn_count": 5},
-            "full_thread_turn_count": 5,
-            "trace_variant_size_estimates": {
-                "trace_capsule": {
-                    "latest_prompt_cycle": {"bytes": 391_000, "exact": True},
-                    "full_thread": {"bytes": 964_000, "exact": True},
-                }
-            },
-            "is_complete": True,
-        },
-    }
+    parsed_paths = []
 
     monkeypatch.setattr(trace, "_enumerate_candidates", lambda _provider, _cwd: [candidate])
     monkeypatch.setattr(trace, "_load_mission_summary_cache", lambda: cache)
@@ -1025,7 +1752,7 @@ def test_mission_index_force_refreshes_recent_oversize_stale_goal_summary(monkey
     })
     monkeypatch.setattr(trace, "_latest_clipboard_entry_for", lambda _session_id: None)
     monkeypatch.setattr(trace, "_resolve_session_title", lambda *args, **kwargs: ("Thread 4 long goal repair", "codex_thread_name"))
-    monkeypatch.setattr(trace, "_latest_completed_turn_summary", lambda _provider, _path: refreshed_summary)
+    monkeypatch.setattr(trace, "_latest_completed_turn_summary", lambda _provider, path: parsed_paths.append(str(path)) or refreshed_summary)
     monkeypatch.setattr(trace, "_mission_source_recently_changed", lambda _meta, now_epoch=None: True)
 
     index = trace.build_mission_index(cwd=tmp_path, limit=5)
@@ -1033,12 +1760,103 @@ def test_mission_index_force_refreshes_recent_oversize_stale_goal_summary(monkey
     row = index["rows"][0]
     assert row["session_id"] == "goal-thread-long"
     assert row["trace_summary_cache_state"] == "refreshed_recent_stale"
-    assert row["latest_turn_index"] == 5
-    assert row["turn_count_hint"] == 5
-    assert row["latest_completed_turn"]["full_thread_turn_count"] == 5
+    assert row["latest_turn_index"] == 3
+    assert row["turn_count_hint"] == 3
     assert row["source_freshness"]["state"] == "current"
-    assert index["perf"]["summary_cache"]["recent_stale_forced"] == 1
-    assert index["perf"]["summary_cache"]["recent_stale_oversize_forced"] == 1
+    assert parsed_paths == [str(session_file)]
+    assert index["perf"]["summary_cache"].get("recent_stale_oversize_forced", 0) == 1
+    assert index["perf"]["summary_cache"].get("oversize_stale_deferred_budget", 0) == 0
+
+
+def test_mission_index_defers_additional_recent_oversize_stale_summaries(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(trace, "MISSION_INDEX_RECENT_STALE_OVERSIZE_REPARSE_BUDGET", 1)
+    now = 1_779_980_000.0
+    current_size = trace.MISSION_INDEX_STALE_REPARSE_MAX_BYTES + 1024
+    candidates = []
+    cache_entries = {}
+    for index, session_id in enumerate(("goal-thread-long-a", "goal-thread-long-b"), start=1):
+        session_file = tmp_path / f"rollout-recent-goal-{index}.jsonl"
+        session_file.write_text("{}\n", encoding="utf-8")
+        os.utime(session_file, (now, now))
+        stat = session_file.stat()
+        candidate = {
+            "provider": "codex",
+            "session_id": session_id,
+            "session_file": str(session_file),
+            "mtime_epoch": now,
+            "mtime_ns": stat.st_mtime_ns + 1000,
+            "mtime_utc": trace._iso_from_epoch(now),
+            "size_bytes": current_size,
+        }
+        stale_source = {
+            "provider": "codex",
+            "session_id": session_id,
+            "session_file": str(session_file),
+            "mtime_ns": stat.st_mtime_ns,
+            "mtime_epoch": now - 60,
+            "size_bytes": current_size - 10,
+        }
+        stale_summary = {
+            "turn_count": 1,
+            "completed_turn_count": 1,
+            "latest_turn_index": 1,
+            "latest_completed_turn": {
+                "turn_index": 1,
+                "turn_id": f"turn-{index}",
+                "completed_at": "2026-05-31T17:00:00+00:00",
+                "last_event_at": "2026-05-31T17:00:00+00:00",
+                "tool_count": 100,
+                "prompt_preview": f"stale goal {index}",
+                "is_complete": True,
+            },
+        }
+        candidates.append(candidate)
+        cache_entries[
+            trace._mission_summary_cache_key("codex", session_id, session_file)
+        ] = {"source": stale_source, "summary": stale_summary}
+
+    refreshed_summary = {
+        "turn_count": 5,
+        "completed_turn_count": 5,
+        "latest_turn_index": 5,
+        "latest_completed_turn": {
+            "turn_index": 5,
+            "turn_id": "turn-5",
+            "completed_at": "2026-05-31T23:02:24+00:00",
+            "last_event_at": "2026-05-31T23:02:24+00:00",
+            "tool_count": 731,
+            "prompt_preview": "new full goal turn",
+            "is_complete": True,
+        },
+    }
+    parsed_paths = []
+
+    def parse_summary(_provider, path):
+        parsed_paths.append(str(path))
+        return refreshed_summary
+
+    monkeypatch.setattr(trace, "_enumerate_candidates", lambda _provider, _cwd: candidates)
+    monkeypatch.setattr(trace, "_load_mission_summary_cache", lambda: {"schema": trace.MISSION_SUMMARY_CACHE_SCHEMA, "entries": cache_entries})
+    monkeypatch.setattr(trace, "_write_mission_summary_cache", lambda _cache: None)
+    monkeypatch.setattr(trace, "_load_codex_thread_title_records", lambda: {})
+    monkeypatch.setattr(trace, "_load_title_aliases", lambda: {})
+    monkeypatch.setattr(trace, "_load_claude_desktop_titles", lambda: {})
+    monkeypatch.setattr(trace, "_load_codex_thread_goals", lambda: {})
+    monkeypatch.setattr(trace, "_latest_clipboard_entry_for", lambda _session_id: None)
+    monkeypatch.setattr(trace, "_resolve_session_title", lambda provider, session_id, *args, **kwargs: (session_id, "codex_thread_name"))
+    monkeypatch.setattr(trace, "_latest_completed_turn_summary", parse_summary)
+    monkeypatch.setattr(trace, "_mission_source_recently_changed", lambda _meta, now_epoch=None: True)
+
+    index = trace.build_mission_index(cwd=tmp_path, limit=5)
+    rows_by_id = {row["session_id"]: row for row in index["rows"]}
+
+    assert parsed_paths == [str(tmp_path / "rollout-recent-goal-1.jsonl")]
+    assert rows_by_id["goal-thread-long-a"]["trace_summary_cache_state"] == "refreshed_recent_stale"
+    assert rows_by_id["goal-thread-long-a"]["latest_turn_index"] == 5
+    assert rows_by_id["goal-thread-long-b"]["trace_summary_cache_state"] == "soft_stale"
+    assert rows_by_id["goal-thread-long-b"]["latest_turn_index"] == 1
+    assert index["perf"]["summary_cache"].get("recent_stale_oversize_forced", 0) == 1
+    assert index["perf"]["summary_cache"]["oversize_stale_deferred_budget"] == 1
 
 
 def test_goal_fleet_state_classifies_controller_actions() -> None:
@@ -1158,6 +1976,34 @@ def test_goal_fleet_action_receipt_records_no_prompt_actions() -> None:
     assert receipt["provider_thread_receipt"]["status"] == "not_required_no_prompt_sent"
     assert receipt["provider_thread_receipt"]["send_message_count"] == 0
     assert receipt["provider_thread_receipt"]["create_thread_count"] == 0
+    assert receipt["controller_mode_hint"] == {
+        "schema": "goal_fleet_controller_mode_hint_v1",
+        "mode": "projection_no_send",
+        "allowed_next_action": "stop_or_refresh_roster_before_new_provider_action",
+        "reason": "All projected actions are side-effect-free controller decisions.",
+        "action_count": 2,
+        "side_effect_required": False,
+    }
+    assert receipt["admission_guard"]["status"] == "non_mutating_projection_only"
+    assert receipt["admission_guard"]["collision_check_ref"] == "wlr_collision_check"
+    assert receipt["fleet_admission_snapshot"] == {
+        "schema": "fleet_admission_snapshot_v1",
+        "status": "not_supplied",
+        "host_pressure": {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "not_supplied",
+            "source_command": "./repo-python -m system.lib.resource_pressure --compact",
+        },
+        "work_ledger_capacity": {
+            "schema": "work_ledger_capacity_snapshot_v1",
+            "status": "not_supplied",
+            "source_command": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12 --json",
+        },
+        "authority_boundary": (
+            "Direct unit construction did not read live host/claim state; live CLI receipts "
+            "populate this from resource_pressure and Work Ledger."
+        ),
+    }
     assert receipt["uptake_confirmed"] == "not_applicable_no_prompt_sent"
     assert receipt["fan_in_due_at_or_stop_policy"] == "stop_after_non_mutating_controller_decision"
     assert receipt["workitem_refs_touched"] == [
@@ -1165,10 +2011,105 @@ def test_goal_fleet_action_receipt_records_no_prompt_actions() -> None:
     ]
     by_action = {group["action"]: group for group in receipt["action_groups"]}
     assert by_action["leave_alone"]["provider_thread_receipt"] == "not_required_no_prompt_sent"
+    assert by_action["leave_alone"]["thread_impact_card_floor"]["status"] == (
+        "not_required_for_non_mutating_controller_decision"
+    )
     assert by_action["ask_operator"]["fan_in_due_at_or_stop_policy"] == (
         "stop_until_operator_instruction"
     )
     assert receipt["side_effecting_thread_action_taken"] is False
+
+
+def test_goal_fleet_action_receipt_requires_impact_card_floor_before_mutation() -> None:
+    state = {
+        "schema": "goal_fleet_state_v1",
+        "thread_count": 2,
+        "status_counts": {"idle_complete": 1, "idle_blocked": 1},
+        "decision_counts": {
+            "fan_in_or_reprompt_with_terminal_evidence": 1,
+            "capture_or_reroute_blocker": 1,
+        },
+        "fan_in_needed_count": 2,
+        "threads": [
+            {
+                "thread_id": "complete-thread",
+                "goal_id": "goal-complete",
+                "goal_status": "complete",
+                "observed_status": "idle_complete",
+                "next_allowed_action": "fan_in_or_reprompt_with_terminal_evidence",
+                "restart_policy": "reprompt_only_with_latest_terminal_evidence",
+                "current_goal_digest": "complete-sha",
+                "title_or_alias": "Complete lane",
+                "mission_index_state": "inactive_row",
+                "updated_at_ms": 1779981000000,
+            },
+            {
+                "thread_id": "blocked-thread",
+                "goal_id": "goal-blocked",
+                "goal_status": "blocked",
+                "observed_status": "idle_blocked",
+                "next_allowed_action": "capture_or_reroute_blocker",
+                "restart_policy": "do_not_blind_reprompt_capture_blocker_first",
+                "current_goal_digest": "blocked-sha",
+                "title_or_alias": "Blocked lane",
+                "mission_index_state": "active_row",
+                "updated_at_ms": 1779982000000,
+            },
+        ],
+    }
+
+    fleet_admission = {
+        "schema": "fleet_admission_snapshot_v1",
+        "status": "watch_capacity_pressure",
+        "host_pressure": {
+            "schema": "host_resource_pressure_packet_v0",
+            "status": "attention",
+            "admission": "pressure_aware",
+            "normal_work_allowed": True,
+        },
+        "work_ledger_capacity": {
+            "schema": "work_ledger_capacity_snapshot_v1",
+            "status": "available",
+            "effective_active_sessions": 6,
+            "active_claims": 17,
+            "claim_collisions": 0,
+            "risk_level": "watch",
+        },
+    }
+
+    receipt = trace._goal_fleet_action_receipt_from_state(
+        state,
+        fleet_admission_snapshot=fleet_admission,
+    )
+
+    assert receipt["controller_mode_hint"]["mode"] == "watch_or_fan_in_before_mutation"
+    assert receipt["controller_mode_hint"]["side_effect_required"] is True
+    assert receipt["fleet_admission_snapshot"] == fleet_admission
+    assert receipt["admission_guard"]["status"] == "blocked_until_live_admission_packet"
+    assert receipt["admission_guard"]["collision_check_ref"] == (
+        "required_before_provider_thread_mutation"
+    )
+    assert "fresh Work Ledger session/claim collision check" in (
+        receipt["admission_guard"]["requires_before_provider_thread_mutation"]
+    )
+    assert "ThreadImpactCard fields for each steered thread" in (
+        receipt["admission_guard"]["requires_before_provider_thread_mutation"]
+    )
+    assert "stale counts" in receipt["admission_guard"]["non_overfit_boundary"]
+
+    by_action = {group["action"]: group for group in receipt["action_groups"]}
+    for action in ("fan_in_or_reprompt_with_terminal_evidence", "capture_or_reroute_blocker"):
+        floor = by_action[action]["thread_impact_card_floor"]
+        assert floor["schema"] == "goal_fleet_thread_impact_card_floor_v1"
+        assert floor["status"] == "required_before_provider_thread_mutation"
+        assert floor["required_fields"] == [
+            "actual_target_or_gate",
+            "claimed_paths_or_claim_ref",
+            "proof_landed_or_validation_ref",
+            "proof_missing_or_next_validation",
+            "launch_shape",
+            "fan_in_or_reentry_condition",
+        ]
 
 
 def test_goal_roster_refresh_receipt_sidecar_is_compact(monkeypatch, tmp_path) -> None:
@@ -1916,7 +2857,8 @@ def test_trace_capsule_treats_signed_off_finance_caps_as_closed(monkeypatch) -> 
         title="finance readout hygiene test",
     )
 
-    assert "open_product_residuals: none" in text
+    assert "open_product_residuals_selected_window: none" in text
+    assert "open_product_residuals_global: not_claimed" in text
     assert f"closed_residuals_seen: {hourly_cap},{body_floor_cap}" in text
     assert f"blocked_external_observation_residuals: {natural_fire_cap}" in text
     assert meta["open_product_residuals"] == []
@@ -1952,6 +2894,93 @@ def test_trace_capsule_validation_process_warning_does_not_block_owner_scope(mon
     assert meta["blocking_terminal_failure_count"] == 0
     assert meta["validation_process_terminal_warning_count"] == 1
     assert meta["open_validation_process_residuals"] == [process_cap]
+
+
+def test_trace_capsule_pvr_gate_with_closed_stdin_tempfail_is_public_release_blocked() -> None:
+    commit = "cc48633a949938166dfe45cd09aa346a03c9930b"
+    pvr_receipt = json.dumps({
+        "schema_version": "microcosm_github_private_vulnerability_reporting_receipt_v0",
+        "status": "blocked",
+        "target_repository": "wcook04/microcosm-substrate",
+        "target_repository_url": "https://github.com/wcook04/microcosm-substrate",
+        "private_vulnerability_reporting": {
+            "api_endpoint": "repos/wcook04/microcosm-substrate/private-vulnerability-reporting",
+            "checked": False,
+            "enabled": False,
+        },
+        "release_effect": "blocks_public_release_until_public_repo_exists_and_github_pvr_is_enabled",
+        "release_blockers": [
+            {
+                "id": "public_repository_absent",
+                "status": "blocked",
+                "reason": "GitHub repository wcook04/microcosm-substrate is not visible to the configured GitHub token.",
+            }
+        ],
+        "advisories": [
+            {
+                "id": "no_public_repo_mutation_performed",
+                "status": "informational",
+            }
+        ],
+    })
+
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [
+                _event(
+                    1,
+                    "./repo-pytest tools/meta/dissemination/tests/test_github_private_vulnerability_reporting_receipt.py tools/meta/dissemination/tests/test_microcosm_release_candidate_gate.py",
+                    0,
+                    "18 passed",
+                ),
+                _event(
+                    2,
+                    "./repo-pytest",
+                    1,
+                    "write_stdin failed: stdin is closed",
+                ),
+                _event(
+                    3,
+                    "./repo-python tools/meta/dissemination/github_private_vulnerability_reporting_receipt.py --repo wcook04/microcosm-substrate --write --check --require-pass",
+                    2,
+                    pvr_receipt,
+                ),
+                _event(
+                    4,
+                    './repo-python tools/meta/control/scoped_commit.py full-paths --message "Bind Microcosm private vulnerability intake gate"',
+                    0,
+                    json.dumps({"new_commit": commit}),
+                ),
+                _event(5, f"git merge-base --is-ancestor {commit} HEAD && echo ancestor", 0, "ancestor"),
+            ],
+            assistant_text=(
+                f"Implemented and landed commit {commit}. Owner-scope PVR and release gate tests passed. "
+                "The broad pytest wrapper hit a closed stdin transport failure after the owner checks, "
+                "and public release remains blocked by public_repository_absent / GitHub PVR not green. "
+                "No public repository was created, no visibility changed, and no public release action was taken."
+            ),
+        ),
+        title="PVR public release blocked validation semantics",
+    )
+
+    assert "final_validation: pass_with_public_release_blocked" in text
+    assert "owner_scope_validation: pass" in text
+    assert "public_release_authorization: not_authorized_by_operator" in text
+    assert "source_landing: source_scope_landed_with_residuals" in text
+    assert "release_candidate_gate: public_release_blocked" in text
+    assert "validation_process=needs_review" in text
+    assert "scoped_failures=0" in text
+    assert "nonblocking_terminal_failures=1" in text
+    assert meta["final_validation"] == "pass_with_public_release_blocked"
+    assert meta["owner_scope_validation"] == "pass"
+    assert meta["public_release_authorization"] == "not_authorized_by_operator"
+    assert meta["source_landing"] == "source_scope_landed_with_residuals"
+    assert meta["release_candidate_gate_decision"] == "public_release_blocked"
+    assert meta["blocking_terminal_failure_count"] == 0
+    assert meta["raw_blocking_terminal_failure_count"] == 1
+    assert meta["nonblocking_terminal_failure_count"] == 1
+    assert meta["validation_process_terminal_warning_count"] == 1
+    assert meta["validation_class_counts"]["validation_process_warning"] == 1
 
 
 def test_trace_capsule_task_ledger_validate_does_not_reopen_residual_noise(monkeypatch) -> None:
@@ -1997,7 +3026,8 @@ def test_trace_capsule_task_ledger_validate_does_not_reopen_residual_noise(monke
 
     assert "final_validation: pass_with_external_warnings" in text
     assert "owner_scope_validation: pass" in text
-    assert "open_product_residuals: none" in text
+    assert "open_product_residuals_selected_window: none" in text
+    assert "open_product_residuals_global: not_claimed" in text
     assert "closed_residuals_seen: none" in text
     assert meta["open_product_residuals"] == []
     assert meta["closed_residuals_seen"] == []
@@ -2030,7 +3060,8 @@ def test_trace_capsule_diagnostic_cap_mentions_do_not_reopen_residuals(monkeypat
 
     assert "final_validation: passed" in text
     assert "owner_scope_validation: pass" in text
-    assert "open_product_residuals: none" in text
+    assert "open_product_residuals_selected_window: none" in text
+    assert "open_product_residuals_global: not_claimed" in text
     assert meta["open_product_residuals"] == []
     assert meta["captured_residual_ids"] == []
 
@@ -2060,7 +3091,8 @@ def test_trace_capsule_self_error_capture_is_process_not_product_residual(monkey
     )
 
     assert "final_validation: pass_with_validation_process_warnings" in text
-    assert "open_product_residuals: none" in text
+    assert "open_product_residuals_selected_window: none" in text
+    assert "open_product_residuals_global: not_claimed" in text
     assert f"open_validation_process_residuals: {self_error_cap}" in text
     assert meta["open_product_residuals"] == []
     assert meta["open_validation_process_residuals"] == [self_error_cap]
@@ -2144,7 +3176,8 @@ def test_trace_capsule_scoped_commit_landed_with_residual_dirty_state(monkeypatc
     assert "final_validation: pass_with_validation_process_warnings" in text
     assert "owner_scope_validation: pass" in text
     assert "source_landing: source_scope_landed_with_residuals" in text
-    assert "open_product_residuals: none" in text
+    assert "open_product_residuals_selected_window: none" in text
+    assert "open_product_residuals_global: not_claimed" in text
     assert f"open_validation_process_residuals: {self_error_cap}" in text
     assert "terminal_failure_classes: current_terminal_failure=0 recovered_failure=1" in text
     assert "validation_process=needs_review" in text

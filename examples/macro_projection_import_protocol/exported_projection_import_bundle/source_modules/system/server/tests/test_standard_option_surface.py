@@ -223,6 +223,30 @@ def test_paper_modules_card_surface_drills_selected_ids_only() -> None:
         assert row["omission_receipt"]["drilldown"].endswith(row["slug"])
 
 
+def test_paper_modules_context_surface_projects_task_packet() -> None:
+    payload = build_option_surface(
+        REPO_ROOT,
+        "paper_modules",
+        band="context",
+        ids=["navigation_hologram_theory"],
+    )
+
+    assert payload["profile_status"] == "supported"
+    assert payload["band"] == "context"
+    assert "context" in payload["governing_standard"]["owned_bands"]
+    assert payload["selection"]["mode"] == "ids"
+
+    row = payload["rows"][0]
+    assert row["slug"] == "navigation_hologram_theory"
+    assert row["band"] == "context"
+    assert row["section_summaries"]["tldr"]
+    assert row["section_summaries"]["intent"]
+    assert "depends_on" in row["dependency_edges"]
+    assert row["code_loci_summary"]["top_paths"]
+    assert row["evidence_commands"][0].endswith("--paper-module navigation_hologram_theory")
+    assert row["omission_receipt"]["drilldown"].endswith("navigation_hologram_theory")
+
+
 def test_paper_modules_cluster_flag_collapses_authored_and_suggested_subdomains(tmp_path: Path) -> None:
     """The contents-page rung must not list the same subdomain twice as
     `subdomain_X` and `suggested_subdomain_X`. Authored and heuristic

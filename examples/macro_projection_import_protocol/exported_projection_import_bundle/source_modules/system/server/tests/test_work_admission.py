@@ -232,6 +232,15 @@ def test_explicit_test_plane_still_classifies_as_validation_work() -> None:
     assert classification["heavy"] is True
 
 
+def test_projection_suffix_write_profile_classifies_as_projection_rebuild() -> None:
+    classification = work_admission.classify_work_creation_request(
+        write_profiles=[{"profile": "microcosm_public_site_projection"}],
+    )
+
+    assert classification["work_class"] == work_admission.PROJECTION_REBUILD
+    assert classification["heavy"] is True
+
+
 def test_warn_policy_reports_blocked_result_but_admits(tmp_path) -> None:
     decision = work_admission.build_work_admission_decision(
         tmp_path,
@@ -949,6 +958,18 @@ def test_session_yield_control_surface_separates_pending_and_applied() -> None:
     assert surface["counts"]["accepted_result_count"] == 1
     assert surface["counts"]["applied_result_count"] == 1
     assert surface["recovery_verdict"] == "accepted_actuator_available"
+    assert surface["latest_request_cards"][0]["request_id"] == "syr-applied"
+    assert surface["latest_request_cards"][0]["request_result"] == "requested"
+    assert surface["latest_request_cards"][0]["result"] == "accepted"
+    assert surface["latest_request_cards"][0]["accepted"] is True
+    assert surface["latest_request_cards"][0]["applied"] is True
+    assert surface["latest_request_cards"][0]["applied_action"] == "lowered_poll_rate"
+    assert surface["latest_request_cards"][0]["pending"] is False
+    assert surface["latest_request_cards"][0]["resolved"] is True
+    assert surface["latest_request_cards"][0]["latest_result_status"] == "accepted_and_applied"
+    assert surface["latest_request_cards"][1]["request_id"] == "syr-pending"
+    assert surface["latest_request_cards"][1]["pending"] is True
+    assert surface["latest_request_cards"][1]["resolved"] is False
 
 
 def test_resident_relief_settlement_pending_and_fresh_heartbeat_are_not_effective() -> None:

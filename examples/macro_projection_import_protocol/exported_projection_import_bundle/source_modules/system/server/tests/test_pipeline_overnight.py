@@ -256,6 +256,16 @@ def test_arm_overnight_defers_auto_refresh_when_dock_packet_is_under_split(
             "wake_lock": {"sleep_policy": "keep_awake", "enabled": False},
         },
     )
+    monkeypatch.setattr(
+        pipeline_overnight,
+        "resume_automation",
+        lambda root, dry_run, sleep_policy: {
+            "control_state": {
+                "paused": False,
+                "wake_lock": {"sleep_policy": sleep_policy, "enabled": True},
+            }
+        },
+    )
     monkeypatch.setattr(pipeline_overnight, "pause_automation", lambda **kwargs: {"status": "paused"})
     monkeypatch.setattr(pipeline_overnight, "bootstrap_phase_harbor", lambda *args, **kwargs: {"status": "bootstrapped"})
     monkeypatch.setattr(
@@ -411,6 +421,16 @@ def test_arm_overnight_still_blocks_forced_refresh_when_dock_packet_is_under_spl
             "paused": False,
             "pause_reason": None,
             "wake_lock": {"sleep_policy": "keep_awake", "enabled": False},
+        },
+    )
+    monkeypatch.setattr(
+        pipeline_overnight,
+        "resume_automation",
+        lambda root, dry_run, sleep_policy: {
+            "control_state": {
+                "paused": False,
+                "wake_lock": {"sleep_policy": sleep_policy, "enabled": True},
+            }
         },
     )
     monkeypatch.setattr(pipeline_overnight, "pause_automation", lambda **kwargs: {"status": "paused"})
@@ -676,13 +696,16 @@ def test_install_launch_agent_soft_skips_sandbox_permission_failure(
         script,
     )
     monkeypatch.setattr(
-        pipeline_overnight.subprocess,
-        "run",
-        lambda *args, **kwargs: subprocess.CompletedProcess(
-            args=args[0],
-            returncode=1,
-            stdout="install: sandbox detected, falling back to direct copy\n",
-            stderr="install: /Users/example/Library/LaunchAgents/demo: Operation not permitted\n",
+        pipeline_overnight,
+        "_run_launch_agent_install_script",
+        lambda path: (
+            subprocess.CompletedProcess(
+                args=["/bin/bash", str(path)],
+                returncode=1,
+                stdout="install: sandbox detected, falling back to direct copy\n",
+                stderr="install: /Users/example/Library/LaunchAgents/demo: Operation not permitted\n",
+            ),
+            False,
         ),
     )
 
@@ -691,6 +714,38 @@ def test_install_launch_agent_soft_skips_sandbox_permission_failure(
     assert payload["status"] == "skipped_permission_blocked"
     assert payload["permission_blocked"] is True
     assert "sandboxed environment" in payload["warning"]
+
+
+def test_install_launch_agent_soft_skips_timeout(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    script = tmp_path / "pipeline_autopilot_install.sh"
+    script.write_text("#!/bin/bash\nsleep 120\n", encoding="utf-8")
+    monkeypatch.setitem(
+        pipeline_overnight.INSTALL_SCRIPTS,
+        pipeline_overnight.PIPELINE_AUTOPILOT_LABEL,
+        script,
+    )
+    monkeypatch.setattr(
+        pipeline_overnight,
+        "_run_launch_agent_install_script",
+        lambda path: (
+            subprocess.CompletedProcess(
+                args=["/bin/bash", str(path)],
+                returncode=1,
+                stdout="",
+                stderr="launchctl kickstart did not return\n",
+            ),
+            True,
+        ),
+    )
+
+    payload = pipeline_overnight._install_launch_agent(pipeline_overnight.PIPELINE_AUTOPILOT_LABEL)
+
+    assert payload["status"] == "skipped_timeout"
+    assert payload["timed_out"] is True
+    assert "timed out" in payload["warning"]
 
 
 def test_arm_overnight_continues_when_launch_agent_install_is_permission_blocked(
@@ -710,6 +765,7 @@ def test_arm_overnight_continues_when_launch_agent_install_is_permission_blocked
         "phase_title": "Phase 09.35",
         "phase_dir": "obsidian/family/09.35",
     }
+    call_order: list[str] = []
     harbor = {
         "paths": {
             "phase_dir": "obsidian/family/09.35",
@@ -798,7 +854,8 @@ def test_arm_overnight_continues_when_launch_agent_install_is_permission_blocked
     monkeypatch.setattr(
         pipeline_overnight,
         "_install_launch_agent",
-        lambda label: {
+        lambda label: call_order.append("install")
+        or {
             "label": label,
             "status": "skipped_permission_blocked",
             "permission_blocked": True,
@@ -808,7 +865,8 @@ def test_arm_overnight_continues_when_launch_agent_install_is_permission_blocked
     monkeypatch.setattr(
         pipeline_overnight,
         "mark_pipeline_resumed",
-        lambda repo_root=None, sleep_policy=None: {
+        lambda repo_root=None, sleep_policy=None: call_order.append("mark_resumed")
+        or {
             "paused": False,
             "wake_lock": {"sleep_policy": sleep_policy},
         },
@@ -816,7 +874,8 @@ def test_arm_overnight_continues_when_launch_agent_install_is_permission_blocked
     monkeypatch.setattr(
         pipeline_overnight,
         "ensure_wake_lock",
-        lambda sleep_policy, repo_root=None: {
+        lambda sleep_policy, repo_root=None: call_order.append("ensure_wake_lock")
+        or {
             "paused": False,
             "wake_lock": {"sleep_policy": sleep_policy, "enabled": True},
         },
@@ -834,3 +893,4 @@ def test_arm_overnight_continues_when_launch_agent_install_is_permission_blocked
     assert payload["launch_agents"]["wake_agent"] == "none"
     assert payload["launch_agents"]["install_results"][0]["status"] == "skipped_permission_blocked"
     assert payload["control_state"]["wake_lock"]["enabled"] is True
+    assert call_order == ["mark_resumed", "ensure_wake_lock", "install"]

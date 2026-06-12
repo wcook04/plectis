@@ -482,6 +482,11 @@ COGNITIVE_OPERATOR_LANDING_HANDOFF_TRIGGERS = (
     "uncommitted slice",
     "commit blocked",
     "scoped commit blocked",
+    "private-index cas",
+    "parent cas",
+    "head advanced",
+    "retry budget exhausted",
+    "cas retry budget",
     "git metadata",
     ".git metadata",
     "metadata write denied",
@@ -10349,7 +10354,7 @@ def _budget_trim(
     return packet
 
 
-def build_navigation_context_pack(
+def _build_navigation_context_pack_uncached(
     repo_root: Path | str,
     query: str,
     *,
@@ -10745,3 +10750,82 @@ def build_navigation_context_pack(
     packet["budget"]["over_budget"] = estimated_tokens > budget
     packet["budget"]["contract_status"] = "over_budget" if estimated_tokens > budget else "within_budget"
     return packet
+
+
+def build_navigation_context_pack(
+    repo_root: Path | str,
+    query: str,
+    *,
+    context_budget: int = 12000,
+    include_semantic: bool | None = None,
+    semantic_timeout_ms: int = DEFAULT_SEMANTIC_TIMEOUT_MS,
+    profile: str | None = None,
+    include_transaction_control_plane: bool | None = None,
+) -> dict[str, Any]:
+    root = Path(repo_root)
+    budget = max(1000, int(context_budget or 12000))
+    normalized_profile = str(profile or os.environ.get("AIW_CONTEXT_PACK_PROFILE") or "routine").strip().lower()
+    if normalized_profile not in {"routine", "deep"}:
+        normalized_profile = "routine"
+    cache_eligible = (
+        normalized_profile == "routine"
+        and budget <= 12000
+        and include_semantic is None
+        and semantic_timeout_ms == DEFAULT_SEMANTIC_TIMEOUT_MS
+        and include_transaction_control_plane is not True
+    )
+    if not cache_eligible:
+        return _build_navigation_context_pack_uncached(
+            root,
+            query,
+            context_budget=budget,
+            include_semantic=include_semantic,
+            semantic_timeout_ms=semantic_timeout_ms,
+            profile=normalized_profile,
+            include_transaction_control_plane=include_transaction_control_plane,
+        )
+
+    from system.lib.command_node_cache import cached_command_node
+    from system.lib.kernel.context_pack_fast import (
+        CONTEXT_PACK_CACHE_NODE_ID,
+        DEFAULT_CONTEXT_PACK_CACHE_TTL_S,
+        default_context_pack_cache_manifest,
+        with_context_pack_cache_status,
+    )
+
+    cache_key, input_paths = default_context_pack_cache_manifest(
+        root,
+        query=query,
+        context_budget=budget,
+        include_transaction_control_plane=False,
+        profile=normalized_profile,
+    )
+    payload, cache_status = cached_command_node(
+        root,
+        node_id=CONTEXT_PACK_CACHE_NODE_ID,
+        key=cache_key,
+        input_paths=input_paths,
+        ttl_s=DEFAULT_CONTEXT_PACK_CACHE_TTL_S,
+        builder=lambda: _build_navigation_context_pack_uncached(
+            root,
+            query,
+            context_budget=budget,
+            include_semantic=include_semantic,
+            semantic_timeout_ms=semantic_timeout_ms,
+            profile=normalized_profile,
+            include_transaction_control_plane=include_transaction_control_plane,
+        ),
+        freshness_policy="ttl_for_dynamic_context_pack_plus_static_manifest",
+        dynamic_inputs_manifested=False,
+    )
+    if not isinstance(payload, dict) or payload.get("kind") != "navigation_context_pack":
+        payload = _build_navigation_context_pack_uncached(
+            root,
+            query,
+            context_budget=budget,
+            include_semantic=include_semantic,
+            semantic_timeout_ms=semantic_timeout_ms,
+            profile=normalized_profile,
+            include_transaction_control_plane=include_transaction_control_plane,
+        )
+    return with_context_pack_cache_status(payload, cache_status)

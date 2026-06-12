@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 453574,
+      "byte_count": 607956,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 10598,
+      "line_count": 14036,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_body_import",
       "required_anchors": [
@@ -25,17 +25,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/meta/observability/cli_prompt_trace.py",
       "source_role": "Trace Capsule renderer and provider-session trace projection tool for command/output/edit/test timelines, closeout reports, prompt-cycle windows, and local-only variant artifacts",
-      "source_sha256": "2575646208d89022fb06bfe709aec5599cb43d87c50b15c6a68d02e4414abe52",
+      "source_sha256": "577b7ac25661565d68d84a541cb57c35e004e5968b41d55a6a97399d4359da1b",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
-      "target_sha256": "2575646208d89022fb06bfe709aec5599cb43d87c50b15c6a68d02e4414abe52"
+      "target_sha256": "577b7ac25661565d68d84a541cb57c35e004e5968b41d55a6a97399d4359da1b"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 99605,
+      "byte_count": 147805,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2321,
+      "line_count": 3354,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_test_body_import",
       "required_anchors": [
@@ -49,17 +49,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "system/server/tests/test_cli_prompt_trace_capsule.py",
       "source_role": "Macro regression tests for terminal validation semantics, thread closeout reports, and repeated prompt interning around cli_prompt_trace Trace Capsule output",
-      "source_sha256": "225fab165f6aea966845e98045628f9f45be7032e850c9692b80bf4b7f789bc6",
+      "source_sha256": "7481b338e86482a98dccd8f1471aeeae9f4ae570b6ad1594a4cf0a410654503d",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
-      "target_sha256": "225fab165f6aea966845e98045628f9f45be7032e850c9692b80bf4b7f789bc6"
+      "target_sha256": "7481b338e86482a98dccd8f1471aeeae9f4ae570b6ad1594a4cf0a410654503d"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 169245,
+      "byte_count": 179609,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4045,
+      "line_count": 4260,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_trace_structurer_parser_body_import",
       "required_anchors": [
@@ -73,9 +73,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/agent_trace_structurer/parser.mjs",
       "source_role": "Deterministic local parser for prompt-shaped clipboard text, operator thread exports, command traces, edit artifacts, validation matrices, and lossless attachment clips",
-      "source_sha256": "e43c8ed806f58c9a1fe299995498bf85eb2d7e8cef0cfc3bb13305f95f17ce15",
+      "source_sha256": "29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
-      "target_sha256": "e43c8ed806f58c9a1fe299995498bf85eb2d7e8cef0cfc3bb13305f95f17ce15"
+      "target_sha256": "29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e"
     },
     {
       "anchor_count": 5,
@@ -86,9 +86,9 @@
       ],
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 57308,
+      "byte_count": 68032,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 1249,
+      "line_count": 1382,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_trace_structurer_parser_test_body_import",
       "required_anchors": [
@@ -102,10 +102,10 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/agent_trace_structurer/parser.test.mjs",
       "source_role": "Node fixture tests for the Agent Trace Structurer parser: file artifact indexing, Codex trace shape, closeout extraction, prompt classification, and bounded export behavior",
-      "source_sha256": "b75ace6f97f8ea859d455de90eb6e9089ed36c67ba7d7cd80d963f720a54084d",
+      "source_sha256": "35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
-      "target_sha256": "b75ace6f97f8ea859d455de90eb6e9089ed36c67ba7d7cd80d963f720a54084d"
+      "target_sha256": "35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5"
     }
   ],
   "public_runtime_policy": "public validation uses fixture Turn objects and deterministic parser fixture strings only; copied source modules are body evidence, not authority to read live home session logs or provider stores Declared public light-edit redactions may rewrite operator-specific absolute path literals without importing credential, session, provider, or raw operator bodies.",

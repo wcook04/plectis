@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 194170,
+      "byte_count": 195031,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 3848,
+      "line_count": 3875,
       "material_class": "public_macro_receipt_body",
       "module_id": "bootstrap_agent_bootstrap_live_body_import",
       "required_anchors": [
@@ -25,15 +25,15 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/agent_bootstrap_live.json",
       "source_role": "Generated Codex bootstrap control-plane sidecar carrying situation routes, instruction discovery, actor packets, live bindings, and agent operating packet strips.",
-      "source_sha256": "ddd0d520142f5b0c2700acbc030c310dcc69c13d5e5ef05c3516ce1717e170d0",
+      "source_sha256": "f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
-      "target_sha256": "ddd0d520142f5b0c2700acbc030c310dcc69c13d5e5ef05c3516ce1717e170d0"
+      "target_sha256": "f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 12380,
+      "byte_count": 12336,
       "classification": "copied_non_secret_macro_body",
       "line_count": 295,
       "material_class": "public_macro_receipt_body",
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/routing_hologram.json",
       "source_role": "Generated routing hologram sidecar carrying situation rows, entry protocol, mode rows, delegation rows, and section caps.",
-      "source_sha256": "49b7292aa02402337615e7422596c21e05ab778b0ada491c9e3687b91e9d8840",
+      "source_sha256": "c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
-      "target_sha256": "49b7292aa02402337615e7422596c21e05ab778b0ada491c9e3687b91e9d8840"
+      "target_sha256": "c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c"
     },
     {
       "anchor_count": 5,

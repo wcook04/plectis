@@ -33,9 +33,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 472263,
+      "byte_count": 475388,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 10747,
+      "line_count": 10831,
       "material_class": "public_macro_tool_body",
       "module_id": "route_selection_context_pack_body_import",
       "required_anchors": [
@@ -49,17 +49,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/navigation_context_pack.py",
       "source_role": "Task-conditioned context-pack builder for coverage-first navigation, selected-row compaction, route budgets, omission receipts, and control-entry overview packets.",
-      "source_sha256": "4a13ba4c1750f18edfdbf0c7f6158cad8ba707043a537d57fedebf9a96550209",
+      "source_sha256": "803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
-      "target_sha256": "4a13ba4c1750f18edfdbf0c7f6158cad8ba707043a537d57fedebf9a96550209"
+      "target_sha256": "803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 368485,
+      "byte_count": 404194,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 8981,
+      "line_count": 9790,
       "material_class": "public_macro_tool_body",
       "module_id": "route_selection_entry_packet_body_import",
       "required_anchors": [
@@ -73,17 +73,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
       "source_role": "Kernel entry packet and route-lease control plane for task recognition, active phase routing, WorkItem routing, mutation governance, and first-contact next actions.",
-      "source_sha256": "044b97225b4b6016bfed9c2c2bd1e4fc2eb38662d79f34b903a8120ee28f9679",
+      "source_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "044b97225b4b6016bfed9c2c2bd1e4fc2eb38662d79f34b903a8120ee28f9679"
+      "target_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 756449,
+      "byte_count": 764177,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 17215,
+      "line_count": 17364,
       "material_class": "public_macro_tool_body",
       "module_id": "route_selection_option_surface_body_import",
       "required_anchors": [
@@ -97,9 +97,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/standard_option_surface.py",
       "source_role": "Standard-owned option-surface router for artifact-kind rows, standard navigation cards, Microcosm extracted-pattern routing, validation probes, and no-null-pass cards.",
-      "source_sha256": "cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
+      "source_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59"
+      "target_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b"
     },
     {
       "anchor_count": 5,

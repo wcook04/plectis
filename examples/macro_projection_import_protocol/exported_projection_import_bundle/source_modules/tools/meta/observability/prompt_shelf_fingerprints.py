@@ -63,6 +63,7 @@ SLOT_BY_SLUG = {
     "context_compaction": "B3",
     "autonomous_seed": "B6",
     "codex_goal_author": "B7",
+    "codex_orchestrator_goal_author": "B7.1",
 }
 
 

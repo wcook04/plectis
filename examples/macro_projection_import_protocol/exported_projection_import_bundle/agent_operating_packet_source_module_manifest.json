@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 220671,
+      "byte_count": 220731,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4633,
+      "line_count": 4635,
       "material_class": "public_macro_receipt_body",
       "module_id": "agent_operating_packet_sidecar_body_import",
       "required_anchors": [
@@ -25,17 +25,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/agent_operating_packet.json",
       "source_role": "Generated Type A agent operating packet sidecar carrying global runtime principle capsules, agent-principle rows, candidate axiom pressure, routing matrix, commands, and byte-budget metrics.",
-      "source_sha256": "8f9c6fd501d8187623fe6ad617faeac6105d95644c1f71f31b3d48a7a1a45d68",
+      "source_sha256": "bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
-      "target_sha256": "8f9c6fd501d8187623fe6ad617faeac6105d95644c1f71f31b3d48a7a1a45d68"
+      "target_sha256": "bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 51097,
+      "byte_count": 58607,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 1029,
+      "line_count": 1183,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_operating_packet_projection_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/agent_operating_packet.py",
       "source_role": "Agent operating packet owner that selects active principles, builds agent-principle lenses, keeps axiom candidates as pressure-only rows, renders markdown, and emits the runtime strip consumed by entry surfaces.",
-      "source_sha256": "283180b178f23a7af2b6762f106d96ad81435cfa3d126f47d5cd1fd685c72e3d",
+      "source_sha256": "981d9d330bda248d06947cec6312c78bc94341eb94467687b7708fdea600cb88",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_operating_packet.py",
-      "target_sha256": "283180b178f23a7af2b6762f106d96ad81435cfa3d126f47d5cd1fd685c72e3d"
+      "target_sha256": "981d9d330bda248d06947cec6312c78bc94341eb94467687b7708fdea600cb88"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, principle/axiom packet assertions, anchor checks, and syntax compilation into /tmp; copied source modules are body evidence, not authority to refresh live doctrine projections or inspect raw seed bodies",
