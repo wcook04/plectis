@@ -23,6 +23,7 @@ from microcosm_core.doctrine_lattice import (
     build_skill_instance_corpus,
     build_standard_instance_corpus,
     check_public_codex_leaks,
+    expected_paper_module_instances,
     load_kind_standards,
     load_skill_instances,
     load_standard_instances,
@@ -6584,6 +6585,40 @@ def test_corpus_readiness_mathlib_absence_gate_population_has_capsule_and_mechan
         "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import",
     }
+
+
+def test_corpus_readiness_paper_module_capsule_is_not_shadowed_by_legacy_slug() -> None:
+    instance = expected_paper_module_instances(MICROCOSM_ROOT)[
+        "paper_module.corpus_readiness_mathlib_absence_gate"
+    ]
+    relationships = instance["relationships"]
+
+    assert instance["paper_module_payload"]["source_authority"] == "json_capsule"
+    assert instance["status"] == "active"
+    assert relationships["source_ref"].startswith(
+        "core/paper_module_capsules.json::paper_modules"
+    )
+    assert relationships["subjects"] == [
+        {"kind": "organ", "ref": "corpus_readiness_mathlib_absence_gate"},
+        {
+            "kind": "mechanism",
+            "ref": (
+                "mechanism.corpus_readiness_mathlib_absence_gate."
+                "validates_public_corpus_readiness_boundary"
+            ),
+        },
+        {
+            "kind": "mechanism",
+            "ref": (
+                "mechanism.corpus_readiness_mathlib_absence_gate."
+                "validates_public_mathlib_absence_boundary"
+            ),
+        },
+    ]
+    assert any(
+        edge["relation_id"] == "paper_module.explains.organ_or_mechanism"
+        for edge in relationships["edges"]
+    )
 
 
 def test_world_model_projection_drift_control_room_population_resolves_required_edges() -> None:

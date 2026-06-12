@@ -1354,6 +1354,11 @@ def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
     capsule_rows = _paper_capsules(root)
     markdown_files = _paper_module_files(root, suffixes=(".md",))
+    capsule_module_ids = {
+        str(row.get("id") or "").strip()
+        for row in capsule_rows
+        if str(row.get("id") or "").strip()
+    }
     capsule_markdown_files = {
         str(row.get("legacy_markdown_projection") or "").strip()
         for row in capsule_rows
@@ -1373,10 +1378,12 @@ def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
         rows.append(copy_row)
 
     for rel in markdown_files:
+        module_id = f"paper_module.{Path(rel).stem}"
+        if module_id in capsule_module_ids:
+            continue
         if rel in capsule_markdown_files:
             continue
         slug = Path(rel).stem
-        module_id = f"paper_module.{slug}"
         rows.append(
             {
                 "id": module_id,
@@ -1994,7 +2001,7 @@ def build_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
 def write_paper_module_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
     - Teleology: write every expected paper-module instance to disk and return the resulting corpus.
-    - Guarantee: writes paper_modules/<id>.json for all expected ids (sorted-keys JSON), then returns build_paper_module_instance_corpus.
+    - Guarantee: writes paper_modules/<id>.json for expected ids whose sorted-keys JSON differs from disk, then returns build_paper_module_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
     - When-needed: --write-style regeneration of paper-module instances.
     - Escalates-to: build_paper_module_instance_corpus.
@@ -2004,10 +2011,10 @@ def write_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
     paper_dir = resolved / PAPER_MODULE_INSTANCE_DIR_REL
     paper_dir.mkdir(parents=True, exist_ok=True)
     for module_id, payload in expected_paper_module_instances(resolved).items():
-        (resolved / _paper_module_instance_rel(module_id)).write_text(
-            json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
+        target = resolved / _paper_module_instance_rel(module_id)
+        text = json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+        if not target.exists() or target.read_text(encoding="utf-8") != text:
+            target.write_text(text, encoding="utf-8")
     return build_paper_module_instance_corpus(resolved)
 
 
