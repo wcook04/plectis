@@ -154,23 +154,18 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     assert mechanism["known_residual_selective_relation_count"] == 37
     assert mechanism["planned_edge_row_count"] == 4
     assert mechanism["planned_edge_count"] == 4
-    assert paper_modules["status"] == "frontier"
-    assert paper_modules["readiness_complete"] is False
-    assert paper_modules["total_objects"] == 99
+    assert paper_modules["status"] == "complete"
+    assert paper_modules["readiness_complete"] is True
+    assert paper_modules["total_objects"] == 98
     assert paper_modules["ready_objects"] == 98
     assert paper_modules["source_authority_counts"] == {
         "json_capsule": 98,
-        "legacy_markdown_projection": 1,
     }
-    assert paper_modules["required_residual_relation_count"] == 1
-    assert paper_modules["selective_residual_relation_count"] == 28
-    assert paper_modules["residual_relation_count"] == 29
-    assert paper_modules["required_gap_ids"] == [
-        "paper_module.tactic_portfolio_availability_probe",
-    ]
-    assert paper_modules["incomplete_ids"] == [
-        "paper_module.tactic_portfolio_availability_probe",
-    ]
+    assert paper_modules["required_residual_relation_count"] == 0
+    assert paper_modules["selective_residual_relation_count"] == 23
+    assert paper_modules["residual_relation_count"] == 23
+    assert paper_modules["required_gap_ids"] == []
+    assert paper_modules["incomplete_ids"] == []
     assert report["status"] == "complete"
 
 

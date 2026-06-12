@@ -78,29 +78,12 @@
   },
   "paper_module_readiness_audit": {
     "authority_boundary": "Paper-module readiness audit over generated paper-module JSON instances. It exposes walkability and residual pressure only; it is not source authority, support evidence, proof authority, release readiness, or permission to hand-edit generated paper-module rows.",
-    "incomplete_ids": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
-    "issue_rows": [
-      {
-        "id": "paper_module.tactic_portfolio_availability_probe",
-        "issues": [
-          "source_authority_not_json_capsule",
-          "required_residual_relations_present",
-          "code_loci_missing",
-          "edges_missing",
-          "resolved_subject_route_missing",
-          "resolved_concept_route_missing",
-          "resolved_existing_code_locus_missing"
-        ]
-      }
-    ],
-    "readiness_complete": false,
+    "incomplete_ids": [],
+    "issue_rows": [],
+    "readiness_complete": true,
     "ready_objects": 98,
-    "required_gap_ids": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
-    "required_residual_relation_count": 1,
+    "required_gap_ids": [],
+    "required_residual_relation_count": 0,
     "required_structures": [
       "valid_json_object",
       "source_refs",
@@ -116,20 +99,14 @@
       "selective residual relations counted as frontier pressure"
     ],
     "residual_policy": "Required paper-module residuals block readiness. Selective residuals are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-    "residual_relation_count": 29,
+    "residual_relation_count": 23,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 1,
-      "paper_module.cites.code_locus": 1,
-      "paper_module.depends_on.paper_module": 24,
-      "paper_module.explains.organ_or_mechanism": 1,
-      "paper_module.governed_by.concept": 1,
-      "paper_module.governed_by.principle": 1
+      "paper_module.depends_on.paper_module": 23
     },
     "residual_relation_counts_by_requirement": {
-      "required": 1,
-      "selective": 28
+      "selective": 23
     },
-    "residual_relation_row_count": 24,
+    "residual_relation_row_count": 23,
     "residual_relation_rows": [
       {
         "count": 1,
@@ -264,12 +241,6 @@
         "selective_count": 1
       },
       {
-        "count": 6,
-        "id": "paper_module.tactic_portfolio_availability_probe",
-        "required_count": 1,
-        "selective_count": 5
-      },
-      {
         "count": 1,
         "id": "paper_module.world_model_projection_drift_control_room",
         "required_count": 0,
@@ -277,10 +248,9 @@
       }
     ],
     "schema_version": "microcosm_paper_module_readiness_audit_v1",
-    "selective_residual_relation_count": 28,
+    "selective_residual_relation_count": 23,
     "source_authority_counts": {
-      "json_capsule": 98,
-      "legacy_markdown_projection": 1
+      "json_capsule": 98
     },
     "source_of_record": {
       "instance_owner": "microcosm_core.doctrine_lattice",
@@ -290,8 +260,8 @@
         "paper_modules/*.md legacy inventory"
       ]
     },
-    "status": "frontier",
-    "total_objects": 99
+    "status": "complete",
+    "total_objects": 98
   },
   "plane": "microcosm_substrate_public_read_model",
   "plane_note": "Public read model over microcosm-substrate sources only. External orchestration or control planes that operate on this repository are not represented in this projection and are never sources of record for it.",

@@ -1625,8 +1625,6 @@ def test_legacy_paper_modules_explain_json_capsule_boundary() -> None:
     _skip_when_legacy_projection_drifted()
     legacy_rows = list(_legacy_instance_rows().values())
 
-    assert legacy_rows
-
     for row in legacy_rows:
         payload = row["paper_module_payload"]
         markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
@@ -1644,6 +1642,40 @@ def test_legacy_paper_modules_explain_json_capsule_boundary() -> None:
             payload["generated_projections"]["mermaid"]["status"]
             == "blocked_required_subject_gap"
         ), row["id"]
+
+
+def test_tactic_portfolio_probe_markdown_is_capsule_owned_alias_not_legacy_row() -> None:
+    coverage = _paper_module_coverage()
+    rows = _paper_module_instances()
+    row_ids = {row["id"] for row in rows}
+    capsules = _paper_module_capsules()
+    tactic_capsule = next(
+        row
+        for row in capsules
+        if row["id"] == "paper_module.tactic_portfolio_availability"
+    )
+
+    assert "paper_module.tactic_portfolio_availability_probe" not in row_ids
+    assert "paper_module.tactic_portfolio_availability_probe" not in set(
+        coverage["legacy_only_ids"]
+    )
+    assert "paper_module.tactic_portfolio_availability_probe" not in set(
+        coverage["required_subject_gap_ids"]
+    )
+    assert not (
+        MICROCOSM_ROOT / "paper_modules/tactic_portfolio_availability_probe.json"
+    ).exists()
+    assert tactic_capsule["legacy_markdown_projection_aliases"] == [
+        {
+            "path": "paper_modules/tactic_portfolio_availability_probe.md",
+            "import_policy": "suppress_legacy_row",
+            "reason": (
+                "Reader-boundary alias for the same accepted probe organ already "
+                "explained by paper_module.tactic_portfolio_availability; importing "
+                "it as an independent legacy row double-counts a readiness blocker."
+            ),
+        }
+    ]
 
 
 def test_all_legacy_subject_gap_modules_publish_reentry_packets() -> None:

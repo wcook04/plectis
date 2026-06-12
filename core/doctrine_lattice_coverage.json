@@ -173,12 +173,12 @@
     "organs_missing_code_loci": 0,
     "organs_missing_mechanism_ref": 0,
     "organs_missing_paper_module_ref": 0,
-    "paper_module_json_instance_count": 99,
+    "paper_module_json_instance_count": 98,
     "paper_module_json_missing_count": 0,
-    "paper_module_legacy_only_count": 1,
-    "paper_module_required_subject_gap_count": 1,
-    "paper_module_unpopulated_selective_relation_count": 29,
-    "paper_module_without_json_capsule_count": 2,
+    "paper_module_legacy_only_count": 0,
+    "paper_module_required_subject_gap_count": 0,
+    "paper_module_unpopulated_selective_relation_count": 23,
+    "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
     "public_codex_brand_leak_count": 0,
@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-12T23:00:55.686593Z",
+    "generated_at": "2026-06-12T23:19:56.858218Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -2532,7 +2532,7 @@
   "paper_module_corpus": {
     "authority_flip_status": "not_flipped",
     "content_digest_scope": "paper_module_json_instances_plus_capsule_registry_and_legacy_markdown_paths",
-    "expected_json_instance_count": 99,
+    "expected_json_instance_count": 98,
     "extra_json_ids": [],
     "json_authority_migration_status": "pilot_started",
     "json_capsule_count": 98,
@@ -2637,7 +2637,7 @@
       "paper_module.workstream_driver_recency_coalescer",
       "paper_module.world_model_projection_drift_control_room"
     ],
-    "json_instance_count": 99,
+    "json_instance_count": 98,
     "json_instance_files": [
       "paper_modules/agent_benchmark_integrity_anti_gaming_replay.json",
       "paper_modules/agent_closeout_faithfulness_audit.json",
@@ -2728,7 +2728,6 @@
       "paper_modules/spatial_world_model_counterfactual_simulation_replay.json",
       "paper_modules/standards_meta_diagnostics.json",
       "paper_modules/tactic_portfolio_availability.json",
-      "paper_modules/tactic_portfolio_availability_probe.json",
       "paper_modules/target_shape_tactic_routing.json",
       "paper_modules/tool_server_pressure_inventory.json",
       "paper_modules/undeclared_library_prior_classifier.json",
@@ -2740,10 +2739,8 @@
       "paper_modules/world_model_projection_drift_control_room.json"
     ],
     "json_instance_parity_status": "pass",
-    "legacy_only_json_instance_count": 1,
-    "legacy_only_json_instance_ids": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
+    "legacy_only_json_instance_count": 0,
+    "legacy_only_json_instance_ids": [],
     "markdown_file_count": 100,
     "markdown_files": [
       "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
@@ -2949,15 +2946,12 @@
     ],
     "markdown_with_json_capsule_count": 98,
     "markdown_without_json_capsule": [
-      "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-      "paper_modules/tactic_portfolio_availability_probe.md"
+      "paper_modules/corpus_readiness_mathlib_absence_gate.md"
     ],
-    "markdown_without_json_capsule_count": 2,
+    "markdown_without_json_capsule_count": 1,
     "missing_json_ids": [],
-    "required_subject_gap_count": 1,
-    "required_subject_gap_ids": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
+    "required_subject_gap_count": 0,
+    "required_subject_gap_ids": [],
     "schema_version": "microcosm_paper_module_corpus_v1",
     "source_manifest": [
       {
@@ -3321,8 +3315,10 @@
         "source_class": "legacy_markdown_projection_with_json_capsule"
       },
       {
+        "canonical_paper_module_id": "paper_module.tactic_portfolio_availability",
         "path": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_class": "legacy_markdown_projection_without_json_capsule"
+        "source_class": "legacy_markdown_projection_suppressed_by_json_capsule_alias",
+        "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       },
       {
         "path": "paper_modules/target_shape_tactic_routing.md",
@@ -3362,13 +3358,23 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "f16eee67f0d819e0794456d2abb41cea85ce41c633e5c32c7eff8b91488252ac",
+        "sha256": "3852ae79c2bd76835e2cf588bb8f3765894505a4543294e73a29c1cb80070436",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "2a2d3dbb7ed3eda85b2f858491a5fc5d29cfa79c01f992fe18aa44be65341d02",
+    "source_manifest_digest": "327368d6cc5cd14ede0b348c2aafec3d9ffcf41a28792aa59e51b078116c1794",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
-    "unpopulated_selective_relation_count": 29,
+    "suppressed_legacy_markdown_alias_count": 1,
+    "suppressed_legacy_markdown_aliases": [
+      {
+        "canonical_paper_module_id": "paper_module.tactic_portfolio_availability",
+        "import_policy": "suppress_legacy_row",
+        "path": "paper_modules/tactic_portfolio_availability_probe.md",
+        "reason": "Reader-boundary alias for the same accepted probe organ already explained by paper_module.tactic_portfolio_availability; importing it as an independent legacy row double-counts a readiness blocker.",
+        "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
+      }
+    ],
+    "unpopulated_selective_relation_count": 23,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3392,7 +3398,6 @@
       "paper_module.public_reveal_walkthrough",
       "paper_module.sleeper_memory_poisoning_quarantine_replay",
       "paper_module.standards_meta_diagnostics",
-      "paper_module.tactic_portfolio_availability_probe",
       "paper_module.world_model_projection_drift_control_room"
     ]
   },
@@ -3489,7 +3494,6 @@
       "paper_module.spatial_world_model_counterfactual_simulation_replay",
       "paper_module.standards_meta_diagnostics",
       "paper_module.tactic_portfolio_availability",
-      "paper_module.tactic_portfolio_availability_probe",
       "paper_module.target_shape_tactic_routing",
       "paper_module.tool_server_pressure_inventory",
       "paper_module.undeclared_library_prior_classifier",
@@ -3500,10 +3504,10 @@
       "paper_module.workstream_driver_recency_coalescer",
       "paper_module.world_model_projection_drift_control_room"
     ],
-    "expected_paper_module_count": 99,
+    "expected_paper_module_count": 98,
     "extra_json_ids": [],
     "json_capsule_backed_count": 98,
-    "json_instance_count": 99,
+    "json_instance_count": 98,
     "json_instance_ids": [
       "paper_module.agent_benchmark_integrity_anti_gaming_replay",
       "paper_module.agent_closeout_faithfulness_audit",
@@ -3594,7 +3598,6 @@
       "paper_module.spatial_world_model_counterfactual_simulation_replay",
       "paper_module.standards_meta_diagnostics",
       "paper_module.tactic_portfolio_availability",
-      "paper_module.tactic_portfolio_availability_probe",
       "paper_module.target_shape_tactic_routing",
       "paper_module.tool_server_pressure_inventory",
       "paper_module.undeclared_library_prior_classifier",
@@ -3605,73 +3608,21 @@
       "paper_module.workstream_driver_recency_coalescer",
       "paper_module.world_model_projection_drift_control_room"
     ],
-    "legacy_only_count": 1,
-    "legacy_only_ids": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
+    "legacy_only_count": 0,
+    "legacy_only_ids": [],
     "missing_json_ids": [],
     "parity_status": "pass",
-    "required_subject_gap_count": 1,
-    "required_subject_gap_ids": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
-    "residual_relation_count": 29,
+    "required_subject_gap_count": 0,
+    "required_subject_gap_ids": [],
+    "residual_relation_count": 23,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 1,
-      "paper_module.cites.code_locus": 1,
-      "paper_module.depends_on.paper_module": 24,
-      "paper_module.explains.organ_or_mechanism": 1,
-      "paper_module.governed_by.concept": 1,
-      "paper_module.governed_by.principle": 1
+      "paper_module.depends_on.paper_module": 23
     },
     "residual_relation_counts_by_requirement": {
-      "required": 1,
-      "selective": 28
+      "selective": 23
     },
-    "residual_relation_detail_count": 29,
+    "residual_relation_detail_count": 23,
     "residual_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper module has no JSON-capsule subject rows; legacy markdown title/slug is not enough to infer a required subject.",
-        "relation_id": "paper_module.explains.organ_or_mechanism",
-        "requirement": "required",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.agent_memory_temporal_conflict_replay",
@@ -3982,20 +3933,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.world_model_projection_drift_control_room",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.world_model_projection_drift_control_room",
@@ -4006,76 +3943,16 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
         }
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 28,
+    "selective_residual_relation_count": 23,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 1,
-      "paper_module.cites.code_locus": 1,
-      "paper_module.depends_on.paper_module": 24,
-      "paper_module.governed_by.concept": 1,
-      "paper_module.governed_by.principle": 1
+      "paper_module.depends_on.paper_module": 23
     },
-    "selective_residual_relation_detail_count": 28,
+    "selective_residual_relation_detail_count": 23,
     "selective_residual_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.agent_memory_temporal_conflict_replay",
@@ -4386,20 +4263,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.world_model_projection_drift_control_room",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.world_model_projection_drift_control_room",
@@ -4410,34 +4273,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
         }
       }
     ],
@@ -4446,11 +4281,11 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 29,
+    "unpopulated_selective_relation_count": 23,
     "validation": {
-      "actual_count": 99,
+      "actual_count": 98,
       "errors": [],
-      "expected_count": 99,
+      "expected_count": 98,
       "schema_version": "microcosm_paper_module_instance_validation_v1",
       "status": "pass"
     }
@@ -4647,7 +4482,7 @@
       "core/mechanism_sources.json": "e25ee011809f11336b4bc134b310e19596b934e79ff050eb4eb369cb1d9ba278",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "f16eee67f0d819e0794456d2abb41cea85ce41c633e5c32c7eff8b91488252ac",
+      "core/paper_module_capsules.json": "3852ae79c2bd76835e2cf588bb8f3765894505a4543294e73a29c1cb80070436",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -4920,8 +4755,7 @@
       "paper_modules/sleeper_memory_poisoning_quarantine_replay.json": "2ee66695b9547cb314f1771ebad8bec7adc77aa4f3d6d8cbc39ea4b6eb1d102c",
       "paper_modules/spatial_world_model_counterfactual_simulation_replay.json": "4a0459fb899d9e3d7fcce1c1840bd95514e2296f7f3af8bcbd7306f81200498c",
       "paper_modules/standards_meta_diagnostics.json": "ef611d8bca99ca5f210c6ec4df4beebf542dc186a258ea199383b65e95343725",
-      "paper_modules/tactic_portfolio_availability.json": "3093f8074f1e8a11c96c120d85fff437d909af428c0b4753fb65188b99d24b66",
-      "paper_modules/tactic_portfolio_availability_probe.json": "94712f8e2577cfd133abd98c79ac8c75d1b327e08cbd5ac100816355acca3238",
+      "paper_modules/tactic_portfolio_availability.json": "d717341923fff60b31893d1b33a27ef0a68a59510163c303d739cd98b38ced19",
       "paper_modules/target_shape_tactic_routing.json": "4d3d899ab2db9934fc0ec9601d5ed210ebd8268bb967fa299b75a3cdfa647c0e",
       "paper_modules/tool_server_pressure_inventory.json": "9dff66bdc0e075025b730a5569b9339210d1414a103ccbd7e94f15569f2b4c75",
       "paper_modules/undeclared_library_prior_classifier.json": "164d4377183d41272c686df040c4b37383b02ec438650b107853dba940973f5b",

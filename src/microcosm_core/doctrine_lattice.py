@@ -881,6 +881,59 @@ def _paper_capsules(root: str | Path | None) -> list[dict[str, Any]]:
     return [row for row in _as_list(payload.get("paper_modules")) if isinstance(row, dict)]
 
 
+def _paper_module_legacy_alias_rows(root: str | Path | None) -> list[dict[str, str]]:
+    """
+    - Teleology: read capsule-owned Markdown alias rows that are not independent legacy paper-module sources.
+    - Guarantee: returns alias rows with path/canonical id/import policy/source_ref; malformed alias rows are ignored.
+    - Fails: never raises beyond the capsule registry read.
+    - Escalates-to: core/paper_module_capsules.json.
+    """
+    rows: list[dict[str, str]] = []
+    for capsule_index, capsule in enumerate(_paper_capsules(root)):
+        canonical_id = str(capsule.get("id") or "").strip()
+        if not canonical_id:
+            continue
+        for alias_index, alias in enumerate(_as_list(capsule.get("legacy_markdown_projection_aliases"))):
+            if isinstance(alias, str):
+                alias_path = alias.strip()
+                import_policy = "suppress_legacy_row"
+                reason = ""
+            elif isinstance(alias, dict):
+                alias_path = str(alias.get("path") or "").strip()
+                import_policy = str(alias.get("import_policy") or "suppress_legacy_row").strip()
+                reason = str(alias.get("reason") or "").strip()
+            else:
+                continue
+            if not alias_path:
+                continue
+            rows.append(
+                {
+                    "path": alias_path,
+                    "canonical_paper_module_id": canonical_id,
+                    "import_policy": import_policy,
+                    "reason": reason,
+                    "source_ref": (
+                        f"{PAPER_MODULE_CAPSULES_REL}::paper_modules"
+                        f"[{capsule_index}:{canonical_id}].legacy_markdown_projection_aliases[{alias_index}]"
+                    ),
+                }
+            )
+    return rows
+
+
+def _suppressed_legacy_markdown_aliases(root: str | Path | None) -> dict[str, dict[str, str]]:
+    """
+    - Teleology: index capsule-owned Markdown aliases that must not become duplicate legacy rows.
+    - Guarantee: returns {repo_relative_markdown_path: alias_row} for import_policy suppress_legacy_row.
+    - Fails: never raises beyond _paper_module_legacy_alias_rows.
+    """
+    return {
+        row["path"]: row
+        for row in _paper_module_legacy_alias_rows(root)
+        if row.get("import_policy") == "suppress_legacy_row"
+    }
+
+
 def _mechanism_sources(root: str | Path | None) -> dict[str, dict[str, Any]]:
     """
     - Teleology: index mechanism-registry rows by mechanism id.
@@ -1250,7 +1303,11 @@ def _paper_module_corpus(root: str | Path | None) -> dict[str, Any]:
             if str(row.get("legacy_markdown_projection") or "").strip()
         }
     )
-    markdown_without_capsule = sorted(set(markdown_files) - set(capsule_markdown_files))
+    suppressed_aliases = _suppressed_legacy_markdown_aliases(root)
+    suppressed_alias_files = sorted(set(markdown_files) & set(suppressed_aliases))
+    markdown_without_capsule = sorted(
+        set(markdown_files) - set(capsule_markdown_files) - set(suppressed_alias_files)
+    )
     expected_instances = expected_paper_module_instances(root)
     loaded_instances = load_paper_module_instances(root)
     validation = validate_paper_module_instance_corpus(root)
@@ -1279,12 +1336,23 @@ def _paper_module_corpus(root: str | Path | None) -> dict[str, Any]:
     ]
     source_rows: list[dict[str, str]] = []
     for rel in markdown_files:
-        source_class = (
-            "legacy_markdown_projection_with_json_capsule"
-            if rel in capsule_markdown_files
-            else "legacy_markdown_projection_without_json_capsule"
-        )
-        source_rows.append({"path": rel, "source_class": source_class})
+        if rel in suppressed_aliases:
+            alias = suppressed_aliases[rel]
+            source_rows.append(
+                {
+                    "path": rel,
+                    "source_class": "legacy_markdown_projection_suppressed_by_json_capsule_alias",
+                    "canonical_paper_module_id": alias["canonical_paper_module_id"],
+                    "source_ref": alias["source_ref"],
+                }
+            )
+        else:
+            source_class = (
+                "legacy_markdown_projection_with_json_capsule"
+                if rel in capsule_markdown_files
+                else "legacy_markdown_projection_without_json_capsule"
+            )
+            source_rows.append({"path": rel, "source_class": source_class})
     if _path(root, PAPER_MODULE_CAPSULES_REL).is_file():
         source_rows.append(
             {
@@ -1301,6 +1369,10 @@ def _paper_module_corpus(root: str | Path | None) -> dict[str, Any]:
         "markdown_with_json_capsule": capsule_markdown_files,
         "markdown_without_json_capsule_count": len(markdown_without_capsule),
         "markdown_without_json_capsule": markdown_without_capsule,
+        "suppressed_legacy_markdown_alias_count": len(suppressed_alias_files),
+        "suppressed_legacy_markdown_aliases": [
+            suppressed_aliases[rel] for rel in suppressed_alias_files
+        ],
         "json_capsule_file": PAPER_MODULE_CAPSULES_REL if _path(root, PAPER_MODULE_CAPSULES_REL).is_file() else None,
         "json_capsule_count": len(capsules),
         "json_capsule_ids": sorted(str(row.get("id") or "") for row in capsules if row.get("id")),
@@ -1364,6 +1436,7 @@ def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
         for row in capsule_rows
         if str(row.get("legacy_markdown_projection") or "").strip()
     }
+    suppressed_aliases = _suppressed_legacy_markdown_aliases(root)
     rows: list[dict[str, Any]] = []
     for index, row in enumerate(capsule_rows):
         module_id = str(row.get("id") or "").strip()
@@ -1382,6 +1455,8 @@ def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
         if module_id in capsule_module_ids:
             continue
         if rel in capsule_markdown_files:
+            continue
+        if rel in suppressed_aliases:
             continue
         slug = Path(rel).stem
         rows.append(
@@ -2001,7 +2076,7 @@ def build_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
 def write_paper_module_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
     - Teleology: write every expected paper-module instance to disk and return the resulting corpus.
-    - Guarantee: writes paper_modules/<id>.json for expected ids whose sorted-keys JSON differs from disk, then returns build_paper_module_instance_corpus.
+    - Guarantee: writes paper_modules/<id>.json for expected ids whose sorted-keys JSON differs from disk, removes stale generated JSON instances with no current source row, then returns build_paper_module_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
     - When-needed: --write-style regeneration of paper-module instances.
     - Escalates-to: build_paper_module_instance_corpus.
@@ -2010,11 +2085,16 @@ def write_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
     resolved = _root(root)
     paper_dir = resolved / PAPER_MODULE_INSTANCE_DIR_REL
     paper_dir.mkdir(parents=True, exist_ok=True)
-    for module_id, payload in expected_paper_module_instances(resolved).items():
+    expected = expected_paper_module_instances(resolved)
+    for module_id, payload in expected.items():
         target = resolved / _paper_module_instance_rel(module_id)
         text = json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
         if not target.exists() or target.read_text(encoding="utf-8") != text:
             target.write_text(text, encoding="utf-8")
+    for module_id in sorted(set(load_paper_module_instances(resolved)) - set(expected), key=_id_sort_key):
+        target = resolved / _paper_module_instance_rel(module_id)
+        if target.exists():
+            target.unlink()
     return build_paper_module_instance_corpus(resolved)
 
 

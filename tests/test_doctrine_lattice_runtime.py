@@ -1330,32 +1330,38 @@ def test_paper_module_corpus_is_seeded_from_capsules_and_legacy_markdown_with_pa
         for edge in capsule_backed["relationships"]["edges"]
     )
 
-    legacy_only_id = corpus["legacy_only_ids"][0]
-    assert legacy_only_id in corpus["required_subject_gap_ids"]
-    legacy_slug = legacy_only_id.removeprefix("paper_module.")
-    legacy_only = json.loads(
-        (MICROCOSM_ROOT / "paper_modules" / f"{legacy_slug}.json").read_text(
+    assert corpus["legacy_only_count"] == 0
+    assert corpus["legacy_only_ids"] == []
+    assert corpus["required_subject_gap_count"] == 0
+    assert corpus["required_subject_gap_ids"] == []
+    assert "paper_module.tactic_portfolio_availability_probe" not in set(
+        corpus["expected_json_ids"]
+    )
+    assert not (
+        MICROCOSM_ROOT / "paper_modules/tactic_portfolio_availability_probe.json"
+    ).exists()
+
+    capsules = json.loads(
+        (MICROCOSM_ROOT / "core/paper_module_capsules.json").read_text(
             encoding="utf-8"
         )
+    )["paper_modules"]
+    tactic_capsule = next(
+        row
+        for row in capsules
+        if row["id"] == "paper_module.tactic_portfolio_availability"
     )
-    assert legacy_only["status"] == "legacy_projection_only"
-    assert (
-        legacy_only["paper_module_payload"]["source_authority"]
-        == "legacy_markdown_projection"
-    )
-    assert legacy_only["id"] == legacy_only_id
-    assert (
-        legacy_only["paper_module_payload"]["generated_projections"]["mermaid"][
-            "status"
-        ]
-        == "blocked_required_subject_gap"
-    )
-    assert any(
-        residual["relation_id"] == "paper_module.explains.organ_or_mechanism"
-        and residual["requirement"] == "required"
-        for residual in legacy_only["relationships"]["unpopulated_selective_relations"]
-    )
-    assert "not a source-authority flip" in legacy_only["paper_module_payload"]["strangler_note"]
+    assert tactic_capsule["legacy_markdown_projection_aliases"] == [
+        {
+            "path": "paper_modules/tactic_portfolio_availability_probe.md",
+            "import_policy": "suppress_legacy_row",
+            "reason": (
+                "Reader-boundary alias for the same accepted probe organ already "
+                "explained by paper_module.tactic_portfolio_availability; importing "
+                "it as an independent legacy row double-counts a readiness blocker."
+            ),
+        }
+    ]
 
 
 def test_skill_corpus_is_seeded_from_markdown_with_required_edges_and_parity() -> None:

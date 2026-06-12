@@ -3011,6 +3011,13 @@
       "title": "Tactic Portfolio Availability",
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/tactic_portfolio_availability.md",
+      "legacy_markdown_projection_aliases": [
+        {
+          "path": "paper_modules/tactic_portfolio_availability_probe.md",
+          "import_policy": "suppress_legacy_row",
+          "reason": "Reader-boundary alias for the same accepted probe organ already explained by paper_module.tactic_portfolio_availability; importing it as an independent legacy row double-counts a readiness blocker."
+        }
+      ],
       "compression": {
         "one_line": "Environment-scoped tactic availability rows gate downstream tactic routing without becoming proof, benchmark, or release authority.",
         "card": "Tactic Portfolio Availability Probe validates copied non-secret Lean/Std tactic affordance rows before downstream routing can treat a tactic as usable. It checks compile status, Mathlib absence handling, probe portfolio membership, negative cases, source digests, and body-free receipts while keeping proof bodies, provider payloads, benchmark claims, and release authority out of scope.",

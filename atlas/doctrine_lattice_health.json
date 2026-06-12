@@ -3614,25 +3614,22 @@
     ]
   },
   "paper_modules": {
-    "expected_json_instance_count": 99,
+    "expected_json_instance_count": 98,
     "json_capsule_backed_count": 98,
     "json_capsule_count": 98,
-    "json_instance_count": 99,
+    "json_instance_count": 98,
     "json_instance_parity_status": "pass",
-    "legacy_only_count": 1,
-    "legacy_only_json_instance_count": 1,
+    "legacy_only_count": 0,
+    "legacy_only_json_instance_count": 0,
     "markdown_file_count": 100,
-    "required_subject_gap_count": 1,
-    "required_subject_gaps": [
-      "paper_module.tactic_portfolio_availability_probe"
-    ],
-    "residual_relation_count": 29,
+    "required_subject_gap_count": 0,
+    "required_subject_gaps": [],
+    "residual_relation_count": 23,
     "residual_relation_counts_by_requirement": {
-      "required": 1,
-      "selective": 28
+      "selective": 23
     },
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 24,
+    "unpopulated_selective_edge_count": 23,
     "unpopulated_selective_edges": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3656,12 +3653,11 @@
       "paper_module.public_reveal_walkthrough",
       "paper_module.sleeper_memory_poisoning_quarantine_replay",
       "paper_module.standards_meta_diagnostics",
-      "paper_module.tactic_portfolio_availability_probe",
       "paper_module.world_model_projection_drift_control_room"
     ],
-    "unpopulated_selective_relation_count": 28,
+    "unpopulated_selective_relation_count": 23,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 28
+      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 23
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "paper_module.agent_memory_temporal_conflict_replay": 1,
@@ -3686,49 +3682,16 @@
       "paper_module.public_reveal_walkthrough": 1,
       "paper_module.sleeper_memory_poisoning_quarantine_replay": 1,
       "paper_module.standards_meta_diagnostics": 1,
-      "paper_module.tactic_portfolio_availability_probe": 5,
       "paper_module.world_model_projection_drift_control_room": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 28
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 23
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 1,
-      "paper_module.cites.code_locus": 1,
-      "paper_module.depends_on.paper_module": 24,
-      "paper_module.governed_by.concept": 1,
-      "paper_module.governed_by.principle": 1
+      "paper_module.depends_on.paper_module": 23
     },
-    "unpopulated_selective_relation_detail_count": 28,
+    "unpopulated_selective_relation_detail_count": 23,
     "unpopulated_selective_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.agent_memory_temporal_conflict_replay",
@@ -4039,20 +4002,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.world_model_projection_drift_control_room",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.world_model_projection_drift_control_room",
@@ -4064,41 +4013,12 @@
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]"
         }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.tactic_portfolio_availability_probe",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.tactic_portfolio_availability_probe",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
-        "source_refs": {
-          "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
       }
     ],
     "without_json_capsule": [
-      "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-      "paper_modules/tactic_portfolio_availability_probe.md"
+      "paper_modules/corpus_readiness_mathlib_absence_gate.md"
     ],
-    "without_json_capsule_count": 2
+    "without_json_capsule_count": 1
   },
   "principles": {
     "expected_json_instance_count": 20,
