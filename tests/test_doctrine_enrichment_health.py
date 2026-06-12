@@ -68,11 +68,74 @@ def _mechanism_record(code_path: str = "src/microcosm_core/organs/example.py") -
     }
 
 
+def _paper_module_record(code_path: str = "src/microcosm_core/organs/example.py") -> dict:
+    return {
+        "id": "paper_module.test",
+        "kind": "paper_module",
+        "authority_boundary": "test_boundary",
+        "source_refs": [{"path": "source", "role": "source"}],
+        "validator_refs": ["validator"],
+        "receipt_refs": [],
+        "anti_claims": ["not authority"],
+        "relationships": {
+            "source_authority": "json_capsule",
+            "code_loci": [
+                {
+                    "path": code_path,
+                    "resolution": "resolved",
+                    "role": "Runtime authority.",
+                    "symbols": ["run"],
+                }
+            ],
+            "unpopulated_selective_relations": [],
+            "edges": [
+                {
+                    "relation_id": "paper_module.explains.organ_or_mechanism",
+                    "relation_verb": "explains",
+                    "reverse_verb": "explained_by",
+                    "target_id": "example",
+                    "target_kind": "organ",
+                    "target_status": "resolved_json_instance",
+                    "justification": {
+                        "source_ref": "source::subjects",
+                        "summary": "Source row names this organ.",
+                    },
+                },
+                {
+                    "relation_id": "paper_module.governed_by.concept",
+                    "relation_verb": "governed_by",
+                    "reverse_verb": "governs",
+                    "target_id": "concept.test",
+                    "target_kind": "concept",
+                    "target_status": "resolved_json_instance",
+                    "justification": {
+                        "source_ref": "source::concept_refs",
+                        "summary": "Source row names this concept.",
+                    },
+                },
+                {
+                    "relation_id": "paper_module.cites.code_locus",
+                    "relation_verb": "cites",
+                    "reverse_verb": "cited_by",
+                    "target_id": code_path,
+                    "target_kind": "code_locus",
+                    "target_status": "resolved_code_locus",
+                    "justification": {
+                        "source_ref": "source::code_loci",
+                        "summary": "Source row names this code locus.",
+                    },
+                },
+            ],
+        },
+    }
+
+
 def test_health_projection_counts_doctrine_routing_floor() -> None:
     report = HEALTH.build_health(MICRO_ROOT)
     routing = report["routing_floor"]
     concept = routing["kinds"]["concept"]
     mechanism = routing["kinds"]["mechanism"]
+    paper_modules = report["paper_module_readiness_audit"]
 
     assert report["reader_enrichment_total_objects"] == 49
     assert report["governed_floor_total_objects"] == 159
@@ -90,6 +153,25 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     assert mechanism["known_residual_selective_relation_count"] == 37
     assert mechanism["planned_edge_row_count"] == 3
     assert mechanism["planned_edge_count"] == 3
+    assert paper_modules["status"] == "frontier"
+    assert paper_modules["readiness_complete"] is False
+    assert paper_modules["total_objects"] == 99
+    assert paper_modules["ready_objects"] == 97
+    assert paper_modules["source_authority_counts"] == {
+        "json_capsule": 97,
+        "legacy_markdown_projection": 2,
+    }
+    assert paper_modules["required_residual_relation_count"] == 2
+    assert paper_modules["selective_residual_relation_count"] == 33
+    assert paper_modules["residual_relation_count"] == 35
+    assert paper_modules["required_gap_ids"] == [
+        "paper_module.microcosm_axiom_substrate",
+        "paper_module.tactic_portfolio_availability_probe",
+    ]
+    assert paper_modules["incomplete_ids"] == [
+        "paper_module.microcosm_axiom_substrate",
+        "paper_module.tactic_portfolio_availability_probe",
+    ]
     assert report["status"] == "complete"
 
 
@@ -195,4 +277,36 @@ def test_mechanism_routing_floor_requires_existing_code_locus(tmp_path: Path) ->
 
     issues = HEALTH._audit_mechanism_routing_record(tmp_path, record)
     assert "code_locus_0_path_not_found" in issues
+    assert "resolved_existing_code_locus_missing" in issues
+
+
+def test_paper_module_readiness_audit_accepts_resolved_routes(tmp_path: Path) -> None:
+    code_path = "src/microcosm_core/organs/example.py"
+    (tmp_path / code_path).parent.mkdir(parents=True)
+    (tmp_path / code_path).write_text("def run(): pass\n", encoding="utf-8")
+    record = _paper_module_record(code_path)
+
+    issues = HEALTH._audit_paper_module_readiness_record(tmp_path, record)
+    assert issues == []
+
+
+def test_paper_module_readiness_audit_requires_json_capsule_subject_and_code_locus(tmp_path: Path) -> None:
+    record = _paper_module_record("src/microcosm_core/organs/missing.py")
+    record["relationships"]["source_authority"] = "legacy_markdown_projection"
+    record["relationships"]["code_loci"] = []
+    record["relationships"]["edges"] = []
+    record["relationships"]["unpopulated_selective_relations"] = [
+        {
+            "relation_id": "paper_module.explains.organ_or_mechanism",
+            "requirement": "required",
+            "status": "residual_pressure",
+        }
+    ]
+
+    issues = HEALTH._audit_paper_module_readiness_record(tmp_path, record)
+    assert "source_authority_not_json_capsule" in issues
+    assert "required_residual_relations_present" in issues
+    assert "edges_missing" in issues
+    assert "resolved_subject_route_missing" in issues
+    assert "resolved_concept_route_missing" in issues
     assert "resolved_existing_code_locus_missing" in issues

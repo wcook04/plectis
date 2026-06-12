@@ -1,5 +1,5 @@
 {
-  "authority_boundary": "Coverage projection over reader enrichment plus concept and mechanism routing floors. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
+  "authority_boundary": "Coverage projection over reader enrichment, concept/mechanism routing floors, and paper-module readiness audit. Presence/structure, not correctness, and never support evidence. Generated; do not hand-edit.",
   "coverage_complete": true,
   "enriched_objects": 49,
   "formal_soundness": {
@@ -65,6 +65,243 @@
       "total": 20,
       "unenriched_ids": []
     }
+  },
+  "paper_module_readiness_audit": {
+    "authority_boundary": "Paper-module readiness audit over generated paper-module JSON instances. It exposes walkability and residual pressure only; it is not source authority, support evidence, proof authority, release readiness, or permission to hand-edit generated paper-module rows.",
+    "incomplete_ids": [
+      "paper_module.microcosm_axiom_substrate",
+      "paper_module.tactic_portfolio_availability_probe"
+    ],
+    "issue_rows": [
+      {
+        "id": "paper_module.microcosm_axiom_substrate",
+        "issues": [
+          "source_authority_not_json_capsule",
+          "required_residual_relations_present",
+          "code_loci_missing",
+          "edges_missing",
+          "resolved_subject_route_missing",
+          "resolved_concept_route_missing",
+          "resolved_existing_code_locus_missing"
+        ]
+      },
+      {
+        "id": "paper_module.tactic_portfolio_availability_probe",
+        "issues": [
+          "source_authority_not_json_capsule",
+          "required_residual_relations_present",
+          "code_loci_missing",
+          "edges_missing",
+          "resolved_subject_route_missing",
+          "resolved_concept_route_missing",
+          "resolved_existing_code_locus_missing"
+        ]
+      }
+    ],
+    "readiness_complete": false,
+    "ready_objects": 97,
+    "required_gap_ids": [
+      "paper_module.microcosm_axiom_substrate",
+      "paper_module.tactic_portfolio_availability_probe"
+    ],
+    "required_residual_relation_count": 2,
+    "required_structures": [
+      "valid_json_object",
+      "source_refs",
+      "validator_refs",
+      "receipt_refs_list_present",
+      "anti_claims",
+      "relationships.source_authority == json_capsule",
+      "relationships.edges",
+      "resolved_subject_route",
+      "resolved_concept_route",
+      "resolved_existing_code_locus",
+      "required residual relations counted as blockers",
+      "selective residual relations counted as frontier pressure"
+    ],
+    "residual_policy": "Required paper-module residuals block readiness. Selective residuals are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
+    "residual_relation_count": 35,
+    "residual_relation_counts_by_relation_id": {
+      "paper_module.abides_by.axiom": 2,
+      "paper_module.cites.code_locus": 2,
+      "paper_module.depends_on.paper_module": 25,
+      "paper_module.explains.organ_or_mechanism": 2,
+      "paper_module.governed_by.concept": 2,
+      "paper_module.governed_by.principle": 2
+    },
+    "residual_relation_counts_by_requirement": {
+      "required": 2,
+      "selective": 33
+    },
+    "residual_relation_row_count": 25,
+    "residual_relation_rows": [
+      {
+        "count": 1,
+        "id": "paper_module.agent_memory_temporal_conflict_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.agent_monitor_redteam_falsification_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.agent_sandbox_policy_escape_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.batch5_authority_systems_capsule",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.batch7_demo_take_console_capsule",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.batch7_oracle_sibling_capsule",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.batch7_secondary_runtime_capsule",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.batch7_zenith_macos_capsule",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.bridge_phase_continuity_runtime",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.cognitive_operator_registry",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.durable_agent_work_landing_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.engine_room_generated_projection_drift_gate",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.executable_doctrine_grammar",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.finance_forecast_evaluation_spine",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.first_screen_composition_root",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.indirect_prompt_injection_information_flow_policy_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.mcp_tool_authority_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 6,
+        "id": "paper_module.microcosm_axiom_substrate",
+        "required_count": 1,
+        "selective_count": 5
+      },
+      {
+        "count": 1,
+        "id": "paper_module.mission_transaction_work_spine",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.proof_derived_governed_mutation_authorization",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.public_reveal_walkthrough",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.sleeper_memory_poisoning_quarantine_replay",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.standards_meta_diagnostics",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 6,
+        "id": "paper_module.tactic_portfolio_availability_probe",
+        "required_count": 1,
+        "selective_count": 5
+      },
+      {
+        "count": 1,
+        "id": "paper_module.world_model_projection_drift_control_room",
+        "required_count": 0,
+        "selective_count": 1
+      }
+    ],
+    "schema_version": "microcosm_paper_module_readiness_audit_v1",
+    "selective_residual_relation_count": 33,
+    "source_authority_counts": {
+      "json_capsule": 97,
+      "legacy_markdown_projection": 2
+    },
+    "source_of_record": {
+      "instance_owner": "microcosm_core.doctrine_lattice",
+      "paper_module_instances": "paper_modules/*.json",
+      "upstream_sources": [
+        "core/paper_module_capsules.json",
+        "paper_modules/*.md legacy inventory"
+      ]
+    },
+    "status": "frontier",
+    "total_objects": 99
   },
   "reader_enrichment_complete": true,
   "reader_enrichment_total_objects": 49,
