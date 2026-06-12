@@ -51,9 +51,20 @@ def _command_cache_refresh_requested() -> bool:
 QUICK_COMMAND_CACHE_TTL_SECONDS = 600.0
 QUICK_PROFILE_PHASE_WARN_MS = 2500.0
 QUICK_PROFILE_TOTAL_WARN_MS = 10000.0
+USER_PERCEIVED_COMMAND_WARN_MS = 3000.0
 QUICK_CLI_OUTPUT_TARGET_TOKENS = 8000
 QUICK_CLI_ROUTE_LIFECYCLE_ROW_LIMIT = 8
 QUICK_CLI_CLEAN_ADVISORY_ROW_LIMIT = 3
+SPEED_CONTRACT_AXES: tuple[str, ...] = (
+    "toolhost_wall_clock_ms",
+    "agent_loop_elapsed_ms",
+    "startup_import_dispatch_ms",
+    "stdout_serialization_wait_ms",
+    "queue_or_coordination_wait_ms",
+    "retry_rework_elapsed_ms",
+    "inner_phase_ms",
+    "output_bytes",
+)
 _NAVIGATION_MECHANISM_CACHE_INPUT_PATHS: tuple[str, ...] = (
     "system/lib/agent_execution_trace.py",
     "system/lib/navigation_mechanism_factory.py",
@@ -313,18 +324,47 @@ def _latency_profile(
         for row in phase_rows
         if float(row.get("ms") or 0.0) > phase_warn_ms
     ]
+    status = "latency_debt" if slow_phases or total_ms > total_warn_ms else "within_budget"
     return {
         "schema_version": "navigation_metabolism_latency_profile_v0",
+        "speed_contract": {
+            "schema_version": "navigation_speed_contract_v0",
+            "primary_question": "How long until the agent or operator gets the next useful signal?",
+            "axes": list(SPEED_CONTRACT_AXES),
+            "internal_phase_axis": "inner_phase_ms",
+            "user_perceived_warn_ms": USER_PERCEIVED_COMMAND_WARN_MS,
+            "within_budget_rule": (
+                "within_budget is only an internal-route statement unless external wall-clock "
+                "or toolhost elapsed evidence is present."
+            ),
+        },
+        "measurement_scope": "in_process_internal_phases_only",
+        "external_wall_clock_status": "unmeasured",
+        "status_scope": "internal_only",
+        "status_qualifier": (
+            "internal_latency_debt_external_elapsed_unmeasured"
+            if status == "latency_debt"
+            else "within_budget_internal_only_external_elapsed_unmeasured"
+        ),
+        "truth_floor": (
+            "This profile cannot close speed by itself: it excludes wrapper startup, imports, "
+            "argparse dispatch, stdout serialization, toolhost wait, retries, and coordination delay."
+        ),
         "phase_warn_ms": phase_warn_ms,
         "total_warn_ms": total_warn_ms,
         "total_ms": round(total_ms, 3),
         "phase_count": len(phase_rows),
         "slow_phase_count": len(slow_phases),
-        "status": "latency_debt" if slow_phases or total_ms > total_warn_ms else "within_budget",
+        "status": status,
         "phases": [dict(row) for row in phase_rows],
         "slow_phases": slow_phases,
         "profile_command": "./repo-python kernel.py --command-profile navigation-metabolism --metabolism-profile quick --context-budget 12000",
         "process_bottleneck_command": "./repo-python kernel.py --process-bottlenecks",
+        "external_wall_clock_probe_commands": [
+            "./repo-python tools/meta/observability/command_startup_profile.py --preset latency-first-contact --repeat 1",
+            "./repo-python kernel.py --command-profile entry-ladder \"<task>\" --context-budget 12000",
+            "/usr/bin/time -p ./repo-python kernel.py --<surface>",
+        ],
     }
 
 
@@ -337,6 +377,45 @@ def _latency_profile_debt_rows(
     total_warn_ms: float,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    rows.append(
+        _debt_row(
+            debt_id=f"latency:{surface}:external_wall_clock_scope_gap",
+            debt_class="latency_debt",
+            priority=90,
+            title="Speed profile lacks external wall-clock elapsed evidence",
+            evidence=(
+                f"{surface} internal profile took {round(total_ms, 3)}ms, but speed is user-perceived "
+                "elapsed time across toolhost wait, startup/import/dispatch, stdout serialization, retries, "
+                "and coordination. Internal within-budget status cannot close speed."
+            ),
+            repair_class="perceived_latency_measurement_repair",
+            target_files=[
+                "system/lib/navigation_metabolism_ledger.py",
+                "system/lib/kernel/commands/navigate.py",
+                "tools/meta/observability/command_startup_profile.py",
+            ],
+            tests=[
+                "./repo-python kernel.py --navigation-metabolism \"command latency\" --metabolism-profile quick --context-budget 12000",
+                "./repo-python kernel.py --command-profile entry-ladder \"command latency\" --context-budget 12000",
+            ],
+            source_surface=f"{surface}.latency_profile",
+            route_id="external_wall_clock",
+            extra={
+                "measurement_scope": "in_process_internal_phases_only",
+                "missing_axes": [
+                    axis
+                    for axis in SPEED_CONTRACT_AXES
+                    if axis not in {"inner_phase_ms", "output_bytes"}
+                ],
+                "user_perceived_warn_ms": USER_PERCEIVED_COMMAND_WARN_MS,
+                "profile_command": "./repo-python kernel.py --command-profile navigation-metabolism --metabolism-profile quick --context-budget 12000",
+                "startup_probe_command": (
+                    "./repo-python tools/meta/observability/command_startup_profile.py "
+                    "--preset latency-first-contact --repeat 1"
+                ),
+            },
+        )
+    )
     for row in phase_rows:
         phase = str(row.get("phase") or "unknown")
         ms = float(row.get("ms") or 0.0)
@@ -3519,6 +3598,9 @@ def _budget_trim(packet: dict[str, Any], *, context_budget: int) -> dict[str, An
                 "stale_count": summary.get("stale_count"),
                 "max_stale_days": summary.get("max_stale_days"),
                 "currentness_debt": summary.get("currentness_debt"),
+                "projection_freshness_status": summary.get("projection_freshness_status"),
+                "projection_currentness_debt": summary.get("projection_currentness_debt"),
+                "projection_freshness_deferred": summary.get("projection_freshness_deferred"),
                 "bucket_counts": summary.get("bucket_counts"),
             },
             "source": {

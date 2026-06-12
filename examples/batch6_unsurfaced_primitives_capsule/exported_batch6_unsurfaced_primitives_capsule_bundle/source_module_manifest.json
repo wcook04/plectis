@@ -10,8 +10,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 160642,
-      "line_count": 4187,
+      "byte_count": 404740,
+      "line_count": 9893,
       "material_class": "public_macro_tool_body",
       "module_id": "demo_take_capture",
       "path": "source_modules/apps/demo-take-console/support/demo_take_capture.py",
@@ -20,14 +20,14 @@
         "pause_events",
         "def build_speech_blocks("
       ],
-      "sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+      "sha256": "3243d80d569d0bef7535632fd5254a01366fbe504a7e18fa93db1e3a6637a7e3",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "apps/demo-take-console/support/demo_take_capture.py",
-      "source_sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+      "source_sha256": "3243d80d569d0bef7535632fd5254a01366fbe504a7e18fa93db1e3a6637a7e3",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/apps/demo-take-console/support/demo_take_capture.py",
-      "target_sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+      "target_sha256": "3243d80d569d0bef7535632fd5254a01366fbe504a7e18fa93db1e3a6637a7e3",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
       ]
@@ -107,7 +107,7 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 147321,
+      "byte_count": 147324,
       "line_count": 2854,
       "material_class": "public_macro_dependency_body",
       "module_id": "idea_microcosm_navigation_dependency",
@@ -116,21 +116,21 @@
         "ROOT_ENTRY_CONTRACT",
         "def build_microcosm_implementation_atlas"
       ],
-      "sha256": "34d4995404fbbe2a3f7fa28c191c754738821a9e09616f02e6dce89888cef969",
+      "sha256": "f45f1290a65068b901ac45bc46df3d547fca1d141146e351105967aa0c7399e5",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/navigation.py",
-      "source_sha256": "34d4995404fbbe2a3f7fa28c191c754738821a9e09616f02e6dce89888cef969",
+      "source_sha256": "f45f1290a65068b901ac45bc46df3d547fca1d141146e351105967aa0c7399e5",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/navigation.py",
-      "target_sha256": "34d4995404fbbe2a3f7fa28c191c754738821a9e09616f02e6dce89888cef969"
+      "target_sha256": "f45f1290a65068b901ac45bc46df3d547fca1d141146e351105967aa0c7399e5"
     },
     {
       "anchor_count": 2,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 125982,
+      "byte_count": 126012,
       "line_count": 2322,
       "material_class": "public_macro_dependency_body",
       "module_id": "idea_microcosm_release_candidates_dependency",
@@ -139,22 +139,22 @@
         "ALLOWED_SPECIMEN_STATUSES",
         "def candidate_shape_failures"
       ],
-      "sha256": "b58af676b2c938cd9828c5d8d5815d9fea78989707d5c52e4d9115b8a33cfb5c",
+      "sha256": "69c745f261f5a3a16f8a56577a0e468a3b9c5a9392675af62b33397cc166d966",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/release_candidates.py",
-      "source_sha256": "b58af676b2c938cd9828c5d8d5815d9fea78989707d5c52e4d9115b8a33cfb5c",
+      "source_sha256": "69c745f261f5a3a16f8a56577a0e468a3b9c5a9392675af62b33397cc166d966",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_candidates.py",
-      "target_sha256": "b58af676b2c938cd9828c5d8d5815d9fea78989707d5c52e4d9115b8a33cfb5c"
+      "target_sha256": "69c745f261f5a3a16f8a56577a0e468a3b9c5a9392675af62b33397cc166d966"
     },
     {
       "anchor_count": 2,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 216361,
-      "line_count": 4072,
+      "byte_count": 216847,
+      "line_count": 4080,
       "material_class": "public_macro_dependency_body",
       "module_id": "idea_microcosm_release_root_compiler_dependency",
       "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_root_compiler.py",
@@ -162,22 +162,22 @@
         "ROOT_CONTRACT_PATH",
         "def compile_release_root"
       ],
-      "sha256": "5ea059a48de5d07becfd7c153823f3c483e3394a4bc6ea9df37f1c9f3d63ed4a",
+      "sha256": "a8d94e4a31f2a46e5a48cf0b9cb514ca98ca2614a61b2acbb39681914e617ab4",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/release_root_compiler.py",
-      "source_sha256": "5ea059a48de5d07becfd7c153823f3c483e3394a4bc6ea9df37f1c9f3d63ed4a",
+      "source_sha256": "a8d94e4a31f2a46e5a48cf0b9cb514ca98ca2614a61b2acbb39681914e617ab4",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_root_compiler.py",
-      "target_sha256": "5ea059a48de5d07becfd7c153823f3c483e3394a4bc6ea9df37f1c9f3d63ed4a"
+      "target_sha256": "a8d94e4a31f2a46e5a48cf0b9cb514ca98ca2614a61b2acbb39681914e617ab4"
     },
     {
       "anchor_count": 3,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 930196,
-      "line_count": 12747,
+      "byte_count": 934391,
+      "line_count": 12790,
       "material_class": "public_macro_tool_body",
       "module_id": "idea_microcosm_validators",
       "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
@@ -186,14 +186,14 @@
         "def policy_wellformedness_failures(",
         "malformed_policy_blocks_judgment"
       ],
-      "sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "sha256": "758fef491181888b1203e327596f2cff40d7155437efd9dc0cd3feaa2ba6fef2",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
-      "source_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "source_sha256": "758fef491181888b1203e327596f2cff40d7155437efd9dc0cd3feaa2ba6fef2",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
-      "target_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "target_sha256": "758fef491181888b1203e327596f2cff40d7155437efd9dc0cd3feaa2ba6fef2",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
       ]
@@ -576,7 +576,7 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 118590,
+      "byte_count": 118598,
       "line_count": 2767,
       "material_class": "public_macro_tool_body",
       "module_id": "operator_thread_memory",
@@ -586,14 +586,14 @@
         "def _suffix_prefix_overlap(",
         "def _observed_updates_streaming_tail("
       ],
-      "sha256": "f4644a8c274a157b3738d86f7c1926ec26dfac62ed3ebae4eebaadebf57509b5",
+      "sha256": "3e59d649c42cbb693138bc8e26d92cc35b9337ffe7047da47629441ce1d2251d",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/observability/operator_thread_memory.py",
-      "source_sha256": "f4644a8c274a157b3738d86f7c1926ec26dfac62ed3ebae4eebaadebf57509b5",
+      "source_sha256": "3e59d649c42cbb693138bc8e26d92cc35b9337ffe7047da47629441ce1d2251d",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_thread_memory.py",
-      "target_sha256": "f4644a8c274a157b3738d86f7c1926ec26dfac62ed3ebae4eebaadebf57509b5",
+      "target_sha256": "3e59d649c42cbb693138bc8e26d92cc35b9337ffe7047da47629441ce1d2251d",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
       ]
@@ -603,8 +603,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 12603,
-      "line_count": 331,
+      "byte_count": 12649,
+      "line_count": 332,
       "material_class": "public_macro_tool_body",
       "module_id": "prompt_shelf_fingerprints",
       "path": "source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
@@ -613,14 +613,14 @@
         "def _tokenize(",
         "def _anchor_position("
       ],
-      "sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "sha256": "ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
-      "source_sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "source_sha256": "ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
-      "target_sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "target_sha256": "ef9f8c2c2001248cf92cdcc3f4f1eee0b87596c3a00277f2256ac0b7129c6431",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
       ]

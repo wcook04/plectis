@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 79669,
-      "line_count": 1852,
+      "byte_count": 115205,
+      "line_count": 2650,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "proof_diagnostic_evidence_spine_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
@@ -16,19 +16,19 @@
         "ORGAN_ID = \"proof_diagnostic_evidence_spine\"",
         "def run"
       ],
-      "sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+      "sha256": "sha256:c0c276c64bfe6466730bad15321f47c8453a60de3d99cc9c24e0e525b1f8d9ce",
       "sha256_match": true,
-      "source_byte_count": 79669,
+      "source_byte_count": 115205,
       "source_import_class": "copied_non_secret_public_substrate_body",
-      "source_line_count": 1852,
+      "source_line_count": 2650,
       "source_ref": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
       "source_role": "Public proof-diagnostic evidence spine logic that classifies verifier run evidence without counting generated run JSON artifacts as body authority.",
-      "source_sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+      "source_sha256": "sha256:c0c276c64bfe6466730bad15321f47c8453a60de3d99cc9c24e0e525b1f8d9ce",
       "source_to_target_relation": "exact_copy",
-      "target_byte_count": 79669,
-      "target_line_count": 1852,
+      "target_byte_count": 115205,
+      "target_line_count": 2650,
       "target_ref": "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_body_floor/source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
-      "target_sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+      "target_sha256": "sha256:c0c276c64bfe6466730bad15321f47c8453a60de3d99cc9c24e0e525b1f8d9ce",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_json_sources_do_not_count_as_real_substrate"
       ]

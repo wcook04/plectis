@@ -1816,7 +1816,7 @@ def _source_capsule_provenance_specimen_failures(root: Path) -> list[dict[str, A
         readme = readme_path.read_text(encoding="utf-8")
         for required_text in (
             "PYTHONPATH=src python3 -m idea_microcosm.cli build-source-capsule-provenance-specimen --root . --write-receipt",
-            "not public release approval",
+            "not public distribution evidence",
             "source_clip_hash",
         ):
             if required_text not in readme:
@@ -4315,7 +4315,7 @@ def _demo_receipt_storyboard_failures(root: Path) -> list[dict[str, Any]]:
     for required_text in (
         "PYTHONPATH=src python3 -m idea_microcosm.cli build-demo-receipt-storyboard-specimen --root . --write-receipt",
         "This is a distilled beta demonstration of selected mechanisms. It is not the full private system.",
-        "does not approve publication",
+        "does not represent publication status",
         "Grammar replay bridge",
         "fail_closed",
     ):
@@ -5796,7 +5796,7 @@ def _recipient_review_route_gate_failures(root: Path) -> list[dict[str, Any]]:
         "recipient_packet_omission_receipt.json",
         "redacted_recipient_packet_draft.json",
         "source_shuttle_evidence_bridge.json",
-        "not an outreach authority",
+        "not an outreach surface",
         "no automatic sending",
         "fail-closed",
     ):
@@ -5882,6 +5882,48 @@ def _license_citation_disclosure_gate_failures(root: Path) -> list[dict[str, Any
         failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "publication gate snapshot must be fail-closed"})
     if publication_snapshot.get("rights_license_grant_status") != "Apache-2.0_selected_pending_public_toggle":
         failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "license grant status must stay pending public toggle"})
+    release_compiler = gate.get("release_authority_compiler", {})
+    if release_compiler.get("schema_version") != "release_authority_compiler_v0":
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "missing release authority compiler"})
+    if "A claim may move outward only when the exact evidence class" not in str(release_compiler.get("invariant", "")):
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "missing release intent invariant"})
+    license_floor = release_compiler.get("license_floor", {}) if isinstance(release_compiler, dict) else {}
+    if license_floor.get("license_text_complete") is not True:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "license floor must record complete Apache text"})
+    if license_floor.get("license_selected") != "Apache-2.0":
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "license floor must preserve Apache-2.0 selection"})
+    if license_floor.get("public_use_grant_active") is not False:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "public use grant must stay inactive until public toggle"})
+    release_intents = release_compiler.get("release_intents", []) if isinstance(release_compiler, dict) else []
+    release_intent_ids = {
+        str(row.get("intent_id"))
+        for row in release_intents
+        if isinstance(row, dict) and row.get("intent_id")
+    }
+    expected_release_intents = {"demo_share", "public_source_snapshot", "hosted_or_package_release"}
+    if not expected_release_intents <= release_intent_ids:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "missing_release_intents": sorted(expected_release_intents - release_intent_ids)})
+    release_intents_by_id = {
+        str(row.get("intent_id")): row for row in release_intents if isinstance(row, dict) and row.get("intent_id")
+    }
+    if release_intents_by_id.get("demo_share", {}).get("claim_ceiling") != "demo_only":
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "demo intent must stay demo-only"})
+    if release_intents_by_id.get("demo_share", {}).get("waiver_allowed") is not True:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "demo intent must allow a non-authoritative waiver"})
+    for intent_id in ("public_source_snapshot", "hosted_or_package_release"):
+        intent = release_intents_by_id.get(intent_id, {})
+        if not str(intent.get("status", "")).startswith("blocked"):
+            failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "intent_id": intent_id, "reason": "stronger release intent must stay blocked"})
+        if intent.get("waiver_allowed") is not False:
+            failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "intent_id": intent_id, "reason": "stronger release intent must not be waivable"})
+    if int(summary.get("release_intent_count", 0)) < 3:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "missing_summary_count": "release_intent_count"})
+    if sorted(summary.get("release_intent_ids", [])) != sorted(expected_release_intents):
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "release intent summary ids mismatch"})
+    if summary.get("license_text_complete") is not True:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "summary must record closed license text floor"})
+    if summary.get("public_use_grant_active") is not False:
+        failures.append({"path": "microcosms/license_citation_disclosure_gate/clearance_gate.json", "reason": "summary must keep public grant inactive"})
 
     required_failure_classes = {
         "selected_license_as_public_grant",
@@ -5979,10 +6021,11 @@ def _license_citation_disclosure_gate_failures(root: Path) -> list[dict[str, Any
     for required_text in (
         "PYTHONPATH=src python3 -m idea_microcosm.cli build-license-citation-disclosure-gate-specimen --root . --write-receipt",
         "This is a distilled beta demonstration of selected mechanisms. It is not the full private system.",
-        "not a publication authority",
+        "not publication-status proof",
         "active public grant",
         "citation clearance",
         "disclosure clearance",
+        "demo sharing, public source snapshots, and hosted/package releases",
         "fail-closed",
     ):
         if required_text not in readme:
@@ -6833,7 +6876,7 @@ def _hosted_public_ci_workflow_gate_failures(root: Path) -> list[dict[str, Any]]
     for required_text in (
         "PYTHONPATH=src python3 -m idea_microcosm.cli build-hosted-public-ci-workflow-gate-specimen --root . --write-receipt",
         "This is a distilled beta demonstration of selected mechanisms. It is not the full private system.",
-        "not a publication authority",
+        "not a public-status receipt",
         "source hashes",
         "hosted public CI",
         "hosted public remote",
@@ -7080,7 +7123,7 @@ def _release_artifact_integrity_witness_failures(root: Path) -> list[dict[str, A
         "bounded local witness",
         "source capsules",
         "not package export authority",
-        "publication permission",
+        "public-status proof",
         "fail-closed",
         "projection_freshness_refusal_extension",
     ):
@@ -7437,7 +7480,7 @@ def _external_public_clone_probe_receipt_failures(root: Path) -> list[dict[str, 
         "bounded local receipt owner",
         "source capsules",
         "not public clone availability",
-        "publication permission",
+        "publication-status proof",
         "fail-closed",
     ):
         if required_text not in readme:
@@ -7832,7 +7875,7 @@ def _hosted_public_remote_receipt_reconciliation_failures(root: Path) -> list[di
         "source-shuttle",
         "source capsules",
         "not public remote availability",
-        "publication permission",
+        "publication-status proof",
         "fail-closed",
     ):
         if required_text not in readme:
@@ -9749,8 +9792,8 @@ def _public_release_package_manifest_gate_failures(root: Path) -> list[dict[str,
     for required_text in (
         "PYTHONPATH=src python3 -m idea_microcosm.cli build-public-release-package-manifest-gate-specimen --root . --write-receipt",
         "This is a distilled beta demonstration of selected mechanisms. It is not the full private system.",
-        "not a publication authority",
-        "release authority handshake",
+        "not publication-status proof",
+        "release claim handshake",
         "recipient packet manifest bridge",
         "redacted recipient packet draft",
         "omission receipt",
@@ -9954,7 +9997,7 @@ def _cold_start_agent_skills_pack_failures(root: Path) -> list[dict[str, Any]]:
     for required_text in (
         "PYTHONPATH=src python3 -m idea_microcosm.cli build-cold-start-agent-skills-pack-specimen --root . --write-receipt",
         "This is a distilled beta demonstration of selected mechanisms. It is not the full private system.",
-        "not a hosted-public authority",
+        "local evidence router",
         "machine-readable checklist",
     ):
         if required_text not in readme:

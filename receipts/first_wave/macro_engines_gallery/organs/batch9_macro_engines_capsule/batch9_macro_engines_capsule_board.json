@@ -11,19 +11,21 @@
     "real_substrate_disposition": "real_substrate_capsule",
     "release_authorized": false,
     "source_mutation_authorized": false,
+    "standard_authority": "public_batch9_source_open_capsule_and_source_body_digest_contract_only",
     "status": "pass",
+    "whole_system_correctness_claim": false,
     "work_ledger_authority": false
   },
   "body_in_receipt": false,
   "counts": {
-    "finding_count": 0,
+    "finding_count": 1,
     "input_count": 1,
     "observed_negative_case_count": 13,
     "source_module_count": 13
   },
   "organ_id": "batch9_macro_engines_capsule",
   "schema_version": "batch9_macro_engines_capsule_board_v1",
-  "status": "pass",
+  "status": "blocked",
   "title": "Batch 9 Macro Engines Capsule",
-  "verdict": "pass"
+  "verdict": "blocked"
 }

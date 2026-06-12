@@ -302,8 +302,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 187445,
-      "line_count": 4817,
+      "byte_count": 200983,
+      "line_count": 5103,
       "material_class": "public_macro_tool_body",
       "module_id": "closeout_executor",
       "path": "source_modules/system/lib/closeout_executor.py",
@@ -312,14 +312,14 @@
         "StalePlanHeadMismatch",
         "ConcurrentPublicationChurn"
       ],
-      "sha256": "06beeb0ffea5b2678353ac460091670dd5e8970ac6067ca40b356d23f6a3e47f",
+      "sha256": "a1e5107a296c11ff1b4856c4a7bcfac44d0e5c136441b04d2c483cb3ea8d2fc0",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/closeout_executor.py",
-      "source_sha256": "06beeb0ffea5b2678353ac460091670dd5e8970ac6067ca40b356d23f6a3e47f",
+      "source_sha256": "a1e5107a296c11ff1b4856c4a7bcfac44d0e5c136441b04d2c483cb3ea8d2fc0",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/closeout_executor.py",
-      "target_sha256": "06beeb0ffea5b2678353ac460091670dd5e8970ac6067ca40b356d23f6a3e47f",
+      "target_sha256": "a1e5107a296c11ff1b4856c4a7bcfac44d0e5c136441b04d2c483cb3ea8d2fc0",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
       ]
@@ -463,8 +463,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 300634,
-      "line_count": 6828,
+      "byte_count": 304224,
+      "line_count": 6898,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace",
       "path": "source_modules/system/lib/agent_execution_trace.py",
@@ -473,14 +473,14 @@
         "governance_status_counts",
         "scoped_diff_paths"
       ],
-      "sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
+      "sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/agent_execution_trace.py",
-      "source_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
+      "source_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
+      "target_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
       ]

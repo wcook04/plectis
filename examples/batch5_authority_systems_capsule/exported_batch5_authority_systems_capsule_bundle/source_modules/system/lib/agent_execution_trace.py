@@ -134,11 +134,19 @@ BASH_OTHER_PROCESS_TRIAGE_QUOTE_COMMAND = (
 GIT_STATE_SHELL_CHAIN_QUOTE_COMMAND = (
     "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
 )
-ARTIFACT_DISCOVERY_OWNER_SURFACE = (
-    "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
+GIT_OBJECT_MAINTENANCE_CHECK_COMMAND = (
+    "./repo-python tools/meta/control/git_gc_maintenance.py --check"
+)
+GIT_STATE_SNAPSHOT_COMPACT_COMMAND = (
+    "./repo-python tools/meta/control/git_state_snapshot.py "
+    "--path-limit 40 --recent-limit 3 --skip-git-metadata-write-probe --compact"
 )
 ARTIFACT_DISCOVERY_QUOTE_COMMAND = (
     "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>"
+)
+ARTIFACT_DISCOVERY_OWNER_SURFACE = ARTIFACT_DISCOVERY_QUOTE_COMMAND
+ARTIFACT_DISCOVERY_KERNEL_ROUTE_COMMAND = (
+    "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
 )
 BASH_GREP_QUOTE_COMMAND = (
     "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
@@ -151,7 +159,8 @@ HOST_FILESYSTEM_DISCOVERY_QUOTE_COMMAND = (
     "--scope <host-path-or-term>"
 )
 ARTIFACT_DISCOVERY_EXAMPLE_COMMAND = (
-    "./repo-python kernel.py --artifact-discovery-inventory market type_census"
+    "./repo-python tools/meta/control/action_quote.py "
+    "--action artifact_discovery_inventory --scope market --scope type_census"
 )
 ARTIFACT_DISCOVERY_PRIVACY_BOUNDARY = (
     "artifact_discovery_inventory emits path, size, suffix, and term metadata only; open selected files "
@@ -165,6 +174,7 @@ TRACE_OUTPUT_PRIVACY_BOUNDARY = (
     "trace tape rows expose observed tool calls, command/read outputs, timings, and bounded edit previews; "
     "packet metadata, discovered commands, full raw bodies, prompt bodies, and hidden reasoning remain omitted"
 )
+RAW_FIND_COMMAND_RE = re.compile(r"(?:^|[;&|]\s*|\$\()\s*find\s+")
 TRACE_COMPACTNESS_PROFILES: dict[str, dict[str, int | bool | str]] = {
     "outline": {
         "row_limit": 0,
@@ -270,6 +280,32 @@ _REPO_TOOL_COMMAND_RE = re.compile(
 _GREP_COMMAND_RE = re.compile(r"\b(grep|rg|ripgrep|ag|ack)\b")
 _FIND_COMMAND_RE = re.compile(r"\bfind\b")
 _CAT_COMMAND_RE = re.compile(r"\b(cat|less|more|head|tail)\b")
+_TEST_OR_BUILD_MARKERS = (
+    "repo-pytest",
+    "pytest",
+    "py.test",
+    "vitest",
+    "jest",
+    "tsc",
+    "mypy",
+    "ruff",
+    "pyright",
+    "npm ",
+    "pnpm ",
+    "yarn ",
+    "npx ",
+)
+_REPO_TOOL_MARKERS = (
+    "repo-python",
+    "python",
+    "tools/meta/",
+    "annex_import.py",
+    "pipeline_",
+    "run_",
+)
+_GREP_MARKERS = ("grep", "rg", "ripgrep", "ag", "ack")
+_FIND_MARKERS = ("find",)
+_CAT_MARKERS = ("cat", "less", "more", "head", "tail")
 
 _TOOL_ACTION_KIND = {
     "Bash": "bash_other",
@@ -423,6 +459,21 @@ def _span_at_or_after(span: Mapping[str, Any], cutoff: datetime | None) -> bool:
             continue
         return _ensure_utc(parsed) >= cutoff_utc
     return True
+
+
+def _ensure_example_command_shape_tags(example: Mapping[str, Any]) -> dict[str, Any]:
+    row = dict(example)
+    if row.get("command_shape_tags") is None:
+        row["command_shape_tags"] = _command_shape_tags(
+            str(row.get("action_kind") or ""),
+            str(row.get("normalized_command") or row.get("command") or ""),
+            row.get("target_paths") or [],
+        )
+    return row
+
+
+def _ensure_examples_command_shape_tags(rows: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    return [_ensure_example_command_shape_tags(row) for row in rows if isinstance(row, Mapping)]
 
 
 def _duration_ms(start: str | None, end: str | None) -> int:
@@ -887,15 +938,15 @@ def _bash_action_kind(cmd: str) -> str:
     lower = cmd.lower()
     if _is_kernel_command(lower):
         return "kernel_command"
-    if _TEST_OR_BUILD_COMMAND_RE.search(lower):
+    if any(marker in lower for marker in _TEST_OR_BUILD_MARKERS) and _TEST_OR_BUILD_COMMAND_RE.search(lower):
         return "test_or_build_command"
-    if _REPO_TOOL_COMMAND_RE.search(lower):
+    if any(marker in lower for marker in _REPO_TOOL_MARKERS) and _REPO_TOOL_COMMAND_RE.search(lower):
         return "repo_tool_command"
-    if _GREP_COMMAND_RE.search(lower):
+    if any(marker in lower for marker in _GREP_MARKERS) and _GREP_COMMAND_RE.search(lower):
         return "bash_grep"
-    if _FIND_COMMAND_RE.search(lower):
+    if any(marker in lower for marker in _FIND_MARKERS) and _FIND_COMMAND_RE.search(lower):
         return "bash_find"
-    if _CAT_COMMAND_RE.search(lower):
+    if any(marker in lower for marker in _CAT_MARKERS) and _CAT_COMMAND_RE.search(lower):
         return "bash_cat"
     return "bash_other"
 
@@ -991,10 +1042,27 @@ def _first_concrete_test_scope(examples: Iterable[Mapping[str, Any]]) -> str | N
     return None
 
 
+def _is_projection_heavy_validation_command(command_lower: str, targets: tuple[str, ...]) -> bool:
+    text = " ".join((command_lower, " ".join(path.lower() for path in targets)))
+    if "build_microcosm_public_site.py" in text or "test_build_microcosm_public_site.py" in text:
+        return True
+    if re.search(r"\btools/meta/[^ ]*/tests/test_build_[\w_]+\.py\b", text):
+        return True
+    if re.search(r"\btools/meta/[^ ]*/build_[\w_]+\.py\b", text) and (
+        "--write --validate" in text
+        or "--check --validate" in text
+        or "repo-pytest" in text
+        or "pytest" in text
+    ):
+        return True
+    return False
+
+
 @lru_cache(maxsize=8192)
 def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]) -> tuple[str, ...]:
     lower = command.lower()
     tags: list[str] = []
+    projection_heavy_validation = _is_projection_heavy_validation_command(lower, targets)
     git_diff_command = re.search(r"(?:^|[;&|]\s*)(?:\./repo-git|git)\s+diff\b", lower)
     git_metadata_probe_command = re.search(
         r"(?:^|[;&|]\s*)(?:\./repo-git|git)\s+rev-parse\b",
@@ -1060,11 +1128,17 @@ def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]
             tags.append("suite_wide_vitest")
         if "git stash" in lower:
             tags.append("stash_wrapped_test")
+        if projection_heavy_validation:
+            tags.append("projection_heavy_validation")
     if kind == "repo_tool_command":
         if any(path.startswith("tools/meta/factory/") for path in targets):
             tags.append("factory_builder")
         if any(path.startswith("tools/meta/") for path in targets):
             tags.append("repo_meta_tool")
+        if projection_heavy_validation:
+            tags.append("projection_heavy_validation")
+            if "--write --validate" in lower:
+                tags.append("projection_write_validate")
     if _is_work_ledger_session_preflight_command(lower) or _is_mission_transaction_preflight_command(lower):
         tags.append("preflight_full_drilldown" if "--full" in lower else "preflight_compact_owner_status")
     if kind == "kernel_command":
@@ -1089,7 +1163,7 @@ def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]
         if "--preflight" in lower:
             tags.append("preflight_packet")
     if kind == "bash_find":
-        if re.search(r"(?:^|[;&|]\s*)find\s+", lower):
+        if RAW_FIND_COMMAND_RE.search(lower):
             tags.append("raw_find_scan")
     if kind == "bash_grep":
         if re.search(r"(?:^|[;&|]\s*)(?:grep|git\s+grep|rg)\s+", lower):
@@ -1488,7 +1562,7 @@ def _example_matches_microcosm_circuit_attribution(example: Mapping[str, Any]) -
 
 def _example_matches_host_filesystem_find(example: Mapping[str, Any]) -> bool:
     command = str(example.get("normalized_command") or "").lower()
-    if not re.search(r"(?:^|[;&|]\s*)find\s+", command):
+    if not RAW_FIND_COMMAND_RE.search(command):
         return False
     host_root = bool(
         re.search(r"\bfind\s+(?:/users/|['\"]?\$home\b|['\"]?~/)", command)
@@ -1508,6 +1582,56 @@ def _example_matches_host_filesystem_find(example: Mapping[str, Any]) -> bool:
         )
     )
     return host_root or cloud_term
+
+
+def _example_matches_git_object_find(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    if not RAW_FIND_COMMAND_RE.search(command):
+        return False
+    return ".git/objects" in command or "/.git/objects" in command or "git/objects" in command
+
+
+def _kernel_flag_quote_scope(flag: str) -> str:
+    scope = flag.strip().lstrip("-").strip()
+    scope = re.sub(r"[^A-Za-z0-9_.:-]+", "-", scope).strip("-")
+    return scope or "kernel"
+
+
+def _kernel_flag_command_surface_hint(flag: str) -> dict[str, Any]:
+    scope = _kernel_flag_quote_scope(flag)
+    return {
+        "hint_id": "route_kernel_flag_through_command_surface",
+        "reason": "Kernel bottleneck evidence names a concrete route flag, so quote that route before rerunning a broad kernel packet.",
+        "kernel_flag": flag,
+        "concrete_preferred_next": (
+            "./repo-python tools/meta/control/action_quote.py "
+            f"--action kernel_command --scope {scope}"
+        ),
+        "preferred_next": (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action kernel_command --scope <kernel-surface>"
+        ),
+        "owner_surface": (
+            "./repo-python tools/meta/control/action_quote.py "
+            f"--action command_surface_inventory --scope {scope}"
+        ),
+    }
+
+
+def _merge_repair_hints_by_id(*groups: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    merged: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for group in groups:
+        for hint in group:
+            if not isinstance(hint, Mapping):
+                continue
+            hint_id = str(hint.get("hint_id") or "")
+            if hint_id and hint_id in seen:
+                continue
+            if hint_id:
+                seen.add(hint_id)
+            merged.append(dict(hint))
+    return merged
 
 
 def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
@@ -1542,6 +1666,30 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 focused_hint["concrete_preferred_next"] = concrete_next
                 focused_hint["replacement_commands"] = [concrete_next]
             hints.append(focused_hint)
+        if tag_counts.get("projection_heavy_validation"):
+            hints.append({
+                "hint_id": "route_projection_heavy_validation_contract",
+                "reason": (
+                    "Slow focused tests still rebuild generated projections, so node-id narrowing "
+                    "alone does not remove the wait tax or stale-contract churn."
+                ),
+                "preferred_next": (
+                    "Use the owner card/check route, run a literal stale-contract scan over the "
+                    "owned source/test/generated scope, then run the smallest focused regression "
+                    "before any broader projection rebuild suite."
+                ),
+                "quote_surface": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action test_or_build_command --scope <projection-test-or-builder>"
+                ),
+                "replacement_commands": [
+                    (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action test_or_build_command --scope <projection-test-or-builder>"
+                    ),
+                    "./repo-python kernel.py --command-profile <projection-owner-surface>",
+                ],
+            })
         if tag_counts.get("suite_wide_pytest") or tag_counts.get("suite_wide_vitest"):
             hints.append({
                 "hint_id": "scope_tests_before_full_suite",
@@ -1598,6 +1746,29 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "replacement_commands": [
                     COMMAND_SURFACE_QUOTE_COMMAND,
                     "./repo-python kernel.py --command-profile <owner-surface>",
+                ],
+            })
+        if tag_counts.get("projection_heavy_validation"):
+            hints.append({
+                "hint_id": "prefer_projection_check_before_write_validate",
+                "reason": (
+                    "Projection builders can spend most of the session in repeated write/validate "
+                    "cycles when source, tests, and generated artifacts carry mixed old/new contract names."
+                ),
+                "preferred_next": (
+                    "Run the owner --check/--validate or compact status first; after source/test "
+                    "alignment, perform one write/validate regeneration and then focused readback tests."
+                ),
+                "quote_surface": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action repo_tool_command --scope <projection-builder>"
+                ),
+                "replacement_commands": [
+                    "./repo-python kernel.py --command-profile <projection-owner-surface>",
+                    (
+                        "./repo-python tools/meta/control/action_quote.py "
+                        "--action repo_tool_command --scope <projection-builder>"
+                    ),
                 ],
             })
         if tag_counts.get("output_limited"):
@@ -1818,7 +1989,7 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
             "replacement_commands": [
                 BASH_GREP_QUOTE_COMMAND,
                 ARTIFACT_DISCOVERY_OWNER_SURFACE,
-                ARTIFACT_DISCOVERY_QUOTE_COMMAND,
+                ARTIFACT_DISCOVERY_KERNEL_ROUTE_COMMAND,
                 "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
                 "rg --files <known-roots> | rg '<name-or-term>'",
             ],
@@ -1864,6 +2035,34 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
             })
     elif kind == "bash_find":
         if tag_counts.get("raw_find_scan"):
+            if any(_example_matches_git_object_find(example) for example in example_rows):
+                hints.append({
+                    "hint_id": "replace_git_object_find_scan_with_gc_maintenance_check",
+                    "reason": (
+                        "Slow examples walk .git/objects directly; use the Git maintenance read model "
+                        "instead of path-level object scans."
+                    ),
+                    "preferred_next": GIT_OBJECT_MAINTENANCE_CHECK_COMMAND,
+                    "owner_surface": GIT_OBJECT_MAINTENANCE_CHECK_COMMAND,
+                    "quote_surface": GIT_STATE_SHELL_CHAIN_QUOTE_COMMAND,
+                    "replacement_commands": [
+                        GIT_OBJECT_MAINTENANCE_CHECK_COMMAND,
+                        GIT_STATE_SHELL_CHAIN_QUOTE_COMMAND,
+                        GIT_STATE_SNAPSHOT_COMPACT_COMMAND,
+                        "./repo-git count-objects -vH",
+                    ],
+                    "pre_action_card": {
+                        "status": "git_object_status_first",
+                        "before": "find .git/objects -type f ...",
+                        "first_route": GIT_OBJECT_MAINTENANCE_CHECK_COMMAND,
+                        "fallback_route": GIT_STATE_SNAPSHOT_COMPACT_COMMAND,
+                        "scope_rule": "Use Git count-object and maintenance status surfaces before walking the object database.",
+                    },
+                    "privacy_boundary": (
+                        "git_gc_maintenance emits Git object counts, sizes, and maintenance admission metadata; "
+                        "it does not expose object contents or require path-level object walks"
+                    ),
+                })
             if any(_example_matches_host_filesystem_find(example) for example in example_rows):
                 hints.append({
                     "hint_id": "replace_host_find_scan_with_host_filesystem_quote",
@@ -1898,7 +2097,7 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "replacement_commands": [
                     BASH_FIND_QUOTE_COMMAND,
                     ARTIFACT_DISCOVERY_OWNER_SURFACE,
-                    ARTIFACT_DISCOVERY_QUOTE_COMMAND,
+                    ARTIFACT_DISCOVERY_KERNEL_ROUTE_COMMAND,
                     "rg --files <known-roots> | rg '<name-or-term>'",
                     "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
                 ],
@@ -1970,7 +2169,7 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                     DOCUMENT_READ_QUOTE_COMMAND,
                     "rg -n '<symbol-or-error>' <known-path-or-root>",
                     "sed -n '<start>,<end>p' <known-path>",
-                    "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                    ARTIFACT_DISCOVERY_OWNER_SURFACE,
                     "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
                 ],
                 "privacy_boundary": (
@@ -2868,7 +3067,7 @@ def _is_read_shape_tool(tool_name: str) -> bool:
     return tool_name in {"Read", "NotebookRead"}
 
 
-def _iter_jsonl(path: Path) -> Iterator[dict[str, Any]]:
+def _iter_jsonl(path: Path, *, strict: bool = True) -> Iterator[dict[str, Any]]:
     try:
         with path.open("r", encoding="utf-8") as fh:
             for line_number, line in enumerate(fh, start=1):
@@ -2876,8 +3075,13 @@ def _iter_jsonl(path: Path) -> Iterator[dict[str, Any]]:
                 if not line:
                     continue
                 try:
-                    yield loads_json_strict(line, source=f"{path}:{line_number}")
-                except StrictJsonError:
+                    if strict:
+                        yield loads_json_strict(line, source=f"{path}:{line_number}")
+                    else:
+                        value = json.loads(line)
+                        if isinstance(value, dict):
+                            yield value
+                except (StrictJsonError, json.JSONDecodeError):
                     continue
     except OSError:
         return
@@ -2913,6 +3117,8 @@ def parse_claude_session(
     repo_root: Path,
     rules: Mapping[str, Any],
     include_output_previews: bool = True,
+    strict_json: bool = True,
+    finalize_profile: str = "full",
 ) -> dict[str, Any] | None:
     session_id = path.stem
     agent = "claude_code"
@@ -2933,7 +3139,7 @@ def parse_claude_session(
     model_counts: Counter[str] = Counter()
     last_record_ts: str | None = None
 
-    for rec in _iter_jsonl(path):
+    for rec in _iter_jsonl(path, strict=strict_json):
         ts = rec.get("timestamp")
         if ts:
             started_at = started_at or ts
@@ -3060,7 +3266,12 @@ def parse_claude_session(
     if cwd_hits == 0:
         return None
 
-    return _finalize_session(
+    finalizer = (
+        _finalize_session_bottleneck_rankings
+        if finalize_profile == "bottleneck_rankings"
+        else _finalize_session
+    )
+    return finalizer(
         agent=agent,
         session_id=session_id,
         source_path=path,
@@ -3086,6 +3297,8 @@ def parse_codex_session(
     rules: Mapping[str, Any],
     include_output_previews: bool = True,
     parse_output_payloads: bool = True,
+    strict_json: bool = True,
+    finalize_profile: str = "full",
 ) -> dict[str, Any] | None:
     session_id = path.stem.replace("rollout-", "")
     agent = "codex"
@@ -3104,7 +3317,7 @@ def parse_codex_session(
     truncation_notes: list[dict[str, Any]] = []
     cwd_from_meta: str | None = None
 
-    for rec in _iter_jsonl(path):
+    for rec in _iter_jsonl(path, strict=strict_json):
         ts = rec.get("timestamp")
         if ts:
             started_at = started_at or ts
@@ -3141,8 +3354,12 @@ def parse_codex_session(
                 args_raw = call_payload.get("arguments") or ""
                 if isinstance(args_raw, str):
                     try:
-                        parsed = loads_json_strict(args_raw, source=f"{path}:{call_id}:arguments")
-                    except (StrictJsonError, TypeError):
+                        parsed = (
+                            loads_json_strict(args_raw, source=f"{path}:{call_id}:arguments")
+                            if strict_json
+                            else json.loads(args_raw)
+                        )
+                    except (StrictJsonError, json.JSONDecodeError, TypeError):
                         parsed = {"__raw": args_raw}
                     args = parsed if isinstance(parsed, dict) else {"__raw": parsed}
                 elif isinstance(args_raw, dict):
@@ -3254,7 +3471,12 @@ def parse_codex_session(
     if cwd_hits == 0 and not spans:
         return None
 
-    return _finalize_session(
+    finalizer = (
+        _finalize_session_bottleneck_rankings
+        if finalize_profile == "bottleneck_rankings"
+        else _finalize_session
+    )
+    return finalizer(
         agent=agent,
         session_id=session_id,
         source_path=path,
@@ -4426,6 +4648,83 @@ def _summary_thought_trace(
     }
 
 
+def _ranking_span_payload(sp: Span) -> dict[str, Any]:
+    return {
+        "span_id": sp.span_id,
+        "agent": sp.agent,
+        "session_id": sp.session_id,
+        "action_kind": sp.action_kind,
+        "start_ts": sp.start_ts,
+        "end_ts": sp.end_ts,
+        "duration_ms": sp.duration_ms,
+        "outcome": sp.outcome,
+        "sequence_index": sp.sequence_index,
+        "turn_index": sp.turn_index,
+        "tool_name": sp.tool_name,
+        "command": sp.command,
+        "normalized_command": sp.normalized_command,
+        "target_paths": list(sp.target_paths),
+        "kernel_flags": list(sp.kernel_flags),
+        "output_byte_count": sp.output_byte_count,
+        "output_line_count": sp.output_line_count,
+        "stdout_byte_count": sp.stdout_byte_count,
+        "stderr_byte_count": sp.stderr_byte_count,
+    }
+
+
+def _finalize_session_bottleneck_rankings(
+    *,
+    agent: str,
+    session_id: str,
+    source_path: Path,
+    spans: list[Span],
+    started_at: str | None,
+    ended_at: str | None,
+    git_branch: str | None,
+    model_counts: Counter[str],
+    rules: Mapping[str, Any],
+    repo_root: Path,
+    truncation_notes: list[dict[str, Any]],
+    last_record_ts: str | None,
+) -> dict[str, Any]:
+    """Finalize only the fields required by live process-bottleneck rankings."""
+    del rules, git_branch, model_counts
+    action_kind_counts: Counter[str] = Counter(sp.action_kind for sp in spans)
+    action_kind_durations: dict[str, int] = defaultdict(int)
+    kernel_flag_counts: Counter[str] = Counter()
+    for sp in spans:
+        action_kind_durations[sp.action_kind] += sp.duration_ms
+        for flag in sp.kernel_flags:
+            kernel_flag_counts[flag] += 1
+    spans_payload = [_ranking_span_payload(sp) for sp in spans]
+    session_row = {
+        "session_id": session_id,
+        "agent": agent,
+        "source_path": _relpath(source_path, repo_root=repo_root),
+        "started_at": started_at,
+        "ended_at": ended_at,
+        "duration_ms": _duration_ms(started_at, ended_at),
+        "span_count": len(spans),
+        "total_output_bytes": sum(sp.output_byte_count for sp in spans),
+        "turn_count": max((sp.turn_index for sp in spans), default=0),
+        "action_kind_counts": dict(sorted(action_kind_counts.items())),
+        "action_kind_durations_ms": dict(sorted(action_kind_durations.items())),
+        "kernel_flag_counts": dict(kernel_flag_counts.most_common(20)),
+        "route_compliance": {},
+        "route_lease_mode_control": {"status": "skipped_bottleneck_rankings_profile"},
+        "anti_patterns": [],
+        "bottleneck_preview": [],
+        "summary_thought_trace": {
+            "schema_version": SUMMARY_THOUGHT_TRACE_SCHEMA_VERSION,
+            "boundary": "observable_actions_only_not_hidden_chain_of_thought",
+            "profile": "skipped_bottleneck_rankings_profile",
+        },
+        "truncation_notes": list(truncation_notes),
+        "last_record_ts": last_record_ts,
+    }
+    return {"session": session_row, "spans": spans_payload}
+
+
 def _finalize_session(
     *,
     agent: str,
@@ -4684,6 +4983,7 @@ def _summary_compact_bottleneck_preview(rows: list[Any], *, limit: int = 6) -> l
 
 
 COMPACT_REPAIR_HINT_PRIORITIES = {
+    "replace_git_object_find_scan_with_gc_maintenance_check": 9,
     "replace_raw_search_scan_with_owner_route": 10,
     "replace_host_find_scan_with_host_filesystem_quote": 11,
     "replace_find_scan_with_rg_files_or_option_surface": 12,
@@ -4713,13 +5013,21 @@ def _summary_compact_repair_hints(rows: list[Any], *, limit: int = 2) -> list[di
     for _index, row in ranked_rows[:limit]:
         if not isinstance(row, Mapping):
             continue
+        hint_id = row.get("hint_id")
+        concrete_preferred_next = row.get("concrete_preferred_next")
+        preferred_next = row.get("preferred_next")
+        owner_surface = row.get("owner_surface")
+        if hint_id == "route_kernel_flag_through_command_surface" and concrete_preferred_next:
+            preferred_next = None
+            owner_surface = None
         compact.append(
             _summary_drop_none(
                 {
-                    "hint_id": row.get("hint_id"),
-                    "concrete_preferred_next": row.get("concrete_preferred_next"),
-                    "preferred_next": row.get("preferred_next"),
-                    "owner_surface": row.get("owner_surface"),
+                    "hint_id": hint_id,
+                    "kernel_flag": row.get("kernel_flag"),
+                    "concrete_preferred_next": concrete_preferred_next,
+                    "preferred_next": preferred_next,
+                    "owner_surface": owner_surface,
                 }
             )
         )
@@ -4748,11 +5056,15 @@ def _kernel_flag_repair_hints(by_flag: Iterable[Any], *, limit: int = 2) -> list
         elif flag == "--process-bottlenecks":
             hint = {
                 "hint_id": "use_cached_or_filtered_process_bottleneck_status",
+                "concrete_preferred_next": (
+                    "./repo-python kernel.py --process-bottlenecks "
+                    "--process-action-kind kernel_command"
+                ),
                 "preferred_next": "./repo-python kernel.py --process-bottlenecks --process-action-kind <action-kind>",
                 "owner_surface": "./repo-python tools/meta/factory/build_agent_execution_trace.py --cached-summary --limit 6",
             }
         else:
-            continue
+            hint = _kernel_flag_command_surface_hint(flag)
         hint_id = str(hint.get("hint_id") or "")
         if hint_id in seen:
             continue
@@ -5997,8 +6309,10 @@ def build_agent_execution_trace(
     include_context_yield_attribution: bool = True,
     aggregate_action_kinds: Sequence[str] | None = None,
     parse_codex_output_payloads: bool = True,
+    build_profile: str = "full",
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
+    bottleneck_rankings_profile = build_profile == "bottleneck_rankings"
     rules = load_trace_rules(rules_path or (repo_root / TRACE_RULES_PATH.relative_to(REPO_ROOT)))
     home = (home or Path.home()).resolve()
     if session_limit is None:
@@ -6025,6 +6339,8 @@ def build_agent_execution_trace(
                 repo_root=repo_root,
                 rules=rules,
                 include_output_previews=include_output_previews,
+                strict_json=not bottleneck_rankings_profile,
+                finalize_profile=build_profile,
             )
         except Exception as exc:  # noqa: BLE001 - defensive parser boundary
             parse_failures.append({"session_path": _relpath(path, repo_root=repo_root), "error": str(exc)[:300]})
@@ -6048,6 +6364,8 @@ def build_agent_execution_trace(
                 rules=rules,
                 include_output_previews=include_output_previews,
                 parse_output_payloads=parse_codex_output_payloads,
+                strict_json=not bottleneck_rankings_profile,
+                finalize_profile=build_profile,
             )
         except Exception as exc:  # noqa: BLE001
             parse_failures.append({"session_path": _relpath(path, repo_root=repo_root), "error": str(exc)[:300]})
@@ -6115,11 +6433,12 @@ def build_agent_execution_trace(
                 "end_ts": span.get("end_ts"),
                 "sequence_index": span.get("sequence_index"),
             }
-            example["command_shape_tags"] = _command_shape_tags(
-                kind,
-                str(span.get("command") or span.get("normalized_command") or ""),
-                example["target_paths"],
-            )
+            if include_context_yield_attribution:
+                example["command_shape_tags"] = _command_shape_tags(
+                    kind,
+                    str(span.get("command") or span.get("normalized_command") or ""),
+                    example["target_paths"],
+                )
             aggregate_examples[kind].append(example)
             aggregate_spans.append(example)
     aggregate_bottlenecks: dict[str, Any] = {}
@@ -6137,6 +6456,10 @@ def build_agent_execution_trace(
             key=lambda row: int(row.get("output_byte_count") or 0),
             reverse=True,
         )[:3]
+        if not include_context_yield_attribution:
+            example_spans = _ensure_examples_command_shape_tags(example_spans)
+            output_example_spans = _ensure_examples_command_shape_tags(output_example_spans)
+            repair_hint_spans = example_spans
         aggregate_bottlenecks[kind] = {
             "count": len(durs),
             "p50_ms": _percentile(durs, 0.5),
@@ -6186,6 +6509,12 @@ def build_agent_execution_trace(
             })
         flag_rows.sort(key=lambda r: (r.get("p95_ms") or 0, r.get("slow_count") or 0), reverse=True)
         aggregate_bottlenecks["kernel_command"]["by_kernel_flag"] = flag_rows[:10]
+        flag_repair_hints = _kernel_flag_repair_hints(flag_rows, limit=3)
+        if flag_repair_hints:
+            aggregate_bottlenecks["kernel_command"]["repair_hints"] = _merge_repair_hints_by_id(
+                flag_repair_hints,
+                aggregate_bottlenecks["kernel_command"].get("repair_hints") or [],
+            )
 
     aggregate_patterns: dict[str, dict[str, Any]] = defaultdict(lambda: {"instances": 0, "session_id_hits": []})
     for row in session_rows:
@@ -6279,6 +6608,8 @@ def build_agent_execution_trace(
         }
     if not parse_codex_output_payloads:
         summary["codex_output_payload_mode"] = "raw_payload_fast_metrics"
+    if build_profile != "full":
+        summary["build_profile"] = build_profile
     if include_context_yield_attribution:
         context_yield_attribution = _compute_context_yield_attribution(
             aggregate_spans=aggregate_spans,

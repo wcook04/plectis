@@ -2092,11 +2092,11 @@ def _route_to_command_index(root: Path, rows: list[dict[str, Any]]) -> dict[str,
             "relationship": next_route.get("relationship"),
             "first_command": next_route.get("first_command"),
             "next_refinement": next_route.get("next_refinement"),
-            "authority_boundary": "recommendation chooses local review order only; it does not grant public release or publication authority",
+            "authority_boundary": "recommendation chooses local review order only; it does not grant public-access clearance or public-claim authority",
         },
         "anti_claims": [
-            "route-to-command index is not public release approval",
-            "route-to-command index is not publication permission",
+            "route-to-command index is not public-status clearance",
+            "route-to-command index is not public-use permission",
             "route-to-command index is not hosted public CI proof",
             "route-to-command index is not private-root equivalence",
             "route-to-command index is not a benchmark result or benchmark win",
@@ -2160,14 +2160,14 @@ def build_release_candidate_portfolio(
     at: str | None = None,
 ) -> dict[str, Any]:
     """
-    Build the ranked release-candidate portfolio and optional receipt.
+    Build the ranked candidate portfolio and optional receipt.
 
-    - When-needed: Open when a root navigator, candidate card, or cold agent needs the current release-selection projection and next-specimen route.
+    - When-needed: Open when a root navigator, candidate card, or cold agent needs the current specimen-selection projection and next-specimen route.
     - Escalates-to: registry/release_candidates.json; state/release_candidate_portfolio.json; release/publication_gate.json; microcosms/specimen_suite/release_root_contract.json
     - Navigation-group: microcosm_support.release_selection
     - Validator: validator.release_candidates; validator.public_boundary
     - Receipt: receipts/release_candidate_portfolio.json
-    - Anti-claim: The portfolio is a ranked projection and does not publish, approve recipients, prove hosted execution, or certify private-root equivalence.
+    - Anti-claim: The portfolio is a ranked projection, not a public-status source; it does not publish, approve recipients, prove hosted execution, or certify private-root equivalence.
     """
     root = root.resolve()
     generated_at = at or _utc_now()

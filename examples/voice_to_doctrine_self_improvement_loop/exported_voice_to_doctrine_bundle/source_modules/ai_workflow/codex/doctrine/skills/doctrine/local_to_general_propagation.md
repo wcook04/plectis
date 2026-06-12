@@ -25,12 +25,15 @@ triggers:
   - "An actuator or UI-control tool should generalize from screenshots into receipt-grade perception and state-change proof"
   - "A trace expands browser control into Mac/app/VM/background reality control and needs focus-debt, risk-gate, sensor escalation, or adversarial-control receipts"
   - "A trace closeout reports mission-owned work clean while global closeout, publication, autonomous commits, or foreign dirty clusters remain unsettled"
+  - "A post-success transcript bundles owned green receipts with later validation reds, closeout blocks, captures, backup/push attempts, memory writes, or final prose and needs receipt-plane separation"
+  - "A publication or validation trace reports concurrent remote movement, fast-forward publication, presentation-filtered command output, or stale dogfood/harness cues"
   - "A closeout trace claims build/test output but needs artifact-effect proof beyond commit or push receipt"
   - "A scoped builder or generated-projection write expands into unrelated source/projection drift or dirty source registries"
   - "A continuation or admission trace mixes source-authority edits, proof-only companions, targeted generated refresh, and claimed aggregate projection lanes"
   - "A generated public projection refresh is refused by admission, host pressure, or live owner claims after source/test companion commits landed"
   - "A manually queued continuation seed recovers live owner claims and must choose between continuing, coordinating, pivoting, or blocking without duplicating an already-claimed prompt, skill, or work surface"
   - "A generated public receipt refresh would mix legitimate count changes with volatile local paths, mtimes, or cache refs"
+  - "A public workflow or test trace shows immutable-pinned third-party actions while first-read/public inspectability wants recognizable upstream action handles"
   - "A closeout scheduler or stop hook keeps selecting moving foreign drain clusters after a mission verdict proves owned work clean"
   - "A fleet conductor trace finds stale heartbeat-only sessions, zombie goals, unreachable provider threads, or expired claims with dirty patches"
   - "A trace builds a foundry, generator, compiler, scaffold, or authoring surface when the operator wanted the object-level outputs it should produce"
@@ -95,6 +98,14 @@ Do not make every trace produce a new rule. The pass is successful when the trac
 
 Do not trust a transcript summary over live state. Before using it as more than historical evidence, check the current owner surface: HEAD/worktree for code claims, route output for navigation claims, tests/checkers for validator claims, and process/readiness receipts for runtime claims.
 
+### User-Facing Closeout Compression
+
+Separate substrate closeout from chat closeout. The propagation receipt, capture, validation record, Work Ledger note, or scoped commit is the authority; the final response is only the operator-facing digest unless the operator asked for the audit or the closeout machinery is the task product.
+
+Default final shape for completed work: what changed, validation status, commit/publication state when relevant, and any real blocker. Do not paste the five-field `navigation_seed_used` / `general_artifacts_checked` / `refinement_result` / `plane_home` / `discoverability_refresh` block after ordinary implementation, verification, or settlement work. Use that block only for instruction/routing/doctrine governance tasks, explicit audit requests, handoffs, or no-edit/held outcomes where the fields are needed to prove truth.
+
+This is not permission to skip the closeout discipline. If a failing test, drift, residual, self-error, or reusable lesson exists, bind it to its owner surface before speaking. The compression rule only controls how much of that receipt gets spent in user-facing prose.
+
 When the sample shows a prior agent scouting live state, evaluate the scouting pattern rather than copying its domain verdict. Specific counts, rosters, release colors, commit subjects, phase names, and product labels are example facts unless the selected owner is explicitly that live lane. The durable lesson is usually trace-to-owner verification, command-probe hygiene, fleet/claim coordination, receipt-truth boundary, or currentness-before-continuation.
 
 For advisory handoff traces, do not let embedded domain nouns override latest operator intent. Treat "interpretation not verified", route maps, prior-thread notes, and dirty-baseline language as advisory evidence. Prove live substrate, baseline state, owner surfaces, and sanctioned verifier before continuing; for generalized refinement, patch the propagation/route owner.
@@ -129,6 +140,8 @@ Extract and route these fields before patching or continuing a monitor:
 If the monitor is already producing coherent durable receipts, patch the smallest monitor contract, runner, status-board schema, or diagnostics skill that would make the loop reusable. If no owner exists and the trace only exposes one product's temporary cadence, capture a residual with the exact re-entry condition instead of adding product-specific doctrine.
 
 For validator or authority-gate trace snippets, green happy-path output is not enough when the trace suggests a loosened gate, partial coverage, generated/source mismatch, or positive-overclaim risk. Require at least one negative or adversarial receipt proving forbidden cases fail, distinguish affirmative overclaim prose from negated ceiling language, and land generated artifacts with their builder/source authority or capture the pairing gap.
+
+For public workflow or dependency-inspectability traces, do not generalize into the named action, version, or workflow file. Classify the portable boundary as `pinned_dependency_identity_inspectability_boundary`: execution refs should stay immutable when the lane requires pinning, while first-read/public tests consume a structured adjacent tag/comment/manifest that names the recognizable upstream identity. The validator should parse the relation, prove the human-readable owner/repo matches the pinned action, require immutable pins for public third-party action refs, and include synthetic positive and negative specimens when the parser grows. Product names, action versions, SHAs, and one workflow's path are examples unless the selected owner is explicitly that public workflow lane.
 
 For proof-handle or lattice traces, separate executable authority from decorative completeness. A cited `code_loci`, path/function, validator, specimen, or receipt is proof only after live owner resolution proves the path and callable/scope; path-only checks do not settle function drift. Classify gaps as hand-curated, owner-tool/generated, projection freshness, checker false positive, or authoring debt. Use owner tools for auto-stubs/back-mirrors/projections; hand-author only bounded exemplars. If repair raises visible debt while closing defects, call it debt exposure and capture the residual.
 
@@ -173,7 +186,7 @@ Do not use this lane for source-authority updates that must incorporate the live
 
 ### Mission-Scoped Closeout / Provenance Traces
 
-When a trace closeout says an owned wave is landed but the broader repo remains dirty, ahead, or blocked, separate receipts by authority before acting. The reusable rule is mission-scoped provenance: prove the current run's owned path set, commit refs, validation refs, and generated-artifact state independently from global dirty-tree, publication, and foreign-owner work.
+When a trace closeout says an owned wave is landed but the broader repo remains dirty, ahead, linked-worktree blocked, or otherwise not globally closeout-ready, separate receipts by authority before acting. The reusable rule is mission-scoped provenance: prove the current run's owned path set, commit refs, validation refs, and generated-artifact state independently from global dirty-tree, publication, linked-worktree lease state, and foreign-owner work.
 
 Extract and route these fields before mutating:
 
@@ -181,12 +194,49 @@ Extract and route these fields before mutating:
 2. commit provenance: distinguish scoped commits, autonomous/background commits, and operator/broad-checkpoint commits; revalidate claims against `HEAD`, diff, log, or pickaxe before citing them;
 3. foreign work boundary: classify dirty clusters, Work Ledger claims, closeout-executor drain lanes, and same-path ownership; do not land or "clean up" foreign clusters under the current mission;
 4. publication boundary: local commit, push/ahead state, remote-ref proof, and publication authorization are separate receipts; a push gate cannot erase a landed local mission, and a local mission does not imply push authority;
-5. volatile receipt boundary: if regenerating a public/generated receipt mixes legitimate count changes with `/tmp`, absolute local paths, mtimes, cache refs, or unrelated cascades, commit only the clean owned projection or capture the regen blocker with exact acceptance criteria;
-6. validation classification: distinguish superseded wrong-runner failures from configured-runner failures, and report each validation as `passed`, `failed`, `blocked`, or `not_run`.
+5. linked-worktree lease boundary: classify `WorktreeUnknownOwner`, active-owner, dirty, locked, branch-owned, unexpected-HEAD, status-unknown, and head-relation blockers from the closeout executor or `git_state_snapshot.py` as global lease blockers unless the current mission explicitly owns that worktree. Prunable dead registry entries may be pruned only when the receipt proves the gitdir no longer exists; a live detached worktree with unknown owner is blocked/manual-classification, not safe removal and not evidence that the owned mission failed;
+6. volatile receipt boundary: if regenerating a public/generated receipt mixes legitimate count changes with `/tmp`, absolute local paths, mtimes, cache refs, or unrelated cascades, commit only the clean owned projection or capture the regen blocker with exact acceptance criteria;
+7. validation classification: distinguish superseded wrong-runner failures from configured-runner failures, and report each validation as `passed`, `failed`, `blocked`, or `not_run`.
 
 For moving closeout-scheduler traces, re-check the selected drain cluster immediately before treating it as current. A plan-selected cluster is advisory until pathspec status and ownership claims still show it live. Use exact owned path lists when possible; broad directory prefixes such as a whole tests directory can overclaim unrelated sibling tests and turn foreign churn into a false owned blocker. If the exact owned slice is clean and only foreign/global drain or unauthorized publication remains, emit the typed held verdict and stop chasing the global queue as mission work.
 
-Global `closeout_ready=false` is not itself proof that the current mission is incomplete. It becomes actionable only after the closeout packet identifies whether the blocker is owned, foreign, publication-only, volatile-generated-state, or a real same-path hard stop.
+When a closeout or Stop-hook trace reports a terminal-claim matcher false positive, classify the phrase context before widening or disabling the guard. Quoted, code-spanned, literal, detector, matcher, regex, keyword, or immediately negated phrases such as `"Not clean-and-pushed"` are evidence about the detector or held state, not terminal repo assertions. Bare positive claims such as `clean-and-pushed`, `repo clean`, `closeout complete`, or `pushed to origin` still require the live closeout and publication gates to be ready. Patch the narrow egress scanner or hook fixture with both the false-positive specimen and a positive-control assertion, then keep global dirty/publication receipts separate from mission-owned path cleanliness.
+
+When a held-publication closeout names a runnable command as the operator's decision path, classify it as command-displacement pressure before accepting the prose. Wording such as "your decision via `<command>`" is still an operator-facing command assignment unless the same closeout names a real boundary such as operator-gated publication, explicit operator authorization, or another blast-radius blocker. Patch the egress detector with both sides: a command-assignment specimen that hard-fails and a boundary-named specimen that is informational. Do not generalize into the named publication tool; the invariant is command-as-evidence versus command-as-assignment under an explicit authority boundary.
+
+Global `closeout_ready=false` is not itself proof that the current mission is incomplete. It becomes actionable only after the closeout packet identifies whether the blocker is owned, foreign, publication-only, linked-worktree lease, volatile-generated-state, or a real same-path hard stop.
+
+### Post-Success Transcript Bundle Traces
+
+When a long transcript bundles an apparent success with later validation reds, Task Ledger captures, closeout-executor blocks, backup/push attempts, memory writes, or final prose, classify it as `post_success_receipt_plane_bundle`, not as a single green or red verdict. The transcript's final paragraph is evidence only; the reusable rule is receipt-plane separation plus live readback.
+
+Extract and route these fields before adopting the transcript's closeout:
+
+1. latest intent: whether the current operator asks for object-level continuation, diagnosis, generalized refinement, capture only, or closeout review;
+2. claimed landed slice: owned paths, commit hashes, generated outputs, validator commands, and the live `HEAD`/diff/readback that still proves them;
+3. later contradictory or narrower receipts: failing checks, stale projections, blocked closeout lanes, active claims, host/resource gates, or not-run validators, each classified as owned, foreign, publication-only, policy-bound, stale-cache, or out-of-scope;
+4. capture boundary: any cap or WorkItem id, its source evidence, whether authority visibility was proven, and whether capture is fallback transport or the actual requested result;
+5. publication/backup boundary: local commit, remote state, private/public remote policy, fast-forward proof, secret-scan or disclosure scan, and the owner command that authorizes or blocks push; a backup-tool warning does not become push authority by itself;
+6. external memory boundary: provider memory, host notes, or out-of-repo summaries are recall aids, not repo authority unless a repo-owned surface consumes them;
+7. closeout wording: report the strongest true scoped verdict and the strongest true global blocker separately, with validation states limited to `passed`, `failed`, `blocked`, or `not_run`.
+
+Do not replay old embedded commands merely because the transcript says "next". Do not erase a landed scoped slice because a later global executor is blocked by foreign work, and do not call the whole system green because the owned slice is green. If a later red belongs to the current owned surface and has no durable capture, capture or patch before mentioning it; if it belongs to another active owner, yield with the owner/session/re-entry predicate instead of bypassing the claim. Product names, commit counts, memory files, and one backup tool's wording are examples unless the selected owner is explicitly that lane.
+
+### Moving Publication / Presentation-Filtered Validation Traces
+
+When a trace reports that the remote moved under the agent, a fast-forward or rebase absorbed concurrent commits, a test verdict came through a presentation pipeline, or a dogfood/harness expectation was stale, classify it as `moving_publication_validation_receipt_boundary`, not as a product-specific release story. The reusable rule is receipt identity: publication, validation, and harness/readback each need their own currentness proof after the substrate moves.
+
+Extract and route these fields before accepting or repairing the closeout:
+
+1. remote identity: local `HEAD`, upstream/ref before fetch, upstream/ref after fetch or fast-forward, owned commit ancestry, and final target-ref readback;
+2. publication decision: whether the current agent is authorized to push the owned slice, whether concurrent commits are disjoint or absorbed, and whether the final remote ref equals the intended post-integration `HEAD`;
+3. validation integrity: the actual command runner, raw exit status, shell/pipeline behavior, full log or durable receipt path, and any truncated presentation excerpt. A `tail`, `grep`, pager, or notification line is presentation unless the runner explicitly preserves the original command status, such as through `pipefail` or a structured receipt;
+4. validation currentness: which checks ran before versus after the remote/parent movement, and whether any pre-move check must be rerun or downgraded to historical evidence;
+5. harness drift: stale persona cues, expected strings, fixture names, or dogfood thresholds are validator state. Fix or mark the harness separately from the product/artifact verdict, then rerun the harness before claiming the product changed;
+6. owner split: route publication mechanics to the checkpoint/publication discipline, command-output status to the command-output standard or runner, harness drift to the owning dogfood/test surface, and object-level failures to the product owner;
+7. closeout wording: report the strongest true state for each plane: `landed_local`, `published_remote`, `validation_passed`, `validation_failed`, `validation_blocked`, `harness_fixed`, `harness_warn`, or `not_run`.
+
+Do not collapse "origin moved under me, fast-forwarded, pushed" into a green validation verdict. Do not collapse a piped command's visible tail into the test runner's exit code. Do not collapse a harness expectation fix into product correctness. Product names, persona labels, public/private remote names, test ids, commit hashes, and one trace's warning counts are examples unless the selected owner is that exact publication, runner, or harness lane.
 
 ### Parent-CAS Churn Landing Traces
 
@@ -217,6 +267,22 @@ Extract and route these fields before staging or closeout:
 6. landing decision: land only the owned slice, record a claim-settlement continuation, capture a blocked residual, or coordinate with the source owner.
 
 Do not collapse this class into "the builder is noisy" or "all generated output is mine because my command produced it." A scoped source fix can be green while a generated projection correctly reveals unrelated source-coupled drift. Conversely, a wide generated diff is not automatically foreign: if its source inputs are committed/owned, the write profile is declared, and validation proves the full generated set, it may be landed as an intentional generated refresh. Product names, organ names, and one trace's file list are examples unless the selected owner is that generator family.
+
+### Review-To-Executor Launch-Blocker Traces
+
+When a review, Type B packet, adjacent thread, or prior-agent closeout enumerates concrete launch blockers and then asks whether to implement, capture, or wait, classify it as `review_to_executor_launch_blocker_boundary`, not as permission to stop at "your call" and not as automatic permission to mutate the named product lane. The reusable rule is action routing: review evidence must become the strongest safe owner action available now, or a typed blocker with exact re-entry.
+
+Run this ladder before closeout:
+
+1. latest intent: distinguish a current review-only request from a current execution or generalized-improvement request; embedded prior prompts are evidence, not live authority;
+2. currentness: re-check the named source owner, generated/projection outputs, Work Ledger claims, dirty paths, and validator/write route before trusting the trace's "clean", "dirty", or "single chokepoint" wording;
+3. action branch: if the source owner, validation route, and generated/effect surface are isolatable, patch the minimal coherent source/test/check slice and validate it instead of asking for permission;
+4. blocker branch: if verification requires a shared generated write, full regeneration, external publication, unsafe source-authority mutation, or a live concurrent owner, name that boundary as the blocker; source-file cleanliness alone is not enough when the effect validator writes through a dirty or claimed projection surface;
+5. scheme branch: if the blocker is an id, route, schema, or object-map scheme disagreement across consumers, first choose and document the canonical scheme plus consumers; do not land a local rename that leaves another projection disagreeing;
+6. fallback branch: when direct mutation is blocked, capture or update the durable residual with exact owner file/tool, source loci, held generated paths, validator commands, acceptance tests, current blocker, and re-entry condition; capture is the fallback transport, not the improvement itself;
+7. adjacent-safe branch: if the main generated write is blocked but a lock-safe owner-surface patch, contract fixture, focused negative test, or review-packet normalization can land without touching the shared surface, do that before settling for capture-only.
+
+Invalid closeouts include "say the word and I will implement", "I kept it to review because this was a parallel thread" when the current operator asked for action, and "source is clean/isolatable" while the only meaningful validation requires a dirty shared regeneration surface. Valid held closeouts name the real boundary, prove no narrower safe action remains, and leave a durable re-entry packet that the executor can run without replaying the transcript.
 
 ### Admission / Targeted Projection Companion Traces
 

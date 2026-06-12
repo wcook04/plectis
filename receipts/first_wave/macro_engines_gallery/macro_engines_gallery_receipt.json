@@ -11,18 +11,19 @@
     "trading_or_financial_advice_authorized": false,
     "whole_system_correctness_claim": false
   },
+  "batch7_visible": true,
   "batch9_visible": true,
   "body_in_receipt": false,
   "command": "microcosm macro-engines-gallery run",
   "copied_source_digest_status": "mixed_historical_drift",
   "copied_source_digest_summary": {
     "blocked_count": 2,
-    "not_applicable_count": 2,
-    "pass_count": 2
+    "not_applicable_count": 1,
+    "pass_count": 21
   },
-  "created_at": "2026-06-01T01:08:34+00:00",
+  "created_at": "2026-06-12T05:38:25+00:00",
   "earlier_macro_probe_visible": true,
-  "gallery_card_count": 6,
+  "gallery_card_count": 24,
   "gallery_cards": [
     {
       "accepted_ordinal": 31,
@@ -56,7 +57,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
-        "digest_status": "blocked",
+        "digest_status": "pass",
         "manifest_ref": "examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_module_manifest.json",
         "module_digest_check_count": 19,
         "source_import_class": "copied_non_secret_macro_body",
@@ -77,17 +78,164 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
-        "digest_status": "blocked",
+        "digest_status": "pass",
         "manifest_ref": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
-        "module_digest_check_count": 14,
+        "module_digest_check_count": 26,
         "source_import_class": "copied_non_secret_macro_body",
-        "source_module_count": 14
+        "source_module_count": 26
       },
       "truth_accounting_bucket": "copied_non_secret_macro_body",
       "validator_command": "python -m microcosm_core.organs.batch6_unsurfaced_primitives_capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
     },
     {
       "accepted_ordinal": 57,
+      "claim_ceiling": "verified non-secret macro body import only, not live provider dispatch, proof success, process signal authority, generated-state mutation authority, source mutation, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over 10 copied non-secret Batch 5 authority-system source modules and 8 bounded public exercises spanning post-execution receipt validation, reasoning replay scope and lineage, proof-contract gating, process orphan classification, generated-state fixpoint settlement, trace-tape compaction, code blast radius, and doctrine graph compilation",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch5_authority_systems_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 10,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 10
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 58,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over 15 copied non-secret source modules and 9 bounded public source-faithful exercises spanning trace IR parsing, code-map layout, constitutional DAG scheduling, source indexing, source-surgeon patch validation, hermetic clean-clone execution, robust numeric scoring, personalized PageRank routing, and never-empty regression-test selection",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch7_macro_engines_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 15,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 15
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_macro_engines_capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 59,
+      "claim_ceiling": "verified non-secret macro body import only, not Oracle reasoning, provider or bridge authority, source mutation, semantic truth, complete coverage, release, or publication",
+      "classification_basis": "verified public macro-body import over copied public-safe Oracle sibling source modules with bounded public exercises for subject indexing, subject snapshots, macro truth-diff deltas, quartet repair planning, original pytest witnesses, exact-copy digest anchors, negative cases, body-free receipts, and authority ceilings",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch7_oracle_sibling_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 6,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 6
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 60,
+      "claim_ceiling": "verified non-secret macro body import only, not app launch, screen or microphone capture authority, model dispatch, source mutation, complete UI coverage, release, or publication",
+      "classification_basis": "verified public macro-body import over copied public-safe Demo Take Console Swift source modules with bounded public exercises for SwiftPM build witness posture, recording-state control, capture-helper bridge contracts, recorder-store capture FSM boundaries, hotkey/audio-meter behavior, transcribe-payload construction, exact-copy digest anchors, negative cases, body-free receipts, and authority ceilings",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch7_demo_take_console_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 8,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 8
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 61,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over four copied non-secret tools-tail source modules with bounded public exercises for observer set diffs, JSON patch interpretation, stable ledger-id hashing, and shadow envelope parse coverage",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_tools_tail_primitives_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 4,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 4
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch8_tools_tail_primitives_capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 62,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over three copied non-secret system/lib policy-engine modules with bounded public exercises for lab contract audit, market fusion readiness, and campaign transition adjudication",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_policy_engines_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 3,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 3
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch8_policy_engines_capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 65,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import of tools/finance/structural_theses.py with bounded synthetic winner, loser, and control exercises through the public CP1/CP2 finance spine",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_structural_theses_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 12,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 12
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch8_structural_theses_capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 66,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "validates the staged Engine Room composition demo, owned capsule surfaces, 14 target inventory, executable fixture chain, and missing-target negative case over public-safe fixtures",
       "current_authority_receipt": "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
@@ -98,16 +246,17 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
-        "digest_status": "not_applicable",
-        "manifest_ref": null,
-        "source_import_class": null,
-        "source_module_count": 0
+        "digest_status": "blocked",
+        "manifest_ref": "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json",
+        "module_digest_check_count": 2,
+        "source_import_class": "public_safe_refactored_body",
+        "source_module_count": 2
       },
       "truth_accounting_bucket": "real_import_validation",
       "validator_command": "python -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
     },
     {
-      "accepted_ordinal": 58,
+      "accepted_ordinal": 67,
       "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
       "classification_basis": "verified public macro-body import over 13 copied non-secret source modules and 13 bounded public source-faithful exercises spanning lineage provenance, approval claim adjudication, Python AST indexing, finance headline clustering, mission graph compilation, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker job gating, and milestone-relative quality accounting",
       "current_authority_receipt": "receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
@@ -118,7 +267,7 @@
       "release_authorized": false,
       "source_module_manifest": {
         "body_in_receipt": false,
-        "digest_status": "pass",
+        "digest_status": "blocked",
         "manifest_ref": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_module_manifest.json",
         "module_digest_check_count": 13,
         "source_import_class": "copied_non_secret_macro_body",
@@ -128,8 +277,8 @@
       "validator_command": "python -m microcosm_core.organs.batch9_macro_engines_capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json"
     },
     {
-      "accepted_ordinal": 59,
-      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, publication, live ledger authority, or source mutation authority",
+      "accepted_ordinal": 68,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
       "classification_basis": "verified public macro-body import over 13 copied non-secret source modules, one source-faithful public refactor, and 13 bounded public source-faithful exercises spanning mutation-governance intent gating, observe/apply plan compilation, reviewer persona gauntlet adjudication, release toggle blocker triage, publication selector contract checks, receipt reuse decisions, no-lookahead finance horizons, session dependency waves, claim conflict wait-tax, role-aware DAG propagation, generic table shaping, annex source-kind grouping, and recent-change fingerprint coalescing, with one explicit Batch-9 lane-width binding-repair witness",
       "current_authority_receipt": "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
       "evidence_class": "verified_macro_body_import",
@@ -147,9 +296,244 @@
       },
       "truth_accounting_bucket": "copied_non_secret_macro_body",
       "validator_command": "python -m microcosm_core.organs.batch10_governance_compilers_capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 69,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over 12 copied non-secret source modules and 13 computed public negative probes spanning run-affinity terminal staleness, calculator zero-bucket dominance, std-python gap handling, exogenous navigation grading, portability unresolved failures, shard context priority, holographic overlap checks, projection secret detection, stock grid unit normalization, frontend navigation reachability, session navigation verb coverage, macro regime unknown-route bucketing, and demo-take anchor requirements",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch11_saturation_engines_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 9,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 12
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch11_saturation_engines_capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 73,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret macro control-plane bodies for standard option-surface routing, mission-transaction landing preflight, work landing, and Work Ledger control; the runnable exercise proves current digest equality after stale recorded drift, required anchor presence, Python compileability without import execution, body-free receipts, and four negative cases for stale digest replay, compile bypass, private runtime export, and live mutation-authority overclaim",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch10_live_source_drift_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 4,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 4
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch10_live_source_drift_capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 74,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret cold-eval macro body for deterministic route-quality simulation; the runnable exercise invokes cold_eval.py over public tasks, audits scorecard asymmetry and claim ceilings, verifies exact source-module digests and anchors, rejects expected-ref and private-ref leakage, and keeps benchmark, navigation-truth, release, provider, live-agent, and publication authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch10_cold_eval_honesty_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 1,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 1
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 75,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret macro validators.py body from idea_microcosm; the runnable exercise invokes policy/status judging, private-boundary scanning, specimen checkers, release-gate checkers, and validate(root, write_receipt=False), verifies source-module digests and anchors, observes six negative cases, and keeps release, publication, provider, model, source-mutation, full validator freshness, and private-root equivalence authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_validator_checker_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 1,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 1
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch8_validator_checker_capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 76,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret concurrency mission-control macro builder plus public provider and Task Ledger bridge artifacts; the runnable exercise invokes the copied builder over synthetic transaction lanes, verifies digest equality and anchors, observes missing seed-root, blocked provider-bridge, authority-collapse, and private-runtime negatives, and keeps live scheduler, provider dispatch, hosted orchestration, production concurrency-safety, release, publication, source-mutation, and private-ledger authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "concurrency_mission_control",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json",
+        "module_digest_check_count": 7,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 7
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.concurrency_mission_control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 77,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret station runtime and frontend source bodies for the agent trace workbench host boot probe, live agent instrument view model, station store resilience FSM, original source tests, digest anchors, vitest witness metadata, and five negative cases fencing off UI runtime and release authority",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch7_station_runtime_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 5,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 5
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_station_runtime_capsule run --input fixtures/first_wave/batch7_station_runtime_capsule/input --out receipts/first_wave/batch7_station_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 78,
+      "claim_ceiling": "verified non-secret macro body import only, not browser or wallet access, live market data, investment advice, source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies; the runnable exercise invokes eight public fixture engines, verifies source digest anchors and required anchors, observes eight negative cases, and keeps browser/session export, wallet authority, live market data, investment advice, release, publication, source-mutation, semantic-truth, and completeness authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch7_secondary_runtime_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 13,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 13
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_secondary_runtime_capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 79,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret market dashboard read-model source body; the runnable exercise invokes validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over public fixtures, verifies source digest anchors, observes ten negative cases for graph/ref, trading-language, freshness, omission, and related-situation regressions, and keeps live market truth, investment advice, provider dispatch, release, publication, source-mutation, and whole-system authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch12_market_dashboard_read_model_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 1,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 1
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run --input fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input --out receipts/first_wave/batch12_market_dashboard_read_model_capsule --acceptance-out receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 80,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret quant presentation mart source body; the runnable exercise invokes _prediction_market_board and _polymarket_identity_by_slug over synthetic market rows, verifies source digest anchors, observes three negative cases for duplicate selection, orphan identity non-fabrication, and deduped aggregates, and keeps live prediction-market truth, forecast correctness, calibration, investment advice, provider dispatch, release, publication, and whole-system authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch12_prediction_market_board_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 1,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 1
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch12_prediction_market_board_capsule run --input fixtures/first_wave/batch12_prediction_market_board_capsule/input --out receipts/first_wave/batch12_prediction_market_board_capsule --acceptance-out receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 81,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret release claim-language gate source body; the runnable exercise invokes _classify_hit, build_gate, and main --assert-clear over public markdown fixtures, verifies source digest anchors, observes two negative cases for affirmative release-language blockers and assert-clear exit code 2, and keeps release, publication, semantic NLP truth, portability, complete secret-scan, and whole-system authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch12_release_claim_language_gate",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json",
+        "module_digest_check_count": 1,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 1
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+    },
+    {
+      "accepted_ordinal": 82,
+      "claim_ceiling": "verified non-secret frontend source-body import only, not live UI correctness, Task Ledger or Work Ledger mutation authority, market advice, source mutation, release, or publication",
+      "classification_basis": "exact copied non-secret frontend TS/TSX macro source bodies for WorkLens, WorkLens tests, MarketCockpit, MarketIntelligenceLens, and MarketCockpit tests; the runnable exercise verifies source digest equality, required anchors, read-only work-state behavior, honest market-signal presentation, route-readiness and finance-assurance indicators, source-test witness coverage, private-ref guards, and four negative cases for work-lens mutation creep, fake market time-series, recommendation leakage, and private source refs while keeping live UI correctness, browser/provider access, Task Ledger or Work Ledger mutation, market advice, source mutation, release, and publication authority false",
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+      "private_root_equivalence_claim": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_module_manifest": {
+        "body_in_receipt": false,
+        "digest_status": "pass",
+        "manifest_ref": "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json",
+        "module_digest_check_count": 5,
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_module_count": 5
+      },
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule run --input fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input --out receipts/first_wave/batch10_frontend_work_market_cockpit_capsule --acceptance-out receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
     }
   ],
   "negative_case_summary": {
+    "batch7_macro_engines_capsule": {
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 9
+    },
     "batch9_macro_engines_capsule": {
       "missing_negative_cases": [],
       "observed_negative_case_count": 13
@@ -159,12 +543,47 @@
       "observed_negative_case_count": 1
     }
   },
-  "probe_count": 2,
+  "probe_count": 3,
   "probe_ids": [
+    "batch7_macro_engines_capsule",
     "batch9_macro_engines_capsule",
     "engine_room_demo"
   ],
   "probes": [
+    {
+      "anti_claim": "Batch 7 imports and exercises public-safe macro engines for trace IR, code-map layout, DAG scheduling, source indexing, patch validation, clean-clone hermetic checks, robust numeric scoring, PageRank routing, and regression-test selection. It is not a release, not private-root equivalence, not semantic truth, not investment advice, not a complete sandbox, and not proof that selected tests are sufficient.",
+      "body_in_receipt": false,
+      "error_codes": [
+        "BATCH7_CALCULATOR_OUTLIER_RESISTANT",
+        "BATCH7_CLEAN_CLONE_NETWORK_DISABLED",
+        "BATCH7_CODEMAP_OVERLAP_REJECTED",
+        "BATCH7_DAG_CYCLE_REJECTED",
+        "BATCH7_PAGERANK_MISSING_SOURCE_REFUSED",
+        "BATCH7_RELEASE_ROOT_BAD_REF_REPORTED",
+        "BATCH7_RTS_NEVER_EMPTY_FALLBACK",
+        "BATCH7_SOURCE_SURGEON_CONTEXT_MISMATCH",
+        "BATCH7_TRACE_COMMIT_WITHOUT_DIFF_REJECTED"
+      ],
+      "evidence_classes": [],
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 9,
+      "observed_negative_cases": [
+        "calculator_outlier",
+        "clean_clone_network_call",
+        "codemap_overlap",
+        "dag_cycle",
+        "pagerank_missing_source",
+        "regression_selection_empty",
+        "release_root_bad_ref",
+        "source_surgeon_context_mismatch",
+        "trace_commit_without_diff"
+      ],
+      "organ_id": "batch7_macro_engines_capsule",
+      "receipt_ref_count": 3,
+      "source_module_count": 15,
+      "source_module_status": "pass",
+      "status": "pass"
+    },
     {
       "anti_claim": "Batch 9 validates copied non-secret macro source bodies plus public source-faithful exercises for provenance lineage, approval adjudication, Python AST indexing, finance headline clustering, mission graph waves, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker pre-dispatch gating, and milestone-relative quality accounting. It is not live authority, not real market or doctrine truth, not provider dispatch, not Work Ledger truth, not source mutation permission, not publication authority, and not release approval.",
       "body_in_receipt": false,
@@ -181,7 +600,8 @@
         "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED",
         "BATCH9_MISSION_GRAPH_MISSING_TARGET",
         "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",
-        "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
+        "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED",
+        "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH"
       ],
       "evidence_classes": [
         "algorithmic_projection",
@@ -208,7 +628,7 @@
       "receipt_ref_count": 3,
       "source_module_count": 13,
       "source_module_status": "pass",
-      "status": "pass"
+      "status": "blocked"
     },
     {
       "anti_claim": "The Engine Room demo is a public-safe composition of bounded symbolic prover, runtime, integrity, security, navigation, orchestration, and knowledge-routing capsules. It does not export private macro run state, credentials, provider/browser state, raw operator threads, third-party clones, or any release/publication authority.",
@@ -227,5 +647,5 @@
   ],
   "receipt_ref": "receipts/first_wave/macro_engines_gallery/macro_engines_gallery_receipt.json",
   "schema_version": "microcosm_macro_engines_gallery_receipt_v1",
-  "status": "pass"
+  "status": "blocked"
 }

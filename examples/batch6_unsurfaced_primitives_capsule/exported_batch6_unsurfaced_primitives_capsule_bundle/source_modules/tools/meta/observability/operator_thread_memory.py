@@ -51,7 +51,7 @@ RETENTION_EVENT_LOG_WATCH_BYTES = 256 * 1024 * 1024
 
 CONVERSATION_ID_RE = re.compile(r"/c/([^/?#]+)")
 PROMPT_RECEIVED_RE = re.compile(r"\bprompt_received\s*:\s*([A-Z0-9.:-]+)", re.IGNORECASE)
-SLOT_RE = re.compile(r"\b(A0|A2|B1|B2(?:\.[12])?|B3|B4|B5|B6|B7)\b", re.IGNORECASE)
+SLOT_RE = re.compile(r"\b(A0|A2|B1|B2(?:\.[12])?|B3|B4|B5|B6|B7(?:\.1)?)\b", re.IGNORECASE)
 WHITESPACE_RE = re.compile(r"\s+")
 TIMESTAMP_RE = re.compile(r"\b20\d{2}-\d{2}-\d{2}[T ][0-9:.+-Z]+\b")
 THOUGHT_RE = re.compile(r"\bthought\s+for\s+\d+\s*(?:s|sec|secs|seconds|m|min|mins|minutes)\b", re.IGNORECASE)

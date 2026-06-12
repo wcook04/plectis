@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 65693,
-      "line_count": 1672,
+      "byte_count": 76551,
+      "line_count": 1971,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "formal_math_readiness_gate_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/formal_math_readiness_gate.py",
@@ -16,19 +16,19 @@
         "ORGAN_ID = \"formal_math_readiness_gate\"",
         "def run"
       ],
-      "sha256": "sha256:20cdb776fe0b68c7c2dbc6b558d5a2642e778e962cd60afbca8009b89e9033b8",
+      "sha256": "sha256:b2e122656fa85552a886edccf00e7b12df2d4a21740b8e9dc0ca2eab441d7b07",
       "sha256_match": true,
-      "source_byte_count": 65693,
+      "source_byte_count": 76551,
       "source_import_class": "copied_non_secret_public_substrate_body",
-      "source_line_count": 1672,
+      "source_line_count": 1971,
       "source_ref": "src/microcosm_core/organs/formal_math_readiness_gate.py",
       "source_role": "Public Microcosm formal/prover organ logic used to validate public-safe readiness evidence.",
-      "source_sha256": "sha256:20cdb776fe0b68c7c2dbc6b558d5a2642e778e962cd60afbca8009b89e9033b8",
+      "source_sha256": "sha256:b2e122656fa85552a886edccf00e7b12df2d4a21740b8e9dc0ca2eab441d7b07",
       "source_to_target_relation": "exact_copy",
-      "target_byte_count": 65693,
-      "target_line_count": 1672,
+      "target_byte_count": 76551,
+      "target_line_count": 1971,
       "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_body_floor/source_modules/microcosm_core/organs/formal_math_readiness_gate.py",
-      "target_sha256": "sha256:20cdb776fe0b68c7c2dbc6b558d5a2642e778e962cd60afbca8009b89e9033b8",
+      "target_sha256": "sha256:b2e122656fa85552a886edccf00e7b12df2d4a21740b8e9dc0ca2eab441d7b07",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_lean_sources_do_not_count_as_real_substrate"
       ]

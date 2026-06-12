@@ -6,8 +6,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 930196,
-      "line_count": 12747,
+      "byte_count": 934391,
+      "line_count": 12790,
       "material_class": "public_macro_validator_python_body",
       "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
       "required_anchors": [
@@ -18,14 +18,14 @@
         "def _source_shuttle_specimen_failures(root: Path)",
         "def validate(root: Path"
       ],
-      "sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "sha256": "758fef491181888b1203e327596f2cff40d7155437efd9dc0cd3feaa2ba6fef2",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
-      "source_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "source_sha256": "758fef491181888b1203e327596f2cff40d7155437efd9dc0cd3feaa2ba6fef2",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
-      "target_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4"
+      "target_sha256": "758fef491181888b1203e327596f2cff40d7155437efd9dc0cd3feaa2ba6fef2"
     }
   ],
   "organ_id": "batch8_validator_checker_capsule",

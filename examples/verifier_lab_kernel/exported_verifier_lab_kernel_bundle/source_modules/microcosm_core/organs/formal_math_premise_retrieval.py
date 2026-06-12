@@ -35,6 +35,7 @@ ACCEPTANCE_RECEIPT_REL = (
 BUNDLE_RESULT_NAME = "exported_premise_retrieval_bundle_validation_result.json"
 CARD_SCHEMA_VERSION = "formal_math_premise_retrieval_card_v1"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+PUBLIC_LEAN_TOOLCHAIN_PREFIX = "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "authority_ceiling",
     "anti_claim",
@@ -312,6 +313,204 @@ def _source_ref_path(public_root: Path, ref: object) -> Path | None:
     if value.startswith("microcosm-substrate/"):
         return public_root / _strip_microcosm_prefix(value)
     return public_root.parent / value
+
+
+def _candidate_source_artifact_paths(
+    ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> list[Path]:
+    path = Path(ref)
+    if path.is_absolute():
+        return [path]
+    return _dedupe_paths(
+        [
+            input_dir / path,
+            public_root / path,
+            public_root.parent / path,
+            Path.cwd() / path,
+        ]
+    )
+
+
+def _resolve_source_artifact_path(
+    ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path | None:
+    for candidate in _candidate_source_artifact_paths(
+        ref,
+        input_dir=input_dir,
+        public_root=public_root,
+    ):
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _normalize_source_ref(source_ref: object, *, source_root: object) -> str:
+    ref = str(source_ref or "")
+    root = str(source_root or "")
+    if root and ref.startswith(root.rstrip("/") + "/"):
+        suffix = ref[len(root.rstrip("/")) + 1 :]
+        return f"{PUBLIC_LEAN_TOOLCHAIN_PREFIX}{suffix}"
+    return ref
+
+
+def _source_premise_signature(
+    row: dict[str, Any],
+    *,
+    source_root: object,
+) -> dict[str, Any]:
+    return {
+        "premise_id": row.get("premise_id"),
+        "namespace": row.get("namespace"),
+        "theorem_or_def_name": row.get("theorem_or_def_name"),
+        "statement_excerpt": row.get("statement_excerpt"),
+        "retrieval_terms": _strings(row.get("retrieval_terms")),
+        "allowed_for_split": _strings(row.get("allowed_for_split")),
+        "source_ref": _normalize_source_ref(row.get("source_ref"), source_root=source_root),
+    }
+
+
+def _public_premise_signature(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "premise_id": row.get("premise_id"),
+        "namespace": row.get("namespace"),
+        "theorem_or_def_name": row.get("theorem_or_def_name"),
+        "statement_excerpt": row.get("statement_excerpt"),
+        "retrieval_terms": _strings(row.get("retrieval_terms")),
+        "allowed_for_split": _strings(row.get("allowed_for_split")),
+        "source_ref": row.get("source_ref"),
+    }
+
+
+def _validate_source_artifact(
+    payload: object,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {
+            "status": "blocked",
+            "source_artifact_ref": None,
+            "source_artifact_sha256": None,
+            "source_artifact_premise_count": 0,
+            "findings": [
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_INDEX_REQUIRED",
+                    "Premise retrieval input must carry a premise-index object before source-artifact validation.",
+                    case_id="source_artifact",
+                    subject_id="premise_index",
+                    subject_kind="source_artifact",
+                )
+            ],
+        }
+
+    source_ref = str(payload.get("source_ref") or "")
+    if not source_ref:
+        return {
+            "status": "blocked",
+            "source_artifact_ref": source_ref,
+            "source_artifact_sha256": None,
+            "source_artifact_premise_count": 0,
+            "findings": [
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_REF_REQUIRED",
+                    "Premise retrieval input must cite the real macro premise-index source artifact.",
+                    case_id="source_artifact",
+                    subject_id="premise_index.source_ref",
+                    subject_kind="source_artifact",
+                )
+            ],
+        }
+
+    source_path = _resolve_source_artifact_path(
+        source_ref,
+        input_dir=input_dir,
+        public_root=public_root,
+    )
+    if source_path is None:
+        return {
+            "status": "not_present",
+            "source_artifact_ref": source_ref,
+            "source_artifact_sha256": None,
+            "source_artifact_premise_count": 0,
+            "findings": [],
+        }
+
+    findings: list[dict[str, Any]] = []
+    actual_digest = _sha256(source_path)
+    expected_digest = _normalize_sha256(payload.get("source_sha256"))
+    if expected_digest and actual_digest != expected_digest:
+        findings.append(
+            _finding(
+                "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_DIGEST_MISMATCH",
+                "Declared premise-index source digest must match the opened macro source artifact.",
+                case_id="source_artifact",
+                subject_id=source_ref,
+                subject_kind="source_artifact",
+            )
+        )
+
+    source_payload = read_json_strict(source_path)
+    source_rows = _rows(source_payload, "premises")
+    public_rows = _rows(payload, "premises")
+    if len(source_rows) != len(public_rows):
+        findings.append(
+            _finding(
+                "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_ROW_COUNT_MISMATCH",
+                "Public premise-index row count must match the opened macro source artifact.",
+                case_id="source_artifact",
+                subject_id=source_ref,
+                subject_kind="source_artifact",
+            )
+        )
+
+    source_root = (
+        source_payload.get("local_or_annex_path")
+        if isinstance(source_payload, dict)
+        else None
+    )
+    source_by_id = {str(row.get("premise_id") or ""): row for row in source_rows}
+    for public_row in public_rows:
+        premise_id = str(public_row.get("premise_id") or "")
+        source_row = source_by_id.get(premise_id)
+        if source_row is None:
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_ROW_MISMATCH",
+                    "Public premise row must derive from an opened macro source row with the same premise_id.",
+                    case_id="source_artifact",
+                    subject_id=premise_id or "missing_premise_id",
+                    subject_kind="source_artifact",
+                )
+            )
+            continue
+        if _public_premise_signature(public_row) != _source_premise_signature(
+            source_row,
+            source_root=source_root,
+        ):
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_ROW_MISMATCH",
+                    "Public premise row must match the opened macro source artifact after public source-ref normalization.",
+                    case_id="source_artifact",
+                    subject_id=premise_id,
+                    subject_kind="source_artifact",
+                )
+            )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "source_artifact_ref": source_ref,
+        "source_artifact_sha256": actual_digest,
+        "source_artifact_premise_count": len(source_rows),
+        "findings": findings,
+    }
 
 
 def _bundle_source_module_result(
@@ -1015,6 +1214,11 @@ def _build_result(
         payloads["premise_index"],
         payloads.get("premise_index_with_proof_body"),
     )
+    source_artifact = _validate_source_artifact(
+        payloads["premise_index"],
+        input_dir=input_dir,
+        public_root=public_root,
+    )
     recipes = validate_context_recipes(
         payloads["context_recipes"],
         payloads.get("context_recipe_budget_overflow"),
@@ -1037,6 +1241,7 @@ def _build_result(
     findings = _merge_findings(
         source_module_manifest,
         projection,
+        source_artifact,
         premise_index,
         recipes,
         strategies,
@@ -1053,6 +1258,7 @@ def _build_result(
         if not missing
         and secret_scan["blocking_hit_count"] == 0
         and source_module_manifest["status"] in {PASS, "not_present"}
+        and source_artifact["status"] in {PASS, "not_present"}
         and projection["status"] == PASS
         and premise_index["status"] == PASS
         and recipes["status"] == PASS
@@ -1083,6 +1289,12 @@ def _build_result(
             "source_module_verified_target_count"
         ],
         "source_module_results": source_module_manifest["source_module_results"],
+        "source_artifact_status": source_artifact["status"],
+        "source_artifact_ref": source_artifact["source_artifact_ref"],
+        "source_artifact_sha256": source_artifact["source_artifact_sha256"],
+        "source_artifact_premise_count": source_artifact[
+            "source_artifact_premise_count"
+        ],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_material_contract": BODY_MATERIAL_CONTRACT,
@@ -1123,6 +1335,10 @@ def _build_result(
             "source_module_manifest_status": source_module_manifest["status"],
             "source_module_verified_target_count": source_module_manifest[
                 "source_module_verified_target_count"
+            ],
+            "source_artifact_status": source_artifact["status"],
+            "source_artifact_premise_count": source_artifact[
+                "source_artifact_premise_count"
             ],
             "scoring_fields": [
                 "premise_id",
@@ -1166,6 +1382,10 @@ def _common_receipt(
         "source_module_manifest_status",
         "source_module_result_count",
         "source_module_verified_target_count",
+        "source_artifact_status",
+        "source_artifact_ref",
+        "source_artifact_sha256",
+        "source_artifact_premise_count",
         "authority_ceiling",
         "anti_claim",
         "body_material_contract",

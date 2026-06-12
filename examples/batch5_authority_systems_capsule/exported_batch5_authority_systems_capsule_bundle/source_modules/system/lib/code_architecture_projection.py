@@ -79,6 +79,19 @@ KNOWN_LIMITS = (
     "paper-module overlays depend on current code_loci freshness",
 )
 
+# Python documentation-tree quality flags carry mixed semantics. Provenance and
+# metadata-completeness markers should stay visible without becoming health
+# warnings that promote almost every CodeMap cluster into the warning lane.
+ADVISORY_QUALITY_FLAGS = frozenset(
+    {
+        "composed_summary",
+        "composed_when_needed",
+        "derived_summary",
+        "derived_when_needed",
+        "missing_navigation_group",
+    }
+)
+
 EDGE_CONFIDENCE_BY_KIND: dict[str, str] = {
     "import": "high",
     "call": "high",
@@ -156,6 +169,47 @@ def _bounded_cache_set(cache: dict[Any, Any], key: Any, value: Any, *, max_entri
 def _now_iso() -> str:
     """[ACTION] Return the current UTC time as an ISO 8601 string."""
     return datetime.now(timezone.utc).isoformat()
+
+
+def _dedupe_strings(values: Iterable[Any]) -> list[str]:
+    """[ACTION] Return stable non-empty strings with duplicates removed."""
+    seen: set[str] = set()
+    out: list[str] = []
+    for value in values:
+        text = str(value).strip()
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        out.append(text)
+    return out
+
+
+def _health_from_quality(quality: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION] Convert documentation-tree quality rows into CodeMap health.
+
+    `quality_flags` includes provenance markers such as `composed_summary` and
+    `derived_when_needed`; those are useful evidence but not actionable health
+    warnings. Keep them under advisory fields so renderers can inspect them
+    without treating every file as flagged.
+    """
+    raw_status = str(quality.get("status") or "").strip()
+    quality_flags = _dedupe_strings(quality.get("quality_flags") or [])
+    derivation_warnings = _dedupe_strings(quality.get("derivation_warnings") or [])
+    advisory_flags = [flag for flag in quality_flags if flag in ADVISORY_QUALITY_FLAGS]
+    actionable_flags = [flag for flag in quality_flags if flag not in ADVISORY_QUALITY_FLAGS]
+    warnings = _dedupe_strings([*actionable_flags, *derivation_warnings])
+    grade = raw_status or None
+    if raw_status == "degraded" and advisory_flags and not warnings:
+        grade = "advisory"
+    return {
+        "grade": grade,
+        "source_status": raw_status or None,
+        "warnings": warnings,
+        "quality_flags": quality_flags,
+        "advisory_flags": advisory_flags,
+        "derivation_warnings": derivation_warnings,
+    }
 
 
 def _read_json(path: Path) -> Any | None:
@@ -962,9 +1016,18 @@ def _packet_composition_stats(
     connection_rows: Iterable[Mapping[str, Any]],
 ) -> dict[str, int]:
     """[ACTION] Count backend/Python vs frontend/UI composition for operator-visible proof."""
-    paths = [str(row.get("path") or "").strip() for row in file_rows]
+    rows = list(file_rows)
+    paths = [str(row.get("path") or "").strip() for row in rows]
     python_file_count = sum(1 for path in paths if path.endswith(REPO_PYTHON_EXTENSIONS))
     frontend_file_count = sum(1 for path in paths if _path_is_frontend(path))
+    warning_counts: list[int] = []
+    advisory_counts: list[int] = []
+    for row in rows:
+        health = row.get("health") if isinstance(row.get("health"), Mapping) else {}
+        warnings = health.get("warnings") if isinstance(health, Mapping) else []
+        advisory_flags = health.get("advisory_flags") if isinstance(health, Mapping) else []
+        warning_counts.append(len(warnings) if isinstance(warnings, list) else 0)
+        advisory_counts.append(len(advisory_flags) if isinstance(advisory_flags, list) else 0)
     python_connection_count = 0
     frontend_connection_count = 0
     for edge in connection_rows:
@@ -980,6 +1043,10 @@ def _packet_composition_stats(
         "other_file_count": max(0, len(paths) - python_file_count - frontend_file_count),
         "python_connection_count": python_connection_count,
         "frontend_connection_count": frontend_connection_count,
+        "health_warning_file_count": sum(1 for count in warning_counts if count > 0),
+        "health_warning_count": sum(warning_counts),
+        "health_advisory_file_count": sum(1 for count in advisory_counts if count > 0),
+        "health_advisory_flag_count": sum(advisory_counts),
     }
 
 
@@ -1867,10 +1934,7 @@ def _file_row_from_sources(
         "summary": str(file_entry.get("summary") or "").strip() or None,
         "fan_in": int(edges_inbound_count.get(path, 0)),
         "fan_out": int(edges_outbound_count.get(path, 0)),
-        "health": {
-            "grade": str(quality.get("status") or "").strip() or None,
-            "warnings": list(quality.get("quality_flags") or []) or list(quality.get("derivation_warnings") or []),
-        },
+        "health": _health_from_quality(quality),
         "overlays": _empty_overlays(),
     }
 

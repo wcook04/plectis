@@ -38,6 +38,15 @@ SOURCE_MODULE_IMPORT_STATUS = "copied_corpus_readiness_source_modules_verified"
 CARD_SCHEMA_VERSION = "corpus_readiness_mathlib_absence_gate_command_card_v1"
 LEAN_IMPORT_PROBE_TIMEOUT_SECONDS = 20
 LEAN_IMPORT_PROBE_SCHEMA_VERSION = "corpus_readiness_runtime_lean_import_probe_v1"
+RUNTIME_PROBE_INPUT_DIR_NAME = "runtime_lean_import_probe"
+STD_IMPORT_PROBE_INPUT_NAME = "StdGood.lean"
+MATHLIB_ABSENCE_PROBE_INPUT_NAME = "MathlibAbsent.lean"
+DEFAULT_STD_IMPORT_PROBE_BODY = (
+    "import Std\n\nexample : (2 : Nat) + 2 = 4 := by decide\n"
+)
+DEFAULT_MATHLIB_ABSENCE_PROBE_BODY = (
+    "import Mathlib\n\nexample : (2 : Nat) + 2 = 4 := by norm_num\n"
+)
 
 SOURCE_PATTERN_IDS = [
     "corpus_readiness_mathlib_absence_gate",
@@ -79,8 +88,8 @@ SOURCE_DIGESTS = {
 }
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 CORPUS_READINESS_STATUS = "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
-TOOLCHAIN_BOUNDARY_STATUS = "real_lean_4_29_1_std_mathlib_absence_probe"
-RUNTIME_PROBE_STATUS = "real_runtime_lean_std_good_mathlib_absent_probe"
+TOOLCHAIN_BOUNDARY_STATUS = "real_lean_cli_std_mathlib_absence_probe_with_lake_available"
+RUNTIME_PROBE_STATUS = "real_runtime_lean_cli_std_good_mathlib_absent_lake_available_probe"
 BODY_IN_RECEIPT = False
 PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_pattern_body",
@@ -107,10 +116,10 @@ MATHLIB_PRESENT_ALIAS_FIELDS = (
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "bounded_runtime_lean_import_probe_not_mathlib_proof_or_benchmark_authority"
+        "bounded_runtime_lean_lake_import_probe_not_mathlib_proof_or_benchmark_authority"
     ),
     "lean_lake_execution_authorized": "bounded_runtime_import_probe_only",
-    "lean_lake_execution_scope": "temporary_lean_import_probe_no_lake_build",
+    "lean_lake_execution_scope": "temporary_lean_cli_import_probe_plus_lake_version_check_no_lake_build",
     "mathlib_lake_project_import_authorized": False,
     "mathlib_dependent_proof_authority": False,
     "formal_proof_authority": False,
@@ -122,7 +131,7 @@ AUTHORITY_CEILING = {
 ANTI_CLAIM = (
     "Corpus readiness Mathlib absence gate validates copied non-secret corpus "
     "readiness rows from the 2026-05-11 proof-state curriculum smoke run, "
-    "paired with a bounded runtime Lean import probe proving Std still imports "
+    "paired with a bounded runtime Lean/Lake import probe proving Std still imports "
     "and Mathlib remains absent in the current host environment. It does not "
     "run a Lake build, prove theorem correctness, claim Mathlib is available, "
     "expose proof/provider bodies, benchmark formal-math corpora, call "
@@ -453,7 +462,112 @@ def _command_result_card(
         }
 
 
-def runtime_lean_import_probe() -> dict[str, Any]:
+def _skipped_command_result_card(
+    argv: list[str],
+    *,
+    cwd: Path,
+    timeout_seconds: int,
+    skip_reason: str,
+) -> dict[str, Any]:
+    return {
+        "argv": [Path(argv[0]).name, *argv[1:]],
+        "cwd_name": cwd.name,
+        "return_code": None,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "stdout_has_unknown_mathlib": False,
+        "stderr_has_unknown_mathlib": False,
+        "timeout_seconds": timeout_seconds,
+        "timed_out": False,
+        "skipped": True,
+        "skip_reason": skip_reason,
+        "body_redacted": True,
+    }
+
+
+def _probe_input_file_card(path: Path) -> dict[str, Any]:
+    return {
+        "name": path.name,
+        "sha256": _sha256(path),
+        "line_count": _line_count(path),
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_redacted": True,
+    }
+
+
+def _runtime_probe_input_sources(
+    probe_input_dir: str | Path | None,
+) -> tuple[str | None, str | None, dict[str, Any]]:
+    if probe_input_dir is None:
+        return (
+            DEFAULT_STD_IMPORT_PROBE_BODY,
+            DEFAULT_MATHLIB_ABSENCE_PROBE_BODY,
+            {
+                "probe_input_mode": "embedded_default_probe_sources",
+                "probe_input_status": PASS,
+                "probe_input_files": [],
+                "body_in_receipt": BODY_IN_RECEIPT,
+                "body_redacted": True,
+            },
+        )
+
+    input_dir = Path(probe_input_dir)
+    std_path = input_dir / STD_IMPORT_PROBE_INPUT_NAME
+    mathlib_path = input_dir / MATHLIB_ABSENCE_PROBE_INPUT_NAME
+    missing = [
+        path.name for path in (std_path, mathlib_path) if not path.is_file()
+    ]
+    metadata = {
+        "probe_input_mode": "supplied_probe_sources",
+        "probe_input_status": PASS if not missing else "blocked",
+        "probe_input_dir_name": input_dir.name,
+        "probe_input_files": [
+            _probe_input_file_card(path)
+            for path in (std_path, mathlib_path)
+            if path.is_file()
+        ],
+        "missing_probe_input_names": missing,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_redacted": True,
+    }
+    if missing:
+        return None, None, metadata
+    return (
+        std_path.read_text(encoding="utf-8"),
+        mathlib_path.read_text(encoding="utf-8"),
+        metadata,
+    )
+
+
+def _runtime_probe_input_dir(input_dir: Path) -> Path | None:
+    candidate = input_dir / RUNTIME_PROBE_INPUT_DIR_NAME
+    return candidate if candidate.exists() else None
+
+
+def runtime_lean_import_probe(
+    probe_input_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    std_source, mathlib_source, probe_input_metadata = _runtime_probe_input_sources(
+        probe_input_dir
+    )
+    if std_source is None or mathlib_source is None:
+        return {
+            "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
+            "status": "blocked",
+            "proof_class": "live_runtime_probe",
+            "execution_mode": "lake_env_lean_import_probe_with_lake_availability_check",
+            "lean_available": shutil.which("lean") is not None,
+            "lake_available": shutil.which("lake") is not None,
+            "std_import_passed": False,
+            "mathlib_import_rejected": False,
+            "mathlib_lake_project_import_available": False,
+            "lake_build_ran": False,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_redacted": True,
+            "blocked_by": "runtime_probe_input_missing",
+            **probe_input_metadata,
+        }
+
     lean_path = shutil.which("lean")
     lake_path = shutil.which("lake")
     if lean_path is None:
@@ -461,14 +575,45 @@ def runtime_lean_import_probe() -> dict[str, Any]:
             "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
             "status": "blocked",
             "proof_class": "live_runtime_probe",
+            "execution_mode": "lake_env_lean_import_probe_with_lake_availability_check",
             "lean_available": False,
             "lake_available": lake_path is not None,
             "std_import_passed": False,
             "mathlib_import_rejected": False,
             "mathlib_lake_project_import_available": False,
+            "lake_build_ran": False,
             "body_in_receipt": BODY_IN_RECEIPT,
             "body_redacted": True,
             "blocked_by": "lean_unavailable",
+            **probe_input_metadata,
+        }
+    if lake_path is None:
+        return {
+            "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
+            "status": "blocked",
+            "proof_class": "live_runtime_probe",
+            "execution_mode": "lake_env_lean_import_probe_with_lake_availability_check",
+            "lean_available": True,
+            "lake_available": False,
+            "std_import_passed": False,
+            "mathlib_import_rejected": False,
+            "mathlib_lake_project_import_available": False,
+            "std_probe": _skipped_command_result_card(
+                ["lake", "env", "lean", "StdGood.lean"],
+                cwd=Path("/tmp"),
+                timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
+                skip_reason="lake_unavailable",
+            ),
+            "mathlib_probe": _skipped_command_result_card(
+                ["lake", "env", "lean", "MathlibAbsent.lean"],
+                cwd=Path("/tmp"),
+                timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
+                skip_reason="lake_unavailable",
+            ),
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_redacted": True,
+            "blocked_by": "lake_unavailable",
+            **probe_input_metadata,
         }
 
     with tempfile.TemporaryDirectory(
@@ -478,21 +623,20 @@ def runtime_lean_import_probe() -> dict[str, Any]:
         temp_root = Path(temp_name)
         std_probe = temp_root / "StdGood.lean"
         mathlib_probe = temp_root / "MathlibAbsent.lean"
-        std_probe.write_text(
-            "import Std\n\nexample : (2 : Nat) + 2 = 4 := by decide\n",
-            encoding="utf-8",
-        )
-        mathlib_probe.write_text(
-            "import Mathlib\n\nexample : (2 : Nat) + 2 = 4 := by norm_num\n",
-            encoding="utf-8",
-        )
+        std_probe.write_text(std_source, encoding="utf-8")
+        mathlib_probe.write_text(mathlib_source, encoding="utf-8")
         std_run = _command_result_card(
-            [lean_path, std_probe.name],
+            [lake_path, "env", "lean", std_probe.name],
             cwd=temp_root,
             timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
         )
         mathlib_run = _command_result_card(
-            [lean_path, mathlib_probe.name],
+            [lake_path, "env", "lean", mathlib_probe.name],
+            cwd=temp_root,
+            timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
+        )
+        lake_version_run = _command_result_card(
+            [lake_path, "--version"],
             cwd=temp_root,
             timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
         )
@@ -507,8 +651,15 @@ def runtime_lean_import_probe() -> dict[str, Any]:
     )
     return {
         "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
-        "status": PASS if std_passed and mathlib_rejected else "blocked",
+        "status": (
+            PASS
+            if std_passed
+            and mathlib_rejected
+            and lake_version_run.get("return_code") == 0
+            else "blocked"
+        ),
         "proof_class": "live_runtime_probe",
+        "execution_mode": "lake_env_lean_import_probe_with_lake_availability_check",
         "lean_available": True,
         "lake_available": lake_path is not None,
         "std_import_passed": std_passed,
@@ -516,10 +667,13 @@ def runtime_lean_import_probe() -> dict[str, Any]:
         "mathlib_lake_project_import_available": False,
         "std_probe": std_run,
         "mathlib_probe": mathlib_run,
+        "lake_version_probe": lake_version_run,
+        "lake_build_ran": False,
         "timeout_seconds": LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
         "temp_root_policy": "/tmp temporary directory cleaned before receipt write",
         "body_in_receipt": BODY_IN_RECEIPT,
         "body_redacted": True,
+        **probe_input_metadata,
     }
 
 
@@ -585,7 +739,12 @@ def validate_runtime_source_artifacts(
             payload = read_json_strict(path)
             parsed_payloads[source_ref] = payload if isinstance(payload, dict) else {}
 
-    import_probe = runtime_lean_import_probe()
+    probe_input_dir = _runtime_probe_input_dir(input_dir)
+    import_probe = (
+        runtime_lean_import_probe(probe_input_dir)
+        if probe_input_dir is not None
+        else runtime_lean_import_probe()
+    )
     if import_probe.get("status") != PASS:
         findings.append(
             _finding(

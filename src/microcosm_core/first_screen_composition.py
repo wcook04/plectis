@@ -4415,7 +4415,7 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
     text_projection_command = f"microcosm first-screen --format text {project_label}"
     compact_card_command = f"microcosm first-screen --card {project_label}"
     default_json_command = f"microcosm first-screen {project_label}"
-    return {
+    card: dict[str, Any] = {
         "schema_version": "microcosm_first_screen_compact_card_v1",
         "compact_projection_of": payload.get("schema_version"),
         "status": payload.get("status"),
@@ -4492,6 +4492,103 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
         },
         "validation": _compact_validation(payload),
     }
+    return _enforce_compact_stdout_budget(card)
+
+
+def _compact_stdout_chars(card: dict[str, Any]) -> int:
+    """Measure the card exactly as `_print_json` will emit it (sorted, indented ASCII).
+
+    - Teleology: the budget enforcement must count the same bytes the cold reader's
+      terminal receives, not a denser serialization that under-reports.
+    - Guarantee: returns the stdout character count including the trailing newline.
+    - Fails: never raises for JSON-serializable cards.
+    """
+    return len(json.dumps(card, ensure_ascii=True, indent=2, sort_keys=True)) + 1
+
+
+def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
+    """Enforce COMPACT_JSON_CARD_MAX_CHARS on the compact card with typed omissions.
+
+    - Teleology: the compact card DECLARES a stdout budget; long project labels
+      (absolute artifact paths repeated in every command string) inflate the same
+      card past its own declaration, so the budget must be enforced, not advertised.
+    - Guarantee: applies a fixed degradation ladder (route detail rollup, then
+      substrate-glance excerpt demotion, then first-run step detail rollup) only
+      until the serialized card fits the budget, and always stamps
+      `omission_receipt.budget_degradation` with the applied steps and before/after
+      counts; with no degradation needed the receipt records an empty ladder.
+    - Fails: never raises; if every step is applied and the card still exceeds the
+      budget, the receipt records `over_budget_after_full_ladder` = True rather
+      than silently passing.
+    - Non-goal: does not change command strings, claims, or authority fields; every
+      demoted detail remains in the full contract behind `--full`.
+    """
+    budget = COMPACT_JSON_CARD_MAX_CHARS
+    chars_before = _compact_stdout_chars(card)
+    applied: list[str] = []
+
+    if _compact_stdout_chars(card) > budget:
+        routes = card.get("reader_route_menu", {}).get("routes", [])
+        for row in routes:
+            if isinstance(row, dict):
+                for key in (
+                    "proof_surface",
+                    "exit_check",
+                    "not_a_claim",
+                    "text_projection_command",
+                    "source_checkout_first_action",
+                    "source_checkout_proof_surface",
+                ):
+                    row.pop(key, None)
+        if isinstance(card.get("reader_route_menu"), dict):
+            card["reader_route_menu"]["route_detail"] = (
+                "demoted_to_full_contract_for_stdout_budget"
+            )
+        applied.append("route_detail_rollup")
+
+    if _compact_stdout_chars(card) > budget:
+        glance = card.get("evidence_context", {}).get(
+            "representative_substrate_glance", {}
+        )
+        if isinstance(glance, dict):
+            glance["examples"] = [
+                {
+                    "organ_id": row.get("organ_id"),
+                    "display_name": row.get("display_name"),
+                    "family": row.get("family"),
+                }
+                for row in glance.get("examples", [])
+                if isinstance(row, dict)
+            ]
+            glance["excerpt_detail"] = (
+                "demoted_to_full_contract_for_stdout_budget"
+            )
+        applied.append("substrate_glance_excerpt_demotion")
+
+    if _compact_stdout_chars(card) > budget:
+        steps = card.get("first_run_ladder", {}).get("steps", [])
+        for row in steps:
+            if isinstance(row, dict):
+                for key in ("expected_surface", "authority"):
+                    row.pop(key, None)
+        if isinstance(card.get("first_run_ladder"), dict):
+            card["first_run_ladder"]["step_detail"] = (
+                "demoted_to_full_contract_for_stdout_budget"
+            )
+        applied.append("first_run_step_detail_rollup")
+
+    chars_after = _compact_stdout_chars(card)
+    omission = card.get("omission_receipt")
+    if isinstance(omission, dict):
+        omission["budget_degradation"] = {
+            "stdout_budget_chars": budget,
+            "serialized_chars_before": chars_before,
+            "serialized_chars_after": chars_after,
+            "applied_steps": applied,
+            "over_budget_after_full_ladder": chars_after > budget,
+            "full_contract_command": omission.get("full_contract_command"),
+        }
+    return card
 
 
 def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:

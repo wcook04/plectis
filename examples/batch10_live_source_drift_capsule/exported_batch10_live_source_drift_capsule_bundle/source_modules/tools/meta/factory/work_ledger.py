@@ -22,8 +22,24 @@ SEED_SPEED_NO_HEARTBEAT_CACHE_REL = Path(
     "state/work_ledger/seed_speed_no_heartbeat_cache.json"
 )
 SESSION_HEARTBEAT_STATE_ALIASES = {
+    "closed": "done",
+    "closeout": "closing",
+    "close_out": "closing",
+    "complete": "done",
+    "completed": "done",
+    "edit": "editing",
+    "fail": "blocked",
+    "failed": "blocked",
+    "failure": "blocked",
+    "finish": "done",
+    "finished": "done",
+    "inspect": "inspecting",
     "landing": "closing",
     "mutating": "editing",
+    "pause": "idle",
+    "paused": "idle",
+    "success": "done",
+    "succeeded": "done",
     "validate": "validating",
     "validation": "validating",
 }
@@ -50,6 +66,8 @@ CLAIM_INTENT_ALIASES = {
 }
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+
+from system.lib.git_state_snapshot import build_post_commit_containment_receipt
 
 
 def _fast_seed_speed_requested(argv: Sequence[str]) -> bool:
@@ -361,7 +379,14 @@ if _FAST_STATUS is not None:
     raise SystemExit(_FAST_STATUS)
 
 
-from system.lib import agent_seed_handoffs, shared_worktree_guard, work_admission, work_ledger, work_ledger_runtime
+from system.lib import (
+    agent_seed_handoffs,
+    resource_pressure,
+    shared_worktree_guard,
+    work_admission,
+    work_ledger,
+    work_ledger_runtime,
+)
 from system.lib.work_ledger_commands import (
     WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
     WORK_LEDGER_REFRESH_CLAIMS_COMMAND,
@@ -513,6 +538,24 @@ WRITE_PROFILE_PATHS: Dict[str, tuple[str, ...]] = {
         "microcosm-substrate/principles",
         "microcosm-substrate/skills",
     ),
+    "microcosm_public_site_projection": (
+        "sites/microcosm/content-graph.json",
+        "sites/microcosm/content-manifest.json",
+        "sites/microcosm/projection-status.json",
+        "sites/microcosm/object-map.json",
+        "sites/microcosm/llms.txt",
+        "sites/microcosm/assets/search-index.js",
+        "sites/microcosm/assets/site-packet.js",
+        "sites/microcosm/assets/object-map.js",
+        "sites/microcosm/docs",
+        "sites/microcosm/_headers",
+        "sites/microcosm/_redirects",
+        "sites/microcosm/robots.txt",
+        "sites/microcosm/security.txt",
+        "sites/microcosm/.well-known/security.txt",
+        "sites/microcosm/404.html",
+        "sites/microcosm/sitemap.xml",
+    ),
 }
 WRITE_PROFILE_SOURCE_INPUT_PATHS: Dict[str, tuple[str, ...]] = {
     "microcosm_doctrine_lattice_projection": (
@@ -530,6 +573,37 @@ WRITE_PROFILE_SOURCE_INPUT_PATHS: Dict[str, tuple[str, ...]] = {
         "microcosm-substrate/paper_modules",
         "microcosm-substrate/skills",
         "microcosm-substrate/standards",
+    ),
+    "microcosm_public_site_projection": (
+        "microcosm-substrate/README.md",
+        "microcosm-substrate/QUICKSTART.md",
+        "microcosm-substrate/ARCHITECTURE.md",
+        "microcosm-substrate/ORGANS.md",
+        "microcosm-substrate/SECURITY.md",
+        "microcosm-substrate/LICENSE",
+        "microcosm-substrate/NOTICE",
+        "microcosm-substrate/PROVENANCE.md",
+        "microcosm-substrate/atlas/agent_task_routes.json",
+        "microcosm-substrate/atlas/entry_packet.json",
+        "microcosm-substrate/core/architecture_kernel.json",
+        "microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "microcosm-substrate/core/doctrine_lattice_relations.json",
+        "microcosm-substrate/core/mechanism_sources.json",
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json",
+        "microcosm-substrate/core/paper_module_capsules.json",
+        "microcosm-substrate/axioms",
+        "microcosm-substrate/concepts",
+        "microcosm-substrate/mechanisms",
+        "microcosm-substrate/paper_modules",
+        "microcosm-substrate/principles",
+        "sites/microcosm/index.html",
+        "sites/microcosm/assets/style.css",
+        "sites/microcosm/assets/docs.js",
+        "system/lib/graph_scene_core.py",
+        "tools/meta/dissemination/build_microcosm_public_site.py",
+        "tools/meta/dissemination/microcosm_public_narratives.json",
     ),
 }
 _CODEX_PATH_TOKEN_RE = re.compile(
@@ -1329,6 +1403,22 @@ def _clip_public_heartbeat_line(value: object, *, limit: int) -> str | None:
     return f"{normalized[: limit - 3].rstrip()}..."
 
 
+def _normalize_cli_heartbeat_state(value: object) -> str:
+    state = str(value or "").strip().lower().replace("-", "_")
+    if not state:
+        return "inspecting"
+    return SESSION_HEARTBEAT_STATE_ALIASES.get(state, state)
+
+
+def _heartbeat_state_help() -> str:
+    canonical = ", ".join(sorted(work_ledger_runtime.PASS_HEARTBEAT_STATES))
+    aliases = ", ".join(sorted(SESSION_HEARTBEAT_STATE_ALIASES))
+    return (
+        f"Public pass state. Canonical values: {canonical}. "
+        f"Compatibility aliases accepted: {aliases}."
+    )
+
+
 def cmd_session_heartbeat(args: argparse.Namespace) -> int:
     if not args.current_pass_line and not args.last_pass_result_line:
         raise SystemExit(
@@ -1336,7 +1426,7 @@ def cmd_session_heartbeat(args: argparse.Namespace) -> int:
             "--last-pass-result-line/--done; use a valid --state such as "
             "inspecting, editing, validating, closing, blocked, done, or idle"
         )
-    pass_state = SESSION_HEARTBEAT_STATE_ALIASES.get(str(args.state or ""), args.state)
+    pass_state = _normalize_cli_heartbeat_state(args.state)
     current_pass_line = args.current_pass_line
     last_pass_result_line = args.last_pass_result_line
     if bool(getattr(args, "clip_lines", False)):
@@ -1373,18 +1463,132 @@ def cmd_session_heartbeat(args: argparse.Namespace) -> int:
     )
 
 
+def _first_append_exempt_commit_ref(evidence_refs: Sequence[object]) -> str:
+    for raw_ref in evidence_refs:
+        ref = str(raw_ref or "").strip()
+        if not ref:
+            continue
+        if ref.startswith("commit:"):
+            commit_ref = ref.split(":", 1)[1].strip()
+            if commit_ref:
+                return commit_ref
+            continue
+        if ":" not in ref:
+            return ref
+    return ""
+
+
+def _post_commit_containment_finalize_guard(
+    args: argparse.Namespace,
+    *,
+    evidence_refs: Sequence[object],
+) -> Dict[str, Any] | None:
+    required = bool(getattr(args, "require_post_commit_containment", False))
+    commit_ref = str(getattr(args, "post_commit_containment_commit", "") or "").strip()
+    scopes = [
+        str(scope or "").strip()
+        for scope in list(getattr(args, "post_commit_containment_scope", []) or [])
+        if str(scope or "").strip()
+    ]
+    if not required and not commit_ref and not scopes:
+        return None
+    if not commit_ref:
+        commit_ref = _first_append_exempt_commit_ref(evidence_refs)
+
+    missing: List[str] = []
+    if not commit_ref:
+        missing.append("--post-commit-containment-commit or commit:* --append-exempt-ref")
+    if not scopes:
+        missing.append("--post-commit-containment-scope")
+    if missing:
+        return {
+            "schema": "work_ledger_post_commit_containment_finalize_guard_v0",
+            "status": "blocked_missing_inputs",
+            "ok": False,
+            "closeout_safe": False,
+            "reason": "PostCommitContainmentInputsMissing",
+            "missing": missing,
+            "policy": (
+                "Append-exempt commit closeout can release claims only after the "
+                "cited commit is contained in current HEAD and each declared owned "
+                "path remains unchanged and clean."
+            ),
+        }
+
+    receipt = build_post_commit_containment_receipt(
+        REPO_ROOT,
+        commit_ref=commit_ref,
+        paths=scopes,
+    )
+    return {
+        "schema": "work_ledger_post_commit_containment_finalize_guard_v0",
+        "status": receipt.get("status"),
+        "ok": bool(receipt.get("ok")),
+        "closeout_safe": bool(receipt.get("closeout_safe")),
+        "commit_ref": commit_ref,
+        "scope_count": len(scopes),
+        "scopes": scopes,
+        "receipt": receipt,
+        "policy": (
+            "Append-exempt commit closeout can release claims only after the "
+            "cited commit is contained in current HEAD and each declared owned "
+            "path remains unchanged and clean."
+        ),
+    }
+
+
+def _blocked_post_commit_containment_finalize_payload(
+    args: argparse.Namespace,
+    *,
+    guard: Mapping[str, Any],
+) -> Dict[str, Any]:
+    pre_status = work_ledger_runtime.load_runtime_status(REPO_ROOT)
+    payload = _compact_session_lifecycle_payload(
+        pre_status,
+        schema="work_ledger_session_finalize_result_v1",
+        command="session-finalize",
+        session_id=args.session_id,
+        action=args.action,
+        limit=getattr(args, "limit", work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT),
+    )
+    payload["status"] = "blocked"
+    payload["mutation_performed"] = False
+    payload["blocked_by"] = ["post_commit_containment_not_safe"]
+    payload["safe_next_action"] = (
+        "Resolve the cited commit or owned-path containment issue, then rerun "
+        "session-finalize with the same append-exempt reason, read receipt, "
+        "commit ref, and path scopes."
+    )
+    payload["post_commit_containment_guard"] = dict(guard)
+    return payload
+
+
 def cmd_session_finalize(args: argparse.Namespace) -> int:
     append_exempt_reason = str(getattr(args, "append_exempt_reason", "") or "").strip()
+    append_exempt_refs = list(getattr(args, "append_exempt_ref", []) or [])
+    containment_guard = None
     if append_exempt_reason:
         read_receipt_id = str(getattr(args, "read_receipt_id", "") or "").strip()
         if not read_receipt_id:
             raise SystemExit("--read-receipt-id is required with --append-exempt-reason")
+        containment_guard = _post_commit_containment_finalize_guard(
+            args,
+            evidence_refs=append_exempt_refs,
+        )
+        if containment_guard and not bool(containment_guard.get("closeout_safe")):
+            _print(
+                _blocked_post_commit_containment_finalize_payload(
+                    args,
+                    guard=containment_guard,
+                )
+            )
+            return 2
         work_ledger_runtime.mark_session_append_exempt(
             REPO_ROOT,
             read_receipt_id=read_receipt_id,
             session_id=args.session_id,
             reason=append_exempt_reason,
-            evidence_refs=list(getattr(args, "append_exempt_ref", []) or []),
+            evidence_refs=append_exempt_refs,
             td_ids=list(getattr(args, "append_exempt_td_id", []) or []),
             work_item_ids=list(getattr(args, "append_exempt_work_item_id", []) or []),
         )
@@ -1412,12 +1616,22 @@ def cmd_session_finalize(args: argparse.Namespace) -> int:
                 "read_receipt_id, then run session-finalize again. For commit-only "
                 "or projection-only sessions, rerun session-finalize with "
                 "--read-receipt-id <wlr_*> --append-exempt-reason <reason> "
-                "--append-exempt-ref <commit-or-receipt-ref>."
+                "--append-exempt-ref <commit-or-receipt-ref>. When the durable "
+                "evidence is a commit and HEAD may have moved, add "
+                "--require-post-commit-containment and repeat "
+                "--post-commit-containment-scope for each owned path."
             )
             payload["append_exempt_closeout"] = {
                 "required_flag": "--append-exempt-reason",
                 "requires": ["--read-receipt-id"],
-                "optional_refs": ["--append-exempt-ref", "--append-exempt-td-id", "--append-exempt-work-item-id"],
+                "optional_refs": [
+                    "--append-exempt-ref",
+                    "--append-exempt-td-id",
+                    "--append-exempt-work-item-id",
+                    "--require-post-commit-containment",
+                    "--post-commit-containment-commit",
+                    "--post-commit-containment-scope",
+                ],
                 "use_when": (
                     "The session touched work through path claims and the durable "
                     "evidence is a scoped commit, Task Ledger receipt, or generated "
@@ -1441,17 +1655,20 @@ def cmd_session_finalize(args: argparse.Namespace) -> int:
         release_reason=args.action,
     )
     if getattr(args, "full", False):
+        if containment_guard:
+            payload["post_commit_containment_guard"] = containment_guard
         return _print(payload)
-    return _print(
-        _compact_session_lifecycle_payload(
-            payload,
-            schema="work_ledger_session_finalize_result_v1",
-            command="session-finalize",
-            session_id=args.session_id,
-            action=args.action,
-            limit=getattr(args, "limit", work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT),
-        )
+    compact_payload = _compact_session_lifecycle_payload(
+        payload,
+        schema="work_ledger_session_finalize_result_v1",
+        command="session-finalize",
+        session_id=args.session_id,
+        action=args.action,
+        limit=getattr(args, "limit", work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT),
     )
+    if containment_guard:
+        compact_payload["post_commit_containment_guard"] = containment_guard
+    return _print(compact_payload)
 
 
 def cmd_session_status(args: argparse.Namespace) -> int:
@@ -1653,6 +1870,9 @@ def cmd_session_claims(args: argparse.Namespace) -> int:
     if getattr(args, "session_summary", False):
         payload = _compact_claim_session_summary_cards(payload, limit=limit)
         return _print(payload)
+    if getattr(args, "full", False) and (path_filters or session_filters):
+        payload = _compact_filtered_claims_full_snapshot(payload)
+        return _print(payload)
     if not getattr(args, "full", False):
         payload = _compact_session_claims_cards(payload, limit=limit)
     return _print(payload)
@@ -1843,6 +2063,34 @@ def _session_claims_filter_args(snapshot: Mapping[str, Any]) -> str:
             for session_id in requested_session_ids
         )
     return "".join(args)
+
+
+def _compact_filtered_claims_full_snapshot(snapshot: Mapping[str, Any]) -> Dict[str, Any]:
+    payload = dict(snapshot)
+    omitted: List[str] = []
+    for key in ("seed_speed_hint", "overview_cards_hint"):
+        if key in payload:
+            payload.pop(key, None)
+            omitted.append(key)
+
+    if omitted:
+        filter_args = _session_claims_filter_args(payload)
+        payload["output_profile"] = "filtered_full_claim_rows_compact_cohort_hints"
+        payload["filter_output_omission_receipt"] = {
+            "schema": "work_ledger_filtered_claims_full_omission_v0",
+            "omitted": omitted,
+            "reason": (
+                "Path/session-filtered full claims preserve matched claim rows; unrelated "
+                "cohort hints belong behind their owner routes."
+            ),
+            "claim_drilldown": (
+                "./repo-python tools/meta/factory/work_ledger.py "
+                f"session-claims{filter_args} --full"
+            ),
+            "seed_speed_status": WORK_LEDGER_SEED_SPEED_COMMAND,
+            "session_overview_cards": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
+        }
+    return payload
 
 
 def _compact_session_claims_cards(snapshot: Mapping[str, Any], *, limit: int) -> Dict[str, Any]:
@@ -3641,6 +3889,7 @@ def _claim_closeout_plan(
     family_arg = shlex.quote(family_id or "<family_id>")
     td_ids: List[str] = []
     work_item_ids: List[str] = []
+    path_scopes: List[str] = []
     path_claim_seen = False
     for row in claims:
         if not isinstance(row, Mapping):
@@ -3654,6 +3903,8 @@ def _claim_closeout_plan(
             work_item_ids.append(scope_id)
         elif scope_kind == "path":
             path_claim_seen = True
+            if scope_id not in path_scopes:
+                path_scopes.append(scope_id)
     for work_item_id in work_item_ids[:3]:
         progress_commands.append(
             "./repo-python tools/meta/factory/work_ledger.py progress "
@@ -3674,18 +3925,35 @@ def _claim_closeout_plan(
             "--resolution-ref '<ref>'"
         )
     append_exempt_command = ""
+    append_exempt_commit_command = ""
     if path_claim_seen:
+        append_exempt_ref_suffix = ""
+        for td_id in td_ids[:3]:
+            append_exempt_ref_suffix += f" --append-exempt-td-id {shlex.quote(td_id)}"
+        for work_item_id in work_item_ids[:3]:
+            append_exempt_ref_suffix += f" --append-exempt-work-item-id {shlex.quote(work_item_id)}"
         append_exempt_command = (
             "./repo-python tools/meta/factory/work_ledger.py "
             f"session-finalize --session-id {session_arg} --action codex-turn-end "
             f"--read-receipt-id {receipt_arg} "
             "--append-exempt-reason '<commit-or-projection-closeout>' "
             "--append-exempt-ref '<commit-or-receipt-ref>'"
+            + append_exempt_ref_suffix
         )
-        for td_id in td_ids[:3]:
-            append_exempt_command += f" --append-exempt-td-id {shlex.quote(td_id)}"
-        for work_item_id in work_item_ids[:3]:
-            append_exempt_command += f" --append-exempt-work-item-id {shlex.quote(work_item_id)}"
+        if path_scopes:
+            append_exempt_commit_command = (
+                "./repo-python tools/meta/factory/work_ledger.py "
+                f"session-finalize --session-id {session_arg} --action codex-turn-end "
+                f"--read-receipt-id {receipt_arg} "
+                "--append-exempt-reason '<commit-closeout>' "
+                "--append-exempt-ref 'commit:<commit-ref>' "
+                "--require-post-commit-containment"
+            )
+            for path_scope in path_scopes:
+                append_exempt_commit_command += (
+                    f" --post-commit-containment-scope {shlex.quote(path_scope)}"
+                )
+            append_exempt_commit_command += append_exempt_ref_suffix
     bare_finalize_command = (
         "./repo-python tools/meta/factory/work_ledger.py "
         f"session-finalize --session-id {session_arg} --action codex-turn-end"
@@ -3705,6 +3973,20 @@ def _claim_closeout_plan(
                         "The touched path work is fully evidenced by a scoped commit, "
                         "Task Ledger receipt, or generated projection settlement instead "
                         "of a Work Ledger progress/close append."
+                    ),
+                    "finalizes_session": True,
+                    "do_not_follow_with_bare_finalize": True,
+                }
+            )
+        if append_exempt_commit_command:
+            alternative_commands.append(
+                {
+                    "role": "commit_closeout_with_post_commit_containment",
+                    "command": append_exempt_commit_command,
+                    "use_when": (
+                        "The durable evidence is a scoped commit for claimed paths; "
+                        "the finalizer should prove the commit is contained in current "
+                        "HEAD and claimed paths stayed clean before releasing claims."
                     ),
                     "finalizes_session": True,
                     "do_not_follow_with_bare_finalize": True,
@@ -3737,6 +4019,15 @@ def _claim_closeout_plan(
             {
                 "role": "append_exempt_finalize_for_path_or_projection_closeout",
                 "commands": [append_exempt_command],
+                "finalizes_session": True,
+                "do_not_follow_with_bare_finalize": True,
+            }
+        )
+    if append_exempt_commit_command:
+        command_roles.append(
+            {
+                "role": "commit_finalize_with_post_commit_containment",
+                "commands": [append_exempt_commit_command],
                 "finalizes_session": True,
                 "do_not_follow_with_bare_finalize": True,
             }
@@ -4185,6 +4476,12 @@ def _compact_preflight_work_admission(admission: Mapping[str, Any]) -> Dict[str,
     }
 
 
+def _compact_preflight_resource_pressure(packet: Mapping[str, Any]) -> Dict[str, Any]:
+    if not isinstance(packet, Mapping):
+        return {}
+    return resource_pressure.compact_host_resource_pressure_packet(packet)
+
+
 def _compact_preflight_heartbeat_contract(contract: Mapping[str, Any]) -> Dict[str, Any]:
     if not isinstance(contract, Mapping):
         return {}
@@ -4387,6 +4684,11 @@ def _compact_preflight_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         "claims": claim_rows,
         "write_profiles": payload.get("write_profiles") or [],
         "work_creation_classification": payload.get("work_creation_classification") or {},
+        "host_resource_pressure": _compact_preflight_resource_pressure(
+            payload.get("host_resource_pressure")
+            if isinstance(payload.get("host_resource_pressure"), Mapping)
+            else {}
+        ),
         "work_admission": _compact_preflight_work_admission(
             payload.get("work_admission") if isinstance(payload.get("work_admission"), Mapping) else {}
         ),
@@ -4538,11 +4840,29 @@ def _active_claim_collisions_for_paths(paths: List[str], *, session_id: str | No
 def cmd_mutation_check(args: argparse.Namespace) -> int:
     write_profiles = _preflight_write_profiles(list(getattr(args, "write_profile", []) or []))
     paths = _preflight_claim_paths(list(args.path or []), write_profiles)
-    collisions = _active_claim_collisions_for_paths(paths, session_id=args.session_id)
-    source_input_paths = _preflight_source_input_paths(write_profiles)
-    source_input_collisions = _active_claim_collisions_for_paths(
-        source_input_paths,
+    runtime_status = work_ledger_runtime.load_runtime_status(REPO_ROOT)
+    collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        REPO_ROOT,
+        paths,
+        status=runtime_status,
         session_id=args.session_id,
+    )
+    source_input_paths = _preflight_source_input_paths(write_profiles)
+    source_input_collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        REPO_ROOT,
+        source_input_paths,
+        status=runtime_status,
+        session_id=args.session_id,
+    )
+    same_session_claims = (
+        work_ledger_runtime.active_path_claims_for_paths(
+            REPO_ROOT,
+            paths,
+            status=runtime_status,
+            session_id=args.session_id,
+        )
+        if args.session_id
+        else []
     )
     all_collision_count = len(collisions) + len(source_input_collisions)
     status = (
@@ -4556,10 +4876,27 @@ def cmd_mutation_check(args: argparse.Namespace) -> int:
         requester_session_id=args.session_id,
         require_exclusive=bool(args.require_exclusive),
     )
+    route_selector = work_ledger_runtime.build_pre_mutation_route_selector(
+        requested_paths=paths,
+        explicit_paths=list(args.path or []),
+        write_profiles=write_profiles,
+        collisions=collisions,
+        source_input_paths=source_input_paths,
+        source_input_collisions=source_input_collisions,
+        same_session_claims=same_session_claims,
+        requester_session_id=args.session_id,
+        require_exclusive=bool(args.require_exclusive),
+    )
     recommended_actions = []
+    if route_selector.get("required_next_command"):
+        recommended_actions.append(str(route_selector["required_next_command"]))
     if status == "clear" and not args.session_id:
         recommended_actions.append(
             "Run session-preflight with the same --path/--write-profile and claim the work before mutation."
+        )
+    if status == "clear" and args.session_id and not bool(route_selector.get("mutation_allowed_now")):
+        recommended_actions.append(
+            "The session has no covering active path claim; run session-preflight before mutating."
         )
     if collisions:
         recommended_actions.append(
@@ -4585,6 +4922,7 @@ def cmd_mutation_check(args: argparse.Namespace) -> int:
             if source_input_paths
             else "not_declared_for_selected_profiles"
         ),
+        "pre_mutation_route_selector": route_selector,
         "contention_envelope": contention_envelope,
         "recommended_actions": recommended_actions,
     }
@@ -5403,6 +5741,7 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
     session_id = args.session_id or _mint_preflight_session_id(args.actor, args.session_slug)
     write_profiles = _preflight_write_profiles(list(getattr(args, "write_profile", []) or []))
     claim_paths = _preflight_claim_paths(list(args.path or []), write_profiles)
+    host_resource_pressure = resource_pressure.build_host_resource_pressure_packet(REPO_ROOT)
     source_input_paths = _preflight_source_input_paths(write_profiles)
     source_input_collisions = _active_claim_collisions_for_paths(
         source_input_paths,
@@ -5427,6 +5766,7 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
             "source_input_collisions": source_input_collisions,
             "source_input_claim_policy": "must_be_clean_committed_or_owned_before_landing_outputs",
             "work_creation_classification": {},
+            "host_resource_pressure": host_resource_pressure,
             "work_admission": {},
             "claim_summary": {
                 "requested": len(claim_paths) + len(args.td_id or []),
@@ -5472,6 +5812,73 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
         policy=getattr(args, "host_pressure_policy", None) or "auto",
         request_id=session_id,
     )
+    if (
+        host_resource_pressure.get("status") == "critical"
+        and not resource_pressure.declared_paths_are_resource_repair(claim_paths)
+        and bool(work_creation_classification.get("heavy"))
+        and str(getattr(args, "host_pressure_policy", None) or "auto") == "auto"
+    ):
+        blocked_payload = {
+            "schema": "work_ledger_session_preflight_v1",
+            "mode": "full",
+            "status": "blocked_by_host_resource_pressure",
+            "session_id": session_id,
+            "actor": args.actor,
+            "phase_id": args.phase_id,
+            "family_id": args.family_id,
+            "read_receipt_id": None,
+            "codex_import": None,
+            "claude_ide_import": None,
+            "bootstrap": {},
+            "write_profiles": write_profiles,
+            "source_input_paths": source_input_paths,
+            "source_input_collision_count": 0,
+            "source_input_collisions": [],
+            "source_input_claim_policy": "not_evaluated_resource_pressure_blocked",
+            "work_creation_classification": work_creation_classification,
+            "host_resource_pressure": host_resource_pressure,
+            "work_admission": {
+                **work_admission_decision,
+                "schema": "work_creation_admission_decision_v0",
+                "status": "blocked_by_host_resource_pressure",
+                "result": "block",
+                "allow": False,
+                "resource_pressure_result": "critical_resource_pressure_heavy_work_blocked",
+                "override_hint": (
+                    "Enter the resource repair lane or rerun only with an operator-authorized "
+                    "urgent override receipt, --host-pressure-policy=warn, or --host-pressure-policy=off."
+                ),
+            },
+            "claim_summary": {
+                "requested": len(claim_paths) + len(args.td_id or []),
+                "claimed": 0,
+                "claimed_with_collision": 0,
+                "refused": len(claim_paths) + len(args.td_id or []),
+            },
+            "claims": [],
+            "observed_path_overlaps": [],
+            "shared_worktree_git_risks": [],
+            "overview": {},
+            "closeout_rule": {
+                "schema": "work_ledger_preflight_closeout_rule_v1",
+                "status": "not_started_blocked_by_host_resource_pressure",
+                "rule": (
+                    "No Work Ledger claims were written because critical host resource "
+                    "pressure admits only repair-lane or explicitly authorized urgent work."
+                ),
+            },
+            "heartbeat_participation_contract": _heartbeat_participation_contract(session_id),
+            "closeout_plan": {
+                "schema": "work_ledger_closeout_plan_v1",
+                "recommended_sequence": [],
+            },
+            "closeout_commands": [],
+        }
+        if getattr(args, "full", False):
+            _print(blocked_payload)
+        else:
+            _print(_compact_preflight_payload(blocked_payload))
+        return work_admission.ADMISSION_TEMPFAIL
     if not bool(work_admission_decision.get("allow", True)):
         blocked_payload = {
             "schema": "work_ledger_session_preflight_v1",
@@ -5487,6 +5894,7 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
             "bootstrap": {},
             "write_profiles": write_profiles,
             "work_creation_classification": work_creation_classification,
+            "host_resource_pressure": host_resource_pressure,
             "work_admission": work_admission_decision,
             "claim_summary": {
                 "requested": len(claim_paths) + len(args.td_id or []),
@@ -5565,9 +5973,8 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
     if (heartbeat_current_line or heartbeat_result_line) and not heartbeat_scope_refs:
         heartbeat_scope_refs = list(args.td_id or []) + list(claim_paths)
         heartbeat_scope_policy = "claimed_scopes"
-    heartbeat_state = SESSION_HEARTBEAT_STATE_ALIASES.get(
-        str(getattr(args, "heartbeat_state", "inspecting") or ""),
-        getattr(args, "heartbeat_state", "inspecting"),
+    heartbeat_state = _normalize_cli_heartbeat_state(
+        getattr(args, "heartbeat_state", "inspecting")
     )
     bootstrap_heartbeat = None
     if heartbeat_current_line or heartbeat_result_line:
@@ -5670,6 +6077,7 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
             else "not_declared_for_selected_profiles"
         ),
         "work_creation_classification": work_creation_classification,
+        "host_resource_pressure": host_resource_pressure,
         "work_admission": work_admission_decision,
         "claims": claims,
         "observed_path_overlaps": observed_path_overlaps,
@@ -6609,21 +7017,25 @@ def build_parser() -> argparse.ArgumentParser:
 
     session_heartbeat = subparsers.add_parser(
         "session-heartbeat",
-        help="Write a bounded public now/done pass heartbeat for one live session.",
+        aliases=["heartbeat"],
+        help=(
+            "Write a bounded public now/done pass heartbeat for one live session; "
+            "heartbeat is a compatibility alias."
+        ),
         epilog=f"{SERIAL_MUTATION_HELP} {HEARTBEAT_PARTICIPATION_HELP}",
     )
     session_heartbeat.add_argument("--session-id", required=True)
     session_heartbeat.add_argument(
         "--state",
+        "--status",
+        dest="state",
         default="inspecting",
-        choices=sorted(
-            set(work_ledger_runtime.PASS_HEARTBEAT_STATES)
-            | set(SESSION_HEARTBEAT_STATE_ALIASES)
-        ),
+        help=_heartbeat_state_help(),
     )
     session_heartbeat.add_argument(
         "--current-pass-line",
         "--now",
+        "--note",
         dest="current_pass_line",
         default=None,
         help=f"Public one-sentence current pass line, <= {work_ledger_runtime.PASS_CURRENT_LINE_LIMIT} chars.",
@@ -6731,6 +7143,32 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         default=[],
         help="Optional Task Ledger WorkItem id touched by the append-exempt closeout.",
+    )
+    session_finalize.add_argument(
+        "--require-post-commit-containment",
+        action="store_true",
+        help=(
+            "For append-exempt commit closeout, require the cited commit to be "
+            "contained in current HEAD and every declared scope to be unchanged "
+            "and clean before marking the session append-exempt or releasing claims."
+        ),
+    )
+    session_finalize.add_argument(
+        "--post-commit-containment-commit",
+        default="",
+        help=(
+            "Commit/ref to verify for post-commit containment; defaults to the "
+            "first commit:* --append-exempt-ref, or a raw unprefixed append-exempt ref."
+        ),
+    )
+    session_finalize.add_argument(
+        "--post-commit-containment-scope",
+        action="append",
+        default=[],
+        help=(
+            "Owned path scope that must remain unchanged in HEAD and clean in the "
+            "worktree before append-exempt commit finalization. Repeatable."
+        ),
     )
     session_finalize.set_defaults(func=cmd_session_finalize)
 
@@ -7485,11 +7923,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     session_preflight.add_argument(
         "--heartbeat-state",
+        "--heartbeat-status",
+        dest="heartbeat_state",
         default="inspecting",
-        choices=sorted(
-            set(work_ledger_runtime.PASS_HEARTBEAT_STATES)
-            | set(SESSION_HEARTBEAT_STATE_ALIASES)
-        ),
+        help=_heartbeat_state_help(),
     )
     session_preflight.add_argument(
         "--heartbeat-scope-ref",

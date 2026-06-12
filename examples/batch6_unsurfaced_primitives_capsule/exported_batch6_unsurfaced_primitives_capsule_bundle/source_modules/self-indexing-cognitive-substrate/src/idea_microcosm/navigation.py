@@ -1297,7 +1297,7 @@ def _leaf_implementation_navigation(row: dict[str, Any]) -> dict[str, Any]:
             "refreshing std_python report rows",
             "validating shared standards and receipts",
             "composing cross-leaf claims",
-            "hosted-public or publication gates",
+            "hosted-status or public-copy dependencies",
         ],
         "standalone_claim_status": (
             "not_export_target"
@@ -1311,7 +1311,7 @@ def _leaf_implementation_navigation(row: dict[str, Any]) -> dict[str, Any]:
         "anti_claims": [
             "leaf implementation navigation is source authority",
             "code-card coverage proves standalone leaf execution",
-            "leaf-local implementation route grants hosted-public or publication permission",
+            "leaf-local implementation route grants hosted-status or public-copy status",
         ],
     }
 
@@ -2779,7 +2779,7 @@ def build_navigation(root: Path) -> dict[str, Any]:
             "one_command_smoke": "PYTHONPATH=src python3 -m idea_microcosm.cli validate --root .",
             "do_not": [
                 "do not infer private-root capability from public fixtures",
-                "do not use rank, README copy, screenshots, or cards as release permission",
+                "do not use rank, README copy, screenshots, or cards as public-copy status",
                 "do not use generated root reports as coordination locks",
                 "do not add files without refreshing the artifact manifest",
                 "do not claim hosted-public readiness unless hosted receipts prove it",

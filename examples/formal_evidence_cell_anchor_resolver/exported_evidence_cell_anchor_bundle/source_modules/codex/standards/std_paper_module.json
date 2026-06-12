@@ -680,7 +680,7 @@
         "surface_role": "DRILLDOWN",
         "command": "./repo-python kernel.py --paper-module-coverage",
         "use_when": "Route-health, sidecar freshness, attention-queue, and route-population decisions after entry/context selected paper-module coverage.",
-        "must_not_do": "Do not treat route-population counts as explanation depth or publication authority."
+        "must_not_do": "Do not treat route-population counts as explanation depth or public-claim authority."
       },
       {
         "rung": "evidence",

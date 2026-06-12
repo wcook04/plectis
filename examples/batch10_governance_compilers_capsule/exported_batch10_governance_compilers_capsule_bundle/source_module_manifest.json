@@ -166,8 +166,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 381123,
-      "line_count": 9255,
+      "byte_count": 404194,
+      "line_count": 9790,
       "material_class": "public_macro_kernel_decision_body",
       "module_id": "receipt_reuse_staleness_decider",
       "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
@@ -177,14 +177,14 @@
         "def _fingerprint_rows_by_path",
         "def _stable_json_fingerprint"
       ],
-      "sha256": "ad6c7745b33f3406ba3c2da1fa07c5fdc03c897413ce8b94fd625b0bc3f4d18e",
+      "sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
-      "source_sha256": "ad6c7745b33f3406ba3c2da1fa07c5fdc03c897413ce8b94fd625b0bc3f4d18e",
+      "source_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "ad6c7745b33f3406ba3c2da1fa07c5fdc03c897413ce8b94fd625b0bc3f4d18e"
+      "target_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71"
     },
     {
       "body_copied": true,
@@ -212,8 +212,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 352673,
-      "line_count": 8034,
+      "byte_count": 424762,
+      "line_count": 9872,
       "material_class": "public_macro_coordination_gate_body",
       "module_id": "claim_conflict_wait_tax_detector",
       "path": "source_modules/system/lib/action_quote.py",
@@ -223,14 +223,14 @@
         "def _wait_tax_match",
         "ranked_wait_taxes"
       ],
-      "sha256": "c47ae74af354a76ff07ae2ef07303cf6dd4ef695b0c2e0d5e503e0e825f72cb4",
+      "sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/action_quote.py",
-      "source_sha256": "c47ae74af354a76ff07ae2ef07303cf6dd4ef695b0c2e0d5e503e0e825f72cb4",
+      "source_sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
-      "target_sha256": "c47ae74af354a76ff07ae2ef07303cf6dd4ef695b0c2e0d5e503e0e825f72cb4"
+      "target_sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069"
     },
     {
       "body_copied": true,

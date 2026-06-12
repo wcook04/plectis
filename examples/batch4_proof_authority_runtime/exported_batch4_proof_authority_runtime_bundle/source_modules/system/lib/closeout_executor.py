@@ -1135,11 +1135,13 @@ def _mission_closeout_terminal_action(
     status = str(mission_verdict.get("status") or "mission_closeout_blocked")
     reason_by_status = {
         "held_foreign_dirty": "MissionVerdictHeldForeignDirty",
+        "held_publication_foreign_dirty": "MissionVerdictHeldPublicationForeignDirty",
         "blocked_behind": "MissionVerdictBlockedBehind",
         "blocked_publication": "MissionVerdictBlockedPublication",
     }
     scheduler_by_status = {
         "held_foreign_dirty": "typed_held_foreign_closeout",
+        "held_publication_foreign_dirty": "typed_held_publication_foreign_closeout",
         "blocked_behind": "typed_mission_closeout_blocked",
         "blocked_publication": "typed_mission_closeout_blocked",
     }
@@ -1149,7 +1151,7 @@ def _mission_closeout_terminal_action(
             subject_id=str(mission_verdict.get("subject_id") or ""),
         )
     ]
-    if status == "blocked_publication":
+    if status in {"blocked_publication", "held_publication_foreign_dirty"}:
         commands.append("./repo-python run_git.py audit push --json")
     return {
         "lane": status,
@@ -1157,12 +1159,54 @@ def _mission_closeout_terminal_action(
         "commands": _uniq_text(commands),
         "mission_closeout_verdict_status": status,
         "mission_closeout_verdict": dict(mission_verdict),
+        "machine_classification_trust": bool(mission_verdict.get("machine_classification_trust")),
+        "caller_must_carry_local_landing_evidence": not bool(
+            mission_verdict.get("machine_classification_trust")
+        ),
         "foreign_source_cluster_candidates": [dict(cluster) for cluster in actor_foreign_clusters],
         "scheduler_action": scheduler_by_status.get(status, "typed_mission_closeout_blocked"),
-        "closeout_ready_after_local_landing": status == "held_foreign_dirty",
+        "closeout_ready_after_local_landing": status in {
+            "held_foreign_dirty",
+            "held_publication_foreign_dirty",
+        },
         "commit_attempted": False,
         "required_next_command": commands[0],
         "safety_authority": "mission_closeout_verdict + actor_owned_path_prefixes",
+    }
+
+
+def _mission_closeout_terminal_receipt(
+    *,
+    plan: Mapping[str, Any],
+    action: Mapping[str, Any],
+) -> dict[str, Any]:
+    status = str(action.get("mission_closeout_verdict_status") or action.get("lane") or "")
+    is_held = status in MISSION_HELD_CLOSEOUT_STATUSES
+    receipt_status = status if is_held else "blocked"
+    return {
+        "schema": RUN_ONE_SCHEMA,
+        "kind": "closeout_executor_run_one_receipt",
+        "status": receipt_status,
+        "reason": str(action.get("reason") or "MissionCloseoutHeldOrBlocked"),
+        "message": (
+            "mission-owned scope is clean enough for this verdict; the remaining "
+            f"closeout condition is {status} and must not be drained as current-session work"
+        ),
+        "plan_id": plan.get("plan_id"),
+        "action_id": action.get("action_id"),
+        "lane": action.get("lane"),
+        "mission_closeout_verdict": plan.get("mission_closeout_verdict"),
+        "foreign_source_cluster_candidates": action.get("foreign_source_cluster_candidates") or [],
+        "owner_commands": list(action.get("commands") or []),
+        "required_next_command": action.get("required_next_command"),
+        "scheduler_action": action.get("scheduler_action"),
+        "closeout_ready_after_local_landing": action.get("closeout_ready_after_local_landing"),
+        "machine_classification_trust": bool(action.get("machine_classification_trust")),
+        "caller_must_carry_local_landing_evidence": bool(
+            action.get("caller_must_carry_local_landing_evidence")
+        ),
+        "terminal_for_current_mission": bool(is_held),
+        "safety_authority": action.get("safety_authority"),
     }
 
 
@@ -1326,6 +1370,7 @@ def _wip_capsule_route(
     non_landable_lanes = {
         "active_claim_blocked",
         "held_foreign_dirty",
+        "held_publication_foreign_dirty",
         "inspect_diff_review",
         "owner_routed_dirty_state",
         "ui_effect_blocked",
@@ -1405,7 +1450,7 @@ def _settlement_group_projection(
     if isinstance(item, Mapping):
         settlement_items.append(dict(item))
     status = "coordination_required" if owner_session_ids else "single_session_projection"
-    if mission_verdict.get("status") == "held_foreign_dirty":
+    if mission_verdict.get("status") in {"held_foreign_dirty", "held_publication_foreign_dirty"}:
         status = "held_foreign_ready"
     return {
         "schema": "settlement_group_v0",
@@ -1579,10 +1624,25 @@ def build_closeout_executor_plan(
             "commands": _worktree_owner_commands(worktrees),
         }
     elif (
-        actor_scope_filter_enabled
-        and mission_verdict.get("status") in {"held_foreign_dirty", "blocked_behind", "blocked_publication"}
+        mission_verdict.get("status")
+        in {
+            "held_foreign_dirty",
+            "held_publication_foreign_dirty",
+            "blocked_behind",
+            "blocked_publication",
+        }
         and not runnable_clusters
         and not active_claim_deferred_actions
+        and (
+            actor_scope_filter_enabled
+            or (
+                bool(str(current_session_id or "").strip())
+                and mission_verdict.get("status") in MISSION_HELD_CLOSEOUT_STATUSES
+                and not generated_only_dirty
+                and not owner_routed_dirty_only
+                and not generated_and_owner_routed_only
+            )
+        )
     ):
         action = _mission_closeout_terminal_action(
             actor_owned_prefixes=actor_owned_prefixes,
@@ -1994,11 +2054,42 @@ def _blocker(
 
 def _unsupported_lane_handoff(action: Mapping[str, Any]) -> dict[str, Any]:
     commands = [str(command) for command in action.get("commands") or [] if str(command)]
-    return {
+    payload: dict[str, Any] = {
         "primary_action": dict(action),
         "owner_commands": commands,
         "required_next_command": commands[0] if commands else None,
     }
+    if str(action.get("lane") or "") in {"inspect_diff_review", "publication_gate"}:
+        payload.update(
+            {
+                "manual_review_required": True,
+                "review_owner": "current_actor_or_closeout_owner",
+                "review_receipt_required": True,
+                "typed_closeout_states_after_review": [
+                    "landed_local_publication_blocked",
+                    "held_foreign_dirty",
+                    "held_publication_foreign_dirty",
+                    "manual_review_blocked",
+                ],
+                "review_closeout_contract": {
+                    "schema": "closeout_executor_manual_review_contract_v0",
+                    "rule": (
+                        "Unsupported review lanes are not operator assignments by default. "
+                        "Run the safe owner commands when in scope, then close with a typed "
+                        "state backed by local landing, dirty-path ownership, and publication "
+                        "boundary evidence."
+                    ),
+                    "required_fields": [
+                        "review_command_receipt",
+                        "local_landing_or_no_owned_paths_receipt",
+                        "remaining_dirty_path_classification",
+                        "publication_boundary_status",
+                        "reentry_condition",
+                    ],
+                },
+            }
+        )
+    return payload
 
 
 def _owner_routed_dirty_state_handoff(action: Mapping[str, Any]) -> dict[str, Any]:
@@ -4235,22 +4326,30 @@ def run_closeout_executor_one(
             message="dirty path mutation is blocked by an active Work Ledger owner claim",
             extra=_owner_routed_dirty_state_handoff(action),
         )
-    elif lane in {"held_foreign_dirty", "blocked_behind", "blocked_publication"}:
+    elif lane in {
+        "held_foreign_dirty",
+        "held_publication_foreign_dirty",
+        "blocked_behind",
+        "blocked_publication",
+    }:
         status = str(action.get("mission_closeout_verdict_status") or lane)
-        receipt = _blocker(
-            plan=current_plan,
-            action=action,
-            reason=str(action.get("reason") or "MissionCloseoutHeldOrBlocked"),
-            message=(
-                "mission-owned scope is clean enough for this verdict; the remaining "
-                f"closeout condition is {status} and must not be drained as foreign work"
-            ),
-            extra={
-                **_owner_routed_dirty_state_handoff(action),
-                "mission_closeout_verdict": current_plan.get("mission_closeout_verdict"),
-                "foreign_source_cluster_candidates": action.get("foreign_source_cluster_candidates") or [],
-            },
-        )
+        if status in MISSION_HELD_CLOSEOUT_STATUSES:
+            receipt = _mission_closeout_terminal_receipt(plan=current_plan, action=action)
+        else:
+            receipt = _blocker(
+                plan=current_plan,
+                action=action,
+                reason=str(action.get("reason") or "MissionCloseoutHeldOrBlocked"),
+                message=(
+                    "mission-owned scope is clean enough for this verdict; the remaining "
+                    f"closeout condition is {status} and must not be drained as foreign work"
+                ),
+                extra={
+                    **_owner_routed_dirty_state_handoff(action),
+                    "mission_closeout_verdict": current_plan.get("mission_closeout_verdict"),
+                    "foreign_source_cluster_candidates": action.get("foreign_source_cluster_candidates") or [],
+                },
+            )
     elif lane in {
         "publication_gate",
         "inspect_diff_review",
@@ -4318,7 +4417,36 @@ def _burst_state(plan: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def _burst_status(*, actions_executed: int, stop_reason: str, hygiene_repairs: int = 0) -> str:
+# A publication boundary (red push audit, diverged remote, guarded-push churn)
+# that the gate spender has already classified as local-commit-allowed /
+# no-human-reentry is terminal for the *local* lane: the scoped commit landed and
+# only the separate remote/publication authority remains. Surfacing it as a
+# generic `blocked` (status) / `blocked_needs_operator_or_owner_action`
+# (disposition) is the over-broad classification -- it contradicts the sibling
+# `human_reentry_required_by_gate_spender=False` / `advisory_recovery_receipt_only`
+# fields and pressures the actor to keep working (or hand-narrate the held state).
+HELD_PUBLICATION_BOUNDARY_DISPOSITION = "held_publication_boundary"
+MISSION_HELD_CLOSEOUT_STATUSES = {
+    "held_foreign_dirty",
+    "held_publication_foreign_dirty",
+}
+MISSION_HELD_CLOSEOUT_STOP_REASONS = {
+    "MissionVerdictHeldForeignDirty": "held_foreign_dirty",
+    "MissionVerdictHeldPublicationForeignDirty": "held_publication_foreign_dirty",
+}
+
+
+def _mission_held_status_for_stop(stop_reason: str) -> str | None:
+    return MISSION_HELD_CLOSEOUT_STOP_REASONS.get(str(stop_reason or ""))
+
+
+def _burst_status(
+    *,
+    actions_executed: int,
+    stop_reason: str,
+    hygiene_repairs: int = 0,
+    recovery_contract: Mapping[str, Any] | None = None,
+) -> str:
     work_executed = actions_executed + hygiene_repairs
     if stop_reason == "NoAction" and work_executed == 0:
         return "no_action"
@@ -4326,6 +4454,18 @@ def _burst_status(*, actions_executed: int, stop_reason: str, hygiene_repairs: i
         return "executed" if work_executed else "dry_run"
     if work_executed:
         return "partial"
+    # Keep the top-level status in agreement with the gate_spender_route fields:
+    # a publication-boundary-held stop is a typed terminal local state, not a
+    # generic operator/owner blocker.
+    if (
+        isinstance(recovery_contract, Mapping)
+        and recovery_contract.get("disposition") == HELD_PUBLICATION_BOUNDARY_DISPOSITION
+    ):
+        return HELD_PUBLICATION_BOUNDARY_DISPOSITION
+    if isinstance(recovery_contract, Mapping):
+        disposition = str(recovery_contract.get("disposition") or "")
+        if disposition in MISSION_HELD_CLOSEOUT_STATUSES:
+            return disposition
     return "blocked"
 
 
@@ -4423,6 +4563,61 @@ def _latest_receipt_with_key(
     return {}
 
 
+def _review_lane_recovery_contract(
+    *,
+    contract: Mapping[str, Any],
+    next_plan: Mapping[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(next_plan, Mapping):
+        return None
+    action = next_plan.get("primary_action") if isinstance(next_plan.get("primary_action"), Mapping) else {}
+    lane = str(action.get("lane") or "")
+    if lane not in {"inspect_diff_review", "publication_gate"}:
+        return None
+    closeout = next_plan.get("closeout") if isinstance(next_plan.get("closeout"), Mapping) else {}
+    publication = closeout.get("publication") if isinstance(closeout.get("publication"), Mapping) else {}
+    ahead = _int_value(closeout.get("ahead"))
+    dirty_total = _int_value(closeout.get("dirty_total"))
+    publication_status = str(publication.get("status") or "")
+    typed_state = (
+        "landed_local_publication_blocked"
+        if ahead > 0 or publication_status in {"local_ahead", "blocked_publication"}
+        else "manual_review_blocked"
+    )
+    payload = dict(contract)
+    payload.update(
+        {
+            "disposition": "manual_review_required",
+            "finality": "nonterminal",
+            "operator_action_required": False,
+            "owner_action_required": True,
+            "missing_controller": False,
+            "reentry_owner": "current_actor_or_closeout_owner",
+            "reentry_condition": "run_owner_commands_then_record_typed_closeout_state",
+            "retry_safety": "read_only_review_then_replan",
+            "review_lane": lane,
+            "review_reason": action.get("reason"),
+            "owner_commands": [str(command) for command in action.get("commands") or [] if str(command)],
+            "typed_closeout_state_after_review": typed_state,
+            "required_receipt_fields": [
+                "review_command_receipt",
+                "local_landing_or_no_owned_paths_receipt",
+                "remaining_dirty_path_classification",
+                "publication_boundary_status",
+                "reentry_condition",
+            ],
+            "publication_boundary_status": publication_status or None,
+            "ahead": ahead,
+            "dirty_total": dirty_total,
+            "closeout_wording_rule": (
+                "Do not report UnsupportedLane as an operator blocker after safe review evidence exists; "
+                "close as a typed local/publication or manual-review state."
+            ),
+        }
+    )
+    return payload
+
+
 def _burst_recovery_contract(
     *,
     stop_reason: str,
@@ -4497,6 +4692,43 @@ def _burst_recovery_contract(
             contract["required_next_command"] = claim_receipt.get("required_next_command")
         return contract
 
+    mission_held_status = _mission_held_status_for_stop(stop_reason)
+    if mission_held_status:
+        verdict_receipt = _latest_receipt_with_key(receipts, "mission_closeout_verdict")
+        verdict = verdict_receipt.get("mission_closeout_verdict")
+        if not isinstance(verdict, Mapping):
+            verdict = (
+                next_plan.get("mission_closeout_verdict")
+                if isinstance(next_plan, Mapping) and isinstance(next_plan.get("mission_closeout_verdict"), Mapping)
+                else {}
+            )
+        contract.update(
+            {
+                "disposition": mission_held_status,
+                "finality": "terminal_for_current_mission",
+                "operator_action_required": False,
+                "owner_action_required": False,
+                "missing_controller": False,
+                "local_landing_terminal": True,
+                "foreign_dirty_held": mission_held_status == "held_foreign_dirty",
+                "publication_boundary_held": mission_held_status == "held_publication_foreign_dirty",
+                "reentry_owner": "foreign_dirty_owner_or_publication_lane",
+                "reentry_condition": "foreign_owner_settles_or_publication_lane_runs_if_needed",
+                "retry_safety": "current_mission_complete_no_global_queue_retry_required",
+                "typed_closeout_state": mission_held_status,
+                "machine_classification_trust": bool(verdict.get("machine_classification_trust")),
+                "caller_must_carry_local_landing_evidence": not bool(
+                    verdict.get("machine_classification_trust")
+                ),
+                "closeout_wording_rule": (
+                    "Do not run-burst the global dirty queue after a mission held-foreign verdict. "
+                    "Report the scoped landing evidence, the held-foreign/publication verdict, "
+                    "and leave foreign dirty paths to their owner lanes."
+                ),
+            }
+        )
+        return contract
+
     if "ValidationFailed" in stop_reason or stop_reason.endswith("ValidationFailed"):
         contract.update(
             {
@@ -4553,6 +4785,45 @@ def _burst_recovery_contract(
                 "reentry_owner": "actor_or_scheduler",
                 "reentry_condition": "rerun_burst_for_remaining_actions",
                 "retry_safety": "bounded_max_actions",
+            }
+        )
+        return contract
+
+    if stop_reason == "UnsupportedLane":
+        review_contract = _review_lane_recovery_contract(contract=contract, next_plan=next_plan)
+        if review_contract is not None:
+            return review_contract
+
+    # Publication-boundary class: the gate spender already proved this is a
+    # local-commit-allowed / no-human-reentry condition. Emit a typed terminal
+    # held state instead of falling through to the generic operator/owner blocker,
+    # so the disposition agrees with `human_reentry_required_by_gate_spender` and
+    # the `advisory_recovery_receipt_only` effect. Remote reconciliation is a
+    # separate publication authority -- never a local-mutation gate.
+    if (
+        isinstance(gate_spender_route, Mapping)
+        and gate_spender_route.get("publication_boundary_only") is True
+        and not gate_spender_route.get("human_reentry_required")
+    ):
+        contract.update(
+            {
+                "disposition": HELD_PUBLICATION_BOUNDARY_DISPOSITION,
+                "finality": "terminal_local_publication_held",
+                "operator_action_required": False,
+                "owner_action_required": False,
+                "missing_controller": False,
+                "local_landing_terminal": True,
+                "publication_boundary_held": True,
+                "reentry_owner": "remote_publication_or_operator",
+                "reentry_condition": "reconcile_or_publish_remote_separately",
+                "retry_safety": "local_landing_complete_no_local_mutation_required",
+                "typed_closeout_state": "landed_local_publication_held",
+                "closeout_wording_rule": (
+                    "Do not report a publication boundary as an operator/owner blocker for "
+                    "the local lane after the scoped commit landed. Close as a typed "
+                    "publication-boundary-held state; remote reconciliation is separate "
+                    "publication authority, never a local-mutation gate."
+                ),
             }
         )
         return contract
@@ -4701,22 +4972,32 @@ def run_closeout_executor_burst(
             receipts.append(_attach_mission_trace_context(blocker, plan=plan, action=action))
             stop_reason = "WorkLedgerActiveClaimOverlap"
             break
-        if lane in {"held_foreign_dirty", "blocked_behind", "blocked_publication"}:
-            blocker = _blocker(
-                plan=plan,
-                action=action,
-                reason=str(action.get("reason") or "MissionCloseoutHeldOrBlocked"),
-                message=(
-                    "mission-scoped closeout is held or blocked by a typed verdict; "
-                    "do not run the global queue from this mission owner"
-                ),
-                extra={
-                    **_owner_routed_dirty_state_handoff(action),
-                    "mission_closeout_verdict": plan.get("mission_closeout_verdict"),
-                    "foreign_source_cluster_candidates": action.get("foreign_source_cluster_candidates") or [],
-                },
-            )
-            receipts.append(_attach_mission_trace_context(blocker, plan=plan, action=action))
+        if lane in {
+            "held_foreign_dirty",
+            "held_publication_foreign_dirty",
+            "blocked_behind",
+            "blocked_publication",
+        }:
+            status = str(action.get("mission_closeout_verdict_status") or lane)
+            if status in MISSION_HELD_CLOSEOUT_STATUSES:
+                terminal = _mission_closeout_terminal_receipt(plan=plan, action=action)
+                receipts.append(_attach_mission_trace_context(terminal, plan=plan, action=action))
+            else:
+                blocker = _blocker(
+                    plan=plan,
+                    action=action,
+                    reason=str(action.get("reason") or "MissionCloseoutHeldOrBlocked"),
+                    message=(
+                        "mission-scoped closeout is held or blocked by a typed verdict; "
+                        "do not run the global queue from this mission owner"
+                    ),
+                    extra={
+                        **_owner_routed_dirty_state_handoff(action),
+                        "mission_closeout_verdict": plan.get("mission_closeout_verdict"),
+                        "foreign_source_cluster_candidates": action.get("foreign_source_cluster_candidates") or [],
+                    },
+                )
+                receipts.append(_attach_mission_trace_context(blocker, plan=plan, action=action))
             stop_reason = str(action.get("reason") or "MissionCloseoutHeldOrBlocked")
             break
         if lane not in {"publish_if_clear", "drain_source_cluster", "settle_generated_state", "drain_worktrees"}:
@@ -4777,8 +5058,18 @@ def run_closeout_executor_burst(
         plan_builder=plan_builder,
         include_ui_effect_blocked=include_ui_effect_blocked,
         defer_active_claim_blocked=defer_active_claim_blocked,
+        current_session_id=current_session_id,
+        owned_path_prefixes=owned_path_prefixes,
+        subject_id=subject_id,
     )
     next_action = next_plan.get("primary_action") if isinstance(next_plan.get("primary_action"), Mapping) else {}
+    recovery_contract = _burst_recovery_contract(
+        stop_reason=stop_reason,
+        actions_executed=actions_executed,
+        hygiene_repairs=hygiene_repairs,
+        next_plan=next_plan,
+        receipts=receipts,
+    )
     receipt = {
         "schema": RUN_BURST_SCHEMA,
         "kind": "closeout_executor_run_burst_receipt",
@@ -4786,6 +5077,7 @@ def run_closeout_executor_burst(
             actions_executed=actions_executed,
             stop_reason=stop_reason,
             hygiene_repairs=hygiene_repairs,
+            recovery_contract=recovery_contract,
         ),
         "stop_reason": stop_reason,
         "max_actions": max_actions,
@@ -4796,13 +5088,7 @@ def run_closeout_executor_burst(
         "after": _burst_state(next_plan),
         "receipts": receipts,
         "next_plan": next_plan,
-        "recovery_contract": _burst_recovery_contract(
-            stop_reason=stop_reason,
-            actions_executed=actions_executed,
-            hygiene_repairs=hygiene_repairs,
-            next_plan=next_plan,
-            receipts=receipts,
-        ),
+        "recovery_contract": recovery_contract,
     }
     stop_integrity = _latest_closeout_stop_integrity(receipts)
     _attach_gate_spender_burst_projection(receipt)

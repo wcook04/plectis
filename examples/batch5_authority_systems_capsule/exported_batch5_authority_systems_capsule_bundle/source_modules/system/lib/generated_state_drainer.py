@@ -10,6 +10,7 @@ from __future__ import annotations
 import errno
 import hashlib
 import json
+import os
 import subprocess
 import time
 from contextlib import contextmanager
@@ -62,6 +63,7 @@ SYSTEM_ATLAS_APPEND_EXEMPT_SAFE_SOURCE_COUPLING_STATUSES = frozenset(
     }
 )
 APPEND_EXEMPT_LANDING_MODE = "append-exempt"
+TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV = "AIW_SCOPED_COMMIT_ALLOW_TASK_LEDGER_MONOLITH"
 SUPPORTED_LANDING_OWNER_IDS = (
     WORK_LEDGER_OWNER_ID,
     TASK_LEDGER_OWNER_ID,
@@ -154,12 +156,40 @@ def _task_ledger_lock_file_facts(lock_path: Path) -> dict[str, Any]:
             "lock_file_exists": True,
             "lock_file_stat_error": str(exc),
         }
-    return {
+    facts: dict[str, Any] = {
         "lock_file_exists": True,
         "lock_file_size": stat.st_size,
         "lock_file_mtime_epoch_s": stat.st_mtime,
         "lock_file_age_s": round(max(0.0, time.time() - stat.st_mtime), 3),
     }
+    try:
+        raw_holder = lock_path.read_text(encoding="utf-8").strip()
+    except OSError as exc:
+        facts["lock_holder_metadata_status"] = "read_error"
+        facts["lock_holder_metadata_error"] = str(exc)
+        return facts
+    if not raw_holder:
+        facts["lock_holder_metadata_status"] = "empty"
+        return facts
+    try:
+        holder = json.loads(raw_holder)
+    except json.JSONDecodeError as exc:
+        facts["lock_holder_metadata_status"] = "invalid_json"
+        facts["lock_holder_metadata_error"] = str(exc)
+        return facts
+    if not isinstance(holder, dict):
+        facts["lock_holder_metadata_status"] = "invalid_shape"
+        return facts
+    facts["lock_holder_metadata_status"] = "present"
+    facts["lock_holder"] = {
+        "schema": holder.get("schema"),
+        "pid": holder.get("pid"),
+        "ppid": holder.get("ppid"),
+        "created_at": holder.get("created_at"),
+        "lock_path": holder.get("lock_path"),
+        "argv": holder.get("argv"),
+    }
+    return facts
 
 
 @contextmanager
@@ -1728,6 +1758,60 @@ def _refresh_work_ledger_projection_for_landing_plan(
     }
 
 
+def _optional_int(value: object) -> int | None:
+    try:
+        return int(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+
+
+def _task_ledger_projection_manifest_staleness(repo_root: Path) -> dict[str, Any]:
+    manifest = _read_json_dict(repo_root / task_ledger_events.PROJECTION_MANIFEST_REL)
+    if manifest.get("schema_version") != task_ledger_events.TASK_LEDGER_PROJECTION_MANIFEST_SCHEMA:
+        return {
+            "schema": "task_ledger_projection_manifest_staleness_v0",
+            "status": "missing_or_unrecognized_manifest",
+            "stale": True,
+            "reason": "projection_manifest_missing_or_unrecognized",
+            "projection_event_count": None,
+            "authority_event_count": None,
+            "authority_tail_hash_matches": None,
+        }
+    try:
+        health = task_ledger_events._authority_health_unlocked(repo_root)
+    except Exception as exc:
+        return {
+            "schema": "task_ledger_projection_manifest_staleness_v0",
+            "status": "authority_health_unavailable",
+            "stale": True,
+            "reason": "authority_health_unavailable",
+            "error": str(exc),
+            "projection_event_count": _optional_int(manifest.get("authority_event_count")),
+            "authority_event_count": None,
+            "authority_tail_hash_matches": None,
+        }
+    projection_event_count = _optional_int(manifest.get("authority_event_count"))
+    authority_event_count = _optional_int(health.get("authority_event_count"))
+    manifest_tail_hash = str(manifest.get("authority_tail_hash") or "").strip() or None
+    authority_tail_hash = str(health.get("tail_hash") or "").strip() or None
+    count_matches = (
+        projection_event_count is not None
+        and authority_event_count is not None
+        and projection_event_count == authority_event_count
+    )
+    tail_matches = manifest_tail_hash == authority_tail_hash
+    stale = not (count_matches and tail_matches)
+    return {
+        "schema": "task_ledger_projection_manifest_staleness_v0",
+        "status": "stale" if stale else "fresh",
+        "stale": stale,
+        "reason": "projection_manifest_authority_mismatch" if stale else "projection_manifest_matches_authority",
+        "projection_event_count": projection_event_count,
+        "authority_event_count": authority_event_count,
+        "authority_tail_hash_matches": tail_matches,
+    }
+
+
 def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict[str, Any]:
     """Build an apply-safe Task Ledger landing plan while the writer lock is held."""
     status_map = _git_status_map(repo_root)
@@ -1741,11 +1825,28 @@ def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict
     source_path_hashes = _path_hashes(repo_root, source_paths)
     projection_hashes = _path_hashes(repo_root, projection_paths)
     source_event_hash = source_path_hashes.get(str(task_ledger_events.EVENTS_REL))
+    manifest_staleness = _task_ledger_projection_manifest_staleness(repo_root)
+    status_text = str(row.get("status") or "")
+    freshness_status = row.get("freshness_status")
+    blocked_by = list(row.get("blocked_by") or [])
+    required_next_command = row.get("required_next_command")
+    can_apply = bool(row.get("can_apply")) and status_text != "refresh_required"
+    stale_projection_paths: list[str] = []
+    if manifest_staleness.get("stale"):
+        status_text = "refresh_required"
+        freshness_status = "stale"
+        blocked_by = ["projection_not_fresh"]
+        required_next_command = (
+            "./repo-python tools/meta/control/generated_state_drainer.py apply --only "
+            f"{TASK_LEDGER_REFRESH_ACTION}"
+        )
+        can_apply = False
+        stale_projection_paths = [str(task_ledger_events.LEDGER_REL)]
     return {
         "schema": LANDING_PLAN_SCHEMA,
         "ok": row.get("status") != "source_authority_missing",
         "owner_id": TASK_LEDGER_OWNER_ID,
-        "status": row.get("status"),
+        "status": status_text,
         "source_authority": row.get("source_authority"),
         "source_authority_paths": source_paths,
         "source_authority_paths_to_stage": [
@@ -1770,10 +1871,11 @@ def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict
         ),
         "source_path_hashes": source_path_hashes,
         "projection_paths": projection_paths,
-        "stale_projection_paths": [],
+        "stale_projection_paths": stale_projection_paths,
         "stale_projection_targets": [],
         "projection_hashes": projection_hashes,
-        "freshness_status": row.get("freshness_status"),
+        "projection_manifest_staleness": manifest_staleness,
+        "freshness_status": freshness_status,
         "dirty_status": row.get("dirty_status"),
         "source_dirty_status": row.get("source_dirty_status"),
         "diff_stat": row.get("diff_stat") or {},
@@ -1802,15 +1904,16 @@ def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict
         "marker_epoch_policy_verified": False,
         "recommended_mode": "append_exempt_projection_landing",
         "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
-        "can_apply": bool(row.get("can_apply")) and row.get("status") != "refresh_required",
-        "blocked_by": row.get("blocked_by") or [],
-        "required_next_command": row.get("required_next_command"),
+        "can_apply": can_apply,
+        "blocked_by": blocked_by,
+        "required_next_command": required_next_command,
         "status_ref": {
             "schema": "generated_projection_settlement_fast_owner_row_v0",
             "summary": {
                 "status": row.get("status"),
                 "freshness_status": row.get("freshness_status"),
                 "dirty_status": row.get("dirty_status"),
+                "projection_manifest_staleness": manifest_staleness.get("status"),
             },
         },
     }
@@ -1838,6 +1941,26 @@ def _task_ledger_landing_retry_later_payload(
     if plan is not None:
         payload["plan"] = dict(plan)
     return payload
+
+
+@contextmanager
+def _task_ledger_monolith_settlement_override() -> Iterator[dict[str, Any]]:
+    previous_value = os.environ.get(TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV)
+    os.environ[TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV] = "1"
+    receipt = {
+        "schema": "task_ledger_monolith_settlement_override_v0",
+        "status": "override_set_for_commit",
+        "override_env": TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV,
+        "reason": "task_ledger_projection_append_exempt_settlement",
+        "previous_env_present": previous_value is not None,
+    }
+    try:
+        yield receipt
+    finally:
+        if previous_value is None:
+            os.environ.pop(TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV, None)
+        else:
+            os.environ[TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV] = previous_value
 
 
 def _land_task_ledger_projection_bundle_locked(
@@ -1955,7 +2078,9 @@ def _land_task_ledger_projection_bundle_locked(
             lock_mode=source_lock.get("mode"),
             hold_scope="plan_refresh_manifest_commit",
         )
+        refresh_attempted = False
         if plan.get("status") == "refresh_required":
+            refresh_attempted = True
             refresh_started = time.perf_counter()
             _emit_progress(
                 progress_callback,
@@ -2014,6 +2139,42 @@ def _land_task_ledger_projection_bundle_locked(
                 dirty_status=plan.get("dirty_status"),
                 source_dirty_status=plan.get("source_dirty_status"),
             )
+        if plan.get("status") == "refresh_required":
+            if not refresh_attempted:
+                refresh_started = time.perf_counter()
+                _emit_progress(
+                    progress_callback,
+                    surface="landing",
+                    event="refresh_start",
+                    owner_id=TASK_LEDGER_OWNER_ID,
+                    status=plan.get("status"),
+                )
+                rebuild_result = task_ledger_events._rebuild_projections_with_health_unlocked(
+                    repo_root
+                )
+                if not bool(rebuild_result.get("ok")):
+                    return {
+                        "schema": LANDING_SCHEMA,
+                        "ok": False,
+                        "dry_run": False,
+                        "owner_id": TASK_LEDGER_OWNER_ID,
+                        "status": "failed",
+                        "reason": "task_ledger_projection_rebuild_failed",
+                        "projection_result": rebuild_result,
+                        "plan": plan,
+                        "normal_source_event_after_refresh_allowed": False,
+                        "normal_task_ledger_event_after_refresh_allowed": False,
+                    }
+                plan = _task_ledger_locked_landing_plan_from_current_state(repo_root)
+                _emit_progress(
+                    progress_callback,
+                    surface="landing",
+                    event="refresh_done",
+                    owner_id=TASK_LEDGER_OWNER_ID,
+                    status=plan.get("status"),
+                    dirty_status=plan.get("dirty_status"),
+                    wall_ms=round((time.perf_counter() - refresh_started) * 1000.0, 3),
+                )
         if plan.get("status") == "refresh_required":
             return {
                 "schema": LANDING_SCHEMA,
@@ -2158,6 +2319,7 @@ def _land_task_ledger_projection_bundle_locked(
                     else {}
                 ),
             }
+        monolith_override: dict[str, Any] | None = None
         try:
             if commit_func is None:
                 from tools.meta.control.scoped_commit import perform_scoped_commit
@@ -2174,15 +2336,16 @@ def _land_task_ledger_projection_bundle_locked(
                 owner_id=TASK_LEDGER_OWNER_ID,
                 path_count=len(paths_to_commit),
             )
-            commit_result = commit_callable(
-                repo_root=repo_root,
-                paths=paths_to_commit,
-                message=f"Land {_owner_tool_label(TASK_LEDGER_OWNER_ID)} projections append-exempt",
-                allow_untracked=True,
-                allow_multi_hunk_full_paths=True,
-                collect_full_path_hunk_counts=False,
-                work_ledger_session_id=work_ledger_session_id,
-            )
+            with _task_ledger_monolith_settlement_override() as monolith_override:
+                commit_result = commit_callable(
+                    repo_root=repo_root,
+                    paths=paths_to_commit,
+                    message=f"Land {_owner_tool_label(TASK_LEDGER_OWNER_ID)} projections append-exempt",
+                    allow_untracked=True,
+                    allow_multi_hunk_full_paths=True,
+                    collect_full_path_hunk_counts=False,
+                    work_ledger_session_id=work_ledger_session_id,
+                )
             _emit_progress(
                 progress_callback,
                 surface="landing",
@@ -2203,6 +2366,11 @@ def _land_task_ledger_projection_bundle_locked(
                 "error": str(exc),
                 "paths_to_stage": paths_to_commit,
                 "declared_paths_to_stage": paths_to_stage,
+                **(
+                    {"task_ledger_monolith_settlement_override": monolith_override}
+                    if monolith_override is not None
+                    else {}
+                ),
             }
         refreshed_index_paths = _refresh_index_only_projection_residue(repo_root, paths_to_stage)
         _emit_progress(
@@ -2226,6 +2394,8 @@ def _land_task_ledger_projection_bundle_locked(
             "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
             "normal_source_event_after_refresh_allowed": False,
             "normal_task_ledger_event_after_refresh_allowed": False,
+            "task_ledger_monolith_settlement_override": monolith_override,
+            "scoped_commit_task_ledger_monolith_guard": commit_result.get("task_ledger_monolith_guard"),
         }
         if refreshed_index_paths:
             result["paths_index_refreshed"] = refreshed_index_paths
@@ -3513,6 +3683,32 @@ def _fast_task_ledger_landing_plan_for_owner(owner: Mapping[str, Any]) -> Mappin
     return owner
 
 
+def _landing_plan_for_settlement_owner(owner: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    if owner.get("required_action") not in {
+        "land_append_exempt",
+        "refresh_then_land_append_exempt",
+    }:
+        return None
+    if owner.get("status") not in {"append_exempt_manifest_available", "refresh_required"}:
+        return None
+    if not bool(owner.get("can_apply")):
+        return None
+    path_bundle = owner.get("path_bundle") if isinstance(owner.get("path_bundle"), Mapping) else {}
+    if not (owner.get("projection_paths") or path_bundle.get("projection_paths")):
+        return None
+    plan = dict(owner)
+    for key in (
+        "source_authority_paths",
+        "source_authority_paths_to_stage",
+        "projection_paths",
+        "projection_paths_to_stage",
+        "landing_manifest_path",
+    ):
+        if plan.get(key) is None and path_bundle.get(key) is not None:
+            plan[key] = path_bundle.get(key)
+    return plan
+
+
 def _settlement_omitted_audit_or_source_sidecars(
     repo_root: Path,
     plan: Mapping[str, Any],
@@ -4205,6 +4401,8 @@ def settle_generated_projection_owners(
                 landing_plan = owner.get("_landing_plan")
                 if not isinstance(landing_plan, Mapping):
                     landing_plan = _fast_task_ledger_landing_plan_for_owner(owner)
+                if not isinstance(landing_plan, Mapping):
+                    landing_plan = _landing_plan_for_settlement_owner(owner)
                 landing_kwargs: dict[str, Any] = {
                     "owner_id": owner_id,
                     "mode": APPEND_EXEMPT_LANDING_MODE,

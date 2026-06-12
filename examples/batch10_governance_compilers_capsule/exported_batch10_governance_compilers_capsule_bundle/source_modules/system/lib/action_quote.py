@@ -96,7 +96,14 @@ TASK_LEDGER_QUICK_CAPTURE_COMMAND_SHAPE = (
     "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
     "--title '<title>' --summary '<summary>' --problem '<problem>' "
     "--impact '<impact>' --acceptance '<acceptance>' --created-by <agent> "
-    "--confidence 0.85 --tag <tag> --projection-rebuild-policy off"
+    "--confidence 0.85 --tag <tag> --projection-rebuild-policy off --compact"
+)
+STORAGE_DOCTOR_STATUS_COMMAND = (
+    "./repo-python -m tools.meta.storage_doctor scan --top 0 --format card"
+)
+STORAGE_DOCTOR_SAFE_CLEAN_COMMAND = (
+    "./repo-python -m tools.meta.storage_doctor clean --scope all --level safe "
+    "--apply --yes --format card"
 )
 GENERATED_STATE_SETTLEMENT_OWNER_IDS = (
     "task_ledger_projection",
@@ -176,6 +183,11 @@ ARTIFACT_DISCOVERY_PRUNE_DIRS = {
     "codex/doctrine/paper_modules/_route_coverage.json",
     "codex/doctrine/paper_modules/_validation_report.json",
 }
+ARTIFACT_DISCOVERY_RUNTIME_METADATA_FALLBACK_ROOTS = (
+    "state/runs",
+    "state/command_runs",
+    "state/observability/agent_trace",
+)
 ARTIFACT_DISCOVERY_CONTENT_SUFFIXES = {
     ".json",
     ".js",
@@ -219,6 +231,34 @@ ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS = {
     "tool",
     "tools",
 }
+ARTIFACT_DISCOVERY_PROSE_SCOPE_TERMS = {
+    "a",
+    "about",
+    "above",
+    "after",
+    "an",
+    "and",
+    "around",
+    "as",
+    "before",
+    "between",
+    "by",
+    "for",
+    "from",
+    "in",
+    "into",
+    "near",
+    "of",
+    "on",
+    "or",
+    "over",
+    "the",
+    "through",
+    "to",
+    "under",
+    "with",
+    "without",
+}
 ARTIFACT_DISCOVERY_WORKSPACE_PARENT_NAMES = {"src"}
 ARTIFACT_DISCOVERY_WORKSPACE_FILENAME_SENTINELS = {
     "lake-manifest.json",
@@ -240,6 +280,12 @@ ARTIFACT_DISCOVERY_FILENAME_SHORT_CIRCUIT_TERMS = {
     "lakefile.toml",
     "lean-toolchain",
 }
+ARTIFACT_DISCOVERY_KNOWN_CONTENT_OWNER_HINTS = {
+    "raw_body_before_selection": (
+        "system/lib/agent_execution_trace.py",
+        "codex/standards/std_agent_execution_trace.json",
+    ),
+}
 PROCESS_BOTTLENECK_OWNER_COMMAND = "./repo-python kernel.py --process-bottlenecks"
 PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND = "./repo-python kernel.py --process-bottlenecks --force"
 PROCESS_BOTTLENECK_REFRESH_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py"
@@ -256,7 +302,7 @@ CACHED_PROCESS_SUMMARY_PROBE_EXIT_CODE = 0
 CACHED_PROCESS_SUMMARY_MISSING_EXIT_CODE = 1
 PROCESS_SUMMARY_OWNER_COMMAND = "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
 PROCESS_SUMMARY_FORCE_LIVE_COMMAND = (
-    "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest> --force"
+    "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest> --force --limit 6"
 )
 PROCESS_SUMMARY_REFRESH_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py"
 HOST_PRESSURE_FAST_COMMAND = (
@@ -589,6 +635,38 @@ COMMAND_SURFACE_SCOPED_COMPACT_COMMANDS = (
         ),
     },
 )
+COMMAND_SURFACE_SCOPED_KERNEL_SURFACES = (
+    {
+        "surface_id": "kernel_session_diagnostics_summary",
+        "surface": "session-diagnostics",
+        "match_terms": (
+            "session-diagnostics",
+            "session diagnostics",
+            "--session-diagnostics",
+            "diagnostics-summary",
+            "diagnostics summary",
+        ),
+        "scoped_help_command": "./repo-python kernel.py --session-diagnostics --help",
+        "summary_command": (
+            "./repo-python kernel.py --session-diagnostics --lens all --last 5 "
+            "--store codex --json --diagnostics-summary"
+        ),
+        "full_fallback_command": (
+            "./repo-python kernel.py --session-diagnostics --lens all --last 10 "
+            "--store both --json"
+        ),
+        "output_profile": "summary_first_kernel_diagnostic",
+        "evidence_paths": (
+            "kernel.py",
+            "tools/meta/observability/session_analyzer.py",
+            "system/lib/kernel/commands/navigate.py",
+        ),
+        "reason": (
+            "Session diagnostics has a summary-first route and scoped help; use "
+            "--diagnostics-summary before paying for the full diagnostics payload."
+        ),
+    },
+)
 COMMAND_SURFACE_ACTION_HANDOFF_PREVIEW_IDS = (
     "repo_pytest_validation",
     "work_ledger_session_preflight",
@@ -597,12 +675,15 @@ COMMAND_SURFACE_ACTION_HANDOFF_PREVIEW_IDS = (
     "task_ledger_validate",
     "task_ledger_rebuild_status",
     "task_ledger_quick_capture",
+    "storage_doctor_status",
     "process_bottleneck_triage",
     "process_summary_status",
     "document_read_economy",
     "kernel_output_economy",
+    "destructive_shell_guard",
     "command_surface_inventory",
     "artifact_discovery_inventory",
+    "git_object_store_status",
     "git_state_snapshot_status",
     "git_diff_review_context",
     "generated_state_settlement",
@@ -613,6 +694,21 @@ COMMAND_SURFACE_ACTION_HANDOFF_FULL_IDS = COMMAND_SURFACE_ACTION_HANDOFF_PREVIEW
     "resident_pressure_relief",
     "session_yield_request",
     "session_yield_result",
+)
+COMMAND_SURFACE_TRACE_REPAIR_ALIAS_IDS = (
+    "test_or_build_command",
+    "repo_tool_command",
+    "quick-capture",
+    "kernel_command",
+    "bash_cat",
+    "bash_grep",
+    "bash_find",
+    "bash_other",
+    "unknown_tool",
+    "task_tool",
+    "exec_session_io",
+    "git_state_shell_chain",
+    "read_file",
 )
 HOST_PRESSURE_QUOTE_SOURCE = (
     "system/lib/host_pressure.py::build_progress_pressure_packet_from_store"
@@ -920,6 +1016,12 @@ ACTION_ALIASES = {
     "capture": "task_ledger_quick_capture",
     "task_capture": "task_ledger_quick_capture",
     "task-capture": "task_ledger_quick_capture",
+    "storage_doctor": "storage_doctor_status",
+    "storage-doctor": "storage_doctor_status",
+    "storage_doctor_status": "storage_doctor_status",
+    "storage-doctor-status": "storage_doctor_status",
+    "storage_cleanup": "storage_doctor_status",
+    "storage-cleanup": "storage_doctor_status",
     "repo_tool": "task_ledger_rebuild_status",
     "repo_tool_command": "task_ledger_rebuild_status",
     "process": "process_bottleneck_triage",
@@ -1020,7 +1122,13 @@ ACTION_ALIASES = {
     "git_state_shell_chain": "git_state_snapshot_status",
     "dirty_tree": "git_state_snapshot_status",
     "git_snapshot": "git_state_snapshot_status",
-    "bash_other": "command_surface_inventory",
+    "bash_other": "bash_other_economy",
+    "destructive_shell": "destructive_shell_guard",
+    "destructive-shell": "destructive_shell_guard",
+    "destructive_shell_guard": "destructive_shell_guard",
+    "destructive-shell-guard": "destructive_shell_guard",
+    "rm_rf": "destructive_shell_guard",
+    "rm-rf": "destructive_shell_guard",
     "command_surfaces": "command_surface_inventory",
     "command_surface": "command_surface_inventory",
     "command_telemetry": "command_surface_inventory",
@@ -1158,6 +1266,17 @@ ACTION_CATALOG: dict[str, dict[str, Any]] = {
             "codex/hologram/process/summary.json::repo_tool_command",
         ],
     },
+    "storage_doctor_status": {
+        "purpose": "storage_pressure_status_route",
+        "owner_surface": STORAGE_DOCTOR_STATUS_COMMAND,
+        "resource_class": "storage_doctor",
+        "authority_level": "read_only_storage_pressure_card",
+        "quote_sources": [
+            "tools/meta/storage_doctor.py::scan --format card",
+            "system.lib.resource_pressure::owner_lanes.disk",
+            "codex/hologram/process/summary.json::repo_tool_command",
+        ],
+    },
     "process_bottleneck_triage": {
         "purpose": "diagnostic_read_model",
         "owner_surface": "./repo-python kernel.py --process-bottlenecks",
@@ -1257,6 +1376,30 @@ ACTION_CATALOG: dict[str, dict[str, Any]] = {
             "repo-pytest",
         ],
     },
+    "bash_other_economy": {
+        "purpose": "unclassified_bash_output_router",
+        "owner_surface": "./repo-python tools/meta/control/action_quote.py --action bash_other --scope <path-or-owner>",
+        "resource_class": "bash_other",
+        "authority_level": "scope_classified_owner_route",
+        "quote_sources": [
+            "codex/hologram/process/summary.json::bash_other",
+            "codex/hologram/process/audit.json::context_yield_attribution",
+            "tools/meta/control/action_quote.py::artifact_discovery_inventory",
+            "tools/meta/control/action_quote.py::command_surface_inventory",
+            "tools/meta/control/git_state_snapshot.py",
+        ],
+    },
+    "destructive_shell_guard": {
+        "purpose": "destructive_shell_owner_guard",
+        "owner_surface": "./repo-python tools/meta/control/action_quote.py --action destructive_shell --scope <command>",
+        "resource_class": "destructive_shell",
+        "authority_level": "non_destructive_owner_route",
+        "quote_sources": [
+            "codex/hologram/process/summary.json::bash_other",
+            "tools/meta/storage_doctor.py::destructive gates",
+            "tools/meta/dissemination/build_microcosm_public_site.py::check --validate",
+        ],
+    },
     "artifact_discovery_inventory": {
         "purpose": "bounded_artifact_file_discovery",
         "owner_surface": "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>",
@@ -1277,6 +1420,29 @@ ACTION_CATALOG: dict[str, dict[str, Any]] = {
             "microcosm-substrate/ path and content metadata only",
             "codex/doctrine/paper_modules/ path metadata only",
             "codex/doctrine/skills/dissemination/ path metadata only",
+        ],
+    },
+    "git_object_store_status": {
+        "purpose": "git_object_store_scan_replacement",
+        "owner_surface": "./repo-python tools/meta/control/git_gc_maintenance.py --tmp-object-status",
+        "resource_class": "git_object_store_metadata",
+        "authority_level": "git_maintenance_status",
+        "quote_sources": [
+            "tools/meta/control/git_gc_maintenance.py --tmp-object-status",
+            "tools/meta/control/git_gc_maintenance.py --check",
+            "codex/hologram/process/summary.json::bash_find",
+        ],
+    },
+    "host_filesystem_discovery": {
+        "purpose": "bounded_host_filesystem_discovery",
+        "owner_surface": "./repo-python tools/meta/control/action_quote.py --action host_filesystem_discovery --scope <host-path-or-term>",
+        "resource_class": "host_filesystem_metadata_probe",
+        "authority_level": "host_scope_classification",
+        "quote_sources": [
+            "codex/hologram/process/summary.json::bash_find",
+            "codex/hologram/process/audit.json::raw_find_scan",
+            "macOS mdfind metadata command shape",
+            "bounded find first-result command shape",
         ],
     },
     "station_render_capture": {
@@ -2863,6 +3029,38 @@ def _repo_pytest_single_file_wait_tax_slow(
     )
 
 
+def _repo_pytest_direct_slice_recommendation(
+    scope_paths: Sequence[str],
+    raw_repo_pytest_args: Sequence[str],
+    *,
+    inferred_from_scope: bool,
+) -> dict[str, Any] | None:
+    scopes = _scope_paths(scope_paths)
+    if not inferred_from_scope or not scopes:
+        return None
+    if not all(_is_direct_pytest_scope(scope) for scope in scopes):
+        return None
+    if any("::" in scope for scope in scopes):
+        return None
+    args = [str(arg) for arg in raw_repo_pytest_args]
+    if any(arg == "-k" or arg.startswith("-k") for arg in args):
+        return None
+    first_scope = scopes[0]
+    return {
+        "action": "prefer_node_or_keyword_slice_before_full_test_file",
+        "reason": (
+            "Recent test/build bottlenecks are focused-test shaped; use a node id "
+            "or keyword slice when the changed behavior is narrower than the whole file."
+        ),
+        "command": f"./repo-pytest {shlex.quote(first_scope)}::<test_name> -q",
+        "fallback_command": (
+            f"./repo-pytest {shlex.quote(first_scope)} -q -k '<keyword>'"
+        ),
+        "full_file_command": "./repo-pytest " + " ".join(args),
+        "applies_when": "test behavior is localized to a known test or keyword",
+    }
+
+
 def _singleflight_bypass_status(
     *,
     singleflight_policy: str,
@@ -3150,6 +3348,16 @@ def _quote_repo_pytest(
         recommendation = "run_through_repo_pytest"
     freshness = "live" if singleflight["status"] == "running" else ("fresh" if singleflight["status"] == "fresh_reusable" else "unknown")
     current_status = singleflight["status"] if singleflight["status"] != "bypassed" else "cold"
+    direct_slice_recommendation = _repo_pytest_direct_slice_recommendation(
+        scopes,
+        raw_repo_pytest_args,
+        inferred_from_scope=args_were_inferred_from_scope,
+    )
+    recommended_next = [
+        row
+        for row in (git_maintenance_recommendation, direct_slice_recommendation)
+        if row
+    ]
     return {
         "current_status": current_status,
         "recommendation": recommendation,
@@ -3169,9 +3377,7 @@ def _quote_repo_pytest(
         else None,
         "wait_tax": wait_tax,
         "git_maintenance": git_maintenance,
-        "recommended_next": [git_maintenance_recommendation]
-        if git_maintenance_recommendation
-        else [],
+        "recommended_next": recommended_next,
         "claim_conflicts": claim_conflicts,
         "claim_snapshot": {
             "status": claims_snapshot.get("status"),
@@ -3648,6 +3854,62 @@ def _quote_task_ledger_rebuild_status(repo_root: Path) -> dict[str, Any]:
     }
 
 
+def _quote_storage_doctor_status(repo_root: Path) -> dict[str, Any]:
+    owner_exists = (repo_root / "tools/meta/storage_doctor.py").is_file()
+    return {
+        "current_status": "owner_surface_available" if owner_exists else "owner_surface_missing",
+        "recommendation": "check_storage_doctor_card_before_applying_cleanup",
+        "freshness": "live_on_invocation",
+        "authority_level": "read_only_storage_pressure_card",
+        "drilldown_command": STORAGE_DOCTOR_STATUS_COMMAND,
+        "suggested_command": STORAGE_DOCTOR_STATUS_COMMAND,
+        "status_command": STORAGE_DOCTOR_STATUS_COMMAND,
+        "safe_cleanup_command": STORAGE_DOCTOR_SAFE_CLEAN_COMMAND,
+        "valid_options": [
+            "scan --top 0 --format card",
+            "clean --scope all --level safe --apply --yes --format card",
+            "clean --scope all --level caution --smart --format card",
+        ],
+        "safe_cleanup_allowed_when": [
+            "storage card shows nonzero safe_human or cleanup_candidate_human",
+            "disk pressure is active and the storage card identifies safe cleanup candidates",
+            "operator explicitly requests safe cleanup",
+        ],
+        "do_not_touch": [
+            {
+                "lane": "safe_cleanup_first_contact",
+                "reason": (
+                    "Safe cleanup still walks storage candidates and may delete scratch; check "
+                    "the compact card first so low-value cleanup is skipped."
+                ),
+                "avoid": STORAGE_DOCTOR_SAFE_CLEAN_COMMAND,
+                "replacement": STORAGE_DOCTOR_STATUS_COMMAND,
+            },
+            {
+                "lane": "piped_storage_cleanup_tail",
+                "reason": (
+                    "Redirecting storage cleanup to /tmp and tailing it hides the structured "
+                    "cleanup summary and repeats a costly scan."
+                ),
+                "avoid": f"{STORAGE_DOCTOR_SAFE_CLEAN_COMMAND} > /tmp/storage_safe_clean.log",
+                "replacement": STORAGE_DOCTOR_STATUS_COMMAND,
+            },
+        ],
+        "source": {
+            "owner_surface": "tools/meta/storage_doctor.py",
+            "owner_surface_exists": owner_exists,
+            "parser_source": "tools/meta/storage_doctor.py::main",
+            "process_hint_source": "codex/hologram/process/summary.json::repo_tool_command",
+        },
+        "output_economy": {
+            "mutates_storage": False,
+            "status_card_first": True,
+            "safe_cleanup_mutates_storage": True,
+            "scope": "host_and_repo_storage_pressure",
+        },
+    }
+
+
 def _quote_task_ledger_quick_capture(repo_root: Path) -> dict[str, Any]:
     owner_exists = (repo_root / TASK_LEDGER_APPLY_REL).is_file()
     return {
@@ -3663,12 +3925,12 @@ def _quote_task_ledger_quick_capture(repo_root: Path) -> dict[str, Any]:
             "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
             "--title '<title>' --summary-file <unique-file> --problem-file <unique-file> "
             "--impact-file <unique-file> --acceptance-file <unique-file> --created-by <agent> "
-            "--confidence 0.85 --tag <tag> --projection-rebuild-policy off"
+            "--confidence 0.85 --tag <tag> --projection-rebuild-policy off --compact"
         ),
         "stdin_command_shape": (
             "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
             "--title '<title>' --summary-stdin --created-by <agent> "
-            "--confidence 0.85 --tag <tag> --projection-rebuild-policy off"
+            "--confidence 0.85 --tag <tag> --projection-rebuild-policy off --compact"
         ),
         "valid_options": [
             "--title",
@@ -3680,6 +3942,7 @@ def _quote_task_ledger_quick_capture(repo_root: Path) -> dict[str, Any]:
             "--confidence",
             "--created-by",
             "--projection-rebuild-policy off",
+            "--compact",
         ],
         "unsupported_flags": [
             "--description",
@@ -3732,10 +3995,36 @@ def _quote_task_ledger_quick_capture(repo_root: Path) -> dict[str, Any]:
             "mutates_task_ledger_authority": True,
             "projection_rebuild_default": "off",
             "emits_full_projection": False,
+            "compact_output_preferred": True,
             "single_writer_required": True,
             "visibility_receipt_expected": True,
         },
     }
+
+
+def _scope_mentions_task_ledger_quick_capture(scope_paths: Sequence[str]) -> bool:
+    scope_text = " ".join(_scope_paths(scope_paths)).lower().replace("_", "-")
+    if not scope_text:
+        return False
+    return any(
+        term in scope_text
+        for term in (
+            "quick-capture",
+            "quick capture",
+            "task-ledger-capture",
+            "task ledger capture",
+        )
+    )
+
+
+def _scope_mentions_storage_doctor(scope_paths: Sequence[str]) -> bool:
+    scope_text = " ".join(_scope_paths(scope_paths)).lower()
+    return (
+        "storage_doctor" in scope_text
+        or "storage-doctor" in scope_text
+        or "tools.meta.storage_doctor" in scope_text
+        or "tools/meta/storage_doctor.py" in scope_text
+    )
 
 
 def _process_bottleneck_top_row(
@@ -3935,6 +4224,59 @@ def _stale_process_bottleneck_shape_repair(
     }
 
 
+def _process_bottleneck_action_quote_command(action_kind: Any) -> str:
+    selected = str(action_kind or "").strip()
+    if not selected:
+        return (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action process_bottleneck_triage --action-kind <action-kind>"
+        )
+    return (
+        "./repo-python tools/meta/control/action_quote.py "
+        f"--action process_bottleneck_triage --action-kind {shlex.quote(selected)}"
+    )
+
+
+def _process_bottleneck_selected_quote_command(
+    row: Mapping[str, Any] | None,
+    action_kind: Any,
+) -> str:
+    for hint in _as_list(_as_mapping(row).get("repair_hints")):
+        hint_map = _as_mapping(hint)
+        for key in ("quote_surface", "preferred_next", "owner_surface"):
+            command = str(hint_map.get(key) or "").strip()
+            if command.startswith("./repo-python tools/meta/control/action_quote.py"):
+                return command
+    return _process_bottleneck_action_quote_command(action_kind)
+
+
+def _process_bottleneck_recommended_sequence(
+    *,
+    stale_summary: bool,
+    selected_action_quote_command: str,
+    selected_shape_repair: Mapping[str, Any] | None,
+) -> list[str]:
+    sequence = (
+        [
+            PROCESS_BOTTLENECK_CACHED_SUMMARY_CHECK_COMMAND,
+            PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+            selected_action_quote_command,
+        ]
+        if stale_summary
+        else [
+            PROCESS_BOTTLENECK_CACHED_SUMMARY_COMMAND,
+            selected_action_quote_command,
+        ]
+    )
+    primary_replacement = str(
+        _as_mapping(selected_shape_repair).get("primary_replacement") or ""
+    ).strip()
+    if primary_replacement and primary_replacement not in sequence:
+        sequence.append(primary_replacement)
+    sequence.append("Use the selected scoped owner quote before opening raw trace bodies.")
+    return sequence
+
+
 def _process_bottleneck_selector_payload(
     rows: Sequence[Any],
     selection: Mapping[str, Any],
@@ -4081,14 +4423,29 @@ def _process_bottleneck_source_freshness(
 
 def _process_summary_target_from_scope(scope_paths: Sequence[str]) -> str | None:
     scopes = _scope_paths(scope_paths)
-    return scopes[0] if len(scopes) == 1 else None
+    if len(scopes) != 1:
+        return None
+    candidate = scopes[0].strip()
+    if not candidate:
+        return None
+    if any(char in candidate for char in " \t\n|;&<>"):
+        return None
+    if "/" in candidate or candidate.endswith(".json"):
+        return None
+    if candidate in {"latest", "codex:latest", "claude:latest"}:
+        return candidate
+    if re.match(r"^(?:codex|claude):[A-Za-z0-9_.:-]+$", candidate):
+        return candidate
+    if re.match(r"^[A-Za-z0-9_.:-]{8,128}$", candidate):
+        return candidate
+    return None
 
 
 def _process_summary_owner_command(target: str | None = None, *, force: bool = False) -> str:
     if not target:
         return PROCESS_SUMMARY_FORCE_LIVE_COMMAND if force else PROCESS_SUMMARY_OWNER_COMMAND
     command = f"./repo-python kernel.py --process-summary {shlex.quote(target)}"
-    return f"{command} --force" if force else command
+    return f"{command} --force --limit 6" if force else command
 
 
 def _process_summary_do_not_touch(owner_command: str = PROCESS_SUMMARY_OWNER_COMMAND) -> list[dict[str, Any]]:
@@ -4434,6 +4791,23 @@ def _quote_process_bottleneck_triage(
         if stale_summary
         else _process_bottleneck_shape_repair(top)
     )
+    suggested_command = (
+        PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND
+        if stale_summary
+        else PROCESS_BOTTLENECK_OWNER_COMMAND
+    )
+    safe_first_command = (
+        PROCESS_BOTTLENECK_CACHED_SUMMARY_CHECK_COMMAND
+        if stale_summary
+        else PROCESS_BOTTLENECK_CACHED_SUMMARY_COMMAND
+    )
+    selected_action_kind = selection.get("selected_action_kind") or (
+        top.get("action_kind") if top else None
+    )
+    selected_action_quote_command = _process_bottleneck_selected_quote_command(
+        top,
+        selected_action_kind,
+    )
     return {
         "current_status": status,
         "recommendation": (
@@ -4447,11 +4821,17 @@ def _quote_process_bottleneck_triage(
         "authority_level": "cached_read_model",
         "owner_check_command": PROCESS_BOTTLENECK_OWNER_COMMAND,
         "drilldown_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
-        "suggested_command": PROCESS_BOTTLENECK_OWNER_COMMAND,
+        "suggested_command": suggested_command,
         "cache_check_command": PROCESS_BOTTLENECK_CACHED_SUMMARY_COMMAND,
-        "safe_first_command": PROCESS_BOTTLENECK_CACHED_SUMMARY_COMMAND,
+        "safe_first_command": safe_first_command,
         "safe_first_check_command": PROCESS_BOTTLENECK_CACHED_SUMMARY_CHECK_COMMAND,
         "force_live_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+        "selected_action_quote_command": selected_action_quote_command,
+        "recommended_sequence": _process_bottleneck_recommended_sequence(
+            stale_summary=stale_summary,
+            selected_action_quote_command=selected_action_quote_command,
+            selected_shape_repair=selected_shape_repair,
+        ),
         "bounded_materialize_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
         "refresh_command": PROCESS_BOTTLENECK_REFRESH_COMMAND,
         "do_not_touch": _process_bottleneck_do_not_touch(),
@@ -4476,6 +4856,12 @@ def _quote_process_bottleneck_triage(
             ),
             "patch_selection_authority": (
                 "force_live_command" if stale_summary else "cached_read_model"
+            ),
+            "safe_cached_probe": PROCESS_BOTTLENECK_CACHED_SUMMARY_CHECK_COMMAND,
+            "safe_cached_probe_role": (
+                "read_model_availability_only"
+                if stale_summary
+                else "cheap_cached_summary_probe"
             ),
             "force_live_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
         },
@@ -4601,6 +4987,55 @@ def _quote_process_summary_status(repo_root: Path, scope_paths: Sequence[str] = 
 
 DOCUMENT_READ_SCOPE_SUFFIXES = {".adoc", ".md", ".rst", ".txt"}
 STRUCTURED_READ_SCOPE_SUFFIXES = {".json"}
+DOCUMENT_READ_KNOWN_SCOPE_OWNER_ROUTES: dict[str, dict[str, Any]] = {
+    "tools/meta/dissemination/build_microcosm_public_site.py": {
+        "route_kind": "paper_module_card",
+        "owner_slug": "tools_meta_dissemination_index",
+        "route_command": (
+            "./repo-python kernel.py --option-surface paper_modules --band card "
+            "--ids tools_meta_dissemination_index"
+        ),
+        "source_evidence_command": (
+            "./repo-python kernel.py --paper-module tools_meta_dissemination_index"
+        ),
+        "supporting_card_command": (
+            "./repo-python kernel.py --option-surface paper_modules --band card "
+            "--ids microcosm_public_export_type_plane,graph_scene_core"
+        ),
+        "focused_validation_command": (
+            "./repo-python tools/meta/dissemination/build_microcosm_public_site.py "
+            "--check --validate"
+        ),
+        "why": (
+            "Session diagnostics shows repeated rereads of the public-site builder; "
+            "use the dissemination tooling card before opening source unless exact "
+            "renderer/helper behavior or a focused validation failure requires it."
+        ),
+    }
+}
+
+
+def _document_read_candidate_rel_text(
+    repo_root: Path,
+    raw_candidate: str,
+) -> tuple[str, str] | None:
+    candidate = raw_candidate.strip().strip("'\"`;,()")
+    if not candidate:
+        return None
+    path_part, _, _line_part = candidate.partition(":")
+    path = Path(path_part).expanduser()
+    suffix = path.suffix.lower()
+    if path.is_absolute():
+        try:
+            rel_path = path.resolve().relative_to(repo_root.resolve())
+        except ValueError:
+            return None
+    else:
+        rel_path = path
+    rel_text = rel_path.as_posix()
+    if not rel_text or rel_text.startswith(".."):
+        return None
+    return rel_text, suffix
 
 
 def _document_read_scope_route(
@@ -4609,24 +5044,26 @@ def _document_read_scope_route(
 ) -> dict[str, Any] | None:
     for scope in _scope_paths(scope_paths):
         candidate_texts = [scope, *scope.split()]
+        rel_candidates: list[tuple[str, str]] = []
         for raw_candidate in candidate_texts:
-            candidate = raw_candidate.strip().strip("'\"`;,()")
-            if not candidate:
+            rel_candidate = _document_read_candidate_rel_text(repo_root, raw_candidate)
+            if not rel_candidate:
                 continue
-            path_part, _, _line_part = candidate.partition(":")
-            path = Path(path_part).expanduser()
-            suffix = path.suffix.lower()
+            rel_candidates.append(rel_candidate)
+        for rel_text, _suffix in rel_candidates:
+            known_owner_route = DOCUMENT_READ_KNOWN_SCOPE_OWNER_ROUTES.get(rel_text)
+            if known_owner_route:
+                return {
+                    "status": "scoped_known_owner_route",
+                    "path": rel_text,
+                    **known_owner_route,
+                    "privacy": {
+                        "stores_file_contents": False,
+                        "scope_matching": "path_metadata_only_known_owner_route",
+                    },
+                }
+        for rel_text, suffix in rel_candidates:
             if suffix not in DOCUMENT_READ_SCOPE_SUFFIXES | STRUCTURED_READ_SCOPE_SUFFIXES:
-                continue
-            if path.is_absolute():
-                try:
-                    rel_path = path.resolve().relative_to(repo_root.resolve())
-                except ValueError:
-                    continue
-            else:
-                rel_path = path
-            rel_text = str(rel_path)
-            if not rel_text or rel_text.startswith(".."):
                 continue
             quoted = shlex.quote(rel_text)
             if suffix in STRUCTURED_READ_SCOPE_SUFFIXES:
@@ -4655,6 +5092,14 @@ def _document_read_scope_route(
     return None
 
 
+def _scope_mentions_document_read_known_owner_route(
+    repo_root: Path,
+    scope_paths: Sequence[str],
+) -> bool:
+    route = _document_read_scope_route(repo_root, scope_paths)
+    return bool(route and route.get("status") == "scoped_known_owner_route")
+
+
 def _quote_document_read_economy(
     repo_root: Path,
     scope_paths: Sequence[str] = (),
@@ -4674,6 +5119,7 @@ def _quote_document_read_economy(
     scoped_route = _document_read_scope_route(repo_root, scope_paths)
     scoped_status = str(scoped_route.get("status") or "") if scoped_route else ""
     scoped_json_route = scoped_status == "scoped_json_structure_path"
+    scoped_known_owner_route = scoped_status == "scoped_known_owner_route"
     suggested_command = (
         str(scoped_route.get("route_command"))
         if scoped_route
@@ -4681,9 +5127,13 @@ def _quote_document_read_economy(
     )
     recommendation = (
         (
-            "use_json_structure_probe_for_scoped_json_before_full_read"
-            if scoped_json_route
-            else "use_docs_route_for_scoped_document_before_full_read"
+            "use_known_owner_card_for_scoped_source_before_full_read"
+            if scoped_known_owner_route
+            else (
+                "use_json_structure_probe_for_scoped_json_before_full_read"
+                if scoped_json_route
+                else "use_docs_route_for_scoped_document_before_full_read"
+            )
         )
         if scoped_route
         else (
@@ -4695,9 +5145,13 @@ def _quote_document_read_economy(
     first_sequence = (
         {
             "action": (
-                "open_scoped_json_structure"
-                if scoped_json_route
-                else "open_scoped_document_route"
+                "open_scoped_known_owner_card"
+                if scoped_known_owner_route
+                else (
+                    "open_scoped_json_structure"
+                    if scoped_json_route
+                    else "open_scoped_document_route"
+                )
             ),
             "command": suggested_command,
         }
@@ -4710,9 +5164,13 @@ def _quote_document_read_economy(
     return {
         "current_status": (
             (
-                "scoped_json_structure_route_available"
-                if scoped_json_route
-                else "scoped_document_route_available"
+                "scoped_known_owner_route_available"
+                if scoped_known_owner_route
+                else (
+                    "scoped_json_structure_route_available"
+                    if scoped_json_route
+                    else "scoped_document_route_available"
+                )
             )
             if scoped_route
             else (
@@ -4796,6 +5254,60 @@ def _kernel_output_scope_route(scope_paths: Sequence[str]) -> dict[str, Any] | N
         if token.strip().strip("'\"`;,()")
     ]
     normalized_tokens = {token.replace("_", "-").lower() for token in surface_tokens}
+    if (
+        "process-bottlenecks" in normalized_tokens
+        or "--process-bottlenecks" in normalized_tokens
+    ) and "--process-action-kind" in normalized_tokens:
+        action_kind = "<action-kind>"
+        for index, token in enumerate(surface_tokens[:-1]):
+            if token.replace("_", "-").lower() == "--process-action-kind":
+                action_kind = surface_tokens[index + 1]
+                break
+        action_arg = action_kind if action_kind == "<action-kind>" else shlex.quote(action_kind)
+        route_command = (
+            f"./repo-python kernel.py --process-bottlenecks --process-action-kind {action_arg}"
+        )
+        force_command = (
+            f"./repo-python kernel.py --process-bottlenecks --force --process-action-kind {action_arg}"
+        )
+        return {
+            "status": "scoped_filtered_process_bottlenecks_route",
+            "surface": surface,
+            "action_kind": action_kind,
+            "route_command": route_command,
+            "safe_first_command": route_command,
+            "force_live_command": force_command,
+            "scope_count": len(scopes),
+            "privacy": {
+                "scope_matching": "metadata_only",
+                "stores_stdout_stderr_bodies": False,
+            },
+        }
+    if "process-summary" in normalized_tokens or "--process-summary" in normalized_tokens:
+        target = "<session_id|claude:latest|codex:latest>"
+        for index, token in enumerate(surface_tokens[:-1]):
+            if token.replace("_", "-").lower() in {
+                "process-summary",
+                "--process-summary",
+            }:
+                target = surface_tokens[index + 1]
+                break
+        target_arg = target if target.startswith("<") else shlex.quote(target)
+        route_command = f"./repo-python kernel.py --process-summary {target_arg}"
+        force_command = f"{route_command} --force --limit 6"
+        return {
+            "status": "scoped_process_summary_status_route",
+            "surface": surface,
+            "target": target,
+            "route_command": route_command,
+            "safe_first_command": route_command,
+            "force_live_command": force_command,
+            "scope_count": len(scopes),
+            "privacy": {
+                "scope_matching": "metadata_only",
+                "stores_stdout_stderr_bodies": False,
+            },
+        }
     if "option-surface" in normalized_tokens:
         kind_candidates = [
             token
@@ -4851,6 +5363,10 @@ def _quote_kernel_output_economy(repo_root: Path, scope_paths: Sequence[str] = (
     scoped_route = _kernel_output_scope_route(scope_paths)
     scoped_status = str(scoped_route.get("status") or "") if scoped_route else ""
     scoped_option_surface = scoped_status == "scoped_option_surface_cluster_route"
+    scoped_filtered_process = (
+        scoped_status == "scoped_filtered_process_bottlenecks_route"
+    )
+    scoped_process_summary = scoped_status == "scoped_process_summary_status_route"
     suggested_command = (
         str(scoped_route["route_command"])
         if scoped_route
@@ -4889,7 +5405,15 @@ def _quote_kernel_output_economy(repo_root: Path, scope_paths: Sequence[str] = (
                 "action": (
                     "open_scoped_option_surface_cluster"
                     if scoped_option_surface
-                    else "inspect_scoped_kernel_surface_first"
+                    else (
+                        "use_filtered_process_bottleneck_cached_status_first"
+                        if scoped_filtered_process
+                        else (
+                            "use_scoped_process_summary_status_first"
+                            if scoped_process_summary
+                            else "inspect_scoped_kernel_surface_first"
+                        )
+                    )
                 ),
                 "command": suggested_command,
             },
@@ -4907,7 +5431,15 @@ def _quote_kernel_output_economy(repo_root: Path, scope_paths: Sequence[str] = (
         (
             "use_option_surface_cluster_flag_before_full_inventory"
             if scoped_option_surface
-            else "use_command_surface_for_scoped_kernel_output_before_limiter"
+            else (
+                "use_cached_filtered_process_bottleneck_status_before_force_live"
+                if scoped_filtered_process
+                else (
+                    "use_process_summary_status_before_tmp_output_polling"
+                    if scoped_process_summary
+                    else "use_command_surface_for_scoped_kernel_output_before_limiter"
+                )
+            )
         )
         if scoped_route
         else (
@@ -4921,7 +5453,15 @@ def _quote_kernel_output_economy(repo_root: Path, scope_paths: Sequence[str] = (
             (
                 "scoped_option_surface_cluster_route_available"
                 if scoped_option_surface
-                else "scoped_kernel_surface_quote_available"
+                else (
+                    "scoped_filtered_process_bottleneck_route_available"
+                    if scoped_filtered_process
+                    else (
+                        "scoped_process_summary_status_route_available"
+                        if scoped_process_summary
+                        else "scoped_kernel_surface_quote_available"
+                    )
+                )
             )
             if scoped_route
             else (
@@ -4939,6 +5479,16 @@ def _quote_kernel_output_economy(repo_root: Path, scope_paths: Sequence[str] = (
         "authority_level": "cached_read_model",
         "owner_check_command": PROCESS_BOTTLENECK_OWNER_COMMAND,
         "suggested_command": suggested_command,
+        "safe_first_command": (
+            str(scoped_route["safe_first_command"])
+            if (scoped_filtered_process or scoped_process_summary) and scoped_route
+            else suggested_command
+        ),
+        "force_live_command": (
+            str(scoped_route["force_live_command"])
+            if (scoped_filtered_process or scoped_process_summary) and scoped_route
+            else PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND
+        ),
         "context_pack_command": './repo-python kernel.py --context-pack "<task>" --context-budget 12000',
         "latency_seed_command": LATENCY_SEED_DIGEST_NO_GIT_COMMAND,
         "command_surface_inventory": (
@@ -6365,6 +6915,31 @@ def _compact_admission_consumer_coverage(coverage: Mapping[str, Any]) -> dict[st
     }
 
 
+def _command_surface_trace_repair_alias_handoffs(
+    alias_ids: Sequence[str] = COMMAND_SURFACE_TRACE_REPAIR_ALIAS_IDS,
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for alias in alias_ids:
+        action_id = ACTION_ALIASES.get(alias)
+        metadata = ACTION_CATALOG.get(str(action_id)) if action_id else None
+        if not action_id or not metadata:
+            continue
+        rows.append(
+            {
+                "alias": alias,
+                "action_id": action_id,
+                "quote_command": f"./repo-python tools/meta/control/action_quote.py --action {alias}",
+                "canonical_quote_command": (
+                    f"./repo-python tools/meta/control/action_quote.py --action {action_id}"
+                ),
+                "purpose": metadata["purpose"],
+                "resource_class": metadata["resource_class"],
+                "owner_surface": metadata["owner_surface"],
+            }
+        )
+    return rows
+
+
 def _command_surface_action_handoffs(
     repo_root: Path | None = None,
     *,
@@ -6410,6 +6985,7 @@ def _command_surface_action_handoffs(
         for action_id in preview_ids
         if action_id in rows_by_action
     ]
+    trace_alias_handoffs = _command_surface_trace_repair_alias_handoffs()
     coverage_summary = _admission_consumer_coverage_summary(
         coverage,
         include_status_counts=include_rows,
@@ -6436,7 +7012,9 @@ def _command_surface_action_handoffs(
             "host_pressure_blocking_gap_count": _as_mapping(
                 coverage.get("summary")
             ).get("blocking_gap_count"),
+            "trace_repair_alias_count": len(trace_alias_handoffs),
         },
+        "trace_repair_alias_handoffs": trace_alias_handoffs,
         "full_action_rows_command": "./repo-python tools/meta/control/action_quote.py --catalog",
         "full_admission_consumer_coverage_command": (
             "./repo-python tools/meta/control/action_quote.py --catalog"
@@ -6525,6 +7103,36 @@ def _command_surface_scope_resolution(
         return len(parts) > 1 and all(part in haystack for part in parts)
 
     matches: list[dict[str, Any]] = []
+    for row in COMMAND_SURFACE_SCOPED_KERNEL_SURFACES:
+        terms = [normalized_term(term) for term in row.get("match_terms", ())]
+        matched_terms = [term for term in terms if term_matches(term)]
+        if not matched_terms:
+            continue
+        evidence_paths = [str(path) for path in row.get("evidence_paths", ())]
+        summary_command = str(row["summary_command"])
+        match = {
+            "surface_id": row["surface_id"],
+            "surface": row["surface"],
+            "matched_terms": matched_terms[:5],
+            "canonical_command": summary_command,
+            "compact_command": summary_command,
+            "replacement_command": summary_command,
+            "scoped_help_command": row["scoped_help_command"],
+            "summary_command": summary_command,
+            "full_fallback_command": row["full_fallback_command"],
+            "output_profile": row["output_profile"],
+            "reason": row["reason"],
+            "evidence_paths": evidence_paths,
+        }
+        if full:
+            match["evidence"] = [
+                {
+                    "path": path,
+                    "status": "available" if (repo_root / path).exists() else "missing",
+                }
+                for path in evidence_paths
+            ]
+        matches.append(match)
     for row in COMMAND_SURFACE_SCOPED_COMPACT_COMMANDS:
         terms = [normalized_term(term) for term in row.get("match_terms", ())]
         required_terms = [
@@ -6600,16 +7208,23 @@ def _command_surface_scope_resolution(
         _as_mapping(match).get("output_profile") != "action_quote_handoff"
         for match in matches
     )
+    kernel_surface_matches = [
+        _as_mapping(match)
+        for match in matches
+        if _as_mapping(match).get("output_profile") == "summary_first_kernel_diagnostic"
+    ]
     has_action_handoff = any(
         _as_mapping(match).get("output_profile") == "action_quote_handoff"
         for match in matches
     )
     status = "scope_unmatched"
-    if has_compact_command:
+    if kernel_surface_matches:
+        status = "scoped_kernel_surface"
+    elif has_compact_command:
         status = "matched_compact_command"
     elif has_action_handoff:
         status = "matched_action_handoff"
-    return {
+    payload: dict[str, Any] = {
         "status": status,
         "scope_paths": scopes,
         "match_count": len(matches),
@@ -6624,6 +7239,17 @@ def _command_surface_scope_resolution(
             "--action artifact_discovery_inventory --scope <term-or-root>"
         ),
     }
+    if kernel_surface_matches:
+        primary_kernel_surface = kernel_surface_matches[0]
+        payload.update(
+            {
+                "surface": primary_kernel_surface.get("surface"),
+                "scoped_help_command": primary_kernel_surface.get("scoped_help_command"),
+                "summary_command": primary_kernel_surface.get("summary_command"),
+                "full_fallback_command": primary_kernel_surface.get("full_fallback_command"),
+            }
+        )
+    return payload
 
 
 def _quote_command_surface_inventory(
@@ -6725,6 +7351,7 @@ def _quote_command_surface_inventory(
     primary_scope_match = _as_mapping(scoped_matches[0]) if scoped_matches else {}
     primary_scope_profile = str(primary_scope_match.get("output_profile") or "")
     scoped_action_handoff = primary_scope_profile == "action_quote_handoff"
+    scoped_kernel_surface = primary_scope_profile == "summary_first_kernel_diagnostic"
     do_not_touch_rows = [
         {
             "lane": "raw_telemetry_body_grep",
@@ -6768,6 +7395,8 @@ def _quote_command_surface_inventory(
         "current_status": (
             "scoped_action_handoff_available"
             if scoped_action_handoff
+            else "scoped_kernel_surface_available"
+            if scoped_kernel_surface
             else "scoped_compact_command_available"
             if primary_scope_match
             else "inventory_available"
@@ -6775,6 +7404,8 @@ def _quote_command_surface_inventory(
         "recommendation": (
             "use_action_quote_handoff"
             if scoped_action_handoff
+            else "use_scoped_kernel_summary_route"
+            if scoped_kernel_surface
             else "use_scoped_compact_command"
             if primary_scope_match
             else "use_bounded_inventory_not_raw_grep"
@@ -6918,6 +7549,717 @@ def _quote_git_state_snapshot_status(repo_root: Path) -> dict[str, Any]:
     }
 
 
+def _bash_other_scope_text(scope_paths: Sequence[str]) -> str:
+    return " ".join(_scope_paths(scope_paths)).strip()
+
+
+def _quote_destructive_shell_guard(
+    repo_root: Path,
+    scope_paths: Sequence[str] = (),
+) -> dict[str, Any]:
+    scope_text = _bash_other_scope_text(scope_paths)
+    lowered = scope_text.lower()
+    public_site_scope = "microcosm-substrate/receipts/public_site" in lowered or (
+        "public_site" in lowered and "microcosm-substrate" in lowered
+    )
+    owner_card_command = (
+        "./repo-python kernel.py --option-surface paper_modules --band card "
+        "--ids tools_meta_dissemination_index"
+    )
+    public_site_check_command = (
+        "./repo-python tools/meta/dissemination/build_microcosm_public_site.py "
+        "--check --validate"
+    )
+    fallback_command = STORAGE_DOCTOR_STATUS_COMMAND
+    suggested_command = owner_card_command if public_site_scope else fallback_command
+    owner_check_command = public_site_check_command if public_site_scope else fallback_command
+    return {
+        "current_status": "destructive_shell_scope_detected",
+        "recommendation": (
+            "route_public_site_delete_through_owner_card"
+            if public_site_scope
+            else "route_destructive_shell_through_owner_status"
+        ),
+        "freshness": "live_scope_classification",
+        "authority_level": "non_destructive_owner_route",
+        "drilldown_command": suggested_command,
+        "suggested_command": suggested_command,
+        "replacement_command": suggested_command,
+        "owner_check_command": owner_check_command,
+        "public_site_owner_card_command": owner_card_command,
+        "public_site_check_command": public_site_check_command,
+        "storage_status_command": fallback_command,
+        "raw_command_scope": scope_text,
+        "destructive_command_class": "rm_rf_delete",
+        "do_not_touch": [
+            {
+                "lane": "raw_rm_rf_first_contact",
+                "reason": (
+                    "Raw recursive deletion can spend minutes walking generated trees and "
+                    "bypasses owner freshness checks."
+                ),
+                "avoid": scope_text or "rm -rf <path>",
+                "replacement": suggested_command,
+            },
+            {
+                "lane": "raw_delete_public_site_receipts",
+                "reason": (
+                    "Public-site receipt trees are governed by the dissemination builder; "
+                    "check the owner card/validator before deleting generated output."
+                ),
+                "avoid": "rm -rf microcosm-substrate/receipts/public_site",
+                "replacement": owner_card_command,
+            },
+        ],
+        "recommended_sequence": [
+            {
+                "action": "open_owner_card",
+                "command": suggested_command,
+            },
+            {
+                "action": "run_owner_check_if_public_site_scope",
+                "command": owner_check_command,
+            },
+            {
+                "action": "use_storage_doctor_for_generic_cleanup",
+                "command": fallback_command,
+            },
+        ],
+        "scope_classification": {
+            "public_site_scope": public_site_scope,
+            "destructive_terms_detected": bool(scope_text),
+        },
+        "source": {
+            "public_site_owner": "tools/meta/dissemination/build_microcosm_public_site.py",
+            "storage_owner": "tools/meta/storage_doctor.py",
+            "process_hint_source": "codex/hologram/process/summary.json::bash_other",
+            "owner_surface_exists": (
+                repo_root / "tools/meta/dissemination/build_microcosm_public_site.py"
+            ).is_file(),
+        },
+        "output_economy": {
+            "mutates_files": False,
+            "prevents_raw_recursive_delete": True,
+            "owner_status_first": True,
+        },
+    }
+
+
+def _bash_other_scope_route(scope_paths: Sequence[str]) -> tuple[str, str]:
+    scope_text = _bash_other_scope_text(scope_paths)
+    lowered = scope_text.lower()
+    destructive_delete = bool(
+        re.search(r"(?<![A-Za-z0-9_-])rm\s+-[A-Za-z]*r[A-Za-z]*f[A-Za-z]*(?![A-Za-z0-9_-])", lowered)
+        or re.search(r"(?<![A-Za-z0-9_-])rm\s+-[A-Za-z]*f[A-Za-z]*r[A-Za-z]*(?![A-Za-z0-9_-])", lowered)
+    )
+    raw_process_signal = bool(
+        re.match(
+            r"^\s*(?:sudo\s+)?kill(?:\s+-[A-Za-z0-9]+|\s+-s\s+[A-Za-z0-9_+-]+)?"
+            r"(?:\s+--)?(?:\s+\d+)+\s*$",
+            lowered,
+        )
+    )
+    git_terms = {
+        "git",
+        "status",
+        "diff",
+        "log",
+        "rev-parse",
+        "show",
+        "branch",
+        "commit",
+        "cached",
+        "staged",
+    }
+    search_terms = {
+        "rg",
+        "grep",
+        "find",
+        "search",
+        "recursive",
+        "files",
+        "path",
+        "artifact",
+        "inventory",
+    }
+    explicit_search_terms = search_terms - {"inventory"}
+    process_terms = {
+        "--process-audit",
+        "--process-summary",
+        "agent_trace",
+        "agent-trace",
+        "agent_trace/events.jsonl",
+        "codex/hologram/process",
+        "codex/hologram/process/audit.json",
+        "codex/hologram/process/summary.json",
+        "process-audit",
+        "process-summary",
+        "process_summary",
+        "process trace",
+        "process_trace",
+        "taskoutput",
+        "task output",
+        "tool-result",
+        "tool_result",
+        "state/observability/agent_trace",
+        "state/observability/agent_trace/events.jsonl",
+        "tmp",
+        "poll",
+        "background",
+        "tail",
+        "head",
+    }
+    document_terms = {
+        "cat",
+        "sed",
+        "read",
+        ".md",
+        ".json",
+        ".yaml",
+        ".yml",
+        ".txt",
+    }
+    command_surface_terms = {
+        "action quote",
+        "action-quote",
+        "action_quote",
+        "python -c",
+        "python3 -c",
+        "inline python",
+        "jq",
+        "command",
+        "command telemetry",
+        "command-surface",
+        "command_surface",
+        "command-surface-inventory",
+        "command_surface_inventory",
+        "surface",
+        "module",
+    }
+    command_surface_scoped_terms: set[str] = set()
+    for row in (*COMMAND_SURFACE_SCOPED_KERNEL_SURFACES, *COMMAND_SURFACE_SCOPED_COMPACT_COMMANDS):
+        for term in row.get("match_terms", ()):
+            command_surface_scoped_terms.add(str(term).lower())
+
+    def has_any(terms: set[str]) -> bool:
+        for term in terms:
+            if " " in term:
+                if term in lowered:
+                    return True
+                continue
+            if re.search(rf"(?<![A-Za-z0-9_-]){re.escape(term)}(?![A-Za-z0-9_-])", lowered):
+                return True
+        return False
+
+    if destructive_delete:
+        return "destructive_shell_guard", "destructive_shell_delete_scope_terms"
+    if raw_process_signal:
+        return "session_yield_request", "raw_process_signal_scope_terms"
+    if has_any(git_terms):
+        return "git_state_snapshot_status", "git_scope_terms"
+    if (
+        ("task_ledger_apply.py" in lowered or "task_ledger_apply" in lowered)
+        and re.search(r"(?<![A-Za-z0-9_-])rebuild(?![A-Za-z0-9_-])", lowered)
+    ):
+        return "task_ledger_rebuild_status", "task_ledger_rebuild_scope_terms"
+    if has_any(process_terms):
+        return "process_summary_status", "process_or_tool_result_scope_terms"
+    if has_any(explicit_search_terms):
+        return "artifact_discovery_inventory", "search_or_artifact_scope_terms"
+    if has_any(command_surface_terms) or has_any(command_surface_scoped_terms):
+        return "command_surface_inventory", "command_surface_scope_terms"
+    if has_any(search_terms):
+        return "artifact_discovery_inventory", "search_or_artifact_scope_terms"
+    if has_any(document_terms):
+        return "document_read_economy", "document_read_scope_terms"
+    if scope_text:
+        return "artifact_discovery_inventory", "nonempty_scope_default_artifact_inventory"
+    return "command_surface_inventory", "empty_scope_fallback_command_surface_inventory"
+
+
+def _bash_other_artifact_scope_paths(repo_root: Path, scope_paths: Sequence[str]) -> Sequence[str]:
+    scope_text = _bash_other_scope_text(scope_paths)
+    if not scope_text:
+        return scope_paths
+    raw_tokens = [
+        token.strip().strip("'\"`;,()")
+        for token in re.split(r"\s+", scope_text)
+        if token.strip().strip("'\"`;,()")
+    ]
+    command_or_flag_terms = {
+        "rg",
+        "grep",
+        "find",
+        "fd",
+        "ack",
+        "-n",
+        "-name",
+        "-iname",
+        "--line-number",
+        "-maxdepth",
+        "-mindepth",
+        "-o",
+        "-or",
+        "-path",
+        "-type",
+        "-r",
+        "-R",
+        "-i",
+        "-l",
+        "--files",
+        "--hidden",
+    }
+    find_noise_flags_with_values = {
+        "-maxdepth",
+        "-mindepth",
+        "-type",
+    }
+    selected_roots = set(_artifact_discovery_existing_scope_roots(repo_root, raw_tokens))
+    rare_tokens: list[str] = []
+    skip_next_value = False
+    for token in raw_tokens:
+        normalized = token.lower().strip("/")
+        if skip_next_value:
+            skip_next_value = False
+            continue
+        if normalized in find_noise_flags_with_values:
+            skip_next_value = True
+            continue
+        if "*" in normalized:
+            normalized = "_".join(part for part in normalized.split("*") if part)
+        normalized = normalized.strip("/")
+        if not normalized or normalized in command_or_flag_terms:
+            continue
+        if not re.search(r"[a-z0-9]", normalized):
+            continue
+        if normalized.isdigit():
+            continue
+        if normalized in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS:
+            continue
+        if token.strip("/").replace(os.sep, "/") in selected_roots:
+            continue
+        if token.startswith("-"):
+            continue
+        if normalized not in rare_tokens:
+            rare_tokens.append(normalized)
+    if not rare_tokens:
+        return scope_paths
+    return [" ".join(rare_tokens[:3])]
+
+
+HOST_FILESYSTEM_FIND_ALIASES = {
+    "bash_find",
+    "find",
+    "raw_find",
+}
+GIT_OBJECT_STORE_SCOPE_MARKERS = (
+    ".git/objects",
+    "git/objects",
+    "git object",
+    "git objects",
+    "git-object",
+    "git-objects",
+    "loose object",
+    "loose objects",
+    "tmp_obj",
+)
+HOST_FILESYSTEM_CLOUD_DRIVE_TERMS = (
+    "google drive",
+    "googledrive",
+    "google-drive",
+    "icloud drive",
+    "icloud-drive",
+    "onedrive",
+    "one drive",
+    "dropbox",
+)
+HOST_FILESYSTEM_SCOPE_MARKERS = (
+    "host-filesystem",
+    "host_filesystem",
+    "host filesystem",
+    "host.filesystem",
+    "host/filesystem",
+    "host path",
+    "host root",
+)
+HOST_FILESYSTEM_FIND_SKIP_TERMS = {
+    "find",
+    "filesystem",
+    "host",
+    "host-filesystem",
+    "host_filesystem",
+    "host.filesystem",
+    "host/filesystem",
+    "users",
+    "user",
+    "willcook",
+    "maxdepth",
+    "depth",
+    "type",
+    "iname",
+    "name",
+    "print",
+    "head",
+    "tail",
+    "o",
+    "or",
+    "and",
+    "d",
+    "f",
+    "4",
+    "3",
+    "2",
+    "1",
+}
+HOST_FILESYSTEM_SHELL_TOKEN_CHARS = frozenset("|&;<>")
+
+
+def _scope_mentions_git_object_store(scope_paths: Sequence[str]) -> bool:
+    scope_text = _bash_other_scope_text(scope_paths).lower()
+    if not scope_text:
+        return False
+    return any(marker in scope_text for marker in GIT_OBJECT_STORE_SCOPE_MARKERS)
+
+
+def _host_filesystem_find_scope_resolution(
+    repo_root: Path,
+    scope_paths: Sequence[str],
+) -> dict[str, Any] | None:
+    scope_text = _bash_other_scope_text(scope_paths)
+    if not scope_text:
+        return None
+    lowered = scope_text.lower()
+    cloud_terms = [
+        term for term in HOST_FILESYSTEM_CLOUD_DRIVE_TERMS if term in lowered
+    ]
+    scope_markers = [
+        marker for marker in HOST_FILESYSTEM_SCOPE_MARKERS if marker in lowered
+    ]
+    tokens = [
+        token.strip().strip("'\"`;,()")
+        for token in re.split(r"\s+", scope_text)
+        if token.strip().strip("'\"`;,()")
+    ]
+    home = Path.home()
+    repo = repo_root.resolve()
+    host_roots: list[str] = []
+    for token in tokens:
+        expanded = token
+        if token == "~":
+            expanded = str(home)
+        elif token.startswith("~/"):
+            expanded = str(home / token[2:])
+        elif token.startswith("$HOME/"):
+            expanded = str(home / token[len("$HOME/") :])
+        elif token == "$HOME":
+            expanded = str(home)
+        if not expanded.startswith("/"):
+            continue
+        path = Path(expanded).resolve()
+        try:
+            path.relative_to(repo)
+            continue
+        except ValueError:
+            pass
+        root = str(path)
+        if root not in host_roots:
+            host_roots.append(root)
+    if not host_roots and not cloud_terms and not scope_markers:
+        return None
+    rare_terms: list[str] = []
+    for token in tokens:
+        cleaned = token.strip("*[]{}").replace("\\ ", " ")
+        lowered_token = cleaned.lower().strip("-/")
+        if not lowered_token or lowered_token in HOST_FILESYSTEM_FIND_SKIP_TERMS:
+            continue
+        if lowered_token.isdigit():
+            continue
+        if any(char in cleaned for char in HOST_FILESYSTEM_SHELL_TOKEN_CHARS):
+            continue
+        if not any(char.isalnum() for char in cleaned):
+            continue
+        if cleaned.startswith("-") or cleaned.startswith("/"):
+            continue
+        if lowered_token in {"google", "drive"} and any(
+            term in cloud_terms for term in {"google drive", "googledrive", "google-drive"}
+        ):
+            continue
+        if cleaned not in rare_terms:
+            rare_terms.append(cleaned)
+    return {
+        "status": "host_filesystem_scope",
+        "scope_paths": list(_scope_paths(scope_paths)),
+        "host_roots": host_roots[:4],
+        "host_roots_omitted": max(0, len(host_roots) - 4),
+        "matched_cloud_terms": cloud_terms,
+        "matched_scope_markers": scope_markers,
+        "rare_terms": rare_terms[:5],
+        "privacy": {
+            "stores_file_contents": False,
+            "stores_stdout_stderr_bodies": False,
+            "scope_matching": "scope_text_only_no_host_walk",
+        },
+    }
+
+
+def _host_filesystem_find_predicate(terms: Sequence[str]) -> str:
+    predicates = [f"-iname {shlex.quote(f'*{term}*')}" for term in terms[:4]]
+    if not predicates:
+        predicates = ["-iname '*'"]
+    if len(predicates) == 1:
+        return predicates[0]
+    return r"\( " + " -o ".join(predicates) + r" \)"
+
+
+def _quote_git_object_store_status(
+    repo_root: Path,
+    scope_paths: Sequence[str],
+) -> dict[str, Any]:
+    scope_text = _bash_other_scope_text(scope_paths).lower()
+    bounded_size_fallback = (
+        "objects_dir=$(git rev-parse --git-path objects) && "
+        "find \"$objects_dir\" -type f -path '*/??/*' "
+        "-exec stat -f '%z %N' {} + | sort -nr | head -40"
+    )
+    return {
+        "freshness": "live_git_object_store_status_on_invocation",
+        "drilldown_command": (
+            "./repo-python tools/meta/control/git_gc_maintenance.py --tmp-object-status"
+        ),
+        "do_not_touch": [
+            {
+                "lane": "raw_git_object_find_scan",
+                "reason": (
+                    "Raw find/stat/sort scans over .git/objects pay object-store traversal "
+                    "cost before checking whether the Git maintenance owner already has the needed status."
+                ),
+                "avoid": (
+                    "find .git/objects -type f -path '.git/objects/??/*' "
+                    "-exec stat -f '%z %N' {} + | sort -nr | head -40"
+                ),
+                "replacement": (
+                    "./repo-python tools/meta/control/git_gc_maintenance.py --tmp-object-status"
+                ),
+            },
+            {
+                "lane": "generic_artifact_inventory_for_git_objects",
+                "reason": (
+                    ".git/objects is a Git maintenance surface, not a repo artifact "
+                    "inventory surface; generic artifact inventory prunes it by design."
+                ),
+                "replacement": "./repo-python tools/meta/control/git_gc_maintenance.py --check",
+            },
+        ],
+        "current_status": "git_object_store_scope_detected",
+        "recommendation": "use_git_maintenance_status_before_raw_object_find",
+        "suggested_command": (
+            "./repo-python tools/meta/control/git_gc_maintenance.py --tmp-object-status"
+        ),
+        "replacement_command": (
+            "./repo-python tools/meta/control/git_gc_maintenance.py --tmp-object-status"
+        ),
+        "status_command": GIT_MAINTENANCE_CHECK_COMMAND,
+        "repair_command": GIT_MAINTENANCE_REPAIR_COMMAND,
+        "prune_candidate_status_command": (
+            "./repo-python tools/meta/control/git_gc_maintenance.py --prune-candidate-status"
+        ),
+        "object_dir_command": "git rev-parse --git-path objects",
+        "bounded_size_fallback_command": bounded_size_fallback,
+        "scope_resolution": {
+            "status": "git_object_store_scope",
+            "scope_paths": list(_scope_paths(scope_paths)),
+            "matched_markers": [
+                marker
+                for marker in GIT_OBJECT_STORE_SCOPE_MARKERS
+                if marker in scope_text
+            ],
+            "privacy": {
+                "stores_file_contents": False,
+                "stores_stdout_stderr_bodies": False,
+                "scope_matching": "scope_text_only_no_git_object_walk",
+            },
+        },
+        "output_economy": {
+            "default_profile": "git_maintenance_status_first",
+            "emits_git_object_contents": False,
+            "avoids_repo_artifact_inventory": True,
+            "avoids_raw_object_store_walk": True,
+            "bounded_size_fallback_is_last_resort": True,
+        },
+        "source": {
+            "privacy": "scope_metadata_only_no_git_object_walk_no_stdout_stderr_bodies",
+            "process_hint": "replace_git_object_find_scan_with_git_gc_maintenance_status",
+            "repo_root": str(repo_root),
+        },
+    }
+
+
+def _quote_host_filesystem_discovery(
+    repo_root: Path,
+    scope_paths: Sequence[str],
+) -> dict[str, Any]:
+    resolution = _host_filesystem_find_scope_resolution(repo_root, scope_paths) or {
+        "status": "host_filesystem_scope",
+        "scope_paths": list(_scope_paths(scope_paths)),
+        "host_roots": [],
+        "matched_cloud_terms": [],
+        "rare_terms": [],
+        "privacy": {
+            "stores_file_contents": False,
+            "stores_stdout_stderr_bodies": False,
+            "scope_matching": "scope_text_only_no_host_walk",
+        },
+    }
+    cloud_terms = _as_list(resolution.get("matched_cloud_terms"))
+    rare_terms = [str(term) for term in _as_list(resolution.get("rare_terms"))]
+    if any(term in {"google drive", "googledrive", "google-drive"} for term in cloud_terms):
+        spotlight_query = (
+            "kMDItemFSName == '*Google Drive*'cdw || "
+            "kMDItemFSName == '*GoogleDrive*'cdw || "
+            "kMDItemFSName == '*googledrive*'cdw"
+        )
+        suggested = f"mdfind -onlyin \"$HOME\" {shlex.quote(spotlight_query)} | head -20"
+        bounded_find = (
+            "find \"$HOME\" -maxdepth 3 "
+            r"\( -iname '*Google Drive*' -o -iname '*GoogleDrive*' -o "
+            r"-iname '*googledrive*' \) -print -quit"
+        )
+    else:
+        terms = rare_terms or ["<name-fragment>"]
+        predicate = _host_filesystem_find_predicate(terms)
+        bounded_find = f"find \"$HOME\" -maxdepth 3 {predicate} -print -quit"
+        suggested = bounded_find
+    return {
+        "freshness": "live_scope_classification",
+        "drilldown_command": suggested,
+        "do_not_touch": [
+            {
+                "lane": "broad_home_find_scan",
+                "reason": "Broad host find scans over /Users or $HOME are slow and usually only need the first matching directory.",
+                "replacement": suggested,
+            },
+            {
+                "lane": "repo_artifact_inventory_for_host_path",
+                "reason": "Host filesystem targets such as cloud-drive folders are outside the repo artifact inventory authority.",
+                "replacement": suggested,
+            },
+        ],
+        "current_status": "host_filesystem_scope_detected",
+        "recommendation": "use_spotlight_or_single_result_bounded_find",
+        "suggested_command": suggested,
+        "replacement_command": suggested,
+        "bounded_find_fallback_command": bounded_find,
+        "scope_resolution": resolution,
+        "output_economy": {
+            "default_profile": "host_metadata_command_shape_only",
+            "emits_host_file_contents": False,
+            "avoids_repo_artifact_inventory": True,
+            "fallback_prints_first_match_only": True,
+        },
+        "source": {
+            "privacy": "scope_metadata_only_no_host_walk_no_stdout_stderr_bodies",
+            "process_hint": "replace_broad_host_find_scan_with_spotlight_or_single_result_find",
+        },
+    }
+
+
+def _quote_bash_other_economy(
+    repo_root: Path,
+    scope_paths: Sequence[str] = (),
+    *,
+    full: bool = False,
+) -> dict[str, Any]:
+    routed_action_id, reason = _bash_other_scope_route(scope_paths)
+    if routed_action_id == "git_state_snapshot_status":
+        detail = _quote_git_state_snapshot_status(repo_root)
+    elif routed_action_id == "task_ledger_rebuild_status":
+        detail = _quote_task_ledger_rebuild_status(repo_root)
+    elif routed_action_id == "process_summary_status":
+        detail = _quote_process_summary_status(repo_root, scope_paths)
+    elif routed_action_id == "destructive_shell_guard":
+        detail = _quote_destructive_shell_guard(repo_root, scope_paths)
+    elif routed_action_id == "session_yield_request":
+        detail = _quote_session_yield_request(repo_root)
+        raw_scope = _bash_other_scope_text(scope_paths)
+        detail = {
+            **detail,
+            "raw_command_scope": raw_scope,
+            "process_control_class": "raw_process_signal",
+            "do_not_touch": [
+                {
+                    "lane": "raw_kill_first_contact",
+                    "reason": (
+                        "Raw process signals can terminate another owner session or helper "
+                        "without a visible yield/result receipt."
+                    ),
+                    "avoid": raw_scope or "kill <pid>",
+                    "replacement": detail.get("suggested_command"),
+                },
+                {
+                    "lane": "unknown_owner_process_signal",
+                    "reason": (
+                        "Process pressure is coordinated through Work Ledger yield and "
+                        "resident-relief receipts before any manual signal is considered."
+                    ),
+                    "replacement": detail.get("suggested_command"),
+                },
+            ],
+        }
+    elif routed_action_id == "artifact_discovery_inventory":
+        scope_paths = _bash_other_artifact_scope_paths(repo_root, scope_paths)
+        detail = _quote_artifact_discovery_inventory(repo_root, scope_paths, full=full)
+    elif routed_action_id == "document_read_economy":
+        detail = _quote_document_read_economy(repo_root, scope_paths)
+    else:
+        detail = _quote_command_surface_inventory(repo_root, scope_paths, full=full)
+    routed_quote_command = (
+        f"./repo-python tools/meta/control/action_quote.py --action {routed_action_id}"
+    )
+    if scope_paths:
+        routed_quote_command += "".join(
+            f" --scope {shlex.quote(scope)}" for scope in _scope_paths(scope_paths)
+        )
+    return {
+        **detail,
+        "current_status": f"routed_to_{routed_action_id}",
+        "recommendation": "use_scope_classified_bash_owner_route",
+        "freshness": detail.get("freshness") or "live_scope_classification",
+        "authority_level": detail.get("authority_level") or "scope_classified_owner_route",
+        "routed_action_id": routed_action_id,
+        "route_reason": reason,
+        "routed_quote_command": routed_quote_command,
+        "scope_classification": {
+            "status": "classified",
+            "route_reason": reason,
+            "scope_paths": _scope_paths(scope_paths),
+            "fallback_action_id": "command_surface_inventory",
+            "privacy": {
+                "stores_file_contents": False,
+                "stores_stdout_stderr_bodies": False,
+            },
+        },
+        "do_not_touch": [
+            {
+                "lane": "unclassified_bash_output_without_owner_quote",
+                "reason": (
+                    "Trace data shows output-heavy bash often has a cheaper owner route; "
+                    "classify the scope through bash_other before opening raw bodies."
+                ),
+                "replacement": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action bash_other --scope <path-or-owner>"
+                ),
+            },
+            *_as_list(detail.get("do_not_touch")),
+        ],
+        "output_economy": {
+            **_as_mapping(detail.get("output_economy")),
+            "scope_classified_bash_other": True,
+            "routed_action_id": routed_action_id,
+        },
+    }
+
+
 def _artifact_discovery_existing_scope_roots(repo_root: Path, scope_paths: Sequence[str]) -> list[str]:
     selected: list[str] = []
     seen: set[str] = set()
@@ -7006,6 +8348,32 @@ def _artifact_discovery_term_variants(term: str) -> list[str]:
     return variants
 
 
+def _artifact_discovery_runtime_timestamp_terms(terms: Sequence[str]) -> list[str]:
+    timestamp_terms: list[str] = []
+    seen: set[str] = set()
+    for raw in terms:
+        term = str(raw).strip().lower()
+        if not term or term in seen:
+            continue
+        if not re.search(r"(?:^|[^0-9])20\d{6}t\d{4,6}z?", term):
+            continue
+        seen.add(term)
+        timestamp_terms.append(term)
+    return timestamp_terms
+
+
+def _artifact_discovery_runtime_metadata_fallback_command(terms: Sequence[str]) -> str:
+    timestamp_terms = _artifact_discovery_runtime_timestamp_terms(terms)
+    if not timestamp_terms:
+        return ""
+    roots = " ".join(
+        shlex.quote(root)
+        for root in ARTIFACT_DISCOVERY_RUNTIME_METADATA_FALLBACK_ROOTS
+    )
+    query = "|".join(re.escape(term) for term in timestamp_terms)
+    return f"rg --files {roots} | rg -i {shlex.quote(query)}"
+
+
 def _artifact_discovery_workspace_filename_terms(terms: Sequence[str]) -> list[str]:
     cleaned_terms = [
         str(term).strip().lower()
@@ -7055,6 +8423,15 @@ def _artifact_discovery_roots(
 
 def _prioritize_artifact_discovery_roots(roots: Sequence[str], terms: Sequence[str]) -> list[str]:
     term_set = {str(term).lower() for term in terms}
+    dissemination_builder_markers = (
+        "build_microcosm_public_site",
+        "microcosm_public_site",
+        "public_site",
+        "site_packet",
+        "site-packet",
+        "content_graph",
+        "content-graph",
+    )
     code_terms = {
         "action",
         "action_quote",
@@ -7102,11 +8479,24 @@ def _prioritize_artifact_discovery_roots(roots: Sequence[str], terms: Sequence[s
     named_code_surface_match = bool(term_set & code_terms) or any(
         marker in term for term in term_set for marker in code_markers
     )
+    dissemination_builder_match = any(
+        marker in term for term in term_set for marker in dissemination_builder_markers
+    )
     code_shape_term_match = any(
         bool(re.search(r"[a-z][a-z0-9]+_[a-z0-9_]+", term))
         for term in term_set
     )
-    if term_set & market_terms:
+    if dissemination_builder_match:
+        priority_roots = [
+            "tools/meta/dissemination",
+            "docs/dissemination",
+            "sites/microcosm",
+            "tools/meta",
+            "docs",
+            "microcosm-substrate/atlas",
+            "microcosm-substrate/core",
+        ]
+    elif term_set & market_terms:
         priority_roots = [
             "state/reports/market_feeds",
             "tools/polymarket",
@@ -7253,6 +8643,61 @@ def _content_metadata_match(path: Path, terms: Sequence[str]) -> dict[str, Any] 
     }
 
 
+def _artifact_discovery_known_owner_hits(
+    repo_root: Path,
+    terms: Sequence[str],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    matched_keys = [
+        key for key in ARTIFACT_DISCOVERY_KNOWN_CONTENT_OWNER_HINTS if key in set(terms)
+    ]
+    if not matched_keys:
+        return [], []
+    rows: list[dict[str, Any]] = []
+    for key in matched_keys:
+        for rel_text in ARTIFACT_DISCOVERY_KNOWN_CONTENT_OWNER_HINTS[key]:
+            path = repo_root / rel_text
+            if not path.exists():
+                continue
+            content_match = _content_metadata_match(path, [key])
+            if not content_match or content_match.get("skipped"):
+                continue
+            rows.append(
+                {
+                    "path": rel_text,
+                    "root": _artifact_discovery_root_for_rel_path(rel_text),
+                    "size_bytes": content_match.get("size_bytes"),
+                    "suffix": path.suffix or "<none>",
+                    "matched_terms": content_match.get("matched_terms") or [],
+                    "match_kind": "content_metadata",
+                    "match_count": content_match.get("match_count"),
+                    "line_numbers_preview": content_match.get("line_numbers_preview") or [],
+                    "surface_hint": "curated_artifact_known_owner_hint_no_body",
+                }
+            )
+    return rows, matched_keys
+
+
+def _artifact_discovery_root_for_rel_path(rel_text: str) -> str:
+    best_root = ""
+    for root in ARTIFACT_DISCOVERY_ROOTS:
+        if rel_text == root or rel_text.startswith(f"{root}/"):
+            if len(root) > len(best_root):
+                best_root = root
+    return best_root or rel_text.split("/", 1)[0]
+
+
+def _artifact_discovery_known_owner_short_circuit(
+    terms: Sequence[str],
+    matched_keys: Sequence[str],
+) -> bool:
+    if not matched_keys:
+        return False
+    owner_terms = set()
+    for key in matched_keys:
+        owner_terms.update(_artifact_discovery_term_variants(key))
+    return set(terms).issubset(owner_terms)
+
+
 def _artifact_discovery_row_rank(row: Mapping[str, Any], terms: Sequence[str]) -> tuple[int, int, str]:
     path = str(row.get("path") or "")
     path_obj = Path(path)
@@ -7387,6 +8832,83 @@ def _iter_artifact_discovery_inventory(
     workspace_scope_skipped_after_curated_match_count = 0
     pruned_directory_count = [0]
     seen_rel_paths: set[str] = set()
+    known_owner_rows, known_owner_keys = _artifact_discovery_known_owner_hits(
+        repo_root,
+        terms,
+    )
+    known_owner_short_circuit = (
+        not path_scope_only
+        and bool(known_owner_rows)
+        and _artifact_discovery_known_owner_short_circuit(terms, known_owner_keys)
+    )
+    for row in known_owner_rows:
+        rel_text = str(row.get("path") or "")
+        if not rel_text or rel_text in seen_rel_paths:
+            continue
+        seen_rel_paths.add(rel_text)
+        rows.append(row)
+        content_scanned_count += 1
+        content_matched_count += 1
+        root_text = str(row.get("root") or "")
+        suffix = str(row.get("suffix") or "<none>")
+        if root_text:
+            root_counts[root_text] = root_counts.get(root_text, 0) + 1
+        suffix_counts[suffix] = suffix_counts.get(suffix, 0) + 1
+
+    if known_owner_short_circuit:
+        rows = sorted(rows, key=lambda row: _artifact_discovery_row_rank(row, terms))[:limit]
+        matched_total_count = content_matched_count
+        summary = {
+            "roots": roots,
+            "root_count": len(roots),
+            "selected_scope_roots": selected_scope_roots,
+            "workspace_scope_roots": workspace_scope_roots,
+            "path_scope_mode": "term_only",
+            "missing_roots": missing_roots,
+            "match_terms": terms,
+            "scanned_path_count": len(seen_rel_paths),
+            "matched_path_count": 0,
+            "matched_content_path_count": content_matched_count,
+            "matched_total_count": matched_total_count,
+            "emitted_count": len(rows),
+            "rows_omitted_count": max(matched_total_count - len(rows), 0),
+            "truncated": matched_total_count > len(rows),
+            "limit": limit,
+            "row_output_policy": "compact_default_metadata_rows",
+            "scan_policy": "known_owner_content_metadata_no_body",
+            "scan_budget_ms": ARTIFACT_DISCOVERY_SCAN_BUDGET_MS,
+            "content_budget_ms": ARTIFACT_DISCOVERY_CONTENT_BUDGET_MS,
+            "scan_wall_ms": round((time.perf_counter() - started) * 1000.0),
+            "scan_truncated_by_time_budget": False,
+            "filename_match_short_circuit": False,
+            "filename_match_short_circuit_terms": short_circuit_filename_terms,
+            "known_owner_hint_short_circuit": True,
+            "known_owner_hint_keys": known_owner_keys,
+            "known_owner_hint_count": len(rows),
+            "selected_scope_duplicate_skip_count": selected_scope_duplicate_skip_count,
+            "workspace_scope_skipped_after_curated_match_count": workspace_scope_skipped_after_curated_match_count,
+            "duplicate_path_skip_count": duplicate_path_skip_count,
+            "pruned_path_count": 0,
+            "pruned_file_count": 0,
+            "pruned_directory_count": 0,
+            "raw_body_prune_dir_count": len(ARTIFACT_DISCOVERY_PRUNE_DIRS),
+            "content_metadata": {
+                "status": "known_owner_hint_short_circuit",
+                "emits_file_bodies": False,
+                "scanned_path_count": content_scanned_count,
+                "skipped_size_limit_count": 0,
+                "skipped_suffix_count": 0,
+                "skipped_time_budget_count": 0,
+                "suffixes": sorted(ARTIFACT_DISCOVERY_CONTENT_SUFFIXES),
+                "max_file_bytes": ARTIFACT_DISCOVERY_CONTENT_MAX_BYTES,
+                "budget_ms": ARTIFACT_DISCOVERY_CONTENT_BUDGET_MS,
+                "line_number_preview_limit": ARTIFACT_DISCOVERY_CONTENT_LINE_PREVIEW_LIMIT,
+            },
+            "root_counts": dict(sorted(root_counts.items())),
+            "suffix_counts": dict(sorted(suffix_counts.items())),
+            "raw_body_prune_dirs": sorted(ARTIFACT_DISCOVERY_PRUNE_DIRS),
+        }
+        return rows, summary
 
     for root_text in roots:
         if time.perf_counter() > scan_deadline:
@@ -7547,6 +9069,9 @@ def _iter_artifact_discovery_inventory(
         "scan_truncated_by_time_budget": scan_truncated_by_time_budget,
         "filename_match_short_circuit": filename_match_short_circuit,
         "filename_match_short_circuit_terms": short_circuit_filename_terms,
+        "known_owner_hint_short_circuit": False,
+        "known_owner_hint_keys": known_owner_keys,
+        "known_owner_hint_count": len(known_owner_rows),
         "selected_scope_duplicate_skip_count": selected_scope_duplicate_skip_count,
         "workspace_scope_skipped_after_curated_match_count": workspace_scope_skipped_after_curated_match_count,
         "duplicate_path_skip_count": duplicate_path_skip_count,
@@ -7567,12 +9092,13 @@ def _artifact_discovery_scope_quality(
     summary: Mapping[str, Any],
 ) -> dict[str, Any]:
     terms = [str(term) for term in _as_list(summary.get("match_terms")) if str(term)]
+    matched_total_count = _nonnegative_int(summary.get("matched_total_count"), default=0)
+    rows_omitted_count = _nonnegative_int(summary.get("rows_omitted_count"), default=0)
+    scan_truncated = bool(summary.get("scan_truncated_by_time_budget"))
     high_volume = (
-        _nonnegative_int(summary.get("matched_total_count"), default=0)
-        > max(ARTIFACT_DISCOVERY_DEFAULT_ROW_LIMIT * 4, 100)
-        or _nonnegative_int(summary.get("rows_omitted_count"), default=0)
-        > ARTIFACT_DISCOVERY_DEFAULT_ROW_LIMIT * 2
-        or bool(summary.get("scan_truncated_by_time_budget"))
+        matched_total_count > max(ARTIFACT_DISCOVERY_DEFAULT_ROW_LIMIT * 4, 100)
+        or rows_omitted_count > ARTIFACT_DISCOVERY_DEFAULT_ROW_LIMIT * 2
+        or (scan_truncated and matched_total_count > ARTIFACT_DISCOVERY_DEFAULT_ROW_LIMIT)
     )
     if not high_volume or len(terms) < 3:
         return {
@@ -7584,20 +9110,7 @@ def _artifact_discovery_scope_quality(
     common_terms = [
         term for term in terms if term.lower() in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS
     ]
-    rare_terms: list[str] = []
-    for term in terms:
-        normalized = term.lower()
-        if normalized in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS:
-            continue
-        if "_" in term and term not in rare_terms:
-            rare_terms.append(term)
-    for term in terms:
-        normalized = term.lower()
-        if normalized in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS or term in rare_terms:
-            continue
-        if len(term) >= 8 and not any(separator in term for separator in (" ", "-", "/", ".")):
-            rare_terms.append(term)
-    rare_terms = rare_terms[:3]
+    rare_terms = _artifact_discovery_scope_rare_terms(terms)
     if not rare_terms:
         return {
             "status": "broad_scope_no_rare_terms_detected",
@@ -7631,12 +9144,215 @@ def _artifact_discovery_scope_quality(
     }
 
 
+def _artifact_discovery_scope_rare_terms(
+    terms: Sequence[str],
+    *,
+    limit: int = 3,
+) -> list[str]:
+    rare_terms: list[str] = []
+    for term in terms:
+        normalized = str(term).lower()
+        if normalized in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS:
+            continue
+        if normalized in ARTIFACT_DISCOVERY_PROSE_SCOPE_TERMS:
+            continue
+        if "_" in term and term not in rare_terms:
+            rare_terms.append(term)
+    for term in terms:
+        normalized = str(term).lower()
+        if (
+            normalized in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS
+            or normalized in ARTIFACT_DISCOVERY_PROSE_SCOPE_TERMS
+            or term in rare_terms
+        ):
+            continue
+        if len(term) >= 8 and not any(separator in term for separator in (" ", "-", "/", ".")):
+            rare_terms.append(term)
+    return rare_terms[:limit]
+
+
+def _artifact_discovery_scope_preflight_narrowing(
+    repo_root: Path,
+    scope_paths: Sequence[str],
+) -> dict[str, Any] | None:
+    scopes = _scope_paths(scope_paths)
+    if not scopes:
+        return None
+    if _artifact_discovery_existing_scope_roots(repo_root, scopes):
+        return None
+    raw_terms = [
+        token.strip().strip("'\"`;,()")
+        for raw in scopes
+        for token in re.split(r"[^A-Za-z0-9_.-]+", raw)
+        if token.strip().strip("'\"`;,()")
+    ]
+    if len(raw_terms) < 5:
+        return None
+    terms = _artifact_discovery_terms(repo_root, scopes)
+    if len(terms) < 5:
+        return None
+    common_terms = [
+        term for term in terms if term.lower() in ARTIFACT_DISCOVERY_COMMON_SCOPE_TERMS
+    ]
+    prose_terms = [
+        term for term in terms if term.lower() in ARTIFACT_DISCOVERY_PROSE_SCOPE_TERMS
+    ]
+    if not prose_terms and len(common_terms) < 2:
+        return None
+    rare_terms = _artifact_discovery_scope_rare_terms(terms)
+    if not rare_terms:
+        return None
+    narrowed_scope = " ".join(rare_terms)
+    narrowed_terms = set(_artifact_discovery_terms(repo_root, [narrowed_scope]))
+    dropped_terms = [term for term in terms if term not in narrowed_terms]
+    if not dropped_terms:
+        return None
+    narrowed_quote_command = (
+        "./repo-python tools/meta/control/action_quote.py "
+        f"--action artifact_discovery_inventory --scope {shlex.quote(narrowed_scope)}"
+    )
+    narrowed_kernel_command = (
+        f"./repo-python kernel.py --artifact-discovery-inventory {shlex.quote(narrowed_scope)}"
+    )
+    return {
+        "status": "scope_too_broad_narrow_first",
+        "preflight_only": True,
+        "scan_skipped": True,
+        "high_volume": True,
+        "match_term_count": len(terms),
+        "raw_term_count": len(raw_terms),
+        "common_terms": common_terms[:8],
+        "prose_terms": prose_terms[:8],
+        "rare_terms": rare_terms,
+        "dropped_terms": dropped_terms[:12],
+        "narrowed_scope": narrowed_scope,
+        "narrowed_quote_command": narrowed_quote_command,
+        "narrowed_kernel_command": narrowed_kernel_command,
+        "skipped_scan_budget_ms": ARTIFACT_DISCOVERY_SCAN_BUDGET_MS,
+        "skipped_content_budget_ms": ARTIFACT_DISCOVERY_CONTENT_BUDGET_MS,
+    }
+
+
+def _quote_artifact_discovery_scope_preflight(
+    scope_paths: Sequence[str],
+    scope_quality: Mapping[str, Any],
+) -> dict[str, Any]:
+    command_scopes = _scope_paths(scope_paths)
+    term_arg = " ".join(f"--scope {shlex.quote(scope)}" for scope in command_scopes)
+    broad_quote_command = "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory"
+    if term_arg:
+        broad_quote_command = f"{broad_quote_command} {term_arg}"
+    full_profile_command = f"{broad_quote_command} --full"
+    narrowed_quote_command = str(scope_quality.get("narrowed_quote_command") or broad_quote_command)
+    narrowed_kernel_command = str(scope_quality.get("narrowed_kernel_command") or "")
+    rare_terms = [str(term) for term in _as_list(scope_quality.get("rare_terms"))]
+    root_args = " ".join(shlex.quote(root) for root in ARTIFACT_DISCOVERY_ROOTS)
+    query = "|".join(re.escape(term) for term in rare_terms) or "<term>"
+    return {
+        "current_status": "scope_needs_narrowing_before_inventory",
+        "recommendation": "narrow_scope_to_rare_terms_before_inventory",
+        "freshness": "scope_text_preflight",
+        "authority_level": "scope_text_read_model",
+        "drilldown_command": narrowed_quote_command,
+        "suggested_command": narrowed_quote_command,
+        "replacement_command": narrowed_quote_command,
+        "full_profile_command": full_profile_command,
+        "fallback_path_metadata_command": f"rg --files {root_args} | rg {shlex.quote(query)}",
+        "avoid_command_shapes": [
+            "find docs/dissemination state -name '*<term>*' 2>/dev/null | head/tail",
+            "grep -rli '<term>' tools system docs state",
+            "rg -n '<term>' system tools codex docs state before an owner/root is selected",
+            "rg -n '<term>' codex tools when codex/hologram/raw or runtime hook logs can match",
+            "find state/runs -name '*global_polymarket_feed*' | head",
+        ],
+        "do_not_touch": [
+            {
+                "lane": "raw_artifact_find_scan",
+                "reason": "Broad find scans over artifact trees produce path floods and often miss owner indexes.",
+                "replacement": narrowed_quote_command,
+            },
+            {
+                "lane": "raw_recursive_artifact_grep",
+                "reason": "Recursive content grep over docs/state/tool artifacts risks huge output and raw-body exposure.",
+                "replacement": narrowed_quote_command,
+            },
+            {
+                "lane": "raw_hologram_or_runtime_hook_grep",
+                "reason": "Raw hologram and runtime hook observability files can contain copied command bodies and transcript-sized payloads.",
+                "replacement": narrowed_quote_command,
+            },
+        ],
+        "recommended_sequence": [
+            "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+            narrowed_kernel_command,
+            narrowed_quote_command,
+            "Open exact matched paths only when the metadata row is the selected evidence.",
+        ],
+        "scope_guidance": {
+            "first_contact_route": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+            "owner_quote_route": (
+                "./repo-python tools/meta/control/action_quote.py "
+                "--action artifact_discovery_inventory --scope <term-or-root>"
+            ),
+            "use_for": [
+                "path fragment discovery",
+                "root or artifact family discovery",
+                "broad file discovery before recursive find/grep/rg",
+            ],
+            "does_not_replace": [
+                "scoped low-output rg/find after a target file or root is selected",
+                "python symbol/card routes when a code symbol is already known",
+                "full owner content reads after the metadata row is selected",
+            ],
+        },
+        "scope_quality": dict(scope_quality),
+        "inventory": {
+            "privacy": {
+                "stores_file_contents": False,
+                "stores_stdout_stderr_bodies": False,
+                "emits": "scope terms and narrowing commands only; no artifact roots are walked",
+            },
+            "summary": {
+                "scan_policy": "scope_text_preflight_no_walk",
+                "scan_wall_ms": 0,
+                "scan_budget_ms": ARTIFACT_DISCOVERY_SCAN_BUDGET_MS,
+                "content_budget_ms": ARTIFACT_DISCOVERY_CONTENT_BUDGET_MS,
+                "match_terms": list(scope_quality.get("dropped_terms") or []) + rare_terms,
+                "matched_total_count": None,
+                "emitted_count": 0,
+                "rows_omitted_count": 0,
+                "preflight_only": True,
+            },
+        },
+        "output_economy": {
+            "default_profile": "scope_preflight_no_walk",
+            "current_profile": "scope_preflight_no_walk",
+            "skipped_broad_scan_budget_ms": ARTIFACT_DISCOVERY_SCAN_BUDGET_MS,
+            "skipped_content_budget_ms": ARTIFACT_DISCOVERY_CONTENT_BUDGET_MS,
+            "full_inventory_command": full_profile_command,
+            "direct_kernel_inventory_command": narrowed_kernel_command,
+            "broad_quote_command": broad_quote_command,
+        },
+        "source": {
+            "privacy": "scope_text_only_no_artifact_bodies_or_stdout_stderr_bodies",
+            "excluded_high_volume_roots": ["state/runs", "state/observability/renders"],
+        },
+    }
+
+
 def _quote_artifact_discovery_inventory(
     repo_root: Path,
     scope_paths: Sequence[str],
     *,
     full: bool = False,
 ) -> dict[str, Any]:
+    if not full:
+        preflight_narrowing = _artifact_discovery_scope_preflight_narrowing(
+            repo_root,
+            scope_paths,
+        )
+        if preflight_narrowing is not None:
+            return _quote_artifact_discovery_scope_preflight(scope_paths, preflight_narrowing)
     rows, summary = _iter_artifact_discovery_inventory(repo_root, scope_paths)
     command_scopes = _scope_paths(scope_paths) or list(summary["match_terms"])
     term_arg = " ".join(f"--scope {shlex.quote(scope)}" for scope in command_scopes)
@@ -7647,6 +9363,20 @@ def _quote_artifact_discovery_inventory(
     kernel_inventory_command = f"./repo-python kernel.py --artifact-discovery-inventory {kernel_terms}"
     root_args = " ".join(shlex.quote(root) for root in ARTIFACT_DISCOVERY_ROOTS)
     query = "|".join(re.escape(term) for term in summary["match_terms"]) or "<term>"
+    runtime_timestamp_terms = _artifact_discovery_runtime_timestamp_terms(
+        summary["match_terms"]
+    )
+    runtime_metadata_fallback_command = (
+        _artifact_discovery_runtime_metadata_fallback_command(summary["match_terms"])
+    )
+    if runtime_timestamp_terms:
+        summary["runtime_timestamp_scope_terms"] = runtime_timestamp_terms
+        summary["runtime_metadata_fallback_roots"] = list(
+            ARTIFACT_DISCOVERY_RUNTIME_METADATA_FALLBACK_ROOTS
+        )
+        summary["runtime_metadata_fallback_available"] = bool(
+            runtime_metadata_fallback_command
+        )
     scope_quality = _artifact_discovery_scope_quality(summary)
     narrowed_quote_command = str(scope_quality.get("narrowed_quote_command") or "")
     narrowed_kernel_command = str(scope_quality.get("narrowed_kernel_command") or "")
@@ -7738,6 +9468,47 @@ def _quote_artifact_discovery_inventory(
         recommendation = "narrow_scope_to_rare_terms_before_inventory"
     first_inventory_command = narrowed_quote_command or suggested
     first_kernel_inventory_command = narrowed_kernel_command or kernel_inventory_command
+    recommended_sequence = [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        first_kernel_inventory_command,
+        first_inventory_command,
+    ]
+    if runtime_metadata_fallback_command:
+        recommended_sequence.append(runtime_metadata_fallback_command)
+    recommended_sequence.append(
+        "Open exact matched paths only when the metadata row is the selected evidence."
+    )
+    do_not_touch = [
+        {
+            "lane": "raw_artifact_find_scan",
+            "reason": "Broad find scans over artifact trees produce path floods and often miss owner indexes.",
+            "replacement": first_inventory_command,
+        },
+        {
+            "lane": "raw_recursive_artifact_grep",
+            "reason": "Recursive content grep over docs/state/tool artifacts risks huge output and raw-body exposure.",
+            "replacement": first_inventory_command,
+        },
+        {
+            "lane": "raw_hologram_or_runtime_hook_grep",
+            "reason": "Raw hologram and runtime hook observability files can contain copied command bodies and transcript-sized payloads.",
+            "replacement": first_inventory_command,
+        },
+        {
+            "lane": "state_runs_market_feed_scan",
+            "reason": "Historical run artifacts can contain many feed snapshots; use current market/report roots or the market snapshot owner before scanning state/runs.",
+            "replacement": "./repo-python tools/meta/control/market_snapshot.py --help",
+        },
+    ]
+    if runtime_metadata_fallback_command:
+        do_not_touch.insert(
+            0,
+            {
+                "lane": "runtime_timestamp_artifact_find_scan",
+                "reason": "Timestamp-shaped runtime artifact searches should use metadata-only runtime roots before any broad find over / or state trees.",
+                "replacement": runtime_metadata_fallback_command,
+            },
+        )
     return {
         "current_status": current_status,
         "recommendation": recommendation,
@@ -7748,6 +9519,11 @@ def _quote_artifact_discovery_inventory(
         "replacement_command": first_inventory_command,
         "full_profile_command": full_profile_command,
         "fallback_path_metadata_command": f"rg --files {root_args} | rg {shlex.quote(query)}",
+        **(
+            {"runtime_artifact_metadata_fallback_command": runtime_metadata_fallback_command}
+            if runtime_metadata_fallback_command
+            else {}
+        ),
         "avoid_command_shapes": [
             "find docs/dissemination state -name '*<term>*' 2>/dev/null | head/tail",
             "grep -rli '<term>' tools system docs state",
@@ -7755,34 +9531,8 @@ def _quote_artifact_discovery_inventory(
             "rg -n '<term>' codex tools when codex/hologram/raw or runtime hook logs can match",
             "find state/runs -name '*global_polymarket_feed*' | head",
         ],
-        "do_not_touch": [
-            {
-                "lane": "raw_artifact_find_scan",
-                "reason": "Broad find scans over artifact trees produce path floods and often miss owner indexes.",
-                "replacement": first_inventory_command,
-            },
-            {
-                "lane": "raw_recursive_artifact_grep",
-                "reason": "Recursive content grep over docs/state/tool artifacts risks huge output and raw-body exposure.",
-                "replacement": first_inventory_command,
-            },
-            {
-                "lane": "raw_hologram_or_runtime_hook_grep",
-                "reason": "Raw hologram and runtime hook observability files can contain copied command bodies and transcript-sized payloads.",
-                "replacement": first_inventory_command,
-            },
-            {
-                "lane": "state_runs_market_feed_scan",
-                "reason": "Historical run artifacts can contain many feed snapshots; use current market/report roots or the market snapshot owner before scanning state/runs.",
-                "replacement": "./repo-python tools/meta/control/market_snapshot.py --help",
-            },
-        ],
-        "recommended_sequence": [
-            "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
-            first_kernel_inventory_command,
-            first_inventory_command,
-            "Open exact matched paths only when the metadata row is the selected evidence.",
-        ],
+        "do_not_touch": do_not_touch,
+        "recommended_sequence": recommended_sequence,
         "scope_guidance": {
             "first_contact_route": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
             "owner_quote_route": (
@@ -7810,10 +9560,24 @@ def _quote_artifact_discovery_inventory(
             "full_inventory_command": full_profile_command,
             "direct_kernel_inventory_command": first_kernel_inventory_command,
             "broad_kernel_inventory_command": kernel_inventory_command,
+            **(
+                {"runtime_metadata_fallback_command": runtime_metadata_fallback_command}
+                if runtime_metadata_fallback_command
+                else {}
+            ),
         },
         "source": {
             "privacy": "metadata_only_no_artifact_bodies_or_stdout_stderr_bodies",
             "excluded_high_volume_roots": ["state/runs", "state/observability/renders"],
+            **(
+                {
+                    "runtime_metadata_fallback_roots": list(
+                        ARTIFACT_DISCOVERY_RUNTIME_METADATA_FALLBACK_ROOTS
+                    )
+                }
+                if runtime_metadata_fallback_command
+                else {}
+            ),
         },
     }
 
@@ -7878,9 +9642,71 @@ def build_action_quote(
     full: bool = False,
 ) -> dict[str, Any]:
     repo = Path(repo_root).resolve()
+    requested_action_id = str(action_id).strip().lower().replace("-", "_")
     normalized = normalize_action_id(action_id)
     if normalized not in ACTION_CATALOG:
         raise ValueError(f"unknown action_id: {action_id}")
+    if normalized in {
+        "task_ledger_rebuild_status",
+        "kernel_output_economy",
+    } and _scope_mentions_task_ledger_quick_capture(scope_paths):
+        normalized = "task_ledger_quick_capture"
+    if (
+        normalized == "task_ledger_rebuild_status"
+        and requested_action_id in {"repo_tool", "repo_tool_command"}
+        and _scope_mentions_storage_doctor(scope_paths)
+    ):
+        normalized = "storage_doctor_status"
+    if (
+        normalized == "task_ledger_rebuild_status"
+        and requested_action_id in {"repo_tool", "repo_tool_command"}
+        and _scope_mentions_document_read_known_owner_route(repo, scope_paths)
+    ):
+        normalized = "document_read_economy"
+    if normalized == "document_read_economy" and requested_action_id == "bash_cat":
+        routed_action_id, _reason = _bash_other_scope_route(scope_paths)
+        if routed_action_id in {"git_state_snapshot_status", "process_summary_status"}:
+            normalized = "bash_other_economy"
+    if (
+        normalized == "artifact_discovery_inventory"
+        and requested_action_id in HOST_FILESYSTEM_FIND_ALIASES
+        and _scope_mentions_git_object_store(scope_paths)
+    ):
+        normalized = "git_object_store_status"
+    if (
+        normalized == "artifact_discovery_inventory"
+        and requested_action_id in HOST_FILESYSTEM_FIND_ALIASES
+        and _host_filesystem_find_scope_resolution(repo, scope_paths) is not None
+    ):
+        normalized = "host_filesystem_discovery"
+    shell_search_aliases = {
+        "bash_find",
+        "bash_grep",
+        "find",
+        "grep",
+        "raw_find",
+        "raw_grep",
+        "raw_rg",
+        "recursive_grep",
+        "repo_grep",
+        "repo_search",
+        "rg",
+        "rg_search",
+        "ripgrep",
+        "text_search",
+    }
+    if normalized == "artifact_discovery_inventory" and requested_action_id in shell_search_aliases:
+        routed_action_id, _route_reason = _bash_other_scope_route(scope_paths)
+        if routed_action_id == "process_summary_status":
+            normalized = "bash_other_economy"
+    command_scope_resolution = _command_surface_scope_resolution(repo, scope_paths, full=full)
+    if (
+        normalized == "artifact_discovery_inventory"
+        and requested_action_id in shell_search_aliases
+        and command_scope_resolution is not None
+        and command_scope_resolution.get("status") == "scoped_kernel_surface"
+    ):
+        normalized = "command_surface_inventory"
     base = ACTION_CATALOG[normalized]
     pre_admission: dict[str, Any] | None = None
     if include_host_pressure and normalized == "latency_seed_preflight":
@@ -7928,6 +9754,8 @@ def build_action_quote(
         detail = _quote_task_ledger_rebuild_status(repo)
     elif normalized == "task_ledger_quick_capture":
         detail = _quote_task_ledger_quick_capture(repo)
+    elif normalized == "storage_doctor_status":
+        detail = _quote_storage_doctor_status(repo)
     elif normalized == "process_bottleneck_triage":
         detail = _quote_process_bottleneck_triage(
             repo,
@@ -7936,6 +9764,8 @@ def build_action_quote(
         )
     elif normalized == "process_summary_status":
         detail = _quote_process_summary_status(repo, scope_paths)
+    elif normalized == "destructive_shell_guard":
+        detail = _quote_destructive_shell_guard(repo, scope_paths)
     elif normalized == "document_read_economy":
         detail = _quote_document_read_economy(repo, scope_paths)
     elif normalized == "kernel_output_economy":
@@ -7964,10 +9794,18 @@ def build_action_quote(
         detail = _quote_session_yield_request(repo)
     elif normalized == "session_yield_result":
         detail = _quote_session_yield_result(repo)
+    elif normalized == "bash_other_economy":
+        detail = _quote_bash_other_economy(repo, scope_paths, full=full)
     elif normalized == "command_surface_inventory":
         detail = _quote_command_surface_inventory(repo, scope_paths, full=full)
     elif normalized == "artifact_discovery_inventory":
+        if requested_action_id in HOST_FILESYSTEM_FIND_ALIASES:
+            scope_paths = _bash_other_artifact_scope_paths(repo, scope_paths)
         detail = _quote_artifact_discovery_inventory(repo, scope_paths, full=full)
+    elif normalized == "git_object_store_status":
+        detail = _quote_git_object_store_status(repo, scope_paths)
+    elif normalized == "host_filesystem_discovery":
+        detail = _quote_host_filesystem_discovery(repo, scope_paths)
     elif normalized == "git_state_snapshot_status":
         detail = _quote_git_state_snapshot_status(repo)
     elif normalized == "git_diff_review_context":

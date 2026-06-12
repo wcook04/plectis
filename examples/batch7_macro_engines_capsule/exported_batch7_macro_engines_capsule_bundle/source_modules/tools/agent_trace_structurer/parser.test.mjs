@@ -1247,3 +1247,136 @@ test('accepts commit evidence when git show diff carries exact plus minus substr
   assert.equal(claim.substrate_diff_contract.source, 'inline_git_diff_patch');
   assert.equal(claim.commit_evidence.commit_diff_missing, false);
 });
+
+test('counts FINAL_DELTA as substrate proof but not EDIT_EVENT_LOG previews', () => {
+  const text = [
+    'TRACE CAPSULE v3',
+    'window: full_thread',
+    'coverage: commands=4 outputs=4 edits=1 substrate_diff=exact_hunks_attached substrate_diff_required=true commit_diff_missing=false final_delta_attached=true edit_event_log_attached=true',
+    '',
+    'Commit: abc1234 Add trace state model',
+    '',
+    'FINAL_DELTA',
+    'final_delta_summary: attached=true state=git_show_commit_attached source=git_show_commit commit=abc1234 paths=1 lines=5 omitted_lines=0 reason=attached',
+    'diff_authority: final_substrate_delta patch_attempts_are_not_final_state=true final_substrate_delta_attached=true',
+    'commit abc1234',
+    'diff --git a/tools/agent_trace_structurer/app.mjs b/tools/agent_trace_structurer/app.mjs',
+    '@@ -1,2 +1,3 @@',
+    '-const oldState = true;',
+    '+const runtimeState = "finished";',
+    '',
+    'EDIT_EVENT_LOG',
+    'edit_event_log_summary: files=1 rows=1 additions=+1 deletions=-1 source=tool_edit_events chronology_only=true patch_attempts_are_not_final_state=true',
+    'D001 tools/agent_trace_structurer/app.mjs +1 -1',
+    '@@ edit 1',
+    '- | draft old state',
+    '+ | draft new state',
+  ].join('\n');
+
+  const packet = parseAgentTrace(text, 'final-delta-edit-event-log.txt', '2026-06-09T08:45:00Z');
+  const claim = packet.handoff_view.edit_claim;
+
+  assert.equal(claim.commit_evidence.hash, 'abc1234');
+  assert.equal(claim.diff_state.state, 'exact_plus_minus_attached');
+  assert.equal(claim.substrate_diff_contract.source, 'inline_git_diff_patch');
+  assert.equal(claim.substrate_diff_contract.inline_substrate_diff_rows.length, 4);
+  assert.equal(claim.commit_evidence.commit_diff_missing, false);
+  assert.equal(
+    claim.substrate_diff_contract.inline_substrate_diff_rows.some((row) => row.text.includes('draft new state')),
+    false,
+  );
+});
+
+test('projects trace capsule assurance receipts for downstream readers', () => {
+  const text = [
+    'TRACE CAPSULE v3',
+    'title: Fix latest response bundle',
+    'raw_title: 2',
+    'title_authority_warning: ordinal_title_not_semantic raw=2 source=title_numeric_token',
+    'trace_scope: copy_scope=selected_turn thread_totality=selected_turn_only full_thread_available=true selected_window_only=true',
+    'latest_selection: selected_turn=2 selected_is_thread_tail=true selected_is_latest_completed_response=true latest_prompt_pending_response=false',
+    'copy_readiness_vector: overall=amber scope=amber final_delta=amber latest_selection=green claim_source_map=green sidecar_portability=amber global_none_claims=green budget=green',
+    '',
+    'TRACE_CUT_RECEIPT',
+    'trace_cut_receipt_summary: cut_id=cut123 requested=selected_turn resolved=selected_turn recommended_scope=full_thread consistency=scope_deficit_full_thread_available full_thread_available=true selected_window_only=true',
+    '',
+    'LATEST_SELECTION_RECEIPT',
+    'latest_selection_receipt_summary: selected_turn=2 selected_window=2-2 selected_count=1 candidate_set_source=full_thread_trace_window candidate_set=1-2 candidate_count=2 selected_is_thread_tail=true selected_is_latest_completed_response=true',
+    'latest_selection_ordering: keys=session_jsonl_order,turn_index,completed_at ambiguity_override_used=false reparse_before_copy=true watermark=wm123',
+    'latest_selection_defeaters: active=none latest_prompt_pending_response=false',
+    '',
+    'TRACE_PROVENANCE_ATTESTATION',
+    'trace_provenance_attestation_summary: subject=trace_capsule_text schema=trace_capsule_v3 subject_sha16=artifact_envelope_subject subject_hash_mode=artifact_envelope_after_write builder=tools/meta/observability/cli_prompt_trace.py repo_head=abc123 materials=provider_session',
+    '',
+    'TITLE_AUTHORITY',
+    'title_authority: raw_title="2" display_title="Fix latest response bundle" display_title_source=current_turn_prompt_title warning=ordinal_title_not_semantic title_confidence=medium',
+    '',
+    'CLAIM_SOURCE_MAP',
+    'claim_source_map_summary: rows=1 covered_summary_claims=status uncovered=none',
+    'CSM001 claim=status value="selected_turn_complete" scope=selected_turn evidence=EV.turn_completion_state,EV.trace_scope cannot_prove=none render_policy=scope_qualified',
+    '',
+    'EVIDENCE_NODE_GRAPH',
+    'evidence_node_graph_summary: nodes=3 locator_rule="locators_name_trace_sections_or_receipts; query_regex_never_goes_in_path_field"',
+    'EV.latest_selection_receipt kind=receipt status=present locator="LATEST_SELECTION_RECEIPT selected_turn=2" sufficient_for=latest_identity insufficient_for=full_thread_context',
+    '',
+    'DEFEATER_REGISTER',
+    'defeater_register_summary: rows=2 active=1 active_defeaters=DTR.scope_deficit',
+    'DTR.scope_deficit status=active threatens=CLM.global_absence_guard,CLM.full_context evidence=EV.trace_scope mitigation="global none claims blocked"',
+    '',
+    'ASSURANCE_CASE_GRAPH',
+    'assurance_case_graph_summary: claims=2 warrant_model=toulmin_lightweight_claim_ground_warrant_backing_defeater',
+    'CLM.latest_selection status=supported portable=true claim="selected response is latest completed tail response" grounds=EV.latest_selection_receipt,EV.turn_completion_state backing=TRACE_CUT_RECEIPT,LATEST_SELECTION_RECEIPT defeaters=none warrant="ordering keys prove tail"',
+    '',
+    'TRACE_SELF_PARSE_RECEIPT',
+    'trace_self_parse_receipt_summary: status=producer_pass_downstream_pending parser=producer_structural_self_check+downstream_contract producer_structural_self_check=pass downstream_parser_mjs_roundtrip=pending_artifact_write ui_ingest_contract_parse=not_run native_receipt_parse=pending_parser_projection scope=selected_turn status_label=selected_turn_complete final_delta_attached=false edit_event_log_attached=false claim_source_map_complete=true',
+    '',
+    'BUDGET_SOLVER_PROOF_SET',
+    'budget_solver_summary: proof_set_before_route_context=true minimum_proofs=TRACE_CUT_RECEIPT,LATEST_SELECTION_RECEIPT,SOURCE_CONTEXT_DEMAND,SOURCE_SLICE_REQUESTS,SOURCE_CONTEXT_DEFICIT proof_obligations_total=11 proof_obligations_embedded=11 proof_obligations_sidecar_only=0 proof_obligations_missing=0 source_excerpts=1 omitted=0 budget_regret_high=0 budget_regret_medium=0 top_omitted_decision_refs=none practical_budget=~150KB',
+    '',
+    'SOURCE_CONTEXT_DEMAND',
+    'source_context_demand_summary: state=required_by_type_b_decision satisfaction=unsatisfied consumer=type_b_continue reasons=operator_requested_exact_code,private_repo_inaccessible_to_type_b trigger_paths=cli_prompt_trace.py,test_cli_prompt_trace_capsule.py trigger_path_count=2 demand_scope=changed_symbols_and_contract_tests explicit_requests=0 readiness_effect=amber_if_unsatisfied',
+    '',
+    'SOURCE_SLICE_REQUESTS',
+    'source_slice_requests_summary: rows=2 explicit=0 synthesized=2 critical=2 emitted=1 satisfied_by_final_delta=0 deficits=1',
+    'source_slice_request: request_id=SSR001 path=tools/meta/observability/cli_prompt_trace.py anchor=symbol:_capsule_source_context_abi why=type_b_decision_needs_exact_current_source priority=critical budget_class=symbol_body status=emitted carrier=S001 carrier_kind=agent_requested_source_excerpt',
+    'source_slice_request: request_id=SSR002 path=system/server/tests/test_cli_prompt_trace_capsule.py anchor=symbol:test_trace_capsule_source_context_abi why=type_b_decision_needs_exact_current_source priority=critical budget_class=contract_test status=deficit carrier=FINAL_DELTA carrier_kind=fallback_delta_only',
+    '',
+    'SOURCE_SLICE_MANIFEST',
+    'source_slice_manifest_summary: slices=1 repo_bound=true',
+    'source_slice_manifest_row: slice_id=S001 request_id=SSR001 artifact_uri=repo:/tools/meta/observability/cli_prompt_trace.py repo_head=abc123 language_id=python anchor=line_range:1-20 text_sha16=beef carrier=S001 line_count=20 bytes=900 truncated=false linked_claims=CLM.source_context',
+    '',
+    'SOURCE_CONTEXT_DEFICIT',
+    'source_context_deficit_summary: rows=1 active=1',
+    'source_context_deficit_row: deficit_id=SCD001 request_id=SSR002 missing_path=system/server/tests/test_cli_prompt_trace_capsule.py missing_anchor=symbol:test_trace_capsule_source_context_abi why_needed=type_b_decision_needs_exact_current_source fallback_used=FINAL_DELTA_current_hunks_only next_best_slice="./repo-python tools/meta/observability/cli_prompt_trace.py --type-b-source-excerpt --source-path system/server/tests/test_cli_prompt_trace_capsule.py" max_context=120_lines_or_24000_bytes',
+    '',
+    'SOURCE_CONTEXT_READINESS',
+    'source_context_readiness: overall=amber demand=required_by_type_b_decision satisfaction=unsatisfied explicit_requests=0 synthesized_requests=2 emitted=1 satisfied_by_final_delta=0 manifest_slices=1 omitted=1 high_regret_missing=1 copy_readiness_effect=amber_source_insufficient',
+    '',
+    'TYPE_B_SOURCE_CLOSEOUT_LINT',
+    'type_b_source_closeout_lint: result=warn demand_state=required_by_type_b_decision readiness=amber high_regret_missing=1 rule=source_dependent_type_b_handoff_requires_decisive_source_slice_or_deficit',
+  ].join('\n');
+
+  const packet = parseAgentTrace(text, 'trace-capsule-assurance.txt', '2026-06-09T09:20:00Z');
+  const receipts = packet.handoff_view.assurance_receipts;
+
+  assert.equal(receipts.status, 'present');
+  assert.equal(receipts.sections_present.includes('LATEST_SELECTION_RECEIPT'), true);
+  assert.equal(receipts.latest_selection.selected_is_latest_completed_response, true);
+  assert.equal(receipts.latest_selection.reparse_before_copy, true);
+  assert.equal(receipts.title_authority.warning, 'ordinal_title_not_semantic');
+  assert.equal(receipts.provenance.subject_hash_mode, 'artifact_envelope_after_write');
+  assert.equal(receipts.copy_readiness_vector.latest_selection, 'green');
+  assert.equal(receipts.copy_readiness_vector.scope, 'amber');
+  assert.equal(receipts.copy_readiness_vector.global_none_claims, 'green');
+  assert.equal(receipts.defeater_register.active_count, 1);
+  assert.equal(receipts.assurance_case.claim_count, 2);
+  assert.equal(receipts.self_parse.downstream_parser_mjs_roundtrip, 'pending_artifact_write');
+  assert.equal(receipts.budget_solver.budget_regret_high, 0);
+  assert.equal(receipts.sections_present.includes('SOURCE_CONTEXT_DEMAND'), true);
+  assert.equal(receipts.source_context.demand.state, 'required_by_type_b_decision');
+  assert.equal(receipts.source_context.requests.synthesized, 2);
+  assert.equal(receipts.source_context.manifest.repo_bound, true);
+  assert.equal(receipts.source_context.deficits.active, 1);
+  assert.equal(receipts.source_context.readiness.copy_readiness_effect, 'amber_source_insufficient');
+  assert.equal(packet.handoff_view.source_context.closeout_lint.result, 'warn');
+});

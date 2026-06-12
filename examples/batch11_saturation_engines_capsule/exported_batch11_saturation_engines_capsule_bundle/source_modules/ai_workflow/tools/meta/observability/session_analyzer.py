@@ -70,6 +70,7 @@ TRACE_SUMMARY_COMPACT_PRESERVED_CONTRACT_KEYS = (
     "experience_family_boundary_contracts",
     "runtime_readiness_contract",
     "paper_module_compression_contract",
+    "projection_validation_churn_contract",
 )
 TRACE_SUMMARY_SUPPORTING_DRILLDOWN_PREVIEW_LIMIT = 3
 _TRACE_BOARD_REQUIRED_ROW_FIELDS = (
@@ -3772,6 +3773,9 @@ def _trace_summary_action_contract(
                 "or record the host-pressure/owner blocker with an exact re-entry condition."
             ),
         }
+        projection_contract = _projection_validation_churn_contract(evidence=evidence)
+        if projection_contract:
+            contract["projection_validation_churn_contract"] = projection_contract
     if symptom_family == "ladder_skip":
         contract["typed_route_replacement_contract"] = _ladder_skip_typed_route_replacement_contract(
             first_drilldown=first_drilldown
@@ -3796,6 +3800,50 @@ def _trace_summary_action_contract(
                 "open full selected-lens JSON only when the compact receipt is insufficient."
             )
     return contract
+
+
+def _projection_validation_churn_contract(evidence: dict[str, Any]) -> dict[str, Any] | None:
+    contract_id = str(evidence.get("projection_validation_contract_id") or "")
+    if not contract_id:
+        return None
+    return {
+        "schema_version": "projection_validation_churn_contract_v0",
+        "contract_id": contract_id,
+        "classify_as": [
+            "projection_heavy_validation_churn",
+            "source_generated_contract_mismatch",
+            "stale_assertion_or_copy_contract_churn",
+            "expensive_fixture_rebuild_loop",
+        ],
+        "owner_check_command": evidence.get("owner_check_command"),
+        "owner_write_command": evidence.get("owner_write_command"),
+        "focused_validation_quote_command": evidence.get("focused_validation_quote_command"),
+        "stale_contract_scan_rule": evidence.get("stale_contract_scan_rule"),
+        "allowed_actions": [
+            "read_owner_card_before_source",
+            "run_session_preflight_before_mutating_hot_source",
+            "run_owner_check_or_compact_status_before_write_validate",
+            "scan_owned_source_tests_and_generated_instance_for_old_contract_tokens",
+            "regenerate_once_after_source_and_test_contracts_align",
+            "run_focused_readback_tests_before_broader_projection_suite",
+        ],
+        "blocked_actions": [
+            "repeat_projection_heavy_pytest_nodes_before_contract_scan",
+            "edit_source_while_a_projection_test_process_is_still_running",
+            "treat_generated_output_as_source_authority",
+            "run_write_validate_loops_without_source_test_alignment_receipt",
+            "generalize_from_one_literal_token_instead_of_the_contract_churn_shape",
+        ],
+        "receipt_fields": [
+            "owner_card_read",
+            "source_claim_or_preflight_receipt",
+            "owner_check_or_status_receipt",
+            "stale_contract_scan_receipt",
+            "single_regeneration_receipt_or_not_needed",
+            "focused_validation_receipt",
+            "broader_suite_deferred_or_final_receipt",
+        ],
+    }
 
 
 def _context_pressure_summary_first_contract(
@@ -5118,6 +5166,11 @@ def _compact_trace_improvement_evidence_for_summary(
             "owner_paper_module_slug",
             "owner_route_id",
             "owner_component_id",
+            "projection_validation_contract_id",
+            "owner_check_command",
+            "owner_write_command",
+            "focused_validation_quote_command",
+            "stale_contract_scan_rule",
         )
         if evidence.get(key) not in (None, "", [], {})
     }
@@ -5251,6 +5304,15 @@ def _trace_summary_supporting_drilldowns(
                 paper_module_index_check_command,
                 "projection_refresh_or_blocked_check",
             )
+    if evidence.get("projection_validation_contract_id"):
+        for lens, field, role in (
+            ("projection_owner_check", "owner_check_command", "owner_check_or_status"),
+            ("projection_owner_write", "owner_write_command", "single_regeneration_after_alignment"),
+            ("projection_validation_quote", "focused_validation_quote_command", "focused_validation_quote"),
+        ):
+            command = str(evidence.get(field) or "").strip()
+            if command:
+                add_row(lens, command, role)
     top_hotspot = evidence.get("top_reread_hotspot") if isinstance(evidence, dict) else {}
     if isinstance(top_hotspot, dict) and top_hotspot.get("path"):
         hotspot_claim_check_command = _work_ledger_path_mutation_check_command(
@@ -5675,8 +5737,10 @@ def _rediscovery_hotspot_repair(path: str) -> dict[str, str]:
             "candidate_patch": (
                 "Use the dissemination index card, then the Microcosm public export and graph-scene "
                 "cards plus the focused --check --validate command before reopening the public-site "
-                "builder source; open build_microcosm_public_site.py only for exact renderer/helper "
-                "behavior or a failing focused regression."
+                "builder source; when the trace shows repeated rebuild-heavy tests, run a stale-contract "
+                "scan across the owned source/test/generated scope before another write/validate loop. "
+                "Open build_microcosm_public_site.py only for exact renderer/helper behavior or a "
+                "failing focused regression."
             ),
             "owner_paper_module_slug": "tools_meta_dissemination_index",
             "paper_module_source_command": (
@@ -5690,6 +5754,25 @@ def _rediscovery_hotspot_repair(path: str) -> dict[str, str]:
                 "./repo-python tools/meta/factory/build_paper_module_index.py --check"
             ),
             "paper_module_write_profile": "paper_module_index",
+            "projection_validation_contract_id": "projection_heavy_builder_validation_churn",
+            "owner_check_command": (
+                "./repo-python tools/meta/dissemination/build_microcosm_public_site.py "
+                "--check --validate"
+            ),
+            "owner_write_command": (
+                "./repo-python tools/meta/dissemination/build_microcosm_public_site.py "
+                "--write --validate"
+            ),
+            "focused_validation_quote_command": (
+                "./repo-python tools/meta/control/action_quote.py --action "
+                "test_or_build_command --scope "
+                "tools/meta/dissemination/tests/test_build_microcosm_public_site.py"
+            ),
+            "stale_contract_scan_rule": (
+                "Before repeating projection-heavy tests after a schema/copy/filename change, "
+                "scan the owned source, tests, and generated instance for old contract tokens; "
+                "the exact literals come from the current migration, not from this rule."
+            ),
         }
     component_id = _frontend_component_id_from_path(path)
     if component_id:
@@ -5995,6 +6078,11 @@ def build_trace_improvement_surface(
             "paper_module_index_check_command",
             "supporting_paper_module_card_command",
             "paper_module_write_profile",
+            "projection_validation_contract_id",
+            "owner_check_command",
+            "owner_write_command",
+            "focused_validation_quote_command",
+            "stale_contract_scan_rule",
         ):
             if rediscovery_repair.get(key):
                 rediscovery_evidence[key] = rediscovery_repair[key]
@@ -6473,12 +6561,20 @@ def _trace_friction_receipts(
         receipts.append("post_repair_errors_window")
         return receipts
     if symptom_family == "rediscovery_hotspot" and (evidence or {}).get("owner_paper_module_slug"):
-        return [
+        receipts = [
             "selected_lens_check",
             "paper_module_compression_status_check",
             "projection_refresh_or_blocked_receipt",
             "dogfood_summary_size_check",
         ]
+        if (evidence or {}).get("projection_validation_contract_id"):
+            receipts.extend([
+                "projection_validation_churn_contract_check",
+                "owner_check_or_status_receipt",
+                "stale_contract_scan_receipt",
+                "focused_validation_receipt",
+            ])
+        return receipts
     if symptom_family == "experience_friction":
         secondary_receipt = (
             ["supporting_family_drilldown_check"]

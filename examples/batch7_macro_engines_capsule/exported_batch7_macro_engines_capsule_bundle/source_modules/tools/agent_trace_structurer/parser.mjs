@@ -384,6 +384,7 @@ function sectionTitle(line) {
   const trimmed = line.trim();
   if (/^#{1,6}\s+\S/.test(trimmed)) return trimmed.replace(/^#{1,6}\s+/, '').trim();
   if (/^[A-Za-z][A-Za-z0-9_ -]{2,80}:$/.test(trimmed)) return trimmed.slice(0, -1).trim();
+  if (/^[A-Z][A-Z0-9_ -]{2,80}$/.test(trimmed) && /[A-Z]/.test(trimmed)) return trimmed;
   return null;
 }
 
@@ -1450,8 +1451,14 @@ function visibleUiDiffSummaries(lines = []) {
 function visibleSubstrateDiffRows(lines = []) {
   const rows = [];
   let inDiff = false;
+  let section = '';
   for (let index = 0; index < lines.length; index += 1) {
     const line = String(lines[index] || '');
+    if (/^[A-Z][A-Z0-9_ ]{2,}$/.test(line.trim())) {
+      section = line.trim().replace(/\s+/g, '_');
+      inDiff = false;
+    }
+    if (section === 'EDIT_EVENT_LOG' || section === 'TIMELINE') continue;
     if (/^diff --git\b|^commit\s+[a-f0-9]{7,40}\b|^@@\s/.test(line)) inDiff = true;
     if (!inDiff) continue;
     if (/^(?:diff --git\b|@@\s|[+-](?![+-]{2}\s)(?!$))/.test(line)) {
@@ -1618,7 +1625,7 @@ function buildModeLifecycle({ modeBoundaries, capturedWindowEditEvidenceCount, h
 function explicitNoEditRows(lines = []) {
   return findLinesMatching(
     lines,
-    (line) => /\b(?:no files? (?:were )?(?:edited|changed)|no edits? (?:were )?made|0 edits|edits=0|DIFFS none captured|no edit rows captured)\b/i.test(line),
+    (line) => /\b(?:no files? (?:were )?(?:edited|changed)|no edits? (?:were )?made|0 edits|edits=0|DIFFS none captured|EDIT_EVENT_LOG none captured|no edit rows captured)\b/i.test(line),
     16,
   );
 }
@@ -1802,6 +1809,210 @@ function buildAgentEpisodeGraph({ editClaim, timeline = [] }) {
   };
 }
 
+const TRACE_CAPSULE_ASSURANCE_SECTION_TITLES = [
+  'TRACE_CUT_RECEIPT',
+  'LATEST_SELECTION_RECEIPT',
+  'TRACE_PROVENANCE_ATTESTATION',
+  'TITLE_AUTHORITY',
+  'CLAIM_SOURCE_MAP',
+  'EVIDENCE_NODE_GRAPH',
+  'DEFEATER_REGISTER',
+  'ASSURANCE_CASE_GRAPH',
+  'TRACE_SELF_PARSE_RECEIPT',
+  'BUDGET_SOLVER_PROOF_SET',
+  'SOURCE_CONTEXT_DEMAND',
+  'SOURCE_SLICE_REQUESTS',
+  'SOURCE_SLICE_MANIFEST',
+  'SOURCE_CONTEXT_DEFICIT',
+  'SOURCE_CONTEXT_READINESS',
+  'TYPE_B_SOURCE_CLOSEOUT_LINT',
+];
+
+function sectionByTitle(sections, title) {
+  return (sections || []).find((section) => section.title === title) || null;
+}
+
+function sectionLines(lines, section) {
+  if (!section) return [];
+  const start = Math.max(0, (section.line_range?.start || 1) - 1);
+  const end = Math.max(start, section.line_range?.end || start);
+  return lines.slice(start, end);
+}
+
+function firstLineMatching(lines, matcher) {
+  return (lines || []).find((line) => matcher.test(line.trim())) || '';
+}
+
+function tokenValue(line, key) {
+  const match = String(line || '').match(new RegExp(`(?:^|\\s)${key}=("[^"]*"|\\S+)`));
+  if (!match) return '';
+  return match[1].replace(/^"|"$/g, '');
+}
+
+function tokenBool(line, key) {
+  const value = tokenValue(line, key);
+  if (value === 'true') return true;
+  if (value === 'false') return false;
+  return null;
+}
+
+function tokenInt(line, key) {
+  const value = tokenValue(line, key);
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function buildTraceCapsuleSourceContextReceipts(lines, sections) {
+  const demandLines = sectionLines(lines, sectionByTitle(sections, 'SOURCE_CONTEXT_DEMAND'));
+  const demandSummary = firstLineMatching(demandLines, /^source_context_demand_summary:/);
+  const requestLines = sectionLines(lines, sectionByTitle(sections, 'SOURCE_SLICE_REQUESTS'));
+  const requestSummary = firstLineMatching(requestLines, /^source_slice_requests_summary:/);
+  const manifestLines = sectionLines(lines, sectionByTitle(sections, 'SOURCE_SLICE_MANIFEST'));
+  const manifestSummary = firstLineMatching(manifestLines, /^source_slice_manifest_summary:/);
+  const deficitLines = sectionLines(lines, sectionByTitle(sections, 'SOURCE_CONTEXT_DEFICIT'));
+  const deficitSummary = firstLineMatching(deficitLines, /^source_context_deficit_summary:/);
+  const readinessLines = sectionLines(lines, sectionByTitle(sections, 'SOURCE_CONTEXT_READINESS'));
+  const readinessSummary =
+    firstLineMatching(readinessLines, /^source_context_readiness:/) ||
+    firstLineMatching(lines, /^source_context_readiness:/);
+  const lintLines = sectionLines(lines, sectionByTitle(sections, 'TYPE_B_SOURCE_CLOSEOUT_LINT'));
+  const lintSummary =
+    firstLineMatching(lintLines, /^type_b_source_closeout_lint:/) ||
+    firstLineMatching(lines, /^type_b_source_closeout_lint:/);
+
+  return {
+    schema_version: 'agent_trace_capsule_source_context_receipts_v1',
+    demand: {
+      state: tokenValue(demandSummary, 'state') || 'none',
+      satisfaction: tokenValue(demandSummary, 'satisfaction') || '',
+      consumer: tokenValue(demandSummary, 'consumer') || '',
+      reasons: tokenValue(demandSummary, 'reasons') || 'none',
+      trigger_path_count: tokenInt(demandSummary, 'trigger_path_count'),
+      demand_scope: tokenValue(demandSummary, 'demand_scope') || '',
+      explicit_requests: tokenInt(demandSummary, 'explicit_requests'),
+      readiness_effect: tokenValue(demandSummary, 'readiness_effect') || '',
+      summary_line: demandSummary,
+    },
+    requests: {
+      rows: tokenInt(requestSummary, 'rows'),
+      explicit: tokenInt(requestSummary, 'explicit'),
+      synthesized: tokenInt(requestSummary, 'synthesized'),
+      critical: tokenInt(requestSummary, 'critical'),
+      emitted: tokenInt(requestSummary, 'emitted'),
+      satisfied_by_final_delta: tokenInt(requestSummary, 'satisfied_by_final_delta'),
+      deficits: tokenInt(requestSummary, 'deficits'),
+      summary_line: requestSummary,
+    },
+    manifest: {
+      slices: tokenInt(manifestSummary, 'slices'),
+      repo_bound: tokenBool(manifestSummary, 'repo_bound'),
+      summary_line: manifestSummary,
+    },
+    deficits: {
+      rows: tokenInt(deficitSummary, 'rows'),
+      active: tokenInt(deficitSummary, 'active'),
+      summary_line: deficitSummary,
+    },
+    readiness: {
+      overall: tokenValue(readinessSummary, 'overall') || '',
+      demand: tokenValue(readinessSummary, 'demand') || '',
+      satisfaction: tokenValue(readinessSummary, 'satisfaction') || '',
+      explicit_requests: tokenInt(readinessSummary, 'explicit_requests'),
+      synthesized_requests: tokenInt(readinessSummary, 'synthesized_requests'),
+      emitted: tokenInt(readinessSummary, 'emitted'),
+      satisfied_by_final_delta: tokenInt(readinessSummary, 'satisfied_by_final_delta'),
+      omitted: tokenInt(readinessSummary, 'omitted'),
+      high_regret_missing: tokenInt(readinessSummary, 'high_regret_missing'),
+      copy_readiness_effect: tokenValue(readinessSummary, 'copy_readiness_effect') || '',
+      summary_line: readinessSummary,
+    },
+    closeout_lint: {
+      result: tokenValue(lintSummary, 'result') || '',
+      demand_state: tokenValue(lintSummary, 'demand_state') || '',
+      readiness: tokenValue(lintSummary, 'readiness') || '',
+      high_regret_missing: tokenInt(lintSummary, 'high_regret_missing'),
+      summary_line: lintSummary,
+    },
+  };
+}
+
+function buildTraceCapsuleAssuranceReceipts(lines, sections) {
+  const sectionsPresent = TRACE_CAPSULE_ASSURANCE_SECTION_TITLES.filter((title) => sectionByTitle(sections, title));
+  const sectionsMissing = TRACE_CAPSULE_ASSURANCE_SECTION_TITLES.filter((title) => !sectionsPresent.includes(title));
+  const latestLines = sectionLines(lines, sectionByTitle(sections, 'LATEST_SELECTION_RECEIPT'));
+  const latestSummary = firstLineMatching(latestLines, /^latest_selection_receipt_summary:/);
+  const latestOrdering = firstLineMatching(latestLines, /^latest_selection_ordering:/);
+  const titleLines = sectionLines(lines, sectionByTitle(sections, 'TITLE_AUTHORITY'));
+  const titleLine = firstLineMatching(titleLines, /^title_authority:/);
+  const provenanceLines = sectionLines(lines, sectionByTitle(sections, 'TRACE_PROVENANCE_ATTESTATION'));
+  const provenanceLine = firstLineMatching(provenanceLines, /^trace_provenance_attestation_summary:/);
+  const vectorLine = firstLineMatching(lines, /^copy_readiness_vector:/);
+  const defeaterLines = sectionLines(lines, sectionByTitle(sections, 'DEFEATER_REGISTER'));
+  const defeaterSummary = firstLineMatching(defeaterLines, /^defeater_register_summary:/);
+  const assuranceLines = sectionLines(lines, sectionByTitle(sections, 'ASSURANCE_CASE_GRAPH'));
+  const assuranceSummary = firstLineMatching(assuranceLines, /^assurance_case_graph_summary:/);
+  const selfParseLines = sectionLines(lines, sectionByTitle(sections, 'TRACE_SELF_PARSE_RECEIPT'));
+  const selfParseSummary = firstLineMatching(selfParseLines, /^trace_self_parse_receipt_summary:/);
+  const budgetLines = sectionLines(lines, sectionByTitle(sections, 'BUDGET_SOLVER_PROOF_SET'));
+  const budgetSummary = firstLineMatching(budgetLines, /^budget_solver_summary:/);
+  const sourceContext = buildTraceCapsuleSourceContextReceipts(lines, sections);
+
+  return {
+    schema_version: 'agent_trace_capsule_assurance_receipts_v1',
+    status: sectionsMissing.length ? 'partial' : 'present',
+    sections_present: sectionsPresent,
+    sections_missing: sectionsMissing,
+    latest_selection: {
+      selected_turn: tokenInt(latestSummary, 'selected_turn'),
+      candidate_count: tokenInt(latestSummary, 'candidate_count'),
+      selected_is_thread_tail: tokenBool(latestSummary, 'selected_is_thread_tail'),
+      selected_is_latest_completed_response: tokenBool(latestSummary, 'selected_is_latest_completed_response'),
+      ambiguity_override_used: tokenBool(latestOrdering, 'ambiguity_override_used'),
+      reparse_before_copy: tokenBool(latestOrdering, 'reparse_before_copy'),
+      summary_line: latestSummary,
+    },
+    title_authority: {
+      warning: tokenValue(titleLine, 'warning') || 'none',
+      display_title_source: tokenValue(titleLine, 'display_title_source') || '',
+      title_confidence: tokenValue(titleLine, 'title_confidence') || '',
+      summary_line: titleLine,
+    },
+    provenance: {
+      subject_sha16: tokenValue(provenanceLine, 'subject_sha16') || '',
+      subject_hash_mode: tokenValue(provenanceLine, 'subject_hash_mode') || '',
+      summary_line: provenanceLine,
+    },
+    copy_readiness_vector: {
+      latest_selection: tokenValue(vectorLine, 'latest_selection') || '',
+      scope: tokenValue(vectorLine, 'scope') || '',
+      global_none_claims: tokenValue(vectorLine, 'global_none_claims') || '',
+      summary_line: vectorLine,
+    },
+    defeater_register: {
+      active_count: tokenInt(defeaterSummary, 'active'),
+      active_defeaters: tokenValue(defeaterSummary, 'active_defeaters') || 'none',
+      summary_line: defeaterSummary,
+    },
+    assurance_case: {
+      claim_count: tokenInt(assuranceSummary, 'claims'),
+      summary_line: assuranceSummary,
+    },
+    self_parse: {
+      status: tokenValue(selfParseSummary, 'status') || '',
+      downstream_parser_mjs_roundtrip: tokenValue(selfParseSummary, 'downstream_parser_mjs_roundtrip') || '',
+      native_receipt_parse: tokenValue(selfParseSummary, 'native_receipt_parse') || '',
+      summary_line: selfParseSummary,
+    },
+    budget_solver: {
+      budget_regret_high: tokenInt(budgetSummary, 'budget_regret_high'),
+      proof_obligations_missing: tokenInt(budgetSummary, 'proof_obligations_missing'),
+      top_omitted_decision_refs: tokenValue(budgetSummary, 'top_omitted_decision_refs') || '',
+      summary_line: budgetSummary,
+    },
+    source_context: sourceContext,
+  };
+}
+
 function buildHandoffView({ lines, inputBytes, sourceProfile, timeline, artifacts, traceBlocks, entities, sections }) {
   const eventKindCounts = countBy(timeline, (event) => event.kind);
   const structuredSignalCount =
@@ -1814,6 +2025,8 @@ function buildHandoffView({ lines, inputBytes, sourceProfile, timeline, artifact
 
   const editClaim = buildEditClaimView({ lines, timeline, artifacts });
   const episodeGraph = buildAgentEpisodeGraph({ editClaim, timeline });
+  const assuranceReceipts = buildTraceCapsuleAssuranceReceipts(lines, sections);
+  const sourceContextReceipts = assuranceReceipts.source_context;
 
   return {
     purpose: 'Compact read-me-first view for a downstream AI that receives this JSON as an attachment.',
@@ -1848,6 +2061,8 @@ function buildHandoffView({ lines, inputBytes, sourceProfile, timeline, artifact
       coverage_scope: editClaim.coverage_scope.coverage_class,
     },
     coverage_scope: editClaim.coverage_scope,
+    assurance_receipts: assuranceReceipts,
+    source_context: sourceContextReceipts,
     agent_episode_graph: episodeGraph,
     edit_claim: editClaim,
     diff_state: editClaim.diff_state,

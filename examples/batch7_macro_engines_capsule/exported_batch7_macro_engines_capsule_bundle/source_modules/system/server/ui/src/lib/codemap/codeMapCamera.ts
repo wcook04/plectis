@@ -93,6 +93,31 @@ export function focusViewportForSelectedNode(
   };
 }
 
+// Panorama / System Atlas: the whole board IS the artifact, so unlike the
+// directed modes we DO fit everything — the hero "see the entire system" shot.
+// The board is wide, so the fitted zoom can be small; we floor it gently so the
+// district hulls and their headers stay readable on open, and the operator
+// zooms into a district for the file marks. Centered with a margin so no
+// district is clipped to the pane edge.
+export function panoramaViewport(
+  nodes: Node[],
+  pane: HTMLDivElement | null,
+): { x: number; y: number; zoom: number } | null {
+  const frame = nodeFrame(nodes);
+  if (!frame || !pane) return null;
+  const margin = 64;
+  const fitX = (pane.clientWidth - margin * 2) / frame.width;
+  const fitY = (pane.clientHeight - margin * 2) / frame.height;
+  const zoom = Math.min(Math.max(Math.min(fitX, fitY), 0.05), 0.7);
+  const graphWidth = frame.width * zoom;
+  const graphHeight = frame.height * zoom;
+  return {
+    x: (pane.clientWidth - graphWidth) / 2 - frame.minX * zoom,
+    y: Math.max(margin / 2, (pane.clientHeight - graphHeight) / 2) - frame.minY * zoom,
+    zoom,
+  };
+}
+
 export function architectureViewport(
   nodes: Node[],
   pane: HTMLDivElement | null,

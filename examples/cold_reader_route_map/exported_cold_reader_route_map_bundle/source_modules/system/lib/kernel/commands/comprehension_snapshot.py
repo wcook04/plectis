@@ -2683,6 +2683,23 @@ def _hard_compact_type_b_candidate_lens_for_admission(
     closeout_probe = (
         lens.get("closeout_probe") if isinstance(lens.get("closeout_probe"), dict) else {}
     )
+    evidence_pack_workflow = (
+        closeout_probe.get("evidence_pack_workflow")
+        if isinstance(closeout_probe.get("evidence_pack_workflow"), dict)
+        else {}
+    )
+    compact_evidence_pack_workflow = {
+        key: evidence_pack_workflow.get(key)
+        for key in (
+            "schema_version",
+            "product",
+            "path_list_role",
+            "required_evidence_classes",
+            "acquisition_loop",
+            "verify_step",
+        )
+        if evidence_pack_workflow.get(key) not in (None, "", [], {})
+    }
     true_decision_gates = {
         key: value
         for key, value in decision_gates.items()
@@ -2712,9 +2729,14 @@ def _hard_compact_type_b_candidate_lens_for_admission(
         "prompt_shape": compact_shape,
         "closeout_probe": {
             key: closeout_probe.get(key)
-            for key in ("source_excerpt_command", "import_command")
+            for key in ("path_list_role", "source_excerpt_command", "import_command")
             if closeout_probe.get(key) not in (None, "", [], {})
-        },
+        }
+        | (
+            {"evidence_pack_workflow": compact_evidence_pack_workflow}
+            if compact_evidence_pack_workflow
+            else {}
+        ),
         "omission_receipt": {
             "reason": "Entry admission keeps the Type B candidate handle; prompt-ledger import carries packet-shape detail.",
             "drilldown": closeout_probe.get("import_command")
@@ -3553,6 +3575,7 @@ def _compact_speed_refinement_entry_for_admission(packet: dict[str, Any]) -> lis
                 "state": top_schedulable.get("state"),
                 "projection_placeholder": True,
                 "drilldown_command": top_schedulable.get("drilldown_command"),
+                "hard_ceiling_handle_compacted": True,
                 "speed_refinement_handle_compacted": True,
             },
         )

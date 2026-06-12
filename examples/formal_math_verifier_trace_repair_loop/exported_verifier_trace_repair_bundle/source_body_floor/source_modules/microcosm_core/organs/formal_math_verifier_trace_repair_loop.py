@@ -1493,6 +1493,78 @@ def validate_promotion_policy(payload: object) -> dict[str, Any]:
     }
 
 
+def _runtime_realness_evidence(
+    *,
+    input_mode: str,
+    secret_scan: dict[str, Any],
+    projection: dict[str, Any],
+    source_modules: dict[str, Any],
+    attempts: dict[str, Any],
+    curriculum: dict[str, Any],
+    promotion: dict[str, Any],
+    toy_repair: dict[str, Any],
+) -> dict[str, Any]:
+    source_replay_check_count = int(attempts["source_replay_check_count"]) + int(
+        curriculum["source_replay_check_count"]
+    )
+    source_replay_mismatch_count = int(attempts["source_replay_mismatch_count"]) + int(
+        curriculum["source_replay_mismatch_count"]
+    )
+    positive_trace_bound = (
+        input_mode == "exported_verifier_trace_repair_bundle"
+        and source_modules["source_modules_pass"] is True
+        and source_modules["verified_module_count"] == len(SOURCE_REFS)
+        and source_replay_check_count >= 30
+        and source_replay_mismatch_count == 0
+        and attempts["attempt_count"] >= 3
+        and attempts["trace_event_count"] >= 9
+        and curriculum["failure_mode_count"] >= 3
+        and toy_repair["status"] == PASS
+    )
+    mutated_trace_rejected = (
+        input_mode == "exported_verifier_trace_repair_bundle"
+        and source_modules["source_modules_pass"] is True
+        and source_replay_mismatch_count > 0
+    )
+    fixture_negative_bound = bool(projection["copied_material"]) and bool(
+        attempts["observed_negative_cases"]
+    )
+    if positive_trace_bound:
+        realness_rank = 4
+        rung_state = "runtime_source_trace_repair_evidence_bound"
+    elif mutated_trace_rejected:
+        realness_rank = 3
+        rung_state = "mutated_runtime_source_trace_rejected"
+    elif fixture_negative_bound:
+        realness_rank = 2
+        rung_state = "fixture_negative_cases_and_copied_material_bound"
+    else:
+        realness_rank = 1
+        rung_state = "metadata_floor_only"
+
+    return {
+        "schema_version": "formal_math_verifier_trace_repair_realness_evidence_v1",
+        "realness_rank": realness_rank,
+        "realness_rung": f"R{realness_rank}",
+        "rung_state": rung_state,
+        "rank_derivation": "runtime_evidence_recomputed_from_source_modules_trace_replay_curriculum_and_rerun",
+        "positive_trace_bound": positive_trace_bound,
+        "mutated_or_stale_trace_rejected": mutated_trace_rejected,
+        "baked_fixture_label_sufficient": False,
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_verified_count": source_modules["verified_module_count"],
+        "source_replay_check_count": source_replay_check_count,
+        "source_replay_mismatch_count": source_replay_mismatch_count,
+        "attempt_count": attempts["attempt_count"],
+        "trace_event_count": attempts["trace_event_count"],
+        "failure_mode_count": curriculum["failure_mode_count"],
+        "curriculum_edge_count": curriculum["curriculum_edge_count"],
+        "toy_repair_status": toy_repair["status"],
+        "promotion_policy_status": promotion["status"],
+        "secret_exclusion_blocking_hit_count": secret_scan["blocking_hit_count"],
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -1536,6 +1608,16 @@ def _build_result(
     )
     promotion = validate_promotion_policy(payloads["promotion_policy"])
     toy_repair = _run_toy_theorem_repair_rerun()
+    realness_evidence = _runtime_realness_evidence(
+        input_mode=input_mode,
+        secret_scan=secret_scan,
+        projection=projection,
+        source_modules=source_modules,
+        attempts=attempts,
+        curriculum=curriculum,
+        promotion=promotion,
+        toy_repair=toy_repair,
+    )
 
     observed = _merge_observed(projection, attempts, curriculum, promotion, toy_repair)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
@@ -1575,6 +1657,7 @@ def _build_result(
         "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "realness_evidence": realness_evidence,
         "macro_run_id": RUN_ID,
         "premise_retrieval_variant_id": PREMISE_RETRIEVAL_VARIANT_ID,
         "oracle_repair_variant_id": ORACLE_REPAIR_VARIANT_ID,
@@ -1676,6 +1759,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "realness_evidence": result["realness_evidence"],
     }
 
 
@@ -1743,6 +1827,7 @@ def _write_receipts(
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "realness_evidence": result["realness_evidence"],
         "receipt_paths": receipt_paths,
     }
     acceptance = {
@@ -1764,6 +1849,7 @@ def _write_receipts(
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "realness_evidence": result["realness_evidence"],
         "receipt_paths": receipt_paths,
     }
     write_json_atomic(result_path, result_receipt)
@@ -1854,6 +1940,8 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
     scan_summary = secret_scan if isinstance(secret_scan, dict) else {}
     source_imports = result.get("source_open_body_imports")
     source_import_summary = source_imports if isinstance(source_imports, dict) else {}
+    realness = result.get("realness_evidence")
+    realness_summary = realness if isinstance(realness, dict) else {}
     input_mode = result.get("input_mode")
     action = (
         "run-loop-bundle"
@@ -1935,6 +2023,13 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
         "source_modules_pass": result.get("source_modules_pass"),
         "source_replay_check_count": result.get("source_replay_check_count"),
         "source_replay_mismatch_count": result.get("source_replay_mismatch_count"),
+        "realness_evidence_summary": {
+            "realness_rung": realness_summary.get("realness_rung"),
+            "positive_trace_bound": realness_summary.get("positive_trace_bound"),
+            "baked_fixture_label_sufficient": realness_summary.get(
+                "baked_fixture_label_sufficient"
+            ),
+        },
         "trace_rows_omitted": True,
         "source_module_bodies_omitted": True,
         "proof_bodies_exported": False,

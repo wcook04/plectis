@@ -13,7 +13,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -319,7 +323,10 @@ def _fresh_availability_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_tactic_portfolio_availability_bundle":
         return None
-    if payload.get("command") != command:
+    normalized_command = normalize_public_receipt_paths({"command": command}).get(
+        "command"
+    )
+    if payload.get("command") not in {command, normalized_command}:
         return None
     input_paths = _input_paths(input_dir, include_negative=False)
     basis = _receipt_freshness_basis(
@@ -371,6 +378,48 @@ def _source_body_paths(input_dir: Path) -> list[Path]:
 
 def _sha256(path: Path) -> str:
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _dict_payload(value: object) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def _load_source_payloads(input_dir: Path) -> dict[str, dict[str, Any]]:
+    payloads: dict[str, dict[str, Any]] = {}
+    for source_ref in SOURCE_REFS:
+        target = input_dir / SOURCE_BODY_REL_BY_SOURCE_REF[source_ref]
+        try:
+            payload = read_json_strict(target)
+        except (OSError, ValueError):
+            payload = {}
+        payloads[source_ref] = _dict_payload(payload)
+    return payloads
+
+
+def _source_portfolio_payload(source_payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return _dict_payload(source_payloads.get(SOURCE_REFS[1]))
+
+
+def _source_probe_payload(source_payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return _dict_payload(source_payloads.get(SOURCE_REFS[0]))
+
+
+def _source_corpus_payload(source_payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return _dict_payload(source_payloads.get(SOURCE_REFS[2]))
+
+
+def _source_probe_portfolio_payload(
+    source_payloads: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    return _dict_payload(_source_probe_payload(source_payloads).get("portfolio_core_v0"))
+
+
+def _source_portfolio_rows(source_payloads: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    return _rows(_source_portfolio_payload(source_payloads), "rows")
+
+
+def _source_probe_rows(source_payloads: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    return _rows(_source_probe_portfolio_payload(source_payloads), "rows")
 
 
 def _source_body_imports(
@@ -595,6 +644,311 @@ def _median_duration(values: list[int]) -> int | float | None:
     return (ordered[midpoint - 1] + ordered[midpoint]) / 2
 
 
+def _normalize_source_compile_status(row: dict[str, Any]) -> str:
+    return str(row.get("compile_status") or "").strip().upper()
+
+
+def _source_row_view(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "tactic_id": str(row.get("tactic_id") or ""),
+        "compile_status": _normalize_source_compile_status(row),
+        "available": row.get("available") is True,
+        "duration_ms": _duration_ms(row),
+        "error_class": str(row.get("error_class") or ""),
+    }
+
+
+def _source_row_index(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {
+        view["tactic_id"]: view
+        for row in rows
+        if (view := _source_row_view(row))["tactic_id"]
+    }
+
+
+def _projection_row_index(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        tactic_id = str(row.get("tactic_id") or "")
+        if tactic_id:
+            index[tactic_id] = row
+    return index
+
+
+def _derived_public_status_from_source(
+    source_row: dict[str, Any],
+    *,
+    requires_mathlib: bool,
+    mathlib_available: bool,
+) -> str:
+    status = source_row["compile_status"]
+    if status == "PASS":
+        return "compile_pass"
+    if status == "FAIL":
+        return "environment_fail" if requires_mathlib and not mathlib_available else "compile_fail"
+    return status.lower()
+
+
+def _failure_classifier_from_source(
+    source_row: dict[str, Any],
+    *,
+    public_status: str,
+    requires_mathlib: bool,
+    mathlib_available: bool,
+) -> str | None:
+    if public_status not in FAIL_STATUSES:
+        return None
+    if requires_mathlib and not mathlib_available:
+        return "MATHLIB_IMPORT_MISSING"
+    return source_row["error_class"] or public_status
+
+
+def _authoritative_environment_state(
+    source_payloads: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    probe_payload = _source_probe_payload(source_payloads)
+    corpus_payload = _source_corpus_payload(source_payloads)
+    mathlib = _dict_payload(probe_payload.get("mathlib"))
+    probe_available = mathlib.get("available") is True
+    lean_status = str(mathlib.get("lean_status") or "").strip().upper()
+    corpus_mathlib_available = (
+        corpus_payload.get("mathlib_lake_project_import_available") is True
+    )
+    return {
+        "mathlib_probe_status": (
+            "compile_pass" if probe_available and lean_status == "PASS" else "environment_fail"
+        ),
+        "mathlib_lake_project_import_available": probe_available or corpus_mathlib_available,
+        "probe_available": probe_available,
+        "probe_ref": str(mathlib.get("probe_path") or ""),
+    }
+
+
+def _availability_rows_from_source(
+    source_rows: list[dict[str, Any]],
+    *,
+    projection_rows: list[dict[str, Any]],
+    mathlib_available: bool,
+) -> list[dict[str, Any]]:
+    projection_index = _projection_row_index(projection_rows)
+    availability_rows: list[dict[str, Any]] = []
+    for tactic_id, source_row in sorted(_source_row_index(source_rows).items()):
+        projection_row = projection_index.get(tactic_id, {})
+        requires_mathlib = projection_row.get("requires_mathlib") is True
+        public_status = _derived_public_status_from_source(
+            source_row,
+            requires_mathlib=requires_mathlib,
+            mathlib_available=mathlib_available,
+        )
+        failure_classifier = _failure_classifier_from_source(
+            source_row,
+            public_status=public_status,
+            requires_mathlib=requires_mathlib,
+            mathlib_available=mathlib_available,
+        )
+        availability_rows.append(
+            {
+                "tactic_id": tactic_id,
+                "compile_status": public_status,
+                "source_compile_status": source_row["compile_status"],
+                "source_error_class": source_row["error_class"],
+                "duration_ms": source_row["duration_ms"],
+                "requires_mathlib": requires_mathlib,
+                "failure_classifier": failure_classifier,
+                "source_probe_ref": str(
+                    projection_row.get("source_probe_ref") or source_row.get("probe_path") or ""
+                ),
+            }
+        )
+    return availability_rows
+
+
+def _source_artifact_findings(
+    source_payloads: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    portfolio_rows = _source_row_index(_source_portfolio_rows(source_payloads))
+    probe_rows = _source_row_index(_source_probe_rows(source_payloads))
+    for tactic_id in sorted(set(portfolio_rows) | set(probe_rows)):
+        portfolio_row = portfolio_rows.get(tactic_id)
+        probe_row = probe_rows.get(tactic_id)
+        if portfolio_row is None or probe_row is None:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_CONTRADICTION",
+                "Copied source artifacts must expose the same tactic ids across the aggregate probe and portfolio slice.",
+                case_id="source_artifacts",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+            continue
+        for field in ("compile_status", "available", "duration_ms", "error_class"):
+            if portfolio_row[field] != probe_row[field]:
+                _record(
+                    findings,
+                    observed,
+                    "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_CONTRADICTION",
+                    "Copied source artifacts disagree on tactic availability evidence.",
+                    case_id="source_artifacts",
+                    subject_id=tactic_id,
+                    subject_kind="tactic_id",
+                )
+                break
+        if portfolio_row["compile_status"] == "PASS" and portfolio_row["available"] is not True:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_CONTRADICTION",
+                "A copied source row cannot report PASS while marking the tactic unavailable.",
+                case_id="source_artifacts",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+        if portfolio_row["compile_status"] == "FAIL" and portfolio_row["available"] is not False:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_CONTRADICTION",
+                "A copied source row cannot report FAIL while marking the tactic available.",
+                case_id="source_artifacts",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+    portfolio_payload = _source_portfolio_payload(source_payloads)
+    available_from_rows = sorted(
+        tactic_id for tactic_id, row in portfolio_rows.items() if row["available"] is True
+    )
+    unavailable_from_rows = sorted(
+        tactic_id for tactic_id, row in portfolio_rows.items() if row["available"] is False
+    )
+    available_list = portfolio_payload.get("available_tactic_ids")
+    normalized_available_list = (
+        sorted(str(item) for item in available_list)
+        if isinstance(available_list, list)
+        else []
+    )
+    if normalized_available_list != available_from_rows:
+        _record(
+            findings,
+            observed,
+            "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_CONTRADICTION",
+            "The copied source portfolio available_tactic_ids list must match the copied source rows.",
+            case_id="source_artifacts",
+            subject_id="available_tactic_ids",
+            subject_kind="source_artifact",
+        )
+    unavailable_list = portfolio_payload.get("unavailable_tactic_ids")
+    normalized_unavailable_list = (
+        sorted(str(item) for item in unavailable_list)
+        if isinstance(unavailable_list, list)
+        else []
+    )
+    if normalized_unavailable_list != unavailable_from_rows:
+        _record(
+            findings,
+            observed,
+            "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_CONTRADICTION",
+            "The copied source portfolio unavailable_tactic_ids list must match the copied source rows.",
+            case_id="source_artifacts",
+            subject_id="unavailable_tactic_ids",
+            subject_kind="source_artifact",
+        )
+    return findings
+
+
+def _public_projection_findings(
+    projection_rows: list[dict[str, Any]],
+    *,
+    source_rows: list[dict[str, Any]],
+    mathlib_available: bool,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    projection_index = _projection_row_index(projection_rows)
+    source_index = _source_row_index(source_rows)
+    for tactic_id in sorted(set(source_index) | set(projection_index)):
+        source_row = source_index.get(tactic_id)
+        projection_row = projection_index.get(tactic_id)
+        if source_row is None or projection_row is None:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION",
+                "The public tactic portfolio projection must expose the same tactic ids as the copied source artifact rows.",
+                case_id="public_projection",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+            continue
+        requires_mathlib = projection_row.get("requires_mathlib") is True
+        expected_public_status = _derived_public_status_from_source(
+            source_row,
+            requires_mathlib=requires_mathlib,
+            mathlib_available=mathlib_available,
+        )
+        if _status(projection_row) != expected_public_status:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION",
+                "The public tactic portfolio projection must preserve the copied source row compile result.",
+                case_id="public_projection",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+        if str(projection_row.get("source_compile_status") or "").strip().upper() != source_row["compile_status"]:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION",
+                "The public tactic portfolio projection must preserve the copied source compile status.",
+                case_id="public_projection",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+        if str(projection_row.get("source_error_class") or "") != source_row["error_class"]:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION",
+                "The public tactic portfolio projection must preserve the copied source error class.",
+                case_id="public_projection",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+        if _duration_ms(projection_row) != source_row["duration_ms"]:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION",
+                "The public tactic portfolio projection must preserve the copied source duration.",
+                case_id="public_projection",
+                subject_id=tactic_id,
+                subject_kind="tactic_id",
+            )
+    return findings
+
+
+def _public_projection_body_findings(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    for row in rows:
+        forbidden = _forbidden_body_keys(row)
+        if forbidden:
+            _record(
+                findings,
+                observed,
+                "TACTIC_PORTFOLIO_PROOF_BODY_FORBIDDEN",
+                "Availability fixtures may carry tactic metadata, not proof, Lean, or provider bodies.",
+                case_id="positive_portfolio",
+                subject_id=str(row.get("tactic_id") or "tactic"),
+                subject_kind="tactic_id",
+            )
+    return findings
+
+
 def _portfolio_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     known: list[str] = []
     available: list[str] = []
@@ -733,17 +1087,52 @@ def _positive_findings(
                 subject_id=tactic_id,
                 subject_kind="tactic_id",
             )
-        forbidden = _forbidden_body_keys(row)
-        if forbidden:
-            _record(
-                findings,
-                observed,
-                "TACTIC_PORTFOLIO_PROOF_BODY_FORBIDDEN",
-                "Availability fixtures may carry tactic metadata, not proof, Lean, or provider bodies.",
-                case_id="positive_portfolio",
-                subject_id=tactic_id,
-                subject_kind="tactic_id",
-            )
+    return findings
+
+
+def _environment_probe_findings(
+    environment_probe: dict[str, Any],
+    *,
+    authoritative_environment: dict[str, Any],
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    mathlib_status = str(environment_probe.get("mathlib_probe_status") or "")
+    mathlib_available = environment_probe.get("mathlib_lake_project_import_available")
+    contradiction = (
+        (mathlib_available is True and mathlib_status in FAIL_STATUSES)
+        or (mathlib_available is False and mathlib_status in PASS_STATUSES)
+    )
+    if contradiction:
+        _record(
+            findings,
+            observed,
+            "TACTIC_PORTFOLIO_ENVIRONMENT_PROBE_CONTRADICTION",
+            "Mathlib availability must agree with the copied environment probe status.",
+            case_id="positive_environment_probe",
+            subject_id="mathlib_lake_project_import_available",
+            subject_kind="environment_probe",
+        )
+    if mathlib_status != authoritative_environment["mathlib_probe_status"]:
+        _record(
+            findings,
+            observed,
+            "TACTIC_PORTFOLIO_ENVIRONMENT_SOURCE_CONTRADICTION",
+            "The public environment projection must preserve the copied source Mathlib probe status.",
+            case_id="positive_environment_probe",
+            subject_id="mathlib_probe_status",
+            subject_kind="environment_probe",
+        )
+    if bool(mathlib_available) != authoritative_environment["mathlib_lake_project_import_available"]:
+        _record(
+            findings,
+            observed,
+            "TACTIC_PORTFOLIO_ENVIRONMENT_SOURCE_CONTRADICTION",
+            "The public environment projection must preserve the copied source Mathlib availability result.",
+            case_id="positive_environment_probe",
+            subject_id="mathlib_lake_project_import_available",
+            subject_kind="environment_probe",
+        )
     return findings
 
 
@@ -1191,6 +1580,7 @@ def _build_result(
 ) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
+    source_payloads = _load_source_payloads(input_dir)
     negative_payloads = {
         name: payloads[name] for name in NEGATIVE_INPUT_STEMS if name in payloads
     }
@@ -1219,17 +1609,51 @@ def _build_result(
     if not isinstance(environment_probe, dict):
         environment_probe = {}
     rows = _tactic_rows(portfolio_payload)
-    summary = _portfolio_summary(rows)
+    authoritative_environment = _authoritative_environment_state(source_payloads)
+    availability_rows = _availability_rows_from_source(
+        _source_portfolio_rows(source_payloads),
+        projection_rows=rows,
+        mathlib_available=authoritative_environment[
+            "mathlib_lake_project_import_available"
+        ],
+    )
+    summary = _portfolio_summary(availability_rows)
+    source_artifact_findings = _source_artifact_findings(source_payloads)
+    public_projection_findings = _public_projection_findings(
+        rows,
+        source_rows=_source_portfolio_rows(source_payloads),
+        mathlib_available=authoritative_environment[
+            "mathlib_lake_project_import_available"
+        ],
+    )
+    public_body_findings = _public_projection_body_findings(rows)
     positive_findings = _positive_findings(
-        rows=rows,
-        environment_probe=environment_probe,
+        rows=availability_rows,
+        environment_probe={
+            **environment_probe,
+            "mathlib_lake_project_import_available": authoritative_environment[
+                "mathlib_lake_project_import_available"
+            ],
+        },
         summary=summary,
+    )
+    environment_findings = _environment_probe_findings(
+        environment_probe,
+        authoritative_environment=authoritative_environment,
     )
     negative = _negative_findings(negative_payloads, known=set(summary["known_tactic_ids"]))
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     observed = negative["observed_negative_cases"]
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*source_findings, *positive_findings, *negative["findings"]]
+    findings = [
+        *source_findings,
+        *source_artifact_findings,
+        *public_projection_findings,
+        *public_body_findings,
+        *positive_findings,
+        *environment_findings,
+        *negative["findings"],
+    ]
     error_codes = sorted({finding["error_code"] for finding in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
@@ -1238,7 +1662,8 @@ def _build_result(
     )
     if not isinstance(bundle_manifest, dict):
         bundle_manifest = {}
-    mathlib_available = environment_probe.get("mathlib_lake_project_import_available")
+    source_portfolio_payload = _source_portfolio_payload(source_payloads)
+    mathlib_available = authoritative_environment["mathlib_lake_project_import_available"]
     mathlib_failures = [
         tactic_id
         for tactic_id in summary["mathlib_dependent_tactic_ids"]
@@ -1247,7 +1672,11 @@ def _build_result(
     status = (
         PASS
         if not source_findings
+        and not source_artifact_findings
+        and not public_projection_findings
+        and not public_body_findings
         and not positive_findings
+        and not environment_findings
         and not missing
         and not secret_scan["blocking_hit_count"]
         else "blocked"
@@ -1292,7 +1721,11 @@ def _build_result(
         "source_body_status": SOURCE_BODY_STATUS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "portfolio_id": str(portfolio_payload.get("portfolio_id") or ""),
+        "portfolio_id": str(
+            portfolio_payload.get("portfolio_id")
+            or source_portfolio_payload.get("portfolio_id")
+            or ""
+        ),
         "environment_id": str(environment_probe.get("environment_id") or ""),
         "tactic_count": summary["tactic_count"],
         "known_tactic_ids": summary["known_tactic_ids"],
@@ -1319,7 +1752,7 @@ def _build_result(
         "available_tactic_duration_ms_median": summary[
             "available_tactic_duration_ms_median"
         ],
-        "mathlib_probe_status": str(environment_probe.get("mathlib_probe_status") or ""),
+        "mathlib_probe_status": authoritative_environment["mathlib_probe_status"],
         "mathlib_lake_project_import_available": bool(mathlib_available),
         "mathlib_absence_gate_enforced": mathlib_available is False
         and bool(mathlib_failures),

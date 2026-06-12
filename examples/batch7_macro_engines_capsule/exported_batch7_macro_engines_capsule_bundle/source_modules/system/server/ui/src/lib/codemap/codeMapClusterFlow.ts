@@ -26,7 +26,7 @@ const edgeClassRank: Record<EdgeClass, number> = {
   unknown: 5,
 };
 
-const ZONE_ORDER: ClusterFlowZoneKey[] = [
+export const ZONE_ORDER: ClusterFlowZoneKey[] = [
   'kernel_commands',
   'pipeline',
   'agent_runtime',
@@ -50,8 +50,11 @@ const ZONE_LABELS: Record<ClusterFlowZoneKey, string> = {
   support: 'Support',
 };
 
-export function zoneForCluster(cluster: ClusterFlowNode): ClusterFlowZoneKey {
-  const text = `${cluster.layer} ${cluster.id} ${cluster.label}`.toLowerCase();
+// Zone assignment is a pure function of the three describing strings, so the
+// Panorama model can route raw layer/cluster files into the same districts the
+// architecture board uses without first materialising a ClusterFlowNode.
+export function zoneForClusterParts(layer: string, id: string, label: string): ClusterFlowZoneKey {
+  const text = `${layer} ${id} ${label}`.toLowerCase();
   if (text.includes('command')) return 'kernel_commands';
   if (text.includes('pipeline') || text.includes('stage_')) return 'pipeline';
   if (text.includes('agent')) return 'agent_runtime';
@@ -79,6 +82,10 @@ export function zoneForCluster(cluster: ClusterFlowNode): ClusterFlowZoneKey {
   ) return 'frontend';
   if (text.includes('tools') || text.includes('annex')) return 'tools_codex_annex';
   return 'support';
+}
+
+export function zoneForCluster(cluster: ClusterFlowNode): ClusterFlowZoneKey {
+  return zoneForClusterParts(cluster.layer, cluster.id, cluster.label);
 }
 
 export function zoneLabel(key: ClusterFlowZoneKey): string {

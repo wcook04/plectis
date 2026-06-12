@@ -13,7 +13,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -319,7 +323,10 @@ def _fresh_availability_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_tactic_portfolio_availability_bundle":
         return None
-    if payload.get("command") != command:
+    normalized_command = normalize_public_receipt_paths({"command": command}).get(
+        "command"
+    )
+    if payload.get("command") not in {command, normalized_command}:
         return None
     input_paths = _input_paths(input_dir, include_negative=False)
     basis = _receipt_freshness_basis(

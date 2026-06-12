@@ -33,6 +33,10 @@ SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_readiness_probe_body_with_provenance"
 SOURCE_MODULE_IMPORT_STATUS = "copied_formal_readiness_source_modules_verified"
 CARD_SCHEMA_VERSION = "formal_math_readiness_gate_command_card_v1"
+TACTIC_PORTFOLIO_EVIDENCE_REF = (
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/"
+    "tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+)
 PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_pattern_body",
     "public_macro_tool_body",
@@ -189,6 +193,13 @@ def _source_module_source_path(public_root: Path, row: dict[str, Any]) -> Path |
     return public_root.parent / source_ref
 
 
+def _public_ref_path(public_root: Path, ref: object) -> Path | None:
+    value = str(ref or "")
+    if not value:
+        return None
+    return public_root / _strip_microcosm_prefix(value)
+
+
 def _source_artifact_paths(input_dir: Path) -> list[Path]:
     manifest = _read_source_module_manifest(input_dir)
     return [
@@ -228,6 +239,7 @@ def _fixture_manifest_source_binding(public_root: Path) -> dict[str, Any]:
         "verified_source_module_count": body_count if status == PASS else 0,
         "source_module_manifest_status": status,
         "source_module_manifest_ref": manifest_refs[0] if manifest_refs else None,
+        "source_manifest_refs": manifest_refs,
         "source_module_imports": {
             "status": status,
             "source_module_import_status": status,
@@ -249,6 +261,267 @@ def _fixture_manifest_source_binding(public_root: Path) -> dict[str, Any]:
             "body_text_in_receipt": False,
         },
     }
+
+
+def _local_lean_lake_mathlib_evidence(
+    *,
+    public_root: Path,
+    source_manifest_refs: list[str],
+    target_refs: list[str],
+) -> dict[str, Any]:
+    manifest_paths = [
+        path
+        for ref in source_manifest_refs
+        if (path := _public_ref_path(public_root, ref)) is not None
+    ]
+    target_paths = [
+        path for ref in target_refs if (path := _public_ref_path(public_root, ref)) is not None
+    ]
+    existing_target_refs: list[str] = []
+    missing_target_refs: list[str] = []
+    for ref, path in zip(target_refs, target_paths, strict=False):
+        if path.is_file():
+            existing_target_refs.append(str(ref))
+        else:
+            missing_target_refs.append(str(ref))
+
+    corpus_path = next(
+        (
+            path
+            for ref, path in zip(target_refs, target_paths, strict=False)
+            if str(ref).endswith("/corpus_readiness.json")
+        ),
+        None,
+    )
+    tactic_path = next(
+        (
+            path
+            for ref, path in zip(target_refs, target_paths, strict=False)
+            if str(ref).endswith(TACTIC_PORTFOLIO_EVIDENCE_REF)
+        ),
+        None,
+    )
+    mathlib_probe_paths = [
+        path
+        for ref, path in zip(target_refs, target_paths, strict=False)
+        if str(ref).endswith("/mathlib_probe.lean")
+    ]
+    lean_probe_paths = [
+        path
+        for path in target_paths
+        if path.suffix == ".lean" and path.is_file()
+    ]
+    corpus_payload = (
+        read_json_strict(corpus_path)
+        if corpus_path is not None and corpus_path.is_file()
+        else {}
+    )
+    tactic_payload = (
+        read_json_strict(tactic_path)
+        if tactic_path is not None and tactic_path.is_file()
+        else {}
+    )
+    lean_cli = corpus_payload.get("lean_cli", {}) if isinstance(corpus_payload, dict) else {}
+    tactic_rows = _rows(tactic_payload, "rows")
+    mathlib_probe_import_seen = any(
+        path.is_file() and "import Mathlib" in path.read_text(encoding="utf-8")
+        for path in mathlib_probe_paths
+    )
+    std_probe_file_count = sum(
+        1
+        for path in lean_probe_paths
+        if path.name != "mathlib_probe.lean"
+        and "import Std" in path.read_text(encoding="utf-8")
+    )
+    available_tactic_ids = sorted(
+        str(row.get("tactic_id"))
+        for row in tactic_rows
+        if row.get("available") is True and row.get("tactic_id")
+    )
+    unavailable_tactic_ids = sorted(
+        str(row.get("tactic_id"))
+        for row in tactic_rows
+        if row.get("available") is False and row.get("tactic_id")
+    )
+    manifest_refs_exist = bool(manifest_paths) and all(
+        path.is_file() for path in manifest_paths
+    )
+    corpus_bound = (
+        isinstance(corpus_payload, dict)
+        and corpus_payload.get("mathlib_available") is False
+        and isinstance(lean_cli, dict)
+        and lean_cli.get("lean_available") is True
+        and lean_cli.get("lake_available") is True
+    )
+    tactic_bound = bool(available_tactic_ids) and "aesop" in unavailable_tactic_ids
+    bound = (
+        manifest_refs_exist
+        and bool(target_refs)
+        and not missing_target_refs
+        and corpus_bound
+        and tactic_bound
+        and mathlib_probe_import_seen
+        and std_probe_file_count > 0
+    )
+    return {
+        "schema_version": "formal_math_readiness_local_lean_lake_mathlib_evidence_v1",
+        "local_evidence_bound": bound,
+        "manifest_refs_exist": manifest_refs_exist,
+        "source_manifest_refs": source_manifest_refs,
+        "target_ref_count": len(target_refs),
+        "existing_target_ref_count": len(existing_target_refs),
+        "missing_target_refs": missing_target_refs,
+        "corpus_readiness_ref": _display(corpus_path, public_root=public_root)
+        if corpus_path
+        else None,
+        "tactic_portfolio_ref": _display(tactic_path, public_root=public_root)
+        if tactic_path
+        else None,
+        "lean_available": (
+            lean_cli.get("lean_available") is True if isinstance(lean_cli, dict) else False
+        ),
+        "lake_available": (
+            lean_cli.get("lake_available") is True if isinstance(lean_cli, dict) else False
+        ),
+        "mathlib_available": (
+            corpus_payload.get("mathlib_available") is True
+            if isinstance(corpus_payload, dict)
+            else False
+        ),
+        "mathlib_probe_import_seen": mathlib_probe_import_seen,
+        "lean_probe_file_count": len(lean_probe_paths),
+        "std_probe_file_count": std_probe_file_count,
+        "available_tactic_ids": available_tactic_ids,
+        "unavailable_tactic_ids": unavailable_tactic_ids,
+        "body_in_receipt": False,
+    }
+
+
+def _ref_matches_suffix(ref: object, suffix: str) -> bool:
+    return str(ref or "").endswith(suffix)
+
+
+def _has_tactic_probe_evidence_refs(binding: dict[str, Any]) -> bool:
+    source_refs = _strings(binding.get("source_refs"))
+    target_refs = _strings(binding.get("target_refs"))
+    return any(
+        _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF) for ref in source_refs
+    ) or any(
+        _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF)
+        for ref in target_refs
+    )
+
+
+def _source_import_tactic_probe_evidence(
+    source_imports: dict[str, Any],
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    source_refs = _strings(source_imports.get("source_refs"))
+    target_refs = _strings(source_imports.get("target_refs"))
+    manifest_ref = str(source_imports.get("source_module_manifest_ref") or "")
+    local_evidence = _local_lean_lake_mathlib_evidence(
+        public_root=public_root,
+        source_manifest_refs=[manifest_ref] if manifest_ref else [],
+        target_refs=target_refs,
+    )
+    bound = (
+        source_imports.get("source_modules_pass") is True
+        and bool(int(source_imports.get("copied_source_artifact_count") or 0))
+        and local_evidence["local_evidence_bound"] is True
+        and (
+            any(
+                _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF)
+                for ref in source_refs
+            )
+            or any(
+                _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF)
+                for ref in target_refs
+            )
+        )
+    )
+    return {
+        "source": "source_module_imports",
+        "tactic_probe_evidence_bound": bound,
+        "source_modules_pass": source_imports.get("source_modules_pass") is True,
+        "copied_source_artifact_count": int(
+            source_imports.get("copied_source_artifact_count") or 0
+        ),
+        "required_evidence_ref": TACTIC_PORTFOLIO_EVIDENCE_REF,
+        "source_refs": source_refs,
+        "target_refs": target_refs,
+        "local_lean_lake_mathlib_evidence": local_evidence,
+    }
+
+
+def _fixture_manifest_tactic_probe_evidence(public_root: Path) -> dict[str, Any]:
+    binding = _fixture_manifest_source_binding(public_root)
+    source_imports = binding.get("source_module_imports", {})
+    source_refs = (
+        _strings(source_imports.get("source_refs"))
+        if isinstance(source_imports, dict)
+        else []
+    )
+    target_refs = (
+        _strings(source_imports.get("target_refs"))
+        if isinstance(source_imports, dict)
+        else []
+    )
+    source_manifest_refs = _strings(binding.get("source_manifest_refs"))
+    local_evidence = _local_lean_lake_mathlib_evidence(
+        public_root=public_root,
+        source_manifest_refs=source_manifest_refs,
+        target_refs=target_refs,
+    )
+    bound = (
+        binding.get("source_module_manifest_status") == PASS
+        and int(binding.get("body_copied_material_count") or 0) > 0
+        and local_evidence["local_evidence_bound"] is True
+        and _has_tactic_probe_evidence_refs(
+            {"source_refs": source_refs, "target_refs": target_refs}
+        )
+    )
+    return {
+        "source": "fixture_manifest_source_open_body_imports",
+        "tactic_probe_evidence_bound": bound,
+        "source_module_manifest_status": binding.get("source_module_manifest_status"),
+        "body_copied_material_count": int(
+            binding.get("body_copied_material_count") or 0
+        ),
+        "required_evidence_ref": TACTIC_PORTFOLIO_EVIDENCE_REF,
+        "source_refs": source_refs,
+        "target_refs": target_refs,
+        "source_manifest_refs": source_manifest_refs,
+        "local_lean_lake_mathlib_evidence": local_evidence,
+    }
+
+
+def _tactic_probe_realness_evidence(
+    *,
+    input_mode: str,
+    source_imports: dict[str, Any],
+    public_root: Path,
+) -> dict[str, Any]:
+    candidates = [
+        _source_import_tactic_probe_evidence(
+            source_imports,
+            public_root=public_root,
+        )
+    ]
+    if input_mode.startswith("first_wave_fixture"):
+        candidates.append(_fixture_manifest_tactic_probe_evidence(public_root))
+    bound = any(row["tactic_probe_evidence_bound"] for row in candidates)
+    return {
+        "schema_version": "formal_math_readiness_realness_evidence_v1",
+        "tactic_probe_evidence_bound": bound,
+        "synthetic_probe_labels_allowed": bound,
+        "required_evidence_ref": TACTIC_PORTFOLIO_EVIDENCE_REF,
+        "candidate_bindings": candidates,
+    }
+
+
+def _is_synthetic_probe_ref(ref: object) -> bool:
+    return str(ref or "").startswith("synthetic_probe:")
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
@@ -442,6 +715,8 @@ def validate_corpus_readiness(
 def validate_tactic_portfolio(
     payload: object,
     negative_payload: object | None = None,
+    *,
+    realness_evidence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     tactics: list[dict[str, Any]] = []
     available: list[str] = []
@@ -467,9 +742,10 @@ def validate_tactic_portfolio(
     observed: dict[str, set[str]] = defaultdict(set)
     for row in _rows(payload, "tactics"):
         tactic_id = str(row.get("tactic_id") or "tactic")
+        probe_receipt_ref = row.get("probe_receipt_ref")
         if (
             str(row.get("availability_status") or "unknown") == PASS
-            and not row.get("probe_receipt_ref")
+            and not probe_receipt_ref
         ):
             _record(
                 findings,
@@ -477,6 +753,20 @@ def validate_tactic_portfolio(
                 "TACTIC_AVAILABILITY_UNPROBED",
                 "Tactic availability was claimed without a probe receipt.",
                 case_id=f"{tactic_id}:positive_tactic_availability",
+                subject_id=tactic_id,
+                subject_kind="tactic_availability",
+            )
+        if _is_synthetic_probe_ref(probe_receipt_ref) and not (
+            realness_evidence
+            and realness_evidence.get("tactic_probe_evidence_bound") is True
+        ):
+            _record(
+                findings,
+                observed,
+                "TACTIC_PROBE_SYNTHETIC_UNBOUND",
+                "Synthetic tactic probe labels require a copied source body or "
+                "fixture-manifest evidence binding.",
+                case_id=f"{tactic_id}:positive_tactic_probe_realness",
                 subject_id=tactic_id,
                 subject_kind="tactic_availability",
             )
@@ -504,6 +794,7 @@ def validate_tactic_portfolio(
         "unavailable_tactic_ids": sorted(tactic for tactic in unavailable if tactic),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+        "realness_evidence": realness_evidence or {},
     }
 
 
@@ -1093,9 +1384,20 @@ def _build_result(
         payloads["corpus_readiness"],
         payloads.get("corpus_readiness_overclaims_mathlib"),
     )
+    source_imports = validate_source_module_imports(
+        input_dir,
+        required=input_mode == "exported_formal_math_readiness_bundle",
+        public_root=public_root,
+    )
+    realness_evidence = _tactic_probe_realness_evidence(
+        input_mode=input_mode,
+        source_imports=source_imports,
+        public_root=public_root,
+    )
     tactics = validate_tactic_portfolio(
         payloads["tactic_portfolio_availability"],
         payloads.get("tactic_claims_availability_without_probe"),
+        realness_evidence=realness_evidence,
     )
     premise_index = validate_premise_index(
         payloads["premise_index"],
@@ -1110,12 +1412,6 @@ def _build_result(
         payloads["provider_context_recipes"],
         payloads.get("provider_context_recipe_overclaim"),
     )
-    source_imports = validate_source_module_imports(
-        input_dir,
-        required=input_mode == "exported_formal_math_readiness_bundle",
-        public_root=public_root,
-    )
-
     observed = _merge_observed(corpus, tactics, premise_index, routing, recipes)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -1170,6 +1466,7 @@ def _build_result(
         "error_codes": error_codes,
         "findings": findings,
         "secret_exclusion_scan": secret_scan,
+        "realness_evidence": realness_evidence,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_material_status": BODY_MATERIAL_STATUS,
@@ -1191,6 +1488,7 @@ def _build_result(
         "readiness_extension_status": extension_board["projection_status"],
         "readiness_extension_board": extension_board,
         "readiness_board": {
+            "realness_evidence": realness_evidence,
             "mathlib_available": not corpus["blocked_capabilities"],
             "lean_lake_execution_authorized": False,
             "formal_proof_authority": False,
@@ -1236,6 +1534,7 @@ def _common_receipt(
         "error_codes",
         "findings",
         "secret_exclusion_scan",
+        "realness_evidence",
         "authority_ceiling",
         "anti_claim",
         "body_material_status",

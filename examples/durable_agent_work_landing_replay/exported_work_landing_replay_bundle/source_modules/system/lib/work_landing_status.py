@@ -1023,15 +1023,6 @@ def _task_ledger_authority_execution_receipt_overlay(
             "source": str(task_ledger_events.EVENTS_REL),
             "subject_ids": [],
         }
-    path = repo_root / task_ledger_events.EVENTS_REL
-    if not path.exists():
-        return {
-            "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
-            "status": "event_log_missing",
-            "source": str(task_ledger_events.EVENTS_REL),
-            "subject_ids": subjects,
-        }
-
     subject_set = set(subjects)
     event_ids: list[str] = []
     receipt_refs: list[str] = []
@@ -1039,25 +1030,17 @@ def _task_ledger_authority_execution_receipt_overlay(
     work_ledger_refs: list[str] = []
     receipts: list[dict[str, Any]] = []
     try:
-        lines = path.read_text(encoding="utf-8").splitlines()
-    except OSError as exc:
+        events = task_ledger_events.read_authority_events(repo_root)
+    except Exception as exc:
         return {
             "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
-            "status": "event_log_unreadable",
-            "source": str(task_ledger_events.EVENTS_REL),
+            "status": "authority_unreadable",
+            "source": "task_ledger_events.read_authority_events",
             "subject_ids": subjects,
             "error": str(exc),
         }
 
-    for line in lines:
-        if not line.strip():
-            continue
-        try:
-            event = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if not isinstance(event, Mapping):
-            continue
+    for event in events:
         if str(event.get("event_type") or "").strip() != "work_item.execution_receipt_recorded":
             continue
         payload = _mapping(event.get("payload"))
@@ -1077,7 +1060,7 @@ def _task_ledger_authority_execution_receipt_overlay(
             receipt["source_event_id"] = event_id
             _append_unique(event_ids, event_id)
         receipt["subject_id"] = subject_id
-        receipt["authority_source"] = str(task_ledger_events.EVENTS_REL)
+        receipt["authority_source"] = "task_ledger_events.read_authority_events"
         receipts.append(receipt)
 
         refs = _mapping(event.get("refs"))
@@ -1128,7 +1111,7 @@ def _task_ledger_authority_execution_receipt_overlay(
     return {
         "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
         "status": overlay_status,
-        "source": str(task_ledger_events.EVENTS_REL),
+        "source": "task_ledger_events.read_authority_events",
         "subject_ids": subjects,
         "receipt_count": len(receipts),
         "event_ids": event_ids,

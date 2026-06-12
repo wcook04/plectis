@@ -511,9 +511,187 @@ def _record_head_cas_memory_event(
     }
 
 
+def _cas_retry_packet_ref(
+    *,
+    evidence_root: str,
+    mode: str,
+    branch_ref: str,
+    expected_parent: str,
+    current_head: str,
+    attempted_commit: str,
+    scoped_evidence_sha: str,
+) -> str:
+    payload = {
+        "schema": "scoped_commit_head_cas_retry_packet_ref_v0",
+        "evidence_root": evidence_root,
+        "mode": mode,
+        "branch_ref": branch_ref,
+        "expected_parent": expected_parent,
+        "current_head": current_head,
+        "attempted_commit": attempted_commit,
+        "scoped_evidence_sha": scoped_evidence_sha,
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return f"scoped-commit-head-cas-retry-packet:sha256:{hashlib.sha256(encoded).hexdigest()}"
+
+
+def _cas_stop_heartbeat_line() -> str:
+    return (
+        "scoped_commit stopped: parent-CAS retry budget exhausted; "
+        "validated_uncommitted receipt required before third ref mutation."
+    )
+
+
+def _cas_stop_work_ledger_handoff(
+    *,
+    work_ledger_session_id: str | None,
+    changed_paths: list[str],
+    packet_ref: str,
+    retry_budget_exhausted: bool,
+) -> dict[str, object]:
+    session = str(work_ledger_session_id or "").strip()
+    session_arg = shlex.quote(session) if session else "<work-ledger-session-id>"
+    scope_ref = packet_ref or (changed_paths[0] if changed_paths else "<scope-ref>")
+    line = _cas_stop_heartbeat_line()
+    command = (
+        "./repo-python tools/meta/factory/work_ledger.py session-heartbeat "
+        f"--session-id {session_arg} "
+        "--state blocked "
+        f"--current-pass-line {shlex.quote(line)} "
+        f"--scope-ref {shlex.quote(scope_ref)} "
+        "--source manual_cli"
+    )
+    return {
+        "schema": "scoped_commit_cas_stop_work_ledger_handoff_v0",
+        "status": "required" if retry_budget_exhausted else "available_if_retry_exhausts",
+        "surface": "tools/meta/factory/work_ledger.py session-heartbeat",
+        "classification_terms": [
+            "cas retry budget",
+            "retry budget exhausted",
+            "scoped_commit stopped",
+        ],
+        "heartbeat_line": line,
+        "session_id": session,
+        "command_template": _command_template_row(
+            row_id="publish_work_ledger_cas_handoff_heartbeat",
+            command=command,
+            template=not bool(session),
+            required_fields=[] if session else ["work-ledger-session-id"],
+            parser_owner="work_ledger",
+            owner_help_route="./repo-python tools/meta/factory/work_ledger.py session-heartbeat --help",
+        ),
+        "consumer": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12",
+        "consumer_match_rule": "CAS_RETRY_HANDOFF_TERMS over current_pass_line/last_pass_result_line",
+    }
+
+
+def _cas_stop_task_ledger_handoff(
+    *,
+    evidence_root: str,
+    mode: str,
+    branch_ref: str,
+    expected_parent: str,
+    current_head: str,
+    attempted_commit: str,
+    attempted_tree: str,
+    scoped_evidence_sha: str,
+    changed_paths: list[str],
+    packet_ref: str,
+    retry_budget: dict[str, object],
+    retry_memory: dict[str, object],
+    recent_commits_preview: list[str],
+    work_ledger_session_id: str | None,
+    retry_budget_exhausted: bool,
+) -> dict[str, object]:
+    session = str(work_ledger_session_id or "").strip()
+    session_arg = shlex.quote(session) if session else "<work-ledger-session-id>"
+    payload_template: dict[str, object] = {
+        "schema": "scoped_commit_validated_uncommitted_cas_stop_receipt_v0",
+        "failure_class": "parent_cas_churn_validated_uncommitted_boundary",
+        "closeout_state": "validated_uncommitted_git_metadata_blocked",
+        "no_commit_reason": "parent_cas_retry_budget_exhausted",
+        "evidence_root": evidence_root,
+        "retry_packet_ref": packet_ref,
+        "mode": mode,
+        "branch_ref": branch_ref,
+        "expected_parent": expected_parent,
+        "current_head": current_head,
+        "attempted_commit": attempted_commit,
+        "attempted_tree": attempted_tree,
+        "scoped_evidence_sha": scoped_evidence_sha,
+        "write_set_hash": scoped_evidence_sha,
+        "changed_path_count": len(changed_paths),
+        "changed_paths": list(changed_paths),
+        "retry_budget": retry_budget,
+        "retry_memory": {
+            key: value
+            for key, value in retry_memory.items()
+            if key != "record_receipt"
+        },
+        "recent_commits_preview": recent_commits_preview,
+        "validation_refs": ["<validation-ref>"],
+        "commit_blocker_refs": [
+            packet_ref,
+            "parent_cas_retry_budget_exhausted",
+        ],
+        "reentry_condition": [
+            "quiet-window or fresh stable HEAD",
+            "owned-path overlap check over intervening commits",
+            "mission_transaction_preflight for exact owned paths",
+            "focused validation refreshed after latest HEAD movement",
+            "new scoped_commit attempt from a fresh evidence root",
+        ],
+        "not_landed_statement": (
+            "No commit hash is present because scoped_commit stopped after the "
+            "allowed refreshed parent-CAS retry was spent."
+        ),
+    }
+    command = (
+        "./repo-python tools/meta/factory/task_ledger_apply.py "
+        "record-execution-receipt "
+        "--subject-id <subject-id> "
+        "--transaction-id <transaction-id> "
+        f"--work-ledger-session-id {session_arg} "
+        "--closeout-state validated_uncommitted_git_metadata_blocked "
+        "--no-commit-reason parent_cas_retry_budget_exhausted "
+        "--validation-ref <validation-ref> "
+        f"--commit-blocker-ref {shlex.quote(packet_ref)} "
+        "--commit-blocker-ref parent_cas_retry_budget_exhausted "
+        "--payload-file <receipt-file> "
+        "--projection-rebuild-policy off"
+    )
+    required_fields = [
+        "subject-id",
+        "transaction-id",
+        "validation-ref",
+        "receipt-file",
+    ]
+    if not session:
+        required_fields.insert(2, "work-ledger-session-id")
+    return {
+        "schema": "scoped_commit_cas_stop_task_ledger_handoff_v0",
+        "status": "required" if retry_budget_exhausted else "available_if_retry_exhausts",
+        "surface": "tools/meta/factory/task_ledger_apply.py record-execution-receipt",
+        "payload_template": payload_template,
+        "payload_file_rule": "write payload_template to a unique UTF-8 JSON file or pass equivalent JSON on stdin",
+        "command_template": _command_template_row(
+            row_id="record_validated_uncommitted_receipt",
+            command=command,
+            template=True,
+            required_fields=required_fields,
+            parser_owner="task_ledger_apply",
+            owner_help_route=(
+                "./repo-python tools/meta/factory/task_ledger_apply.py "
+                "record-execution-receipt --help"
+            ),
+        ),
+    }
+
+
 def _build_head_cas_retry_packet(
     repo_root: Path,
     *,
+    evidence_root: str,
     mode: str,
     branch_ref: str,
     expected_parent: str,
@@ -524,6 +702,7 @@ def _build_head_cas_retry_packet(
     update_stderr: str,
     cas_retry_attempt: int = 0,
     retry_memory: dict[str, object] | None = None,
+    work_ledger_session_id: str | None = None,
 ) -> dict[str, object]:
     current_head = _git(["rev-parse", "HEAD"], cwd=repo_root, check=False).stdout.strip()
     refresh_retry_attempt = max(0, int(cas_retry_attempt or 0))
@@ -548,6 +727,67 @@ def _build_head_cas_retry_packet(
         if retry_budget_exhausted
         else "retry_required_after_refresh"
     )
+    retry_budget = {
+        "schema": "scoped_commit_head_cas_retry_budget_v0",
+        "max_refresh_retry_attempts": SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES,
+        "current_refresh_retry_attempt": refresh_retry_attempt,
+        "remaining_refresh_retries_after_failure": (
+            0
+            if retry_budget_exhausted
+            else max(
+                0,
+                SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES - refresh_retry_attempt,
+            )
+        ),
+        "budget_exhausted": retry_budget_exhausted,
+        "attempt_count_source": (
+            "max_of_caller_retry_attempt_and_repo_git_dir_retry_memory"
+        ),
+        "rule": (
+            "After one refreshed retry for the same evidence root, a second "
+            "HEAD-CAS failure must stop the landing loop and bind a residual "
+            "or coordination handoff instead of launching another blind retry."
+        ),
+        "residual_required_when": [
+            "same evidence root already consumed the refresh retry",
+            "current_head changes again before retry landing",
+            "recent commits cannot be proven disjoint from the owned paths",
+        ],
+    }
+    retry_memory_payload = retry_memory or {}
+    recent_commits_preview = _recent_commit_preview(repo_root, parent_sha=expected_parent)
+    packet_ref = _cas_retry_packet_ref(
+        evidence_root=evidence_root,
+        mode=mode,
+        branch_ref=branch_ref,
+        expected_parent=expected_parent,
+        current_head=current_head,
+        attempted_commit=attempted_commit,
+        scoped_evidence_sha=scoped_evidence_sha,
+    )
+    task_ledger_handoff = _cas_stop_task_ledger_handoff(
+        evidence_root=evidence_root,
+        mode=mode,
+        branch_ref=branch_ref,
+        expected_parent=expected_parent,
+        current_head=current_head,
+        attempted_commit=attempted_commit,
+        attempted_tree=attempted_tree,
+        scoped_evidence_sha=scoped_evidence_sha,
+        changed_paths=changed_paths,
+        packet_ref=packet_ref,
+        retry_budget=retry_budget,
+        retry_memory=retry_memory_payload,
+        recent_commits_preview=recent_commits_preview,
+        work_ledger_session_id=work_ledger_session_id,
+        retry_budget_exhausted=retry_budget_exhausted,
+    )
+    work_ledger_handoff = _cas_stop_work_ledger_handoff(
+        work_ledger_session_id=work_ledger_session_id,
+        changed_paths=changed_paths,
+        packet_ref=packet_ref,
+        retry_budget_exhausted=retry_budget_exhausted,
+    )
     return {
         "schema": "scoped_commit_head_cas_retry_packet_v1",
         "status": (
@@ -560,48 +800,36 @@ def _build_head_cas_retry_packet(
         "continuation_state": continuation_state,
         "source_failure": "git_update_ref_cas_mismatch",
         "selected_option": selected_option,
+        "cas_stop_handoff": {
+            "schema": "scoped_commit_cas_stop_handoff_v0",
+            "status": "required" if retry_budget_exhausted else "available_if_retry_exhausts",
+            "packet_ref": packet_ref,
+            "task_ledger": task_ledger_handoff,
+            "work_ledger": work_ledger_handoff,
+            "rule": (
+                "When retry budget is exhausted, preserve validated-uncommitted "
+                "state through Task Ledger receipt plus Work Ledger handoff visibility "
+                "before any later scoped commit attempt."
+            ),
+        },
         "stale_option_retirement": {
             "retired_expected_parent": expected_parent,
             "reason": "same scoped commit must not be retried against the stale parent",
             "next_expected_parent": current_head,
         },
-        "retry_budget": {
-            "schema": "scoped_commit_head_cas_retry_budget_v0",
-            "max_refresh_retry_attempts": SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES,
-            "current_refresh_retry_attempt": refresh_retry_attempt,
-            "remaining_refresh_retries_after_failure": (
-                0
-                if retry_budget_exhausted
-                else max(
-                    0,
-                    SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES - refresh_retry_attempt,
-                )
-            ),
-            "budget_exhausted": retry_budget_exhausted,
-            "attempt_count_source": (
-                "max_of_caller_retry_attempt_and_repo_git_dir_retry_memory"
-            ),
-            "rule": (
-                "After one refreshed retry for the same evidence root, a second "
-                "HEAD-CAS failure must stop the landing loop and bind a residual "
-                "or coordination handoff instead of launching another blind retry."
-            ),
-            "residual_required_when": [
-                "same evidence root already consumed the refresh retry",
-                "current_head changes again before retry landing",
-                "recent commits cannot be proven disjoint from the owned paths",
-            ],
-        },
+        "retry_budget": retry_budget,
         "branch_ref": branch_ref,
         "expected_parent": expected_parent,
         "current_head": current_head,
         "attempted_commit": attempted_commit,
         "attempted_tree": attempted_tree,
         "scoped_evidence_sha": scoped_evidence_sha,
+        "evidence_root": evidence_root,
+        "packet_ref": packet_ref,
         "changed_path_count": len(changed_paths),
         "changed_paths": list(changed_paths),
-        "retry_memory": retry_memory or {},
-        "recent_commits_preview": _recent_commit_preview(repo_root, parent_sha=expected_parent),
+        "retry_memory": retry_memory_payload,
+        "recent_commits_preview": recent_commits_preview,
         "git_stderr": update_stderr.strip()[:500],
         "required_before_retry": [
             "re_read_current_head",
@@ -685,22 +913,9 @@ def _build_head_cas_retry_packet(
             ),
             _command_template_row(
                 row_id="record_validated_uncommitted_receipt",
-                command=(
-                    "./repo-python tools/meta/factory/task_ledger_apply.py "
-                    "record-execution-receipt --subject-id <subject-id> "
-                    "--transaction-id <transaction-id> "
-                    "--closeout-state validated_uncommitted_git_metadata_blocked "
-                    "--no-commit-reason parent_cas_retry_budget_exhausted "
-                    "--validation-ref <validation-ref> "
-                    "--commit-blocker-ref scoped-commit-head-cas-retry-packet "
-                    "--commit-blocker-ref parent_cas_retry_budget_exhausted"
-                ),
+                command=str(task_ledger_handoff["command_template"]["command"]),
                 template=True,
-                required_fields=[
-                    "subject-id",
-                    "transaction-id",
-                    "validation-ref",
-                ],
+                required_fields=list(task_ledger_handoff["command_template"]["required_fields"]),
                 parser_owner="task_ledger_apply",
                 owner_help_route=(
                     "./repo-python tools/meta/factory/task_ledger_apply.py "
@@ -750,6 +965,7 @@ def _head_cas_failure(
     changed_paths: list[str],
     update_stderr: str,
     cas_retry_attempt: int = 0,
+    work_ledger_session_id: str | None = None,
 ) -> HeadCasFailureError:
     evidence_root = _head_cas_evidence_root(
         mode=mode,
@@ -765,6 +981,7 @@ def _head_cas_failure(
     retry_memory["effective_refresh_retry_attempt"] = effective_retry_attempt
     packet = _build_head_cas_retry_packet(
         repo_root,
+        evidence_root=evidence_root,
         mode=mode,
         branch_ref=branch_ref,
         expected_parent=parent_sha,
@@ -775,6 +992,7 @@ def _head_cas_failure(
         update_stderr=update_stderr,
         cas_retry_attempt=effective_retry_attempt,
         retry_memory=retry_memory,
+        work_ledger_session_id=work_ledger_session_id,
     )
     record_receipt = _record_head_cas_memory_event(
         repo_root,
@@ -1657,6 +1875,42 @@ def _assert_task_ledger_monolith_not_committed(changed_paths: list[str]) -> dict
     )
 
 
+def _scoped_commit_receipt_aliases(
+    *,
+    mode: str,
+    parent_sha: str,
+    branch_ref: str,
+    declared_paths: list[str],
+    changed_paths: list[str],
+    hunk_counts: dict[str, int],
+    commit_sha: str | None,
+    dry_run: bool,
+    retry_stop_reason: str = "not_applicable",
+) -> dict[str, object]:
+    normalized_declared = _normalize_paths(declared_paths)
+    normalized_changed = _normalize_paths(changed_paths)
+    normalized_hunks = {
+        path: int(count)
+        for path, count in sorted(hunk_counts.items())
+        if path in normalized_changed or not normalized_changed
+    }
+    return {
+        "schema": "scoped_commit_landing_receipt_v1",
+        "status": "dry_run" if dry_run else "committed",
+        "mode": mode,
+        "commit_hash": commit_sha or "",
+        "expected_parent": parent_sha,
+        "actual_parent": parent_sha,
+        "branch_ref": branch_ref,
+        "declared_paths": normalized_declared,
+        "declared_path_count": len(normalized_declared),
+        "changed_path_count": len(normalized_changed),
+        "hunk_counts": normalized_hunks,
+        "hunk_count": sum(normalized_hunks.values()),
+        "retry_stop_reason": retry_stop_reason,
+    }
+
+
 def _diff_git_target_path(line: str, path_set: set[str]) -> str | None:
     prefix = "diff --git "
     if not line.startswith(prefix):
@@ -2017,6 +2271,7 @@ def _perform_scoped_commit_locked(
             preexisting_shared_staged_paths = _shared_index_changed_paths(repo_root, changed)
 
         full_path_hunk_counts: dict[str, int] = {}
+        patch_hunk_counts: dict[str, int] = {}
         if patch_path is None:
             if not changed:
                 raise ValueError("scoped-commit: full-paths produced no staged changes")
@@ -2062,6 +2317,12 @@ def _perform_scoped_commit_locked(
                     "scoped-commit: patch touches paths outside declared --path set: "
                     f"changed={changed}, declared={declared_paths}"
                 )
+            patch_hunk_counts = _private_index_hunk_counts(
+                repo_root,
+                index_file,
+                parent_sha,
+                changed,
+            )
 
         mode_label = "full-paths" if patch_path is None else "patch"
         task_ledger_projection_guard = _assert_task_ledger_private_index_consistency(
@@ -2093,11 +2354,22 @@ def _perform_scoped_commit_locked(
 
         if dry_run:
             return {
+                **_scoped_commit_receipt_aliases(
+                    mode=mode_label,
+                    parent_sha=parent_sha,
+                    branch_ref=branch_ref,
+                    declared_paths=declared_paths,
+                    changed_paths=changed,
+                    hunk_counts=full_path_hunk_counts if patch_path is None else patch_hunk_counts,
+                    commit_sha=None,
+                    dry_run=True,
+                ),
                 "mode": mode_label,
                 "parent": parent_sha,
                 "branch_ref": branch_ref,
                 "changed_paths": changed,
                 "full_path_hunk_counts": full_path_hunk_counts if patch_path is None else {},
+                "patch_hunk_counts": patch_hunk_counts if patch_path is not None else {},
                 "new_commit": None,
                 "tree": None,
                 "dry_run": True,
@@ -2136,6 +2408,7 @@ def _perform_scoped_commit_locked(
                 changed_paths=changed,
                 update_stderr=update_res.stderr,
                 cas_retry_attempt=cas_retry_attempt,
+                work_ledger_session_id=effective_work_ledger_session_id,
             )
 
         head_cas_retry_memory = _record_head_cas_landed(
@@ -2190,11 +2463,22 @@ def _perform_scoped_commit_locked(
                     )
 
     return {
+        **_scoped_commit_receipt_aliases(
+            mode=mode_label,
+            parent_sha=parent_sha,
+            branch_ref=branch_ref,
+            declared_paths=declared_paths,
+            changed_paths=changed,
+            hunk_counts=full_path_hunk_counts if patch_path is None else patch_hunk_counts,
+            commit_sha=commit_sha,
+            dry_run=False,
+        ),
         "mode": mode_label,
         "parent": parent_sha,
         "branch_ref": branch_ref,
         "changed_paths": changed,
         "full_path_hunk_counts": full_path_hunk_counts if patch_path is None else {},
+        "patch_hunk_counts": patch_hunk_counts if patch_path is not None else {},
         "new_commit": commit_sha,
         "tree": tree_sha,
         "scoped_evidence_sha": scoped_evidence_sha,
@@ -2419,6 +2703,7 @@ def _perform_tracked_removals_commit_locked(
                 changed_paths=changed,
                 update_stderr=update_res.stderr,
                 cas_retry_attempt=cas_retry_attempt,
+                work_ledger_session_id=effective_work_ledger_session_id,
             )
 
         head_cas_retry_memory = _record_head_cas_landed(

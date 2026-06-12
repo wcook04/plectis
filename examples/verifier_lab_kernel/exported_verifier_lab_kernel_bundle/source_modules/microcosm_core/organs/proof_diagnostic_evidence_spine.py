@@ -42,6 +42,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = [
     "source_digest_sha256_by_ref",
     "public_replacement_refs",
     "freshness_basis",
+    "source_body_floor_artifacts",
 ]
 
 PROOF_AUTHORITY_CEILING = {
@@ -308,6 +309,34 @@ PUBLIC_REPLACEMENT_REFS = [
     *REFERENCE_CAPSULE_RECEIPT_REFS,
     *AUTHORITY_CHAIN_RECEIPT_REFS,
 ]
+SOURCE_BODY_FLOOR_MANIFEST_REF = (
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/"
+    "source_body_floor/source_module_manifest.json"
+)
+SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS = [
+    {
+        "module_id": "proof_diagnostic_evidence_spine_public_organ_source_body_import",
+        "source_ref": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+        "target_ref": (
+            "microcosm-substrate/examples/proof_diagnostic_evidence_spine/"
+            "exported_evidence_bundle/source_body_floor/source_modules/"
+            "microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+        ),
+        "path": "source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+        "sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+        "source_sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+        "target_sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+        "source_to_target_relation": "exact_copy",
+        "source_import_class": "copied_non_secret_public_substrate_body",
+        "material_class": "public_microcosm_organ_source_body",
+        "body_copied": True,
+        "body_in_receipt": False,
+        "required_anchors": [
+            'ORGAN_ID = "proof_diagnostic_evidence_spine"',
+            "def run",
+        ],
+    }
+]
 SOURCE_TARGET_REFS = [
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
@@ -315,6 +344,7 @@ SOURCE_TARGET_REFS = [
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+    SOURCE_BODY_FLOOR_MANIFEST_REF,
     *PUBLIC_RING2_ARTIFACT_TARGET_REFS,
 ]
 
@@ -417,6 +447,16 @@ def _bundle_input_file_paths(input_dir: Path, *, public_root: Path | None = None
     paths = [input_dir / name for name in names]
     if public_root is not None:
         paths.extend(public_root / ref for ref in PUBLIC_RING2_ARTIFACT_TARGET_REFS)
+        paths.append(public_root / SOURCE_BODY_FLOOR_MANIFEST_REF)
+        paths.extend(
+            path
+            for artifact in SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS
+            for path in (
+                _resolve_public_ref(public_root, str(artifact["target_ref"])),
+                input_dir / "source_body_floor" / str(artifact["path"]),
+            )
+            if path is not None
+        )
     return paths
 
 
@@ -472,6 +512,21 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     if not isinstance(value, list):
         return []
     return [item for item in value if isinstance(item, dict)]
+
+
+def _forbidden_body_key_paths(payload: object, *, prefix: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            key_ref = f"{prefix}.{key}" if prefix else str(key)
+            if key in FORBIDDEN_BODY_KEYS:
+                paths.append(key_ref)
+            paths.extend(_forbidden_body_key_paths(value, prefix=key_ref))
+    elif isinstance(payload, list):
+        for index, item in enumerate(payload):
+            item_ref = f"{prefix}[{index}]" if prefix else f"[{index}]"
+            paths.extend(_forbidden_body_key_paths(item, prefix=item_ref))
+    return sorted(paths)
 
 
 def _finding(
@@ -1054,6 +1109,152 @@ def validate_copied_macro_body_artifacts(
     }
 
 
+def validate_source_body_floor_artifacts(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = input_dir / "source_body_floor" / "source_module_manifest.json"
+    manifest_payload: dict[str, Any] = {}
+    if manifest_path.is_file():
+        loaded = read_json_strict(manifest_path)
+        if isinstance(loaded, dict):
+            manifest_payload = loaded
+    declared = [
+        row
+        for row in manifest_payload.get("modules", [])
+        if isinstance(row, dict)
+    ]
+    expected_by_path = {
+        str(row["path"]): row for row in SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS
+    }
+    expected_paths = set(expected_by_path)
+    declared_paths = {str(row.get("path") or "") for row in declared}
+    missing_declared_paths = sorted(expected_paths - declared_paths)
+    unexpected_declared_paths = sorted(declared_paths - expected_paths)
+    rows: list[dict[str, Any]] = []
+    missing_files: list[str] = []
+    digest_mismatches: list[dict[str, Any]] = []
+
+    for row in declared:
+        path_ref = str(row.get("path") or "")
+        expected = expected_by_path.get(path_ref, {})
+        target_ref = str(expected.get("target_ref") or row.get("target_ref") or "")
+        source_ref = str(row.get("source_ref") or "")
+        expected_source_ref = str(expected.get("source_ref") or source_ref)
+        expected_sha256 = str(expected.get("sha256") or "")
+        target_path = (
+            _resolve_public_ref(public_root, target_ref)
+            if target_ref
+            else input_dir / "source_body_floor" / path_ref
+        )
+        if target_path is None:
+            target_path = input_dir / "source_body_floor" / path_ref
+        file_present = target_path.is_file()
+        actual_sha256 = _sha256_file(target_path) if file_present else ""
+        text = target_path.read_text(encoding="utf-8") if file_present else ""
+        required_anchors = [
+            str(item)
+            for item in row.get("required_anchors", expected.get("required_anchors", []))
+            if isinstance(item, str)
+        ]
+        missing_anchors = sorted(anchor for anchor in required_anchors if anchor not in text)
+        actual_line_count = len(text.splitlines()) if file_present else 0
+        actual_byte_count = len(text.encode("utf-8")) if file_present else 0
+        manifest_matches_expected = (
+            bool(expected)
+            and source_ref == expected_source_ref
+            and str(row.get("sha256") or "") == expected_sha256
+            and str(row.get("source_sha256") or "") == str(expected.get("source_sha256") or "")
+            and str(row.get("target_sha256") or "") == str(expected.get("target_sha256") or "")
+            and str(row.get("source_to_target_relation") or "") == "exact_copy"
+            and row.get("body_copied") is True
+            and row.get("body_in_receipt") is False
+        )
+        count_matches = (
+            int(row.get("line_count") or -1) == actual_line_count
+            and int(row.get("byte_count") or -1) == actual_byte_count
+            and int(row.get("target_line_count") or -1) == actual_line_count
+            and int(row.get("target_byte_count") or -1) == actual_byte_count
+        )
+        digest_status = (
+            PASS
+            if file_present
+            and manifest_matches_expected
+            and count_matches
+            and actual_sha256 == expected_sha256
+            and not missing_anchors
+            else "blocked"
+        )
+        if not file_present:
+            missing_files.append(path_ref)
+        if file_present and digest_status != PASS:
+            digest_mismatches.append(
+                {
+                    "module_id": str(row.get("module_id") or path_ref),
+                    "source_ref": expected_source_ref,
+                    "target_ref": target_ref,
+                    "expected_sha256": expected_sha256,
+                    "actual_sha256": actual_sha256,
+                    "missing_anchors": missing_anchors,
+                    "line_count": str(actual_line_count),
+                    "byte_count": str(actual_byte_count),
+                }
+            )
+        rows.append(
+            {
+                "module_id": str(row.get("module_id") or path_ref),
+                "source_ref": source_ref,
+                "expected_source_ref": expected_source_ref,
+                "target_ref": target_ref,
+                "path": path_ref,
+                "sha256": expected_sha256,
+                "manifest_sha256": str(row.get("sha256") or ""),
+                "actual_sha256": actual_sha256,
+                "source_to_target_relation": str(row.get("source_to_target_relation") or ""),
+                "body_copied": row.get("body_copied") is True,
+                "body_in_receipt": False,
+                "file_present": file_present,
+                "required_anchors": required_anchors,
+                "missing_anchors": missing_anchors,
+                "line_count": actual_line_count,
+                "byte_count": actual_byte_count,
+                "manifest_matches_expected_import": manifest_matches_expected,
+                "count_matches_manifest": count_matches,
+                "digest_status": digest_status,
+            }
+        )
+
+    status = (
+        PASS
+        if manifest_payload.get("schema_version") == "microcosm_source_module_manifest_v1"
+        and manifest_payload.get("organ_id") == ORGAN_ID
+        and manifest_payload.get("body_in_receipt") is False
+        and len(rows) == len(SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS)
+        and not missing_declared_paths
+        and not unexpected_declared_paths
+        and not missing_files
+        and not digest_mismatches
+        and all(row["digest_status"] == PASS for row in rows)
+        else "blocked"
+    )
+    return {
+        "status": status,
+        "source_body_floor_artifacts": sorted(rows, key=lambda item: item["module_id"]),
+        "source_body_floor_artifact_count": len(rows),
+        "expected_source_body_floor_artifact_count": len(SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS),
+        "source_body_floor_digest_status": status,
+        "source_body_floor_manifest_ref": SOURCE_BODY_FLOOR_MANIFEST_REF,
+        "source_body_floor_missing_paths": missing_declared_paths,
+        "source_body_floor_unexpected_paths": unexpected_declared_paths,
+        "source_body_floor_missing_files": sorted(missing_files),
+        "source_body_floor_digest_mismatches": sorted(
+            digest_mismatches,
+            key=lambda item: item["module_id"],
+        ),
+    }
+
+
 def validate_evidence_receipts(checks_payload: object, *, public_root: Path) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     proof_rows: list[dict[str, Any]] = []
@@ -1279,7 +1480,14 @@ def validate_provider_payload_policy(
     for row in _rows(provider_payload, "payloads"):
         payload_id = str(row.get("payload_id") or "provider_payload")
         case_id = str(row.get("expected_negative_case_id") or "")
-        forbidden_keys = sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
+        forbidden_key_paths = _forbidden_body_key_paths(row)
+        forbidden_keys = sorted(
+            {
+                path.rsplit(".", 1)[-1].split("[", 1)[0]
+                for path in forbidden_key_paths
+                if path.rsplit(".", 1)[-1].split("[", 1)[0] in FORBIDDEN_BODY_KEYS
+            }
+        )
         anchor_check = _classify_provider_anchor_refs(row, public_root=public_root)
         if forbidden_keys:
             if not case_id:
@@ -1289,6 +1497,7 @@ def validate_provider_payload_policy(
                 {
                     "payload_id": payload_id,
                     "forbidden_keys": forbidden_keys,
+                    "forbidden_key_paths": forbidden_key_paths,
                     "body_in_receipt": False,
                     "public_status": "regression_negative_fixture",
                 }
@@ -1332,6 +1541,7 @@ def validate_provider_payload_policy(
                 "payload_id": payload_id,
                 "policy_status": status,
                 "forbidden_keys_detected": forbidden_keys,
+                "forbidden_key_paths_detected": forbidden_key_paths,
                 "advisory_metadata_preserved": not forbidden_keys,
                 "body_in_receipt": False,
                 "anchor_status": anchor_check["anchor_status"],
@@ -2133,6 +2343,10 @@ def run_evidence_bundle(
         payloads["bundle_manifest"],
         public_root=public_root,
     )
+    source_body_result = validate_source_body_floor_artifacts(
+        input_path,
+        public_root=public_root,
+    )
     observed = _merge_observed(provider_result)
     all_findings = sorted(
         [
@@ -2157,6 +2371,7 @@ def run_evidence_bundle(
         PASS
         if scan_result["status"] == PASS
         and artifact_result["status"] == PASS
+        and source_body_result["status"] == PASS
         and not all_findings
         and proof_result["accepted_check_ids"]
         and not proof_result["rejected_check_ids"]
@@ -2213,6 +2428,7 @@ def run_evidence_bundle(
             "accepted_diagnostic_row_ids": diagnostic_rows_result["accepted_diagnostic_row_ids"],
             "rejected_diagnostic_row_ids": diagnostic_rows_result["rejected_diagnostic_row_ids"],
             **artifact_result,
+            **source_body_result,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "validator_version": "proof_diagnostic_evidence_spine_validator_v1",
             "diagnostic_row_count": len(diagnostic_rows_result["diagnostic_rows"]),
@@ -2291,6 +2507,15 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "copied_macro_body_digest_status": result.get(
                 "copied_macro_body_digest_status"
             ),
+            "source_body_floor_artifact_count": result.get(
+                "source_body_floor_artifact_count", 0
+            ),
+            "expected_source_body_floor_artifact_count": result.get(
+                "expected_source_body_floor_artifact_count", 0
+            ),
+            "source_body_floor_digest_status": result.get(
+                "source_body_floor_digest_status"
+            ),
             "formal_policy_packet_status": result.get("formal_policy_packet_status"),
             "body_material_status": result.get("body_material_status"),
             "evidence_anchor_status": result.get("evidence_anchor_status"),
@@ -2321,6 +2546,20 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         private_scan = {}
     expected_cases = result.get("expected_negative_cases", {})
     observed_cases = result.get("observed_negative_cases", {})
+    source_fingerprint_status = result.get("source_fingerprint_status")
+    source_fingerprint_interpretation = {
+        "status": source_fingerprint_status,
+        "meaning": (
+            "stale source fingerprints are retained as expected diagnostic "
+            "evidence in this fixture; they do not make the card proof, source, "
+            "release, or theorem-correctness authority"
+            if source_fingerprint_status == "stale"
+            else "source fingerprints match this fixture's recorded public refs"
+        ),
+        "next_drilldown": (
+            "rerun without --card or inspect proof_evidence_validation_receipt.json"
+        ),
+    }
     return {
         **common,
         "expected_negative_case_count": len(expected_cases)
@@ -2335,7 +2574,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         "provider_policy_rejection_count": len(
             result.get("provider_policy_rejection_ids", [])
         ),
-        "source_fingerprint_status": result.get("source_fingerprint_status"),
+        "source_fingerprint_status": source_fingerprint_status,
+        "source_fingerprint_interpretation": source_fingerprint_interpretation,
         "body_material_status": result.get("body_material_status"),
         "evidence_anchor_status": result.get("evidence_anchor_status"),
         "error_code_count": len(result.get("error_codes", [])),

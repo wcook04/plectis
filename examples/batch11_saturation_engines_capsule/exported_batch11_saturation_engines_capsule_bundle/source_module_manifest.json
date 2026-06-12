@@ -167,8 +167,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 355601,
-      "line_count": 8501,
+      "byte_count": 360509,
+      "line_count": 8597,
       "module_id": "session_analyzer_source",
       "path": "source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
       "required_anchors": [
@@ -176,14 +176,14 @@
         "def _route_miss_candidate_phrases(",
         "def lens_route_misses("
       ],
-      "sha256": "48ef5a412a05701a7037968189f45d40c7cef2730777d1c435ce503c3e1b249b",
+      "sha256": "71b785858b4e84012b0496b8f478e216e1d813857dbef0b867de220241f70a89",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/observability/session_analyzer.py",
-      "source_sha256": "48ef5a412a05701a7037968189f45d40c7cef2730777d1c435ce503c3e1b249b",
+      "source_sha256": "71b785858b4e84012b0496b8f478e216e1d813857dbef0b867de220241f70a89",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
-      "target_sha256": "48ef5a412a05701a7037968189f45d40c7cef2730777d1c435ce503c3e1b249b"
+      "target_sha256": "71b785858b4e84012b0496b8f478e216e1d813857dbef0b867de220241f70a89"
     },
     {
       "body_copied": true,

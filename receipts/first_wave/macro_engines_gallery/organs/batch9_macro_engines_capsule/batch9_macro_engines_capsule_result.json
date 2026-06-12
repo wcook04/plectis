@@ -11,12 +11,14 @@
     "real_substrate_disposition": "real_substrate_capsule",
     "release_authorized": false,
     "source_mutation_authorized": false,
+    "standard_authority": "public_batch9_source_open_capsule_and_source_body_digest_contract_only",
     "status": "pass",
+    "whole_system_correctness_claim": false,
     "work_ledger_authority": false
   },
   "body_in_receipt": false,
   "command": "microcosm macro-engines-gallery run",
-  "created_at": "2026-06-01T01:07:53+00:00",
+  "created_at": "2026-06-12T05:38:25+00:00",
   "error_codes": [
     "BATCH9_APPROVAL_PREACQUIRED_CLAIM_REFUSED",
     "BATCH9_AST_SYNTAX_ERROR_GAP",
@@ -30,26 +32,13 @@
     "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED",
     "BATCH9_MISSION_GRAPH_MISSING_TARGET",
     "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",
-    "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
+    "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED",
+    "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH"
   ],
   "exercise": {
     "body_in_receipt": false,
     "copied_macro_source_module_count": 13,
-    "error_codes": [
-      "BATCH9_APPROVAL_PREACQUIRED_CLAIM_REFUSED",
-      "BATCH9_AST_SYNTAX_ERROR_GAP",
-      "BATCH9_CONFIG_AUTHORITY_MUTATION_ALLOWED_REJECTED",
-      "BATCH9_DEPENDENCY_PIN_DRIFT_DETECTED",
-      "BATCH9_DOCTRINE_UNINDEXED_EMPTY",
-      "BATCH9_EDGE_RELATION_NORMALIZED",
-      "BATCH9_FINANCE_DUPLICATE_HEADLINE_COLLAPSED",
-      "BATCH9_HOST_PRESSURE_AUTO_POLICY_BLOCKS",
-      "BATCH9_LINEAGE_SELF_LOOP_PRUNED",
-      "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED",
-      "BATCH9_MISSION_GRAPH_MISSING_TARGET",
-      "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",
-      "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
-    ],
+    "error_codes": [],
     "expected_module_ids": [
       "lineage_temporal_provenance_chain_resolver",
       "approval_sign_off_claim_adjudicator",
@@ -73,7 +62,7 @@
         "evidence_class": "semantic_validator",
         "mechanism_id": "lineage_temporal_provenance_chain_resolver",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "lineage_temporal_provenance_chain_resolver"
@@ -87,7 +76,7 @@
         "evidence_class": "semantic_validator",
         "mechanism_id": "approval_sign_off_claim_adjudicator",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "approval_sign_off_claim_adjudicator"
@@ -101,7 +90,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "python_ast_symbol_index_doc_tree",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "python_ast_symbol_index_doc_tree"
@@ -115,7 +104,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "finance_news_dedup_cluster_ranker",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "finance_news_dedup_cluster_ranker"
@@ -129,7 +118,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "mission_graph_topological_compiler",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "mission_graph_topological_compiler"
@@ -143,7 +132,7 @@
         "evidence_class": "semantic_validator",
         "mechanism_id": "dependency_pin_drift_auditor",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "dependency_pin_drift_auditor"
@@ -157,7 +146,7 @@
         "evidence_class": "semantic_validator",
         "mechanism_id": "config_authority_drift_audit",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "config_authority_drift_audit"
@@ -171,7 +160,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "heterogeneous_graph_edge_extractor",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "heterogeneous_graph_edge_extractor"
@@ -185,7 +174,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "work_atlas_cell_histogram_aggregator",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "work_atlas_cell_histogram_aggregator"
@@ -199,7 +188,7 @@
         "evidence_class": "semantic_validator",
         "mechanism_id": "host_pressure_admission_decision_gate",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "host_pressure_admission_decision_gate"
@@ -213,7 +202,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "doctrine_file_enrichment_multihop_join",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "doctrine_file_enrichment_multihop_join"
@@ -227,7 +216,7 @@
         "evidence_class": "semantic_validator",
         "mechanism_id": "worker_job_budget_forbidden_surface_gate",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "worker_job_budget_forbidden_surface_gate"
@@ -241,7 +230,7 @@
         "evidence_class": "algorithmic_projection",
         "mechanism_id": "milestone_relative_promotion_quality_accounting",
         "missing_modules": [],
-        "negative_case": "Stable negative-case fixture carries the expected BATCH9_* code for this engine.",
+        "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
         "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
         "source_module_ids": [
           "milestone_relative_promotion_quality_accounting"
@@ -255,111 +244,146 @@
       "approval_sign_off_claim_adjudicator": {
         "approval_id": "APPROVAL_1",
         "decision": "approve",
+        "decision_error_code": null,
         "exercise_id": "approval_sign_off_claim_adjudicator",
         "ok": true,
-        "overlay": {
-          "decision": "approve",
-          "source_kind": "fixture"
+        "preacquired_claim_refused": false,
+        "preacquired_decision_error_code": null,
+        "source_body_loaded": true,
+        "source_contract": {
+          "claim_conflict_enforced": true,
+          "module_id": "approval_sign_off_claim_adjudicator",
+          "required_callables": [
+            "list_approvals",
+            "_acquire_claim",
+            "decide_approval"
+          ]
         },
-        "preacquired_claim_refused": true,
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "config_authority_drift_audit": {
-        "audit_findings": [
-          {
-            "code": "generated_projection_mutation_allowed",
-            "config_id": "generated.cache"
-          },
-          {
-            "code": "read_only_mutation_allowed",
-            "config_id": "generated.cache"
-          },
-          {
-            "code": "unregistered_root",
-            "root": "state/cache.json"
-          }
-        ],
-        "audit_status": "blocked",
+        "audit_findings": [],
+        "audit_status": "pass",
         "exercise_id": "config_authority_drift_audit",
-        "mutation_allowed_rejected": true,
+        "mutation_allowed_rejected": false,
         "row_count": 2,
+        "source_body_loaded": true,
+        "source_contract": {
+          "module_id": "config_authority_drift_audit",
+          "normalized_kind": "config_authority_registry",
+          "required_callables": [
+            "validate_config_authority_registry"
+          ],
+          "standard_row_class_count": 4
+        },
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "dependency_pin_drift_auditor": {
         "buckets": {
-          "drifted": [
-            {
-              "name": "starlette",
-              "specifier": "<1.0.0",
-              "version": "1.1.0"
-            }
-          ],
-          "missing": [
-            {
-              "name": "missingpkg",
-              "specifier": "==9.9.9"
-            }
-          ],
+          "drifted": [],
+          "missing": [],
           "ok": [
             {
               "name": "fastapi",
               "specifier": ">=0.100,<1.0",
               "version": "0.110.0"
+            },
+            {
+              "name": "starlette",
+              "specifier": "<2.0.0",
+              "version": "1.1.0"
             }
           ],
-          "unparseable": [
-            {
-              "line": "bad @@ spec",
-              "reason": "parse_failed"
-            }
+          "unparseable": []
+        },
+        "drifted_count": 0,
+        "exercise_id": "dependency_pin_drift_auditor",
+        "missing_count": 0,
+        "source_body_loaded": true,
+        "source_contract": {
+          "module_id": "dependency_pin_drift_auditor",
+          "parsed_requirement_count": 2,
+          "required_callables": [
+            "parse_requirements",
+            "evaluate"
           ]
         },
-        "drifted_count": 1,
-        "exercise_id": "dependency_pin_drift_auditor",
-        "missing_count": 1,
+        "source_contract_status": "pass",
         "status": "pass",
-        "unparseable_count": 1
+        "unparseable_count": 0
       },
       "doctrine_file_enrichment_multihop_join": {
         "concepts": [
           {
             "id": "con_fixture",
-            "title": "Fixture concept"
+            "scope": "",
+            "source_file": "codex/doctrine/concepts/con_fixture.json",
+            "statement": "",
+            "status": "",
+            "tags": [],
+            "title": "Fixture concept",
+            "via_mechanism_ids": [
+              "mech_fixture"
+            ]
           }
         ],
         "counts": {
           "concepts": 1,
           "mechanisms": 1,
-          "principles": 1
+          "principles": 1,
+          "related_files": 0
         },
         "empty_envelope": false,
         "exercise_id": "doctrine_file_enrichment_multihop_join",
         "mechanisms": [
           {
-            "id": "mech_fixture",
+            "drift_sensitivity": "",
+            "functions": [],
+            "mechanism_id": "mech_fixture",
+            "role": "",
+            "scope": "",
+            "source_file": "codex/doctrine/mechanisms/mech_fixture.json",
+            "statement": "",
+            "status": "",
+            "tags": [],
             "title": "Fixture mechanism"
           }
         ],
-        "miss_empty_envelope": true,
+        "miss_empty_envelope": false,
         "principles": [
           {
             "id": "pri_fixture",
-            "title": "Fixture principle"
+            "statement": "",
+            "tags": [],
+            "title": "Fixture principle",
+            "via_concept_ids": [
+              "con_fixture"
+            ]
           }
         ],
+        "source_body_loaded": true,
+        "source_contract": {
+          "method": "get_file_doctrine",
+          "module_id": "doctrine_file_enrichment_multihop_join",
+          "service_class": "DoctrineEnrichmentService"
+        },
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "finance_news_dedup_cluster_ranker": {
-        "cluster_count": 2,
+        "cluster_count": 3,
         "clusters": [
           {
             "headline": "Fed holds rates steady amid inflation cooling",
-            "id": "news:0:fed-holds-rates-steady-inflation-cooling",
-            "item_count": 2,
-            "score": 0.8999999999999999,
+            "id": "news:0:fed holds rates steady amid inflation cooling",
+            "item_count": 1,
+            "normalized_headline": "fed holds rates steady amid inflation cooling",
+            "score": 3.9,
             "tokens": [
+              "amid",
               "cooling",
-              "cools",
               "fed",
               "holds",
               "inflation",
@@ -368,12 +392,26 @@
             ]
           },
           {
-            "headline": "Chip exports rally after earnings surprise",
-            "id": "news:2:chip-exports-rally-after-earnings-surprise",
+            "headline": "Copper inventories rebound after port reopenings",
+            "id": "news:2:copper inventories rebound port reopenings",
             "item_count": 1,
-            "score": 0.5,
+            "normalized_headline": "copper inventories rebound port reopenings",
+            "score": 3.7,
             "tokens": [
-              "after",
+              "copper",
+              "inventories",
+              "port",
+              "rebound",
+              "reopenings"
+            ]
+          },
+          {
+            "headline": "Chip exports rally after earnings surprise",
+            "id": "news:1:chip exports rally earnings surprise",
+            "item_count": 1,
+            "normalized_headline": "chip exports rally earnings surprise",
+            "score": 3.5,
+            "tokens": [
               "chip",
               "earnings",
               "exports",
@@ -382,8 +420,16 @@
             ]
           }
         ],
-        "duplicate_collapsed": true,
+        "duplicate_collapsed": false,
         "exercise_id": "finance_news_dedup_cluster_ranker",
+        "source_body_loaded": true,
+        "source_contract": {
+          "stopword_count": 28,
+          "token_limit": 137,
+          "token_min_length": 2,
+          "uses_normalized_headline_key": true
+        },
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "heterogeneous_graph_edge_extractor": {
@@ -423,15 +469,44 @@
           }
         ],
         "exercise_id": "heterogeneous_graph_edge_extractor",
-        "normalized_relation_count": 1,
+        "normalized_relation_count": 0,
+        "source_body_loaded": true,
+        "source_contract": {
+          "derived_field_count": 21,
+          "module_id": "heterogeneous_graph_edge_extractor",
+          "principle_edges_take_relation_from_row": true,
+          "required_anchors": [
+            "GENERIC_EDGE_FIELD_MAP",
+            "normalizeEdgeRelationToken",
+            "extractGenericEdges"
+          ],
+          "top_dependencies_relation": "depends_on"
+        },
+        "source_contract_findings": [],
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "host_pressure_admission_decision_gate": {
-        "allow": false,
-        "auto_policy_blocked": true,
-        "decision_status": "blocked",
+        "allow": true,
+        "auto_policy_blocked": false,
+        "decision_status": "allowed_by_admission",
         "exercise_id": "host_pressure_admission_decision_gate",
-        "result": "explicit_override_required",
+        "result": "allow",
+        "source_body_loaded": true,
+        "source_contract": {
+          "new_heavy_work_launched": null,
+          "new_work_admitted": true,
+          "policy_values": [
+            "auto",
+            "warn",
+            "off"
+          ],
+          "schema": "admission_consumer_decision_v0",
+          "summary_recommendation_blocks": true,
+          "tempfail_exit_code": 75
+        },
+        "source_contract_findings": [],
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "lineage_temporal_provenance_chain_resolver": {
@@ -439,19 +514,64 @@
           "RUN_SUBJECT",
           "RUN_FEED"
         ],
-        "cycle_detected": true,
+        "cycle_detected": false,
         "exercise_id": "lineage_temporal_provenance_chain_resolver",
-        "self_loop_pruned": true,
+        "self_loop_pruned": false,
+        "source_body_loaded": true,
+        "source_contract": {
+          "module_id": "lineage_temporal_provenance_chain_resolver",
+          "required_callables": [
+            "build_temporal_lineage",
+            "_resolve_primary_lineage",
+            "_select_primary_parent"
+          ],
+          "truth_parent_supported": true
+        },
+        "source_contract_status": "pass",
         "status": "pass"
       },
       "milestone_relative_promotion_quality_accounting": {
+        "blockers_by_class": {
+          "other": [],
+          "projection": [],
+          "provider_capacity": [],
+          "quality": [],
+          "rollback": [],
+          "timestamp": [],
+          "transport": []
+        },
         "exercise_id": "milestone_relative_promotion_quality_accounting",
-        "green_count": 1,
+        "green_count": 3,
         "latest_milestone": "2026-05-01T00:00:00+00:00",
         "live_quality_eligible_count": 3,
-        "missing_committed_at_count_since_last_milestone": 2,
+        "missing_committed_at_count_since_last_milestone": 0,
+        "next_action": {
+          "command": "./repo-python tools/meta/control/python_navigation_population_lane.py milestone-whatif --candidate current=now",
+          "decision": "cohort_apply_unlocked_run_audit_first",
+          "reason": "All gates are clean. Before cohort promotion, run the read-only promotion audit and confirm what-if matrix."
+        },
         "projection_consumption_verified_count": 2,
-        "status": "pass"
+        "source_body_loaded": true,
+        "source_contract": {
+          "materialized_run_dir_count": 2,
+          "module_id": "milestone_relative_promotion_quality_accounting",
+          "required_callables": [
+            "_compute_milestone_relative_metrics",
+            "classify_blockers_and_next_action"
+          ]
+        },
+        "source_contract_findings": [],
+        "source_contract_status": "pass",
+        "status": "pass",
+        "timestamp_diagnostics": {
+          "missing_committed_at_count_since_last_milestone": 0,
+          "missing_run_at_count_since_last_milestone": 0
+        },
+        "transport_diagnostics": {
+          "transport_only_by_provider_since_last_milestone": {},
+          "transport_only_by_status_since_last_milestone": {},
+          "transport_only_count_since_last_milestone": 0
+        }
       },
       "mission_graph_topological_compiler": {
         "cycle_nodes": [],
@@ -462,12 +582,20 @@
           }
         ],
         "exercise_id": "mission_graph_topological_compiler",
-        "missing_target_error": true,
+        "missing_target_error": false,
         "nodes": [
           "feed",
           "sibling",
           "target"
         ],
+        "source_body_loaded": true,
+        "source_contract": {
+          "group_closure_enabled": true,
+          "module_id": "mission_graph_topological_compiler",
+          "sorted_waves": true,
+          "upstream_dependency_walk_enabled": true
+        },
+        "source_contract_status": "pass",
         "status": "pass",
         "topology_error": null,
         "waves": [
@@ -487,9 +615,18 @@
           "Outer.method",
           "async_job"
         ],
+        "source_body_loaded": true,
+        "source_contract": {
+          "entry_count": 1,
+          "module_id": "python_ast_symbol_index_doc_tree",
+          "required_callables": [
+            "build_file_entry"
+          ]
+        },
+        "source_contract_status": "pass",
         "status": "pass",
         "symbol_count": 3,
-        "syntax_error_gap": true
+        "syntax_error_gap": false
       },
       "work_atlas_cell_histogram_aggregator": {
         "count": 3,
@@ -501,15 +638,25 @@
         "overlays": {
           "blocked": 1,
           "high_unlock": 1,
-          "stale": 1,
-          "unrouted": 1
+          "stale": 1
         },
-        "route_reason_histogram": {
-          "no_owner": 1
+        "route_reason_histogram": {},
+        "source_body_loaded": true,
+        "source_contract": {
+          "module_id": "work_atlas_cell_histogram_aggregator",
+          "required_anchors": [
+            "function aggregateCell(",
+            "if (o.unrouted) {",
+            "routeReasonHistogram: Object.fromEntries(reasonCount)",
+            "function cellMarksPerRow("
+          ],
+          "unrouted_route_reason_gate": true
         },
+        "source_contract_findings": [],
+        "source_contract_status": "pass",
         "status": "pass",
-        "top_reason": "no_owner",
-        "top_reason_kind": "structural",
+        "top_reason": null,
+        "top_reason_kind": null,
         "top_type": "repair",
         "type_histogram": {
           "feature": 1,
@@ -517,11 +664,26 @@
         }
       },
       "worker_job_budget_forbidden_surface_gate": {
+        "allowed_job_allow": true,
         "allowed_job_status": "pass",
-        "blocked_job_reason": "forbidden_surface_present",
-        "blocked_job_status": "blocked",
-        "blocked_surface": "raw_seed.md",
+        "blocked_job_allow": true,
+        "blocked_job_reason": null,
+        "blocked_job_status": "pass",
+        "blocked_surface": null,
         "exercise_id": "worker_job_budget_forbidden_surface_gate",
+        "source_body_loaded": true,
+        "source_contract": {
+          "budget_gate_enabled": true,
+          "budget_guard_condition_enabled": true,
+          "forbidden_surface_scan_enabled": true,
+          "module_id": "worker_job_budget_forbidden_surface_gate",
+          "required_callables": [
+            "_enforce_budget",
+            "_contains_forbidden_surface"
+          ]
+        },
+        "source_contract_findings": [],
+        "source_contract_status": "pass",
         "status": "pass"
       }
     },
@@ -542,12 +704,138 @@
     "work_atlas_routed_reason_excluded",
     "worker_forbidden_surface_blocked"
   ],
-  "findings": [],
+  "findings": [
+    {
+      "body_in_receipt": false,
+      "error_code": "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH",
+      "message": "Copied source target must exactly match source_ref.",
+      "subject_id": "system/server/ui/src/pages/RootNavigator.tsx"
+    }
+  ],
   "fixture_id": "first_wave.batch9_macro_engines_capsule",
   "input_count": 1,
   "input_mode": "fixture_input",
   "input_ref": "fixtures/first_wave/batch9_macro_engines_capsule/input",
   "missing_negative_cases": [],
+  "negative_case_semantics": [
+    {
+      "body_in_receipt": false,
+      "case_id": "approval_preacquired_claim_refused",
+      "error_codes": [
+        "BATCH9_APPROVAL_PREACQUIRED_CLAIM_REFUSED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "ast_syntax_error_gap",
+      "error_codes": [
+        "BATCH9_AST_SYNTAX_ERROR_GAP"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "config_authority_mutation_allowed_rejected",
+      "error_codes": [
+        "BATCH9_CONFIG_AUTHORITY_MUTATION_ALLOWED_REJECTED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "dependency_pin_drift_detected",
+      "error_codes": [
+        "BATCH9_DEPENDENCY_PIN_DRIFT_DETECTED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "doctrine_enrichment_unindexed_empty",
+      "error_codes": [
+        "BATCH9_DOCTRINE_UNINDEXED_EMPTY"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "finance_duplicate_headline_collapsed",
+      "error_codes": [
+        "BATCH9_FINANCE_DUPLICATE_HEADLINE_COLLAPSED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "heterogeneous_edge_relation_normalized",
+      "error_codes": [
+        "BATCH9_EDGE_RELATION_NORMALIZED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "host_pressure_auto_policy_blocks",
+      "error_codes": [
+        "BATCH9_HOST_PRESSURE_AUTO_POLICY_BLOCKS"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "lineage_self_loop_pruned",
+      "error_codes": [
+        "BATCH9_LINEAGE_SELF_LOOP_PRUNED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "milestone_missing_committed_at_bucketed",
+      "error_codes": [
+        "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "mission_graph_missing_target",
+      "error_codes": [
+        "BATCH9_MISSION_GRAPH_MISSING_TARGET"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "work_atlas_routed_reason_excluded",
+      "error_codes": [
+        "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "worker_forbidden_surface_blocked",
+      "error_codes": [
+        "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED"
+      ],
+      "semantic_evaluator_used": true,
+      "status": "blocked"
+    }
+  ],
   "observed_negative_cases": [
     "approval_preacquired_claim_refused",
     "ast_syntax_error_gap",
@@ -603,247 +891,472 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
+  "semantic_negative_case_evaluator_used": true,
   "source_module_manifest": {
+    "active_claimed_live_source_drift_count": 0,
     "all_expected_digests_matched": true,
     "all_expected_line_counts_matched": true,
+    "all_live_source_refs_current": false,
     "all_required_anchors_present": true,
     "body_in_receipt": false,
+    "dirty_worktree_live_source_drift_count": 0,
     "manifest_ref": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_module_manifest.json",
     "module_count": 13,
     "modules": [
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 508,
         "expected_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
+        "expected_source_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
+        "expected_target_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
         "line_count": 508,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "lineage_temporal_provenance_chain_resolver",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/server/lineage.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
         "source_exists": true,
         "source_ref": "system/server/lineage.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/lineage.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/lineage.py",
+        "target_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 1143,
         "expected_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
+        "expected_source_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
+        "expected_target_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
         "line_count": 1143,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "approval_sign_off_claim_adjudicator",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/lib/approval_registry.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
         "source_exists": true,
         "source_ref": "system/lib/approval_registry.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/approval_registry.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/approval_registry.py",
+        "target_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 2132,
         "expected_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
+        "expected_source_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
+        "expected_target_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
         "line_count": 2132,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "python_ast_symbol_index_doc_tree",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/lib/python_documentation_tree.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
         "source_exists": true,
         "source_ref": "system/lib/python_documentation_tree.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/python_documentation_tree.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/python_documentation_tree.py",
+        "target_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 1422,
         "expected_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
+        "expected_source_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
+        "expected_target_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
         "line_count": 1422,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "finance_news_dedup_cluster_ranker",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/server/ui/src/lib/financePresentation.ts",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
         "source_exists": true,
         "source_ref": "system/server/ui/src/lib/financePresentation.ts",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/financePresentation.ts"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/financePresentation.ts",
+        "target_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 328,
         "expected_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
+        "expected_source_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
+        "expected_target_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
         "line_count": 328,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "mission_graph_topological_compiler",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/server/graph.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
         "source_exists": true,
         "source_ref": "system/server/graph.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/graph.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/graph.py",
+        "target_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 317,
         "expected_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+        "expected_source_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+        "expected_target_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
         "line_count": 317,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "dependency_pin_drift_auditor",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/tools/dev/check_pin_drift.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
         "source_exists": true,
         "source_ref": "tools/dev/check_pin_drift.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/tools/dev/check_pin_drift.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/tools/dev/check_pin_drift.py",
+        "target_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 2043,
         "expected_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
+        "expected_source_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
+        "expected_target_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
         "line_count": 2043,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "config_authority_drift_audit",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/lib/config_authority_registry.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
         "source_exists": true,
         "source_ref": "system/lib/config_authority_registry.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/config_authority_registry.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/config_authority_registry.py",
+        "target_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 14476,
         "expected_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
+        "expected_source_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
+        "expected_target_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
         "line_count": 14476,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "drift",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "heterogeneous_graph_edge_extractor",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/server/ui/src/pages/RootNavigator.tsx",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
         "source_exists": true,
         "source_ref": "system/server/ui/src/pages/RootNavigator.tsx",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_copy_mismatch",
+        "source_sha256": "7585390ce1fca960356210323e2072ac1af883380a6412dcc478db81d183b7b3",
+        "source_target_sha256_match": false,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/pages/RootNavigator.tsx"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/pages/RootNavigator.tsx",
+        "target_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 1462,
         "expected_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
+        "expected_source_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
+        "expected_target_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
         "line_count": 1462,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "work_atlas_cell_histogram_aggregator",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/server/ui/src/components/intelligence/WorkAtlas.tsx",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
         "source_exists": true,
         "source_ref": "system/server/ui/src/components/intelligence/WorkAtlas.tsx",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/WorkAtlas.tsx"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/WorkAtlas.tsx",
+        "target_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 177,
         "expected_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
+        "expected_source_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
+        "expected_target_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
         "line_count": 177,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "host_pressure_admission_decision_gate",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/lib/admission_consumer.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
         "source_exists": true,
         "source_ref": "system/lib/admission_consumer.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/admission_consumer.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/admission_consumer.py",
+        "target_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 502,
         "expected_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
+        "expected_source_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
+        "expected_target_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
         "line_count": 502,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "doctrine_file_enrichment_multihop_join",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/server/doctrine_enrichment.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
         "source_exists": true,
         "source_ref": "system/server/doctrine_enrichment.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/doctrine_enrichment.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/doctrine_enrichment.py",
+        "target_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 1614,
         "expected_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
+        "expected_source_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
+        "expected_target_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
         "line_count": 1614,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "worker_job_budget_forbidden_surface_gate",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/lib/type_a_worker_harness.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
         "source_exists": true,
         "source_ref": "system/lib/type_a_worker_harness.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/type_a_worker_harness.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/type_a_worker_harness.py",
+        "target_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee"
       },
       {
         "body_copied": true,
         "body_in_receipt": false,
+        "copied_target_self_ref": false,
         "digest_status": "match",
         "expected_line_count": 1796,
         "expected_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
+        "expected_source_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
+        "expected_target_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
         "line_count": 1796,
         "line_count_status": "match",
+        "live_source_claimed": false,
+        "live_source_digest_status": "match",
+        "live_source_dirty": false,
         "missing_required_anchors": [],
+        "module_id": "milestone_relative_promotion_quality_accounting",
+        "original_source_ref": null,
+        "original_source_sha256": null,
         "path": "source_modules/system/lib/population_lane_metrics.py",
+        "public_safe_mode": null,
+        "public_safe_transform_present": false,
         "required_anchor_count": 3,
         "sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
         "source_exists": true,
         "source_ref": "system/lib/population_lane_metrics.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
+        "source_target_sha256_match": true,
         "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
         "target_exists": true,
-        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/population_lane_metrics.py"
+        "target_expected_digest_match": true,
+        "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/population_lane_metrics.py",
+        "target_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c"
       }
     ],
     "secret_exclusion_scan": {
@@ -889,8 +1402,8 @@
       "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/population_lane_metrics.py"
     ],
     "source_import_class": "copied_non_secret_macro_body",
-    "status": "pass"
+    "status": "blocked"
   },
-  "status": "pass",
+  "status": "blocked",
   "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule"
 }

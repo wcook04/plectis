@@ -257,6 +257,11 @@ STD_PYTHON_PROTECTED_WARNING_BOUNDARIES = {
         "protection_status": "protected_sibling",
         "reentry_condition": "Re-enter only after the native concurrency guard mission releases this source file.",
     },
+    "src/idea_microcosm/redaction_scan.py": {
+        "owner_class": "public_safety_scanner_owned",
+        "protection_status": "protected_scanner_fixture",
+        "reentry_condition": "Re-enter only through the public-safety scanner lane; scanner vocabulary is intentional fixture material, not a leaked secret.",
+    },
     "src/idea_microcosm/specimen_suite_probe.py": {
         "owner_class": "sibling_cold_entry_owned",
         "protection_status": "protected_sibling",
@@ -3264,6 +3269,9 @@ def build_std_python_report(root: Path, generated_at: str) -> dict[str, Any]:
         ),
         "scope": {
             "release_root": "self-indexing-cognitive-substrate",
+            "release_root_public_boundary": (
+                "manifest-included public-safe synthetic microcosm root, not a private source grant"
+            ),
             "scanned_python_files": [row["path"] for row in rows],
             "direct_test_source_files": test_source_files,
             "test_reference_policy": "all tests/test_*.py files are searched for direct module references; CLI entrypoints, probes, and package markers have command/import coverage exceptions",

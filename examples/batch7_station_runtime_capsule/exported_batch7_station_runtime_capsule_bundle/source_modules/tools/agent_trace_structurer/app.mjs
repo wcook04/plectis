@@ -49,6 +49,7 @@ const els = {
     latest: document.querySelector('#latest-file'),
     operatorHud: document.querySelector('#operator-hud'),
     reinstallApp: document.querySelector('#reinstall-app'),
+    promptHotkeys: document.querySelector('#prompt-hotkeys'),
     minimizeBar: document.querySelector('#minimize-bar'),
   },
 };
@@ -82,6 +83,8 @@ let systemBarCollapseTimer = 0;
 let systemBarRevealTimer = 0;
 let systemBarCompactHoverTimer = 0;
 let systemBarLastMode = 'compact';
+let promptHotkeysEnabled = false;
+let promptHotkeysBusy = false;
 
 // Mission Rail state. Read from Swift bridge requestMissionIndex; the JS never
 // scans ~/.claude or ~/.codex on render. Selection is per provider:session_id.
@@ -996,7 +999,7 @@ function clearPendingMissionCopyAnchor(anchor = null) {
   }
 }
 
-function holdPendingMissionCopyAnchor(anchor, holdMs = 60000) {
+function holdPendingMissionCopyAnchor(anchor, holdMs = 300000) {
   clearPendingMissionCopyAnchor();
   pendingMissionCopyAnchor = anchor || null;
   if (!pendingMissionCopyAnchor) return;
@@ -2371,6 +2374,7 @@ function missionStateModel(row, sourceWindow = selectedTraceSourceWindow(), rend
     freshness_state: sourceContract.source_index_state || sourceFreshnessState(row) || row?.artifact_freshness?.state || 'unknown',
     source_freshness: sourceContract,
     source_freshness_action: sourceContract.action,
+    source_latest_fallback_available: traceCopyCanUseSourceLatestFallback(row, sourceWindow, rowHasActiveTrace(row), { source_freshness: sourceContract }),
     stats_source: artifactStatsSource(row, artifact, sourceWindow, sourceContract),
     copy_policy: copyPolicy,
     copy_readiness: copyReadiness,
@@ -2764,6 +2768,24 @@ function rowHasStaleActiveTurn(row) {
   return traceTurnLooksActive(row?.active_turn) || traceTurnLooksActive(row?.preferred_trace_turn);
 }
 
+function traceCopyCanUseCompletedTurnDespiteActiveSource(row, sourceWindow, activeTrace = false, stateModel = null) {
+  const value = normalizeTraceSourceWindow(sourceWindow);
+  if (value !== SOURCE_WINDOW_PROMPT_CYCLE || activeTrace) return false;
+  const source = stateModel?.source_freshness || row?.source_freshness || {};
+  const sourceState = source.source_index_state || source.state || sourceFreshnessState(row);
+  if (!['source_newer_than_index', 'source_size_changed'].includes(sourceState)) return false;
+  const cacheState = String(row?.trace_summary_cache_state || source.cache_state || source.reason || '').toLowerCase();
+  if (!cacheState.includes('active_downgraded') && !rowHasStaleActiveTurn(row)) return false;
+  const selectedTurn = traceDisplayTurn(row);
+  const selectedIndex = _numberOrNull(selectedTurn?.turn_index);
+  const completedIndex = _numberOrNull(row?.latest_completed_turn?.turn_index);
+  if (selectedIndex == null || completedIndex == null || selectedIndex !== completedIndex) return false;
+  if (traceTurnLooksActive(selectedTurn) || selectedTurn?.is_complete === false) return false;
+  const knownSourceLatest = _numberOrNull(source.current_latest_turn_index);
+  if (knownSourceLatest != null && knownSourceLatest > selectedIndex) return false;
+  return true;
+}
+
 function sourceFreshnessState(row) {
   return (row?.source_freshness || {}).state || '';
 }
@@ -2780,7 +2802,7 @@ function isSourceIndexStale(row) {
 function canonicalDiffState(value) {
   const raw = String(value || '').trim().toLowerCase();
   if (!raw) return '';
-  if (['exact_hunks_attached', 'exact_plus_minus_attached', 'available', 'attached', 'inline_git_diff_patch'].includes(raw)) return 'exact_hunks_attached';
+  if (['exact_hunks_attached', 'exact_plus_minus_attached', 'available', 'attached', 'inline_git_diff_patch', 'final_delta_attached'].includes(raw)) return 'exact_hunks_attached';
   if (['compact_mode_diff_summary_only', 'compact_summary_only', 'summary_only', 'full_thread_concise'].includes(raw)) return 'compact_summary_only';
   if (['ui_summary_only', 'visible_ui_diff_only', 'ui_diff_only'].includes(raw)) return 'ui_summary_only';
   if (['commit_without_diff', 'commit_diff_missing'].includes(raw)) return 'commit_diff_missing';
@@ -2816,6 +2838,8 @@ function artifactTraceCounts(artifact) {
   if (out.no_edit_claim_allowed != null) out.no_edit_claim_allowed = boolish(out.no_edit_claim_allowed);
   if (out.substrate_diff_required != null) out.substrate_diff_required = boolish(out.substrate_diff_required);
   if (out.commit_diff_missing != null) out.commit_diff_missing = boolish(out.commit_diff_missing);
+  if (out.final_delta_attached != null) out.final_delta_attached = boolish(out.final_delta_attached);
+  if (out.edit_event_log_attached != null) out.edit_event_log_attached = boolish(out.edit_event_log_attached);
   out.substrate_diff = canonicalDiffState(out.substrate_diff || out.diff_state || diffStateObj.state || summary.substrate_diff);
   out.diff_state = out.substrate_diff || canonicalDiffState(diffStateObj.state);
   return out;
@@ -2835,6 +2859,12 @@ function sourceFreshnessContract(row, artifact, variant, sourceWindow = DEFAULT_
   const artifactSourceSha16 = artifact?.source_sha16 || artifact?.window_anchor?.source_sha16 || artifact?.trace_counts?.source_sha16 || '';
   const currentTurnCount = _numberOrNull(sourceFreshness.current_turn_count);
   const indexTurnCount = _numberOrNull(sourceFreshness.index_turn_count);
+  const completedTurnSafeDespiteActiveSource = traceCopyCanUseCompletedTurnDespiteActiveSource(
+    row,
+    sourceWindow,
+    false,
+    { source_freshness: sourceFreshness },
+  );
   const reasons = [];
   if (!artifact?.path) reasons.push('missing_artifact');
   const expectedSchema = EXPECTED_VARIANT_SCHEMAS[variant] || '';
@@ -2869,9 +2899,9 @@ function sourceFreshnessContract(row, artifact, variant, sourceWindow = DEFAULT_
   if (artifact?.path && identity.prompt_sha16 && (!artifactPrompt || artifactPrompt !== identity.prompt_sha16)) reasons.push('prompt_mismatch');
   if (artifact?.path && identity.turn_index != null && (!Number.isFinite(artifactTurn) || artifactTurn !== identity.turn_index)) reasons.push('turn_mismatch');
   if (isLiveSourceUpdating(row)) reasons.push('live_source_updated');
-  if (['source_newer_than_index', 'source_size_changed'].includes(sourceState)) reasons.push('source_index_stale');
+  if (['source_newer_than_index', 'source_size_changed'].includes(sourceState) && !completedTurnSafeDespiteActiveSource) reasons.push('source_index_stale');
   if (sourceState === 'source_missing') reasons.push('source_missing');
-  if (currentTurnCount != null && identity.window_turn_count != null && currentTurnCount > Number(identity.window_turn_count || 0) && sourceState !== 'current') {
+  if (currentTurnCount != null && identity.window_turn_count != null && currentTurnCount > Number(identity.window_turn_count || 0) && sourceState !== 'current' && !completedTurnSafeDespiteActiveSource) {
     reasons.push('source_turn_count_ahead_of_selected_index');
   }
 
@@ -2916,7 +2946,7 @@ function traceIdentityPolicy(row, activeTrace = false) {
   const artifactState = String(row?.artifact_freshness?.state || '').toLowerCase();
   const staleSummary = cacheState.includes('stale');
   const liveOrStaleSource = isLiveSourceUpdating(row) || isSourceIndexStale(row);
-  const allowPromptRebind = Boolean(activeTrace || liveOrStaleSource || staleSummary);
+  const allowPromptRebind = Boolean(activeTrace && !isSourceIndexStale(row));
   const reasons = [];
   if (activeTrace) reasons.push('partial_or_current_turn');
   if (isLiveSourceUpdating(row)) reasons.push('live_source_updating');
@@ -2924,11 +2954,61 @@ function traceIdentityPolicy(row, activeTrace = false) {
   if (staleSummary) reasons.push(cacheState);
   return {
     allow_prompt_rebind_if_source_stale: allowPromptRebind,
+    allow_prompt_rebind_for_active_trace: allowPromptRebind,
     source_index_state: sourceState,
     trace_summary_cache_state: cacheState,
     artifact_freshness_state: artifactState,
     identity_rebind_reason: reasons.join(',') || 'source_identity_current',
   };
+}
+
+function traceCopyNeedsSourceLatest(row, sourceWindow, activeTrace, stateModel = null) {
+  const value = normalizeTraceSourceWindow(sourceWindow);
+  if (value === SOURCE_WINDOW_SELECTED_TURN) return false;
+  const sourceAction = stateModel?.source_freshness?.action || '';
+  return Boolean(
+    activeTrace
+      || traceCopyCanUseSourceLatestFallback(row, value, activeTrace, stateModel)
+      || sourceAction === 'refresh_before_copy'
+  );
+}
+
+function traceCopyCanUseSourceLatestFallback(row, sourceWindow, activeTrace, stateModel = null) {
+  const value = normalizeTraceSourceWindow(sourceWindow);
+  if (value === SOURCE_WINDOW_SELECTED_TURN || activeTrace) return false;
+  const fullThreadScope = backendTraceSourceWindow(value) === SOURCE_WINDOW_FULL_THREAD;
+  const source = stateModel?.source_freshness || {};
+  const sourceState = source.source_index_state || sourceFreshnessState(row);
+  if (sourceState === 'source_missing' || source.action === 'block_copy') return false;
+  const cacheState = String(row?.trace_summary_cache_state || source.cache_state || '').toLowerCase();
+  const mismatch = String(source.mismatch_reason || source.reason || '');
+  const staleSummary = rowHasSoftStaleTraceSummary(row) || cacheState.includes('stale');
+  const currentLatest = _numberOrNull(source.current_latest_turn_index);
+  const selectedTurn = _numberOrNull(source.selected_turn_index) ?? _numberOrNull(traceDisplayTurn(row)?.turn_index);
+  const newerSourceLatestExists = currentLatest != null && selectedTurn != null && currentLatest > selectedTurn;
+  if (!fullThreadScope && cacheState.includes('active_downgraded') && !newerSourceLatestExists) return false;
+  return Boolean(
+    ['source_newer_than_index', 'source_size_changed'].includes(sourceState)
+      || mismatch.includes('source_index_stale')
+      || mismatch.includes('source_turn_count_ahead_of_selected_index')
+      || staleSummary
+      || newerSourceLatestExists
+      || (currentLatest != null && selectedTurn != null && currentLatest >= selectedTurn && source.action === 'refresh_before_copy')
+  );
+}
+
+function traceCopyRequiresVisibleIndexRefresh(row, sourceWindow, activeTrace, stateModel = null) {
+  const value = normalizeTraceSourceWindow(sourceWindow);
+  if (value === SOURCE_WINDOW_SELECTED_TURN || activeTrace) return false;
+  if (traceCopyCanUseCompletedTurnDespiteActiveSource(row, value, activeTrace, stateModel)) return false;
+  if (traceCopyCanUseSourceLatestFallback(row, value, activeTrace, stateModel)) return false;
+  const source = stateModel?.source_freshness || {};
+  const sourceState = source.source_index_state || sourceFreshnessState(row);
+  if (['source_newer_than_index', 'source_size_changed', 'source_missing'].includes(sourceState)) return true;
+  if (rowHasSoftStaleTraceSummary(row)) return true;
+  const mismatch = String(source.mismatch_reason || source.reason || '');
+  return source.action === 'refresh_before_copy'
+    && (mismatch.includes('source_index_stale') || mismatch.includes('source_turn_count_ahead_of_selected_index'));
 }
 
 function variantArtifactCurrentness(row, artifact, variant, sourceWindow = DEFAULT_TRACE_SOURCE_WINDOW) {
@@ -3274,7 +3354,10 @@ function missionViewStateGlyph(view) {
     return { glyph: view.lifecycle.glyph.glyph, title };
   }
   if (view.activity === 'retired') return { glyph: '×', title: 'retired by old-prefix title' };
-  if (view.copy === 'copy_failed') return { glyph: '✗', title: 'copy failed — see receipt' };
+  if (view.copy === 'copy_failed') {
+    const reason = String(view.copyEntry?.error || '').trim();
+    return { glyph: '✗', title: reason ? `copy failed — ${reason}` : 'copy failed — see receipt' };
+  }
   if (view.copy === 'pending_after_copy') return { glyph: '⧖', title: 'waiting for follow-up response; clears after 25m idle' };
   if (view.copy === 'just_copied') {
     const summary = missionCopySummary(view.copyEntry, Date.now(), { includeBytes: false });
@@ -3765,8 +3848,13 @@ function renderSelectedMission() {
   // copyLatestMissionTrace handles the capture-then-copy combo so the
   // operator never has a disabled-with-no-explanation grey button.
   if (copyCompressedBtn) {
+    const sourceWindow = selectedTraceSourceWindow();
+    const stateModel = missionStateModel(row, sourceWindow);
+    const visibleIndexRefresh = traceCopyRequiresVisibleIndexRefresh(row, sourceWindow, activeTrace, stateModel);
     copyCompressedBtn.disabled = false;
-    if (freshness === 'current') {
+    if (visibleIndexRefresh) {
+      copyCompressedBtn.textContent = 'Refresh Trace List';
+    } else if (freshness === 'current') {
       copyCompressedBtn.textContent = activeTrace ? 'Copy Current Trace' : 'Copy Latest Trace';
     } else if (freshness === 'stale') {
       copyCompressedBtn.textContent = activeTrace ? 'Refresh + Copy Current Trace' : 'Refresh + Copy Latest Trace';
@@ -3824,6 +3912,7 @@ function copySelectedMissionArtifactUnsafe(kind, variant) {
     const requestedVariant = variant || tracePrimaryVariantForSource(sourceWindow);
     const stateModel = missionStateModel(row, sourceWindow);
     const readiness = stateModel.copy_readiness || {};
+    const sourceLatestFallback = traceCopyCanUseSourceLatestFallback(row, sourceWindow, activeTrace, stateModel);
     if (readiness.state === 'red') {
       const why = [
         ...(readiness.blockers || []),
@@ -3835,16 +3924,40 @@ function copySelectedMissionArtifactUnsafe(kind, variant) {
       rememberMissionCopyFailure(missionKey(row), why || 'copy_readiness_red');
       return;
     }
+    if (traceCopyRequiresVisibleIndexRefresh(row, sourceWindow, activeTrace, stateModel)) {
+      const source = stateModel.source_freshness || {};
+      const visibleTurn = turnIndex != null ? `visible turn #${turnIndex}` : 'visible indexed turn';
+      const currentLatest = _numberOrNull(source.current_latest_turn_index);
+      const currentText = currentLatest != null ? `; source latest is #${currentLatest}` : '';
+      const message = `Source changed since this mission row was rendered (${visibleTurn}${currentText}). Refreshing the trace list first; copy again after the row shows the current turn.`;
+      rememberMissionCopyFailure(missionKey(row), 'source_index_stale_refresh_required_before_copy');
+      refreshMissionIndexClick('source_index_stale_before_copy');
+      setMissionReceipt(`✗ ${message}`, 'copy_error');
+      return;
+    }
+    const useSourceLatestIdentity = !hasForcedTurn && (sourceLatestFallback || traceCopyNeedsSourceLatest(row, sourceWindow, activeTrace, stateModel));
+    const payloadPromptSha16 = useSourceLatestIdentity ? '' : promptSha16;
+    const payloadTurnIndex = useSourceLatestIdentity ? null : turnIndex;
+    const payloadTurnId = useSourceLatestIdentity ? '' : turnId;
+    const sourceIdentityMode = useSourceLatestIdentity
+      ? (activeTrace ? 'active_source_latest' : 'stale_index_source_latest')
+      : 'selected_index';
     const copyMeta = missionCopyMetadata(row, sourceWindow, traceTurn, traceWindow, requestedVariant, turnIndex);
     copyMeta.copyReadinessState = readiness.state || 'unknown';
     copyMeta.typeBLintResult = stateModel.type_b_handoff_lint?.result || 'unknown';
     copyMeta.diffReconcilerStatus = stateModel.diff_reconciler?.status || 'unknown';
+    copyMeta.sourceIdentityMode = sourceIdentityMode;
+    copyMeta.sourceLatestFallback = sourceLatestFallback;
+    copyMeta.sourceLatestFloorTurnIndex = useSourceLatestIdentity ? turnIndex : null;
     const copyAnchor = {
       ...(missionAnchor(row) || {}),
       ...copyMeta,
-      prompt_sha16: promptSha16,
-      turn_index: turnIndex,
-      turn_id: turnId,
+      prompt_sha16: payloadPromptSha16 || promptSha16,
+      turn_index: payloadTurnIndex ?? turnIndex,
+      turn_id: payloadTurnId || turnId,
+      requested_prompt_sha16: promptSha16,
+      requested_turn_index: turnIndex,
+      source_identity_mode: sourceIdentityMode,
       window_start_turn_index: hasForcedTurn ? null : (backendSourceWindow === SOURCE_WINDOW_SELECTED_TURN ? traceTurn?.turn_index : (traceWindow.start_turn_index ?? traceTurn?.turn_index ?? null)),
       window_turn_count: hasForcedTurn ? 1 : (backendSourceWindow === SOURCE_WINDOW_SELECTED_TURN ? 1 : (traceWindow.turn_count || (backendSourceWindow === SOURCE_WINDOW_FULL_THREAD ? traceTurn?.full_thread_turn_count : traceTurn?.trace_window_turn_count) || 1)),
     };
@@ -3863,12 +3976,16 @@ function copySelectedMissionArtifactUnsafe(kind, variant) {
       // Swift slices the lossless clip into the one operator-facing capsule.
       variant: requestedVariant,
       title: missionDisplayTitle(row, traceTurn),
-      prompt_sha16: promptSha16,
-      turn_index: turnIndex,
-      turn_id: turnId,
-      expected_prompt_sha16: promptSha16,
-      expected_turn_index: turnIndex,
-      expected_turn_id: turnId,
+      prompt_sha16: payloadPromptSha16,
+      turn_index: payloadTurnIndex,
+      turn_id: payloadTurnId,
+      expected_prompt_sha16: payloadPromptSha16,
+      expected_turn_index: payloadTurnIndex,
+      expected_turn_id: payloadTurnId,
+      stale_index_prompt_sha16: promptSha16,
+      stale_index_turn_index: turnIndex,
+      stale_index_turn_id: turnId,
+      source_identity_mode: sourceIdentityMode,
       window_start_turn_index: hasForcedTurn ? null : (backendSourceWindow === SOURCE_WINDOW_SELECTED_TURN ? traceTurn?.turn_index : (traceWindow.start_turn_index ?? traceTurn?.turn_index ?? null)),
       window_turn_count: hasForcedTurn ? 1 : (backendSourceWindow === SOURCE_WINDOW_SELECTED_TURN ? 1 : (traceWindow.turn_count || (backendSourceWindow === SOURCE_WINDOW_FULL_THREAD ? traceTurn?.full_thread_turn_count : traceTurn?.trace_window_turn_count) || 1)),
       force_turn_index: hasForcedTurn,
@@ -4067,6 +4184,33 @@ window.agentTraceStructurerLatestClipCopy = (data) => {
   }
 };
 
+function missionLatestCopyFailureReason(data, fallback = 'capture/copy failed') {
+  const parts = [];
+  const stage = String(data?.stage || '').trim();
+  const error = String(data?.error || fallback || 'capture/copy failed').trim();
+  if (stage) parts.push(stage);
+  if (error) parts.push(error);
+  const expectedTurn = data?.expected_turn_index ?? null;
+  const actualTurn = data?.actual_turn_index ?? null;
+  if (expectedTurn != null || actualTurn != null) {
+    parts.push(`turn expected=${expectedTurn ?? 'unknown'} actual=${actualTurn ?? 'unknown'}`);
+  }
+  const staleFloorTurn = data?.stale_index_turn_index ?? null;
+  if (staleFloorTurn != null) {
+    parts.push(`source latest floor turn>=${staleFloorTurn}`);
+  }
+  const expectedPrompt = String(data?.expected_prompt_sha16 || '').trim();
+  const actualPrompt = String(data?.actual_prompt_sha16 || '').trim();
+  if (expectedPrompt || actualPrompt) {
+    const expected = expectedPrompt ? expectedPrompt.slice(0, 8) : 'unknown';
+    const actual = actualPrompt ? actualPrompt.slice(0, 8) : 'unknown';
+    parts.push(`prompt expected=${expected} actual=${actual}`);
+  }
+  const mode = String(data?.source_identity_mode || '').trim();
+  if (mode) parts.push(`identity=${mode}`);
+  return parts.filter(Boolean).join(' · ') || fallback;
+}
+
 function captureSelectedMissionTrace() {
   const row = findMissionByKey(selectedMissionKey);
   if (!row) {
@@ -4111,7 +4255,7 @@ window.agentTraceStructurerMissionLatestCopy = (data) => {
     // Refresh so the chip reflects the new artifact + freshness state.
     refreshMissionIndexClick();
   } else {
-    setMissionBarStatus(`✗ Capture+copy failed: ${data?.error || 'unknown'}`, { timeoutMs: 15000 });
+    setMissionBarStatus(`✗ Capture+copy failed: ${missionLatestCopyFailureReason(data, 'unknown')}`, { timeoutMs: 15000 });
   }
 };
 let clipboardSignalUntil = 0;
@@ -5946,6 +6090,7 @@ els.buttons.import?.addEventListener('click', () => els.file.click());
 els.buttons.latest?.addEventListener('click', () => copyLatestClipboardClip());
 els.buttons.operatorHud?.addEventListener('click', (event) => toggleWindowsPopup(event));
 els.buttons.reinstallApp?.addEventListener('click', () => reinstallAppBundle());
+els.buttons.promptHotkeys?.addEventListener('click', () => setPromptShelfHotkeysEnabled(!promptHotkeysEnabled));
 els.buttons.minimizeBar?.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopPropagation();
@@ -5962,6 +6107,7 @@ refreshMissionsBtn?.addEventListener('click', () => refreshMissionIndexClick());
 // is not present (e.g. served via http://localhost during dev), fall back to the
 // read-only local server endpoint so browser verification still exercises rows.
 requestMissionIndex();
+requestPromptShelfHotkeyStatus();
 els.buttons.download?.addEventListener('click', async () => {
   const result = await downloadJson(els.filename.value, currentPacket);
   addSavedCapture(result, currentPacket, currentPacket.capture_context?.capture_kind || 'manual', currentPacket.generated_at);
@@ -6166,6 +6312,14 @@ window.agentTraceStructurerPromptShelfCopy = (result) => {
     const err = (result && (result.error || result.stage)) || 'copy failed';
     dropdownEls.promptsReceipt.textContent = `copy failed: ${err}`;
   }
+};
+
+window.agentTraceStructurerPromptHotkeyStatus = (payload) => {
+  applyPromptShelfHotkeyStatus(payload && typeof payload === 'object' ? payload : { ok: false, stage: 'bad_payload' });
+};
+
+window.agentTraceStructurerPromptHotkeyToggleResult = (payload) => {
+  applyPromptShelfHotkeyStatus(payload && typeof payload === 'object' ? payload : { ok: false, stage: 'bad_payload' });
 };
 
 window.agentTraceStructurerChromeProfiles = (payload) => {
@@ -6448,6 +6602,19 @@ function sourceClipPathFromCapture(data) {
     || data?.variant_artifact?.source_clip_path
     || data?.variant_artifact?.clip_path
     || '';
+}
+function missionCopyCallbackMismatch(data, anchor) {
+  if (!data?.ok || !anchor) return '';
+  const dataKey = data?.mission_key || missionKeyFromParts(data?.ui_provider || data?.provider, data?.session_id);
+  if (anchor.key && dataKey && dataKey !== anchor.key) {
+    return `copy callback mission mismatch: expected ${anchor.key}, got ${dataKey}`;
+  }
+  const expectedWindow = normalizeTraceSourceWindow(anchor.copiedSourceWindow || '');
+  const actualWindow = normalizeTraceSourceWindow(data.ui_source_window || data.source_window || '');
+  if (expectedWindow && actualWindow && expectedWindow !== actualWindow) {
+    return `copy callback source-window mismatch: expected ${expectedWindow}, got ${actualWindow}`;
+  }
+  return '';
 }
 function postSetSystemBarFrame(h, w = null) {
   if (isWindowShellMode()) return;
@@ -6950,7 +7117,7 @@ function microcosmWebsiteRowHtml() {
     `<span class="chrome-profile-row-head">`,
     `<span class="chrome-profile-name">Website</span>`,
     `<span class="chrome-profile-email">current Microcosm public site</span>`,
-    `<span class="chrome-profile-dir">rebuilt static site</span>`,
+    `<span class="chrome-profile-dir">cached static site</span>`,
     `</span>`,
     `<span class="chrome-profile-badges"><span class="chrome-profile-badge primary">Microcosm</span><span class="chrome-profile-badge">Chrome</span></span>`,
     `<span class="chrome-profile-path">sites/microcosm/index.html</span>`,
@@ -7004,6 +7171,64 @@ function renderChromeProfilesDropdown() {
     ].join('');
   }).join('');
   dropdownEls.chromeProfileRows.innerHTML = websiteRow + html;
+}
+
+function promptHotkeyStatusTitle(payload) {
+  if (!payload || !payload.ok) {
+    return `Hotkey status unavailable: ${payload?.error || payload?.stage || 'unknown'}`;
+  }
+  const mapCount = Number(payload.map_count || 0);
+  const trust = payload.trusted === false ? 'Accessibility not trusted' : 'Accessibility trusted';
+  const runtime = payload.enabled ? 'F1-F12 paste prompt-shelf prompts' : 'F1-F12 pass through normally';
+  return `${runtime}. ${trust}. ${mapCount} prompt bindings.`;
+}
+
+function applyPromptShelfHotkeyStatus(payload) {
+  const button = els.buttons.promptHotkeys;
+  if (!button) return;
+  promptHotkeysBusy = false;
+  promptHotkeysEnabled = Boolean(payload?.enabled);
+  button.disabled = false;
+  button.setAttribute('aria-pressed', promptHotkeysEnabled ? 'true' : 'false');
+  button.dataset.hotkeyState = payload?.ok === false
+    ? 'failed'
+    : promptHotkeysEnabled ? 'enabled' : 'disabled';
+  button.textContent = promptHotkeysEnabled ? 'Hotkeys on' : 'Hotkeys off';
+  button.title = promptHotkeyStatusTitle(payload);
+  const stage = payload?.stage || '';
+  if (stage === 'enabled' || stage === 'disabled' || stage === 'status') {
+    els.status.textContent = promptHotkeysEnabled
+      ? 'Prompt hotkeys active: F1-F12 paste prompt-shelf prompts.'
+      : 'Prompt hotkeys off: F1-F12 use normal macOS/app behavior.';
+  } else if (payload?.ok === false) {
+    els.status.textContent = `Hotkey toggle failed: ${payload.error || payload.stage || 'unknown'}`;
+  }
+}
+
+function requestPromptShelfHotkeyStatus() {
+  const button = els.buttons.promptHotkeys;
+  if (button) {
+    button.dataset.hotkeyState = 'checking';
+    button.textContent = 'Hotkeys…';
+  }
+  if (!postNative('requestPromptShelfHotkeyStatus')) {
+    applyPromptShelfHotkeyStatus({ ok: false, stage: 'native_unavailable', error: 'native bridge unavailable' });
+  }
+}
+
+function setPromptShelfHotkeysEnabled(enabled) {
+  if (promptHotkeysBusy) return;
+  promptHotkeysBusy = true;
+  const button = els.buttons.promptHotkeys;
+  if (button) {
+    button.disabled = true;
+    button.dataset.hotkeyState = enabled ? 'starting' : 'stopping';
+    button.textContent = enabled ? 'Starting…' : 'Stopping…';
+  }
+  if (!postNative('setPromptShelfHotkeysEnabled', { enabled })) {
+    promptHotkeysBusy = false;
+    applyPromptShelfHotkeyStatus({ ok: false, stage: 'native_unavailable', error: 'native bridge unavailable' });
+  }
 }
 
 function renderPromptsDropdown() {
@@ -7453,10 +7678,12 @@ function missionAgeFields(row, displayTurn, activeTrace) {
   const finishedAt = displayTurn?.completed_at || row?.latest_completed_turn?.completed_at || null;
   const activeAt = displayTurn?.started_at || row?.active_turn?.started_at || null;
   const copiedAt = row?.latest_clip?.captured_at || null;
-  const sourceAt = row?.source_last_event_at || row?.source_freshness?.source_last_event_at || row?.mtime_utc || null;
-  const source = activeTrace
+  const sourceAt = row?.source_freshness?.source_last_event_at || row?.source_last_event_at || row?.mtime_utc || null;
+  const staleSource = !activeTrace && (isSourceIndexStale(row) || rowHasSoftStaleTraceSummary(row));
+  let source = activeTrace
     ? (activeAt || row?.last_activity_at || row?.updated_at || row?.generated_at)
     : (finishedAt || row?.last_activity_at || row?.updated_at || row?.generated_at);
+  if (staleSource && sourceAt) source = sourceAt;
   const age = compactAgeLabel(source);
   // v7: distinct, labeled timestamps so a single "1h ago" can no longer hide
   // whether it measures finish, copy, or source-file time (operator trust gap).
@@ -7465,12 +7692,13 @@ function missionAgeFields(row, displayTurn, activeTrace) {
   if (finishedAt) parts.push(`finished ${compactAgeLabel(finishedAt)} (${exactTimeLabel(finishedAt)})`);
   if (copiedAt) parts.push(`copied ${compactAgeLabel(copiedAt)} (${exactTimeLabel(copiedAt)})`);
   if (sourceAt) parts.push(`source updated ${compactAgeLabel(sourceAt)} (${exactTimeLabel(sourceAt)})`);
+  if (staleSource && sourceAt) parts.push('showing source update because trace index is stale');
   return {
     text: age,
     title: parts.length
       ? parts.join(' · ')
       : (activeTrace ? `active since ${exactTimeLabel(source)}` : `last activity ${exactTimeLabel(source)}`),
-    kind: activeTrace ? 'active' : 'finished',
+    kind: activeTrace ? 'active' : (staleSource ? 'source' : 'finished'),
   };
 }
 
@@ -7751,6 +7979,8 @@ function renderAgentTraceDropdownBody(reason = 'render') {
     const copySize = traceCapsuleCopySize(sel, selectedSourceWindow, displayTurn);
     const stateModel = missionStateModel(sel, selectedSourceWindow);
     const copyReadiness = stateModel.copy_readiness || {};
+    const sourceLatestFallback = traceCopyCanUseSourceLatestFallback(sel, selectedSourceWindow, activeTrace, stateModel);
+    const visibleIndexRefresh = traceCopyRequiresVisibleIndexRefresh(sel, selectedSourceWindow, activeTrace, stateModel);
     dropdownEls.agentTraceDetail.textContent = selectedMissionOperatorChip(sel, selectedSourceWindow);
     renderMissionScopeContract(sel, selectedSourceWindow);
     // v7 copy-first action model: Copy buttons ALWAYS enabled when the
@@ -7763,6 +7993,10 @@ function renderAgentTraceDropdownBody(reason = 'render') {
       ? 'No Trace Turn'
       : copyReadiness.state === 'red'
         ? (primaryVariant === 'closeout_report' ? 'Blocked Compact' : 'Blocked Capsule')
+      : sourceLatestFallback
+        ? (primaryVariant === 'closeout_report' ? 'Copy Source Closeout' : 'Copy Source Latest')
+      : visibleIndexRefresh
+        ? 'Refresh Trace List'
       : capsuleCurrentness.ready
         ? (primaryVariant === 'closeout_report' ? 'Copy Thread Compact' : 'Copy Trace Capsule')
         : (capsuleCurrentness?.source_freshness?.action === 'block_copy')
@@ -8391,7 +8625,8 @@ window.agentTraceStructurerLatestClipCopy = (data) => {
 const _origMissionLatestCopy = window.agentTraceStructurerMissionLatestCopy;
 window.agentTraceStructurerMissionLatestCopy = (data) => {
   window.__aiwLastMissionLatestCopy = data || null;
-  const callbackAnchor = pendingMissionCopyAnchor
+  const pendingCopyAnchor = pendingMissionCopyAnchor;
+  const callbackAnchor = pendingCopyAnchor
     || {
       key: data?.mission_key || missionKeyFromParts(data?.ui_provider || data?.provider, data?.session_id),
       provider: data?.ui_provider || data?.provider || '',
@@ -8400,8 +8635,26 @@ window.agentTraceStructurerMissionLatestCopy = (data) => {
       prompt_sha16: data?.prompt_sha16 || '',
       turn_index: data?.turn_index ?? null,
     };
+  if (data?.ok && !pendingCopyAnchor) {
+    const error = 'copy callback missing pending mission proof';
+    setMissionReceipt(`✗ ${error}`, 'copy_error');
+    rememberMissionCopyFailure(callbackAnchor?.key, error);
+    safeRenderAgentTraceDropdown('latest_copy_missing_anchor');
+    updateAgentTraceSummary();
+    return;
+  }
   if (data && typeof data === 'object' && !data.ui_source_window) {
     data.ui_source_window = callbackAnchor?.copiedSourceWindow || selectedTraceSourceWindow();
+  }
+  const callbackMismatch = missionCopyCallbackMismatch(data, callbackAnchor);
+  if (callbackMismatch) {
+    restoreMissionAnchor(callbackAnchor);
+    setMissionReceipt(`✗ ${callbackMismatch}`, 'copy_error');
+    rememberMissionCopyFailure(callbackAnchor?.key, callbackMismatch);
+    clearPendingMissionCopyAnchor(callbackAnchor);
+    safeRenderAgentTraceDropdown('latest_copy_mismatch');
+    updateAgentTraceSummary();
+    return;
   }
   restoreMissionAnchor(callbackAnchor);
   if (typeof _origMissionLatestCopy === 'function') _origMissionLatestCopy(data);
@@ -8444,6 +8697,9 @@ window.agentTraceStructurerMissionLatestCopy = (data) => {
       copiedTurnInFlight: Boolean(callbackAnchor?.copiedTurnInFlight),
       copiedSliceLabel: data.slice_label || '',
     };
+    const copiedSourceWatermark = data?.copied_source_watermark || data?.source_watermark || data?.variant_artifact?.copied_source_watermark || data?.variant_artifact?.source_watermark || {};
+    successMeta.copiedSourceWatermarkId = copiedSourceWatermark?.watermark_id || '';
+    successMeta.copiedSourceMtimeUtc = copiedSourceWatermark?.mtime_utc || '';
     if (!successMeta.copiedTurnCompletedAt && selRow) {
       const copiedTurn = activityDisplayTurn(selRow);
       if (Number(copiedTurn?.turn_index) === Number(successMeta.copiedTurnIndex)) {
@@ -8464,6 +8720,7 @@ window.agentTraceStructurerMissionLatestCopy = (data) => {
       receiptModel.copy_policy?.risk_if_latest_only || '',
       receiptModel.diff_state ? `diff ${String(receiptModel.diff_state).replace(/_/g, ' ')}` : '',
       receiptModel.source_freshness_action ? `copy ${String(receiptModel.source_freshness_action).replace(/_/g, ' ')}` : '',
+      successMeta.copiedSourceWatermarkId ? `source ${successMeta.copiedSourceWatermarkId.slice(0, 8)}` : '',
       receiptModel.stats_source?.label ? `stats ${receiptModel.stats_source.label}` : '',
       receiptModel.operator_interventions ? `interventions selected=${receiptModel.operator_interventions.selected_window_count ?? 'unknown'} full=${receiptModel.operator_interventions.full_thread_count ?? 'unknown'}` : '',
     ].filter(Boolean).join(' · ') : '';
@@ -8474,8 +8731,9 @@ window.agentTraceStructurerMissionLatestCopy = (data) => {
     updateAgentTraceSummary();
   } else {
     restoreMissionAnchor(callbackAnchor);
-    setMissionReceipt(`✗ ${data?.error || 'capture/copy failed'}`, 'copy_error');
-    rememberMissionCopyFailure(callbackAnchor?.key, data?.error || '');
+    const reason = missionLatestCopyFailureReason(data);
+    setMissionReceipt(`✗ ${reason}`, 'copy_error');
+    rememberMissionCopyFailure(callbackAnchor?.key, reason);
     clearPendingMissionCopyAnchor(callbackAnchor);
   }
 };

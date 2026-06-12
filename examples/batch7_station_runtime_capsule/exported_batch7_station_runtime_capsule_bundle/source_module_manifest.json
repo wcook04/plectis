@@ -6,8 +6,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 398529,
-      "line_count": 8722,
+      "byte_count": 413228,
+      "line_count": 8980,
       "material_class": "public_macro_frontend_body",
       "path": "source_modules/tools/agent_trace_structurer/app.mjs",
       "required_anchors": [
@@ -16,14 +16,14 @@
         "MISSION_AUTO_REFRESH_TICK_MS",
         "resourceFreshnessPayload"
       ],
-      "sha256": "937c978517ed1fa00beb3b018ed4947cdd8c7169efb1576b7b5390bf99725e39",
+      "sha256": "1821abcfcfccf1cff2207c5ca14355c3c3a002c1432ca024ed640dfaff0c8ff8",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/agent_trace_structurer/app.mjs",
-      "source_sha256": "937c978517ed1fa00beb3b018ed4947cdd8c7169efb1576b7b5390bf99725e39",
+      "source_sha256": "1821abcfcfccf1cff2207c5ca14355c3c3a002c1432ca024ed640dfaff0c8ff8",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_modules/tools/agent_trace_structurer/app.mjs",
-      "target_sha256": "937c978517ed1fa00beb3b018ed4947cdd8c7169efb1576b7b5390bf99725e39"
+      "target_sha256": "1821abcfcfccf1cff2207c5ca14355c3c3a002c1432ca024ed640dfaff0c8ff8"
     },
     {
       "body_copied": true,

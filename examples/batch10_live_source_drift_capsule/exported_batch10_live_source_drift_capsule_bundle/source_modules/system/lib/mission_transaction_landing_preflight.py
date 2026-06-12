@@ -29,6 +29,7 @@ from system.lib import (
     autonomy_subphase,
     generated_state_drainer,
     generated_projection_registry,
+    resource_pressure,
     shared_worktree_guard,
     task_ledger_events,
     work_ledger_runtime,
@@ -77,6 +78,7 @@ MICROCOSM_ACCEPTED_ORGAN_ADMISSION_SCHEMA = "microcosm_accepted_organ_admission_
 WORK_ITEM_BINDING_SCHEMA = "work_item_binding_v0"
 SUBPHASE_BINDING_SCHEMA = "subphase_binding_v0"
 TASK_LEDGER_EVENTS = "state/task_ledger/events.jsonl"
+TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE = "task_ledger_events.read_authority_events"
 TASK_LEDGER_PROJECTION_PREFIXES = (
     "state/task_ledger/ledger.json",
     "state/task_ledger/sign_offs.json",
@@ -190,6 +192,10 @@ MICROCOSM_ACCEPTED_ORGAN_MUTATION_PATTERNS = (
 MICROCOSM_ACCEPTED_ORGAN_SOURCE_ONLY_PATTERNS = (
     "microcosm-substrate/src/microcosm_core/organs/*",
 )
+MICROCOSM_ACCEPTED_ORGAN_COPY_ARTIFACT_PATTERNS = (
+    "microcosm-substrate/examples/*/exported_*/source_module_manifest.json",
+    "microcosm-substrate/examples/*/exported_*/source_modules/*",
+)
 MICROCOSM_ACCEPTED_ORGAN_ADMISSION_REQUIRED_REFS = (
     "microcosm-substrate/core/substrate_substitution_ledger.json",
     "microcosm-substrate/core/organ_atlas.json",
@@ -245,6 +251,12 @@ GIT_COMMAND_DIAGNOSTIC_SCHEMA = "git_command_diagnostic_v0"
 GIT_COMMAND_TIMEOUT_RETURN_CODE = 124
 GIT_COMMAND_ERROR_RETURN_CODE = 127
 DEFAULT_GIT_COMMAND_TIMEOUT_SECONDS = 15.0
+MIB = 1024 * 1024
+GIB = 1024 * MIB
+GIT_LOOSE_OBJECT_COUNT_ATTENTION_THRESHOLD = 6_700
+GIT_LOOSE_OBJECT_COUNT_CRITICAL_THRESHOLD = 20_000
+GIT_LOOSE_OBJECT_BYTES_ATTENTION_THRESHOLD = 1 * GIB
+GIT_LOOSE_OBJECT_BYTES_CRITICAL_THRESHOLD = 10 * GIB
 COMPACT_PREVIEW_LIMIT = 25
 SHARED_INDEX_ENTRY_STATE_SCAN_LIMIT = COMPACT_PREVIEW_LIMIT
 GIT_LS_TREE_CHUNK_SIZE = 200
@@ -1105,7 +1117,141 @@ def _task_ledger_receipt_refs(subject_rows: Sequence[Mapping[str, Any]]) -> dict
         "work_ledger_refs": work_ledger_refs,
         "receipt_refs": receipt_refs,
         "execution_receipts": receipts,
+        "latest_execution_receipt": receipts[-1] if receipts else None,
     }
+
+
+def _task_ledger_authority_receipt_refs(
+    repo_root: Path,
+    target_ids: Sequence[str],
+) -> dict[str, Any]:
+    targets = {str(item or "").strip() for item in target_ids if str(item or "").strip()}
+    base: dict[str, Any] = {
+        "receipt_ids": [],
+        "commit_refs": [],
+        "work_ledger_refs": [],
+        "receipt_refs": [],
+        "execution_receipts": [],
+        "latest_execution_receipt": None,
+        "authority_execution_receipt_overlay": {
+            "schema": "task_ledger_authority_execution_receipt_overlay_v0",
+            "status": "not_requested" if not targets else "no_matching_execution_receipt",
+            "source": TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE,
+            "subject_ids": sorted(targets),
+            "event_ids": [],
+            "receipt_count": 0,
+        },
+    }
+    if not targets:
+        return base
+
+    try:
+        events = task_ledger_events.read_authority_events(repo_root)
+    except Exception as exc:
+        base["authority_execution_receipt_overlay"] = {
+            "schema": "task_ledger_authority_execution_receipt_overlay_v0",
+            "status": "authority_unreadable",
+            "source": TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE,
+            "subject_ids": sorted(targets),
+            "error": str(exc),
+        }
+        return base
+
+    event_ids: list[str] = []
+    for event in events:
+        if str(event.get("event_type") or "").strip() != "work_item.execution_receipt_recorded":
+            continue
+        payload = event.get("payload") if isinstance(event.get("payload"), Mapping) else {}
+        subject_id = str(event.get("subject_id") or payload.get("subject_id") or "").strip()
+        if subject_id not in targets:
+            continue
+        raw_receipt = payload.get("execution_receipt") or payload.get("receipt")
+        if not isinstance(raw_receipt, Mapping):
+            continue
+        receipt = dict(raw_receipt)
+        event_id = str(event.get("event_id") or "").strip()
+        receipt_id = str(receipt.get("id") or receipt.get("transaction_id") or event_id).strip()
+        if receipt_id:
+            receipt.setdefault("id", receipt_id)
+            _append_unique(base["receipt_ids"], receipt_id)
+            _append_unique(base["receipt_refs"], receipt_id)
+        if event_id:
+            receipt["source_event_id"] = event_id
+            _append_unique(event_ids, event_id)
+        receipt["subject_id"] = subject_id
+        receipt["authority_source"] = TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE
+        base["execution_receipts"].append(receipt)
+        _append_unique(base["receipt_refs"], receipt.get("transaction_id"))
+        _append_unique(base["commit_refs"], receipt.get("commit_hash"))
+        for ref in receipt.get("commit_refs") or []:
+            _append_unique(base["commit_refs"], ref)
+        _append_unique(base["work_ledger_refs"], receipt.get("work_ledger_session_id"))
+        for ref in receipt.get("work_ledger_refs") or []:
+            _append_unique(base["work_ledger_refs"], ref)
+        refs = event.get("refs") if isinstance(event.get("refs"), Mapping) else {}
+        for ref in refs.get("receipt_refs") or []:
+            _append_unique(base["receipt_refs"], ref)
+        for ref in refs.get("commit_refs") or []:
+            _append_unique(base["commit_refs"], ref)
+        for ref in refs.get("work_ledger_refs") or []:
+            _append_unique(base["work_ledger_refs"], ref)
+
+    receipts = base["execution_receipts"]
+    base["latest_execution_receipt"] = receipts[-1] if receipts else None
+    base["authority_execution_receipt_overlay"] = {
+        "schema": "task_ledger_authority_execution_receipt_overlay_v0",
+        "status": "authority_visible" if receipts else "no_matching_execution_receipt",
+        "source": TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE,
+        "subject_ids": sorted(targets),
+        "event_ids": event_ids,
+        "receipt_count": len(receipts),
+    }
+    return base
+
+
+def _receipt_merge_key(receipt: Mapping[str, Any]) -> tuple[str, str]:
+    for key in ("transaction_id", "id", "source_event_id"):
+        value = str(receipt.get(key) or "").strip()
+        if value:
+            return (key, value)
+    return ("digest", json.dumps(dict(receipt), sort_keys=True, separators=(",", ":")))
+
+
+def _merge_task_ledger_receipt_refs(
+    projected: Mapping[str, Any],
+    authority: Mapping[str, Any],
+) -> dict[str, Any]:
+    merged = {
+        key: list(projected.get(key) or [])
+        for key in ("receipt_ids", "commit_refs", "work_ledger_refs", "receipt_refs")
+    }
+    for key in ("receipt_ids", "commit_refs", "work_ledger_refs", "receipt_refs"):
+        for value in authority.get(key) or []:
+            _append_unique(merged[key], value)
+
+    receipt_rows = [
+        dict(receipt)
+        for receipt in projected.get("execution_receipts") or []
+        if isinstance(receipt, Mapping)
+    ]
+    index_by_key = {_receipt_merge_key(receipt): index for index, receipt in enumerate(receipt_rows)}
+    for receipt in authority.get("execution_receipts") or []:
+        if not isinstance(receipt, Mapping):
+            continue
+        key = _receipt_merge_key(receipt)
+        if key in index_by_key:
+            index = index_by_key[key]
+            receipt_rows[index] = {**receipt_rows[index], **dict(receipt)}
+        else:
+            index_by_key[key] = len(receipt_rows)
+            receipt_rows.append(dict(receipt))
+    merged["execution_receipts"] = receipt_rows
+    latest = authority.get("latest_execution_receipt") or projected.get("latest_execution_receipt")
+    merged["latest_execution_receipt"] = dict(latest) if isinstance(latest, Mapping) else None
+    overlay = authority.get("authority_execution_receipt_overlay")
+    if isinstance(overlay, Mapping):
+        merged["authority_execution_receipt_overlay"] = dict(overlay)
+    return merged
 
 
 def _receipt_context_commit_refs(
@@ -1161,10 +1307,35 @@ def _work_ledger_session_state_for_receipt(
         "session_had_ledger_append": session.get("session_had_ledger_append")
         if session
         else None,
+        "append_exempt": session.get("append_exempt") if session else None,
+        "append_exempt_reason": session.get("append_exempt_reason") if session else None,
+        "append_exempt_refs": list(session.get("append_exempt_refs") or []) if session else [],
+        "append_exempted_at": session.get("append_exempted_at") if session else None,
+        "active_claim_count": _session_active_claim_count(session) if session else None,
         "stale": session.get("stale") if session else None,
         "stale_reason": session.get("stale_reason") if session else None,
         "source": "runtime_status" if session else "receipt_reference_only",
     }
+
+
+def _session_active_claim_count(session: Mapping[str, Any] | None) -> int | None:
+    session = _mapping_value(session)
+    if "active_claim_count" in session:
+        try:
+            return int(session.get("active_claim_count") or 0)
+        except (TypeError, ValueError):
+            return None
+    claims = session.get("claims")
+    if not isinstance(claims, Sequence) or isinstance(claims, (str, bytes, bytearray)):
+        return None
+    count = 0
+    for claim in claims:
+        if not isinstance(claim, Mapping):
+            continue
+        if claim.get("released_at") or claim.get("expired_at"):
+            continue
+        count += 1
+    return count
 
 
 def _receipt_status_for_transaction(
@@ -1198,10 +1369,12 @@ def _session_finalizer_status(
     append_exempt_ids = {str(item or "").strip() for item in append_exempt_session_ids if str(item).strip()}
     session_rows: list[dict[str, Any]] = []
     stale_ids: list[str] = []
+    runtime_append_exempt_ids: list[str] = []
     for session_id in transaction.get("actor_session_ids") or []:
         session = sessions.get(str(session_id))
         if not isinstance(session, Mapping):
             continue
+        active_claim_count = _session_active_claim_count(session)
         session_rows.append(
             {
                 "session_id": session_id,
@@ -1209,12 +1382,21 @@ def _session_finalizer_status(
                 "stale": bool(session.get("stale")),
                 "stale_reason": session.get("stale_reason"),
                 "session_had_ledger_append": bool(session.get("session_had_ledger_append")),
+                "append_exempt": bool(session.get("append_exempt")),
+                "append_exempt_reason": session.get("append_exempt_reason"),
+                "append_exempt_refs": list(session.get("append_exempt_refs") or []),
+                "append_exempted_at": session.get("append_exempted_at"),
+                "active_claim_count": active_claim_count,
             }
         )
         if session.get("stale"):
             stale_ids.append(str(session_id))
+        if _session_closed_clean(session) and session.get("append_exempt"):
+            runtime_append_exempt_ids.append(str(session_id))
     stale_ids_append_exempt = bool(stale_ids and all(session_id in append_exempt_ids for session_id in stale_ids))
-    if stale_ids and (transaction.get("work_ledger_closed") or stale_ids_append_exempt):
+    if runtime_append_exempt_ids:
+        status = "append_exempt"
+    elif stale_ids and (transaction.get("work_ledger_closed") or stale_ids_append_exempt):
         status = "append_exempt"
     elif stale_ids:
         status = "stale_requires_drain"
@@ -1228,6 +1410,7 @@ def _session_finalizer_status(
         "status": status,
         "sessions": session_rows,
         "stale_session_ids": stale_ids,
+        "runtime_append_exempt_session_ids": runtime_append_exempt_ids,
     }
 
 
@@ -3703,6 +3886,21 @@ def _work_ledger_packet(
         "session_had_ledger_append": bool(session_row.get("session_had_ledger_append"))
         if isinstance(session_row, Mapping)
         else None,
+        "append_exempt": bool(session_row.get("append_exempt"))
+        if isinstance(session_row, Mapping)
+        else None,
+        "append_exempt_reason": session_row.get("append_exempt_reason")
+        if isinstance(session_row, Mapping)
+        else None,
+        "append_exempt_refs": list(session_row.get("append_exempt_refs") or [])
+        if isinstance(session_row, Mapping)
+        else [],
+        "append_exempted_at": session_row.get("append_exempted_at")
+        if isinstance(session_row, Mapping)
+        else None,
+        "active_claim_count": _session_active_claim_count(session_row)
+        if isinstance(session_row, Mapping)
+        else None,
         "stale": bool(session_row.get("stale")) if isinstance(session_row, Mapping) else None,
         "stale_reason": session_row.get("stale_reason") if isinstance(session_row, Mapping) else None,
     }
@@ -3921,6 +4119,109 @@ def _git_metadata_lockfiles(repo_root: Path, git_dir: Path) -> list[str]:
     ]
 
 
+def _parse_git_human_bytes(value: Any) -> int | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    parts = text.split()
+    if not parts:
+        return None
+    try:
+        amount = float(parts[0])
+    except ValueError:
+        return None
+    unit = (parts[1] if len(parts) > 1 else "bytes").lower()
+    multipliers = {
+        "b": 1,
+        "byte": 1,
+        "bytes": 1,
+        "kib": 1024,
+        "kb": 1024,
+        "mib": MIB,
+        "mb": MIB,
+        "gib": GIB,
+        "gb": GIB,
+        "tib": 1024 * GIB,
+        "tb": 1024 * GIB,
+    }
+    multiplier = multipliers.get(unit)
+    if multiplier is None:
+        return None
+    return max(0, int(amount * multiplier))
+
+
+def _parse_int_field(fields: Mapping[str, str], key: str) -> int | None:
+    raw = fields.get(key)
+    if raw is None:
+        return None
+    try:
+        return int(raw)
+    except ValueError:
+        return None
+
+
+def _git_object_database_pressure_advisory(repo_root: Path) -> dict[str, Any]:
+    proc = _run_git(repo_root, ["count-objects", "-vH"])
+    fields: dict[str, str] = {}
+    for line in proc.stdout.splitlines():
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        fields[key.strip()] = value.strip()
+    warnings = [line for line in proc.stderr.splitlines() if line.strip()]
+    if proc.returncode != 0:
+        return {
+            "schema": "git_object_database_pressure_advisory_v0",
+            "status": "unknown",
+            "returncode": proc.returncode,
+            "reason": "git_count_objects_failed",
+            "warnings_preview": warnings[:COMPACT_PREVIEW_LIMIT],
+            "source": "git count-objects -vH",
+        }
+    loose_count = _parse_int_field(fields, "count")
+    loose_bytes = _parse_git_human_bytes(fields.get("size"))
+    critical_reasons: list[str] = []
+    attention_reasons: list[str] = []
+    if loose_count is not None:
+        if loose_count >= GIT_LOOSE_OBJECT_COUNT_CRITICAL_THRESHOLD:
+            critical_reasons.append("loose_object_count_critical")
+        elif loose_count >= GIT_LOOSE_OBJECT_COUNT_ATTENTION_THRESHOLD:
+            attention_reasons.append("loose_object_count_attention")
+    if loose_bytes is not None:
+        if loose_bytes >= GIT_LOOSE_OBJECT_BYTES_CRITICAL_THRESHOLD:
+            critical_reasons.append("loose_object_bytes_critical")
+        elif loose_bytes >= GIT_LOOSE_OBJECT_BYTES_ATTENTION_THRESHOLD:
+            attention_reasons.append("loose_object_bytes_attention")
+    if warnings:
+        attention_reasons.append("git_count_objects_warnings_present")
+    if critical_reasons:
+        status = "critical"
+    elif attention_reasons:
+        status = "attention"
+    elif loose_count is None and loose_bytes is None:
+        status = "unknown"
+    else:
+        status = "ok"
+    return {
+        "schema": "git_object_database_pressure_advisory_v0",
+        "status": status,
+        "needs_attention": status in {"attention", "critical"},
+        "reasons": critical_reasons + attention_reasons,
+        "returncode": proc.returncode,
+        "loose_object_count": loose_count,
+        "loose_object_human": fields.get("size"),
+        "pack_object_human": fields.get("size-pack"),
+        "warnings_preview": warnings[:COMPACT_PREVIEW_LIMIT],
+        "thresholds": {
+            "loose_object_count_attention": GIT_LOOSE_OBJECT_COUNT_ATTENTION_THRESHOLD,
+            "loose_object_count_critical": GIT_LOOSE_OBJECT_COUNT_CRITICAL_THRESHOLD,
+            "loose_object_bytes_attention": GIT_LOOSE_OBJECT_BYTES_ATTENTION_THRESHOLD,
+            "loose_object_bytes_critical": GIT_LOOSE_OBJECT_BYTES_CRITICAL_THRESHOLD,
+        },
+        "source": "git count-objects -vH",
+    }
+
+
 def _git_gc_maintenance_advisory(repo_root: Path, git_dir: Path) -> dict[str, Any]:
     gc_log = git_dir / "gc.log"
     preview = None
@@ -3930,14 +4231,22 @@ def _git_gc_maintenance_advisory(repo_root: Path, git_dir: Path) -> dict[str, An
         except OSError:
             preview = None
     exists = gc_log.exists()
+    object_database_pressure = _git_object_database_pressure_advisory(repo_root)
+    pressure_status = str(object_database_pressure.get("status") or "")
+    pressure_attention = pressure_status in {"attention", "critical"}
     return {
         "schema": "git_gc_maintenance_advisory_v0",
-        "status": "attention" if exists else "ok",
+        "status": "attention" if exists or pressure_attention else "ok",
         "gc_log_exists": exists,
         "gc_log_path": _normalize_path(repo_root, str(gc_log)),
         "gc_log_preview": preview,
+        "object_store_status": pressure_status or "unknown",
+        "object_database_pressure": object_database_pressure,
         "check_command": "./repo-python tools/meta/control/git_gc_maintenance.py --check",
         "repair_command": "./repo-python tools/meta/control/git_gc_maintenance.py --repair",
+        "prune_candidate_status_command": (
+            "./repo-python tools/meta/control/git_gc_maintenance.py --prune-candidate-status"
+        ),
         "owner": "tools/meta/control/git_gc_maintenance.py",
     }
 
@@ -4692,11 +5001,22 @@ def _microcosm_accepted_organ_admission(
         if path not in required_set
         and _matches_any_pattern(path, MICROCOSM_ACCEPTED_ORGAN_SOURCE_ONLY_PATTERNS)
     ]
+    copy_artifact_paths = [
+        path
+        for path in write_set_paths
+        if path not in required_set
+        and path not in source_only_paths
+        and _matches_any_pattern(
+            path,
+            MICROCOSM_ACCEPTED_ORGAN_COPY_ARTIFACT_PATTERNS,
+        )
+    ]
     trigger_paths = [
         path
         for path in write_set_paths
         if path not in required_set
         and path not in source_only_paths
+        and path not in copy_artifact_paths
         and _matches_any_pattern(path, MICROCOSM_ACCEPTED_ORGAN_MUTATION_PATTERNS)
     ]
     present = [path for path in required_refs if path in companion_scope_paths]
@@ -4745,11 +5065,20 @@ def _microcosm_accepted_organ_admission(
         "trigger_paths": trigger_paths,
         "source_only_path_count": len(source_only_paths),
         "source_only_paths": source_only_paths,
+        "copy_artifact_path_count": len(copy_artifact_paths),
+        "copy_artifact_paths": copy_artifact_paths,
         "source_only_demotion_policy": (
             "Microcosm organ implementation source edits are source patches, not "
             "accepted public authority metadata by themselves; accepted-organ "
             "companion admission begins at registry, acceptance, fixture, example, "
             "package-data, or public companion-document mutations."
+        ),
+        "copy_artifact_demotion_policy": (
+            "Exported bundle source-module copies and their manifests are proof "
+            "artifacts for exact-copy/package validation; they do not change "
+            "accepted organ authority metadata unless paired with registry, "
+            "acceptance, package-data, fixture, or public companion-document "
+            "mutations."
         ),
         "required_companion_paths": required_refs,
         "present_companion_paths": present,
@@ -5644,6 +5973,7 @@ def _landing_decision(
     shared_index_quarantine: Mapping[str, Any],
     scoped_commit: Mapping[str, Any],
     microcosm_accepted_organ_admission: Mapping[str, Any],
+    host_resource_pressure: Mapping[str, Any],
 ) -> dict[str, Any]:
     staged_classified = [row for row in classified if row.get("path") in staged_paths]
     unowned_staged = [
@@ -5672,6 +6002,18 @@ def _landing_decision(
         and bool(shared_index_quarantine.get("private_index_scoped_commit_allowed"))
         and not _int_value(shared_index_quarantine.get("overlap_count"))
     )
+    if (
+        host_resource_pressure.get("status") == "critical"
+        and not resource_pressure.declared_paths_are_resource_repair(declared_paths)
+    ):
+        return {
+            "status": "blocked",
+            "reason": "host_resource_pressure_critical",
+            "recommended_lane": "enter_resource_pressure_repair_lane",
+            "host_resource_pressure": resource_pressure.compact_host_resource_pressure_packet(
+                host_resource_pressure
+            ),
+        }
 
     if (
         work_ledger.get("status") == "blocked" or mission_claim_collisions
@@ -7436,7 +7778,18 @@ def _runtime_artifact_watch_actionability(
     workspace_pressure: Mapping[str, Any],
     runtime_artifact_lifecycle: Mapping[str, Any],
 ) -> dict[str, Any]:
-    if str(workspace_pressure.get("primary_class") or "").strip() != "runtime_run_artifact":
+    primary_class = str(workspace_pressure.get("primary_class") or "").strip()
+    if primary_class != "runtime_run_artifact":
+        if primary_class == "ambient_dirty":
+            return {
+                "schema": "watch_actionability_contract_v0",
+                "status": "scope_required",
+                "raw_presence_count": _int_value(workspace_pressure.get("primary_count")),
+                "owner_routed": False,
+                "blocks_transaction": False,
+                "blocks_closeout": False,
+                "next_safe_action": "bind_owned_path_then_resume",
+            }
         return {
             "schema": "watch_actionability_contract_v0",
             "status": "not_runtime_artifact_primary",
@@ -7542,6 +7895,13 @@ def _agent_repair_packet(
     if workspace_actionability.get("status") == "nonblocking_preserve":
         workspace_repair_status = "clear"
         workspace_summary = "runtime artifacts preserved; no cleanup eligible"
+    elif workspace_actionability.get("status") == "scope_required":
+        workspace_repair_status = "watch"
+        workspace_summary = _action_text(
+            workspace_pressure.get("next_action"),
+            workspace_pressure.get("drain_or_manifest_command"),
+            fallback="bind owned path before mutation",
+        )
     rows = [
         _repair_packet_row(
             row_id="transaction_convergence",
@@ -7960,6 +8320,7 @@ def _build_monitor_cards(
     work_ledger: Mapping[str, Any],
     scoped_commit: Mapping[str, Any],
     microcosm_accepted_organ_admission: Mapping[str, Any],
+    host_resource_pressure: Mapping[str, Any],
     landing_decision: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     work_counts = work_ledger.get("counts") if isinstance(work_ledger.get("counts"), Mapping) else {}
@@ -8089,6 +8450,22 @@ def _build_monitor_cards(
         landing_status = "review"
     lane = str(landing_decision.get("recommended_lane") or "unknown")
     landing_summary = f"{lane}: {landing_decision.get('reason') or 'no_reason'}"
+    resource_compact = resource_pressure.compact_host_resource_pressure_packet(
+        host_resource_pressure
+    )
+    resource_raw_status = str(host_resource_pressure.get("status") or "unknown")
+    if resource_raw_status == "critical":
+        resource_status = "blocked"
+    elif resource_raw_status == "ok":
+        resource_status = "clear"
+    else:
+        resource_status = "watch"
+    resource_summary = (
+        f"{host_resource_pressure.get('admission') or 'unknown'}: "
+        f"git={resource_compact.get('git_object_status')}, "
+        f"task_ledger={resource_compact.get('task_ledger_status')}, "
+        f"disk={resource_compact.get('disk_status')}"
+    )
 
     return [
         _monitor_card(
@@ -8223,6 +8600,16 @@ def _build_monitor_cards(
                     else None
                 ),
             },
+        ),
+        _monitor_card(
+            card_id="host_resource_pressure",
+            label="Host Resource Pressure",
+            status=resource_status,
+            count=0 if resource_status == "clear" else 1,
+            summary=resource_summary,
+            authority=resource_pressure.SCHEMA,
+            drilldown="./repo-python -m system.lib.resource_pressure --compact",
+            details=resource_compact,
         ),
         _monitor_card(
             card_id="landing_lane",
@@ -8468,13 +8855,29 @@ def _transaction_finalizers(
 ) -> dict[str, Any]:
     session_id = str(work_ledger.get("session_id") or "").strip()
     claim_status = str(claim_requirements.get("status") or "")
+    session = _mapping_value(work_ledger.get("session"))
+    session_closed_clean = _session_closed_clean(session)
+    session_append_exempt = bool(session.get("append_exempt"))
     work_ledger_status = "not_required"
-    if claim_requirements.get("claim_required") and not session_id:
+    if session_closed_clean:
+        work_ledger_status = "append_exempt" if session_append_exempt else "closed_clean"
+    elif claim_requirements.get("claim_required") and not session_id:
         work_ledger_status = "blocked_missing_session"
     elif claim_requirements.get("claim_required") and claim_status != "satisfied":
         work_ledger_status = "pending_claim_satisfaction"
     elif session_id:
         work_ledger_status = "pending_closeout_or_append_exempt"
+    claims_released_status = (
+        "satisfied" if session_closed_clean else ("pending" if session_id else "not_started")
+    )
+    if session_closed_clean and session_append_exempt:
+        session_finalizer_status = "append_exempt"
+    elif session_closed_clean:
+        session_finalizer_status = "closed_clean"
+    elif session_id:
+        session_finalizer_status = "pending_finalizer"
+    else:
+        session_finalizer_status = "not_started"
     receipt_command = (
         "./repo-python tools/meta/factory/task_ledger_apply.py record-execution-receipt "
         "--subject-id <subject_id> "
@@ -8505,7 +8908,7 @@ def _transaction_finalizers(
             "command": receipt_command,
         },
         "claims_released": {
-            "status": "pending" if session_id else "not_started",
+            "status": claims_released_status,
             "session_id": session_id or None,
         },
         "staged_index_empty": {
@@ -8522,7 +8925,7 @@ def _transaction_finalizers(
             "hard_gate_count": freshness_gates.get("hard_gate_count", 0),
         },
         "session_not_stale_or_exempt": {
-            "status": "pending_finalizer" if session_id else "not_started",
+            "status": session_finalizer_status,
             "policy": "commit_only_sessions_must_record_append_exempt_or_closeout_receipt",
         },
     }
@@ -8851,12 +9254,13 @@ def _transaction_convergence(
     phase_id = str(transaction_candidate.get("phase_id") or binding.get("parent_phase") or "").strip() or None
     runtime_status = runtime_status or work_ledger_runtime.load_runtime_status(repo_root)
     subject_rows = list(subject_rows) if subject_rows is not None else _task_ledger_subject_rows(repo_root, target_ids)
-    task_receipts = _task_ledger_receipt_refs(subject_rows)
-    latest_execution_receipt = (
-        subject_rows[0].get("latest_execution_receipt")
-        if subject_rows and isinstance(subject_rows[0], Mapping)
-        else None
+    projected_task_receipts = _task_ledger_receipt_refs(subject_rows)
+    authority_task_receipts = _task_ledger_authority_receipt_refs(repo_root, target_ids)
+    task_receipts = _merge_task_ledger_receipt_refs(
+        projected_task_receipts,
+        authority_task_receipts,
     )
+    latest_execution_receipt = task_receipts.get("latest_execution_receipt")
     latest_receipt_session_state = _work_ledger_session_state_for_receipt(
         runtime_status,
         _mapping_value(latest_execution_receipt),
@@ -9128,6 +9532,9 @@ def _transaction_convergence(
             "execution_receipts": task_receipts.get("execution_receipts", []),
             "latest_execution_receipt": latest_execution_receipt,
             "latest_execution_receipt_work_ledger_session_state": latest_receipt_session_state,
+            "authority_execution_receipt_overlay": task_receipts.get(
+                "authority_execution_receipt_overlay"
+            ),
         },
         "work_ledger_stale_sessions": target_stale_sessions,
         "work_ledger_append_exempt_sessions": append_exempt_sessions,
@@ -9618,6 +10025,7 @@ def build_mission_transaction_landing_preflight(
         staged_paths=staged_paths,
         proof_only_companion_paths=normalized_accepted_organ_companion_paths,
     )
+    host_resource_pressure = resource_pressure.build_host_resource_pressure_packet(repo_root)
     landing_decision = _landing_decision(
         staged_paths=staged_paths,
         dirty_paths=dirty_paths,
@@ -9628,6 +10036,7 @@ def build_mission_transaction_landing_preflight(
         shared_index_quarantine=shared_index_quarantine,
         scoped_commit=scoped_commit,
         microcosm_accepted_organ_admission=microcosm_accepted_organ_admission,
+        host_resource_pressure=host_resource_pressure,
     )
     autonomous_edit_gate = _autonomous_edit_gate(
         status_rows=status_rows,
@@ -9655,6 +10064,7 @@ def build_mission_transaction_landing_preflight(
         work_ledger=work_ledger,
         scoped_commit=scoped_commit,
         microcosm_accepted_organ_admission=microcosm_accepted_organ_admission,
+        host_resource_pressure=host_resource_pressure,
         landing_decision=landing_decision,
     )
     monitor_summary = _monitor_summary(monitor_cards, landing_decision)
@@ -9714,6 +10124,7 @@ def build_mission_transaction_landing_preflight(
         "transaction_convergence_reconcile": transaction_convergence_reconcile,
         "autonomous_edit_gate": autonomous_edit_gate,
         "microcosm_accepted_organ_admission": microcosm_accepted_organ_admission,
+        "host_resource_pressure": host_resource_pressure,
         "shared_index_quarantine": shared_index_quarantine,
         "derived_state_bloat_governor": derived_state_bloat_governor,
         "runtime_artifact_lifecycle": runtime_artifact_lifecycle,
@@ -9960,10 +10371,15 @@ def _receipt_bound_work_ledger_session_state(convergence: Mapping[str, Any]) -> 
 
 def _session_closed_clean(session: Mapping[str, Any] | None) -> bool:
     session = _mapping_value(session)
+    active_claim_count = _session_active_claim_count(session)
     return bool(
         session.get("ended_at")
-        and bool(session.get("session_had_ledger_append"))
+        and (
+            bool(session.get("session_had_ledger_append"))
+            or bool(session.get("append_exempt"))
+        )
         and not bool(session.get("stale"))
+        and active_claim_count in (None, 0)
     )
 
 
@@ -10002,6 +10418,8 @@ def _work_ledger_append_present(
     return bool(
         session.get("session_had_ledger_append")
         or receipt_session.get("session_had_ledger_append")
+        or session.get("append_exempt")
+        or receipt_session.get("append_exempt")
         or _latest_commit_ref(convergence)
     )
 
@@ -10342,6 +10760,11 @@ def build_explore_execute_review_runtime_closeout(
                 "read_receipt_id": session.get("read_receipt_id"),
                 "ended_at": session.get("ended_at"),
                 "session_had_ledger_append": session.get("session_had_ledger_append"),
+                "append_exempt": session.get("append_exempt"),
+                "append_exempt_reason": session.get("append_exempt_reason"),
+                "append_exempt_refs": session.get("append_exempt_refs"),
+                "append_exempted_at": session.get("append_exempted_at"),
+                "active_claim_count": session.get("active_claim_count"),
                 "stale": session.get("stale"),
                 "stale_reason": session.get("stale_reason"),
             },

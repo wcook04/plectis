@@ -2,6 +2,7 @@ import * as dagre from 'dagre';
 import type { Edge, Node } from 'reactflow';
 import { overlayCount, pathLeaf } from './codeMapSelectors';
 import { buildClusterFlowModel } from './codeMapClusterFlow';
+import { buildPanoramaModel } from './codeMapPanorama';
 import {
   buildFocusGraphSelection,
   isFocusRelevantEdge,
@@ -31,6 +32,10 @@ import type {
   FocusRole,
   NodeSize,
   OverlayToggleId,
+  PanoramaDistrict,
+  PanoramaLens,
+  PanoramaSelectionSummary,
+  PanoramaSummary,
 } from './types';
 
 const FOCUS_NODE_LIMIT = 160;
@@ -94,6 +99,15 @@ const EDGE_BUDGETS: Record<CodeMapMode, Partial<Record<EdgeClass, number>>> = {
     verification: 0,
     unknown: 0,
   },
+  // Panorama draws its own district-to-district corridors (see
+  // buildPanoramaLayout); these per-file edge budgets are unused for it.
+  panorama: {
+    dependency: 0,
+    control: 0,
+    affinity: 0,
+    verification: 0,
+    unknown: 0,
+  },
   focus: {
     dependency: 70,
     control: 25,
@@ -136,6 +150,8 @@ export type CodeMapLayoutResult = {
   hiddenEdgesByFilter: number;
   egoSummary?: EgoFocusSummary;
   clusterFlowSummary?: ClusterFlowSummary;
+  panoramaSummary?: PanoramaSummary;
+  panoramaSelection?: PanoramaSelectionSummary | null;
 };
 
 type LayoutOptions = {
@@ -143,6 +159,12 @@ type LayoutOptions = {
   mode: CodeMapMode;
   focus: FocusModel;
   activeToggles: Record<OverlayToggleId, boolean>;
+  // Panorama-local soft selection: highlights the mark and shows its impact via
+  // the Impact Lens WITHOUT entering Focus mode.
+  panoramaSelectedPath?: string | null;
+  // Impact Lens mode: 'impact' = affected regions + routed bundles, zero raw
+  // edges (default); 'raw' = a capped, ranked sample of exact edges on demand.
+  panoramaLens?: PanoramaLens;
 };
 
 function nodeIdForPath(path: string): string {
@@ -1044,15 +1066,433 @@ function buildClusterFlowLayout(
   };
 }
 
+// --- Panorama / System Atlas whole-system terrain ---------------------------
+// THREE nested coordinate systems: a stable MACRO geography of district hulls
+// (architecture zones in a deterministic 3-wide masonry), a MESO geography of
+// SUBDISTRICT blocks (clusters/folders shelf-packed inside each district), and
+// a MICRO packing of every file as a mark inside its subdistrict. The cluster
+// structure is what stops a district reading as a uniform carpet. All pure
+// arithmetic over the fixed ZONE_ORDER + importance-sorted files -> the map is
+// a learnable place, identical across rerenders.
+const PANORAMA_DOT = 16; // file mark edge length (square)
+const PANORAMA_PITCH = 22; // cell pitch inside a subdistrict grid (mark + gap)
+const PANORAMA_SUB_MAX_COLS = 14; // cap a subdistrict's grid width so blocks wrap, not sprawl
+const PANORAMA_SUB_HEADER = 18; // subdistrict label band
+const PANORAMA_SUB_PAD = 7; // subdistrict inner padding
+const PANORAMA_SUB_GAP = 14; // gutter between subdistrict blocks
+const PANORAMA_HEADER = 48; // district header band (label + chips)
+const PANORAMA_PAD = 16; // district inner padding around the subdistrict shelf
+const PANORAMA_COLUMNS = 3; // districts per board row
+const PANORAMA_GAP_X = 84; // horizontal gutter between districts
+const PANORAMA_GAP_Y = 84; // vertical gutter between board rows
+const PANORAMA_BOARD_TOP = 60; // top margin reserving space for mode controls
+const PANORAMA_BASE_CORRIDORS = 36; // heaviest baseline roads shown with no selection
+const PANORAMA_LABEL_MIN_FILES = 4; // below this a subdistrict is unlabeled (no "C... 1" farm)
+// Impact Lens ink budget. A hub selection must NEVER spray raw edges across the
+// map: the default lens draws affected REGIONS + a few routed bundles and zero
+// raw file-to-file edges. Raw edges are an explicit, capped drilldown only.
+const PANORAMA_IMPACT_BUNDLE_LIMIT = 12; // routed district bundles in Impact lens
+const PANORAMA_RAW_EDGE_LIMIT = 24; // capped raw edges in Raw lens (on demand)
+
+type SubPlacement = {
+  sub: PanoramaDistrict['subdistricts'][number];
+  cols: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+type PanoramaBox = { district: PanoramaDistrict; subs: SubPlacement[]; width: number; height: number };
+
+function subdistrictGridCols(n: number): number {
+  return Math.min(PANORAMA_SUB_MAX_COLS, Math.max(1, Math.round(Math.sqrt(n * 1.3))));
+}
+
+// Shelf-pack a district's subdistrict blocks (already largest-first) into rows
+// inside a target content width chosen so the district reads roughly square.
+function panoramaDistrictBox(district: PanoramaDistrict): PanoramaBox {
+  const blocks = district.subdistricts.map((sub) => {
+    const cols = subdistrictGridCols(sub.fileCount);
+    const rows = Math.ceil(sub.fileCount / cols);
+    const width = cols * PANORAMA_PITCH + PANORAMA_SUB_PAD * 2;
+    const height = PANORAMA_SUB_HEADER + rows * PANORAMA_PITCH + PANORAMA_SUB_PAD * 2;
+    return { sub, cols, width, height };
+  });
+  const totalArea = blocks.reduce((sum, block) => sum + block.width * block.height, 0);
+  const maxBlockWidth = blocks.reduce((max, block) => Math.max(max, block.width), 0);
+  const targetWidth = Math.max(maxBlockWidth, Math.round(Math.sqrt(totalArea) * 1.25));
+
+  const subs: SubPlacement[] = [];
+  let cursorX = 0;
+  let cursorY = 0;
+  let rowHeight = 0;
+  let contentWidth = 0;
+  blocks.forEach((block) => {
+    if (cursorX > 0 && cursorX + block.width > targetWidth) {
+      cursorY += rowHeight + PANORAMA_SUB_GAP;
+      cursorX = 0;
+      rowHeight = 0;
+    }
+    subs.push({ sub: block.sub, cols: block.cols, x: cursorX, y: cursorY, width: block.width, height: block.height });
+    cursorX += block.width + PANORAMA_SUB_GAP;
+    rowHeight = Math.max(rowHeight, block.height);
+    contentWidth = Math.max(contentWidth, cursorX - PANORAMA_SUB_GAP);
+  });
+  const contentHeight = cursorY + rowHeight;
+  return {
+    district,
+    subs,
+    width: contentWidth + PANORAMA_PAD * 2,
+    height: PANORAMA_HEADER + contentHeight + PANORAMA_PAD,
+  };
+}
+
+type ImpactAgg = { incoming: number; outgoing: number; total: number };
+
+function bumpImpact(map: Map<string, ImpactAgg>, key: string, outgoing: boolean): void {
+  const agg = map.get(key) ?? { incoming: 0, outgoing: 0, total: 0 };
+  if (outgoing) agg.outgoing += 1;
+  else agg.incoming += 1;
+  agg.total += 1;
+  map.set(key, agg);
+}
+
+// Rank a raw edge for the capped Raw lens: dependency > control > verification,
+// then high > medium > low confidence. Higher score = more worth showing.
+function rawEdgeScore(edge: CodeMapConnection): number {
+  const klass = classifyEdge(edge);
+  const classRank = klass === 'dependency' ? 3 : klass === 'control' ? 2 : klass === 'verification' ? 1 : 0;
+  const confRank = edge.confidence === 'high' ? 3 : edge.confidence === 'medium' ? 2 : edge.confidence === 'low' ? 1 : 0;
+  return classRank * 10 + confRank;
+}
+
+function buildPanoramaLayout(
+  packet: CodeMapPacket,
+  activeToggles: Record<OverlayToggleId, boolean>,
+  panoramaSelectedPath: string | null,
+  lens: PanoramaLens,
+): CodeMapLayoutResult {
+  const model = buildPanoramaModel(packet);
+  const boxes = model.districts.map(panoramaDistrictBox);
+
+  // Macro placement: left-aligned masonry rows of PANORAMA_COLUMNS districts.
+  const placements = new Map<string, { x: number; y: number; box: PanoramaBox }>();
+  let cursorY = PANORAMA_BOARD_TOP;
+  for (let rowStart = 0; rowStart < boxes.length; rowStart += PANORAMA_COLUMNS) {
+    const row = boxes.slice(rowStart, rowStart + PANORAMA_COLUMNS);
+    let cursorX = 0;
+    let rowHeight = 0;
+    row.forEach((box) => {
+      placements.set(box.district.zone, { x: cursorX, y: cursorY, box });
+      cursorX += box.width + PANORAMA_GAP_X;
+      rowHeight = Math.max(rowHeight, box.height);
+    });
+    cursorY += rowHeight + PANORAMA_GAP_Y;
+  }
+
+  // path -> zone / subdistrict, built from the model so impact bucketing can run
+  // before nodes are created (node data carries the impact flags).
+  const pathToZone = new Map<string, string>();
+  const pathToSub = new Map<string, string>();
+  model.districts.forEach((district) => {
+    district.subdistricts.forEach((sub) => {
+      const subId = `${district.zone}:${sub.id}`;
+      sub.files.forEach((file) => {
+        pathToZone.set(file.path, district.zone);
+        pathToSub.set(file.path, subId);
+      });
+    });
+  });
+  const renderedPaths = new Set(pathToZone.keys());
+
+  const codeGraphEnabled = activeToggles.code;
+  const hasSelection = Boolean(panoramaSelectedPath && renderedPaths.has(panoramaSelectedPath));
+
+  // --- Impact Lens computation ----------------------------------------------
+  // For a soft-selected file, bucket its incident edges by the OTHER endpoint's
+  // district + subdistrict (regions), count direction, and rank raw samples.
+  // Never draw all raw edges — that is the spiderweb failure.
+  const districtImpact = new Map<string, ImpactAgg>();
+  const subImpact = new Map<string, ImpactAgg>();
+  const affected = new Set<string>();
+  const rawCandidates: Array<{ edge: CodeMapConnection; index: number; score: number; outgoing: boolean }> = [];
+  let incoming = 0;
+  let outgoing = 0;
+  const selectedZone = hasSelection ? pathToZone.get(panoramaSelectedPath as string) ?? null : null;
+  if (hasSelection) {
+    const sel = panoramaSelectedPath as string;
+    const seenPair = new Set<string>();
+    packet.connections.forEach((edge, index) => {
+      if (classifyEdge(edge) === 'containment') return;
+      const isOut = edge.from === sel;
+      const isIn = edge.to === sel;
+      if (!isOut && !isIn) return;
+      const other = isOut ? edge.to : edge.from;
+      if (other === sel || !renderedPaths.has(other)) return;
+      const pairKey = `${edge.from}->${edge.to}`;
+      if (seenPair.has(pairKey)) return;
+      seenPair.add(pairKey);
+      affected.add(other);
+      if (isOut) outgoing += 1; else incoming += 1;
+      const zone = pathToZone.get(other);
+      const subId = pathToSub.get(other);
+      if (zone) bumpImpact(districtImpact, zone, isOut);
+      if (subId) bumpImpact(subImpact, subId, isOut);
+      rawCandidates.push({ edge, index, score: rawEdgeScore(edge), outgoing: isOut });
+    });
+  }
+  const totalIncident = incoming + outgoing;
+  const maxDistrictTotal = Math.max(1, ...Array.from(districtImpact.values()).map((agg) => agg.total));
+
+  const nodes: Node[] = [];
+  let selectedDotCenter: { x: number; y: number } | null = null;
+
+  // District hulls (low z) carry their impact so the hull tints by influence.
+  placements.forEach(({ x, y, box }) => {
+    const agg = districtImpact.get(box.district.zone) ?? null;
+    nodes.push({
+      id: `district:${box.district.zone}`,
+      type: 'codemapDistrict',
+      position: { x, y },
+      data: {
+        district: box.district,
+        selected: hasSelection && box.district.zone === selectedZone,
+        impact: agg,
+        impactIntensity: agg ? Math.min(1, agg.total / maxDistrictTotal) : 0,
+        dimmed: hasSelection && !agg && box.district.zone !== selectedZone,
+      },
+      style: { width: box.width, height: box.height },
+      zIndex: 1,
+      selectable: false,
+      draggable: false,
+    });
+  });
+
+  // Subdistrict blocks (meso). PERFORMANCE: a district's file marks are NOT
+  // individual ReactFlow nodes — that put ~1930 wrapped DOM nodes on the canvas
+  // and tanked the frame rate. Instead each subdistrict carries its file list
+  // and paints them as cheap <rect>s in one SVG. Only the SELECTED file gets a
+  // real ReactFlow node (below) as the beacon/bundle anchor.
+  let selectedFile: CodeMapFile | null = null;
+  placements.forEach(({ x, y, box }) => {
+    const contentX = x + PANORAMA_PAD;
+    const contentY = y + PANORAMA_HEADER;
+    box.subs.forEach((placement) => {
+      const subId = `${box.district.zone}:${placement.sub.id}`;
+      const agg = subImpact.get(subId) ?? null;
+      const subX = contentX + placement.x;
+      const subY = contentY + placement.y;
+      // Locate the selected mark's centre (for the beacon) without emitting a
+      // node per file.
+      const selIndex = placement.sub.files.findIndex((file) => file.path === panoramaSelectedPath);
+      if (selIndex >= 0) {
+        const col = selIndex % placement.cols;
+        const row = Math.floor(selIndex / placement.cols);
+        const cx = subX + PANORAMA_SUB_PAD + col * PANORAMA_PITCH + PANORAMA_PITCH / 2;
+        const cy = subY + PANORAMA_SUB_HEADER + PANORAMA_SUB_PAD + row * PANORAMA_PITCH + PANORAMA_PITCH / 2;
+        selectedDotCenter = { x: cx, y: cy };
+        selectedFile = placement.sub.files[selIndex];
+      }
+      nodes.push({
+        id: `sub:${subId}`,
+        type: 'codemapSubdistrict',
+        position: { x: subX, y: subY },
+        data: {
+          label: placement.sub.label,
+          fileCount: placement.sub.fileCount,
+          impacted: Boolean(agg),
+          dimmed: hasSelection && !agg,
+          // Label admission: never render a truncated singleton label ("C... 1").
+          // Only label clusters worth naming, plus any affected area.
+          labelVisible: placement.sub.fileCount >= PANORAMA_LABEL_MIN_FILES || Boolean(agg),
+          marks: placement.sub.files.map((file) => ({
+            path: file.path,
+            grade: file.health?.grade ?? null,
+            landmark: deriveFileImportance(file) >= 12,
+          })),
+          cols: placement.cols,
+          dotSize: PANORAMA_DOT,
+          pitch: PANORAMA_PITCH,
+          gridOffsetX: PANORAMA_SUB_PAD,
+          gridOffsetY: PANORAMA_SUB_HEADER + PANORAMA_SUB_PAD,
+          hasSelection,
+          // onSelectFile / onEnterFocus injected in CodeMapFlow.
+        },
+        style: { width: placement.width, height: placement.height },
+        zIndex: 2,
+        selectable: false,
+        draggable: false,
+      });
+    });
+  });
+
+  // The selected file's single ReactFlow node: the amber-ring mark that anchors
+  // the beacon and the impact bundles.
+  if (hasSelection && selectedDotCenter && selectedFile) {
+    const center = selectedDotCenter as { x: number; y: number };
+    const sf = selectedFile as CodeMapFile;
+    nodes.push({
+      id: nodeIdForPath(sf.path),
+      type: 'codemapDot',
+      position: { x: center.x - PANORAMA_DOT / 2, y: center.y - PANORAMA_DOT / 2 },
+      data: { file: sf, landmark: deriveFileImportance(sf) >= 12, selected: true },
+      style: { width: PANORAMA_DOT, height: PANORAMA_DOT },
+      zIndex: 14,
+    });
+  }
+
+  // Selection beacon: a large amber ring + glow centred on the selected mark so
+  // the operator can find it at macro zoom (a 16px dot is invisible fitted to
+  // the whole board). Pure decoration — clicks fall through.
+  if (hasSelection && selectedDotCenter) {
+    const beaconSize = 96;
+    nodes.push({
+      id: 'beacon:selected',
+      type: 'codemapBeacon',
+      position: {
+        x: (selectedDotCenter as { x: number; y: number }).x - beaconSize / 2,
+        y: (selectedDotCenter as { x: number; y: number }).y - beaconSize / 2,
+      },
+      data: {},
+      style: { width: beaconSize, height: beaconSize },
+      zIndex: 15,
+      selectable: false,
+      draggable: false,
+    });
+  }
+
+  // --- Edge layer -----------------------------------------------------------
+  // No selection: faint district-to-district corridors (the global roads).
+  // Selection + Impact lens: a few routed bundles from the file to affected
+  // districts, ZERO raw edges. Selection + Raw lens: a capped, ranked, calm
+  // sample of exact edges.
+  let edges: Edge[] = [];
+  let bundleCount = 0;
+  let rawShown = 0;
+
+  if (!hasSelection) {
+    // Quiet baseline roads: only the heaviest district links, very faint, so the
+    // no-selection board reads as calm terrain (not a web). Real routing is the
+    // selection's job.
+    const renderedCorridors = codeGraphEnabled
+      ? model.corridors.slice(0, PANORAMA_BASE_CORRIDORS).filter((corridor) => corridor.count >= 6)
+      : [];
+    edges = renderedCorridors.map((corridor, index) => {
+      const tone = edgeClassTone(corridor.edgeClass);
+      const width = corridor.count >= 60 ? 1.6 : corridor.count >= 20 ? 1.3 : 1;
+      return {
+        id: `corridor:${index}:${corridor.id}`,
+        source: `district:${corridor.sourceZone}`,
+        target: `district:${corridor.targetZone}`,
+        type: 'default',
+        ariaLabel: '',
+        animated: false,
+        style: { stroke: tone.color, strokeWidth: width, strokeDasharray: tone.dasharray, opacity: 0.13 },
+        data: { corridor },
+      } satisfies Edge;
+    });
+  } else if (codeGraphEnabled && lens === 'impact') {
+    // Routed bundles: selected file -> each affected OTHER district, thick and
+    // translucent, capped. Colour by dominant direction. No raw file edges.
+    const bundles = Array.from(districtImpact.entries())
+      .filter(([zone]) => zone !== selectedZone)
+      .sort((a, b) => b[1].total - a[1].total)
+      .slice(0, PANORAMA_IMPACT_BUNDLE_LIMIT);
+    bundleCount = bundles.length;
+    const selId = nodeIdForPath(panoramaSelectedPath as string);
+    // Each bundle is a bright CORE over a wide translucent GLOW underlay so the
+    // few routes read clearly at macro zoom over a busy field.
+    edges = bundles.flatMap(([zone, agg], index) => {
+      const outDominant = agg.outgoing >= agg.incoming;
+      const color = outDominant ? '#fbbf24' : '#38bdf8'; // amber out / cyan in
+      const core = agg.total >= 24 ? 5 : agg.total >= 8 ? 4 : 3;
+      const base = { source: selId, target: `district:${zone}`, type: 'default', ariaLabel: '', animated: false };
+      return [
+        {
+          ...base,
+          id: `bundle-glow:${index}:${zone}`,
+          zIndex: 16,
+          style: { stroke: color, strokeWidth: core + 7, strokeLinecap: 'round', opacity: 0.16 },
+          data: { bundleGlow: true },
+        } satisfies Edge,
+        {
+          ...base,
+          id: `bundle:${index}:${zone}`,
+          zIndex: 18,
+          label: String(agg.total),
+          style: { stroke: color, strokeWidth: core, strokeLinecap: 'round', opacity: 0.95 },
+          labelStyle: { fill: '#f8fafc', fontSize: 12, fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace' },
+          labelBgStyle: { fill: '#0b0f0d', fillOpacity: 0.95 },
+          data: { bundle: { zone, ...agg } },
+        } satisfies Edge,
+      ];
+    });
+  } else if (codeGraphEnabled && lens === 'raw') {
+    const ranked = rawCandidates
+      .slice()
+      .sort((a, b) => (b.score - a.score) || (a.index - b.index))
+      .slice(0, PANORAMA_RAW_EDGE_LIMIT);
+    rawShown = ranked.length;
+    edges = ranked.map(({ edge, index }) => {
+      const stroke = edgeStroke(edge);
+      return {
+        ...toReactFlowEdge(edge, index, 'focus'),
+        zIndex: 18,
+        // Calm, not white: keep the class colour, modest opacity, thin.
+        style: { stroke: stroke.color, strokeWidth: 1.2, strokeDasharray: stroke.dasharray, opacity: 0.55 },
+      } satisfies Edge;
+    });
+  }
+
+  const rawAvailable = totalIncident;
+  const panoramaSelection: PanoramaSelectionSummary | null = hasSelection
+    ? {
+        selectedPath: panoramaSelectedPath as string,
+        lens,
+        incoming,
+        outgoing,
+        total: totalIncident,
+        affectedDistricts: districtImpact.size,
+        affectedSubdistricts: subImpact.size,
+        bundles: bundleCount,
+        rawShown,
+        hiddenRawEdges: lens === 'raw' ? Math.max(0, rawAvailable - rawShown) : rawAvailable,
+      }
+    : null;
+
+  return {
+    nodes,
+    edges,
+    renderedFileNodes: model.renderedFiles,
+    renderedGroupNodes: model.districts.length,
+    hiddenEdgesByFilter: hasSelection
+      ? Math.max(0, totalIncident - rawShown - bundleCount)
+      : Math.max(0, model.corridors.length - edges.length),
+    panoramaSummary: {
+      districts: model.districts.length,
+      renderedFiles: model.renderedFiles,
+      hiddenFiles: model.hiddenFiles,
+      corridors: hasSelection ? 0 : edges.length,
+    },
+    panoramaSelection,
+  };
+}
+
 export function buildCodeMapLayout({
   packet,
   mode,
   focus,
   activeToggles,
+  panoramaSelectedPath = null,
+  panoramaLens = 'impact',
 }: LayoutOptions): CodeMapLayoutResult {
   if (mode === 'focus' && focus.selectedPath) {
     const ego = buildEgoFocusLayout(packet, focus, activeToggles);
     if (ego) return ego;
+  }
+
+  if (mode === 'panorama') {
+    return buildPanoramaLayout(packet, activeToggles, panoramaSelectedPath, panoramaLens);
   }
 
   if (mode === 'architecture') {
