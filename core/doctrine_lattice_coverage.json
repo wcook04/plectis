@@ -175,9 +175,9 @@
     "organs_missing_paper_module_ref": 0,
     "paper_module_json_instance_count": 99,
     "paper_module_json_missing_count": 0,
-    "paper_module_legacy_only_count": 3,
-    "paper_module_required_subject_gap_count": 3,
-    "paper_module_unpopulated_selective_relation_count": 41,
+    "paper_module_legacy_only_count": 2,
+    "paper_module_required_subject_gap_count": 2,
+    "paper_module_unpopulated_selective_relation_count": 35,
     "paper_module_without_json_capsule_count": 3,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python -m microcosm_core.doctrine_lattice --write",
-    "generated_at": "2026-06-09T23:05:49.786055Z",
+    "generated_at": "2026-06-12T20:58:25.697005Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -2719,9 +2719,8 @@
       "paper_modules/world_model_projection_drift_control_room.json"
     ],
     "json_instance_parity_status": "pass",
-    "legacy_only_json_instance_count": 3,
+    "legacy_only_json_instance_count": 2,
     "legacy_only_json_instance_ids": [
-      "paper_module.corpus_readiness_mathlib_absence_gate",
       "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
@@ -2935,9 +2934,8 @@
     ],
     "markdown_without_json_capsule_count": 3,
     "missing_json_ids": [],
-    "required_subject_gap_count": 3,
+    "required_subject_gap_count": 2,
     "required_subject_gap_ids": [
-      "paper_module.corpus_readiness_mathlib_absence_gate",
       "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
@@ -3351,7 +3349,7 @@
     ],
     "source_manifest_digest": "ae5dddb931af9d454a4d255b1e0143684c4ee5c7be222071cd0222e30ed404af",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
-    "unpopulated_selective_relation_count": 41,
+    "unpopulated_selective_relation_count": 35,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3363,7 +3361,6 @@
       "paper_module.batch7_zenith_macos_capsule",
       "paper_module.bridge_phase_continuity_runtime",
       "paper_module.cognitive_operator_registry",
-      "paper_module.corpus_readiness_mathlib_absence_gate",
       "paper_module.durable_agent_work_landing_replay",
       "paper_module.engine_room_generated_projection_drift_gate",
       "paper_module.executable_doctrine_grammar",
@@ -3487,7 +3484,7 @@
     ],
     "expected_paper_module_count": 99,
     "extra_json_ids": [],
-    "json_capsule_backed_count": 96,
+    "json_capsule_backed_count": 97,
     "json_instance_count": 99,
     "json_instance_ids": [
       "paper_module.agent_benchmark_integrity_anti_gaming_replay",
@@ -3590,51 +3587,35 @@
       "paper_module.workstream_driver_recency_coalescer",
       "paper_module.world_model_projection_drift_control_room"
     ],
-    "legacy_only_count": 3,
+    "legacy_only_count": 2,
     "legacy_only_ids": [
-      "paper_module.corpus_readiness_mathlib_absence_gate",
       "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
     "missing_json_ids": [],
     "parity_status": "pass",
-    "required_subject_gap_count": 3,
+    "required_subject_gap_count": 2,
     "required_subject_gap_ids": [
-      "paper_module.corpus_readiness_mathlib_absence_gate",
       "paper_module.microcosm_axiom_substrate",
       "paper_module.tactic_portfolio_availability_probe"
     ],
-    "residual_relation_count": 41,
+    "residual_relation_count": 35,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 3,
-      "paper_module.cites.code_locus": 3,
-      "paper_module.depends_on.paper_module": 26,
-      "paper_module.explains.organ_or_mechanism": 3,
-      "paper_module.governed_by.concept": 3,
-      "paper_module.governed_by.principle": 3
+      "paper_module.abides_by.axiom": 2,
+      "paper_module.cites.code_locus": 2,
+      "paper_module.depends_on.paper_module": 25,
+      "paper_module.explains.organ_or_mechanism": 2,
+      "paper_module.governed_by.concept": 2,
+      "paper_module.governed_by.principle": 2
     },
     "residual_relation_counts_by_requirement": {
-      "required": 3,
-      "selective": 38
+      "required": 2,
+      "selective": 33
     },
-    "residual_relation_detail_count": 41,
+    "residual_relation_detail_count": 35,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper module has no JSON-capsule subject rows; legacy markdown title/slug is not enough to infer a required subject.",
-        "relation_id": "paper_module.explains.organ_or_mechanism",
-        "requirement": "required",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.microcosm_axiom_substrate",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.microcosm_axiom_substrate",
@@ -3663,20 +3644,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.microcosm_axiom_substrate",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.microcosm_axiom_substrate",
@@ -3701,20 +3668,6 @@
         "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
         "source_refs": {
           "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
         }
       },
       {
@@ -3883,20 +3836,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
         }
       },
       {
@@ -4111,20 +4050,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.microcosm_axiom_substrate",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.microcosm_axiom_substrate",
@@ -4149,20 +4074,6 @@
         "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
         "source_refs": {
           "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
         }
       },
       {
@@ -4195,30 +4106,16 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 38,
+    "selective_residual_relation_count": 33,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.abides_by.axiom": 3,
-      "paper_module.cites.code_locus": 3,
-      "paper_module.depends_on.paper_module": 26,
-      "paper_module.governed_by.concept": 3,
-      "paper_module.governed_by.principle": 3
+      "paper_module.abides_by.axiom": 2,
+      "paper_module.cites.code_locus": 2,
+      "paper_module.depends_on.paper_module": 25,
+      "paper_module.governed_by.concept": 2,
+      "paper_module.governed_by.principle": 2
     },
-    "selective_residual_relation_detail_count": 38,
+    "selective_residual_relation_detail_count": 33,
     "selective_residual_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name axiom ids.",
-        "relation_id": "paper_module.abides_by.axiom",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.microcosm_axiom_substrate",
@@ -4245,20 +4142,6 @@
         "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
         "source_refs": {
           "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name code loci.",
-        "relation_id": "paper_module.cites.code_locus",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
         }
       },
       {
@@ -4427,20 +4310,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
         }
       },
       {
@@ -4655,20 +4524,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governed concept ids.",
-        "relation_id": "paper_module.governed_by.concept",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.microcosm_axiom_substrate",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.microcosm_axiom_substrate",
@@ -4693,20 +4548,6 @@
         "source_ref": "paper_modules/tactic_portfolio_availability_probe.md",
         "source_refs": {
           "source_ref": "paper_modules/tactic_portfolio_availability_probe.md"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name governing principle ids.",
-        "relation_id": "paper_module.governed_by.principle",
-        "requirement": "selective",
-        "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_refs": {
-          "source_ref": "paper_modules/corpus_readiness_mathlib_absence_gate.md"
         }
       },
       {
@@ -4743,7 +4584,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 41,
+    "unpopulated_selective_relation_count": 35,
     "validation": {
       "actual_count": 99,
       "errors": [],
@@ -5170,7 +5011,7 @@
       "paper_modules/cold_reader_route_map.json": "53411a5483c001f61ad24c3a4f341148034b1475ef994a6e95dd0821b6476d9a",
       "paper_modules/computer_use_action_trace_replay.json": "d6ccbb18584dfc0b6e01e82ae7788480272df545ea3cdcbc8e3136651585522e",
       "paper_modules/concurrency_mission_control.json": "88c208a033ce5b54e3464bb42c18803e47185e8edc0e85b3174cf337959e2171",
-      "paper_modules/corpus_readiness_mathlib_absence_gate.json": "26f916e31fed51a9b8b704c547f810b7ee663d2e92382e60f9bd904a8c6fb2be",
+      "paper_modules/corpus_readiness_mathlib_absence_gate.json": "6b38562c2ae6a16f8e004c13baa5216642f69560d1ed0a356304626df9f49176",
       "paper_modules/doctrine_fact_claim_audit.json": "e8909c1e611f73bffddf1d4f7b3aa80d212fee4dd906a0c527c19eba177acf1d",
       "paper_modules/durable_agent_work_landing_replay.json": "50db740df0992b3a36bb5bf352668664abb3d85c9bd046720d3c8ae1d6bd7ef1",
       "paper_modules/engine_room_annex_knowledge_router.json": "1627bb3dac7ff050bc8eabc36ada5445f42113d61a86c85c346caad94ee34302",
@@ -6102,7 +5943,7 @@
       "standards/std_microcosm_concurrency_mission_control.json": "08bbfc5934fe842305281ae888ce694865e6e08395c633b81fa656072448ae7b",
       "standards/std_microcosm_continuation_packet.json": "72b8889734edee02d1886cdcf1dc5443672cbfb31a4c75a5fe396c6ba43b3c7e",
       "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json": "95ca2877a81947c402770fc00775683da12b7ff305455d7d2de7218954c7831c",
-      "standards/std_microcosm_doctrine_enrichment.json": "ce9e5d8d9a9bcd6312cd0b519872b514a760626daa285e4a65c72f6e358170ba",
+      "standards/std_microcosm_doctrine_enrichment.json": "a66d93d44c97e4de44a24eb0fea1a437cb254093c6e43289fad806de4ef4ce6d",
       "standards/std_microcosm_doctrine_fact_claim_audit.json": "39022745025ca024b2d0f6cb80591dbd762214f076c206b7d9ed816e176a95f7",
       "standards/std_microcosm_doctrine_roof.json": "357ab4cac30c5e9f230b6d9168d80d65bfbd9713a7695a71aecbbe9c1456fd56",
       "standards/std_microcosm_durable_agent_work_landing_replay.json": "9b93312f1a99846f868c4ceda867cda6771160cf3caf7fe862d9a0132461510b",
