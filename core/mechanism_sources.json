@@ -2708,6 +2708,9 @@
         "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_math_premise_retrieval.py -q"
       },
+      "upstream_of": [
+        "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
+      ],
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
       ]

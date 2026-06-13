@@ -277,8 +277,8 @@
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 32,
-        "known_residual_selective_relation_row_count": 32,
+        "known_residual_selective_relation_count": 31,
+        "known_residual_selective_relation_row_count": 31,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -363,10 +363,6 @@
           {
             "count": 1,
             "id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
           },
           {
             "count": 1,

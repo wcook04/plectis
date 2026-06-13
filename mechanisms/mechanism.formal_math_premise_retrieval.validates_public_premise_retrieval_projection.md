@@ -15,7 +15,7 @@ The formal math premise retrieval organ validates public retrieval metadata, pre
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/formal_math_premise_retrieval.py` (resolved_code_locus)
 - `runs_in` -> `organ:formal_math_premise_retrieval` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.verifier_lab_kernel.composes_public_formal_math_receipts` (resolved_json_instance)
 
 ## Anti-Claims
 

@@ -67,7 +67,7 @@
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
     "mechanism_json_parity_status": "pass",
-    "mechanism_unpopulated_selective_relation_count": 32,
+    "mechanism_unpopulated_selective_relation_count": 31,
     "mechanism_without_code_loci_count": 0,
     "organ_json_instance_count": 82,
     "organ_json_missing_count": 0,
@@ -164,8 +164,8 @@
   ],
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "coverage_projection_digest": "9a1ce3f5e74b3f1408bd6c9e4d59146ea81c7e99f7a80445fa5184f12ee7b15e",
-    "generated_at": "2026-06-13T02:32:02.797274Z",
+    "coverage_projection_digest": "a0fc73b319e45727128b66a2bba36e8e4809edf0c71016c3d1b0886bba0c13c5",
+    "generated_at": "2026-06-13T02:57:22.928692Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],
@@ -205,7 +205,7 @@
       "concept_json_missing_count": 0,
       "concept_unpopulated_selective_relation_count": 0,
       "mechanism_json_missing_count": 0,
-      "mechanism_unpopulated_selective_relation_count": 32,
+      "mechanism_unpopulated_selective_relation_count": 31,
       "mechanism_without_code_loci_count": 0,
       "organ_json_missing_count": 0,
       "organ_required_relation_gap_count": 0,

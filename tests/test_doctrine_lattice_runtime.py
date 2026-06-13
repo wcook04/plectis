@@ -6812,6 +6812,13 @@ def test_formal_math_premise_retrieval_population_has_capsule_and_mechanism_pres
         "mechanism.formal_math_premise_retrieval."
         "validates_public_premise_retrieval_slice"
     )
+    atlas_mechanism_id = (
+        "mechanism.formal_math_premise_retrieval."
+        "validates_public_premise_retrieval_projection"
+    )
+    verifier_lab_mechanism_id = (
+        "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
+    )
 
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
     assert projection["registry_atlas_join_health"]["status"] == "pass"
@@ -6819,10 +6826,7 @@ def test_formal_math_premise_retrieval_population_has_capsule_and_mechanism_pres
         projection,
         "formal_math_premise_retrieval",
         paper_module_ref="paper_modules/formal_math_premise_retrieval.md",
-        atlas_mechanism_id=(
-            "mechanism.formal_math_premise_retrieval."
-            "validates_public_premise_retrieval_projection"
-        ),
+        atlas_mechanism_id=atlas_mechanism_id,
         code_path="src/microcosm_core/organs/formal_math_premise_retrieval.py",
     )
 
@@ -6851,6 +6855,26 @@ def test_formal_math_premise_retrieval_population_has_capsule_and_mechanism_pres
         "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_body_floor/source_module_manifest.json"
         in mechanism["input_refs"]
     )
+
+    premise_instance = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "mechanisms"
+            / f"{atlas_mechanism_id}.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert any(
+        edge["relation_id"] == "mechanism.upstream_of.mechanism"
+        and edge["target_id"] == verifier_lab_mechanism_id
+        and edge["target_status"] == "resolved_json_instance"
+        for edge in premise_instance["relationships"]["edges"]
+    )
+    assert "mechanism.upstream_of.mechanism" not in {
+        residual["relation_id"]
+        for residual in premise_instance["relationships"][
+            "unpopulated_selective_relations"
+        ]
+    }
 
     standard = json.loads(
         (
