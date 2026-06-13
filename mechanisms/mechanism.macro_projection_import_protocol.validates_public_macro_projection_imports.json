@@ -221,6 +221,7 @@
         "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
         "mechanism.cognitive_operator_registry.validates_public_operator_contract",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+        "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
         "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
         "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
         "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
@@ -612,6 +613,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -734,6 +748,7 @@
       "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
       "mechanism.cognitive_operator_registry.validates_public_operator_contract",
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+      "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
       "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
       "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
       "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",

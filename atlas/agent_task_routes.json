@@ -5479,6 +5479,7 @@
             "batch8_policy_engines_capsule",
             "batch9_macro_engines_capsule",
             "concurrency_mission_control",
+            "engine_room_demo",
             "executable_doctrine_grammar",
             "workstream_driver_recency_coalescer"
           ]
@@ -10734,6 +10735,7 @@
             "batch8_policy_engines_capsule",
             "batch9_macro_engines_capsule",
             "concurrency_mission_control",
+            "engine_room_demo",
             "executable_doctrine_grammar",
             "workstream_driver_recency_coalescer"
           ]
@@ -14541,6 +14543,7 @@
             "batch8_policy_engines_capsule",
             "batch9_macro_engines_capsule",
             "concurrency_mission_control",
+            "engine_room_demo",
             "executable_doctrine_grammar",
             "workstream_driver_recency_coalescer"
           ]

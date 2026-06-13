@@ -44,6 +44,7 @@ An agent runs this to preview or validate a projection bundle before import: con
 - `wires_to` -> `organ:batch8_policy_engines_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch9_macro_engines_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:concurrency_mission_control` (resolved_registry_or_atlas_target)
+- `wires_to` -> `organ:engine_room_demo` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:executable_doctrine_grammar` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:workstream_driver_recency_coalescer` (resolved_registry_or_atlas_target)
 

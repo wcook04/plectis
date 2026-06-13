@@ -156,6 +156,7 @@
         "batch8_policy_engines_capsule",
         "batch9_macro_engines_capsule",
         "concurrency_mission_control",
+        "engine_room_demo",
         "executable_doctrine_grammar",
         "workstream_driver_recency_coalescer"
       ],
@@ -641,6 +642,19 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
+        "target_id": "engine_room_demo",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
         "target_id": "executable_doctrine_grammar",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -700,6 +714,7 @@
       "batch8_policy_engines_capsule",
       "batch9_macro_engines_capsule",
       "concurrency_mission_control",
+      "engine_room_demo",
       "executable_doctrine_grammar",
       "workstream_driver_recency_coalescer"
     ]
@@ -754,6 +769,7 @@
     "batch8_policy_engines_capsule",
     "batch9_macro_engines_capsule",
     "concurrency_mission_control",
+    "engine_room_demo",
     "executable_doctrine_grammar",
     "workstream_driver_recency_coalescer"
   ]
