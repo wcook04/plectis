@@ -4492,6 +4492,17 @@ def test_formal_math_lean_proof_witness_population_has_capsule_and_mechanism_pre
         "mechanism.formal_math_lean_proof_witness."
         "validates_public_lean_lake_witness"
     )
+    atlas_mechanism_id = (
+        "mechanism.formal_math_lean_proof_witness."
+        "validates_public_lean_witness"
+    )
+    upstream_mechanism_ids = {
+        "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+        "mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle",
+        "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+        "mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness",
+        "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+    }
 
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
     assert projection["registry_atlas_join_health"]["status"] == "pass"
@@ -4499,10 +4510,7 @@ def test_formal_math_lean_proof_witness_population_has_capsule_and_mechanism_pre
         projection,
         "formal_math_lean_proof_witness",
         paper_module_ref="paper_modules/formal_math_lean_proof_witness.md",
-        atlas_mechanism_id=(
-            "mechanism.formal_math_lean_proof_witness."
-            "validates_public_lean_witness"
-        ),
+        atlas_mechanism_id=atlas_mechanism_id,
         code_path="src/microcosm_core/organs/formal_math_lean_proof_witness.py",
     )
 
@@ -4529,6 +4537,36 @@ def test_formal_math_lean_proof_witness_population_has_capsule_and_mechanism_pre
         "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
         in mechanism["input_refs"]
     )
+    atlas_mechanism = next(
+        row
+        for row in mechanism_registry["mechanisms"]
+        if row["id"] == atlas_mechanism_id
+    )
+    assert set(atlas_mechanism["upstream_of"]) == upstream_mechanism_ids
+
+    lean_witness_instance = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "mechanisms"
+            / f"{atlas_mechanism_id}.json"
+        ).read_text(encoding="utf-8")
+    )
+    upstream_edges = {
+        edge["target_id"]: edge
+        for edge in lean_witness_instance["relationships"]["edges"]
+        if edge["relation_id"] == "mechanism.upstream_of.mechanism"
+    }
+    assert set(upstream_edges) == upstream_mechanism_ids
+    assert all(
+        edge["target_status"] == "resolved_json_instance"
+        for edge in upstream_edges.values()
+    )
+    assert "mechanism.upstream_of.mechanism" not in {
+        residual["relation_id"]
+        for residual in lean_witness_instance["relationships"][
+            "unpopulated_selective_relations"
+        ]
+    }
 
     standard = json.loads(
         (

@@ -3026,6 +3026,13 @@
         "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_math_lean_proof_witness.py -q"
       },
+      "upstream_of": [
+        "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+        "mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle",
+        "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+        "mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness",
+        "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
+      ],
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
       ]

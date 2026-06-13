@@ -15,7 +15,11 @@ The formal math Lean proof witness validates a bounded public toy Lean/Lake witn
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/formal_math_lean_proof_witness.py` (resolved_code_locus)
 - `runs_in` -> `organ:formal_math_lean_proof_witness` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.verifier_lab_kernel.composes_public_formal_math_receipts` (resolved_json_instance)
 
 ## Anti-Claims
 

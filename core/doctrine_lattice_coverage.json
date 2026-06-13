@@ -163,7 +163,7 @@
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
     "mechanism_planned_or_unresolved_code_loci_count": 0,
-    "mechanism_unpopulated_selective_relation_count": 31,
+    "mechanism_unpopulated_selective_relation_count": 30,
     "mechanism_without_code_loci_count": 0,
     "meta_standard_v1": false,
     "organ_json_instance_count": 82,
@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T02:57:17.108733Z",
+    "generated_at": "2026-06-13T03:23:41.110780Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -417,14 +417,14 @@
     "parity_status": "pass",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
-    "residual_relation_count": 31,
+    "residual_relation_count": 30,
     "residual_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 31
+      "mechanism.upstream_of.mechanism": 30
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 31
+      "selective": 30
     },
-    "residual_relation_detail_count": 31,
+    "residual_relation_detail_count": 30,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -708,20 +708,6 @@
       },
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[42:mechanism.formal_math_lean_proof_witness.validates_public_lean_witness]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[42:mechanism.formal_math_lean_proof_witness.validates_public_lean_witness]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "instance_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
         "instance_kind": "mechanism",
         "mechanism_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
@@ -862,11 +848,11 @@
       }
     ],
     "schema_version": "microcosm_mechanism_instance_corpus_v1",
-    "selective_residual_relation_count": 31,
+    "selective_residual_relation_count": 30,
     "selective_residual_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 31
+      "mechanism.upstream_of.mechanism": 30
     },
-    "selective_residual_relation_detail_count": 31,
+    "selective_residual_relation_detail_count": 30,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -1150,20 +1136,6 @@
       },
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[42:mechanism.formal_math_lean_proof_witness.validates_public_lean_witness]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[42:mechanism.formal_math_lean_proof_witness.validates_public_lean_witness]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "instance_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
         "instance_kind": "mechanism",
         "mechanism_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
@@ -1308,7 +1280,7 @@
       "json_instances": "mechanisms/*.json",
       "mechanism_registry": "core/mechanism_sources.json"
     },
-    "unpopulated_selective_relation_count": 31,
+    "unpopulated_selective_relation_count": 30,
     "validation": {
       "errors": [],
       "expected_count": 100,
@@ -4141,7 +4113,7 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "bc51122a296eee55f9f79c34194e67bf457934a0581fb724043807aa0c04086b",
+      "core/mechanism_sources.json": "775978ea6734ae6c7a0c73bb68c4b7ad364e3d25b1321e35f8dbead4be313722",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "a910160c998f4568914af6cce35e11eb373ac2f4b49168e3ecf6faefc07d8654",
@@ -4207,7 +4179,7 @@
       "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json": "492e7180a515a11f1d17c9cdbd73cac8fd9aba03b1ecfce10c3bc15775c7b35e",
       "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json": "4030bc628c2cb1bd97fff247eb1687230632bfbebbcf547a56a670d06c876236",
       "mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json": "0c5ddb99626fc7ffd9d9582dd7a083da83d42c6b99b29bd79caa7255692f5b7e",
-      "mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json": "a7534b1b4e1f8ef0fe231696f5d050c3c487319e40f37393e1d317cdd09e8c5d",
+      "mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json": "09e2c1406cc107df79cd7472c52cf216a756607350358a3ef4d7d583cb03fa17",
       "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json": "9d9fe32ca23886c0f49e6d6514f22a83b1e39b83aa6e1a2fa6837be5885e0bc7",
       "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json": "13ae0344b0bb5f445f1eb604de2669078423cefca7396341a882b21bc9199963",
       "mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json": "b11465fff004ceb07c81fe384eecca70a53676fc03808eb7e6dfd5e4c6aefb1b",
