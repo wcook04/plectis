@@ -2884,6 +2884,11 @@
           "generated": true
         }
       },
+      "depends_on": [
+        "paper_module.agent_memory_temporal_conflict_replay",
+        "paper_module.mcp_tool_authority_replay",
+        "paper_module.agent_sandbox_policy_escape_replay"
+      ],
       "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
       "principle_refs": [
         "P-9",

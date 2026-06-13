@@ -1,5 +1,30 @@
 # Sleeper Memory Poisoning Quarantine Replay
 
+## Purpose
+
+Persistent agent memory is an attack surface. If an agent reads a poisoned
+source in one session and writes a memory from it, that memory can quietly shape
+a later session's actions, long after the poisoning is out of view. This module
+asks one question: if an agent quarantines a poisoned memory write, can it show,
+from receipts alone, that the quarantine actually held when the memory was
+retrieved later, and that a rollback genuinely removed it?
+
+The interesting part is that the runtime grades the whole chain, not just the
+final answer. A naive memory-security story checks that the agent reached the
+right conclusion. This validator refuses that. It requires the poisoned write to
+carry provenance, the later retrieval to be blocked before any action and to
+cite the same memory ref the write quarantined, and the rollback to carry a
+deletion audit ref, a cold-rerun receipt, and proof that the memory is absent
+after the rerun. A blocked retrieval that cannot name the quarantine audit ref
+or the cold-replay receipt for the memory it gates is treated as unproven, not
+as a pass.
+
+It is a synthetic fixture, deliberately narrow. The inputs are public metadata
+rows, never live user memory or private bodies, and the receipts carry refs,
+hashes, counts, and verdicts rather than any memory text. It borrows the control
+shape from prior work on sleeper triggers and memory poisoning; it does not
+secure a live memory system or claim a benchmark result.
+
 ## Abstract
 
 This module is the public Microcosm projection of a persistent-memory security
@@ -38,40 +63,39 @@ audit refs, rerun receipts, negative cases, and authority ceilings line up.
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule authority"]
-  markdown["Markdown reader projection"]
-  mechanism["mechanism source row"]
-  organ["sleeper memory runtime"]
-  fixture["first-wave fixture"]
-  bundle["exported quarantine bundle"]
-  sessions["four-session chain"]
-  writes["memory write proposals"]
-  retrieval["retrieval influence gate"]
-  rollback["rollback and cold rerun"]
-  source_modules["seven copied source bodies"]
-  receipts["body-free receipts"]
-  ceiling["authority ceiling"]
+  inputs["Public metadata inputs\nsessions, write proposals,\nretrieval replays, rollback rows"]
 
-  capsule --> markdown
-  capsule --> mechanism
-  mechanism --> organ
-  organ --> fixture
-  organ --> bundle
-  bundle --> sessions
-  sessions --> writes
-  writes --> retrieval
-  retrieval --> rollback
-  source_modules --> receipts
+  subgraph Gates["Four ordered gates"]
+    provenance["Provenance gate\npoisoned write quarantined +\nprovenance-bound control admitted"]
+    influence["Delayed-influence gate\nlater retrieval blocked before action,\nsame memory ref + audit + cold-replay ref"]
+    rollback["Rollback gate\ndeletion audit + cold-rerun receipt +\nmemory absent after rerun"]
+    bodies["Source-body gate\ncopied bodies digest-checked,\nreceipts stay body-free"]
+  end
+
+  negatives["Eight negative cases\neach must be observed\nas a typed finding"]
+  receipts["Body-free receipts\nrefs, hashes, counts, verdicts"]
+  ceiling["Authority ceiling\nsynthetic replay only"]
+
+  inputs --> provenance
+  provenance -->|quarantined memory ref| influence
+  influence --> rollback
+  rollback --> bodies
+  inputs --> negatives
+  provenance --> receipts
+  influence --> receipts
   rollback --> receipts
+  bodies --> receipts
+  negatives --> receipts
   receipts --> ceiling
 ```
 
 The module's shape is a public memory-security replay, not a live memory
-product. A capsule-backed reader projection points to the mechanism and runtime
-organ; the runtime validates a four-session chain, provenance-bound write
-proposals, quarantine verdicts, a later retrieval influence gate, rollback plus
-cold rerun, source-module digest anchors, expected negative cases, and
-body-free receipts.
+product. Public metadata inputs pass through four ordered gates: provenance,
+delayed influence, rollback, and source-body handling. The delayed-influence
+gate is coupled to the provenance gate, so a blocked retrieval must target the
+same memory ref the write quarantined and cite its audit and cold-replay refs.
+Alongside the positive chain, eight negative cases must each surface as a typed
+finding, and every path lands in body-free receipts under the authority ceiling.
 
 ## Mechanism
 
@@ -146,7 +170,7 @@ payload omission.
   `retrieval_replays.json`, `rollback_rerun.json`, and
   `source_module_manifest.json`.
 - Source-module route: `source_module_manifest.json` records seven copied
-  non-secret public macro bodies, including the high-novelty growth receipt,
+  non-secret public macro bodies, including the growth receipt,
   memory-plane paper modules, operator-memory tests, agent execution trace
   runtime, strict JSON helper, and agent execution trace standard; receipts keep
   source bodies out with `body_in_receipt: false`.

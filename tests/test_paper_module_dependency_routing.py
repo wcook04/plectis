@@ -138,3 +138,16 @@ def test_agent_memory_temporal_conflict_dependency_routes_to_source_named_siblin
         "paper_module.agent_route_observability_runtime": "resolved_json_instance",
         "paper_module.bridge_phase_continuity_runtime": "resolved_json_instance",
     }
+
+
+def test_sleeper_memory_dependency_routes_to_source_named_sibling_replays() -> None:
+    edges = _dependency_edges("paper_module.sleeper_memory_poisoning_quarantine_replay")
+
+    assert {
+        str(edge["target_id"]): edge["target_status"]
+        for edge in edges
+    } == {
+        "paper_module.agent_memory_temporal_conflict_replay": "resolved_json_instance",
+        "paper_module.mcp_tool_authority_replay": "resolved_json_instance",
+        "paper_module.agent_sandbox_policy_escape_replay": "resolved_json_instance",
+    }
