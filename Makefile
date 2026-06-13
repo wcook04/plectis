@@ -95,6 +95,7 @@ smoke:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello . > $(SMOKE_OUT)/hello.txt
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card . > $(SMOKE_OUT)/first-screen-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json

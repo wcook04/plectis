@@ -71,7 +71,34 @@ def _write_valid_smoke_outputs(smoke_out: Path) -> None:
             "status": "pass",
         },
     )
-    _write_json(smoke_out / "status-card.json", {"status": "pass"})
+    _write_json(
+        smoke_out / "proof-lab-card.json",
+        {
+            "authority_ceiling": {
+                "formal_proof_authority": False,
+                "provider_calls_authorized": False,
+                "release_authorized": False,
+            },
+            "safe_to_show": {"proof_correctness_claim": False},
+            "status": "pass",
+        },
+    )
+    _write_json(
+        smoke_out / "status-card.json",
+        {
+            "front_door": {
+                "proof_lab": {
+                    "cache_status": "cached_receipt_read",
+                    "fresh_receipt_required": False,
+                },
+            },
+            "front_door_status": {
+                "actionable_surface_ids": ["observatory"],
+                "surface_statuses": {"proof_lab_cache": "pass"},
+            },
+            "status": "pass",
+        },
+    )
     _write_json(
         smoke_out / "served-status-card.json",
         {
@@ -213,6 +240,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .",
+        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py "
         "--root . --project . --out $(SMOKE_OUT)/served-status-card.json",
@@ -225,6 +253,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         '--first-action "where do I start with this clone?"',
         "> $(SMOKE_OUT)/first-screen-card.json",
         "> $(SMOKE_OUT)/tour-card.json",
+        "> $(SMOKE_OUT)/proof-lab-card.json",
         "> $(SMOKE_OUT)/status-card.json",
         "$(SMOKE_OUT)/served-status-card.json",
         "> $(SMOKE_OUT)/stripping-guard.json",
@@ -263,6 +292,7 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
         "hello.txt",
         "first-screen-card.json",
         "tour-card.json",
+        "proof-lab-card.json",
         "status-card.json",
         "authority-card.json",
         "workingness-card.json",
@@ -324,6 +354,7 @@ def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
         in result.stdout
     )
     assert "served status: pass (0 private path hits)" in result.stdout
+    assert "proof lab: pass (cache bound, proof correctness false)" in result.stdout
     assert "first action: contract pass" in result.stdout
     assert "version: microcosm 0.1.0" in result.stdout
     assert result.stderr == ""
@@ -430,6 +461,66 @@ def test_check_smoke_outputs_fails_when_workingness_import_signature_is_stale(
     assert "Microcosm smoke check: fail" in result.stderr
     assert "workingness-card.json: stale source-body import signature" in result.stderr
     assert "re-run `make smoke`" in result.stderr
+
+
+def test_check_smoke_outputs_fails_when_proof_lab_cache_is_stale(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    status = json.loads(
+        (smoke_out / "status-card.json").read_text(encoding="utf-8"),
+    )
+    status["front_door"]["proof_lab"]["cache_status"] = "stale_cached_receipt"
+    status["front_door"]["proof_lab"]["fresh_receipt_required"] = True
+    status["front_door_status"]["surface_statuses"]["proof_lab_cache"] = "actionable"
+    status["front_door_status"]["actionable_surface_ids"] = [
+        "proof_lab_cache",
+        "observatory",
+    ]
+    _write_json(smoke_out / "status-card.json", status)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "Microcosm smoke check: fail" in result.stderr
+    assert (
+        "status-card.json: proof_lab_cache must be pass after proof-lab smoke receipt"
+        in result.stderr
+    )
+
+
+def test_check_smoke_outputs_fails_when_proof_lab_claims_formal_authority(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    proof_lab = json.loads(
+        (smoke_out / "proof-lab-card.json").read_text(encoding="utf-8"),
+    )
+    proof_lab["authority_ceiling"]["formal_proof_authority"] = True
+    _write_json(smoke_out / "proof-lab-card.json", proof_lab)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "Microcosm smoke check: fail" in result.stderr
+    assert (
+        "proof-lab-card.json: expected authority_ceiling.formal_proof_authority false"
+        in result.stderr
+    )
 
 
 def test_check_smoke_outputs_fails_when_a_card_is_empty(

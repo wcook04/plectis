@@ -48,6 +48,13 @@ def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") 
         raise SmokeCheckError(f"{name}: expected status {status!r}, got {actual!r}")
 
 
+def _expect_object(payload: dict[str, Any], *, name: str, key: str) -> dict[str, Any]:
+    actual = payload.get(key)
+    if not isinstance(actual, dict):
+        raise SmokeCheckError(f"{name}: missing {key} object")
+    return actual
+
+
 def _expect_false(
     payload: dict[str, Any],
     *,
@@ -59,6 +66,21 @@ def _expect_false(
     if actual is not False:
         label = f"{source}.{key}" if source else key
         raise SmokeCheckError(f"{name}: expected {label} false, got {actual!r}")
+
+
+def _expect_nested_false(
+    payload: dict[str, Any],
+    *,
+    name: str,
+    object_key: str,
+    key: str,
+) -> None:
+    parent = _expect_object(payload, name=name, key=object_key)
+    actual = parent.get(key)
+    if actual is not False:
+        raise SmokeCheckError(
+            f"{name}: expected {object_key}.{key} false, got {actual!r}",
+        )
 
 
 def _expect_authority_false(
@@ -226,8 +248,55 @@ def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> d
             "workingness-card.json: stale source-body import signature; "
             f"receipt {json.dumps(receipt_signature, sort_keys=True)}, "
             f"live {json.dumps(live_signature, sort_keys=True)}; re-run `make smoke`",
-        )
+    )
     return receipt_signature
+
+
+def _expect_proof_lab_status_cache_bound(status: dict[str, Any]) -> str:
+    front_door = _expect_object(status, name="status-card.json", key="front_door")
+    proof_lab = front_door.get("proof_lab")
+    if not isinstance(proof_lab, dict):
+        raise SmokeCheckError("status-card.json: missing front_door.proof_lab object")
+
+    cache_status = proof_lab.get("cache_status")
+    if cache_status in {"stale_cached_receipt", "missing_cached_receipt"}:
+        raise SmokeCheckError(
+            "status-card.json: proof_lab_cache must be pass after proof-lab "
+            f"smoke receipt, got cache_status {cache_status!r}",
+        )
+    if proof_lab.get("fresh_receipt_required") is not False:
+        raise SmokeCheckError(
+            "status-card.json: proof_lab fresh_receipt_required must be false "
+            "after proof-lab smoke receipt",
+        )
+
+    front_door_status = _expect_object(
+        status,
+        name="status-card.json",
+        key="front_door_status",
+    )
+    surface_statuses = front_door_status.get("surface_statuses")
+    if not isinstance(surface_statuses, dict):
+        raise SmokeCheckError(
+            "status-card.json: missing front_door_status.surface_statuses object",
+        )
+    surface_status = surface_statuses.get("proof_lab_cache")
+    if surface_status != "pass":
+        raise SmokeCheckError(
+            "status-card.json: proof_lab_cache must be pass after proof-lab "
+            f"smoke receipt, got surface status {surface_status!r}",
+        )
+    actionable = front_door_status.get("actionable_surface_ids")
+    if not isinstance(actionable, list):
+        raise SmokeCheckError(
+            "status-card.json: missing front_door_status.actionable_surface_ids list",
+        )
+    if "proof_lab_cache" in actionable:
+        raise SmokeCheckError(
+            "status-card.json: proof_lab_cache must not remain actionable "
+            "after proof-lab smoke receipt",
+        )
+    return str(cache_status)
 
 
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
@@ -241,6 +310,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
 
     first_screen = _read_json(smoke_out / "first-screen-card.json")
     tour = _read_json(smoke_out / "tour-card.json")
+    proof_lab = _read_json(smoke_out / "proof-lab-card.json")
     status = _read_json(smoke_out / "status-card.json")
     served_status = _read_json(smoke_out / "served-status-card.json")
     authority = _read_json(smoke_out / "authority-card.json")
@@ -252,6 +322,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     for name, payload in (
         ("first-screen-card.json", first_screen),
         ("tour-card.json", tour),
+        ("proof-lab-card.json", proof_lab),
         ("status-card.json", status),
         ("served-status-card.json", served_status),
         ("authority-card.json", authority),
@@ -291,6 +362,29 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         name="served-status-card.json",
         key="provider_calls_authorized",
     )
+
+    _expect_nested_false(
+        proof_lab,
+        name="proof-lab-card.json",
+        object_key="safe_to_show",
+        key="proof_correctness_claim",
+    )
+    _expect_authority_false(
+        proof_lab,
+        name="proof-lab-card.json",
+        key="formal_proof_authority",
+    )
+    _expect_authority_false(
+        proof_lab,
+        name="proof-lab-card.json",
+        key="release_authorized",
+    )
+    _expect_authority_false(
+        proof_lab,
+        name="proof-lab-card.json",
+        key="provider_calls_authorized",
+    )
+    proof_lab_cache_status = _expect_proof_lab_status_cache_bound(status)
 
     authority_organ_count = _expect_positive_surface_count(
         authority,
@@ -401,6 +495,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
             "source_body_import_exception_count"
         ],
         "private_path_hit_count": private_path_hit_count,
+        "proof_lab_cache_status": proof_lab_cache_status,
     }
 
 
@@ -423,6 +518,7 @@ def print_summary(summary: dict[str, Any]) -> None:
         "served status: pass "
         f"({summary['private_path_hit_count']} private path hits)",
     )
+    print("proof lab: pass (cache bound, proof correctness false)")
     print("first action: contract pass")
     print(f"version: {summary['version']}")
 
