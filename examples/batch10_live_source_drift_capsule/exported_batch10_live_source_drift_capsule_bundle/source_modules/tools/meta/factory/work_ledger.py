@@ -2596,6 +2596,18 @@ def _compact_single_session_status(
     sessions = runtime_status.get("sessions") if isinstance(runtime_status.get("sessions"), Mapping) else {}
     session = sessions.get(session_id) if isinstance(sessions, Mapping) else None
     safe_limit = max(0, int(limit or 0))
+    archived_at: str | None = None
+    from_archive = False
+    if not isinstance(session, Mapping):
+        # Old ended sessions are retired from the live runtime status by the
+        # retention pass but preserved in the append-only archive sidecar, so an
+        # explicit session-id drilldown still resolves instead of "missing".
+        archived = work_ledger_runtime.load_archived_session(REPO_ROOT, session_id)
+        candidate = archived.get("session") if isinstance(archived, Mapping) else None
+        if isinstance(candidate, Mapping):
+            session = candidate
+            from_archive = True
+            archived_at = str(archived.get("archived_at") or "") or None
     if not isinstance(session, Mapping):
         return {
             "schema": "work_ledger_session_status_card_v1",
@@ -2618,7 +2630,9 @@ def _compact_single_session_status(
         "schema": "work_ledger_session_status_detail_v1"
         if include_full_session
         else "work_ledger_session_status_card_v1",
-        "status": "found",
+        "status": "found_archived" if from_archive else "found",
+        "archived": from_archive,
+        "archived_at": archived_at,
         "session_id": session_id,
         "session": dict(session) if include_full_session else _compact_session_row(session),
         "session_state": {

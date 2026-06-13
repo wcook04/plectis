@@ -79,8 +79,8 @@
     },
     {
       "body_copied": true,
-      "byte_count": 328716,
-      "line_count": 8223,
+      "byte_count": 329511,
+      "line_count": 8237,
       "material_class": "public_macro_tool_body",
       "module_id": "work_ledger_tool_source",
       "path": "source_modules/tools/meta/factory/work_ledger.py",
@@ -93,14 +93,14 @@
         "def cmd_session_finalize",
         "def cmd_session_claims"
       ],
-      "sha256": "7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799",
+      "sha256": "d127574afb2894629442003b8578b7628c3e6048044eb5e2bf64c6363719dee2",
       "sha256_match": true,
       "source_ref": "tools/meta/factory/work_ledger.py",
       "source_role": "Work Ledger lifecycle, claim, heartbeat, and closeout controller CLI.",
-      "source_sha256": "7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799",
+      "source_sha256": "d127574afb2894629442003b8578b7628c3e6048044eb5e2bf64c6363719dee2",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py",
-      "target_sha256": "7c77f69a7c4a1a344c4da0b4f6a9cafa25b34b10bb9844490887f9803e7c4799"
+      "target_sha256": "d127574afb2894629442003b8578b7628c3e6048044eb5e2bf64c6363719dee2"
     }
   ],
   "schema_version": "source_module_manifest_v1",
