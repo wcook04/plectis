@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/agent_bootstrap_live.json",
       "source_role": "Generated Codex bootstrap control-plane sidecar carrying situation routes, instruction discovery, actor packets, live bindings, and agent operating packet strips.",
-      "source_sha256": "f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57",
+      "source_sha256": "73c4187513d8881ad00d7d2f27bec96f22fd6f7c1ebec3adeb6a3aaf0ee82a8e",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
-      "target_sha256": "f854c3cb14159df4ca466d4fd469719f9c988b466087b95ae3ea4097bc8b2d57"
+      "target_sha256": "73c4187513d8881ad00d7d2f27bec96f22fd6f7c1ebec3adeb6a3aaf0ee82a8e"
     },
     {
       "anchor_count": 5,
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/routing_hologram.json",
       "source_role": "Generated routing hologram sidecar carrying situation rows, entry protocol, mode rows, delegation rows, and section caps.",
-      "source_sha256": "c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c",
+      "source_sha256": "7c9cd3a36c434a28779ead21ba88a350e53e295879b8b461da556e5bd2f5220f",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
-      "target_sha256": "c325d01a8d35357d611be97ee0489c7ca477c8b3d7ac1cdcfd6d99b2b54aee3c"
+      "target_sha256": "7c9cd3a36c434a28779ead21ba88a350e53e295879b8b461da556e5bd2f5220f"
     },
     {
       "anchor_count": 5,

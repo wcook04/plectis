@@ -1,7 +1,7 @@
 {
   "kind": "routing_hologram",
   "generated_from": "deterministic_projection",
-  "input_sha256": "11a91da8dc5ab274d742a9b92a67f5f85ef2de91b708824d08dba1f8af951398",
+  "input_sha256": "e8850f6b686edd62f6b1db95ff25b673aebcc58f40fd7555e23dc17da1fce8d4",
   "source_paths": [
     "codex/doctrine/skills/skill_registry.json",
     "codex/standards/observe_apply/std_synth_seed.json",
@@ -31,6 +31,24 @@
     "matched_skill_count": 0
   },
   "situation_rows": [
+    {
+      "skill_id": "dissemination_cycle",
+      "skill_path": "dissemination/dissemination_cycle.md",
+      "family_id": "dissemination",
+      "situation_key": "dissemination selected; choose the next durable skill instead of ad hoc docs edits",
+      "situation": "Dissemination/public launch selected and next skill is unclear, including record-all capture, recorded clips, d…",
+      "score": {
+        "total": 32.0,
+        "derived": 32,
+        "explicit_priority": 96,
+        "alchemy_combo_count": 0,
+        "trigger_count": 9,
+        "governing_principle_count": 6,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
     {
       "skill_id": "navigation_seed",
       "skill_path": "kernel/navigation_seed.md",
@@ -62,24 +80,6 @@
         "alchemy_combo_count": 0,
         "trigger_count": 10,
         "governing_principle_count": 5,
-        "telemetry_shared_hits": 0.0,
-        "telemetry_match_count": 0,
-        "telemetry_top_tokens": []
-      }
-    },
-    {
-      "skill_id": "dissemination_cycle",
-      "skill_path": "dissemination/dissemination_cycle.md",
-      "family_id": "dissemination",
-      "situation_key": "dissemination selected; choose the next durable skill instead of ad hoc docs edits",
-      "situation": "Dissemination/public launch selected and next skill is unclear, including demo-video hook, script, or story-pac…",
-      "score": {
-        "total": 28.0,
-        "derived": 28,
-        "explicit_priority": 96,
-        "alchemy_combo_count": 0,
-        "trigger_count": 8,
-        "governing_principle_count": 6,
         "telemetry_shared_hits": 0.0,
         "telemetry_match_count": 0,
         "telemetry_top_tokens": []
