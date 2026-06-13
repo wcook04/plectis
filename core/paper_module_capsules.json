@@ -7594,6 +7594,9 @@
         "AX-10",
         "AX-11"
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "generated_projections": {
         "markdown": {
           "path": "paper_modules/batch7_secondary_runtime_capsule.md",

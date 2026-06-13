@@ -98,6 +98,9 @@
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "generated_projections": {
         "atlas_card": {
           "generated": true,
@@ -181,7 +184,9 @@
     "concept_refs": [
       "concept.import_projection_and_drift_control_bundle"
     ],
-    "depends_on": [],
+    "depends_on": [
+      "paper_module.macro_projection_import_protocol"
+    ],
     "edges": [
       {
         "justification": {
@@ -328,6 +333,19 @@
       },
       {
         "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[96:paper_module.batch7_secondary_runtime_capsule].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.macro_projection_import_protocol",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[96:paper_module.batch7_secondary_runtime_capsule].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for Batch 7 secondary runtime copied source witnesses, UI witness checks, graph/cartography/market exercises, negative cases, and authority ceilings."
         },
@@ -359,15 +377,7 @@
         "ref": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
       }
     ],
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ]
+    "unpopulated_selective_relations": []
   },
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
