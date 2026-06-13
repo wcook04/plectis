@@ -95,8 +95,8 @@
     {
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
-      "expected_line_count": 3151,
-      "expected_sha256": "1c44b9e7dbd1a17ca5283a0a67a4be6e7890991d6fb5ae4dc2bbd8a01a3c5922",
+      "expected_line_count": 3157,
+      "expected_sha256": "3530ae5bc000962aa01a762c4bf06db318fb7ded570ebbb482bc454c81e4cc96",
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/meta/control/scoped_commit.py",
       "required_anchors": [
@@ -124,7 +124,7 @@
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
       "expected_line_count": 95,
-      "expected_sha256": "9407b4629ce00f0b0d77d3642743cb2b210052f0fdbe6f4d776de0b6aac2c396",
+      "expected_sha256": "6cda63bb588636ff39b8c0af5fbeca999ed7e7f872ff62b1f5fc31502a4eba8f",
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
       "required_anchors": [],
