@@ -21,41 +21,60 @@ mutation, purchase/send without approval, destructive action without review,
 hidden screen-state claims, actions without observation and affordance refs, and
 benchmark-score claims.
 
+## Purpose
+
+A computer-use agent produces a stream of screenshots, clicks, keystrokes, and
+"it worked" assertions. The hard question for anyone reviewing such a trace is
+not whether the agent moved the mouse, but whether the record actually supports
+the claim that something happened safely. A trace can look complete while hiding
+the two failures that matter most: an action that was blocked or sent for review
+but is later narrated as a success, and a success that is asserted without any
+state evidence to back it. This module exists to make that question decidable on
+a synthetic episode, offline, before any of the language reaches a reader.
+
+The single question it answers is: does each recorded action line up, row by row,
+with a prior visible observation, a pre-action authority verdict, and a
+state-transition receipt whose outcome agrees with that verdict? The mechanism is
+a typed join, not a screenshot replay. An action must cite the observation it
+reacted to and an affordance that was visible in it; a verdict must be stamped
+before the action and must explicitly deny live-account, credential, network,
+destructive, and purchase or send authority; a transition receipt must then
+match the verdict. If the verdict said allow, the receipt has to show the action
+was executed and an oracle confirmed the resulting state. If the verdict said
+block or review, the receipt has to show the action was not executed and the
+status reads blocked or review-required. Nondeterministic "it probably
+succeeded" claims are refused outright.
+
+What is genuinely unusual here is the inversion. Most action-trace tooling treats
+a screenshot as the proof. This module treats the screenshot as the one thing it
+will not trust: observations enter only as a digest and a visible-state hash,
+with raw pixels, hidden-state assertions, and live-browser state all required to
+be absent. The evidence that carries weight is the agreement between the verdict
+and the transition, not the image. The receipt that comes out the other end
+records counts, refs, hashes, and the redaction posture, and never the raw bodies
+it checked. It describes a synthetic episode under the route-observability
+runtime; it does not drive a live browser or desktop.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-  legacy["legacy Markdown projection"]
-  generated["generated JSON projection"]
   capsule["JSON capsule row"]
-  manifest["fixture manifest contract"]
-  organ["agent_route_observability_runtime"]
-  bundle["exported computer-use bundle"]
-  observations["visible observations and affordances"]
-  actions["action trace"]
-  verdicts["pre-action authority verdicts"]
-  transitions["state-transition receipts"]
-  recovery["recovery receipt"]
-  cold["cold replay rows"]
-  public_trace["public agent execution trace"]
-  receipt["body-free validation receipt"]
-  ceiling["authority ceiling"]
-
-  legacy --> generated
-  generated --> capsule
   capsule --> mermaid["generated Mermaid available"]
   capsule --> atlas["generated Atlas linked"]
-  manifest --> organ
-  organ --> bundle
-  bundle --> observations
-  observations --> actions
-  actions --> verdicts
-  verdicts --> transitions
-  transitions --> recovery
-  transitions --> cold
-  cold --> public_trace
-  public_trace --> receipt
-  receipt --> ceiling
+  capsule --> organ["agent_route_observability_runtime runtime"]
+  organ --> bundle["exported computer-use bundle"]
+  bundle --> observations["visible observations: digest + visible-state hash, no raw pixels"]
+  observations --> actions["action rows: cite observation + affordance, allowed kind, redacted"]
+  actions --> verdicts["pre-action authority verdict per action"]
+  verdicts -->|allow| executed["transition: executed + oracle status pass"]
+  verdicts -->|block or review| held["transition: not executed + blocked / review-required"]
+  held --> recovery["recovery receipt, no upgrade to executed"]
+  executed --> cold["cold replay reproduces action, verdict, transition"]
+  recovery --> cold
+  cold --> trace["public trace spans: refs, counts, hashes, redaction posture"]
+  trace --> receipt["body-free validation receipt"]
+  receipt --> ceiling["authority ceiling: no live control"]
 ```
 
 The shape is a reader route over a synthetic computer-use action trace

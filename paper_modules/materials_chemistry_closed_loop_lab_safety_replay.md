@@ -1,5 +1,34 @@
 # Materials Chemistry Closed-Loop Lab-Safety Replay
 
+## Purpose
+
+"Closed-loop materials lab" is one of the easier phrases to overclaim. A fixture
+can look like an autonomous discovery loop while carrying nothing that should be
+spoken aloud: wetlab steps, reagent quantities, a controlled or bioactive
+target, robot commands, or a flat assertion that some material was discovered.
+This organ exists to sit in front of that language and answer one question: is a
+closed-loop-lab-shaped fixture safe and grounded enough to be talked about at
+all, in a simulator-only frame, before any lab claim is allowed?
+
+Its real name inside the runtime is the
+`materials_chemistry_artifact_safety_refusal_validator`. The public-promise name
+"closed-loop replay" was deliberately reframed because nothing here executes a
+wetlab loop or commands a robot. The unusual part is that the organ does not
+trust the fixture's own conclusion. A normal replay would read a declared
+"selected candidate" label and report it. This validator instead recomputes the
+winner from public numbers, weighting an assay proxy, an active-learning score,
+and a safety gate, then treats a mismatch between that recomputed pick and the
+declared label as a failure rather than a footnote. A stale or flattering label
+cannot pass.
+
+The second discipline is refusal as a first-class result. Eight categories of
+dangerous or overclaiming content each have a named forbidden code, and a fixture
+that smuggles one in is expected to be refused, not quietly accepted. The verdict
+is computed from public simulator rows, safety fields, source-module manifests,
+replay-graph status, negative-case coverage, and a sentinel scan, and it stays
+inside a simulator-only ceiling. It is a safety and refusal check, not a
+laboratory.
+
 ## Abstract
 
 `materials_chemistry_closed_loop_lab_safety_replay` is a public, simulator-only
@@ -40,15 +69,19 @@ The acceptance rule is deliberately small:
 
 ```mermaid
 flowchart TD
-  policy["replay_policy.json<br/>numeric policy + authority ceiling"]
+  policy["replay_policy.json<br/>numeric policy + expected label"]
   candidates["candidate_materials.json<br/>4 candidate refs + safety gates"]
   assays["simulator_assays.json<br/>4 public assay proxy values"]
   decisions["active_learning_decisions.json<br/>4 active-learning scores"]
-  numeric["numeric replay<br/>weighted recomputation"]
+  numeric["numeric replay<br/>weighted recompute of the winner"]
+  labelcheck{"recomputed pick ==<br/>declared label?<br/>safety gate >= 0.70?"}
   negatives["negative-case fixtures<br/>8 forbidden lab classes"]
+  refuse{"any forbidden<br/>MATERIALS_*_FORBIDDEN<br/>observed?"}
   manifest["source_module_manifest.json<br/>4 copied public body modules"]
   replay["Lab/Evolve replay graph<br/>public-safe replay cases"]
-  verdict["safety verdict<br/>pass or blocked_public_safety_boundary"]
+  verdict["safety verdict"]
+  accepted["public_safe_simulator_replay_accepted"]
+  blocked["blocked_public_safety_boundary"]
   receipt["body-free receipts<br/>counts, digests, findings"]
   ceiling["authority ceiling<br/>no wetlab / no discovery / no release"]
 
@@ -56,11 +89,17 @@ flowchart TD
   candidates --> numeric
   assays --> numeric
   decisions --> numeric
-  numeric --> verdict
-  negatives --> verdict
+  numeric --> labelcheck
+  labelcheck -->|stale label or gate fail| blocked
+  labelcheck -->|match| verdict
+  negatives --> refuse
+  refuse -->|yes| blocked
+  refuse -->|no| verdict
   manifest --> replay
   replay --> verdict
-  verdict --> receipt
+  verdict --> accepted
+  accepted --> receipt
+  blocked --> receipt
   receipt --> ceiling
 ```
 
@@ -169,8 +208,8 @@ These cases are source/test-backed by
 first-wave receipt output is the authority for current numeric replay; older
 archived first-wave receipts and the checked-in exported bundle predate the
 numeric replay rows and should not be read as the numeric proof. The exported
-bundle numeric-refresh residual is captured at
-`cap_quick_materials_chemistry_closed_loop_lab_safe_51d56594f137`.
+bundle still needs refreshed numeric rows before it is a full exported-bundle
+pass.
 
 ## Source-Open Body Floor
 
@@ -191,8 +230,7 @@ module findings. The current checked-in exported bundle is still a source-body
 floor, not the final numeric exported-bundle proof: `run_lab_bundle` requires
 refreshed score-backed numeric rows before it can pass as a full exported-bundle
 verdict. Focused tests inject those rows to prove the exported-bundle numeric
-path. The remaining bundle/receipt refresh is captured at
-`cap_quick_materials_chemistry_closed_loop_lab_safe_51d56594f137`.
+path. The remaining bundle and receipt refresh is tracked as outstanding work.
 
 The validator also records the blocked source-open boundary for
 `codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md`: that macro paper

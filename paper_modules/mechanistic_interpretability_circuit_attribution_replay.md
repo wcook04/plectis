@@ -1,5 +1,35 @@
 # Mechanistic Interpretability Circuit Attribution Replay
 
+## Purpose
+
+Interpretability writing is unusually easy to overstate. A named feature can
+read like understanding, a graph picture can read like a discovered circuit, and
+a small local script can read like access to a real model. This organ exists to
+hold one kind of claim to a smaller, checkable size. It answers a single
+question: before Microcosm lets a circuit-attribution story stand as public
+evidence, does the story survive a deterministic replay rather than being taken
+on trust?
+
+The part worth noticing is how narrow the proof is, and how that narrowness is
+the point. The organ does not attempt to interpret a trained model. It carries a
+tiny two-layer toy transformer with weights declared in the fixture, recomputes
+its forward pass, gradient attribution, and per-feature ablation, and then
+compares the recomputed top feature against the feature the fixture claims. A row
+passes only when the declared winner still matches after recomputation. Perturb
+the toy weights and leave the old claim in place and the row is rejected, because
+the recomputed answer has moved while the prose has not. That is the failure mode
+the organ is built to catch: an interpretability statement that was once true of
+its inputs but no longer is.
+
+Around that recomputation sit three further gates. Graph evidence must be
+machine-readable and traversable from declared sparse features to public error
+nodes, so a screenshot cannot stand in for a circuit. Transparency language
+needs a causal-intervention reference and faithfulness language needs an explicit
+limit, so the strongest words carry the strongest evidence requirements. Private
+weights, raw activations, proprietary prompts, and hidden reasoning are kept out
+of every receipt. What the organ produces is an accounting receipt for a public
+fixture, not a transparency tool for any real model.
+
 ## Abstract
 
 `mechanistic_interpretability_circuit_attribution_replay` is a public
@@ -143,11 +173,16 @@ declares:
   `toy_hidden_feature_1`
 
 The runtime computes token embeddings, averages them into a context vector,
-applies the first layer, applies a ReLU hidden activation, applies the second
+applies the first layer, applies a `tanh` hidden activation, applies the second
 layer, and reads the target logit. It then computes activation-gradient scores
-for the hidden features and ablates each hidden feature to measure output delta.
-The fixture currently produces target logit `0.044176`; both attribution and
-ablation select `toy_hidden_feature_1`.
+for each hidden feature, using the analytic `tanh` derivative `1 - h^2` so the
+attribution score is grounded in the same forward pass rather than a separate
+estimate. It also ablates each hidden feature in turn, zeroing it and re-reading
+the target logit, to measure the output delta that feature is responsible for.
+The fixture currently produces target logit `0.044176`; both the gradient
+attribution and the ablation delta select `toy_hidden_feature_1`, and the row
+passes only because those two independent paths agree with each other and with
+the fixture's declaration.
 
 The important point is not that this is a serious transformer. It is a
 deterministic proof harness for the public replay claim. The receipt can say the

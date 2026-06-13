@@ -12,19 +12,48 @@ Source refs:
 - `tools/meta/bridge/dispatch_validator.py`
 - `tools/meta/bridge/provider_capabilities.py`
 
+## Purpose
+
+A bridge campaign fans one piece of work out across several agent providers,
+then folds their outputs back into a single synthesis. The cost of getting the
+graph wrong is paid after dispatch: a cycle that never terminates, a synthesis
+step that summarises nothing because it does not actually depend on any probe,
+or a fan-out that asks one provider for more parallel workers than it can take.
+This component answers one question before any of that happens. Is the campaign
+graph well formed enough to be safe to run?
+
+The design choice that makes this useful is that it is a validator and nothing
+else. `validate_campaign` reads a small JSON spec and returns a list of typed
+rule decisions; it never dispatches an agent, calls a provider, or runs a
+reducer. The rule ids deliberately mirror the macro contract's CR and VR rule
+families, so the public capsule carries a faithful subset of the same checks the
+private runtime applies, without carrying the runtime itself.
+
+The check that is worth pausing on is reachability. It is not enough for the
+graph to be acyclic and for the node types to be valid. The single synthesis
+node must transitively depend on at least one probe, so that the conclusion can
+be traced back to evidence rather than to other conclusions. A graph that wires
+synthesis only to a reducer with no probe behind it is rejected. That is the
+difference between a structure that looks like a campaign and one whose output
+is grounded in something the campaign actually gathered.
+
 ## Shape
 
 ```mermaid
-flowchart LR
-  A["Typed campaign spec"] --> B["Node and edge validation"]
-  B --> C["Acyclicity check"]
-  C --> D["Synthesis reaches probe evidence"]
-  D --> E["Provider parallelism ceiling"]
-  E --> F["Pre-dispatch pass receipt"]
-  B --> G["Reject malformed graph"]
-  C --> G
-  D --> G
-  E --> G
+flowchart TD
+  A["Typed campaign spec\n(JSON object)"] --> B["Envelope checks\nschema, kind, kebab-case id,\nintent, plan path, continuation"]
+  B --> C["Node checks\nunique labels, probe/reducer/\nsynthesis roles, input modes,\ndependencies resolve"]
+  C --> D["Acyclicity check"]
+  D --> E["Exactly one synthesis node\nbarrier binds that node"]
+  E --> F["Synthesis transitively\nreaches a probe"]
+  F --> G["Provider fan-out ceiling\nworkers <= safe_parallelism"]
+  G --> H["Pass receipt\nValidationResult ok = true"]
+  B -.->|"rule reject"| R["Reject receipt\nrule id, target, reason"]
+  C -.->|"rule reject"| R
+  D -.->|"rule reject"| R
+  E -.->|"rule reject"| R
+  F -.->|"rule reject"| R
+  G -.->|"rule reject"| R
 ```
 
 The shape is intentionally pre-dispatch. The module reads a typed campaign
@@ -343,9 +372,9 @@ A valid future capsule admission or refresh should provide:
 
 ## Prior Art Grounding
 
-The organ is grounded in workflow-orchestration prior art that models work as a
-directed acyclic graph with typed nodes, dependency edges, fan-in, and validation
-before execution. Useful reference points are:
+This staged component is grounded in workflow-orchestration prior art that models
+work as a directed acyclic graph with typed nodes, dependency edges, fan-in, and
+validation before execution. Useful reference points are:
 
 - [Apache Airflow DAGs](https://airflow.apache.org/docs/apache-airflow/2.4.3/core-concepts/dags.html),
   where tasks are grouped into a directed acyclic graph with explicit

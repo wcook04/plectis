@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`batch11_saturation_engines_capsule` is a public-safe Microcosm organ for the Batch-11 saturation pass. It imports exact copied non-secret macro source bodies and runs source-faithful public exercises for thirteen target mechanisms:
+`batch11_saturation_engines_capsule` is a public-safe Microcosm organ for the Batch-11 saturation pass. It takes thirteen unrelated pieces of internal machinery, copies their non-secret source bodies into a public bundle, and re-runs each one against small synthetic fixtures so a reader can see the logic behave rather than take a claim on trust. The thirteen targets are deliberately mixed:
 
 - run affinity session scoring
 - calculator cluster insight derivation
@@ -18,9 +18,23 @@
 - agent session diagnostic lenses
 - demo-take story coverage auditing
 
+The single question the capsule answers is narrow: for each of these mechanisms, does the imported source actually compute the guard it claims to, on inputs designed to fail? It is a saturation pass because the targets share nothing except that pattern. They are a route ranker, a few financial-data normalisers, a navigation grader, a secret scanner, a graph wayfinder, and so on, swept up together so a reviewer can audit a broad slice of the codebase from one place.
+
+The part worth noticing is how a negative case is treated. A fixture file named `..._stale_terminal_rejected` is only a label. The capsule never lets that label stand in for a result. It re-runs the real function on the fixture's own `probe_input`, computes whether the guard fired, and refuses to mark the case verified unless the mechanism's own exercise and the independent probe both agree. A fixture that asserts a failure it cannot demonstrate is flagged, not counted. That guard against self-congratulating fixtures is the reason the page exists.
+
 ## Boundary
 
 This capsule is not live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, publication authority, or release approval. Receipts expose only refs, digests, counts, computed verdicts, public negative-case probe digests, and omission receipts; copied macro source bodies remain under the public bundle's `source_modules` tree.
+
+## How it works
+
+The run loop is the same for every target. The capsule first imports the copied source bundle and checks each module against the recorded source digest, line count, and a handful of required provenance anchors, so a drifted or partial copy is caught before any logic runs. It then exercises all thirteen mechanisms in a fixed order, and any reordering, blocked exercise, or missing module fails the run.
+
+Each mechanism's exercise feeds an integrity matrix row. A row pairs the mechanism's own computed output with an independently computed fixture probe and a binding disposition that records how the mechanism relates to the rest of the substrate: a new import, an already-bound gate the capsule is only re-checking, or an under-bound path it is extending. The two computed values must agree. The matrix marks a row's negative result verified only when the mechanism exercise and the fixture probe both come out true, and it sets `fixture_verdict_echo_risk` on any row where they do not. A non-zero echo-risk count is a finding that blocks the whole run.
+
+Two short examples show what the probes actually compute. For run affinity, the probe builds a recommendation over candidate runs and confirms that a stale terminal run, even when made sticky and feed-rich, is not the one selected. For projection secret scanning, the probe runs the redaction patterns over a file carrying a synthetic key shape and a private ledger path and confirms both are blocked. The fixtures are synthetic and the key shapes are deliberate test strings, never live material.
+
+The failure mode all of this guards against is the quiet pass: a fixture whose filename promises a rejection while the code underneath was never exercised, or was exercised and did not reject. By recomputing the guard from the fixture's own input and refusing to count a label it cannot reproduce, the capsule keeps the negative cases honest. The receipts carry refs, digests, counts, and the computed verdicts; the copied bodies stay in the bundle's `source_modules` tree and are never inlined.
 
 ## JSON Capsule Binding
 

@@ -3,54 +3,83 @@
 This staged Engine Room capsule imports the provider side of the macro derived
 fact hologram into Microcosm as a runnable public-safe refactor.
 
+## Purpose
+
+A system that makes claims about itself needs a disciplined way to fetch the
+numbers behind those claims. How many files match a pattern, how many entries a
+registry holds, how many files git is tracking: these are facts about the
+current state of the repository, and a document that hard-codes them goes stale
+the moment the repository changes. This component answers a narrow question: for
+each authored fact row, what value does it resolve to against a supplied root,
+right now?
+
+A fact row declares how it resolves rather than what it equals. A `json_pointer`
+row names a file and a pointer into it. A `glob_count` row names a pattern and
+counts matching files. A `callable` row names one of a small fixed set of
+git-backed computations, such as the count of tracked Python files. The engine
+reads each declaration and produces the value, so the value is always derived
+from live state rather than copied by hand.
+
+The design choice worth noting is how failures are handled. When a row cannot
+resolve, for example because its source file is missing, the engine does not
+raise and abandon the whole evaluation. It records the failure as an ordinary
+row carrying the error class, a human-readable message, and a suggested
+`required_next_action` such as restoring the named source path. One broken fact
+degrades to a single repairable row; the rest of the registry still resolves,
+and the ledger reports `degraded` rather than failing outright. This is the
+difference between a fact ledger that tells you which fact broke and one that
+gives you a stack trace.
+
+The boundary is provider resolution, not truth adjudication. A clean receipt
+means the declared rows resolved against the supplied root and the receipt
+carried the expected lineage and accounting fields. It does not mean the
+underlying claims are true, that every macro fact family is covered, or that
+anything is ready for release.
+
 ## Shape
 
 The module is a staged provider engine over a public fixture registry. It takes
-authored fact rows, resolves declared provider types against a supplied root,
-and emits receipt slices for ledger, audit, and navigation-cache consumers.
-The public body is deliberately small enough for readers to replay: JSON
-pointer rows read values from JSON files, glob-count rows count matching
-fixture files, and callable rows use the tracked git index for repo-state facts.
-
-The important boundary is provider resolution, not truth adjudication. A clean
-receipt means the declared rows resolved against the supplied root and the
-receipt carried the expected lineage/accounting fields. It does not prove that
-the represented doctrine is true, complete, fresh across the macro registry, or
-ready for release.
+authored fact rows, resolves each declared provider type against a supplied
+root, and emits receipt slices for ledger, audit, and navigation-cache
+consumers. The public body is deliberately small enough for readers to replay.
+Each row resolves through exactly one provider, and a row that fails to resolve
+becomes an error row rather than aborting the run, so the registry status is
+`ok` only when no row errored and `degraded` when any row did.
 
 ```mermaid
 flowchart TD
-  Registry["public fixture registry<br/>declared fact rows"]
-  JsonPointer["json_pointer providers<br/>resolve JSON pointer values"]
-  GlobCount["glob_count providers<br/>count fixture files + samples"]
-  Callable["callable providers<br/>git-backed tracked-file facts"]
-  Provider["evaluate_provider / evaluate_registry<br/>provider resolver"]
-  ErrorRows["error-as-data rows<br/>repair hints, no crash"]
-  Ledger["ledger slice<br/>fact rows + status counts"]
-  Audit["audit slice<br/>provider findings + ceiling"]
-  NavigationCache["navigation-cache slice<br/>compact rows for readers"]
-  Receipt["public provider receipt<br/>fixture replay + focused pytest"]
-  Capsule["JSON capsule edge<br/>mechanism-level source authority"]
-  AtlasBoundary["Atlas owner boundary<br/>blocked until owner lane binds edges"]
-  Ceiling["claim ceiling<br/>no truth audit, macro-registry completeness,<br/>semantic validation, release, or private-root authority"]
+  Registry["public fixture registry<br/>authored fact rows"]
+  Resolver["evaluate_provider<br/>dispatch on provider_type"]
+  JsonPointer["json_pointer<br/>read value at pointer in a JSON file"]
+  GlobCount["glob_count<br/>count matching files, keep sample matches"]
+  Callable["callable<br/>git-backed repo-state count"]
+  Resolved["resolved fact row<br/>value + value_repr"]
+  ErrorRow["error-as-data row<br/>error_class, message,<br/>required_next_action"]
+  Registry2["evaluate_registry<br/>aggregate rows, count statuses"]
+  Status{"any row errored?"}
+  Ok["status: ok"]
+  Degraded["status: degraded"]
+  Receipt["public provider receipt<br/>ledger + audit findings +<br/>navigation cache + sha256"]
+  Ceiling["claim ceiling<br/>provider resolution only;<br/>no truth audit, registry completeness,<br/>semantic validation, or release authority"]
 
-  Registry --> JsonPointer
-  Registry --> GlobCount
-  Registry --> Callable
-  JsonPointer --> Provider
-  GlobCount --> Provider
-  Callable --> Provider
-  Provider --> Ledger
-  Provider --> Audit
-  Provider --> NavigationCache
-  Provider --> ErrorRows
-  ErrorRows --> Audit
-  Ledger --> Receipt
-  Audit --> Receipt
-  NavigationCache --> Receipt
-  Capsule --> Receipt
+  Registry --> Resolver
+  Resolver --> JsonPointer
+  Resolver --> GlobCount
+  Resolver --> Callable
+  JsonPointer --> Resolved
+  GlobCount --> Resolved
+  Callable --> Resolved
+  JsonPointer -. on failure .-> ErrorRow
+  GlobCount -. on failure .-> ErrorRow
+  Callable -. on failure .-> ErrorRow
+  Resolved --> Registry2
+  ErrorRow --> Registry2
+  Registry2 --> Status
+  Status -- no --> Ok
+  Status -- yes --> Degraded
+  Ok --> Receipt
+  Degraded --> Receipt
   Receipt --> Ceiling
-  Capsule --> AtlasBoundary
 ```
 
 ## What It Demonstrates

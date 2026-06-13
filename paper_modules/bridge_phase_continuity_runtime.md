@@ -59,23 +59,30 @@ Primary authority surfaces:
 
 ```mermaid
 flowchart TD
-    A["JSON capsule row<br/>core/paper_module_capsules.json::paper_modules[10]"] --> B["Mechanism subject<br/>validates_synthetic_bridge_continuity"]
-    B --> C["Runtime organ<br/>src/microcosm_core/organs/bridge_phase_continuity_runtime.py"]
-    D["Fixture inputs<br/>fixtures/second_wave/bridge_phase_continuity_runtime/input"] --> C
-    E["Standard and fixture manifest"] --> C
-    F["Copied-source manifest<br/>observe_runtime_source_module_manifest.json"] --> C
-    C --> G["Receipt floor<br/>continuation, heartbeat, resource pressure,<br/>resume, closeout transition"]
-    G --> H["Generated Mermaid available<br/>Atlas linked from capsule edges"]
-    H --> I["Authority ceiling:<br/>no live bridge transport, provider dispatch,<br/>HUD/browser/private memory, source mutation, release, or whole-system proof"]
+    Inputs["Six synthetic transport inputs<br/>detached job, continuation packet,<br/>heartbeat rows, resource pressure,<br/>worker-skip receipt, forbidden terms"] --> Transport["_validate_synthetic_transport_contract"]
+    Transport --> Good{"Valid job?<br/>yielded to disk, packet not consumed,<br/>fresh heartbeat, phase and continuity match"}
+    Good -->|"yes"| Accept["Positive path accepted"]
+    Good -->|"no"| Refuse["Refusal floor:<br/>missing packet, missing fields,<br/>duplicate resume, heartbeat claims resume,<br/>stale heartbeat overclaim, dispatch blocked"]
+    Refuse --> Codes["Concrete error codes"]
+    Accept --> Fixture["_validate_fixture_contract<br/>source digests, closeout finalizer,<br/>apply-failure rollback, public boundary"]
+    Codes --> Fixture
+    Fixture --> Scan["private_state scan<br/>fixture and transport inputs"]
+    Scan --> Receipts["Five body-free receipts<br/>continuation, heartbeat, resource pressure,<br/>resume, closeout transition"]
+    Receipts --> Gate{"Tracked receipt-write gate"}
+    Gate -->|"env set"| Written["Receipts written"]
+    Gate -->|"env absent"| Blocked["tracked_receipt_writes_blocked"]
+    Written --> Ceiling["Authority ceiling:<br/>no live bridge transport, provider dispatch,<br/>HUD/browser/private memory, source mutation,<br/>release, or whole-system proof"]
+    Blocked --> Ceiling
 ```
 
-The shape is the public continuity membrane: capsule authority names the organ
-and mechanism, fixtures exercise synthetic observe/apply continuity, copied
-source manifests keep body provenance out of receipts, and the five receipt
-roles delimit what a reader can trust. Generated Mermaid and Atlas projections
-can point to this chain, but they do not turn heartbeat, resume, or closeout
-receipts into live bridge-health, provider, UI, source-mutation, release, or
-whole-system authority.
+The shape is the public continuity membrane: six synthetic transport inputs are
+checked for a single valid resumable job and against a refusal floor, the
+accepted and rejected paths both feed the fixture-contract and private-state
+checks, and only then are the five body-free receipts written through the
+tracked-write gate. The receipt roles delimit what a reader can trust. Generated
+Mermaid and Atlas projections can point to this chain, but they do not turn
+heartbeat, resume, or closeout receipts into live bridge-health, provider, UI,
+source-mutation, release, or whole-system authority.
 
 ## Mechanism Pipeline
 

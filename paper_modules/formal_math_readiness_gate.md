@@ -12,6 +12,37 @@ The page should let a cold reader answer one question without rereading the
 organ: what evidence has Microcosm actually validated, and where does that
 evidence stop?
 
+## Purpose
+
+Formal-math tooling fails quietly when a library, tactic, or corpus is assumed
+present rather than checked. A pipeline that routes a proof to `aesop` when
+`aesop` is not actually available, or that treats a premise index as proof
+evidence because it happens to carry a proof body, has already lost the boundary
+between "ready to attempt" and "proven". This organ exists to make that boundary
+explicit before any downstream proof work begins. It answers one question: which
+declared formal-math inputs are well-formed and honest enough that a later proof
+witness could safely consume them, and where exactly does that warrant stop?
+
+The mechanism is a deterministic reducer over five public JSON inputs: corpus
+readiness, tactic-portfolio availability, a premise index, target-shape routing,
+and provider context recipes. It does not run Lean or Lake. Instead it reads
+what those inputs declare and refuses the specific ways they can lie. A corpus
+that claims Mathlib is available without a passing probe is rejected. A tactic
+marked available without a probe receipt is rejected. A premise row carrying a
+`proof_body` or `oracle_needed_premise_ids` field is rejected. A route that
+admits a tactic the portfolio probe already marked unavailable is rejected. The
+output is a readiness board, not theorem evidence.
+
+The design choice worth noticing is that the gate proves its own discipline
+through negative cases. Alongside the positive inputs, the fixture carries five
+inputs that each commit a known overclaim, and the run passes only when every
+one of those overclaims is caught and no unexpected finding appears. The gate is
+therefore not merely asserting "we check Mathlib availability"; it is
+demonstrating, on each run, that a falsified Mathlib claim is actually refused.
+A second guard keeps the floor source-open without leaking: copied non-secret
+prover probe bodies are verified by digest through a manifest, while proof
+bodies, provider payloads, and private state stay out of the receipts entirely.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is `core/paper_module_capsules.json::paper_modules[21:paper_module.formal_math_readiness_gate]`; the generated instance is `paper_modules/formal_math_readiness_gate.json` with `source_authority: json_capsule`.
@@ -24,25 +55,32 @@ The proof boundary is public readiness metadata, copied non-secret PROVER smoke-
 
 ```mermaid
 flowchart TD
-  Capsule["JSON capsule<br/>paper_module.formal_math_readiness_gate"]
-  Runtime["Runtime organ<br/>formal_math_readiness_gate.py"]
-  Fixture["Fixture input<br/>fixtures/first_wave/.../input"]
-  Bundle["Exported bundle<br/>examples/formal_math_readiness_gate/..."]
-  Gate["Readiness validation<br/>corpus, tactics, premises, routes, provider budget"]
-  SourceFloor["Source-module floor<br/>13 copied non-secret PROVER probe artifacts"]
-  Negatives["Negative cases<br/>Mathlib, tactic, proof-body, route, provider overclaims"]
-  Receipts["Receipts<br/>board, extension board, acceptance, bundle result"]
+  Inputs["Five public JSON inputs<br/>corpus, tactics, premises, routes, provider recipes"]
+  Scan["Secret-exclusion scan<br/>zero blocking hits required"]
+  Corpus["validate_corpus_readiness<br/>reject Mathlib-availability overclaim"]
+  Tactics["validate_tactic_portfolio<br/>each available tactic needs a probe receipt"]
+  Premises["validate_premise_index<br/>reject proof_body / oracle premise ids"]
+  Routing["validate_target_shape_routing<br/>reject route admitting an unavailable tactic"]
+  Provider["validate_provider_context_recipes<br/>reject over-budget or proof-body recipe"]
+  SourceFloor["validate_source_module_imports<br/>copied non-secret probe bodies, digest-checked"]
+  Reconcile["Reconcile findings vs EXPECTED_NEGATIVE_CASES<br/>every known overclaim must be caught"]
+  Board["Readiness board + extension board<br/>available / blocked capabilities, counts"]
   Ceiling["Authority ceiling<br/>no Lean/Lake, proof, provider, release, or private-root authority"]
 
-  Capsule --> Runtime
-  Runtime --> Gate
-  Fixture --> Gate
-  Bundle --> Gate
-  Bundle --> SourceFloor
-  Gate --> Negatives
-  Gate --> Receipts
-  SourceFloor --> Receipts
-  Receipts --> Ceiling
+  Inputs --> Scan
+  Scan --> Corpus
+  Scan --> Tactics
+  Scan --> Premises
+  Scan --> Provider
+  Tactics -->|unavailable tactic ids| Routing
+  Corpus --> Reconcile
+  Tactics --> Reconcile
+  Premises --> Reconcile
+  Routing --> Reconcile
+  Provider --> Reconcile
+  SourceFloor --> Reconcile
+  Reconcile --> Board
+  Board --> Ceiling
 ```
 
 The diagram is the reader projection. The machine graph remains the generated

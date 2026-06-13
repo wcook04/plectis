@@ -8,6 +8,33 @@ The capsule is bounded to geometry parity. It does not start React, render a
 browser, claim navigation graph authority, mutate source, authorize
 publication, or approve release.
 
+## Purpose
+
+The atlas surface in the operator UI arranges dozens of navigation cards into a
+readable grid. That arrangement is computed by one TypeScript function,
+`layoutNodes`, which decides how many columns there are, how wide each column
+grows, and where each card lands. The arrangement is not random: it groups
+cards by shell (operate, missions, data, inspect, map, library, unassigned),
+widens a column into parallel lanes when it holds too many cards, and sorts the
+cards inside each group so that the ones a reader most needs to see sit at the
+top.
+
+The question this organ answers is narrow and testable: does a Python
+reimplementation of that layout function place every node at the same
+coordinate the original would? Visual layout code is easy to break silently. A
+changed sort key or an off-by-one in the lane maths moves cards around without
+raising an error, and the only way most teams notice is by squinting at a
+screenshot. This organ removes the screenshot from the loop. It runs the same
+geometry in Python over synthetic card rows and checks the exact column,
+position, and summary values against a fixed expectation.
+
+The part worth noticing is what is being checked, and what is not. The organ
+does not start React, open a browser, or claim that the rendered screen looks
+right. It checks only the deterministic geometry: given these cards, the packer
+must produce these coordinates. That is a smaller claim than "the UI works", and
+the page keeps it small on purpose. A correct layout function is a precondition
+for a usable screen, not proof of one.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is
@@ -99,6 +126,48 @@ body-free receipt handling. Generated Mermaid and Atlas links are navigation
 evidence only; they do not start React, render a browser, validate a visual
 screen, mutate the navigation graph, approve publication, approve release, or
 prove whole-system correctness.
+
+## How the layout packer works
+
+`layout_nodes` takes a list of `AtlasView` rows and returns three things: a
+position for every node, a list of columns, and a summary of the resulting
+geometry. It works in four stages, and the test fixtures pin the output of each.
+
+First it buckets every card into one of seven shell groups in a fixed order
+(operate, missions, data, inspect, map, library, unassigned). Any card whose
+shell group is unrecognised falls back to `unassigned` rather than creating a
+new column, so a future surface that names an unknown group never breaks the
+grid. Only populated groups become columns.
+
+Second it decides how many vertical lanes each column needs. A column with
+fewer than five cards stays a single lane; five or more splits into two; eleven
+or more splits into three. When there are at least five populated groups the
+columns are also split across two stacked bands so the grid does not run off the
+side of the screen.
+
+Third it spends horizontal slack. Bands are rarely the same width, and a narrow
+band leaves blank space beside the widest one. Rather than waste that space, the
+packer repeatedly finds the tallest column in the narrow band and gives it an
+extra lane, shortening it, until adding another lane would no longer make it
+shorter or the band has run out of slack. This is the step the
+`slack_lane_spend_required` negative exercise pins: a fifteen-card map group in
+a narrow band must end up with five lanes, not the three its raw count alone
+would imply.
+
+Fourth it orders the cards inside each column. Most groups sort by capture
+posture first, then by centrality, then alphabetically. Capture posture is the
+notable choice: a card whose latest capture failed or timed out sorts to the
+top of its column, ahead of a healthy high-traffic card, because a failure is
+the thing an operator most needs to see. The `map` group is the exception. Its
+cards follow a fixed pairing order (codemap, doctrine, ledger, reactions,
+timeline, assimilation) so related map surfaces stay adjacent. The Python port
+reproduces each of these sort keys exactly, and the `attention_sort_required`
+exercise checks that a failed card really does land above a high-centrality
+healthy one.
+
+The summary the function returns records node, column, and lane counts plus a
+blank-space ratio, so a drift in any stage shows up as a changed number in a
+receipt rather than as a card that has quietly moved on screen.
 
 ## Reader Proof Boundary
 

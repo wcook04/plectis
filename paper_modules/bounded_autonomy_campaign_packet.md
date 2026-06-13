@@ -4,28 +4,58 @@
 
 What it proves: self-proposal campaign packet only; no self-repair or unsupervised source mutation.
 
+## Purpose
+
+An agent can usefully notice its own coverage gaps and draft a plan to close
+them. The danger is that "draft a plan" quietly becomes "do the work": a
+proposal grows a write surface, and a system that was meant to suggest starts
+mutating its own source unsupervised. This organ exists to keep those two steps
+apart. It answers one question: can an agent emit a draft campaign proposal from
+real coverage gaps without that proposal carrying any authority to act on them?
+
+The design choice that makes this interesting is where the candidate count comes
+from. The organ does not invent a plausible-looking list of work. It runs a real
+macro campaign builder in read-only mode
+(`build_standard_skill_pairing_campaign.py --check --report`) and accepts its
+witness only when the builder reports candidate targets and leaves
+`wrote_packet` unset. The proposal is therefore derived from a surface that could
+do real work, observed in a mode where it did not. Each drafted
+candidate is then stamped `write_surface: none`, `source_mutation_authorized:
+false`, and `requires_human_review: true`, so the act of proposing can never be
+mistaken for the act of authorising.
+
+Two refusals guard the boundary. A campaign policy that lists `write_source`
+among its allowed actions is rejected outright, before any candidate is drafted.
+And a campaign digest that already appears in the failed-campaign ledger more
+than once is refused, so a plan that has already failed cannot be quietly
+re-proposed under a fresh wrapper. Both refusals are checked by mutating the
+fixture and confirming the expected error code fires, not by trusting a declared
+label.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-  Capsule["JSON capsule<br/>core/paper_module_capsules.json::paper_modules[45]"]
-  Runtime["Runtime organ<br/>src/microcosm_core/organs/bounded_autonomy_campaign_packet.py"]
-  Fixture["Synthetic fixture<br/>fixtures/first_wave/bounded_autonomy_campaign_packet/input"]
-  Bundle["Exported public bundle<br/>examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle"]
-  Manifest["Source manifest<br/>examples/.../source_module_manifest.json"]
-  Proposal["Draft campaign packet<br/>public synthetic coverage gaps only"]
-  Refusals["Negative cases<br/>repeated_failed_campaign_digest<br/>source_write_campaign_packet"]
-  Receipts["Body-free receipts and tests<br/>receipts/... + tests/test_bounded_autonomy_campaign_packet.py"]
-  Ceiling["Authority ceiling<br/>no self-repair, source mutation, providers, release, or publication"]
+  Inputs["Public synthetic inputs<br/>coverage_gaps, campaign_policy,<br/>failed_campaign_digests"]
+  PolicyGate{"campaign_policy allows<br/>write_source?"}
+  Witness["Read-only builder witness<br/>build_standard_skill_pairing_campaign.py<br/>--check --report"]
+  WitnessGate{"reports candidate targets<br/>and wrote_packet unset?"}
+  Draft["Draft candidate packet<br/>write_surface: none,<br/>requires_human_review,<br/>source_mutation: false"]
+  DigestGate{"failed digest<br/>repeated?"}
+  Refuse["Refuse<br/>SOURCE_WRITE_FORBIDDEN /<br/>REPEATED_FAILED_DIGEST /<br/>witness blocked"]
+  Receipts["Body-free receipts<br/>refs, digests, stdout/stderr hashes;<br/>builder output bodies excluded"]
+  Ceiling["Authority ceiling<br/>no self-repair, source mutation,<br/>providers, release, or publication"]
 
-  Capsule --> Runtime
-  Fixture --> Runtime
-  Bundle --> Runtime
-  Manifest --> Bundle
-  Runtime --> Proposal
-  Runtime --> Refusals
-  Proposal --> Receipts
-  Refusals --> Receipts
+  Inputs --> PolicyGate
+  PolicyGate -- "yes" --> Refuse
+  PolicyGate -- "no" --> Witness
+  Witness --> WitnessGate
+  WitnessGate -- "no" --> Refuse
+  WitnessGate -- "yes" --> Draft
+  Draft --> DigestGate
+  DigestGate -- "yes" --> Refuse
+  DigestGate -- "no" --> Receipts
+  Refuse --> Receipts
   Receipts --> Ceiling
 ```
 

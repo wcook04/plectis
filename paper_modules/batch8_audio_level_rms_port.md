@@ -6,6 +6,57 @@ The capsule is bounded to numeric parity. It does not start an
 `AVCaptureSession`, request microphone permission, read recorded audio, capture
 a device, claim UI readiness, authorize publication, or approve release.
 
+## Purpose
+
+The Swift `AudioLevelMonitor` feeds a live microphone level meter in a recording
+app. Most of that file is platform machinery: opening a capture session,
+selecting a device, reading sample buffers off a callback. Buried inside is one
+small, pure function, `normalizedLevel`, that turns a block of audio samples
+into a single number between zero and one. That number is the only part that can
+be checked without a microphone, so it is the only part this organ ports.
+
+The single question this organ answers is: does the Python re-implementation of
+that calculation produce the same level value as the Swift original, on inputs
+we can publish? Everything device-specific, permission-gated, or stateful is
+deliberately left on the Swift side. What crosses into Python is the arithmetic
+alone.
+
+The interesting choice here is what is held out, not what is included. A live
+level meter is hard to test because it depends on real audio hardware and OS
+permissions that cannot live in a public fixture. By isolating the pure
+amplitude maths and exercising it over synthetic sample arrays, the organ keeps
+a checkable parity claim about the part that matters for the meter reading,
+while making no claim at all about capture, permission, or device state. The
+test is scoped to being a maths port and nothing more.
+
+## How it works
+
+`normalized_level` takes a sequence of samples and a format tag. It accepts only
+`float32` and `int16`; any other tag raises `ValueError`, which is how the
+"unsupported format" case is exercised. An empty buffer returns `0.0`
+immediately, before any arithmetic.
+
+For each sample it accumulates the square of the value. Float samples are used
+as-is; int16 samples are first divided by `32767.0` (the Swift `Int16.max`) to
+map the integer range onto roughly minus-one to one. It then takes the root mean
+square, `sqrt(total / count)`, which summarises the block's energy as a single
+amplitude. That value is multiplied by `8.0` and clamped to the `[0.0, 1.0]`
+range with `min(max(rms * 8.0, 0.0), 1.0)`. The gain of eight is a display
+choice carried over verbatim from the Swift source: quiet speech sits low on a
+zero-to-one meter without it, so the level is scaled up and then capped so loud
+input cannot overshoot one. These two lines, the int16 divisor and the
+`rms * 8` clamp, are the anchors the bundle requires to match the copied Swift
+text.
+
+The runtime checks three reference cases drawn from a public probe manifest
+(`float32`, `int16`, and an over-one buffer that must clamp), optionally decodes
+mono 16-bit PCM WAV byte fixtures and recomputes their level from the raw bytes,
+and runs three negative exercises: empty buffer must read zero, an over-one
+buffer must clamp to one, and an unknown format must be refused. Each case
+compares the observed level against the manifest's expected value within a small
+tolerance. A mismatch, a missing expected case, or a failed refusal is recorded
+as a finding, and any finding turns the verdict from `pass` to `blocked`.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is
@@ -49,29 +100,39 @@ source-mutation, publication, or release authority.
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule<br/>core/paper_module_capsules.json[59]<br/>source_authority: json_capsule"]
-  reader["Reader projection<br/>paper_modules/batch8_audio_level_rms_port.md<br/>Markdown is not authority"]
-  instance["Generated JSON instance<br/>paper_modules/batch8_audio_level_rms_port.json<br/>19 edges; 0 unresolved selective relations"]
-  standard["Standards<br/>standards/std_microcosm_batch8_audio_level_rms_port.json<br/>std_microcosm ceiling applies"]
-  runtime["Runtime/source locus<br/>src/microcosm_core/organs/batch8_audio_level_rms_port.py<br/>normalized_level + run + validate-bundle"]
-  bundle["Fixtures and source bundle<br/>fixtures/first_wave/batch8_audio_level_rms_port/input<br/>examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle"]
-  swift["Copied Swift source ref<br/>AudioLevelMonitor.swift<br/>source_module_manifest.json; body-free receipts"]
-  cases["Public parity cases<br/>float32, int16, clamp, empty buffer, unsupported format"]
-  receipts["Tests and receipts<br/>tests/test_batch8_audio_level_rms_port.py<br/>receipts/first_wave + acceptance refs"]
-  projections["Generated navigation<br/>Mermaid available_from_capsule_edges<br/>Atlas linked_from_capsule_edges"]
-  ceiling["Authority ceiling<br/>deterministic Python RMS parity over public fixtures only<br/>no audio session, microphone, device, source mutation, publication, or release authority"]
+  swift["Copied Swift source<br/>AudioLevelMonitor.normalizedLevel<br/>body-free; anchors only"]
+  manifest["Public probe manifest<br/>synthetic sample arrays + WAV bytes<br/>expected level per case"]
+  samples["normalized_level(samples, format)"]
+  fmt{"format tag?"}
+  refuse["raise ValueError<br/>unsupported format refused"]
+  empty{"buffer empty?"}
+  zero["return 0.0"]
+  scale["square + accumulate<br/>int16 divided by 32767"]
+  rms["rms = sqrt(total / count)"]
+  clamp["min(max(rms * 8, 0), 1)<br/>scaled, then clamped to 0..1"]
+  compare["compare observed vs expected<br/>within tolerance"]
+  verdict{"any finding?"}
+  blocked["status: blocked"]
+  passed["status: pass"]
+  ceiling["Authority ceiling<br/>RMS parity over public fixtures only<br/>no audio session, microphone, device,<br/>source mutation, publication, or release"]
 
-  capsule --> reader
-  capsule --> instance
-  capsule --> standard
-  capsule --> runtime
-  bundle --> runtime
-  swift --> runtime
-  runtime --> cases
-  cases --> receipts
-  instance --> projections
-  receipts --> ceiling
-  projections --> ceiling
+  swift --> samples
+  manifest --> samples
+  samples --> fmt
+  fmt -->|"not float32/int16"| refuse
+  fmt -->|"float32 or int16"| empty
+  empty -->|"yes"| zero
+  empty -->|"no"| scale
+  scale --> rms
+  rms --> clamp
+  clamp --> compare
+  refuse --> compare
+  zero --> compare
+  compare --> verdict
+  verdict -->|"yes"| blocked
+  verdict -->|"no"| passed
+  blocked --> ceiling
+  passed --> ceiling
 ```
 
 ## Reader Proof Boundary

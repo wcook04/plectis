@@ -7,6 +7,37 @@ requests, pre-execution policy verdicts, side-effect diff receipts, rollback
 receipts, cold replay, falsification fixtures, and an explicit authority
 ceiling?
 
+## Purpose
+
+Agent sandbox claims are easy to assert and hard to evidence. A system can say
+it blocks an untrusted action, or that a side effect was rolled back, without
+ever showing the record that would make the statement checkable. This organ
+exists to hold one narrow claim to account: that for a fixed set of synthetic
+action requests, the policy decision was recorded before execution, blocked
+actions left no side effect, and permitted side effects each carry a diff and a
+rollback receipt.
+
+The interesting choice is that the validator does not trust the verdict it is
+handed. For each request it derives the expected verdict from the request's own
+shape, its action kind, requested capability, risk class, and source trust
+label, using a small fixed policy table (`_derived_sandbox_policy_verdict`).
+A secret read from untrusted tool output derives to `block`; a low-risk public
+fixture write derives to `allow`; a mock database update derives to `review`.
+Any action shape the table does not recognise fails closed to `block`. The
+recorded verdict row is then checked against that derivation. A declared
+`allow` that should have derived to `block` is a finding, not a pass. The same
+fail-closed semantics drive the side-effect check: a request whose shape
+requires a block must show no execution and a zero diff count regardless of what
+the verdict row claims.
+
+Because every check runs over symbolic references, the page can report concrete
+numbers, six action requests, four derived blocks, six body-free trace spans,
+while staying honest about what those numbers are not. They demonstrate that the
+pre-execution accounting pattern is wired and replayable over public fixtures.
+They do not demonstrate containment in a real host, resistance to a live
+exploit, or network isolation. That gap is the point of the authority ceiling
+below, and it is the line this organ is built to keep visible.
+
 ## Runnable Path
 
 ```bash

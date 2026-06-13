@@ -16,9 +16,14 @@ release language. It does not say idea-first routing wins in the live system.
 
 ```mermaid
 flowchart TD
-    A["Public cold-eval workspace"] --> B["Copied cold_eval.py runner"]
-    B --> C["Scorecard shape audit"]
-    C --> D["Claim ceiling gate"]
+    A["Public cold-eval workspace\n(tasks, navigation packets)"] --> B["Copied cold_eval.py runner"]
+    B --> A1["Arm A: flat repo entry\n(README, quickstart, pyproject)"]
+    B --> A2["Arm B: idea-first packet\n(entry packet, atlas, index)"]
+    A1 --> SC["Score each task by\ndeclared route refs covered\n(refs scored, never injected)"]
+    A2 --> SC
+    SC --> W["Winner per task,\nidea-first win count"]
+    W --> C["Scorecard shape audit\nall-B win + route asymmetry\n+ no private refs"]
+    C --> D["Claim ceiling gate\ninjection off, forbidden\nbenchmark/release claims named"]
     D --> E["Body-free receipt and card"]
 ```
 
@@ -109,6 +114,20 @@ Read the scorecard as evidence accounting, not as a leaderboard. The fixture
 intentionally creates a public workspace where the idea-first packet wins. The
 organ then checks that the expected-ref injection policy is off, that private
 refs are not present, and that forbidden claims are named in the manifest.
+
+The honesty of that win turns on one design choice in the copied scorer. Each
+task lists the route refs an answer should reach, but those expected refs are
+only ever used to *score* coverage. They are never added to either arm's route,
+so neither arm is handed the answer. Arm A is scored on the refs a flat reader
+reaches from `README.md`, `docs/quickstart.md`, and `pyproject.toml`. Arm B is
+scored on the refs the navigation packets actually declare. The scoring policy
+is named in every row as `declared_route_refs_no_expected_ref_injection_v1`, and
+every row carries `expected_ref_injection_used: false`. The idea-first arm wins
+because the entry packets genuinely declare more of the relevant files, not
+because the scorer leaked the target into the route. That distinction is the
+difference between a measured route-quality result and a rigged one, and the
+claim-ceiling gate reports `blocked` rather than `pass` if the injection flag is
+ever turned on.
 
 The engine ids are:
 

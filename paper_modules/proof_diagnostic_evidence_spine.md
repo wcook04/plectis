@@ -1,5 +1,35 @@
 # Proof Diagnostic Evidence Spine
 
+`proof_diagnostic_evidence_spine` sits one step before formal proof authority. It
+holds diagnostic evidence from the formal-math evaluation and premise-retrieval
+pipeline as receipt-backed cells, and refuses to let any of them be read as a
+proof.
+
+## Purpose
+
+The organ answers a single question: does a diagnostic check that claims to be
+backed by real Ring2 runtime evidence actually recompute against that evidence,
+or is it asserting more than its refs support? Without this membrane, a check row
+could name a failure-taxonomy report or a graph-update candidate set, declare
+itself passing, and be trusted on its own word. The spine refuses that.
+
+What is unusual is that the validator does not trust the fixture's own pass
+label. It ignores the legacy `expected_result` field as a non-authoritative
+fixture label and rederives the verdict itself. For each check it resolves the
+named `source_ref` to a real public-safe file, re-hashes that file with sha256,
+and confirms the hash matches the expected digest. It then opens the named
+receipt anchor and checks that the receipt payload actually contains that source
+ref and digest. A check is accepted only when the source, the digest, and the
+receipt all agree. The pass is a recomputation, not a claim copied from the
+fixture.
+
+The second idea is that negative evidence is kept rather than hidden. A stale
+source fingerprint is recorded as `source_fingerprint_status: stale` and retained
+as diagnostic evidence; a provider advisory row is preserved as metadata while
+being rejected as authority; a forbidden proof-body field turns a row into a
+regression fixture rather than silently dropping it. The board shows what did not
+hold, which is the point of an evidence membrane.
+
 ## Teleology
 
 `proof_diagnostic_evidence_spine` is the body-safe evidence membrane before
@@ -14,6 +44,34 @@ repair artifacts, and formal evidence-cell anchor receipt refs from the formal-m
 evaluation and premise-retrieval pipeline, then emits diagnostic receipts over those
 refs. Provider-advisory rows are not proof authority. Passing diagnostic checks do
 not become formal proof authority or theorem correctness.
+
+## How a check is accepted
+
+A check row carries three lists: `source_refs`, `receipt_anchor_refs`, and
+`source_digest_refs`. The validator does not take the row's word for whether it
+passes. It recomputes the verdict from the substrate.
+
+For each `source_ref` it resolves a real public-safe file, reads it, and hashes
+the bytes with sha256. That hash must equal the expected digest the organ holds
+for the ref. It then opens each receipt anchor and checks that the receipt
+payload actually contains the source ref and its digest, so a check is only
+"receipt-backed" if the receipt it cites genuinely references it. On top of that
+the organ applies a semantic floor: a check whose id mentions a failure taxonomy
+must point at a source file that carries a failure-taxonomy report with
+representative failures and at a receipt that carries a failure-mode ledger; a
+graph-update check needs graph-update candidates with ids and a matching
+receipt anchor. The check is accepted only when every source resolves, every
+digest matches, every cited receipt backs the ref, the semantic floor is
+satisfied, and no expected-negative error code is declared.
+
+The concrete failure mode this guards against is a plausible-looking row that
+names real artifact paths but does not actually recompute: a digest that has
+drifted, a receipt that does not mention the ref it claims, or a check labelled
+as failure-taxonomy evidence while pointing at an unrelated file. Each of those
+becomes a rejection finding rather than a silent pass. The recompute is also why
+a passing check stays bounded. It establishes that the named evidence is present
+and coupled, not that the underlying runtime is correct, which is why a row that
+adds `claims_runtime_correctness` is rejected as an overclaim.
 
 ## JSON Capsule Binding
 
@@ -92,26 +150,28 @@ correctness.
 
 ```mermaid
 flowchart TD
-  Capsule["core/paper_module_capsules.json::paper_modules[14]"]
-  Markdown["paper_modules/proof_diagnostic_evidence_spine.md"]
-  OrganJson["organs/proof_diagnostic_evidence_spine.json"]
-  Standard["standards/std_microcosm_proof_diagnostic_evidence_spine.json"]
-  Runtime["src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"]
-  Fixtures["fixtures/first_wave/proof_diagnostic_evidence_spine/input"]
-  Bundle["examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"]
-  Receipts["receipts/first_wave/proof_diagnostic_evidence_spine"]
-  Ceiling["diagnostic accounting only"]
-  Denied["no proof correctness, provider authority, or release authority"]
+  Check["Diagnostic check row\nsource_refs, receipt_anchor_refs,\nsource_digest_refs"]
+  Resolve["Resolve source ref\nto real public file"]
+  Hash["Re-hash file (sha256)\ncompare to expected digest"]
+  Receipt["Open receipt anchor\ndoes payload contain\nthis ref and digest?"]
+  Floor["Semantic floor\nfailure-taxonomy / graph-update\nsource and receipt match"]
+  Accept["Accepted check\nverdict = recomputed,\nbody_in_receipt false"]
+  Reject["Rejected / retained\nas diagnostic evidence"]
 
-  Capsule --> Markdown
-  Capsule --> OrganJson
-  OrganJson --> Runtime
-  Standard --> Runtime
-  Fixtures --> Runtime
-  Bundle --> Runtime
-  Runtime --> Receipts
-  Receipts --> Ceiling
-  Ceiling -. denies .-> Denied
+  Stale["Stale source fingerprint"]
+  Provider["Provider advisory payload"]
+  Proofbody["Forbidden proof-body field"]
+
+  Check --> Resolve --> Hash --> Receipt --> Floor
+  Floor -->|all agree| Accept
+  Floor -->|any mismatch| Reject
+  Stale -. retained as evidence .-> Reject
+  Provider -. metadata kept, authority denied .-> Reject
+  Proofbody -. scrubbed, kept as regression .-> Reject
+
+  Accept --> Board["diagnostic_board.json\nevidence accounting only"]
+  Reject --> Board
+  Board -. denies .-> Ceiling["no Lean/Lake run, no proof correctness,\nno provider authority, no release"]
 ```
 
 Evidence/accounting refs:

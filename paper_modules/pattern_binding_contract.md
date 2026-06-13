@@ -7,6 +7,32 @@ source-available source capsules, public runtime refs, authority-chain handles,
 anti-claims, and secret-exclusion receipts. Synthetic rows are allowed only as
 regression controls or negative cases; they are not product evidence.
 
+## Purpose
+
+A mined engineering pattern is a tempting thing to publish on its own. It reads
+like a self-contained insight, so it is easy to lift a single row out of a
+private ledger and present it as a finished public claim. This organ exists to
+stop that. It answers one question: can a given pattern row be admitted to the
+public surface, and if so, under exactly what evidence and what ceiling?
+
+The check is binding rather than display. Every pattern row must name a source
+capsule that points at a real public runtime ref or regression-harness ref, a
+governing standard, and an anti-claim. A row that lacks any of these, duplicates
+another row's id, or claims to be a standalone public leaf is rejected. The same
+validator runs deliberate negative cases alongside the positive control, so the
+receipt proves not only that good rows pass but that each known failure mode is
+still caught.
+
+The less obvious idea is truth accounting. When an exported bundle is validated,
+the organ separates rows that merely describe runtime metadata from rows that
+represent a real pattern-ledger import, and records that a high accepted-row
+count is not the same as substrate progress. This guards against the quiet
+inflation where counting accepted rows starts to read like a measure of how much
+real work has landed. The route-readiness layer closes the matching gap on the
+selector side: a row can look selectable in isolation, but it is only admitted
+through the organ that owns it, its fixture contract, and a gate that refuses to
+let hard no-standalone rows appear as selectable targets.
+
 ## Public Contract
 
 The validator checks required binding fields, duplicate pattern conflicts,
@@ -34,20 +60,36 @@ compatibility route to the same validator.
 
 ```mermaid
 flowchart LR
-  Patterns["Pattern rows\nids, refs, selection posture"]
-  Capsules["Source capsules\nbody-free refs,\nsecret exclusion"]
-  Handles["Authority-chain handles\nresolver receipts"]
-  RouteReadiness["Route-readiness bundle\nselector overlays,\nDAG, decision matrix"]
-  Validator["pattern_binding_contract validator"]
-  Negative["Negative floor\nduplicate rows,\nunknown refs,\nprivate leakage,\nstandalone leaf overclaims"]
-  Receipts["Receipts\nrefs, hashes, counts,\nverdicts; body text omitted"]
+  subgraph Inputs["Pattern-binding inputs"]
+    Patterns["Pattern rows\nid, governing standard,\nanti-claim, source refs,\nprojection posture"]
+    Capsules["Source capsules\nbody-free refs to\npublic runtime or\nregression harness"]
+    Handles["Authority-chain handles\nresolver receipts"]
+  end
+
+  Validator["pattern_binding_contract\nrequired fields, duplicate ids,\ncapsule resolution,\nsecret-exclusion scan"]
+
+  subgraph Negative["Refusal floor"]
+    Dup["Duplicate id rejected"]
+    Leak["Private body leak rejected"]
+    Overclaim["Public-leaf overclaim rejected"]
+    Unsupported["Unsupported authority\nhandle not upgraded"]
+  end
+
+  subgraph Bundle["Exported-bundle path"]
+    Truth["Truth accounting\nruntime-metadata rows vs\nreal pattern-ledger import"]
+    RouteReadiness["Route-readiness selector\norgan-first admission,\nfixture contract,\nhard no-standalone gate"]
+  end
+
+  Receipts["Receipts\nrefs, digests, counts,\nverdicts; body text omitted"]
 
   Patterns --> Validator
   Capsules --> Validator
   Handles --> Validator
-  RouteReadiness --> Validator
   Validator --> Negative
-  Validator --> Receipts
+  Validator --> Bundle
+  Truth --> RouteReadiness
+  Negative --> Receipts
+  Bundle --> Receipts
 ```
 
 ## Source-Open Body Floor

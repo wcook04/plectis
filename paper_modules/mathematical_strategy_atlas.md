@@ -21,6 +21,29 @@ classification standard, and three public runtime artifacts from
 runtime bundle; receipts carry refs, counts, hashes, anchors, and verdicts
 instead of body text.
 
+## Purpose
+
+A proof search has to start somewhere. Before any premise is retrieved or any
+tactic is run, an agent has already committed to a first move: a goal shape, a
+lens, a family of tactics it expects to use. That choice is usually implicit,
+buried inside a model call or a prompt. This organ exists to pull it into the
+open. The single question it answers is: for a given problem shape, which
+strategy did the system pick first, and on what visible evidence?
+
+The interesting part is what the answer is allowed to depend on. The scorer
+never sees the oracle's expected strategy, the ground-truth proof, or any
+provider output. It works only from public problem features and a strategy
+atlas of trigger features, negative triggers, and retrieval-expansion terms.
+The selected strategy is therefore a hypothesis, recomputed from inputs a cold
+reader can also read, not a result borrowed from the answer key.
+
+That constraint is what the page guards. The common failure mode for a
+"strategy classifier" is to bake the answer in: declare the chosen strategy as
+a plain label, or score it on shallow feature overlap that happens to line up
+with the known-good label. The organ rejects both. A declared selection must
+match the score the scorer recomputes from evidence, and a strategy chosen on
+overlap alone is a typed negative case rather than a pass.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is `core/paper_module_capsules.json::paper_modules[43:paper_module.mathematical_strategy_atlas]`; the generated instance is `paper_modules/mathematical_strategy_atlas.json` with `source_authority: json_capsule`.
@@ -41,27 +64,43 @@ claim envelope, is
 the general paper-module contract remains
 `standards/std_microcosm_paper_module.json`.
 
+The diagram below traces the scorer's runtime flow inside that projection: how
+public inputs become a per-candidate score, how a selection or a typed miss is
+chosen, and how the result is recomputed and written as body-free receipts
+under the authority ceiling.
+
 ```mermaid
 flowchart TD
-    capsule["JSON capsule<br/>core/paper_module_capsules.json<br/>paper_modules[43:paper_module.mathematical_strategy_atlas]"]
-    instance["Generated JSON instance<br/>paper_modules/mathematical_strategy_atlas.json<br/>source_authority: json_capsule"]
-    markdown["Reader projection<br/>paper_modules/mathematical_strategy_atlas.md"]
-    standard["Local standard<br/>std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json"]
-    runtime["Runtime/source locus<br/>src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py"]
-    fixtures["Fixtures and examples<br/>fixtures/first_wave/.../input<br/>examples/.../exported_mathematical_strategy_atlas_bundle"]
-    tests["Tests and receipts<br/>tests/test_mathematical_strategy_atlas_hypothesis_scorer.py<br/>receipts/first_wave/...<br/>receipts/acceptance/first_wave/..."]
-    projections["Generated Mermaid and Atlas<br/>mermaid: available_from_capsule_edges<br/>atlas_card: linked_from_capsule_edges"]
-    ceiling["Authority ceiling<br/>metadata and copied public bodies only<br/>no Lean/Lake, oracle labels, provider calls, publication, or release authority"]
+    subgraph Inputs["Public inputs"]
+        atlas["strategy_atlas.json<br/>trigger / negative / retrieval terms"]
+        features["problem_features.json<br/>feature tags, oracle hidden"]
+        cases["hypothesis_cases.json<br/>candidate strategy ids"]
+    end
 
-    capsule --> instance
-    instance --> markdown
-    capsule --> projections
-    standard --> runtime
-    runtime --> fixtures
-    fixtures --> tests
-    tests --> instance
-    instance --> ceiling
-    markdown --> ceiling
+    subgraph Scoring["Per-candidate scoring"]
+        score["score = trigger_hits x4<br/>- negative_hits x3<br/>+ retrieval_bonus (cap 2)"]
+        rank["rank positive scores<br/>tie-break by order, then id"]
+    end
+
+    select{"any positive<br/>score?"}
+    selected["selected_strategy_id<br/>+ score components"]
+    miss["STRATEGY_SELECTION_MISS<br/>(unknown)"]
+
+    recheck["recompute vs declared<br/>selection / score / ranking"]
+    receipts["Body-free receipts<br/>refs, counts, hits, verdicts"]
+    ceiling["Authority ceiling<br/>no Lean/Lake, oracle labels,<br/>provider calls, or release"]
+
+    atlas --> score
+    features --> score
+    cases --> score
+    score --> rank
+    rank --> select
+    select -- yes --> selected
+    select -- no --> miss
+    selected --> recheck
+    miss --> recheck
+    recheck --> receipts
+    receipts --> ceiling
 ```
 
 The generated instance currently exposes 19 concrete
@@ -95,6 +134,44 @@ inspectable. It cannot say that Lean or Lake ran, that a theorem was proved,
 that oracle labels or provider payloads are visible, that benchmark
 performance is certified, that publication is approved, that release is
 approved, or that the private root has been made public-safe.
+
+## How it works
+
+The scorer reads three public inputs: a strategy atlas, a set of problem
+features, and a set of hypothesis cases. For each candidate strategy in a case
+it computes a single integer score from three terms. Each problem feature that
+matches a strategy's `trigger_features` adds four points. Each feature that
+matches the strategy's `negative_triggers` subtracts three. Retrieval-query
+terms that appear in the strategy's expansion terms add one point each, capped
+at two. Plain feature overlap is recorded as a diagnostic count but is
+deliberately kept out of the score.
+
+Selection is then a deterministic sort. Only strategies with a positive score
+are eligible. Among those, the scorer ranks by score (highest first), breaking
+ties by the strategy's declared order and then its id, and takes the top row.
+If no candidate scores positive, the case resolves to the typed
+`STRATEGY_SELECTION_MISS` rather than guessing. The output for each case carries
+the selected id, the score, the component breakdown, the ranked candidate
+scores, and the trigger, negative, and retrieval hits that produced them, so the
+choice can be re-derived by hand.
+
+The weights matter because they encode the design intent. Trigger matches are
+worth more than retrieval matches, so a strategy is chosen mainly for the shape
+it claims to handle, not for how many search terms happen to coincide. Negative
+triggers can veto a strategy that looks superficially apt. The retrieval cap
+stops a strategy from winning on keyword volume alone. A fixture that tries to
+score on overlap without these terms is caught by the
+`superficial_overlap_only_scoring` negative case.
+
+The same recomputation is what enforces honesty. When a case declares its own
+`selected_strategy_id`, `score`, `classifier`, `retrieval_bonus`, or
+`candidate_scores`, the organ recomputes each from the evidence and reports a
+stale-declaration finding on any mismatch. Declaring the selected strategy as a
+bare label, with nothing for the scorer to check against, is itself rejected:
+a label with no derivable evidence is not strategy evidence. Alongside this, the
+copied source artifacts are checked for leakage policy, so the strategy cards,
+hypothesis set, and skill atlas stay pre-oracle, free of proof bodies, and free
+of oracle strategy ids.
 
 ## Structured Lattice Bindings
 

@@ -4,6 +4,14 @@ Durable agent work-landing replay is the public work-spine organ for showing how
 
 The organ is useful to a cold agent because it turns a landing claim into an evidence checklist: a row is not "landed" unless claimed paths, validation refs, commit-attempt refs, HEAD-before/after evidence, blocker capture, and ledger closeout all line up in the recorded replay. It validates the replay contract and the negative fixtures. It does not perform the live landing itself.
 
+## Purpose
+
+This organ exists because an agent saying "I committed the fix" is cheap, and the claim is the part that tends to be wrong. The single question it answers is narrow: given a recorded landing attempt, does the evidence actually support the words used to describe it?
+
+The approach worth noticing is that two ordinary-sounding rules are made into rejections rather than suggestions. A row that uses landed-commit language is rejected unless the recorded Git HEAD moved between before and after, so "I landed it" cannot stand on a HEAD that never advanced. A row on the commit path is rejected unless validation is recorded as preceding the commit attempt, so "it passed" cannot be back-filled after the fact. Those two checks, plus blocker capture for metadata-blocked rows and Work Ledger closeout for every row, are what separate a transaction from a chat claim.
+
+The replay is also source-backed rather than described from memory. The mechanics it checks rows against are not paraphrased; the actual macro control-plane files (work landing, mission preflight, scoped commit, the Work Ledger) are copied into the bundle by digest, so a reader can see which code the model was tested against. The organ reads that evidence and rejects overclaims; it never runs Git, stages anything, or authorises a release.
+
 ## Shape
 
 ```mermaid

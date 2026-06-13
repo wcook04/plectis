@@ -7,6 +7,34 @@ backed by a dogfood receipt proving it changed a live decision, and that the
 registry policy declares explicit authority ceilings before a cold reader trusts
 the operators as real reusable cognition rather than inspirational prose.
 
+## Purpose
+
+A team that writes down its reusable thinking moves as a registry tends to
+accumulate entries faster than it can prove any of them help. The single
+question this organ answers is: which of these listed operators has actually
+changed a live decision, and which is just a tidy description of one? An entry
+may only call itself `active` if it points to a dogfood receipt, and that
+receipt must carry `cognition_delta_evidence` recording a concrete decision that
+came out differently because the operator was applied.
+
+The unusual part is that the check refuses to take a row at its word. Where a
+receipt cites evidence surfaces, command paths, or task-ledger handles, the
+validator resolves each one against the public substrate (see
+`_dogfood_receipt_ref_resolves` and `_record_dogfood_evidence_resolution_findings`
+in the source). A row whose prose says it was dogfooded but whose evidence does
+not resolve is recorded as a failure, not a pass. A second check, the anti-sprawl
+case, flags two operators that share a slug or a near-identical claim unless an
+accretion decision was recorded, so the registry cannot quietly grow two near
+copies of the same idea.
+
+The evidence contract is source-open by default. The validator emits refs,
+hashes, counts, and verdicts; `secret_exclusion_scan` proves that secrets,
+account or session material, provider payload bodies, raw operator voice, and
+credential-equivalent access material are excluded. Operator bodies are never
+inlined into the JSON receipt, so the positive evidence carries
+`body_in_receipt: false`, `real_runtime_receipt: true`, and
+`synthetic_receipt_standin_allowed: false`.
+
 ## Prior Art Grounding
 
 This organ borrows from cognitive work analysis, provenance, schema validation,

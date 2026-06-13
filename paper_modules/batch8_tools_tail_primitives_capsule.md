@@ -10,6 +10,30 @@ mechanics over synthetic public fixtures. It does not run GodMode, call
 providers, execute live bridge work, mutate repositories, export private lab
 artifacts, claim oracle truth, authorize publication, or approve release.
 
+## Purpose
+
+When a piece of tooling is copied from the private system into the public
+substrate, the obvious question is whether the copy still behaves the way the
+original did, or whether it has quietly drifted into a stub that only looks
+right. This capsule answers that one question for four small "tools-tail"
+primitives: does the copied source body, when run on a fixed public input,
+still produce the exact output the original would?
+
+The unusual choice here is that the capsule does not re-describe the
+primitives or re-implement them. It loads the copied module straight from the
+exported bundle and runs the real functions, then checks the results against
+hard-coded expected values. If the copy were a hollow shell, the assertion
+would fail rather than pass with a green tick. The evidence is therefore
+behavioural, not merely a digest match: the code is executed, not just hashed.
+
+What it deliberately does not do is treat any of that execution as truth about
+the world. Diffing two sets of observer rows is set arithmetic, not a claim
+that either set is correct. Applying a JSON patch is interpreting an edit
+script, not a claim that the edit is the right one. The capsule keeps the gap
+between "the mechanism runs as copied" and "the answer is correct" explicit,
+which is why the authority ceiling refuses oracle truth, prediction
+correctness, and semantic edit correctness even though real code ran.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is
@@ -60,7 +84,8 @@ flowchart TD
   instance["Generated JSON instance<br/>paper_modules/batch8_tools_tail_primitives_capsule.json<br/>20 edges; 0 unresolved selective relations"]
   markdown["Reader projection<br/>paper_modules/batch8_tools_tail_primitives_capsule.md"]
   standard["Local standard<br/>standards/std_microcosm_batch8_tools_tail_primitives_capsule.json"]
-  runtime["Runtime/source locus<br/>src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py<br/>observer diff, JSON patch VM, ledger id, shadow envelope"]
+  runtime["Runtime/source locus<br/>src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py<br/>loads copied modules, runs four exercises, checks exact output"]
+  exercises["Four primitive exercises<br/>observer set diff | JSON-patch VM<br/>ledger-id hash | shadow envelope parse<br/>each: accept path + negative case"]
   fixture["Public fixture input<br/>fixtures/first_wave/batch8_tools_tail_primitives_capsule/input<br/>four primitives + negative cases"]
   bundle["Copied source bundle<br/>examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle<br/>source_module_manifest.json"]
   tests["Tests and receipts<br/>tests/test_batch8_tools_tail_primitives_capsule.py<br/>receipts/first_wave + acceptance + bundle validation"]
@@ -72,8 +97,11 @@ flowchart TD
   instance --> projections
   instance --> markdown
   standard --> runtime
-  runtime --> fixture
   runtime --> bundle
+  bundle --> runtime
+  fixture --> runtime
+  runtime --> exercises
+  exercises --> tests
   fixture --> tests
   bundle --> tests
   tests --> ceiling
@@ -103,6 +131,48 @@ source-module digest/anchor posture, and no body text in receipts. Generated
 Mermaid and Atlas links only make the capsule edges walkable; they do not
 authorize live tool execution, bridge work, provider dispatch, repository
 mutation, publication approval, release approval, or whole-system correctness.
+
+## How it works
+
+The evaluator loads four copied modules by manifest reference and runs one
+bounded exercise against each, comparing the live output to a fixed expected
+value. A primitive passes only when every checked field matches.
+
+- Observer set diff. The copied `diff_evidence` and `diff_predictions`
+  functions take two lists of rows keyed by id and partition them. For
+  evidence, three lab rows and two oracle rows resolve to one overlap, one
+  missed id, and one extra id; a row with no `ledger_id` is dropped rather
+  than crashing the diff. For predictions, rows are split into matching,
+  divergent, and missing-target sets. The exercise also asserts the dropped
+  malformed row never appears in the serialised result, so a parse gap cannot
+  leak through as silent data.
+- Version committer JSON-patch VM. The copied `_apply_op` interprets a small
+  set of edit operations (`set`, `merge`, `append`) over a nested document by
+  path. The exercise applies four ops, checks the resulting document exactly,
+  and confirms that attempting to traverse into a scalar (`/profile/name` where
+  `profile` is a string) raises `VersionCommitterError` instead of corrupting
+  the document. The interesting property is the refusal: a malformed path is a
+  controlled error, not a partial write.
+- Ledger-id identity hash. The copied `generate_ledger_id` produces a stable id
+  from a lane and a record. The exercise checks that the lane alias `poly` and
+  `POLYMARKET` normalise to the same canonical lane and hash to the same id, so
+  the id is identity-stable across spelling; an unknown lane falls back to an
+  `X_` prefix; and a record missing the identity field its lane requires raises
+  `ValueError` rather than hashing a blank.
+- Shadow envelope parser coverage. The copied `run` parses a small envelope DSL
+  (miner tuples, a spine line, prediction rows) written into a temporary run
+  directory. The exercise feeds it one well-formed line and one malformed tuple
+  per node, then checks that parsing did not hard-fail, that the well-formed
+  rows parsed, and that the malformed tuple was counted as a `comma_arity`
+  coverage gap. The point is that the parser reports its own coverage holes
+  rather than swallowing them.
+
+Each exercise also has a matching negative case (`EXPECTED_NEGATIVE_CASES`)
+that re-runs the same code on input designed to be rejected and confirms the
+rejection. So for every primitive the page shows both the accepting path and
+the refusing path. None of these checks open a network, a provider, or the
+live bridge; they run copied source bodies in process and keep the bodies out
+of the receipts.
 
 ## Reader Proof Boundary
 

@@ -1,5 +1,38 @@
 # Agent Closeout Faithfulness Audit
 
+`agent_closeout_faithfulness_audit` checks the kind of sentence an agent writes
+when it finishes a task: "I committed the change, closed the ledger item, and
+the test passed." It runs the supplied public fixture evidence through real
+`git` and `pytest` subprocesses and refuses any claim that the evidence does
+not actually support.
+
+## Purpose
+
+When an agent reports that work is done, the report is prose. The commit may or
+may not exist, the ledger row may or may not be there, and "the test passed" may
+mean the test ran, or it may mean nothing was checked at all. This organ exists
+to answer one question over a fixed fixture: is each closeout claim backed by an
+evidence object that genuinely exists, and is a "passed" claim backed by an
+explicit exit-zero status check rather than by the wording of the claim?
+
+The approach is unusual in that it does not parse the closeout prose or score
+it against a rubric. It rebuilds the evidence. The fixture's `public_fixture_repo`
+is copied into a throwaway directory, initialised and committed with real `git`
+subprocesses, and its `HEAD` is read back with `git rev-parse`. A commit claim
+passes only when it points at that observed `HEAD`. A declared `pytest` span is
+run with `python -m pytest <nodeid>` inside that temporary repo, and only the
+exit code decides whether the span passed. The receipt records the run as bytes
+of work that happened, not as a paraphrase of what the agent said.
+
+The distinction the audit defends is narrow and easy to lose. "The span ran" and
+"the span passed" are separate facts, and a closeout sentence that conflates them
+is the precise failure mode here. A pass claim is admitted only when
+`pass_status_checked` is true and the subprocess exited zero; a claim that
+expected a pass without that check is rejected with
+`CLOSEOUT_PYTEST_PASS_STATUS_NOT_CHECKED`. The same separation applies to commits
+and ledger caps, so a referenced commit object is not treated as a landed change
+and a named cap is not treated as closed work.
+
 ## Route Card
 
 - Organ id: `agent_closeout_faithfulness_audit`

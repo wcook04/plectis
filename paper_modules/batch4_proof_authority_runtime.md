@@ -1,5 +1,36 @@
 # Batch 4 Proof Authority Runtime
 
+`batch4_proof_authority_runtime` is the public source-open evidence membrane for
+fourteen macro mechanisms that are easy to overclaim: proof search, machine-checked
+mathematics, reasoning-authority fences, closeout planning, Codex runtime
+diagnostics, bitemporal coordination, taskpolicy wrapping, and context-yield
+attribution.
+
+## Purpose
+
+These fourteen mechanisms sit close to claims a reader will want to make on their
+behalf. A proof-search benchmark looks like solving open problems. A copied
+`CertificateKernel.lean` for Erdos #257 looks like a solution. A reasoning-grant
+fence looks like a live sandbox. The single question this capsule answers is
+narrow and deliberately so: can each of these mechanisms be shown to a cold reader
+as copied, anchored, public source, without any of them quietly inheriting an
+authority it does not have?
+
+The unusual part is how the capsule resists the easy inflation. It does not run
+the mechanisms; it imports their non-secret source bodies, checks each one against
+named required anchors, and then recomputes a stable negative case per mechanism
+from that source rather than trusting a fixture to declare its own verdict. For the
+Erdos #257 row it runs a static token scan over the copied Lean source and rejects
+`sorry`, `admit`, and `axiom`, so an absent proof obligation cannot be smuggled in.
+An optional local Lean/Lake compile probe is wired in too, but a pass means only
+that the copied kernel elaborated without error, and the code records that as a
+non-authoritative availability signal, never as theorem correctness.
+
+The result is a membrane, not a flagship. The interesting claim is the one it
+refuses: source import is made auditable, every receipt stays body-free, and each
+tempting stronger statement is forced into a visible anti-claim with the authority
+delta held at `none`.
+
 ## Abstract
 
 `batch4_proof_authority_runtime` is a public-safe technical paper module for
@@ -48,6 +79,28 @@ generated relationship set, and the validation route, but it does not mint new
 subject edges, proof authority, Mermaid authority, Atlas authority, or release
 status. Future relationship changes belong in the capsule row plus builder
 regeneration, not in hand-authored Markdown.
+
+## JSON Capsule Binding
+
+This Markdown is a reader projection, not source authority. The source
+authority row is the JSON capsule in
+`core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime]`,
+and the generated sidecar at
+`paper_modules/batch4_proof_authority_runtime.json` is rebuilt from that row.
+Its current binding facts are:
+
+- source authority: `source_authority: json_capsule`.
+- generated JSON sidecar: `paper_modules/batch4_proof_authority_runtime.json`.
+- subject: `mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule`.
+- resolved code locus: `src/microcosm_core/organs/batch4_proof_authority_runtime.py`.
+- generated Mermaid projection: `available_from_capsule_edges`.
+- generated Atlas projection: `linked_from_capsule_edges`.
+
+The generated Mermaid projection is available from the capsule edge. The
+generated Atlas projection is linked from capsule edges, but that link still
+does not let this slice invent a broader accepted-organ atlas row. The
+accepted-organ owner boundary remains part of the authority ceiling, not a
+release-readiness claim.
 
 ## Mechanism Overview
 
@@ -130,28 +183,31 @@ Therefore the correct reading is layered:
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule row<br/>paper_module.batch4_proof_authority_runtime"]
-  standard["Local standard<br/>public Batch 4 source-open capsule ceiling"]
-  fixture["Public fixture manifest<br/>14 mechanisms + 14 semantic negatives"]
+  fixture["Public fixture manifest<br/>14 mechanism rows + 14 negative cases"]
   bundle["Exported public bundle<br/>19 copied non-secret source modules"]
-  runtime["Batch 4 runtime<br/>run / validate-bundle / result_card"]
-  scan["Static checks<br/>digests, anchors, placeholder-token scan"]
-  receipts["Body-free receipts<br/>refs, hashes, counts, verdicts, ceilings"]
-  leanWitness["Sibling Lean/Lake witnesses<br/>formal_math_lean_proof_witness<br/>certificate_kernel_execution_lab"]
-  ceiling["Authority ceiling<br/>evidence boundary, not theorem correctness"]
-  projection["Reader projection<br/>this Markdown and generated sidecar"]
+  runtime["Batch 4 runtime<br/>run / validate-bundle"]
 
-  capsule --> projection
-  capsule --> standard
-  standard --> fixture
-  standard --> bundle
+  anchors["Per-mechanism source check<br/>module present + required anchors in body"]
+  scan["Erdos #257 static scan<br/>reject sorry / admit / axiom"]
+  probe["Optional Lean/Lake probe<br/>copied kernel elaborates? availability only"]
+  negatives["Negative cases recomputed<br/>verdict derived from source, not declared"]
+
+  receipts["Body-free receipts<br/>refs, digests, anchors, counts, verdicts"]
+  ceiling["Authority ceiling<br/>authority delta = none"]
+  leanWitness["Sibling Lean/Lake organs<br/>actually run local proofs"]
+
   fixture --> runtime
   bundle --> runtime
+  runtime --> anchors
   runtime --> scan
+  scan --> probe
+  runtime --> negatives
+  anchors --> receipts
   scan --> receipts
-  leanWitness -. "separate execution evidence" .-> ceiling
+  probe --> receipts
+  negatives --> receipts
   receipts --> ceiling
-  projection --> ceiling
+  leanWitness -. "separate execution evidence" .-> ceiling
 ```
 
 The dashed edge is intentional. Lean/Lake subprocess evidence informs the

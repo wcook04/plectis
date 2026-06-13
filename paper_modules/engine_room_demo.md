@@ -2,6 +2,16 @@
 
 `engine_room_demo` is the accepted Microcosm composition organ for the staged Engine Room batch. It wraps the public-safe capsules under `microcosm_core.engine_room`, runs the composed demo/audit path, and writes first-wave receipts without promoting fixture rows into private-root or release authority.
 
+## Purpose
+
+The Engine Room batch is ten separate capsules: a Lean proof-search lab, a metabolism runtime, command singleflight, a generated-projection drift gate, a derived-fact engine, a public-projection leak gate, an egress self-compliance gate, a navigation-fitness benchmark, a bridge-campaign DAG, and an annex knowledge router. Each capsule has its own fixture and receipt. This organ exists so that a reader does not have to trust ten claims separately. It answers one question: do the ten capsules together cover the fourteen targets the controller asked for, and does each one still own its full surface and run.
+
+A capsule "owns its surface" only when six files exist for it: module source, fixture input, fixture manifest, paper module, standard, and test. The audit checks all six per capsule, runs each fixture through its declared evaluator, and unions the targets the capsules actually declare against the fourteen the controller expected. A passing run means the set is complete and every fixture executed, not that any single capsule is finished or correct.
+
+The design choice worth noting is in the negative case. Rather than compare against a frozen answer key, the negative fixture recomputes the live set of covered targets and fails only when the fixture names a target that is genuinely outside it. That keeps the refusal honest as the capsule set grows: the test cannot drift into agreement with a stale list, because there is no stored list to agree with.
+
+A second deliberate boundary is that the runner reads the shared organ registry, acceptance file, and atlas, but never writes to them. It reports whether the composition organ is integrated into those shared surfaces as a separate visibility line, and always records `shared_registry_mutated: false`. Composition coverage and shared-registry integration are kept as two distinct facts, so a green demo cannot quietly imply registry authority it does not hold.
+
 ## What It Runs
 
 - Verifies the 14 Engine Room jewel targets selected by the controller prompt.

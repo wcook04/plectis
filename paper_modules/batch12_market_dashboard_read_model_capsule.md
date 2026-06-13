@@ -2,6 +2,34 @@
 
 This organ executes copied non-secret macro substrate for Batch 12 over public synthetic fixtures.
 
+## Purpose
+
+The underlying macro module compiles a generated market-situation graph into a
+backend read model: a trust strip, a ranked situation queue, a detail index, a
+graph slice, facets, drilldowns, and an API contract. The read model is the
+shape a dashboard consumes. This capsule does not rebuild that pipeline. It runs
+the copied read-model helpers over small synthetic fixtures and asks one
+question: does the read-model layer hold its own claim boundary, or does it
+quietly become a market-truth or advice surface?
+
+The interesting part is what the validator refuses rather than what it accepts.
+A presentation layer is the easy place for an overclaim to leak in: a label like
+"strong buy", an `auto_apply_allowed` flag left true, a freshness state that
+reports green from a stale or missing artifact. The copied
+`validate_market_dashboard_read_model` scans for trading and action-claim
+language, requires `oracle_evolve.auto_apply_allowed` to be false and
+`review_gated` to be true, requires `no_advice_mode` to be enabled, and requires
+the silent-omission count to be zero. The capsule drives those checks with
+fixtures designed to trip each one, then records whether the source actually
+flagged them.
+
+The other two mechanisms guard the read path itself. A feed-freshness overlay
+classifies the current run into a small set of honest states so historical green
+proof cannot stand in for live-feed capability, and a related-situations scorer
+groups situations by shared entities or matching type without inventing links.
+Everything is fixture-bound: there is no live market data, no provider call, and
+no investment advice anywhere in scope.
+
 ## JSON Capsule Binding
 
 - Source authority: `core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_market_dashboard_read_model_capsule]` with `source_authority: json_capsule`; the generated instance is `paper_modules/batch12_market_dashboard_read_model_capsule.json`.
@@ -67,17 +95,62 @@ mutation authority, publication authority, or whole-system correctness.
 - `_runtime_feed_freshness_overlay`
 - `_related_situations`
 
+## What the checks do
+
+`validate_market_dashboard_read_model` is the structural and overclaim gate. It
+first checks the read model is well formed: the schema version matches, every
+situation in the queue resolves to a detail entry, every graph-slice edge points
+at a node that exists, and each drilldown source-ref returns metadata only with
+no arbitrary file read and no `..` traversal in its route. It then enforces the
+claim boundary. `auto_apply_allowed` must be false, `review_gated` must be true,
+`no_advice_mode` must be enabled, the silent-omission count must be zero, and any
+copied source text is scanned for trading or action-claim language (buy, sell,
+short, price target, stop loss, and similar). The capsule feeds it five negative
+fixtures, one per failure shape, and confirms the source emits the matching error
+string for each. A read model that passed these checks but stayed silent on a
+planted overclaim would be the real failure, so the capsule treats a missing
+error as a finding.
+
+`_runtime_feed_freshness_overlay` reads a per-run readiness summary and reports
+one of three honest states. `fresh_green_feed` requires the run to be ready, all
+targets met, no blockers, and same-day generation. `stale_green_feed` is
+artifact-backed but no longer same-day. `blocked_missing_artifact` covers the run
+that is missing its readiness file, falls short on targets, or carries blockers.
+The point is that a stale or absent run never reports green: historical proof
+cannot stand in for live-feed capability, and the state carries a plain
+truth-statement saying so. The capsule writes synthetic readiness files for each
+case and checks the classifier returns the expected state.
+
+`_related_situations` builds the "see also" cohort for a situation. It collects
+other situations that either share an entity or match the situation type, ranks
+them, excludes the focus situation itself, and caps the list at six. The capsule
+checks one boundary case in particular: a situation with no entity overlap and a
+different type produces an empty cohort rather than a spurious link.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-    A["Synthetic market/dashboard fixtures"] --> B["Copied dashboard read-model substrate"]
-    B --> C["Read-model validation"]
-    B --> D["Runtime feed freshness overlay"]
-    B --> E["Related-situation joins"]
-    C --> F["Body-free receipt and card"]
-    D --> F
-    E --> F
+    A["Synthetic dashboard,<br/>freshness, related fixtures"] --> B["Copied read-model helpers<br/>(market_dashboard_read_model.py)"]
+
+    B --> C["validate_market_dashboard_read_model"]
+    C --> C1["Structure: schema,<br/>queue-to-detail, graph edges,<br/>drilldown route safety"]
+    C --> C2["Claim ceiling: no auto-apply,<br/>review-gated, no-advice,<br/>no trading language,<br/>zero silent omissions"]
+
+    B --> D["_runtime_feed_freshness_overlay"]
+    D --> D1["fresh_green_feed"]
+    D --> D2["stale_green_feed"]
+    D --> D3["blocked_missing_artifact"]
+
+    B --> E["_related_situations"]
+    E --> E1["Entity overlap or type match;<br/>self-excluded, capped at six;<br/>no overlap means empty"]
+
+    C1 --> F["Body-free receipt and card<br/>(refs, digests, counts, verdicts)"]
+    C2 --> F
+    D1 --> F
+    D2 --> F
+    D3 --> F
+    E1 --> F
 ```
 
 ## Reader Evidence Routing

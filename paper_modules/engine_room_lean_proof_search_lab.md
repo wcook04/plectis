@@ -3,6 +3,38 @@
 This staged Engine Room capsule imports the macro prover-lab contour into a
 runnable public-safe Lean fixture lab.
 
+## Purpose
+
+The hard problem with any proof-search tool is not finding a proof. It is
+trusting that a reported success was earned rather than leaked or memorised. A
+search loop can quietly copy the answer out of an oracle field, learn to map a
+problem id to a stored tactic, or compile a file that secretly leans on `sorry`.
+Each of those produces a green result that means nothing. This lab exists to
+answer one question: when a tiny public theorem is reported solved, did the
+search actually close it, and does the installed Lean kernel agree on clean
+axioms?
+
+The approach is to keep candidate generation cheap and untrusted, and to move
+all authority to the kernel. Candidate tactic bodies are generated from the
+shape of the statement alone (an `Or p q -> Or q p` goal draws an `Or.inl` /
+`Or.inr` case split, an equality draws `rfl`, and so on), then each candidate is
+written to a temporary `.lean` file and checked by a real `lean` subprocess. A
+result counts only when the process exits zero and a `#print axioms` audit
+reports the theorem depends on no axioms, with no `sorry` in the body. Generation
+proposes; Lean decides.
+
+What is unusual is how much of the lab is built to refuse false credit rather
+than to score success. Three guards run alongside the search. A forward firewall
+walks every input row and rejects it outright if it carries a `candidate_body`,
+`oracle_body`, `repair_body`, `oracle_needed_premise_ids`, or `provider_text`
+field, so the answer can never be smuggled in as a hint. A problem-id ablation
+renames each theorem and its id, then checks that the policy picks the same
+action and reaches the same outcome, which catches a policy that has secretly
+learned the id instead of the goal. The axiom gate rejects `sorry`-tainted
+candidates even when Lean compiles the file. The lab passes only when every
+problem is genuinely closed, the firewall is clean, the ablation is stable, and
+no axiom taint is found.
+
 ## Shape
 
 ```mermaid

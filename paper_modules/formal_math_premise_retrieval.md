@@ -20,6 +20,31 @@ It does not run Lean or Lake, call providers, expose proof bodies, expose
 oracle-needed premise ids, tune on test split truth, claim theorem correctness,
 or authorize release.
 
+## Purpose
+
+Before a model can attempt a formal proof, it has to find the right lemmas. A
+Lean library holds thousands of theorems and definitions, and the useful ones
+for a given goal are a handful. Premise selection is the step that narrows that
+library down to candidates worth putting in front of a prover. This organ is the
+smallest honest version of that step: it takes a query, scores every public
+premise against it, and returns a ranked shortlist.
+
+The single question it answers is narrow and checkable: given a copied catalogue
+of public Lean/Std premise metadata, does a transparent term-scoring retrieval
+return the premises a query should find, without ever touching a proof? Both
+halves matter. The retrieval has to actually work, so each fixture query carries
+the premise ids it is expected to surface and the run fails if the shortlist
+misses them. And the boundary has to hold, so the same run refuses any input
+that smuggles in a proof body, an oracle answer, or test-split truth.
+
+What is unusual is the restraint. The retrieval index is not a learned
+embedding model and the scoring is not a benchmark score. It is plain term
+overlap over fields that a reader can inspect: premise ids, namespaces,
+declaration names, statement excerpts, and retrieval terms. The interesting
+claim is therefore not "this retrieves well" but "this retrieves over real,
+copied Lean metadata and can be audited end to end, and the design forbids the
+shortcuts that would make a premise-selection result look better than it is".
+
 ## JSON Capsule Binding
 
 - Source row:
@@ -64,13 +89,32 @@ Markdown prose.
 ```mermaid
 flowchart TD
   capsule["JSON capsule row\npaper_module.formal_math_premise_retrieval"] --> instance["Generated paper-module instance\n15 relationship edges"]
-  capsule --> mermaid["Generated Mermaid\navailable_from_capsule_edges"]
-  capsule --> atlas["Organ atlas row\nformal_math_and_proof family"]
   instance --> organ["Runtime organ\nformal_math_premise_retrieval.py"]
-  organ --> inputs["Public fixture and exported bundle\npremise index, queries, recipes, strategies"]
-  inputs --> checks["Validation checks\nscoring, budgets, strategy gates, leakage guards"]
-  checks --> receipts["Receipts\nfirst-wave and runtime-shell outputs"]
-  receipts --> ceiling["Claim ceiling\nmetadata coherence only"]
+
+  subgraph Inputs["Public inputs"]
+    index["Premise index\ncopied Lean/Std metadata"]
+    queries["Retrieval queries\nterms, split, strategy, top_k"]
+    recipes["Context recipes\nbyte budgets"]
+    negatives["Negative-case inputs\nproof body, oracle ids,\ntest-split tuning, budget, strategy"]
+  end
+
+  organ --> index
+  organ --> queries
+  organ --> recipes
+  organ --> negatives
+
+  index --> split["Split gate\nskip premises not in allowed_for_split"]
+  queries --> split
+  split --> score["Term-overlap scoring\nshared tokens + strategy bonus"]
+  score --> shortlist["Ranked top_k shortlist"]
+  shortlist --> recall["Recall check\nvs expected premise ids"]
+
+  negatives --> reject["Required rejections\nfive leakage/overclaim guards"]
+  recipes --> reject
+
+  recall --> receipts["Body-free receipts\nboard, validation, acceptance"]
+  reject --> receipts
+  receipts --> ceiling["Authority ceiling\nmetadata coherence, no Lean/Lake, no proof"]
 ```
 
 Evidence/accounting:
@@ -138,6 +182,42 @@ Microcosm can now show a real formal-math retrieval mechanism in miniature:
 - context recipe ceilings;
 - strategy gates;
 - redacted validation receipts.
+
+## How retrieval scoring works
+
+Each premise row contributes five inspectable fields to the haystack: its
+premise id, namespace, declaration name, statement excerpt, and a list of
+retrieval terms. A query carries its own terms, a data split, an optional
+strategy id, a context recipe, and the public premise ids it is expected to
+return.
+
+Scoring is term overlap, computed per query. Both the query and each premise are
+tokenised into lowercase word counts. A premise is only considered if the
+query's split appears in that premise's `allowed_for_split` list, which is how
+test-split leakage is kept out at the structural level rather than by trust. For
+each eligible premise the score is the summed minimum count of every shared
+token across the five fields, so a term that appears in both the query and the
+premise contributes as many points as the smaller of the two counts. A premise
+that also carries the query's strategy id as a tag gets a single extra point.
+The ranked list is sorted by score descending, ties broken by premise id, and
+the top of that list up to the query's `top_k` is taken as the retrieval.
+
+The retrieval is then graded against itself. Each query declares the public
+premise ids it should surface, and the organ computes recall as the fraction of
+those expected ids that actually landed in the shortlist. A query that declares
+expectations but misses any of them blocks the run. In the first-wave fixture
+this is eleven premises and four queries, scoring forty-four considered
+candidates in total, and every query is expected to reach full recall.
+
+The failure mode this guards against is a premise-selection result that looks
+good because it cheated. The five negative-case inputs each encode one such
+shortcut: a premise index that ships a proof body, a query that lists the oracle
+premise ids it is "meant" to find, a query that tunes on test-split truth, a
+context recipe that blows past the byte budget, and a query naming a strategy id
+outside the allowed set. The run is required to observe all five rejections; if
+any expected rejection is missing, the whole fixture is blocked rather than
+passed. Recall over copied real metadata is the positive signal; the refusals
+are what keep that signal honest.
 
 ## Prior Art Grounding
 

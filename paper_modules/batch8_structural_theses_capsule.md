@@ -8,6 +8,72 @@ The capsule is bounded to replayable CP1/CP2 thesis-family validation. It does
 not authorize financial advice, investment recommendations, live market data,
 provider calls, portfolio action, publication, or release.
 
+## Purpose
+
+The copied source, `tools/finance/structural_theses.py`, takes a tempting idea
+and disciplines it. The tempting idea is that some market moves look
+structurally obvious, so a corpus of "obvious" theses ought to predict the
+next one. The trap is survivorship: it is easy to assemble a list of patterns
+that worked in hindsight and call the list a method.
+
+The single question the source answers is narrower and harder. Given claims
+that looked structurally obvious at the time they were written, which reasoning
+families still survive once you resolve every claim forward and keep the ones
+that failed? The load-bearing inversion is that "obvious" is treated as a
+claim-status frozen at commitment time, never as a label applied to outcomes
+afterwards. A thesis whose meaning shifts once the result is known is a
+post-hoc mutation, and the leakage guard rejects it.
+
+What is unusual is that losers and negative controls are first-class, required
+evidence rather than noise. A refuted thesis must flow through the same
+pipeline as a confirmed one and stay legible as valid evidence; a negative
+control must be present and must not resolve into a confirmed claim. The output
+vocabulary deliberately has no tradable "winner": the strongest a surviving
+pattern can earn is `review_candidate`, a flag for human review and nothing
+more.
+
+This capsule does not assert any of those findings as market truth. It imports
+the source verbatim, runs it over public synthetic rows, and checks that the
+discipline holds. It is not financial advice, an investment recommendation, or
+live-market validation.
+
+## What it validates
+
+The organ loads the copied finance source, builds one public winner, loser, and
+control family from a synthetic probe, and then exercises the source's own
+validator over both the clean family and three deliberately broken variants.
+
+The clean path confirms the at-time semantics survive a full run: the winner
+resolves `claim_confirmed_forward`, the loser resolves `claim_refuted_forward`
+and is marked valid evidence, the control resolves as a control without becoming
+a confirmed claim, the surviving pattern lands in family memory as a
+`candidate_set`, and the authority boundary keeps
+`investment_recommendation_authorized` false. Under the hood the source maps
+each thesis onto the existing forecast-claim shape and drives the real CP1
+admission, CP2 resolution, proper-scoring replay, and purged walk-forward replay
+with deterministic fixture prices rather than building a new evaluator.
+
+The three negative exercises are the substance of the proof, because each one
+forces a specific discipline to fire:
+
+- **Survivor-only.** A family built from winners alone, with no failed thesis,
+  must be rejected. The source raises `NO_LOSER_FLOWED_THROUGH`,
+  `NO_NEGATIVE_CONTROL`, and `SURVIVORSHIP_SAMPLE`; the organ confirms all three
+  appear (error code `BATCH8_STRUCTURAL_THESES_SURVIVOR_ONLY_REJECTED`).
+- **Forward-gate breach.** A refuted pattern is smuggled into the forward
+  review candidates. The source must raise `FORWARD_GATE_BREACH`, because only a
+  pattern that survived at-time replay may produce a `review_candidate`
+  (`BATCH8_STRUCTURAL_THESES_FORWARD_GATE_BREACH_REJECTED`).
+- **Control leak.** A negative control is mutated to claim it confirmed forward.
+  The source must raise `CONTROL_LEAK`
+  (`BATCH8_STRUCTURAL_THESES_CONTROL_LEAK_REJECTED`).
+
+If any of these refusals fails to fire, the organ records a blocked finding
+rather than a pass. Alongside the family check it verifies exact digest parity
+and required anchors for the copied source, so the page cannot drift away from
+the code it claims to exercise. Receipts carry verdicts, counts, error codes,
+and refs only; copied bodies, market data, and provider payloads stay out.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is
@@ -52,25 +118,30 @@ that JSON row, not a source-authority flip.
 
 ```mermaid
 flowchart TD
-  Capsule["JSON capsule row<br/>core/paper_module_capsules.json[63]"] --> Instance["Generated JSON instance<br/>paper_modules/batch8_structural_theses_capsule.json"]
-  Capsule --> Subjects["Subjects<br/>organ + mechanism"]
-  Capsule --> Laws["Law and doctrine refs<br/>P-1 P-2 P-5 P-6 P-8 P-9 P-15<br/>AX-1 AX-4 AX-5 AX-7 AX-8 AX-10"]
-  Capsule --> Deps["Sibling paper modules<br/>prediction oracle reconciliation<br/>batch12 prediction market board<br/>world-model projection drift"]
-  Instance --> Projections["Generated projections<br/>Mermaid: available_from_capsule_edges<br/>Atlas: linked_from_capsule_edges"]
-  Subjects --> Organ["Organ JSON<br/>organs/batch8_structural_theses_capsule.json"]
-  Subjects --> Mechanism["Mechanism JSON<br/>validates public structural theses capsule"]
-  Organ --> Runtime["Runtime locus<br/>src/microcosm_core/organs/batch8_structural_theses_capsule.py"]
-  Mechanism --> Runtime
-  Standard["Standards<br/>std_microcosm_batch8_structural_theses_capsule.json<br/>std_microcosm.json paper-module coverage contract"] --> Runtime
-  Runtime --> Fixture["Fixture input<br/>fixtures/first_wave/batch8_structural_theses_capsule/input"]
-  Runtime --> Bundle["Source bundle<br/>examples/.../exported_batch8_structural_theses_capsule_bundle<br/>source_module_manifest.json"]
-  Bundle --> Source["Exact copied source refs<br/>tools/finance/structural_theses.py<br/>plus finance/runtime dependencies"]
-  Fixture --> Receipts["Receipts<br/>first_wave result board validation<br/>acceptance fixture<br/>runtime-shell bundle validation"]
-  Bundle --> Receipts
-  Test["Focused regression<br/>tests/test_batch8_structural_theses_capsule.py"] --> Receipts
-  Receipts --> Ceiling["Authority ceiling<br/>public synthetic fixture + copied source evidence only"]
-  Projections -. navigation only .-> Ceiling
-  Ceiling -. forbids .-> NoClaims["No advice, recommendation, live market data,<br/>provider dispatch, portfolio action,<br/>publication, release, or whole-system correctness"]
+  Capsule["JSON capsule row<br/>core/paper_module_capsules.json[63]"] --> Runtime["Runtime locus<br/>organs/batch8_structural_theses_capsule.py"]
+  Source["Exact copied source<br/>tools/finance/structural_theses.py"] -->|digest + anchor parity| Runtime
+  Probe["Public synthetic probe<br/>winner, loser, control rows<br/>plus realized returns"] --> Runtime
+
+  Runtime --> Build["build_structural_thesis_family<br/>CP1 admit forward-only<br/>CP2 resolve vs frozen criterion<br/>proper-scoring + purged replay"]
+  Build --> Clean["validate_structural_thesis_family<br/>on the clean family"]
+  Clean --> CleanCheck{"Winner confirmed,<br/>loser refuted + valid evidence,<br/>control not confirmed?"}
+
+  Runtime --> Neg["Three broken variants"]
+  Neg --> Survivor["Survivor-only family<br/>NO_LOSER_FLOWED_THROUGH<br/>NO_NEGATIVE_CONTROL<br/>SURVIVORSHIP_SAMPLE"]
+  Neg --> Forward["Refuted pattern smuggled<br/>into forward candidates<br/>FORWARD_GATE_BREACH"]
+  Neg --> Control["Control mutated to confirmed<br/>CONTROL_LEAK"]
+
+  CleanCheck -->|yes| Pass["Bounded pass receipt"]
+  CleanCheck -->|no| Block["Blocked finding"]
+  Survivor -->|refusal fires| Pass
+  Forward -->|refusal fires| Pass
+  Control -->|refusal fires| Pass
+  Survivor -->|refusal missing| Block
+  Forward -->|refusal missing| Block
+  Control -->|refusal missing| Block
+
+  Pass --> Ceiling["Authority ceiling<br/>public synthetic fixture + copied source only"]
+  Ceiling -. forbids .-> NoClaims["No advice, recommendation, live market data,<br/>provider dispatch, portfolio action,<br/>publication, release"]
 ```
 
 The standards lane is split deliberately. The module-specific public runtime

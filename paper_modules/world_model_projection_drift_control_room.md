@@ -14,6 +14,30 @@ does not claim that the projection is source authority, that a live route was
 repaired, that private runtime state was inspected, or that Microcosm is
 publication-authorized or release-authorized.
 
+## Purpose
+
+This organ exists to answer one question: when a public read model says
+something has drifted, can that claim still be traced back to a real source
+artifact, or has the read model quietly started to stand in for the source?
+
+The design choice that makes this more than a shape check is that the supplied
+`drift_rows.json` is never trusted as input. The validator recomputes the drift
+rows from the public runtime receipt, then treats the supplied file only as an
+expected snapshot whose role is recorded as `expected_snapshot_not_source_authority`.
+If the snapshot disagrees with the recomputed rows, that is flagged as staleness,
+not accepted as fact. Each recomputed row is then diffed against a real
+source-state artifact: a row from the extracted-pattern ledger, or a view-quality
+action-map lens whose own summary is re-derived from its action rows. A row that
+cannot be re-derived from source, or whose guard reference or derivation path has
+changed, moves the verdict to `blocked`.
+
+The same boundary holds in the other direction. A drift row may name a repair
+route, but the route stays a label rather than an action: the validator rejects
+any row that authorises live repair, source mutation, automatic doctrine
+promotion, or release. A projection here can describe what is wrong and where to
+go next without ever being allowed to act on it or to speak for the source it
+describes.
+
 ## Telos
 
 Projection drift is the failure mode where a useful read model begins to look
@@ -194,24 +218,27 @@ not yet name a sibling dependency module.
 
 ```mermaid
 flowchart TD
-  Source["Source evidence\npublic receipts + source ledger + copied macro bodies"]
-  Rows["Drift rows\nsource/ref/target/repair/validation/fact authority"]
-  Runtime["Runtime validator\nworld_model_projection_drift_control_room.py"]
-  Reject["Rejection gates\nmissing refs, fake refs, private export, source authority, live repair"]
+  Receipt["Public runtime receipt\npublic_projection_drift_control_lens.json"]
+  Recompute["Recompute drift rows\nfrom selected_pattern_ids + receipt rows"]
+  Snapshot["Supplied drift_rows.json\nexpected snapshot, not source authority"]
+  SourceDiff["Source-state diff\nextracted-pattern ledger + view-quality action map"]
+  Geometry["View-quality geometry grade\nvia copied view_quality_census.py"]
+  Witness["Runtime receipt witness\nevery recomputed row appears in the receipt"]
+  Reject["Rejection gates\nmissing/fake refs, private export, source authority,\nlive repair, source mutation, doctrine promotion, release"]
   Receipts["Body-free receipts\nfirst-wave, acceptance, exported bundle"]
-  Capsule["JSON capsule\npaper_module.world_model_projection_drift_control_room"]
-  Projections["Generated projections\nMermaid available + Atlas linked"]
   Ceiling["Authority ceiling\nprojection evidence only"]
 
-  Source --> Rows
-  Rows --> Runtime
-  Runtime --> Reject
-  Runtime --> Receipts
-  Receipts --> Capsule
-  Capsule --> Projections
-  Reject --> Ceiling
+  Receipt --> Recompute
+  Recompute --> Snapshot
+  Recompute --> SourceDiff
+  Recompute --> Witness
+  Recompute --> Geometry
+  Snapshot --> Reject
+  SourceDiff --> Reject
+  Witness --> Reject
+  Geometry --> Reject
+  Reject --> Receipts
   Receipts --> Ceiling
-  Projections --> Ceiling
 ```
 
 The diagram is a reader projection. It sketches the evidence path and authority

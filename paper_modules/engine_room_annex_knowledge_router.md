@@ -3,6 +3,30 @@
 This staged Engine Room capsule imports the runnable route-selection core of
 the macro annex registry into Microcosm as a public-safe refactor.
 
+## Purpose
+
+The private system keeps a registry of annexes: reusable bodies of borrowed
+technique, each tagged with the domains, clusters, and problem spaces it speaks
+to. When an agent has a problem in front of it, something has to decide which
+annexes are worth opening. The macro side does this with `route_annexes`. This
+module is a source-faithful copy of that decision, narrowed so it can run in
+public without carrying the private corpus.
+
+It answers one question: given a problem statement and a sanitized catalogue,
+which annex rows are relevant, and exactly why. The "why" is the point. Rather
+than return an opaque relevance number, the router decomposes every row's score
+into four named buckets, so a reader can see whether a row ranked because its
+structured routing fields matched, because its description happened to share
+words, or because a curated note carried the weight.
+
+The design choice worth noting is the tiering. Structured routing metadata that
+someone deliberately authored scores far higher than free text that merely
+happens to contain a query word. An exact match on a `problem_spaces` field is
+worth 120 points; the same word appearing in a description is worth 6. This
+encodes a small but useful bias: trust the metadata an author chose over
+accidental word overlap in prose. It is a deliberately simple weighted-token
+scorer, not a learned retriever, and the page is careful not to dress it as one.
+
 ## What It Demonstrates
 
 - Structured routing fields score with the highest weights.
@@ -14,14 +38,34 @@ the macro annex registry into Microcosm as a public-safe refactor.
 ## Shape
 
 ```mermaid
-flowchart LR
-  A["Sanitized annex catalog"] --> B["Problem statement"]
-  B --> C["Field-weighted token scorer"]
-  A --> C
-  C --> D["Domain and cluster filters"]
-  D --> E["Ranked annex matches"]
-  D --> F["No-match receipt"]
-  E --> G["Score breakdown and matched notes"]
+flowchart TB
+  Problem["Problem statement\nnormalized to tokens"] --> Empty{"Empty after\nnormalization?"}
+  Empty -->|yes| NoMatch["No-match receipt\nstatus: no_match"]
+  Empty -->|no| Loop["For each annex row\nin sanitized catalog"]
+  Loop --> Filter{"Domain / cluster\nfilter matches?"}
+  Filter -->|no| Drop["Excluded before scoring"]
+  Filter -->|yes| Score["Four-tier token scorer"]
+
+  subgraph Tiers["Weighted scoring (exact / phrase / per-token)"]
+    Structured["Structured routing fields\n120 / 80 / 18"]
+    Family["Family text: slug, name,\ndescription, tags  32 / 24 / 6"]
+    OpenFirst["Open-first summaries\n20 / 16 / 4"]
+    Notes["Curated notes, relevance-sorted\n18 / 12 / 3"]
+  end
+
+  Score --> Structured
+  Score --> Family
+  Score --> OpenFirst
+  Score --> Notes
+  Structured --> Sum["Sum tiers into total score\n+ match_breakdown + matched_note_ids"]
+  Family --> Sum
+  OpenFirst --> Sum
+  Notes --> Sum
+  Sum --> Threshold{"total score > 0?"}
+  Threshold -->|no| Drop
+  Threshold -->|yes| Ranked["Ranked annex matches\nhighest score first,\nwith score breakdown"]
+  Drop --> Loop
+  Loop -->|no rows scored| NoMatch
 ```
 
 The shape is intentionally a public-safe router, not a corpus crawler. It reads

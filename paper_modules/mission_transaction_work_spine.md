@@ -1,5 +1,33 @@
 # Mission Transaction Work Spine
 
+## Purpose
+
+This organ exists because the riskiest moment in agentic code work is the one
+that feels safest: the agent runs a few checks, sees no errors, and concludes
+that its work is finished and committed. Those are different facts. A clean
+preflight describes the state of the checks. It says nothing about whether a
+competing claim already owns the same path, whether the branch has moved under
+the agent, or whether the commit ever actually landed. The single question this
+module answers is narrow and concrete: what evidence has to hold before a unit
+of work is allowed to land, and is that evidence checkable rather than asserted?
+
+The interesting design choice is that the module refuses to trust its own
+declared verdicts. Most fixtures pass when their inputs carry the right labels.
+Here the validator imports a copied, public-safe copy of the live Work Ledger
+runtime, rebuilds an active-claims snapshot from a sanitised session payload,
+and re-derives the pass-or-block decision from that recomputation rather than
+from any label baked into the fixture. It then perturbs the input one field at a
+time: a same-path claim conflict, a stale expected-parent hash, a checkpoint
+lane mutated into an unauthorised broad commit. A genuine check has to break
+under each of those and stay clear under harmless ones, such as a claim on an
+unrelated path. That asymmetry, not the bare pass, is the claim.
+
+The result is deliberately bounded. A pass means the public fixture, the
+exported source bodies, and the negative cases together preserve the
+work-landing contract and that its discriminating tests still discriminate. It
+does not touch the live Task Ledger, the live Work Ledger, or Git, and it grants
+no authority to commit, checkpoint broadly, back up, or release.
+
 ## Abstract
 
 `mission_transaction_work_spine` is the public Microcosm paper module for

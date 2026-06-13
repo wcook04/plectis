@@ -1,28 +1,58 @@
 # Verifier Lab Execution Spine
 
 `verifier_lab_execution_spine` is the public execution witness for the verifier
-lab lane. It is narrower than `verifier_lab_kernel`: it records a bounded tool
-execution bundle with command intent, tool version facts, stdout and stderr
-classification, receipt refs, and authority ceilings so a reader can separate
-real execution evidence from overstated proof claims.
+lab lane. It is narrower than `verifier_lab_kernel`: it actually runs bounded
+Lean transition candidates in a throwaway Lake project, records the return code
+of each run, and keeps every line of generated proof text and tool output out of
+the receipt. A reader can then separate real execution evidence from overstated
+proof claims.
 
-The organ consumes a public execution bundle with:
+The organ consumes a public execution packet with:
 
-- a declared command and fixture input ref;
-- allowed tool versions and runtime environment facts;
-- public-safe stdout and stderr summaries;
-- validator and acceptance receipt refs;
-- explicit failure-mode rows for missing command intent, missing tool facts,
-  missing receipt refs, and overclaiming proof authority.
+- transition candidates, each naming a problem id, a target shape, and one
+  action class from a fixed vocabulary (`rfl`, `decide`, `cases`, `induction`,
+  `exact_premise`, and similar);
+- a small Lake project whose `MicrocosmProofWitness` library the organ builds
+  once and reuses;
+- CP2 translation requests that ask for the next typed action after a residual,
+  and Evolve mutations that adjust bounded policy artifacts;
+- negative fixtures that smuggle a proof body, an oracle sidecar, a provider
+  hypothesis, or an unbounded source mutation into a row.
 
-The exported bundle validates that execution evidence stays bounded:
+The organ writes one `.lean` file per transition, runs `lake env lean` on it,
+and treats a zero exit code as `accepted`. It records the return code, the
+action class, and the failure class, but never the proof text, the stdout body,
+or the stderr body. The exported-bundle lane re-validates the same shape from a
+copied source-module manifest without re-running Lean, so a third party can
+inspect the bundle without a Lean toolchain installed.
 
-- subprocess or tool presence can witness that a command ran;
-- tool output can support fixture-level acceptance only;
-- proof bodies, provider payloads, private theorem statements, and raw tactic
-  scripts remain outside public receipts;
-- missing or stale execution facts block the receipt instead of becoming a
-  maturity or benchmark signal.
+## Purpose
+
+Automated proof systems can blur how a result was obtained. A model can be handed
+the answer by an oracle, or prompted with the proof by a provider, and still
+report the result as if it had found the proof unaided. This organ exists to keep
+that blurring out of the receipt. It answers one question: did a bounded
+Lean candidate actually pass the verifier, with no help that the receipt is
+hiding?
+
+The discipline that makes this work is the separation of authority classes.
+Every row lands in exactly one bucket: `lean_verified` for candidates the
+verifier accepted, `oracle_compared` and `provider_suggested` for rows that
+existed only as references, `cp2_translated` for the typed next-action layer,
+`retrieval_miss` and `proof_synthesis_fail` for residuals, and
+`contract_rejected` for anything that broke the leak rules. The unusual choice
+is what does not happen: an oracle match never increments forward success, and
+provider text is never counted as a proof. The counters
+`oracle_forward_success_increment_count` and `provider_results_counted` are held
+at zero by construction.
+
+The second idea is that real execution and clean receipts are not in tension. A
+candidate carrying `oracle_visible: true`, or a forbidden field such as
+`proof_body` or `raw_tactic_script`, is rejected before Lean is ever invoked, so
+the run cannot be contaminated. The transition then runs for real, and the
+receipt carries the return code and the failure class while the proof text and
+the stdout and stderr bodies stay out. The receipt is public evidence precisely
+because the only things omitted are the things that would leak.
 
 ## JSON Capsule Binding
 
@@ -43,30 +73,37 @@ The exported bundle validates that execution evidence stays bounded:
 
 ```mermaid
 flowchart TD
-    Capsule["JSON capsule\npaper_module.verifier_lab_execution_spine"]
-    Sidecar["Generated sidecar\npaper_modules/verifier_lab_execution_spine.json"]
-    Organ["Runtime organ\nverifier_lab_execution_spine.py"]
-    Fixture["First-wave fixture\nexecution_spine_packet + Lake project"]
-    Bundle["Exported execution bundle\nsource_module_manifest + copied public bodies"]
-    Tools["Lean/Lake subprocess witness\nreturn codes + tool facts"]
-    Negatives["Negative gates\nforbidden payloads, provider/oracle visibility, source mutation"]
-    Receipts["Receipts\nresult, board, validation, acceptance"]
-    Projections["Generated navigation projections\nMermaid + Atlas card"]
+    Packet["Execution packet\ntransition candidates, CP2 requests,\nEvolve mutations, oracle/provider refs"]
+    Gate["Leak contract gate\nforbidden fields? oracle/provider visible?\naction class out of vocabulary?"]
+    Rejected["contract_rejected\nrejected before Lean runs"]
+    Build["Build Lake project\nlake build MicrocosmProofWitness (once, cached)"]
+    Run["Run candidate\nwrite .lean, lake env lean,\nreturn code = accepted?"]
+    Verified["lean_verified\nreturn code 0"]
+    Residual["retrieval_miss / proof_synthesis_fail\nnon-zero return code"]
+    CP2["cp2_translated\ntyped next action, no proof body"]
+    Evolve["evolve_candidate / evolve_accepted\nbounded policy artifacts only"]
+    Refs["oracle_compared / provider_suggested\nreferences, never counted as success"]
+    Counters["Authority counters\noracle_forward_success = 0,\nprovider_results = 0, proof_body_export = 0"]
+    Receipts["Body-free receipts\nresult, board, validation, acceptance;\nreturn codes kept, bodies omitted"]
     Ceiling["Authority ceiling\nbounded public transition receipt only"]
 
-    Capsule --> Sidecar
-    Capsule --> Projections
-    Sidecar --> Organ
-    Organ --> Fixture
-    Organ --> Bundle
-    Fixture --> Tools
-    Bundle --> Tools
-    Tools --> Receipts
-    Fixture --> Negatives
-    Bundle --> Negatives
-    Negatives --> Receipts
+    Packet --> Gate
+    Gate -->|leak found| Rejected
+    Gate -->|clean| Build
+    Build --> Run
+    Run -->|exit 0| Verified
+    Run -->|non-zero| Residual
+    Packet --> CP2
+    Packet --> Evolve
+    Packet --> Refs
+    Verified --> Counters
+    Residual --> Counters
+    CP2 --> Counters
+    Evolve --> Counters
+    Refs --> Counters
+    Rejected --> Receipts
+    Counters --> Receipts
     Receipts --> Ceiling
-    Projections --> Ceiling
 ```
 
 Evidence/accounting used for this shape:

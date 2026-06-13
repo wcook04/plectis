@@ -33,6 +33,33 @@ visible as a landed public replacement when its extension board exists, and
 points back to the macro projection intake board without copying private
 macro bodies.
 
+## Purpose
+
+A cold reader meeting Microcosm for the first time needs one thing the README
+cannot give them on its own: proof that the first ten minutes are real and not
+a tour of screenshots. This organ answers a single question. Can a reader who
+has never seen the system run a short, fixed path from a command to local
+state, to a route, to the receipt and source boundary behind it, with nothing
+on that path that the system does not actually run?
+
+The validator enforces that path as an accounting floor rather than a
+narrative. A reveal only passes if it carries at least five steps, four
+distinct runnable commands, and four evidence refs, and if four overclaim
+fixtures stay rejected: a release or hosting claim, a private-data equivalence
+claim, a step with no evidence ref, and marketing copy with no command behind
+it. The floor exists because a walkthrough drifts towards a hero pitch the
+moment it is allowed to. Removing the commands and the receipt refs is the
+easiest way to make a reveal look more impressive and prove less.
+
+The part worth noting is the real-lane witness. The fixture run does not pass
+on its own paperwork. It is gated on the exported reveal bundle actually
+running, with its copied non-secret source bodies present and digest-verified.
+If that backing run is missing or blocked, the fixture is marked blocked too,
+with `real_runtime_receipt` set to false. So the reveal cannot describe a
+runnable path while the runnable path is broken underneath it, which is the
+quiet failure mode of every quick-start guide that says more than it can
+execute.
+
 ## Shape
 
 Public Reveal Walkthrough is the source-backed entry membrane for a cold

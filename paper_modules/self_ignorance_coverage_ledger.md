@@ -1,5 +1,13 @@
 # Self-Ignorance Coverage Ledger
 
+## Purpose
+
+A navigation system that lists what it knows is easy to build. A system that can state, precisely, what it has not yet covered is harder, and it is the more honest signal to a cold reader. This organ answers one question: for a declared set of Kind Atlas families, how many rows does the option surface expose that the generated System Atlas has not yet materialised?
+
+The answer is a small debt vector, computed rather than asserted. For each selected kind the organ recomputes the live Kind Atlas row count through `system.lib.kind_atlas.build_kind_atlas`, counts the entities the `build_system_atlas.py` graph has actually materialised for that kind, and reports the difference as known coverage debt. Concepts, mechanisms and standards are checked back to real macro source files so the materialised set cannot be inflated with names that have no file behind them.
+
+The unusual part is what the validator refuses. It will not accept a fixture that claims its unknown-unknowns are exhaustive: declaring `claims_unknown_unknowns_exhaustive` raises a finding rather than passing. The ledger reports a bounded count of gaps it can see and explicitly declines to claim there are no others. Known debt is treated as typed residual pressure, not as a completeness proof, and absence of a row is never read as proof that nothing is missing.
+
 ## Abstract
 
 `self_ignorance_coverage_ledger` is a public Microcosm Crown Jewel organ that measures a narrow, source-grounded form of self-ignorance: known row-level coverage debt between live Kind Atlas option-surface counts and generated System Atlas materialization evidence. It recomputes the selected Kind Atlas families, derives materialized entity IDs from a `build_system_atlas.py` graph snapshot, source-validates graph-derived entity IDs, replays semantic negative cases, and emits body-free receipts with anti-claims.

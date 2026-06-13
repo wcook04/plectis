@@ -8,8 +8,18 @@ bodies for the Zenith app route/window catalog, backend boot evidence policy,
 recording telemetry contract, API client, WebKit bridge, runtime supervisor,
 hot-key center, and Swift tests.
 
-The full package remains covered by the original SwiftPM witness: `swift test`
-in `apps/zenith-macos`, observed passing 17 tests on May 31, 2026.
+The page answers one question: can a cold reader see what the macOS shell does,
+and trust that the copied Swift matches the real app, without the app being
+launched or the private source tree being shipped? The interesting part is that
+the Zenith package lives outside the public slice, so the capsule carries two
+kinds of witness for the same code. Inside the slice it reads the copied Swift
+bodies and checks specific contract tokens against the copied Swift tests. When
+the original package is reachable it also runs `swift test` in
+`apps/zenith-macos` as an external witness, recording the status and the
+expected count of 17 tests. When the
+package is severed from the checkout, the organ types that absence honestly
+(`BATCH7_ZENITH_ORIGINAL_PACKAGE_UNREACHABLE`) and falls back to the copied
+digest, line-count, and anchor checks rather than reporting a misleading pass.
 
 ## Real Substrate Boundary
 
@@ -27,12 +37,39 @@ in `apps/zenith-macos`, observed passing 17 tests on May 31, 2026.
 
 ## Engines
 
-1. `zenith_route_identity_catalog` verifies native and web route identity: `/`
-   normalizes to `/station`, Station maps to the cockpit window, native lenses
-   map to native scenes, and Swift tests cover those rules.
-2. `zenith_backend_boot_policy` verifies boot-screen latching, managed-backend shutdown safety, repo-local start-command projection, and structured boot diagnostics.
-3. `zenith_recording_telemetry_contract` verifies `RecordingViewEventBody`, snake-case encoding, `/api/recording/view-event`, host/web stamping, and Swift test coverage.
-4. `zenith_swiftpm_witness` runs the original SwiftPM test suite and records only status, return code, expected test count, and output byte counts.
+Each engine reads copied Swift bodies and asserts that named tokens are present.
+A missing token flips the engine to `blocked` and emits a specific finding code,
+so the failure a check guards against is named rather than implied.
+
+1. `zenith_route_identity_catalog` checks that route resolution is
+   deterministic: an empty or `/` route normalizes to `/station`, `/station`
+   maps to the cockpit scene, native lenses such as `rawSeedCapture`,
+   `gateQueue`, and `runtimePanel` carry their own scene ids, and the Swift
+   tests covering those rules are present. The failure it guards against is a
+   window resolving to the wrong scene, or two routes collapsing to one.
+2. `zenith_backend_boot_policy` checks the safety rules around starting and
+   stopping the local backend. A loaded web lens latches so the boot overlay is
+   suppressed for that window (`loadedWebViewWindowIDs.contains(windowID)`); the
+   managed-shutdown path only acts on processes that look like the Zenith
+   backend (`commandLooksLikeZenithBackend`), so an external or unrecognised
+   process is never killed; the start command is the repo-local
+   `./repo-python run_server.py` rather than an absolute host path; and the boot
+   diagnostic surfaces evidence (`recoveryReason`, `lastProbeFailureMessage`,
+   `backendLaunchInFlight`) instead of a bare spinner. The matching Swift tests
+   must exist for each rule.
+3. `zenith_recording_telemetry_contract` checks the wire shape of recording
+   telemetry: `RecordingViewEventBody` is declared `Codable, Sendable`, the API
+   client encodes with `.convertToSnakeCase` and posts to
+   `/api/recording/view-event`, and host- and web-originated events are both
+   stamped (`hostStampedWebRecordingEvent`, `makeWebRecordingEvent`,
+   `zenith_host`). The failure it guards against is a telemetry body whose keys
+   no longer match what the backend expects. The check confirms the schema and
+   stamping contract; it posts no event.
+4. `zenith_swiftpm_witness` runs the original SwiftPM test suite when the package
+   is reachable and records only status, return code, expected and observed test
+   count (17), and stdout/stderr byte counts. The receipt also stores the
+   observed duration against a 240-second timeout budget, so a future hang is
+   diagnosable rather than silent. No stdout or stderr body enters the receipt.
 
 ## Anti-Claim
 
@@ -44,21 +81,30 @@ that every UI path is covered.
 
 ```mermaid
 flowchart TD
-    A["Authored Markdown projection<br/>paper_modules/batch7_zenith_macos_capsule.md"] --> B["Runtime evidence<br/>src/microcosm_core/organs/batch7_zenith_macos_capsule.py"]
-    C["Swift source-copy manifest<br/>examples/batch7_zenith_macos_capsule/.../source_module_manifest.json"] --> B
-    D["Mechanism source row<br/>core/mechanism_sources.json"] --> B
-    B --> E["SwiftPM witness summary<br/>focused pytest<br/>body-free receipts"]
-    E --> F["JSON capsule row<br/>core/paper_module_capsules.json"]
-    F --> G["Mermaid available from capsule edges"]
-    F --> H["Atlas remains blocked until accepted-organ lane binds organ authority"]
+    M["Copied Swift source modules<br/>+ source_module_manifest.json"] --> G["Source manifest gate<br/>digests, line counts, anchors"]
+    G --> E1["Route identity catalog<br/>/ to /station, scene ids"]
+    G --> E2["Backend boot policy<br/>web latch, shutdown gate,<br/>repo-local command, diagnostics"]
+    G --> E3["Recording telemetry contract<br/>snake_case keys, host stamping"]
+    P["Original apps/zenith-macos package"] --> W{"package reachable?"}
+    W -->|yes| WT["swift test witness<br/>17 tests, byte/duration counts"]
+    W -->|no| WB["BATCH7_ZENITH_ORIGINAL_PACKAGE_UNREACHABLE<br/>copied digests stay load-bearing"]
+    E1 --> N["Negative-case probes<br/>remove tokens, expect findings"]
+    E2 --> N
+    E3 --> N
+    WT --> R["Body-free receipts<br/>status, findings, ceilings"]
+    WB --> R
+    N --> R
+    R --> C["JSON capsule row<br/>core/paper_module_capsules.json"]
+    C --> A["Atlas blocked until accepted-organ lane<br/>binds organ authority"]
 ```
 
-The shape is intentionally a mechanism-backed reader route, not an app-control
-route. It ties the public-safe Swift source copies, fixture manifest, focused
-tests, receipts, mechanism registry row, and paper-module capsule row to the
-current runtime locus while preserving the boundary that no accepted-organ,
-macOS permission, backend control, browser/provider access, app launch, complete
-UI coverage, or release authority is created.
+The shape is the runtime evaluation flow, not an app-control route. Copied Swift
+modules pass a manifest gate, three token-checking engines and the dual SwiftPM
+witness produce evidence, negative-case probes confirm that removing a contract
+token is rejected, and the body-free receipt feeds the paper-module capsule row.
+Throughout it preserves the boundary that no accepted-organ, macOS permission,
+backend control, browser/provider access, app launch, complete UI coverage, or
+release authority is created.
 
 ## Reader Proof Boundary
 

@@ -1,5 +1,35 @@
 # Microcosm Axiom Substrate
 
+The Microcosm axiom substrate routes a reader from axiom doctrine to a read-only
+evaluator that measures how much on-disk evidence actually backs each axiom, and
+reports where that evidence runs out.
+
+## Purpose
+
+A doctrine file can assert that a system holds twelve axioms. The harder question
+is whether anything checkable stands behind each one. This module answers a single
+question: for each piloted axiom, how strong is the support that already exists on
+disk, and exactly where does it stop short of proof?
+
+The unusual part is what the evaluator refuses to do. The routing source hand-stamps
+eleven of the twelve axioms as `strong` and labels each with the anti-axiom it is
+meant to reject, for example AX-1 against `asserted_label_is_truth` or AX-5 against
+`silent_default_pass`. The evaluator reads those labels and declines to ratify them.
+It recomputes support from the witness organs, checker surfaces, receipts, and
+negative cases each obligation actually cites, and for every axiom it returns a
+`strongest_allowed_claim` that is capped below `strong`. No node ever reports
+`strong_certified: true`. The honesty contract is turned on the evaluator itself:
+because the evaluator is also a Microcosm artifact, AX-12 (`meta_artifact_exemption`)
+forbids it from treating its own generated output as evidence for itself.
+
+The reason support cannot reach `strong` is made explicit rather than hidden. The
+routing defines `strong` as computing the property and rejecting the named anti-axiom
+with a negative case. Today the evaluator can confirm that a witness organ's receipt
+records a complete negative-case suite, but it will not map that endpoint coverage onto
+a particular obligation's anti-axiom slice. That mapping stays `mapping_verified: false`
+unless a source-owned row declares an exact or subsuming rejection. The gap is reported
+as pressure to do more witness work, never closed by relabelling.
+
 ## Teleology
 
 Microcosm axioms compress the public substrate's recurring formal commitments
@@ -23,9 +53,9 @@ Microcosm axiom/principle surfaces:
 
 ## Executable Support Surface
 
-`validator.microcosm.axiom_support_cover` is the read-only executable surface
-for the current AX-1/AX-8 pilot. It compiles `support_cases`,
-`support_frontiers`, `principle_support_index`,
+`validator.microcosm.axiom_support_cover` is the read-only executable surface for
+the piloted axioms in `core/axiom_organ_routing.json`, currently AX-1 through AX-12.
+It compiles `support_cases`, `support_frontiers`, `principle_support_index`,
 `anti_axiom_rejection_mappings`, and `strong_gate_summary` from source routing,
 standard grammar, receipts, witness surfaces, and evidence-class registries. Its
 output is a projection below source authority: it may expose pressure and
@@ -36,13 +66,22 @@ release.
 
 ```mermaid
 flowchart TD
-    A["Axiom doctrine refs<br/>AXIOMS.md, PRINCIPLES.md,<br/>ANTI_PRINCIPLES.md"] --> B["Routing source<br/>core/axiom_organ_routing.json"]
-    C["Standard<br/>standards/std_microcosm_axiom.json"] --> D["Read-only validator<br/>src/microcosm_core/validators/axiom_support_cover.py"]
-    B --> D
-    D --> E["Support cases, frontiers,<br/>anti-axiom mapping readback"]
-    E --> F["Mechanism subject<br/>mechanism.microcosm_axiom_substrate.*"]
-    F --> G["Paper-module capsule<br/>source_authority: json_capsule"]
-    G --> H["Generated corpus<br/>Mermaid available, Atlas host bounded"]
+    Routing["Routing rows<br/>core/axiom_organ_routing.json<br/>axiom, anti-axiom, obligations,<br/>hand-stamped witness_strength"]
+    Bind["Per-obligation binding<br/>witness organs, checker surfaces,<br/>receipts, negative-case codes"]
+    Resolve{"Does the binding<br/>resolve on disk?"}
+    Capped["Capped support<br/>blocked or layer_debt"]
+    Ceiling["Eight-component ceiling vector<br/>evidence_class, checker_scope,<br/>provenance, freshness, domain,<br/>negative_case, authority, projection"]
+    Reject["Anti-axiom rejection mapping<br/>tier + mapping_relation;<br/>mapping_verified stays false<br/>without a source-owned row"]
+    Meet["Bilattice meet<br/>support status AND rejection status"]
+    Claim["Node claim ceiling<br/>strongest_allowed_claim<br/>strong_certified: false"]
+    Pressure["Candidate-axiom pressure<br/>witness debt, rejection-mapping debt,<br/>sharpen the over-stamped row"]
+
+    Routing --> Bind --> Resolve
+    Resolve -- "no" --> Capped --> Meet
+    Resolve -- "yes" --> Ceiling --> Meet
+    Bind --> Reject --> Meet
+    Meet --> Claim
+    Claim --> Pressure
 ```
 
 The shape makes the axiom substrate inspectable without converting pressure
@@ -50,6 +89,50 @@ into proof. Doctrine refs, routing JSON, the axiom standard, validator output,
 and focused tests can show support/frontier structure; the capsule makes that
 route walkable through a mechanism and code locus, but it cannot certify a
 strong gate, promote candidate law, or authorize release.
+
+## How support is computed
+
+Each routing row names an axiom, the anti-axiom it should reject, and a list of
+obligations. Each obligation carries a binding: the witness organs, checker
+surfaces, receipts, and negative-case codes that are meant to back it. The
+evaluator first checks that every cited piece of material actually resolves. A
+witness organ must exist in `core/organ_registry.json`, a witness surface must
+exist on disk or match a glob, and a negative-case code must be declared on the
+row. Any unresolved reference caps the obligation at `blocked_binding_unresolved`
+rather than letting it pass silently. An obligation the routing marks as
+`layer_debt` is recorded as partial witness debt that caps the axiom without
+weakening it.
+
+For obligations whose bindings resolve, the evaluator computes a ceiling vector
+across eight named components: `evidence_class`, `checker_scope`, `provenance_class`,
+`freshness_state`, `domain_scope`, `negative_case_status`, `authority_scope`, and
+`projection_scope`. Each component is read off the bound material, not asserted.
+`evidence_class`, for instance, is the strongest evidence rank among the witness
+organs and never exceeds it. `freshness_state` is pinned to its honest floor,
+`unknown_live_freshness_no_refresh_contract`, because a deterministic basis digest
+proves reproducibility but not that the inputs are current. Two components,
+`authority_scope` and `projection_scope`, carry an explicit non-laundering note:
+read-only validator output and generated projections cannot be read back as source
+evidence.
+
+The axiom-level verdict is the meet of two separate judgements. One is positive
+support, folded from the obligations' resolution states. The other is the
+anti-axiom rejection mapping, tracked apart from support so that organ-level
+negative-case coverage can never quietly stand in for a per-obligation rejection.
+Because rejection mapping is almost never verified, the meet caps every axiom below
+`strong`, and the receipt records the precise blocking reason. Where an obligation
+is unresolved, in layer debt, or has an unverified rejection mapping, the evaluator
+emits candidate-axiom pressure: witness debt, rejection-mapping debt, or a sharpen
+signal against a row whose hand-stamped `strong` it cannot certify. The forbidden
+move is always the same, recorded on the pressure itself: do not lower the axiom bar
+to make coverage look green.
+
+Support for principles is derived, not measured directly. The evaluator parses each
+principle's `Obligation grounding:` line in `PRINCIPLES.md` and inherits support from
+the grounding obligations, so a principle is never stronger than the obligations it
+rests on. As a separate guard it flags any binding that tries to cite a principle as
+a witness, since a principle leaning on an axiom cannot also serve as that axiom's
+evidence.
 
 ## Anti-Axiom Rejection Mapping
 

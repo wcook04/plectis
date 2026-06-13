@@ -15,6 +15,34 @@ gating for synthetic multi-agent lanes, not private mission-control runtime,
 provider dispatch, live scheduling, production concurrency safety, hosted
 orchestration, or release approval.
 
+## Purpose
+
+When several agents work the same repository at once, the dangerous moment is
+not a crash. It is a quiet one: two lanes edit the same generated file, or one
+lane commits work whose owner has not finished, and nobody notices until the
+state is already wrong. This organ exists to make that moment a checkable
+verdict rather than a judgement call.
+
+The single question it answers is: given a dirty path and the live claim
+topology around it, is acting on that path safe, and if not, what must happen
+first? The answer is never "probably fine". Each case resolves to a named
+classification and one allowed action, so a lane can decide whether to proceed,
+hand off, or wait.
+
+What is unusual is where the evidence comes from. Rather than re-implementing a
+scheduler, the organ runs the real macro mission-control builder over public
+synthetic lanes and reads a public snapshot of the Work Ledger's seed-speed
+topology: who holds which claim, whether their heartbeat is current, and where
+path claims collide. The most pointed part is the pair of classifier lenses.
+The generated-surface lens looks at a dirty generated file (`ORGANS.md`,
+`ARCHITECTURE.md`, `AGENT_ROUTES.md`, `agent_task_routes.json`) and decides
+whether its owner is live, stale, or absent, because that decides whether you
+may regenerate it from a sibling lane. The closure-state lens then folds in
+validation, commitability, and residual evidence to say whether a piece of work
+is genuinely closed or only looks closed. Both lenses default to the cautious
+verdict when the evidence is thin, which is the behaviour the page is really
+about.
+
 ## Prior Art Grounding
 
 This organ borrows from workflow DAGs, lease-based coordination, atomic commit
@@ -45,20 +73,28 @@ scheduling, production concurrency safety, hosted orchestration, or release.
 
 ```mermaid
 flowchart LR
-  Builder["Copied macro builder\nmission board,\nbridges, receipt"]
+  Builder["Copied macro builder\nrun in temp seed root:\nmission board, bridges,\nreceipt"]
   Bridge["Public bridge artifacts\nprovider canary and\nTask Ledger cap economy"]
-  Validator["concurrency_mission_control validator"]
-  Matrix["Failure matrix\nconflict, duplicate run,\ndependency, lease,\nreceipt, finalizer"]
-  Seed["Work Ledger seed-speed topology\nheartbeat, mutation-check,\nsession and claim counts"]
-  Negative["Negative floor\nmissing seed root,\nblocked bridge,\nauthority collapse,\nprivate runtime,\nclaim collision"]
-  Receipt["Receipts\nrefs, digests, anchors,\ncounts, verdicts;\nbody text omitted"]
+  Seed["Work Ledger seed-speed snapshot\nclaims, heartbeats,\ncollisions, session cards"]
 
-  Builder --> Validator
-  Bridge --> Validator
-  Validator --> Matrix
-  Validator --> Seed
-  Matrix --> Negative
-  Seed --> Negative
+  subgraph Engines["Six engines (all must pass)"]
+    Matrix["failure_matrix_gate\nconflict, duplicate run,\ndependency, lease,\nreceipt, finalizer visible"]
+    Membrane["bridge_authority_membrane\nbridges green,\nauthority-collapse zero,\nforbidden claims blocked"]
+    SeedGate["work_ledger_seed_speed_gate\nheartbeat current,\npath claims collision-free"]
+    SurfaceLens["generated_surface_claim_lens\ndirty generated file:\nowner live / stale / absent\n-> allowed action"]
+    ClosureLens["closure_state_lens\nclosed and committed,\nvalidation deferred,\nor open and unclassified"]
+  end
+
+  Negative["Negative floor\nmissing seed root,\nblocked bridge,\nauthority collapse,\nprivate runtime,\nclaim collision"]
+  Receipt["Body-free receipts\nrefs, digests, anchors,\ncounts, verdicts;\nno session or proof bodies"]
+
+  Builder --> Matrix
+  Builder --> Membrane
+  Bridge --> Membrane
+  Seed --> SeedGate
+  Seed --> SurfaceLens
+  Seed --> ClosureLens
+  Engines --> Negative
   Negative --> Receipt
 ```
 
@@ -76,6 +112,23 @@ flowchart LR
   seed-speed status, mutation-check commands, multi-session/claim counts, and
   collision-free path-claim rows are present without exporting private Work
   Ledger session bodies.
+- `generated_surface_claim_lens` takes a dirty generated entry surface and the
+  claim rows around it and returns one of a fixed set of classifications:
+  `owned_live` (an owner holds a live claim, so do not patch from a sibling
+  lane), `owned_stale` (release or supersede the stale claim before
+  regenerating), `unowned_generated_drift` (claim the builder lane, regenerate,
+  and revalidate), `unrelated_dirty_state`, or `clean`. Each classification
+  carries the single allowed action, so the verdict is what a lane should do,
+  not just what it observed.
+- `closure_state_lens` decides whether a unit of work is genuinely closed. It
+  folds the generated-surface classification together with validation state,
+  commitability, and any open residual, separating `closed_and_committed` from
+  the cases that only look done: `closed_validation_deferred` (validation
+  parked under host pressure), `closed_uncommitted_authority` (event authority
+  exists but shared append logs are unsafe to stage), `false_residual_stale`
+  (a residual left open against a passing generator check), or
+  `open_unclassified` when the closure evidence is simply insufficient. The
+  default is the last of these, so absent evidence never reads as success.
 
 ## Structured Lattice Bindings
 

@@ -4,8 +4,8 @@
 claims inspectable without turning receipt summaries into proof authority. It
 resolves paper-module claims to evidence-cell ids, checks source-anchor refs,
 records machine-anchor classes, and enforces a claim-strength boundary before
-any proof-language claim can pass. Its formal-math trace cell now anchors the
-real Ring2 verifier-trace repair receipts rather than a generic public lens.
+any proof-language claim can pass. Its formal-math trace cell anchors the
+real Ring2 verifier-trace repair receipts.
 
 It is not a theorem prover. It does not execute Lean or Lake, expose proof
 bodies, expose private source refs, call providers, or claim theorem
@@ -13,6 +13,34 @@ correctness. It emits real runtime receipts over the imported evidence-cell
 substrate, carries digest-bearing Ring2 failure-taxonomy and graph-update
 source refs, and uses secret-exclusion scanning only for credential-equivalent
 or non-receipt body payloads.
+
+## Purpose
+
+Proof-adjacent prose is the easiest place for a claim to drift. A paper module
+can write "this proves the theorem" or "this is certified" and a cold reader has
+no cheap way to tell whether the words are backed by a checked artifact or by
+nothing at all. This organ answers one question: when a claim uses proof
+language, can the words be resolved to a specific piece of public evidence, and
+does that evidence stay below theorem-correctness authority?
+
+The mechanism is an evidence cell. A cell is a stable id that stands in for a
+bundle of receipt-backed evidence: its source-anchor refs, a `machine_anchor_class`
+that names what kind of machine artifact backs it, and the list of claim
+strengths the cell is allowed to support. The policy
+`proof_language_requires_machine_anchor` is the rule that makes the resolver
+useful. A claim that uses proof language must name a cell, the cell must resolve
+in the registry, and its source anchors must point at files that actually exist
+on the public path. A claim that uses proof language but names no cell, or names
+a cell that is not in the registry, lowers the run to a blocked status rather
+than passing as green prose.
+
+What is worth noticing is what the cell id buys. It is a compressed handle: one
+short reference that a reader can follow back to the real receipts behind a
+claim, instead of inlining proof bodies or trusting narrative. Two boundaries
+sit on top of that handle. Claim strength is capped by the cell, so a claim
+cannot assert more than its anchored evidence allows. And human approval is
+refused as a substitute for a machine anchor, which keeps a sign-off from being
+treated as proof.
 
 ## JSON Capsule Binding
 

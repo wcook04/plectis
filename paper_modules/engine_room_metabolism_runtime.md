@@ -3,6 +3,38 @@
 This staged Engine Room capsule imports the always-on metabolism runtime shape
 into Microcosm as a public-safe synthetic SQLite capsule.
 
+## Purpose
+
+A long-running agent runtime keeps a durable record of work: jobs to do, leases
+held by workers, runs in flight, and claims asserted on a shared blackboard.
+That record drifts out of step with reality. A worker dies mid-run and its lease
+never gets released. A run finishes but the job it belonged to is still marked
+running. A launch log goes stale because nothing is writing to it. The question
+this component answers is narrow: given the durable state alone, which rows are
+now inconsistent, and which of those should a person look at before anything
+touches them?
+
+The interesting choice is what the reconciliation pass does not do. It reads the
+jobs and runs tables, applies its rules, and emits findings tagged
+`operator_review_required`. It does not auto-repair. An expired lease has a clean
+recovery path, so `requeue_expired_jobs` moves it back to `recoverable` on its
+own. But a running job with no run row, or a finished run whose job still reads
+running, is ambiguous: the safe move is to surface it, not to guess. The
+component draws that line deliberately and refuses to cross it.
+
+The blackboard makes the same refusal. Claims are not edited or deleted in
+place. An assertion is one event row; a contradiction, expiry, or supersession
+is a separate event that points back at the assertion it invalidates. The active
+view is then projected by replaying the event log and dropping any assertion an
+invalidating event named. State is reconstructed from an append-only history
+rather than mutated, so the reason a claim is no longer active stays on the
+record.
+
+This is a synthetic SQLite exercise, not the live runtime. It ships fixtures and
+a real database file, exercises the queue, lease, projection, and reconciliation
+paths, and emits a receipt. It does not carry the private macro database, dispatch
+any worker or provider, or stand in for distributed-database behaviour.
+
 ## Shape
 
 The module is a staged, synthetic runtime model over a local SQLite database.
@@ -44,8 +76,11 @@ flowchart TD
 ## What It Demonstrates
 
 - WAL-enabled SQLite schema for jobs, runs, and blackboard claim events.
-- Idempotent job insertion through an active-state idempotency index.
-- Lease claim and expired-claim recovery into `recoverable`.
+- Idempotent job insertion through a partial unique index on `idempotency_key`
+  scoped to the active states. A duplicate enqueue while the job is still live is
+  rejected; once the job reaches a terminal state the key is free to re-enqueue.
+- Lease claim and expired-claim recovery into `recoverable`: a claim carries an
+  expiry, and `requeue_expired_jobs` returns any lapsed claim to the queue.
 - Blackboard claim-event projection that removes contradicted assertions.
 - Cold-start reconciliation findings for:
   - `running_job_no_run_row`

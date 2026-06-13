@@ -10,6 +10,31 @@ as `retrieval_hit`, `partial_retrieval_miss`, `retrieval_miss`, or
 with all needed premises retrieved is a different failure than a missing premise
 retrieval path.
 
+## Purpose
+
+When a proof search fails, it is easy to blame the prover and miss the simpler
+cause: the right supporting facts were never put in front of it. This organ
+exists to keep those two cases apart. It answers one question: did the retrieval
+step actually surface the premises a problem needed, or did the failure happen
+somewhere downstream after the premises were already in hand?
+
+It answers that by recomputing precision and recall from copied records rather
+than trusting a reported figure. For each problem it intersects the retrieved
+premise ids with the labelled needed-premise ids, then reads the proof outcome
+alongside that overlap. Full recall with a passing proof is a `retrieval_hit`;
+full recall with a non-passing proof is `proof_failure_despite_hit`, the case
+where retrieval did its job and the fault lies elsewhere. Partial overlap and
+zero overlap are graded as `partial_retrieval_miss` and `retrieval_miss`.
+
+The unusual part is the direction the labels are allowed to flow. The needed
+premise ids are after-the-fact measurement labels, and the organ treats them as
+strictly one-way: they may be used to score a finished run, but they may not be
+fed back into the retrieval ranking, used to tune on a test split, or carried
+into a provider-context recipe. Planting an oracle label inside a ranking, or
+tuning on test answers, is a typed refusal, not a higher score. The point is a
+metric that cannot quietly become the very advantage it is meant to measure, and
+that never inflates a retrieval result into a claim about proof correctness.
+
 ## Shape
 
 ```mermaid

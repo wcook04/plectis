@@ -12,6 +12,34 @@ source rows are the JSON capsule, mechanism registry row, organ atlas binding,
 standard contract, fixture, exported bundle, organ source module, and receipts
 named below. Markdown remains an authored projection over those rows.
 
+## Purpose
+
+The organ answers one question: can a mutation proposal acquire the authority to
+change something just by asserting that it should? In an agent system the danger
+is an action that grants itself permission, for example by claiming a standing
+credential, by recording a policy vote nobody can see, or by reporting success
+after the fact. This fixture is the boundary that refuses each of those moves.
+
+Authorisation here is derived, not asserted. A proposal is admitted only when an
+independent chain resolves: redacted proof cells that name validator receipts,
+at least two visible policy verdicts evaluated before any execution identity is
+minted, a logged side-effect diff for write and rollback proposals, a paired
+rollback receipt, and a cold-replay receipt. The validator recomputes an
+evidence-chain hash from those resolved rows and rejects the proposal if the
+declared hash does not match. Impressive language, an admin-looking identity, or
+a final answer that says it worked all fail on their own.
+
+The less obvious part is the anti-bake gate. Passing the synthetic chain is not
+enough: every authorised proposal must also bind to a real repository record, a
+concrete git commit that the validator resolves with a `git` subprocess and
+checks touched this organ's own source or its focused test. The validator then
+re-derives the proof, policy, and rollback refs from the evidence indices and
+compares them to what the record declares. A fixture cannot pre-bake its answer,
+because the answer is reconstructed from real commit scope and the resolved
+rows rather than read from the file. The fixture admits exactly three synthetic
+proposals (read-only inspection, scoped config write, rollback) and rejects
+eight named overclaims; none of this grants any live mutation authority.
+
 ## Shape
 
 - Subject: `proof_derived_governed_mutation_authorization`, with mechanism
@@ -37,29 +65,70 @@ named below. Markdown remains an authored projection over those rows.
 
 ```mermaid
 flowchart TD
-  Proposals["mutation_proposals.json<br/>3 synthetic proposals"]
-  ProofCells["proof_evidence_cells.json<br/>validator-backed proof refs"]
-  Policies["policy_verdicts.json<br/>visible pre-execution verdicts"]
-  Effects["side_effect_ledger.json<br/>diff refs for write / rollback"]
-  Rollbacks["rollback_receipts.json<br/>paired rollback evidence"]
-  Replay["cold_replay.json<br/>rerun refs for each proposal"]
-  Records["governed_mutation_records.json<br/>real public-safe record refs"]
-  SourceManifest["source_module_manifest.json<br/>6 copied non-secret macro bodies"]
-  Validator["authorization predicate<br/>validate_* functions + negative cases"]
+  Proposals["mutation_proposals.json<br/>3 synthetic proposals:<br/>read-only, scoped write, rollback"]
+
+  subgraph Evidence["Resolved evidence chain"]
+    ProofCells["proof_evidence_cells.json<br/>validator-backed proof refs"]
+    Policies["policy_verdicts.json<br/>2+ visible verdicts<br/>before execution identity"]
+    Effects["side_effect_ledger.json<br/>logged diff for write / rollback"]
+    Rollbacks["rollback_receipts.json<br/>paired rollback receipt"]
+    Replay["cold_replay.json<br/>cold rerun per proposal"]
+  end
+
+  Hash{"Recompute evidence-chain hash<br/>declared == derived?"}
+  Records["governed_mutation_records.json<br/>real repo record + git commit ref"]
+  AntiBake{"Anti-bake gate<br/>git commit touched this source/test?<br/>re-derived refs match declared?"}
+  SourceManifest["source_module_manifest.json<br/>6 copied non-secret macro bodies<br/>verified by digest"]
+  Negatives["8 negative cases<br/>standing credential, hidden vote,<br/>policy-after-execution, ..."]
   Receipts["body-free receipts<br/>result, board, validation, acceptance"]
   Ceiling["authority ceiling<br/>no credentials, live mutation, provider,<br/>source mutation, hosting, publication, or release"]
 
-  Proposals --> Validator
-  ProofCells --> Validator
-  Policies --> Validator
-  Effects --> Validator
-  Rollbacks --> Validator
-  Replay --> Validator
-  Records --> Validator
-  SourceManifest --> Validator
-  Validator --> Receipts
+  Proposals --> Evidence
+  Evidence --> Hash
+  Hash -->|match| AntiBake
+  Hash -->|mismatch| Negatives
+  Records --> AntiBake
+  AntiBake -->|real record bound| Receipts
+  AntiBake -->|unbound or baked| Negatives
+  SourceManifest --> Receipts
+  Negatives --> Receipts
   Receipts --> Ceiling
 ```
+
+## How it works
+
+Take the scoped config write proposal. To be admitted it must carry the fourteen
+required fields, including `proof_cell_refs`, `policy_verdict_refs`,
+`policy_evaluated_before_execution`, `side_effect_class`, `evidence_chain_hash`,
+and `cold_replay_ref`. The validator then checks each one against the other
+input files rather than trusting the proposal's own summary.
+
+For the proof refs it confirms each cell names the same proposal, carries
+evidence refs and validator-receipt refs, is body-redacted, and does not export
+a proof body. For the policy refs it counts how many verdicts are visible to the
+receipt, are not hidden votes, read allow or warn, and resolve back to a proof
+cell for that proposal. Fewer than two visible resolving verdicts blocks the
+proposal under `GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE`. Because a scoped write has a
+reversible side effect, it also needs a logged diff ref in the side-effect
+ledger and a passing rollback receipt for the same proposal. A write or rollback
+proposal with no rollback ref is rejected as an irreversible mutation.
+
+The validator then recomputes the evidence-chain hash. It hashes the resolved
+proof digests, policy digests, side-effect ref, rollback ref, and cold-replay
+ref together and compares the result to the proposal's declared
+`evidence_chain_hash`. A mismatch fails the proposal, so the hash cannot be a
+hand-written constant. Only after the synthetic chain resolves does the
+real-record gate run. The governed-mutation record must declare a public-safe
+repo record class, a forty-character-or-shorter hex commit ref, and source refs
+covering git, mission-transaction, work-landing, and ledger material. The
+validator shells out to `git` to confirm the commit exists and that its changed
+files include this organ's source module or its focused test, and it re-derives
+the proof, policy, and rollback refs from the indices so the record's claims
+must match independently computed values. An authorised proposal whose proposal
+id is not in the accepted real-record set is downgraded to blocked. The result
+is that a green receipt requires three synthetic proposals, three real records
+bound to real commits, and a matching anti-bake status, none of which a static
+fixture can fake.
 
 ## JSON Capsule Binding
 

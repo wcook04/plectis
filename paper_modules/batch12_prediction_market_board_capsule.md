@@ -2,6 +2,14 @@
 
 This organ executes copied non-secret macro substrate for Batch 12 over public synthetic fixtures.
 
+## Purpose
+
+Market and macro dashboards have a recurring failure: a row looks like a fact when it is really a guess. A duplicate listing inflates a volume figure, an unmatched market slug grows a fabricated identity, a feed reports zero rows but the board shows it as healthy, and a "change since last time" number appears even when there is no prior baseline to compare against. The single question this organ answers is whether the copied presentation-mart logic keeps those distinctions honest when run over public synthetic inputs.
+
+It does that by importing the real `quant_presentation_mart` helper body and running it against fixtures that are built to expose each trap, then asserting the exact diagnostic the body should produce. The interesting choice is that the board never asserts what a market price means. It computes accounting about the data: which event a market belongs to, whether its identity was actually matched, how providers drifted, where rows went missing, and whether a vintage date is genuinely present. Aggregation is deliberately conservative. A missing value stays missing rather than defaulting to a confident zero, and an unmatched slug is reported as `missing_from_feed_artifact` instead of being given a synthetic event id.
+
+The result is fixture-bound evidence, not a forecast. The board is a diagnostic surface over public synthetic rows. It does not read live markets, call providers, or claim that any number is tradeable.
+
 ## JSON Capsule Binding
 
 - Source authority: `core/paper_module_capsules.json::paper_modules[67:paper_module.batch12_prediction_market_board_capsule]` with `source_authority: json_capsule`; the generated instance is `paper_modules/batch12_prediction_market_board_capsule.json`.
@@ -62,17 +70,43 @@ The Mermaid projection is `available_from_capsule_edges`; the Atlas projection i
 - `_macro_lifecycle_by_slug`
 - `_macro_regime_board`
 
+## How it works
+
+The capsule loads three fixtures, runs the copied helpers, and checks eight named invariants. Each check targets a specific way a board can quietly mislead.
+
+The event-join engine (`_prediction_market_board` with `_polymarket_identity_by_slug`) groups raw market rows into events using the Polymarket identity snapshot. Identity is matched by `market_slug`. When two rows share the same slug and outcome, only the higher-volume one is kept, so a duplicate listing cannot double a market count or inflate an aggregate. A slug with no identity match is not dropped and is not given a made-up event id. Its `event_identity_status` becomes `missing_from_feed_artifact` and its `max_liquidity` stays at `0.0`. The fixture proves all three: the duplicate fold (top volume 900000 with one surviving market), the orphan with a null event id, and the deduped aggregate.
+
+The provider-drift monitor (`_provider_drift_monitor`) reads each feed's diagnostics and raises typed flags rather than a single health score. Generic transport problems (`provider_fallback_used`, `html_response_seen`, `fetch_failures`) are kept distinct from FRED-specific ones (`fred_invalid_series`, `fred_network_warning`). The fixture checks that the stock feed surfaces the generic set, the news feed stays clean, and the macro feed surfaces the FRED set. Keeping the families apart means a macro data-source fault is not laundered into a generic warning.
+
+The missingness board (`_missingness_board`) lists only feeds that are not both non-empty and `ok`. A feed with zero rows is labelled `zero_rows`; a populated but low-quality feed is labelled `quality_degraded`; a healthy feed is omitted entirely. The fixture confirms the healthy feed is absent and the two failing lanes carry the correct reason, so an empty feed cannot read as present.
+
+The prior-green delta (`_delta_since_previous_green`) only computes a "change since last run" when a previous green run actually exists. With no baseline it returns `status: unavailable` and an empty `row_deltas_by_lane`, which the fixture asserts directly. This is the guard against a delta number that has nothing to compare against.
+
+The macro lifecycle enrichment (`_macro_lifecycle_by_slug` feeding `_macro_regime_board`) buckets macro series, then binds each bucket's `vintage_status` and `release_calendar_status` to whether the lifecycle sidecar genuinely carries that metadata. The fixture proves a series with a present vintage reads `available` with the expected observation date, while a series whose lifecycle row is absent reads `missing_from_feed_artifact`. A vintage date is shown only when it is really there.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-    A["Synthetic provider and market fixtures"] --> B["Prediction market board"]
-    B --> C["Provider identity and drift diagnostics"]
-    B --> D["Missingness and prior-green deltas"]
-    B --> E["Macro lifecycle and regime rows"]
-    C --> F["Body-free receipt and card"]
-    D --> F
-    E --> F
+    Rows["Synthetic market rows"] --> Join["Event join + identity match\n_prediction_market_board"]
+    Identity["Polymarket identity snapshot"] --> Join
+    Helpers["Quant-mart helper fixtures"] --> Drift["Provider drift monitor\ngeneric vs FRED flags"]
+    Helpers --> Miss["Missingness board\nzero_rows vs quality_degraded"]
+    Helpers --> Delta["Prior-green delta\nunavailable with no baseline"]
+    Helpers --> Macro["Macro regime board\nvintage status bound to sidecar"]
+
+    Join --> Dedup{"Slug + outcome\nseen before?"}
+    Dedup -->|yes| Keep["Keep higher-volume market"]
+    Dedup -->|no, unmatched| Orphan["missing_from_feed_artifact\nno fabricated event id"]
+    Dedup -->|no, matched| Append["Append to event aggregate"]
+
+    Keep --> Receipt["Body-free receipt and card\ndiagnostic rows, negative cases,\nauthority ceiling"]
+    Orphan --> Receipt
+    Append --> Receipt
+    Drift --> Receipt
+    Miss --> Receipt
+    Delta --> Receipt
+    Macro --> Receipt
 ```
 
 ## Reader Evidence Routing

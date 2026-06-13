@@ -1,5 +1,34 @@
 # Navigation Hologram Route Plane
 
+## Purpose
+
+A large codebase has a recurring failure: the agent or reader that lands in it
+starts from whatever browse surface is nearest to hand, treats that surface as
+the authority, and acts on a stale or partial view. The route plane exists to
+make the first move legible and to stop a browse row from being mistaken for
+the thing it describes. It answers one question: given a control entry, what is
+the safe ordered path into the browsable route projections, and what proof says
+that path is wired rather than asserted?
+
+The unusual part is that the organ never asserts a route is correct from prose.
+It treats every browse row as a projection and demands a coupling receipt before
+that projection is allowed any authority. Source coupling is a plain SHA-256 over
+the route rows: the manifest carries an expected fingerprint and an expected row
+count, and if either disagrees with the rows on disk the projection is denied
+current authority. A route summary that claims to be current while its coupling
+is stale is rejected outright. This is the same discipline a navigation index
+needs in any system that regenerates its own views: the view is only as
+trustworthy as the fingerprint that ties it to its source.
+
+The other half of the design is what it refuses to do. First contact must begin
+at the control entry, not at a drilldown projection, so a request that tries to
+start from a browse row is replaced with the entry route. Compaction of the
+entry packet may not drop a required control field. An affordance row whose
+passport carries an anti-trigger is demoted before similarity search can ever
+select it. None of these are stylistic preferences; each is a named negative
+case the fixture must keep catching, so the route plane is defined as much by
+the eight things it blocks as by the path it permits.
+
 ## Teleology
 
 The navigation route plane gives a public clone a typed way to move from a
@@ -8,24 +37,51 @@ authority.
 
 ## Public Contract
 
-This slice validates synthetic option-surface rows, source-coupling gates,
-route leases, entry-payload admission, affordance passport selection, and
-omission receipts.
+The organ runs in two modes against the same checks. The fixture mode loads a
+set of synthetic inputs, builds a toy option-surface from the rows (a
+cluster-flag summary plus one selected card), and then runs the negative-case
+validators that prove each guard still fires. The exported-bundle mode runs the
+same kind of checks against a real copied bundle: it validates the route rows,
+the source-coupling fingerprint, the source-module manifest, the route-lease
+policy, the entry-packet floor, the affordance passports, and the
+code-architecture projection packet, and only reports a pass when the secret
+scan is clean, a card row is selected, and every component validator passes.
+
+The source-coupling gate is the spine. It hashes the route rows with SHA-256 and
+compares that against the fingerprint and row count declared in the manifest; a
+mismatch denies the projection any current authority, and a summary that claims
+current authority while coupling is stale is recorded as an overclaim. The
+source-module manifest names five exact copies of non-secret macro route and
+control bodies. Each is checked by digest and by required navigation anchors, and
+each must declare that its body is copied but never written into the receipt, so
+the evidence is reproducible without exposing the source text.
 
 ## Shape
 
 ```mermaid
 flowchart TD
-  A["Control-entry contract<br/>core/organ_registry.json<br/>standards/std_microcosm_navigation_hologram_route_plane.json"] --> B["Route-plane runtime<br/>src/microcosm_core/organs/navigation_hologram_route_plane.py"]
-  B --> C["Fixture expectations<br/>core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json"]
-  B --> D["Exported source-body bundle<br/>examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"]
-  C --> E["Public receipts<br/>receipts/first_wave/navigation_hologram_route_plane/*.json"]
-  D --> E
-  E --> F["Reader projections<br/>paper_modules/navigation_hologram_route_plane.md<br/>paper_modules/navigation_hologram_route_plane.json"]
-  F --> G["Generated route views<br/>paper_module.navigation_hologram_route_plane.mermaid<br/>organ_atlas.navigation_hologram_route_plane"]
-  B --> H["Negative-case floor<br/>tests/test_navigation_hologram_route_plane.py"]
-  H --> E
-  G --> I["Authority ceiling<br/>projection evidence only; no live route freshness or release authority"]
+  Entry["Control entry first<br/>browse row that claims first contact<br/>is replaced with the entry route"]
+
+  subgraph Gates["Route-plane gates"]
+    Couple["Source coupling<br/>SHA-256 over route rows vs manifest<br/>fingerprint + row count"]
+    Rows["Route rows<br/>surface role, actionable command,<br/>no source-authority claim,<br/>omission receipt when required"]
+    Modules["Source-module manifest<br/>5 copied non-secret macro bodies<br/>digest + required anchors,<br/>body never in receipt"]
+    Lease["Route-lease policy<br/>selected lane, permitted actions,<br/>source authority rejected"]
+    Floor["Entry-packet floor<br/>required control fields survive<br/>compaction"]
+    Pass["Affordance passports<br/>anti-trigger rows demoted before<br/>similarity can select them"]
+  end
+
+  Verdict{"Coupling current,<br/>all gates pass,<br/>card row selected?"}
+
+  Entry --> Couple
+  Couple --> Rows --> Modules --> Lease --> Floor --> Pass --> Verdict
+  Verdict -->|yes| Receipts["Body-free receipts<br/>cluster flag, card, coupling,<br/>route lease, entry admission,<br/>affordance, code-architecture packet"]
+  Verdict -->|no| Blocked["Blocked<br/>stable error codes,<br/>findings, bodies redacted"]
+
+  Negative["Negative-case floor<br/>BANNED_FIRST_CONTACT_ROUTE,<br/>SOURCE_COUPLING_STALE,<br/>and 7 more"] -.-> Gates
+
+  Receipts --> Ceiling["Authority ceiling<br/>projection evidence only;<br/>no live route freshness,<br/>source authority, or release"]
+  Blocked --> Ceiling
 ```
 
 ## Source-Backed Doctrine Packet
@@ -116,7 +172,8 @@ Standard-declared runtime bundle validator:
 Atlas claim ceiling restated: It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not prove live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.
 
 The negative-case floor is part of the doctrine, not incidental test trivia.
-The fixture must keep detecting:
+Across the eight negative cases, the fixture must keep detecting these stable
+error codes (one case carries two codes, so the list runs to nine):
 
 - `BANNED_FIRST_CONTACT_ROUTE`
 - `SOURCE_COUPLING_STALE`

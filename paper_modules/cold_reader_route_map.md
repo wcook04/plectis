@@ -9,6 +9,18 @@ commands, docs refs, receipt refs, and authority ceilings.
 A cold technical reader should not have to infer the product path from a long
 README or raw receipt tree. The route map answers one question: what should I
 run first, and what evidence proves that path is wired?
+
+The unusual part is how the validator checks that proof. It does not merely
+confirm that each route row carries the right fields. It replays every route
+against real source: each row's command, its docs refs, its receipt refs, and
+the human-readable signals it claims to show are matched against the actual
+text of copied source modules and public docs. A command whose material tokens
+do not appear anywhere in that source corpus is blocked, as is a docs ref that
+does not resolve to a real heading and a receipt ref that does not open a
+pass-status receipt. So a route cannot promise a command the system does not
+actually run, which is the failure mode a hand-written quick-start guide drifts
+into the moment the commands change underneath it.
+
 The evidence contract is source-open by default: public route cards, route
 receipt bindings, route policy, exported bundle refs, and generated receipts
 carry the substrate, while `secret_exclusion_scan` excludes only private source

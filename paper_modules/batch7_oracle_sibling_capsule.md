@@ -2,24 +2,39 @@
 
 ## Purpose
 
-This organ imports the real deterministic Oracle sibling substrate into Microcosm as an executable public-safe capsule. It covers `tools/oracle/subject_index.py`, `tools/oracle/subject_snapshot.py`, `tools/oracle/truth_diff_macro.py`, deterministic `tools/oracle/run_quartet.py` planning/materialization, and focused original pytest witnesses.
+The Oracle is a sibling system that reasons about market evidence. Most of it depends on live data feeds and on a bridge-backed reasoning engine, so it cannot be shown to a public reader directly. This capsule answers a narrower question: which parts of the Oracle are pure, deterministic, and inspectable, and can those parts be run and checked without touching any feed, provider, or reasoning call?
+
+The answer turns out to be the Oracle's grounding and bookkeeping layer. Before the Oracle reasons, it builds a map of what evidence supports which prediction target, hydrates artifacts from a recorded run, diffs two timed snapshots of the same feed, and plans how to repair a missing artifact chain. None of that needs the network or the reasoning engine. This capsule imports the exact source for those four tools, exercises each against synthetic in-memory runs, and re-runs the Oracle's own original tests as an independent witness.
+
+What is unusual is the discipline of the boundary rather than the cleverness of the code. The Oracle's repair planner can, if asked, call the bridge-backed `GodModeEngine` to fill a missing node by reasoning. The capsule exercises the planner up to the point where it would do so and stops: it builds the repair plan, materialises an alias for an artifact that can be copied, and records `run_missing_quartet` and `GodModeEngine` as explicitly excluded. The exclusion is part of the evidence, not a gap in it.
 
 ## Shape
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule source row\ncore/paper_module_capsules.json::paper_modules[82:paper_module.batch7_oracle_sibling_capsule]"]
-  instance["Generated JSON instance\npaper_modules/batch7_oracle_sibling_capsule.json"]
-  md["Reader projection\npaper_modules/batch7_oracle_sibling_capsule.md"]
-  standard["Standards\nstd_microcosm_paper_module\nstd_microcosm_batch7_oracle_sibling_capsule"]
-  mechanism["Mechanism subject\nmechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule"]
-  runtime["Runtime/source locus\nsrc/microcosm_core/organs/batch7_oracle_sibling_capsule.py"]
-  copied["Copied Oracle sibling source bundle\nexamples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle"]
-  fixture["Fixture input\nfixtures/first_wave/batch7_oracle_sibling_capsule/input"]
-  tests["Focused tests\ntests/test_batch7_oracle_sibling_capsule.py"]
-  receipts["Receipts\nreceipts/first_wave/batch7_oracle_sibling_capsule\nreceipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json"]
-  projections["Generated projection status\nMermaid: available_from_capsule_edges\nAtlas: blocked_until_organ_atlas_owner_lane_binds_edges"]
-  ceiling["Authority ceiling\nfixture-bound local replay only;\nno Oracle reasoning, provider dispatch, source mutation, release, or semantic truth authority"]
+  capsule["JSON capsule source row<br/>core/paper_module_capsules.json::paper_modules[82:paper_module.batch7_oracle_sibling_capsule]"]
+  instance["Generated JSON instance<br/>paper_modules/batch7_oracle_sibling_capsule.json"]
+  md["Reader projection<br/>paper_modules/batch7_oracle_sibling_capsule.md"]
+  standard["Standards<br/>std_microcosm_paper_module<br/>std_microcosm_batch7_oracle_sibling_capsule"]
+  mechanism["Mechanism subject<br/>mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule"]
+  runtime["Runtime/source locus<br/>src/microcosm_core/organs/batch7_oracle_sibling_capsule.py"]
+  copied["Copied Oracle sibling source bundle<br/>examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle"]
+  fixture["Fixture input<br/>fixtures/first_wave/batch7_oracle_sibling_capsule/input"]
+
+  subgraph Exercise["Deterministic exercises (in-memory temp runs)"]
+    subjectIndex["subject_index<br/>admissible vs contextual evidence<br/>missing-support targets preserved"]
+    snapshot["subject_snapshot<br/>hydrate artifact, keep provenance"]
+    truthDiff["truth_diff_macro<br/>changed / new / dropped series"]
+    quartet["run_quartet plan + alias<br/>readiness BLOCKED, alias materialised"]
+    stop(["STOP: run_missing_quartet / GodModeEngine<br/>excluded, not invoked"])
+    pytest["original pytest witness<br/>focused Oracle v1 + quartet tests"]
+    quartet -.excluded.-> stop
+  end
+
+  tests["Focused tests<br/>tests/test_batch7_oracle_sibling_capsule.py"]
+  receipts["Body-free receipts<br/>summaries, counts, digests, booleans;<br/>no source/stdout bodies"]
+  projections["Generated projection status<br/>Mermaid: available_from_capsule_edges<br/>Atlas: blocked_until_organ_atlas_owner_lane_binds_edges"]
+  ceiling["Authority ceiling<br/>fixture-bound local replay only;<br/>no Oracle reasoning, provider dispatch, source mutation, release, or semantic truth authority"]
 
   capsule --> instance
   capsule --> mechanism
@@ -30,8 +45,9 @@ flowchart TD
   standard --> tests
   runtime --> copied
   runtime --> fixture
-  copied --> tests
-  fixture --> tests
+  copied --> Exercise
+  fixture --> Exercise
+  Exercise --> tests
   tests --> receipts
   receipts --> md
   projections --> md
@@ -93,6 +109,18 @@ Oracle coverage, accepted-organ authority, or whole-system correctness.
 - `oracle_truth_diff_macro_series_delta` executes `tools.oracle.truth_diff_macro.run` and verifies changed, new, and dropped macro series.
 - `oracle_quartet_repair_alias_plan` executes `run_quartet.build_quartet_repair_plan` and `materialize_missing_aliases` on a temporary truth run.
 - `oracle_original_pytest_witness` runs the focused original pytest witness for the Oracle v1 tools and quartet planner tests.
+
+## What each engine checks
+
+Each engine seeds a temporary run directory, calls the imported Oracle tool against it, and asserts the exact shape of the result. The fixtures are small but chosen to make the domain logic visible.
+
+The subject-index engine seeds three pieces of evidence: a stock (`XOM`), an ETF (`XLE`), and a macro instrument (`TLT`). The Oracle's rule is that evidence can ground a prediction only when its subject is a valid prediction target and its ledger id marks it as stock or ETF support (`S_` or `E_` prefix). So `XOM` and `XLE` land in the admissible bucket, while `TLT` stays contextual even though it is a valid target, because its support is macro context that cannot anchor a price prediction. The engine checks that `TLT` is recorded in `missing_admissible_support_targets`: the Oracle does not silently drop a target it cannot ground, it carries the gap forward.
+
+The subject-snapshot engine checks that hydrating a single named artifact preserves its provenance. The result must carry the source artifact id and the originating run id, so a downstream caller knows where a prediction payload came from. No artifact body is copied into the receipt.
+
+The truth-diff engine compares two timed snapshots of the same macro feed. The subject snapshot is taken at one time and the truth snapshot later, and the engine confirms the diff identifies a changed series ranked by the strongest absolute delta (here `US10Y` moving from 4.10 to 4.35), a newly appeared series (`CPI`), and a dropped series (`OIL`). This is the difference between a number changing and the system knowing which number changed, by how much, and whether the series set itself shifted.
+
+The quartet engine exercises the repair planner against a truth run that is missing most of its node chain. The plan must report readiness `BLOCKED`, name the deepest missing target (`oracle_cp2_emitter`), and list which artifacts can be repaired by aliasing rather than re-running. The engine then materialises one alias and confirms the written file records what it is an alias of. Crucially, it asserts that the bridge-backed `run_missing_quartet` path was not taken and `GodModeEngine` was not constructed.
 
 ## Authority Ceiling
 

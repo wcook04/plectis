@@ -3,6 +3,29 @@
 This staged Engine Room capsule imports the metric core of the macro
 navigation-fitness harness into Microcosm as a runnable public-safe refactor.
 
+## Purpose
+
+When an agent is dropped cold into a large repository, the failure that costs
+most is not a wrong answer. It is reaching for the wrong first command and
+landing on the wrong rows. This benchmark exists to make that failure
+measurable. It answers one question: given a cold task, did the route surface
+point at the stable ids the task actually needed, or did it send the agent
+somewhere plausible but wrong?
+
+The unusual choice is that "correct" and "fast" are scored on separate axes. A
+route packet can name every expected stable id and still be recorded as latency
+debt because it ran over budget. A packet that comes back quickly can still
+fail for a missing id, weak information scent, a forbidden first route, a
+timeout, or an outright error. Most retrieval scores collapse those into one
+number; this evaluator keeps them apart so that a slow-but-correct route and a
+fast-but-wrong route are never confused, and each lands in its own repair
+queue.
+
+The benchmark is deliberately evaluative rather than generative. It reads
+fixtures and pre-captured route packets, scores them, and emits receipts. It
+does not call the live private kernel, validate embeddings, or claim to measure
+navigation quality on tasks it has never seen.
+
 ## What It Demonstrates
 
 - Cold-task fixtures name expected stable ids and forbidden first routes.
@@ -17,16 +40,23 @@ navigation-fitness harness into Microcosm as a runnable public-safe refactor.
 
 ```mermaid
 flowchart LR
-  A["Cold navigation fixture"] --> B["Route packet under test"]
-  B --> C["Stable-id recall and precision"]
-  B --> D["Forbidden first-route check"]
-  B --> E["Information-scent term check"]
-  B --> F["Latency budget check"]
-  C --> G["Per-case receipt"]
-  D --> G
-  E --> G
-  F --> G
-  G --> H["Suite summary and debt candidates"]
+  A["Cold navigation fixture\nexpected ids, forbidden routes,\nlatency budget, scent terms"] --> B["Route packet under test"]
+
+  B --> S["Sufficiency axis"]
+  B --> L["Latency axis\nwall time vs budget"]
+
+  subgraph SufficiencyLadder["Sufficiency verdict (first failing check wins)"]
+    S --> T["Timeout or error?"]
+    T --> M["Missing expected id?"]
+    M --> N["Weak scent term?"]
+    N --> R["Forbidden first route?"]
+    R --> P["Pass"]
+  end
+
+  S --> Rec["Per-case receipt\nrecall, precision, status,\nfailure kind"]
+  L --> Rec
+  Rec --> Sum["Suite summary\npass/fail counts, p50/p95 wall,\nroute-type metrics"]
+  Sum --> Debt["Debt candidates\nsufficiency debt + latency debt"]
 ```
 
 The shape is intentionally evaluative, not generative. The benchmark reads

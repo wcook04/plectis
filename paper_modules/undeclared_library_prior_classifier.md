@@ -5,7 +5,7 @@ Lean-accepted proof can still violate the evaluation contract when it uses a
 real library symbol that was not in the allowed premise set. It is a
 provenance-bearing symbol-boundary organ, not a proof checker.
 
-The fixture now carries copied non-secret Lean/Std premise rows from the real
+The fixture carries copied non-secret Lean/Std premise rows from the real
 Ring2 premise-index substrate and real Ring2 problem ids / candidate artifact
 digests for the symbol-boundary examples. It records extracted qualified symbol
 refs and classifies a known symbol outside `allowed_premise_ids` as
@@ -22,14 +22,42 @@ copied Lean/Std premise fixture
 and the adjacent corpus-readiness / tactic-availability receipts anchor the
 Mathlib-absent toolchain boundary.
 
-The exported runtime bundle now carries a source-open body floor at
+The exported runtime bundle carries a source-open body floor at
 `examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json`.
 It imports the reducer and batch-calibration builder source bodies exactly,
 plus public-safe run bodies for the Ring2 premise index, Ring2 run summary,
 recipe policy metrics, and receipt reduction matrix. The two run-state bodies
-that originally contained host-local absolute roots are path-normalized to
-`<repo-root>` and `<lean-toolchain-root>` while preserving source and target
-digests, line counts, byte counts, and required anchors.
+are path-normalized to `<repo-root>` and `<lean-toolchain-root>` while
+preserving source and target digests, line counts, byte counts, and required
+anchors.
+
+## Purpose
+
+A theorem prover can return a proof that Lean accepts, yet that proof can still
+break the rules of the evaluation it was run under. The usual reason is simple:
+the proof reached for a library lemma that the recipe never put on the table. The
+symbol is real and the proof is sound, but the run quietly used a fact it was not
+allowed to assume. This organ answers one question. Given a set of premises a
+candidate was allowed to use and the symbols it actually reached for, did it cite
+a known library symbol that was outside that allowed set?
+
+The unusual choice is what the classifier refuses to do. It does not run Lean, it
+does not read the proof body, and it does not treat the standard library as an
+implicit allowlist where anything that exists is fair game. It works only from a
+copied premise index and a list of symbol observations that were extracted
+beforehand, and it compares the two. That keeps the check cheap and keeps proof
+material out of the public receipt, but it also means the allowed set is closed by
+construction: a symbol is admissible only because a premise row names it, never
+because it happens to live in Lean's standard library.
+
+The check also separates two failure modes that are easy to confuse. An explicit
+budget breach, where the candidate names a premise id the recipe did not allow, is
+not the same as a residual breach, where the candidate used an allowed-looking
+symbol that turns out to be undeclared. The first is settled directly from the
+cited ids and takes precedence; the second is what the symbol comparison is for.
+Treating both as one class would either over-escalate honest retries or let
+genuine out-of-recipe library use slip through as a budget note. Keeping them
+apart is the point.
 
 ## Shape
 

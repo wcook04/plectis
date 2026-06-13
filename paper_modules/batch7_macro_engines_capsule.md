@@ -16,6 +16,54 @@ exercises, negative cases, digest checks, and fenced claims.
   blocking, robust numeric center/scale, PageRank mass preservation, and
   never-empty regression-test selection.
 
+## What Each Exercise Proves
+
+Each engine has a single deterministic check with a known answer, plus a paired
+negative case that must keep failing. The exercises are concrete:
+
+- **Trace IR parser** (`agent_trace_ir_compiler`). Runs `node --test
+  parser.test.mjs` against the copied parser. The paired negative case is a
+  commit claim with no diff evidence, which the parser's own test rejects, so a
+  pass means the edit-claim gate is intact rather than merely that the file
+  copied.
+- **Code-map layout** (`codemap_orbit_layout`). Runs the Vitest suite for the
+  layout module and, in process, places five nodes on an orbit and measures
+  every pair distance. The pass condition requires zero circle overlaps, so the
+  layout proves geometric non-collision, not route meaning.
+- **DAG scheduler** (`constitutional_dag_kernel`). Calls `compute_waves` on a
+  six-node graph and checks the schedule is exactly `[["a","f"], ["b","c"],
+  ["d"], ["e"]]`. A two-node cycle must raise, and an impure config path must be
+  flagged, so the kernel proves wave ordering and cycle rejection together.
+- **Release-root index** (`release_root_compiler`). Parses the copied module's
+  AST and confirms the expected report-building functions exist and that a
+  missing-reference count is reported. This is source indexing, not release
+  approval.
+- **Source surgeon** (`source_surgeon_patch`). Applies a one-line unified diff
+  and checks the result is exactly `a = 'B'`. A diff whose context does not
+  match must raise, and broken Python must fail to parse, so the engine proves
+  patch-context and syntax validation, not semantic correctness.
+- **Clean clone** (`hermetic_clean_clone`). Temporarily replaces the socket
+  factory and confirms an outbound connection raises a network-disabled error.
+  It proves a hermetic baseline, not complete sandboxing.
+- **Robust calculator** (`calculator_standard_actor`). Feeds
+  `[1, 2, 3, 4, 5, 100]` to the robust centre/scale routine. The robust centre
+  stays at `3.5` while the naive mean is dragged above `19`, so the outlier is
+  resisted. It is a numeric primitive, not market data or investment advice.
+- **PageRank ranker** (`personalized_pagerank_ranker`). Ranks a four-node graph
+  and checks the score mass sums to `1.0`; an unknown source node must return an
+  empty map. It proves the rank invariant and missing-source refusal, not
+  semantic understanding.
+- **Regression selection** (`regression_test_selection`). Confirms the impacted-
+  test selector never returns an empty set: an empty selection must fall back to
+  a non-empty bundle. It proves the never-empty contract, not that the selected
+  tests are sufficient.
+
+When the input is the exported source-open bundle rather than the live fixture,
+the same nine engine rows are gated on the copied source manifest instead:
+every expected digest must match and every required anchor must be present
+before any row passes. The exercises stay body-free throughout; receipts carry
+status, counts, digests, and refs, never the copied source or command output.
+
 ## First Command
 
 ```bash
@@ -68,6 +116,32 @@ row in `core/paper_module_capsules.json`; this Markdown explains the proof
 boundary for a cold reader and points back to the runtime organ, copied source
 manifest, and focused tests.
 
+The organ answers one narrow question: do nine unrelated macro engines, copied
+out of the larger system as public-safe source, still behave the way their own
+tests and invariants say they should? Rather than describe them in prose, the
+capsule runs each one. A trace-IR parser is checked by its own Node test
+runner; a code-map layout is checked by its Vitest suite; a dependency-graph
+scheduler, a robust numeric scorer, a PageRank ranker, a patch applier, a
+network-isolation guard, an AST source index, and a regression-test selector
+are each driven through a small deterministic exercise with a known correct
+answer.
+
+What is worth noting is the mix. Most validators in this set check one shape of
+evidence. This one deliberately binds several kinds under a single fixture and a
+single authority ceiling: an external JavaScript test process, an external
+TypeScript test process, in-process Python function calls, and static AST
+reads. The point is not that any one engine is impressive in isolation. It is
+that nine engines with quite different runtimes can be exercised together,
+each with a concrete pass condition, while every exercise stays below release,
+semantic-truth, and source-mutation authority.
+
+The failure mode this guards against is the comfortable assumption that copied
+code still works. A source body can be copied faithfully, pass a digest check,
+and still be broken or subtly different from the original. The capsule refuses
+to treat a digest match as behaviour: each engine has to produce the expected
+output, and each negative case has to keep failing, before the row is allowed
+to pass.
+
 ## JSON Capsule Binding
 
 - Source row: `core/paper_module_capsules.json::paper_modules[71:paper_module.batch7_macro_engines_capsule]`
@@ -89,18 +163,39 @@ manifest, and focused tests.
 
 ```mermaid
 flowchart LR
-  capsule["paper_module.batch7_macro_engines_capsule"]
-  organ["organ: batch7_macro_engines_capsule"]
-  code["src/microcosm_core/organs/batch7_macro_engines_capsule.py"]
-  bundle["exported_batch7_macro_engines_capsule_bundle"]
-  checks["trace, codemap, DAG, source, rank, and regression exercises"]
-  ceiling["authority ceiling"]
+  input["Input dir"]
+  mode{"Live fixture\nor exported bundle?"}
 
-  capsule --> organ
-  capsule --> code
-  code --> bundle
-  code --> checks
-  checks --> ceiling
+  subgraph Live["Live fixture: run each engine"]
+    trace["Trace IR parser\nnode --test"]
+    codemap["Code-map layout\nVitest + orbit non-overlap"]
+    dag["DAG scheduler\nwaves + cycle reject"]
+    rest["Release index, source surgeon,\nclean clone, calculator,\nPageRank, regression selection"]
+  end
+
+  subgraph Bundle["Exported bundle: gate on manifest"]
+    manifest["Source manifest:\ndigests match + anchors present"]
+    rows["Nine engine rows\nsource_open_manifest_verified"]
+  end
+
+  neg["Negative cases\nmust keep failing"]
+  result["Body-free result\nstatus, counts, digests"]
+  ceiling["authority ceiling\nno release, no semantic truth,\nno source mutation"]
+
+  input --> mode
+  mode -->|live| trace
+  mode -->|live| codemap
+  mode -->|live| dag
+  mode -->|live| rest
+  mode -->|bundle| manifest
+  manifest --> rows
+  trace --> neg
+  codemap --> neg
+  dag --> neg
+  rest --> neg
+  rows --> result
+  neg --> result
+  result --> ceiling
 ```
 
 ## Structured Lattice Bindings

@@ -10,15 +10,45 @@ is to expose the real control-plane mechanics that govern claims, owned paths,
 same-path conflicts, expected-parent checks, shared-index quarantine, finalizer
 ordering, and scoped commit discipline.
 
+## Purpose
+
+The macro repository this slice comes from is edited by several agents at once,
+so its hardest engineering problem is mundane: how does one agent land a small,
+finished commit without colliding with another agent's half-done work in the
+same files, and without claiming more than it actually did? The control plane
+that answers this lives in a handful of source modules. This module copies those
+bodies, non-secret, into a public bundle so a reader can inspect the real
+mechanics rather than take a description on trust.
+
+The single question it answers is narrow: are these copied control-plane bodies
+the genuine ones, with their load-bearing logic still present, and does the
+bundle keep within its stated limits? It is a witness over copied source, not a
+runner. It never touches Git, ledgers, or claims.
+
+Two ideas in the copied source are worth a reader's attention. The first is the
+scoped commit. `scoped_commit.py` builds a throwaway Git index from the current
+`HEAD`, stages only the exact paths or hunks the agent declares it owns, writes a
+tree from that private index, and commits it against the captured parent with a
+compare-and-swap on the branch ref. The shared `.git/index` is never written.
+What was a three-step behavioural rule (add exact paths, check nothing else is
+staged, then commit) becomes an infrastructure invariant: an agent physically
+cannot sweep up a neighbour's dirty changes, because those changes were never in
+the index it committed from. The second is ordering. `work_landing_status.py`
+fixes a sequence of controller actions and a set of prerequisites, so that
+claims are only released after the Work Ledger session is finalised, and
+convergence is only recomputed after claims are released. The module checks that
+these anchors are still present in the copied bodies, which is what separates an
+honest copy from a stale hash bag.
+
 ## Shape
 
 ```mermaid
 flowchart LR
-  A["Copied macro source bundle"] --> B["Manifest digest and line-count check"]
-  B --> C["Required anchor scan"]
-  C --> D["Runtime no-live-mutation contract"]
-  D --> E["Secret-exclusion scan"]
-  E --> F["Validation receipt"]
+  A["Copied macro source bundle\n5 control-plane bodies + manifest + contract"] --> B["Manifest digest and line-count check\nis the copy exact?"]
+  B --> C["Required anchor scan\nis the load-bearing logic still present?"]
+  C --> D["Runtime no-live-mutation contract\nare all authority flags false?"]
+  D --> E["Secret-exclusion scan\nany private/credential material?"]
+  E --> F["Validation receipt\nrefs, hashes, counts, findings"]
   B --> G["Reject stale or missing source body"]
   C --> G
   D --> H["Reject authority overclaim"]

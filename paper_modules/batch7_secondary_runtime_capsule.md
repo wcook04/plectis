@@ -27,6 +27,29 @@ capsule row in `core/paper_module_capsules.json`; this Markdown explains what a
 cold reader may trust from the public secondary-runtime fixture and what remains
 out of scope.
 
+The organ exists to answer one question: do these copied frontend and market
+bodies still behave the way their original code claims to, when run in
+isolation over synthetic inputs? It copies eight public-safe slices into a
+bundle, then exercises each one against a small fixture and re-checks the exact
+behaviour the original author relied on. The interesting part is not that the
+code runs, but that each engine is paired with a planted regression. The organ
+mutates a single token in the copied body, or feeds an adversarial input, and
+asserts that the behaviour breaks in the expected way. A check that only passes
+on good input proves little; a check that also fails on the right bad input is
+evidence the behaviour is real.
+
+Several of these guards encode a concrete bug that was found in production. The
+Polymarket order-book reader documents a probe from 2026-05-12: the API can
+return bids floor-first and asks ceiling-first, so a naive `bids[0]` / `asks[0]`
+reader silently inverts best-bid and best-ask. The body derives best prices by
+numeric extrema instead, and the `polymarket_sorted_book_trap` case feeds a
+deliberately mis-sorted book to confirm the extrema rule still holds. The
+stockgrid momentum primitive refuses an impossible -100% daily change rather
+than returning a misleading number. The graph projection drops self-edges so a
+collapsed cluster does not draw an arrow to itself. The scope stays narrow on
+purpose: this is local body import and synthetic-fixture witness evidence, not
+live market access, wallet authority, browser export, or investment advice.
+
 ## JSON Capsule Binding
 
 - Source row:
@@ -51,20 +74,37 @@ out of scope.
 ## Shape
 
 ```mermaid
-flowchart LR
-  capsule["paper_module.batch7_secondary_runtime_capsule"]
-  organ["organ: batch7_secondary_runtime_capsule"]
-  mechanism["mechanism: validates_public_secondary_runtime_capsule"]
-  code["src/microcosm_core/organs/batch7_secondary_runtime_capsule.py"]
-  bundle["exported_batch7_secondary_runtime_capsule_bundle"]
-  receipts["body-free fixture receipts"]
+flowchart TD
+  bundle["Exported bundle\ncopied public-safe bodies\n+ source digest anchors"]
+  witness["Vitest witness\nworld/graph/cartography tests"]
+
+  subgraph Engines["Eight fixture engines"]
+    ui["Trace view-model\nand lane progress"]
+    graph["Graph lens\nand graph projection"]
+    carto["Cartography\nobserve-only render"]
+    market["Stockgrid + Polymarket\nCLOB and four-lens scoring"]
+  end
+
+  subgraph Negatives["Planted regressions"]
+    invert["Mis-sorted book\nmust still find extrema"]
+    momentum["-100% change\nmust be refused"]
+    selfedge["Self-edge\nmust be dropped"]
+    resolved["Resolved market\nmust gate NEWSBREAKER"]
+  end
+
+  receipts["Body-free receipts\nstatus, digests, anchor checks"]
   ceiling["authority ceiling"]
 
-  capsule --> organ
-  capsule --> mechanism
-  organ --> code
-  code --> bundle
-  code --> receipts
+  bundle --> witness
+  witness --> ui
+  bundle --> graph
+  bundle --> carto
+  bundle --> market
+  ui --> Negatives
+  graph --> Negatives
+  carto --> Negatives
+  market --> Negatives
+  Negatives --> receipts
   receipts --> ceiling
 ```
 
@@ -99,6 +139,47 @@ Start from the organ source when checking behavior:
   authority, and test-completeness proof false.
 - `run`, `run_batch7_secondary_bundle`, and `result_card` expose the
   reproducible command and body-free summary.
+
+## What the engines check
+
+Each engine reads a copied body and asserts a specific, checkable behaviour.
+The four with the clearest stakes:
+
+- **Polymarket CLOB microstructure.** `compute_best_prices` derives the best
+  bid as the maximum bid price and the best ask as the minimum ask price, never
+  from the first row of each side. This guards a real failure documented in the
+  source: the API can return bids floor-first and asks ceiling-first, which
+  inverts a naive `bids[0]` / `asks[0]` reader. The `polymarket_sorted_book_trap`
+  case feeds a mis-sorted book and confirms the chosen best bid (0.42) and ask
+  (0.53) are not the first entries, then checks the spread and that depth
+  imbalance stays in `[-1, 1]`.
+- **Stockgrid momentum.** `_daily_log_momentum_bps` converts a percentage
+  change into a daily log-return in basis points, but returns nothing when the
+  ratio is at or below -0.999999. A claimed -100% daily change has no finite log
+  return, so the primitive refuses it rather than emitting a misleading value.
+  The `stockgrid_extreme_momentum` case asserts that refusal.
+- **Graph projection.** `projectGraphForRender` groups nodes into per-lane,
+  per-wave summary clusters and rewrites edges between clusters. It drops any
+  edge whose source and target land in the same cluster, so a collapsed cluster
+  never draws an arrow to itself. The `graph_projection_self_edge` case removes
+  the `sourceId === targetId` guard from the copied body and confirms the
+  self-edge would otherwise survive.
+- **Polymarket four-lens scoring.** `calculate_lenses` zeroes the NEWSBREAKER
+  lens for any market that is resolved, low-volume, low-uncertainty, or an
+  outlier in velocity. The fixture scores one open and one resolved synthetic
+  market and asserts the resolved one scores zero on NEWSBREAKER while the open
+  one does not.
+
+The remaining engines cover the trace view-model trust taxonomy (seven labels
+including `missing` and `fallback`, with an explicit "raw provider JSONL is
+unavailable" path), lane-progress state normalisation (an unknown state falls
+back to `idle`, not an invented status), the graph lens (collapsing a parent
+keeps the parent visible but hides its descendants), and the cartography render
+(a fixed set of mutating actions stays blocked, so the surface observes without
+creating or editing). Each negative case is run by mutating one token in the
+copied body or supplying an adversarial input, then checking the engine reports
+`blocked`. The receipts record status, digests, and anchor matches only; copied
+bodies and command output are never inlined.
 
 ## Reader Proof Boundary
 

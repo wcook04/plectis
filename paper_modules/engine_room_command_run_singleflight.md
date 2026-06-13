@@ -4,6 +4,33 @@ This staged Engine Room capsule imports the runnable core of the macro
 `system/lib/command_run_singleflight.py` into Microcosm as a public-safe
 refactor.
 
+## Purpose
+
+When several agents or background tasks fire the same command at the same
+moment, the naive outcome is several identical subprocesses doing the same work
+at once. That wastes the machine, and where the command has a side effect it can
+corrupt shared state by writing twice. The capsule answers one question: when two
+callers ask for the same command at the same time, can the system run it exactly
+once and hand the second caller the first caller's captured output?
+
+The approach worth noticing is how it decides that two requests are "the same".
+It does not compare command names. It builds a content-addressed key over the
+argv, the working directory, a small slice of the environment, and, crucially,
+the scoped worktree state. Inside a Git repository that state includes HEAD, the
+porcelain status, and the diff and content hashes for the named scope paths.
+So two runs of the same command collapse into one only while the code they would
+see is identical. Edit a file in scope and the key changes, which forces a fresh
+run rather than serving a stale result. The `scope_mutation_changes_key` fixture
+exists precisely to pin that behaviour.
+
+The coordination itself is deliberately small: an `fcntl` file lock per key
+elects one leader, the leader runs the subprocess and captures its output, and
+followers wait and replay that captured stdout, stderr, exit code, and run id
+rather than launching their own copy. There is no daemon, no queue, and no
+network lock service. The point of the capsule is to show that the collapse and
+the content-addressing both hold under a real two-process race, not to stand in
+for a scheduler.
+
 ## What It Demonstrates
 
 - Content-addressed command keys over argv, cwd digest, selected environment,
@@ -16,18 +43,22 @@ refactor.
 ## Shape
 
 ```mermaid
-flowchart LR
-  A["Command argv, cwd, env, scope paths"] --> B["Build content-addressed key"]
-  B --> C["fcntl lock for key"]
-  C --> D{"Active run exists?"}
-  D -- "yes" --> E["Follower waits for receipt"]
-  D -- "no" --> F{"Completed reuse allowed?"}
-  F -- "yes" --> G["Replay completed receipt"]
-  F -- "no" --> H["Leader runs subprocess once"]
-  H --> I["Write stdout, stderr, exit code, metadata"]
-  E --> I
-  G --> I
-  B --> J["Scoped dirty/content fingerprint"]
+flowchart TD
+  A["Command argv, cwd, env, scope paths"] --> B["Build content-addressed key\nargv + cwd + env + scoped worktree state"]
+  B --> K["Hash key to key_hash"]
+  K --> C["Take per-key fcntl lock"]
+  C --> D{"Active run for this key?"}
+  D -- "running" --> E["Follower waits on active receipt"]
+  D -- "completed and reuse allowed" --> G["Reused: replay completed receipt"]
+  D -- "none, or stale" --> H["Leader runs subprocess once"]
+  E --> F{"Active finished in window?"}
+  F -- "yes" --> R["Follower: replay leader output\nshared run_id, same exit code"]
+  F -- "no" --> T["stale_or_timeout, exit 124\nno rerun"]
+  H --> I["Capture stdout, stderr, exit code\nwrite run and latest-by-key receipts"]
+  R --> Z["Return receipt"]
+  G --> Z
+  T --> Z
+  I --> Z
 ```
 
 The shape is intentionally local. It proves a duplicate command key can elect

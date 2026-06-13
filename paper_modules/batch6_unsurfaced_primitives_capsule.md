@@ -4,6 +4,32 @@ This organ imports the Batch-6 macro primitives that the scout identified as rea
 
 The capsule covers text structuring, provenance reconciliation, epistemic display guards, governance policy judgment, clone-local concurrency, market-clock scheduling, provider recovery scoping, and demo-take temporal remapping. It does not import raw operator transcripts, prompt-shelf private logs, browser/provider state, live market data, credentials, audio, video, or publication state.
 
+## Purpose
+
+A scout found eleven small primitives scattered across the wider system that
+were real and load-bearing but had never been surfaced as public evidence. They
+are the sort of utility code that quietly decides whether a larger feature is
+correct: a finance unit-scale check, a clock that fires market events once per
+session, a function that subtracts paused time from a recorded video offset.
+This capsule exists to bring those eleven into the public substrate without
+pretending they are anything grander than they are.
+
+The single question it answers is narrow but useful: do the copied bodies still
+behave as claimed? It is easy to copy a function into a public bundle, check its
+file hash, and call that proof. That only shows the bytes match. It says nothing
+about whether the logic is right. This capsule goes one step further. For each
+primitive it imports the copied body and runs it on a small public synthetic
+input, then asserts the specific output the real code should produce.
+
+The unusual part is that the eleven primitives are checked by execution, not by
+description. The Markdown prose and the JSON capsule say what each one is meant
+to do; the organ proves it by calling the real function and comparing the
+answer. Each primitive also carries a paired negative case, a deliberately
+malformed input that the code must reject or correct, so the capsule shows both
+the working path and the guard. No private bodies, transcripts, or live data
+enter the receipts; only refs, digests, anchor names, and the pass or fail of
+each exercise.
+
 ## Prior Art Grounding
 
 This capsule borrows from provenance modeling, risk-governance frameworks,
@@ -289,6 +315,49 @@ equivalence, or whole-system correctness.
 The validator requires exactly these 11 mechanism rows: raw-seed keyphrase engine, schema-loose distillation index, operator handoff linkage, observed-turn window merge, market situation graph, finance numeric assurance, fail-closed status judge, idea-microcosm concurrency guard, metabolism market clock, population-lane provider recovery, and demo-take temporal join.
 
 The source module manifest requires 14 exact copied macro source/support modules. The fixture requires 11 stable negative cases, one per mechanism row. The command card is the intended cold-reader first surface; the full receipt is the drilldown.
+
+## How it works
+
+For each mechanism the organ loads the copied source body, runs it on a fixed
+public synthetic input, and checks the exact result. A few of the exercises make
+the idea concrete.
+
+- **Demo-take temporal join.** `video_t_seconds` converts a wall-clock offset
+  into a position in a recorded video by subtracting elapsed paused time. The
+  exercise feeds it a 120-second wall offset with one pause and resume fifteen
+  seconds apart, and asserts the result is exactly 105.0. A second call with a
+  pause that has not yet resumed checks the open-pause branch returns 15.0. The
+  negative case confirms a still-open pause is handled rather than ignored.
+
+- **Finance numeric assurance.** `build_finance_numeric_assurance` recomputes
+  declared numbers instead of trusting them. The exercise hands it a flow row
+  tagged `usd_millions` whose `flow` and `flow_usd` fields disagree by orders of
+  magnitude, plus a probability declared as 70.2. The check raises
+  `stockgrid_flow_unit_scale_mismatch` and `probability_bounds`, and the
+  receipt's `display_state` becomes `blocked` rather than `trusted`. The point
+  is that a mislabelled unit or an out-of-range probability fails closed.
+
+- **Operator handoff linkage.** `score_pair` compares an agent's suggestion (a
+  Type B capture) against what the operator later typed (a Type A input) using
+  containment, token overlap, and anchor matching. The exercise scores a related
+  pair above the 0.8 floor with containment true, then scores an unrelated
+  "summarize the weather" input and asserts it falls below 0.3. This is how the
+  primitive tells a real handoff from a coincidence.
+
+- **Market-clock scheduling.** `due_fire_points` decides which scheduled market
+  events are due at a given moment. The exercise sets the clock to 15:31 UTC
+  with the open event already fired earlier that day, then asserts the hourly
+  points fire while the already-fired open event is suppressed. The guard is
+  idempotence: an event that already fired must not fire again in the same
+  session.
+
+The other mechanisms follow the same shape: keyphrase ranking returns ranked
+phrases for real text but an empty list for stopword-only input; the
+schema-loose distiller keeps assistant text and operator tail as separate roles
+without persisting either body; the fail-closed status judge blocks a transition
+when its policy is malformed; the concurrency guard reports that a parent
+directory and a child path overlap. Every exercise records only its pass or fail
+and a few summary numbers, never the copied body it ran against.
 
 ## Copied-Subengine Proofs
 

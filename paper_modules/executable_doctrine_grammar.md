@@ -1,5 +1,36 @@
 # Executable Doctrine Grammar
 
+## Purpose
+
+Doctrine in most systems is prose convention. A standard says a rule should hold,
+a paper module says a section should be present, and nothing checks whether the
+claim is actually true. This organ exists to make doctrine shape a thing a
+program can pass or fail. It answers one question: does a standard row or a
+paper-module fixture carry the structure that doctrine here requires, or is it
+just text that looks the part?
+
+What it checks is deliberately structural rather than semantic. A standard row
+must declare a teleology, a governing standard, receipt expectations, and an
+anti-claim. A paper module must carry the matching sections by heading. The
+validator does not judge whether the prose is good. It judges whether the
+load-bearing fields are present, so a row cannot quietly drop its receipt
+expectations or its anti-claim and still pass.
+
+The less obvious part is that the failures are first-class. Five negative cases
+are part of the contract: a row missing its required fields, a prose-only
+standard that tries to claim executable authority, a macro doctrine body copied
+into a public fixture, a duplicate standard slug, and a grammar pass that
+overclaims doctrine completeness. A run that does not observe each of these
+classes is blocked, so the checker is held to demonstrating that it can reject,
+not only that it can accept.
+
+The organ also imports copied non-secret macro bodies, but only through a
+source-module manifest with declared SHA-256 digests, and never inlines a body
+into a receipt. The receipt reports refs, hashes, counts, and verdicts; the
+bodies live in the bundle. The point is to make the doctrine shape checkable
+without turning the public surface into an export of the private standards
+engine.
+
 ## Teleology
 
 `executable_doctrine_grammar` turns toy public standards and paper-module

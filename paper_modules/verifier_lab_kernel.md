@@ -25,6 +25,38 @@ The runnable fixture also calls the existing public components:
 - `formal_math_verifier_trace_repair_loop`;
 - `formal_math_lean_proof_witness`.
 
+## Purpose
+
+In a formal-math agent loop, several different things can look like progress. A
+Lean checker can accept a term. An oracle holding a hindsight answer can say a
+candidate matches. A provider model can offer a plausible next tactic. A
+retrieval step can return a premise. Treated loosely, all of these blur into a
+single sense of "it worked", and oracle or provider success quietly inflates
+the count of theorems actually proved. This organ exists to stop that blur. The
+one question it answers is: for each row of evidence, which authority class does
+it belong to, and what may that class claim?
+
+The composition root runs or consumes nine named component organs (corpus
+readiness, Lean Std premise indexing, premise retrieval, tactic availability,
+target-shape routing, Ring2 precision and recall, verifier trace repair, proof
+diagnostics, and the Lean proof witness) and sorts every result into seven
+separate buckets: verifier-checked, provider-suggested, oracle-compared,
+retrieval-miss, CP2-translated, Evolve-candidate, and contract-rejected. Each
+bucket keeps its own authority. A passing component cannot lend its standing to
+a different bucket.
+
+The unusual part is how the boundary is enforced rather than merely described.
+The kernel keeps two counters, `oracle_forward_success_increment_count` and
+`provider_results_counted`, and they must read zero. An oracle that marks
+itself as forward success, or a provider hypothesis that claims proof authority,
+is recorded as a contract violation, not as a result. The same discipline
+applies to data: forward problems and CP2 actions are scanned for fields that
+would smuggle in a proof body, an ideal answer, or an oracle's needed premise
+ids, and CP2 and Evolve outputs are confined to a fixed vocabulary of action
+classes and policy artifacts. What the reader receives is a single aggregate
+receipt that carries references, digests, counts, and verdicts, with the proof,
+provider, oracle, and stdout bodies left out.
+
 ## Shape
 
 Read the verifier lab kernel as a public receipt composition route, not as a

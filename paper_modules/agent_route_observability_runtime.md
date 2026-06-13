@@ -19,6 +19,17 @@ one selected route, one work/event/evidence chain, one receipt or validator
 handle, and one authority ceiling. Browser views, screenshots, and videos are
 allowed projections of that board, not separate claims.
 
+Underneath the board, the organ is a replay validator rather than a live tap.
+It reads recorded trace rows and turns them into paper-visible evidence only
+after a set of authority-boundary checks agree, and the choice that does the
+real work is the actor axis. A row tagged as an advisory actor cannot also
+claim live mutation authority, and a behaviour-change claim is blocked unless it
+names the trace ids that evidence it. This guards the specific failure mode of
+observability that reads as proof: a trace that asserts it changed how an agent
+behaved, with nothing recorded that a reader can check. Here the assertion is
+rejected, the private transcript body it might carry is redacted, and the run
+is marked blocked rather than green.
+
 ## Shape
 
 The reader path starts at the capsule row, then follows the governed standard

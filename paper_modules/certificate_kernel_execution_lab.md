@@ -13,6 +13,35 @@ v2 fixture carries both a simple `NatSumCertificate` row family and a miniature
 `BoundedOrderCertificate` family so the public lab is no longer only a
 single-shape arithmetic receipt.
 
+## Purpose
+
+This organ exists to stop a proof-adjacent claim from resting on prose. The
+single question it answers is narrow: did a small Lean kernel actually compile
+and accept the declared certificate rows, here and now, with the command, the
+return code, and the source hashes on record? Everything else in the page is
+accounting that keeps the answer honest.
+
+The reduction it relies on is the interesting part. A large class of
+proof-adjacent facts can be expressed as a finite certificate plus a decidable
+Boolean checker shaped like `validate : Cert -> Bool`. The agent is never asked
+to write a human proof. It is asked to supply the right certificate rows, and
+Lean decides. The fixture carries two checker families, `NatSumCertificate` over
+arithmetic and `BoundedOrderCertificate` over a bounded modular order, so the
+acceptance is not a single hard-coded shape. A row counts as accepted only when
+the runner shells out to `lake env lean` over a temporary copy of the public
+project and receives exit code 0.
+
+What is unusual is the weight placed on rejection. Deliberately wrong rows, a
+missing certificate, a bad arithmetic certificate, a bad bounded-order
+certificate, must fail through the same real Lean route, in the residual class
+the fixture predicted. A bundle that can show only green acceptance is treated
+as a replay artifact, not as certificate-kernel evidence. The runner also keeps
+the proof channel separate from the language model channel: a transition that
+can see oracle sidecars or provider hypothesis text is rejected before
+execution, so a model's confidence can never be quietly counted as a proof. The
+receipt records command identity, counts, and verdicts, and never the proof
+bodies themselves.
+
 ## Shape
 
 ```mermaid

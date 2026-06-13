@@ -6,6 +6,35 @@ premise-retrieval macro receipt bodies that a cold reader can inspect without
 importing Mathlib, exposing proof bodies, or relying on private macro run
 state.
 
+## Purpose
+
+A premise index is the catalogue a theorem-proving system reads before it tries
+to prove anything: a list of the named lemmas and definitions it is allowed to
+cite, with enough metadata to retrieve the relevant ones. This organ answers a
+narrower question. Given that such an index already exists inside a private
+Ring2 benchmark run, can a cold reader inspect its public shape and be sure that
+what they are reading is a faithful copy of the real thing, and not a separate
+hand-written stand-in?
+
+The answer rests on one design choice that is worth noticing. The validator does
+not just describe eleven premise rows; it opens the declared source artifact
+from the Ring2 premise-retrieval run, recomputes its SHA-256, and checks every
+public row against the matching source row by `premise_id`. The only permitted
+difference is a path rewrite: a raw Lean toolchain path becomes a public
+`lean-toolchain://.../Init/...` reference, so the reader sees where a lemma lives
+in the standard library without seeing a private filesystem. If the public
+catalogue ever drifts from the source it claims to copy, the digest or the
+row-signature comparison fails and the receipt is blocked.
+
+The interesting tension is the line between a useful index and a leaked answer
+key. A premise index for a benchmark is one edit away from telling a solver
+exactly which lemmas it needs. So the same pass that admits names, namespaces,
+retrieval terms, and train/dev/test eligibility rejects the things that would
+turn the catalogue into proof authority: Mathlib references, proof bodies, the
+oracle-needed premise ids that name the answer, and any flag that authorises
+tuning on the test split. The catalogue stays inspectable precisely because
+those are kept out.
+
 ## Shape
 
 This module is a cold-reader map from a JSON capsule and copied public

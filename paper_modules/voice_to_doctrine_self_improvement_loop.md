@@ -14,6 +14,36 @@ table, Task Ledger metacontrol, Task Ledger skill doctrine, and the Task Ledger
 standard. Receipts report only source refs, hashes, counts, and scan status; the
 body text lives under `examples/.../source_modules/ai_workflow/`.
 
+## Purpose
+
+The organ answers one question: did a declared lesson actually change a named
+owner surface and pass that surface's own validation, or did it only produce a
+receipt that says so? "The system learned from its work" is an easy claim to
+assert and a hard one to back. Without a check, a log entry, a closed ticket, or
+a confident summary all read as progress. This validator refuses that shortcut.
+
+Each lesson row must name the surface it changed (a skill, a paper module, a
+standard, or a captured WorkItem), the action it took there, and the validation
+and closeout refs that show the change held. Every ref must resolve to a real
+file in the exported bundle, the copied source modules, or the public Microcosm
+tree. A lesson then lands in exactly one of four outcomes:
+`refined_existing_surface` (a surface changed and was validated),
+`workitem_captured` (deferred work, but only with a concrete re-entry
+condition), `nothing_to_refine` (a typed null result that still required
+stewardship and a next-best-lane check), or `already_propagated_verified`.
+Anything that does not fit one of these is a finding, not an outcome.
+
+The unusual part is the defence against self-grading. A lesson row may carry an
+`expected_label` or `expected_status` field, but the validator ignores it and
+recomputes the verdict from the evidence. If the row is not genuinely backed,
+its own asserted label cannot rescue it, and the case is recorded as
+`VOICE_DOCTRINE_BAKED_EXPECTED_LABEL_IGNORED`. A fixture cannot pass by
+declaring its own success. The same instinct runs through the negative floor:
+raw operator voice, private thread bodies, provider payloads, direct edits to
+doctrine nodes, and global promotion without owner validation are each rejected,
+keeping "the system improves itself" separate from "this public artifact may
+rewrite doctrine or export private voice."
+
 ## Shape
 
 ```mermaid
@@ -21,17 +51,29 @@ flowchart LR
   Signal["Local pressure\nmistake, route gap,\nvalidation finding, residual"]
   Classify["Classify\nowner surface + action"]
   Owner["Owner surface\nskill, paper module,\nstandard, WorkItem"]
-  Outcome["Allowed outcome\nrefined surface, workitem capture,\nnothing_to_refine, already propagated"]
-  Validate["Validation\nowner evidence + closeout ref"]
-  Source["Exact public-safe macro bodies\n8 manifest rows, hashes, anchors"]
+  Refused["Refused\nraw voice, private body,\ndirect node edit, receipt-only,\nunvalidated promotion"]
+
+  subgraph Outcome["One of four typed outcomes"]
+    Refined["refined_existing_surface\nchanged ref + validation"]
+    Captured["workitem_captured\nwith re-entry condition"]
+    Null["nothing_to_refine\nstewardship + next-lane checked"]
+    Already["already_propagated_verified"]
+  end
+
+  Recompute["Recompute verdict from evidence\nexpected_label ignored"]
+  Validate["Validation\nowner evidence + closeout ref;\nevery ref must resolve"]
+  Source["Exact public-safe macro bodies\n8 manifest rows: hashes, anchors"]
   Receipts["Body-free receipts\nresult, board, validation,\nfixture acceptance"]
 
   Signal --> Classify
   Classify --> Owner
+  Owner --> Refused
   Owner --> Outcome
-  Outcome --> Validate
+  Outcome --> Recompute
+  Recompute --> Validate
   Source --> Receipts
   Validate --> Receipts
+  Refused --> Receipts
 ```
 
 ## Public Mechanics

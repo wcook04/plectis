@@ -14,6 +14,30 @@ source refs, and runtime receipts carry the evidence, while
 `secret_exclusion_scan` blocks only live market feeds, provider payload bodies,
 account/session material, private dossiers, and credential-equivalent access.
 
+## Purpose
+
+A forecast that gets the direction right can still be badly wrong about the
+number, and a forecast can look accurate only because it quietly used evidence
+that arrived after the outcome it was meant to predict. This organ exists to make
+those two failures visible on a synthetic packet, before any reasoning is dressed
+up as a track record. The single question it answers is narrow: does this
+prediction packet keep its evidence honest and its grading recomputable, or does
+it cut a corner?
+
+The unusual choice is that the organ does not trust the numbers the packet
+reports. For every numeric row it recomputes the absolute error, the percent
+error, and the direction hit from the snapshot, predicted, and realized prices,
+then rejects any claimed value that contradicts the recompute. It also surfaces a
+direction hit that is still a large numeric miss rather than letting the correct
+arrow hide the size of the error. Evidence is split at the prediction time: a
+reference that points past the target window is refused, not silently scored.
+
+None of this is forecasting. There is no live market data, no provider call, no
+trading or investment advice, and no performance claim. The packet, its target
+universe, and its realized values are invented fixtures. A direction hit or a
+numeric miss inside a receipt is a statement about the fixture and the grading
+mechanics, nothing more.
+
 ## Public Contract
 
 The input packet names:
@@ -29,6 +53,52 @@ The input packet names:
   substrate refs.
 - `authority_ceiling` values that explicitly keep trading, advice, provider,
   live-market, publication, release, and secret-export authority false.
+
+## How it works
+
+`validate_reconciliation_packet` runs five checks over the packet and folds the
+findings into one status. Each check guards a specific way a forecast can flatter
+itself.
+
+CP1 resolution. Every `cp1_branches` row must name the side it chose, carry
+rationale refs, and keep an `opposite_side_invalidation_ref`, the record of why
+the losing side lost. A branch that asserts a winner without retaining the
+discarded alternative is rejected as an unresolved bifurcation. Equity or
+market-lane branches additionally need an explicit confirmation bit before they
+count.
+
+CP2 universe and pre-target evidence. Predictions must name a `target_id` inside
+the declared `valid_prediction_targets`, so the set of things being predicted is
+fixed before the outcome rather than chosen afterwards. Evidence refs must be
+pre-target: a ref is accepted only if it carries the `T-` time prefix, and a
+reference that points past the target window raises
+`PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN`. This is the gate that stops a
+packet from grading itself with hindsight.
+
+Recomputed numeric grading. This is the part that does real arithmetic. For each
+graded row the organ takes the snapshot, predicted, and realized prices and
+recomputes the absolute delta, the percent delta against the snapshot, and the
+direction hit. If the row also reports its own `abs_error`, `pred_error_pct`, or
+`direction_hit`, the claimed value must match the recompute or the row is
+rejected. Two further rules matter. A row whose direction is correct but whose
+error clears the floor (ten in absolute terms, or five percent) is surfaced as a
+large miss, so a right arrow cannot conceal a large numeric error. A row with no
+realized price is not fabricated into a graded row, a row marked degraded is
+gated out of grading rather than scored, and the STOCK and ETF asset classes are
+kept as separate counts rather than blended.
+
+Oracle diff and bounded mutation. The `oracle_diff` rows grade synthetic realized
+direction against each prediction, and `dossier_mutations` may only add a
+contradiction, revise a confidence band, or retire a claim. A high-severity
+mutation needs two evidence refs and an explicit public-delta allowlist before it
+is allowed.
+
+A run passes only when at least two CP1 branches, two CP2 predictions, two
+graded numeric rows across both asset classes, and one bounded mutation are
+present, the recompute and evidence gates raise no findings, the source-module
+digests match, and the secret scan is clean. The receipt records counts,
+verdicts, and authority booleans; the packet body, claimed numbers, and source
+bodies stay out of it.
 
 ## JSON Capsule Binding
 
@@ -98,21 +168,30 @@ the JSON capsule.
 
 ```mermaid
 flowchart TD
-  Capsule["JSON capsule\npaper_module.prediction_oracle_reconciliation"]
-  Sidecar["Generated sidecar\n15 edges, zero residuals"]
-  Runtime["Runtime organ\nprediction_oracle_reconciliation.py"]
-  Fixture["Synthetic prediction packet\nCP1 branches, CP2 targets, oracle diff"]
-  Bundle["Exported prediction bundle\nsource artifacts + manifest"]
-  Gates["Negative gates\ntarget universe, post-target evidence, live-market, advice, release"]
-  Receipts["Body-free receipts\nresult, board, validation, acceptance"]
-  Ceiling["Authority ceiling\nsynthetic reconciliation only"]
+  Packet["Synthetic prediction packet\ntarget universe, CP1 branches,\nCP2 predictions, oracle diff,\nnumeric rows, dossier mutations"]
 
-  Capsule --> Sidecar
-  Sidecar --> Runtime
-  Fixture --> Runtime
-  Bundle --> Runtime
-  Runtime --> Gates
-  Gates --> Receipts
+  CP1["CP1 resolution\nchosen side + rationale +\nwhy the opposite side lost;\nequity lane needs confirmation"]
+  CP2["CP2 universe + evidence\ntarget inside declared universe;\nevidence must be pre-target (T-)"]
+  Numeric["Recomputed numeric grading\nabs error, percent error,\ndirection hit recomputed;\nclaimed values must match"]
+  Oracle["Oracle diff + mutation\nrealized vs predicted direction;\nbounded dossier deltas"]
+
+  LargeMiss["Direction-right, numeric-miss\nsurfaced, not hidden"]
+  Gated["Degraded / missing-truth rows\ngated, not fabricated"]
+
+  Receipts["Body-free receipts\nresult, board, validation,\nacceptance; counts and verdicts"]
+  Ceiling["Authority ceiling\nsynthetic fixture only;\nno trading, advice, provider,\nlive market, publish, release"]
+
+  Packet --> CP1
+  Packet --> CP2
+  Packet --> Numeric
+  Packet --> Oracle
+  Numeric --> LargeMiss
+  Numeric --> Gated
+  CP1 --> Receipts
+  CP2 --> Receipts
+  LargeMiss --> Receipts
+  Gated --> Receipts
+  Oracle --> Receipts
   Receipts --> Ceiling
 ```
 

@@ -14,6 +14,40 @@ sessions, or dispatch WhisperKit.
 
 Authority ceiling: source-open capture-console mechanics over public fixtures only; not recording authority, release approval, or proof of complete UI coverage.
 
+## Purpose
+
+The Demo Take Console is a real macOS app that records screen and microphone
+takes, drives FFmpeg through a Python helper, and hands audio to an on-device
+WhisperKit transcriber. This capsule exists so a reader can inspect how that app
+is wired without the app ever running. It answers one question: do the safety
+gates and contracts in the Swift source actually hold, as source, before anyone
+trusts the app to capture anything?
+
+The interesting choice is that the capsule checks behaviour, not just shape. It
+copies the relevant Swift files into a public bundle, then runs six small
+exercises that read those copies and assert specific invariants: that recording
+cannot start without a chosen display and free disk, that the global hotkey
+requires Control-Option-Command, that the audio meter clamps its level to the
+0 to 1 range, that the transcriber refuses to run when its audio file is
+missing. None of these read the app's live state. They read the source that
+decides the app's behaviour.
+
+To prove those checks are not vacuous, the capsule pairs them with six negative
+cases. Five of them copy the bundle into a scratch directory, delete one guard
+from the copy (the display blocker, the hotkey modifier, the audio clamp, the
+helper-script path, the missing-audio guard), and re-run the matching exercise.
+If the check still passes after the guard is gone, it was never testing the
+guard. This is the unusual part: the negative cases mutate the source and demand
+that the validator notices, so a green run means the gate is present rather than
+merely that the file parses. The sixth negative case runs `swift build` against
+an empty directory and expects it to fail, confirming the build witness is real
+rather than asserted.
+
+One of the six engines is a real `swift build` of the app target. It records the
+exit code and a build-complete marker, never the build log body, and claims only
+that the copied sources compile as a SwiftPM target. It does not launch the app
+or grant any capture permission.
+
 ## Shape
 
 This module is a reader projection over a JSON-capsule source row, not an
@@ -27,31 +61,31 @@ The generated instance is
 
 ```mermaid
 flowchart TD
-    capsule["JSON capsule source row<br/>core/paper_module_capsules.json[83]<br/>paper_module.batch7_demo_take_console_capsule"]
-    mechanism["Mechanism source row<br/>core/mechanism_sources.json[87]<br/>validates_public_demo_take_console_capsule"]
-    instance["Generated JSON instance<br/>paper_modules/batch7_demo_take_console_capsule.json<br/>source_authority: json_capsule"]
-    markdown["Reader Markdown projection<br/>paper_modules/batch7_demo_take_console_capsule.md<br/>legacy_import_projection_until_roundtrip_builder"]
-    standards["Standards<br/>standards/std_microcosm_batch7_demo_take_console_capsule.json<br/>std_microcosm context via Microcosm coverage contract"]
-    runtime["Runtime/source loci<br/>src/microcosm_core/organs/batch7_demo_take_console_capsule.py<br/>src/microcosm_core/runtime_shell.py<br/>src/microcosm_core/cli.py"]
-    fixtures["Fixtures and examples<br/>core/fixture_manifests/batch7_demo_take_console_capsule.fixture_manifest.json<br/>fixtures/first_wave/batch7_demo_take_console_capsule/input<br/>examples/.../exported_batch7_demo_take_console_capsule_bundle"]
-    bundle["Source bundle manifest<br/>source_module_manifest.json<br/>8 copied_non_secret_macro_body Swift modules<br/>exact_copy, body_in_receipt=false"]
-    tests["Tests and receipts<br/>tests/test_batch7_demo_take_console_capsule.py<br/>receipts/first_wave/...<br/>state/microcosm_verifier/receipts/20260604T1910Z_batch7_demo_take_console_capsule_focus_cycle.json"]
-    projections["Generated projections<br/>Mermaid: available_from_capsule_edges<br/>Atlas: blocked_until_organ_atlas_owner_lane_binds_edges"]
-    ceiling["Authority ceiling<br/>fixture-bound source-copy and digest/anchor evidence only<br/>no app launch, recording, FFmpeg, WhisperKit dispatch, release, or whole-system proof"]
+    bundle["Copied public Swift bundle<br/>eight exact-copy source files<br/>body_in_receipt = false"]
 
-    capsule --> instance
-    capsule --> mechanism
-    mechanism --> runtime
-    instance --> markdown
-    instance --> projections
-    standards --> runtime
-    runtime --> fixtures
-    fixtures --> bundle
-    runtime --> tests
-    bundle --> tests
-    tests --> ceiling
-    projections --> ceiling
-    markdown --> ceiling
+    subgraph Engines["Six source-contract engines"]
+      build["swift build witness<br/>app target compiles<br/>exit code + build marker only"]
+      state["Recording state model<br/>eleven typed states present<br/>marker uses wall + video time"]
+      bridge["Helper-bridge contract<br/>eleven helper commands<br/>script bound to repo"]
+      fsm["RecorderStore state machine<br/>start needs display + disk<br/>pause / resume / stop-to-review"]
+      meter["Hotkey + audio meter<br/>Control-Option-Command-M<br/>level clamped 0 to 1"]
+      transcribe["Transcribe payload builder<br/>WhisperKit decode config<br/>guards missing audio"]
+    end
+
+    subgraph Negatives["Paired negative cases"]
+      mutate["Copy bundle to scratch<br/>delete one guard token"]
+      rerun["Re-run that engine<br/>expect it to flip to blocked"]
+    end
+
+    receipts["Body-free receipts<br/>refs, digests, anchors, booleans<br/>no source bodies, no logs"]
+    ceiling["Authority ceiling<br/>source-copy + fixture evidence only<br/>no app launch, capture, FFmpeg,<br/>WhisperKit dispatch, or release"]
+
+    bundle --> Engines
+    bundle --> mutate
+    mutate --> rerun
+    Engines --> receipts
+    rerun --> receipts
+    receipts --> ceiling
 ```
 
 The runtime organ is the executable validation locus: it names six expected

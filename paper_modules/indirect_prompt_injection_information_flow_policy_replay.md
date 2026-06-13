@@ -10,6 +10,37 @@ flow rows, pre-action policy verdicts, sanitized-output receipts, cold replay,
 secret-exclusion scan, negative cases, a public agent-execution trace, and an
 explicit authority ceiling.
 
+## Purpose
+
+An agent that reads web pages, tool output, or retrieved documents takes in text
+from sources it does not control. Indirect prompt injection is the case where
+that untrusted text carries an instruction, and the agent acts on it as if the
+operator had asked. This organ exists to make one specific safety property
+checkable on a synthetic trace: untrusted text was kept separate from trusted
+instructions, and no untrusted source reached a privileged action without being
+gated first. It answers a single question. Did the trust boundary actually hold
+through the flow, or only on paper?
+
+The unusual part is that the validator does not trust the labels the fixture
+declares. Each flow row claims a set of taint labels and a policy verdict, but
+the runtime ignores those and recomputes both. It propagates taint along the
+source-to-sink graph from the labelled sources, so a sink inherits the taint of
+everything that fed it, and it derives the verdict from that propagated taint
+plus the sink's privilege, the sanitizer state, the sink kind, and the proposed
+action. If the declared taint or the declared verdict disagrees with the
+recomputed one, the row is blocked. A flow cannot quietly relabel an untrusted
+source as clean, or mark a dangerous action as `allow`, because the contradiction
+is recomputed rather than read back.
+
+That recomputation is the point. The failure mode it guards against is a trace
+that looks safe because the labels were written to look safe. By deriving the
+labels and verdicts from the graph itself, the contract catches the mislabelled
+flow that a field-by-field check would wave through. To stay honest about live
+behaviour, it also takes one generated public tool-call trace span and pushes it
+through the same machinery as untrusted tool output, so the runtime is seen to
+treat tool output as data until a policy gate reviews it, never as instruction
+authority.
+
 ## Cold-Reader Path
 
 ```bash
@@ -78,36 +109,30 @@ Receipts carry refs, digests, counts, and validation status, not source bodies.
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule authority"]
-  markdown["Markdown reader projection"]
-  mechanism["mechanism source row"]
-  organ["prompt-injection flow runtime"]
-  fixture["first-wave fixture"]
-  bundle["exported flow bundle"]
-  sources["source trust and taint rows"]
-  flows["source-to-sink flows"]
-  verdicts["pre-action policy verdicts"]
-  outputs["sanitized outputs"]
-  replay["cold replay rows"]
-  trace["public execution trace spans"]
-  source_modules["five copied source bodies"]
-  receipts["body-free receipts"]
-  ceiling["authority ceiling"]
+  sources["Source rows\ntrusted and untrusted,\nwith taint labels"]
+  flows["Source-to-sink flow rows\n(declared taint and verdict)"]
+  propagate["Propagate taint\nalong the source-to-sink graph"]
+  derive["Derive verdict\nfrom taint + sink privilege\n+ sanitizer + sink kind + action"]
+  compare{"Declared labels and verdict\nmatch the derived ones?"}
+  blocked["Block the row\n(relabelled or wrong verdict)"]
+  gate{"Untrusted into a\nprivileged sink?"}
+  verdicts["Pre-action verdict\nallow / warn / review / block"]
+  outputs["Sanitized output\nno trusted context disclosed,\nno untrusted instruction obeyed"]
+  toolspan["One public tool-call trace span\ntreated as untrusted tool output"]
+  receipts["Body-free receipts\nrefs, digests, counts, status"]
 
-  capsule --> markdown
-  capsule --> mechanism
-  mechanism --> organ
-  organ --> fixture
-  organ --> bundle
-  bundle --> sources
   sources --> flows
-  flows --> verdicts
+  flows --> propagate
+  propagate --> derive
+  derive --> compare
+  compare -- no --> blocked
+  compare -- yes --> gate
+  gate -- yes --> verdicts
+  gate -- no --> verdicts
   verdicts --> outputs
-  outputs --> replay
-  replay --> trace
-  source_modules --> trace
-  trace --> receipts
-  receipts --> ceiling
+  toolspan --> propagate
+  outputs --> receipts
+  blocked --> receipts
 ```
 
 The module's shape is a public information-flow replay, not a live

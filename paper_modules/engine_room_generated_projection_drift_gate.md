@@ -3,6 +3,32 @@
 This staged Engine Room capsule imports the generated-projection drift control
 shape into Microcosm as a public-safe refactor.
 
+## Purpose
+
+A repository that commits generated files alongside their sources has a standing
+problem: a generated artifact can quietly fall out of step with the source it
+was built from, and nothing fails until a reader trusts a stale file. This
+capsule answers one question. For a given set of changed paths, which generated
+artifacts might now be out of date, and is the owner's own check still passing?
+
+The unusual choice is owner routing rather than a global snapshot. Each
+generated surface is modelled as a `ProjectionOwner` row that names its
+artifacts, its source authorities, and a no-write check command that is treated
+as the drift authority for that surface. A changed path is matched against those
+patterns, so a small edit selects only the owners it could plausibly affect
+instead of rerunning every builder in the repository. The check command itself,
+not this gate, decides whether a surface is fresh. The gate's job is to route to
+the right owner and record the evidence honestly.
+
+Two properties keep that honest. The skip cache is deliberately strict: a prior
+clean receipt is reused only when the source hash, the artifact hash, the check
+command, and artifact presence all still match, so any drift in any of those
+falls back to actually running the check. And a missing artifact counts as drift
+on its own, even when the owner's check command would pass, so an absent
+generated file cannot be laundered by a green command. The result is a freshness
+signal for declared owners, not a claim that every generated surface in the wider
+system is semantically correct.
+
 ## What It Demonstrates
 
 - Projection owners declare artifacts, source authorities, no-write checks, and

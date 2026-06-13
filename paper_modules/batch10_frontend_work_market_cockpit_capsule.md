@@ -16,17 +16,31 @@ The market cockpit contract is honest signal presentation: it normalizes raw ent
 
 The market lens contract carries route-readiness and finance-assurance indicators without promoting the UI into backend evidence authority, market advice, release approval, browser access, or provider dispatch.
 
+## Purpose
+
+These two cockpit surfaces make claims about their own restraint. The work lens prints `observation only · mutation lives in task_ledger_apply`; the market cockpit prints `No frontend finance computation` and `salience, not a recommendation`. Those lines are promises to the reader. The question this organ answers is narrow: are those promises still present in the source that actually ships, or have they quietly drifted out?
+
+A promise written in a comment or a label is cheap to break. A refactor can move mutation logic into the lens, swap calendar-day arithmetic for trading-day arithmetic, or relabel a salience score as a recommendation, and nothing in a screenshot would look wrong. The interesting choice here is to treat the honesty boundary as testable text. The organ copies the exact source bodies of the five frontend files into the public bundle and checks, by digest and by required anchor, that the specific phrases and helper functions carrying each promise are still there.
+
+So the work is checking text against itself, not running a browser. The organ never renders a component, never reaches a ledger, and never touches a market feed. It reads the copied TypeScript, confirms the read-only and honest-signal anchors are present, and pairs each negative case to a recomputed verdict rather than echoing a fixture label. What it can prove is that a copy of the source still says what it claimed to say. It cannot prove the running UI behaves that way, and it makes no market or release claim.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-    A["JSON capsule row<br/>core/paper_module_capsules.json::paper_modules[79]"] --> B["Accepted organ subject<br/>batch10_frontend_work_market_cockpit_capsule"]
-    B --> C["Runtime organ<br/>src/microcosm_core/organs/batch10_frontend_work_market_cockpit_capsule.py"]
-    D["Copied frontend bodies<br/>WorkLens, MarketCockpit,<br/>MarketIntelligenceLens"] --> C
-    E["Fixture, source manifest,<br/>focused regression tests"] --> C
-    C --> F["Body-free receipts<br/>receipts/first_wave/batch10_frontend_work_market_cockpit_capsule"]
-    F --> G["Generated Mermaid and Atlas<br/>from capsule edges"]
-    G --> H["Authority ceiling:<br/>no ledger mutation, market advice,<br/>live UI, provider dispatch, or release"]
+    Manifest["Source manifest<br/>5 copied TS/TSX bodies +<br/>SHA-256 digests + required anchors"] --> Read["Read copied source text<br/>no browser, no ledger, no feed"]
+    Read --> E1["Work lens read-only contract<br/>observes WorkItems, dedupes queue,<br/>mutation -> task_ledger_apply"]
+    Read --> E2["Market cockpit honest-signal contract<br/>normalizeEntity, calendar days,<br/>no fake series, not a recommendation"]
+    Read --> E3["Market lens route-readiness contract<br/>finance-assurance strip,<br/>not trading recommendations"]
+    Read --> E4["Frontend source-test witness<br/>dedupe / timeout / normalization<br/>assertions present in tests"]
+    Read --> E5["Private source-ref guard<br/>refs stay repo-relative,<br/>no /Users or wallet markers"]
+    E1 --> Matrix["Integrity matrix<br/>each engine status + each negative case<br/>paired to a recomputed verdict"]
+    E2 --> Matrix
+    E3 --> Matrix
+    E4 --> Matrix
+    E5 --> Matrix
+    Matrix --> Receipts["Body-free receipts<br/>refs, digests, counts only;<br/>copied bodies stay under source_modules"]
+    Receipts --> Ceiling["Authority ceiling<br/>no ledger mutation, market advice,<br/>live UI, provider dispatch, or release"]
 ```
 
 The page is a reader route over a real capsule row. The useful shape is the
@@ -34,6 +48,18 @@ join between accepted organ authority, copied frontend source bodies, synthetic
 fixtures, focused tests, and body-free receipts. It does not turn cockpit UI
 copy into live browser proof, Task/Work Ledger mutation authority, backend
 authority, market advice, or release approval.
+
+## What it checks
+
+Five engines run over the copied source text and a small public fixture. Each one looks for a specific way the honesty boundary could rot.
+
+The work-lens engine confirms the read-only posture is still wired. It looks for the world-model read APIs (`workLedgerOverview`, `taskLedgerProjection`), a fixed `WORK_LEDGER_OVERVIEW_TIMEOUT_MS = 12000` so a cold queue fails loudly rather than hanging, the mutation-boundary copy pointing at `task_ledger_apply`, and the priority-queue container marker. It also takes the fixture's WorkItem rows, which include a deliberate duplicate id, and confirms the lens dedupes them, so a noisy ledger does not double-count work.
+
+The market-cockpit engine checks honest signal presentation. The market lens does no finance arithmetic in the browser, so the source must keep `normalizeEntity` (turning a raw id such as `equity:ARM` into a labelled entity), `REASON_CODE_TRANSLATIONS`, and `calendarDaysBetween` for honest staleness, which counts calendar days rather than trading days. It must keep the `not a recommendation` line, and the fixture's claim policy must hold `fake_timeseries_allowed: false` and `recommendation_claims_allowed: false`. The market-lens engine adds the route-readiness and finance-assurance anchors and confirms the fixture reports `route_ready: false`, so an in-sync projection does not silently imply the route is finished.
+
+The remaining two engines guard the evidence itself. The source-test witness confirms the real test files still assert the behaviours that matter, including the dedupe, timeout, and the `not.toContain('equity:ARM')` normalization check. The private-ref guard scans every manifest reference for markers like `/Users`, `wallet`, or `provider_payload`, and for any source ref that is not repo-relative, refusing to write if a private path leaked in.
+
+The genuinely useful design choice is in the negative cases. The organ does not trust a fixture that simply asserts "this was refused". For each negative case it mutates the bundle (relabels the mutation copy, flips the fake-timeseries policy, injects a `/Users/...` ref) and recomputes the engine over the altered input. A case only counts as caught when the recomputed value crosses the boundary on its own. A fixture label that no longer matches the recomputed verdict is flagged as `fixture_verdict_echo_risk` rather than passing quietly.
 
 ## Reader Proof Boundary
 

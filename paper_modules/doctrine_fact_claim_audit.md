@@ -4,6 +4,33 @@
 
 What it proves: fact assertion, code-loci, DAG, and numeric claim binding fixture truth gate only.
 
+## Purpose
+
+Documentation about a living system rots. A page states that there are forty-seven
+of something, or cites a function in a file, and both claims quietly go stale as the
+code moves underneath them. A reader cannot tell a current count from a number that
+was true once and never rechecked. This organ exists to answer one question: which
+of a page's factual assertions can be re-derived from source right now, and which
+have become untracked drift?
+
+The approach treats a documentation claim like a cached value that needs an
+invalidation strategy. A bare number is not enough; the claim is admissible only
+when it is bound to a fact assertion that records how to recompute or revalidate
+the value. The same pass resolves every cited code locus on disk and checks that the
+quoted anchor text is actually present, so a plausible-but-dead file reference
+becomes a typed finding rather than inert prose. The interesting move is that
+nothing here asks a model whether the prose reads as true. The organ recomputes a
+bounded relation over public fixtures and reports only what that relation supports.
+
+The second design choice worth naming is how the checks are proved. The negative
+floor is semantic, not label-trusting: the test harness overwrites the declared
+failure fixtures with bogus pass rows and confirms the evaluator still derives the
+expected stable error codes itself. That keeps the proof attached to the mechanism
+rather than to the fixture filenames. The honesty of the page rests on that: the
+organ is a narrow claim-audit gate over copied public fixtures, not a comprehension
+engine, a minimum-read-graph proof, a source-mutation lane, or any release
+authority.
+
 ## Prior Art Grounding
 
 This organ borrows from provenance modeling, structured fact-check metadata,
@@ -184,13 +211,27 @@ capsule, not that any new doctrine truth has been discovered.
 
 ```mermaid
 flowchart LR
-  Facts["fact_assertions.json"] --> Eval["evaluate"]
-  Dag["fact_dag.json"] --> Eval
-  Numerics["numeric_claims.json"] --> Eval
-  Manifest["source module manifest"] --> Eval
-  Eval --> Receipt["body-free receipts"]
-  Eval --> Negatives["semantic negative cases"]
-  Capsule["JSON capsule edges"] --> Reader["reader projection"]
+  Facts["fact_assertions.json\nfacts + expected_fact_count"] --> Eval["evaluate"]
+  Dag["fact_dag.json\nedges"] --> Eval
+  Numerics["numeric_claims.json\ncases"] --> Eval
+  Manifest["source module manifest\ncopied non-secret bodies"] --> Eval
+
+  Eval --> Count{"declared fact count\n= table length?"}
+  Eval --> Loci{"each code locus\npath on disk +\nanchor in body?"}
+  Eval --> DagRef{"DAG endpoints\nare known fact ids?"}
+  Eval --> Bound{"current-state numerics\nbound to a fact\nassertion section?"}
+
+  Count -->|mismatch| Block["typed blocking finding"]
+  Loci -->|missing path or anchor| Block
+  DagRef -->|dead ref| Block
+  Bound -->|unbound| Block
+
+  Count -->|ok| Receipt["body-free receipt\nbody_in_receipt: false"]
+  Loci -->|ok| Receipt
+  DagRef -->|ok| Receipt
+  Bound -->|ok| Receipt
+
+  Neg["evaluate_negative_case\nmutate fixture, rerun evaluator"] --> Codes["expected stable\nerror codes"]
 ```
 
 ## JSON Capsule Binding

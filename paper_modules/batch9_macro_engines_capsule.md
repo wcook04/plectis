@@ -1,5 +1,35 @@
 # Batch 9 Macro Engines Capsule
 
+## Purpose
+
+Copying a file into a public bundle proves only that the bytes match. It does
+not prove that the imported logic still behaves the way it did in the larger
+system it came from. This organ exists to close that gap for thirteen
+backend, governance, and frontend data-shaping modules. The single question it
+answers is: do these copied source bodies still compute what they claim to
+compute, when run against bounded fixtures, here in the public repository?
+
+The unusual part is how it checks. Rather than asserting against pre-baked
+result files, the organ loads each copied module and calls its real functions.
+It imports `system/lib/approval_registry.py` and runs `decide_approval` against
+a temporary approvals tree to confirm a pre-acquired claim is refused. It
+imports `system/lib/python_documentation_tree.py` and runs `build_file_entry`
+over written-out Python to read symbols back. It runs the copied mission-graph
+compiler, the dependency-pin parser, the config-authority registry validator,
+the host-pressure admission builder, the worker budget guard, and the milestone
+metric computer, each on its own fixture. The three TypeScript bodies for
+finance clustering, edge extraction, and WorkAtlas aggregation are parsed for
+their load-bearing constants and branches, then mirrored deterministically. Each exercise carries both a
+positive shape and a paired negative case, so the proof moves with source
+behaviour, not with a static receipt.
+
+The reader should treat the result as fixture-bound evidence and nothing more.
+A passing capsule shows that representative mechanics still match the imported
+bodies under positive and negative cases. It does not assert live lineage
+truth, approval authority, real market or news truth, host-state truth, Work
+Ledger truth, provider dispatch, source mutation, publication, or release
+approval.
+
 ## Abstract
 
 Batch 9 Macro Engines Capsule is a public Microcosm paper module for a
@@ -34,21 +64,35 @@ questions:
 
 ```mermaid
 flowchart TD
-  capsule["paper_module.batch9_macro_engines_capsule"]
-  organ["organ: batch9_macro_engines_capsule"]
-  runtime["src/microcosm_core/organs/batch9_macro_engines_capsule.py"]
   manifest["source_module_manifest.json\n13 copied non-secret macro bodies"]
-  fixtures["first_wave fixture input\n13 negative cases"]
-  exercises["13 deterministic public exercises"]
-  receipts["body-free result, board,\nvalidation, and acceptance receipts"]
-  ceiling["authority ceiling:\nfixture evidence only"]
+  fixtures["first_wave fixture input\nprobe manifest + 13 negative cases"]
+  runtime["batch9_macro_engines_capsule.py\nrun / run_batch9_bundle"]
 
-  capsule --> organ
-  organ --> runtime
+  digest["Digest + anchor check\ncopied bytes match source,\nrequired anchors present"]
+  exercise["Re-execute imported logic\n_run_all_exercises"]
+
+  py["10 Python bodies\nimportlib load, call real functions\n(lineage, approval, AST, mission graph,\npin drift, config, host pressure,\ndoctrine, worker gate, milestone)"]
+  ts["3 TS-backed bodies\nparse constants/branches, mirror\n(finance, WorkAtlas, edge extractor)"]
+
+  pos["Positive case\nexpected shape"]
+  neg["Negative case\ne.g. self-loop pruned,\npreacquired claim refused,\nforbidden surface blocked"]
+
+  receipts["Body-free receipts\nresult, board, validation,\nacceptance; body_in_receipt false"]
+  ceiling["Authority ceiling\nfixture evidence only"]
+
   manifest --> runtime
   fixtures --> runtime
-  runtime --> exercises
-  exercises --> receipts
+  runtime --> digest
+  runtime --> exercise
+  exercise --> py
+  exercise --> ts
+  py --> pos
+  py --> neg
+  ts --> pos
+  ts --> neg
+  digest --> receipts
+  pos --> receipts
+  neg --> receipts
   receipts --> ceiling
 ```
 

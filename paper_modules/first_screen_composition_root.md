@@ -11,12 +11,21 @@ localhost observatory. The first-screen problem is not lack of depth. It is
 that depth lands poorly when the first encounter is a long command inventory
 or a raw JSON payload.
 
+The single question the composition root answers is: when a cold reader lands
+on this repository, what has to fit on one screen before they choose a deeper
+route, and in what order. It answers that with a fixed slot list rather than
+prose, so every projection of the first screen (terminal card, README, browser
+board, JSON, video) renders the same surfaces in the same order.
+
 The composition root says what has to fit on one screen:
 
 1. One shared terminal selector: `microcosm hello <project>`.
 2. One shared behavior proof: `microcosm tour --card <project>`.
-3. Three reader branch handles after that shared card: safety/evals engineer,
-   hiring reviewer, and peer developer.
+3. Six reader branch handles after that shared card: GitHub visitor,
+   safety/evals engineer, hiring reviewer, peer developer, domain specialist,
+   and Type A agent. The shared map and behavior proof always come first; a
+   reader branch only changes which next inspection surface is shown, never the
+   authority ceiling.
 4. Evidence counts framed as accounting, not maturity or progress scores.
 5. A runnable-to-structural join: the folder-local command is one visible
    exercise of a larger source-open substrate.
@@ -30,24 +39,41 @@ The composition root says what has to fit on one screen:
    calls, source mutation, private-data equivalence, score-based progress, and
    whole-system correctness.
 
+What is unusual here is that the card is checked against the standard that
+defines it. The emitter does not free-hand its output. It loads
+`standards/std_microcosm_first_screen_composition_root.json`, builds the card,
+and then scans the card back against the standard's required fields, validator
+id, reader-route parity, copyable per-reader commands, and denied-authority
+flags. The scan reports `blocked` rather than raising when a surface has
+drifted, so a renamed slot or a missing reader route is visible as a failing
+check instead of a silent regression. The check proves only that the card is
+internally consistent with its own contract. It does not certify that any
+reader will succeed, that the system is mature, or that anything is ready to
+release.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-    A["JSON capsule row<br/>core/paper_module_capsules.json"] --> B["First-screen standard<br/>standards/std_microcosm_first_screen_composition_root.json"]
-    B --> C["Runtime composition helper<br/>src/microcosm_core/first_screen_composition.py"]
-    C --> D["Card emitter<br/>scripts/first_screen_composition_card.py"]
-    D --> E["Focused tests<br/>CLI, card, README route order"]
-    E --> F["Mechanism subject<br/>mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"]
-    F --> G["Generated paper-module JSON<br/>source_authority: json_capsule"]
+    A["First-screen standard<br/>standards/std_microcosm_first_screen_composition_root.json"] --> B["Compose card<br/>first_screen_composition.py: build slots, six reader routes, evidence frame"]
+    B --> C["Scan card against standard<br/>_standard_backed_first_screen_scan + _validation_checks"]
+    C -->|all checks true| D["status: pass"]
+    C -->|drift, rename, missing route| E["status: blocked<br/>failing check named"]
+    D --> F["Emit<br/>scripts/first_screen_composition_card.py --format json or text"]
+    E --> F
+    F --> G["Reader output<br/>JSON contract or terminal text card, one screen"]
+    A -.binds.-> H["JSON capsule row + mechanism subject<br/>core/paper_module_capsules.json"]
 ```
 
-This is the paper-module shape behind the first screen: a governed one-screen
-composition contract, one public helper, one card emitter, and focused tests.
-The diagram is not a publication claim. It now binds a mechanism subject and
-resolved code loci, while keeping accepted-organ authority, release approval,
-hosted-publication readiness, provider calls, source mutation, score-based
-progress, private-data equivalence, and whole-system correctness out of scope.
+This is the runtime shape behind the first screen: the standard is loaded, the
+card is composed from it, the card is scanned back against the standard, and the
+result is emitted as JSON or a terminal text card. A passing scan means the card
+is internally consistent with its contract; a blocked scan names the failing
+check. The diagram is not a publication claim. It binds the mechanism subject
+and resolved code loci, while keeping accepted-organ authority, release
+approval, hosted-publication readiness, provider calls, source mutation,
+score-based progress, private-data equivalence, and whole-system correctness out
+of scope.
 
 ## Reader Proof Boundary
 

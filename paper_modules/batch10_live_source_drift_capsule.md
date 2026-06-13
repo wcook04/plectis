@@ -17,21 +17,35 @@ control-plane files:
 - `tools/meta/factory/work_ledger.py`
 
 The capsule exists because the macro source moved ahead of older public
-source-module records. It preserves stale digest rows as a visible regression
-fixture, then proves the public copies match current macro digests byte-for-byte.
+source-module records. The interesting part is that it keeps the old, wrong
+digest visible on purpose. Each digest row carries three fingerprints that must
+agree before a copy passes: the copied public body, the manifest target it
+claims to match, and the current macro source. In the same row it keeps the
+stale recorded digest and asserts it differs from the current one, so the proof
+of freshness and the evidence of the earlier drift sit side by side.
+
+That makes the organ a drift sentinel rather than a one-off check. It is built
+to go red when the public copies fall behind the macro source again, and a red
+result is the signal to refresh the copies through the exact-copy source lane,
+not a defect in the page. Two cheap checks back the freshness claim without
+running anything dangerous: the copied Python is compiled but never imported, so
+a malformed body is caught without executing macro code, and a small set of
+named anchors is matched in each body so a copy that compiles but has quietly
+lost a command or contract surface is still flagged.
 
 ## Shape
 
 ```mermaid
 flowchart TD
-    A["Probe manifest with stale digest rows"] --> B["Current source manifest"]
-    B --> C["Digest refresh matrix"]
-    B --> D["Compile gate without imports"]
-    B --> E["Control-surface anchor matrix"]
-    C --> F["Claim ceiling gate"]
+    A["Probe manifest\nstale + current digests"] --> C
+    B["Copied control-plane bodies\nand source manifest"] --> C
+    C["Digest refresh matrix\ncopied = target = current,\nstale differs from current"] --> F
+    B --> D["Compile gate\npy_compile, no import"]
+    B --> E["Anchor matrix\nnamed command and\ncontract surfaces present"]
     D --> F
     E --> F
-    F --> G["Body-free receipt and card"]
+    F["Claim ceiling gate\nimport is not route or\nmutation authority"] --> G["Body-free receipt and card"]
+    C -. mismatch .-> H["Blocked: refresh copies\nvia exact-copy source lane"]
 ```
 
 ## Structured Lattice Bindings

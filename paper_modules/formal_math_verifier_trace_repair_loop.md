@@ -11,6 +11,35 @@ surfaces so a cold reader can inspect real failure taxonomy, graph-update
 candidates, and oracle-repair contrast rows without seeing proof bodies, oracle
 premise ids, provider payload bodies, or private run logs.
 
+## Purpose
+
+A failed proof attempt is cheap to throw away and expensive to learn from. The
+question this organ answers is narrow: can a verifier's failure be turned into a
+reusable repair signal, on the public side, without that signal quietly inheriting
+the authority of a real theorem prover? It exists because the interesting work in
+a proof-repair loop is the bookkeeping, not the proving, and that bookkeeping is
+where overclaim usually creeps in.
+
+The design choice worth noticing is that the loop refuses to collapse its stages
+into a single verdict. A verifier failure only counts as a teaching signal once it
+carries a trace grade backed by trace events, a repair action named against the
+verifier failure class it responds to, a failure-mode ledger append, a curriculum
+delta, and a cold-rerun receipt. Each of those is a separate field, and promotion
+is blocked until the cold-rerun receipt is present. The same separation keeps the
+dangerous material out: proof bodies, oracle-needed premise ids, and provider
+payload bodies are forbidden keys, so a row may name a failure class without ever
+exposing the proof or the oracle answer that produced it.
+
+The failure mode it guards against is stale copied rows pretending to be live
+proof-lab evidence. The repair rows here are imported from a real Ring2 benchmark
+run, so the temptation is to treat the copy as if the run were happening now. The
+realness gate is the answer: it only reaches its top rung when every verifier
+attempt and curriculum row replays cleanly against the imported source bodies, and
+the focused tests deliberately perturb an oracle row, a manifest digest, an attempt
+label, and a curriculum count so that any drift downgrades the verdict rather than
+passing quietly. A single deterministic toy-theorem rerun is the one thing actually
+executed here, and it is plain arithmetic over public inputs, not a Lean proof.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is `core/paper_module_capsules.json::paper_modules[23:paper_module.formal_math_verifier_trace_repair_loop]`; the generated instance is `paper_modules/formal_math_verifier_trace_repair_loop.json` with `source_authority: json_capsule`.
@@ -23,22 +52,31 @@ The proof boundary is copied non-secret Ring2 verifier-trace repair metadata, so
 
 ```mermaid
 flowchart TD
-  Capsule["JSON capsule\npaper_module.formal_math_verifier_trace_repair_loop"]
-  Sidecar["Generated sidecar\n17 edges + four resolved dependencies"]
-  Runtime["Runtime organ\nformal_math_verifier_trace_repair_loop.py"]
-  Fixture["First-wave fixture\ntrace events, grades, repair actions, promotion gates"]
-  Bundle["Exported verifier-trace repair bundle\nsource-module manifest + copied Ring2 rows"]
-  ToyRerun["Deterministic public toy rerun"]
-  Receipts["Body-free receipts\nresult, board, validation, acceptance"]
-  Ceiling["Authority ceiling\nrepair-loop accounting only"]
+  Input["Fixture input or exported bundle\ncopied Ring2 rows + source-module manifest"]
+  Protocol["Projection protocol\ncopied-material provenance"]
+  Manifest["Source-module manifest\ndigest, line and byte match,\nbody_in_receipt false"]
+  Secret["Secret-exclusion scan\nproof bodies, oracle ids,\nprovider payloads forbidden"]
 
-  Capsule --> Sidecar
-  Sidecar --> Runtime
-  Runtime --> Fixture
-  Runtime --> Bundle
-  Fixture --> ToyRerun
-  Bundle --> Receipts
-  ToyRerun --> Receipts
+  Attempts["Verifier-attempt replay\ngrade needs trace events,\nrepair needs failure class"]
+  Curriculum["Repair-curriculum replay\nfailure-mode ledger,\ncurriculum deltas"]
+  Promotion["Promotion policy\nrequires cold-rerun receipt"]
+  Toy["Deterministic toy rerun\nfail then repair over public inputs"]
+
+  Realness["Realness gate\nclean source replay -> top rung;\nany drift downgrades"]
+  Receipts["Body-free receipts\nresult, board, validation, acceptance"]
+  Ceiling["Authority ceiling\nrepair-loop accounting, not proof"]
+
+  Input --> Protocol
+  Protocol --> Manifest
+  Manifest --> Secret
+  Secret --> Attempts
+  Attempts --> Curriculum
+  Curriculum --> Promotion
+  Promotion --> Toy
+  Attempts --> Realness
+  Curriculum --> Realness
+  Toy --> Realness
+  Realness --> Receipts
   Receipts --> Ceiling
 ```
 

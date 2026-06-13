@@ -131,12 +131,21 @@ install command.
 
 ```mermaid
 flowchart TD
-    A[Fresh public checkout] --> B[bootstrap.sh]
-    B --> C[PYTHONPATH=src package import]
-    C --> D[Secret exclusion scan]
-    D --> E[Pattern-binding fixture validation]
-    E --> F[Ignored local receipt]
-    F --> G[README map and component map]
+    A[Fresh public checkout] --> B["bootstrap.sh\nset PYTHONPATH=src, pick python"]
+    B --> C["run_probe(root, suite, emit_ref)"]
+    C --> D{Suite supported?}
+    D -- no --> X1["blocked_invalid_input\nUNKNOWN_COLD_CLONE_SUITE"]
+    D -- yes --> E{REQUIRED_INPUTS present?}
+    E -- no --> X2["blocked_dependency_missing\nMISSING_FIXTURE_INPUT"]
+    E -- yes --> F[Secret-exclusion scan]
+    F -- scan unavailable --> X3["blocked_command_unavailable\nCOMMAND_UNAVAILABLE"]
+    F -- scan fails --> X4["blocked_secret_exclusion\nSECRET_EXCLUSION_SCAN_BLOCKED"]
+    F -- scan passes --> G["Validate first-wave\npattern-binding fixture"]
+    G --> H["Mirror missing PATTERN_RECEIPTS\ninto canonical slots"]
+    H --> I{All five receipts present?}
+    I -- no --> X5["blocked_dependency_missing\nMISSING_PATTERN_BINDING_RECEIPT"]
+    I -- yes --> P["status=pass\nemit ref + five receipt refs,\nbody-free scan summary"]
+    P --> R[README map and component map]
 ```
 
 The diagram is an audience aid only. Generated lattice Mermaid remains a builder

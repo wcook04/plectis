@@ -7,6 +7,32 @@ This module imports the real
 Microcosm and exercises individual checker functions that were not covered by
 the earlier status-judge-only import.
 
+## Purpose
+
+An earlier import brought across only one entry point from `validators.py`, the
+status-judge function. That left most of the validator body imported as text but
+never actually run. This capsule answers a single question: when the real
+checker functions are invoked, do they still behave the way their names claim?
+It picks six groups of checkers from the copied body and runs them, rather than
+asserting from a distance that the file is correct.
+
+The groups are chosen to span the kinds of judgement the validator makes:
+whether a status policy blocks a poisoned transition, whether the private
+boundary scanner finds a planted home path and email address, whether the
+specimen and release-gate checkers report zero failures on the existing fixture,
+and whether the no-write `validate(root, write_receipt=False)` entry point runs
+without mutating anything. Each group reaches into a different part of the
+imported body.
+
+The design choice worth noting is what happens when the private macro state is
+not present. In that case the organ does not pretend the checkers passed. It
+falls back to reading the copied source for the named anchors and marks the
+remaining engines `public_runtime_source_only`, recording that as a stated limit
+rather than a hidden success. The second unusual choice is that the negative
+cases are judged from the engine outputs themselves, so a check cannot pass
+merely because a fixture file happens to contain the right error string. Both
+choices exist to stop a green run from claiming more than it observed.
+
 ## Prior Art Grounding
 
 This capsule borrows from schema validation, fixture-driven testing, and

@@ -8,6 +8,31 @@ refs from the formal-math evaluation pipeline into route decisions: which tactic
 unavailable, which are rejected as unprobed, and which are rejected because they
 do not match the declared goal shape.
 
+## Purpose
+
+A proof attempt is expensive, and most of that cost is spent on tactics that
+were never going to work: tactics the environment cannot run, tactics absent
+from the probe portfolio, or tactics that do not match the shape of the goal.
+This organ answers one question before any Lean call is made: given the target
+shape and the current availability probe, which tactics may a route even
+attempt?
+
+The decision is deliberately made early. Routing happens before execution, so a
+case that carries Lean receipts, execution results, or a post-execution stage is
+rejected outright rather than trusted. The point is to decide admissibility from
+evidence that already exists, not from the outcome of the attempt the gate is
+meant to filter.
+
+What is unusual is that the gate recomputes the choice rather than accepting the
+declared one. Each target shape carries a small preferred-tactic order (for
+example `omega` for integer linear arithmetic, `decide` for closed natural-number
+decisions). The gate walks that order, skips any preferred tactic that is
+unprobed or unavailable, records why it skipped, and falls back to the next
+allowed candidate or to a default safe order for shapes it does not recognise. A
+route whose declared selection disagrees with this computed preference is flagged
+rather than honoured. The route is a claim about what should run; the gate treats
+it as something to check, not something to believe.
+
 ## Authority Ceiling
 
 This organ does not run Lean or Lake and does not prove a target. It validates

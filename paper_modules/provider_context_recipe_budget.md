@@ -9,6 +9,32 @@ It validates six public recipe shapes: `minimal_4kb`, `premise_16kb`,
 section fill, a graph role, a reducer deliverable type, and an omitted-sections
 manifest when a section cannot fit.
 
+## Purpose
+
+This organ answers one question: when a proof-support pipeline is about to hand
+material to a model, which sections fit inside a fixed byte budget, in what
+order, and which sections are dropped? It treats the context window as a budget
+to spend rather than a place to dump everything retrieved. The board records
+this stance directly as `context_is_budget_not_dump`.
+
+The byte sizes are not asserted by the fixture. The
+validator imports the copied benchmark harness, runs its real
+`_provider_context_pack` over each recipe, and measures the actual byte size of
+each packed section. A recipe is filled in declared order, admitting a section
+only while the running total stays under the ceiling, so an over-budget section
+is omitted and named in an explicit manifest rather than silently truncated. If
+the harness is unavailable the organ falls back to declared sizes and says so,
+rather than guessing.
+
+The second deliberate choice is what cannot enter context at all. A small fixed
+set of section ids and field keys, covering proof bodies, oracle-only premise
+ids, ideal answers, and provider output bodies, is rejected structurally, not
+by convention. Any recipe or section material carrying one of them is blocked
+before a packet is built. The output is metadata about the context shape: byte
+ceilings, the admitted and omitted section ids, the deliverable route, and a set
+of authority claims that stay false. No provider is called and no answer is
+produced.
+
 ## Authority Ceiling
 
 This organ does not call providers, run Lean or Lake, prove a theorem, expose a
@@ -288,6 +314,7 @@ release authority, and treating context metadata as proof authority.
 - `provider_call_authorized` rejects any public fixture that authorizes a provider call.
 - `deliverable_type_route_mismatch` rejects a recipe whose reducer output type changed.
 - `omitted_sections_suppressed` rejects over-budget context without an omitted-sections manifest.
+- `synthetic_section_materials` rejects section material that lacks an allowed source ref or source anchor, or that is otherwise synthetic.
 
 ## Re-Entry Conditions
 

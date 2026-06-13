@@ -2,6 +2,16 @@
 
 This organ executes copied non-secret macro substrate for Batch 12 over public synthetic fixtures.
 
+## Purpose
+
+Public copy drifts towards over-claiming. A page that started as "fixture-proven, public toggle red" gets edited over months until someone writes "open source" or "production-ready" without noticing that nothing changed underneath. This organ answers one question: does a piece of public copy claim more than the receipts behind it can support, and would the release gate catch it if it did?
+
+The mechanism it wraps is a deterministic regex scan, not a language model. The copied gate body reads a publication manifest, walks every claim-bearing file it lists, and matches each line against a fixed table of risky phrases (`release-ready`, `open source`, `source-available`, `production-ready`, and a separate family for private release-control wording). What makes the scan more than a grep is the classification step. The same phrase is read three ways depending on context: a bare affirmative line ("the system is production-ready") becomes an `active_claim_blocker`; the same words inside a forbidden-example block or near a negation marker ("this is not production-ready", a fenced policy sample) become `boundary_or_negative_context` and are allowed; and a phrase that has neither an affirmative verb nor a clear negation marker is parked in a `needs_review` queue rather than waved through.
+
+That last branch is the interesting design choice. The gate fails closed. An ambiguous claim does not pass quietly; it lands in a no-go review state, and `main --assert-clear` exits non-zero whenever any active blocker or unresolved review item remains. The scan never rewrites a file, never authorises release, and treats marketing copy as just another claim surface with an evidence ledger rather than a looser register of speech.
+
+This paper module is the public, fixture-bound check that the wrapped gate behaves as described over the shipped fixtures. The organ runs the copied gate over a safe fixture and an active fixture, then checks that boundary-context language clears, that bare release language blocks, and that the assert-clear exit code is 2 when blockers remain. It is a check on the checker, held behind digest, receipt, and authority-ceiling boundaries.
+
 ## JSON Capsule Binding
 
 - Source authority:
@@ -213,20 +223,30 @@ flowchart TD
   Loader["load source module<br/>digest equality and required anchors"]
   SafeRoot["safe fixture root<br/>_write_gate_fixture(active=false)"]
   ActiveRoot["active fixture root<br/>_write_gate_fixture(active=true)"]
-  Gate["build_gate / _classify_hit<br/>boundary contexts vs active blockers"]
-  Assert["main --assert-clear<br/>exit 2 when active blockers remain"]
-  Negatives["computed negative cases<br/>affirmative claim blocks<br/>assert-clear blocks"]
+  Scan["build_gate<br/>scan manifest files for RISKY_PHRASES"]
+  Classify{"_classify_hit<br/>read each phrase in context"}
+  Boundary["boundary_or_negative_context<br/>negation marker or forbidden example<br/>=> allowed"]
+  Active["active_claim_blocker<br/>affirmative line, no downgrade<br/>=> status active_claim_blocked"]
+  Review["needs_review<br/>no clear marker either way<br/>=> fail-closed no-go queue"]
+  Assert["main --assert-clear<br/>exit 2 when not public_copy_clean"]
+  Negatives["computed negative cases<br/>affirmative claim blocks<br/>assert-clear exits 2<br/>private control-plane leak blocks"]
   Receipts["body-free receipts<br/>result, board, validation, acceptance"]
   Ceiling["authority ceiling<br/>no release, publication, NLP truth,<br/>secret completeness, or whole-system claim"]
 
   Fixture --> SafeRoot
   Fixture --> ActiveRoot
   Manifest --> Loader
-  Loader --> Gate
-  SafeRoot --> Gate
-  ActiveRoot --> Gate
-  ActiveRoot --> Assert
-  Gate --> Negatives
+  Loader --> Scan
+  SafeRoot --> Scan
+  ActiveRoot --> Scan
+  Scan --> Classify
+  Classify -->|allowed| Boundary
+  Classify -->|blocked| Active
+  Classify -->|ambiguous| Review
+  Active --> Assert
+  Review --> Assert
+  Boundary --> Negatives
+  Active --> Negatives
   Assert --> Negatives
   Negatives --> Receipts
   Receipts --> Ceiling

@@ -16,6 +16,34 @@ scores, dense process rewards, outcome rewards, reward-hacking trap results,
 trajectory groups, cold replay receipts, negative cases, authority ceilings, and
 a source-faithful public trace span set line up.
 
+## Purpose
+
+Process-reward language is easy to assert and hard to verify. A row can claim
+that a step earned a reward "for good reasoning" while the underlying evidence is
+a hidden gold label, a neural-judge guess, or formatting that gamed the scorer.
+This organ exists to answer one narrow question: does a public process-reward
+claim actually reconstruct from lower-level public evidence, or is it just a
+label asserting its own correctness?
+
+The interesting part is the recomputation. The validator does not trust any
+single fixture file. Beyond checking each file's own floor, `validate_semantic_recompute`
+walks every belief state and tries to rebuild the whole chain around it: the
+episode it belongs to, the verifier feedback it cites, the process reward that
+scored it, the trajectory group that contains it, the outcome reward attached to
+that trajectory, and the cold-replay receipt that should reproduce it. If any of
+those refs is missing or points somewhere inconsistent, the claim is blocked
+with a specific reason code rather than passed. A reward cannot point at a belief
+that points at a different episode, or cite feedback that belongs to another
+trajectory, and still count.
+
+That cross-referential check is what separates this from a shape linter. The
+failure mode it guards against is a process-reward claim that looks correct field
+by field but does not survive being recomputed end to end. Two further design
+choices keep the result honest: outcome rewards are carried beside process
+rewards so a final answer cannot be re-labelled as step-level evidence, and every
+belief summary, feedback ref, and reward event stays body-free, so the validator
+proves the accounting structure without ever reading hidden reasoning.
+
 ## JSON Capsule Binding
 
 - Source authority:
@@ -51,35 +79,40 @@ authority.
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule row<br/>core/paper_module_capsules.json::paper_modules[36]"]
-  instance["Generated JSON instance<br/>paper_modules/belief_state_process_reward_replay.json"]
-  standard["Local standard<br/>standards/std_microcosm_belief_state_process_reward_replay.json"]
-  organ["Runtime/source locus<br/>src/microcosm_core/organs/belief_state_process_reward_replay.py"]
-  fixtureMode["Fixture mode<br/>run + expected negative cases"]
-  bundleMode["Bundle mode<br/>run_reward_bundle + source manifest floor"]
-  trace["Public trace projection<br/>6 body-free belief/reward spans"]
-  card["Compact result card<br/>large/private payloads omitted"]
-  fixtures["Fixture inputs<br/>fixtures/first_wave/belief_state_process_reward_replay/input"]
-  bundle["Exported source bundle<br/>examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle"]
-  tests["Tests and receipts<br/>tests/test_belief_state_process_reward_replay.py<br/>receipts/first_wave/belief_state_process_reward_replay/*<br/>receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"]
-  projections["Generated projections<br/>Mermaid: available_from_capsule_edges<br/>Atlas: linked_from_capsule_edges<br/>Edges: 8 resolved / 0 unresolved"]
-  ceiling["Authority ceiling<br/>source-faithful refactored fixtures + copied non-secret macro bodies only"]
+  capsule["JSON capsule row<br/>paper_module_capsules.json[36]"]
+  standard["Local standard<br/>std_microcosm_belief_state_process_reward_replay.json"]
+  organ["Runtime locus<br/>belief_state_process_reward_replay.py"]
 
-  capsule --> instance
-  capsule --> projections
+  fixtureMode["run (fixture mode)<br/>8 positive + 7 negative inputs"]
+  bundleMode["run_reward_bundle (bundle mode)<br/>copied-body manifest floor required"]
+
+  floors["Per-file floors<br/>projection protocol, reward policy,<br/>episodes, belief states, feedback,<br/>rewards, trajectory groups, cold replay"]
+  recompute["Semantic recompute<br/>rebuild belief -> feedback -> process reward<br/>-> trajectory -> outcome reward -> cold replay"]
+  negatives["Negative cases<br/>7 planted traps must be observed"]
+  scan["Secret-exclusion scan<br/>plus body-free public trace span set"]
+
+  gate{"All floors pass,<br/>chain recomputes,<br/>every trap observed,<br/>no secret hit?"}
+  pass["status: pass"]
+  blocked["status: blocked<br/>with reason codes"]
+
+  receipts["Receipts + compact card<br/>refs, hashes, counts, verdicts;<br/>body_in_receipt false"]
+  ceiling["Authority ceiling<br/>source-faithful replay only"]
+
+  capsule --> organ
   standard --> organ
   organ --> fixtureMode
   organ --> bundleMode
-  fixtureMode --> fixtures
-  bundleMode --> bundle
-  bundleMode --> trace
-  fixtures --> tests
-  bundle --> tests
-  trace --> tests
-  tests --> card
-  card --> ceiling
-  tests --> ceiling
-  projections --> ceiling
+  fixtureMode --> floors
+  bundleMode --> floors
+  floors --> recompute
+  recompute --> negatives
+  negatives --> scan
+  scan --> gate
+  gate -->|yes| pass
+  gate -->|no| blocked
+  pass --> receipts
+  blocked --> receipts
+  receipts --> ceiling
 ```
 
 The generated instance reports eight relationship edges and zero unpopulated
@@ -197,6 +230,20 @@ material classes, exact source/target digests, existing copied targets, and all
 declared anchors. Digest mismatch, missing manifest, wrong body class,
 receipt-body leakage, count mismatch, missing target, and missing anchor cases
 block the bundle instead of degrading silently.
+
+Between the per-file floors and the receipts sits `validate_semantic_recompute`,
+which is where most of the real work happens. It indexes episodes, belief states,
+feedback, reward events, trajectory groups, and cold replays by id, then walks
+each belief state and rebuilds its chain. It checks that the cited feedback
+belongs to the same episode, that the process reward references the same belief,
+episode, trajectory, feedback ref, and belief-discrepancy value, that the
+trajectory actually lists that episode and that reward, that the trajectory's
+outcome reward is a real outcome event for the same episode, and that the cold
+replay both exists and passes. Any inconsistency appends a precise reason code
+such as `feedback_episode_mismatch`, `belief_discrepancy_mismatch`, or
+`trajectory_process_reward_missing`, and a single blocked row is enough to block
+the whole result. This is the check that a label-only fixture cannot fake: the
+references have to recompute into one coherent chain, not merely be present.
 
 The validator links process-reward claims to public belief summaries rather than
 private reasoning. `build_public_belief_state_process_reward_trace` emits six

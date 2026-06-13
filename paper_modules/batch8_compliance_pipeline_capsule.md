@@ -1,5 +1,39 @@
 # Batch 8 Compliance Pipeline Capsule
 
+`batch8_compliance_pipeline_capsule` copies two macro subsystems into Microcosm
+as public-safe source bodies and then exercises them. The first is the
+compliance scanner registry and its bounded ledger builder. The second is the
+six-stage observe pipeline that turns a raw seed into a synthesis seed. The
+organ runs six engines over the copied bodies and writes body-free receipts.
+
+## Purpose
+
+Most of the capsule organs in this batch are shape linters: they grep the copied
+source for expected tokens and pass when the tokens are present. This one goes
+further. Four of its six engines run the copied bodies on synthetic inputs,
+importing the pipeline and scanner helpers directly or driving the ledger
+builder as a subprocess, so the receipt records observed behaviour rather than
+mere presence. The question it answers is narrow and testable: when these two
+subsystems are imported as copied bodies, do they still behave as their macro
+contracts say, without touching the live ledger or dispatching any work?
+
+The behaviour worth singling out is digest preservation. The pipeline compresses
+a long raw seed down to a short digest before deciding what to inspect next. If
+that compression silently drops an instruction, the agent downstream loses it.
+The organ feeds the real `digest_raw_seed` an eighty-line block of low-signal
+text with one directive line buried inside, then checks the directive survives
+the compression. The matching negative case removes the directive marker from
+the copied source and confirms the directive is then lost. That pairing is what
+the page is really about: a compression step that is asserted to keep the one
+line that matters, with a test that fails when it does not.
+
+The standing limit is just as deliberate. The bounded compliance check runs the
+ledger builder in `--check --report` mode, which reads and reports but never
+writes the ledger. The pipeline engines stop before any bridge or provider
+dispatch. The capsule is evidence that the imported mechanics work on a sample,
+not a claim that the full compliance ledger is fresh or that every branch is
+covered.
+
 ## Role
 
 This module imports the macro compliance scanner registry, the bounded
@@ -19,6 +53,47 @@ as copied public-safe source bodies with a runnable organ.
 - `system/lib/pipeline/stage_compile.py`
 - `system/lib/pipeline/stage_execute.py`
 - `system/lib/pipeline/stage_process.py`
+
+## What the engines check
+
+The organ runs six engines and passes only if all six pass and every required
+source body is present.
+
+- `compliance_registry_runtime_witness` confirms the copied registry exposes the
+  adapter table, the domain and baseline standard-id sets, and a `scan_all`
+  entry point, that the coverage adapter carries its self-audit fields, and that
+  the ledger builder carries its bounded-check command. When the live registry
+  is importable it also reads the adapter, domain, and baseline counts as a
+  shape witness, never as a freshness claim.
+- `compliance_coverage_bounded_check` runs the ledger builder with `--check
+  --report` for two named standards. The pass condition is strict: the check
+  reports `ok`, `wrote_ledger` is false, there are no error findings, and a
+  next-step ratchet command is present. The point is a check that reads and
+  reports without writing. Stale ledger rows that were not selected stay outside
+  the claim.
+- `baseline_companion_scanner_contract` runs the baseline scanner on a sample
+  standard and checks the returned row is honest about its own shallowness: it
+  must be marked a baseline-inventory row with no domain-specific adapter, so a
+  bare file-exists check can never read as a real compliance pass.
+- `pipeline_digest_and_shard_normalization` exercises three pure helpers from the
+  extract stage. It checks the buried directive survives digest compression,
+  that an unknown shard status is normalised to `pending` while the original
+  value is preserved as a variant, and that diverse-shard selection caps how many
+  shards one group can contribute.
+- `pipeline_observe_compile_helpers` runs the compile-stage helpers on a small
+  fixture and checks they pull the right known-file mentions from free text,
+  order follow-up files, and lift probe questions from a plan while skipping
+  synthesis and summary roles.
+- `pipeline_dispatch_process_boundary_contract` confirms the execute and process
+  stages keep the dispatch boundary explicit. It checks the copied bodies carry
+  the `observe_dispatch_skipped` and `observe_dispatch_started` markers and the
+  receipt-selection helper, so the page can state plainly that bridge dispatch
+  stays disabled.
+
+Each engine carries its own claim ceiling in the receipt. The six negative cases
+each remove one load-bearing token from a copied body and confirm the matching
+engine then reports `blocked`, so a pass means the contract was actually
+exercised rather than skipped.
 
 ## JSON Capsule Binding
 
@@ -66,27 +141,31 @@ reader projection over JSON/source artifacts, not a second authority plane.
 
 ```mermaid
 flowchart LR
-  capsule["JSON capsule row<br/>core/paper_module_capsules.json[60]"]
-  instance["Generated JSON instance<br/>paper_modules/batch8_compliance_pipeline_capsule.json<br/>edges: 23; unresolved selective relations: 0"]
-  md["Reader Markdown projection<br/>paper_modules/batch8_compliance_pipeline_capsule.md"]
-  standard["Local standard<br/>standards/std_microcosm_batch8_compliance_pipeline_capsule.json<br/>active public-safe source-open capsule"]
-  organ["Runtime organ<br/>src/microcosm_core/organs/batch8_compliance_pipeline_capsule.py"]
-  bundle["Fixture and source bundle<br/>fixtures/first_wave/.../input<br/>examples/.../exported_batch8_compliance_pipeline_capsule_bundle<br/>source_module_manifest.json: 11 copied modules"]
-  receipts["Tests and receipts<br/>tests/test_batch8_compliance_pipeline_capsule.py<br/>receipts/first_wave/... result, board, validation receipt<br/>receipts/runtime_shell/... exported validation result<br/>state/microcosm_verifier/receipts/20260604T0346Z_..._cycle.json"]
-  projections["Generated projections<br/>Mermaid: available_from_capsule_edges<br/>Atlas: linked_from_capsule_edges"]
-  ceiling["Authority ceiling<br/>fixture evidence plus copied source digest checks only<br/>no full ledger refresh, provider dispatch, raw-seed mutation,<br/>publication approval, release approval, or whole-system correctness"]
+  bundle["Copied source bundle<br/>11 non-secret macro bodies<br/>body_in_receipt: false"]
 
-  capsule -->|"source_authority: json_capsule"| instance
-  instance -->|"legacy Markdown path"| md
-  capsule -->|"organ + mechanism subjects"| organ
-  capsule -->|"depends_on + concept/law edges"| instance
-  standard -->|"expected 11 source modules; 6 negative cases"| organ
-  organ -->|"run / validate-bundle"| bundle
-  bundle -->|"exact copied non-secret macro bodies; body_in_receipt=false"| receipts
-  instance -->|"projection statuses"| projections
-  receipts -->|"evidence bounded by"| ceiling
-  standard -->|"public/private boundary"| ceiling
-  md -->|"explains, does not expand"| ceiling
+  subgraph Compliance["Compliance subsystem (3 engines)"]
+    reg["Registry runtime witness<br/>adapter table, scan_all,<br/>coverage self-audit"]
+    bounded["Bounded ledger check<br/>--check --report<br/>reports ok, wrote_ledger: false"]
+    base["Baseline scanner contract<br/>row admits no domain adapter"]
+  end
+
+  subgraph Pipeline["Observe pipeline (3 engines)"]
+    digest["Digest and shard helpers<br/>buried directive survives;<br/>status normalised, variant kept"]
+    compile["Compile helpers<br/>file mentions, follow-ups,<br/>probe questions"]
+    boundary["Dispatch and process boundary<br/>observe_dispatch_skipped"]
+  end
+
+  neg["6 negative cases<br/>remove one token per body;<br/>matching engine reports blocked"]
+  receipts["Body-free receipts<br/>result, board, validation"]
+  ceiling["Authority ceiling<br/>no ledger refresh, no provider/bridge dispatch,<br/>no raw-seed or source mutation,<br/>no publication or release"]
+
+  bundle --> reg & bounded & base
+  bundle --> digest & compile & boundary
+  bundle --> neg
+  reg & bounded & base --> receipts
+  digest & compile & boundary --> receipts
+  neg --> receipts
+  receipts --> ceiling
 ```
 
 The shape is a bounded compliance and observe-pipeline witness. The capsule

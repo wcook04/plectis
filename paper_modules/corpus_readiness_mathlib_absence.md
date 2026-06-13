@@ -9,6 +9,34 @@ absence, absent-corpus blocking, consumer gate decisions, and source-module
 digest coupling to be visible before any downstream retrieval, tactic-routing,
 or proof-witness language is allowed.
 
+## Purpose
+
+Formal-math agents fail in a specific way: they treat "there is a corpus" as
+if it meant "this corpus is usable for the proof route I am about to take".
+A roster lists miniF2F, PutnamBench, ProofNet, LeanDojo and Mathlib, the agent
+assumes the libraries are present, and the failure only surfaces later as a
+broken import or a tactic that needs a premise the host cannot resolve. This
+organ answers one question before that happens: for each corpus, is it actually
+present on this host, and is the Mathlib import lane actually available, or not?
+
+The unusual part is that the gate does not take the answer on trust. It runs a
+bounded Lean/Lake import probe in a temporary directory: one small file that
+imports `Std` and is expected to compile, and one that imports `Mathlib` and is
+expected to be rejected with the toolchain's own `unknown module prefix
+'Mathlib'` error. A corpus is only marked usable for Mathlib-dependent work when
+the runtime evidence agrees the corpus exists, carries a Lake file, and the
+Mathlib lane probe passes. In the current substrate the Mathlib probe stays
+false, so every Mathlib-dependent consumer is blocked, and the one consumer that
+passes is the Lean3 translation smoke, which needs no Mathlib project at all.
+
+This closes the most common way a readiness claim drifts. Stale alias fields
+such as `mathlib_available`, or a `PASS` lean status, cannot turn the gate green
+on their own; they must agree with the live probe or the row is flagged. The
+probe is deliberately narrow. It checks that imports resolve and that Mathlib is
+genuinely absent. It does not run a `lake build`, prove any theorem, or claim
+Mathlib is installed. The output is a readiness board and a set of blocked
+consumer verdicts, not proof.
+
 ## JSON Capsule Binding
 
 Source authority for this reader page is `core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate]`; the generated instance is `paper_modules/corpus_readiness_mathlib_absence_gate.json` with `source_authority: json_capsule`.
@@ -21,31 +49,30 @@ The proof boundary is public algorithmic projection over copied non-secret corpu
 
 ```mermaid
 flowchart TD
-    capsule["JSON capsule row\npaper_module.corpus_readiness_mathlib_absence_gate"]
-    sidecar["Generated JSON sidecar\n7 edges, 1 dependency residual"]
-    runtime["Runtime organ\ncorpus_readiness_mathlib_absence_gate.py"]
-    fixture["First-wave fixture input\ncorpus readiness + consumer gates"]
-    bundle["Exported runtime bundle\nsource_module_manifest + source_artifacts"]
-    corpus["validate_corpus_readiness\n7 corpus rows, Mathlib probe false"]
-    gates["validate_consumer_gate_cases\n1 allowed, 6 blocked"]
-    imports["validate_source_module_imports\n4 copied source artifacts"]
-    receipts["Body-free receipts\nfixture, board, validation, acceptance, bundle"]
+    fixture["Fixture or exported bundle input\ncorpus readiness rows + consumer gate cases"]
+    probe["runtime_lean_import_probe\nlake env lean: Std compiles,\nMathlib import rejected"]
+    artifacts["validate_runtime_source_artifacts\ncheck SHA-256 digests, parse probe JSON"]
+    mathlib{"Mathlib lane available?\ncorpus exists + Lake file + probe passes"}
+    corpus["validate_corpus_readiness\n7 corpus rows, alias fields must agree with probe"]
+    gates["validate_consumer_gate_cases\nderive verdicts from readiness facts"]
+    imports["validate_source_module_imports\n4 copied source artifacts, digest match"]
+    allowed["Allowed: Lean3 translation smoke\n(needs no Mathlib project)"]
+    blocked["Blocked: Mathlib-dependent\nand absent-corpus consumers"]
+    receipts["Body-free receipts\nresult, board, validation, acceptance, bundle"]
     ceiling["Authority ceiling\nno Mathlib availability, proof, provider, release"]
-    downstream["Downstream retrieval/tactic/proof-witness language\nblocked until readiness is visible"]
 
-    capsule --> sidecar
-    sidecar --> runtime
-    fixture --> corpus
-    fixture --> gates
-    bundle --> imports
-    runtime --> corpus
-    runtime --> gates
-    runtime --> imports
+    fixture --> artifacts
+    artifacts --> probe
+    probe --> mathlib
+    mathlib -->|no, probe false| corpus
+    corpus --> gates
+    gates --> allowed
+    gates --> blocked
+    fixture --> imports
     corpus --> receipts
     gates --> receipts
     imports --> receipts
     receipts --> ceiling
-    ceiling --> downstream
 ```
 
 This reader diagram is intentionally smaller than the generated doctrine-lattice

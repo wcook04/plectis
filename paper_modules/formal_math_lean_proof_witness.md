@@ -1,5 +1,36 @@
 # Formal Math Lean Proof Witness
 
+## Purpose
+
+This organ exists to make one claim checkable instead of asserted: that
+Microcosm can actually run the Lean toolchain, not merely talk about it. The
+single question it answers is whether the installed Lean toolchain will compile a
+declared, tiny synthetic Lean project end to end, and whether that run can be
+recorded without leaking the proof.
+
+The unusual part is the discipline around the run, not the run itself. The organ
+copies a bounded public Lake project into a temporary workspace and invokes
+`lake build`, but the receipt keeps only the return code, the standard-output
+and standard-error line counts, the source hashes, and the declaration names
+pulled out by a regular expression. The proof text and the raw command output
+never reach the receipt. A reader gets evidence that the build happened and what
+it contained, without the page becoming a copy of the proof.
+
+Two failure modes drive the design. The first is a proof-assistant integration
+that reports success without ever running the checker; the witness guards against
+that by executing a real subprocess and recording its exit status, and by
+deliberately compiling an invalid Lean file in a negative case to confirm the
+toolchain rejects it. The second is a circular pass, where the manifest quietly
+carries the answer. The organ refuses manifests that embed a `proof_body`, a
+ground-truth proof, provider output, or oracle premise ids, so a green result
+cannot be smuggled in through the inputs.
+
+The scope is small on purpose. Imports of Mathlib, Aesop, and Batteries are
+rejected before anything runs, so this is a witness for a toy theorem under a
+local toolchain, not a claim about library-dependent proof work. That boundary
+is the point: it shows the receipt discipline a larger formal-math organ would
+need, without borrowing authority it has not earned.
+
 ## Teleology
 
 `formal_math_lean_proof_witness` is now the bounded public crossing from
@@ -20,14 +51,15 @@ The proof boundary is declared public toy Lean/Lake fixture receipts only. A col
 
 ```mermaid
 flowchart TD
-  A["First-wave fixture<br/>fixtures/first_wave/formal_math_lean_proof_witness/input"] --> B["run()"]
-  C["Exported public bundle<br/>examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle"] --> D["run_witness_bundle()"]
-  B --> E["validate manifest, imports,<br/>private-state scan, tool availability"]
-  D --> F["validate source_module_manifest.json<br/>and copied public source digests"]
-  E --> G["Temporary Lake project<br/>lake build MicrocosmProofWitness"]
-  F --> H["Standalone exported-witness contract<br/>or fresh bundle receipt reuse"]
-  G --> I["Negative cases:<br/>invalid proof, forbidden import,<br/>private source ref, proof body"]
-  H --> J["Body-free JSON receipts:<br/>hashes, declarations, counts, verdicts"]
+  A["First-wave fixture<br/>fixtures/first_wave/.../input"] --> B["run()<br/>include_negative=true"]
+  C["Exported public bundle<br/>examples/.../exported_lean_proof_witness_bundle"] --> D["run_witness_bundle()<br/>include_negative=false"]
+  B --> E["Validate witness manifest:<br/>reject embedded proof bodies,<br/>oracle ids, private source refs"]
+  D --> F["Validate source_module_manifest.json:<br/>copied public source digests,<br/>exact-copy vs replacement"]
+  E --> G["Copy Lake project to temp workspace<br/>lake build MicrocosmProofWitness"]
+  G --> H["Negative cases run real Lean:<br/>invalid proof rejected,<br/>Mathlib/Aesop/Batteries import blocked"]
+  F --> I["Standalone exported-witness contract<br/>or fresh bundle receipt reuse<br/>(no live build)"]
+  G --> J["Body-free JSON receipts:<br/>return code, line counts,<br/>hashes, declaration names"]
+  H --> J
   I --> J
   J --> K["Authority ceiling:<br/>toy public witness only"]
 ```

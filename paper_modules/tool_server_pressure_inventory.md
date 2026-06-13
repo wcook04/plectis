@@ -30,23 +30,71 @@ The organ rejects seven boundary failures:
 - absolute host paths
 - active-owner release requests that overclaim kill or termination
 
+## Purpose
+
+Long-running agent sessions leave helper processes behind: MCP servers, dev
+servers, keepalives. Over time these accumulate and the host slows down. The
+obvious fix is a reaper that walks the process table and kills stale helpers,
+and the macro tool this organ is ported from does exactly that. But a reaper is
+dangerous. The hard case is telling a genuinely abandoned process apart from a
+helper that a live session is still using. Kill the wrong one and you break the
+work in flight.
+
+This organ answers a single question: given a process table, which helper
+processes are safe to close, and which must be left alone because a live owner
+still depends on them? It does so by reconstructing each process's owner chain.
+A helper whose parent is `launchd` (`ppid == 1`) has been detached from any
+session and is a candidate. A helper that still traces back through a live agent
+session is not. The decision is deliberately narrow: a process is a safe-close
+candidate only when it is detached, its kind is on an allowlist, and it has been
+idle past a minimum age. Everything else routes to "needs an owner check" or
+"keep".
+
+What is unusual is the second half of the design. When an active owner is over
+its helper budget, the organ does not propose a kill. It emits a release
+*request*: a row that asks the owning session to release or reuse its own lease.
+The inventory is explicitly not a kill list. The central invariant, enforced by
+an audit pass over the organ's own output, is that an active-owner descendant
+can never become a safe-close candidate.
+
+The public version keeps that classifier and that invariant but removes every
+actuator. There is no `os.kill`, no signal, no live `ps` call. Input is
+synthetic process text from a fixture, rows carry a `command_hash` rather than a
+command line, and a redaction guard rejects any fixture that smuggles an
+absolute path, a live command body, or a process-signal claim onto the public
+surface. The result is the safety reasoning of a reaper presented as a
+read-only validator, with the part that could actually harm a host left out.
+
 ## Shape
 
 ```mermaid
 flowchart LR
   Fixture["Synthetic pressure fixture\nprocess_table, pressure_policy,\nowner_classes"]
-  Classifier["Inventory classifier\nhelper kind, owner status,\nsafe-close eligibility"]
-  Active["Active-owner pressure\nrelease requests only"]
+  Classifier["Classify helper kind,\nwalk owner chain (up to 8 hops),\nhash command to command_hash"]
+  Owner{"Owner status?"}
+  Detached["Detached orphan\nppid == 1"]
+  Keep["Active owner or keep runtime"]
+  SafeClose["candidate_safe_close\nonly if allowlisted\nand age >= min"]
+  Check["requires_owner_check\nor keep"]
+  Release["Over-budget owner:\nrelease REQUEST,\nnever a kill"]
   Negative["Boundary failures\nunsafe safe-close, command leak,\nprocess signal, absolute path,\nrelease overclaim"]
   Source["Source manifest\npublic refactor digest + anchors"]
   Receipts["Body-free receipts\nresult, board, validation,\nfixture acceptance"]
 
   Fixture --> Classifier
-  Classifier --> Active
+  Classifier --> Owner
+  Owner --> Detached
+  Owner --> Keep
+  Detached --> SafeClose
+  Detached --> Check
+  Keep --> Check
+  Keep --> Release
   Classifier --> Negative
-  Source --> Receipts
-  Active --> Receipts
+  SafeClose --> Receipts
+  Check --> Receipts
+  Release --> Receipts
   Negative --> Receipts
+  Source --> Receipts
 ```
 
 ## Technical Mechanism

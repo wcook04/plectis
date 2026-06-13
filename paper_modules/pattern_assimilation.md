@@ -1,5 +1,34 @@
 # Pattern Assimilation
 
+`pattern_assimilation_step` is the public closeout-learning contract for landed
+organs. It validates that every organ recorded as landed in a fixture set
+carries exactly one same-lane closeout decision, and that the decision resolves
+to a receipt that can be inspected rather than to a phrase.
+
+## Purpose
+
+When a development pass claims that local work taught the system something, that
+claim is usually prose: a note that the run "improved the fixture" or "found
+nothing to refine". Prose is easy to assert and impossible to check. This organ
+answers a single question: did each landed organ actually deposit an
+inspectable closeout decision, or is the learning claim unbacked?
+
+The decision is forced into one of two typed shapes. Either a concrete
+refinement receipt that names the owner surface it changed and the artifact it
+touched, or a typed `nothing_to_refine` receipt that proves stewardship was
+checked, the next-best lane was considered, and a re-entry condition was
+recorded. A landed organ with no closeout, or with a closeout that points at a
+receipt that does not exist or does not match, is rejected. So is a duplicate
+receipt id that would let one lesson be counted twice.
+
+The interesting constraint is the one the organ refuses to relax. A local
+lesson may route to the owner surface that owns the affected artifact, but it
+may not promote itself into global doctrine. A refinement row that sets
+`claims_global_doctrine_authority` is blocked outright. The point is that
+learning has to land on a specific board with a named steward, not become a
+free-floating rule, which is the failure mode that turns a useful local note
+into unsupported general advice.
+
 ## Route Card
 
 - Organ id: `pattern_assimilation_step`
@@ -23,22 +52,29 @@
 
 ```mermaid
 flowchart TD
-  capsule["JSON capsule<br/>core/paper_module_capsules.json::paper_module.pattern_assimilation"]
-  reader["Reader projection<br/>paper_modules/pattern_assimilation.md"]
-  standard["Standard<br/>standards/std_microcosm_pattern_assimilation_step.json"]
-  runtime["Validator runtime<br/>src/microcosm_core/validators/acceptance.py"]
-  fixtures["Fixtures and source bundle<br/>core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json<br/>examples/pattern_assimilation_step/exported_assimilation_bundle"]
-  receipts["Tests and receipts<br/>tests/test_pattern_assimilation_step.py<br/>receipts/first_wave/pattern_assimilation_*"]
-  projections["Generated navigation<br/>Mermaid available_from_capsule_edges<br/>Atlas linked_from_capsule_edges"]
-  ceiling["Authority ceiling<br/>public fixture and bundle metadata plus body-free receipts only"]
+  landings["Landed organ rows<br/>organ_landing_summaries.jsonl<br/>each names a closeout result and receipt ref"]
+  refinement["Refinement receipts<br/>owner_surface, changed artifact"]
+  nothing["Nothing-to-refine receipts<br/>stewardship, next-best lane, re-entry"]
 
-  capsule --> reader
-  capsule --> projections
-  standard --> runtime
-  fixtures --> runtime
-  runtime --> receipts
+  validator["acceptance.py<br/>validate_pattern_assimilation"]
+  filter["Pre-filter valid receipts<br/>refinement: named owner, no doctrine upgrade<br/>nothing: all three fields present"]
+  match{"Per landed organ:<br/>exactly one closeout,<br/>ref resolves to a matching row?"}
+
+  pass["Accepted<br/>typed, owner-routed closeout learning"]
+  negatives["Negative cases recorded<br/>MISSING_PATTERN_ASSIMILATION_CLOSEOUT<br/>MISSING_REFINEMENT_OWNER_SURFACE<br/>DUPLICATE_REFINEMENT_RECEIPT_ID<br/>LOCAL_LESSON_AUTHORITY_UPGRADE<br/>RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"]
+  receipts["Body-free receipts<br/>receipts/first_wave/pattern_assimilation_*"]
+  ceiling["Authority ceiling<br/>public fixture metadata, no doctrine promotion"]
+
+  landings --> match
+  refinement --> filter
+  nothing --> filter
+  filter --> match
+  validator --> filter
+  match -->|resolved| pass
+  match -->|missing, dangling, duplicate, upgraded| negatives
+  pass --> receipts
+  negatives --> receipts
   receipts --> ceiling
-  projections --> ceiling
 ```
 
 The capsule is present, so the cold-reader path starts from
@@ -48,10 +84,12 @@ legacy-only boundary. That capsule binds this Markdown to the accepted
 standard, first-wave fixture manifest, exported assimilation bundle, focused
 tests, body-free receipts, and generated Mermaid/Atlas navigation status.
 
-Read the diagram as an evidence route, not an authority upgrade. The validator
-and tests can check same-lane closeout metadata, negative cases, public-relative
-receipts, source-module manifest digests, and body-free bundle handling; the
-generated Mermaid and Atlas surfaces only make those capsule edges walkable.
+Read the diagram as the validation flow, not an authority upgrade. The validator
+pre-filters the refinement and nothing-to-refine receipts, then walks each
+landed organ row and checks that its declared closeout resolves to a matching
+valid receipt; unresolved, missing, duplicate, or doctrine-upgraded rows become
+recorded negative cases. The generated Mermaid and Atlas surfaces only make the
+capsule edges walkable; they do not run this check.
 The ceiling remains public fixture and exported-bundle metadata plus body-free
 receipts, with no live ledger mutation, source mutation, raw-seed ingestion,
 private-root equivalence, global doctrine promotion, release or publication

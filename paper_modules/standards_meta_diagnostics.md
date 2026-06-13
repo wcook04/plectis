@@ -26,6 +26,33 @@ The organ rejects five boundary failures:
   whole-system correctness overclaims
 - private source bodies or provider payload bodies in public diagnostics
 
+## Purpose
+
+A spine of accepted organs is only coherent if each organ is still attached to
+the things that make it accountable: a standard that describes it, a runtime
+contract that runs it, a receipt that records its last verdict, and an explicit
+statement of what it is not allowed to claim. As the spine grows, those four
+attachments drift out of step one organ at a time, and the drift is silent. A
+new organ can be accepted into the runtime while its standard file, registry
+row, or receipt ref is never added. Nothing breaks; the gap just sits there
+until a reader trusts the spine and finds a hole.
+
+This organ answers a single question: does every accepted organ still resolve to
+a standard, a runtime contract, a receipt, and an authority ceiling, with no
+extra and no missing entries? It treats the answer as a graph-closure check
+rather than a written audit. The accepted-organ list, the standard rows, the
+runtime-contract rows, and the receipt refs must agree on exactly the same set
+of organs. Any organ that appears in one surface but not another becomes a
+structured finding with a named error code, not a paragraph of prose.
+
+The unusual choice is that the diagnostic refuses to grow its own authority. It
+projects its positive coverage from the live registry rather than a checked-in
+list, so a stale example cannot quietly become the thing the spine is measured
+against. It carries five negative fixtures that must each surface their expected
+failure, so the checker is itself falsifiable. And its receipts deliberately
+hold refs, counts, hashes, and verdicts rather than the bodies they describe,
+so a coverage report can be read in the open without exporting private source.
+
 ## Source-Open Body Floor
 
 The public diagnostics bundle is source-open as evidence about refs, policies,

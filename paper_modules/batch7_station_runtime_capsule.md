@@ -32,6 +32,44 @@ The organ runs the original Vitest witnesses for the live instrument and
 station store, checks the copied `app.mjs` boot-probe and mission-refresh
 guards, and preserves body-free receipts.
 
+## How it works
+
+Three exercises run against the copied source bodies, each producing a `pass`
+or `blocked` verdict with the evidence it relied on.
+
+`_app_host_exercise` reads `tools/agent_trace_structurer/app.mjs` as text and
+locates byte offsets for the boot marker and the first static `import`. It
+passes only when `window.__aiwBoot.script_started = true` appears before that
+import, when the dropdown state is declared before the freshness logic that uses
+it, and when the three mission auto-refresh timer constants are present. The
+property under check is ordering: the boot marker has to be set before the
+module's own dependencies run, otherwise a host that fails to start would look
+the same as one that started cleanly.
+
+`_live_instrument_exercise` reads `agentLiveInstrumentViewModel.ts` and confirms
+the typed buckets are complete. Status must keep all six of `pass`, `fail`,
+`running`, `blocked`, `observed`, and `unknown`; scope must keep `owned`,
+`unowned`, `generated`, and `unknown`. It also checks the stream-health guards
+(including the explicit `attentionUnderfiring` signal) and the file-impact
+grouping. The point of retaining `unknown` is that an unresolved case stays
+labelled as unresolved rather than being rounded up to a green status. This
+exercise also folds in the upstream Vitest witness: if that test run did not
+pass, the exercise is blocked regardless of the token checks.
+
+`_station_store_exercise` reads `useStation.ts` and looks for the four live-update
+states (`live`, `catching_up`, `paused`, `stale`), the bounded backoff schedule
+`[500, 1000, 2000, 4000, 4000]`, the warming-retry scheduler, the in-flight map
+that enforces single-flight launches, and the stale-timer gate. These keep the
+store from issuing duplicate launches under load and from showing live data that
+has gone stale.
+
+Each property is paired with a mutation in `EXPECTED_NEGATIVE_CASES`. The organ
+copies the bundle to a temporary directory, applies one breaking change, for
+example flipping the boot marker to `false` or replacing `return 'unknown'` with
+`return 'pass'`, and requires the matching exercise to go blocked. The receipt
+records the verdict and byte counts only; copied source bodies, command output,
+and test bodies are never inlined.
+
 ## Claim Ceiling
 
 This capsule is a public-safe source-body import and witness. It is not a
@@ -59,11 +97,34 @@ access, or proof of complete frontend-state coverage.
 
 ## Purpose
 
-This module is the reader-facing instrument for the accepted
-`batch7_station_runtime_capsule` organ. Its source authority is the JSON capsule
-row in `core/paper_module_capsules.json`; this Markdown explains what a cold
-reader may trust from the public Station runtime fixture and what remains out of
-scope.
+Frontend runtime code is usually trusted by eye. A view model that buckets
+states, a store that throttles refreshes, a boot script that wires a panel:
+these read as plausible and rarely get a check that the safety-relevant shape
+survived an edit. This organ exists to give three such pieces of the Station
+frontend a mechanical witness, so that a reader can confirm specific properties
+hold rather than assume they do.
+
+It answers one question: do the copied Station runtime bodies still carry the
+properties that keep their displayed state honest? Three properties are at
+issue. The Agent Trace workbench host must set its boot marker before anything
+it depends on loads, so a failed boot is visible rather than silent. The live
+instrument view model must keep an explicit `unknown` bucket for status and
+scope it cannot resolve, instead of quietly defaulting an unresolved case to
+`pass`. The Station store must run one launch at a time and retry while the
+backend is warming, so a slow start does not stampede the backend or strand the
+view in a stale state.
+
+What is unusual is that the organ never runs the UI. It reads the copied source
+text and the upstream Vitest witnesses, then asserts the presence and ordering
+of named tokens. The interesting move is the set of negative cases: for each
+property the organ mutates the copied body to break it, for example renaming the
+`unknown` return to `pass` or removing the single-flight map, and requires the
+exercise to go blocked. A check that only ever passes proves nothing, so each
+guard is paired with a deliberate failure it must catch.
+
+The source authority is the JSON capsule row in
+`core/paper_module_capsules.json`; this Markdown explains what a cold reader may
+trust from the public Station runtime fixture and what remains out of scope.
 
 ## JSON Capsule Binding
 
@@ -86,18 +147,25 @@ scope.
 
 ```mermaid
 flowchart LR
-  capsule["paper_module.batch7_station_runtime_capsule"]
-  organ["organ: batch7_station_runtime_capsule"]
-  code["src/microcosm_core/organs/batch7_station_runtime_capsule.py"]
-  bundle["exported_batch7_station_runtime_capsule_bundle"]
-  witnesses["app host, live instrument, station store"]
-  ceiling["authority ceiling"]
+  bundle["Copied public-safe bodies\napp.mjs, view model, store, tests"]
+  vitest["Upstream Vitest witness\nreturn code + byte counts"]
 
-  capsule --> organ
-  capsule --> code
-  code --> bundle
-  code --> witnesses
-  witnesses --> ceiling
+  host["App-host exercise\nboot marker before import,\nmission-refresh timers"]
+  live["Live-instrument exercise\ntyped status and scope buckets,\nunknown kept explicit"]
+  store["Station-store exercise\n4 live states, single-flight,\nbounded backoff, warming retry"]
+
+  neg["Negative cases\nbreak one property,\nexpect blocked"]
+  receipt["Body-free receipt\nverdicts + counts only"]
+
+  bundle --> host
+  bundle --> live
+  bundle --> store
+  vitest --> live
+  vitest --> store
+  host --> neg
+  live --> neg
+  store --> neg
+  neg --> receipt
 ```
 
 ## Structured Lattice Bindings

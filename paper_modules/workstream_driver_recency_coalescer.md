@@ -4,6 +4,33 @@
 
 `workstream_driver_recency_coalescer` is a Microcosm public semantic-validator organ for the `groupByDriver` helper in `system/server/ui/src/components/cockpit/WorkstreamBoard.tsx`. It imports the real frontend source body as an exact copied non-secret source module and exercises a Python port over synthetic `AttentionRecentChange` rows.
 
+## Purpose
+
+The cockpit's workstream panel is an honest placeholder. The world-model feed
+does not yet carry workstream tags, so rather than invent a classifier the
+panel groups the recent-changes feed by `active_driver` and labels itself
+"grouped by driver". Entries with no driver fall into an `unclassified` bucket.
+The richer classifier, which would sort sessions into named workstreams against
+the family charter and path heuristics, is deferred to a later pass. The point
+of this organ is to check that the grouping the operator actually sees is the
+grouping the code computes.
+
+The single question it answers: given a list of recent changes, does the helper
+fold them into the rows the fixture declares, in the declared order? The organ
+holds a Python port of `groupByDriver` next to the copied frontend source and
+recomputes the rows from synthetic input. Where a declared row disagrees with
+the recomputed one, the case is rejected.
+
+What is worth noting is how little the helper claims and how carefully it
+coalesces. Each driver collapses into one row that carries only the newest
+event's summary and gate reason, so a busy driver reads as a single live line
+rather than a scroll of duplicates. The `unclassified` bucket is pinned to the
+bottom even when it holds the most recent event, so missing attribution never
+displaces a named driver from the top of the board. Those two choices, recency
+coalescing and the unclassified sentinel, are exactly what the organ pins down,
+without claiming the board reflects live cockpit state or that the grouping is
+the final workstream model.
+
 ## Macro Source
 
 - Source: `system/server/ui/src/components/cockpit/WorkstreamBoard.tsx`
@@ -47,21 +74,35 @@ generated Atlas projection is `linked_from_capsule_edges`, and
 
 ```mermaid
 flowchart TD
-  Capsule["JSON capsule\npaper_module.workstream_driver_recency_coalescer"]
-  Sidecar["Generated sidecar\n15 edges, zero residuals"]
-  Runtime["Runtime organ\nworkstream_driver_recency_coalescer.py"]
-  SourceCopy["Copied WorkstreamBoard.tsx\nsource-module manifest digest"]
-  Fixture["Synthetic AttentionRecentChange rows"]
-  Semantics["Grouping semantics\ntrim, key, count, newest row, sort, unclassified last"]
-  Receipts["Body-free receipts\nfixture, runtime shell, acceptance"]
+  SourceCopy["Copied WorkstreamBoard.tsx\nmanifest digest checked"]
+  Fixture["Synthetic AttentionRecentChange rows\npositive fixture + 5 negative cases"]
+  Port["group_by_driver\nPython port of groupByDriver"]
+
+  Key["Normalise driver\ntrim, lowercase key,\nblank becomes unclassified"]
+  Fold{"Key already\nseen?"}
+  New["Seed new row\ncount = 1, carry summary,\ngate reason, latestIso"]
+  Refresh["Fold into row\ncount += 1; refresh display\nonly if recorded_at is newer"]
+  Sort["Sort rows\nunclassified pinned last,\nthen ISO timestamp descending"]
+
+  Compare{"Recomputed rows ==\ndeclared rows?"}
+  Pass["Positive: rows match\nnegative: mismatch rejected"]
+  Fail["WDRC_PUBLIC_EXERCISE_MISMATCH\nor WDRC_SEMANTIC_NEGATIVE_NOT_REJECTED"]
+
+  Receipts["Body-free receipts\nfixture, bundle, acceptance"]
   Ceiling["Authority ceiling\npublic helper semantics only"]
 
-  Capsule --> Sidecar
-  Sidecar --> Runtime
-  SourceCopy --> Runtime
-  Fixture --> Runtime
-  Runtime --> Semantics
-  Semantics --> Receipts
+  SourceCopy --> Port
+  Fixture --> Port
+  Port --> Key
+  Key --> Fold
+  Fold -- no --> New
+  Fold -- yes --> Refresh
+  New --> Sort
+  Refresh --> Sort
+  Sort --> Compare
+  Compare -- agree --> Pass
+  Compare -- disagree --> Fail
+  Pass --> Receipts
   Receipts --> Ceiling
 ```
 
@@ -114,10 +155,30 @@ release, or whole-system correctness.
 The organ validates five public semantics:
 
 - `active_driver` is trimmed for display and lowercased for the grouping key.
-- Same-key events increment `count`.
-- Newer `recorded_at` collisions refresh `latestIso`, `latestSummary`, and `gateReason`.
-- Classified rows sort by latest ISO timestamp descending.
-- The fallback `unclassified` bucket is pinned last even when it has the newest timestamp.
+  A blank or missing driver becomes `unclassified`, so two events with the same
+  driver written in different cases land in one bucket.
+- Same-key events increment `count`. The first event for a key seeds the row;
+  later events for that key fold into it rather than starting a new one.
+- Newer `recorded_at` collisions refresh `latestIso`, `latestSummary`, and
+  `gateReason`. Only a strictly newer timestamp wins, so the row carries the
+  most recent event's display fields and an older event arriving out of order
+  does not overwrite them.
+- Classified rows sort by latest ISO timestamp descending. The comparison is a
+  plain string compare over ISO timestamps, which the source relies on being
+  lexicographically ordered, so the busiest-recently driver sits at the top.
+- The fallback `unclassified` bucket is pinned last even when it has the newest
+  timestamp. The sort short-circuits on the `unclassified` flag before it looks
+  at timestamps, so missing attribution can never push a named driver down.
+
+The recompute is the whole proof. `group_by_driver` mirrors the frontend
+`groupByDriver` line for line, the positive fixture declares the rows the panel
+should show, and `evaluate` fails on `WDRC_PUBLIC_EXERCISE_MISMATCH` if the two
+diverge. The negative fixtures each break one of these rules, an unnormalised
+key, a stale newest event, a wrong sort direction, or an unclassified bucket
+out of place, and the organ confirms it recomputes a different set of rows and
+rejects them. The failure mode guarded against is a panel that quietly shows
+the wrong grouping after the helper drifts, while the declared expectation
+still reads as correct.
 
 ## Prior Art Grounding
 

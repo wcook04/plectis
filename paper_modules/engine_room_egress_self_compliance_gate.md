@@ -16,6 +16,36 @@ PYTHONPATH=src python3 -m microcosm_core.engine_room.egress_self_compliance_gate
   --json
 ```
 
+## Purpose
+
+The single question this gate answers is narrow: does a line of agent output
+ask the operator to do something the agent should have done itself, or excuse a
+mistake without recording it? It exists because the failures it looks for are
+the ones that read as good manners. Asking for permission, apologising for an
+error, and offering the operator a command to run all look polite in isolation.
+Each is also the exact shape of an agent quietly displacing work back onto the
+human or letting a self-detected mistake evaporate into prose.
+
+The design choice worth noting is that the gate treats each of those polite
+phrases as a tripwire that is a violation by default, and then looks in the
+same text for one specific legitimising signal. Permission ceremony is allowed
+only if the text also names a real blocker, such as a destructive or
+irreversible action, a secret, a publication boundary, or a concurrent-owner
+conflict. Self-error language is allowed only if it binds to a durable capture,
+such as a capture id or a Task Ledger reference. A handed-over command is
+allowed only if the text also reports that the command was run. The polite
+phrase is innocent only when accompanied by the evidence that makes it
+honest.
+
+This is deliberately phrase membership over the output text, not analysis of
+what the agent actually did. The gate cannot tell whether a named blocker is
+real or whether a capture id resolves; it only checks that the legitimising
+language is present. That keeps the check small, fast, and inspectable, and it
+is why the page is careful to say what the gate is not: it is not taint
+analysis, not prompt-injection defence, not a sandbox, and not an
+information-flow proof. It encodes one operating contract as an output filter
+and stops there.
+
 ## Shape
 
 The module is a staged Engine Room egress gate, not a general compliance
@@ -32,14 +62,43 @@ policy did not detect that failure in the supplied text. Neither result proves
 semantic compliance, privacy safety, sandbox isolation, or release fitness.
 
 ```mermaid
-flowchart LR
-  Text["Agent output text"] --> PhraseTables["Tripwire and legitimizer phrase tables"]
-  PhraseTables --> Detectors["Three detector functions"]
-  Detectors --> Receipt["evaluate_text JSON receipt"]
-  Fixtures["Public fixture JSON cases"] --> FixtureRunner["evaluate_fixture_dir"]
-  FixtureRunner --> Receipt
-  Receipt --> ProofConsumer["focused pytest and CLI proof consumers"]
-  Standard["standard authority ceiling"] --> Receipt
+flowchart TB
+  Text["Agent output text\n(lowercased)"] --> D1
+  Text --> D2
+  Text --> D3
+
+  subgraph Permission["detect_permission_gate_without_blocker"]
+    D1{"Permission ceremony phrase?"}
+    D1 -->|no| Skip1["no row"]
+    D1 -->|yes| B1{"Names a real blocker?"}
+    B1 -->|yes| OK1["informational: blocker named"]
+    B1 -->|no| V1["violation: ceremony without blocker"]
+  end
+
+  subgraph SelfError["detect_self_error_without_capture"]
+    D2{"Self-error phrase?"}
+    D2 -->|no| Skip2["no row"]
+    D2 -->|yes| B2{"Binds to durable capture?"}
+    B2 -->|yes| OK2["informational: capture bound"]
+    B2 -->|no| V2["violation: error without capture"]
+  end
+
+  subgraph Command["detect_command_displacement_to_operator"]
+    D3{"Command handed to operator?"}
+    D3 -->|no| Skip3["no row"]
+    D3 -->|yes| B3{"Reports it was run?"}
+    B3 -->|yes| OK3["informational: receipt present"]
+    B3 -->|no| V3["violation: command displaced"]
+  end
+
+  V1 --> Receipt["evaluate_text receipt\nred if any violation, else green"]
+  V2 --> Receipt
+  V3 --> Receipt
+  OK1 --> Receipt
+  OK2 --> Receipt
+  OK3 --> Receipt
+  Fixtures["Public fixture JSON cases"] --> Runner["evaluate_fixture_dir\ncompare status to expected"]
+  Runner --> Receipt
 ```
 
 ## Technical Mechanism

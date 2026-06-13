@@ -1,5 +1,32 @@
 # Batch 10 Governance And Compilers Capsule
 
+## Purpose
+
+This capsule answers one question: when the wider system claims that a
+governance gate, a compiler, or a release check behaves correctly, can a cold
+reader confirm that claim from copied source and a re-run, rather than taking
+the claim on trust? It collects fourteen mechanisms that already exist in the
+main system, copies their non-secret source bodies into the public bundle, and
+re-runs a small, source-faithful port of each one against controlled inputs.
+
+The mechanisms span the work they were drawn from: a mutation gate that reads
+the latest user message and blocks file writes when the intent is diagnostic;
+an observe/apply compiler that turns an artifact into an apply plan and refuses
+malformed input; a reviewer gauntlet that checks a public proof bundle from
+several reader personas; release-blocker triage; a publication path-contract
+check; receipt-reuse staleness; a no-lookahead finance horizon; a session
+dependency wave; claim-conflict detection; role-aware blocking in a task graph;
+and three frontend helpers for table shaping, annex grouping, and recent-change
+coalescing.
+
+What is unusual is the stance towards its own fixtures. The negative-case files
+on disk hold only a label and an expected error code. The capsule does not
+treat that error code as proof of anything. For each negative case it recomputes
+the outcome itself, in code, and compares the computed result against the
+expectation. A fixture that merely declares the right error code, without the
+ported logic actually producing it, is flagged rather than passed. The point is
+to stop a test from grading itself green by assertion.
+
 ## Route Card
 
 - Organ id: `batch10_governance_compilers_capsule`
@@ -51,8 +78,8 @@ flowchart LR
   Instance["Generated JSON instance<br/>paper_modules/batch10_governance_compilers_capsule.json"]
   Markdown["Markdown reader projection<br/>paper_modules/batch10_governance_compilers_capsule.md"]
   Standard["Standards<br/>std_microcosm_batch10_governance_compilers_capsule<br/>std_microcosm"]
-  Runtime["Runtime/source loci<br/>src/microcosm_core/organs/batch10_governance_compilers_capsule.py<br/>runtime_shell batch10 validation route"]
-  Fixtures["Fixtures and source bundle<br/>fixtures/first_wave/batch10_governance_compilers_capsule/input<br/>examples/.../exported_batch10_governance_compilers_capsule_bundle<br/>source_module_manifest.json"]
+  Runtime["Runtime/source loci<br/>batch10_governance_compilers_capsule.py<br/>exercise 14 mechanism ports<br/>resolve source evidence per mechanism<br/>recompute each negative case<br/>flag fixture_verdict_echo_risk"]
+  Fixtures["Fixtures and source bundle<br/>fixtures/first_wave/.../input (labels + expected codes)<br/>exported bundle: 13 copied source modules<br/>source_module_manifest.json"]
   Tests["Tests and receipts<br/>tests/test_batch10_governance_compilers_capsule.py<br/>receipts/runtime_shell/demo_project/organs/batch10_governance_compilers_capsule"]
   Projections["Generated navigation projections<br/>Mermaid: available_from_capsule_edges<br/>Atlas: linked_from_capsule_edges"]
   Ceiling["Authority ceiling<br/>fixture-bound public source-open evidence only<br/>no live ledger truth, source mutation, publication, release, provider, private-root, benchmark, or market authority"]
@@ -124,6 +151,39 @@ The generated JSON instance, Mermaid projection, and atlas card are projections
 from the capsule. If a projection disagrees with the capsule or refreshed
 source-open bundle, refresh the projection; do not edit generated output by
 hand.
+
+## How it works
+
+The run takes a public input directory, validates the source-module manifest,
+and exercises each of the fourteen mechanisms against inputs the evaluator
+constructs itself. `_build_integrity_matrix` then writes one row per mechanism.
+Each row records the source evidence for that mechanism, the positive computed
+output, the attached negative cases with their computed outputs, the claim
+ceiling, and a `current_action` of keep, harden, or block.
+
+Source evidence is resolved per mechanism by `_source_evidence`. A mechanism's
+named source reference is looked up in the manifest. If the body was copied
+exactly, the row carries the copy's digest status and anchor-match count. If the
+body could not be copied verbatim, the row instead names a declared
+source-faithful public refactor and records the original source digest. Two
+mechanisms are honest about not being plain copies.
+`publication_manifest_selector_contract_verifier` is a public refactor, because
+the macro source carried a private home-path example that cannot ship.
+`weighted_lane_width_apportionment_binding_repair` is recorded as an under-bound
+repair deferred to the Batch-9 RootNavigator body, so it is held as a block
+rather than presented as a fresh Batch-10 import.
+
+The negative cases are handled the same way. For each case,
+`_compute_negative_case_probe` runs the ported logic over the case's declared
+input and reads the result at a named path. For example, the mutation case feeds
+a diagnostic message and confirms `prohibit_file_writes` is true; the finance
+case feeds an unparseable horizon and confirms it is rejected; the publication
+case feeds a private path against a hard-exclude rule and confirms it is caught.
+A row counts as proven only when the computed value matches the expectation. If
+any negative case lacks computed evidence, the summary raises
+`fixture_verdict_echo_risk`, and the run is blocked. The capsule also requires
+exactly thirteen copied source modules, so a thinned bundle fails rather than
+passes quietly.
 
 ## JSON Capsule Binding
 

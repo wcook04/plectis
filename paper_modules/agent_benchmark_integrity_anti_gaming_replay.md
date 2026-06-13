@@ -18,6 +18,43 @@ The exported runtime bundle includes `source_module_manifest.json` and
 `state/microcosm_portfolio`. The validator verifies those copied bodies by
 manifest digest and keeps body text out of receipts.
 
+## Purpose
+
+Agent benchmark numbers are easy to state and hard to trust. A single headline
+like "passes N percent of repository repair tasks" hides every decision that
+produced it: which evaluator ran, whether its configuration was frozen, whether
+the agent could see held-out answers, whether the test cases leaked into
+training, and whether one lucky attempt was promoted as the score. This organ
+exists to answer one question before any of that language is allowed: can each
+claimed pass be replayed from public refs that name their evaluator, their
+configuration hash, and the evidence that the run was not gamed?
+
+A positive result cannot be asserted. A replay row that
+simply declares `integrity_pass` is recomputed from scratch. The validator
+checks that the evaluator id is on a locked list, that the configuration hash is
+one the policy declared in advance, that file-access, contamination, and
+output-replay evidence artifacts exist and pass, and that the case id was
+registered up front. If any of those is missing or contradicted, the row is
+recomputed as `quarantine` regardless of what it declared. Declaring success is
+treated as the thing to be checked, not as the proof.
+
+There is a further floor: an `integrity_pass` must be backed by a
+sanitised real command-run trace, not only by hand-written replay refs. Each row
+cites a `real_benchmark_trace_ref` that has to resolve to a copied artifact
+carrying a passing focused pytest run for this organ, with sha256 digests bound
+to the recorded command-run id and an explicit list of omitted live material
+(provider payloads, credentials, private issue bodies, oracle patch bodies).
+The point is to stop a benchmark claim from resting on prose. The evidence has
+to trace back to a command that actually ran and is reproducible from public
+refs, while the private and live material that command touched stays out of the
+public boundary.
+
+This is a discipline fixture, not a leaderboard. It proves that a body-free
+replay respected an anti-gaming boundary over public case ids and locked
+evaluator refs. It never reports a score, a SWE-bench result, or a capability
+claim, and the eleven negative cases below are there to demonstrate the
+boundary holding rather than to advertise a number.
+
 ## JSON Capsule Binding
 
 - Source authority: `core/paper_module_capsules.json::paper_modules[3:paper_module.agent_benchmark_integrity_anti_gaming_replay]` with `source_authority: json_capsule`; the generated instance is `paper_modules/agent_benchmark_integrity_anti_gaming_replay.json`.
@@ -53,11 +90,29 @@ case id present in `benchmark_cases.json`, cite a locked evaluator id, carry an
 evaluator config hash allowed by `locked_evaluator_policy.json`, expose
 file-access, contamination-check, trusted-reference, and output-replay refs,
 and cite source-artifact evidence refs that match the exported source-module
-manifest targets. The validator recomputes whether each row is
-`integrity_pass` or `quarantine`; missing refs, unregistered cases, unlocked or
-mutated evaluators, score authorization, private issue bodies, oracle patch
-bodies, hidden-gold access, provider payloads, pass-k cherry-picking, and
-misleading tests force quarantine or a blocking finding.
+manifest targets. Each of those evidence refs must resolve to a body-free
+`benchmark_integrity_evidence_artifact_v1` artifact bound to the same replay,
+case, evaluator, and config hash, with file-access marked passed, contamination
+flags clear, a trusted reference present without a claimed score, and an
+output replay that is not final-answer-only grading. The validator recomputes
+whether each row is `integrity_pass` or `quarantine`; missing refs, unregistered
+cases, unlocked or mutated evaluators, score authorization, private issue bodies,
+oracle patch bodies, hidden-gold access, provider payloads, pass-k cherry-picking,
+and misleading tests force quarantine or a blocking finding.
+
+A further gate is the real-trace floor. Every positive replay row also cites
+a `real_benchmark_trace_ref`, and that ref must resolve to a copied source-module
+artifact whose `material_class` is `public_sanitized_real_benchmark_trace`. The
+validator opens that artifact and checks that it records a completed, exit-zero
+command run of the focused pytest for this organ, carries a passing pytest
+summary, binds sha256 digests for the command metadata, stdout, and stderr to a
+declared command-run id, cites public-safe `state/command_runs/` source refs for
+that id, and declares the omission of provider payloads, credentials, private
+issue bodies, and oracle patch bodies. A replay whose `real_benchmark_trace_ref`
+is missing, unverified, or not also listed in the source-artifact evidence refs
+cannot stand as a pass. This is what stops a benchmark claim from resting on
+hand-authored refs alone: the integrity verdict has to trace back to a command
+that actually ran and is reproducible from public refs.
 
 The copied body floor is verified separately from the public receipt. The
 source-module manifest must declare `copied_non_secret_macro_body` material,
@@ -155,16 +210,21 @@ flowchart LR
   Capsule["JSON capsule authority"] --> Markdown["Reader projection"]
   Protocol["projection_protocol.json"] --> ProtocolGate["source refs and receipt density"]
   Manifest["source_module_manifest.json"] --> DigestGate["material class and digest gate"]
-  DigestGate --> Bodies["3 copied public macro provenance bodies"]
+  DigestGate --> Bodies["copied public macro provenance bodies"]
+  DigestGate --> RealTrace["sanitised real command-run trace\npassing pytest, sha256 digests,\ndeclared omissions"]
   Cases["3 public case ids"] --> ReplayGate["case roster and required replay refs"]
   Policy["locked evaluator policy"] --> EvaluatorGate["locked ids and config hashes"]
   Replays["3 replay observations"] --> ReplayGate
   EvaluatorGate --> ReplayGate
   ProtocolGate --> ReplayGate
-  ReplayGate --> Trace["public trace verdict recomputation"]
+  ReplayGate --> EvidenceGate["per-ref evidence artifacts\nfile-access, contamination,\ntrusted reference, output replay"]
+  EvidenceGate --> Recompute["recompute integrity_pass or quarantine"]
+  RealTrace --> Recompute
+  Recompute --> Trace["public trace verdict recomputation"]
   Trace --> Verdicts["2 integrity_pass and 1 quarantine"]
   Negatives["11 anti-gaming fixtures"] --> Quarantine["quarantine or blocking finding"]
   Bodies --> PrivateScan["body-free private-state scan"]
+  RealTrace --> PrivateScan
   Verdicts --> Receipt["body-free integrity receipt"]
   Quarantine --> Receipt
   PrivateScan --> Receipt

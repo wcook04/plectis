@@ -20,6 +20,35 @@ that artifact. A successful run says the replay packet is structurally
 accountable, digest-bound, redaction-aware, and negative-case tested. It does
 not say that a real paper was independently replicated.
 
+## Purpose
+
+The single question this organ answers is narrow: before an agent is allowed to
+say it replicated a paper, can the claim be forced into a bundle that a cold
+runtime can check without trusting any prose? The interesting move is that the
+organ refuses to treat "replicated" as one fact. It pulls the claim apart into
+the objects a real replication would have left behind, a contribution
+decomposition, a grading rubric tree, the allowed public inputs, an experiment
+DAG, metric scripts, declared artifact hashes, a grader report, a runtime
+budget, an ablation diff, a failure taxonomy, and a cold-rerun receipt, and it
+asks for each one by name.
+
+What keeps this from being a checklist linter is the small executable core. The
+exported bundle does not just assert that an artifact hash exists. The runtime
+reads one public metric script, runs it over one allowed public input table,
+produces an output, and then checks that output against both the declared output
+artifact and the declared hash file. A replay row can name all the right refs
+and still fail here if the numbers do not reproduce. The negative-case fixtures
+attack exactly the gap a plausible fake would exploit: report-only success,
+benchmark-performance language, final-answer-only grading, undeclared hashes,
+and reuse of the original author's code.
+
+The deliberately modest part is the subject matter. The two paper capsules are
+public synthetic examples, and the metric is a single sum over a small table.
+The organ's value is the boundary, not the science. It does not run a real
+paper, call a provider, search compute without bound, or grant any release or
+publication authority. It only makes a replication claim accountable enough that
+an independent reader can see where the evidence stops.
+
 ## Telos
 
 Research-agent demos often collapse four objects into one sentence: the paper,

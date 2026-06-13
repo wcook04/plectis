@@ -13,24 +13,112 @@ Microcosm exercise is deliberately bounded: it uses synthetic public inputs to
 prove the negative claim fences while preserving the real macro source as the
 source-open substrate.
 
+## Purpose
+
+This page answers one question: can a cold reader inspect eight separate
+authority and systems mechanisms, and confirm each one refuses the wrong thing,
+without the reader having to run any of the real machinery?
+
+The eight mechanisms are unrelated in subject. One validates post-execution
+receipts; another decides when a reasoning step needs re-running; another gates
+a Lean proof attempt; another classifies a stray process; another settles
+generated-state residuals; another compacts a trace tape; another computes a
+code blast radius; another compiles a doctrine graph. What they share is a
+single discipline: each must decline to claim more than it has earned. The
+receipt validator must not accept a drifted receipt; the proof gate must not
+hand a placeholder proof to Lean; the orphan reaper must not signal a live
+process; the blast-radius pass must not invent coverage for a leaf with no
+dependents.
+
+The unusual choice is that the capsule does not replay the real tools. It
+carries an exact copy of each macro source body, checks those copies against
+the macro-root digests and required anchors, and then runs a small synthetic
+re-derivation for each mechanism. Each re-derivation recomputes its own verdict
+from the fixture input rather than echoing a stored answer, so a negative case
+passes only when the exercise itself reaches the refusal, not when a fixture
+asserts it. The page is therefore a way to read eight refusal behaviours at
+once, with the genuine source bodies kept verifiable alongside.
+
 ## Shape
 
 ```mermaid
 flowchart TD
-    A["JSON capsule row<br/>core/paper_module_capsules.json::paper_modules[81]"] --> B["Mechanism subject<br/>validates_public_authority_systems_capsule"]
-    B --> C["Runtime organ<br/>src/microcosm_core/organs/batch5_authority_systems_capsule.py"]
-    D["Copied-source bundle and manifest"] --> C
-    E["Standard, fixture manifest,<br/>focused tests"] --> C
-    C --> F["Body-free receipts<br/>receipts/first_wave/batch5_authority_systems_capsule"]
-    F --> G["Generated Mermaid available<br/>Atlas linked from capsule edges"]
-    G --> H["Authority ceiling:<br/>no provider dispatch, mutation,<br/>proof success, release, or private equivalence"]
+    Manifest["Copied source bundle + exercise manifest<br/>digests and required anchors checked first"] --> Organ["Runtime organ<br/>batch5_authority_systems_capsule.py"]
+
+    Organ --> E1["Receipt validator<br/>flag provider/context/artifact drift"]
+    Organ --> E2["Replay scope<br/>no_replay when changed context is disjoint"]
+    Organ --> E3["Proof gate<br/>reject sorry/plan-only before Lean"]
+    Organ --> E4["Orphan reaper<br/>live descendant -> requires_owner_check"]
+    Organ --> E5["Fixpoint drainer<br/>residual source moved -> non-converging"]
+    Organ --> E6["Trace tape<br/>over-budget -> pointer + omission receipt"]
+    Organ --> E7["Blast radius<br/>reverse closure; empty leaf stays empty"]
+    Organ --> E8["Doctrine graph<br/>report deleted paths and tombstones"]
+
+    E1 --> Refusal["Shared refusal check<br/>each exercise recomputes its own verdict"]
+    E2 --> Refusal
+    E3 --> Refusal
+    E4 --> Refusal
+    E5 --> Refusal
+    E6 --> Refusal
+    E7 --> Refusal
+    E8 --> Refusal
+
+    Refusal --> Receipts["Body-free receipts<br/>receipts/first_wave/batch5_authority_systems_capsule"]
+    Receipts --> Ceiling["Authority ceiling:<br/>no provider dispatch, mutation,<br/>proof success, release, or private equivalence"]
 ```
 
-This module is already capsule-backed, so the reader diagram starts from the
-JSON source row rather than Markdown. It shows how the mechanism subject,
-runtime organ, copied-source bundle, standard, tests, and receipts produce a
-walkable evidence path while leaving generated-state mutation, provider
-dispatch, proof-success claims, and release authority outside the capsule.
+The diagram starts where the runtime starts: the copied source bundle and the
+exercise manifest, checked against macro-root digests and anchors. The organ
+then fans out to the eight mechanism exercises, each recomputing its own pass or
+refusal verdict, and folds the results into body-free receipts under a single
+authority ceiling. Generated-state mutation, provider dispatch, proof-success
+claims, and release authority all stay outside that ceiling.
+
+## What the eight exercises check
+
+Each exercise reads a small synthetic block from the fixture manifest and
+recomputes a verdict. None of them call a provider, run Lean, signal a process,
+or mutate generated state. What follows is the specific question each one
+answers.
+
+- Receipt validator. Given a runtime grant and two post-execution receipts, it
+  recomputes the drift codes for the second receipt: a substituted provider, a
+  context class outside the grant's allowed set, an output artifact hash that
+  diverges from the grant, or `runtime_execution` claimed when no runtime grant
+  was issued. The valid receipt must pass and the drifted one must be flagged;
+  the exercise will not call drift "absent".
+- Replay scope. It compares the context classes a step consumed against the
+  classes that changed. When the two sets are disjoint, the classification is
+  `no_replay`. In the fixture, a step consumed a task spec and a public fixture
+  while only ambient browser state changed, so re-running the step is not
+  demanded.
+- Proof gate. It scans a candidate proof string before any Lean call. A `sorry`
+  token, a plan-only phrasing such as "plan:" or "I will", or a proof that
+  merely restates the declared theorem without an `exact` are each treated as
+  failure classes, and the gate verdict becomes `rejected_before_lean`. The
+  exercise records `0/8 historical banked attempts; no proof-success claim`.
+- Orphan reaper. A process marked as a live-session descendant is classified
+  `requires_owner_check`, not `safe_close_candidate`, and no signal is sent even
+  when the fixture requests `SIGKILL`. The refusal is the point: a stray-looking
+  process that belongs to a live session must not be killed on inventory alone.
+- Fixpoint drainer. It walks residual signatures. If the same residual id
+  reappears under a moved source signature, the settlement is classified
+  `settlement_residual_source_moved`, which marks a non-converging residual
+  rather than a settled one. No generated-state mutation is authorised either
+  way.
+- Trace tape. When the joined trace text exceeds the byte budget, the exercise
+  truncates to a head budget and appends a pointer row plus an omission receipt
+  that records the omitted byte count. A budget breach with no omission receipt
+  is treated as a failure, so compaction can never silently drop trace bytes.
+- Blast radius. It builds the reverse-dependency graph and takes the transitive
+  closure of dependents for a target. A target with real dependents reports
+  them; a leaf with no dependents reports an honestly empty bucket rather than
+  inventing coverage.
+- Doctrine graph. It scans doctrine nodes for two conditions: a node whose code
+  path no longer exists, reported as an authority gap, and a node marked
+  `tombstone`, reported with its replacement id. The exercise passes only when
+  both a drift finding and a tombstone candidate are present, so a deleted code
+  path behind a doctrine claim cannot pass unnoticed.
 
 ## Reader Proof Boundary
 

@@ -24,6 +24,32 @@ The organ rejects five boundary failures:
 - private routing bodies, raw seed bodies, provider payload bodies, or secret
   values in public inputs
 
+## Purpose
+
+A navigation system can fail quietly. An agent reaches for `grep` when a kernel
+route would have narrowed the space first, or changes execution mode in chat
+without updating the disk contract, and nothing complains until the work is
+already off the rails. This organ answers one question: does the public registry
+of known routing failures hold its declared shape, and does the copied macro
+body that backs it stay byte-honest? It names recurring navigation mistakes as
+typed rows so they can be recognised, not rediscovered.
+
+The registry is treated as a checked artifact, not as authority. A page
+describing routing failures is easy to read as a router or as policy. The organ refuses both: a row may project a public anti-pattern,
+but it may not declare `source_authority`, `route_authority`, or any
+control-plane role, and the validator rejects rows that try. So the document can
+describe how navigation goes wrong without itself becoming the thing that decides
+how navigation should go.
+
+One design choice sits in how each row's route-repair state is decided.
+Rather than trust a label baked into the row, the checker derives the repair
+state from the row's own id and explanatory text: `kernel_before_grep` only earns
+`kernel_first_navigation` if its text actually mentions grep, kernel, and route.
+A row carrying a pre-written `expected_route_repair_state` is flagged, and
+`baked_expected_labels_sufficient` is fixed to false. The point is to stop a
+registry from grading itself by self-asserted labels, and to keep the meaning
+grounded in the text a reader can see.
+
 ## Shape
 
 This module is a projection over a capsule-backed public routing diagnostic, not

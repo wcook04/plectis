@@ -11,6 +11,40 @@ tool manifest scope refs, call argument hashes, approval token refs, side-effect
 ledger refs, rollback receipts, untrusted-output instruction/data splits, cold
 replay receipts, negative cases, and authority ceilings line up.
 
+## Purpose
+
+When an agent uses tools through a protocol like MCP, the sentence "the agent
+used the tool safely" is cheap to write and hard to back. This organ answers one
+question: given a recorded tool-use trace, does the evidence actually support the
+authority the trace claims, or is the safety language unearned? It exists so that
+tool-authority claims have to be replayed against metadata before prose is
+allowed to call them safe.
+
+The approach is to treat a tool call as a small transaction that must show its
+working. Each call cites a narrow capability scope, an argument hash, and, if it
+writes, an approval token, a side-effect ledger entry, and a rollback receipt.
+Those references are not taken on trust: the side-effect ledger and the cold
+replay rows are cross-checked against the accepted call rows by call id, so a
+rollback receipt that no call refers to, or a write that skips approval, is
+caught rather than waved through. The point is that a reference string is not
+authority until something downstream resolves it.
+
+Two failure modes are worth naming because they are specific to tool-using
+agents. The first is the confused deputy: a call that asks for a scope wider than
+its task needs (`*`, `account_full_access`) is rejected before it runs, so a tool
+cannot quietly borrow more authority than it was granted. The second is
+tool-output-as-instruction, the prompt-injection shape where text returned by an
+untrusted tool is obeyed as a command. Here untrusted output must stay data and
+cite an instruction/data split; a row that lets output become instruction is one
+of the eight negative cases the fixture is built to catch.
+
+This is deliberately a synthetic replay, not a live test. The organ never opens
+an MCP account, calls a provider, or handles a credential. It reads only public
+metadata and digests, and it keeps every payload, result body, and credential
+out of the receipts it writes. What it offers is narrow and honest: a way to
+check that a tool-authority story is internally consistent and body-free, not a
+certificate that any real tool integration is secure.
+
 ## JSON Capsule Binding
 
 - Source authority: `core/paper_module_capsules.json::paper_modules[39:paper_module.mcp_tool_authority_replay]` with `source_authority: json_capsule`; the generated instance is `paper_modules/mcp_tool_authority_replay.json`.

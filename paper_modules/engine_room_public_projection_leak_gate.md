@@ -3,6 +3,32 @@
 This staged Engine Room capsule imports the runnable core of the macro
 projection leak scan into Microcosm as a public-safe refactor.
 
+## Purpose
+
+Before a rendered set of files is exposed to a public reader, someone has to
+answer a narrow question: does this tree contain anything that should not leave
+the private workspace? Credential-shaped strings, a private home path, a
+provider-transport symbol, or a symlink that points outside the tree are all
+ways for private material to ride along with an otherwise public projection.
+This gate answers that one question over a directory of rendered files and
+returns a `green` or `red` verdict.
+
+The interesting part is what the gate does with what it finds. A secret scanner
+that prints the secret it discovered into its own report has created a second
+copy of the leak. This gate never does that. Every match is recorded by
+category, path, line number, and a SHA-256 hash of the matched text, and the
+matched value itself is dropped (`_hit` builds the record without it). The
+verdict is auditable, the counts are honest, and the receipt is itself safe to
+publish. A reviewer can confirm that a leak was found and where, without the
+report becoming the thing that leaks.
+
+The gate is deliberately small and deterministic. It reads files and path
+names against a fixed set of regular expressions, treats a symlink that escapes
+the root as a hard blocker, and folds an optional `gitleaks` run into the same
+receipt. It does not parse the files, follow data flow, or reason about intent.
+It is a data-loss-prevention boundary for one rendered tree, not a general
+security scanner, and the page is careful to keep it framed that way.
+
 ## What It Demonstrates
 
 - Content scans for credential-shaped strings and private host-bound path
@@ -18,16 +44,28 @@ projection leak scan into Microcosm as a public-safe refactor.
 ## Shape
 
 ```mermaid
-flowchart LR
-  A["Rendered public projection root"] --> B["Content and path scan"]
-  B --> C["Hash-only findings"]
-  C --> D{"Blocking hit or symlink escape?"}
-  D -- "yes" --> E["red receipt"]
-  D -- "no" --> F["green receipt"]
-  B --> G["Policy exception paths"]
-  G --> C
-  B --> H["Optional gitleaks run"]
-  H --> C
+flowchart TD
+  Root["Rendered projection root\nwalk files and path names"]
+  Root --> Content["Content scan\ncredential and private-path regexes"]
+  Root --> PathScan["Path-name scan\nraw-seed, ledger, Obsidian, transport"]
+  Root --> Symlink{"Symlink escapes root?"}
+  Root --> Gitleaks["Optional gitleaks run\npass / red / unavailable / fail-closed"]
+
+  Content --> Hash["Findings as hash-only records\ncategory, path, line, match_sha256\nmatched value dropped"]
+  PathScan --> Hash
+
+  Hash --> Split{"Path in policy\nexception list?"}
+  Split -- "yes" --> Allowed["Policy exception\nretained, non-blocking"]
+  Split -- "no" --> Blocking["Blocking hit"]
+
+  Verdict{"Any blocking hit, symlink\nescape, or gitleaks red\n/ fail-closed?"}
+  Blocking --> Verdict
+  Symlink -- "yes" --> Verdict
+  Gitleaks --> Verdict
+  Allowed --> Green
+
+  Verdict -- "yes" --> Red["red receipt\npublic_release_allowed_by_scan = false"]
+  Verdict -- "no" --> Green["green receipt\nno blocker found in this scan"]
 ```
 
 The shape is intentionally narrow. The gate reads rendered public files, file
