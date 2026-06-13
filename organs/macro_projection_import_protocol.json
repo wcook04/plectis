@@ -156,6 +156,7 @@
         "batch8_policy_engines_capsule",
         "batch9_macro_engines_capsule",
         "concurrency_mission_control",
+        "executable_doctrine_grammar",
         "workstream_driver_recency_coalescer"
       ],
       "wiring_note": "feeds macro_body_import_floor into microcosm status/spine, bridges via microcosm intake to reveal/evidence, and coordinates per-cell import statuses across named organs (e.g. formal_math_readiness_gate, agent_route_observability_runtime, mission_transaction_work_spine). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
@@ -640,6 +641,19 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
+        "target_id": "executable_doctrine_grammar",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
         "target_id": "workstream_driver_recency_coalescer",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -686,6 +700,7 @@
       "batch8_policy_engines_capsule",
       "batch9_macro_engines_capsule",
       "concurrency_mission_control",
+      "executable_doctrine_grammar",
       "workstream_driver_recency_coalescer"
     ]
   },
@@ -739,6 +754,7 @@
     "batch8_policy_engines_capsule",
     "batch9_macro_engines_capsule",
     "concurrency_mission_control",
+    "executable_doctrine_grammar",
     "workstream_driver_recency_coalescer"
   ]
 }

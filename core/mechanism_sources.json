@@ -1316,6 +1316,7 @@
         "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
         "mechanism.cognitive_operator_registry.validates_public_operator_contract",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+        "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
         "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
         "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
         "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
