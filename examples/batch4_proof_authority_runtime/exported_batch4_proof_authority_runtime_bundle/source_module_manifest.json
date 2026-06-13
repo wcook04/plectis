@@ -302,8 +302,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 200983,
-      "line_count": 5103,
+      "byte_count": 208396,
+      "line_count": 5312,
       "material_class": "public_macro_tool_body",
       "module_id": "closeout_executor",
       "path": "source_modules/system/lib/closeout_executor.py",
@@ -312,14 +312,14 @@
         "StalePlanHeadMismatch",
         "ConcurrentPublicationChurn"
       ],
-      "sha256": "a1e5107a296c11ff1b4856c4a7bcfac44d0e5c136441b04d2c483cb3ea8d2fc0",
+      "sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/closeout_executor.py",
-      "source_sha256": "a1e5107a296c11ff1b4856c4a7bcfac44d0e5c136441b04d2c483cb3ea8d2fc0",
+      "source_sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/closeout_executor.py",
-      "target_sha256": "a1e5107a296c11ff1b4856c4a7bcfac44d0e5c136441b04d2c483cb3ea8d2fc0",
+      "target_sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
       ]

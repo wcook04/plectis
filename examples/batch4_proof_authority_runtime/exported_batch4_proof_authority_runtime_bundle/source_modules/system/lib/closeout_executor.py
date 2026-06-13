@@ -37,6 +37,29 @@ UI_EFFECT_BLOCKER_REFS = (
 )
 UI_EFFECT_BLOCKER_TAGS = ("closeout_executor", "ui_effect_receipt", "build_blocker")
 TS_ERROR_PATH_RE = re.compile(r"^(src/[^(:]+?\.(?:ts|tsx|js|jsx))\(\d+,\d+\): error ", re.MULTILINE)
+GIT_COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{7,64}$", re.IGNORECASE)
+SCOPED_COMMIT_RECEIPT_SHA_KEYS = (
+    "new_commit",
+    "commit_hash",
+    "commit_sha",
+    "commit_oid",
+    "new_head",
+    "pushed_commit",
+    "post_push_remote_sha",
+    "remote_commit",
+    "remote_commit_hash",
+)
+SCOPED_COMMIT_RECEIPT_CONTAINER_KEYS = (
+    "scoped_commit_receipt",
+    "landing_receipt",
+    "commit_receipt",
+    "remote_fallback_receipt",
+    "guarded_push_receipt",
+    "work_ledger_closeout_hint",
+    "receipt",
+    "result",
+    "payload",
+)
 
 GENERATED_PREFIXES = (
     "codex/ledger/",
@@ -1216,6 +1239,7 @@ def _commit_command(
     *,
     expected_parent: str | None = None,
     allow_untracked: bool = False,
+    work_ledger_session_id: str | None = None,
 ) -> str:
     path_args = " ".join(f"--path {path}" for path in paths)
     allow_untracked_arg = (
@@ -1223,11 +1247,13 @@ def _commit_command(
         if allow_untracked or any(_is_test_path(path) for path in paths)
         else ""
     )
+    session = str(work_ledger_session_id or "").strip()
+    session_arg = f" --work-ledger-session-id {shlex.quote(session)}" if session else ""
     parent = expected_parent or "$(git rev-parse HEAD)"
     return (
         "./repo-python tools/meta/control/scoped_commit.py full-paths "
         f"{path_args}{allow_untracked_arg} --allow-multi-hunk-full-paths "
-        f"--remote-fallback-on-metadata-block --expected-parent {parent} "
+        f"--remote-fallback-on-metadata-block{session_arg} --expected-parent {parent} "
         f"--message {json.dumps(message)}"
     )
 
@@ -1303,6 +1329,7 @@ def _source_clusters(
     limit: int = 5,
     expected_parent: str | None = None,
     preferred_prefixes: Sequence[str] | None = None,
+    work_ledger_session_id: str | None = None,
 ) -> list[dict[str, Any]]:
     candidates = [str(row.get("path") or "") for row in rows if _is_source_candidate(str(row.get("path") or ""))]
     preferred = [str(prefix) for prefix in preferred_prefixes or [] if str(prefix)]
@@ -1341,6 +1368,7 @@ def _source_clusters(
                 f"Drain {stem} source cluster",
                 expected_parent=expected_parent,
                 allow_untracked=bool(untracked_paths),
+                work_ledger_session_id=work_ledger_session_id,
             ),
         }
         receipt = _effect_receipt(paths)
@@ -1552,6 +1580,7 @@ def build_closeout_executor_plan(
         limit=10 if ui_effect_blocker_ref else 5,
         expected_parent=observed_head,
         preferred_prefixes=actor_owned_prefixes,
+        work_ledger_session_id=current_session_id,
     )
     actor_owned_clusters = [
         cluster for cluster in clusters if _cluster_matches_prefixes(cluster, actor_owned_prefixes)
@@ -1957,6 +1986,35 @@ def _json_stdout(result: Mapping[str, Any]) -> dict[str, Any]:
     except json.JSONDecodeError:
         return {}
     return payload if isinstance(payload, dict) else {}
+
+
+def _valid_commit_sha(value: Any) -> str:
+    text = str(value or "").strip()
+    if not GIT_COMMIT_SHA_RE.fullmatch(text):
+        return ""
+    return text.lower()
+
+
+def _commit_sha_from_mapping(
+    payload: Mapping[str, Any],
+    *,
+    source_path: str = "payload",
+    depth: int = 0,
+) -> tuple[str, str] | None:
+    if depth > 3:
+        return None
+    for key in SCOPED_COMMIT_RECEIPT_SHA_KEYS:
+        sha = _valid_commit_sha(payload.get(key))
+        if sha:
+            return sha, f"{source_path}.{key}"
+    for key in SCOPED_COMMIT_RECEIPT_CONTAINER_KEYS:
+        child = payload.get(key)
+        if not isinstance(child, Mapping):
+            continue
+        found = _commit_sha_from_mapping(child, source_path=f"{source_path}.{key}", depth=depth + 1)
+        if found:
+            return found
+    return None
 
 
 def _command_ok(result: Mapping[str, Any]) -> bool:
@@ -3198,6 +3256,97 @@ def _path_status(
     return _invoke_runner(runner, repo_root, command, timeout=60)
 
 
+def _reconcile_scoped_commit_receipt(
+    repo_root: Path,
+    *,
+    commit_payload: Mapping[str, Any],
+    before_head: str,
+    paths: Sequence[str],
+    runner: Callable[..., Mapping[str, Any]] | None = None,
+    evidence: list[dict[str, Any]] | None = None,
+) -> tuple[str, dict[str, Any]]:
+    explicit = _commit_sha_from_mapping(commit_payload, source_path="scoped_commit_receipt")
+    if explicit:
+        commit, source = explicit
+        return commit, {
+            "schema": "closeout_scoped_commit_reconciliation_v0",
+            "status": "reconciled",
+            "source": "scoped_commit_receipt_alias",
+            "payload_source": source,
+            "commit": commit,
+            "head_checked": False,
+            "path_cleanliness_checked": False,
+        }
+
+    before_commit = _valid_commit_sha(before_head)
+    if not before_commit:
+        return "", {
+            "schema": "closeout_scoped_commit_reconciliation_v0",
+            "status": "missing",
+            "reason": "before_head_unavailable",
+            "before_head": before_head,
+            "paths": list(paths),
+        }
+
+    after_head, head_result = _current_head(repo_root, runner=runner)
+    if evidence is not None:
+        evidence.append(head_result)
+    after_commit = _valid_commit_sha(after_head)
+    if not _command_ok(head_result) or not after_commit:
+        return "", {
+            "schema": "closeout_scoped_commit_reconciliation_v0",
+            "status": "missing",
+            "reason": "head_read_failed",
+            "before_head": before_commit,
+            "after_head": after_head,
+            "paths": list(paths),
+        }
+    if after_commit == before_commit:
+        return "", {
+            "schema": "closeout_scoped_commit_reconciliation_v0",
+            "status": "missing",
+            "reason": "head_unchanged",
+            "before_head": before_commit,
+            "after_head": after_commit,
+            "paths": list(paths),
+        }
+
+    status_result = _path_status(repo_root, paths, runner=runner)
+    if evidence is not None:
+        evidence.append(status_result)
+    status_text = str(status_result.get("stdout") or "").strip()
+    if not _command_ok(status_result):
+        return "", {
+            "schema": "closeout_scoped_commit_reconciliation_v0",
+            "status": "missing",
+            "reason": "post_commit_path_status_failed",
+            "before_head": before_commit,
+            "after_head": after_commit,
+            "paths": list(paths),
+        }
+    if status_text:
+        return "", {
+            "schema": "closeout_scoped_commit_reconciliation_v0",
+            "status": "missing",
+            "reason": "head_advanced_but_paths_still_dirty",
+            "before_head": before_commit,
+            "after_head": after_commit,
+            "paths": list(paths),
+            "post_commit_path_status": status_text,
+        }
+    return after_commit, {
+        "schema": "closeout_scoped_commit_reconciliation_v0",
+        "status": "reconciled",
+        "source": "head_advanced_paths_clean",
+        "before_head": before_commit,
+        "after_head": after_commit,
+        "commit": after_commit,
+        "paths": list(paths),
+        "post_commit_path_status_clean": True,
+        "path_cleanliness_checked": True,
+    }
+
+
 def _status_rows_with_evidence(
     repo_root: Path,
     *,
@@ -3230,14 +3379,18 @@ def _work_ledger_mutation_check(
     repo_root: Path,
     paths: Sequence[str],
     *,
+    session_id: str | None = None,
     runner: Callable[..., Mapping[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    owner_session_id = str(session_id or "").strip()
     command = [
         "./repo-python",
         "tools/meta/factory/work_ledger.py",
         "mutation-check",
         "--require-exclusive",
     ]
+    if owner_session_id:
+        command.extend(["--session-id", owner_session_id])
     for path in paths:
         command.extend(["--path", str(path)])
     result = _invoke_runner(runner, repo_root, command, timeout=120, output_limit=12000)
@@ -3245,10 +3398,12 @@ def _work_ledger_mutation_check(
     return (payload if payload else {}, result)
 
 
-def _mutation_check_commands(paths: Sequence[str]) -> list[str]:
-    path_args = " ".join(f"--path {path}" for path in paths)
+def _mutation_check_commands(paths: Sequence[str], *, session_id: str | None = None) -> list[str]:
+    path_args = " ".join(f"--path {shlex.quote(path)}" for path in paths)
+    owner_session_id = str(session_id or "").strip()
+    session_arg = f" --session-id {shlex.quote(owner_session_id)}" if owner_session_id else ""
     return [
-        f"./repo-python tools/meta/factory/work_ledger.py mutation-check {path_args} --require-exclusive",
+        f"./repo-python tools/meta/factory/work_ledger.py mutation-check{session_arg} {path_args} --require-exclusive",
         "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 30",
     ]
 
@@ -3274,6 +3429,7 @@ def _scoped_commit_command(
     expected_parent: str,
     *,
     allow_untracked: bool = False,
+    work_ledger_session_id: str | None = None,
 ) -> list[str]:
     command = [
         "./repo-python",
@@ -3288,6 +3444,13 @@ def _scoped_commit_command(
         [
             "--allow-multi-hunk-full-paths",
             "--remote-fallback-on-metadata-block",
+        ]
+    )
+    owner_session_id = str(work_ledger_session_id or "").strip()
+    if owner_session_id:
+        command.extend(["--work-ledger-session-id", owner_session_id])
+    command.extend(
+        [
             "--expected-parent",
             expected_parent,
             "--message",
@@ -3842,10 +4005,12 @@ def _run_drain_source_cluster(
     plan: Mapping[str, Any],
     action: Mapping[str, Any],
     *,
+    current_session_id: str | None = None,
     runner: Callable[..., Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     cluster = action.get("cluster") if isinstance(action.get("cluster"), Mapping) else {}
     paths = [str(path) for path in cluster.get("paths") or []]
+    owner_session_id = str(current_session_id or "").strip()
     if not paths:
         return _blocker(
             plan=plan,
@@ -3927,28 +4092,51 @@ def _run_drain_source_cluster(
             },
         )
 
-    mutation_check, mutation_check_result = _work_ledger_mutation_check(repo_root, paths, runner=runner)
+    mutation_check, mutation_check_result = _work_ledger_mutation_check(
+        repo_root,
+        paths,
+        session_id=owner_session_id or None,
+        runner=runner,
+    )
     evidence.append(mutation_check_result)
     collisions_value = mutation_check.get("collisions")
     collisions = list(collisions_value) if isinstance(collisions_value, Sequence) and not isinstance(collisions_value, (str, bytes, bytearray)) else []
     if mutation_check.get("status") == "blocked" and collisions:
+        commands = _mutation_check_commands(paths, session_id=owner_session_id or None)
+        if owner_session_id:
+            message = (
+                "source-cluster paths overlap foreign Work Ledger path claims after "
+                "excluding the current session; wait for owner release or finalize the "
+                "owning session before closeout commits"
+            )
+            retry_policy = "retry_after_foreign_claim_release_then_replan"
+        else:
+            message = (
+                "source-cluster paths overlap active Work Ledger path claims; rerun "
+                "closeout_executor.py with --current-session-id when this actor owns "
+                "the claim, otherwise wait for owner release or finalize the owner session"
+            )
+            retry_policy = "rerun_with_current_session_id_if_self_owned_else_claim_release"
         return _blocker(
             plan=plan,
             action=action,
             reason="WorkLedgerActiveClaimOverlap",
-            message="source-cluster paths overlap active Work Ledger path claims; wait for owner release or finalize the owning session before closeout commits",
+            message=message,
             evidence=evidence,
             extra={
                 "paths": paths,
                 "mutation_check": mutation_check,
                 "active_claim_collisions": collisions,
-                "owner_commands": _mutation_check_commands(paths),
-                "required_next_command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 30",
-                "retry_policy": "retry_after_claim_release_then_replan",
+                "current_session_id": owner_session_id or None,
+                "session_identity_mode": "current_session_excluded" if owner_session_id else "unresolved",
+                "owner_commands": commands,
+                "recheck_command": commands[0],
+                "required_next_command": commands[-1],
+                "retry_policy": retry_policy,
             },
         )
     if not _command_ok(mutation_check_result) and not mutation_check:
-        commands = _mutation_check_commands(paths)
+        commands = _mutation_check_commands(paths, session_id=owner_session_id or None)
         return _blocker(
             plan=plan,
             action=action,
@@ -4089,6 +4277,7 @@ def _run_drain_source_cluster(
             message,
             head,
             allow_untracked=bool(untracked_paths or cluster.get("allow_untracked")),
+            work_ledger_session_id=owner_session_id or None,
         ),
         timeout=900,
     )
@@ -4102,14 +4291,25 @@ def _run_drain_source_cluster(
             evidence=evidence,
         )
     commit_payload = _json_stdout(commit_result)
-    new_commit = str(commit_payload.get("new_commit") or "")
+    new_commit, commit_reconciliation = _reconcile_scoped_commit_receipt(
+        repo_root,
+        commit_payload=commit_payload,
+        before_head=head,
+        paths=paths,
+        runner=runner,
+        evidence=evidence,
+    )
     if not new_commit:
         return _blocker(
             plan=plan,
             action=action,
             reason="ScopedCommitMissingReceipt",
-            message="scoped commit succeeded but did not return new_commit",
+            message="scoped commit succeeded but the commit identity could not be reconciled",
             evidence=evidence,
+            extra={
+                "scoped_commit_receipt": commit_payload,
+                "scoped_commit_reconciliation": commit_reconciliation,
+            },
         )
     if commit_payload.get("remote_fallback") is True:
         verified, verify_evidence = _verify_remote_ref(repo_root, new_commit, runner=runner)
@@ -4145,6 +4345,7 @@ def _run_drain_source_cluster(
             "live_repo_head_unchanged": bool(commit_payload.get("live_repo_head_unchanged")),
             "next_local_sync_hint": commit_payload.get("next_local_sync_hint"),
             "scoped_commit_receipt": commit_payload,
+            "scoped_commit_reconciliation": commit_reconciliation,
             "evidence": evidence,
         }
         if untracked_paths:
@@ -4214,6 +4415,8 @@ def _run_drain_source_cluster(
         "paths": paths,
         "commit": new_commit,
         "remote_verified": True,
+        "scoped_commit_receipt": commit_payload,
+        "scoped_commit_reconciliation": commit_reconciliation,
         "guarded_push_receipt": push_receipt,
         "evidence": evidence,
     }
@@ -4289,7 +4492,13 @@ def run_closeout_executor_one(
     if lane == "publish_if_clear":
         receipt = _run_publish_if_clear(repo, current_plan, action, runner=runner)
     elif lane == "drain_source_cluster":
-        receipt = _run_drain_source_cluster(repo, current_plan, action, runner=runner)
+        receipt = _run_drain_source_cluster(
+            repo,
+            current_plan,
+            action,
+            current_session_id=current_session_id,
+            runner=runner,
+        )
     elif lane == "settle_generated_state":
         receipt = _run_settle_generated_state(repo, current_plan, action, runner=runner)
     elif lane == "drain_worktrees":
