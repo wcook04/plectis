@@ -32,6 +32,7 @@ An agent runs it to confirm, against a public synthetic fixture, that detached-j
 - `constrained_by` -> `axiom:AX-7` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-8` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-11` (resolved_json_instance)
+- `wires_to` -> `organ:agent_memory_temporal_conflict_replay` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:concurrency_mission_control` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:workstream_driver_recency_coalescer` (resolved_registry_or_atlas_target)
 

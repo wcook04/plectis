@@ -15,6 +15,7 @@ The bridge phase continuity runtime validates public synthetic observe/apply bri
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/bridge_phase_continuity_runtime.py` (resolved_code_locus)
 - `runs_in` -> `organ:bridge_phase_continuity_runtime` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.work_landing_and_continuity_control_bundle` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer` (resolved_json_instance)

@@ -4573,6 +4573,7 @@
           },
           "standard_ref": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
           "wires_to": [
+            "agent_memory_temporal_conflict_replay",
             "concurrency_mission_control",
             "workstream_driver_recency_coalescer"
           ]
@@ -16581,6 +16582,7 @@
           },
           "standard_ref": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
           "wires_to": [
+            "agent_memory_temporal_conflict_replay",
             "concurrency_mission_control",
             "workstream_driver_recency_coalescer"
           ]

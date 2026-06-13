@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 10,
+    "mechanism_capsule_dependency_upstream_missing_count": 9,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -209,25 +209,19 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T10:31:48.984088Z",
+    "generated_at": "2026-06-13T10:49:40.122501Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 221,
-    "missing_edge_count": 10,
+    "covered_edge_count": 222,
+    "missing_edge_count": 9,
     "missing_edges": [
       {
         "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
         "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
         "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
-      },
-      {
-        "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
-        "dependency_paper_module": "paper_module.bridge_phase_continuity_runtime",
-        "source_mechanism": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
-        "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
       },
       {
         "consumer_paper_module": "paper_module.first_screen_composition_root",
@@ -3469,8 +3463,8 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "02b650d170c87c1b4db8c0a1649dfefc06bf5842baf9a7543758be2b4e326dd5",
-      "core/organ_atlas.json": "e602fd84b4ac71ecb93b0185f3129f49bace48c18297f638061897e5c4a09a61",
+      "core/mechanism_sources.json": "0eb5b6e3c472619c48fb6ecaa8245c4acb7f41319ad4ee1c6f84f9adc61c4822",
+      "core/organ_atlas.json": "2e8bbd7e7ce0ca8246809dbd199439ab70e986c30c7de269cc78ac5c74fec391",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
@@ -3510,7 +3504,7 @@
       "mechanisms/mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule.json": "8d060072f86aa319553cfef1cbbf1492160b1f8907539e53f21a39058d7daa16",
       "mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json": "a9d8b7b0052a2d579d2bbcedd4c7f6f89f36b8e2cb90c007148a1fb79bbf8dba",
       "mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json": "5adb1df90b63c7adba036c03c3dcb8b47ffb54328df0bf462de6316de7f29297",
-      "mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "3af5eb2e4b0bbbe4c83552083810c966821db5d5023c33c8846b7d76888f9086",
+      "mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "558bbb2988e52ff10588cb9ca03eef3b15c0436f5027d73ffa87ad319853130a",
       "mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json": "ba4bc4280241bbe8c475216e2e953e5b053b94af67ed2ac50e0a7f5d86d9e996",
       "mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json": "88d729bdf8c2db3c2458672f296485158ebb0d5b03c8c1259676323f00bc965c",
       "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "02ae7c255d844515fe5e9a36de53d54d3cce3bf49cc227421aae9fc693d47a83",
@@ -3609,7 +3603,7 @@
       "organs/batch9_macro_engines_capsule.json": "c19bcbaa974b0b638a33fa3c5c7e555d76d15361cb7dde507b4bb6330140e8c6",
       "organs/belief_state_process_reward_replay.json": "78b1b1aaf7afc992f31a0e28e1676f62590ea35b20966d51c07f4228d554294c",
       "organs/bounded_autonomy_campaign_packet.json": "665c2d371bb052a3fb9a8d27201b3f5265c63633531862059c48587261ca41c1",
-      "organs/bridge_phase_continuity_runtime.json": "d5b31981eefb8ddf3ae82d0a5ef92651d0408d6a7d8cc47b3bc96480e676eb7c",
+      "organs/bridge_phase_continuity_runtime.json": "3750de58e0122ff9a8a787c0bc25e749ee662cd08d05e34b0238c763d34beef5",
       "organs/certificate_kernel_execution_lab.json": "5ac49abe3248f81980da59d59038404ab1baf596375dabc8d75db5b04c889bd3",
       "organs/cognitive_operator_registry.json": "91d00261582631e0cd48ad499ff6db44584779bba060614f59934791454ff3e3",
       "organs/cold_reader_route_map.json": "97bf41410098ab183f764138743ac8bfda564899aff18110fb4a21ddfacdd728",

@@ -209,6 +209,7 @@
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_bridge_phase_continuity_runtime.py -q"
       },
       "upstream_of": [
+        "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
         "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"

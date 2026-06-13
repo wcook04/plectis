@@ -196,6 +196,7 @@
       "statement": "The bridge phase continuity runtime validates public synthetic observe/apply bridge continuity by checking disk-first continuation packets, heartbeat liveness boundaries, resource-pressure dispatch blocks, resume-once semantics, duplicate-resume rejection, worker-skip dedupe, copied observe-runtime source-module digests, tracked receipt-write gating, private-state scans, and authority ceilings before writing bounded body-free receipts.",
       "status": "active",
       "upstream_of": [
+        "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
         "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
@@ -320,6 +321,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -357,6 +371,7 @@
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
+      "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
       "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
       "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
