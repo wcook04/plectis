@@ -188,37 +188,42 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
         "standard_used_by_organ_admission_summary_v1"
     )
     assert used_by_summary["status"] == "computed"
-    assert used_by_summary["edge_count"] == 247
+    assert used_by_summary["edge_count"] == 245
     assert used_by_summary["resolved_edge_count"] == 219
-    assert used_by_summary["unresolved_edge_count"] == 28
-    assert used_by_summary["detail_count"] == 28
-    assert used_by_summary["unresolved_target_organ_count"] == 14
+    assert used_by_summary["unresolved_edge_count"] == 26
+    assert used_by_summary["detail_count"] == 26
+    assert used_by_summary["unresolved_target_organ_count"] == 12
     assert used_by_summary["counts_by_admission_status"] == {
         "accepted_current_authority": 219,
-        "target_organ_not_accepted_current_authority": 28,
+        "target_organ_not_accepted_current_authority": 26,
     }
     assert used_by_summary["counts_by_target_status"] == {
         "accepted_current_authority": 219,
-        "unresolved_json_instance": 28,
+        "unresolved_json_instance": 26,
     }
     assert used_by_summary["unresolved_counts_by_contract_projection_status"] == {
-        "active_v2_governed_json": 27,
+        "active_v2_governed_json": 25,
         "legacy_or_draft_standard_contract": 1,
     }
     assert used_by_summary["unresolved_counts_by_registry_status"] == {
-        "draft": 28,
+        "draft": 26,
     }
     assert used_by_summary["unresolved_counts_by_source_status"] == {
-        "active": 27,
+        "active": 25,
         "draft": 1,
     }
     assert "std_microcosm_agent_trace" in used_by_summary["unresolved_standard_ids"]
     assert "std_microcosm_batch7_zenith_macos_capsule" in used_by_summary[
         "unresolved_standard_ids"
     ]
+    assert "std_microcosm_compression_band" not in used_by_summary[
+        "unresolved_standard_ids"
+    ]
     assert "batch7_zenith_macos_capsule" in used_by_summary[
         "unresolved_target_organ_ids"
     ]
+    assert "option_surface" not in used_by_summary["unresolved_target_organ_ids"]
+    assert "paper_module" not in used_by_summary["unresolved_target_organ_ids"]
     assert (
         "does_not_accept_organs_or_prove_runtime_use"
         in used_by_summary["authority_boundary"]
@@ -523,14 +528,48 @@ def test_active_v2_unresolved_used_by_organs_have_source_boundaries() -> None:
             "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
         )
 
-    assert len(standards_with_unresolved) == 20
-    assert sum(len(targets) for targets in standards_with_unresolved.values()) == 27
+    assert len(standards_with_unresolved) == 19
+    assert sum(len(targets) for targets in standards_with_unresolved.values()) == 25
     assert standards_with_unresolved["std_microcosm_agent_trace"] == [
         "entry_agent_behavior_governance_suborgan"
     ]
     assert standards_with_unresolved["std_microcosm_authority_boundary"] == [
         "external_boundary_anti_corruption_runtime"
     ]
+
+
+def test_compression_band_used_by_organs_excludes_kind_targets() -> None:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/standards_registry.json").read_text(encoding="utf-8")
+    )
+    source = json.loads(
+        (MICROCOSM_ROOT / "standards/std_microcosm_compression_band.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    registry_row = next(
+        row
+        for row in registry["standards"]
+        if row["standard_id"] == "std_microcosm_compression_band"
+    )
+    expected_organs = ["navigation_hologram_route_plane"]
+
+    assert source["relationships"]["used_by_organs"] == expected_organs
+    assert registry_row["used_by_organs"] == expected_organs
+    assert source["used_by_organ_boundary"]["status"] == (
+        "source_cleaned_no_unresolved_used_by_organs_targets"
+    )
+    assert source["used_by_organ_boundary"]["resolved_target_organs"] == expected_organs
+    assert source["used_by_organ_boundary"]["unresolved_target_organs"] == []
+    assert "option_surface and paper_module are kind targets" in (
+        source["used_by_organ_boundary"]["source_cleanup_note"]
+    )
+    assert any(
+        "accepted_current_authority organ id rather than a kind id" in step
+        for step in source["used_by_organ_boundary"]["required_reentry"]
+    )
+    assert "option_surface" not in registry_row["used_by_organs"]
+    assert "paper_module" not in registry_row["used_by_organs"]
 
 
 def test_standard_contract_basis_matches_accepted_organ_evidence_classes() -> None:

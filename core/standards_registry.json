@@ -193,9 +193,7 @@
       "standard_id": "std_microcosm_compression_band",
       "status": "draft",
       "used_by_organs": [
-        "navigation_hologram_route_plane",
-        "option_surface",
-        "paper_module"
+        "navigation_hologram_route_plane"
       ],
       "validator_id": null,
       "wave": "w1_core_contract_and_grammar"
