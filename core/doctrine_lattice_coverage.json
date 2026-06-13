@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 1,
+    "mechanism_capsule_dependency_upstream_missing_count": 0,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -209,21 +209,14 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T14:16:26.277430Z",
+    "generated_at": "2026-06-13T14:43:29.926728Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 230,
-    "missing_edge_count": 1,
-    "missing_edges": [
-      {
-        "consumer_paper_module": "paper_module.first_screen_composition_root",
-        "dependency_paper_module": "paper_module.cold_reader_route_map",
-        "source_mechanism": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
-        "target_mechanism": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
-      }
-    ],
+    "covered_edge_count": 231,
+    "missing_edge_count": 0,
+    "missing_edges": [],
     "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
     "resolved_mechanism_subject_count": 98,
     "sample_covered_edges": [
@@ -306,7 +299,7 @@
       "paper_module_capsules": "core/paper_module_capsules.json",
       "relation_registry": "core/doctrine_lattice_relations.json::mechanism.upstream_of.mechanism"
     },
-    "status": "deficit",
+    "status": "pass",
     "unresolved_dependencies": [],
     "unresolved_dependency_count": 0
   },
@@ -3415,7 +3408,7 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "ce9c0d2afccc59083cc4d2918e6f8ddc2700c115210a812c5f523c00425b8d59",
+      "core/mechanism_sources.json": "19ffa0bcd8bc8ce55e5242a89bf84c0bb26e5d2958128b211a460fd9d65a37b6",
       "core/organ_atlas.json": "1a66e926c0f90305cd44a4d546107355f02b6985a27a2df565114d23bd8bd5eb",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
@@ -3460,7 +3453,7 @@
       "mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json": "ba4bc4280241bbe8c475216e2e953e5b053b94af67ed2ac50e0a7f5d86d9e996",
       "mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json": "88d729bdf8c2db3c2458672f296485158ebb0d5b03c8c1259676323f00bc965c",
       "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "02ae7c255d844515fe5e9a36de53d54d3cce3bf49cc227421aae9fc693d47a83",
-      "mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "20c2c015e40755227134716d28b564000d1ccde97aebfd5564b2b75a633182d6",
+      "mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "e0f7b865f2aca3dafde456c8fd44767b9224c78753ad5b45750ed026287a993f",
       "mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json": "63bb07a7abe16f205ebf39bb0edea9838dc774cdcd30f2d1c034723958a8500b",
       "mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json": "e7c69bd7f17d5c36c00507b4aff17372577894d5e0544c042f2c30c51099ad7e",
       "mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary.json": "24f6f23c70a35e29eed7afb44a37366eaa5309b2d2229907512c65370d838864",

@@ -202,6 +202,7 @@
       "upstream_of": [
         "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+        "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
         "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
         "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
@@ -355,6 +356,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -433,6 +447,7 @@
     "upstream_mechanism_refs": [
       "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
       "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+      "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
       "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
       "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
       "mechanism.pattern_binding_contract.validates_public_pattern_bindings",

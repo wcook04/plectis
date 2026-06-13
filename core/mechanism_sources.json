@@ -1224,6 +1224,7 @@
       "upstream_of": [
         "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+        "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
         "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
         "mechanism.pattern_binding_contract.validates_public_pattern_bindings",

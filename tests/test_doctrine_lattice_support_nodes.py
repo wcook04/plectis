@@ -836,9 +836,9 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     entry_card = build_entry_card(MICROCOSM_ROOT, projection=projection)
 
     parity = projection["mechanism_capsule_dependency_upstream_parity"]
-    assert parity["status"] == "deficit"
+    assert parity["status"] == "pass"
     assert parity["covered_edge_count"] > 0
-    assert parity["missing_edge_count"] == 1
+    assert parity["missing_edge_count"] == 0
     assert {
         (
             row["source_mechanism"],
@@ -995,13 +995,23 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
         )
         for row in parity["missing_edges"]
     }
+    assert (
+        "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
+    ) not in {
+        (
+            row["source_mechanism"],
+            row["target_mechanism"],
+        )
+        for row in parity["missing_edges"]
+    }
     assert parity["relation_direction"].startswith(
         "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A)"
     )
     assert parity == health["mechanisms"]["capsule_dependency_upstream_parity"]
     assert (
         entry_card["current_counts"]["mechanism_capsule_dependency_upstream_missing_count"]
-        == 1
+        == 0
     )
     assert any(
         guard["guard_id"] == "paper_dependency_not_reverse_mechanism_upstream_edge"

@@ -17,6 +17,7 @@ The cold-reader route-map organ validates public first-run route projections by 
 - `grounds` -> `concept:concept.entry_and_reveal_route_readiness_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.pattern_binding_contract.validates_public_pattern_bindings` (resolved_json_instance)

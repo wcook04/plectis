@@ -741,16 +741,9 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 230,
-      "missing_edge_count": 1,
-      "missing_edges": [
-        {
-          "consumer_paper_module": "paper_module.first_screen_composition_root",
-          "dependency_paper_module": "paper_module.cold_reader_route_map",
-          "source_mechanism": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
-          "target_mechanism": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
-        }
-      ],
+      "covered_edge_count": 231,
+      "missing_edge_count": 0,
+      "missing_edges": [],
       "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
       "resolved_mechanism_subject_count": 98,
       "sample_covered_edges": [
@@ -833,7 +826,7 @@
         "paper_module_capsules": "core/paper_module_capsules.json",
         "relation_registry": "core/doctrine_lattice_relations.json::mechanism.upstream_of.mechanism"
       },
-      "status": "deficit",
+      "status": "pass",
       "unresolved_dependencies": [],
       "unresolved_dependency_count": 0
     },
