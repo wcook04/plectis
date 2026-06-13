@@ -1097,6 +1097,25 @@ def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
     assert "not release approval" in pack["do_not_claim"]
 
 
+def test_path_mutation_plan_preserves_improvement_handoff(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    _write_owned_module(tmp_path, "src/microcosm_core/comprehension.py", n_symbols=1)
+    pack = C.comprehend(
+        root=tmp_path,
+        mode="mutation_plan",
+        target="src/microcosm_core/comprehension.py",
+    )
+    assert pack["target"] == "src/microcosm_core/comprehension.py"
+    assert pack["selected_nodes"][0]["current_mutation_plan"] is True
+    assert pack["selected_nodes"][0]["rank"] == 1
+    assert pack["claim_paths"] == ["src/microcosm_core/comprehension.py"]
+    assert pack["recommended_first_action"]["action_kind"] == "claim_then_edit_target"
+    assert pack["recommended_first_action"]["claim_paths"] == pack["claim_paths"]
+    assert pack["validation_commands"] == pack["selected_nodes"][0]["validation_commands"]
+    assert "comprehension-assay --packet-route" in " ".join(pack["validation_commands"])
+    assert "not release approval" in " ".join(pack["warnings"])
+
+
 def test_first_action_orientation_fallback_and_blank_chooser(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(

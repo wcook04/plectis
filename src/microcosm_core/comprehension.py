@@ -2758,6 +2758,26 @@ def _improvement_next_action(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _improvement_row_for_target(
+    inputs: dict[str, Any], root: Path | None, target: str
+) -> dict[str, Any] | None:
+    """Return the ranked improvement row that owns ``target``, if any.
+
+    - Teleology: keep a path-specific mutation plan connected to the ranked
+      cold-clone improvement packet that sent the agent there.
+    - Guarantee: exact-matches target against each ranked row's claim paths and
+      target path string; returns a copy so callers can annotate safely.
+    - Fails: never raises; returns None when the target is not an improvement row.
+    - Reads: in-memory inputs plus the same existence checks as improvement ranking.
+    """
+    for row in _release_improvement_targets(inputs, root):
+        claim_paths = [str(p) for p in row.get("claim_paths") or []]
+        row_target = str(row.get("target") or "")
+        if target in claim_paths or target == row_target:
+            return dict(row)
+    return None
+
+
 def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
     """Build the rank-3 join-index improvement row from the graph's ACTUAL state.
 
@@ -2831,6 +2851,7 @@ def compile_mutation_plan(
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
     if target and (target.endswith(".py") or "/" in target):
+        improvement_row = _improvement_row_for_target(inputs, base, target)
         pack = _pack_skeleton("how_to", f"plan a mutation to {target}")
         pack["found"] = True
         pack["target"] = target
@@ -2858,6 +2879,55 @@ def compile_mutation_plan(
                 {"path": target, "custody_basis": extracted["custody_basis"]}
             ]
         pack["source_span_escalation"] = [{"path": target, "symbols": []}]
+        if improvement_row:
+            claim_paths = list(improvement_row.get("claim_paths") or [target])
+            validation_commands = list(improvement_row.get("validation_commands") or [])
+            pack["summary"]["what_this_is"] = (
+                f"Mutation plan for ranked improvement target {target}: "
+                f"{improvement_row.get('title')}."
+            )
+            pack["summary"]["what_to_inspect_next"] = [
+                target,
+                *validation_commands,
+            ]
+            pack["selected_nodes"] = [
+                {
+                    **improvement_row,
+                    "current_mutation_plan": True,
+                }
+            ]
+            pack["claim_paths"] = claim_paths
+            pack["validation_commands"] = validation_commands
+            pack["improvement_context"] = {
+                "rank": improvement_row.get("rank"),
+                "title": improvement_row.get("title"),
+                "why": improvement_row.get("why"),
+                "expected_reader_visible_change": improvement_row.get(
+                    "expected_reader_visible_change"
+                ),
+                "ranking_basis": improvement_row.get("ranking_basis"),
+            }
+            pack["recommended_first_action"] = {
+                "action_kind": "claim_then_edit_target",
+                "target_rank": improvement_row.get("rank"),
+                "target": target,
+                "claim_paths": claim_paths,
+                "validation_commands": validation_commands,
+                "stop_condition": (
+                    "Stop when the claimed path has a focused patch, the listed "
+                    "validators pass, and the ratchet is logged."
+                ),
+            }
+            pack["mutation_steps"] = [
+                "claim every claim_paths entry before editing",
+                "edit only this mutation-plan target and its focused tests",
+                "run validation_commands",
+                "rerun packet-route and whole-system comprehension assays before closeout",
+            ]
+            pack["warnings"] = [
+                "this path plan is a local implementation route, not release approval",
+                "do not widen into exact-copy macro runners from this packet",
+            ]
         return pack
     if not target or (target not in atlas_by and target not in join_by):
         targets = _release_improvement_targets(inputs, base)
