@@ -1,9 +1,8 @@
 # Belief-State Process Reward Replay
 
 This module is the public Microcosm projection of a belief-state process reward
-claim contract. It is now backed by the public agent-execution trace refactor
-lane plus copied non-secret macro source bodies, not by fixture echo as product
-evidence, and it is not a
+claim contract. It is backed by the public agent-execution trace refactor
+lane plus copied non-secret macro source bodies. It is not a
 hidden-reasoning export, live RL run, neural-judge-only label set, hidden-gold
 benchmark, provider call, source mutation, benchmark-score claim, or release
 claim.

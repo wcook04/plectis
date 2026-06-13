@@ -146,7 +146,7 @@ infer those edges from Markdown prose.
 
 ## JSON Capsule Boundary
 
-This paper module is now a JSON-capsule-backed row in the generated
+This paper module is a JSON-capsule-backed row in the generated
 paper-module corpus.
 
 - Current authority: `paper_module_payload.source_authority` is
@@ -211,7 +211,7 @@ or source mutation authority.
 
 ## Subject Admission Audit
 
-A capsule row now resolves this paper module through a mechanism subject. The
+A capsule row resolves this paper module through a mechanism subject. The
 live subject audit is bounded:
 
 - `core/paper_module_capsules.json` contains the source-authority row

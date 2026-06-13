@@ -367,7 +367,7 @@ Public runtime surface: a body-free sandbox policy bundle plus generated
 receipts under `receipts/first_wave/agent_sandbox_policy_escape_replay/` and
 `receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/`.
 
-Source-open body floor: the exported bundle now carries
+Source-open body floor: the exported bundle carries
 `source_module_manifest.json` plus seven exact copied non-secret macro bodies:
 the extracted-pattern ledger, the high novelty reconstruction receipt, the
 canonical organ model, the macro `system/lib/agent_execution_trace.py` runtime,

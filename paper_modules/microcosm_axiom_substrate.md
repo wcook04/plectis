@@ -153,7 +153,7 @@ assertion rejection is declared against that obligation. This is the
 no-laundering floor: `organ_receipt_coverage_present` can never be promoted
 directly into `exact_obligation_rejection`.
 
-Those AX-8 relations now live as source-owned, non-certifying rows in
+Those AX-8 relations live as source-owned, non-certifying rows in
 `core/axiom_organ_routing.json::rows[AX-8].anti_axiom_rejection_mappings[]`.
 The evaluator consumes those rows before any legacy inferred fallback and still
 recomputes receipt material from disk. The rows close hidden-code-schema drift;
@@ -339,7 +339,7 @@ repair is in the source owner or validator lane, not in stronger prose here.
 
 ## Subject Admission Audit
 
-The live subject audit is now split:
+The live subject audit is split:
 
 - `core/paper_module_capsules.json` contains the source-authority row for
   `paper_module.microcosm_axiom_substrate`.

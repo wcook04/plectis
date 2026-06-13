@@ -414,7 +414,7 @@ contract with explicit anti-claims and negative cases.
 
 ## Source-Open Body Floor
 
-The exported bundle now carries exact copied non-secret macro bodies under
+The exported bundle carries exact copied non-secret macro bodies under
 `source_modules/ai_workflow/`, governed by
 `source_module_manifest.json`. The imported bodies are:
 

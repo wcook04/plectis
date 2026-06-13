@@ -26,8 +26,8 @@ It emits:
 - `receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json`
 - `receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json`
 
-The reveal path now treats `microcosm intake` as a first-class runtime bridge,
-not a private planning note. The command exposes
+The reveal path treats `microcosm intake` as a runtime bridge rather than a
+private planning note. The command exposes
 `runtime_reveal_import_bridge`, keeps `formal_math_readiness_extensions`
 visible as a landed public replacement when its extension board exists, and
 points back to the macro projection intake board without copying private

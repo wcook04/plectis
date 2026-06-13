@@ -170,7 +170,7 @@ correctness.
 
 ## JSON Capsule Binding
 
-`core/paper_module_capsules.json` now contains
+`core/paper_module_capsules.json` contains
 `paper_module.computer_use_action_trace_replay` at
 `core/paper_module_capsules.json::paper_modules[46:paper_module.computer_use_action_trace_replay]`.
 This Markdown is a reader projection; `source_authority: json_capsule` lives in
