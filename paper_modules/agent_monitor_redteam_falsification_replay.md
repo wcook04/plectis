@@ -1,5 +1,36 @@
 # Agent Monitor Redteam Falsification Replay
 
+`agent_monitor_redteam_falsification_replay` is a synthetic regression fixture
+for one honesty claim: that a monitor verdict was earned by evidence rather than
+asserted. It replays public trajectory metadata and checks that every "the
+monitor caught it" sentence is tied to a probe, an escalation, a mitigation, and
+a body-free receipt before it counts.
+
+## Purpose
+
+It is easy to say a safety monitor flagged a suspicious agent action. It is
+harder to show that the verdict followed from the evidence and would survive a
+rerun. This organ answers one question: if a monitor claim is replayed against
+its own declared evidence, does the claim still hold, or does it fall apart?
+
+The part worth noticing is that the page does not trust the verdict it is given.
+A separate builder, `build_public_monitor_redteam_falsification_trace`,
+independently recomputes two things from the trajectory spans: whether each
+declared coverage label is actually backed by an adversarial probe, and what the
+monitor verdict should be given the span's severity, escalation, and mitigation
+evidence. If that recomputed verdict disagrees with the verdict the fixture
+declared, the run blocks. So the contract is not "does the row have the right
+fields" but "does an independent reading of the evidence reach the same
+conclusion". The failure mode it guards against is the one that quietly defeats
+most monitoring write-ups: a verdict label that reads well but is not supported
+by the trajectory it claims to summarise.
+
+The replay is deliberately narrow. It works over three synthetic trajectory
+cases and seven negative cases, on public metadata and body-free receipts. It is
+not a live monitor, a control-evaluation score, an exploit guide, or evidence
+about how well any real monitor performs. It only proves that, for these
+fixtures, a monitor claim cannot pass without surviving the disagreement check.
+
 ## Abstract
 
 This module is the public Microcosm technical paper for a monitor/redteam
