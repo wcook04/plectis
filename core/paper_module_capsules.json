@@ -6416,6 +6416,9 @@
       "strangler_note": "Binds the authored Markdown projection, Batch 5 accepted-organ row, organ-atlas row, runnable source locus, exported public-safe copied-source bundle, acceptance receipts, body-free validation receipts, and mechanism row to JSON capsule authority. Live provider dispatch, process signaling, generated-state mutation, proof success, source mutation, publication, release, private-root equivalence, and whole-system correctness remain out of scope.",
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
+      ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
       ]
     },
     {
