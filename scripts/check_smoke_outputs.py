@@ -299,6 +299,85 @@ def _expect_proof_lab_status_cache_bound(status: dict[str, Any]) -> str:
     return str(cache_status)
 
 
+def _expect_served_observatory_bound(served_status: dict[str, Any]) -> None:
+    name = "served-status-card.json"
+    if served_status.get("observatory_contract_status") != "pass":
+        raise SmokeCheckError(
+            f"{name}: expected observatory_contract_status 'pass', got "
+            f"{served_status.get('observatory_contract_status')!r}",
+        )
+    if (
+        served_status.get("observatory_schema_version")
+        != "microcosm_project_observatory_card_v1"
+    ):
+        raise SmokeCheckError(
+            f"{name}: expected served observatory card schema, got "
+            f"{served_status.get('observatory_schema_version')!r}",
+        )
+    if served_status.get("observatory_card_status") != "pass":
+        raise SmokeCheckError(
+            f"{name}: expected observatory_card_status 'pass', got "
+            f"{served_status.get('observatory_card_status')!r}",
+        )
+    surfaces = _expect_object(
+        served_status,
+        name=name,
+        key="observatory_surface_statuses",
+    )
+    for surface_id in (
+        "route",
+        "work",
+        "evidence",
+        "graph",
+        "state_inspection",
+    ):
+        actual = surfaces.get(surface_id)
+        if actual != "pass":
+            raise SmokeCheckError(
+                f"{name}: expected observatory_surface_statuses.{surface_id} "
+                f"'pass', got {actual!r}",
+            )
+    if served_status.get("observatory_state_inspection_status") != "pass":
+        raise SmokeCheckError(
+            f"{name}: expected observatory_state_inspection_status 'pass', got "
+            f"{served_status.get('observatory_state_inspection_status')!r}",
+        )
+    observatory_private_hits = _expect_nonnegative_int(
+        served_status,
+        name=name,
+        key="observatory_private_path_hit_count",
+    )
+    if observatory_private_hits != 0:
+        raise SmokeCheckError(
+            f"{name}: expected zero observatory private path hits, got "
+            f"{observatory_private_hits}",
+        )
+    _expect_nested_false(
+        served_status,
+        name=name,
+        object_key="observatory_safe_to_show",
+        key="provider_calls_authorized",
+    )
+    _expect_nested_false(
+        served_status,
+        name=name,
+        object_key="observatory_safe_to_show",
+        key="source_files_mutated",
+    )
+    _expect_nested_false(
+        served_status,
+        name=name,
+        object_key="observatory_safe_to_show",
+        key="proof_correctness_claim",
+    )
+    _expect_nested_false(
+        served_status,
+        name=name,
+        object_key="observatory_safe_to_show",
+        key="release_authorized",
+    )
+
+
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     hello = _read_text(smoke_out / "hello.txt")
     if not hello.splitlines()[0].startswith("Microcosm first screen"):
@@ -362,6 +441,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         name="served-status-card.json",
         key="provider_calls_authorized",
     )
+    _expect_served_observatory_bound(served_status)
 
     _expect_nested_false(
         proof_lab,
@@ -518,6 +598,7 @@ def print_summary(summary: dict[str, Any]) -> None:
         "served status: pass "
         f"({summary['private_path_hit_count']} private path hits)",
     )
+    print("served observatory: pass (compact card bound)")
     print("proof lab: pass (cache bound, proof correctness false)")
     print("first action: contract pass")
     print(f"version: {summary['version']}")

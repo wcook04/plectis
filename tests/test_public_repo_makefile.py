@@ -102,7 +102,26 @@ def _write_valid_smoke_outputs(smoke_out: Path) -> None:
     _write_json(
         smoke_out / "served-status-card.json",
         {
+            "observatory_card_status": "pass",
             "private_path_hit_count": 0,
+            "observatory_contract_status": "pass",
+            "observatory_private_path_hit_count": 0,
+            "observatory_safe_to_show": {
+                "proof_correctness_claim": False,
+                "provider_calls_authorized": False,
+                "release_authorized": False,
+                "source_files_mutated": False,
+            },
+            "observatory_schema_version": "microcosm_project_observatory_card_v1",
+            "observatory_state_inspection_status": "pass",
+            "observatory_surface_statuses": {
+                "evidence": "pass",
+                "graph": "pass",
+                "proof_lab": None,
+                "route": "pass",
+                "state_inspection": "pass",
+                "work": "pass",
+            },
             "provider_calls_authorized": False,
             "release_authorized": False,
             "status": "pass",
@@ -354,6 +373,7 @@ def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
         in result.stdout
     )
     assert "served status: pass (0 private path hits)" in result.stdout
+    assert "served observatory: pass (compact card bound)" in result.stdout
     assert "proof lab: pass (cache bound, proof correctness false)" in result.stdout
     assert "first action: contract pass" in result.stdout
     assert "version: microcosm 0.1.0" in result.stdout
@@ -492,6 +512,34 @@ def test_check_smoke_outputs_fails_when_proof_lab_cache_is_stale(
     assert "Microcosm smoke check: fail" in result.stderr
     assert (
         "status-card.json: proof_lab_cache must be pass after proof-lab smoke receipt"
+        in result.stderr
+    )
+
+
+def test_check_smoke_outputs_fails_when_served_observatory_is_unbound(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    served_status = json.loads(
+        (smoke_out / "served-status-card.json").read_text(encoding="utf-8"),
+    )
+    served_status["observatory_contract_status"] = "blocked"
+    served_status["observatory_surface_statuses"]["state_inspection"] = "missing"
+    _write_json(smoke_out / "served-status-card.json", served_status)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "Microcosm smoke check: fail" in result.stderr
+    assert (
+        "served-status-card.json: expected observatory_contract_status 'pass'"
         in result.stderr
     )
 
