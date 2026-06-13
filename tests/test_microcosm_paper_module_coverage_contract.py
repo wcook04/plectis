@@ -1584,6 +1584,28 @@ def test_legacy_reentry_worklist_is_coverage_driven() -> None:
     assert legacy_ids == coverage_legacy_ids
 
 
+def test_microcosm_axiom_substrate_capsule_preserves_claim_ceiling_source_route() -> None:
+    capsules = {row["id"]: row for row in _paper_module_capsules()}
+    instances = {row["id"]: row for row in _paper_module_instances()}
+    capsule = capsules["paper_module.microcosm_axiom_substrate"]
+    instance = instances["paper_module.microcosm_axiom_substrate"]
+    source_row = instance["paper_module_payload"]["source_row"]
+    authority_texts = [
+        capsule["compression"]["authority_ceiling"],
+        capsule["strangler_note"],
+        instance["compression"]["authority_ceiling"],
+        source_row["compression"]["authority_ceiling"],
+        source_row["strangler_note"],
+    ]
+
+    for text in authority_texts:
+        assert "core/axiom_organ_routing.json" in text
+        assert "validator.microcosm.axiom_support_cover" in text
+        assert "claim_ceiling" in text
+        assert "strongest_allowed_claim" in text
+        assert "hand-stamped" in text
+
+
 def test_coverage_legacy_rows_publish_cold_reader_boundary_markers() -> None:
     coverage_legacy_ids = _skip_when_legacy_projection_drifted()
     rows = {row["id"]: row for row in _paper_module_instances()}

@@ -6,7 +6,7 @@
   ],
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
-    "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; no axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness.",
+    "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; axiom witness-route source authority remains core/axiom_organ_routing.json, and claim_ceiling/strongest_allowed_claim remain computed by validator.microcosm.axiom_support_cover, not hand-stamped by this capsule or generated projections. No axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness.",
     "card": "Microcosm Axiom Substrate is the public doctrine/routing boundary for axiom support. Its capsule binds the authored paper-module projection to the axiom support-cover mechanism and validator locus, with source refs to AXIOMS.md, PRINCIPLES.md, ANTI_PRINCIPLES.md, core/axiom_organ_routing.json, standards/std_microcosm_axiom.json, and focused tests. The validator computes support cases, anti-axiom rejection mappings, candidate pressure, and strong-gate pressure as a read-only projection.",
     "one_line": "The public Microcosm axiom substrate routes readers from axiom doctrine to the read-only support-cover evaluator, routing registry, standard, tests, and receipts without claiming proof, release, or source-mutation authority."
   },
@@ -32,7 +32,7 @@
     ]
   },
   "paper_module_payload": {
-    "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; no axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness.",
+    "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; axiom witness-route source authority remains core/axiom_organ_routing.json, and claim_ceiling/strongest_allowed_claim remain computed by validator.microcosm.axiom_support_cover, not hand-stamped by this capsule or generated projections. No axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness.",
     "contract_version": "microcosm_paper_module_instance_payload_v1",
     "generated_projections": {
       "atlas_card": {
@@ -83,7 +83,7 @@
         }
       ],
       "compression": {
-        "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; no axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness.",
+        "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; axiom witness-route source authority remains core/axiom_organ_routing.json, and claim_ceiling/strongest_allowed_claim remain computed by validator.microcosm.axiom_support_cover, not hand-stamped by this capsule or generated projections. No axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness.",
         "card": "Microcosm Axiom Substrate is the public doctrine/routing boundary for axiom support. Its capsule binds the authored paper-module projection to the axiom support-cover mechanism and validator locus, with source refs to AXIOMS.md, PRINCIPLES.md, ANTI_PRINCIPLES.md, core/axiom_organ_routing.json, standards/std_microcosm_axiom.json, and focused tests. The validator computes support cases, anti-axiom rejection mappings, candidate pressure, and strong-gate pressure as a read-only projection.",
         "one_line": "The public Microcosm axiom substrate routes readers from axiom doctrine to the read-only support-cover evaluator, routing registry, standard, tests, and receipts without claiming proof, release, or source-mutation authority."
       },
@@ -123,7 +123,7 @@
       ],
       "source_authority": "json_capsule",
       "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.microcosm_axiom_substrate]",
-      "strangler_note": "This capsule binds the authored Markdown projection, axiom support-cover validator, axiom routing registry, governing axiom standard, and mechanism row without treating generated Markdown, generated Atlas output, support-cover receipts, or coverage counts as axiom proof, release authority, or source-mutation authority.",
+      "strangler_note": "This capsule binds the authored Markdown projection, axiom support-cover validator, axiom routing registry, governing axiom standard, and mechanism row while leaving axiom witness-route source authority in core/axiom_organ_routing.json and computed claim ceilings in validator.microcosm.axiom_support_cover. It does not treat generated Markdown, generated Atlas output, support-cover receipts, coverage counts, or capsule prose as axiom proof, release authority, source-mutation authority, or hand-stamped claim_ceiling/strongest_allowed_claim authority.",
       "subjects": [
         {
           "kind": "mechanism",
@@ -132,7 +132,7 @@
       ],
       "title": "Microcosm Axiom Substrate"
     },
-    "strangler_note": "This capsule binds the authored Markdown projection, axiom support-cover validator, axiom routing registry, governing axiom standard, and mechanism row without treating generated Markdown, generated Atlas output, support-cover receipts, or coverage counts as axiom proof, release authority, or source-mutation authority.",
+    "strangler_note": "This capsule binds the authored Markdown projection, axiom support-cover validator, axiom routing registry, governing axiom standard, and mechanism row while leaving axiom witness-route source authority in core/axiom_organ_routing.json and computed claim ceilings in validator.microcosm.axiom_support_cover. It does not treat generated Markdown, generated Atlas output, support-cover receipts, coverage counts, or capsule prose as axiom proof, release authority, source-mutation authority, or hand-stamped claim_ceiling/strongest_allowed_claim authority.",
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
       "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"

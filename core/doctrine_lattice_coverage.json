@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T17:08:05.628624Z",
+    "generated_at": "2026-06-13T20:36:41.044158Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -2963,11 +2963,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "1d01da0e3e27f43327c3555991fdfb3c59c103414cc74a4da7e7e134106bfde8",
+        "sha256": "e9e95cd7755b8d72c32dcd57f50e24ba6c0c986c14fc18b60b9cd27b1003153b",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "e143b35751b902d5d974f032967ce7cb4576c8201889b2e193fba267b736ebcf",
+    "source_manifest_digest": "0a0967849e209d8c5b96b56ba7e6fccedfa420d03ebb87b31939bfab0737b292",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 2,
     "suppressed_legacy_markdown_aliases": [
@@ -3418,7 +3418,7 @@
       "core/mechanism_sources.json": "e9b2cb3bd58098cadc39bcca2f641ad3d2e71a6ea9ca8d9440f5eeffe54ed2e2",
       "core/organ_atlas.json": "1a66e926c0f90305cd44a4d546107355f02b6985a27a2df565114d23bd8bd5eb",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "1d01da0e3e27f43327c3555991fdfb3c59c103414cc74a4da7e7e134106bfde8",
+      "core/paper_module_capsules.json": "e9e95cd7755b8d72c32dcd57f50e24ba6c0c986c14fc18b60b9cd27b1003153b",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -3674,7 +3674,7 @@
       "paper_modules/mathematical_strategy_atlas.json": "0f0af7060be1a0f0c717bce87e9d2196eba40192f7c144df5ddff8f52e54a660",
       "paper_modules/mcp_tool_authority_replay.json": "ac1707fd85c3f8c080e1d8d395d53e69df8f1c6a2e53a94e25a2556f5811be29",
       "paper_modules/mechanistic_interpretability_circuit_attribution_replay.json": "c065f26c74628e8593d66bc6efa548ba83dd91bf912b829f6ae92490908d90d5",
-      "paper_modules/microcosm_axiom_substrate.json": "564a1f77ab5b66c493633895206b5d183ae76ce0178996f6581c48c5f8ee9747",
+      "paper_modules/microcosm_axiom_substrate.json": "3ff9c4304cb4cf5a96583837c3ed4cd7294580866355ee2a67f91bf1a09696d2",
       "paper_modules/mission_transaction_work_spine.json": "6594dd1924d9a874e7a9c98115a26303fe4e5d7e53f0c5cbc751cf9891a21c12",
       "paper_modules/navigation_hologram_route_plane.json": "cd9030ff7f2ac5dbf150dd1d7ddbf0d4f83588a10d3b8c1b0caf60cd6e765366",
       "paper_modules/pattern_assimilation.json": "a64242ab87393e4a8b9fdecc095999f3616982f6c957fbd70ab09d7c1ee52814",
