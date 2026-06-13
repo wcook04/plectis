@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T14:43:29.926728Z",
+    "generated_at": "2026-06-13T16:35:49.295123Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -3408,7 +3408,7 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "19ffa0bcd8bc8ce55e5242a89bf84c0bb26e5d2958128b211a460fd9d65a37b6",
+      "core/mechanism_sources.json": "e9b2cb3bd58098cadc39bcca2f641ad3d2e71a6ea9ca8d9440f5eeffe54ed2e2",
       "core/organ_atlas.json": "1a66e926c0f90305cd44a4d546107355f02b6985a27a2df565114d23bd8bd5eb",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
@@ -3470,7 +3470,7 @@
       "mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json": "1bc7613a9a5849a6920a6a92f04e4f78b74f787f6844519e043f116112153a76",
       "mechanisms/mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle.json": "3940a081cef4c963fbf8687eceb50b465e282437cc6ae50fde003177f1494371",
       "mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json": "768738969d0b718b1f5f1f6a1bd959a4a15135506c9ced5465e670bf47b6b7dc",
-      "mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json": "9d1661fc96de976a2ff42ef032ea44b1a7b5a76b0a61f3fa8e260974be690d4c",
+      "mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json": "60b8e287d577cc5690f2b8d34f19a43ed48ba07684088503ee7c0d0fe56ae397",
       "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json": "492e7180a515a11f1d17c9cdbd73cac8fd9aba03b1ecfce10c3bc15775c7b35e",
       "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json": "4030bc628c2cb1bd97fff247eb1687230632bfbebbcf547a56a670d06c876236",
       "mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json": "0c5ddb99626fc7ffd9d9582dd7a083da83d42c6b99b29bd79caa7255692f5b7e",
@@ -4569,7 +4569,7 @@
       "standards/std_microcosm_concurrency_mission_control.json": "08bbfc5934fe842305281ae888ce694865e6e08395c633b81fa656072448ae7b",
       "standards/std_microcosm_continuation_packet.json": "72b8889734edee02d1886cdcf1dc5443672cbfb31a4c75a5fe396c6ba43b3c7e",
       "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json": "95ca2877a81947c402770fc00775683da12b7ff305455d7d2de7218954c7831c",
-      "standards/std_microcosm_doctrine_enrichment.json": "474c874bb2fbb3bbe0592b313eea3bbf8ede2b7ccffd4e57eb6656981da5f62e",
+      "standards/std_microcosm_doctrine_enrichment.json": "1f175413bef1cd3e9c94ded4a00532e7b1d8914fa5a9af7e1af8ed468b662cfd",
       "standards/std_microcosm_doctrine_fact_claim_audit.json": "39022745025ca024b2d0f6cb80591dbd762214f076c206b7d9ed816e176a95f7",
       "standards/std_microcosm_doctrine_roof.json": "357ab4cac30c5e9f230b6d9168d80d65bfbd9713a7695a71aecbbe9c1456fd56",
       "standards/std_microcosm_durable_agent_work_landing_replay.json": "9b93312f1a99846f868c4ceda867cda6771160cf3caf7fe862d9a0132461510b",

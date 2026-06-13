@@ -670,6 +670,8 @@ def test_first_screen_composition_root_demotes_evidence_counts_to_accounting() -
     assert row["path"] == "standards/std_microcosm_first_screen_composition_root.json"
     assert "cold_reader_route_map" in row["used_by_organs"]
     assert "public_reveal_walkthrough" in row["used_by_organs"]
+    assert "runtime_shell" in row["used_by_organs"]
+    assert "runtime_shell" in standard["relationships"]["used_by_organs"]
     assert standard["authority_ceiling"]["count_authority"] == (
         "evidence_accounting_only_not_maturity_score"
     )

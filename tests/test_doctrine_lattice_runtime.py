@@ -122,7 +122,7 @@ ENGINE_ROOM_STAGED_STANDARD_IDS = {
 EXPECTED_SKILL_INSTANCE_COUNT = 401
 EXPECTED_SKILL_SELECTIVE_RELATION_COUNT = 6
 EXPECTED_SKILL_SELECTIVE_NODE_COUNT = 6
-EXPECTED_ORGAN_SELECTIVE_RELATION_COUNT = 29
+EXPECTED_ORGAN_SELECTIVE_RELATION_COUNT = 26
 EXPECTED_STANDARD_INSTANCE_COUNT = 146
 EXPECTED_STANDARD_REQUIRED_EDGE_GAP_COUNT = 0
 EXPECTED_STANDARD_REQUIRED_RELATION_GAP_COUNT = 0
@@ -1147,9 +1147,6 @@ def test_family_concept_refs_bind_organs_mechanisms_and_paper_modules() -> None:
                 ],
                 "mechanism.cold_clone_probe.validates_public_source_root_bootstrap": [
                     "cold_clone_probe"
-                ],
-                "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root": [
-                    "runtime_shell"
                 ],
                 "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary": [
                     "microcosm_axiom_substrate"
@@ -3185,7 +3182,7 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert health["paper_modules"]["unpopulated_selective_edge_count"] == len(
         health["paper_modules"]["unpopulated_selective_edges"]
     )
-    assert health["paper_modules"]["unpopulated_selective_edge_count"] > 0
+    assert health["paper_modules"]["unpopulated_selective_edge_count"] == 0
     assert health["residual_pressure"][0]["pressure_ref"] == (
         "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
     )
@@ -3693,7 +3690,7 @@ def test_coverage_reports_current_organ_binding_deficits_without_greenwashing() 
     )
     assert (
         projection["deficit_summary"]["paper_module_unpopulated_selective_relation_count"]
-        > 0
+        == 0
     )
     assert (
         projection["deficit_summary"]["skill_json_instance_count"]
@@ -6346,6 +6343,16 @@ def test_replay_mechanism_wave_resolves_required_edges_without_law_laundering() 
         },
     }
 
+    replay_rows_with_wires_to_resolved = {
+        "mcp_tool_authority_replay": [
+            "agent_sandbox_policy_escape_replay",
+            "sleeper_memory_poisoning_quarantine_replay",
+        ],
+    }
+    replay_rows_with_wires_to_residuals = (
+        set(replay_rows) - set(replay_rows_with_wires_to_resolved)
+    )
+
     for organ_id, row in replay_rows.items():
         mechanism_id = row["mechanism_id"]
         atlas_index, organ = _organ_atlas_indexed_row(organ_id)
@@ -6452,10 +6459,23 @@ def test_replay_mechanism_wave_resolves_required_edges_without_law_laundering() 
                 ),
             },
         } in edges
-        assert "organ.wires_to.organ" in residuals
+        wires_to_targets = sorted(
+            edge["target_id"]
+            for edge in edges
+            if edge["relation_id"] == "organ.wires_to.organ"
+        )
+        if organ_id in replay_rows_with_wires_to_resolved:
+            assert "organ.wires_to.organ" not in residuals
+            assert wires_to_targets == replay_rows_with_wires_to_resolved[organ_id]
+        else:
+            assert "organ.wires_to.organ" in residuals
+            assert wires_to_targets == []
 
     assert set(replay_rows).isdisjoint(health["organs"]["required_edge_gaps"])
-    assert set(replay_rows).issubset(
+    assert replay_rows_with_wires_to_residuals.issubset(
+        set(health["organs"]["unpopulated_selective_edges"])
+    )
+    assert set(replay_rows_with_wires_to_resolved).isdisjoint(
         set(health["organs"]["unpopulated_selective_edges"])
     )
 

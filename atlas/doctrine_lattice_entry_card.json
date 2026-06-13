@@ -164,8 +164,8 @@
   ],
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "coverage_projection_digest": "32a950d8a635c8b93644e1ec65ddf8938e63625879307831a2289867d1e62b11",
-    "generated_at": "2026-06-13T14:43:31.380550Z",
+    "coverage_projection_digest": "373a52b4727f037d10f9fd7675bb4cd2cb8041317cd3e3a61c81cde1aab4a548",
+    "generated_at": "2026-06-13T16:35:50.396094Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],

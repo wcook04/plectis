@@ -14,7 +14,7 @@ The first-screen composition root validates the public one-screen entry card by 
 
 - `grounded_in` -> `code_locus:src/microcosm_core/first_screen_composition.py` (resolved_code_locus)
 - `grounded_in` -> `code_locus:scripts/first_screen_composition_card.py` (resolved_code_locus)
-- `runs_in` -> `organ:runtime_shell` (planned_registry_or_atlas_target)
+- `runs_in` -> `organ:public_reveal_walkthrough` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.entry_and_reveal_route_readiness_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.cold_reader_route_map.validates_public_first_run_route_map` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough` (resolved_json_instance)

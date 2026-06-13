@@ -187,16 +187,6 @@
         "README.md::Choose Your First Screen"
       ],
       "kind": "mechanism",
-      "planned_targets": [
-        {
-          "authority_boundary": "planned_target_marker_not_resolved_organ_authority",
-          "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
-          "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-          "target_id": "runtime_shell",
-          "target_kind": "organ",
-          "target_status": "planned_registry_or_atlas_target"
-        }
-      ],
       "projection_hooks": [
         "markdown_reference",
         "mermaid_graph",
@@ -215,7 +205,7 @@
         "validator_command": "PYTHONPATH=src python3 scripts/first_screen_composition_card.py --project-label ."
       },
       "runs_in": [
-        "runtime_shell"
+        "public_reveal_walkthrough"
       ],
       "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
       "statement": "The first-screen composition root validates the public one-screen entry card by checking reader-route ids, shared first commands, behavior-proof refs, evidence-accounting frames, doctrine-effect handles, omission receipts, README entry order, observatory landing refs, text projection bounds, and authority ceilings without becoming release, hosted-publication, provider-call, source-mutation, private-data-equivalence, score-based-progress, or whole-system-correctness authority.",
@@ -248,7 +238,7 @@
     ]
   },
   "organ_refs": [
-    "runtime_shell"
+    "public_reveal_walkthrough"
   ],
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -334,11 +324,11 @@
         },
         "relation_id": "mechanism.runs_in.organ",
         "relation_verb": "runs_in",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "operates_through",
-        "target_id": "runtime_shell",
+        "target_id": "public_reveal_walkthrough",
         "target_kind": "organ",
-        "target_status": "planned_registry_or_atlas_target"
+        "target_status": "resolved_registry_or_atlas_target"
       },
       {
         "justification": {
@@ -381,7 +371,7 @@
       }
     ],
     "runs_in": [
-      "runtime_shell"
+      "public_reveal_walkthrough"
     ],
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
     "unpopulated_selective_relations": [],
