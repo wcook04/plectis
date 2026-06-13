@@ -102,7 +102,7 @@ Short command tails below; the per-section blocks and the receipt carry every co
 | publish the Microcosm release | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
 | force push to origin main | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
 | where is the fixture input for the audio organ? | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
-| dispatch the route bundle | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
+| dispatch the route bundle | `task_class_route_match (agent-entry)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
 | how does the exchange rate organ work? | `packet_fallback` | `whole_substrate` | `comprehend --packet-atlas` |
 | audit the security posture of this repo | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
 
@@ -232,6 +232,20 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
 - do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
+**“dispatch the route bundle”**
+
+- resolved via: `task_class_route_match (agent-entry)` -> owner `cold_reader_route_map`
+- run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card`
+- why: Verifies the first-run guided path so every step names a real command, doc, and evidence.
+- prove: `PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map`
+- committed evidence (prior runs): `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json`, `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json`, `receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json` (+1 more)
+- fresh outputs land under: `receipts/runtime_shell/demo_project/organs/cold_reader_route_map`
+- footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
+- stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
+- do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
+- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
+
 ## Change-shaped goals: inspect before editing
 
 Improvement-shaped goals never receive an edit instruction. The first action is to read the ranked target's mutation plan; custody flags govern any edit after that.
@@ -289,17 +303,6 @@ Destructive and publication goals route to the authority boundary. The first act
 These goals contain house vocabulary ('fixture', 'dispatch', 'exchange') that naive substring routing would misread as fix/patch/change intents, or they match too weakly to name an owner. The contract falls back and says no route matched -- it does not guess.
 
 **“where is the fixture input for the audio organ?”**
-
-- resolved via: `packet_fallback` -> owner `whole_substrate`
-- routing note: No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action.
-- run: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact`
-- why: new clone: what is this substrate and where do I start?
-- prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
-- committed evidence (prior runs): `receipts/code_lens/read_packs/first_contact.json`
-- stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
-
-**“dispatch the route bundle”**
 
 - resolved via: `packet_fallback` -> owner `whole_substrate`
 - routing note: No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action.

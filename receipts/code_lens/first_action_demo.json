@@ -562,6 +562,9 @@
       "goal": "what should I work on for the Microcosm release?",
       "out_of_scope_note": null,
       "owner": {
+        "claim_paths": [
+          "src/microcosm_core/comprehension.py"
+        ],
         "scope": "release_improvement",
         "target": "src/microcosm_core/comprehension.py",
         "title": "Cold-clone comprehension router and read packs"
@@ -785,53 +788,65 @@
       "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
     },
     {
-      "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+      "do_not_claim": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
       "do_not_edit": {
-        "note": "orientation goals never require edits",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/cold_reader_route_map.py"
+        ]
       },
       "first_action": {
-        "action_kind": "open_packet",
-        "clean_run": null,
-        "command": "PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact",
+        "action_kind": "run_fixture_command",
+        "clean_run": {
+          "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card",
+          "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
+          "writes_outputs_under": ".microcosm/first_action_runs/cold_reader_route_map"
+        },
+        "command": "PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
         "committed_receipts": [
-          "receipts/code_lens/read_packs/first_contact.json"
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
         ],
-        "committed_receipts_more": 0,
-        "why": "new clone: what is this substrate and where do I start?",
-        "writes_outputs_under": null
+        "committed_receipts_more": 1,
+        "why": "Verifies the first-run guided path so every step names a real command, doc, and evidence.",
+        "writes_outputs_under": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
       },
       "found": true,
       "goal": "dispatch the route bundle",
       "out_of_scope_note": null,
       "owner": {
-        "packet_id": "first_contact",
-        "scope": "whole_substrate"
+        "display_name": "Cold Reader Route Map",
+        "evidence_class": "semantic_validator",
+        "family": "entry_and_reveal",
+        "organ_id": "cold_reader_route_map",
+        "runner_custody_basis": "directory_coupling_marker",
+        "task_class": "agent-entry"
       },
       "proof_path": {
-        "note": "the packet IS the evidence surface; the assay proves the menu routes",
+        "note": null,
         "provenance_receipts": [],
         "receipt_refs": [
-          "receipts/code_lens/read_packs/first_contact.json"
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+          "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
         ],
-        "receipt_refs_more": 0,
-        "runnable_validator": null,
-        "validation_commands": [
-          "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route"
-        ],
-        "validator_command": null
+        "receipt_refs_more": 1,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+        "validation_commands": [],
+        "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
       },
       "reading_boundary": {
-        "allowed_scope": null,
+        "allowed_scope": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
         "fallback_guidance": null,
-        "source": "comprehension-layer guidance",
-        "stop_condition": "Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas."
+        "source": "join_index nodes.route (atlas/agent_task_routes.json)",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
       },
       "routing": {
-        "basis": "packet_fallback",
-        "packet_id": "first_contact"
+        "basis": "task_class_route_match",
+        "task_class": "agent-entry"
       },
-      "routing_note": "No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action."
+      "routing_note": null
     },
     {
       "do_not_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
@@ -958,7 +973,7 @@
         "organ_token_match",
         "task_class_route_match"
       ],
-      "goal_count": 7,
+      "goal_count": 8,
       "section_id": "localization",
       "title": "Localization: the goal names work, the graph names the owner"
     },
@@ -982,7 +997,7 @@
       "bases": [
         "packet_fallback"
       ],
-      "goal_count": 4,
+      "goal_count": 3,
       "section_id": "honest_fallback",
       "title": "Honest fallbacks: below the evidence bar, the contract says so"
     }
