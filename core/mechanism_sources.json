@@ -210,6 +210,7 @@
       },
       "upstream_of": [
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+        "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
       ],
       "concept_refs": [
@@ -1521,6 +1522,7 @@
       "upstream_of": [
         "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
         "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
         "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
       ],
       "concept_refs": [

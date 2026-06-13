@@ -1281,6 +1281,9 @@
           "resolution": "resolved"
         }
       ],
+      "depends_on": [
+        "paper_module.bridge_phase_continuity_runtime"
+      ],
       "generated_projections": {
         "markdown": {
           "path": "paper_modules/durable_agent_work_landing_replay.md",

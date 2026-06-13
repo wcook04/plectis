@@ -7015,6 +7015,12 @@ def test_durable_agent_work_landing_replay_population_has_capsule_and_mechanism_
     mechanism = next(
         row for row in mechanism_registry["mechanisms"] if row["id"] == mechanism_id
     )
+    bridge_mechanism = next(
+        row
+        for row in mechanism_registry["mechanisms"]
+        if row["id"]
+        == "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity"
+    )
     assert mechanism["runs_in"] == ["durable_agent_work_landing_replay"]
     assert mechanism["code_loci"][0]["path"] == (
         "src/microcosm_core/organs/durable_agent_work_landing_replay.py"
@@ -7023,6 +7029,43 @@ def test_durable_agent_work_landing_replay_population_has_capsule_and_mechanism_
     assert (
         "receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay/exported_work_landing_replay_bundle_validation_result.json"
         in mechanism["receipt_refs"]
+    )
+    paper_module = json.loads(
+        (
+            MICROCOSM_ROOT / "paper_modules/durable_agent_work_landing_replay.json"
+        ).read_text(encoding="utf-8")
+    )
+    depends_edges = [
+        edge
+        for edge in paper_module["relationships"]["edges"]
+        if edge["relation_id"] == "paper_module.depends_on.paper_module"
+    ]
+    assert depends_edges == [
+        {
+            "relation_id": "paper_module.depends_on.paper_module",
+            "relation_verb": "depends_on",
+            "reverse_verb": "depended_on_by",
+            "target_kind": "paper_module",
+            "target_id": "paper_module.bridge_phase_continuity_runtime",
+            "target_status": "resolved_json_instance",
+            "justification": {
+                "source_ref": (
+                    "core/paper_module_capsules.json::paper_modules"
+                    "[16:paper_module.durable_agent_work_landing_replay].depends_on"
+                ),
+                "summary": (
+                    "Paper-module source row names this sibling/dependency "
+                    "paper module."
+                ),
+            },
+            "residual_pressure_ref": None,
+        }
+    ]
+    assert mechanism_id in bridge_mechanism["upstream_of"]
+    assert (
+        "mechanism.mission_transaction_work_spine."
+        "validates_public_mission_transaction_bundle"
+        in mechanism["upstream_of"]
     )
 
     standard = json.loads(
