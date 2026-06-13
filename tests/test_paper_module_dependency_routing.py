@@ -46,6 +46,17 @@ def test_route_observability_paper_module_dependencies_include_import_protocol()
     }
 
 
+def test_bridge_continuity_dependency_routes_to_import_protocol() -> None:
+    edges = _dependency_edges("paper_module.bridge_phase_continuity_runtime")
+
+    assert {
+        str(edge["target_id"]): edge["target_status"]
+        for edge in edges
+    } == {
+        "paper_module.macro_projection_import_protocol": "resolved_json_instance",
+    }
+
+
 def test_corpus_readiness_dependency_routes_to_tactic_portfolio() -> None:
     edges = _dependency_edges("paper_module.corpus_readiness_mathlib_absence_gate")
 

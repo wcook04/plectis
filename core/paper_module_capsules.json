@@ -799,6 +799,9 @@
       "title": "Bridge Phase Continuity Runtime",
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/bridge_phase_continuity_runtime.md",
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "compression": {
         "one_line": "The public bridge-continuity fixture validates disk-first continuation packets, heartbeat/resource-pressure boundaries, resume-once semantics, worker-skip dedupe, tracked receipt-write gates, and private-state exclusion without live bridge transport.",
         "card": "Bridge Phase Continuity Runtime is the public observe/apply continuity membrane for detached work. It consumes synthetic transport fixtures, validates copied non-secret observe-runtime body digests, writes five body-free receipts, checks seven negative-case classes, and keeps heartbeat/resume evidence below work-landing, provider, UI, source-mutation, and release authority.",
