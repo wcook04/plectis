@@ -154,6 +154,42 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     assert mechanism["known_residual_selective_relation_count"] == 27
     assert mechanism["planned_edge_row_count"] == 4
     assert mechanism["planned_edge_count"] == 4
+    assert mechanism["planned_edge_detail_count"] == 4
+    assert mechanism["planned_edge_counts_by_target_kind"] == {"organ": 4}
+    assert mechanism["planned_edge_counts_by_target_status"] == {
+        "planned_registry_or_atlas_target": 4
+    }
+    planned_details = {
+        row["id"]: row for row in mechanism["planned_edge_details"]
+    }
+    axiom_host = planned_details[
+        "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
+    ]
+    assert axiom_host == {
+        "id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
+        "relation_id": "mechanism.runs_in.organ",
+        "target_kind": "organ",
+        "target_id": "microcosm_axiom_substrate",
+        "target_status": "planned_registry_or_atlas_target",
+        "source_ref": (
+            "core/mechanism_sources.json::mechanisms[99:"
+            "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in"
+        ),
+        "summary": "Mechanism registry row names this organ as the runtime host.",
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
+        "reentry_condition": (
+            "Admit the target through core/organ_registry.json and "
+            "core/organ_atlas.json using the organ-atlas owner lane, "
+            "or remap mechanism.runs_in in core/mechanism_sources.json "
+            "to an accepted public host; never hand-edit generated "
+            "health rows."
+        ),
+        "authority_boundary": (
+            "planned_edge_visibility_only_not_target_admission_"
+            "support_evidence_or_release_authority"
+        ),
+    }
     assert paper_modules["status"] == "complete"
     assert paper_modules["readiness_complete"] is True
     assert paper_modules["total_objects"] == 98

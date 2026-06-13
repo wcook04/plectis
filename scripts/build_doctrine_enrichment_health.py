@@ -505,6 +505,9 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
     """Summarize mechanism routing residuals that are not floor blockers."""
     residual_rows: list[dict[str, Any]] = []
     planned_edge_rows: list[dict[str, Any]] = []
+    planned_edge_details: list[dict[str, Any]] = []
+    planned_edge_counts_by_target_kind: dict[str, int] = {}
+    planned_edge_counts_by_target_status: dict[str, int] = {}
     for record in records:
         if record.get("_routing_load_error"):
             continue
@@ -517,11 +520,58 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
             residual_rows.append({"id": mechanism_id, "count": len(residuals)})
         edges = relationships.get("edges")
         if isinstance(edges, list):
-            planned_count = sum(
-                1
-                for edge in edges
-                if isinstance(edge, dict) and str(edge.get("target_status") or "").startswith("planned_")
-            )
+            planned_count = 0
+            for edge in edges:
+                if not isinstance(edge, dict):
+                    continue
+                target_status = str(edge.get("target_status") or "")
+                if not target_status.startswith("planned_"):
+                    continue
+                planned_count += 1
+                target_kind = str(edge.get("target_kind") or "<missing>")
+                planned_edge_counts_by_target_kind[target_kind] = (
+                    planned_edge_counts_by_target_kind.get(target_kind, 0) + 1
+                )
+                planned_edge_counts_by_target_status[target_status] = (
+                    planned_edge_counts_by_target_status.get(target_status, 0) + 1
+                )
+                justification = edge.get("justification")
+                if not isinstance(justification, dict):
+                    justification = {}
+                if target_kind == "organ":
+                    next_safe_mutation_route = "organ_owner_admission_or_runs_in_source_remap"
+                    reentry_condition = (
+                        "Admit the target through core/organ_registry.json and "
+                        "core/organ_atlas.json using the organ-atlas owner lane, "
+                        "or remap mechanism.runs_in in core/mechanism_sources.json "
+                        "to an accepted public host; never hand-edit generated "
+                        "health rows."
+                    )
+                else:
+                    next_safe_mutation_route = f"{target_kind}_owner_admission_or_source_remap"
+                    reentry_condition = (
+                        "Admit the planned target through its source owner lane "
+                        "or remap the source relationship to a resolved public "
+                        "target; never hand-edit generated health rows."
+                    )
+                planned_edge_details.append(
+                    {
+                        "id": mechanism_id,
+                        "relation_id": str(edge.get("relation_id") or "<missing>"),
+                        "target_kind": target_kind,
+                        "target_id": str(edge.get("target_id") or "<missing>"),
+                        "target_status": target_status,
+                        "source_ref": str(justification.get("source_ref") or ""),
+                        "summary": str(justification.get("summary") or ""),
+                        "residual_pressure_ref": edge.get("residual_pressure_ref"),
+                        "next_safe_mutation_route": next_safe_mutation_route,
+                        "reentry_condition": reentry_condition,
+                        "authority_boundary": (
+                            "planned_edge_visibility_only_not_target_admission_"
+                            "support_evidence_or_release_authority"
+                        ),
+                    }
+                )
             if planned_count:
                 planned_edge_rows.append({"id": mechanism_id, "count": planned_count})
     return {
@@ -531,6 +581,10 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
         "planned_edge_rows": planned_edge_rows,
         "planned_edge_row_count": len(planned_edge_rows),
         "planned_edge_count": sum(row["count"] for row in planned_edge_rows),
+        "planned_edge_details": planned_edge_details,
+        "planned_edge_detail_count": len(planned_edge_details),
+        "planned_edge_counts_by_target_kind": dict(sorted(planned_edge_counts_by_target_kind.items())),
+        "planned_edge_counts_by_target_status": dict(sorted(planned_edge_counts_by_target_status.items())),
         "residual_policy": "Residual selective relations and planned non-floor edges are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
     }
 
