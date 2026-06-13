@@ -907,27 +907,28 @@
         "codex/doctrine/paper_modules/prompt_shelf.md",
         "codex/doctrine/paper_modules/bridge_operator_proxy.md"
       ],
-      "source_authority": "state/operator_bridge/hud_actions.jsonl as the durable receipt log; prompt_shelf_chatgpt_observer.py owns page-side collection, watcher preservation, metadata-only disk view, and health projection.",
+      "source_authority": "state/operator_bridge/hud_actions.jsonl remains the durable historical receipt log for archived HUD/operator actions; tools/meta/observability/retired_launchd/RETIRED.md owns the retirement receipt. Live prompt-run observability now routes through browser-free transcript capture from local Claude Code / Codex transcripts.",
       "write_contract": "Operator controls that make semantic claims must classify claim/proof/body fields. Proof-governed actions preserve required proof fields or mark proof_status=missing_required_fields and receipt_incomplete=true; raw body/private/debug payloads stay out of durable metadata.",
-      "read_contract": "Start from hud_action_receipt_health for dynamic proof health, then inspect hud_actions.jsonl rows and std_operator_action_receipt before trusting a copied/exported artifact's completeness claim.",
-      "option_surface_command": "./repo-python tools/meta/observability/prompt_shelf_chatgpt_observer.py --check --hud --port 9226",
-      "atlas_projection_policy": "System Atlas may project operator action receipt health as runtime observability, but source authority remains the durable jsonl log plus the receipt standard.",
-      "currentness_policy": "Health is current only when the observer check reads the latest hud_actions.jsonl rows and the running HUD version matches the expected observer/HUD code.",
+      "read_contract": "For archived HUD/operator actions, inspect hud_actions.jsonl rows, std_operator_action_receipt, and the retirement receipt before trusting a copied/exported artifact's completeness claim. For current prompt-run evidence, use prompt_shelf_transcript_capture.py scan/write and prompt_shelf_runs_index.py summary/coverage.",
+      "option_surface_command": "./repo-python tools/meta/observability/prompt_shelf_transcript_capture.py scan --json",
+      "atlas_projection_policy": "System Atlas may project historical operator action receipt posture and current transcript-capture run metadata, but source authority remains the durable jsonl log plus the receipt standard for archived actions and prompt-shelf raw events/run notes for current prompt runs.",
+      "currentness_policy": "Archived HUD action health is historical after the 2026-06-13 retirement; do not use CDP/HUD observer checks as live currentness proof. Current prompt-run capture is current only after transcript-capture scan/write and prompt-shelf run summary/coverage readback.",
       "validation_probe": [
-        "./repo-python -m py_compile tools/meta/observability/prompt_shelf_chatgpt_observer.py",
-        "./repo-pytest system/server/tests/test_prompt_shelf_capture.py::test_hud_action_receipt_health_reports_response_copy_proof system/server/tests/test_prompt_shelf_capture.py::test_hud_action_receipt_health_flags_response_copy_missing_proof system/server/tests/test_prompt_shelf_capture.py::test_hud_action_receipt_health_counts_future_proof_governed_actions system/server/tests/test_prompt_shelf_capture.py::test_hud_receipt_metadata_view_strips_body_and_flags_no_artifact -q",
-        "./repo-python tools/meta/observability/prompt_shelf_chatgpt_observer.py --check --hud --port 9226"
+        "./repo-python -m py_compile tools/meta/observability/prompt_shelf_transcript_capture.py tools/meta/observability/prompt_shelf_capture_writer.py",
+        "./repo-pytest system/server/tests/test_prompt_shelf_transcript_capture.py system/server/tests/test_prompt_shelf_runs_index.py -q",
+        "./repo-python tools/meta/observability/prompt_shelf_transcript_capture.py scan --json"
       ],
-      "mutation_lane": "Edit std_operator_action_receipt plus the observer/test loci; do not hand-edit hud_actions.jsonl or broaden durable receipt payloads.",
+      "mutation_lane": "Edit std_operator_action_receipt for archived operator-action receipt semantics, or prompt_shelf_transcript_capture.py / prompt_shelf_capture_writer.py for current prompt-run observability; do not hand-edit hud_actions.jsonl, raw_events, run notes, or broaden durable receipt payloads.",
       "annex_adaptation_policy": "External logging or trace-context patterns may shape claim/proof/body vocabulary only after landing in std_operator_action_receipt and preserving the metadata-only privacy policy.",
       "projection_refs": [
         "state/operator_bridge/hud_actions.jsonl",
-        "tools/meta/observability/prompt_shelf_chatgpt_observer.py::hud_action_receipt_health",
+        "tools/meta/observability/retired_launchd/RETIRED.md",
+        "tools/meta/observability/prompt_shelf_transcript_capture.py",
         "codex/doctrine/paper_modules/prompt_shelf.md",
         "codex/doctrine/paper_modules/agent_trace_structurer_surface.md"
       ],
       "known_gaps": [
-        "No dedicated option-surface adapter exists yet for browsing historic operator action receipts; the live health command is the current narrow projection."
+        "No dedicated option-surface adapter exists yet for browsing historic operator action receipts; current prompt-run observability is covered by transcript capture and the prompt-shelf runs index."
       ]
     },
     {
