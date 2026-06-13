@@ -160,8 +160,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 8155,
-      "line_count": 236,
+      "byte_count": 8796,
+      "line_count": 247,
       "material_class": "public_macro_macos_swift_body",
       "path": "source_modules/apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift",
       "required_anchors": [
@@ -170,14 +170,14 @@
         "\"schema\": \"demo_take_transcript_v0\"",
         "RuntimeError.audioNotFound"
       ],
-      "sha256": "95e4b98c782124a5ae76998ffe1fa12a0b084da925e201fa59658cb0a653e0f8",
+      "sha256": "8fabb10446cadf408672967f1b3e535ab357f0336efdeb6cd196b2bbcb5e21c8",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift",
-      "source_sha256": "95e4b98c782124a5ae76998ffe1fa12a0b084da925e201fa59658cb0a653e0f8",
+      "source_sha256": "8fabb10446cadf408672967f1b3e535ab357f0336efdeb6cd196b2bbcb5e21c8",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift",
-      "target_sha256": "95e4b98c782124a5ae76998ffe1fa12a0b084da925e201fa59658cb0a653e0f8"
+      "target_sha256": "8fabb10446cadf408672967f1b3e535ab357f0336efdeb6cd196b2bbcb5e21c8"
     }
   ],
   "organ_id": "batch7_demo_take_console_capsule",

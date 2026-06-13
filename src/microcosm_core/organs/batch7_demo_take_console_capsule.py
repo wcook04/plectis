@@ -641,9 +641,10 @@ def _transcribe_payload_builder(public_root: Path) -> dict[str, Any]:
         token in transcribe
         for token in (
             "WhisperKitConfig(model: options.model, verbose: false)",
+            "DecodingOptions(",
             "wordTimestamps: true",
-            "chunkingStrategy: .vad",
             "language: options.language",
+            'options.chunking == "vad" ? .vad : nil',
         )
     )
     payload_schema = all(

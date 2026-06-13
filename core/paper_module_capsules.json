@@ -6597,6 +6597,9 @@
           "ref": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule"
         }
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/batch7_demo_take_console_capsule.py",

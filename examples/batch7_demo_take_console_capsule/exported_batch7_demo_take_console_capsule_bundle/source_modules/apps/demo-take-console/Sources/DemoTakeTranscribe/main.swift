@@ -29,12 +29,17 @@ struct DemoTakeTranscribe {
         let config = WhisperKitConfig(model: options.model, verbose: false)
         let pipe = try await WhisperKit(config)
 
+        // VAD chunking parallelizes by splitting at detected silences, but on
+        // long quiet-mic narration it can misclassify dense speech as silence
+        // and silently drop multi-minute spans (observed on take_20260612_092437:
+        // 600s of continuous speech -> 7 segments). Sequential (.none) decodes
+        // every window. Callers that want the fast path can pass --chunking vad.
         let decode = DecodingOptions(
             verbose: false,
             task: .transcribe,
             language: options.language,
             wordTimestamps: true,
-            chunkingStrategy: .vad
+            chunkingStrategy: options.chunking == "vad" ? .vad : nil
         )
 
         let results = try await pipe.transcribe(
@@ -159,6 +164,7 @@ struct Options {
     let model: String
     let language: String?
     let sourceTrackRelativePath: String?
+    let chunking: String
 }
 
 enum RuntimeError: Error, CustomStringConvertible {
@@ -184,6 +190,7 @@ func parseArgs(_ argv: [String]) throws -> Options {
     var model: String = "openai_whisper-base"
     var language: String?
     var sourceTrackRelativePath: String?
+    var chunking: String = "none"
 
     var i = 1
     while i < argv.count {
@@ -207,9 +214,12 @@ func parseArgs(_ argv: [String]) throws -> Options {
         case "--source-track":
             i += 1
             sourceTrackRelativePath = argv[safe: i]
+        case "--chunking":
+            i += 1
+            chunking = argv[safe: i] ?? chunking
         case "--help", "-h":
             throw RuntimeError.usage("""
-                demo-take-transcribe --audio <path> --output-json <path> [--output-srt <path>] [--model <name>] [--language <code>] [--source-track <relative>]
+                demo-take-transcribe --audio <path> --output-json <path> [--output-srt <path>] [--model <name>] [--language <code>] [--source-track <relative>] [--chunking none|vad]
                 """)
         default:
             throw RuntimeError.unknownArg(arg)
@@ -225,7 +235,8 @@ func parseArgs(_ argv: [String]) throws -> Options {
         outputSRT: outputSRT,
         model: model,
         language: language,
-        sourceTrackRelativePath: sourceTrackRelativePath
+        sourceTrackRelativePath: sourceTrackRelativePath,
+        chunking: chunking
     )
 }
 
