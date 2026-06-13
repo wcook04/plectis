@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 12,
+    "mechanism_capsule_dependency_upstream_missing_count": 13,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 10,
+    "paper_module_unpopulated_selective_relation_count": 9,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,13 +209,13 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T06:14:13.205958Z",
+    "generated_at": "2026-06-13T06:23:15.549833Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
     "covered_edge_count": 209,
-    "missing_edge_count": 12,
+    "missing_edge_count": 13,
     "missing_edges": [
       {
         "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -264,6 +264,12 @@
         "dependency_paper_module": "paper_module.macro_projection_import_protocol",
         "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_mechanism": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
+      },
+      {
+        "consumer_paper_module": "paper_module.batch7_zenith_macos_capsule",
+        "dependency_paper_module": "paper_module.macro_projection_import_protocol",
+        "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "target_mechanism": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
       },
       {
         "consumer_paper_module": "paper_module.engine_room_generated_projection_drift_gate",
@@ -3210,11 +3216,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "601218fe1eeb2537b7b6d940f32cf10b96c5a969a0ac52d41a4fd7c48b719a70",
+        "sha256": "bb5c39700861d0bd9fa82bdbd8e9fa218aed2e2714168f29742e43f5153fad2a",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "9d2f44f0ea7c65e1c0392da04d3b84acef7c1a6cd0e826777ec1630a3cd3ae7a",
+    "source_manifest_digest": "50aff92a6f942443036a45874a5e50c25955a9279f90d4b05efaa3d97f6d959f",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3226,11 +3232,10 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 10,
+    "unpopulated_selective_relation_count": 9,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_monitor_redteam_falsification_replay",
       "paper_module.batch7_demo_take_console_capsule",
-      "paper_module.batch7_zenith_macos_capsule",
       "paper_module.bridge_phase_continuity_runtime",
       "paper_module.cognitive_operator_registry",
       "paper_module.finance_forecast_evaluation_spine",
@@ -3453,14 +3458,14 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 10,
+    "residual_relation_count": 9,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 10
+      "paper_module.depends_on.paper_module": 9
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 10
+      "selective": 9
     },
-    "residual_relation_detail_count": 10,
+    "residual_relation_detail_count": 9,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3488,20 +3493,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.batch7_zenith_macos_capsule",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.batch7_zenith_macos_capsule",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_zenith_macos_capsule]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_zenith_macos_capsule]"
         }
       },
       {
@@ -3604,11 +3595,11 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 10,
+    "selective_residual_relation_count": 9,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 10
+      "paper_module.depends_on.paper_module": 9
     },
-    "selective_residual_relation_detail_count": 10,
+    "selective_residual_relation_detail_count": 9,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3636,20 +3627,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.batch7_zenith_macos_capsule",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.batch7_zenith_macos_capsule",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_zenith_macos_capsule]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_zenith_macos_capsule]"
         }
       },
       {
@@ -3756,7 +3733,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 10,
+    "unpopulated_selective_relation_count": 9,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -3957,7 +3934,7 @@
       "core/mechanism_sources.json": "775978ea6734ae6c7a0c73bb68c4b7ad364e3d25b1321e35f8dbead4be313722",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "601218fe1eeb2537b7b6d940f32cf10b96c5a969a0ac52d41a4fd7c48b719a70",
+      "core/paper_module_capsules.json": "bb5c39700861d0bd9fa82bdbd8e9fa218aed2e2714168f29742e43f5153fad2a",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -4166,7 +4143,7 @@
       "paper_modules/batch7_oracle_sibling_capsule.json": "ad2d3aecb278fc4158b2370b7f10f6225fe5138e62e685a2944f992173e7ae3f",
       "paper_modules/batch7_secondary_runtime_capsule.json": "f11d06d5c509b08c6b19232811c44a0fde84c9284a0f90b63331748d43ca4589",
       "paper_modules/batch7_station_runtime_capsule.json": "509a032f3650c9c100bd54eb3ee286d5680e4963f2fb573176e17da8f8962556",
-      "paper_modules/batch7_zenith_macos_capsule.json": "b512cb7c2cc535b8d63e25355831e1b3bec8ad0e74b1ce7c5ceddba41f958974",
+      "paper_modules/batch7_zenith_macos_capsule.json": "057d4602cb890f9af5f2c04f5e9ffc7b17b464f9c11fc93817951863ac64fd80",
       "paper_modules/batch8_audio_level_rms_port.json": "ff944fef1f350f8ca5bdd41dc065731ba2586a5bf0111b824eaa1a2a8a05d712",
       "paper_modules/batch8_compliance_pipeline_capsule.json": "5f277b405f9c5436ddce8e62c662686cde40153131841a2b7aa24c1d9eccb4f5",
       "paper_modules/batch8_policy_engines_capsule.json": "95062a186dbcf904015136cdcd69f13034225e131d75a58844cdaa56519ddcf6",
