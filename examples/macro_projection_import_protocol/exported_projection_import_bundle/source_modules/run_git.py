@@ -65,6 +65,24 @@ GUARDED_PUSH_RECEIPT_SCHEMA = "guarded_push_receipt_v1"
 MULTI_COMMIT_RANGE_WATCH_REASON = "multi_commit_local_ahead_range"
 ZERO_OID = "0" * 40
 
+# ── Substrate-egress control: push remote allowlist ────────────────────────
+# The asset worth protecting is the private substrate (this whole repository),
+# not any one credential. So the load-bearing rule is: the substrate may only
+# ever be pushed to the operator's private backup remote. A push to any other
+# remote NAME, or to a NETWORK url that is not the allowlisted private identity,
+# is refused. This is the guard against "exfiltrate the entire repo to <foreign
+# / attacker remote>" — whether driven by a prompt-injection running
+# `git push <somewhere>`, or by accidental misconfiguration.
+#
+# There is deliberately NO env-var override: an override is exactly what an
+# injected instruction would set. To add a genuinely new private backup, edit
+# the two constants below. Local/file remotes (used by the test suite and
+# `git bundle`) are name-checked but exempt from the network-identity check.
+# This is a prompt-injection / accident guard, NOT root-attacker prevention —
+# anyone who can edit this file can also edit the allowlist.
+ALLOWED_PUSH_REMOTE_NAMES = frozenset({"origin"})
+ALLOWED_PUSH_REMOTE_URL_IDENTITY = ("wcook04/zenith",)
+
 # ── Secret-content backstop ────────────────────────────────────────────────
 # Defense-in-depth so a live credential committed into a TRACKED file is caught
 # before it leaves the machine (the path/size audits never read blob CONTENT,
@@ -1184,6 +1202,81 @@ def build_push_audit_status(
     }
 
 
+def _resolve_remote_url(remote_name: str) -> str:
+    name = (remote_name or "").strip()
+    if not name:
+        return ""
+    code, out, _ = git("remote", "get-url", name)
+    if code == 0 and out.strip():
+        return out.strip()
+    return ""
+
+
+def _is_network_remote_url(url: str) -> bool:
+    """True for urls that would carry the substrate off this machine.
+
+    Local/file remotes (absolute paths, file://) are used by the test suite and
+    `git bundle`; they are exempt from the network-identity check (but a
+    determined local exfil still trips the remote-NAME allowlist).
+    """
+    token = (url or "").strip()
+    if not token:
+        return False
+    if token.startswith(("http://", "https://", "ssh://", "git://", "ftp://", "ftps://")):
+        return True
+    # scp-like syntax: user@host:path  (e.g. git@github.com:wcook04/zenith.git)
+    if re.match(r"^[^/@\s]+@[^/:\s]+:", token):
+        return True
+    return False
+
+
+def _push_remote_policy_violations(
+    remote_name: str, remote_url: str | None = None, *, resolve_url: bool = True
+) -> list[GitPolicyViolation]:
+    """Refuse any push whose destination is not the allowlisted private backup.
+
+    When ``resolve_url`` is False the remote url is NOT looked up via git: this is
+    used by the guarded-push actuator, whose own ``git push`` re-fires the
+    pre-push hook where the real target url IS validated. The name allowlist
+    still applies in both modes.
+    """
+    name = (remote_name or "").strip()
+    url = (remote_url or "").strip()
+    if not url and resolve_url:
+        url = _resolve_remote_url(name)
+
+    name_allowed = name in ALLOWED_PUSH_REMOTE_NAMES
+    # A url-shaped "name" (someone ran `git push <url> ...`) is never an allowed name.
+    name_is_rawish_url = _is_network_remote_url(name)
+    identity_ok = (not _is_network_remote_url(url)) or any(
+        token in url for token in ALLOWED_PUSH_REMOTE_URL_IDENTITY
+    )
+
+    if name_allowed and identity_ok and not name_is_rawish_url:
+        return []
+
+    return [
+        GitPolicyViolation(
+            category="disallowed_push_remote",
+            path=name or url or "<unknown remote>",
+            detail=(
+                f"Refusing to push to remote name={name or '?'!r} url={url or '?'!r}. "
+                "The private substrate may only be pushed to the allowlisted private "
+                "backup (origin -> wcook04/zenith). This blocks exfiltration of the "
+                "entire repository to a foreign or attacker-controlled remote."
+            ),
+            remediation=(
+                "If you are intentionally adding a new private backup, add it to "
+                "ALLOWED_PUSH_REMOTE_NAMES / ALLOWED_PUSH_REMOTE_URL_IDENTITY in run_git.py. "
+                "There is deliberately no env-var override (an override is exactly what a "
+                "prompt-injection would set)."
+            ),
+            source="push",
+            severity="error",
+        )
+    ]
+
+
 def _guarded_push_base_receipt(
     *,
     remote_name: str,
@@ -1229,6 +1322,17 @@ def guarded_push(
         expected_remote=expected_remote,
         dry_run=dry_run,
     )
+
+    remote_violations = _push_remote_policy_violations(remote_name, resolve_url=False)
+    if remote_violations:
+        receipt.update(
+            {
+                "status": "blocked",
+                "blocker": "disallowed_push_remote",
+                "message": remote_violations[0].detail,
+            }
+        )
+        return receipt
 
     source_code, current_source, source_err = git("rev-parse", source_ref)
     current_source = current_source.strip()
@@ -1526,7 +1630,17 @@ def _local_only_ref_push_violations(updates: list[PushUpdate]) -> list[GitPolicy
     return violations
 
 
-def run_hook_pre_push(remote_name: str, stdin_text: str | None = None) -> int:
+def run_hook_pre_push(
+    remote_name: str, stdin_text: str | None = None, remote_url: str | None = None
+) -> int:
+    remote_violations = _push_remote_policy_violations(remote_name, remote_url)
+    if remote_violations:
+        _print_violations(
+            remote_violations,
+            stream=sys.stderr,
+            heading="Git policy blocked the push.",
+        )
+        return 1
     if not os.environ.get(LOCAL_ONLY_REF_PUSH_OVERRIDE_ENV):
         local_only_violations = _local_only_ref_push_violations(
             _parse_push_stdin(stdin_text or "")
@@ -2256,7 +2370,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.hook_name == "prepare-commit-msg":
             return run_hook_prepare_commit_msg()
         stdin_text = sys.stdin.read()
-        return run_hook_pre_push(remote_name=args.remote_name, stdin_text=stdin_text)
+        return run_hook_pre_push(
+            remote_name=args.remote_name,
+            stdin_text=stdin_text,
+            remote_url=args.remote_url,
+        )
 
     parser.print_help()
     return 1

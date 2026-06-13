@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 183991,
+      "byte_count": 192865,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4377,
+      "line_count": 4579,
       "material_class": "public_macro_tool_body",
       "material_id": "raw_git_runtime_hook_body_import",
       "module_id": "raw_git_runtime_hook_body_import",
@@ -26,17 +26,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": ".claude/hooks/runtime_hook.py",
       "source_role": "Claude PreToolUse runtime hook body that parses tool payloads and blocks raw shared-index git add/commit unless an explicit operator override or sanctioned actuator is present.",
-      "source_sha256": "b5563d570b5861f57dfc5fd6435545c6ca84204975dfa81b32ddbfc94e3e4175",
+      "source_sha256": "9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
-      "target_sha256": "b5563d570b5861f57dfc5fd6435545c6ca84204975dfa81b32ddbfc94e3e4175"
+      "target_sha256": "9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 85001,
+      "byte_count": 89904,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2266,
+      "line_count": 2384,
       "material_class": "public_macro_tool_body",
       "material_id": "raw_git_run_git_guard_body_import",
       "module_id": "raw_git_run_git_guard_body_import",
@@ -51,9 +51,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": "run_git.py",
       "source_role": "Repository git wrapper and hook dispatcher body that implements prepare-commit-msg and pre-commit raw shared-index commit backstops.",
-      "source_sha256": "5839883653f24e3c757ef5ecf8c51e78642efb4cf6f236d3d224e42413d6d8e6",
+      "source_sha256": "d7e6e5ea140d2106a44a506d52dd99775f0f7e40f1dd186c3d810185b3ff0708",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
-      "target_sha256": "5839883653f24e3c757ef5ecf8c51e78642efb4cf6f236d3d224e42413d6d8e6"
+      "target_sha256": "d7e6e5ea140d2106a44a506d52dd99775f0f7e40f1dd186c3d810185b3ff0708"
     },
     {
       "anchor_count": 3,

@@ -37,6 +37,7 @@
 """
 from __future__ import annotations
 
+import fnmatch
 import hashlib
 import json
 import os
@@ -905,6 +906,39 @@ def _forward_agent_observability_safe(action: str, payload: Dict[str, Any]) -> N
         return
 
 
+# Resume/signal artifacts legitimately live ONLY under these repo-relative
+# roots. The transport record is the one externally-writable input to this hook
+# and its referenced artifact is read and INJECTED into agent context, so a
+# tampered transport pointing at an arbitrary path would surface that file's
+# contents (secrets, or any substrate body) to the agent. Bounding what the hook
+# will read to these roots — after resolving symlinks — closes that read/exfil
+# vector. Failure mode is graceful: a disallowed path yields no preview (the
+# resume brief still prints the path for manual inspection), never a crash.
+_RESUME_ARTIFACT_ALLOWED_ROOTS = (
+    "tools/meta/bridge",
+    ".claude",
+    "state",
+)
+
+
+def _resume_artifact_path_allowed(candidate: Path) -> bool:
+    """True only if candidate resolves to a file under an allowlisted resume root
+    inside the repo (symlink escapes and ../ traversal are rejected)."""
+    try:
+        resolved = candidate.resolve()
+        repo_root = REPO_ROOT.resolve()
+    except (OSError, RuntimeError):
+        return False
+    if resolved != repo_root and repo_root not in resolved.parents:
+        return False  # escaped the repo (incl. via symlink) — never allowed
+    rel_parts = resolved.relative_to(repo_root).parts
+    for root in _RESUME_ARTIFACT_ALLOWED_ROOTS:
+        root_parts = Path(root).parts
+        if rel_parts[: len(root_parts)] == root_parts:
+            return True
+    return False
+
+
 def _read_resume_artifact(rel_path: Optional[str]) -> Optional[str]:
     """Load a resume/signal artifact and return a bounded preview."""
     if not rel_path:
@@ -912,6 +946,8 @@ def _read_resume_artifact(rel_path: Optional[str]) -> Optional[str]:
     candidate = Path(rel_path)
     if not candidate.is_absolute():
         candidate = REPO_ROOT / candidate
+    if not _resume_artifact_path_allowed(candidate):
+        return None  # path-traversal / arbitrary-read guard
     if not candidate.exists():
         return None
     text = _read_text_capped(
@@ -2364,6 +2400,166 @@ def _raw_shared_index_git_guard(payload: Dict[str, Any]) -> str:
             f"assignment for this segment, not a quoted string elsewhere "
             f"in the line)."
         )
+    return ""
+
+
+# ── Substrate-exfiltration egress guard (PreToolUse hard-block) ─────────────
+# The asset is the whole private substrate, not any one credential. Balanced
+# posture (operator choice, Will, 2026-06-13): hard-deny the agent's clearly
+# dangerous OUTBOUND-SEND channels so a prompt-injection or a compromised MCP
+# server cannot ship a copy of the substrate off the machine. Denied:
+#   * MCP comms-send tools (email / iMessage / draft / any send_*), and
+#   * Bash curl/wget/nc/socat shapes that UPLOAD local data to a host that is
+#     not on the provider allowlist.
+# Left open so research stays fluid: WebFetch / WebSearch, browser read/navigate,
+# and plain downloads (curl/wget WITHOUT data-send flags). `git push` to a
+# foreign remote is already refused in run_git.py.
+#
+# Escape hatch: relaunch the session with AIW_ALLOW_EGRESS=1 to disable the
+# guard for that session. It is read from the hook's (launch-time) environment,
+# which a mid-session injected Bash `export` cannot change — so the unlock is a
+# deliberate operator action, never something an injection can set.
+EGRESS_GUARD_DISABLE_ENV = "AIW_ALLOW_EGRESS"
+
+# MCP tools that ship arbitrary content to an external comms/service surface.
+_EXFIL_MCP_TOOL_GLOBS = (
+    "mcp__*__send_message",
+    "mcp__*__send_imessage",
+    "mcp__*__send_email",
+    "mcp__*__send_*",
+    "mcp__*__create_draft",
+)
+
+# Hosts the repo legitimately sends data to (its own provider/service surfaces).
+# An upload to one of these is allowed; an upload anywhere else is refused.
+_EGRESS_ALLOWLIST_HOST_SUBSTRINGS = (
+    "localhost", "127.0.0.1", "0.0.0.0", "::1",
+    "api.anthropic.com",
+    "github.com", "githubusercontent.com", "ghcr.io",
+    "pypi.org", "files.pythonhosted.org", "pythonhosted.org",
+    "api.openai.com",
+    "openrouter.ai",
+    "nvidia.com",            # integrate.api.nvidia.com (NIM)
+    "api.telegram.org",
+    "stlouisfed.org",        # FRED
+    "huggingface.co",
+)
+
+# curl/wget tokens that mean "send local data outward".
+_EGRESS_UPLOAD_FLAG_TOKENS = frozenset({
+    "-d", "--data", "--data-binary", "--data-raw", "--data-urlencode",
+    "-F", "--form", "-T", "--upload-file",
+    "--post-data", "--post-file", "--body-data", "--body-file",
+})
+_EGRESS_UPLOAD_FLAG_PREFIXES = ("--data", "--post-", "--body-", "--upload-file=", "--form=")
+_EGRESS_NET_SEND_COMMANDS = frozenset({"curl", "wget", "nc", "ncat", "socat", "telnet"})
+_EGRESS_TUNNEL_COMMANDS = frozenset({"nc", "ncat", "socat", "telnet"})
+
+
+def _egress_url_hosts(words: List[str]) -> List[str]:
+    hosts: List[str] = []
+    for word in words:
+        token = word.strip().strip("'\"")
+        if token.startswith("--url="):
+            token = token[len("--url="):]
+        match = re.search(r"\b(?:https?|ftp|ftps)://([^/\s:'\"]+)", token)
+        if match:
+            hosts.append(match.group(1).lower())
+    return hosts
+
+
+def _egress_tunnel_hosts(words: List[str]) -> List[str]:
+    hosts: List[str] = list(_egress_url_hosts(words))
+    for word in words:
+        token = word.strip().strip("'\"")
+        if not token or token.startswith("-"):
+            continue
+        match = re.match(
+            r"^([A-Za-z0-9.\-]+\.[A-Za-z]{2,}|\d{1,3}(?:\.\d{1,3}){3})(?::\d+)?$", token
+        )
+        if match:
+            hosts.append(match.group(1).lower())
+    return hosts
+
+
+def _egress_host_is_allowlisted(host: str) -> bool:
+    lowered = host.lower()
+    return any(token in lowered for token in _EGRESS_ALLOWLIST_HOST_SUBSTRINGS)
+
+
+def _egress_block_reason(command_word: str, host: str) -> str:
+    return (
+        f"Refusing `{command_word}` sending local data to '{host}'. Substrate-egress "
+        f"guard (balanced posture): shipping repository data to a non-allowlisted "
+        f"external host is a direct exfiltration channel for the private substrate. "
+        f"Plain downloads/fetches and sends to your own provider hosts stay allowed.\n\n"
+        f"If this is a legitimate upload you intend, run it yourself, or relaunch the "
+        f"session with {EGRESS_GUARD_DISABLE_ENV}=1 to disable the guard for that session."
+    )
+
+
+def _substrate_exfil_guard(payload: Dict[str, Any]) -> str:
+    """Return a non-empty deny reason for a dangerous outbound-send tool call."""
+    if os.environ.get(EGRESS_GUARD_DISABLE_ENV):
+        return ""
+    tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
+    lowered_name = tool_name.lower()
+
+    # 1) MCP comms-send tools — the content could be a copy of the substrate.
+    if any(fnmatch.fnmatch(lowered_name, glob) for glob in _EXFIL_MCP_TOOL_GLOBS):
+        return (
+            f"Refusing the outbound-send tool `{tool_name}`. Substrate-egress guard "
+            f"(balanced posture): autonomous email/iMessage/draft/send tools are a "
+            f"channel for shipping a copy of the private substrate off the machine, so "
+            f"they are denied by default — a prompt-injection or compromised MCP server "
+            f"must not be able to send on your behalf.\n\n"
+            f"If YOU want this send, do it yourself, or relaunch the session with "
+            f"{EGRESS_GUARD_DISABLE_ENV}=1 to disable the guard for that session."
+        )
+
+    # 2) Bash curl/wget/nc uploading local data to a non-allowlisted host.
+    if tool_name != "Bash":
+        return ""
+    tool_input = payload.get("tool_input") or payload.get("input") or {}
+    if not isinstance(tool_input, dict):
+        return ""
+    command = str(tool_input.get("command") or "").strip()
+    if not command:
+        return ""
+    try:
+        tokens = _shell_tokens(command)
+    except Exception:
+        return ""
+
+    for segment in _split_command_segments(tokens):
+        _env_assignments, words = _strip_segment_wrappers(segment)
+        if not words:
+            continue
+        command_word = _normalise_shell_command_word(words[0])
+        if command_word not in _EGRESS_NET_SEND_COMMANDS:
+            continue
+        rest = words[1:]
+
+        if command_word in _EGRESS_TUNNEL_COMMANDS:
+            # Raw tunnels (nc/socat/telnet): any external host is the exfil channel.
+            external = [h for h in _egress_tunnel_hosts(words) if not _egress_host_is_allowlisted(h)]
+            if external:
+                return _egress_block_reason(command_word, external[0])
+            continue
+
+        # curl/wget: only a concern when SENDING local data outward.
+        has_upload = any(
+            token in _EGRESS_UPLOAD_FLAG_TOKENS or token.startswith(_EGRESS_UPLOAD_FLAG_PREFIXES)
+            for token in rest
+        )
+        if not has_upload:
+            continue
+        hosts = _egress_url_hosts(words)
+        external = [h for h in hosts if not _egress_host_is_allowlisted(h)]
+        # Sending data to a non-allowlisted host, or upload flags with no resolvable
+        # host (possible obfuscation), is refused.
+        if external or not hosts:
+            return _egress_block_reason(command_word, external[0] if external else "<unresolved host>")
     return ""
 
 
@@ -4304,6 +4500,12 @@ def main(argv: List[str]) -> int:
             block_reason = _raw_shared_index_git_guard(payload)
         except Exception:
             block_reason = ""
+        if not block_reason:
+            try:
+                block_reason = _substrate_exfil_guard(payload)
+            except Exception:
+                # Egress guard is non-load-bearing; never raise out of the hook.
+                block_reason = ""
         if block_reason:
             hook_event_name = CANONICAL_HOOK_NAMES.get(action, action)
             try:

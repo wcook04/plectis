@@ -10527,25 +10527,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:b5563d570b5861f57dfc5fd6435545c6ca84204975dfa81b32ddbfc94e3e4175",
+      "body_digest": "sha256:9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b5563d570b5861f57dfc5fd6435545c6ca84204975dfa81b32ddbfc94e3e4175",
-        "source_line_count": 4377,
+        "source_body_digest": "sha256:9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c",
+        "source_line_count": 4579,
         "source_ref": ".claude/hooks/runtime_hook.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b5563d570b5861f57dfc5fd6435545c6ca84204975dfa81b32ddbfc94e3e4175",
-        "target_line_count": 4377,
+        "target_body_digest": "sha256:9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c",
+        "target_line_count": 4579,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 4377,
+      "body_line_count": 4579,
       "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -10592,25 +10592,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:5839883653f24e3c757ef5ecf8c51e78642efb4cf6f236d3d224e42413d6d8e6",
+      "body_digest": "sha256:d7e6e5ea140d2106a44a506d52dd99775f0f7e40f1dd186c3d810185b3ff0708",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:5839883653f24e3c757ef5ecf8c51e78642efb4cf6f236d3d224e42413d6d8e6",
-        "source_line_count": 2266,
+        "source_body_digest": "sha256:d7e6e5ea140d2106a44a506d52dd99775f0f7e40f1dd186c3d810185b3ff0708",
+        "source_line_count": 2384,
         "source_ref": "run_git.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:5839883653f24e3c757ef5ecf8c51e78642efb4cf6f236d3d224e42413d6d8e6",
-        "target_line_count": 2266,
+        "target_body_digest": "sha256:d7e6e5ea140d2106a44a506d52dd99775f0f7e40f1dd186c3d810185b3ff0708",
+        "target_line_count": 2384,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 2266,
+      "body_line_count": 2384,
       "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
