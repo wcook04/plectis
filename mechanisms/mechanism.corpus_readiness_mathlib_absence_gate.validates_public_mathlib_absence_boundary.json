@@ -189,7 +189,10 @@
       ],
       "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
       "statement": "The corpus readiness Mathlib absence gate validates recorded corpus and toolchain readiness accounting, Mathlib absence boundaries, consumer gate cases, source-module digests, leakage guards, and body-free public receipts.",
-      "status": "active"
+      "status": "active",
+      "upstream_of": [
+        "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness"
+      ]
     },
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
@@ -300,21 +303,29 @@
         "target_id": "concept.formal_math_and_proof_witness_bundle",
         "target_kind": "concept",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
       "corpus_readiness_mathlib_absence_gate"
     ],
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "status": "residual_pressure"
-      }
-    ],
-    "upstream_mechanism_refs": []
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness"
+    ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [

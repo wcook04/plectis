@@ -2392,6 +2392,9 @@
         "coverage_health",
         "source_language_inventory"
       ],
+      "upstream_of": [
+        "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness"
+      ],
       "resolution_evidence": {
         "authority_class": "source_assertion",
         "evidence_rank": 5,

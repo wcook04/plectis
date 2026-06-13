@@ -15,7 +15,7 @@ The corpus readiness Mathlib absence gate validates recorded corpus and toolchai
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py` (resolved_code_locus)
 - `runs_in` -> `organ:corpus_readiness_mathlib_absence_gate` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness` (resolved_json_instance)
 
 ## Anti-Claims
 

@@ -6487,6 +6487,13 @@ def test_corpus_readiness_mathlib_absence_gate_population_has_capsule_and_mechan
         "mechanism.corpus_readiness_mathlib_absence_gate."
         "validates_public_corpus_readiness_boundary"
     )
+    mathlib_absence_mechanism_id = (
+        "mechanism.corpus_readiness_mathlib_absence_gate."
+        "validates_public_mathlib_absence_boundary"
+    )
+    lean_witness_mechanism_id = (
+        "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness"
+    )
 
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
     assert projection["registry_atlas_join_health"]["status"] == "pass"
@@ -6494,10 +6501,7 @@ def test_corpus_readiness_mathlib_absence_gate_population_has_capsule_and_mechan
         projection,
         "corpus_readiness_mathlib_absence_gate",
         paper_module_ref="paper_modules/corpus_readiness_mathlib_absence.md",
-        atlas_mechanism_id=(
-            "mechanism.corpus_readiness_mathlib_absence_gate."
-            "validates_public_mathlib_absence_boundary"
-        ),
+        atlas_mechanism_id=mathlib_absence_mechanism_id,
         code_path="src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
     )
 
@@ -6542,6 +6546,26 @@ def test_corpus_readiness_mathlib_absence_gate_population_has_capsule_and_mechan
         "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json"
         in mechanism["input_refs"]
     )
+
+    mathlib_absence_instance = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "mechanisms"
+            / f"{mathlib_absence_mechanism_id}.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert any(
+        edge["relation_id"] == "mechanism.upstream_of.mechanism"
+        and edge["target_id"] == lean_witness_mechanism_id
+        and edge["target_status"] == "resolved_json_instance"
+        for edge in mathlib_absence_instance["relationships"]["edges"]
+    )
+    assert "mechanism.upstream_of.mechanism" not in {
+        residual["relation_id"]
+        for residual in mathlib_absence_instance["relationships"][
+            "unpopulated_selective_relations"
+        ]
+    }
 
     standard = json.loads(
         (

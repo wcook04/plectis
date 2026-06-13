@@ -835,12 +835,12 @@
     "parity_status": "pass",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
-    "residual_relation_count": 35,
+    "residual_relation_count": 34,
     "residual_relation_counts_by_requirement": {
-      "selective": 35
+      "selective": 34
     },
     "support_scope": "mechanism selective residuals are typed from source rows plus the relation registry; capsule depends_on evidence classifies upstream residual fillability and confirms dependency mechanisms as upstream_of their consumers, but is not a reverse-edge fill or runtime truth claim.",
-    "unpopulated_selective_edge_count": 35,
+    "unpopulated_selective_edge_count": 34,
     "unpopulated_selective_edges": [
       "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
       "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
@@ -862,7 +862,6 @@
       "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
       "mechanism.cognitive_operator_registry.validates_public_operator_contract",
       "mechanism.cold_clone_probe.validates_public_source_root_bootstrap",
-      "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
       "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors",
       "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
       "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection",
@@ -878,9 +877,9 @@
       "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
       "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
     ],
-    "unpopulated_selective_relation_count": 35,
+    "unpopulated_selective_relation_count": 34,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_mechanism_source_residuals_not_source_edge_inference": 35
+      "computed_from_mechanism_source_residuals_not_source_edge_inference": 34
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims": 1,
@@ -903,7 +902,6 @@
       "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution": 1,
       "mechanism.cognitive_operator_registry.validates_public_operator_contract": 1,
       "mechanism.cold_clone_probe.validates_public_source_root_bootstrap": 1,
-      "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary": 1,
       "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors": 1,
       "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness": 1,
       "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection": 1,
@@ -920,12 +918,12 @@
       "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 35
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 34
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 35
+      "mechanism.upstream_of.mechanism": 34
     },
-    "unpopulated_selective_relation_detail_count": 35,
+    "unpopulated_selective_relation_detail_count": 34,
     "unpopulated_selective_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -1209,20 +1207,6 @@
       },
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "instance_id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors",
         "instance_kind": "mechanism",
         "mechanism_id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors",
@@ -1423,9 +1407,9 @@
     "upstream_capsule_dependency_unresolved_subject_count": 0,
     "upstream_capsule_dependency_unresolved_subject_details": [],
     "upstream_residual_counts_by_fillability_status": {
-      "no_capsule_dependency_upstream_target_named": 35
+      "no_capsule_dependency_upstream_target_named": 34
     },
-    "upstream_residual_fillability_detail_count": 35,
+    "upstream_residual_fillability_detail_count": 34,
     "upstream_residual_fillability_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -1905,30 +1889,6 @@
         "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
         "source_refs": {
           "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "capsule_dependency_expected_upstream_of": [],
-        "capsule_dependency_expected_upstream_of_count": 0,
-        "capsule_dependency_missing_upstream_of": [],
-        "capsule_dependency_missing_upstream_of_count": 0,
-        "capsule_dependency_unresolved_subject_count": 0,
-        "capsule_dependency_unresolved_subjects": [],
-        "claim_ceiling": "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority",
-        "declared_upstream_of": [],
-        "declared_upstream_of_count": 0,
-        "fillability_status": "no_capsule_dependency_upstream_target_named",
-        "instance_id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]"
         }
       },
       {

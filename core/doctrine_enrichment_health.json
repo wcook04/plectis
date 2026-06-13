@@ -277,8 +277,8 @@
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 35,
-        "known_residual_selective_relation_row_count": 35,
+        "known_residual_selective_relation_count": 34,
+        "known_residual_selective_relation_row_count": 34,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -359,10 +359,6 @@
           {
             "count": 1,
             "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary"
           },
           {
             "count": 1,
