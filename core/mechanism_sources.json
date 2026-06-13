@@ -1289,6 +1289,7 @@
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_macro_projection_import_protocol.py -q"
       },
       "upstream_of": [
+        "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
         "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
         "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",

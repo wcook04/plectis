@@ -2647,6 +2647,9 @@
       ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
       ]
     },
     {

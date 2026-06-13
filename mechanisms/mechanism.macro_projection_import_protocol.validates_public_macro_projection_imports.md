@@ -15,6 +15,7 @@ The macro projection import protocol organ validates fixture and exported projec
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/macro_projection_import_protocol.py` (resolved_code_locus)
 - `runs_in` -> `organ:macro_projection_import_protocol` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule` (resolved_json_instance)
