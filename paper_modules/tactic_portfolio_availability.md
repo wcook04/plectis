@@ -33,6 +33,35 @@ The receipt contract reports
 digests, target refs, and `secret_exclusion_scan`. It does not use body-redaction
 or private-state-scan grammar as product evidence.
 
+## Purpose
+
+A tactic name is not a usable tactic. `aesop` is callable only if the surrounding
+Lean and Std environment actually carries the imports it needs; `omega` is
+callable in one project layout and not in another. Routing or proof search that
+trusts a bare tactic name will reach for tactics that the current environment
+cannot run, and then misread the resulting failure as a property of the goal
+rather than a property of the environment. This organ answers one question: in
+the observed Lean/Std environment, which tactics were actually callable, and on
+what evidence?
+
+The interesting part is how it treats failure. A copied probe row that reports a
+Lean `FAIL` is not flattened into a single "unavailable" verdict. When a tactic
+declares `requires_mathlib` and the paired environment probe reports that the
+Mathlib import is absent, the failure is classified as `environment_fail` with the
+reason `MATHLIB_IMPORT_MISSING`. The same Lean `FAIL` for a tactic that does not
+depend on Mathlib is classified as `compile_fail`. The distinction keeps a missing
+import from masquerading as a broken tactic, and it preserves Mathlib absence as a
+recorded fact about the environment rather than discarding it. A downstream router
+can then re-attempt the same tactic in a different environment instead of striking
+it off permanently.
+
+The second deliberate choice is that none of this is a measurement of quality. The
+organ copies probe durations and bands them as `fast`, `moderate`, or `slow` so a
+router can prefer a cheaper available tactic, but the latency profile is stamped as
+environment-scoped, not benchmark authority. Callability and speed in one observed
+environment are useful for cheaper routing; they are explicitly not evidence that a
+tactic is correct, that a goal was proved, or that Lean was rerun by this organ.
+
 ## JSON Capsule Binding
 
 - Source row: `core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability]`
@@ -63,14 +92,20 @@ tactic-availability organ, code-locus, law, and sibling-paper links.
 
 ```mermaid
 flowchart TD
-    A["Copied Lean/Std tactic affordance probe"] --> B["tactic_portfolio_availability_probe"]
-    C["Mathlib absence row"] --> B
-    D["Downstream tactic references"] --> B
-    B --> E{"Environment-scoped tactic available?"}
-    E -->|yes| F["Availability board for target-shape routing"]
-    E -->|no| G["Blocked tactic row with reason"]
-    B --> H["Body-free fixture and bundle receipts"]
-    H --> I["Generated paper-module row and validation receipts"]
+    A["Copied Lean/Std affordance probe rows\n(compile_status, requires_mathlib, duration_ms)"] --> B["tactic_portfolio_availability_probe"]
+    C["Environment probe\nmathlib_lake_project_import_available"] --> B
+    B --> D{"Copied compile_status"}
+    D -->|PASS| E["available\nband duration fast / moderate / slow"]
+    D -->|FAIL + requires_mathlib + Mathlib absent| F["environment_fail\nreason MATHLIB_IMPORT_MISSING"]
+    D -->|FAIL otherwise| G["compile_fail"]
+    E --> H["Availability board for target-shape routing"]
+    F --> H
+    G --> H
+    I["Downstream tactic reference"] --> J{"Tactic in probed portfolio?"}
+    J -->|no| K["Rejected: unprobed tactic referenced"]
+    J -->|yes| H
+    B --> L["Body-free fixture and bundle receipts\nno proof, Lean, or provider bodies"]
+    L --> M["Generated paper-module row and validation receipts"]
 ```
 
 The flow is deliberately smaller than the generated doctrine-lattice graph. The

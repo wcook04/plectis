@@ -131,8 +131,7 @@
       "specialty": [
         "formal-methods",
         "theorem-proving",
-        "lean",
-        "finance"
+        "lean"
       ],
       "standalone_or_wired": "wired",
       "wires_to": [
@@ -491,8 +490,7 @@
   "specialty": [
     "formal-methods",
     "theorem-proving",
-    "lean",
-    "finance"
+    "lean"
   ],
   "statement": "An agent reads it to get an environment-scoped map of which tactics were recorded as compiling, and relies on its checks: every tactic must carry a compile status, no Mathlib-dependent tactic may be marked available unless the Mathlib import probe passed, and any tactic a consumer references must exist in the probed portfolio.",
   "status": "accepted_current_authority",

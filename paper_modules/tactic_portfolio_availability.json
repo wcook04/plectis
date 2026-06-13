@@ -114,6 +114,13 @@
       "id": "paper_module.tactic_portfolio_availability",
       "kind": "paper_module",
       "legacy_markdown_projection": "paper_modules/tactic_portfolio_availability.md",
+      "legacy_markdown_projection_aliases": [
+        {
+          "import_policy": "suppress_legacy_row",
+          "path": "paper_modules/tactic_portfolio_availability_probe.md",
+          "reason": "Reader-boundary alias for the same accepted probe organ already explained by paper_module.tactic_portfolio_availability; importing it as an independent legacy row double-counts a readiness blocker."
+        }
+      ],
       "principle_refs": [
         "P-1",
         "P-2",
