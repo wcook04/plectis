@@ -443,7 +443,6 @@
       "standard_id": "std_microcosm_lean_toolchain_receipt",
       "status": "draft",
       "used_by_organs": [
-        "cold_clone_probe",
         "formal_math_lean_proof_witness",
         "proof_diagnostic_evidence_spine"
       ],

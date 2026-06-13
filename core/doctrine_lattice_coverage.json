@@ -201,15 +201,15 @@
     "standard_triad_skill_resolved_edge_count": 438,
     "standard_triad_skill_unresolved_edge_count": 0,
     "standard_unregistered_file_count": 0,
-    "standard_used_by_organ_edge_count": 244,
-    "standard_used_by_organ_missing_accepted_target_count": 25,
+    "standard_used_by_organ_edge_count": 243,
+    "standard_used_by_organ_missing_accepted_target_count": 24,
     "standard_used_by_organ_resolved_edge_count": 219,
-    "standard_used_by_organ_unresolved_edge_count": 25,
+    "standard_used_by_organ_unresolved_edge_count": 24,
     "unregistered_lattice_edges": 0
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T21:49:20.860436Z",
+    "generated_at": "2026-06-13T22:15:16.647045Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -3420,7 +3420,7 @@
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "e9e95cd7755b8d72c32dcd57f50e24ba6c0c986c14fc18b60b9cd27b1003153b",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
-      "core/standards_registry.json": "223f4445fdc200af9ec78c56a7f456b1e766f6a1c470024edba993ef0fef3839",
+      "core/standards_registry.json": "32451707baf40c6e33977c2f5eb7ff771928241867e74c5bc15f385d6e213c19",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
       "mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json": "7dc5a4a80d93eeeec71f3d09790e419b8b4d357ab6da0909c7ab7ce5b77e4846",
       "mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json": "7bd6594298ad10c9a26785da15bdf42890eb567fd76f5bf13152beea6e15be72",
@@ -4608,7 +4608,7 @@
       "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json": "fe88bf0f147890b353980743a62c4510d3ecf5edc4b28426edf3c8aa974826d6",
       "standards/std_microcosm_leaf.json": "44b0f38f0ea7135cd9132f5f1c2826b433509e9d09594e6c3975c2881e5aa036",
       "standards/std_microcosm_lean_std_premise_index.json": "85bde6ab68ffd62233cd95464eff71f142132c7da8265a5847d06795e1b6f1bc",
-      "standards/std_microcosm_lean_toolchain_receipt.json": "e9c22904f3e163a10aed040afe5c85130d3b85fac7044399aa963537b12af474",
+      "standards/std_microcosm_lean_toolchain_receipt.json": "8e8741b42850f0b0e916dc054e8d09bffe511650afc8a96b253c1119e42b50ad",
       "standards/std_microcosm_macro_projection_import_protocol.json": "8e834bd1e23aee8f5d25f8a116db046344491093abcffaaced2a61b20c917614",
       "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json": "6b5154a4e48d3a5a2c748d500f883cb58f09aaf6ad0867d356b4850e0476ea0c",
       "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json": "ca419b0664363a4f6c6f69b1ea45fb60d7501ca9c938804c449989fd1d258f4a",
@@ -6014,37 +6014,36 @@
     "triad_skill_planned_unresolved_edge_count": 0,
     "triad_skill_resolved_edge_count": 438,
     "triad_skill_unresolved_edge_count": 0,
-    "used_by_organ_edge_count": 244,
+    "used_by_organ_edge_count": 243,
     "used_by_organ_resolved_edge_count": 219,
-    "used_by_organ_typed_residual_count": 25,
+    "used_by_organ_typed_residual_count": 24,
     "used_by_organ_typed_residual_counts_by_disposition": {
-      "keep_as_reentry_pressure_not_usage_or_acceptance_proof": 25
+      "keep_as_reentry_pressure_not_usage_or_acceptance_proof": 24
     },
     "used_by_organ_typed_residual_counts_by_gap_class": {
-      "standard_used_by_organ_target_not_accepted_current_authority": 25
+      "standard_used_by_organ_target_not_accepted_current_authority": 24
     },
     "used_by_organ_typed_residual_counts_by_requirement": {
-      "selective": 25
+      "selective": 24
     },
     "used_by_organ_unresolved_counts_by_projection_status": {
-      "active_v2_governed_json": 24,
+      "active_v2_governed_json": 23,
       "legacy_or_draft_standard_contract": 1
     },
     "used_by_organ_unresolved_counts_by_registry_status": {
-      "draft": 25
+      "draft": 24
     },
     "used_by_organ_unresolved_counts_by_source_schema_version": {
       "microcosm_standard_v1": 1,
-      "public_microcosm_standard_v2": 24
+      "public_microcosm_standard_v2": 23
     },
     "used_by_organ_unresolved_counts_by_source_status": {
-      "active": 24,
+      "active": 23,
       "draft": 1
     },
     "used_by_organ_unresolved_counts_by_target_organ_id": {
       "autonomy_reaction_dispatch_suborgan": 1,
       "batch7_zenith_macos_capsule": 1,
-      "cold_clone_probe": 1,
       "entry_agent_behavior_governance_suborgan": 2,
       "external_boundary_anti_corruption_runtime": 11,
       "formal_oracle_policy_learning_suborgan": 1,
@@ -6056,9 +6055,9 @@
       "workitem_cartography_scheduler_suborgan": 2
     },
     "used_by_organ_unresolved_counts_by_target_status": {
-      "unresolved_json_instance": 25
+      "unresolved_json_instance": 24
     },
-    "used_by_organ_unresolved_detail_count": 25,
+    "used_by_organ_unresolved_detail_count": 24,
     "used_by_organ_unresolved_details": [
       {
         "authority_boundary": "computed_from_standard_relationships_used_by_organs_not_organ_acceptance_or_runtime_use",
@@ -6328,28 +6327,6 @@
         "authority_boundary": "computed_from_standard_relationships_used_by_organs_not_organ_acceptance_or_runtime_use",
         "claim_ceiling": "standard_used_by_organ_residual_is_reentry_metadata_not_usage_or_acceptance_proof",
         "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_lean_toolchain_receipt.json::relationships.used_by_organs[0]",
-        "governs_kind": "lean_toolchain_receipt",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
-        "registry_source_ref": "core/standards_registry.json::standards[27:std_microcosm_lean_toolchain_receipt]",
-        "registry_status": "draft",
-        "residual_disposition": "keep_as_reentry_pressure_not_usage_or_acceptance_proof",
-        "residual_gap_class": "standard_used_by_organ_target_not_accepted_current_authority",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "residual_relation_id": "standard.used_by.organ",
-        "residual_requirement": "selective",
-        "residual_status": "typed_residual_pressure",
-        "source_ref": "standards/std_microcosm_lean_toolchain_receipt.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_lean_toolchain_receipt",
-        "target_organ_id": "cold_clone_probe",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "authority_boundary": "computed_from_standard_relationships_used_by_organs_not_organ_acceptance_or_runtime_use",
-        "claim_ceiling": "standard_used_by_organ_residual_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
         "edge_source_ref": "standards/std_microcosm_organ.json::relationships.used_by_organs[3]",
         "governs_kind": "organ",
         "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
@@ -6611,8 +6588,8 @@
         "target_status": "unresolved_json_instance"
       }
     ],
-    "used_by_organ_unresolved_edge_count": 25,
-    "used_by_organ_unresolved_standard_count": 19,
+    "used_by_organ_unresolved_edge_count": 24,
+    "used_by_organ_unresolved_standard_count": 18,
     "used_by_organ_unresolved_standard_ids": [
       "std_microcosm_agent_trace",
       "std_microcosm_authority_boundary",
@@ -6623,7 +6600,6 @@
       "std_microcosm_fixture",
       "std_microcosm_hook_event",
       "std_microcosm_leaf",
-      "std_microcosm_lean_toolchain_receipt",
       "std_microcosm_organ",
       "std_microcosm_paper_module",
       "std_microcosm_pattern",
@@ -6634,11 +6610,10 @@
       "std_microcosm_validator",
       "std_microcosm_work_item"
     ],
-    "used_by_organ_unresolved_target_organ_count": 12,
+    "used_by_organ_unresolved_target_organ_count": 11,
     "used_by_organ_unresolved_target_organ_ids": [
       "autonomy_reaction_dispatch_suborgan",
       "batch7_zenith_macos_capsule",
-      "cold_clone_probe",
       "entry_agent_behavior_governance_suborgan",
       "external_boundary_anti_corruption_runtime",
       "formal_oracle_policy_learning_suborgan",

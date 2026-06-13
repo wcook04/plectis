@@ -487,16 +487,16 @@
     "std_microcosm_work_landing_control_spine",
     "std_microcosm_doctrine_enrichment"
   ],
-  "command": "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
+  "command": "python -m microcosm_core.validators.standards_registry --registry microcosm-substrate/core/standards_registry.json --standards-dir microcosm-substrate/standards --acceptance microcosm-substrate/core/acceptance/first_wave_acceptance.json --out microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
   "duplicate_standard_ids": [],
   "fixture_id": "first_wave.standards_registry",
   "missing_required_fields_by_standard": {},
   "missing_standard_files": [],
   "organ_id": "standards_registry",
   "receipt_paths": [
-    "receipts/first_wave/standards_registry_validation.json",
-    "core/standards_registry.json",
-    "core/acceptance/first_wave_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
+    "microcosm-substrate/core/standards_registry.json",
+    "microcosm-substrate/core/acceptance/first_wave_acceptance.json"
   ],
   "registry_declared_standard_count": 146,
   "schema_version": "standards_registry_validation_receipt_v1",
@@ -537,30 +537,30 @@
     "authority_boundary": "read_only_gap_classification_from_standard_json_registry_rows_and_organ_registry_status; does_not_accept_organs_or_prove_runtime_use",
     "counts_by_admission_status": {
       "accepted_current_authority": 219,
-      "target_organ_not_accepted_current_authority": 28
+      "target_organ_not_accepted_current_authority": 24
     },
     "counts_by_target_status": {
       "accepted_current_authority": 219,
-      "unresolved_json_instance": 28
+      "unresolved_json_instance": 24
     },
-    "detail_count": 28,
-    "edge_count": 247,
+    "detail_count": 24,
+    "edge_count": 243,
     "resolved_edge_count": 219,
     "schema_version": "standard_used_by_organ_admission_summary_v1",
     "status": "computed",
     "unresolved_counts_by_contract_projection_status": {
-      "active_v2_governed_json": 27,
+      "active_v2_governed_json": 23,
       "legacy_or_draft_standard_contract": 1
     },
     "unresolved_counts_by_registry_status": {
-      "draft": 28
+      "draft": 24
     },
     "unresolved_counts_by_source_schema_version": {
       "microcosm_standard_v1": 1,
-      "public_microcosm_standard_v2": 27
+      "public_microcosm_standard_v2": 23
     },
     "unresolved_counts_by_source_status": {
-      "active": 27,
+      "active": 23,
       "draft": 1
     },
     "unresolved_details": [
@@ -626,38 +626,6 @@
         "source_standard_status": "active",
         "standard_id": "std_microcosm_cap",
         "target_organ_id": "workitem_cartography_scheduler_suborgan",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "admission_status": "target_organ_not_accepted_current_authority",
-        "authority_boundary": "computed_from_standard_relationships_used_by_organs_and_organ_registry_status_not_organ_admission_or_runtime_use",
-        "claim_ceiling": "standard_used_by_organ_admission_summary_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_compression_band.json::relationships.used_by_organs[1]",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun the standards-registry validator and the standard corpus check.",
-        "registry_ref": "core/standards_registry.json::standards[]",
-        "registry_status": "draft",
-        "source_ref": "standards/std_microcosm_compression_band.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_compression_band",
-        "target_organ_id": "option_surface",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "admission_status": "target_organ_not_accepted_current_authority",
-        "authority_boundary": "computed_from_standard_relationships_used_by_organs_and_organ_registry_status_not_organ_admission_or_runtime_use",
-        "claim_ceiling": "standard_used_by_organ_admission_summary_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_compression_band.json::relationships.used_by_organs[2]",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun the standards-registry validator and the standard corpus check.",
-        "registry_ref": "core/standards_registry.json::standards[]",
-        "registry_status": "draft",
-        "source_ref": "standards/std_microcosm_compression_band.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_compression_band",
-        "target_organ_id": "paper_module",
         "target_status": "unresolved_json_instance"
       },
       {
@@ -786,22 +754,6 @@
         "source_standard_status": "active",
         "standard_id": "std_microcosm_leaf",
         "target_organ_id": "organ",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "admission_status": "target_organ_not_accepted_current_authority",
-        "authority_boundary": "computed_from_standard_relationships_used_by_organs_and_organ_registry_status_not_organ_admission_or_runtime_use",
-        "claim_ceiling": "standard_used_by_organ_admission_summary_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_lean_toolchain_receipt.json::relationships.used_by_organs[0]",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun the standards-registry validator and the standard corpus check.",
-        "registry_ref": "core/standards_registry.json::standards[]",
-        "registry_status": "draft",
-        "source_ref": "standards/std_microcosm_lean_toolchain_receipt.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_lean_toolchain_receipt",
-        "target_organ_id": "cold_clone_probe",
         "target_status": "unresolved_json_instance"
       },
       {
@@ -995,38 +947,20 @@
         "standard_id": "std_microcosm_work_item",
         "target_organ_id": "workitem_cartography_scheduler_suborgan",
         "target_status": "unresolved_json_instance"
-      },
-      {
-        "admission_status": "target_organ_not_accepted_current_authority",
-        "authority_boundary": "computed_from_standard_relationships_used_by_organs_and_organ_registry_status_not_organ_admission_or_runtime_use",
-        "claim_ceiling": "standard_used_by_organ_admission_summary_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_workingness_record.json::relationships.used_by_organs[0]",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun the standards-registry validator and the standard corpus check.",
-        "registry_ref": "core/standards_registry.json::standards[]",
-        "registry_status": "draft",
-        "source_ref": "standards/std_microcosm_workingness_record.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_workingness_record",
-        "target_organ_id": "cold_clone_probe",
-        "target_status": "unresolved_json_instance"
       }
     ],
-    "unresolved_edge_count": 28,
-    "unresolved_standard_count": 21,
+    "unresolved_edge_count": 24,
+    "unresolved_standard_count": 18,
     "unresolved_standard_ids": [
       "std_microcosm_agent_trace",
       "std_microcosm_authority_boundary",
       "std_microcosm_batch7_zenith_macos_capsule",
       "std_microcosm_cap",
-      "std_microcosm_compression_band",
       "std_microcosm_external_candidate",
       "std_microcosm_first_screen_composition_root",
       "std_microcosm_fixture",
       "std_microcosm_hook_event",
       "std_microcosm_leaf",
-      "std_microcosm_lean_toolchain_receipt",
       "std_microcosm_organ",
       "std_microcosm_paper_module",
       "std_microcosm_pattern",
@@ -1035,21 +969,17 @@
       "std_microcosm_source_capsule",
       "std_microcosm_synthetic_fixture",
       "std_microcosm_validator",
-      "std_microcosm_work_item",
-      "std_microcosm_workingness_record"
+      "std_microcosm_work_item"
     ],
-    "unresolved_target_organ_count": 14,
+    "unresolved_target_organ_count": 11,
     "unresolved_target_organ_ids": [
       "autonomy_reaction_dispatch_suborgan",
       "batch7_zenith_macos_capsule",
-      "cold_clone_probe",
       "entry_agent_behavior_governance_suborgan",
       "external_boundary_anti_corruption_runtime",
       "formal_oracle_policy_learning_suborgan",
       "formal_prover_lab_evaluation_suborgan",
-      "option_surface",
       "organ",
-      "paper_module",
       "prediction_oracle_reconciliation_suborgan",
       "runtime_shell",
       "typed_view_contract_specimen",

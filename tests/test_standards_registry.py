@@ -188,28 +188,28 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
         "standard_used_by_organ_admission_summary_v1"
     )
     assert used_by_summary["status"] == "computed"
-    assert used_by_summary["edge_count"] == 245
+    assert used_by_summary["edge_count"] == 243
     assert used_by_summary["resolved_edge_count"] == 219
-    assert used_by_summary["unresolved_edge_count"] == 26
-    assert used_by_summary["detail_count"] == 26
-    assert used_by_summary["unresolved_target_organ_count"] == 12
+    assert used_by_summary["unresolved_edge_count"] == 24
+    assert used_by_summary["detail_count"] == 24
+    assert used_by_summary["unresolved_target_organ_count"] == 11
     assert used_by_summary["counts_by_admission_status"] == {
         "accepted_current_authority": 219,
-        "target_organ_not_accepted_current_authority": 26,
+        "target_organ_not_accepted_current_authority": 24,
     }
     assert used_by_summary["counts_by_target_status"] == {
         "accepted_current_authority": 219,
-        "unresolved_json_instance": 25,
+        "unresolved_json_instance": 24,
     }
     assert used_by_summary["unresolved_counts_by_contract_projection_status"] == {
-        "active_v2_governed_json": 24,
+        "active_v2_governed_json": 23,
         "legacy_or_draft_standard_contract": 1,
     }
     assert used_by_summary["unresolved_counts_by_registry_status"] == {
-        "draft": 25,
+        "draft": 24,
     }
     assert used_by_summary["unresolved_counts_by_source_status"] == {
-        "active": 24,
+        "active": 23,
         "draft": 1,
     }
     assert "std_microcosm_agent_trace" in used_by_summary["unresolved_standard_ids"]
@@ -528,8 +528,8 @@ def test_active_v2_unresolved_used_by_organs_have_source_boundaries() -> None:
             "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
         )
 
-    assert len(standards_with_unresolved) == 18
-    assert sum(len(targets) for targets in standards_with_unresolved.values()) == 24
+    assert len(standards_with_unresolved) == 17
+    assert sum(len(targets) for targets in standards_with_unresolved.values()) == 23
     assert standards_with_unresolved["std_microcosm_agent_trace"] == [
         "entry_agent_behavior_governance_suborgan"
     ]
@@ -587,6 +587,42 @@ def test_workingness_record_used_by_organs_excludes_cold_clone_probe_route_targe
         if row["standard_id"] == "std_microcosm_workingness_record"
     )
     expected_organs = ["proof_diagnostic_evidence_spine"]
+
+    assert source["relationships"]["used_by_organs"] == expected_organs
+    assert registry_row["used_by_organs"] == expected_organs
+    assert source["used_by_organ_boundary"]["status"] == (
+        "source_cleaned_no_unresolved_used_by_organs_targets"
+    )
+    assert source["used_by_organ_boundary"]["resolved_target_organs"] == expected_organs
+    assert source["used_by_organ_boundary"]["unresolved_target_organs"] == []
+    assert "cold_clone_probe is a paper-module, mechanism, and bootstrap route target" in (
+        source["used_by_organ_boundary"]["source_cleanup_note"]
+    )
+    assert any(
+        "accepted_current_authority organ id" in step
+        for step in source["used_by_organ_boundary"]["required_reentry"]
+    )
+    assert "cold_clone_probe" not in registry_row["used_by_organs"]
+
+
+def test_lean_toolchain_receipt_used_by_organs_excludes_cold_clone_probe_route_target() -> None:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/standards_registry.json").read_text(encoding="utf-8")
+    )
+    source = json.loads(
+        (
+            MICROCOSM_ROOT / "standards/std_microcosm_lean_toolchain_receipt.json"
+        ).read_text(encoding="utf-8")
+    )
+    registry_row = next(
+        row
+        for row in registry["standards"]
+        if row["standard_id"] == "std_microcosm_lean_toolchain_receipt"
+    )
+    expected_organs = [
+        "formal_math_lean_proof_witness",
+        "proof_diagnostic_evidence_spine",
+    ]
 
     assert source["relationships"]["used_by_organs"] == expected_organs
     assert registry_row["used_by_organs"] == expected_organs

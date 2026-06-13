@@ -4385,16 +4385,16 @@
     "unregistered_standard_file_count": 0,
     "unregistered_standard_file_ids": [],
     "used_by_organ_admission_counts_by_admission_status": {
-      "target_organ_not_accepted_current_authority": 25
+      "target_organ_not_accepted_current_authority": 24
     },
     "used_by_organ_admission_counts_by_contract_projection_status": {
-      "active_v2_governed_json": 24,
+      "active_v2_governed_json": 23,
       "legacy_or_draft_standard_contract": 1
     },
     "used_by_organ_admission_counts_by_target_status": {
-      "unresolved_json_instance": 25
+      "unresolved_json_instance": 24
     },
-    "used_by_organ_admission_detail_count": 25,
+    "used_by_organ_admission_detail_count": 24,
     "used_by_organ_admission_details": [
       {
         "admission_status": "target_organ_not_accepted_current_authority",
@@ -4677,29 +4677,6 @@
         "authority_boundary": "computed_from_standard_used_by_organ_residuals_not_organ_admission_or_edge_support",
         "claim_ceiling": "standard_used_by_organ_target_admission_status_is_reentry_metadata_not_usage_or_acceptance_proof",
         "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_lean_toolchain_receipt.json::relationships.used_by_organs[0]",
-        "governs_kind": "lean_toolchain_receipt",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
-        "registry_source_ref": "core/standards_registry.json::standards[27:std_microcosm_lean_toolchain_receipt]",
-        "registry_status": "draft",
-        "residual_disposition": "keep_as_reentry_pressure_not_usage_or_acceptance_proof",
-        "residual_gap_class": "standard_used_by_organ_target_not_accepted_current_authority",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "residual_relation_id": "standard.used_by.organ",
-        "residual_requirement": "selective",
-        "residual_status": "typed_residual_pressure",
-        "source_ref": "standards/std_microcosm_lean_toolchain_receipt.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_lean_toolchain_receipt",
-        "target_organ_id": "cold_clone_probe",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "admission_status": "target_organ_not_accepted_current_authority",
-        "authority_boundary": "computed_from_standard_used_by_organ_residuals_not_organ_admission_or_edge_support",
-        "claim_ceiling": "standard_used_by_organ_target_admission_status_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
         "edge_source_ref": "standards/std_microcosm_organ.json::relationships.used_by_organs[3]",
         "governs_kind": "organ",
         "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
@@ -4972,8 +4949,8 @@
         "target_status": "unresolved_json_instance"
       }
     ],
-    "used_by_organ_edge_count": 244,
-    "used_by_organ_missing_accepted_target_count": 25,
+    "used_by_organ_edge_count": 243,
+    "used_by_organ_missing_accepted_target_count": 24,
     "used_by_organ_missing_accepted_target_details": [
       {
         "admission_status": "target_organ_not_accepted_current_authority",
@@ -5256,29 +5233,6 @@
         "authority_boundary": "computed_from_standard_used_by_organ_residuals_not_organ_admission_or_edge_support",
         "claim_ceiling": "standard_used_by_organ_target_admission_status_is_reentry_metadata_not_usage_or_acceptance_proof",
         "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_lean_toolchain_receipt.json::relationships.used_by_organs[0]",
-        "governs_kind": "lean_toolchain_receipt",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
-        "registry_source_ref": "core/standards_registry.json::standards[27:std_microcosm_lean_toolchain_receipt]",
-        "registry_status": "draft",
-        "residual_disposition": "keep_as_reentry_pressure_not_usage_or_acceptance_proof",
-        "residual_gap_class": "standard_used_by_organ_target_not_accepted_current_authority",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "residual_relation_id": "standard.used_by.organ",
-        "residual_requirement": "selective",
-        "residual_status": "typed_residual_pressure",
-        "source_ref": "standards/std_microcosm_lean_toolchain_receipt.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_lean_toolchain_receipt",
-        "target_organ_id": "cold_clone_probe",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "admission_status": "target_organ_not_accepted_current_authority",
-        "authority_boundary": "computed_from_standard_used_by_organ_residuals_not_organ_admission_or_edge_support",
-        "claim_ceiling": "standard_used_by_organ_target_admission_status_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
         "edge_source_ref": "standards/std_microcosm_organ.json::relationships.used_by_organs[3]",
         "governs_kind": "organ",
         "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
@@ -5552,35 +5506,34 @@
       }
     ],
     "used_by_organ_resolved_edge_count": 219,
-    "used_by_organ_typed_residual_count": 25,
+    "used_by_organ_typed_residual_count": 24,
     "used_by_organ_typed_residual_counts_by_disposition": {
-      "keep_as_reentry_pressure_not_usage_or_acceptance_proof": 25
+      "keep_as_reentry_pressure_not_usage_or_acceptance_proof": 24
     },
     "used_by_organ_typed_residual_counts_by_gap_class": {
-      "standard_used_by_organ_target_not_accepted_current_authority": 25
+      "standard_used_by_organ_target_not_accepted_current_authority": 24
     },
     "used_by_organ_typed_residual_counts_by_requirement": {
-      "selective": 25
+      "selective": 24
     },
     "used_by_organ_unresolved_counts_by_projection_status": {
-      "active_v2_governed_json": 24,
+      "active_v2_governed_json": 23,
       "legacy_or_draft_standard_contract": 1
     },
     "used_by_organ_unresolved_counts_by_registry_status": {
-      "draft": 25
+      "draft": 24
     },
     "used_by_organ_unresolved_counts_by_source_schema_version": {
       "microcosm_standard_v1": 1,
-      "public_microcosm_standard_v2": 24
+      "public_microcosm_standard_v2": 23
     },
     "used_by_organ_unresolved_counts_by_source_status": {
-      "active": 24,
+      "active": 23,
       "draft": 1
     },
     "used_by_organ_unresolved_counts_by_target_organ_id": {
       "autonomy_reaction_dispatch_suborgan": 1,
       "batch7_zenith_macos_capsule": 1,
-      "cold_clone_probe": 1,
       "entry_agent_behavior_governance_suborgan": 2,
       "external_boundary_anti_corruption_runtime": 11,
       "formal_oracle_policy_learning_suborgan": 1,
@@ -5592,9 +5545,9 @@
       "workitem_cartography_scheduler_suborgan": 2
     },
     "used_by_organ_unresolved_counts_by_target_status": {
-      "unresolved_json_instance": 25
+      "unresolved_json_instance": 24
     },
-    "used_by_organ_unresolved_detail_count": 25,
+    "used_by_organ_unresolved_detail_count": 24,
     "used_by_organ_unresolved_details": [
       {
         "authority_boundary": "computed_from_standard_relationships_used_by_organs_not_organ_acceptance_or_runtime_use",
@@ -5864,28 +5817,6 @@
         "authority_boundary": "computed_from_standard_relationships_used_by_organs_not_organ_acceptance_or_runtime_use",
         "claim_ceiling": "standard_used_by_organ_residual_is_reentry_metadata_not_usage_or_acceptance_proof",
         "contract_projection_status": "active_v2_governed_json",
-        "edge_source_ref": "standards/std_microcosm_lean_toolchain_receipt.json::relationships.used_by_organs[0]",
-        "governs_kind": "lean_toolchain_receipt",
-        "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
-        "registry_source_ref": "core/standards_registry.json::standards[27:std_microcosm_lean_toolchain_receipt]",
-        "registry_status": "draft",
-        "residual_disposition": "keep_as_reentry_pressure_not_usage_or_acceptance_proof",
-        "residual_gap_class": "standard_used_by_organ_target_not_accepted_current_authority",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "residual_relation_id": "standard.used_by.organ",
-        "residual_requirement": "selective",
-        "residual_status": "typed_residual_pressure",
-        "source_ref": "standards/std_microcosm_lean_toolchain_receipt.json",
-        "source_standard_schema_version": "public_microcosm_standard_v2",
-        "source_standard_status": "active",
-        "standard_id": "std_microcosm_lean_toolchain_receipt",
-        "target_organ_id": "cold_clone_probe",
-        "target_status": "unresolved_json_instance"
-      },
-      {
-        "authority_boundary": "computed_from_standard_relationships_used_by_organs_not_organ_acceptance_or_runtime_use",
-        "claim_ceiling": "standard_used_by_organ_residual_is_reentry_metadata_not_usage_or_acceptance_proof",
-        "contract_projection_status": "active_v2_governed_json",
         "edge_source_ref": "standards/std_microcosm_organ.json::relationships.used_by_organs[3]",
         "governs_kind": "organ",
         "reentry_condition": "When the target organ is accepted_current_authority, or the standard source renames/removes the target, rerun --check-standard-corpus and refresh the aggregate doctrine-lattice surfaces through the builder owner.",
@@ -6147,8 +6078,8 @@
         "target_status": "unresolved_json_instance"
       }
     ],
-    "used_by_organ_unresolved_edge_count": 25,
-    "used_by_organ_unresolved_standard_count": 19,
+    "used_by_organ_unresolved_edge_count": 24,
+    "used_by_organ_unresolved_standard_count": 18,
     "used_by_organ_unresolved_standard_ids": [
       "std_microcosm_agent_trace",
       "std_microcosm_authority_boundary",
@@ -6159,7 +6090,6 @@
       "std_microcosm_fixture",
       "std_microcosm_hook_event",
       "std_microcosm_leaf",
-      "std_microcosm_lean_toolchain_receipt",
       "std_microcosm_organ",
       "std_microcosm_paper_module",
       "std_microcosm_pattern",
@@ -6170,11 +6100,10 @@
       "std_microcosm_validator",
       "std_microcosm_work_item"
     ],
-    "used_by_organ_unresolved_target_organ_count": 12,
+    "used_by_organ_unresolved_target_organ_count": 11,
     "used_by_organ_unresolved_target_organ_ids": [
       "autonomy_reaction_dispatch_suborgan",
       "batch7_zenith_macos_capsule",
-      "cold_clone_probe",
       "entry_agent_behavior_governance_suborgan",
       "external_boundary_anti_corruption_runtime",
       "formal_oracle_policy_learning_suborgan",
