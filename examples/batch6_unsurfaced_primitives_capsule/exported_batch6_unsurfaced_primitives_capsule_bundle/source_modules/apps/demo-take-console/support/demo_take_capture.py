@@ -393,7 +393,9 @@ def storage_governor_preflight(config: Mapping[str, Any], *, spool_root: Path) -
         ]
         payload["operator_line"] = (
             f"Recording blocked: only {human_bytes(free_bytes)} free locally, below the "
-            f"{human_bytes(LOCAL_STORAGE_HARD_FLOOR_BYTES)} floor. Archive or prune older takes first."
+            f"{human_bytes(LOCAL_STORAGE_HARD_FLOOR_BYTES)} floor. Reclaim space by archiving "
+            "cold takes to the cloud and evicting them locally: "
+            "`repo-python apps/demo-take-console/support/demo_take_capture.py reclaim-space`."
         )
         return payload
     payload["status"] = "warn" if free_bytes < LOCAL_STORAGE_SOFT_FLOOR_BYTES else "pass"
@@ -9168,6 +9170,256 @@ def archive_originals(
     }
 
 
+# Heavy, restorable directories evicted first when reclaiming local disk. The
+# rendered deliverables in render/ and the small JSON sidecars stay local so a
+# take remains navigable and review-able after eviction; only bulk source media,
+# regenerable frames, and editing intermediates go cold to the cloud spillway.
+RECLAIM_HEAVY_DIRS: tuple[str, ...] = ("tracks", "frames", "edit")
+
+
+def _free_disk_bytes(path: Path) -> int | None:
+    probe = path if path.exists() else REPO_ROOT
+    try:
+        return int(shutil.disk_usage(probe).free)
+    except OSError:
+        return None
+
+
+def _tree_bytes(path: Path) -> int:
+    total = 0
+    if not path.exists():
+        return 0
+    for child in path.rglob("*"):
+        try:
+            if child.is_file() and not child.is_symlink():
+                total += child.stat().st_size
+        except OSError:
+            continue
+    return total
+
+
+def _remove_empty_dirs(root: Path) -> None:
+    for path in sorted((p for p in root.rglob("*") if p.is_dir()), reverse=True):
+        try:
+            next(path.iterdir())
+        except StopIteration:
+            try:
+                path.rmdir()
+            except OSError:
+                pass
+        except OSError:
+            pass
+
+
+def evict_take_to_cloud(
+    root: Path,
+    *,
+    remote: str | None = None,
+    rclone_path: str | None = None,
+    heavy_dirs: tuple[str, ...] = RECLAIM_HEAVY_DIRS,
+    dry_run: bool = False,
+    evict_only: bool = False,
+) -> dict[str, Any]:
+    """Make the cloud a superset of a take's heavy dirs, verify one-way custody,
+    then evict those local bytes. Custody-gated: a directory is only deleted
+    after rclone confirms every local file is present and matching on the remote.
+
+    evict_only skips the upload and only reclaims dirs already verified on the
+    remote (fast path for cold takes; never blocks on a large transfer).
+    """
+    session = _read_json_dict(root / "session.json")
+    config = dict(session.get("config") if isinstance(session.get("config"), Mapping) else {})
+    take_id = str(session.get("take_id") or root.name)
+    rclone = rclone_path or os.environ.get("DEMO_TAKE_RCLONE") or shutil.which("rclone")
+    remote_root = (remote or cloud_archive_remote(config)).strip()
+    remote_take = _remote_take_path(remote_root, take_id)
+
+    result: dict[str, Any] = {
+        "schema": "demo_take_take_eviction_result_v0",
+        "take_id": take_id,
+        "root_path": str(root),
+        "remote_take_path": remote_take,
+        "dry_run": dry_run,
+        "evict_only": evict_only,
+        "dirs": [],
+        "freed_bytes": 0,
+        "status": "ready",
+    }
+    if not rclone:
+        result["status"] = "failed"
+        result["known_failures"] = ["rclone executable not found"]
+        return result
+
+    failures: list[str] = []
+    freed_total = 0
+    for name in heavy_dirs:
+        local_sub = root / name
+        if not local_sub.exists():
+            continue
+        sub_bytes = _tree_bytes(local_sub)
+        if sub_bytes <= 0:
+            continue
+        remote_sub = remote_take.rstrip("/") + "/" + name
+        dir_row: dict[str, Any] = {"dir": name, "local_bytes": sub_bytes}
+
+        if dry_run:
+            # Fast, offline preview: report the reclaimable bytes without touching
+            # the network. The real run uploads + verifies custody before deleting.
+            dir_row["action"] = "would_evict" if not evict_only else "would_evict_if_verified"
+            freed_total += sub_bytes
+            result["dirs"].append(dir_row)
+            continue
+
+        if not evict_only:
+            upload = _run_rclone([
+                rclone, "copy", str(local_sub), remote_sub,
+                "--transfers", "4", "--checkers", "8",
+            ])
+            dir_row["upload_status"] = upload.get("status")
+            if upload.get("status") != "pass":
+                dir_row["action"] = "blocked_upload"
+                dir_row["stderr_tail"] = upload.get("stderr_tail")
+                failures.append(f"{name}: upload failed")
+                result["dirs"].append(dir_row)
+                continue
+
+        verify = _run_rclone([rclone, "check", str(local_sub), remote_sub, "--one-way"])
+        dir_row["verify_status"] = verify.get("status")
+        if verify.get("status") != "pass":
+            dir_row["action"] = "blocked_unverified"
+            dir_row["stderr_tail"] = verify.get("stderr_tail")
+            failures.append(f"{name}: cloud custody not verified; kept local")
+            result["dirs"].append(dir_row)
+            continue
+
+        evicted = 0
+        for path in sorted(local_sub.rglob("*")):
+            if not path.is_file() or path.is_symlink():
+                continue
+            try:
+                size = path.stat().st_size
+                path.unlink()
+                evicted += size
+            except OSError as exc:
+                failures.append(f"could not evict {relative(root, path)}: {exc}")
+        _remove_empty_dirs(local_sub)
+        dir_row["action"] = "evicted"
+        dir_row["freed_bytes"] = evicted
+        freed_total += evicted
+        result["dirs"].append(dir_row)
+
+    result["freed_bytes"] = freed_total
+    if failures:
+        result["known_failures"] = failures
+        result["status"] = "partial" if freed_total > 0 else "blocked"
+    elif freed_total == 0:
+        result["status"] = "noop"
+
+    if not dry_run and freed_total > 0:
+        receipt = {
+            "schema": "demo_take_local_eviction_receipt_v0",
+            "take_id": take_id,
+            "created_at": now_iso(),
+            "remote_take_path": remote_take,
+            "evicted_dirs": [row["dir"] for row in result["dirs"] if row.get("action") == "evicted"],
+            "freed_bytes": freed_total,
+            "restore_plan": {
+                name: f"rclone copy {remote_take.rstrip('/')}/{name} <take_root>/{name}"
+                for name in heavy_dirs
+            },
+            "known_failures": failures,
+        }
+        try:
+            (root / "render").mkdir(parents=True, exist_ok=True)
+            write_json(root / "render" / "local_eviction_receipt.json", receipt)
+        except OSError as exc:
+            result.setdefault("known_failures", []).append(f"could not write eviction receipt: {exc}")
+    return result
+
+
+def reclaim_space(
+    takes_root: Path,
+    *,
+    target_free_bytes: int,
+    remote: str | None = None,
+    rclone_path: str | None = None,
+    keep_recent: int = 1,
+    dry_run: bool = False,
+    evict_only: bool = False,
+) -> dict[str, Any]:
+    """Reclaim local disk by evicting cold takes to the cloud spillway, oldest
+    first, until free space reaches the target or candidates run out. The newest
+    `keep_recent` takes are protected so in-progress work is never evicted."""
+    free_before = _free_disk_bytes(takes_root)
+    result: dict[str, Any] = {
+        "schema": "demo_take_reclaim_space_result_v0",
+        "takes_root": str(takes_root),
+        "target_free_bytes": target_free_bytes,
+        "target_free_human": human_bytes(target_free_bytes),
+        "free_before_bytes": free_before,
+        "free_before_human": human_bytes(free_before or 0),
+        "dry_run": dry_run,
+        "evict_only": evict_only,
+        "keep_recent": keep_recent,
+        "takes": [],
+    }
+    if not takes_root.exists():
+        result["status"] = "noop"
+        result["free_after_bytes"] = free_before
+        return result
+    if free_before is not None and free_before >= target_free_bytes:
+        result["status"] = "satisfied"
+        result["free_after_bytes"] = free_before
+        result["free_after_human"] = human_bytes(free_before)
+        result["freed_bytes"] = 0
+        return result
+
+    takes = sorted(
+        (d for d in takes_root.iterdir() if d.is_dir() and d.name.startswith("take_")),
+        key=lambda d: d.stat().st_mtime,
+    )
+    protected = {t.name for t in takes[len(takes) - keep_recent:]} if keep_recent > 0 else set()
+    evicted_total = 0
+    for take in takes:
+        free_now = _free_disk_bytes(takes_root)
+        # In dry-run the disk never changes, so fold the previewed bytes into the
+        # stop condition; in a real run free_now already reflects the evictions.
+        projected_now = (free_now or 0) + (evicted_total if dry_run else 0)
+        if free_now is not None and projected_now >= target_free_bytes:
+            break
+        if take.name in protected:
+            result["takes"].append({"take_id": take.name, "action": "protected_recent"})
+            continue
+        if _tree_bytes(take) <= 0:
+            continue
+        eviction = evict_take_to_cloud(
+            take,
+            remote=remote,
+            rclone_path=rclone_path,
+            dry_run=dry_run,
+            evict_only=evict_only,
+        )
+        result["takes"].append(eviction)
+        evicted_total += int(eviction.get("freed_bytes") or 0)
+
+    free_after = _free_disk_bytes(takes_root)
+    result["free_after_bytes"] = free_after
+    result["free_after_human"] = human_bytes(free_after or 0)
+    # freed_bytes is the actual evicted byte total (summed from unlinked files),
+    # not a disk-free delta, so concurrent writers cannot skew it.
+    result["freed_bytes"] = evicted_total
+    result["freed_human"] = human_bytes(max(0, evicted_total))
+    if not dry_run and free_after is not None and free_after >= target_free_bytes:
+        result["status"] = "satisfied"
+    elif dry_run:
+        result["status"] = "dry_run"
+    elif evicted_total > 0:
+        result["status"] = "partial"
+    else:
+        result["status"] = "noop"
+    return result
+
+
 def _fake_words(text: str, start: float, step: float = 0.18) -> list[dict[str, Any]]:
     words: list[dict[str, Any]] = []
     for index, token in enumerate(text.split()):
@@ -9626,6 +9878,18 @@ def main() -> int:
     archive_parser.add_argument("--force", action="store_true")
     archive_parser.add_argument("--transport", choices=sorted(ARCHIVE_TRANSPORT_MODES), default=None)
 
+    reclaim_parser = sub.add_parser(
+        "reclaim-space",
+        help="Evict cold takes to the cloud spillway until local free disk reaches a target",
+    )
+    reclaim_parser.add_argument("--takes-root", default=None)
+    reclaim_parser.add_argument("--target-free-gib", type=float, default=None)
+    reclaim_parser.add_argument("--remote", default=None)
+    reclaim_parser.add_argument("--rclone", default=None)
+    reclaim_parser.add_argument("--keep-recent", type=int, default=1)
+    reclaim_parser.add_argument("--dry-run", action="store_true")
+    reclaim_parser.add_argument("--evict-only", action="store_true")
+
     restore_drill_parser = sub.add_parser("restore-drill")
     restore_drill_parser.add_argument("--take-root", required=True)
     restore_drill_parser.add_argument("--restore-root", default=None)
@@ -9782,6 +10046,26 @@ def main() -> int:
                 rclone_path=args.rclone,
                 force=args.force,
                 transport_mode=args.transport,
+            )))
+        elif args.command == "reclaim-space":
+            takes_root = (
+                Path(args.takes_root)
+                if args.takes_root
+                else REPO_ROOT / "state" / "dissemination" / "demo_takes"
+            )
+            target_free_bytes = (
+                int(args.target_free_gib * 1024 * 1024 * 1024)
+                if args.target_free_gib is not None
+                else LOCAL_STORAGE_SOFT_FLOOR_BYTES
+            )
+            print(json.dumps(reclaim_space(
+                takes_root,
+                target_free_bytes=target_free_bytes,
+                remote=args.remote,
+                rclone_path=args.rclone,
+                keep_recent=args.keep_recent,
+                dry_run=args.dry_run,
+                evict_only=args.evict_only,
             )))
         elif args.command == "restore-drill":
             print(json.dumps(restore_drill(

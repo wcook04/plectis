@@ -10,8 +10,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 404740,
-      "line_count": 9893,
+      "byte_count": 415875,
+      "line_count": 10177,
       "material_class": "public_macro_tool_body",
       "module_id": "demo_take_capture",
       "path": "source_modules/apps/demo-take-console/support/demo_take_capture.py",
@@ -20,14 +20,14 @@
         "pause_events",
         "def build_speech_blocks("
       ],
-      "sha256": "3243d80d569d0bef7535632fd5254a01366fbe504a7e18fa93db1e3a6637a7e3",
+      "sha256": "32e75c08a62dc71653bff5afee9ed14cd173667f2813c3866af97a6ca62f7d27",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "apps/demo-take-console/support/demo_take_capture.py",
-      "source_sha256": "3243d80d569d0bef7535632fd5254a01366fbe504a7e18fa93db1e3a6637a7e3",
+      "source_sha256": "32e75c08a62dc71653bff5afee9ed14cd173667f2813c3866af97a6ca62f7d27",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/apps/demo-take-console/support/demo_take_capture.py",
-      "target_sha256": "3243d80d569d0bef7535632fd5254a01366fbe504a7e18fa93db1e3a6637a7e3",
+      "target_sha256": "32e75c08a62dc71653bff5afee9ed14cd173667f2813c3866af97a6ca62f7d27",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
       ]
