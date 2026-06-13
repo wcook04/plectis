@@ -194,7 +194,10 @@
       ],
       "source_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors]",
       "statement": "The formal evidence cell anchor resolver validates claim-to-evidence-cell resolution, public source anchors, permitted claim strength, copied source-module manifests, leakage refusals, and body-free evidence anchor receipts.",
-      "status": "active"
+      "status": "active",
+      "upstream_of": [
+        "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane"
+      ]
     },
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
@@ -308,21 +311,29 @@
         "target_id": "concept.formal_math_and_proof_witness_bundle",
         "target_kind": "concept",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
       "formal_evidence_cell_anchor_resolver"
     ],
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors]",
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "status": "residual_pressure"
-      }
-    ],
-    "upstream_mechanism_refs": []
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane"
+    ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [

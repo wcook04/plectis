@@ -2771,6 +2771,9 @@
         "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.cli formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_evidence_cell_anchor_resolver.py -q"
       },
+      "upstream_of": [
+        "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane"
+      ],
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
       ]

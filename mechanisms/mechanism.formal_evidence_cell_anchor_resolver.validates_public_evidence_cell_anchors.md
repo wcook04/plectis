@@ -15,7 +15,7 @@ The formal evidence cell anchor resolver validates claim-to-evidence-cell resolu
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py` (resolved_code_locus)
 - `runs_in` -> `organ:formal_evidence_cell_anchor_resolver` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane` (resolved_json_instance)
 
 ## Anti-Claims
 

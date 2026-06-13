@@ -4589,6 +4589,14 @@ def test_formal_evidence_cell_anchor_resolver_population_has_capsule_and_mechani
         "mechanism.formal_evidence_cell_anchor_resolver."
         "validates_public_evidence_cell_anchor_resolution"
     )
+    atlas_mechanism_id = (
+        "mechanism.formal_evidence_cell_anchor_resolver."
+        "validates_public_evidence_cell_anchors"
+    )
+    proof_diagnostic_mechanism_id = (
+        "mechanism.proof_diagnostic_evidence_spine."
+        "validates_ring2_diagnostic_evidence_membrane"
+    )
 
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
     assert projection["registry_atlas_join_health"]["status"] == "pass"
@@ -4596,10 +4604,7 @@ def test_formal_evidence_cell_anchor_resolver_population_has_capsule_and_mechani
         projection,
         "formal_evidence_cell_anchor_resolver",
         paper_module_ref="paper_modules/formal_evidence_cell_anchor_resolver.md",
-        atlas_mechanism_id=(
-            "mechanism.formal_evidence_cell_anchor_resolver."
-            "validates_public_evidence_cell_anchors"
-        ),
+        atlas_mechanism_id=atlas_mechanism_id,
         code_path="src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
     )
 
@@ -4624,6 +4629,26 @@ def test_formal_evidence_cell_anchor_resolver_population_has_capsule_and_mechani
         "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         in mechanism["input_refs"]
     )
+
+    anchor_instance = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "mechanisms"
+            / f"{atlas_mechanism_id}.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert any(
+        edge["relation_id"] == "mechanism.upstream_of.mechanism"
+        and edge["target_id"] == proof_diagnostic_mechanism_id
+        and edge["target_status"] == "resolved_json_instance"
+        for edge in anchor_instance["relationships"]["edges"]
+    )
+    assert "mechanism.upstream_of.mechanism" not in {
+        residual["relation_id"]
+        for residual in anchor_instance["relationships"][
+            "unpopulated_selective_relations"
+        ]
+    }
 
     standard = json.loads(
         (

@@ -150,8 +150,8 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     assert mechanism["routed"] == 100
     assert mechanism["incomplete_ids"] == []
     assert mechanism["issue_rows"] == []
-    assert mechanism["known_residual_selective_relation_row_count"] == 33
-    assert mechanism["known_residual_selective_relation_count"] == 33
+    assert mechanism["known_residual_selective_relation_row_count"] == 32
+    assert mechanism["known_residual_selective_relation_count"] == 32
     assert mechanism["planned_edge_row_count"] == 4
     assert mechanism["planned_edge_count"] == 4
     assert paper_modules["status"] == "complete"
