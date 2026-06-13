@@ -76,7 +76,7 @@ doctrine_edges:
 
 ## Why this skill exists
 
-The operator's gesture (2026-04-30): *"can you create for me a ledger which agents can add to and update and its always being updated and each entry can be ranked and we're always adjusting the rankings and justifying why we adjust... so that our system can constantly have a mental todo list this is super powerful if done right."*
+The originating 2026-04-30 operator request asked for a ledger that agents could append to, keep current, rank and rerank with justification, and use as the system's durable mental todo list.
 
 That is unambiguous: a multi-writer, durable, rank-ordered, justification-bearing surface with a sign-off lane. No existing kind covers it; the paper module carries the coverage-gap proof, and the standards carry the schema.
 
@@ -236,6 +236,8 @@ Status/update/final micro-protocol:
 4. If another Task Ledger mutation is currently running, wait for it to finish before writing the status. The chat text is not the backlog and not a receipt.
 
 Residual Closure Protocol: a named residual cannot evaporate into prose. Before yielding, any noticed unresolved issue, drift, validation failure, missing affordance, suspicious invariant, or follow-up needs one receipt: fixed now, quick-captured, linked to a WorkItem, or explicit no-op/not-actionable. `quick-capture` enters `capture_inbox` / `capture_triage`; promotion, commitment, rank, and signoff happen later through organizer events.
+
+Explicit non-work boundary: conversational, philosophical, personal, or otherwise non-repo questions do not become Task Ledger or WorkItem residuals merely because they use words like "unresolved", "question", "no-op", or "nothing". Treat them as a no-op/not-actionable receipt only when the local text explicitly says there is no repo task/deliverable and confirms no durable work such as code, commits, validation, or actionable engineering residual. If the same closeout also names concrete future work, missing owner surfaces, failing checks, or repo follow-up, bind that concrete work normally.
 
 Warning-only baseline results are not residuals by themselves. `valid_with_warnings` plus `error_count=0` routes to the baseline rule above unless the warning is new, task-owned, or materially changed.
 

@@ -188,7 +188,25 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
     )
     assert (
         result["source_open_body_imports"]["source_target_exact_copy_count"]
-        == 8
+        == 7
+    )
+    assert (
+        result["source_open_body_imports"][
+            "source_target_verified_light_edit_count"
+        ]
+        == 1
+    )
+    task_ledger_import = next(
+        row
+        for row in result["source_module_imports"]
+        if row["module_id"] == "task_ledger_skill_body"
+    )
+    assert task_ledger_import["source_hash_matches"] is True
+    assert task_ledger_import["source_target_exact_copy"] is False
+    assert task_ledger_import["source_target_verified_light_edit"] is True
+    assert (
+        task_ledger_import["source_to_target_relation"]
+        == "source_faithful_public_light_edit"
     )
     assert result["status_counts"] == {
         "nothing_to_refine": 1,
@@ -234,6 +252,12 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
         "bind_closeout",
         "publish_reentry_condition",
     ]
+    task_ledger_body = (
+        BUNDLE_INPUT
+        / "source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger.md"
+    ).read_text(encoding="utf-8")
+    assert "The operator's gesture" not in task_ledger_body
+    assert "can you create for me a ledger" not in task_ledger_body
 
 
 def test_voice_to_doctrine_rejects_source_module_digest_mismatch(
@@ -798,7 +822,7 @@ def test_voice_to_doctrine_exported_bundle_rejects_lesson_ref_mutations(
         )
 
 
-def test_voice_to_doctrine_source_modules_are_exact_macro_body_copies() -> None:
+def test_voice_to_doctrine_source_modules_are_verified_macro_body_imports() -> None:
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
     fixture_manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
 
@@ -810,20 +834,37 @@ def test_voice_to_doctrine_source_modules_are_exact_macro_body_copies() -> None:
         "examples/voice_to_doctrine_self_improvement_loop/"
         "exported_voice_to_doctrine_bundle/source_module_manifest.json"
     ]
+    light_edit_row_count = 0
     for row in manifest["modules"]:
         source = SOURCE_ROOT / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"]
         text = target.read_text(encoding="utf-8")
+        light_edit = (
+            row.get("source_to_target_relation")
+            == "source_faithful_public_light_edit"
+        )
 
         assert source.is_file()
         assert target.is_file()
-        assert source.read_bytes() == target.read_bytes()
         assert _sha256(source) == row["source_sha256"]
         assert _sha256(target) == row["target_sha256"]
-        assert row["source_sha256"] == row["target_sha256"]
         assert row["required_anchors_present"] is True
         for anchor in row["required_anchors"]:
             assert anchor in text
+        if light_edit:
+            light_edit_row_count += 1
+            assert row["verification_mode"] == "verified_light_edit_recipe"
+            assert row["public_safe_mode"] == "verified_public_macro_body_light_edit"
+            assert row["source_sha256"] != row["target_sha256"]
+            assert row["sha256_match"] is False
+            assert source.read_bytes() != target.read_bytes()
+            assert "The operator's gesture" not in text
+            assert "can you create for me a ledger" not in text
+        else:
+            assert source.read_bytes() == target.read_bytes()
+            assert row["source_sha256"] == row["target_sha256"]
+            assert row["sha256_match"] is True
+    assert light_edit_row_count == 1
 
 
 def test_voice_to_doctrine_bundle_card_prints_compact_summary(

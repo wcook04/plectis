@@ -7,6 +7,9 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs.macro_projection_import_protocol import (
+    VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS,
+)
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 from microcosm_core.secret_exclusion_scan import (
@@ -521,8 +524,23 @@ def _source_module_result(
         target_ref = row.get("target_ref")
         source_ref = str(row.get("source_ref") or "")
         material_class = str(row.get("material_class") or "")
+        verification_mode = str(row.get("verification_mode") or "")
+        source_to_target_relation = str(row.get("source_to_target_relation") or "")
+        verified_light_edit = (
+            source_to_target_relation in VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+        )
         required_anchors = _strings(row.get("required_anchors"))
         module_findings: list[dict[str, Any]] = []
+        if verified_light_edit and verification_mode != "verified_light_edit_recipe":
+            module_findings.append(
+                _finding(
+                    "VOICE_DOCTRINE_SOURCE_MODULE_LIGHT_EDIT_MODE_MISSING",
+                    "Public light-edit source body rows must declare verified_light_edit_recipe.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         if material_class not in SOURCE_BODY_MATERIAL_CLASSES:
             module_findings.append(
                 _finding(
@@ -598,7 +616,9 @@ def _source_module_result(
             expected_target_sha = str(row.get("target_sha256") or "")
             expected_source_sha = str(row.get("source_sha256") or "")
             if actual_sha != expected_target_sha or (
-                expected_source_sha and expected_source_sha != actual_sha
+                expected_source_sha
+                and expected_source_sha != actual_sha
+                and not verified_light_edit
             ):
                 module_findings.append(
                     _finding(
@@ -663,15 +683,16 @@ def _source_module_result(
                         )
                     )
                 if not source_target_exact_copy:
-                    module_findings.append(
-                        _finding(
-                            "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH",
-                            "Copied source body target must be an exact copy of the live macro source file.",
-                            case_id="source_module_manifest",
-                            subject_id=module_id,
-                            subject_kind="source_module",
+                    if not verified_light_edit:
+                        module_findings.append(
+                            _finding(
+                                "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH",
+                                "Copied source body target must be an exact copy of the live macro source file.",
+                                case_id="source_module_manifest",
+                                subject_id=module_id,
+                                subject_kind="source_module",
+                            )
                         )
-                    )
                 if not source_anchors_present:
                     module_findings.append(
                         _finding(
@@ -702,11 +723,14 @@ def _source_module_result(
                 "source_ref": source_ref,
                 "target_ref": target_ref,
                 "material_class": material_class,
+                "verification_mode": verification_mode,
+                "source_to_target_relation": source_to_target_relation,
                 "sha256": actual_sha,
                 "source_path_exists": source_path_exists,
                 "source_sha256": source_sha,
                 "source_hash_matches": source_hash_matches,
                 "source_target_exact_copy": source_target_exact_copy,
+                "source_target_verified_light_edit": verified_light_edit,
                 "source_anchors_present": source_anchors_present,
                 "byte_count": actual_byte_count,
                 "line_count": actual_line_count,
@@ -746,6 +770,13 @@ def _source_module_result(
                     row
                     for row in module_imports
                     if row.get("source_target_exact_copy") is True
+                ]
+            ),
+            "source_target_verified_light_edit_count": len(
+                [
+                    row
+                    for row in module_imports
+                    if row.get("source_target_verified_light_edit") is True
                 ]
             ),
             "body_text_exported_in_receipts": False,
