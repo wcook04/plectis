@@ -26,6 +26,7 @@ The macro projection import protocol organ validates fixture and exported projec
 - `upstream_of` -> `mechanism:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule` (resolved_json_instance)

@@ -212,6 +212,7 @@
         "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule",
         "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
         "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
         "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
         "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
         "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
@@ -496,6 +497,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -739,6 +753,7 @@
       "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule",
       "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
       "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+      "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
       "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
       "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
       "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
