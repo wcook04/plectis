@@ -2538,8 +2538,8 @@
         "P-18",
         "P-4"
       ],
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, and the shared public agent-execution-trace macro tool); no other named organ is fed or consumed",
+      "standalone_or_wired": "wired",
+      "wiring_note": "Names agent_sandbox_policy_escape_replay as a structural downstream sibling from the mechanism upstream graph; this is navigation structure only, not live MCP/tool invocation, sandbox invocation, release, runtime-correctness, or proof authority.",
       "display_name": "MCP Tool Authority Replay",
       "specialty": [
         "ai-safety",
@@ -2547,7 +2547,9 @@
         "red-teaming",
         "provider-ops"
       ],
-      "wires_to": [],
+      "wires_to": [
+        "agent_sandbox_policy_escape_replay"
+      ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
       ]

@@ -139,9 +139,11 @@
         "red-teaming",
         "provider-ops"
       ],
-      "standalone_or_wired": "standalone_specimen",
-      "wires_to": [],
-      "wiring_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, and the shared public agent-execution-trace macro tool); no other named organ is fed or consumed"
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "agent_sandbox_policy_escape_replay"
+      ],
+      "wiring_note": "Names agent_sandbox_policy_escape_replay as a structural downstream sibling from the mechanism upstream graph; this is navigation structure only, not live MCP/tool invocation, sandbox invocation, release, runtime-correctness, or proof authority."
     },
     "source_registry_row": {
       "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -310,6 +312,19 @@
         "target_id": "AX-3",
         "target_kind": "axiom",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[38:mcp_tool_authority_replay].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "agent_sandbox_policy_escape_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -328,16 +343,10 @@
     ],
     "source_atlas_row_ref": "core/organ_atlas.json::organs[38:mcp_tool_authority_replay]",
     "source_registry_row_ref": "core/organ_registry.json::implemented_organs[38:mcp_tool_authority_replay]",
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Organ atlas row does not name sibling wires_to targets.",
-        "relation_id": "organ.wires_to.organ",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ],
-    "wires_to": []
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "agent_sandbox_policy_escape_replay"
+    ]
   },
   "role": "An agent runs this to check that a recorded tool-use bundle is admissible: every call has a narrow scope ref, writes carry approval plus ledger plus rollback refs, untrusted output is treated as data not instruction, cold-replay receipts exist, payloads/account refs stay metadata-only, and all eight expected negative-abuse cases fire. It validates presence and consistency of this evidence only; it does not run tools, hit providers, or authorize anything.",
   "schema_version": "microcosm_organ_instance_v1",
@@ -368,5 +377,7 @@
     "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay",
     "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
   ],
-  "wires_to": []
+  "wires_to": [
+    "agent_sandbox_policy_escape_replay"
+  ]
 }

@@ -164,8 +164,8 @@
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 28,
-        "known_residual_selective_relation_row_count": 28,
+        "known_residual_selective_relation_count": 27,
+        "known_residual_selective_relation_row_count": 27,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -246,10 +246,6 @@
           {
             "count": 1,
             "id": "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay"
           },
           {
             "count": 1,

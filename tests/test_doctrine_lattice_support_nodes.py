@@ -346,30 +346,30 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
     organ_instance_counts = dict(
         sorted(Counter(row["organ_id"] for row in organ_details).items())
     )
-    assert organs["unpopulated_selective_edge_count"] == 27
-    assert organs["unpopulated_selective_relation_count"] == 27
-    assert organs["residual_relation_count"] == 27
-    assert organs["residual_relation_counts_by_requirement"] == {"selective": 27}
+    assert organs["unpopulated_selective_edge_count"] == 26
+    assert organs["unpopulated_selective_relation_count"] == 26
+    assert organs["residual_relation_count"] == 26
+    assert organs["residual_relation_counts_by_requirement"] == {"selective": 26}
     assert organs["unpopulated_selective_relation_counts_by_relation_id"] == {
-        "organ.wires_to.organ": 27,
+        "organ.wires_to.organ": 26,
     }
     assert organs["unpopulated_selective_relation_counts_by_instance_id"] == (
         organ_instance_counts
     )
     assert organs["unpopulated_selective_relation_counts_by_pressure_ref"] == {
-        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 27,
+        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 26,
     }
     assert organs["unpopulated_selective_relation_counts_by_authority_boundary"] == {
-        "computed_from_organ_atlas_registry_residuals_not_source_edge_inference": 27,
+        "computed_from_organ_atlas_registry_residuals_not_source_edge_inference": 26,
     }
     assert "typed from atlas/registry parity plus the relation registry" in organs[
         "support_scope"
     ]
     assert "mechanism upstream host-organ graph only" in organs["support_scope"]
-    assert organs["wires_to_residual_fillability_detail_count"] == 27
-    assert len(organs["wires_to_residual_fillability_details"]) == 27
+    assert organs["wires_to_residual_fillability_detail_count"] == 26
+    assert len(organs["wires_to_residual_fillability_details"]) == 26
     assert organs["wires_to_residual_counts_by_fillability_status"] == {
-        "no_mechanism_upstream_wiring_target_named": 27,
+        "no_mechanism_upstream_wiring_target_named": 26,
     }
     assert organs["wires_to_mechanism_upstream_missing_source_declaration_count"] == 0
     assert (
@@ -448,14 +448,10 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
         == mechanism_upstream_count
     )
     assert mechanisms["upstream_residual_counts_by_fillability_status"] == {
-        "capsule_dependency_upstream_target_missing_source_declaration": 1,
-        "no_capsule_dependency_upstream_target_named": mechanism_upstream_count - 1,
+        "no_capsule_dependency_upstream_target_named": mechanism_upstream_count,
     }
-    assert mechanisms["upstream_capsule_dependency_missing_source_declaration_count"] == 1
-    assert {
-        row["mechanism_id"]
-        for row in mechanisms["upstream_capsule_dependency_missing_source_declaration_details"]
-    } == {"mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay"}
+    assert mechanisms["upstream_capsule_dependency_missing_source_declaration_count"] == 0
+    assert mechanisms["upstream_capsule_dependency_missing_source_declaration_details"] == []
     assert mechanisms["upstream_capsule_dependency_unresolved_subject_count"] == 0
     assert mechanisms["upstream_capsule_dependency_unresolved_subject_details"] == []
     for row in mechanism_details:
@@ -469,22 +465,9 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
         assert row["source_ref"].startswith("core/mechanism_sources.json::mechanisms[")
     for row in mechanisms["upstream_residual_fillability_details"]:
         assert row["relation_id"] == "mechanism.upstream_of.mechanism"
-        if (
-            row["mechanism_id"]
-            == "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay"
-        ):
-            assert row["fillability_status"] == (
-                "capsule_dependency_upstream_target_missing_source_declaration"
-            )
-            assert row["capsule_dependency_expected_upstream_of"]
-            assert row["capsule_dependency_missing_upstream_of"]
-        else:
-            assert (
-                row["fillability_status"]
-                == "no_capsule_dependency_upstream_target_named"
-            )
-            assert row["capsule_dependency_expected_upstream_of"] == []
-            assert row["capsule_dependency_missing_upstream_of"] == []
+        assert row["fillability_status"] == "no_capsule_dependency_upstream_target_named"
+        assert row["capsule_dependency_expected_upstream_of"] == []
+        assert row["capsule_dependency_missing_upstream_of"] == []
         assert row["capsule_dependency_unresolved_subjects"] == []
         assert row["claim_ceiling"] == (
             "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority"
@@ -855,7 +838,7 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     parity = projection["mechanism_capsule_dependency_upstream_parity"]
     assert parity["status"] == "deficit"
     assert parity["covered_edge_count"] > 0
-    assert parity["missing_edge_count"] == 13
+    assert parity["missing_edge_count"] == 12
     assert {
         (
             row["source_mechanism"],
@@ -888,13 +871,23 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
         )
         for row in parity["missing_edges"]
     }
+    assert (
+        "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+        "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+    ) not in {
+        (
+            row["source_mechanism"],
+            row["target_mechanism"],
+        )
+        for row in parity["missing_edges"]
+    }
     assert parity["relation_direction"].startswith(
         "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A)"
     )
     assert parity == health["mechanisms"]["capsule_dependency_upstream_parity"]
     assert (
         entry_card["current_counts"]["mechanism_capsule_dependency_upstream_missing_count"]
-        == 13
+        == 12
     )
     assert any(
         guard["guard_id"] == "paper_dependency_not_reverse_mechanism_upstream_edge"

@@ -15,7 +15,7 @@ The MCP tool authority replay organ validates public tool manifest scope, call m
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/mcp_tool_authority_replay.py` (resolved_code_locus)
 - `runs_in` -> `organ:mcp_tool_authority_replay` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.agent_reliability_and_safety_validator_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace` (resolved_json_instance)
 
 ## Anti-Claims
 
