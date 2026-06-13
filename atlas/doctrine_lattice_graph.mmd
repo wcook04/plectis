@@ -7335,6 +7335,8 @@ flowchart LR
   paper_module_paper_module_engine_room_generated_projection_drift_gate -- abides_by --> axiom_AX_10
   axiom_AX_11["axiom:AX-11"]
   paper_module_paper_module_engine_room_generated_projection_drift_gate -- abides_by --> axiom_AX_11
+  paper_module_paper_module_macro_projection_import_protocol["paper_module:paper_module.macro_projection_import_protocol"]
+  paper_module_paper_module_engine_room_generated_projection_drift_gate -- depends_on --> paper_module_paper_module_macro_projection_import_protocol
   code_locus_src_microcosm_core_engine_room_generated_projection_drift_gate_py["code_locus:src/microcosm_core/engine_room/generated_projection_drift_gate.py"]
   paper_module_paper_module_engine_room_generated_projection_drift_gate -- cites --> code_locus_src_microcosm_core_engine_room_generated_projection_drift_gate_py
   paper_module_paper_module_engine_room_lean_proof_search_lab["paper_module:paper_module.engine_room_lean_proof_search_lab: Engine Room Lean Proof Search Lab"]:::paper_module

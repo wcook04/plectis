@@ -6677,6 +6677,9 @@
           "resolution": "resolved"
         }
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "generated_projections": {
         "markdown": {
           "path": "paper_modules/engine_room_generated_projection_drift_gate.md",
