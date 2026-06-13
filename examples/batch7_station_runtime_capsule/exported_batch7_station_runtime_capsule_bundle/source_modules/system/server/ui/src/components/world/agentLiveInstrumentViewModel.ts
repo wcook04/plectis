@@ -348,6 +348,41 @@ export interface ApplyDeltaResult {
   snapshotReason: string | null;
 }
 
+/**
+ * Union channel manifests across a delta instead of replacing. Each delta
+ * rebuilds its manifest from only the events since the cursor, so a 1-2s slice
+ * would otherwise SHRINK the channel set to whatever it happened to contain —
+ * the visible cause of the floor "cycling through channels" and hiding every
+ * segment off the surviving channel. Merging keeps the set monotonic within a
+ * scene lifetime and keeps each channel's count at the larger of the two so a
+ * sparse slice does not flicker a count down to zero.
+ */
+function mergeChannelManifests(
+  base: AgentAnimationChannelManifest[],
+  incoming: AgentAnimationChannelManifest[],
+): AgentAnimationChannelManifest[] {
+  if (incoming.length === 0) return base;
+  const byId = new Map<string, AgentAnimationChannelManifest>();
+  const order: string[] = [];
+  for (const ch of base) {
+    byId.set(String(ch.id), { ...ch });
+    order.push(String(ch.id));
+  }
+  for (const ch of incoming) {
+    const id = String(ch.id);
+    const existing = byId.get(id);
+    if (existing) {
+      existing.event_count = Math.max(existing.event_count ?? 0, ch.event_count ?? 0);
+      existing.label = ch.label || existing.label;
+      existing.visible_by_default = ch.visible_by_default;
+    } else {
+      byId.set(id, { ...ch });
+      order.push(id);
+    }
+  }
+  return order.map((id) => byId.get(id) as AgentAnimationChannelManifest);
+}
+
 export function applyAnimationDelta(
   scene: AgentObservabilityAnimationResponse,
   delta: AgentObservabilityAnimationDeltaResponse,
@@ -371,7 +406,7 @@ export function applyAnimationDelta(
       generated_at: delta.generated_at,
       cursor: delta.cursor,
       backpressure: delta.backpressure,
-      channels: delta.channels.length > 0 ? delta.channels : merged.channels,
+      channels: mergeChannelManifests(merged.channels, delta.channels),
     },
     snapshotRequired: false,
     snapshotReason: null,
@@ -922,6 +957,41 @@ export function buildLiveInstrumentViewModel(input: LiveInstrumentVMInput): Live
 }
 
 /* --------------------------------------------- presentation-only utilities */
+
+export interface CoalescedAttention {
+  key: string;
+  label: string;
+  severity: string;
+  count: number;
+  representativeId: string;
+  members: AgentAnimationAttentionItem[];
+}
+
+/**
+ * Collapse identical attention chips (same severity + label) into one entry
+ * with a count, so a fleet of lost-heartbeat sessions reads as "Heartbeat lost
+ * ×7" instead of seven identical chips. Display-only: every underlying item is
+ * preserved in `members` — the count never drops a real item. Group order
+ * follows first appearance, so the rank-sorted input keeps loudest-first.
+ */
+export function coalesceAttention(items: AgentAnimationAttentionItem[]): CoalescedAttention[] {
+  const order: string[] = [];
+  const groups = new Map<string, CoalescedAttention>();
+  for (const item of items) {
+    const label = item.label || item.kind || 'attention';
+    const severity = item.severity || 'info';
+    const key = `${severity}::${label}`;
+    let group = groups.get(key);
+    if (!group) {
+      group = { key, label, severity, count: 0, representativeId: item.id, members: [] };
+      groups.set(key, group);
+      order.push(key);
+    }
+    group.count += 1;
+    group.members.push(item);
+  }
+  return order.map((key) => groups.get(key) as CoalescedAttention);
+}
 
 export function formatLagMs(lagMs: number | null | undefined): string {
   if (lagMs == null || !Number.isFinite(lagMs) || lagMs < 0) return '—';

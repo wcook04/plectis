@@ -6,8 +6,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 413228,
-      "line_count": 8980,
+      "byte_count": 413944,
+      "line_count": 9001,
       "material_class": "public_macro_frontend_body",
       "path": "source_modules/tools/agent_trace_structurer/app.mjs",
       "required_anchors": [
@@ -16,20 +16,20 @@
         "MISSION_AUTO_REFRESH_TICK_MS",
         "resourceFreshnessPayload"
       ],
-      "sha256": "1821abcfcfccf1cff2207c5ca14355c3c3a002c1432ca024ed640dfaff0c8ff8",
+      "sha256": "e20b353ab0d789554452e9337de674773cc46621488d8f95e8415d2453acead1",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/agent_trace_structurer/app.mjs",
-      "source_sha256": "1821abcfcfccf1cff2207c5ca14355c3c3a002c1432ca024ed640dfaff0c8ff8",
+      "source_sha256": "e20b353ab0d789554452e9337de674773cc46621488d8f95e8415d2453acead1",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_modules/tools/agent_trace_structurer/app.mjs",
-      "target_sha256": "1821abcfcfccf1cff2207c5ca14355c3c3a002c1432ca024ed640dfaff0c8ff8"
+      "target_sha256": "e20b353ab0d789554452e9337de674773cc46621488d8f95e8415d2453acead1"
     },
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 38227,
-      "line_count": 967,
+      "byte_count": 40879,
+      "line_count": 1037,
       "material_class": "public_macro_frontend_body",
       "path": "source_modules/system/server/ui/src/components/world/agentLiveInstrumentViewModel.ts",
       "required_anchors": [
@@ -38,14 +38,14 @@
         "function buildProofAuthoritySummary",
         "function buildProviderHealth"
       ],
-      "sha256": "5a4bed57de83bb559d9bee55d5702dfb6b4193241f66bd534f8f587d984653c4",
+      "sha256": "36797e028038d7ea1c4b3bac116ec9ef37eef6b45d87f323674dc1ce702f6de5",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/server/ui/src/components/world/agentLiveInstrumentViewModel.ts",
-      "source_sha256": "5a4bed57de83bb559d9bee55d5702dfb6b4193241f66bd534f8f587d984653c4",
+      "source_sha256": "36797e028038d7ea1c4b3bac116ec9ef37eef6b45d87f323674dc1ce702f6de5",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle/source_modules/system/server/ui/src/components/world/agentLiveInstrumentViewModel.ts",
-      "target_sha256": "5a4bed57de83bb559d9bee55d5702dfb6b4193241f66bd534f8f587d984653c4"
+      "target_sha256": "36797e028038d7ea1c4b3bac116ec9ef37eef6b45d87f323674dc1ce702f6de5"
     },
     {
       "body_copied": true,

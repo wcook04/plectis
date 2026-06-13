@@ -2762,6 +2762,26 @@ function rowHasActiveTrace(row) {
   return Boolean(rowActiveTurn(row));
 }
 
+function rowActiveSourceTurnForCopy(row) {
+  const activeTurn = rowActiveTurn(row);
+  if (activeTurn) return activeTurn;
+  if (!rowHasActiveGoal(row)) return null;
+  const directCandidates = [row?.active_turn, row?.preferred_trace_turn, row?.stale_active_turn];
+  for (const turn of directCandidates) {
+    if (traceTurnLooksActive(turn)) return turn;
+  }
+  const displayTurn = traceDisplayTurn(row);
+  const noCompletedTurn = row?.latest_completed_turn?.turn_index == null;
+  if (
+    noCompletedTurn
+    && displayTurn?.turn_index != null
+    && (traceTurnLooksActive(displayTurn) || row?.artifact_freshness?.state === 'partial_only')
+  ) {
+    return displayTurn;
+  }
+  return null;
+}
+
 function rowHasStaleActiveTurn(row) {
   if (!rowHasSoftStaleTraceSummary(row)) return false;
   if (row?.active_turn_stale === true || row?.stale_active_turn) return true;
@@ -3891,8 +3911,9 @@ function copySelectedMissionArtifactUnsafe(kind, variant) {
     const provider = row.provider === 'claude_code' ? 'claude' : row.provider;
     const smokeTurn = Number(window.__aiwTraceSmokeTurnIndex);
     const hasForcedTurn = Number.isInteger(smokeTurn) && smokeTurn > 0;
-    const traceTurn = rowHasActiveTrace(row) ? activityDisplayTurn(row) : traceDisplayTurn(row);
-    const activeTrace = rowHasActiveTrace(row);
+    const activeCopyTurn = rowActiveSourceTurnForCopy(row);
+    const activeTrace = Boolean(activeCopyTurn);
+    const traceTurn = activeCopyTurn || traceDisplayTurn(row);
     const sourceWindow = selectedTraceSourceWindow();
     const backendSourceWindow = backendTraceSourceWindow(sourceWindow);
     const traceWindow = traceWindowForSource(row, sourceWindow, traceTurn);
