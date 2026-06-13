@@ -129,7 +129,7 @@ Atlas owner lane binds those edges.
 - current source authority:
   `paper_module_payload.source_authority: json_capsule`.
 - exact source ref:
-  `core/paper_module_capsules.json::paper_modules[91:paper_module.engine_room_lean_proof_search_lab]`.
+  `core/paper_module_capsules.json::paper_modules[92:paper_module.engine_room_lean_proof_search_lab]`.
 - generated subject/code state:
   mechanism subject
   `mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab`;
@@ -227,7 +227,7 @@ anchors, and hashes.
 Read this page as a public reader projection over a staged Engine Room
 exercise. The generated JSON row now reports
 `paper_module_payload.source_authority: json_capsule` with exact source ref
-`core/paper_module_capsules.json::paper_modules[91:paper_module.engine_room_lean_proof_search_lab]`.
+`core/paper_module_capsules.json::paper_modules[92:paper_module.engine_room_lean_proof_search_lab]`.
 The useful proof is still narrow: the capsule names a staged mechanism subject,
 resolved source loci, public fixtures, the standard, and validation receipts.
 It does not prove frontier theorem proving, library-scale automation, private
@@ -237,7 +237,7 @@ aggregate doctrine-lattice coverage, or release readiness.
 ## JSON Capsule Binding
 
 The JSON capsule source authority is
-`core/paper_module_capsules.json::paper_modules[91:paper_module.engine_room_lean_proof_search_lab]`.
+`core/paper_module_capsules.json::paper_modules[92:paper_module.engine_room_lean_proof_search_lab]`.
 This Markdown is a reader projection over that capsule row, not the row itself.
 The generated Mermaid projection is `available_from_capsule_edges`; the
 generated Atlas projection is

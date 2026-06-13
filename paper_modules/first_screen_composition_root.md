@@ -94,7 +94,7 @@ certification, or whole-system correctness.
 `paper_module.first_screen_composition_root` as the source-authority capsule row.
 This Markdown is a reader projection over that capsule row, not source
 authority. The exact generated source ref is
-`core/paper_module_capsules.json::paper_modules[94:paper_module.first_screen_composition_root]`.
+`core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]`.
 The checked-in `paper_modules/first_screen_composition_root.json` sidecar is
 generated from that capsule row; it is not hand-authored truth. The capsule names
 the mechanism subject

@@ -364,7 +364,7 @@ The exercise floor is:
 - one ran pytest span;
 - `head_verified_by_subprocess: true`.
 
-## Validation Receipts
+## Validation Receipt Path
 
 The focused proof consumer is
 `tests/test_agent_closeout_faithfulness_audit.py`. A passing receipt has to show

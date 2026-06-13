@@ -1,5 +1,11 @@
 # Corpus Readiness Mathlib Absence Gate
 
+## JSON Capsule Binding
+
+- Source authority: `core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate]` with `source_authority: json_capsule`; the generated instance is `paper_modules/corpus_readiness_mathlib_absence_gate.json`.
+- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is blocked until the organ-atlas owner lane binds its edges.
+- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: Public algorithmic projection over copied non-secret corpus/toolchain readiness substrate, first-wave fixture receipts, and exported bundle receipts only;. Reproduce it with the validation receipts named in the Validation Receipt Path section.
+
 ## Abstract
 
 `corpus_readiness_mathlib_absence_gate` is a public Microcosm organ for a
@@ -314,3 +320,18 @@ Mathlib-dependent consumers remain blocked, and receipts stay body-free.
 It may not say: Mathlib is usable, a theorem was proved, a proof consumer is
 correct, a corpus is complete, a provider may be called, private bodies may be
 exported, or Microcosm is release-ready.
+
+## Prior Art Grounding
+
+The gate checks whether a proof corpus has the toolchain and library dependencies it needs before work proceeds, and reports honestly when Mathlib is absent rather than failing opaquely. It draws on hermetic-build practice and on the Lean [Mathlib](https://leanprover-community.github.io/) community's treatment of a pinned dependency set as a precondition for reproducible proof. Microcosm borrows the readiness-precondition shape; the result is fixture-bound readiness evidence, not a proof of corpus correctness or a hosted build service.
+
+## Validation Receipt Path
+
+Reader-verifiable commands, run from the `microcosm-substrate/` public root:
+
+```bash
+PYTHONPATH=src python3 -m pytest tests/test_corpus_readiness_mathlib_absence_gate.py -q
+PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+```
+
+The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

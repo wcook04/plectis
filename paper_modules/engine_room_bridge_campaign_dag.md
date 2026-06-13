@@ -136,7 +136,7 @@ invent a standalone `engine_room_bridge_campaign_dag` organ or mechanism.
 - generated JSON row:
   `paper_modules/engine_room_bridge_campaign_dag.json`.
 - current source authority:
-  `core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_bridge_campaign_dag]`
+  `core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_bridge_campaign_dag]`
   with `paper_module_payload.source_authority: json_capsule`.
 - generated subject/code state:
   component subject
@@ -270,7 +270,7 @@ execution, release, or private-root equivalence.
 ## JSON Capsule Binding
 
 This Markdown is a reader projection over the JSON capsule row at
-`core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_bridge_campaign_dag]`.
+`core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_bridge_campaign_dag]`.
 The generated JSON instance reports
 `paper_module_payload.source_authority: json_capsule` and
 `source_authority: json_capsule`.
@@ -300,7 +300,7 @@ the reader projection rather than source authority. Keep the boundary in three
 parts:
 
 - Current authority:
-  `core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_bridge_campaign_dag]`
+  `core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_bridge_campaign_dag]`
   is the capsule source row, and `paper_modules/engine_room_bridge_campaign_dag.md`
   is the reader projection.
 - Current proof: the runnable source, standard, fixtures, focused tests, and
@@ -335,7 +335,7 @@ component capsule.
 ## Capsule Re-entry Packet
 
 - source authority now:
-  `core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_bridge_campaign_dag]`
+  `core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_bridge_campaign_dag]`
   with `paper_module_payload.source_authority: json_capsule`.
 - generated row now: `paper_modules/engine_room_bridge_campaign_dag.json`
   reports `paper_module_payload.source_authority: json_capsule`.

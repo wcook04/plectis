@@ -237,7 +237,7 @@ The validator also records the blocked source-open boundary for
 module cannot be imported as an exact body while raw operator-anchor language
 remains in scope.
 
-## Validation
+## Validation Receipt Path
 
 Run the current runtime proof from the Microcosm root:
 
@@ -326,3 +326,13 @@ targeting, live assay data, private lab notebook export, live credentials,
 provider execution, material discovery, benchmark performance, safety
 certification, publication, hosting, release approval, source mutation, or
 product-progress authority.
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: Copied public Lab/Evolve macro/control/receipt/standard bodies, body-free simulator-only fixture receipts, runtime bundle receipts, and artifact safety/refusal validation only; no wetlab execution, hazardous synthesis guidance, reagent quantity, controlled or bioactive target, live assay, robot command, private lab notebook, provider call, discovery claim, benchmark score, release approval, publication approval, or product-progress evidence.
+
+## Prior Art Grounding
+
+This replay exercises a closed-loop materials and chemistry lab controller with a safety gate over synthetic experiments. It is grounded in the [self-driving laboratory](https://en.wikipedia.org/wiki/Self-driving_laboratory) literature, where a propose-run-measure loop is paired with safety interlocks that can refuse an unsafe experiment. Microcosm borrows the loop-plus-safety-gate shape on a simulator; the result is body-free simulator evidence, not a real laboratory controller, chemical-safety authority, or release.

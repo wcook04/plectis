@@ -393,7 +393,7 @@ Exact registry command literal:
 
 `python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime`
 
-## Validation Receipts
+## Validation Receipt Path
 
 From `microcosm-substrate/`, reproduce this page's proof boundary with
 temporary receipts:

@@ -412,3 +412,9 @@ This module does not run live agents, call providers, expose private
 chain-of-thought, export internal code, provide exploit instructions, include
 credentials, import live agent traffic, claim monitor product performance, claim
 control-eval scores, mutate source, publish results, or authorize release.
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim.

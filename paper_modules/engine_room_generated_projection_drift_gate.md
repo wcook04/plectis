@@ -97,7 +97,7 @@ authority.
 ## Structured Lattice Bindings
 
 - source capsule:
-  `core/paper_module_capsules.json::paper_modules[84:paper_module.engine_room_generated_projection_drift_gate]`.
+  `core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate]`.
 - generated JSON row:
   `paper_modules/engine_room_generated_projection_drift_gate.json`.
 - current source authority:
@@ -198,7 +198,7 @@ whole-system correctness.
 
 ## JSON Capsule Binding
 
-`core/paper_module_capsules.json::paper_modules[84:paper_module.engine_room_generated_projection_drift_gate]`
+`core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate]`
 contains `paper_module.engine_room_generated_projection_drift_gate` with one
 resolving subject:
 

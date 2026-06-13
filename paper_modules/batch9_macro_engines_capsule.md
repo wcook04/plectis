@@ -317,3 +317,24 @@ live market data, raw Work Ledger bodies, or private runtime state.
 Exact-copy body drift belongs to the source-open refresh lane. Markdown should
 describe the boundary and route to the manifest, not paste or paraphrase copied
 source bodies.
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: Fixture-bound public source-body import and deterministic exercise evidence only; no live lineage truth, human approval authority, real market/news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation, publication, release approval, or private-root equivalence.
+
+## Prior Art Grounding
+
+This capsule imports copied non-secret macro engine bodies and exercises them over fixtures. It follows the characterization, or golden-master, testing tradition ([Feathers, Working Effectively with Legacy Code](https://en.wikipedia.org/wiki/Characterization_test)), which pins existing behaviour with deterministic fixtures before trusting it. Microcosm borrows the pin-then-exercise shape; the result is fixture-bound import evidence, not lineage truth, human-approval authority, or market truth.
+
+## Validation Receipt Path
+
+Reader-verifiable commands, run from the `microcosm-substrate/` public root:
+
+```bash
+PYTHONPATH=src python3 -m pytest tests/test_batch9_macro_engines_capsule.py -q
+PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+```
+
+The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

@@ -296,6 +296,7 @@ being reinvented here.
 
 ## JSON Capsule Binding
 
+- Source authority: `core/paper_module_capsules.json::paper_modules[4:paper_module.research_replication_rubric_artifact_replay]` with `source_authority: json_capsule`; the generated instance is `paper_modules/research_replication_rubric_artifact_replay.json`.
 - `source_authority: json_capsule`
 - This Markdown is a reader projection over
   `core/paper_module_capsules.json#paper_module.research_replication_rubric_artifact_replay`.
@@ -340,7 +341,7 @@ Open evidence in this order:
    cases, digest tamper tests, metric replay tests, public-relative receipt
    tests, command-card economy, and source-body exclusion.
 
-## Validation
+## Validation Receipt Path
 
 Focused runtime validation:
 
@@ -376,3 +377,13 @@ replication success, benchmark performance, provider execution, hidden-rubric
 access, original-author-code reuse, private paper/data export, unbounded
 compute search, final-answer-only grading, release approval, publication
 approval, source mutation, product progress, or whole-system correctness.
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: Copied public macro pattern provenance bodies, exact-copy public Python control-plane body, body-free research-replication replay receipts, public agent-execution trace spans, and fixture validation only; no actual paper replication success, benchmark performance claim, private paper/data body export, hidden-rubric export, provider call, unbounded compute search, original-author code reuse, release approval, publication approval, source mutation, or product-progress evidence.
+
+## Prior Art Grounding
+
+This replay scores a research artifact against a replication rubric. It follows artifact-evaluation practice from systems and machine-learning venues ([ACM Artifact Review and Badging](https://www.acm.org/publications/policies/artifact-review-and-badging-current)), which separates 'available' from 'functional' from 'reproduced'. Microcosm borrows the rubric-over-artifact shape; the result is fixture-bound replay evidence, not a reproducibility guarantee or a peer-review verdict.

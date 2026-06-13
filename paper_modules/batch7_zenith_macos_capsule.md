@@ -138,6 +138,10 @@ for the public-safe Zenith slice.
 
 ## JSON Capsule Binding
 
+- Source authority: `core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_zenith_macos_capsule]` with `source_authority: json_capsule`; the generated instance is `paper_modules/batch7_zenith_macos_capsule.json`.
+- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is blocked until the organ-atlas owner lane binds its edges.
+- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: Fixture-bound public Swift app-shell source-body import, copied-module digest and anchor evidence, deterministic local exercise evidence, SwiftPM witness evidence, and body-free receipts only;. Reproduce it with the validation receipts named in the Validation Receipt Path section.
+
 Binding status: a source-authority JSON capsule row is active for this paper
 module. It binds the authored Markdown projection, the active Zenith mechanism
 row, the resolved runtime code locus, public-safe Swift source-copy manifest,

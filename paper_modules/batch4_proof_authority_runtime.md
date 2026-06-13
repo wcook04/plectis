@@ -82,6 +82,7 @@ regeneration, not in hand-authored Markdown.
 
 ## JSON Capsule Binding
 
+- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and resolved doctrine edges, reproduced by the validation receipts named in the Validation Receipt Path section.
 This Markdown is a reader projection, not source authority. The source
 authority row is the JSON capsule in
 `core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime]`,
@@ -367,3 +368,18 @@ approval, private-root equivalence, or whole-system correctness. If any of those
 claims becomes supported later, the authority must come from changed source
 capsule/standard/runtime evidence plus regenerated projections, not from this
 Markdown projection alone.
+
+## Prior Art Grounding
+
+The runtime keeps the authority to act separate from the evidence that an action is permitted. This is the idea behind proof-carrying code ([Necula, 1997](https://en.wikipedia.org/wiki/Proof-carrying_code)) and capability-based security, where a request arrives with evidence of its own legitimacy rather than relying on ambient trust. Microcosm borrows the proof-before-authority ordering over fixtures; the result is fixture-bound evidence, not a verified authorization system or release authority.
+
+## Validation Receipt Path
+
+Reader-verifiable commands, run from the `microcosm-substrate/` public root:
+
+```bash
+PYTHONPATH=src python3 -m pytest tests/test_batch4_proof_authority_runtime.py -q
+PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+```
+
+The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

@@ -285,7 +285,7 @@ bind any unrelated red to its owning residual. A Markdown edit alone does not
 expand subject authority, source authority, release authority, publication
 authority, live route repair authority, or whole-system correctness.
 
-## Validation
+## Validation Receipt Path
 
 Focused runtime validation:
 
@@ -358,3 +358,13 @@ Re-enter through this paper module when:
 - a claim tries to promote projection-drift evidence into registry authority,
   source authority, live route repair authority, source mutation authority,
   publication approval, release approval, or whole-system correctness
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.
+
+## Prior Art Grounding
+
+This control room watches a world-model projection for drift between what the model expects and what the runtime reports. It draws on the model-monitoring and [concept-drift](https://en.wikipedia.org/wiki/Concept_drift) literature, which treats a growing gap between predicted and observed behaviour as an operational signal. Microcosm borrows the drift-as-signal shape over body-free receipts; the result is fixture-bound monitoring evidence, not source authority, private runtime inspection, or whole-system correctness.

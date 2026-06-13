@@ -250,7 +250,7 @@ Those edges are structural evidence-routing edges. They do not by themselves
 prove runtime correctness; the runtime receipts and tests carry that narrower
 claim.
 
-## Validation
+## Validation Receipt Path
 
 Run the body-free fixture validator:
 
@@ -329,3 +329,13 @@ The Microcosm claim is deliberately narrower than those research programs. It
 does not evaluate frontier models or live deployments. It gives the public
 Microcosm substrate a receipt-backed, body-free, replayable safety-monitor proof
 shape that can reject overclaims and provenance drift.
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: No live sabotage, exploit instruction, credential/account material, private reasoning, harmful payload, or deployment-risk product claim; synthetic fixtures and body-free receipts only.
+
+## Prior Art Grounding
+
+This organ replays a monitor that watches an agent transcript for sabotage and scheming signals. It is grounded in the AI-control literature, which studies how to catch a model that may be deliberately subverting oversight rather than assuming it is benign ([Greenblatt et al., AI Control](https://arxiv.org/abs/2312.06942), and Anthropic's [sabotage evaluations](https://www.anthropic.com/research/sabotage-evaluations)). Microcosm borrows the monitor-over-transcript shape on synthetic fixtures; the result is fixture-bound replay evidence, not a live monitor, a control guarantee, or an exploit guide.

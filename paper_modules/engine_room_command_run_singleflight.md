@@ -186,7 +186,7 @@ paper-module corpus check named below.
 - generated JSON row:
   `paper_modules/engine_room_command_run_singleflight.json`.
 - source authority:
-  `core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_command_run_singleflight]`
+  `core/paper_module_capsules.json::paper_modules[86:paper_module.engine_room_command_run_singleflight]`
   with `paper_module_payload.source_authority: json_capsule`.
 - generated subject/code state:
   mechanism subject
@@ -323,7 +323,7 @@ anchors, and hashes.
 ## JSON Capsule Binding
 
 This Markdown is a reader projection over the JSON capsule row at
-`core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_command_run_singleflight]`.
+`core/paper_module_capsules.json::paper_modules[86:paper_module.engine_room_command_run_singleflight]`.
 The generated JSON instance reports
 `paper_module_payload.source_authority: json_capsule` and
 `source_authority: json_capsule`.

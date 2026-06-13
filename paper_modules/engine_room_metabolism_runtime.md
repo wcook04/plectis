@@ -134,7 +134,7 @@ authority for the paper-module row lives in the JSON capsule registry.
 - generated JSON row:
   `paper_modules/engine_room_metabolism_runtime.json`
 - source authority:
-  `core/paper_module_capsules.json::paper_modules[86:paper_module.engine_room_metabolism_runtime]`
+  `core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_metabolism_runtime]`
   with `paper_module_payload.source_authority: json_capsule`
 - generated subject/code state:
   component subject
@@ -258,7 +258,7 @@ anchors, and hashes.
 ## JSON Capsule Binding
 
 This Markdown is a reader projection over the JSON capsule row at
-`core/paper_module_capsules.json::paper_modules[86:paper_module.engine_room_metabolism_runtime]`.
+`core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_metabolism_runtime]`.
 The generated JSON instance reports
 `paper_module_payload.source_authority: json_capsule` and
 `source_authority: json_capsule`.

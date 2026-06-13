@@ -310,3 +310,13 @@ geometry guardrail bodies named by the source-module manifest and verified by
 digest. That does not certify private macro-root equivalence, private video or
 raw sensor availability, account/session state, provider behavior, hidden GPS
 trace bodies, live-access material, or release readiness.
+
+## Claim Ceiling
+
+This module may claim fixture-bound evidence that the organ ran over public synthetic inputs and produced the receipts and projections described above, reproduced by the validation receipts named on this page.
+
+It may not claim more than its capsule authority ceiling allows: Declared public synthetic spatial counterfactual-replay metadata and source-module import evidence only; no robot or AV operation, real-world geographic accuracy, simulator product validation, generated-video authority, benchmark scores, provider calls, hosting, release approval, publication approval, or whole-system correctness.
+
+## Prior Art Grounding
+
+This replay exercises a spatial world model under counterfactual interventions. It is grounded in the world-models line of work ([Ha and Schmidhuber, World Models](https://arxiv.org/abs/1803.10122)), where an agent learns a compressed model of its environment it can roll forward under hypothetical actions. Microcosm borrows the counterfactual-rollout shape over synthetic metadata; the result is fixture-bound replay evidence, not robot or AV operation, real-world geography, or a calibrated simulator.

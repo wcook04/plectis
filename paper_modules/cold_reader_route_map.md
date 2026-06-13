@@ -330,7 +330,7 @@ If focused validation reports an exact-copy source-module body mismatch, route
 that repair through `microcosm_exact_copy_refresh`; do not treat this Markdown
 projection as the authority for copied source bodies.
 
-## Validation Receipts
+## Validation Receipt Path
 
 From `microcosm-substrate/`, reproduce this page's proof boundary with
 temporary receipts:

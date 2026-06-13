@@ -1,5 +1,11 @@
 # Mechanistic Interpretability Circuit Attribution Replay
 
+## JSON Capsule Binding
+
+- Source authority: `core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]` with `source_authority: json_capsule`; the generated instance is `paper_modules/mechanistic_interpretability_circuit_attribution_replay.json`.
+- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is linked from capsule edges.
+- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: Declared public circuit-attribution runtime receipt and source-module import evidence only;. Reproduce it with the validation receipts named in the Validation Receipt Path section.
+
 ## Purpose
 
 Interpretability writing is unusually easy to overstate. A named feature can
@@ -405,3 +411,18 @@ A cold reader should inspect in this order:
 - If public copy is promoted toward a release surface, rerun release-boundary
   hygiene and preserve the explicit non-claims for live model access, private
   data export, hosting, publication, provider behavior, and release authority.
+
+## Prior Art Grounding
+
+This replay exercises a circuit-attribution pass that traces which internal components account for a behaviour. It is grounded in mechanistic interpretability, the study of the internal circuits of neural networks ([Anthropic, Transformer Circuits](https://transformer-circuits.pub/)). Microcosm borrows the attribution-replay shape over synthetic fixtures; the result is fixture-bound runtime evidence, not live model access, a transparency product, or a correctness claim about any real model.
+
+## Validation Receipt Path
+
+Reader-verifiable commands, run from the `microcosm-substrate/` public root:
+
+```bash
+PYTHONPATH=src python3 -m pytest tests/test_mechanistic_interpretability_circuit_attribution_replay.py -q
+PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus
+```
+
+The focused test exercises this organ's fixture and bundle expectations; the corpus check confirms the capsule, generated Mermaid projection, Atlas card, and this Markdown projection stay mutually consistent. These are reader-verifiable evidence only and do not authorize release, provider dispatch, source mutation, or whole-system correctness.

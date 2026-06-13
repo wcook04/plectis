@@ -52,7 +52,7 @@ or grant any capture permission.
 
 This module is a reader projection over a JSON-capsule source row, not an
 authority source by itself. The source row is
-`core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_demo_take_console_capsule]`;
+`core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]`;
 the resolving source mechanism is
 `core/mechanism_sources.json::mechanisms[87:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]`.
 The generated instance is
@@ -115,7 +115,7 @@ until the organ-atlas owner lane admits or links the corresponding organ edge.
 - paper-module id:
   `paper_module.batch7_demo_take_console_capsule`.
 - source row:
-  `core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_demo_take_console_capsule]`.
+  `core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]`.
 - resolving mechanism:
   `mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule`.
 - resolved code locus:
@@ -262,7 +262,7 @@ aggregate doctrine-lattice coherence by itself.
 - generated row source ref:
   `paper_modules/batch7_demo_take_console_capsule.md`.
 - source row ref:
-  `core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_demo_take_console_capsule]`.
+  `core/paper_module_capsules.json::paper_modules[84:paper_module.batch7_demo_take_console_capsule]`.
 - resolving mechanism:
   `mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule`.
 - current generated projection status: Mermaid `available_from_capsule_edges`;

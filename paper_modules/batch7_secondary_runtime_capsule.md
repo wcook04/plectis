@@ -53,7 +53,7 @@ live market access, wallet authority, browser export, or investment advice.
 ## JSON Capsule Binding
 
 - Source row:
-  `core/paper_module_capsules.json::paper_modules[95:paper_module.batch7_secondary_runtime_capsule]`
+  `core/paper_module_capsules.json::paper_modules[96:paper_module.batch7_secondary_runtime_capsule]`
 - `source_authority: json_capsule`
 - Subject: `organ:batch7_secondary_runtime_capsule`
 - Mechanism validation:

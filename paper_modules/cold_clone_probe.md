@@ -23,7 +23,7 @@ That is a bootstrap proof, not a release proof. It is intentionally before
 
 Read this page as the authored Markdown projection for a JSON-capsule-backed
 Microcosm paper-module row. The source authority is now
-`core/paper_module_capsules.json::paper_modules[93:paper_module.cold_clone_probe]`,
+`core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]`,
 which explains the resolved mechanism subject
 `mechanism.cold_clone_probe.validates_public_source_root_bootstrap`. The useful
 proof remains narrow: the page names the current source locus, the public
@@ -41,7 +41,7 @@ keeps `bootstrap.sh`, the public standard, and focused tests as input/evidence
 surfaces.
 
 This Markdown is a reader projection over
-`core/paper_module_capsules.json::paper_modules[93:paper_module.cold_clone_probe]`
+`core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]`
 with `source_authority: json_capsule`. The generated Mermaid projection and
 generated Atlas projection are builder-owned views of that source edge. The
 authority ceiling and proof boundary stay limited to source-root bootstrap
@@ -234,7 +234,7 @@ while keeping the proof boundary to public source-root bootstrap mechanics.
 - current source authority: generated JSON should report
   `paper_module_payload.source_authority: json_capsule` after builder refresh.
 - generated row source ref:
-  `core/paper_module_capsules.json::paper_modules[93:paper_module.cold_clone_probe]`.
+  `core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]`.
 - current generated projection status: Mermaid/Atlas are capsule-edge
   projections, not hand-authored claims.
 - resolved code locus: `src/microcosm_core/cold_clone_probe.py`.

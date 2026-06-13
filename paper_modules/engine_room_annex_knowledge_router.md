@@ -162,7 +162,7 @@ embeddings, or private-corpus search.
 - current source authority:
   `paper_module_payload.source_authority: json_capsule`.
 - exact source ref:
-  `core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_annex_knowledge_router]`.
+  `core/paper_module_capsules.json::paper_modules[89:paper_module.engine_room_annex_knowledge_router]`.
 - generated edge state:
   mechanism subject
   `mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router`;
@@ -327,7 +327,7 @@ anchors, and hashes.
 Read this page as a public reader projection over a staged Engine Room capsule.
 The generated JSON row reports
 `paper_module_payload.source_authority: json_capsule` and exact source ref
-`core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_annex_knowledge_router]`.
+`core/paper_module_capsules.json::paper_modules[89:paper_module.engine_room_annex_knowledge_router]`.
 The useful proof is still narrow: the capsule names a staged mechanism subject,
 resolved runtime loci, public fixtures, the standard, and focused tests. It does
 not prove BM25/Lucene equivalence, embedding search, repository cloning, license
@@ -337,7 +337,7 @@ correctness, or release readiness.
 ## JSON Capsule Binding
 
 `paper_module.engine_room_annex_knowledge_router` is bound in
-`core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_annex_knowledge_router]`.
+`core/paper_module_capsules.json::paper_modules[89:paper_module.engine_room_annex_knowledge_router]`.
 The generated JSON instance reports
 `paper_module_payload.source_authority: json_capsule`, one capsule-backed
 mechanism subject, and resolved code loci for the annex router plus the Engine
@@ -363,7 +363,7 @@ This module is a JSON-capsule-backed paper module with a narrow capsule
 boundary. Keep that boundary in three parts:
 
 - Current authority:
-  `core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_annex_knowledge_router]`
+  `core/paper_module_capsules.json::paper_modules[89:paper_module.engine_room_annex_knowledge_router]`
   is the source row; this Markdown is a reader projection.
 - Current proof: the runnable source, standard, fixtures, and focused tests make
   the staged mechanism inspectable and mark the proof boundary, but they do not
@@ -377,7 +377,7 @@ boundary. Keep that boundary in three parts:
 ## Capsule Projection Packet
 
 - source authority now:
-  `core/paper_module_capsules.json::paper_modules[88:paper_module.engine_room_annex_knowledge_router]`.
+  `core/paper_module_capsules.json::paper_modules[89:paper_module.engine_room_annex_knowledge_router]`.
 - generated row now: `paper_modules/engine_room_annex_knowledge_router.json`
   reports `paper_module_payload.source_authority: json_capsule`.
 - generated projection status now: Mermaid `available_from_capsule_edges`;
