@@ -2475,17 +2475,14 @@ def compile_first_action(
     if mode == "mutation_plan":
         targets = _release_improvement_targets(inputs, base)
         rank1 = targets[0]
+        next_action = _improvement_next_action(rank1)
         pack["routing"] = {"basis": "improvement_goal", "rank1_target": rank1["target"]}
         pack["summary"]["what_this_is"] = (
             "First-action contract for an improvement goal: inspect the rank-1 "
             "target's mutation plan BEFORE editing anything."
         )
         pack["first_action"] = {
-            "action_kind": "inspect_mutation_target",
-            "command": (
-                "PYTHONPATH=src python3 -m microcosm_core comprehend --mutation "
-                + str(rank1["target"])
-            ),
+            **next_action,
             "why": rank1["why"],
             "committed_receipts": [],
         }
@@ -2493,6 +2490,7 @@ def compile_first_action(
             "scope": "release_improvement",
             "target": rank1["target"],
             "title": rank1["title"],
+            "claim_paths": list(next_action["claim_paths"]),
         }
         pack["proof_path"] = {
             "validation_commands": list(rank1.get("validation_commands") or []),
@@ -2717,7 +2715,47 @@ def _release_improvement_targets(
         target = str(row["target"]).split(" / ")[0]
         row["path_exists"] = (base / target).exists()
         row["ranking_basis"] = context
+        row["claim_paths"] = _claim_paths_for_improvement_target(row["target"])
+        next_command = _mutation_plan_command_for_improvement_target(row["target"])
+        if next_command:
+            row["next_command"] = next_command
     return rows
+
+
+def _claim_paths_for_improvement_target(target: Any) -> list[str]:
+    """Return the explicit owned paths a ranked improvement row asks an agent to claim."""
+    return [part.strip() for part in str(target).split(" / ") if part.strip()]
+
+
+def _mutation_plan_command_for_improvement_target(target: Any) -> str | None:
+    """Return the local mutation-plan command when the target is a single owned path."""
+    paths = _claim_paths_for_improvement_target(target)
+    if len(paths) != 1:
+        return None
+    path = paths[0]
+    if path.endswith(".py") or "/" in path:
+        return "PYTHONPATH=src python3 -m microcosm_core comprehend --mutation " + path
+    return None
+
+
+def _improvement_next_action(row: dict[str, Any]) -> dict[str, Any]:
+    """Compile the machine-readable next action for the top improvement row."""
+    command = row.get("next_command") or (
+        "PYTHONPATH=src python3 -m microcosm_core comprehend --improvements"
+    )
+    return {
+        "action_kind": "inspect_mutation_target",
+        "target_rank": row["rank"],
+        "target": row["target"],
+        "title": row["title"],
+        "command": command,
+        "claim_paths": list(row.get("claim_paths") or []),
+        "validation_commands": list(row.get("validation_commands") or []),
+        "stop_condition": (
+            "Stop after the target mutation plan names the owned paths and validators; "
+            "claim those paths before editing."
+        ),
+    }
 
 
 def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
@@ -2823,6 +2861,7 @@ def compile_mutation_plan(
         return pack
     if not target or (target not in atlas_by and target not in join_by):
         targets = _release_improvement_targets(inputs, base)
+        next_action = _improvement_next_action(targets[0])
         pack = _pack_skeleton("how_to", "choose the highest-leverage Microcosm improvement")
         pack["found"] = True
         pack["target"] = None
@@ -2835,13 +2874,16 @@ def compile_mutation_plan(
         pack["summary"]["what_to_inspect_next"] = [
             f"{row['rank']}. {row['target']} - {row['title']}" for row in targets
         ]
+        pack["summary"]["first_command"] = next_action["command"]
         pack["summary"]["what_not_to_trust"] = (
             "These are local implementation priorities, not release approval or a claim "
             "that the substrate is complete."
         )
         pack["selected_nodes"] = targets
+        pack["recommended_first_action"] = next_action
         pack["mutation_steps"] = [
-            "pick the first target unless a newer failing receipt names a narrower owner",
+            "run recommended_first_action.command to inspect the rank-1 mutation plan",
+            "claim every recommended_first_action.claim_paths entry before editing",
             "edit only the owned source/docs path for that rank",
             "run that row's validation_commands",
             "rerun packet-route and whole-system comprehension assays before closeout",

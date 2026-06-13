@@ -815,6 +815,17 @@ def test_mutation_plan_without_target_returns_ranked_release_improvement_targets
     assert pack["found"] is True
     assert pack["export_band"] == "local_semantic_excerpt"
     assert pack["selected_nodes"][0]["target"] == "src/microcosm_core/comprehension.py"
+    assert pack["selected_nodes"][0]["claim_paths"] == [
+        "src/microcosm_core/comprehension.py"
+    ]
+    assert pack["selected_nodes"][0]["next_command"].endswith(
+        "--mutation src/microcosm_core/comprehension.py"
+    )
+    assert pack["recommended_first_action"]["command"] == pack["summary"]["first_command"]
+    assert pack["recommended_first_action"]["claim_paths"] == [
+        "src/microcosm_core/comprehension.py"
+    ]
+    assert pack["mutation_steps"][0].startswith("run recommended_first_action.command")
     assert "validation_commands" in pack["selected_nodes"][0]
     assert "release approval" in pack["summary"]["what_not_to_trust"]
     body = json.dumps(pack)
@@ -1078,6 +1089,10 @@ def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
     assert pack["routing"]["basis"] == "improvement_goal"
     assert pack["first_action"]["action_kind"] == "inspect_mutation_target"
     assert "--mutation" in pack["first_action"]["command"]
+    assert pack["first_action"]["claim_paths"] == [
+        "src/microcosm_core/comprehension.py"
+    ]
+    assert pack["owner"]["claim_paths"] == pack["first_action"]["claim_paths"]
     assert pack["proof_path"]["validation_commands"]
     assert "not release approval" in pack["do_not_claim"]
 
