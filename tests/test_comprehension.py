@@ -401,6 +401,20 @@ def test_path_excerpts_emit_bounded_owned_atom_values(tmp_path: Path) -> None:
     assert all(v is False for v in pack["authority_ceiling"].values())
 
 
+def test_path_excerpts_cap_large_owned_files(tmp_path: Path) -> None:
+    _write_owned_module(tmp_path, "src/microcosm_core/large_owned.py", n_symbols=80)
+    excerpts = C.extract_atom_excerpts(tmp_path, "src/microcosm_core/large_owned.py")
+    assert excerpts["limits"]["max_symbols"] == C.MAX_EXCERPT_SYMBOLS
+    assert excerpts["symbol_count"] == C.MAX_EXCERPT_SYMBOLS
+    assert excerpts["omitted_for_budget"] > 0
+    emitted_row_bytes = sum(len(json.dumps(row, ensure_ascii=True)) for row in excerpts["symbols"])
+    assert emitted_row_bytes <= C.MAX_EXCERPT_PACK_BYTES
+
+    pack = C.comprehend(root=tmp_path, mode="path", path="src/microcosm_core/large_owned.py")
+    assert pack["excerpt_guard"]["omitted_for_budget"] == excerpts["omitted_for_budget"]
+    assert "emitted authored-symbol excerpts" in pack["summary"]["what_this_is"]
+
+
 def test_coupling_zone_path_is_refused(tmp_path: Path) -> None:
     _write_owned_module(tmp_path, "src/microcosm_core/organs/runner.py")
     ex = C.extract_atom_excerpts(tmp_path, "src/microcosm_core/organs/runner.py")
@@ -984,6 +998,14 @@ def test_first_action_route_goal_triggers(tmp_path: Path) -> None:
         assert target == goal
     # Improvement goals still route to mutation_plan, not first_action.
     assert C.route_goal("what should I work on for the Microcosm release?", bundle)[0] == "mutation_plan"
+
+
+def test_live_local_excerpt_route_packets_keep_cost_bounded() -> None:
+    assay = C.run_packet_route_assay(C.default_root())
+    assert assay["packet_bytes_by_kind"]["path"] < 40000
+    assert assay["packet_bytes_by_kind"]["mutation_plan"] < 40000
+    assert assay["budget_violations"] == 0
+    assert assay["slo_violations"] == 0
 
 
 def test_first_action_contract_for_named_organ(tmp_path: Path) -> None:

@@ -119,9 +119,10 @@ LOCAL_EXCERPT_SCHEMA = "microcosm_atom_value_excerpt_v1"
 HARD_ASSAY_SCHEMA = "microcosm_hard_comprehension_assay_v1"
 # The owned package root whose authored atoms may be excerpted locally.
 OWNED_EXCERPT_ROOT = "src/microcosm_core/"
-# Per-atom character cap and total per-file pack byte budget for excerpts.
+# Per-atom character cap, symbol cap, and total per-file pack byte budget for excerpts.
 MAX_ATOM_CHARS = 240
-MAX_EXCERPT_PACK_BYTES = 60000
+MAX_EXCERPT_SYMBOLS = 48
+MAX_EXCERPT_PACK_BYTES = 32000
 # Secret-shape and private-home-path patterns: any atom value matching is DROPPED
 # (never emitted), so an excerpt pack cannot leak a credential or an operator path.
 _SECRET_SHAPE_RE = re.compile(
@@ -1151,7 +1152,8 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
       (name, source_span_ref, fingerprint, bounded atom_values) ONLY when the path is
       under src/microcosm_core/ AND the manifest custody oracle reports it owned
       (_custody_basis is None); secret-shaped or private-home-path atom values are
-      dropped and counted, never emitted; total bytes are capped at MAX_EXCERPT_PACK_BYTES.
+      dropped and counted, never emitted; emitted symbol rows are capped at
+      MAX_EXCERPT_SYMBOLS and total row bytes are capped at MAX_EXCERPT_PACK_BYTES.
     - Fails: returns eligible=False with a reason for non-owned/custody-bound/unreadable
       paths; never raises.
     - Reads: the manifest custody oracle + the owned source file's docstrings only.
@@ -1175,6 +1177,7 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
         "symbol_count": 0,
         "limits": {
             "max_atom_chars": MAX_ATOM_CHARS,
+            "max_symbols": MAX_EXCERPT_SYMBOLS,
             "max_pack_bytes": MAX_EXCERPT_PACK_BYTES,
             "source_body_export_authorized": False,
         },
@@ -1205,8 +1208,14 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
         doc = ast.get_docstring(node)
         if not doc:
             continue
+        atoms = ps._detect_docstring_atoms(doc)
+        if not atoms:
+            continue
+        if len(result["symbols"]) >= MAX_EXCERPT_SYMBOLS:
+            result["omitted_for_budget"] += 1
+            continue
         atom_values: dict[str, str] = {}
-        for atom in ps._detect_docstring_atoms(doc):
+        for atom in atoms:
             value = _atom_value(doc, atom, vocab)
             if not value:
                 continue
@@ -1266,9 +1275,15 @@ def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
         return pack
     pack["found"] = True
     count = excerpts["symbol_count"]
+    omitted = int(excerpts.get("omitted_for_budget") or 0)
+    budget_note = (
+        f" ({omitted} additional symbol rows omitted by the local packet budget)"
+        if omitted
+        else ""
+    )
     pack["summary"]["what_this_is"] = (
-        f"{count} authored symbols in {rel}, read as bounded atom-value excerpts "
-        "(Teleology/Guarantee/Fails/...), no source bodies."
+        f"{count} emitted authored-symbol excerpts in {rel}{budget_note}, read as "
+        "bounded atom values (Teleology/Guarantee/Fails/...), no source bodies."
     )
     pack["summary"]["what_to_inspect_next"] = [
         f"open {rel} only to mutate or prove; the atoms are the read model"
@@ -1349,7 +1364,7 @@ def _attach_organ_excerpts(
 PACKET_BUDGETS: dict[str, dict[str, int]] = {
     "compact": {"target_bytes": 8000, "max_bytes": 16000},
     "standard": {"target_bytes": 24000, "max_bytes": 72000},
-    "full_local": {"target_bytes": 150000, "max_bytes": 240000},
+    "full_local": {"target_bytes": 40000, "max_bytes": 64000},
 }
 
 # The SQLite/FTS5 backend gate stays CLOSED while JSON + the read-pack cache meet every
