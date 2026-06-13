@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 8,
+    "paper_module_unpopulated_selective_relation_count": 7,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,12 +209,12 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T06:42:16.898642Z",
+    "generated_at": "2026-06-13T06:59:39.397559Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 209,
+    "covered_edge_count": 210,
     "missing_edge_count": 14,
     "missing_edges": [
       {
@@ -3222,11 +3222,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "4c8273b49c10ecf0552c27104fb353fa0811afd4abea3c91ffe6049f09e64054",
+        "sha256": "a8e49b5a98d9af082356f43034f2d8012143882f4eebb4b22d920587060cf98c",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "78031fc0561572dfb6881e0403c8a119f1fc6c87bd42042be1087c62323a62de",
+    "source_manifest_digest": "3d9b4a9404a5d521592a263d871a106afe42d52173aadcf043e613305aa3d3e2",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3238,11 +3238,10 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 8,
+    "unpopulated_selective_relation_count": 7,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_monitor_redteam_falsification_replay",
       "paper_module.bridge_phase_continuity_runtime",
-      "paper_module.cognitive_operator_registry",
       "paper_module.finance_forecast_evaluation_spine",
       "paper_module.first_screen_composition_root",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
@@ -3463,14 +3462,14 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 8,
+    "residual_relation_count": 7,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 8
+      "paper_module.depends_on.paper_module": 7
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 8
+      "selective": 7
     },
-    "residual_relation_detail_count": 8,
+    "residual_relation_detail_count": 7,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3498,20 +3497,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[10:paper_module.bridge_phase_continuity_runtime]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[10:paper_module.bridge_phase_continuity_runtime]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.cognitive_operator_registry",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.cognitive_operator_registry",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]"
         }
       },
       {
@@ -3586,11 +3571,11 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 8,
+    "selective_residual_relation_count": 7,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 8
+      "paper_module.depends_on.paper_module": 7
     },
-    "selective_residual_relation_detail_count": 8,
+    "selective_residual_relation_detail_count": 7,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3618,20 +3603,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[10:paper_module.bridge_phase_continuity_runtime]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[10:paper_module.bridge_phase_continuity_runtime]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.cognitive_operator_registry",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.cognitive_operator_registry",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]"
         }
       },
       {
@@ -3710,7 +3681,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 8,
+    "unpopulated_selective_relation_count": 7,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -3908,10 +3879,10 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "775978ea6734ae6c7a0c73bb68c4b7ad364e3d25b1321e35f8dbead4be313722",
+      "core/mechanism_sources.json": "531ca259e3f032251cac12229a20ef80b0ad491de9e2e3e7c27b19df18af1f2f",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "4c8273b49c10ecf0552c27104fb353fa0811afd4abea3c91ffe6049f09e64054",
+      "core/paper_module_capsules.json": "a8e49b5a98d9af082356f43034f2d8012143882f4eebb4b22d920587060cf98c",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -3983,7 +3954,7 @@
       "mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "d651b55de2c04fbeaaec71075cd92a3b8a4c81621babb72a21a6bf5d60055ddf",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "9ed4d5e2cc97d3e827297be27f7682e5f98cea2399bdaedb4d9b276d68020396",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json": "39258f2beb7e70d6b556094ef02ddb09b4ea7d17eb3d8d2b5460f9e643f58c97",
-      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "ee515ba955592530a6ab44f8ca0b261529b5e91e06f2069362a5591a968d66db",
+      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "defc49e211ee36d3a7922b9edd00248ccff276bd21b827be4f5f29f6c55b5699",
       "mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "00029277572c9291a39fae44235add919b7117b5c22856393e18d4d3a4c0c5fe",
       "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "819aab36c287ecd03a465dbe850ce2f3edc8b52f8ac7808cc7079a34150d62fb",
       "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "567206fefba3ba426ecf3fc2e8c34044e5c2d04865c6fdbc27904ba4d8bd05e4",
@@ -4133,7 +4104,7 @@
       "paper_modules/bounded_autonomy_campaign_packet.json": "4cd7cae0fd87281c13639d3c6be739f6c2a963564148bff290102b08ebb64c1c",
       "paper_modules/bridge_phase_continuity_runtime.json": "cf1ad60f203ee8d060a22994db77e61f53fdbb0856d8da85b610ee838179a5cf",
       "paper_modules/certificate_kernel_execution_lab.json": "169259a928bd16fc386aa7103749ab0ebd1a622c105b2dd0e28df2263508f8d2",
-      "paper_modules/cognitive_operator_registry.json": "9694543be737e89776ce91c9556393bba3076092c5a4eccf4ed1e7d4be793376",
+      "paper_modules/cognitive_operator_registry.json": "a06d7bfc2db4c836a42a6b6b938d6c2a45992c5e45822a2bb05924814fa9786b",
       "paper_modules/cold_clone_probe.json": "6e01a5c646fdc625dc2a1cc9fc91a0ad29d23f0a4e4374558a8eb4b552cfd698",
       "paper_modules/cold_reader_route_map.json": "53411a5483c001f61ad24c3a4f341148034b1475ef994a6e95dd0821b6476d9a",
       "paper_modules/computer_use_action_trace_replay.json": "d6ccbb18584dfc0b6e01e82ae7788480272df545ea3cdcbc8e3136651585522e",

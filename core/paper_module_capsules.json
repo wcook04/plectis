@@ -875,6 +875,9 @@
       "title": "Cognitive Operator Registry",
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/cognitive_operator_registry.md",
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "compression": {
         "one_line": "The public cognitive-operator registry fixture validates operator-shape rows, active-operator dogfood receipts, anti-sprawl decisions, copied macro registry/standard/tool bodies, and authority ceilings without becoming operator source authority.",
         "card": "Cognitive Operator Registry is the public evidence membrane for reusable cognition as typed substrate. It validates public operator rows, dogfood receipts with cognition-delta evidence, negative cases for missing fields, missing dogfood, sprawl, operator-voice claims, authority overclaims, and private-source leakage, then checks copied non-secret macro registry, standard, and validator bodies by digest while keeping bodies out of receipts.",
