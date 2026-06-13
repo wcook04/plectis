@@ -2061,6 +2061,7 @@
         "batch5_authority_systems_capsule",
         "batch6_unsurfaced_primitives_capsule",
         "batch7_macro_engines_capsule",
+        "batch7_oracle_sibling_capsule",
         "batch7_secondary_runtime_capsule",
         "batch8_audio_level_rms_port",
         "batch8_policy_engines_capsule",

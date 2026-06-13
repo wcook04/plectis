@@ -61,8 +61,8 @@
     "expected_principle_count": 20,
     "expected_skill_count": 401,
     "expected_standard_count": 146,
-    "mechanism_capsule_dependency_upstream_covered_edge_count": 224,
-    "mechanism_capsule_dependency_upstream_missing_count": 7,
+    "mechanism_capsule_dependency_upstream_covered_edge_count": 225,
+    "mechanism_capsule_dependency_upstream_missing_count": 6,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -164,8 +164,8 @@
   ],
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "coverage_projection_digest": "64fa62148dc3d5ade75617d35fb2f693b7ab5b811196fc13ad949e7aa50c5a9e",
-    "generated_at": "2026-06-13T11:42:32.811258Z",
+    "coverage_projection_digest": "92be70a4ba2f7cfdf87bb4a332b9e31ccb6aa41628a955e36588ec3b445716ed",
+    "generated_at": "2026-06-13T12:07:05.656759Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],
