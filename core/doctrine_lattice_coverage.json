@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 14,
+    "mechanism_capsule_dependency_upstream_missing_count": 15,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 7,
+    "paper_module_unpopulated_selective_relation_count": 6,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,13 +209,13 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T06:59:39.397559Z",
+    "generated_at": "2026-06-13T07:12:20.151081Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
     "covered_edge_count": 210,
-    "missing_edge_count": 14,
+    "missing_edge_count": 15,
     "missing_edges": [
       {
         "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -246,6 +246,12 @@
         "dependency_paper_module": "paper_module.bridge_phase_continuity_runtime",
         "source_mechanism": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
         "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+      },
+      {
+        "consumer_paper_module": "paper_module.first_screen_composition_root",
+        "dependency_paper_module": "paper_module.cold_reader_route_map",
+        "source_mechanism": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "target_mechanism": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
       },
       {
         "consumer_paper_module": "paper_module.batch5_authority_systems_capsule",
@@ -3222,11 +3228,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "a8e49b5a98d9af082356f43034f2d8012143882f4eebb4b22d920587060cf98c",
+        "sha256": "c2a141c0046d602b00085cc6572ab8c17b12a500ac7ca23d87ad2ff9cb0c321b",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "3d9b4a9404a5d521592a263d871a106afe42d52173aadcf043e613305aa3d3e2",
+    "source_manifest_digest": "02c163c96bccc6794b0cc54a058d0cb66404d379d28d4566e6c224b39b530ba2",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3238,12 +3244,11 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 7,
+    "unpopulated_selective_relation_count": 6,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_monitor_redteam_falsification_replay",
       "paper_module.bridge_phase_continuity_runtime",
       "paper_module.finance_forecast_evaluation_spine",
-      "paper_module.first_screen_composition_root",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay",
       "paper_module.standards_meta_diagnostics"
@@ -3462,14 +3467,14 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 7,
+    "residual_relation_count": 6,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 7
+      "paper_module.depends_on.paper_module": 6
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 7
+      "selective": 6
     },
-    "residual_relation_detail_count": 7,
+    "residual_relation_detail_count": 6,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3511,20 +3516,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.first_screen_composition_root",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.first_screen_composition_root",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]"
         }
       },
       {
@@ -3571,11 +3562,11 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 7,
+    "selective_residual_relation_count": 6,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 7
+      "paper_module.depends_on.paper_module": 6
     },
-    "selective_residual_relation_detail_count": 7,
+    "selective_residual_relation_detail_count": 6,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3617,20 +3608,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.first_screen_composition_root",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.first_screen_composition_root",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]"
         }
       },
       {
@@ -3681,7 +3658,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 7,
+    "unpopulated_selective_relation_count": 6,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -3882,7 +3859,7 @@
       "core/mechanism_sources.json": "531ca259e3f032251cac12229a20ef80b0ad491de9e2e3e7c27b19df18af1f2f",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "a8e49b5a98d9af082356f43034f2d8012143882f4eebb4b22d920587060cf98c",
+      "core/paper_module_capsules.json": "c2a141c0046d602b00085cc6572ab8c17b12a500ac7ca23d87ad2ff9cb0c321b",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -4125,7 +4102,7 @@
       "paper_modules/engine_room_public_projection_leak_gate.json": "4f32df0ca4982addd8dd9c147f34b48e52162428459c6a024dc42b7e4d51f433",
       "paper_modules/executable_doctrine_grammar.json": "2011a19fc0fb6bd1b994bcc10d0ca304e9972622458daf52ff88dece9a9c0fad",
       "paper_modules/finance_forecast_evaluation_spine.json": "69590e85a72726e50c533b7656c8a66788165305a2e54d64b7374f71a972aac5",
-      "paper_modules/first_screen_composition_root.json": "e0594c0ca668f6d950db170818a9a1b80fab868a495e411f11f4e5f3f18bd30f",
+      "paper_modules/first_screen_composition_root.json": "0b5f5f188b1b33fe0675afe39600cc9d18e9de9f4e54fa4c95ff5ef6b68fa6b5",
       "paper_modules/formal_evidence_cell_anchor_resolver.json": "e5f314f07a7a387960f316b3f15f0dae7b26d7780c227ed0fb5593b8d1c18819",
       "paper_modules/formal_math_lean_proof_witness.json": "e4b92b59028de6c9b16c816317918e6fc36d98ead92ff2f2a45d97861026853e",
       "paper_modules/formal_math_premise_retrieval.json": "19f0a979ca151c74c1b95c36bdd1363d2bd8c812b963b8de65dac3318d8e9da3",

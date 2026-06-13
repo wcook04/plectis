@@ -99,14 +99,14 @@
       "selective residual relations counted as frontier pressure"
     ],
     "residual_policy": "Required paper-module residuals block readiness. Selective residuals are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-    "residual_relation_count": 7,
+    "residual_relation_count": 6,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 7
+      "paper_module.depends_on.paper_module": 6
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 7
+      "selective": 6
     },
-    "residual_relation_row_count": 7,
+    "residual_relation_row_count": 6,
     "residual_relation_rows": [
       {
         "count": 1,
@@ -123,12 +123,6 @@
       {
         "count": 1,
         "id": "paper_module.finance_forecast_evaluation_spine",
-        "required_count": 0,
-        "selective_count": 1
-      },
-      {
-        "count": 1,
-        "id": "paper_module.first_screen_composition_root",
         "required_count": 0,
         "selective_count": 1
       },
@@ -152,7 +146,7 @@
       }
     ],
     "schema_version": "microcosm_paper_module_readiness_audit_v1",
-    "selective_residual_relation_count": 7,
+    "selective_residual_relation_count": 6,
     "source_authority_counts": {
       "json_capsule": 98
     },

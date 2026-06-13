@@ -7529,6 +7529,9 @@
       "concept_refs": [
         "concept.entry_and_reveal_route_readiness_bundle"
       ],
+      "depends_on": [
+        "paper_module.cold_reader_route_map"
+      ],
       "generated_projections": {
         "markdown": {
           "path": "paper_modules/first_screen_composition_root.md",

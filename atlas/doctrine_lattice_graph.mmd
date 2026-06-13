@@ -7570,6 +7570,8 @@ flowchart LR
   paper_module_paper_module_first_screen_composition_root -- abides_by --> axiom_AX_8
   axiom_AX_11["axiom:AX-11"]
   paper_module_paper_module_first_screen_composition_root -- abides_by --> axiom_AX_11
+  paper_module_paper_module_cold_reader_route_map["paper_module:paper_module.cold_reader_route_map"]
+  paper_module_paper_module_first_screen_composition_root -- depends_on --> paper_module_paper_module_cold_reader_route_map
   code_locus_src_microcosm_core_first_screen_composition_py["code_locus:src/microcosm_core/first_screen_composition.py"]
   paper_module_paper_module_first_screen_composition_root -- cites --> code_locus_src_microcosm_core_first_screen_composition_py
   code_locus_scripts_first_screen_composition_card_py["code_locus:scripts/first_screen_composition_card.py"]
