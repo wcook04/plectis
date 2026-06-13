@@ -7157,16 +7157,44 @@ def test_proof_derived_governed_mutation_authorization_population_has_capsule_an
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
     assert projection["registry_atlas_join_health"]["status"] == "pass"
 
+    capsule_registry = json.loads(
+        (MICROCOSM_ROOT / "core/paper_module_capsules.json").read_text(encoding="utf-8")
+    )
+    capsule = next(
+        row for row in capsule_registry["paper_modules"] if row["id"] == capsule_id
+    )
+    assert capsule["depends_on"] == ["paper_module.mission_transaction_work_spine"]
+
+    paper_module = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "paper_modules/proof_derived_governed_mutation_authorization.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert paper_module["relationships"]["unpopulated_selective_relations"] == []
+    assert any(
+        edge["relation_id"] == "paper_module.depends_on.paper_module"
+        and edge["target_id"] == "paper_module.mission_transaction_work_spine"
+        for edge in paper_module["relationships"]["edges"]
+    )
+
     mechanism_registry = json.loads(
         (MICROCOSM_ROOT / "core/mechanism_sources.json").read_text(encoding="utf-8")
     )
     mechanism = next(
         row for row in mechanism_registry["mechanisms"] if row["id"] == mechanism_id
     )
+    mission_mechanism = next(
+        row
+        for row in mechanism_registry["mechanisms"]
+        if row["id"]
+        == "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+    )
     assert mechanism["runs_in"] == ["proof_derived_governed_mutation_authorization"]
     assert mechanism["code_loci"][0]["path"] == (
         "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py"
     )
+    assert mechanism_id in mission_mechanism["upstream_of"]
     assert mechanism["resolution_evidence"]["evidence_rank"] == 5
     assert (
         "receipts/first_wave/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json"

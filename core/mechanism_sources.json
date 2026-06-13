@@ -1681,6 +1681,7 @@
         "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
         "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
         "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
       ],
       "concept_refs": [

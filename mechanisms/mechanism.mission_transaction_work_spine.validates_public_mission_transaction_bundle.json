@@ -215,6 +215,7 @@
         "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
         "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
         "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
       ]
     },
@@ -449,6 +450,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -468,6 +482,7 @@
       "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
       "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+      "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
       "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
     ]
   },

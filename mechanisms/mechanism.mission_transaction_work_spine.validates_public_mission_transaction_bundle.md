@@ -23,6 +23,7 @@ The mission transaction work-spine organ validates public work-landing and close
 - `upstream_of` -> `mechanism:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory` (resolved_json_instance)
 
 ## Anti-Claims

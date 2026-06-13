@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 20,
+    "paper_module_unpopulated_selective_relation_count": 19,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,12 +209,12 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T00:34:57.508166Z",
+    "generated_at": "2026-06-13T00:56:02.080774Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 207,
+    "covered_edge_count": 208,
     "missing_edge_count": 0,
     "missing_edges": [],
     "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
@@ -3305,11 +3305,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "f86e11b7b5a996c12c9fde79f84e14ea11add631f86b32dd64794d3ff6ac262a",
+        "sha256": "12f4dee707aaf785b0bd359c1e54de41220a9dffdf61dce90a8bbf86928313f5",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "21e7ad44bca2ca43fb4375772a34c70551f841edccb87ad5065730c9b63ea748",
+    "source_manifest_digest": "d865c8d76abc95b8b6bbd74d8d16471d96f4172f0820417168d830b9bfd8315f",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3321,7 +3321,7 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 20,
+    "unpopulated_selective_relation_count": 19,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3339,7 +3339,6 @@
       "paper_module.first_screen_composition_root",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay",
-      "paper_module.proof_derived_governed_mutation_authorization",
       "paper_module.sleeper_memory_poisoning_quarantine_replay",
       "paper_module.standards_meta_diagnostics",
       "paper_module.world_model_projection_drift_control_room"
@@ -3558,14 +3557,14 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 20,
+    "residual_relation_count": 19,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 20
+      "paper_module.depends_on.paper_module": 19
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 20
+      "selective": 19
     },
-    "residual_relation_detail_count": 20,
+    "residual_relation_detail_count": 19,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3793,20 +3792,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.proof_derived_governed_mutation_authorization",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.proof_derived_governed_mutation_authorization",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[15:paper_module.proof_derived_governed_mutation_authorization]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[15:paper_module.proof_derived_governed_mutation_authorization]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.sleeper_memory_poisoning_quarantine_replay",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -3849,11 +3834,11 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 20,
+    "selective_residual_relation_count": 19,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 20
+      "paper_module.depends_on.paper_module": 19
     },
-    "selective_residual_relation_detail_count": 20,
+    "selective_residual_relation_detail_count": 19,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -4081,20 +4066,6 @@
       },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.proof_derived_governed_mutation_authorization",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.proof_derived_governed_mutation_authorization",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[15:paper_module.proof_derived_governed_mutation_authorization]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[15:paper_module.proof_derived_governed_mutation_authorization]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.sleeper_memory_poisoning_quarantine_replay",
         "instance_kind": "paper_module",
         "paper_module_id": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -4141,7 +4112,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 20,
+    "unpopulated_selective_relation_count": 19,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -4339,10 +4310,10 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "c392e4b36b1db18de25a089f2d190307edb20d8ba8fc6c0be175d03f2f7885ae",
+      "core/mechanism_sources.json": "6a3b32555e0b145f7008f8f84406b286daff7a477b04a111855ccc482f256487",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "f86e11b7b5a996c12c9fde79f84e14ea11add631f86b32dd64794d3ff6ac262a",
+      "core/paper_module_capsules.json": "12f4dee707aaf785b0bd359c1e54de41220a9dffdf61dce90a8bbf86928313f5",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -4420,7 +4391,7 @@
       "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "567206fefba3ba426ecf3fc2e8c34044e5c2d04865c6fdbc27904ba4d8bd05e4",
       "mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json": "4650e96680581c36c11aecfecfda7030e2d57600987058c091fd55c5a4938abc",
       "mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json": "b3b81b0439e06eee2e9b08619be27dd2993e8cf1928460347cb68dd897064b04",
-      "mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "450e32e138c2c618bde8cbe482ac25769c7e91374f1b104a955690bba08b1591",
+      "mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "cf4ba572d8886f4e65cd528d6a0d95d377a25fbc20a800cc6349bbfc332e7525",
       "mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json": "b09acb23c6e04990ae5f4e1bf156baebd78220ee3874ef2f479f3ee1dc5f6545",
       "mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json": "18ce150630dc4f2a8073582bc2b949b7f562c62da6467e0bab957185afaaa7f5",
       "mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json": "f06ebcfde29bb2605f5b6ecc24ec3e5fe37ef2e5ce3ae1aa8221393517fb6b31",
@@ -4604,7 +4575,7 @@
       "paper_modules/pattern_assimilation.json": "a64242ab87393e4a8b9fdecc095999f3616982f6c957fbd70ab09d7c1ee52814",
       "paper_modules/pattern_binding_contract.json": "0947dbe25c054e8d836c0770c6da11f0eaec9d748c86682eeee05b7f572ccc27",
       "paper_modules/prediction_oracle_reconciliation.json": "8288f6a5caeff5932b1f954d47a19bba298d0155080547f0ba67fe7377aa4294",
-      "paper_modules/proof_derived_governed_mutation_authorization.json": "52576e7fa606b0e326efe2339648bda636ba595da85b53ae79ea6b4f26a204b8",
+      "paper_modules/proof_derived_governed_mutation_authorization.json": "b9cc46ea25eaa24c0026bf58c883011dc1aaadc2cd6365757d370cab4d7a39b8",
       "paper_modules/proof_diagnostic_evidence_spine.json": "8b0b72671f4a765cc2b6f40115acb3f5d43759dfa7472035e4402750c93ea90d",
       "paper_modules/provider_context_recipe_budget.json": "594f40d12b0ab6a719c864577d813e7b6adf689a99772bbb0356e6e8db28808b",
       "paper_modules/public_reveal_walkthrough.json": "ad7cf044fb0d497a5006f088b648d74de2ec615ea7dcade04922bc7abff2e54f",

@@ -162,8 +162,8 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
         "json_capsule": 98,
     }
     assert paper_modules["required_residual_relation_count"] == 0
-    assert paper_modules["selective_residual_relation_count"] == 20
-    assert paper_modules["residual_relation_count"] == 20
+    assert paper_modules["selective_residual_relation_count"] == 19
+    assert paper_modules["residual_relation_count"] == 19
     assert paper_modules["required_gap_ids"] == []
     assert paper_modules["incomplete_ids"] == []
     assert report["status"] == "complete"

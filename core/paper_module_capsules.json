@@ -1241,6 +1241,9 @@
       ],
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "depends_on": [
+        "paper_module.mission_transaction_work_spine"
       ]
     },
     {
