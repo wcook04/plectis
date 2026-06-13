@@ -62,9 +62,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 74407,
+      "byte_count": 75428,
       "copy_mode": "exact_file_copy",
-      "line_count": 485,
+      "line_count": 488,
       "material_class": "public_macro_skill_body",
       "module_id": "local_to_general_propagation_skill_body",
       "required_anchors": [
@@ -75,9 +75,9 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "source_sha256": "338a6e72a849a8e68b37465fa8dfd61258806e27ef55ba396a655d270a08df03",
+      "source_sha256": "ad99faa252e6d675c78e31d0642bcded5b1ad1a8fb013b93458196d31a166913",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "target_sha256": "338a6e72a849a8e68b37465fa8dfd61258806e27ef55ba396a655d270a08df03"
+      "target_sha256": "ad99faa252e6d675c78e31d0642bcded5b1ad1a8fb013b93458196d31a166913"
     },
     {
       "body_copied": true,
