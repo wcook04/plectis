@@ -11,6 +11,34 @@ replays the task with memory enabled and disabled. The replay is admitted only
 when ADD, UPDATE, DELETE, and NOOP decisions, metadata-only private refs,
 evidence handles, cold replay refs, and an answer-delta receipt line up.
 
+## Purpose
+
+This organ exists because an agent that remembers can quietly start trusting
+the wrong row. A user states a preference, the world changes, a later turn
+contradicts the earlier one, and a naive memory store keeps serving the stale
+fact as though it were still true. The single question this fixture answers is
+narrow and checkable: when one memory write supersedes an earlier one, does the
+record of that conflict actually hold up, or is it just a label?
+
+The unusual choice is that the validator does not trust the labels it is given.
+A row can declare `decision = UPDATE`, attach a plausible-looking conflict-edge
+ref, and still be quarantined. In `_apply_conflict_semantic_recompute` the
+checker re-derives the conflict lineage from the raw fields it can verify:
+episode order, event timestamp, memory priority, and source-trust score. An
+UPDATE or DELETE that claims to supersede a prior write but is not timestamped
+after it, or that regresses priority or relies on lower-trust evidence than the
+write it replaces, is rejected. `_apply_temporal_order_checks` adds the coarser
+ordering rule that a conflict edge must land after some earlier accepted write
+and a replay must land after the conflict it depends on. The label is treated
+as a claim to be recomputed, not as authority.
+
+The point of the paired memory-on and memory-off replay is the matching
+discipline on the output side. Memory is only allowed to take credit for a
+better answer through an explicit evidence handle and a cold-replay receipt, so
+the gain is attributable rather than asserted. The interesting idea here is not
+a memory product. It is a small, reproducible accounting method for one specific
+failure: a stale row outranking newer evidence.
+
 ## Abstract
 
 Agent memory becomes dangerous when a stored row is allowed to outrank later

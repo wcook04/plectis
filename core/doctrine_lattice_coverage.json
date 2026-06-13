@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 0,
+    "mechanism_capsule_dependency_upstream_missing_count": 2,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 18,
+    "paper_module_unpopulated_selective_relation_count": 17,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -208,15 +208,28 @@
     "unregistered_lattice_edges": 0
   },
   "generation": {
-    "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T03:23:41.110780Z",
+    "command": "python -m microcosm_core.doctrine_lattice --write",
+    "generated_at": "2026-06-13T03:45:09.234963Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
     "covered_edge_count": 209,
-    "missing_edge_count": 0,
-    "missing_edges": [],
+    "missing_edge_count": 2,
+    "missing_edges": [
+      {
+        "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
+        "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+        "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+        "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+      },
+      {
+        "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
+        "dependency_paper_module": "paper_module.bridge_phase_continuity_runtime",
+        "source_mechanism": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+        "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+      }
+    ],
     "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
     "resolved_mechanism_subject_count": 98,
     "sample_covered_edges": [
@@ -299,7 +312,7 @@
       "paper_module_capsules": "core/paper_module_capsules.json",
       "relation_registry": "core/doctrine_lattice_relations.json::mechanism.upstream_of.mechanism"
     },
-    "status": "pass",
+    "status": "deficit",
     "unresolved_dependencies": [],
     "unresolved_dependency_count": 0
   },
@@ -3137,11 +3150,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "a910160c998f4568914af6cce35e11eb373ac2f4b49168e3ecf6faefc07d8654",
+        "sha256": "600b88e6f5b1d7793579ff1f023d0d587dfc3012246b662bdd9b477ee040239d",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "4c57eb3bba23e30b0f0806a5fd6e1aa182154a27d26eee0b2590f8b7da4cb083",
+    "source_manifest_digest": "9763eef4cac7da17a6083254fe3abb399483d11f5a8745a7405767439080f345",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3153,9 +3166,8 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 18,
+    "unpopulated_selective_relation_count": 17,
     "unpopulated_selective_relation_ids": [
-      "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
       "paper_module.agent_sandbox_policy_escape_replay",
       "paper_module.batch5_authority_systems_capsule",
@@ -3388,29 +3400,15 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 18,
+    "residual_relation_count": 17,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 18
+      "paper_module.depends_on.paper_module": 17
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 18
+      "selective": 17
     },
-    "residual_relation_detail_count": 18,
+    "residual_relation_detail_count": 17,
     "residual_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.agent_memory_temporal_conflict_replay",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.agent_memory_temporal_conflict_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay]"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3651,26 +3649,12 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 18,
+    "selective_residual_relation_count": 17,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 18
+      "paper_module.depends_on.paper_module": 17
     },
-    "selective_residual_relation_detail_count": 18,
+    "selective_residual_relation_detail_count": 17,
     "selective_residual_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.agent_memory_temporal_conflict_replay",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.agent_memory_temporal_conflict_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay]"
-        }
-      },
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
         "instance_id": "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3915,7 +3899,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 18,
+    "unpopulated_selective_relation_count": 17,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -4116,7 +4100,7 @@
       "core/mechanism_sources.json": "775978ea6734ae6c7a0c73bb68c4b7ad364e3d25b1321e35f8dbead4be313722",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "a910160c998f4568914af6cce35e11eb373ac2f4b49168e3ecf6faefc07d8654",
+      "core/paper_module_capsules.json": "600b88e6f5b1d7793579ff1f023d0d587dfc3012246b662bdd9b477ee040239d",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -4303,7 +4287,7 @@
       "organs/world_model_projection_drift_control_room.json": "2de8257d1dace9c2bbb314aa75f15313d3b1dfb26d9a3647e89ab99e70ebebc0",
       "paper_modules/agent_benchmark_integrity_anti_gaming_replay.json": "cbbfefff3b4dc8e2cb0bf27ebd6b0b0c2a0d474ef3e4dc71ae17ee7cd4e16a84",
       "paper_modules/agent_closeout_faithfulness_audit.json": "aceae5fa00146c88ca3a1fa4b3eb60acc773a582b467ce74deece21b935c11e2",
-      "paper_modules/agent_memory_temporal_conflict_replay.json": "d72074ba355c96e60e10b585797579677acde210c791d80f451412bcde328263",
+      "paper_modules/agent_memory_temporal_conflict_replay.json": "88e93fe4a9acfd5f26b6948048ea34bbb90d4164ecf066732f637850595fa3d7",
       "paper_modules/agent_monitor_redteam_falsification_replay.json": "35de34369759cc36cd2b7043802b7fc848f3f027ebd7068754e35ac27c3ab008",
       "paper_modules/agent_route_observability_runtime.json": "f24abe842bc4f1c35b27e12f3d6b24c4e2a1c5b0d1f898355b15fd86dbca8868",
       "paper_modules/agent_sabotage_scheming_monitor_replay.json": "0dc309408116897a17d7d102a6e0943614252a8bcf7a2a5996ff71fdfc5edc52",

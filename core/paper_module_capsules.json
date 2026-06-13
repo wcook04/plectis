@@ -2564,6 +2564,10 @@
       ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "depends_on": [
+        "paper_module.agent_route_observability_runtime",
+        "paper_module.bridge_phase_continuity_runtime"
       ]
     },
     {

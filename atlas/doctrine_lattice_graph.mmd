@@ -5788,6 +5788,10 @@ flowchart LR
   paper_module_paper_module_agent_memory_temporal_conflict_replay -- governed_by --> principle_P_2
   axiom_AX_1["axiom:AX-1"]
   paper_module_paper_module_agent_memory_temporal_conflict_replay -- abides_by --> axiom_AX_1
+  paper_module_paper_module_agent_route_observability_runtime["paper_module:paper_module.agent_route_observability_runtime"]
+  paper_module_paper_module_agent_memory_temporal_conflict_replay -- depends_on --> paper_module_paper_module_agent_route_observability_runtime
+  paper_module_paper_module_bridge_phase_continuity_runtime["paper_module:paper_module.bridge_phase_continuity_runtime"]
+  paper_module_paper_module_agent_memory_temporal_conflict_replay -- depends_on --> paper_module_paper_module_bridge_phase_continuity_runtime
   code_locus_src_microcosm_core_organs_agent_memory_temporal_conflict_replay_py["code_locus:src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py"]
   paper_module_paper_module_agent_memory_temporal_conflict_replay -- cites --> code_locus_src_microcosm_core_organs_agent_memory_temporal_conflict_replay_py
   paper_module_paper_module_agent_monitor_redteam_falsification_replay["paper_module:paper_module.agent_monitor_redteam_falsification_replay: Agent Monitor Redteam Falsification Replay"]:::paper_module

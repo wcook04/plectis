@@ -84,6 +84,10 @@
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
       ],
+      "depends_on": [
+        "paper_module.agent_route_observability_runtime",
+        "paper_module.bridge_phase_continuity_runtime"
+      ],
       "generated_projections": {
         "atlas_card": {
           "generated": true,
@@ -151,7 +155,10 @@
     "concept_refs": [
       "concept.agent_reliability_and_safety_validator_bundle"
     ],
-    "depends_on": [],
+    "depends_on": [
+      "paper_module.agent_route_observability_runtime",
+      "paper_module.bridge_phase_continuity_runtime"
+    ],
     "edges": [
       {
         "justification": {
@@ -233,6 +240,32 @@
       },
       {
         "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.agent_route_observability_runtime",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.bridge_phase_continuity_runtime",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[32:paper_module.agent_memory_temporal_conflict_replay].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for the public replay/regression validator."
         },
@@ -262,15 +295,7 @@
         "ref": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
       }
     ],
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ]
+    "unpopulated_selective_relations": []
   },
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [

@@ -126,3 +126,15 @@ def test_engine_room_leak_gate_dependency_routes_to_demo_module() -> None:
     } == {
         "paper_module.engine_room_demo": "resolved_json_instance",
     }
+
+
+def test_agent_memory_temporal_conflict_dependency_routes_to_source_named_siblings() -> None:
+    edges = _dependency_edges("paper_module.agent_memory_temporal_conflict_replay")
+
+    assert {
+        str(edge["target_id"]): edge["target_status"]
+        for edge in edges
+    } == {
+        "paper_module.agent_route_observability_runtime": "resolved_json_instance",
+        "paper_module.bridge_phase_continuity_runtime": "resolved_json_instance",
+    }
