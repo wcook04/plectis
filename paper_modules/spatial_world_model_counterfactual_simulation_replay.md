@@ -1,5 +1,25 @@
 # Spatial World-Model Counterfactual Simulation Replay
 
+## Purpose
+
+Spatial world-model demos are unusually easy to oversell. A plausible-looking
+video, or a row that simply asserts "the model predicted the next state
+correctly", can pass for understanding without anything having been checked.
+This organ exists to answer one narrow question: does a declared spatial
+counterfactual row actually bind a source state, an event, and a predicted
+outcome that survive an independent recomputation, or is it just a shape that
+looks right?
+
+The approach is the unusual part. Rather than trust the predicted state in the
+fixture, the runtime rebuilds a small deterministic toy gridworld from the
+declared scene and event and steps it forward itself, then compares its own
+result against what the row claims. The predicted actor count, transition delta,
+event label, and spawn cells are derived from the inputs (sensor-packet refs,
+consistency budget, topology), so a stale or hand-edited prediction no longer
+matches and the row blocks. The point is not a good simulator. The point is that
+a spatial-AI claim cannot pass on appearance alone: it has to agree with a
+recomputation a reader can audit in one screen.
+
 ## Abstract
 
 `spatial_world_model_counterfactual_simulation_replay` is a public-safe
