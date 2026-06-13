@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 19,
+    "paper_module_unpopulated_selective_relation_count": 18,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,12 +209,12 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T00:56:02.080774Z",
+    "generated_at": "2026-06-13T01:18:44.360879Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 208,
+    "covered_edge_count": 209,
     "missing_edge_count": 0,
     "missing_edges": [],
     "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
@@ -3305,11 +3305,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "12f4dee707aaf785b0bd359c1e54de41220a9dffdf61dce90a8bbf86928313f5",
+        "sha256": "a910160c998f4568914af6cce35e11eb373ac2f4b49168e3ecf6faefc07d8654",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "d865c8d76abc95b8b6bbd74d8d16471d96f4172f0820417168d830b9bfd8315f",
+    "source_manifest_digest": "4c57eb3bba23e30b0f0806a5fd6e1aa182154a27d26eee0b2590f8b7da4cb083",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3321,7 +3321,7 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 19,
+    "unpopulated_selective_relation_count": 18,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3340,8 +3340,7 @@
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay",
       "paper_module.sleeper_memory_poisoning_quarantine_replay",
-      "paper_module.standards_meta_diagnostics",
-      "paper_module.world_model_projection_drift_control_room"
+      "paper_module.standards_meta_diagnostics"
     ]
   },
   "paper_module_instance_corpus": {
@@ -3557,14 +3556,14 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 19,
+    "residual_relation_count": 18,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 19
+      "paper_module.depends_on.paper_module": 18
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 19
+      "selective": 18
     },
-    "residual_relation_detail_count": 19,
+    "residual_relation_detail_count": 18,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3817,28 +3816,14 @@
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[29:paper_module.standards_meta_diagnostics]"
         }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.world_model_projection_drift_control_room",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.world_model_projection_drift_control_room",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]"
-        }
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 19,
+    "selective_residual_relation_count": 18,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 19
+      "paper_module.depends_on.paper_module": 18
     },
-    "selective_residual_relation_detail_count": 19,
+    "selective_residual_relation_detail_count": 18,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -4091,20 +4076,6 @@
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[29:paper_module.standards_meta_diagnostics]"
         }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.world_model_projection_drift_control_room",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.world_model_projection_drift_control_room",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]"
-        }
       }
     ],
     "source_refs": {
@@ -4112,7 +4083,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 19,
+    "unpopulated_selective_relation_count": 18,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -4310,10 +4281,10 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "6a3b32555e0b145f7008f8f84406b286daff7a477b04a111855ccc482f256487",
+      "core/mechanism_sources.json": "bca1d4739438e267912739f09c1beaa5914ff6ba9a64c3d44b51bd1814c61551",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "12f4dee707aaf785b0bd359c1e54de41220a9dffdf61dce90a8bbf86928313f5",
+      "core/paper_module_capsules.json": "a910160c998f4568914af6cce35e11eb373ac2f4b49168e3ecf6faefc07d8654",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -4385,7 +4356,7 @@
       "mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "d651b55de2c04fbeaaec71075cd92a3b8a4c81621babb72a21a6bf5d60055ddf",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "9ed4d5e2cc97d3e827297be27f7682e5f98cea2399bdaedb4d9b276d68020396",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json": "0ac6a576ef0aaf62359de1ccce08b8e19f726ce07057882fa979bd17ee0dd1b9",
-      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "6f3f26e5288e320c7f671015a7bbe7048eb2752cf6d2f8b6f7ae4845cc352872",
+      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "ee515ba955592530a6ab44f8ca0b261529b5e91e06f2069362a5591a968d66db",
       "mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "00029277572c9291a39fae44235add919b7117b5c22856393e18d4d3a4c0c5fe",
       "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "819aab36c287ecd03a465dbe850ce2f3edc8b52f8ac7808cc7079a34150d62fb",
       "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "567206fefba3ba426ecf3fc2e8c34044e5c2d04865c6fdbc27904ba4d8bd05e4",
@@ -4595,7 +4566,7 @@
       "paper_modules/voice_to_doctrine_self_improvement_loop.json": "385eb15a017745689c828882a144dc7bc5092e63030bda8d9d74503ccb15cb45",
       "paper_modules/work_landing_control_spine.json": "492548719efe07413c36a306ce6c99253b68f3dc0a79b1ec52b11bf1fc12c307",
       "paper_modules/workstream_driver_recency_coalescer.json": "629ccb4ea77f670a1ec9e3e5b80895c28f396f4e7d247e086f44369686ab0d91",
-      "paper_modules/world_model_projection_drift_control_room.json": "e3550a11e99689c92c64fa8d6a41d03dd64281a3e1035d4598299ee216c5fa61",
+      "paper_modules/world_model_projection_drift_control_room.json": "467fa0d1ebfb5876af87c94635a766c6ce123318d7053d39942bcbe5ca6e05b7",
       "principles/P-1.json": "aa3128dbf4ae70df8b2ee7c7cce6623416b28b2a983071429c87a1e52fe928c2",
       "principles/P-10.json": "a1395b900bcf6a13bb7e7f606d52a9ff351fe8fb79bd12c639edf649114657ac",
       "principles/P-11.json": "48f795ed37ac1f4584b358a8e817a3acb356c3e6403a386f118944dcd2e9ade8",

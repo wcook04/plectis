@@ -741,7 +741,7 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 208,
+      "covered_edge_count": 209,
       "missing_edge_count": 0,
       "missing_edges": [],
       "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
@@ -3525,12 +3525,12 @@
     "markdown_file_count": 100,
     "required_subject_gap_count": 0,
     "required_subject_gaps": [],
-    "residual_relation_count": 19,
+    "residual_relation_count": 18,
     "residual_relation_counts_by_requirement": {
-      "selective": 19
+      "selective": 18
     },
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 19,
+    "unpopulated_selective_edge_count": 18,
     "unpopulated_selective_edges": [
       "paper_module.agent_memory_temporal_conflict_replay",
       "paper_module.agent_monitor_redteam_falsification_replay",
@@ -3549,12 +3549,11 @@
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay",
       "paper_module.sleeper_memory_poisoning_quarantine_replay",
-      "paper_module.standards_meta_diagnostics",
-      "paper_module.world_model_projection_drift_control_room"
+      "paper_module.standards_meta_diagnostics"
     ],
-    "unpopulated_selective_relation_count": 19,
+    "unpopulated_selective_relation_count": 18,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 19
+      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 18
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "paper_module.agent_memory_temporal_conflict_replay": 1,
@@ -3574,16 +3573,15 @@
       "paper_module.indirect_prompt_injection_information_flow_policy_replay": 1,
       "paper_module.mcp_tool_authority_replay": 1,
       "paper_module.sleeper_memory_poisoning_quarantine_replay": 1,
-      "paper_module.standards_meta_diagnostics": 1,
-      "paper_module.world_model_projection_drift_control_room": 1
+      "paper_module.standards_meta_diagnostics": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 19
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 18
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 19
+      "paper_module.depends_on.paper_module": 18
     },
-    "unpopulated_selective_relation_detail_count": 19,
+    "unpopulated_selective_relation_detail_count": 18,
     "unpopulated_selective_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3835,20 +3833,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[29:paper_module.standards_meta_diagnostics]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[29:paper_module.standards_meta_diagnostics]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.world_model_projection_drift_control_room",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.world_model_projection_drift_control_room",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]"
         }
       }
     ],

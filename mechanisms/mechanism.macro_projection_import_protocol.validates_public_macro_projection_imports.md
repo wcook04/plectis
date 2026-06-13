@@ -29,6 +29,7 @@ The macro projection import protocol organ validates fixture and exported projec
 - `upstream_of` -> `mechanism:mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer` (resolved_json_instance)
 
 ## Anti-Claims

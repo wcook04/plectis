@@ -6663,9 +6663,14 @@ def test_corpus_readiness_paper_module_capsule_is_not_shadowed_by_legacy_slug() 
 
 def test_world_model_projection_drift_control_room_population_resolves_required_edges() -> None:
     capsule_id = "paper_module.world_model_projection_drift_control_room"
+    macro_capsule_id = "paper_module.macro_projection_import_protocol"
     mechanism_id = (
         "mechanism.world_model_projection_drift_control_room."
         "validates_public_projection_drift_control_boundary"
+    )
+    macro_mechanism_id = (
+        "mechanism.macro_projection_import_protocol."
+        "validates_public_macro_projection_imports"
     )
     projection = build_coverage_projection(
         MICROCOSM_ROOT,
@@ -6675,6 +6680,20 @@ def test_world_model_projection_drift_control_room_population_resolves_required_
     coverage = projection["organ_required_edge_coverage"]
 
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
+    paper_module = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "paper_modules/world_model_projection_drift_control_room.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert paper_module["id"] == capsule_id
+    assert paper_module["relationships"]["depends_on"] == [macro_capsule_id]
+    assert paper_module["relationships"]["unpopulated_selective_relations"] == []
+    assert any(
+        edge["relation_id"] == "paper_module.depends_on.paper_module"
+        and edge["target_id"] == macro_capsule_id
+        for edge in paper_module["relationships"]["edges"]
+    )
     assert "world_model_projection_drift_control_room" not in coverage["without_paper_module_ref"]
     assert "world_model_projection_drift_control_room" not in coverage["without_mechanism_ref"]
     assert "world_model_projection_drift_control_room" not in coverage["without_code_loci"]
@@ -6695,6 +6714,12 @@ def test_world_model_projection_drift_control_room_population_resolves_required_
         "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
         in mechanism["receipt_refs"]
     )
+    macro_mechanism = next(
+        row
+        for row in mechanism_registry["mechanisms"]
+        if row["id"] == macro_mechanism_id
+    )
+    assert mechanism_id in macro_mechanism["upstream_of"]
 
     standard = json.loads(
         (
