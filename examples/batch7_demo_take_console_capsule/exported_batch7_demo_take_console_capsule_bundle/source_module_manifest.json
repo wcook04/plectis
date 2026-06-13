@@ -71,8 +71,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 111316,
-      "line_count": 2810,
+      "byte_count": 112095,
+      "line_count": 2822,
       "material_class": "public_macro_macos_swift_body",
       "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
       "required_anchors": [
@@ -82,14 +82,14 @@
         "func togglePause()",
         "func stopRecording() async"
       ],
-      "sha256": "d0ae77b430f0067be7e4268f46003ee7e6f5dead49a07885fc26ea14677f0687",
+      "sha256": "27b59dea628106bd4564ea77894d629b873a7f9b2f6e323d2e9d409ee8158ce2",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
-      "source_sha256": "d0ae77b430f0067be7e4268f46003ee7e6f5dead49a07885fc26ea14677f0687",
+      "source_sha256": "27b59dea628106bd4564ea77894d629b873a7f9b2f6e323d2e9d409ee8158ce2",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
-      "target_sha256": "d0ae77b430f0067be7e4268f46003ee7e6f5dead49a07885fc26ea14677f0687"
+      "target_sha256": "27b59dea628106bd4564ea77894d629b873a7f9b2f6e323d2e9d409ee8158ce2"
     },
     {
       "body_copied": true,

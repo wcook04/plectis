@@ -225,7 +225,14 @@ final class RecorderStore: ObservableObject {
     }
     var onHudShouldShow: (() -> Void)?
     var onHudShouldHide: (() -> Void)?
-    private let minimumStartDiskBytes: Int64 = 1_000_000_000
+    // Mirror of the capture helper's LOCAL_STORAGE_HARD_FLOOR_BYTES in
+    // support/demo_take_capture.py. The helper fail-closes a start below this
+    // floor *before* it creates a take folder, so the UI must gate on the same
+    // value — otherwise Start greenwashes ("Sources ready") and only fails after
+    // the countdown with a cryptic "Start failed". Swift reads
+    // volumeAvailableCapacityForImportantUsage (slightly higher than the helper's
+    // statvfs free), so the helper remains the final authority on a borderline disk.
+    private let minimumStartDiskBytes: Int64 = 10 * 1024 * 1024 * 1024
 
     init(
         audioLevelMonitor: any AudioLevelMonitoring = AudioLevelMonitor(),
@@ -485,7 +492,12 @@ final class RecorderStore: ObservableObject {
                 blockers.append("\(selectedAudio.name) is not visible to macOS; reconnect it or Reload devices")
             }
         }
-        if permissions.disk == .low { blockers.append("Disk space is tight") }
+        if permissions.disk == .low {
+            blockers.append(
+                "Free disk \(HostEnvironment.byteString(diskFreeBytes)) is below the "
+                + "\(HostEnvironment.byteString(minimumStartDiskBytes)) recording floor — archive or prune takes first"
+            )
+        }
         return blockers
     }
 
