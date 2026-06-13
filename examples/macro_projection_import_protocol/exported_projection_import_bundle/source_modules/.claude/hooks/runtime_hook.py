@@ -205,10 +205,11 @@ LOCAL_CLOSEOUT_TERMINAL_PHRASES = {
 # context path passes hook claim_ids (e.g. "committed_and_pushed") -- so each
 # class lists BOTH. Global-cleanliness assertions claim whole-tree state and are
 # NEVER scoped-clearable on a dirty tree. Owned-landing assertions ("my slice
-# committed/pushed") MAY be scoped-held on the same evidence bar as the
-# closeout-local family PLUS a concrete landing receipt, so a true bounded
-# closeout no longer needs a hand-written proof paragraph to clear the gate.
+# committed/pushed") MAY be scoped-held; "clean-and-pushed" stays global because
+# it asserts whole-tree cleanliness alongside publication.
 GLOBAL_CLEAN_NEVER_SCOPED_TOKENS = {
+    "clean and pushed",
+    "clean-and-pushed",
     "working tree clean",
     "working tree is clean",
     "worktree clean",
@@ -217,11 +218,10 @@ GLOBAL_CLEAN_NEVER_SCOPED_TOKENS = {
     "repo is clean",
     "repository clean",
     "repository is clean",
+    "clean_and_pushed",
     "working_tree_clean",
 }
 OWNED_LANDING_SCOPED_TOKENS = {
-    "clean and pushed",
-    "clean-and-pushed",
     "committed and pushed",
     "commit pushed",
     "pushed to origin",
@@ -229,7 +229,6 @@ OWNED_LANDING_SCOPED_TOKENS = {
     "published to origin",
     "published to remote",
     "committed_and_pushed",
-    "clean_and_pushed",
     "pushed_to_remote",
     "remote_ref_verified",
 }
@@ -272,6 +271,22 @@ REPO_SUBSTRATE_ACTION_RE = re.compile(
     r"changed|updated|modified|edited|patched|implemented|wired|wrote|created|"
     r"deleted|removed|staged|committed|pushed|published|validated|tested|"
     r"ran tests?|pytest|vitest|build|lint|compiled"
+    r")\b",
+    re.IGNORECASE,
+)
+NO_REPO_SUBSTRATE_CHANGE_RE = re.compile(
+    r"\b("
+    r"made (?:zero|no) repo(?: working[- ]tree)? changes|"
+    r"zero repo working[- ]tree changes|"
+    r"no repo working[- ]tree changes|"
+    r"no working[- ]tree changes|"
+    r"no repo changes|"
+    r"no owned repo changes|"
+    r"no repo mutations?|"
+    r"did not mutate the repo|"
+    r"read[- ]only (?:status )?check|"
+    r"nothing (?:of mine )?to commit|"
+    r"(?:memory write|out[- ]of[- ]repo memory write) outside the repo"
     r")\b",
     re.IGNORECASE,
 )
@@ -2843,6 +2858,8 @@ def _message_claims_repo_substrate_work(message: str) -> bool:
         return False
     if _matched_closeout_terminal_claims(message):
         return True
+    if _message_reports_no_repo_substrate_change(message) and not _message_reports_local_landing_evidence(message):
+        return False
     if CLOSEOUT_EXECUTOR_ACTION_EVIDENCE_RE.search(message):
         return True
     if UNCOMMITTED_CLOSEOUT_HINT_RE.search(message) and (
@@ -2855,6 +2872,12 @@ def _message_claims_repo_substrate_work(message: str) -> bool:
         (absolute_repo_path_mentioned or REPO_SUBSTRATE_PATH_HINT_RE.search(message))
         and REPO_SUBSTRATE_ACTION_RE.search(message)
     )
+
+
+def _message_reports_no_repo_substrate_change(message: str) -> bool:
+    if not message.strip():
+        return False
+    return bool(NO_REPO_SUBSTRATE_CHANGE_RE.search(message))
 
 
 def _message_reports_bounded_closeout_evidence(message: str) -> bool:
@@ -3973,6 +3996,38 @@ def _additional_context(action: str, payload: Dict[str, Any]) -> str:
     return combined
 
 
+def _spawn_dev_daemon_sweep_safe() -> None:
+    """
+    [ACTION]
+    - Teleology: Session-end hygiene — agents that started browser tooling (playwright MCP, chrome-devtools watchdogs, headless chromium) routinely leave it running after the session dies; fire-and-forget the supervisor's orphan sweep so it cleans up behind them.
+    - Guarantee: Never blocks or fails session teardown — detached child process, all errors swallowed; sweep policy (orphan-only, 30-minute min age) lives in the supervisor, not here.
+    - Escalates-to: tools/meta/control/dev_daemon_supervisor.py::sweep_plan
+    """
+    try:
+        import subprocess
+
+        supervisor = REPO_ROOT / "tools" / "meta" / "control" / "dev_daemon_supervisor.py"
+        if not supervisor.exists():
+            return
+        subprocess.Popen(
+            [
+                str(REPO_ROOT / "repo-python"),
+                str(supervisor),
+                "sweep",
+                "--kill",
+                "--quiet",
+                "--min-age-minutes",
+                "30",
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
+            cwd=str(REPO_ROOT),
+        )
+    except Exception:
+        pass
+
+
 def main(argv: List[str]) -> int:
     action = argv[1] if len(argv) > 1 else ""
     try:
@@ -3989,6 +4044,11 @@ def main(argv: List[str]) -> int:
         _record_closeout_baseline_if_needed(action, payload)
         if action == "user-prompt":
             _type_b_candidate_enqueue_safe(action, payload)
+
+    # Session-end dev-process hygiene: detached orphan sweep (never blocks
+    # teardown; see _spawn_dev_daemon_sweep_safe contract).
+    if action == "session-end":
+        _spawn_dev_daemon_sweep_safe()
 
     # Stop lifecycle boundary — emit a reactions_engine-visible signal row.
     # Per the 0/1/2 exit-code contract canonised in

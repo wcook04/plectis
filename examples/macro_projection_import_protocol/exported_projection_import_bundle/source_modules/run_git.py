@@ -23,6 +23,7 @@ import argparse
 import fnmatch
 import json
 import os
+import re
 import stat
 import subprocess
 import sys
@@ -63,6 +64,52 @@ PUSH_AUDIT_STATUS_SCHEMA = "push_audit_status_v1"
 GUARDED_PUSH_RECEIPT_SCHEMA = "guarded_push_receipt_v1"
 MULTI_COMMIT_RANGE_WATCH_REASON = "multi_commit_local_ahead_range"
 ZERO_OID = "0" * 40
+
+# ── Secret-content backstop ────────────────────────────────────────────────
+# Defense-in-depth so a live credential committed into a TRACKED file is caught
+# before it leaves the machine (the path/size audits never read blob CONTENT,
+# and the checkpoint actuator commits via commit-tree, bypassing git hooks; the
+# push audit is the one chokepoint every push path traverses). Intentionally
+# self-contained — the commit/push critical path takes no extra import — and
+# limited to HIGH-CONFIDENCE shapes to keep false positives near zero. The
+# canonical, broader public-release scanner lives at
+# tools/meta/microcosm_public_safety/public_path_secret_policy.py.
+SECRET_CONTENT_SCAN_MAX_BYTES = 1_500_000
+_SECRET_BINARY_SUFFIXES = (
+    ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".pdf", ".zip", ".gz",
+    ".tar", ".tgz", ".bz2", ".7z", ".woff", ".woff2", ".ttf", ".otf", ".eot",
+    ".mp3", ".mp4", ".mov", ".wav", ".webm", ".so", ".dylib", ".bin", ".wasm",
+    ".jar", ".class", ".heic", ".db", ".sqlite", ".sqlite3", ".parquet",
+)
+# Paths where credential-SHAPED strings are pattern definitions, scanner
+# vocabulary, or negative-test fixtures — not live secrets.
+_SECRET_PATH_ALLOW_SUBSTRINGS = (
+    "test", "fixture", "mock", "example", "sample", "detect-secrets",
+    "secret_exclusion_scan", "projection_secret_scan", "public_path_secret_policy",
+    "run_git.py",
+)
+# When a matched token contains one of these, it is a redaction-test fixture or
+# placeholder, not a live secret.
+_SECRET_SYNTHETIC_MARKERS = (
+    "example", "redact", "placeholder", "dummy", "sample", "your_", "xxxx",
+    "abcdef", "123456", "fake", "notreal", "aaaaaa", "bbbbbb",
+)
+_SECRET_CONTENT_PATTERNS = (
+    ("private key", re.compile(r"-----BEGIN (?:[A-Z0-9]+ )*PRIVATE KEY(?: BLOCK)?-----")),
+    ("anthropic key", re.compile(r"\bsk-ant-api\d{2}-[A-Za-z0-9_-]{20,}")),
+    ("openai key", re.compile(r"\bsk-(?:proj-)?(?!ant-api)[A-Za-z0-9]{26,}")),
+    ("google api key", re.compile(r"\bAIza[0-9A-Za-z_-]{35}")),
+    ("github token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}")),
+    ("github fine-grained token", re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}_[A-Za-z0-9_]{20,}")),
+    ("gitlab token", re.compile(r"\bglpat-[A-Za-z0-9_-]{20,}")),
+    ("slack token", re.compile(r"\bxox[baprs]-[A-Za-z0-9-]{20,}")),
+    ("aws access key", re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")),
+    ("huggingface token", re.compile(r"\bhf_[A-Za-z0-9]{30,}")),
+    ("pypi token", re.compile(r"\bpypi-[A-Za-z0-9_-]{30,}")),
+    ("npm token", re.compile(r"\bnpm_[A-Za-z0-9]{30,}")),
+    ("sendgrid key", re.compile(r"\bSG\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}")),
+    ("jwt", re.compile(r"eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}")),
+)
 
 TRANSIENT_RUNTIME_EXACT_PATHS = {
     "tools/meta/apply/observe_plan.json": (
@@ -493,6 +540,149 @@ def _tracked_blob_size(object_spec: str) -> int | None:
         return None
 
 
+def _read_blob_bytes(object_spec: str) -> bytes | None:
+    result = subprocess.run(
+        ["git", "cat-file", "blob", object_spec],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout
+
+
+def _is_secret_scan_candidate(path: str, size_bytes: int | None) -> bool:
+    """Skip allow-listed paths (tests/fixtures/scanner vocabulary), binary
+    suffixes, and oversize blobs so only plausible live-secret text is read."""
+    lower_path = path.lower()
+    if any(token in lower_path for token in _SECRET_PATH_ALLOW_SUBSTRINGS):
+        return False
+    if lower_path.endswith(_SECRET_BINARY_SUFFIXES):
+        return False
+    if size_bytes is not None and size_bytes > SECRET_CONTENT_SCAN_MAX_BYTES:
+        return False
+    return True
+
+
+def _match_secret_patterns(
+    *, raw: bytes, path: str, source: str, size_bytes: int | None
+) -> list[GitPolicyViolation]:
+    """Flag high-confidence live-credential shapes in one blob's bytes.
+
+    Binary blobs and tokens carrying synthetic markers (redaction-test
+    fixtures / placeholders) are skipped. One violation per credential kind
+    per file.
+    """
+    if not raw or b"\x00" in raw[:8192]:  # empty or binary -> skip
+        return []
+    text = raw.decode("utf-8", errors="ignore")
+    if source == "push":
+        remediation = (
+            "A live secret is in the commits being pushed. Removing it in a later commit will NOT "
+            "un-leak it — ROTATE the credential now, then rewrite the local history (git filter-repo) "
+            "to purge the blob before pushing. Keep secrets in a gitignored .env or a secret manager."
+        )
+    else:
+        remediation = (
+            "Unstage this file, remove the credential, and ROTATE it immediately. Keep secrets in a "
+            "gitignored .env or a secret manager, never in a tracked file. If this is a synthetic test "
+            "fixture, mark the value with EXAMPLE/REDACTED or move it under a tests/fixtures path."
+        )
+    violations: list[GitPolicyViolation] = []
+    for kind, pattern in _SECRET_CONTENT_PATTERNS:
+        for match in pattern.finditer(text):
+            lowered = match.group(0).lower()
+            if any(marker in lowered for marker in _SECRET_SYNTHETIC_MARKERS):
+                continue
+            violations.append(
+                GitPolicyViolation(
+                    category="secret_content",
+                    path=path,
+                    detail=f"Possible live {kind} committed in this file.",
+                    remediation=remediation,
+                    source=source,
+                    size_bytes=size_bytes,
+                    severity="error",
+                )
+            )
+            break  # first real match for this credential kind is enough
+    return violations
+
+
+def _scan_blob_content_for_secrets(
+    *,
+    object_spec: str,
+    path: str,
+    source: str,
+    size_bytes: int | None,
+) -> list[GitPolicyViolation]:
+    """Staged path: read one tracked blob and scan it for live secrets."""
+    if not _is_secret_scan_candidate(path, size_bytes):
+        return []
+    raw = _read_blob_bytes(object_spec)
+    if raw is None:
+        return []
+    return _match_secret_patterns(raw=raw, path=path, source=source, size_bytes=size_bytes)
+
+
+def _scan_push_objects_for_secrets(
+    objects: dict[str, tuple[str, int | None]],
+) -> list[GitPolicyViolation]:
+    """Push path: scan candidate blobs in the push range for live secrets.
+
+    Reads content via batched `git cat-file --batch` (one subprocess per chunk
+    instead of one per blob) so auditing a large local-ahead range stays fast.
+    """
+    candidates = [
+        (object_id, path, size_bytes)
+        for path, (object_id, size_bytes) in objects.items()
+        if _is_secret_scan_candidate(path, size_bytes)
+    ]
+    if not candidates:
+        return []
+    by_oid: dict[str, tuple[str, int | None]] = {
+        object_id: (path, size_bytes) for object_id, path, size_bytes in candidates
+    }
+    violations: list[GitPolicyViolation] = []
+    for chunk in _chunked(list(by_oid.keys()), chunk_size=256):
+        proc = subprocess.run(
+            ["git", "cat-file", "--batch"],
+            cwd=ROOT,
+            input=("\n".join(chunk) + "\n").encode(),
+            capture_output=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            continue
+        data = proc.stdout
+        pos = 0
+        length = len(data)
+        while pos < length:
+            newline = data.find(b"\n", pos)
+            if newline == -1:
+                break
+            header = data[pos:newline].decode("utf-8", errors="ignore").split()
+            pos = newline + 1
+            if len(header) != 3:
+                # "<oid> missing" (2 tokens) has no body to skip past.
+                continue
+            object_id, object_type, raw_size = header
+            try:
+                blob_size = int(raw_size)
+            except ValueError:
+                break  # malformed stream; stop parsing this chunk safely
+            body = data[pos : pos + blob_size]
+            pos += blob_size + 1  # skip body and its trailing newline
+            if object_type != "blob":
+                continue
+            path, size_bytes = by_oid.get(object_id, (object_id, blob_size))
+            violations.extend(
+                _match_secret_patterns(raw=body, path=path, source="push", size_bytes=size_bytes)
+            )
+    return violations
+
+
 def _current_hooks_path() -> str | None:
     code, out, _ = git("config", "--get", "core.hooksPath")
     if code != 0 or not out.strip():
@@ -598,6 +788,11 @@ def audit_staged_paths() -> list[GitPolicyViolation]:
     for path in _stage_paths():
         size_bytes = _tracked_blob_size(f":{path}")
         violations.extend(_policy_violation_for_path(path=path, size_bytes=size_bytes, source="staged"))
+        violations.extend(
+            _scan_blob_content_for_secrets(
+                object_spec=f":{path}", path=path, source="staged", size_bytes=size_bytes
+            )
+        )
     return _unique_violations(violations)
 
 
@@ -747,6 +942,7 @@ def audit_push_updates(remote_name: str, updates: list[PushUpdate]) -> list[GitP
     objects = _collect_push_objects(remote_name, updates)
     for path, (_, size_bytes) in objects.items():
         violations.extend(_policy_violation_for_path(path=path, size_bytes=size_bytes, source="push"))
+    violations.extend(_scan_push_objects_for_secrets(objects))
     return _compress_push_violations(violations)
 
 
