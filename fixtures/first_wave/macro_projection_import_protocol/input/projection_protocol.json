@@ -6761,7 +6761,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+        "source_body_digest": "sha256:ff7c825ed9451372c871d6b21ad4f2c571a347737b7d59559f84d6cc049d7b81",
         "source_line_count": 387,
         "source_ref": "system/server/tests/test_agent_mission_status.py",
         "source_symbol_refs": [
