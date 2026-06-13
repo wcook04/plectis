@@ -351,6 +351,7 @@
         "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
         "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
         "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
         "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
         "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
         "mechanism.cold_reader_route_map.validates_public_first_run_route_map",

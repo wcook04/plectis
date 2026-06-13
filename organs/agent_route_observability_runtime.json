@@ -137,6 +137,7 @@
         "batch7_station_runtime_capsule",
         "batch8_compliance_pipeline_capsule",
         "agent_memory_temporal_conflict_replay",
+        "agent_sandbox_policy_escape_replay",
         "provider_context_recipe_budget_policy",
         "belief_state_process_reward_replay"
       ],
@@ -477,6 +478,19 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
+        "target_id": "agent_sandbox_policy_escape_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[26:agent_route_observability_runtime].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
         "target_id": "provider_context_recipe_budget_policy",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -523,6 +537,7 @@
       "batch7_station_runtime_capsule",
       "batch8_compliance_pipeline_capsule",
       "agent_memory_temporal_conflict_replay",
+      "agent_sandbox_policy_escape_replay",
       "provider_context_recipe_budget_policy",
       "belief_state_process_reward_replay"
     ]
@@ -570,6 +585,7 @@
     "batch7_station_runtime_capsule",
     "batch8_compliance_pipeline_capsule",
     "agent_memory_temporal_conflict_replay",
+    "agent_sandbox_policy_escape_replay",
     "provider_context_recipe_budget_policy",
     "belief_state_process_reward_replay"
   ]

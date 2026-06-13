@@ -1772,6 +1772,7 @@
         "batch7_station_runtime_capsule",
         "batch8_compliance_pipeline_capsule",
         "agent_memory_temporal_conflict_replay",
+        "agent_sandbox_policy_escape_replay",
         "provider_context_recipe_budget_policy",
         "belief_state_process_reward_replay"
       ],

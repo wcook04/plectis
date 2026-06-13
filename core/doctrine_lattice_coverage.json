@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 4,
+    "mechanism_capsule_dependency_upstream_missing_count": 3,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -209,20 +209,14 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T13:02:09.809009Z",
+    "generated_at": "2026-06-13T13:19:48.433252Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 227,
-    "missing_edge_count": 4,
+    "covered_edge_count": 228,
+    "missing_edge_count": 3,
     "missing_edges": [
-      {
-        "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
-        "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
-        "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
-        "target_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
-      },
       {
         "consumer_paper_module": "paper_module.first_screen_composition_root",
         "dependency_paper_module": "paper_module.cold_reader_route_map",
@@ -276,6 +270,12 @@
         "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
       },
       {
+        "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
+        "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
+        "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+        "target_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
+      },
+      {
         "consumer_paper_module": "paper_module.batch11_saturation_engines_capsule",
         "dependency_paper_module": "paper_module.agent_route_observability_runtime",
         "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
@@ -310,12 +310,6 @@
         "dependency_paper_module": "paper_module.agent_route_observability_runtime",
         "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_mechanism": "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule"
-      },
-      {
-        "consumer_paper_module": "paper_module.batch8_compliance_pipeline_capsule",
-        "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-        "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
-        "target_mechanism": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
       }
     ],
     "schema_version": "mechanism_capsule_dependency_upstream_parity_v1",
@@ -3433,8 +3427,8 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "6b8aa23ba73b33db12fc2ce94423fd3ae0fac96cc209d1fbac4c86653d091397",
-      "core/organ_atlas.json": "f8cc80aa8f8c1fb545a621295b6258af2c7d672bdc75c651c038bac71cfe7de1",
+      "core/mechanism_sources.json": "9f5a62210c57edad958eb4450366755f5e860e51d78ebcecd7396b8f6d2462c6",
+      "core/organ_atlas.json": "9bd831ce28e00b80ca2a99680d610fa71a62ce9c4bf033beece6f12f62e6e239",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
@@ -3443,7 +3437,7 @@
       "mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json": "7dc5a4a80d93eeeec71f3d09790e419b8b4d357ab6da0909c7ab7ce5b77e4846",
       "mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json": "7bd6594298ad10c9a26785da15bdf42890eb567fd76f5bf13152beea6e15be72",
       "mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json": "93cb7cefa8905b5b21d143381e4cec8a2c8c58d7564cbe977f2d8c1672aab506",
-      "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json": "333a45c9f008b4468899e4d5531f37999180df895f7b71f657dfd07f2bfd944a",
+      "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json": "1c7430ed67105fa87799f1b521ccba7e3577472c099bc6f852a2c128de14cfc6",
       "mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json": "515db25a6044d2eee3dabeb5d0f23c093e76145e9c39e421e0b5e3f7014f5f50",
       "mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json": "19bb98002719da127cdc870c0efb682f9d94965cd7d717c1b67c05319a389787",
       "mechanisms/mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay.json": "dfa1c88953b219cdc35f2d5fa81a27f2f272a340c972595ac7324576c849fe91",
@@ -3543,7 +3537,7 @@
       "organs/agent_closeout_faithfulness_audit.json": "2ba106cce6bd1e9b27b9d25d2ea1e662caf7c3cecee4027c062fe1807e322706",
       "organs/agent_memory_temporal_conflict_replay.json": "279857476bc8c9ea1fa829e811798e83ec2281d7c29380e27609d87f90331cf0",
       "organs/agent_monitor_redteam_falsification_replay.json": "55fdd4240ab6f2f3528e392503e3521686a6c005bd8782595828c08973997c5c",
-      "organs/agent_route_observability_runtime.json": "22b77b80623ab2f43d2a0f46b16cd3f4a6228bbafcabb464c3a2826471147b36",
+      "organs/agent_route_observability_runtime.json": "861e5b3a42e9332310893a6fca4c6fef455b409eae4d6a9ca125ee12427404bd",
       "organs/agent_sabotage_scheming_monitor_replay.json": "629be912c697e1fd221e020904fef30d6ba8b4f45034643334b567993daaf896",
       "organs/agent_sandbox_policy_escape_replay.json": "dd9feb35c4ffd51a495bdf2c27df85ba2ad369c24a3e1ba52a0a1423037c0dec",
       "organs/agentic_vulnerability_discovery_patch_proof_replay.json": "a73ee7c887a9be852d4b9ef24a9a47f2f08fdd7f205a322b263d0d9c0f4cc8e9",
