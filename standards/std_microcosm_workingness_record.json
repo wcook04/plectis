@@ -104,20 +104,18 @@
       "corpus_keyphrase_navigation_prelude"
     ],
     "used_by_organs": [
-      "cold_clone_probe",
       "proof_diagnostic_evidence_spine"
     ]
   },
   "used_by_organ_boundary": {
-    "status": "typed_residual_until_target_organs_admitted",
+    "status": "source_cleaned_no_unresolved_used_by_organs_targets",
     "resolved_target_organs": [
       "proof_diagnostic_evidence_spine"
     ],
-    "unresolved_target_organs": [
-      "cold_clone_probe"
-    ],
+    "unresolved_target_organs": [],
+    "source_cleanup_note": "cold_clone_probe is a paper-module, mechanism, and bootstrap route target, not an accepted current-authority organ id, so it is not listed under relationships.used_by_organs.",
     "required_reentry": [
-      "land each unresolved used_by_organs target as accepted_current_authority or remove/rename the target in this standard source",
+      "when adding a used_by_organs target, require an accepted_current_authority organ id rather than a paper-module, mechanism, or bootstrap route id",
       "rerun scripts/build_doctrine_projection.py --check-standard-corpus",
       "refresh aggregate doctrine-lattice projections only through the builder owner after source admission or source cleanup lands"
     ],

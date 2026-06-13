@@ -1184,7 +1184,6 @@
       "standard_id": "std_microcosm_workingness_record",
       "status": "draft",
       "used_by_organs": [
-        "cold_clone_probe",
         "proof_diagnostic_evidence_spine"
       ],
       "validator_id": null,
