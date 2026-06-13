@@ -2342,7 +2342,8 @@
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
           "wires_to": [
-            "agent_sandbox_policy_escape_replay"
+            "agent_sandbox_policy_escape_replay",
+            "sleeper_memory_poisoning_quarantine_replay"
           ]
         },
         {
@@ -3111,7 +3112,8 @@
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
           "wires_to": [
-            "agent_sandbox_policy_escape_replay"
+            "agent_sandbox_policy_escape_replay",
+            "sleeper_memory_poisoning_quarantine_replay"
           ]
         },
         {
@@ -12466,7 +12468,8 @@
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
           "wires_to": [
-            "agent_sandbox_policy_escape_replay"
+            "agent_sandbox_policy_escape_replay",
+            "sleeper_memory_poisoning_quarantine_replay"
           ]
         },
         {
@@ -13328,7 +13331,8 @@
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
           "wires_to": [
-            "agent_sandbox_policy_escape_replay"
+            "agent_sandbox_policy_escape_replay",
+            "sleeper_memory_poisoning_quarantine_replay"
           ]
         },
         {
