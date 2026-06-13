@@ -32,6 +32,7 @@ An agent runs this to validate a synthetic route-feedback fixture against the de
 - `wires_to` -> `organ:batch7_macro_engines_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch7_station_runtime_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch8_compliance_pipeline_capsule` (resolved_registry_or_atlas_target)
+- `wires_to` -> `organ:agent_memory_temporal_conflict_replay` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:provider_context_recipe_budget_policy` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:belief_state_process_reward_replay` (resolved_registry_or_atlas_target)
 

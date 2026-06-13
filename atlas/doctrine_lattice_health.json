@@ -741,15 +741,9 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 220,
-      "missing_edge_count": 11,
+      "covered_edge_count": 221,
+      "missing_edge_count": 10,
       "missing_edges": [
-        {
-          "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
-          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
-          "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
-        },
         {
           "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
           "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
@@ -839,6 +833,12 @@
           "target_mechanism": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
         },
         {
+          "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+        },
+        {
           "consumer_paper_module": "paper_module.batch11_saturation_engines_capsule",
           "dependency_paper_module": "paper_module.agent_route_observability_runtime",
           "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
@@ -879,12 +879,6 @@
           "dependency_paper_module": "paper_module.agent_route_observability_runtime",
           "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
           "target_mechanism": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
-        },
-        {
-          "consumer_paper_module": "paper_module.belief_state_process_reward_replay",
-          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
-          "target_mechanism": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay"
         }
       ],
       "schema_version": "mechanism_capsule_dependency_upstream_parity_v1",

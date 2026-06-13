@@ -838,7 +838,7 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     parity = projection["mechanism_capsule_dependency_upstream_parity"]
     assert parity["status"] == "deficit"
     assert parity["covered_edge_count"] > 0
-    assert parity["missing_edge_count"] == 11
+    assert parity["missing_edge_count"] == 10
     assert {
         (
             row["source_mechanism"],
@@ -847,9 +847,23 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
         for row in parity["sample_covered_edges"]
     } >= {
         (
+            "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+            "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        ),
+        (
             "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
             "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay",
         )
+    }
+    assert (
+        "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+        "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+    ) not in {
+        (
+            row["source_mechanism"],
+            row["target_mechanism"],
+        )
+        for row in parity["missing_edges"]
     }
     assert (
         "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
@@ -897,7 +911,7 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     assert parity == health["mechanisms"]["capsule_dependency_upstream_parity"]
     assert (
         entry_card["current_counts"]["mechanism_capsule_dependency_upstream_missing_count"]
-        == 11
+        == 10
     )
     assert any(
         guard["guard_id"] == "paper_dependency_not_reverse_mechanism_upstream_edge"

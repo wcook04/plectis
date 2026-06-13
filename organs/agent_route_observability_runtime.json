@@ -103,7 +103,7 @@
       "display_name": "Agent Route Observability Runtime",
       "evidence_class": "semantic_validator",
       "family": "agent_reliability_and_safety",
-      "first_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
       "human_gloss": "This validator takes a sample (synthetic, not live) record of an agent's local run — the route it picked, the work it did, the events it logged, the evidence it pointed to, and the authority limit it declared — and checks that this recorded trail is well-formed and self-consistent, instead of leaving raw log JSON to be read by hand. The record is built to state, up front, where the agent's authority was supposed to stop, so the limits are written down and checkable rather than taken on faith. It checks the recorded evidence; it does not watch a live agent or prove one actually stayed in bounds.",
       "mechanism_refs": [
         "mechanism.agent_route_observability_runtime.validates_public_route_feedback"
@@ -136,6 +136,7 @@
         "batch7_macro_engines_capsule",
         "batch7_station_runtime_capsule",
         "batch8_compliance_pipeline_capsule",
+        "agent_memory_temporal_conflict_replay",
         "provider_context_recipe_budget_policy",
         "belief_state_process_reward_replay"
       ],
@@ -463,6 +464,19 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
+        "target_id": "agent_memory_temporal_conflict_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[26:agent_route_observability_runtime].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
         "target_id": "provider_context_recipe_budget_policy",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -508,6 +522,7 @@
       "batch7_macro_engines_capsule",
       "batch7_station_runtime_capsule",
       "batch8_compliance_pipeline_capsule",
+      "agent_memory_temporal_conflict_replay",
       "provider_context_recipe_budget_policy",
       "belief_state_process_reward_replay"
     ]
@@ -554,6 +569,7 @@
     "batch7_macro_engines_capsule",
     "batch7_station_runtime_capsule",
     "batch8_compliance_pipeline_capsule",
+    "agent_memory_temporal_conflict_replay",
     "provider_context_recipe_budget_policy",
     "belief_state_process_reward_replay"
   ]

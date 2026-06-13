@@ -21,6 +21,7 @@ The agent route observability runtime validates public route-feedback and observ
 - `upstream_of` -> `mechanism:mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.cold_reader_route_map.validates_public_first_run_route_map` (resolved_json_instance)

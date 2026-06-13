@@ -75,7 +75,11 @@ from microcosm_core.private_state_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import base_receipt, write_json_atomic
+from microcosm_core.receipts import (
+    base_receipt,
+    normalize_public_receipt_paths,
+    write_json_atomic,
+)
 from microcosm_core.schemas import StrictJsonError, read_json_strict, read_jsonl_strict
 
 
@@ -1123,8 +1127,12 @@ def _fresh_observability_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_observability_bundle":
         return None
-    display_command = command.replace(str(AI_WORKFLOW_ROOT), "<repo-root>")
-    if payload.get("command") not in {command, display_command}:
+    command_candidates = {command, command.replace(str(AI_WORKFLOW_ROOT), "<repo-root>")}
+    for candidate in tuple(command_candidates):
+        normalized = normalize_public_receipt_paths({"command": candidate}).get("command")
+        if isinstance(normalized, str):
+            command_candidates.add(normalized)
+    if payload.get("command") not in command_candidates:
         return None
     basis = _observability_freshness_basis(source)
     existing_basis = payload.get("freshness_basis")

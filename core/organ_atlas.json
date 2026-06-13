@@ -1771,6 +1771,7 @@
         "batch7_macro_engines_capsule",
         "batch7_station_runtime_capsule",
         "batch8_compliance_pipeline_capsule",
+        "agent_memory_temporal_conflict_replay",
         "provider_context_recipe_budget_policy",
         "belief_state_process_reward_replay"
       ],
