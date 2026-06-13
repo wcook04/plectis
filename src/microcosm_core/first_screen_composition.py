@@ -4701,7 +4701,7 @@ def _reader_branch_lines(
     """
     if reader_id == "all":
         return [
-            f"Reader branches; {READER_ROUTE_ALIAS_HINT}:",
+            f"Reader branches: {READER_ROUTE_ALIAS_HINT}",
             *[
                 (
                     f"  {READER_LABELS[route_id]}: "
