@@ -1,11 +1,5 @@
 # Mechanistic Interpretability Circuit Attribution Replay
 
-## JSON Capsule Binding
-
-- Source authority: `core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]` with `source_authority: json_capsule`; the generated instance is `paper_modules/mechanistic_interpretability_circuit_attribution_replay.json`.
-- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is linked from capsule edges.
-- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: Declared public circuit-attribution runtime receipt and source-module import evidence only;. Reproduce it with the validation receipts named in the Validation Receipt Path section.
-
 ## Purpose
 
 Interpretability writing is unusually easy to overstate. A named feature can
@@ -35,6 +29,12 @@ limit, so the strongest words carry the strongest evidence requirements. Private
 weights, raw activations, proprietary prompts, and hidden reasoning are kept out
 of every receipt. What the organ produces is an accounting receipt for a public
 fixture, not a transparency tool for any real model.
+
+## JSON Capsule Binding
+
+- Source authority: `core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]` with `source_authority: json_capsule`; the generated instance is `paper_modules/mechanistic_interpretability_circuit_attribution_replay.json`.
+- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is linked from capsule edges.
+- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: declared public circuit-attribution runtime receipt and source-module import evidence only. Reproduce it with the validation receipts named in the Validation Receipt Path section.
 
 ## Abstract
 

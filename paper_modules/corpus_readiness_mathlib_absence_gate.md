@@ -1,11 +1,5 @@
 # Corpus Readiness Mathlib Absence Gate
 
-## JSON Capsule Binding
-
-- Source authority: `core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate]` with `source_authority: json_capsule`; the generated instance is `paper_modules/corpus_readiness_mathlib_absence_gate.json`.
-- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is blocked until the organ-atlas owner lane binds its edges.
-- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: Public algorithmic projection over copied non-secret corpus/toolchain readiness substrate, first-wave fixture receipts, and exported bundle receipts only;. Reproduce it with the validation receipts named in the Validation Receipt Path section.
-
 ## Abstract
 
 `corpus_readiness_mathlib_absence_gate` is a public Microcosm organ for a
@@ -28,6 +22,12 @@ This file is a legacy companion paper for the gate. The populated capsule row
 projection. The generated `_gate.json` sidecar for this filename currently
 remains `legacy_markdown_projection` with blocked Mermaid/Atlas status, so this
 page treats generated currentness as a limitation rather than authority.
+
+## JSON Capsule Binding
+
+- Source authority: `core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate]` with `source_authority: json_capsule`; the generated instance is `paper_modules/corpus_readiness_mathlib_absence_gate.json`.
+- This Markdown is a reader projection of that JSON capsule row, not the source authority. The generated Mermaid projection is `available_from_capsule_edges`, and the generated Atlas projection is blocked until the organ-atlas owner lane binds its edges.
+- The proof boundary is the capsule-bound organ, mechanism row, runtime locus, and the doctrine edges the capsule resolves. The authority ceiling is narrow: public algorithmic projection over copied non-secret corpus/toolchain readiness substrate, first-wave fixture receipts, and exported bundle receipts only. Reproduce it with the validation receipts named in the Validation Receipt Path section.
 
 ## Authority Map
 
