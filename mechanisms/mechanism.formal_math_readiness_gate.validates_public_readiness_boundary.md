@@ -15,7 +15,7 @@ The formal math readiness gate validates declared readiness metadata, tactic ava
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/formal_math_readiness_gate.py` (resolved_code_locus)
 - `runs_in` -> `organ:formal_math_readiness_gate` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection` (resolved_json_instance)
 
 ## Anti-Claims
 

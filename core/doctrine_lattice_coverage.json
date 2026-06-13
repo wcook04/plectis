@@ -163,7 +163,7 @@
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
     "mechanism_planned_or_unresolved_code_loci_count": 0,
-    "mechanism_unpopulated_selective_relation_count": 36,
+    "mechanism_unpopulated_selective_relation_count": 35,
     "mechanism_without_code_loci_count": 0,
     "meta_standard_v1": false,
     "organ_json_instance_count": 82,
@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T01:18:44.360879Z",
+    "generated_at": "2026-06-13T01:48:50.049521Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -417,14 +417,14 @@
     "parity_status": "pass",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
-    "residual_relation_count": 36,
+    "residual_relation_count": 35,
     "residual_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 36
+      "mechanism.upstream_of.mechanism": 35
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 36
+      "selective": 35
     },
-    "residual_relation_detail_count": 36,
+    "residual_relation_detail_count": 35,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -764,20 +764,6 @@
       },
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[31:mechanism.formal_math_readiness_gate.validates_public_readiness_boundary]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[31:mechanism.formal_math_readiness_gate.validates_public_readiness_boundary]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "instance_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
         "instance_kind": "mechanism",
         "mechanism_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
@@ -932,11 +918,11 @@
       }
     ],
     "schema_version": "microcosm_mechanism_instance_corpus_v1",
-    "selective_residual_relation_count": 36,
+    "selective_residual_relation_count": 35,
     "selective_residual_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 36
+      "mechanism.upstream_of.mechanism": 35
     },
-    "selective_residual_relation_detail_count": 36,
+    "selective_residual_relation_detail_count": 35,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -1276,20 +1262,6 @@
       },
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[31:mechanism.formal_math_readiness_gate.validates_public_readiness_boundary]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[31:mechanism.formal_math_readiness_gate.validates_public_readiness_boundary]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "instance_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
         "instance_kind": "mechanism",
         "mechanism_id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
@@ -1448,7 +1420,7 @@
       "json_instances": "mechanisms/*.json",
       "mechanism_registry": "core/mechanism_sources.json"
     },
-    "unpopulated_selective_relation_count": 36,
+    "unpopulated_selective_relation_count": 35,
     "validation": {
       "errors": [],
       "expected_count": 100,
@@ -4281,7 +4253,7 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "bca1d4739438e267912739f09c1beaa5914ff6ba9a64c3d44b51bd1814c61551",
+      "core/mechanism_sources.json": "eac06d34300ba9752b50305b46f0f2e25751351df2a7044060299d1448c96617",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "a910160c998f4568914af6cce35e11eb373ac2f4b49168e3ecf6faefc07d8654",
@@ -4351,7 +4323,7 @@
       "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json": "5c5d21b791f6d4a9ceb0929cf536b001c5dac47757148f73080fd6afd887af49",
       "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json": "13ae0344b0bb5f445f1eb604de2669078423cefca7396341a882b21bc9199963",
       "mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json": "b11465fff004ceb07c81fe384eecca70a53676fc03808eb7e6dfd5e4c6aefb1b",
-      "mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json": "f35e37a008854bc4733f0148e4761e65093087325a4bad986b775bd717290309",
+      "mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json": "4149cb03f1b69ef886586b54bd66ce1c381721eff2f4fbb388d92866b0d56563",
       "mechanisms/mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle.json": "dcfd041ca4fc4312d93119358727c0425036940a34419baba9953f4c87893ff8",
       "mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "d651b55de2c04fbeaaec71075cd92a3b8a4c81621babb72a21a6bf5d60055ddf",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "9ed4d5e2cc97d3e827297be27f7682e5f98cea2399bdaedb4d9b276d68020396",

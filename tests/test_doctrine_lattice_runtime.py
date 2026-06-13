@@ -3381,7 +3381,10 @@ def test_mechanism_upstream_edges_back_source_organ_wiring_wave() -> None:
             "verifier_lab_kernel",
         },
         "formal_math_premise_retrieval": {"verifier_lab_kernel"},
-        "formal_math_readiness_gate": {"macro_projection_import_protocol"},
+        "formal_math_readiness_gate": {
+            "macro_projection_import_protocol",
+            "tactic_portfolio_availability_probe",
+        },
         "formal_math_verifier_trace_repair_loop": {
             "formal_evidence_cell_anchor_resolver",
             "proof_diagnostic_evidence_spine",
@@ -3503,7 +3506,7 @@ def test_mechanism_upstream_edges_back_source_organ_wiring_wave() -> None:
             )
             asserted_edge_count += 1
 
-    assert asserted_edge_count == 47
+    assert asserted_edge_count == 48
 
 
 def test_batch4_and_8_import_organs_resolve_source_edges_and_laws() -> None:

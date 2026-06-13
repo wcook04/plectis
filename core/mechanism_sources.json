@@ -2328,6 +2328,9 @@
         "coverage_health",
         "source_language_inventory"
       ],
+      "upstream_of": [
+        "mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection"
+      ],
       "resolution_evidence": {
         "authority_class": "source_assertion",
         "evidence_rank": 5,
