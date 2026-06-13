@@ -6497,6 +6497,9 @@
         "AX-8",
         "AX-10",
         "AX-11"
+      ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
       ]
     },
     {
