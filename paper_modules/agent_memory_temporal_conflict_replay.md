@@ -88,10 +88,10 @@ conflict contract under the checked inputs.
   code locus, and 2 generated relationship edges. Concept, principle, axiom,
   and dependency edges remain residual pressure unless they are added to the
   JSON capsule by the capsule owner lane.
-- authority ceiling: this page can explain the synthetic replay fixture and
-  validation receipts, but it cannot upgrade memory replay into a live memory
-  product, private transcript export, source-authority claim, release claim, or
-  whole-system validation boundary.
+- proof boundary and authority ceiling: this page can explain the synthetic
+  replay fixture and validation receipts, but it cannot upgrade memory replay
+  into a live memory product, private transcript export, source-authority
+  claim, release claim, or whole-system validation boundary.
 
 ## Reader Validation Boundary
 
