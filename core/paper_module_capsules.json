@@ -2393,6 +2393,9 @@
       "axiom_refs": [
         "AX-7"
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
       ]

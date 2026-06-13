@@ -68,6 +68,17 @@ def test_standards_meta_dependency_routes_to_import_protocol() -> None:
     }
 
 
+def test_finance_forecast_dependency_routes_to_import_protocol() -> None:
+    edges = _dependency_edges("paper_module.finance_forecast_evaluation_spine")
+
+    assert {
+        str(edge["target_id"]): edge["target_status"]
+        for edge in edges
+    } == {
+        "paper_module.macro_projection_import_protocol": "resolved_json_instance",
+    }
+
+
 def test_corpus_readiness_dependency_routes_to_tactic_portfolio() -> None:
     edges = _dependency_edges("paper_module.corpus_readiness_mathlib_absence_gate")
 

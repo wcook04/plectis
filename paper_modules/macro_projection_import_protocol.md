@@ -16,6 +16,42 @@ The organ validates a projection packet with four public claims:
 - authority stays capped below release, publication, private-root equivalence,
   and live macro source authority.
 
+## Purpose
+
+Microcosm grows by copying real material out of a much larger private
+codebase. The danger in that move is obvious: a dense public copy is exactly
+the kind of artefact that quietly carries a secret, an operator conversation, a
+provider payload, or release material along with the genuinely useful code. This
+organ exists to answer one question for every copied slice: was this body
+allowed out, and is the public copy honestly tied to the source it claims to
+come from?
+
+The answer is an accounting check, not a trust statement. Each copied row
+declares its source ref, its public target ref, a content digest, and a material
+class. The protocol sorts that class into one of two sets. Five classes are
+public-safe macro bodies (pattern, standard, tool, receipt, proof) and may be
+copied with provenance. Nine classes are forbidden outright (raw seed, operator
+thread, provider payload, credential, secret, recipient packet, release packet,
+and the like) and can never appear as an imported body. Anything claiming to be
+public-safe must also carry a verification record naming the digest, the
+source-to-target relation, and the command or test that consumes the copy.
+
+The unusual part is how the protocol treats a copy whose source has since
+changed. For an exact-copy row it re-hashes the live macro file on disk and
+compares it against the digest recorded at import time. A mismatch is not
+reported as a failed import. It is recorded as live source drift: the original
+copy was still honest, the macro has simply moved on, and the row is flagged for
+the refresh actuator rather than failed. The protocol deliberately separates a
+dishonest import from a stale one. That keeps the public copy faithful without
+forcing it to track every upstream edit in lock-step, and it stops a routine
+upstream change from being mistaken for a broken proof.
+
+What the check does not do is just as load-bearing. A passing scan proves that
+the named slice omitted the forbidden material classes and kept receipt bodies
+out of the receipt. It does not prove the public copy is complete, equivalent to
+the private root, or ready to release. The import is evidence about provenance
+and boundaries, never a release decision.
+
 ## JSON Capsule Binding
 
 - source_ref:
@@ -214,15 +250,19 @@ paths, hashes, counts, anchors, and validation refs without duplicating the
 bodies.
 
 ```mermaid
-flowchart LR
-    A["Macro trace-capsule sources"] --> B["Per-slice source-module manifest"]
-    B --> C["Public bundle source_modules/"]
-    C --> D["Trace capsule and parser mechanisms"]
-    D --> E["Validation refs"]
-    E --> F["Body-free public receipts"]
-    F --> G["Reader projection"]
-    B -. rejects .-> H["private, provider, session, operator, credential, or release bodies"]
-    F -. does not grant .-> I["live macro authority, publication, release, or source mutation"]
+flowchart TD
+    A["Copied material row<br/>source ref, target ref, digest, material class"] --> B{"Material class?"}
+    B -- "forbidden class<br/>(secret, credential, raw seed,<br/>operator, provider, release)" --> R["Reject: forbidden body import"]
+    B -- "public-safe class<br/>(pattern, standard, tool,<br/>receipt, proof)" --> C{"Verification record present<br/>and target digest bound?"}
+    C -- "no" --> R2["Reject: unverified import"]
+    C -- "yes, exact copy" --> D["Re-hash live macro source on disk"]
+    D --> E{"Source digest still matches?"}
+    E -- "yes" --> F["Public-safe body floor"]
+    E -- "no" --> G["Flag live source drift<br/>(honest copy, refresh later)"]
+    G --> F
+    F --> H["Per-slice manifest + body-free receipt"]
+    H --> I["Reader projection"]
+    H -. does not grant .-> J["live macro authority, publication,<br/>release, or source mutation"]
 ```
 
 The imported Python side supplies the trace-capsule runtime surface:

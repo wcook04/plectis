@@ -177,7 +177,7 @@
     "paper_module_json_missing_count": 0,
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
-    "paper_module_unpopulated_selective_relation_count": 4,
+    "paper_module_unpopulated_selective_relation_count": 3,
     "paper_module_without_json_capsule_count": 1,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
@@ -209,12 +209,12 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T07:46:59.413690Z",
+    "generated_at": "2026-06-13T07:59:11.584688Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 212,
+    "covered_edge_count": 213,
     "missing_edge_count": 15,
     "missing_edges": [
       {
@@ -3228,11 +3228,11 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "e8dcac24d1a3eb853c94fab0522a099d4699bdcb6096f020a90adba7f07df1cc",
+        "sha256": "a84769198d5b8a1a628dab99fff4217a61eede9ebebe0717f747d290da8d182d",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "17c93ce07b832192059506aa1caabb53ceab5d1837564ddcbbe83520a7e2fb86",
+    "source_manifest_digest": "4e0381da8d65c094da1c153003b860bb3bfd7f9ed87a14080508c40e2a156333",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
     "suppressed_legacy_markdown_alias_count": 1,
     "suppressed_legacy_markdown_aliases": [
@@ -3244,10 +3244,9 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[40:paper_module.tactic_portfolio_availability].legacy_markdown_projection_aliases[0]"
       }
     ],
-    "unpopulated_selective_relation_count": 4,
+    "unpopulated_selective_relation_count": 3,
     "unpopulated_selective_relation_ids": [
       "paper_module.agent_monitor_redteam_falsification_replay",
-      "paper_module.finance_forecast_evaluation_spine",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay"
     ]
@@ -3465,14 +3464,14 @@
     "parity_status": "pass",
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
-    "residual_relation_count": 4,
+    "residual_relation_count": 3,
     "residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 4
+      "paper_module.depends_on.paper_module": 3
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 4
+      "selective": 3
     },
-    "residual_relation_detail_count": 4,
+    "residual_relation_detail_count": 3,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3486,20 +3485,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.finance_forecast_evaluation_spine",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.finance_forecast_evaluation_spine",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]"
         }
       },
       {
@@ -3532,11 +3517,11 @@
       }
     ],
     "schema_version": "microcosm_paper_module_instance_corpus_v1",
-    "selective_residual_relation_count": 4,
+    "selective_residual_relation_count": 3,
     "selective_residual_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 4
+      "paper_module.depends_on.paper_module": 3
     },
-    "selective_residual_relation_detail_count": 4,
+    "selective_residual_relation_detail_count": 3,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3550,20 +3535,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.finance_forecast_evaluation_spine",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.finance_forecast_evaluation_spine",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]"
         }
       },
       {
@@ -3600,7 +3571,7 @@
       "legacy_markdown": "paper_modules/*.md",
       "paper_module_capsules": "core/paper_module_capsules.json"
     },
-    "unpopulated_selective_relation_count": 4,
+    "unpopulated_selective_relation_count": 3,
     "validation": {
       "actual_count": 98,
       "errors": [],
@@ -3798,10 +3769,10 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "ad56d7a18f93f73a8410e76cd8c60d3753e616f3c5f0e4815e025dda8e3fe803",
+      "core/mechanism_sources.json": "3036732533030405f325c238153e0cff728bb06c18a1e524928555c99561942d",
       "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "e8dcac24d1a3eb853c94fab0522a099d4699bdcb6096f020a90adba7f07df1cc",
+      "core/paper_module_capsules.json": "a84769198d5b8a1a628dab99fff4217a61eede9ebebe0717f747d290da8d182d",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -3873,7 +3844,7 @@
       "mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "d651b55de2c04fbeaaec71075cd92a3b8a4c81621babb72a21a6bf5d60055ddf",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "9ed4d5e2cc97d3e827297be27f7682e5f98cea2399bdaedb4d9b276d68020396",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json": "39258f2beb7e70d6b556094ef02ddb09b4ea7d17eb3d8d2b5460f9e643f58c97",
-      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "cc57a3251ec3104c2dbcfbb809046f7c5b630bcb28e8cded88854e2e75f25977",
+      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "7e1d840f9a877b173018e4f91fc473b79170061ebd94eee2dfe4b8a936e2ff4a",
       "mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "00029277572c9291a39fae44235add919b7117b5c22856393e18d4d3a4c0c5fe",
       "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "819aab36c287ecd03a465dbe850ce2f3edc8b52f8ac7808cc7079a34150d62fb",
       "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "567206fefba3ba426ecf3fc2e8c34044e5c2d04865c6fdbc27904ba4d8bd05e4",
@@ -4043,7 +4014,7 @@
       "paper_modules/engine_room_navigation_fitness_benchmark.json": "5a7002c6e9ce043e245d3aa4d74ab30264737eb51ee87eaa35cd28260adb0701",
       "paper_modules/engine_room_public_projection_leak_gate.json": "4f32df0ca4982addd8dd9c147f34b48e52162428459c6a024dc42b7e4d51f433",
       "paper_modules/executable_doctrine_grammar.json": "2011a19fc0fb6bd1b994bcc10d0ca304e9972622458daf52ff88dece9a9c0fad",
-      "paper_modules/finance_forecast_evaluation_spine.json": "69590e85a72726e50c533b7656c8a66788165305a2e54d64b7374f71a972aac5",
+      "paper_modules/finance_forecast_evaluation_spine.json": "f9c523b2e260a6f7c45afd94f2d6bc5c35ce43818c77b7c907babf455bb98788",
       "paper_modules/first_screen_composition_root.json": "0b5f5f188b1b33fe0675afe39600cc9d18e9de9f4e54fa4c95ff5ef6b68fa6b5",
       "paper_modules/formal_evidence_cell_anchor_resolver.json": "e5f314f07a7a387960f316b3f15f0dae7b26d7780c227ed0fb5593b8d1c18819",
       "paper_modules/formal_math_lean_proof_witness.json": "e4b92b59028de6c9b16c816317918e6fc36d98ead92ff2f2a45d97861026853e",

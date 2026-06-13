@@ -81,6 +81,9 @@
       "concept_refs": [
         "concept.research_and_science_replay_evidence_bundle"
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "generated_projections": {
         "atlas_card": {
           "generated": true,
@@ -144,7 +147,9 @@
     "concept_refs": [
       "concept.research_and_science_replay_evidence_bundle"
     ],
-    "depends_on": [],
+    "depends_on": [
+      "paper_module.macro_projection_import_protocol"
+    ],
     "edges": [
       {
         "justification": {
@@ -213,6 +218,19 @@
       },
       {
         "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.macro_projection_import_protocol",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine].code_loci[0]",
           "summary": "Runtime + receipt-writing locus for the public forecast-evaluation fixture and exported bundle."
         },
@@ -241,15 +259,7 @@
         "ref": "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine"
       }
     ],
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ]
+    "unpopulated_selective_relations": []
   },
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [

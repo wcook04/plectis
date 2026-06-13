@@ -2,6 +2,16 @@
 
 `finance_forecast_evaluation_spine` is a Crown Jewel import organ with real runnable substrate and a strict public authority ceiling. It consumes synthetic public fixtures, copied non-secret macro source bodies, and source manifests that verify sha256 digests, line counts, required anchors, secret-exclusion status, and receipt body omission.
 
+## Purpose
+
+Comparing two forecasting models is harder than it looks. A lower average loss does not establish that one model genuinely predicts better, because losses are autocorrelated, samples are short, and a careless split can let a model peek at the answer. This organ exists to carry the statistical machinery that economists use to answer that question carefully, and to do so without ever claiming the machinery has been pointed at a real market.
+
+The single question it answers is narrow: given two paired loss series over a synthetic fixture, can the difference in predictive accuracy be called significant under an admissible test, or must the test refuse? It computes the Diebold-Mariano loss-differential statistic with a Bartlett HAC long-run variance, the Harvey-Leybourne-Newbold small-sample correction, Hansen's test for superior predictive ability with recentering, a model confidence set, and a Politis-Romano stationary bootstrap.
+
+Failure is handled explicitly. The Harvey-Leybourne-Newbold correction returns its computed statistic, but when SciPy is absent it refuses the p-value with a typed reason rather than fabricating one. The same discipline rejects a horizon that reaches the sample length, a sample too small to estimate anything, a time split that lets the evaluation date sit at or after the event window, and any policy flag that smuggles in advice or a track-record claim. A refusal is recorded as a first-class validator outcome, not an error: "we declined to answer" is itself a valid result.
+
+The guards run before the statistics. If a boundary policy or a leakage check fails, the receipt is blocked before any statistics subprocess starts, so an inadmissible request never produces a number that could be misread as a result.
+
 What it proves: synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim.
 
 How to run it:
@@ -23,20 +33,27 @@ Source provenance is anchored by `examples/finance_forecast_evaluation_spine/exp
 ## Shape
 
 ```mermaid
-flowchart LR
+flowchart TD
   Fixture["Synthetic fixture inputs\nfamily_loss_matrix, paired_loss_series,\nfinance_boundary_policy, projection_protocol"]
-  Source["Copied non-secret finance modules\n13 source bodies plus manifest"]
+  Source["Copied non-secret finance modules\nplus source manifest digests"]
   Runner["finance_forecast_evaluation_spine.run"]
-  Stats["Statistics subprocess\nDM/HAC, HLN, Hansen SPA, MCS,\nstationary bootstrap"]
-  Negative["Negative floor\nlookahead split, no-advice overclaim,\nSciPy HLN typed refusal"]
+  Guards["Guards run first\npolicy no-advice flags,\nlookahead-split leakage check"]
+  Blocked["Blocked receipt\nstatistics subprocess never starts"]
+  Branch{"Admissible and\nexported bundle?"}
+  Subprocess["Statistics subprocess\nDM/HAC, Hansen SPA, MCS,\nstationary bootstrap, HLN refusal"]
+  Standalone["Standalone statistics contract\nno live macro-root subprocess"]
   Receipt["Receipts\nrefs, hashes, counts, verdicts,\nanti-claims; body_in_receipt false"]
 
   Fixture --> Runner
   Source --> Runner
-  Runner --> Stats
-  Runner --> Negative
-  Stats --> Receipt
-  Negative --> Receipt
+  Runner --> Guards
+  Guards -->|"boundary fails"| Blocked
+  Guards -->|"boundary passes"| Branch
+  Branch -->|"first-wave fixture"| Subprocess
+  Branch -->|"exported bundle"| Standalone
+  Subprocess --> Receipt
+  Standalone --> Receipt
+  Blocked --> Receipt
 ```
 
 ## JSON Capsule Binding

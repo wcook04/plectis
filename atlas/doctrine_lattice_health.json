@@ -741,7 +741,7 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 212,
+      "covered_edge_count": 213,
       "missing_edge_count": 15,
       "missing_edges": [
         {
@@ -3478,35 +3478,33 @@
     "markdown_file_count": 100,
     "required_subject_gap_count": 0,
     "required_subject_gaps": [],
-    "residual_relation_count": 4,
+    "residual_relation_count": 3,
     "residual_relation_counts_by_requirement": {
-      "selective": 4
+      "selective": 3
     },
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 4,
+    "unpopulated_selective_edge_count": 3,
     "unpopulated_selective_edges": [
       "paper_module.agent_monitor_redteam_falsification_replay",
-      "paper_module.finance_forecast_evaluation_spine",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay"
     ],
-    "unpopulated_selective_relation_count": 4,
+    "unpopulated_selective_relation_count": 3,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 4
+      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 3
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "paper_module.agent_monitor_redteam_falsification_replay": 1,
-      "paper_module.finance_forecast_evaluation_spine": 1,
       "paper_module.indirect_prompt_injection_information_flow_policy_replay": 1,
       "paper_module.mcp_tool_authority_replay": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 4
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 3
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 4
+      "paper_module.depends_on.paper_module": 3
     },
-    "unpopulated_selective_relation_detail_count": 4,
+    "unpopulated_selective_relation_detail_count": 3,
     "unpopulated_selective_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3520,20 +3518,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.finance_forecast_evaluation_spine",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.finance_forecast_evaluation_spine",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[30:paper_module.finance_forecast_evaluation_spine]"
         }
       },
       {
