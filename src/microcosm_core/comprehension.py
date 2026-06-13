@@ -2090,7 +2090,7 @@ def _tokens_overlap(a: str, b: str) -> bool:
 # Verbs that signal the goal actually asks to RUN/CHECK something -- the evidence a
 # single-token route match needs before it may fire (see _match_task_route).
 _ACTION_VERB_RE = re.compile(
-    r"\b(run|check|validate|inspect|test|replay|show|verify|exercise)\b"
+    r"\b(run|check|validate|inspect|test|replay|show|verify|exercise|dispatch)\b"
 )
 
 
@@ -2102,14 +2102,16 @@ def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | Non
       names a task class (lean, security, finance, getting started...) should land
       on that route's first command, not on a generic orientation packet.
     - Guarantee: returns the best-scoring route node dict, scored by token overlap
-      with task_class (weight 3), primary_display_name (2), and primary_organ_id
-      (2). EVIDENCE BAR: a route fires only when >= 2 DISTINCT goal tokens
-      matched, or when exactly one matched but it equals the full task_class name
-      (len >= 5) AND the goal carries an action verb (run/check/validate/...) --
-      so "does this work?" or "the security guard at my office building" fall to
-      the orientation fallback instead of a confident wrong fixture. Returns None
-      below the bar or when the route plane is absent; ties break by score then
-      task_class name for determinism.
+      with task_class (weight 3), primary_display_name (2), primary_organ_id (2),
+      and first_command (1). EVIDENCE BAR: a route fires when >= 2 DISTINCT goal
+      tokens matched strong route fields, when exactly one strong token equals the
+      full task_class name (len >= 5) AND the goal carries an action verb
+      (run/check/validate/...), or when >= 2 tokens match the first command and
+      the goal carries an action verb. That lets "dispatch the route bundle"
+      reach the graph-owned route-map command while "does this work?" or "the
+      security guard at my office building" fall to orientation fallback instead
+      of a confident wrong fixture. Returns None below the bar or when the route
+      plane is absent; ties break by score then task_class name for determinism.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
     """
@@ -2122,23 +2124,31 @@ def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | Non
         task_class = str(route.get("task_class") or "")
         score = 0
         matched_goal_tokens: set[str] = set()
+        strong_matched_goal_tokens: set[str] = set()
         for field, weight in (
             ("task_class", 3),
             ("primary_display_name", 2),
             ("primary_organ_id", 2),
+            ("first_command", 1),
         ):
             for ftok in _goal_tokens(str(route.get(field) or "")):
                 hits = [g for g in tokens if _tokens_overlap(ftok, g)]
                 if hits:
                     score += weight
                     matched_goal_tokens.update(hits)
+                    if field != "first_command":
+                        strong_matched_goal_tokens.update(hits)
         if not matched_goal_tokens:
             continue
-        if len(matched_goal_tokens) < 2:
-            only = next(iter(matched_goal_tokens))
+        route_can_fire = len(strong_matched_goal_tokens) >= 2
+        if not route_can_fire and len(strong_matched_goal_tokens) == 1:
+            only = next(iter(strong_matched_goal_tokens))
             exact_class = only == task_class and len(only) >= 5
-            if not (exact_class and has_action_verb):
-                continue
+            route_can_fire = exact_class and has_action_verb
+        if not route_can_fire and has_action_verb and len(matched_goal_tokens) >= 2:
+            route_can_fire = True
+        if not route_can_fire:
+            continue
         if best is None or (-score, task_class) < (-best[0], best[1]):
             best = (score, task_class, route)
     return best[2] if best else None
@@ -3925,7 +3935,8 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("where is the fixture input for the audio organ?",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("dispatch the route bundle",
-     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+     {"owner_organ": "cold_reader_route_map", "action_kind": "run_fixture_command",
+      "routing_basis": "task_class_route_match"}),
     ("how does the exchange rate organ work?",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("does this work?",

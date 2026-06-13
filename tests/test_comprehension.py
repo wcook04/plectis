@@ -1036,6 +1036,17 @@ def test_first_action_contract_via_task_route_match(tmp_path: Path) -> None:
     ]
 
 
+def test_first_action_route_bundle_dispatch_uses_live_agent_entry_route() -> None:
+    pack = C.comprehend(
+        root=C.default_root(), mode="first_action", target="dispatch the route bundle"
+    )
+    assert pack["routing"]["basis"] == "task_class_route_match"
+    assert pack["routing"]["task_class"] == "agent-entry"
+    assert pack["owner"]["organ_id"] == "cold_reader_route_map"
+    assert pack["first_action"]["action_kind"] == "run_fixture_command"
+    assert "cold-reader-route-map run-route-map-bundle" in pack["first_action"]["command"]
+
+
 def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(
