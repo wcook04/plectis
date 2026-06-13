@@ -184,6 +184,17 @@ def test_agent_monitor_redteam_dependency_routes_to_import_protocol() -> None:
     }
 
 
+def test_mcp_tool_authority_dependency_routes_to_import_protocol() -> None:
+    edges = _dependency_edges("paper_module.mcp_tool_authority_replay")
+
+    assert {
+        str(edge["target_id"]): edge["target_status"]
+        for edge in edges
+    } == {
+        "paper_module.macro_projection_import_protocol": "resolved_json_instance",
+    }
+
+
 def test_sleeper_memory_dependency_routes_to_source_named_sibling_replays() -> None:
     edges = _dependency_edges("paper_module.sleeper_memory_poisoning_quarantine_replay")
 

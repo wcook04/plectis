@@ -219,6 +219,7 @@
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
         "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
         "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
+        "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
         "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
         "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
         "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
@@ -579,6 +580,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -634,6 +648,7 @@
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
       "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
       "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
+      "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
       "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
       "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
       "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
