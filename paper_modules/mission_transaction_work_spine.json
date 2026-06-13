@@ -88,6 +88,9 @@
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
       ],
+      "depends_on": [
+        "paper_module.durable_agent_work_landing_replay"
+      ],
       "generated_projections": {
         "atlas_card": {
           "generated": true,
@@ -159,7 +162,9 @@
     "concept_refs": [
       "concept.work_landing_and_continuity_control_bundle"
     ],
-    "depends_on": [],
+    "depends_on": [
+      "paper_module.durable_agent_work_landing_replay"
+    ],
     "edges": [
       {
         "justification": {
@@ -241,6 +246,19 @@
       },
       {
         "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.durable_agent_work_landing_replay",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for public mission-transaction fixture validation, copied source-module manifest checks, negative-case enforcement, and body-free receipts."
         },
@@ -270,15 +288,7 @@
         "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
       }
     ],
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ]
+    "unpopulated_selective_relations": []
   },
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [

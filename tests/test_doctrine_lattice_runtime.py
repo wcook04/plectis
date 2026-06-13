@@ -4264,6 +4264,37 @@ def test_mission_transaction_work_spine_population_has_atlas_capsule_and_mechani
         "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
         in mechanism["receipt_refs"]
     )
+    paper_module = json.loads(
+        (
+            MICROCOSM_ROOT / "paper_modules/mission_transaction_work_spine.json"
+        ).read_text(encoding="utf-8")
+    )
+    depends_edges = [
+        edge
+        for edge in paper_module["relationships"]["edges"]
+        if edge["relation_id"] == "paper_module.depends_on.paper_module"
+    ]
+    assert depends_edges == [
+        {
+            "relation_id": "paper_module.depends_on.paper_module",
+            "relation_verb": "depends_on",
+            "reverse_verb": "depended_on_by",
+            "target_kind": "paper_module",
+            "target_id": "paper_module.durable_agent_work_landing_replay",
+            "target_status": "resolved_json_instance",
+            "justification": {
+                "source_ref": (
+                    "core/paper_module_capsules.json::paper_modules"
+                    "[20:paper_module.mission_transaction_work_spine].depends_on"
+                ),
+                "summary": (
+                    "Paper-module source row names this sibling/dependency "
+                    "paper module."
+                ),
+            },
+            "residual_pressure_ref": None,
+        }
+    ]
 
     standard = json.loads(
         (

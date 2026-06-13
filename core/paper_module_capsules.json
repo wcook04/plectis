@@ -1610,6 +1610,9 @@
       ],
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
+      ],
+      "depends_on": [
+        "paper_module.durable_agent_work_landing_replay"
       ]
     },
     {
