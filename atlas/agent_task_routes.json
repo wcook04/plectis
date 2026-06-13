@@ -23,7 +23,7 @@
     ],
     "capsule_rows_with_organ_subject_count": 82,
     "count_boundary": "Accepted organs, JSON paper-module capsules, and Markdown/JSON paper module projections are distinct surfaces. A count mismatch is expected when capsules describe mechanism-only or ahead-of-registry rows, or when Markdown/JSON projections exist outside the accepted-organ registry.",
-    "json_paper_module_projection_count": 99,
+    "json_paper_module_projection_count": 98,
     "markdown_paper_module_count": 100,
     "mechanism_only_capsule_count": 16,
     "mechanism_only_capsules_used_by_accepted_organs": [
@@ -2265,7 +2265,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=sleeper_memory_poisoning_quarantine_replay]",
@@ -2339,7 +2341,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "agent_sandbox_policy_escape_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=belief_state_process_reward_replay]",
@@ -2413,7 +2417,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=indirect_prompt_injection_information_flow_policy_replay]",
@@ -3028,7 +3034,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=sleeper_memory_poisoning_quarantine_replay]",
@@ -3102,7 +3110,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "agent_sandbox_policy_escape_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=belief_state_process_reward_replay]",
@@ -3176,7 +3186,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=indirect_prompt_injection_information_flow_policy_replay]",
@@ -12453,7 +12465,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "agent_sandbox_policy_escape_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_route_observability_runtime]",
@@ -13237,7 +13251,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=sleeper_memory_poisoning_quarantine_replay]",
@@ -13311,7 +13327,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "agent_sandbox_policy_escape_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=belief_state_process_reward_replay]",
@@ -13385,7 +13403,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=indirect_prompt_injection_information_flow_policy_replay]",
@@ -14224,7 +14244,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         },
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=sleeper_memory_poisoning_quarantine_replay]",
@@ -14298,7 +14320,9 @@
             "validation_ref_count": 2
           },
           "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
-          "wires_to": []
+          "wires_to": [
+            "sleeper_memory_poisoning_quarantine_replay"
+          ]
         }
       ],
       "route_role": "agent_task_class_to_organ_selector",

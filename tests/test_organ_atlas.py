@@ -95,7 +95,7 @@ def test_every_organ_and_a_first_command_appears_in_organs_md() -> None:
         assert f"`{organ_id}`" in text, f"{organ_id} missing from ORGANS.md"
     # cards expose runnable commands and claim ceilings, not just names
     assert text.count("**First command:**") == len(_accepted_registry_ids())
-    assert text.count("**Does not authorize:**") == len(_accepted_registry_ids())
+    assert text.count("**Scope limit:**") == len(_accepted_registry_ids())
     assert text.count("- **Source relations:**") == len(_accepted_registry_ids())
     assert text.count("standard [`standards/std_microcosm_") == len(
         _accepted_registry_ids()
@@ -414,7 +414,7 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         assert route["primary_organ_id"] in _accepted_registry_ids()
         assert route["relevant_organs"]
         assert route["first_command"]
-        assert route["allowed_authority"]
+        assert route["allowed_scope"]
         assert route["evidence_ref"].startswith("core/organ_registry.json::")
         assert route["receipt_ref"]
         source_summary = route["source_relation_summary"]
@@ -464,7 +464,8 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         for organ in route["relevant_organs"]:
             routed_organs.add(organ["organ_id"])
             assert organ["first_command"]
-            assert organ["claim_ceiling"]
+            assert organ["scope_limit"]
+            assert organ["compression_authority_ceiling"]
             assert organ["standard_ref"].startswith("standards/std_microcosm_")
             assert organ["concept_ref"] == (
                 f"organ_doctrine_row:{organ['organ_id']}.concept_binding"
@@ -525,8 +526,8 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         "--out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card"
     )
     assert (
-        "trading advice" in interesting_parts["authority_boundary"]
-        and "whole-system correctness" in interesting_parts["authority_boundary"]
+        "financial decisions" in interesting_parts["allowed_scope"]
+        and "whole-system correctness" in interesting_parts["allowed_scope"]
     )
 
     finance = {row["task_class"]: row for row in route_model["routes"]}["finance"]
@@ -536,7 +537,7 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
     assert "public_reveal_walkthrough" not in finance_organs
     assert "mathematical_strategy_atlas_hypothesis_scorer" not in finance_organs
     assert "agentic_vulnerability_discovery_patch_proof_replay" not in finance_organs
-    assert "investment advice" in finance["allowed_authority"]
+    assert "investment-related actions" in finance["allowed_scope"]
 
 
 def test_agent_concurrency_routes_bind_seed_speed_topology_to_work_spine() -> None:
@@ -587,7 +588,7 @@ def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     assert "ORGANS.md#find-your-specialty" in text
     assert "`standard_ref`, `paper_module_ref`, `concept_ref`, `mechanism_ref`" in text
     assert "`source_relation_summary` handles" in text
-    assert "Stop when the first command or named receipt is visible" in text
+    assert "Stop when the first command or named result record is visible" in text
     assert "`agent-entry`" in text
     assert "`organ_doctrine_row:cold_reader_route_map.concept_binding`" in text
     for task_class in (
