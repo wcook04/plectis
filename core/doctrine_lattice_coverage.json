@@ -178,7 +178,7 @@
     "paper_module_legacy_only_count": 0,
     "paper_module_required_subject_gap_count": 0,
     "paper_module_unpopulated_selective_relation_count": 0,
-    "paper_module_without_json_capsule_count": 1,
+    "paper_module_without_json_capsule_count": 0,
     "principle_json_instance_count": 20,
     "principle_json_missing_count": 0,
     "public_codex_brand_leak_count": 0,
@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T16:35:49.295123Z",
+    "generated_at": "2026-06-13T17:08:05.628624Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -2550,10 +2550,8 @@
       "paper_modules/world_model_projection_drift_control_room.md"
     ],
     "markdown_with_json_capsule_count": 98,
-    "markdown_without_json_capsule": [
-      "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-    ],
-    "markdown_without_json_capsule_count": 1,
+    "markdown_without_json_capsule": [],
+    "markdown_without_json_capsule_count": 0,
     "missing_json_ids": [],
     "required_subject_gap_count": 0,
     "required_subject_gap_ids": [],
@@ -2732,8 +2730,10 @@
         "source_class": "legacy_markdown_projection_with_json_capsule"
       },
       {
+        "canonical_paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
         "path": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
-        "source_class": "legacy_markdown_projection_without_json_capsule"
+        "source_class": "legacy_markdown_projection_suppressed_by_json_capsule_alias",
+        "source_ref": "core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate].legacy_markdown_projection_aliases[0]"
       },
       {
         "path": "paper_modules/doctrine_fact_claim_audit.md",
@@ -2963,14 +2963,21 @@
       },
       {
         "path": "core/paper_module_capsules.json",
-        "sha256": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
+        "sha256": "1d01da0e3e27f43327c3555991fdfb3c59c103414cc74a4da7e7e134106bfde8",
         "source_class": "json_capsule_registry"
       }
     ],
-    "source_manifest_digest": "30488a61971a7fcf538504f935d101e9370d319ee6e02d313861dacc735c34d6",
+    "source_manifest_digest": "e143b35751b902d5d974f032967ce7cb4576c8201889b2e193fba267b736ebcf",
     "strangler_rule": "Markdown remains legacy/import projection until JSON instances and capsules round-trip structurally; legacy-only JSON rows are import indexes, not authority upgrades.",
-    "suppressed_legacy_markdown_alias_count": 1,
+    "suppressed_legacy_markdown_alias_count": 2,
     "suppressed_legacy_markdown_aliases": [
+      {
+        "canonical_paper_module_id": "paper_module.corpus_readiness_mathlib_absence_gate",
+        "import_policy": "suppress_legacy_row",
+        "path": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
+        "reason": "Gate-suffixed reader projection is the same capsule-owned paper module, not a second legacy Markdown source.",
+        "source_ref": "core/paper_module_capsules.json::paper_modules[8:paper_module.corpus_readiness_mathlib_absence_gate].legacy_markdown_projection_aliases[0]"
+      },
       {
         "canonical_paper_module_id": "paper_module.tactic_portfolio_availability",
         "import_policy": "suppress_legacy_row",
@@ -3411,7 +3418,7 @@
       "core/mechanism_sources.json": "e9b2cb3bd58098cadc39bcca2f641ad3d2e71a6ea9ca8d9440f5eeffe54ed2e2",
       "core/organ_atlas.json": "1a66e926c0f90305cd44a4d546107355f02b6985a27a2df565114d23bd8bd5eb",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
-      "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
+      "core/paper_module_capsules.json": "1d01da0e3e27f43327c3555991fdfb3c59c103414cc74a4da7e7e134106bfde8",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
@@ -3638,7 +3645,7 @@
       "paper_modules/cold_reader_route_map.json": "53411a5483c001f61ad24c3a4f341148034b1475ef994a6e95dd0821b6476d9a",
       "paper_modules/computer_use_action_trace_replay.json": "d6ccbb18584dfc0b6e01e82ae7788480272df545ea3cdcbc8e3136651585522e",
       "paper_modules/concurrency_mission_control.json": "88c208a033ce5b54e3464bb42c18803e47185e8edc0e85b3174cf337959e2171",
-      "paper_modules/corpus_readiness_mathlib_absence_gate.json": "6b38562c2ae6a16f8e004c13baa5216642f69560d1ed0a356304626df9f49176",
+      "paper_modules/corpus_readiness_mathlib_absence_gate.json": "1604b1053e8189b266757ca1c8a026af6e9da60b2213061ca8a4be078d9a636e",
       "paper_modules/doctrine_fact_claim_audit.json": "e8909c1e611f73bffddf1d4f7b3aa80d212fee4dd906a0c527c19eba177acf1d",
       "paper_modules/durable_agent_work_landing_replay.json": "e2031b2f2861a92f249621be1efb2d619ac7d68fbfe965c880096a796a094ccb",
       "paper_modules/engine_room_annex_knowledge_router.json": "1627bb3dac7ff050bc8eabc36ada5445f42113d61a86c85c346caad94ee34302",
@@ -3676,7 +3683,7 @@
       "paper_modules/proof_derived_governed_mutation_authorization.json": "b9cc46ea25eaa24c0026bf58c883011dc1aaadc2cd6365757d370cab4d7a39b8",
       "paper_modules/proof_diagnostic_evidence_spine.json": "8b0b72671f4a765cc2b6f40115acb3f5d43759dfa7472035e4402750c93ea90d",
       "paper_modules/provider_context_recipe_budget.json": "594f40d12b0ab6a719c864577d813e7b6adf689a99772bbb0356e6e8db28808b",
-      "paper_modules/public_reveal_walkthrough.json": "ad7cf044fb0d497a5006f088b648d74de2ec615ea7dcade04922bc7abff2e54f",
+      "paper_modules/public_reveal_walkthrough.json": "da179da2e13c217ee718f3d7e849067592c75041b7c7aa872a1f483a275dc23b",
       "paper_modules/research_replication_rubric_artifact_replay.json": "3d590b5a6046ddd911b229f4a565397134ec2887e86ce88988e6cc3a8b1c941b",
       "paper_modules/ring2_premise_precision_recall.json": "b70a542690e6abeaff7c4aff5b16c8bba9b7ae4f996719ba42b278beff52d0c6",
       "paper_modules/routing_anti_patterns_registry.json": "e0618a2f1902b3cb6ed332e2df91df5fa290d0fd8ed694e6b9baedf36a2b213b",

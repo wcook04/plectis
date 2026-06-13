@@ -164,8 +164,8 @@
   ],
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "coverage_projection_digest": "373a52b4727f037d10f9fd7675bb4cd2cb8041317cd3e3a61c81cde1aab4a548",
-    "generated_at": "2026-06-13T16:35:50.396094Z",
+    "coverage_projection_digest": "e1bffadaec2a228b2ea36af1ad5186635a456c4814e6e538eedd7361a8d192f0",
+    "generated_at": "2026-06-13T17:08:06.789399Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],
@@ -217,7 +217,7 @@
       "paper_module_legacy_only_count": 0,
       "paper_module_required_subject_gap_count": 0,
       "paper_module_unpopulated_selective_relation_count": 0,
-      "paper_module_without_json_capsule_count": 1,
+      "paper_module_without_json_capsule_count": 0,
       "registry_atlas_join_error_count": 0,
       "skill_json_missing_count": 0,
       "skill_required_relation_gap_count": 0,

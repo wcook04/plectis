@@ -115,6 +115,13 @@
       "id": "paper_module.corpus_readiness_mathlib_absence_gate",
       "kind": "paper_module",
       "legacy_markdown_projection": "paper_modules/corpus_readiness_mathlib_absence.md",
+      "legacy_markdown_projection_aliases": [
+        {
+          "import_policy": "suppress_legacy_row",
+          "path": "paper_modules/corpus_readiness_mathlib_absence_gate.md",
+          "reason": "Gate-suffixed reader projection is the same capsule-owned paper module, not a second legacy Markdown source."
+        }
+      ],
       "principle_refs": [
         "P-8"
       ],

@@ -136,6 +136,10 @@
         {
           "kind": "mechanism",
           "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
         }
       ],
       "title": "Public Reveal Walkthrough"
@@ -202,6 +206,19 @@
         "residual_pressure_ref": null,
         "reverse_verb": "explained_by",
         "target_id": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[28:paper_module.public_reveal_walkthrough].subjects[2]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
       },
@@ -462,6 +479,10 @@
       {
         "kind": "mechanism",
         "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
       }
     ],
     "unpopulated_selective_relations": []
@@ -491,6 +512,10 @@
     {
       "kind": "mechanism",
       "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
     }
   ],
   "title": "Public Reveal Walkthrough",

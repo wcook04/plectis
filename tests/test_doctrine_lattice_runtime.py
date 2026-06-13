@@ -2995,9 +2995,19 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
         "doctrine_lattice_population",
         "concept_and_mechanism_edge_population",
         "organ_required_and_selective_edge_population",
-        "paper_module_json_capsule_and_edge_population",
         "standard_contract_and_triad_population",
     } <= residual_gap_classes
+    if (
+        health["paper_modules"]["json_instance_parity_status"] != "pass"
+        or health["paper_modules"]["legacy_only_count"]
+        or health["paper_modules"]["required_subject_gap_count"]
+        or health["paper_modules"]["without_json_capsule_count"]
+        or health["paper_modules"]["unpopulated_selective_edge_count"]
+        or health["paper_modules"]["unpopulated_selective_relation_count"]
+    ):
+        assert "paper_module_json_capsule_and_edge_population" in residual_gap_classes
+    else:
+        assert "paper_module_json_capsule_and_edge_population" not in residual_gap_classes
     if health["skills"]["unpopulated_selective_edge_count"]:
         assert "skill_selective_edge_population" in residual_gap_classes
     assert "evidence_walkability_population" not in residual_gap_classes

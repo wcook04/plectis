@@ -3057,10 +3057,8 @@
     "unpopulated_selective_relation_counts_by_relation_id": {},
     "unpopulated_selective_relation_detail_count": 0,
     "unpopulated_selective_relation_details": [],
-    "without_json_capsule": [
-      "paper_modules/corpus_readiness_mathlib_absence_gate.md"
-    ],
-    "without_json_capsule_count": 1
+    "without_json_capsule": [],
+    "without_json_capsule_count": 0
   },
   "principles": {
     "expected_json_instance_count": 20,
@@ -3568,11 +3566,6 @@
       "gap_class": "organ_required_and_selective_edge_population",
       "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "reentry_condition": "Populate missing organ paper/mechanism/code refs from source evidence, then bind concept/principle/axiom/wires_to edges only when atlas or registry rows name ids."
-    },
-    {
-      "gap_class": "paper_module_json_capsule_and_edge_population",
-      "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-      "reentry_condition": "Author capsule-backed paper-module JSON subject/code/law/dependency edges for legacy-only Markdown rows, then regenerate governed JSON and projections."
     },
     {
       "gap_class": "skill_selective_edge_population",
