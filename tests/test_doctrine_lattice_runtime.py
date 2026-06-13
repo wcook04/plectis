@@ -3390,7 +3390,10 @@ def test_mechanism_upstream_edges_back_source_organ_wiring_wave() -> None:
             "proof_diagnostic_evidence_spine",
             "verifier_lab_kernel",
         },
-        "lean_std_premise_index": {"verifier_lab_kernel"},
+        "lean_std_premise_index": {
+            "mathematical_strategy_atlas_hypothesis_scorer",
+            "verifier_lab_kernel",
+        },
         "materials_chemistry_closed_loop_lab_safety_replay": {
             "spatial_world_model_counterfactual_simulation_replay",
         },
@@ -3506,7 +3509,7 @@ def test_mechanism_upstream_edges_back_source_organ_wiring_wave() -> None:
             )
             asserted_edge_count += 1
 
-    assert asserted_edge_count == 48
+    assert asserted_edge_count == 49
 
 
 def test_batch4_and_8_import_organs_resolve_source_edges_and_laws() -> None:
@@ -6904,6 +6907,14 @@ def test_lean_std_premise_index_population_has_capsule_and_mechanism_prestaged_u
         "mechanism.lean_std_premise_index."
         "validates_public_lean_std_premise_catalog"
     )
+    atlas_mechanism_id = (
+        "mechanism.lean_std_premise_index."
+        "validates_public_lean_std_premise_index"
+    )
+    strategy_mechanism_id = (
+        "mechanism.mathematical_strategy_atlas_hypothesis_scorer."
+        "validates_public_strategy_hypothesis_projection"
+    )
 
     assert capsule_id in projection["paper_module_corpus"]["json_capsule_ids"]
     assert projection["registry_atlas_join_health"]["status"] == "pass"
@@ -6911,10 +6922,7 @@ def test_lean_std_premise_index_population_has_capsule_and_mechanism_prestaged_u
         projection,
         "lean_std_premise_index",
         paper_module_ref="paper_modules/lean_std_premise_index.md",
-        atlas_mechanism_id=(
-            "mechanism.lean_std_premise_index."
-            "validates_public_lean_std_premise_index"
-        ),
+        atlas_mechanism_id=atlas_mechanism_id,
         code_path="src/microcosm_core/organs/lean_std_premise_index.py",
     )
 
@@ -6939,6 +6947,26 @@ def test_lean_std_premise_index_population_has_capsule_and_mechanism_prestaged_u
         "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json"
         in mechanism["input_refs"]
     )
+
+    lean_std_instance = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "mechanisms"
+            / f"{atlas_mechanism_id}.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert any(
+        edge["relation_id"] == "mechanism.upstream_of.mechanism"
+        and edge["target_id"] == strategy_mechanism_id
+        and edge["target_status"] == "resolved_json_instance"
+        for edge in lean_std_instance["relationships"]["edges"]
+    )
+    assert "mechanism.upstream_of.mechanism" not in {
+        residual["relation_id"]
+        for residual in lean_std_instance["relationships"][
+            "unpopulated_selective_relations"
+        ]
+    }
 
     standard = json.loads(
         (

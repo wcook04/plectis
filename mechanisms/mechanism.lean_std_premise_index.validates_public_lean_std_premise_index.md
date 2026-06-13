@@ -15,7 +15,7 @@ The Lean Std premise index validates public-safe premise metadata, Lean/Init sou
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/lean_std_premise_index.py` (resolved_code_locus)
 - `runs_in` -> `organ:lean_std_premise_index` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection` (resolved_json_instance)
 
 ## Anti-Claims
 

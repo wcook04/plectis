@@ -2645,6 +2645,9 @@
         "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_std_premise_index run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index --acceptance-out receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_lean_std_premise_index.py -q"
       },
+      "upstream_of": [
+        "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection"
+      ],
       "concept_refs": [
         "concept.formal_math_and_proof_witness_bundle"
       ]
