@@ -742,7 +742,7 @@
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
       "covered_edge_count": 209,
-      "missing_edge_count": 11,
+      "missing_edge_count": 12,
       "missing_edges": [
         {
           "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -797,6 +797,12 @@
           "dependency_paper_module": "paper_module.macro_projection_import_protocol",
           "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
           "target_mechanism": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+        },
+        {
+          "consumer_paper_module": "paper_module.executable_doctrine_grammar",
+          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
+          "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+          "target_mechanism": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
         },
         {
           "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
@@ -3454,28 +3460,27 @@
     "markdown_file_count": 100,
     "required_subject_gap_count": 0,
     "required_subject_gaps": [],
-    "residual_relation_count": 11,
+    "residual_relation_count": 10,
     "residual_relation_counts_by_requirement": {
-      "selective": 11
+      "selective": 10
     },
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 11,
+    "unpopulated_selective_edge_count": 10,
     "unpopulated_selective_edges": [
       "paper_module.agent_monitor_redteam_falsification_replay",
       "paper_module.batch7_demo_take_console_capsule",
       "paper_module.batch7_zenith_macos_capsule",
       "paper_module.bridge_phase_continuity_runtime",
       "paper_module.cognitive_operator_registry",
-      "paper_module.executable_doctrine_grammar",
       "paper_module.finance_forecast_evaluation_spine",
       "paper_module.first_screen_composition_root",
       "paper_module.indirect_prompt_injection_information_flow_policy_replay",
       "paper_module.mcp_tool_authority_replay",
       "paper_module.standards_meta_diagnostics"
     ],
-    "unpopulated_selective_relation_count": 11,
+    "unpopulated_selective_relation_count": 10,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 11
+      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 10
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "paper_module.agent_monitor_redteam_falsification_replay": 1,
@@ -3483,7 +3488,6 @@
       "paper_module.batch7_zenith_macos_capsule": 1,
       "paper_module.bridge_phase_continuity_runtime": 1,
       "paper_module.cognitive_operator_registry": 1,
-      "paper_module.executable_doctrine_grammar": 1,
       "paper_module.finance_forecast_evaluation_spine": 1,
       "paper_module.first_screen_composition_root": 1,
       "paper_module.indirect_prompt_injection_information_flow_policy_replay": 1,
@@ -3491,12 +3495,12 @@
       "paper_module.standards_meta_diagnostics": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 11
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 10
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 11
+      "paper_module.depends_on.paper_module": 10
     },
-    "unpopulated_selective_relation_detail_count": 11,
+    "unpopulated_selective_relation_detail_count": 10,
     "unpopulated_selective_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3566,20 +3570,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[11:paper_module.cognitive_operator_registry]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.executable_doctrine_grammar",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.executable_doctrine_grammar",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar]"
         }
       },
       {

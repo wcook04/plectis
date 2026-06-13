@@ -1455,6 +1455,9 @@
         "AX-11",
         "AX-12"
       ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "generated_projections": {
         "markdown": {
           "path": "paper_modules/executable_doctrine_grammar.md",

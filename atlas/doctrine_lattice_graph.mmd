@@ -7510,6 +7510,8 @@ flowchart LR
   paper_module_paper_module_executable_doctrine_grammar -- abides_by --> axiom_AX_11
   axiom_AX_12["axiom:AX-12"]
   paper_module_paper_module_executable_doctrine_grammar -- abides_by --> axiom_AX_12
+  paper_module_paper_module_macro_projection_import_protocol["paper_module:paper_module.macro_projection_import_protocol"]
+  paper_module_paper_module_executable_doctrine_grammar -- depends_on --> paper_module_paper_module_macro_projection_import_protocol
   code_locus_src_microcosm_core_organs_executable_doctrine_grammar_py["code_locus:src/microcosm_core/organs/executable_doctrine_grammar.py"]
   paper_module_paper_module_executable_doctrine_grammar -- cites --> code_locus_src_microcosm_core_organs_executable_doctrine_grammar_py
   paper_module_paper_module_finance_forecast_evaluation_spine["paper_module:paper_module.finance_forecast_evaluation_spine: Finance Forecast Evaluation Spine"]:::paper_module
