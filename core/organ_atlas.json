@@ -2539,7 +2539,7 @@
         "P-4"
       ],
       "standalone_or_wired": "wired",
-      "wiring_note": "Names agent_sandbox_policy_escape_replay as a structural downstream sibling from the mechanism upstream graph; this is navigation structure only, not live MCP/tool invocation, sandbox invocation, release, runtime-correctness, or proof authority.",
+      "wiring_note": "Names agent_sandbox_policy_escape_replay and sleeper_memory_poisoning_quarantine_replay as structural downstream siblings from the mechanism upstream graph; this is navigation structure only, not live MCP/tool invocation, sandbox invocation, memory mutation, release, runtime-correctness, or proof authority.",
       "display_name": "MCP Tool Authority Replay",
       "specialty": [
         "ai-safety",
@@ -2548,7 +2548,8 @@
         "provider-ops"
       ],
       "wires_to": [
-        "agent_sandbox_policy_escape_replay"
+        "agent_sandbox_policy_escape_replay",
+        "sleeper_memory_poisoning_quarantine_replay"
       ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"

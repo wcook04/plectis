@@ -838,7 +838,7 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     parity = projection["mechanism_capsule_dependency_upstream_parity"]
     assert parity["status"] == "deficit"
     assert parity["covered_edge_count"] > 0
-    assert parity["missing_edge_count"] == 12
+    assert parity["missing_edge_count"] == 11
     assert {
         (
             row["source_mechanism"],
@@ -881,13 +881,23 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
         )
         for row in parity["missing_edges"]
     }
+    assert (
+        "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+        "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay",
+    ) not in {
+        (
+            row["source_mechanism"],
+            row["target_mechanism"],
+        )
+        for row in parity["missing_edges"]
+    }
     assert parity["relation_direction"].startswith(
         "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A)"
     )
     assert parity == health["mechanisms"]["capsule_dependency_upstream_parity"]
     assert (
         entry_card["current_counts"]["mechanism_capsule_dependency_upstream_missing_count"]
-        == 12
+        == 11
     )
     assert any(
         guard["guard_id"] == "paper_dependency_not_reverse_mechanism_upstream_edge"

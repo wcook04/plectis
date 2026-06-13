@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 12,
+    "mechanism_capsule_dependency_upstream_missing_count": 11,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -209,13 +209,13 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T09:32:48.638023Z",
+    "generated_at": "2026-06-13T10:08:14.309355Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 219,
-    "missing_edge_count": 12,
+    "covered_edge_count": 220,
+    "missing_edge_count": 11,
     "missing_edges": [
       {
         "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
@@ -282,12 +282,6 @@
         "dependency_paper_module": "paper_module.macro_projection_import_protocol",
         "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_mechanism": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
-      },
-      {
-        "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
-        "dependency_paper_module": "paper_module.mcp_tool_authority_replay",
-        "source_mechanism": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
-        "target_mechanism": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
       }
     ],
     "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
@@ -3481,8 +3475,8 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "c26697cf0f5a4c7e8df93fe5ffdc614ea1d27e925895044d4f33fcc4e4ec2c6c",
-      "core/organ_atlas.json": "a0e8f91f394349364b23824ce8a948a267b86d786b8451725ec01ddbc9d72dfd",
+      "core/mechanism_sources.json": "27ff9e91a0931f970449c9836329b149e5885e75d082dd0e5244f9311cc87bcb",
+      "core/organ_atlas.json": "ac631d6754121787bfa73cca26f11b6afb531b5acca661c432cc333d4a50ebae",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
@@ -3559,7 +3553,7 @@
       "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "f2c6767e4eb3ddfe37bd00d88676b3f5079e38b6ca6f1f9d530873bf0fd42e09",
       "mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "00029277572c9291a39fae44235add919b7117b5c22856393e18d4d3a4c0c5fe",
       "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "819aab36c287ecd03a465dbe850ce2f3edc8b52f8ac7808cc7079a34150d62fb",
-      "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "7b4a148f17ca3a792a19d48204ccd2112d4e72c926e65a1423bbe3abc273d96c",
+      "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "0819819c2041be4361c732c03c36f8c8102a3715448bd3f751c2a44b9d9a2b4a",
       "mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json": "4650e96680581c36c11aecfecfda7030e2d57600987058c091fd55c5a4938abc",
       "mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json": "b3b81b0439e06eee2e9b08619be27dd2993e8cf1928460347cb68dd897064b04",
       "mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "cf4ba572d8886f4e65cd528d6a0d95d377a25fbc20a800cc6349bbfc332e7525",
@@ -3642,7 +3636,7 @@
       "organs/macro_projection_import_protocol.json": "dff7be047099cdc5f59b4ff38c7739629f3bb8001bef071a4c76b87ec32421f4",
       "organs/materials_chemistry_closed_loop_lab_safety_replay.json": "7b4fd5c060be0789d066c9f053f47895e8cd719d8754f72c482b3ca3722c853f",
       "organs/mathematical_strategy_atlas_hypothesis_scorer.json": "8103bf7e39fa5db7b29d3a1b1e50a42602722daad297607de34ead3827a2e471",
-      "organs/mcp_tool_authority_replay.json": "050c1d4ad5ad947837bf8f3f453268b8129895de6abb5c486cb96339eabd3055",
+      "organs/mcp_tool_authority_replay.json": "4a1d7dafbc8f4bbbc6901ac43330df82c22f82a2df2564ad627cf9ae33427add",
       "organs/mechanistic_interpretability_circuit_attribution_replay.json": "447bb4dcd4358922cee9528ad75fc6eef6c43e4567ee2d69e74a3923e03e0ce4",
       "organs/mission_transaction_work_spine.json": "f6d2598b11a3db62990e0f40ee383d285d94a4573a50a5019a2741bb8a4b4f9b",
       "organs/navigation_hologram_route_plane.json": "cc0c98e8d681c02a8aaa1609b992e8b0d690241b309e895a1db55d32ccd22b7a",

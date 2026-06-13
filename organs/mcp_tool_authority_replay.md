@@ -22,6 +22,7 @@ An agent runs this to check that a recorded tool-use bundle is admissible: every
 - `governed_by` -> `principle:P-4` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-3` (resolved_json_instance)
 - `wires_to` -> `organ:agent_sandbox_policy_escape_replay` (resolved_registry_or_atlas_target)
+- `wires_to` -> `organ:sleeper_memory_poisoning_quarantine_replay` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims
 

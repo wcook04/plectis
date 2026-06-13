@@ -741,8 +741,8 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 219,
-      "missing_edge_count": 12,
+      "covered_edge_count": 220,
+      "missing_edge_count": 11,
       "missing_edges": [
         {
           "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
@@ -809,12 +809,6 @@
           "dependency_paper_module": "paper_module.macro_projection_import_protocol",
           "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
           "target_mechanism": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
-        },
-        {
-          "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
-          "dependency_paper_module": "paper_module.mcp_tool_authority_replay",
-          "source_mechanism": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
-          "target_mechanism": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
         }
       ],
       "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",

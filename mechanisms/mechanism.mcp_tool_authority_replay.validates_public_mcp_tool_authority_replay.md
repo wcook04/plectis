@@ -16,6 +16,7 @@ The MCP tool authority replay organ validates public tool manifest scope, call m
 - `runs_in` -> `organ:mcp_tool_authority_replay` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.agent_reliability_and_safety_validator_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay` (resolved_json_instance)
 
 ## Anti-Claims
 

@@ -5469,7 +5469,8 @@
         "source_language_inventory"
       ],
       "upstream_of": [
-        "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
+        "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+        "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
       ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
