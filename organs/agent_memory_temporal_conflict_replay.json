@@ -133,9 +133,11 @@
         "red-teaming",
         "security"
       ],
-      "standalone_or_wired": "standalone_specimen",
-      "wires_to": [],
-      "wiring_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, schemas, and a public execution-trace builder), not to runtime invocation of other named organs"
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
+      "wiring_note": "binds to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, schemas, and a public execution-trace builder) and names sleeper_memory_poisoning_quarantine_replay as a structural downstream sibling derived from the mechanism upstream graph. This wires_to edge is navigation structure only, not live invocation, release authority, or proof of runtime integration."
     },
     "source_registry_row": {
       "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -291,6 +293,19 @@
         "target_id": "AX-1",
         "target_kind": "axiom",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "sleeper_memory_poisoning_quarantine_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -308,16 +323,10 @@
     ],
     "source_atlas_row_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
     "source_registry_row_ref": "core/organ_registry.json::implemented_organs[36:agent_memory_temporal_conflict_replay]",
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Organ atlas row does not name sibling wires_to targets.",
-        "relation_id": "organ.wires_to.organ",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ],
-    "wires_to": []
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "sleeper_memory_poisoning_quarantine_replay"
+    ]
   },
   "role": "An agent runs this against a synthetic fixture to see the shape of the memory-update bookkeeping it should produce: updates and deletes of older memory must carry temporal conflict-edge and stale-downgrade refs before they may affect a replay; private threads appear only as metadata-only refs with no exported body; and a memory-on replay must cite evidence handles while the memory-on/off pair is reconciled by an answer-delta receipt, not by final-answer comparison alone. It also confirms seven failure fixtures (raw transcript export, private-candidate auto-promotion, stale-preference override, memory-as-source-authority, vector recall without an evidence handle, final-answer-only credit, active-injection authority) are all rejected. It validates structure and receipt presence on fixture rows, not the correctness of any real memory system.",
   "schema_version": "microcosm_organ_instance_v1",
@@ -348,5 +357,7 @@
     "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay",
     "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
   ],
-  "wires_to": []
+  "wires_to": [
+    "sleeper_memory_poisoning_quarantine_replay"
+  ]
 }

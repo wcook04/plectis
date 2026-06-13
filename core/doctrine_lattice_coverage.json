@@ -158,18 +158,18 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 15,
+    "mechanism_capsule_dependency_upstream_missing_count": 14,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
     "mechanism_planned_or_unresolved_code_loci_count": 0,
-    "mechanism_unpopulated_selective_relation_count": 30,
+    "mechanism_unpopulated_selective_relation_count": 29,
     "mechanism_without_code_loci_count": 0,
     "meta_standard_v1": false,
     "organ_json_instance_count": 82,
     "organ_json_missing_count": 0,
     "organ_required_relation_gap_count": 0,
-    "organ_unpopulated_selective_relation_count": 29,
+    "organ_unpopulated_selective_relation_count": 28,
     "organs_missing_code_loci": 0,
     "organs_missing_mechanism_ref": 0,
     "organs_missing_paper_module_ref": 0,
@@ -209,20 +209,14 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T08:52:05.740982Z",
+    "generated_at": "2026-06-13T09:03:39.494988Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 216,
-    "missing_edge_count": 15,
+    "covered_edge_count": 217,
+    "missing_edge_count": 14,
     "missing_edges": [
-      {
-        "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
-        "dependency_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
-        "source_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
-        "target_mechanism": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
-      },
       {
         "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
         "dependency_paper_module": "paper_module.agent_route_observability_runtime",
@@ -324,6 +318,12 @@
         "target_mechanism": "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay"
       },
       {
+        "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
+        "dependency_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
+        "source_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "target_mechanism": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+      },
+      {
         "consumer_paper_module": "paper_module.agent_sabotage_scheming_monitor_replay",
         "dependency_paper_module": "paper_module.agent_monitor_redteam_falsification_replay",
         "source_mechanism": "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
@@ -376,12 +376,6 @@
         "dependency_paper_module": "paper_module.agent_route_observability_runtime",
         "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_mechanism": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay"
-      },
-      {
-        "consumer_paper_module": "paper_module.bounded_autonomy_campaign_packet",
-        "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-        "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
-        "target_mechanism": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet"
       }
     ],
     "schema_version": "mechanism_capsule_dependency_upstream_parity_v1",
@@ -508,14 +502,14 @@
     "parity_status": "pass",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
-    "residual_relation_count": 30,
+    "residual_relation_count": 29,
     "residual_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 30
+      "mechanism.upstream_of.mechanism": 29
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 30
+      "selective": 29
     },
-    "residual_relation_detail_count": 30,
+    "residual_relation_detail_count": 29,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -529,20 +523,6 @@
         "source_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
         "source_refs": {
           "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[7:mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[7:mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay]"
         }
       },
       {
@@ -939,11 +919,11 @@
       }
     ],
     "schema_version": "microcosm_mechanism_instance_corpus_v1",
-    "selective_residual_relation_count": 30,
+    "selective_residual_relation_count": 29,
     "selective_residual_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 30
+      "mechanism.upstream_of.mechanism": 29
     },
-    "selective_residual_relation_detail_count": 30,
+    "selective_residual_relation_detail_count": 29,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -957,20 +937,6 @@
         "source_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
         "source_refs": {
           "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
-        "instance_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
-        "instance_kind": "mechanism",
-        "mechanism_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "requirement": "selective",
-        "source_ref": "core/mechanism_sources.json::mechanisms[7:mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay]",
-        "source_refs": {
-          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[7:mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay]"
         }
       },
       {
@@ -1371,7 +1337,7 @@
       "json_instances": "mechanisms/*.json",
       "mechanism_registry": "core/mechanism_sources.json"
     },
-    "unpopulated_selective_relation_count": 30,
+    "unpopulated_selective_relation_count": 29,
     "validation": {
       "errors": [],
       "expected_count": 100,
@@ -1481,14 +1447,14 @@
     "missing_json_ids": [],
     "parity_status": "pass",
     "required_relation_gap_count": 0,
-    "residual_relation_count": 29,
+    "residual_relation_count": 28,
     "residual_relation_counts_by_relation_id": {
-      "organ.wires_to.organ": 29
+      "organ.wires_to.organ": 28
     },
     "residual_relation_counts_by_requirement": {
-      "selective": 29
+      "selective": 28
     },
-    "residual_relation_detail_count": 29,
+    "residual_relation_detail_count": 28,
     "residual_relation_details": [
       {
         "authority_boundary": "computed_from_organ_atlas_registry_residuals_not_source_edge_inference",
@@ -1503,21 +1469,6 @@
         "source_refs": {
           "source_atlas_row_ref": "core/organ_atlas.json::organs[49:agent_closeout_faithfulness_audit]",
           "source_registry_row_ref": "core/organ_registry.json::implemented_organs[49:agent_closeout_faithfulness_audit]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_organ_atlas_registry_residuals_not_source_edge_inference",
-        "instance_id": "agent_memory_temporal_conflict_replay",
-        "instance_kind": "organ",
-        "organ_id": "agent_memory_temporal_conflict_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Organ atlas row does not name sibling wires_to targets.",
-        "relation_id": "organ.wires_to.organ",
-        "requirement": "selective",
-        "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
-        "source_refs": {
-          "source_atlas_row_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
-          "source_registry_row_ref": "core/organ_registry.json::implemented_organs[36:agent_memory_temporal_conflict_replay]"
         }
       },
       {
@@ -1927,11 +1878,11 @@
       }
     ],
     "schema_version": "microcosm_organ_instance_corpus_v1",
-    "selective_residual_relation_count": 29,
+    "selective_residual_relation_count": 28,
     "selective_residual_relation_counts_by_relation_id": {
-      "organ.wires_to.organ": 29
+      "organ.wires_to.organ": 28
     },
-    "selective_residual_relation_detail_count": 29,
+    "selective_residual_relation_detail_count": 28,
     "selective_residual_relation_details": [
       {
         "authority_boundary": "computed_from_organ_atlas_registry_residuals_not_source_edge_inference",
@@ -1946,21 +1897,6 @@
         "source_refs": {
           "source_atlas_row_ref": "core/organ_atlas.json::organs[49:agent_closeout_faithfulness_audit]",
           "source_registry_row_ref": "core/organ_registry.json::implemented_organs[49:agent_closeout_faithfulness_audit]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_organ_atlas_registry_residuals_not_source_edge_inference",
-        "instance_id": "agent_memory_temporal_conflict_replay",
-        "instance_kind": "organ",
-        "organ_id": "agent_memory_temporal_conflict_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Organ atlas row does not name sibling wires_to targets.",
-        "relation_id": "organ.wires_to.organ",
-        "requirement": "selective",
-        "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
-        "source_refs": {
-          "source_atlas_row_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
-          "source_registry_row_ref": "core/organ_registry.json::implemented_organs[36:agent_memory_temporal_conflict_replay]"
         }
       },
       {
@@ -2375,7 +2311,7 @@
       "organ_atlas": "core/organ_atlas.json",
       "organ_registry": "core/organ_registry.json"
     },
-    "unpopulated_selective_relation_count": 29,
+    "unpopulated_selective_relation_count": 28,
     "validation": {
       "errors": [],
       "expected_count": 82,
@@ -3673,15 +3609,15 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "7e84c48e3fd271d08e9d5729ce5722651590bedbce4242915cdd36a97872979a",
-      "core/organ_atlas.json": "dd5769449bddda05c89d7a00757fd48228bacf3c8f4b2f56b7e29644de8ae9a4",
+      "core/mechanism_sources.json": "a13cccf0c38b8000c930958b320e7af18abf85da6f0407175f4b4beb9cd2afcc",
+      "core/organ_atlas.json": "6de95e574c1085e2309fefb1a8e472d37f9135c59ea5feeb6717b265318b20c1",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
       "core/standards_registry.json": "9cc1c8dca713cc6318175332fcbc78d072b2cdb000d7ca681e7a947c79f079e8",
       "mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "87f6c2224f3e37fd093b8e67cc9faa7bd014efeccf9d397044999dc522e00d80",
       "mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json": "7dc5a4a80d93eeeec71f3d09790e419b8b4d357ab6da0909c7ab7ce5b77e4846",
-      "mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json": "34a1b2bc940a84a20517ae3cdc105b2862516d008555cc6af12cb396e2cda52e",
+      "mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json": "7bd6594298ad10c9a26785da15bdf42890eb567fd76f5bf13152beea6e15be72",
       "mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json": "93cb7cefa8905b5b21d143381e4cec8a2c8c58d7564cbe977f2d8c1672aab506",
       "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json": "a3d9613dee723abae5383f4d2fb769c6f9c1bd3f71832c7a0faea597452edf44",
       "mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json": "515db25a6044d2eee3dabeb5d0f23c093e76145e9c39e421e0b5e3f7014f5f50",
@@ -3781,7 +3717,7 @@
       "mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json": "87fceb33825c6ede3b0ae3e174e85b1999ef724def96d067876ca8902d587a1d",
       "organs/agent_benchmark_integrity_anti_gaming_replay.json": "886b60b0566341502ac87c5c30d0731aa5399af6ef52e2194979ffc1ef810e00",
       "organs/agent_closeout_faithfulness_audit.json": "2ba106cce6bd1e9b27b9d25d2ea1e662caf7c3cecee4027c062fe1807e322706",
-      "organs/agent_memory_temporal_conflict_replay.json": "b86050c6f77c4bef3c30580ca47b4b08073f721f42d92cc7675342c252d1a2ae",
+      "organs/agent_memory_temporal_conflict_replay.json": "279857476bc8c9ea1fa829e811798e83ec2281d7c29380e27609d87f90331cf0",
       "organs/agent_monitor_redteam_falsification_replay.json": "55fdd4240ab6f2f3528e392503e3521686a6c005bd8782595828c08973997c5c",
       "organs/agent_route_observability_runtime.json": "d2bca10b953bd107ae44d9d5669a65723ccd0f8a298be259d04771aa380f3107",
       "organs/agent_sabotage_scheming_monitor_replay.json": "629be912c697e1fd221e020904fef30d6ba8b4f45034643334b567993daaf896",

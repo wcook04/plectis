@@ -15,7 +15,7 @@ The agent memory temporal-conflict replay organ validates public memory projecti
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py` (resolved_code_locus)
 - `runs_in` -> `organ:agent_memory_temporal_conflict_replay` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.agent_reliability_and_safety_validator_bundle` (resolved_json_instance)
-- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
+- `upstream_of` -> `mechanism:mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay` (resolved_json_instance)
 
 ## Anti-Claims
 

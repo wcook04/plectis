@@ -164,16 +164,12 @@
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 30,
-        "known_residual_selective_relation_row_count": 30,
+        "known_residual_selective_relation_count": 29,
+        "known_residual_selective_relation_row_count": 29,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
             "id": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
           },
           {
             "count": 1,

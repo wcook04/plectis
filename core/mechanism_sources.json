@@ -560,17 +560,20 @@
         "coverage_health",
         "source_language_inventory"
       ],
-      "resolution_evidence": {
-        "authority_class": "source_assertion",
-        "evidence_rank": 3,
-        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay --acceptance-out receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
-        "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay",
-        "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_agent_memory_temporal_conflict_replay.py -q"
-      },
-      "concept_refs": [
-        "concept.agent_reliability_and_safety_validator_bundle"
-      ]
-    },
+  "resolution_evidence": {
+    "authority_class": "source_assertion",
+    "evidence_rank": 3,
+    "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay --acceptance-out receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+    "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay",
+    "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_agent_memory_temporal_conflict_replay.py -q"
+  },
+  "upstream_of": [
+    "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+  ],
+  "concept_refs": [
+    "concept.agent_reliability_and_safety_validator_bundle"
+  ]
+},
     {
       "id": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
       "kind": "mechanism",

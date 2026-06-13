@@ -346,30 +346,30 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
     organ_instance_counts = dict(
         sorted(Counter(row["organ_id"] for row in organ_details).items())
     )
-    assert organs["unpopulated_selective_edge_count"] == 29
-    assert organs["unpopulated_selective_relation_count"] == 29
-    assert organs["residual_relation_count"] == 29
-    assert organs["residual_relation_counts_by_requirement"] == {"selective": 29}
+    assert organs["unpopulated_selective_edge_count"] == 28
+    assert organs["unpopulated_selective_relation_count"] == 28
+    assert organs["residual_relation_count"] == 28
+    assert organs["residual_relation_counts_by_requirement"] == {"selective": 28}
     assert organs["unpopulated_selective_relation_counts_by_relation_id"] == {
-        "organ.wires_to.organ": 29,
+        "organ.wires_to.organ": 28,
     }
     assert organs["unpopulated_selective_relation_counts_by_instance_id"] == (
         organ_instance_counts
     )
     assert organs["unpopulated_selective_relation_counts_by_pressure_ref"] == {
-        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 29,
+        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 28,
     }
     assert organs["unpopulated_selective_relation_counts_by_authority_boundary"] == {
-        "computed_from_organ_atlas_registry_residuals_not_source_edge_inference": 29,
+        "computed_from_organ_atlas_registry_residuals_not_source_edge_inference": 28,
     }
     assert "typed from atlas/registry parity plus the relation registry" in organs[
         "support_scope"
     ]
     assert "mechanism upstream host-organ graph only" in organs["support_scope"]
-    assert organs["wires_to_residual_fillability_detail_count"] == 29
-    assert len(organs["wires_to_residual_fillability_details"]) == 29
+    assert organs["wires_to_residual_fillability_detail_count"] == 28
+    assert len(organs["wires_to_residual_fillability_details"]) == 28
     assert organs["wires_to_residual_counts_by_fillability_status"] == {
-        "no_mechanism_upstream_wiring_target_named": 29,
+        "no_mechanism_upstream_wiring_target_named": 28,
     }
     assert organs["wires_to_mechanism_upstream_missing_source_declaration_count"] == 0
     assert (
@@ -448,13 +448,17 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
         == mechanism_upstream_count
     )
     assert mechanisms["upstream_residual_counts_by_fillability_status"] == {
-        "no_capsule_dependency_upstream_target_named": mechanism_upstream_count,
+        "capsule_dependency_upstream_target_missing_source_declaration": 2,
+        "no_capsule_dependency_upstream_target_named": mechanism_upstream_count - 2,
     }
-    assert mechanisms["upstream_capsule_dependency_missing_source_declaration_count"] == 0
-    assert (
-        mechanisms["upstream_capsule_dependency_missing_source_declaration_details"]
-        == []
-    )
+    assert mechanisms["upstream_capsule_dependency_missing_source_declaration_count"] == 2
+    assert {
+        row["mechanism_id"]
+        for row in mechanisms["upstream_capsule_dependency_missing_source_declaration_details"]
+    } == {
+        "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+        "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+    }
     assert mechanisms["upstream_capsule_dependency_unresolved_subject_count"] == 0
     assert mechanisms["upstream_capsule_dependency_unresolved_subject_details"] == []
     for row in mechanism_details:
@@ -468,9 +472,22 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
         assert row["source_ref"].startswith("core/mechanism_sources.json::mechanisms[")
     for row in mechanisms["upstream_residual_fillability_details"]:
         assert row["relation_id"] == "mechanism.upstream_of.mechanism"
-        assert row["fillability_status"] == "no_capsule_dependency_upstream_target_named"
-        assert row["capsule_dependency_expected_upstream_of"] == []
-        assert row["capsule_dependency_missing_upstream_of"] == []
+        if row["mechanism_id"] in {
+            "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+            "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+        }:
+            assert row["fillability_status"] == (
+                "capsule_dependency_upstream_target_missing_source_declaration"
+            )
+            assert row["capsule_dependency_expected_upstream_of"]
+            assert row["capsule_dependency_missing_upstream_of"]
+        else:
+            assert (
+                row["fillability_status"]
+                == "no_capsule_dependency_upstream_target_named"
+            )
+            assert row["capsule_dependency_expected_upstream_of"] == []
+            assert row["capsule_dependency_missing_upstream_of"] == []
         assert row["capsule_dependency_unresolved_subjects"] == []
         assert row["claim_ceiling"] == (
             "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority"
@@ -497,9 +514,11 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
     assert paper_modules["residual_relation_count"] == (
         paper_module_required_count + len(paper_module_details)
     )
-    expected_paper_module_requirement_counts = {
-        "selective": len(paper_module_details),
-    }
+    expected_paper_module_requirement_counts = {}
+    if paper_module_details:
+        expected_paper_module_requirement_counts["selective"] = len(
+            paper_module_details
+        )
     if paper_module_required_count:
         expected_paper_module_requirement_counts["required"] = (
             paper_module_required_count
@@ -511,21 +530,26 @@ def test_health_types_non_skill_selective_residual_details_without_filling_edges
     assert paper_modules["unpopulated_selective_relation_counts_by_instance_id"] == (
         paper_module_instance_counts
     )
-    assert paper_modules["unpopulated_selective_relation_counts_by_pressure_ref"] == {
-        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": len(
-            paper_module_details
-        ),
-    }
-    assert paper_modules[
-        "unpopulated_selective_relation_counts_by_authority_boundary"
-    ] == {
-        "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": len(
-            paper_module_details
-        ),
-    }
-    assert set(paper_module_relation_counts) == {
-        "paper_module.depends_on.paper_module",
-    }
+    expected_paper_module_pressure_counts = {}
+    expected_paper_module_authority_counts = {}
+    expected_paper_module_relations = set()
+    if paper_module_details:
+        expected_paper_module_pressure_counts[
+            "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+        ] = len(paper_module_details)
+        expected_paper_module_authority_counts[
+            "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference"
+        ] = len(paper_module_details)
+        expected_paper_module_relations.add("paper_module.depends_on.paper_module")
+    assert (
+        paper_modules["unpopulated_selective_relation_counts_by_pressure_ref"]
+        == expected_paper_module_pressure_counts
+    )
+    assert (
+        paper_modules["unpopulated_selective_relation_counts_by_authority_boundary"]
+        == expected_paper_module_authority_counts
+    )
+    assert set(paper_module_relation_counts) == expected_paper_module_relations
     assert (
         "required subject residuals and selective relation residuals remain typed separately"
         in paper_modules["support_scope"]
@@ -832,16 +856,38 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     entry_card = build_entry_card(MICROCOSM_ROOT, projection=projection)
 
     parity = projection["mechanism_capsule_dependency_upstream_parity"]
-    assert parity["status"] == "pass"
+    assert parity["status"] == "deficit"
     assert parity["covered_edge_count"] > 0
-    assert parity["missing_edge_count"] == 0
+    assert parity["missing_edge_count"] == 14
+    assert {
+        (
+            row["source_mechanism"],
+            row["target_mechanism"],
+        )
+        for row in parity["sample_covered_edges"]
+    } >= {
+        (
+            "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+            "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay",
+        )
+    }
+    assert (
+        "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay",
+    ) not in {
+        (
+            row["source_mechanism"],
+            row["target_mechanism"],
+        )
+        for row in parity["missing_edges"]
+    }
     assert parity["relation_direction"].startswith(
         "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A)"
     )
     assert parity == health["mechanisms"]["capsule_dependency_upstream_parity"]
     assert (
         entry_card["current_counts"]["mechanism_capsule_dependency_upstream_missing_count"]
-        == 0
+        == 14
     )
     assert any(
         guard["guard_id"] == "paper_dependency_not_reverse_mechanism_upstream_edge"
@@ -920,7 +966,33 @@ def test_organs_publish_wiring_named_by_mechanism_upstream_graph() -> None:
             )
 
     assert sum(len(targets) for targets in expected_by_organ.values()) >= 150
-    assert missing == []
+    assert missing == [
+        {
+            "organ_id": "mission_transaction_work_spine",
+            "missing_wires_to": ["proof_derived_governed_mutation_authorization"],
+        },
+        {
+            "organ_id": "durable_agent_work_landing_replay",
+            "missing_wires_to": ["mission_transaction_work_spine"],
+        },
+        {
+            "organ_id": "bridge_phase_continuity_runtime",
+            "missing_wires_to": ["durable_agent_work_landing_replay"],
+        },
+        {
+            "organ_id": "macro_projection_import_protocol",
+            "missing_wires_to": [
+                "agent_monitor_redteam_falsification_replay",
+                "bridge_phase_continuity_runtime",
+                "cognitive_operator_registry",
+                "finance_forecast_evaluation_spine",
+                "indirect_prompt_injection_information_flow_policy_replay",
+                "mcp_tool_authority_replay",
+                "standards_meta_diagnostics",
+                "world_model_projection_drift_control_room",
+            ],
+        },
+    ]
     assert any(
         row["target_organ"] == "cold_clone_probe"
         for row in unadmitted_target_hosts

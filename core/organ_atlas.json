@@ -2406,8 +2406,8 @@
           "resolution": "resolved"
         }
       ],
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "binds only to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, schemas, and a public execution-trace builder), not to runtime invocation of other named organs",
+      "standalone_or_wired": "wired",
+      "wiring_note": "binds to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, schemas, and a public execution-trace builder) and names sleeper_memory_poisoning_quarantine_replay as a structural downstream sibling derived from the mechanism upstream graph. This wires_to edge is navigation structure only, not live invocation, release authority, or proof of runtime integration.",
       "display_name": "Agent Memory Temporal Conflict Replay",
       "specialty": [
         "ai-safety",
@@ -2415,7 +2415,9 @@
         "red-teaming",
         "security"
       ],
-      "wires_to": [],
+      "wires_to": [
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
       "principle_refs": [
         "P-1",
         "P-2"
