@@ -115,7 +115,7 @@
       ]
     }
   ],
-  "unknown_dimension_policy": "explicitly_unowned components are emitted as unknown_no_order_owner witness gaps and extend pressure; they are not bottom, not strong, and not support proof.",
+  "unknown_dimension_policy": "Missing source order owners are emitted as unknown_no_order_owner witness gaps. Order-owned components can still compute bounded unknown values, such as freshness_state=unknown_live_freshness_no_refresh_contract, until their source-owned refresh or verification contract exists. Neither unknown class is bottom, strong, or support proof.",
   "anti_claims": [
     "This registry makes the support calculus more inspectable, not greener.",
     "Adding a component order owner is evaluator grammar and must still be consumed by validator code before it can affect a support ceiling.",

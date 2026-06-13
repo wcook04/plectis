@@ -1932,7 +1932,7 @@
   ],
   "ceiling_dimension_registry": {
     "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover ceiling component ownership; it defines which dimensions have order owners and which remain explicit unknowns, but it does not certify axiom strength or release authority.",
-    "basis_digest": "sha256:1651b359cbc41117000a13a58ec6aa645af92a69ae381f2b14ad4a54078d16f4",
+    "basis_digest": "sha256:5d43e99fedfba8bcb335a8d97077989dceb411958b0a16a0af0b15fa8c681f15",
     "component_order": [
       "evidence_class",
       "checker_scope",
@@ -2887,7 +2887,7 @@
   "schema_version": "microcosm_axiom_support_cover_v0",
   "self_attestation": {
     "as_of": "see basis_digest; timestamp intentionally omitted for reproducibility",
-    "basis_digest": "sha256:acc6bbec02e8e0b9cda557225938d2cb0db0568c9459691be2fb5dbe4cd84dc0",
+    "basis_digest": "sha256:8e7c08392d8494a7e51f6aae5401b2cb97a6108bb1da7ca7a4ad76657b451d50",
     "basis_refs": [
       "core/axiom_organ_routing.json",
       "core/organ_evidence_classes.json",
@@ -6873,7 +6873,7 @@
       "axiom_ref": "AX-11",
       "basis_env": {
         "as_of": "see basis_digest; timestamp intentionally omitted for reproducibility",
-        "basis_digest": "sha256:fd0fc5de59949fc1282e12f54e131ef94bca6f6043c6139580b8068f283e442a",
+        "basis_digest": "sha256:ef8c4ada83d1b8c9c7da45ce2a759e4a5adf8d34e37bb05b95b2f576d604c8e7",
         "declared_domain": "Executable grammar before doctrine authority",
         "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>"
       },
@@ -6998,7 +6998,7 @@
       "axiom_ref": "AX-11",
       "basis_env": {
         "as_of": "see basis_digest; timestamp intentionally omitted for reproducibility",
-        "basis_digest": "sha256:e34b118ab26dfb70e09a702b6a3120670dd9d7f61d8751a35bae470164edd4c9",
+        "basis_digest": "sha256:185e3574e44e0229482933d9e6ca9954d758aedcb0c16c4bb11f6d33fbdff141",
         "declared_domain": "Executable grammar before doctrine authority",
         "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>"
       },
@@ -7131,7 +7131,7 @@
       "axiom_ref": "AX-11",
       "basis_env": {
         "as_of": "see basis_digest; timestamp intentionally omitted for reproducibility",
-        "basis_digest": "sha256:fd0fc5de59949fc1282e12f54e131ef94bca6f6043c6139580b8068f283e442a",
+        "basis_digest": "sha256:ef8c4ada83d1b8c9c7da45ce2a759e4a5adf8d34e37bb05b95b2f576d604c8e7",
         "declared_domain": "Executable grammar before doctrine authority",
         "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>"
       },
@@ -7259,7 +7259,7 @@
       "axiom_ref": "AX-12",
       "basis_env": {
         "as_of": "see basis_digest; timestamp intentionally omitted for reproducibility",
-        "basis_digest": "sha256:32c220c25cfc127f56d6d6cd7305b35d52cac039bb2522f6a20fc11c3809c817",
+        "basis_digest": "sha256:f1d35cd822a71b89c4a6fb4b207c5f0b7f170205441e5e5d3aa31471b1231903",
         "declared_domain": "Reflexive accountability / no privileged meta-layer",
         "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>"
       },
@@ -7516,7 +7516,7 @@
       "axiom_ref": "AX-12",
       "basis_env": {
         "as_of": "see basis_digest; timestamp intentionally omitted for reproducibility",
-        "basis_digest": "sha256:f7730e20c0aff59fec7874e5762a1c9f000d9f203e0b4ca1a772a74964b3e815",
+        "basis_digest": "sha256:2387b5ece559760560a356e80c2e0196b1c000507064e1da1a2c7d1b8b79d2e7",
         "declared_domain": "Reflexive accountability / no privileged meta-layer",
         "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>"
       },

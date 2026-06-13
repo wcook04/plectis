@@ -477,6 +477,10 @@ def test_ceiling_dimension_registry_is_source_owned_and_consumed() -> None:
     ]
     assert readback["explicitly_unowned_component_ids"] == []
     assert readback["unknown_no_order_owner_count"] == 0
+    assert "Missing source order owners" in registry["unknown_dimension_policy"]
+    assert "unknown_live_freshness_no_refresh_contract" in registry[
+        "unknown_dimension_policy"
+    ]
     assert "core/axiom_support_ceiling_dimensions.json" in result["self_attestation"][
         "basis_refs"
     ]
