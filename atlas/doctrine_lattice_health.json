@@ -741,8 +741,8 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 226,
-      "missing_edge_count": 5,
+      "covered_edge_count": 227,
+      "missing_edge_count": 4,
       "missing_edges": [
         {
           "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
@@ -761,12 +761,6 @@
           "dependency_paper_module": "paper_module.macro_projection_import_protocol",
           "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
           "target_mechanism": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch7_zenith_macos_capsule",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
-          "target_mechanism": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
         },
         {
           "consumer_paper_module": "paper_module.engine_room_generated_projection_drift_gate",

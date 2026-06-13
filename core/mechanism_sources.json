@@ -1310,6 +1310,7 @@
         "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
         "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
         "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+        "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
         "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
         "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
         "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",

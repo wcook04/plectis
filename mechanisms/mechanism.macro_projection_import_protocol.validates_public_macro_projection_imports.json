@@ -214,6 +214,7 @@
         "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
         "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
         "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+        "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
         "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
         "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
         "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
@@ -520,6 +521,19 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -713,6 +727,7 @@
       "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
       "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
       "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+      "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
       "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
       "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
       "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
