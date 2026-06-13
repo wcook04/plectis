@@ -741,7 +741,7 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 215,
+      "covered_edge_count": 216,
       "missing_edge_count": 15,
       "missing_edges": [
         {
@@ -3478,45 +3478,18 @@
     "markdown_file_count": 100,
     "required_subject_gap_count": 0,
     "required_subject_gaps": [],
-    "residual_relation_count": 1,
-    "residual_relation_counts_by_requirement": {
-      "selective": 1
-    },
+    "residual_relation_count": 0,
+    "residual_relation_counts_by_requirement": {},
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 1,
-    "unpopulated_selective_edges": [
-      "paper_module.indirect_prompt_injection_information_flow_policy_replay"
-    ],
-    "unpopulated_selective_relation_count": 1,
-    "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 1
-    },
-    "unpopulated_selective_relation_counts_by_instance_id": {
-      "paper_module.indirect_prompt_injection_information_flow_policy_replay": 1
-    },
-    "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 1
-    },
-    "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 1
-    },
-    "unpopulated_selective_relation_detail_count": 1,
-    "unpopulated_selective_relation_details": [
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.indirect_prompt_injection_information_flow_policy_replay",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.indirect_prompt_injection_information_flow_policy_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[38:paper_module.indirect_prompt_injection_information_flow_policy_replay]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[38:paper_module.indirect_prompt_injection_information_flow_policy_replay]"
-        }
-      }
-    ],
+    "unpopulated_selective_edge_count": 0,
+    "unpopulated_selective_edges": [],
+    "unpopulated_selective_relation_count": 0,
+    "unpopulated_selective_relation_counts_by_authority_boundary": {},
+    "unpopulated_selective_relation_counts_by_instance_id": {},
+    "unpopulated_selective_relation_counts_by_pressure_ref": {},
+    "unpopulated_selective_relation_counts_by_relation_id": {},
+    "unpopulated_selective_relation_detail_count": 0,
+    "unpopulated_selective_relation_details": [],
     "without_json_capsule": [
       "paper_modules/corpus_readiness_mathlib_absence_gate.md"
     ],

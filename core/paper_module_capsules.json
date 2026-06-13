@@ -2976,6 +2976,9 @@
         }
       },
       "strangler_note": "Binds the Markdown projection and runtime locus to a JSON authority row; concept/principle/axiom refs left as honest residuals (no resolving Microcosm doctrine id), not minted.",
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol"
+      ],
       "principle_refs": [
         "P-9",
         "P-14"

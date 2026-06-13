@@ -16,7 +16,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -495,7 +499,10 @@ def _fresh_prompt_injection_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_prompt_injection_flow_bundle":
         return None
-    if payload.get("command") != command:
+    normalized_command = normalize_public_receipt_paths({"command": command}).get(
+        "command"
+    )
+    if payload.get("command") != normalized_command:
         return None
     basis = _freshness_basis(input_dir, include_negative=False)
     existing_basis = payload.get("freshness_basis")
@@ -2152,6 +2159,16 @@ def run_prompt_injection_bundle(
     return payload
 
 
+def _card_receipt_paths(paths: object) -> list[str]:
+    if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
+        return []
+    normalized = normalize_public_receipt_paths({"receipt_paths": paths})
+    values = normalized.get("receipt_paths") if isinstance(normalized, dict) else paths
+    if isinstance(values, list) and all(isinstance(path, str) for path in values):
+        return values
+    return paths
+
+
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2250,7 +2267,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "source_mutation_authorized": False,
             "release_authorized": False,
         },
-        "receipt_paths": result.get("receipt_paths", []),
+        "receipt_paths": _card_receipt_paths(result.get("receipt_paths", [])),
         "omission_receipt": {
             "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
             "full_payload_drilldown": "rerun without --card or inspect the written receipt file",

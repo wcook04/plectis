@@ -32,6 +32,7 @@ The macro projection import protocol organ validates fixture and exported projec
 - `upstream_of` -> `mechanism:mechanism.cognitive_operator_registry.validates_public_operator_contract` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics` (resolved_json_instance)
