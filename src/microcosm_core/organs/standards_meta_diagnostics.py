@@ -13,7 +13,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -1303,6 +1307,16 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
+def _card_receipt_paths(paths: object) -> list[str]:
+    if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
+        return []
+    normalized = normalize_public_receipt_paths({"receipt_paths": paths})
+    values = normalized.get("receipt_paths") if isinstance(normalized, dict) else paths
+    if isinstance(values, list) and all(isinstance(path, str) for path in values):
+        return values
+    return paths
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -1615,7 +1629,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "private_data_equivalence_claim": False,
             "whole_system_correctness_claim": False,
         },
-        "receipt_paths": result.get("receipt_paths", []),
+        "receipt_paths": _card_receipt_paths(result.get("receipt_paths", [])),
         "omission_receipt": {
             "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
             "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
