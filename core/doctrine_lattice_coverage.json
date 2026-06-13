@@ -158,7 +158,7 @@
     "concept_unpopulated_selective_relation_count": 0,
     "kinds_missing_skill_triad": 0,
     "kinds_still_v1_draft": [],
-    "mechanism_capsule_dependency_upstream_missing_count": 9,
+    "mechanism_capsule_dependency_upstream_missing_count": 8,
     "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 100,
     "mechanism_json_missing_count": 0,
@@ -209,13 +209,13 @@
   },
   "generation": {
     "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T10:49:40.122501Z",
+    "generated_at": "2026-06-13T11:05:25.202989Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
     "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-    "covered_edge_count": 222,
-    "missing_edge_count": 9,
+    "covered_edge_count": 223,
+    "missing_edge_count": 8,
     "missing_edges": [
       {
         "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
@@ -246,12 +246,6 @@
         "dependency_paper_module": "paper_module.macro_projection_import_protocol",
         "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_mechanism": "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule"
-      },
-      {
-        "consumer_paper_module": "paper_module.batch7_secondary_runtime_capsule",
-        "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-        "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
-        "target_mechanism": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
       },
       {
         "consumer_paper_module": "paper_module.batch7_zenith_macos_capsule",
@@ -3463,8 +3457,8 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "0eb5b6e3c472619c48fb6ecaa8245c4acb7f41319ad4ee1c6f84f9adc61c4822",
-      "core/organ_atlas.json": "2e8bbd7e7ce0ca8246809dbd199439ab70e986c30c7de269cc78ac5c74fec391",
+      "core/mechanism_sources.json": "3c165e327594c586fc3433a261f187e4d65c0a9a1f52380cf6ff4c1164bf5af7",
+      "core/organ_atlas.json": "86891957a8a7c23f8fd4fa87c3ca3d32cef690da36ac071bc310abf8b5ef4414",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "6dbfd3fc623acff9bd0c87772a76e8e63b7f246e0345a75befa9148479ad7bca",
       "core/public_surface_manifest.json": "3b967c308410e6e6c43d2a90f6840a74deb42a6131c3eb2ad5bb2a92ecdbabf6",
@@ -3538,7 +3532,7 @@
       "mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "d651b55de2c04fbeaaec71075cd92a3b8a4c81621babb72a21a6bf5d60055ddf",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "9ed4d5e2cc97d3e827297be27f7682e5f98cea2399bdaedb4d9b276d68020396",
       "mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json": "39258f2beb7e70d6b556094ef02ddb09b4ea7d17eb3d8d2b5460f9e643f58c97",
-      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "f2c6767e4eb3ddfe37bd00d88676b3f5079e38b6ca6f1f9d530873bf0fd42e09",
+      "mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "45fbda54b796dac34bd2b3edae14ad79f6655511739f58b430b3e2d32ed2e2b9",
       "mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "00029277572c9291a39fae44235add919b7117b5c22856393e18d4d3a4c0c5fe",
       "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "819aab36c287ecd03a465dbe850ce2f3edc8b52f8ac7808cc7079a34150d62fb",
       "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "0819819c2041be4361c732c03c36f8c8102a3715448bd3f751c2a44b9d9a2b4a",
@@ -3621,7 +3615,7 @@
       "organs/formal_math_verifier_trace_repair_loop.json": "fdf1a7d96eadce5a8e9c7a7fb00cb1d4029373de3bc909f900f0bb457687a5bc",
       "organs/indirect_prompt_injection_information_flow_policy_replay.json": "648f1060f134f382916afee5fdae3594a779cd2cba963d942b2b1496637f531a",
       "organs/lean_std_premise_index.json": "3f6da35e4b092b3e299710bf958b29c85a9f7ae950c94dd3894113b0c9947200",
-      "organs/macro_projection_import_protocol.json": "dff7be047099cdc5f59b4ff38c7739629f3bb8001bef071a4c76b87ec32421f4",
+      "organs/macro_projection_import_protocol.json": "c409c1c46dea7b09a3a992997ee8133a2fd49d50452c5eb405dade2fb67a4421",
       "organs/materials_chemistry_closed_loop_lab_safety_replay.json": "7b4fd5c060be0789d066c9f053f47895e8cd719d8754f72c482b3ca3722c853f",
       "organs/mathematical_strategy_atlas_hypothesis_scorer.json": "8103bf7e39fa5db7b29d3a1b1e50a42602722daad297607de34ead3827a2e471",
       "organs/mcp_tool_authority_replay.json": "4a1d7dafbc8f4bbbc6901ac43330df82c22f82a2df2564ad627cf9ae33427add",

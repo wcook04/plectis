@@ -2060,6 +2060,7 @@
         "batch4_proof_authority_runtime",
         "batch6_unsurfaced_primitives_capsule",
         "batch7_macro_engines_capsule",
+        "batch7_secondary_runtime_capsule",
         "batch8_audio_level_rms_port",
         "batch8_policy_engines_capsule",
         "batch9_macro_engines_capsule",
