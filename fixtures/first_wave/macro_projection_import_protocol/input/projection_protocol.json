@@ -3373,18 +3373,18 @@
         "preserve_agent_operating_packet_source_without_claiming_live_doctrine_or_raw_seed_authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
+      "body_digest": "sha256:8c9b9b6c229ec9553375c77d053a5562c3dd65ca77ad99b78a596819dba6f563",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_sources_have_runtime_principle_packet",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
+        "source_body_digest": "sha256:8c9b9b6c229ec9553375c77d053a5562c3dd65ca77ad99b78a596819dba6f563",
         "source_line_count": 4635,
         "source_ref": "codex/doctrine/agent_operating_packet.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:bd546a47793f7fb7192a66881fa5d5110b19cd0cad51b6998df993003ad9a1cf",
+        "target_body_digest": "sha256:8c9b9b6c229ec9553375c77d053a5562c3dd65ca77ad99b78a596819dba6f563",
         "target_line_count": 4635,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
         "verification_mode": "exact_source_digest_match",
