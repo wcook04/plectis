@@ -742,7 +742,7 @@
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
       "covered_edge_count": 209,
-      "missing_edge_count": 6,
+      "missing_edge_count": 8,
       "missing_edges": [
         {
           "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -755,6 +755,12 @@
           "dependency_paper_module": "paper_module.agent_route_observability_runtime",
           "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
           "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+        },
+        {
+          "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
+          "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
         },
         {
           "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -773,6 +779,12 @@
           "dependency_paper_module": "paper_module.macro_projection_import_protocol",
           "source_mechanism": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
           "target_mechanism": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
+          "dependency_paper_module": "paper_module.mcp_tool_authority_replay",
+          "source_mechanism": "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+          "target_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
         },
         {
           "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
@@ -1436,13 +1448,15 @@
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "capsule_dependency_expected_upstream_of": [
+          "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
           "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
         ],
-        "capsule_dependency_expected_upstream_of_count": 1,
+        "capsule_dependency_expected_upstream_of_count": 2,
         "capsule_dependency_missing_upstream_of": [
+          "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
           "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
         ],
-        "capsule_dependency_missing_upstream_of_count": 1,
+        "capsule_dependency_missing_upstream_of_count": 2,
         "capsule_dependency_unresolved_subject_count": 0,
         "capsule_dependency_unresolved_subjects": [],
         "claim_ceiling": "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority",
@@ -2009,13 +2023,15 @@
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
         "capsule_dependency_expected_upstream_of": [
+          "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
           "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
         ],
-        "capsule_dependency_expected_upstream_of_count": 1,
+        "capsule_dependency_expected_upstream_of_count": 2,
         "capsule_dependency_missing_upstream_of": [
+          "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
           "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
         ],
-        "capsule_dependency_missing_upstream_of_count": 1,
+        "capsule_dependency_missing_upstream_of_count": 2,
         "capsule_dependency_unresolved_subject_count": 0,
         "capsule_dependency_unresolved_subjects": [],
         "claim_ceiling": "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority",
@@ -3420,15 +3436,14 @@
     "markdown_file_count": 100,
     "required_subject_gap_count": 0,
     "required_subject_gaps": [],
-    "residual_relation_count": 15,
+    "residual_relation_count": 14,
     "residual_relation_counts_by_requirement": {
-      "selective": 15
+      "selective": 14
     },
     "support_scope": "capsule-backed subjects and code loci are computed structural edges; required subject residuals and selective relation residuals remain typed separately, and legacy-only modules do not claim subject coverage",
-    "unpopulated_selective_edge_count": 15,
+    "unpopulated_selective_edge_count": 14,
     "unpopulated_selective_edges": [
       "paper_module.agent_monitor_redteam_falsification_replay",
-      "paper_module.agent_sandbox_policy_escape_replay",
       "paper_module.batch7_demo_take_console_capsule",
       "paper_module.batch7_oracle_sibling_capsule",
       "paper_module.batch7_secondary_runtime_capsule",
@@ -3443,13 +3458,12 @@
       "paper_module.mcp_tool_authority_replay",
       "paper_module.standards_meta_diagnostics"
     ],
-    "unpopulated_selective_relation_count": 15,
+    "unpopulated_selective_relation_count": 14,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 15
+      "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference": 14
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "paper_module.agent_monitor_redteam_falsification_replay": 1,
-      "paper_module.agent_sandbox_policy_escape_replay": 1,
       "paper_module.batch7_demo_take_console_capsule": 1,
       "paper_module.batch7_oracle_sibling_capsule": 1,
       "paper_module.batch7_secondary_runtime_capsule": 1,
@@ -3465,12 +3479,12 @@
       "paper_module.standards_meta_diagnostics": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 15
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 14
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "paper_module.depends_on.paper_module": 15
+      "paper_module.depends_on.paper_module": 14
     },
-    "unpopulated_selective_relation_detail_count": 15,
+    "unpopulated_selective_relation_detail_count": 14,
     "unpopulated_selective_relation_details": [
       {
         "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
@@ -3484,20 +3498,6 @@
         "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]",
         "source_refs": {
           "source_ref": "core/paper_module_capsules.json::paper_modules[33:paper_module.agent_monitor_redteam_falsification_replay]"
-        }
-      },
-      {
-        "authority_boundary": "computed_from_paper_module_capsule_or_legacy_residuals_not_source_edge_inference",
-        "instance_id": "paper_module.agent_sandbox_policy_escape_replay",
-        "instance_kind": "paper_module",
-        "paper_module_id": "paper_module.agent_sandbox_policy_escape_replay",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Paper-module source row does not name sibling/dependency module ids.",
-        "relation_id": "paper_module.depends_on.paper_module",
-        "requirement": "selective",
-        "source_ref": "core/paper_module_capsules.json::paper_modules[35:paper_module.agent_sandbox_policy_escape_replay]",
-        "source_refs": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[35:paper_module.agent_sandbox_policy_escape_replay]"
         }
       },
       {

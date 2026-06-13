@@ -2763,6 +2763,10 @@
       ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "depends_on": [
+        "paper_module.computer_use_action_trace_replay",
+        "paper_module.mcp_tool_authority_replay"
       ]
     },
     {
