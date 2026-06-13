@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 72253,
+      "byte_count": 74466,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 1782,
+      "line_count": 1824,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_observability_animation_source_body_import",
       "required_anchors": [
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/lib/agent_observability_animation.py",
       "source_role": "Macro semantic-camera compiler that converts bounded agent-observability event tails and status reducers into frontend-ready actors, spans, flows, counters, file impacts, proof receipts, scene cursors, and delta operations.",
-      "source_sha256": "62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1",
+      "source_sha256": "53d020eed635a4c9e529f131c3472e37ecf8a7ab3d7ddf8492dbdf4ed7a552bc",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
-      "target_sha256": "62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1"
+      "target_sha256": "53d020eed635a4c9e529f131c3472e37ecf8a7ab3d7ddf8492dbdf4ed7a552bc"
     },
     {
       "anchor_count": 5,
@@ -81,9 +81,9 @@
       "anchor_count": 4,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 36001,
+      "byte_count": 40546,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 939,
+      "line_count": 1034,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_observability_animation_test_body_import",
       "required_anchors": [
@@ -96,9 +96,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/server/tests/test_agent_observability_animation.py",
       "source_role": "Focused macro regression-test body for semantic-camera scenes and deltas, using synthetic events/status dictionaries and route monkeypatches instead of live provider, account, browser, or session payloads.",
-      "source_sha256": "9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a",
+      "source_sha256": "450ac7a8390e91471bc9a55272088bf7d7cbbb7f77dffd2c5efac91c280e510c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
-      "target_sha256": "9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a"
+      "target_sha256": "450ac7a8390e91471bc9a55272088bf7d7cbbb7f77dffd2c5efac91c280e510c"
     },
     {
       "anchor_count": 3,
@@ -125,7 +125,7 @@
     {
       "anchor_count": 4,
       "applied_edits": [
-        "operator_absolute_path_prefixes_redacted_to_/Users/example"
+        "operator_absolute_path_prefixes_redacted_to_<private-home-path>"
       ],
       "body_copied": true,
       "body_in_receipt": false,
@@ -135,18 +135,22 @@
       "material_class": "public_macro_tool_body",
       "module_id": "agent_session_attribution_test_body_import",
       "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/release_export.py::_strong_private_path_hits",
+      "public_safe_mode": "direct_verified_macro_body",
       "required_anchors": [
         "def test_direct_uuid_match_yields_matched_with_phase_attribution",
         "def test_codex_prefix_normalization_matches_across_stores",
         "def test_metabolism_source_is_classified_as_infrastructure",
         "def test_identify_self_session_falls_back_from_title_to_cwd"
       ],
+      "sha256": "63dd4e066550397712ef67020d7a7fcf9c42a80aa40067cf3b3d1e92a948078e",
       "sha256_match": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/server/tests/test_agent_session_attribution.py",
       "source_role": "Focused macro regression-test body for read-only session attribution across direct ids, Codex-prefix normalization, infrastructure classification, liveness, and self-session identification.",
-      "source_sha256": "3fa4370e2fc2b53a8ca239429eff390ae51dac485399fac54589265182e99e11",
+      "source_sha256": "621ed2e5983907d1e80cb7bf8abd3f20a42fb80b364272b0f387b7536af63904",
+      "source_target_sha256_match": false,
       "source_to_target_relation": "public_light_edit_private_path_redaction",
+      "target_expected_digest_match": true,
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_session_attribution.py",
       "target_sha256": "63dd4e066550397712ef67020d7a7fcf9c42a80aa40067cf3b3d1e92a948078e"
     }

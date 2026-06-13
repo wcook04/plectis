@@ -3563,7 +3563,7 @@ def test_refresh_exact_copy_source_modules_resolves_microcosm_local_sources(
     assert target.read_bytes() == source.read_bytes()
 
 
-def test_refresh_exact_copy_source_modules_skips_non_exact_public_light_edit_rows(
+def test_refresh_exact_copy_source_modules_refreshes_public_light_edit_metadata(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -3620,8 +3620,13 @@ def test_refresh_exact_copy_source_modules_skips_non_exact_public_light_edit_row
     assert result["status"] == "pass"
     assert result["defect_count"] == 0
     assert result["target_copy_count"] == 0
-    assert result["manifest_row_update_count"] == 0
+    assert result["manifest_row_update_count"] == 1
     assert target.read_text(encoding="utf-8") == '{"path": "<repo-root>/state/runs"}\n'
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    assert row["source_sha256"] == hashlib.sha256(source.read_bytes()).hexdigest()
+    assert row["target_sha256"] == hashlib.sha256(target.read_bytes()).hexdigest()
+    assert row["sha256_match"] is False
 
 
 def test_refresh_exact_copy_source_modules_accepts_exact_relation_aliases(

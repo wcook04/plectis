@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 from types import ModuleType
@@ -177,6 +178,76 @@ def test_refresh_manifest_public_safe_normalize_writes_transformed_target(tmp_pa
     assert "text" not in transform
     assert raw_seed_root not in str(transform)
     assert transport_symbol not in str(transform)
+
+
+def test_refresh_manifest_public_light_edit_redaction_updates_operator_home_copy(
+    tmp_path: Path,
+) -> None:
+    refresh_module = _load_refresh_module()
+    repo_root = tmp_path / "repo"
+    public_root = repo_root / "microcosm-substrate"
+    source_ref = "system/server/tests/test_agent_session_attribution.py"
+    target_ref = (
+        "microcosm-substrate/examples/demo/source_modules/"
+        "system/server/tests/test_agent_session_attribution.py"
+    )
+    source_path = repo_root / source_ref
+    target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text(
+        "def test_fixture_path():\n"
+        "    assert '/Users/operator/src/ai_workflow'\n",
+        encoding="utf-8",
+    )
+    target_path.write_text("stale /Users/example placeholder\n", encoding="utf-8")
+    manifest_path = _write_manifest(
+        public_root,
+        module_id="agent_session_attribution_test_body_import",
+        source_ref=source_ref,
+        target_ref=target_ref,
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    row["source_to_target_relation"] = "public_light_edit_private_path_redaction"
+    row["public_light_edit_recipe_ref"] = (
+        "microcosm-substrate/src/microcosm_core/release_export.py"
+        "::_strong_private_path_hits"
+    )
+    row["public_safe_mode"] = "direct_verified_macro_body"
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_module.refresh_manifest(
+        manifest_path,
+        module_ids={"agent_session_attribution_test_body_import"},
+        write=True,
+        public_safe_normalize=True,
+    )
+
+    target_text = target_path.read_text(encoding="utf-8")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    source_digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target_path.read_bytes()).hexdigest()
+
+    assert result["status"] == "pass"
+    assert result["rows"][0]["source_to_target_relation"] == (
+        "public_light_edit_private_path_redaction"
+    )
+    assert result["rows"][0]["source_target_digest_match"] is False
+    assert result["rows"][0]["target_expected_digest_match"] is True
+    assert "/Users/operator" not in target_text
+    assert "/Users/example/src/ai_workflow" in target_text
+    assert row["source_sha256"] == source_digest
+    assert row["target_sha256"] == target_digest
+    assert row["source_to_target_relation"] == "public_light_edit_private_path_redaction"
+    assert row["public_safe_mode"] == "direct_verified_macro_body"
+    assert row["source_target_sha256_match"] is False
+    assert row["target_expected_digest_match"] is True
+    assert row["body_text_in_receipt"] is False
 
 
 def test_refresh_manifest_public_safe_normalize_rewrites_private_macro_source_refs(

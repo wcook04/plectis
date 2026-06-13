@@ -7286,25 +7286,25 @@
         "preserve_observability_animation_runtime_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1",
+      "body_digest": "sha256:53d020eed635a4c9e529f131c3472e37ecf8a7ab3d7ddf8492dbdf4ed7a552bc",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1",
-        "source_line_count": 1782,
+        "source_body_digest": "sha256:53d020eed635a4c9e529f131c3472e37ecf8a7ab3d7ddf8492dbdf4ed7a552bc",
+        "source_line_count": 1824,
         "source_ref": "system/lib/agent_observability_animation.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1",
-        "target_line_count": 1782,
+        "target_body_digest": "sha256:53d020eed635a4c9e529f131c3472e37ecf8a7ab3d7ddf8492dbdf4ed7a552bc",
+        "target_line_count": 1824,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1782,
+      "body_line_count": 1824,
       "body_text_in_receipt": false,
       "claim_ceiling": "public agent-observability semantic-camera source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -7439,25 +7439,25 @@
         "preserve_observability_animation_runtime_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a",
+      "body_digest": "sha256:450ac7a8390e91471bc9a55272088bf7d7cbbb7f77dffd2c5efac91c280e510c",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a",
-        "source_line_count": 939,
+        "source_body_digest": "sha256:450ac7a8390e91471bc9a55272088bf7d7cbbb7f77dffd2c5efac91c280e510c",
+        "source_line_count": 1034,
         "source_ref": "system/server/tests/test_agent_observability_animation.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a",
-        "target_line_count": 939,
+        "target_body_digest": "sha256:450ac7a8390e91471bc9a55272088bf7d7cbbb7f77dffd2c5efac91c280e510c",
+        "target_line_count": 1034,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 939,
+      "body_line_count": 1034,
       "body_text_in_receipt": false,
       "claim_ceiling": "public agent-observability semantic-camera source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -7550,7 +7550,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:3fa4370e2fc2b53a8ca239429eff390ae51dac485399fac54589265182e99e11",
+        "source_body_digest": "sha256:621ed2e5983907d1e80cb7bf8abd3f20a42fb80b364272b0f387b7536af63904",
         "source_line_count": 309,
         "source_ref": "system/server/tests/test_agent_session_attribution.py",
         "source_symbol_refs": [

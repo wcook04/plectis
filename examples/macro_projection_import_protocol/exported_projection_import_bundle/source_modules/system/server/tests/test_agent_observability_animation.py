@@ -937,3 +937,98 @@ def test_animation_delta_route_returns_incremental_contract(monkeypatch) -> None
     assert payload["kind"] == "agent_observability.animation_delta"
     assert payload["cursor"]["since_seq"] == 1
     assert any(op["op"] == "event_append" and op["payload"]["animation_channel"] == "proof" for op in payload["ops"])
+
+
+def test_animation_scene_emits_newline_preserving_reasoning_text_for_model_events() -> None:
+    long_reasoning = (
+        "Confirmed the mechanism.\n"
+        "The lock wraps read-modify-write so retention always runs under it.\n"
+        "Therefore retention gated at a high-water mark is a strict no-op for fixtures."
+    )
+    scene = build_agent_observability_animation_scene(
+        events=[
+            _event(
+                1,
+                canonical_type="message.assistant",
+                summary="Confirmed the mechanism and the lock pattern holds across the read path.",
+                payload={"role": "assistant", "content": long_reasoning},
+            ),
+            _event(2, canonical_type="tool.completed", summary="Read system/server/main.py", tool_use_id="tool-x"),
+        ],
+        status=_status(),
+        now=NOW,
+    )
+    events = {e["canonical_type"]: e for e in scene["events"]}
+    model_event = events["message.assistant"]
+    # The model channel carries the richer, newline-preserving reasoning text...
+    assert model_event["animation_channel"] == "model"
+    assert "\n" in model_event["text"]
+    assert "retention always runs under it" in model_event["text"]
+    # ...while the single-line lane summary stays collapsed (newlines stripped).
+    assert "\n" not in model_event["summary"]
+    assert len(model_event["text"]) >= len(model_event["summary"])
+    # Non-model events carry no reasoning text (keeps the scene lean).
+    assert events["tool.completed"]["text"] == ""
+
+
+def test_animation_reasoning_text_flows_through_delta_event_append() -> None:
+    long_reasoning = "Reading the contract.\nThe retention path is gated under the lock."
+    delta = build_agent_observability_animation_delta(
+        events=[
+            _event(
+                1,
+                canonical_type="message.assistant",
+                summary="short",
+                payload={"role": "assistant", "content": long_reasoning},
+            ),
+        ],
+        status=_status(),
+        now=NOW,
+    )
+    appended = [op for op in delta["ops"] if op["op"] == "event_append"]
+    assert appended, "expected at least one event_append op"
+    assert "\n" in appended[0]["payload"]["text"]
+    assert "gated under the lock" in appended[0]["payload"]["text"]
+
+
+def test_channel_manifest_is_the_full_stable_set_even_for_a_single_channel_window() -> None:
+    # A window (or delta slice) with only tool events must still expose the full
+    # channel set, so the live floor does not "cycle through channels" or hide
+    # segments off the surviving channel as the window slides.
+    scene = build_agent_observability_animation_scene(
+        events=[
+            _event(1, canonical_type="tool.started", summary="Task delegate", tool_use_id="t1", payload={"tool_name": "Task"}),
+            _event(2, canonical_type="tool.completed", summary="ok", tool_use_id="t1"),
+        ],
+        status=_status(),
+        now=NOW,
+    )
+    channel_ids = [c["id"] for c in scene["channels"]]
+    for expected in ("session_lifecycle", "model", "tool_io", "file_io", "proof", "attention"):
+        assert expected in channel_ids, f"{expected} missing from manifest"
+    by_id = {c["id"]: c for c in scene["channels"]}
+    # Present channel carries its count; absent channels are present at count 0.
+    assert by_id["tool_io"]["event_count"] >= 1
+    assert by_id["model"]["event_count"] == 0
+    # Infrastructure stays opt-in (not visible by default); everything else is.
+    assert by_id["infrastructure"]["visible_by_default"] is False
+    assert by_id["tool_io"]["visible_by_default"] is True
+
+
+def test_animation_reasoning_text_caps_length_and_preserves_thinking_placeholder() -> None:
+    huge = "x" * 5000
+    scene = build_agent_observability_animation_scene(
+        events=[
+            _event(1, canonical_type="message.assistant", summary="big", payload={"content": huge}),
+            # Claude's redacted thinking arrives upstream as the literal placeholder.
+            _event(2, canonical_type="message.thinking", summary="Thinking...", payload={"content": "Thinking..."}),
+        ],
+        status=_status(),
+        now=NOW,
+    )
+    events = {e["canonical_type"]: e for e in scene["events"]}
+    # Capped well below the raw 5000 chars, ellipsised.
+    assert len(events["message.assistant"]["text"]) <= 1601
+    assert events["message.assistant"]["text"].endswith("…")
+    # Redacted thinking is surfaced honestly, not dropped or fabricated.
+    assert events["message.thinking"]["text"] == "Thinking..."

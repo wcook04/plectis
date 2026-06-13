@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,13 @@ from tools.meta.microcosm_public_safety.public_reference_sanitizer import (
 HASH_CHUNK_SIZE = 1024 * 1024
 PASS = "pass"
 PUBLIC_MACRO_SOURCE_DISPLAY_ROOT = "private-macro-source"
+PUBLIC_EXAMPLE_HOME = "/Users/example"
+PUBLIC_OPERATOR_HOME = "/Users/operator"
+PUBLIC_LIGHT_EDIT_PRIVATE_PATH_REDACTION_RELATION = (
+    "public_light_edit_private_path_redaction"
+)
+PUBLIC_LIGHT_EDIT_PRIVATE_PATH_REDACTION_MODE = "direct_verified_macro_body"
+PUBLIC_LIGHT_EDIT_PRIVATE_PATH_RE = re.compile(re.escape(PUBLIC_OPERATOR_HOME))
 SUBSTRATE_LOCAL_SOURCE_PREFIXES = frozenset(
     {
         "atlas",
@@ -44,6 +52,7 @@ SUBSTRATE_LOCAL_SOURCE_PREFIXES = frozenset(
 PUBLIC_SAFE_NORMALIZABLE_RELATIONS = frozenset(
     {
         "exact_copy",
+        PUBLIC_LIGHT_EDIT_PRIVATE_PATH_REDACTION_RELATION,
         PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
         "public_bound_sanitized_source_authority_self_ref",
         "verified_public_safe_private_path_rewrite",
@@ -374,7 +383,34 @@ def refresh_manifest(
         public_safe_mode = ""
         source_line_count = _line_count(source)
         target_line_count: int | None = None
-        if public_safe_normalize:
+        if (
+            public_safe_normalize
+            and relation == PUBLIC_LIGHT_EDIT_PRIVATE_PATH_REDACTION_RELATION
+        ):
+            try:
+                source_text = source_bytes.decode("utf-8")
+            except UnicodeDecodeError:
+                findings.append(
+                    {
+                        "module_id": module_id,
+                        "source_ref": row.get("source_ref"),
+                        "target_ref": row.get("target_ref"),
+                        "findings": ["public_light_edit_redaction_requires_utf8_source"],
+                    }
+                )
+                continue
+            redacted_text, _redaction_count = PUBLIC_LIGHT_EDIT_PRIVATE_PATH_RE.subn(
+                PUBLIC_EXAMPLE_HOME,
+                source_text,
+            )
+            expected_target_bytes = redacted_text.encode("utf-8")
+            target_relation = PUBLIC_LIGHT_EDIT_PRIVATE_PATH_REDACTION_RELATION
+            public_safe_mode = str(
+                row.get("public_safe_mode")
+                or PUBLIC_LIGHT_EDIT_PRIVATE_PATH_REDACTION_MODE
+            )
+            target_line_count = _line_count_text(redacted_text)
+        elif public_safe_normalize:
             public_safe_source_ref, public_safe_source_ref_transform = (
                 _public_safe_ref_transform(public_safe_source_ref)
             )

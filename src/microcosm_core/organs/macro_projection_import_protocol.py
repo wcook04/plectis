@@ -3786,6 +3786,21 @@ def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
     )
 
 
+def _source_module_row_is_verified_light_edit(row: dict[str, Any]) -> bool:
+    if row.get("body_in_receipt") is True:
+        return False
+    if row.get("body_copied") is False:
+        return False
+    return (
+        str(row.get("source_to_target_relation") or "")
+        in VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+    )
+
+
+def _source_module_row_is_refreshable(row: dict[str, Any]) -> bool:
+    return _source_module_row_is_exact_copy(row) or _source_module_row_is_verified_light_edit(row)
+
+
 def _source_module_row_material_id(row: dict[str, Any]) -> str:
     return str(
         row.get("module_id")
@@ -3869,15 +3884,30 @@ def _update_source_module_manifest_row(
             }
         )
         return None
-    if exact_copy_targets is not None:
+    relation = str(row.get("source_to_target_relation") or "")
+    verified_light_edit = relation in VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+    if exact_copy_targets is not None and not verified_light_edit:
         exact_copy_targets[str(target_path.resolve(strict=False))] = (
             source_path,
             target_path,
         )
-
     stats = _body_stats(source_path)
+    target_stats = _body_stats(target_path) if target_path.is_file() else None
+    if verified_light_edit and target_stats is None:
+        defects.append(
+            {
+                "material_id": material_id,
+                "target_ref": target_ref,
+                "manifest_ref": _display(manifest_path, public_root=public_root),
+                "defect_code": "source_module_refresh_light_edit_target_missing",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+    desired_target_stats = target_stats if verified_light_edit and target_stats else stats
+    anchor_text = desired_target_stats["text"] if verified_light_edit else stats["text"]
     missing_anchors = [
-        anchor for anchor in _strings(row.get("required_anchors")) if anchor not in stats["text"]
+        anchor for anchor in _strings(row.get("required_anchors")) if anchor not in anchor_text
     ]
     if missing_anchors:
         defects.append(
@@ -3892,28 +3922,43 @@ def _update_source_module_manifest_row(
         )
         return None
 
+    source_target_match = stats["body_digest"] == desired_target_stats["body_digest"]
     current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
     row_updates = {
         "body_copied": True,
         "source_sha256": _digest_for_existing_format(row.get("source_sha256"), stats),
-        "target_sha256": _digest_for_existing_format(row.get("target_sha256"), stats),
-        "sha256_match": True,
-        "line_count": stats["line_count"],
-        "byte_count": stats["byte_count"],
+        "target_sha256": _digest_for_existing_format(
+            row.get("target_sha256"),
+            desired_target_stats,
+        ),
+        "sha256_match": source_target_match,
+        "line_count": desired_target_stats["line_count"],
+        "byte_count": desired_target_stats["byte_count"],
     }
-    for key in ("source_line_count", "target_line_count"):
-        if key in row:
-            row_updates[key] = stats["line_count"]
-    for key in ("source_byte_count", "target_byte_count"):
-        if key in row:
-            row_updates[key] = stats["byte_count"]
+    if "source_target_sha256_match" in row:
+        row_updates["source_target_sha256_match"] = source_target_match
+    if "target_expected_digest_match" in row:
+        row_updates["target_expected_digest_match"] = True
+    if "source_line_count" in row:
+        row_updates["source_line_count"] = stats["line_count"]
+    if "target_line_count" in row:
+        row_updates["target_line_count"] = desired_target_stats["line_count"]
+    if "source_byte_count" in row:
+        row_updates["source_byte_count"] = stats["byte_count"]
+    if "target_byte_count" in row:
+        row_updates["target_byte_count"] = desired_target_stats["byte_count"]
     if "sha256" in row:
-        row_updates["sha256"] = _digest_for_existing_format(row.get("sha256"), stats)
+        row_updates["sha256"] = _digest_for_existing_format(
+            row.get("sha256"),
+            desired_target_stats,
+        )
     if "anchor_count" in row:
         row_updates["anchor_count"] = len(_strings(row.get("required_anchors")))
 
     metadata_changed = any(row.get(key) != value for key, value in row_updates.items())
-    target_changed = current_target_digest != stats["body_digest"]
+    target_changed = (
+        (not verified_light_edit) and current_target_digest != stats["body_digest"]
+    )
     if not metadata_changed and not target_changed:
         return None
 
@@ -3949,7 +3994,7 @@ def _update_source_module_manifest_row(
     }
 
 
-def _update_protocol_exact_copy_row(
+def _update_protocol_refreshable_row(
     row: dict[str, Any],
     *,
     protocol_path: Path,
@@ -3961,12 +4006,17 @@ def _update_protocol_exact_copy_row(
     verification = row.get("body_import_verification")
     if not isinstance(verification, dict):
         return None
-    if verification.get("verification_mode") != "exact_source_digest_match":
-        return None
-    if (
-        verification.get("source_to_target_relation")
-        not in EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
-    ):
+    verification_mode = str(verification.get("verification_mode") or "")
+    relation = str(verification.get("source_to_target_relation") or "")
+    exact_copy = (
+        verification_mode == "exact_source_digest_match"
+        and relation in EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+    )
+    verified_light_edit = (
+        verification_mode == "verified_light_edit_recipe"
+        and relation in VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+    )
+    if not exact_copy and not verified_light_edit:
         return None
 
     material_id = str(row.get("material_id") or "")
@@ -4027,22 +4077,37 @@ def _update_protocol_exact_copy_row(
         return None
 
     stats = _body_stats(source_path)
+    target_stats = _body_stats(target_path) if target_path.is_file() else None
+    if verified_light_edit and target_stats is None:
+        defects.append(
+            {
+                "material_id": material_id,
+                "target_ref": target_ref,
+                "protocol_ref": _display(protocol_path, public_root=public_root),
+                "defect_code": "source_module_refresh_protocol_light_edit_target_missing",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+    desired_target_stats = target_stats if verified_light_edit and target_stats else stats
     current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
-    target_changed = current_target_digest != stats["body_digest"]
+    target_changed = (
+        (not verified_light_edit) and current_target_digest != stats["body_digest"]
+    )
     row_updates = {
-        "body_digest": stats["body_digest"],
-        "body_line_count": stats["line_count"],
+        "body_digest": desired_target_stats["body_digest"],
+        "body_line_count": desired_target_stats["line_count"],
     }
     verification_updates = {
         "verification_status": "verified",
-        "verification_mode": "exact_source_digest_match",
+        "verification_mode": verification_mode,
         "source_body_digest": stats["body_digest"],
-        "target_body_digest": stats["body_digest"],
+        "target_body_digest": desired_target_stats["body_digest"],
         "source_line_count": stats["line_count"],
-        "target_line_count": stats["line_count"],
+        "target_line_count": desired_target_stats["line_count"],
         "source_ref": source_ref,
         "target_ref": target_ref,
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": relation,
     }
     metadata_changed = any(row.get(key) != value for key, value in row_updates.items())
     metadata_changed = metadata_changed or any(
@@ -4078,7 +4143,8 @@ def _update_protocol_exact_copy_row(
         "protocol_ref": _display(protocol_path, public_root=public_root),
         "target_refresh_required": target_changed,
         "metadata_refresh_required": metadata_changed,
-        "line_count": stats["line_count"],
+        "source_line_count": stats["line_count"],
+        "target_line_count": desired_target_stats["line_count"],
         "body_in_receipt": False,
     }
 
@@ -4145,7 +4211,7 @@ def refresh_exact_copy_source_modules(
                 material_id = _source_module_row_material_id(row)
                 if material_filter and material_id not in material_filter:
                     continue
-                if not _source_module_row_is_exact_copy(row):
+                if not _source_module_row_is_refreshable(row):
                     continue
                 if material_id:
                     matched_material_ids.add(material_id)
@@ -4197,14 +4263,28 @@ def refresh_exact_copy_source_modules(
             if protocol_material_ids and material_id not in protocol_material_ids:
                 continue
             verification = row.get("body_import_verification")
-            if (
-                material_id
-                and isinstance(verification, dict)
-                and verification.get("verification_mode")
-                == "exact_source_digest_match"
-                and verification.get("source_to_target_relation")
-                in EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
-            ):
+            verification_mode = (
+                str(verification.get("verification_mode") or "")
+                if isinstance(verification, dict)
+                else ""
+            )
+            verification_relation = (
+                str(verification.get("source_to_target_relation") or "")
+                if isinstance(verification, dict)
+                else ""
+            )
+            protocol_row_refreshable = (
+                (
+                    verification_mode == "exact_source_digest_match"
+                    and verification_relation in EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+                )
+                or (
+                    verification_mode == "verified_light_edit_recipe"
+                    and verification_relation
+                    in VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+                )
+            )
+            if material_id and protocol_row_refreshable:
                 matched_material_ids.add(material_id)
                 target_ref = str(row.get("target_ref") or verification.get("target_ref") or "")
                 target_path = (
@@ -4219,7 +4299,7 @@ def refresh_exact_copy_source_modules(
                             public_root=public_root,
                         )
                     )
-            update = _update_protocol_exact_copy_row(
+            update = _update_protocol_refreshable_row(
                 row,
                 protocol_path=protocol_path,
                 public_root=public_root,
@@ -4431,10 +4511,12 @@ def refresh_exact_copy_source_modules(
         "body_text_in_receipt": False,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": (
-            "This refresh helper copies only already-declared exact-copy, "
-            "non-secret macro source-module bodies and digest metadata. It does "
-            "not validate release readiness, call providers, read live sessions, "
-            "or authorize new body-import classes."
+            "This refresh helper updates only already-declared exact-copy or "
+            "verified light-edit non-secret macro source-module bodies and "
+            "digest metadata. Light-edit rows keep their existing public target "
+            "body and refresh metadata only. It does not validate release "
+            "readiness, call providers, read live sessions, or authorize new "
+            "body-import classes."
         ),
     }
 

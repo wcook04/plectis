@@ -75,6 +75,39 @@ def _compact(value: object, limit: int = 140) -> str:
     return text[: max(0, limit - 1)].rstrip() + "..."
 
 
+REASONING_TEXT_LIMIT = 1600
+
+
+def _reasoning_text(raw_event: Mapping[str, Any], channel: str, *, limit: int = REASONING_TEXT_LIMIT) -> str:
+    """Newline-preserving reasoning/narration preview for model-channel events.
+
+    The single-line ``summary`` (140 chars, newlines collapsed) is the lane
+    label; this companion field keeps the operator-facing reasoning legible in
+    the inspector so a box reads as *what the model is doing*, not just a tool
+    name. Only emitted for the model channel (assistant narration, thinking,
+    intent/plan), where the upstream payload already carries the agent's own
+    EMITTED text — no inference, no reconstruction of hidden reasoning (Claude's
+    redacted thinking arrives upstream as the literal "Thinking..." placeholder
+    and is surfaced honestly as such). This is a LOCAL operator cockpit over the
+    operator's own sessions, not a public surface, so the text is not redacted
+    beyond the upstream payload size-gate; the length cap keeps the scene bounded.
+    """
+    if channel != "model":
+        return ""
+    payload = _safe_mapping(raw_event.get("payload"))
+    best = ""
+    for candidate in (payload.get("content"), raw_event.get("summary")):
+        value = str(candidate or "").strip()
+        if len(value) > len(best):
+            best = value
+    if not best:
+        return ""
+    best = best.replace("\r\n", "\n").replace("\r", "\n").strip()
+    if len(best) > limit:
+        best = best[: limit - 1].rstrip() + "…"
+    return best
+
+
 def _event_id(event: Mapping[str, Any]) -> str:
     raw = str(event.get("id") or "").strip()
     if raw:
@@ -404,6 +437,14 @@ def _channel_manifest(events: Sequence[Mapping[str, Any]]) -> list[dict[str, Any
         "quality",
         "infrastructure",
     ]
+    # Always emit the full canonical channel set, even channels with zero events
+    # in this build's window/slice. The live floor advances by deltas, and each
+    # delta rebuilds the manifest from only the events since the cursor; filtering
+    # to present-only channels made the channel set (and the default-visible set)
+    # COLLAPSE to whatever a 1-2s slice happened to contain, so the scene appeared
+    # to "cycle through channels" and silently hid every segment off the surviving
+    # channel. A stable full manifest keeps the mixer and the full-scene default
+    # constant across frames; counts still reflect this build's events.
     return [
         {
             "id": channel,
@@ -412,7 +453,6 @@ def _channel_manifest(events: Sequence[Mapping[str, Any]]) -> list[dict[str, Any
             "visible_by_default": channel != "infrastructure",
         }
         for channel in order
-        if counts.get(channel, 0)
     ]
 
 
@@ -1019,6 +1059,7 @@ def build_agent_observability_animation_scene(
         canonical_type = str(event.get("canonical_type") or "unknown")
         tool_name = _tool_name(event, tool_names)
         channel = _event_channel(kind, canonical_type, provider)
+        reasoning_text = _reasoning_text(event, channel)
         priority = _event_priority(kind, status_value, canonical_type)
         directive = _animation_directive(kind, status_value, canonical_type)
         coalesce_key = _coalesce_key(
@@ -1066,6 +1107,7 @@ def build_agent_observability_animation_scene(
             "observed_at": event.get("observed_at"),
             "time_ms": start_ms,
             "summary": summary,
+            "text": reasoning_text,
             "tool_use_id": tool_id,
             "tool_name": tool_name,
             "subagent_id": event.get("subagent_id"),
