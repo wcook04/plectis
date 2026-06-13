@@ -20,7 +20,7 @@ An agent runs this to validate that a sandbox-policy fixture has pre-execution p
 - `governed_by` -> `principle:P-1` (resolved_json_instance)
 - `governed_by` -> `principle:P-2` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-1` (resolved_json_instance)
-- `organ.wires_to.organ` -> residual pressure (Organ atlas row does not name sibling wires_to targets.)
+- `wires_to` -> `organ:sleeper_memory_poisoning_quarantine_replay` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims
 

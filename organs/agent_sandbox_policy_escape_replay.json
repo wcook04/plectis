@@ -137,9 +137,11 @@
         "red-teaming",
         "security"
       ],
-      "standalone_or_wired": "standalone_specimen",
-      "wires_to": [],
-      "wiring_note": "Binds only to the shared kernel + evidence/authority spine, reusing the macro_tools agent_execution_trace builder; it does not feed or consume other named organs."
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
+      "wiring_note": "Names sleeper_memory_poisoning_quarantine_replay as a structural downstream sibling from the mechanism upstream graph; this is navigation structure only, not live sandbox invocation, release, runtime-correctness, or proof authority."
     },
     "source_registry_row": {
       "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -297,6 +299,19 @@
         "target_id": "AX-1",
         "target_kind": "axiom",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[41:agent_sandbox_policy_escape_replay].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "sleeper_memory_poisoning_quarantine_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -314,16 +329,10 @@
     ],
     "source_atlas_row_ref": "core/organ_atlas.json::organs[41:agent_sandbox_policy_escape_replay]",
     "source_registry_row_ref": "core/organ_registry.json::implemented_organs[41:agent_sandbox_policy_escape_replay]",
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Organ atlas row does not name sibling wires_to targets.",
-        "relation_id": "organ.wires_to.organ",
-        "requirement": "selective",
-        "status": "residual_pressure"
-      }
-    ],
-    "wires_to": []
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "sleeper_memory_poisoning_quarantine_replay"
+    ]
   },
   "role": "An agent runs this to validate that a sandbox-policy fixture has pre-execution policy verdicts on every one of the six action requests, body-free side-effect/rollback/cold-replay receipts (4 blocked with zero side effects, 2 executed with verified rollback), a public agent-execution trace span per request, and that the eight escape negative cases (real_secret_material, live_network_access, raw_environment_export, policy_after_execution, unlogged_side_effect, tool_output_policy_bypass, executable_escape_payload, security_benchmark_claim) all trip. Validation covers projection/trace-refactor mechanics over a synthetic fixture only.",
   "schema_version": "microcosm_organ_instance_v1",
@@ -354,5 +363,7 @@
     "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
     "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
   ],
-  "wires_to": []
+  "wires_to": [
+    "sleeper_memory_poisoning_quarantine_replay"
+  ]
 }

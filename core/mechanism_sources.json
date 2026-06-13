@@ -640,6 +640,9 @@
         "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.cli agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
         "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_agent_sandbox_policy_escape_replay.py -q"
       },
+      "upstream_of": [
+        "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+      ],
       "concept_refs": [
         "concept.agent_reliability_and_safety_validator_bundle"
       ]

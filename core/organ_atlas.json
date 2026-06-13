@@ -2711,8 +2711,8 @@
           "resolution": "resolved"
         }
       ],
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "Binds only to the shared kernel + evidence/authority spine, reusing the macro_tools agent_execution_trace builder; it does not feed or consume other named organs.",
+      "standalone_or_wired": "wired",
+      "wiring_note": "Names sleeper_memory_poisoning_quarantine_replay as a structural downstream sibling from the mechanism upstream graph; this is navigation structure only, not live sandbox invocation, release, runtime-correctness, or proof authority.",
       "display_name": "Agent Sandbox Policy Escape Replay",
       "specialty": [
         "ai-safety",
@@ -2720,7 +2720,9 @@
         "red-teaming",
         "security"
       ],
-      "wires_to": [],
+      "wires_to": [
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
       "principle_refs": [
         "P-1",
         "P-2"

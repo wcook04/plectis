@@ -164,8 +164,8 @@
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 29,
-        "known_residual_selective_relation_row_count": 29,
+        "known_residual_selective_relation_count": 28,
+        "known_residual_selective_relation_row_count": 28,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -174,10 +174,6 @@
           {
             "count": 1,
             "id": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
           },
           {
             "count": 1,

@@ -208,7 +208,10 @@
       ],
       "source_ref": "core/mechanism_sources.json::mechanisms[8:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace]",
       "statement": "The agent sandbox policy escape replay organ validates public sandbox-policy projection mechanics by checking action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay rows, public trace spans, source-module manifest boundaries, secret-exclusion scans, and escape negative cases before writing bounded receipts.",
-      "status": "active"
+      "status": "active",
+      "upstream_of": [
+        "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+      ]
     },
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
@@ -327,21 +330,29 @@
         "target_id": "concept.agent_reliability_and_safety_validator_bundle",
         "target_kind": "concept",
         "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[8:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
       "agent_sandbox_policy_escape_replay"
     ],
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[8:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace]",
-    "unpopulated_selective_relations": [
-      {
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "status": "residual_pressure"
-      }
-    ],
-    "upstream_mechanism_refs": []
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+    ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
