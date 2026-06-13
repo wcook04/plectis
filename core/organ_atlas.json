@@ -2058,6 +2058,7 @@
         "batch10_governance_compilers_capsule",
         "batch10_live_source_drift_capsule",
         "batch4_proof_authority_runtime",
+        "batch5_authority_systems_capsule",
         "batch6_unsurfaced_primitives_capsule",
         "batch7_macro_engines_capsule",
         "batch7_secondary_runtime_capsule",

@@ -147,6 +147,7 @@
         "batch10_governance_compilers_capsule",
         "batch10_live_source_drift_capsule",
         "batch4_proof_authority_runtime",
+        "batch5_authority_systems_capsule",
         "batch6_unsurfaced_primitives_capsule",
         "batch7_macro_engines_capsule",
         "batch7_secondary_runtime_capsule",
@@ -521,6 +522,19 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
+        "target_id": "batch5_authority_systems_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
         "target_id": "batch6_unsurfaced_primitives_capsule",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -649,6 +663,7 @@
       "batch10_governance_compilers_capsule",
       "batch10_live_source_drift_capsule",
       "batch4_proof_authority_runtime",
+      "batch5_authority_systems_capsule",
       "batch6_unsurfaced_primitives_capsule",
       "batch7_macro_engines_capsule",
       "batch7_secondary_runtime_capsule",
@@ -700,6 +715,7 @@
     "batch10_governance_compilers_capsule",
     "batch10_live_source_drift_capsule",
     "batch4_proof_authority_runtime",
+    "batch5_authority_systems_capsule",
     "batch6_unsurfaced_primitives_capsule",
     "batch7_macro_engines_capsule",
     "batch7_secondary_runtime_capsule",

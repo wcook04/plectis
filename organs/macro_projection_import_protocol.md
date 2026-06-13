@@ -35,6 +35,7 @@ An agent runs this to preview or validate a projection bundle before import: con
 - `wires_to` -> `organ:batch10_governance_compilers_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch10_live_source_drift_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch4_proof_authority_runtime` (resolved_registry_or_atlas_target)
+- `wires_to` -> `organ:batch5_authority_systems_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch6_unsurfaced_primitives_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch7_macro_engines_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch7_secondary_runtime_capsule` (resolved_registry_or_atlas_target)
