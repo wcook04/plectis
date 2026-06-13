@@ -2,9 +2,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
 class SmokeCheckError(Exception):
@@ -131,6 +136,100 @@ def _surface_count(payload: dict[str, Any], *, name: str, key: str) -> int:
     return actual
 
 
+def _preview_count(payload: dict[str, Any], *, name: str, key: str) -> int:
+    preview = payload.get(key)
+    if not isinstance(preview, dict):
+        raise SmokeCheckError(f"{name}: missing {key} object")
+    actual = preview.get("count")
+    if not isinstance(actual, int) or isinstance(actual, bool) or actual < 0:
+        raise SmokeCheckError(f"{name}: expected nonnegative integer {key}.count, got {actual!r}")
+    return actual
+
+
+def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict[str, Any]:
+    preview = payload.get("source_body_import_exception_preview")
+    if not isinstance(preview, dict):
+        raise SmokeCheckError(
+            f"{name}: missing source_body_import_exception_preview object",
+        )
+    status = preview.get("status")
+    if not isinstance(status, str) or not status:
+        raise SmokeCheckError(
+            f"{name}: expected source_body_import_exception_preview.status string, got {status!r}",
+        )
+    return {
+        "source_body_import_exception_count": _preview_count(
+            payload,
+            name=name,
+            key="source_body_import_exception_preview",
+        ),
+        "source_body_import_exception_status": status,
+        "rows_with_source_body_imports": _surface_count(
+            payload,
+            name=name,
+            key="rows_with_source_body_imports",
+        ),
+        "source_open_body_material_count": _surface_count(
+            payload,
+            name=name,
+            key="source_open_body_material_count",
+        ),
+    }
+
+
+def _live_workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
+    env = os.environ.copy()
+    src_path = str(root / "src")
+    env["PYTHONPATH"] = (
+        src_path
+        if not env.get("PYTHONPATH")
+        else os.pathsep.join([src_path, env["PYTHONPATH"]])
+    )
+    result = subprocess.run(
+        [sys.executable, "-m", "microcosm_core", "workingness", "--card"],
+        cwd=root,
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        stderr = result.stderr.strip() or result.stdout.strip()
+        raise SmokeCheckError(
+            "workingness-card.json: could not regenerate live workingness card "
+            f"for freshness comparison: {stderr}",
+        )
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise SmokeCheckError(
+            "workingness-card.json: live workingness command emitted invalid JSON",
+        ) from exc
+    if not isinstance(payload, dict):
+        raise SmokeCheckError(
+            "workingness-card.json: live workingness command did not emit a JSON object",
+        )
+    return payload
+
+
+def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> dict[str, Any]:
+    receipt_signature = _workingness_import_signature(
+        workingness,
+        name="workingness-card.json",
+    )
+    live_signature = _workingness_import_signature(
+        _live_workingness_card(),
+        name="live workingness --card",
+    )
+    if receipt_signature != live_signature:
+        raise SmokeCheckError(
+            "workingness-card.json: stale source-body import signature; "
+            f"receipt {json.dumps(receipt_signature, sort_keys=True)}, "
+            f"live {json.dumps(live_signature, sort_keys=True)}; re-run `make smoke`",
+        )
+    return receipt_signature
+
+
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     hello = _read_text(smoke_out / "hello.txt")
     if not hello.splitlines()[0].startswith("Microcosm first screen"):
@@ -231,6 +330,9 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         name="workingness-card.json",
         key="release_authorized",
     )
+    workingness_import_signature = _expect_workingness_import_signature_fresh(
+        workingness,
+    )
 
     _expect_false(
         legibility,
@@ -295,6 +397,9 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         "mapped_organ_count": mapped_organ_count,
         "missing_standard_count": 0,
         "missing_failure_modes_count": 0,
+        "source_body_import_exception_count": workingness_import_signature[
+            "source_body_import_exception_count"
+        ],
         "private_path_hit_count": private_path_hit_count,
     }
 
@@ -311,7 +416,8 @@ def print_summary(summary: dict[str, Any]) -> None:
         f"{summary['workingness_card_status']} "
         f"({summary['mapped_organ_count']} mapped, "
         f"{summary['missing_standard_count']} missing standards, "
-        f"{summary['missing_failure_modes_count']} missing failure modes)",
+        f"{summary['missing_failure_modes_count']} missing failure modes, "
+        f"{summary['source_body_import_exception_count']} source-body exceptions)",
     )
     print(
         "served status: pass "

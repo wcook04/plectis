@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -26,8 +27,36 @@ def _write_json(path: Path, payload: dict[str, object]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def _live_workingness_import_signature() -> dict[str, object]:
+    env = os.environ.copy()
+    src_path = str(MICROCOSM_ROOT / "src")
+    env["PYTHONPATH"] = (
+        src_path
+        if not env.get("PYTHONPATH")
+        else os.pathsep.join([src_path, env["PYTHONPATH"]])
+    )
+    result = subprocess.run(
+        [sys.executable, "-m", "microcosm_core", "workingness", "--card"],
+        cwd=MICROCOSM_ROOT,
+        env=env,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(result.stdout)
+    preview = payload["source_body_import_exception_preview"]
+    surface_counts = payload["surface_counts"]
+    return {
+        "source_body_import_exception_count": preview["count"],
+        "source_body_import_exception_status": preview["status"],
+        "rows_with_source_body_imports": surface_counts["rows_with_source_body_imports"],
+        "source_open_body_material_count": surface_counts["source_open_body_material_count"],
+    }
+
+
 def _write_valid_smoke_outputs(smoke_out: Path) -> None:
     accepted_organ_count = _accepted_organ_count()
+    workingness_import_signature = _live_workingness_import_signature()
     smoke_out.mkdir(parents=True)
     (smoke_out / "hello.txt").write_text(
         "Microcosm first screen\n",
@@ -67,10 +96,25 @@ def _write_valid_smoke_outputs(smoke_out: Path) -> None:
             "authority_ceiling": {"release_authorized": False},
             "card_status": "clear",
             "status": "pass",
+            "source_body_import_exception_preview": {
+                "count": workingness_import_signature[
+                    "source_body_import_exception_count"
+                ],
+                "rows": [],
+                "status": workingness_import_signature[
+                    "source_body_import_exception_status"
+                ],
+            },
             "surface_counts": {
                 "mapped_organ_count": accepted_organ_count,
                 "missing_failure_modes_count": 0,
                 "missing_standard_count": 0,
+                "rows_with_source_body_imports": workingness_import_signature[
+                    "rows_with_source_body_imports"
+                ],
+                "source_open_body_material_count": workingness_import_signature[
+                    "source_open_body_material_count"
+                ],
             },
         },
     )
@@ -274,7 +318,9 @@ def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
     )
     assert (
         f"workingness: clear ({accepted_organ_count} mapped, "
-        "0 missing standards, 0 missing failure modes)"
+        "0 missing standards, 0 missing failure modes, "
+        f"{_live_workingness_import_signature()['source_body_import_exception_count']} "
+        "source-body exceptions)"
         in result.stdout
     )
     assert "served status: pass (0 private path hits)" in result.stdout
@@ -357,6 +403,33 @@ def test_check_smoke_outputs_fails_when_workingness_is_not_clear(
         "workingness-card.json: expected surface_counts.missing_standard_count 0, got 1"
         in result.stderr
     )
+
+
+def test_check_smoke_outputs_fails_when_workingness_import_signature_is_stale(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    workingness = json.loads(
+        (smoke_out / "workingness-card.json").read_text(encoding="utf-8"),
+    )
+    preview = workingness["source_body_import_exception_preview"]
+    preview["count"] = int(preview["count"]) + 1
+    preview["status"] = "exceptions_visible"
+    _write_json(smoke_out / "workingness-card.json", workingness)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "Microcosm smoke check: fail" in result.stderr
+    assert "workingness-card.json: stale source-body import signature" in result.stderr
+    assert "re-run `make smoke`" in result.stderr
 
 
 def test_check_smoke_outputs_fails_when_a_card_is_empty(
