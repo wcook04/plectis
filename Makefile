@@ -44,6 +44,8 @@ PUBLIC_TESTS ?= \
 	tests/test_release_candidate_proof.py \
 	tests/test_release_review_contract.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
+PUBLIC_TESTS += tests/test_card_calibration_gate.py
+PUBLIC_TESTS += tests/test_organ_registry_authority_floor.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
