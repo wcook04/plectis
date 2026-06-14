@@ -112,7 +112,7 @@
     },
     {
       "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "external_subprocess_witness",
       "organ_id": "corpus_readiness_mathlib_absence_gate"
     },
     {
@@ -163,12 +163,12 @@
     },
     {
       "classification_basis": "bounded public runtime validation over three digest-verified copied macro pattern provenance bodies plus body-free replay rows; the runner recomputes public trace pass/quarantine verdicts and rejects source-module digest, manifest-boundary, source-evidence, and declared-verdict negatives without claiming benchmark performance",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
     },
     {
       "classification_basis": "bounded context-budget packing and section omission computation",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "provider_context_recipe_budget_policy"
     },
     {
@@ -193,7 +193,7 @@
     },
     {
       "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "mission_transaction_work_spine"
     },
     {
@@ -270,12 +270,12 @@
     },
     {
       "classification_basis": "bounded runtime computation verifies copied public monitor-redteam macro pattern bodies and sanitized dogfood trace slices, recomputes monitor verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "organ_id": "agent_monitor_redteam_falsification_replay"
     },
     {
       "classification_basis": "bounded runtime computation verifies copied public sabotage/scheming monitor macro pattern bodies and sanitized dogfood trace slices, recomputes caught-verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "organ_id": "agent_sabotage_scheming_monitor_replay"
     },
     {
@@ -474,7 +474,7 @@
     {
       "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
       "counts_as_real_substrate_progress": true,
-      "evidence_class": "semantic_validator",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.semantic_validator",
       "evidence_strength_rank": 5,
       "organ_id": "batch8_compliance_pipeline_capsule",

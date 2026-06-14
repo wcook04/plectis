@@ -159,9 +159,9 @@
       "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "external_subprocess_witness",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[corpus_readiness_mathlib_absence_gate]",
-      "evidence_strength_rank": 3,
+      "evidence_strength_rank": 4,
       "generated_receipts": [
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
@@ -172,7 +172,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.corpus_readiness_mathlib_absence_gate",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate"
     },
     {
@@ -369,9 +369,9 @@
       "classification_basis": "runner validates three copied public-safe macro pattern provenance bodies by source-module manifest digest, requires source-artifact evidence refs on each replay row, recomputes public trace pass/quarantine verdicts, rejects digest/manifest/verdict negatives, and keeps receipts body-free",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_benchmark_integrity_anti_gaming_replay]",
-      "evidence_strength_rank": 4,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
@@ -382,7 +382,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
     },
     {
@@ -390,9 +390,9 @@
       "classification_basis": "bounded context-budget packing and section omission computation",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[provider_context_recipe_budget_policy]",
-      "evidence_strength_rank": 3,
+      "evidence_strength_rank": 4,
       "generated_receipts": [
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
@@ -403,7 +403,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.provider_context_recipe_budget_policy",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy"
     },
     {
@@ -498,9 +498,9 @@
       "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[mission_transaction_work_spine]",
-      "evidence_strength_rank": 3,
+      "evidence_strength_rank": 4,
       "generated_receipts": [
         "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
         "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
@@ -515,7 +515,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.mission_transaction_work_spine",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
     },
     {
@@ -801,9 +801,9 @@
       "classification_basis": "bounded runtime computation over public monitor-redteam bundles: copied macro pattern body plus sanitized dogfood trace slice digests, recomputed monitor verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, verdict-mismatch negatives, and required forbidden-input negatives",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_monitor_redteam_falsification_replay]",
-      "evidence_strength_rank": 4,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
@@ -814,7 +814,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
     },
     {
@@ -822,9 +822,9 @@
       "classification_basis": "bounded runtime computation over public sabotage/scheming monitor bundles: copied macro pattern body plus sanitized dogfood trace slice digests, recomputed caught-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, verdict-mismatch negatives, and required forbidden-input negatives",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_sabotage_scheming_monitor_replay]",
-      "evidence_strength_rank": 4,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
@@ -835,7 +835,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
     },
     {
@@ -1579,9 +1579,9 @@
       "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
-      "evidence_class": "semantic_validator",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch8_compliance_pipeline_capsule]",
-      "evidence_strength_rank": 5,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_result.json",
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_board.json",
@@ -1592,7 +1592,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.batch8_compliance_pipeline_capsule",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_import_validation",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.batch8_compliance_pipeline_capsule run --input fixtures/first_wave/batch8_compliance_pipeline_capsule/input --out receipts/first_wave/batch8_compliance_pipeline_capsule --acceptance-out receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
     },
     {
