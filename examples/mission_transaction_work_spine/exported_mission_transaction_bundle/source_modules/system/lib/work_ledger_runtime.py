@@ -52,6 +52,32 @@ SESSION_TITLE_LIMIT = 180
 SESSION_METADATA_TEXT_LIMIT = 240
 ENDED_SESSION_CLAIM_COMPACTION_THRESHOLD = 2
 ENDED_SESSION_SCOPE_REF_PREVIEW_LIMIT = 3
+# --- Ended-session retention (keeps runtime_status.json from growing unbounded) ---
+# runtime_status.json is the PRIMARY store of session runtime state — it is not
+# reconstructable from the append-only work_ledger.jsonl — so old ended sessions
+# are ARCHIVED to a sidecar before being dropped from the live file, never
+# silently deleted. Retention only runs once the evictable (long-ended, no live
+# claim, non-stale) count crosses the high-water mark, so every normal write and
+# every small test fixture is a strict no-op. All values are env-overridable.
+RUNTIME_STATUS_SESSIONS_ARCHIVE_REL = Path("state/work_ledger/runtime_status_sessions_archive.jsonl")
+ENDED_SESSION_RETENTION_HIGH_WATER = 2000
+# keep_max is the real bound: the most-recent N ended sessions stay in the hot
+# file. min_age_days is a small safety floor (never evict a just-ended session);
+# it must stay well below keep_max's churn-window or the file tracks the age
+# window instead of the count. This repo ends hundreds of sessions/day, so 2
+# days keeps the bound at ~keep_max rather than ~14 days of churn.
+ENDED_SESSION_RETENTION_MAX = 1500
+ENDED_SESSION_RETENTION_MIN_AGE_DAYS = 2
+ENDED_SESSION_RETENTION_HIGH_WATER_ENV = "AIW_WORK_LEDGER_ENDED_RETENTION_HIGH_WATER"
+ENDED_SESSION_RETENTION_MAX_ENV = "AIW_WORK_LEDGER_ENDED_RETENTION_MAX"
+ENDED_SESSION_RETENTION_MIN_AGE_DAYS_ENV = "AIW_WORK_LEDGER_ENDED_RETENTION_MIN_AGE_DAYS"
+# The archive is cold storage (only read on explicit drilldown), so it can grow
+# slowly without hurting the hot path — but to avoid merely relocating unbounded
+# growth, it rotates: once the live archive crosses the cap it is renamed to a
+# single ".1" generation and a fresh file starts. Total on-disk archive is thus
+# bounded at ~2x the cap; the oldest generation is the only thing ever dropped.
+ENDED_SESSION_ARCHIVE_MAX_BYTES = 32 * 1024 * 1024
+ENDED_SESSION_ARCHIVE_MAX_BYTES_ENV = "AIW_WORK_LEDGER_ARCHIVE_MAX_BYTES"
 PASS_HEARTBEAT_SCHEMA = "runtime_pass_heartbeat_v0"
 PASS_HEARTBEAT_PREFIX = "wlp_"
 PASS_CURRENT_LINE_LIMIT = 180
@@ -241,6 +267,10 @@ def _active_claims_snapshot_path(repo_root: Path) -> Path:
     return repo_root / ACTIVE_CLAIMS_SNAPSHOT_REL
 
 
+def _runtime_status_sessions_archive_path(repo_root: Path) -> Path:
+    return repo_root / RUNTIME_STATUS_SESSIONS_ARCHIVE_REL
+
+
 class RuntimeDiskPressureError(RuntimeError):
     """Raised before Work Ledger runtime writes when free disk space is below floor."""
 
@@ -359,6 +389,7 @@ def _default_status() -> Dict[str, Any]:
         "schema": WORK_LEDGER_RUNTIME_SCHEMA,
         "generated_at": work_ledger.utc_now(),
         "sessions": {},
+        "archived_ended_sessions_total": 0,
         "stale_sessions": [],
         "recent_sweep_events": [],
         "cohort_overview": {
@@ -417,6 +448,7 @@ def _default_status() -> Dict[str, Any]:
             "sessions_with_ledger_append": 0,
             "open_todos_touched_this_session": 0,
             "session_had_no_ledger_append": 0,
+            "archived_ended_sessions": 0,
         },
         "triggers": {
             "stale_session_ready": False,
@@ -10029,6 +10061,10 @@ def rebuild_runtime_status(
 ) -> Dict[str, Any]:
     effective_repo_root = repo_root or _REBUILD_RUNTIME_STATUS_REPO_ROOT
     status = _default_status()
+    # Carry the cumulative count of ended sessions retired to the archive sidecar
+    # so display surfaces can still report a true all-time total even though the
+    # live sessions map only holds the retained (recent) window.
+    status["archived_ended_sessions_total"] = int(payload.get("archived_ended_sessions_total") or 0)
     sessions = payload.get("sessions") if isinstance(payload.get("sessions"), Mapping) else {}
     normalized_sessions: Dict[str, Dict[str, Any]] = {}
     stale_sessions: List[Dict[str, Any]] = []
@@ -10042,6 +10078,7 @@ def rebuild_runtime_status(
         "sessions_with_ledger_append": 0,
         "open_todos_touched_this_session": 0,
         "session_had_no_ledger_append": 0,
+        "archived_ended_sessions": int(payload.get("archived_ended_sessions_total") or 0),
     }
     for session_id, raw in sessions.items():
         if not isinstance(raw, Mapping):
@@ -10146,7 +10183,202 @@ def rebuild_runtime_status(
     return status
 
 
+def _retention_int_env(name: str, default: int) -> int:
+    raw = os.environ.get(name)
+    if raw is None or not str(raw).strip():
+        return default
+    try:
+        return max(int(str(raw).strip()), 0)
+    except ValueError:
+        return default
+
+
+def _ended_session_retention_config() -> tuple[int, int, int]:
+    """(high_water, keep_max, min_age_days) for ended-session retention."""
+    return (
+        _retention_int_env(ENDED_SESSION_RETENTION_HIGH_WATER_ENV, ENDED_SESSION_RETENTION_HIGH_WATER),
+        _retention_int_env(ENDED_SESSION_RETENTION_MAX_ENV, ENDED_SESSION_RETENTION_MAX),
+        _retention_int_env(ENDED_SESSION_RETENTION_MIN_AGE_DAYS_ENV, ENDED_SESSION_RETENTION_MIN_AGE_DAYS),
+    )
+
+
+def _session_is_retention_evictable(session: Mapping[str, Any]) -> bool:
+    """Only long-ended, non-stale sessions holding no live claim may be evicted.
+
+    Active sessions, stale rows (they still drive attention surfaces), and any
+    session still holding an unreleased/unexpired claim are never eligible.
+    """
+    if not isinstance(session, Mapping):
+        return False
+    if not session.get("ended_at"):
+        return False
+    if bool(session.get("stale")):
+        return False
+    for claim in session.get("claims") or []:
+        if isinstance(claim, Mapping) and not (claim.get("released_at") or claim.get("expired_at")):
+            return False
+    return True
+
+
+def _append_archived_sessions(
+    repo_root: Path,
+    rows: Sequence[tuple[str, Mapping[str, Any]]],
+) -> None:
+    """Append evicted ended sessions to the append-only archive sidecar.
+
+    One JSON object per line ({session_id, archived_at, session}). The live file
+    stays the hot read surface; the sidecar preserves the full record for
+    forensics and explicit session-id drilldown via load_archived_session().
+    """
+    if not rows:
+        return
+    path = _runtime_status_sessions_archive_path(repo_root)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    archived_at = work_ledger.utc_now()
+    payload = "".join(
+        json.dumps(
+            {"session_id": str(session_id), "archived_at": archived_at, "session": session},
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        + "\n"
+        for session_id, session in rows
+    )
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(payload)
+    # Rotate cold storage so the archive itself cannot grow without bound: once
+    # over the cap, the live archive becomes the single ".1" generation and the
+    # next append starts fresh. O(1) rename — no full-file read.
+    max_bytes = _retention_int_env(ENDED_SESSION_ARCHIVE_MAX_BYTES_ENV, ENDED_SESSION_ARCHIVE_MAX_BYTES)
+    try:
+        if max_bytes > 0 and path.stat().st_size > max_bytes:
+            os.replace(path, path.with_name(path.name + ".1"))
+    except OSError:
+        pass
+
+
+def _apply_ended_session_retention(repo_root: Path, status: Dict[str, Any]) -> Dict[str, Any]:
+    """Archive + drop old ended sessions so runtime_status.json stays bounded.
+
+    No-op unless the evictable ended-session count exceeds the high-water mark.
+    Keeps all active sessions, every stale session, every session holding a live
+    claim, all ended sessions newer than the min-age window, and the most-recent
+    ``keep_max`` ended sessions by ``ended_at``. Evicted sessions are appended to
+    the archive sidecar and removed from ``status['sessions']``; a cumulative
+    counter preserves the all-time total. Must be called under the runtime lock.
+    Returns a receipt describing the action.
+    """
+    high_water, keep_max, min_age_days = _ended_session_retention_config()
+    sessions = status.get("sessions")
+    if not isinstance(sessions, Mapping):
+        return {"applied": False, "reason": "no_sessions"}
+    evictable = [
+        (str(session_id), session)
+        for session_id, session in sessions.items()
+        if _session_is_retention_evictable(session)
+    ]
+    if len(evictable) <= high_water:
+        return {
+            "applied": False,
+            "reason": "below_high_water",
+            "evictable": len(evictable),
+            "high_water": high_water,
+        }
+    cutoff = datetime.now(timezone.utc) - timedelta(days=max(min_age_days, 0))
+    # Freshest ended sessions first, so the first ``keep_max`` indices are the
+    # most recent by ended_at (falling back to last activity for missing stamps).
+    evictable.sort(
+        key=lambda item: str(item[1].get("ended_at") or item[1].get("last_activity_at") or ""),
+        reverse=True,
+    )
+    evict_ids: set[str] = set()
+    evict_rows: List[tuple[str, Mapping[str, Any]]] = []
+    for index, (session_id, session) in enumerate(evictable):
+        ended_dt = _parse_iso_datetime(session.get("ended_at"))
+        within_age = ended_dt is not None and ended_dt >= cutoff
+        within_keep_window = index < keep_max
+        if within_age or within_keep_window:
+            continue
+        evict_ids.add(session_id)
+        evict_rows.append((session_id, session))
+    if not evict_rows:
+        return {"applied": False, "reason": "nothing_beyond_window", "evictable": len(evictable)}
+    _append_archived_sessions(repo_root, evict_rows)
+    status["sessions"] = {
+        session_id: session
+        for session_id, session in sessions.items()
+        if str(session_id) not in evict_ids
+    }
+    status["archived_ended_sessions_total"] = (
+        int(status.get("archived_ended_sessions_total") or 0) + len(evict_rows)
+    )
+    return {
+        "applied": True,
+        "evicted": len(evict_rows),
+        "kept_ended": len(evictable) - len(evict_rows),
+        "archived_ended_sessions_total": status["archived_ended_sessions_total"],
+        "archive_path": str(RUNTIME_STATUS_SESSIONS_ARCHIVE_REL),
+    }
+
+
+def load_archived_session(repo_root: Path, session_id: str) -> Optional[Dict[str, Any]]:
+    """Return the most-recently-archived record for ``session_id`` or None.
+
+    Lets an explicit drilldown for a long-ended (evicted) session still resolve
+    from the append-only archive sidecar. O(file), but drilldowns are rare and
+    the per-line substring pre-filter skips JSON parsing for non-matches.
+    """
+    token = str(session_id or "").strip()
+    if not token:
+        return None
+    base = _runtime_status_sessions_archive_path(repo_root)
+    # Newest generation first; the rotated ".1" holds older evictions.
+    for path in (base, base.with_name(base.name + ".1")):
+        if not path.exists():
+            continue
+        found: Optional[Dict[str, Any]] = None
+        try:
+            with path.open("r", encoding="utf-8") as handle:
+                for line in handle:
+                    stripped = line.strip()
+                    if not stripped or token not in stripped:
+                        continue
+                    try:
+                        row = json.loads(stripped)
+                    except ValueError:
+                        continue
+                    if str(row.get("session_id") or "") == token:
+                        found = row  # keep scanning this file; last write wins
+        except OSError:
+            continue
+        if found is not None:
+            return found
+    return None
+
+
+def compact_runtime_status_sessions(repo_root: Path) -> Dict[str, Any]:
+    """One-shot: archive + drop old ended sessions from the live file now.
+
+    Acquires the runtime lock and rewrites runtime_status.json through the same
+    retention path every write uses. Safe to run repeatedly (idempotent once the
+    evictable set is below the high-water mark). Returns the retention receipt.
+    """
+    with work_ledger.file_lock(_runtime_lock_path(repo_root)):
+        status = dict(load_runtime_status(repo_root, rebuild=False))
+        receipt = _apply_ended_session_retention(repo_root, status)
+        if receipt.get("applied"):
+            rebuilt = _rebuild_runtime_status_with_repo_root(status, repo_root)
+            _atomic_write_runtime_json(_runtime_status_path(repo_root), rebuilt)
+            write_active_claims_snapshot(repo_root, rebuilt)
+        return receipt
+
+
 def _write_runtime_status(repo_root: Path, status: Mapping[str, Any]) -> Dict[str, Any]:
+    # Copy the top-level mapping so retention can swap in a pruned sessions dict
+    # without mutating the caller's object; retention is a no-op below the
+    # high-water mark, so normal writes pay only a cheap count.
+    status = dict(status)
+    _apply_ended_session_retention(repo_root, status)
     rebuilt = _rebuild_runtime_status_with_repo_root(status, repo_root)
     _atomic_write_runtime_json(_runtime_status_path(repo_root), rebuilt)
     write_active_claims_snapshot(repo_root, rebuilt)
