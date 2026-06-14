@@ -176,6 +176,7 @@
       "planned_targets": [
         {
           "authority_boundary": "planned_target_marker_not_resolved_organ_authority",
+          "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
           "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
           "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
           "target_id": "batch7_zenith_macos_capsule",

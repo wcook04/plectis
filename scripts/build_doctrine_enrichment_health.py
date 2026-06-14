@@ -501,6 +501,38 @@ def _audit_mechanism_routing_record(root: Path, record: dict[str, Any]) -> list[
     return issues
 
 
+def _source_planned_target_lookup(record: dict[str, Any]) -> dict[tuple[str, str, str], dict[str, Any]]:
+    payload = record.get("mechanism_payload")
+    if not isinstance(payload, dict):
+        return {}
+    source_row = payload.get("source_registry_row")
+    if not isinstance(source_row, dict):
+        return {}
+    planned_targets = source_row.get("planned_targets")
+    if not isinstance(planned_targets, list):
+        return {}
+
+    relationships = record.get("relationships")
+    source_ref = ""
+    if isinstance(relationships, dict):
+        source_ref = str(relationships.get("source_registry_row_ref") or "")
+
+    lookup: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for index, planned_target in enumerate(planned_targets):
+        if not isinstance(planned_target, dict):
+            continue
+        target_kind = str(planned_target.get("target_kind") or "")
+        target_id = str(planned_target.get("target_id") or "")
+        target_status = str(planned_target.get("target_status") or "")
+        if not target_kind or not target_id or not target_status:
+            continue
+        metadata = dict(planned_target)
+        if source_ref:
+            metadata["planned_target_source_ref"] = f"{source_ref}.planned_targets[{index}]"
+        lookup[(target_kind, target_id, target_status)] = metadata
+    return lookup
+
+
 def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     """Summarize mechanism routing residuals that are not floor blockers."""
     residual_rows: list[dict[str, Any]] = []
@@ -521,6 +553,7 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
         edges = relationships.get("edges")
         if isinstance(edges, list):
             planned_count = 0
+            source_planned_targets = _source_planned_target_lookup(record)
             for edge in edges:
                 if not isinstance(edge, dict):
                     continue
@@ -529,6 +562,11 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
                     continue
                 planned_count += 1
                 target_kind = str(edge.get("target_kind") or "<missing>")
+                target_id = str(edge.get("target_id") or "<missing>")
+                source_planned_target = source_planned_targets.get(
+                    (target_kind, target_id, target_status),
+                    {},
+                )
                 planned_edge_counts_by_target_kind[target_kind] = (
                     planned_edge_counts_by_target_kind.get(target_kind, 0) + 1
                 )
@@ -554,22 +592,41 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
                         "or remap the source relationship to a resolved public "
                         "target; never hand-edit generated health rows."
                     )
+                next_safe_mutation_route = str(
+                    source_planned_target.get("next_safe_mutation_route")
+                    or next_safe_mutation_route
+                )
+                reentry_condition = str(
+                    source_planned_target.get("reentry_condition") or reentry_condition
+                )
+                residual_pressure_ref = (
+                    source_planned_target.get("residual_pressure_ref")
+                    or edge.get("residual_pressure_ref")
+                )
+                planned_target_source_ref = str(
+                    source_planned_target.get("planned_target_source_ref") or ""
+                )
+                planned_target_authority_boundary = str(
+                    source_planned_target.get("authority_boundary") or ""
+                )
                 planned_edge_details.append(
                     {
                         "id": mechanism_id,
                         "relation_id": str(edge.get("relation_id") or "<missing>"),
                         "target_kind": target_kind,
-                        "target_id": str(edge.get("target_id") or "<missing>"),
+                        "target_id": target_id,
                         "target_status": target_status,
                         "source_ref": str(justification.get("source_ref") or ""),
                         "summary": str(justification.get("summary") or ""),
-                        "residual_pressure_ref": edge.get("residual_pressure_ref"),
+                        "residual_pressure_ref": residual_pressure_ref,
                         "next_safe_mutation_route": next_safe_mutation_route,
                         "reentry_condition": reentry_condition,
                         "authority_boundary": (
                             "planned_edge_visibility_only_not_target_admission_"
                             "support_evidence_or_release_authority"
                         ),
+                        "planned_target_source_ref": planned_target_source_ref,
+                        "planned_target_authority_boundary": planned_target_authority_boundary,
                     }
                 )
             if planned_count:

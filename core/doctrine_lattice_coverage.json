@@ -208,8 +208,8 @@
     "unregistered_lattice_edges": 0
   },
   "generation": {
-    "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "generated_at": "2026-06-13T22:15:16.647045Z",
+    "command": "python -m microcosm_core.doctrine_lattice --write",
+    "generated_at": "2026-06-14T00:46:49.669003Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -3415,7 +3415,7 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "e9b2cb3bd58098cadc39bcca2f641ad3d2e71a6ea9ca8d9440f5eeffe54ed2e2",
+      "core/mechanism_sources.json": "4b32d105dcdaf2e1f6b03d51a5996d8db5651d598c36269dcdce7c269ec1daee",
       "core/organ_atlas.json": "1a66e926c0f90305cd44a4d546107355f02b6985a27a2df565114d23bd8bd5eb",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "e9e95cd7755b8d72c32dcd57f50e24ba6c0c986c14fc18b60b9cd27b1003153b",
@@ -3445,7 +3445,7 @@
       "mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json": "3e866a12e2c7e2105e0451e743628b982baba0c70e993f90b1f346233ad7ab7f",
       "mechanisms/mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule.json": "b46e5ad48342acd53fe1580d27a54868f96ee0fec3164762573682a786af31fc",
       "mechanisms/mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule.json": "09ff6945b1097a4ead3ad889b64e461a40fe318cb23ef52bdd9c1ae168d775a8",
-      "mechanisms/mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule.json": "12ae0e52a0c0e2e0afe1cdbcd422bd957b6781a8dbcaf7bd80d407751da4eaec",
+      "mechanisms/mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule.json": "638419e18f0e14fad6e53b1e276bbc5f27f8c947618a0b0bcb3745d885bc06cc",
       "mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json": "34c80a1b0a860306f6cc9e98ff97823ac2aa5dc341483fda06ab5ed7234d3a45",
       "mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json": "e0c4d22b588957806e79eda96443a1fce1839b82f9c909744da48b15c3af454a",
       "mechanisms/mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule.json": "161dc8c20c670bd3398d1ccf5ff748ae9ae6feb28b137b5ad17c9b2658bc95d4",
@@ -3459,7 +3459,7 @@
       "mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "558bbb2988e52ff10588cb9ca03eef3b15c0436f5027d73ffa87ad319853130a",
       "mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json": "ba4bc4280241bbe8c475216e2e953e5b053b94af67ed2ac50e0a7f5d86d9e996",
       "mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json": "88d729bdf8c2db3c2458672f296485158ebb0d5b03c8c1259676323f00bc965c",
-      "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "02ae7c255d844515fe5e9a36de53d54d3cce3bf49cc227421aae9fc693d47a83",
+      "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "6c9535f4401a826ec7989b535a2ab95605184954bafb5af9a1dc5d46a0a1b0e9",
       "mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "e0f7b865f2aca3dafde456c8fd44767b9224c78753ad5b45750ed026287a993f",
       "mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json": "63bb07a7abe16f205ebf39bb0edea9838dc774cdcd30f2d1c034723958a8500b",
       "mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json": "e7c69bd7f17d5c36c00507b4aff17372577894d5e0544c042f2c30c51099ad7e",
@@ -3495,7 +3495,7 @@
       "mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "819aab36c287ecd03a465dbe850ce2f3edc8b52f8ac7808cc7079a34150d62fb",
       "mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "0819819c2041be4361c732c03c36f8c8102a3715448bd3f751c2a44b9d9a2b4a",
       "mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json": "4650e96680581c36c11aecfecfda7030e2d57600987058c091fd55c5a4938abc",
-      "mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json": "b3b81b0439e06eee2e9b08619be27dd2993e8cf1928460347cb68dd897064b04",
+      "mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json": "600ecd69bde514b11e011badbaf3775971ad6b5ed139be29989e7814eba74a64",
       "mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "cf4ba572d8886f4e65cd528d6a0d95d377a25fbc20a800cc6349bbfc332e7525",
       "mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json": "b09acb23c6e04990ae5f4e1bf156baebd78220ee3874ef2f479f3ee1dc5f6545",
       "mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json": "18ce150630dc4f2a8073582bc2b949b7f562c62da6467e0bab957185afaaa7f5",

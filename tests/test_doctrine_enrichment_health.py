@@ -183,16 +183,20 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
         "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
         "reentry_condition": (
-            "Admit the target through core/organ_registry.json and "
-            "core/organ_atlas.json using the organ-atlas owner lane, "
-            "or remap mechanism.runs_in in core/mechanism_sources.json "
-            "to an accepted public host; never hand-edit generated "
-            "health rows."
+            "Controller or organ-owner lane admits the organ into core/organ_atlas.json "
+            "or remaps this mechanism to a resolved public organ host; do not synthesize "
+            "reverse success while planned."
         ),
         "authority_boundary": (
             "planned_edge_visibility_only_not_target_admission_"
             "support_evidence_or_release_authority"
         ),
+        "planned_target_source_ref": (
+            "core/mechanism_sources.json::mechanisms[99:"
+            "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary]"
+            ".planned_targets[0]"
+        ),
+        "planned_target_authority_boundary": "planned_target_marker_not_resolved_organ_authority",
     }
     assert paper_modules["status"] == "complete"
     assert paper_modules["readiness_complete"] is True
