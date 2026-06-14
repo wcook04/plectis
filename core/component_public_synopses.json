@@ -62,7 +62,7 @@
     "finance_forecast_evaluation_spine": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.",
     "formal_evidence_cell_anchor_resolver": "Resolves each proof-flavored math claim to named evidence and flags ones that overreach or lack backing.",
     "formal_math_lean_proof_witness": "Compiles a tiny Lean example with the real prover and records whether it built, leaking no proof text.",
-    "formal_math_premise_retrieval": "Shows which lemmas a plain search surfaces per query and proves it never leaks proof text or answer keys.",
+    "formal_math_premise_retrieval": "Shows which lemmas a plain search surfaces per query, and never leaks proof text or answer keys.",
     "formal_math_readiness_gate": "Reads declared math setups and lists which proof tactics may be attempted versus blocked.",
     "formal_math_verifier_trace_repair_loop": "Replays how a proof lab turns verifier failures into fixes, with no promotion without a fresh re-run.",
     "indirect_prompt_injection_information_flow_policy_replay": "Replays an agent run to show untrusted text was gated before any sensitive action, leaking no secret.",
