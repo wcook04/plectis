@@ -1,1 +1,0 @@
-{"expected_negative_case": true, "case_id": "idle_stale_snapshot", "error_codes": ["BATCH4_IDLE_HEARTBEAT_STALE_SNAPSHOT_REJECTED"], "runtime_probe": {"observer_id": "idle_gate_stale_snapshot_anchor", "source_module_id": "codex_idle_heartbeat", "required_text": "_idle_gate_state"}, "body_in_receipt": false}

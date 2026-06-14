@@ -1,9 +1,9 @@
 {
   "blocked_source_refs": [],
-  "body_copied_material_count": 19,
+  "body_copied_material_count": 17,
   "body_in_receipt": false,
   "body_text_in_receipt": false,
-  "module_count": 19,
+  "module_count": 17,
   "modules": [
     {
       "anchor_count": 4,
@@ -320,60 +320,6 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/closeout_executor.py",
       "target_sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 114918,
-      "line_count": 2759,
-      "material_class": "public_macro_tool_body",
-      "module_id": "codex_driver",
-      "path": "source_modules/tools/meta/bridge/codex_driver.py",
-      "required_anchors": [
-        "def manager_start(",
-        "def _cmd_doctor",
-        "codex_driver_doctor"
-      ],
-      "sha256": "f157e56fc10c6bd3b08a386c892c4b85d69b257e7ce6137bfb7bd021e9fa2e62",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/bridge/codex_driver.py",
-      "source_sha256": "f157e56fc10c6bd3b08a386c892c4b85d69b257e7ce6137bfb7bd021e9fa2e62",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/bridge/codex_driver.py",
-      "target_sha256": "f157e56fc10c6bd3b08a386c892c4b85d69b257e7ce6137bfb7bd021e9fa2e62",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 78357,
-      "line_count": 1924,
-      "material_class": "public_macro_tool_body",
-      "module_id": "codex_idle_heartbeat",
-      "path": "source_modules/tools/meta/bridge/codex_idle_heartbeat.py",
-      "required_anchors": [
-        "def _idle_gate_state(",
-        "codex_idle_heartbeat_tab_permutation_model_v1",
-        "state_5.sqlite"
-      ],
-      "sha256": "33e3f068490d0757d9693d4f96ea9575019d4dbc812258934b66aaaa6ebcd2c4",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/bridge/codex_idle_heartbeat.py",
-      "source_sha256": "33e3f068490d0757d9693d4f96ea9575019d4dbc812258934b66aaaa6ebcd2c4",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/bridge/codex_idle_heartbeat.py",
-      "target_sha256": "33e3f068490d0757d9693d4f96ea9575019d4dbc812258934b66aaaa6ebcd2c4",
       "validation_refs": [
         "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
       ]

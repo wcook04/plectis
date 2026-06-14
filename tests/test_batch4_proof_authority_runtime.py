@@ -60,12 +60,6 @@ EXPECTED_NEGATIVE_CASES_LITERAL = {
     "closeout_stale_head": (
         "BATCH4_CLOSEOUT_STALE_HEAD_DEFERS",
     ),
-    "codex_driver_absent_port": (
-        "BATCH4_CODEX_DRIVER_ABSENT_PORT_TYPED_UNREACHABLE",
-    ),
-    "idle_stale_snapshot": (
-        "BATCH4_IDLE_HEARTBEAT_STALE_SNAPSHOT_REJECTED",
-    ),
     "bitemporal_expired_claim": (
         "BATCH4_BITEMPORAL_EXPIRED_CLAIM_NOT_CURRENT",
     ),
@@ -87,8 +81,6 @@ EXPECTED_MECHANISM_NEGATIVE_CASES_LITERAL = {
     "reasoning_execution_authority_grant": "grant_forbidden_context",
     "forward_integration_policy_fence": "forward_dirty_unknown_target",
     "closeout_executor_state_machine": "closeout_stale_head",
-    "codex_cdp_driver": "codex_driver_absent_port",
-    "codex_idle_heartbeat_fsm": "idle_stale_snapshot",
     "metabolism_bitemporal_claim_log": "bitemporal_expired_claim",
     "macos_taskpolicy_actuator": "taskpolicy_missing_binary",
     "context_yield_attribution": "context_accepted_read_guard",

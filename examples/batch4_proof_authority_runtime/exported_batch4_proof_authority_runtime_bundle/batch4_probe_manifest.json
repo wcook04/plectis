@@ -68,20 +68,6 @@
       "claim_ceiling": "Autonomous closeout planner/dry-run state machine; Microcosm exercise is dry-run only."
     },
     {
-      "mechanism_id": "codex_cdp_driver",
-      "source_module_ids": ["codex_driver"],
-      "public_exercise": "Codex driver doctor and manager-start anchors are verified from copied macro source without raw session bodies.",
-      "negative_case": "codex_driver_absent_port",
-      "claim_ceiling": "Runtime app-control diagnostics through available protocol surfaces, not general browser automation or live orchestration."
-    },
-    {
-      "mechanism_id": "codex_idle_heartbeat_fsm",
-      "source_module_ids": ["codex_idle_heartbeat"],
-      "public_exercise": "Idle-gate and tab-permutation FSM anchors are verified from copied macro source without exporting Codex state.",
-      "negative_case": "idle_stale_snapshot",
-      "claim_ceiling": "Idle-gated slot inference, not a scheduler or live capacity proof."
-    },
-    {
       "mechanism_id": "metabolism_bitemporal_claim_log",
       "source_module_ids": ["metabolism_store"],
       "public_exercise": "Blackboard claim event table, assertion, supersession, and temporal listing anchors are verified from copied macro source.",

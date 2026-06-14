@@ -58,8 +58,6 @@ EXPECTED_MECHANISMS: tuple[str, ...] = (
     "reasoning_execution_authority_grant",
     "forward_integration_policy_fence",
     "closeout_executor_state_machine",
-    "codex_cdp_driver",
-    "codex_idle_heartbeat_fsm",
     "metabolism_bitemporal_claim_log",
     "macos_taskpolicy_actuator",
     "context_yield_attribution",
@@ -78,8 +76,6 @@ EXPECTED_MODULE_IDS: tuple[str, ...] = (
     "reasoning_plan_verifier",
     "forward_integration_policy",
     "closeout_executor",
-    "codex_driver",
-    "codex_idle_heartbeat",
     "metabolism_store",
     "metabolismd",
     "metabolism_governor",
@@ -114,12 +110,6 @@ EXPECTED_NEGATIVE_CASES = {
     ),
     "closeout_stale_head": (
         "BATCH4_CLOSEOUT_STALE_HEAD_DEFERS",
-    ),
-    "codex_driver_absent_port": (
-        "BATCH4_CODEX_DRIVER_ABSENT_PORT_TYPED_UNREACHABLE",
-    ),
-    "idle_stale_snapshot": (
-        "BATCH4_IDLE_HEARTBEAT_STALE_SNAPSHOT_REJECTED",
     ),
     "bitemporal_expired_claim": (
         "BATCH4_BITEMPORAL_EXPIRED_CLAIM_NOT_CURRENT",
@@ -177,16 +167,6 @@ NEGATIVE_CASE_RUNTIME_PROBES = {
         "observer_id": "closeout_stale_head_deferral_anchor",
         "source_module_id": "closeout_executor",
         "required_text": "StalePlanHeadMismatch",
-    },
-    "codex_driver_absent_port": {
-        "observer_id": "codex_driver_doctor_unreachable_anchor",
-        "source_module_id": "codex_driver",
-        "required_text": "codex_driver_doctor",
-    },
-    "idle_stale_snapshot": {
-        "observer_id": "idle_gate_stale_snapshot_anchor",
-        "source_module_id": "codex_idle_heartbeat",
-        "required_text": "_idle_gate_state",
     },
     "bitemporal_expired_claim": {
         "observer_id": "bitemporal_claim_event_supersession_anchors",
@@ -250,16 +230,6 @@ NEGATIVE_CASE_OVERCLAIM_SHAPES = {
         "mechanism_id": "closeout_executor_state_machine",
         "claim_ceiling_must_contain": ("dry-run state machine",),
         "public_exercise_must_contain": ("stale-HEAD deferral",),
-    },
-    "codex_driver_absent_port": {
-        "mechanism_id": "codex_cdp_driver",
-        "claim_ceiling_must_contain": ("not general browser automation", "live orchestration"),
-        "public_exercise_must_contain": ("Codex driver doctor",),
-    },
-    "idle_stale_snapshot": {
-        "mechanism_id": "codex_idle_heartbeat_fsm",
-        "claim_ceiling_must_contain": ("not a scheduler", "live capacity proof"),
-        "public_exercise_must_contain": ("Idle-gate",),
     },
     "bitemporal_expired_claim": {
         "mechanism_id": "metabolism_bitemporal_claim_log",
@@ -360,16 +330,6 @@ SOURCE_REQUIRED_ANCHORS = {
         "def run_closeout_executor_burst(",
         "StalePlanHeadMismatch",
         "ConcurrentPublicationChurn",
-    ),
-    "tools/meta/bridge/codex_driver.py": (
-        "def manager_start(",
-        "def _cmd_doctor",
-        "codex_driver_doctor",
-    ),
-    "tools/meta/bridge/codex_idle_heartbeat.py": (
-        "def _idle_gate_state(",
-        "codex_idle_heartbeat_tab_permutation_model_v1",
-        "state_5.sqlite",
     ),
     "system/lib/metabolism_store.py": (
         "blackboard_claim_events",
@@ -811,8 +771,6 @@ def _synthetic_runtime_exercises(modules: Mapping[str, Mapping[str, Any]], publi
     grant_text = _target_text(modules["reasoning_grant_lease"], public_root=public_root)
     forward_text = _target_text(modules["forward_integration_policy"], public_root=public_root)
     closeout_text = _target_text(modules["closeout_executor"], public_root=public_root)
-    codex_driver_text = _target_text(modules["codex_driver"], public_root=public_root)
-    idle_text = _target_text(modules["codex_idle_heartbeat"], public_root=public_root)
     metabolism_text = _target_text(modules["metabolism_store"], public_root=public_root)
     taskpolicy_text = _target_text(modules["metabolismd"], public_root=public_root)
     context_text = _target_text(modules["agent_execution_trace"], public_root=public_root)
@@ -879,8 +837,6 @@ def _synthetic_runtime_exercises(modules: Mapping[str, Mapping[str, Any]], publi
         },
         "runtime_bundle": {
             "status": "pass",
-            "codex_driver_doctor_typed_unreachable": "codex_driver_doctor" in codex_driver_text,
-            "idle_stale_snapshot_rejected": "stale" in idle_text and "_idle_gate_state" in idle_text,
             "bitemporal_claim_events_present": "blackboard_claim_events" in metabolism_text,
             "bitemporal_supersession_present": "claim_superseded" in metabolism_text,
             "taskpolicy_unavailable_passthrough": "taskpolicy_unavailable" in taskpolicy_text,
@@ -1255,24 +1211,6 @@ def _runtime_case_observed(
             "observed": {
                 "closeout_stale_head_defers": authority.get(
                     "closeout_stale_head_defers"
-                )
-            },
-        },
-        "codex_driver_absent_port": {
-            "observer_id": "codex_driver_doctor_unreachable_anchor",
-            "computed": runtime_bundle.get("codex_driver_doctor_typed_unreachable") is True,
-            "observed": {
-                "codex_driver_doctor_typed_unreachable": runtime_bundle.get(
-                    "codex_driver_doctor_typed_unreachable"
-                )
-            },
-        },
-        "idle_stale_snapshot": {
-            "observer_id": "idle_gate_stale_snapshot_anchor",
-            "computed": runtime_bundle.get("idle_stale_snapshot_rejected") is True,
-            "observed": {
-                "idle_stale_snapshot_rejected": runtime_bundle.get(
-                    "idle_stale_snapshot_rejected"
                 )
             },
         },
