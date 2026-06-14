@@ -117,7 +117,7 @@
       "display_name": "Pattern Assimilation Step",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
-      "first_command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
       "human_gloss": "When a piece of work lands in the local substrate, this organ checks the closeout records for it — confirming that exactly one same-lane \"what did we learn from this\" decision was filed per landed item, that any claimed refinement names an owner-visible surface and the artifact it changed, that a \"nothing to refine\" entry carries its required typed fields, and that there are no duplicate or off-lane entries. It runs over fixture data and makes the closeout bookkeeping inspectable, showing whether the recorded closeouts conform to the system's stated learning-from-landed-work rules, rather than leaving that on faith.",
       "mechanism_refs": [
         {

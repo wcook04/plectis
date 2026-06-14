@@ -115,7 +115,7 @@
       "display_name": "Proof Diagnostic Evidence Spine",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
-      "first_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input microcosm-substrate/fixtures/first_wave/proof_diagnostic_evidence_spine/input --out microcosm-substrate/receipts/first_wave/proof_diagnostic_evidence_spine",
+      "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
       "human_gloss": "An evidence checkpoint that sits in front of formal-proof work. It reads the diagnostic records left by earlier proof-pipeline steps and writes a \"diagnostic board\" listing which checks were accepted, which were rejected, and why. The board shows exactly what evidence was kept, and refuses to let raw model output, a stale record, or a merely-passing check get inflated into a claim that the math is actually correct. It only organizes and judges existing records; it never runs a proof checker itself.",
       "mechanism_refs": [
         {

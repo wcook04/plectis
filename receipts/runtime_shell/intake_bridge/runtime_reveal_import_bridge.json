@@ -1985,9 +1985,9 @@
       "target_refs": [
         "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json"
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/private-macro-source/microcosms/executable_grammar_metabolism/README.md",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/private-macro-source/microcosms/executable_grammar_metabolism/grammar_board.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/private-macro-source/microcosms/executable_grammar_metabolism/receipt.json"
       ],
       "validation_refs": [
         "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
@@ -2851,7 +2851,7 @@
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
   "consumed_cell_count": 80,
-  "created_at": "2026-06-01T06:16:58+00:00",
+  "created_at": "2026-06-14T01:26:41+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",

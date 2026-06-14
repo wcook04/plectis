@@ -18,7 +18,7 @@
     "tool_return_code_as_general_proof_claim": false
   },
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-06-01T09:12:03+00:00",
+  "created_at": "2026-06-14T01:26:41+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -63,8 +63,8 @@
     "cache_freshness": {
       "input_refs_exported": false,
       "input_status": "current",
-      "latest_input_mtime_ns": 1780242342432136813,
-      "receipt_mtime_ns": 1780304583563616982,
+      "latest_input_mtime_ns": 1781242310385553131,
+      "receipt_mtime_ns": 1781365288620237273,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
       "stale_input_count": 0,
       "status": "current",
@@ -72,7 +72,7 @@
     },
     "cache_status": "cached_receipt_read",
     "cached_card_status": "pass",
-    "cached_receipt_bytes": 35066,
+    "cached_receipt_bytes": 38157,
     "cached_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -83,13 +83,13 @@
       "mathlib_lake_project_import_available": false,
       "proof_diagnostic_accepted_count": 1,
       "proof_diagnostic_rejected_count": 0,
-      "retrieval_mean_public_recall": 1.0,
+      "retrieval_mean_public_recall": 0.75,
       "retrieval_query_count": 4,
       "ring2_mean_precision_at_k": 0.36,
       "ring2_mean_recall_at_k": 0.9,
       "ring2_problem_count": 10,
-      "target_shape_route_case_count": 5,
-      "verifier_trace_attempt_count": 5
+      "target_shape_route_case_count": 4,
+      "verifier_trace_attempt_count": 3
     },
     "current_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "endpoint": "/proof-lab",

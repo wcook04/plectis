@@ -26,7 +26,7 @@
     "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765",
     "python -m pip install -e '.[test]'"
   ],
-  "created_at": "2026-06-01T17:24:59+00:00",
+  "created_at": "2026-06-14T01:26:41+00:00",
   "error_codes": [],
   "evidence_ref_count": 11,
   "evidence_refs": [
@@ -78,6 +78,23 @@
     "skills/cold_start_navigation.md",
     "tests/test_runtime_shell.py"
   ],
+  "real_lane_witness": {
+    "body_in_receipt": false,
+    "bundle_id": "public_reveal_walkthrough_runtime_example",
+    "command_count": 8,
+    "current_body_material_count": 5,
+    "current_input_is_exported_bundle_witness": true,
+    "current_source_body_import_status": "pass",
+    "error_codes": [],
+    "evidence_ref_count": 11,
+    "input_mode": "exported_public_reveal_bundle",
+    "secret_exclusion_blocking_hit_count": 0,
+    "source_body_imports_required_for_witness": true,
+    "source_module_manifest_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",
+    "status": "pass",
+    "witness_action": "run-reveal-bundle",
+    "witness_input_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle"
+  },
   "real_runtime_receipt": true,
   "receipt_id": "public_reveal_walkthrough_exported_bundle_receipt_v1",
   "receipt_paths": [
@@ -92,6 +109,7 @@
     "private_data_equivalence_claim": false,
     "provider_calls_authorized": false,
     "release_authorized": false,
+    "source_checkout_first_command": "PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch",
     "step_count": 5,
     "steps": [
       {
@@ -111,6 +129,9 @@
           ".microcosm/routes.json"
         ],
         "minute_range": "0-2",
+        "source_checkout_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch"
+        ],
         "step_id": "install_and_compile"
       },
       {
@@ -128,6 +149,9 @@
           ".microcosm/evidence/"
         ],
         "minute_range": "2-4",
+        "source_checkout_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core explain /tmp/microcosm-scratch missing_tests_route"
+        ],
         "step_id": "inspect_route_explanation"
       },
       {
@@ -145,6 +169,9 @@
           "/project/observatory"
         ],
         "minute_range": "4-6",
+        "source_checkout_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765"
+        ],
         "step_id": "open_observatory"
       },
       {
@@ -165,6 +192,10 @@
           "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json"
         ],
         "minute_range": "6-8",
+        "source_checkout_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core run --card examples/runtime_shell/demo_project",
+          "PYTHONPATH=src python3 -m microcosm_core intake --card"
+        ],
         "step_id": "run_adapter_spine"
       },
       {
@@ -184,6 +215,10 @@
           "skills/cold_start_navigation.md"
         ],
         "minute_range": "8-10",
+        "source_checkout_commands": [
+          "PYTHONPATH=src python3 -m microcosm_core evidence list",
+          "PYTHONPATH=src python3 -m microcosm_core authority --card"
+        ],
         "step_id": "read_authority_boundary"
       }
     ],
@@ -216,6 +251,15 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
+  "source_checkout_commands": [
+    "PYTHONPATH=src python3 -m microcosm_core authority --card",
+    "PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch",
+    "PYTHONPATH=src python3 -m microcosm_core evidence list",
+    "PYTHONPATH=src python3 -m microcosm_core explain /tmp/microcosm-scratch missing_tests_route",
+    "PYTHONPATH=src python3 -m microcosm_core intake --card",
+    "PYTHONPATH=src python3 -m microcosm_core run --card examples/runtime_shell/demo_project",
+    "PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765"
+  ],
   "source_module_count": 5,
   "source_module_import_status": "copied_non_secret_public_reveal_macro_body_landed",
   "source_module_manifest_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",

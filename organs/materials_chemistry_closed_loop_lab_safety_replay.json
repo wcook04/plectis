@@ -145,8 +145,7 @@
       "source_ref": "core/organ_atlas.json::organs[44:materials_chemistry_closed_loop_lab_safety_replay]",
       "specialty": [
         "research-workflows",
-        "forecasting",
-        "finance"
+        "forecasting"
       ],
       "standalone_or_wired": "standalone_specimen",
       "wires_to": [
@@ -467,8 +466,7 @@
   ],
   "specialty": [
     "research-workflows",
-    "forecasting",
-    "finance"
+    "forecasting"
   ],
   "statement": "An agent runs this to validate that a closed-loop materials-lab replay fixture is body-free and simulator-only, and to confirm its safety gates reject wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, live lab credentials, robot commands, private lab notebooks, and discovery claims.",
   "status": "accepted_current_authority",

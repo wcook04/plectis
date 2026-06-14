@@ -164,8 +164,8 @@
   ],
   "generation": {
     "command": "python -m microcosm_core.doctrine_lattice --write-entry-card",
-    "coverage_projection_digest": "e12fec89fe9840760ae476963389ca872e62a67fc27b864153a68ccf7d370129",
-    "generated_at": "2026-06-14T00:46:52.470005Z",
+    "coverage_projection_digest": "70024786ffc5ccc77c32c805d58f6c68b7427cdd832f0f777cd2a4e519fd2aa9",
+    "generated_at": "2026-06-14T06:51:48.344184Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],

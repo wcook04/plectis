@@ -144,8 +144,8 @@
       "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
       "specialty": [
         "getting-started",
-        "evaluation",
-        "finance"
+        "interesting-parts",
+        "evaluation"
       ],
       "standalone_or_wired": "wired",
       "wires_to": [
@@ -581,8 +581,8 @@
   ],
   "specialty": [
     "getting-started",
-    "evaluation",
-    "finance"
+    "interesting-parts",
+    "evaluation"
   ],
   "statement": "An agent runs it to validate the public reveal card, require the exported reveal-bundle witness, digest-check five copied non-secret public source bodies, confirm source-open body accounting, keep the secret scan clean, and prove the negative cases reject release/hosting overclaim, private-data-equivalence overclaim, missing evidence refs, marketing-only material, and tampered source-module digests.",
   "status": "accepted_current_authority",

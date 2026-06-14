@@ -2426,8 +2426,10 @@ flowchart LR
   mechanism_mechanism_cold_clone_probe_validates_public_source_root_bootstrap["mechanism:mechanism.cold_clone_probe.validates_public_source_root_bootstrap: validates public source root bootstrap"]:::mechanism
   code_locus_src_microcosm_core_cold_clone_probe_py["code_locus:src/microcosm_core/cold_clone_probe.py"]
   mechanism_mechanism_cold_clone_probe_validates_public_source_root_bootstrap -- grounded_in --> code_locus_src_microcosm_core_cold_clone_probe_py
-  organ_cold_clone_probe["organ:cold_clone_probe"]:::residual
-  mechanism_mechanism_cold_clone_probe_validates_public_source_root_bootstrap -- runs_in --> organ_cold_clone_probe
+  organ_pattern_binding_contract["organ:pattern_binding_contract"]
+  mechanism_mechanism_cold_clone_probe_validates_public_source_root_bootstrap -- runs_in --> organ_pattern_binding_contract
+  concept_concept_architecture_and_navigation_route_contract_bundle["concept:concept.architecture_and_navigation_route_contract_bundle"]
+  mechanism_mechanism_cold_clone_probe_validates_public_source_root_bootstrap -- grounds --> concept_concept_architecture_and_navigation_route_contract_bundle
   concept_concept_entry_and_reveal_route_readiness_bundle["concept:concept.entry_and_reveal_route_readiness_bundle"]
   mechanism_mechanism_cold_clone_probe_validates_public_source_root_bootstrap -- grounds --> concept_concept_entry_and_reveal_route_readiness_bundle
   mechanism_mechanism_cold_reader_route_map_validates_public_first_run_route_map["mechanism:mechanism.cold_reader_route_map.validates_public_first_run_route_map: validates public first run route map"]:::mechanism

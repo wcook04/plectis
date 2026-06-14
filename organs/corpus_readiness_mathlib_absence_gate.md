@@ -9,7 +9,7 @@ _Generated from the governed organ JSON instance. Do not edit this markdown by h
 
 ## Role
 
-An agent runs it to check, against copied non-secret readiness rows, whether the recorded Mathlib import probe passed and therefore which consumer cases are allowed versus blocked before routing proof or premise work. It validates and projects the recorded accounting only; it does not itself import Mathlib, run Lean, or prove anything.
+An agent runs it to check, against copied non-secret readiness rows, whether the Mathlib import probe passed and therefore which consumer cases are allowed versus blocked before routing proof or premise work. It validates and projects the recorded accounting and, when a Lean toolchain is present, runs a bounded Std/Mathlib import probe; it does not run a full Lake build or prove anything.
 
 ## Lattice Neighbours
 

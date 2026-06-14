@@ -115,7 +115,7 @@
       "display_name": "Cold Reader Route Map",
       "evidence_class": "semantic_validator",
       "family": "entry_and_reveal",
-      "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+      "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
       "human_gloss": "It checks Microcosm's \"what do I run first\" guided path so that every step on the cold-reader route map is backed by a real command, a public doc reference, and an evidence receipt instead of just prose promises. A newcomer can therefore trust that the suggested ten-minute first-run tour is actually wired and honestly labeled, with small verified counts shown as plain accounting rather than success badges.",
       "mechanism_refs": [
         {
@@ -143,6 +143,7 @@
       "specialty": [
         "agent-entry",
         "getting-started",
+        "interesting-parts",
         "evaluation",
         "provider-ops"
       ],
@@ -638,6 +639,7 @@
   "specialty": [
     "agent-entry",
     "getting-started",
+    "interesting-parts",
     "evaluation",
     "provider-ops"
   ],

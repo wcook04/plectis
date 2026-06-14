@@ -15,7 +15,7 @@
     "source_mutation_authorized": false
   },
   "command": "microcosm trace-lens",
-  "created_at": "2026-05-26T01:10:13+00:00",
+  "created_at": "2026-06-14T01:26:41+00:00",
   "endpoint": "/trace",
   "evidence_refs": [
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
@@ -43,6 +43,7 @@
   ],
   "observed_source_negative_case_ids": [
     "authority_overclaim",
+    "available_tactic_missing_duration",
     "context_recipe_budget_overflow",
     "corpus_readiness_overclaims_mathlib",
     "invalid_proof_rejected",
@@ -50,6 +51,7 @@
     "mathlib_import_forbidden",
     "missing_compile_status",
     "post_execution_route",
+    "preferred_unavailable_fallback",
     "premise_index_proof_body_forbidden",
     "private_source_ref_forbidden",
     "proof_body_in_manifest_forbidden",
@@ -58,9 +60,11 @@
     "query_oracle_ids_forbidden",
     "release_overclaim",
     "routing_allows_unavailable_tactic",
+    "shape_preferred_tactic_overridden",
     "tactic_availability_without_probe",
     "test_split_tuning_attempt",
     "unavailable_tactic_admitted",
+    "unknown_shape_fallback",
     "unknown_strategy_id",
     "unprobed_tactic_allowed",
     "unprobed_tactic_referenced"

@@ -74,7 +74,7 @@
   },
   "organ_id": "batch8_validator_checker_capsule",
   "organ_payload": {
-    "claim_ceiling": "verified non-secret validators.py macro body import only, not source authority, full validator-suite proof, private-root equivalence, release, hosted-public, publication, provider dispatch, or source mutation authority",
+    "claim_ceiling": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
     "contract_version": "microcosm_organ_instance_payload_v1",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -96,7 +96,7 @@
         "AX-5",
         "AX-8"
       ],
-      "claim_ceiling_restated": "verified non-secret validators.py macro body import only, not source authority, full validator-suite proof, private-root equivalence, release, hosted-public, publication, provider dispatch, or source mutation authority",
+      "claim_ceiling_restated": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/batch8_validator_checker_capsule.py",

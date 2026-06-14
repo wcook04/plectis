@@ -71,7 +71,7 @@
   },
   "organ_id": "batch10_governance_compilers_capsule",
   "organ_payload": {
-    "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, publication, live ledger authority, or source mutation authority",
+    "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live ledger control, or source mutation authority.",
     "contract_version": "microcosm_organ_instance_payload_v1",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -93,7 +93,7 @@
         "AX-5",
         "AX-8"
       ],
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, publication, live ledger authority, or source mutation authority",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, publication, live ledger control, or source mutation authority.",
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/batch10_governance_compilers_capsule.py",

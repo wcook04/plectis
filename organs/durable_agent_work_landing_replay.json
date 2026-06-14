@@ -67,7 +67,7 @@
   },
   "organ_id": "durable_agent_work_landing_replay",
   "organ_payload": {
-    "claim_ceiling": "It validates only the declared public work-landing contract over recorded rows; it does not mutate Git, stage unrelated dirty paths, prove a commit actually landed, export private source bodies, call providers, publish/host, or authorize release.",
+    "claim_ceiling": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, private body export, service operation, or distribution clearance.",
     "contract_version": "microcosm_organ_instance_payload_v1",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -87,7 +87,7 @@
         "AX-4",
         "AX-9"
       ],
-      "claim_ceiling_restated": "It validates only the declared public work-landing contract over recorded rows; it does not mutate Git, stage unrelated dirty paths, prove a commit actually landed, export private source bodies, call providers, publish/host, or authorize release.",
+      "claim_ceiling_restated": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, private body export, service operation, or distribution clearance.",
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/durable_agent_work_landing_replay.py",

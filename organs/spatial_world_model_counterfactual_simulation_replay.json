@@ -72,7 +72,7 @@
   },
   "organ_id": "spatial_world_model_counterfactual_simulation_replay",
   "organ_payload": {
-    "claim_ceiling": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows; it does not operate robots or AVs, claim real-world geographic accuracy, sell or validate a simulator product, treat generated video as authority, report benchmark scores, call providers, publish, host, or authorize release.",
+    "claim_ceiling": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
     "contract_version": "microcosm_organ_instance_payload_v1",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -94,7 +94,7 @@
         "AX-5",
         "AX-7"
       ],
-      "claim_ceiling_restated": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows; it does not operate robots or AVs, claim real-world geographic accuracy, sell or validate a simulator product, treat generated video as authority, report benchmark scores, call providers, publish, host, or authorize release.",
+      "claim_ceiling_restated": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",

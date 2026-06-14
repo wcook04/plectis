@@ -251,14 +251,14 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-06-01T03:09:22+00:00",
+  "created_at": "2026-06-14T01:26:42+00:00",
   "endpoint": "/spatial-simulation",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "freshness_basis": {
     "command": "microcosm spatial-simulation",
-    "digest": "sha256:f0a111cf9b3eea4e978a3ce8a60557b98694763ed46961d3790b9bef3a18a078",
-    "input_count": 11,
+    "digest": "sha256:c87d690476d6ec1c2fba6cd681e8b180081afe0a152b239cccd969b944ba2d34",
+    "input_count": 12,
     "input_mode": "exported_spatial_world_model_simulation_bundle",
     "input_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
     "inputs": [
@@ -283,9 +283,14 @@
         "sha256": "sha256:f249fd3572acf9f783f0e89b91b5b36faf7fe1e545308102360e9d5319841c83"
       },
       {
-        "bytes": 5404,
+        "bytes": 6675,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/state_transitions.json",
+        "sha256": "sha256:64e4e32bc599cecadccb7b5df93d33372348c2ac7be8f2c196df3951c22b09ef"
+      },
+      {
+        "bytes": 5426,
         "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
-        "sha256": "sha256:c86c1eb70c15203611829bbe544bdc1da0c53492838dfeb92f9c82c9b4b1b932"
+        "sha256": "sha256:c2f64cfd41ffc251ec428f9aa9a24d631fdb970a97419f37daf736875e3ab9df"
       },
       {
         "bytes": 2768,
@@ -303,14 +308,14 @@
         "sha256": "sha256:9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3"
       },
       {
-        "bytes": 2661,
+        "bytes": 2807,
         "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json",
-        "sha256": "sha256:72c0a7fe7a241223538db093568f9a5f5672994c3b566ce297de1dd90621a9da"
+        "sha256": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029"
       },
       {
-        "bytes": 50266,
+        "bytes": 71736,
         "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
-        "sha256": "sha256:470275a75b76478d0bac8c01d8068fe7405952312dc3a160c022f7be55846663"
+        "sha256": "sha256:d4d4686e7a6d5af3b175826fc6b75805a2d277431c664c72d704ffc365bbecdc"
       },
       {
         "bytes": 4362,
@@ -476,7 +481,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 9,
+    "scanned_path_count": 10,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -491,11 +496,15 @@
   "selected_route_id": "spatial_world_model_counterfactual_simulation_replay",
   "simulation_summary": {
     "benchmark_score_claim_count": 0,
+    "deterministic_simulation_pass_count": 6,
     "fidelity_limit_count": 6,
     "generated_video_only_authority_count": 0,
     "geographic_accuracy_claim_count": 0,
+    "gridworld_step_count": 6,
     "live_operation_authorized_count": 0,
     "oracle_state_check_count": 6,
+    "predicted_actual_match_count": 6,
+    "predicted_state_body_count": 6,
     "private_video_export_count": 0,
     "rare_event_coverage_count": 6,
     "raw_sensor_data_export_count": 0,
@@ -504,6 +513,7 @@
     "scene_state_count": 6,
     "sensor_packet_ref_count": 12,
     "simulator_product_claim_count": 0,
+    "state_transition_count": 6,
     "transition_diff_count": 6
   },
   "source_module_import_status": "copied_non_secret_macro_body_landed",
@@ -528,6 +538,7 @@
         "anchor_count": 6,
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
         "line_count": 175,
         "material_class": "public_macro_tool_body",
@@ -551,6 +562,7 @@
         "anchor_count": 4,
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
         "line_count": 44,
         "material_class": "public_macro_tool_body",
@@ -572,21 +584,22 @@
         "anchor_count": 3,
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
-        "line_count": 62,
+        "line_count": 63,
         "material_class": "public_macro_tool_body",
         "module_id": "station_geometry_build_wiring_source_body_import",
         "required_anchors": [
-          "\"build\": \"npm run check:station-geometry && tsc -b && vite build\"",
-          "\"build:web\": \"npm run check:station-geometry && tsc -b && vite build\"",
+          "\"build\": \"npm run check:station-geometry && npm run typecheck && vite build\"",
+          "\"build:web\": \"npm run check:station-geometry && npm run typecheck && vite build\"",
           "\"check:station-geometry\": \"cd ../../.. && ./repo-python tools/meta/factory/check_station_geometry.py --check\""
         ],
         "source_ref": "system/server/ui/package.json",
-        "source_sha256": "72c0a7fe7a241223538db093568f9a5f5672994c3b566ce297de1dd90621a9da",
+        "source_sha256": "a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
         "status": "pass",
-        "target_body_digest": "sha256:72c0a7fe7a241223538db093568f9a5f5672994c3b566ce297de1dd90621a9da",
+        "target_body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
         "target_ref": "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json",
-        "target_sha256": "72c0a7fe7a241223538db093568f9a5f5672994c3b566ce297de1dd90621a9da"
+        "target_sha256": "a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029"
       }
     ],
     "public_safe_body_material_ids": [
@@ -637,6 +650,198 @@
     "paper_modules/spatial_world_model_counterfactual_simulation_replay.md"
   ],
   "spatial_simulation_lens_ref": "receipts/runtime_shell/public_spatial_world_model_counterfactual_simulation_replay_lens.json",
+  "state_transition_analysis": {
+    "actual_actor_count_delta_values": [
+      1
+    ],
+    "analysis_kind": "deterministic_public_metadata_state_transition_check",
+    "body_in_receipt": false,
+    "deterministic_simulation_pass_count": 6,
+    "gridworld_dimensions": [
+      8,
+      8
+    ],
+    "gridworld_step_count": 6,
+    "max_actual_actor_count_delta": 1,
+    "oracle_state_check_body_count": 6,
+    "predicted_actual_match_count": 6,
+    "predicted_state_body_count": 6,
+    "replay_transition_count": 6,
+    "runtime_kind": "deterministic_toy_gridworld_step",
+    "status": "pass",
+    "transition_count": 6,
+    "transition_diff_body_count": 6,
+    "transition_rows": [
+      {
+        "actor_count_delta": 1,
+        "actual_actor_count": 6,
+        "actual_actor_count_delta": 1,
+        "actual_next_state_ref": "actual_gridworld_state::crosswalk_child_emergence_slowdown",
+        "actual_spawn_cell": [
+          4,
+          2
+        ],
+        "actual_spawn_cells": [
+          [
+            4,
+            2
+          ]
+        ],
+        "body_in_receipt": false,
+        "findings": [],
+        "gridworld_step_executed": true,
+        "gridworld_world_ref": "toy_gridworld::crosswalk_child_emergence_slowdown",
+        "oracle_state_check_ref": "oracle_check::crosswalk_child_emergence_slowdown",
+        "predicted_actor_count": 6,
+        "predicted_state_ref": "predicted_state::crosswalk_child_emergence_slowdown",
+        "replay_id": "crosswalk_child_emergence_slowdown",
+        "scene_state_ref": "scene_state::crosswalk_child_emergence_slowdown",
+        "simulation_passed": true,
+        "source_actor_count": 5,
+        "transition_diff_ref": "transition_diff::crosswalk_child_emergence_slowdown"
+      },
+      {
+        "actor_count_delta": 1,
+        "actual_actor_count": 7,
+        "actual_actor_count_delta": 1,
+        "actual_next_state_ref": "actual_gridworld_state::drone_corridor_gust_recovery",
+        "actual_spawn_cell": [
+          6,
+          7
+        ],
+        "actual_spawn_cells": [
+          [
+            6,
+            7
+          ]
+        ],
+        "body_in_receipt": false,
+        "findings": [],
+        "gridworld_step_executed": true,
+        "gridworld_world_ref": "toy_gridworld::drone_corridor_gust_recovery",
+        "oracle_state_check_ref": "oracle_check::drone_corridor_gust_recovery",
+        "predicted_actor_count": 7,
+        "predicted_state_ref": "predicted_state::drone_corridor_gust_recovery",
+        "replay_id": "drone_corridor_gust_recovery",
+        "scene_state_ref": "scene_state::drone_corridor_gust_recovery",
+        "simulation_passed": true,
+        "source_actor_count": 6,
+        "transition_diff_ref": "transition_diff::drone_corridor_gust_recovery"
+      },
+      {
+        "actor_count_delta": 1,
+        "actual_actor_count": 10,
+        "actual_actor_count_delta": 1,
+        "actual_next_state_ref": "actual_gridworld_state::intersection_unprotected_turn_yield",
+        "actual_spawn_cell": [
+          6,
+          2
+        ],
+        "actual_spawn_cells": [
+          [
+            6,
+            2
+          ]
+        ],
+        "body_in_receipt": false,
+        "findings": [],
+        "gridworld_step_executed": true,
+        "gridworld_world_ref": "toy_gridworld::intersection_unprotected_turn_yield",
+        "oracle_state_check_ref": "oracle_check::intersection_unprotected_turn_yield",
+        "predicted_actor_count": 10,
+        "predicted_state_ref": "predicted_state::intersection_unprotected_turn_yield",
+        "replay_id": "intersection_unprotected_turn_yield",
+        "scene_state_ref": "scene_state::intersection_unprotected_turn_yield",
+        "simulation_passed": true,
+        "source_actor_count": 9,
+        "transition_diff_ref": "transition_diff::intersection_unprotected_turn_yield"
+      },
+      {
+        "actor_count_delta": 1,
+        "actual_actor_count": 9,
+        "actual_actor_count_delta": 1,
+        "actual_next_state_ref": "actual_gridworld_state::loading_dock_pallet_shift_replan",
+        "actual_spawn_cell": [
+          6,
+          1
+        ],
+        "actual_spawn_cells": [
+          [
+            6,
+            1
+          ]
+        ],
+        "body_in_receipt": false,
+        "findings": [],
+        "gridworld_step_executed": true,
+        "gridworld_world_ref": "toy_gridworld::loading_dock_pallet_shift_replan",
+        "oracle_state_check_ref": "oracle_check::loading_dock_pallet_shift_replan",
+        "predicted_actor_count": 9,
+        "predicted_state_ref": "predicted_state::loading_dock_pallet_shift_replan",
+        "replay_id": "loading_dock_pallet_shift_replan",
+        "scene_state_ref": "scene_state::loading_dock_pallet_shift_replan",
+        "simulation_passed": true,
+        "source_actor_count": 8,
+        "transition_diff_ref": "transition_diff::loading_dock_pallet_shift_replan"
+      },
+      {
+        "actor_count_delta": 1,
+        "actual_actor_count": 8,
+        "actual_actor_count_delta": 1,
+        "actual_next_state_ref": "actual_gridworld_state::mobile_robot_reflective_floor_detour",
+        "actual_spawn_cell": [
+          5,
+          5
+        ],
+        "actual_spawn_cells": [
+          [
+            5,
+            5
+          ]
+        ],
+        "body_in_receipt": false,
+        "findings": [],
+        "gridworld_step_executed": true,
+        "gridworld_world_ref": "toy_gridworld::mobile_robot_reflective_floor_detour",
+        "oracle_state_check_ref": "oracle_check::mobile_robot_reflective_floor_detour",
+        "predicted_actor_count": 8,
+        "predicted_state_ref": "predicted_state::mobile_robot_reflective_floor_detour",
+        "replay_id": "mobile_robot_reflective_floor_detour",
+        "scene_state_ref": "scene_state::mobile_robot_reflective_floor_detour",
+        "simulation_passed": true,
+        "source_actor_count": 7,
+        "transition_diff_ref": "transition_diff::mobile_robot_reflective_floor_detour"
+      },
+      {
+        "actor_count_delta": 1,
+        "actual_actor_count": 5,
+        "actual_actor_count_delta": 1,
+        "actual_next_state_ref": "actual_gridworld_state::warehouse_occlusion_left_forklift_stop",
+        "actual_spawn_cell": [
+          2,
+          7
+        ],
+        "actual_spawn_cells": [
+          [
+            2,
+            7
+          ]
+        ],
+        "body_in_receipt": false,
+        "findings": [],
+        "gridworld_step_executed": true,
+        "gridworld_world_ref": "toy_gridworld::warehouse_occlusion_left_forklift_stop",
+        "oracle_state_check_ref": "oracle_check::warehouse_occlusion_left_forklift_stop",
+        "predicted_actor_count": 5,
+        "predicted_state_ref": "predicted_state::warehouse_occlusion_left_forklift_stop",
+        "replay_id": "warehouse_occlusion_left_forklift_stop",
+        "scene_state_ref": "scene_state::warehouse_occlusion_left_forklift_stop",
+        "simulation_passed": true,
+        "source_actor_count": 4,
+        "transition_diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop"
+      }
+    ]
+  },
   "status": "pass",
   "unsafe_payload_bodies_in_receipt": false,
   "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"

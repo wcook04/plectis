@@ -70,7 +70,7 @@
   },
   "organ_id": "batch8_structural_theses_capsule",
   "organ_payload": {
-    "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+    "claim_ceiling": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
     "contract_version": "microcosm_organ_instance_payload_v1",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -92,7 +92,7 @@
         "AX-5",
         "AX-8"
       ],
-      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "claim_ceiling_restated": "It validates only the imported macro body. It does not claim source authority, private-root equivalence, release, or publication.",
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/batch8_structural_theses_capsule.py",

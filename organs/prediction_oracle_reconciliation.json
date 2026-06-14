@@ -142,7 +142,6 @@
       "specialty": [
         "research-workflows",
         "forecasting",
-        "finance",
         "provider-ops"
       ],
       "standalone_or_wired": "standalone_specimen",
@@ -463,7 +462,6 @@
   "specialty": [
     "research-workflows",
     "forecasting",
-    "finance",
     "provider-ops"
   ],
   "statement": "An agent runs it to check that a synthetic prediction packet passes the projection gates (resolved CP1 fork with kept invalidation rationale, CP2 targets inside the declared universe, no post-target evidence refs, graded oracle diff, bounded public-delta dossier edits), that the six negative fixtures each trip their expected rejection code, and that the authority ceiling keeps trading/advice/provider/live-market/publication/release/private-equivalence all false.",

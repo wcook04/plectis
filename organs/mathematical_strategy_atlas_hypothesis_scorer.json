@@ -137,8 +137,7 @@
       "specialty": [
         "formal-methods",
         "theorem-proving",
-        "lean",
-        "finance"
+        "lean"
       ],
       "standalone_or_wired": "standalone_specimen",
       "wires_to": [],
@@ -431,8 +430,7 @@
   "specialty": [
     "formal-methods",
     "theorem-proving",
-    "lean",
-    "finance"
+    "lean"
   ],
   "statement": "An agent runs this to deterministically pick a pre-proof strategy hypothesis and retrieval terms from problem feature tags (highest feature overlap wins; zero overlap becomes a typed strategy-selection miss), and to check that unknown strategy ids, proof bodies, oracle labels, post-oracle selection, and release/proof/provider overclaims are all rejected.",
   "status": "accepted_current_authority",
