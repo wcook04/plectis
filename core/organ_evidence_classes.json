@@ -162,7 +162,7 @@
       "organ_id": "ring2_premise_retrieval_precision_recall_harness"
     },
     {
-      "classification_basis": "bounded public runtime validation over three digest-verified copied macro pattern provenance bodies plus body-free replay rows; the runner recomputes public trace pass/quarantine verdicts and rejects source-module digest, manifest-boundary, source-evidence, and declared-verdict negatives without claiming benchmark performance",
+      "classification_basis": "validates three copied public-safe macro pattern provenance bodies by source-module manifest digest and checks each replay row's structure and negatives, but the pass/quarantine verdict is a consistency fold over fixture-declared contamination flags, not in-process runtime computation",
       "evidence_class": "algorithmic_projection",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
     },
@@ -269,12 +269,12 @@
       "organ_id": "cold_reader_route_map"
     },
     {
-      "classification_basis": "bounded runtime computation verifies copied public monitor-redteam macro pattern bodies and sanitized dogfood trace slices, recomputes monitor verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
+      "classification_basis": "validates copied public monitor-redteam macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the monitor verdict is a consistency fold over fixture-declared spans, not in-process runtime computation",
       "evidence_class": "algorithmic_projection",
       "organ_id": "agent_monitor_redteam_falsification_replay"
     },
     {
-      "classification_basis": "bounded runtime computation verifies copied public sabotage/scheming monitor macro pattern bodies and sanitized dogfood trace slices, recomputes caught-verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
+      "classification_basis": "validates copied public sabotage/scheming monitor macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the caught-verdict is a consistency fold over fixture-declared scores, not in-process runtime computation",
       "evidence_class": "algorithmic_projection",
       "organ_id": "agent_sabotage_scheming_monitor_replay"
     },

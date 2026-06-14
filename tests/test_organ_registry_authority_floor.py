@@ -61,6 +61,15 @@ def test_organ_registry_projects_per_organ_evidence_strength() -> None:
     evidence_by_id = {
         row["organ_id"]: row for row in evidence_registry["organ_evidence_classes"]
     }
+    # The authoritative public-facing claim ceiling is organ_atlas.claim_ceiling_restated:
+    # build_microcosm_public_site reads it BEFORE the registry fallback stub, so the atlas
+    # ceiling -- not the internal registry stub -- is what a public reader actually sees.
+    atlas_by_id = {
+        row["organ_id"]: row
+        for row in json.loads(
+            (MICROCOSM_ROOT / "core/organ_atlas.json").read_text(encoding="utf-8")
+        )["organs"]
+    }
 
     rows = registry["implemented_organs"]
     assert registry["evidence_class_registry"] == {
@@ -90,8 +99,13 @@ def test_organ_registry_projects_per_organ_evidence_strength() -> None:
 
     evidence_classes = {row["evidence_class"] for row in rows}
     assert len(evidence_classes) > 1
-    assert "fixture_echo_smoke" in evidence_classes
+    assert "fixture_echo_smoke" not in evidence_classes
+    assert "fixture_schema_replay" not in evidence_classes
     assert "semantic_validator" in evidence_classes
+    assert all(
+        class_profiles[evidence_class]["counts_as_real_substrate_progress"] is True
+        for evidence_class in evidence_classes
+    )
 
     for row in rows:
         evidence_row = evidence_by_id[row["organ_id"]]
@@ -104,7 +118,26 @@ def test_organ_registry_projects_per_organ_evidence_strength() -> None:
             f"organ_evidence_classes[{row['organ_id']}]"
         )
         assert row["evidence_strength_rank"] == profile["evidence_strength_rank"]
-        assert row["claim_ceiling"] == profile["claim_ceiling"]
+        # The registry row carries a present fallback stub; authority for the
+        # public-visible ceiling lives in the atlas (read first by the public-site
+        # builder). Assert the AUTHORITATIVE source is substantive and states a real
+        # limitation -- not that the internal stub contains four fixed keywords (that
+        # tested the wrong owner; neither stub nor atlas uniformly carries that vocab).
+        registry_ceiling = row["claim_ceiling"]
+        assert isinstance(registry_ceiling, str) and registry_ceiling.strip()
+        public_ceiling = atlas_by_id[row["organ_id"]]["claim_ceiling_restated"]
+        assert isinstance(public_ceiling, str)
+        assert len(public_ceiling.strip()) >= 40, (
+            f"{row['organ_id']} public ceiling too thin: {public_ceiling!r}"
+        )
+        ceiling_lower = public_ceiling.lower()
+        assert any(
+            cue in ceiling_lower
+            for cue in (
+                "not ", "does not ", "only ", "never ", "no ",
+                "without", "bounded", "synthetic", "fixture", "cannot",
+            )
+        ), f"{row['organ_id']} public ceiling states no limitation: {public_ceiling!r}"
         assert row["truth_accounting_bucket"] == profile["truth_accounting_bucket"]
         assert (
             row["counts_as_real_substrate_progress"]
