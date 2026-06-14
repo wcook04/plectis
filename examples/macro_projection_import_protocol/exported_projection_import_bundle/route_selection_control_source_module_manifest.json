@@ -57,9 +57,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 404194,
+      "byte_count": 404883,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 9790,
+      "line_count": 9802,
       "material_class": "public_macro_tool_body",
       "module_id": "route_selection_entry_packet_body_import",
       "required_anchors": [
@@ -73,17 +73,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
       "source_role": "Kernel entry packet and route-lease control plane for task recognition, active phase routing, WorkItem routing, mutation governance, and first-contact next actions.",
-      "source_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+      "source_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71"
+      "target_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 764177,
+      "byte_count": 781390,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 17364,
+      "line_count": 17788,
       "material_class": "public_macro_tool_body",
       "module_id": "route_selection_option_surface_body_import",
       "required_anchors": [
@@ -97,17 +97,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/standard_option_surface.py",
       "source_role": "Standard-owned option-surface router for artifact-kind rows, standard navigation cards, Microcosm extracted-pattern routing, validation probes, and no-null-pass cards.",
-      "source_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "source_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b"
+      "target_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 145568,
+      "byte_count": 152202,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 3835,
+      "line_count": 3998,
       "material_class": "public_macro_tool_body",
       "module_id": "route_selection_navigation_contract_standard_body_import",
       "required_anchors": [
@@ -121,9 +121,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/standards/std_navigation_contract.json",
       "source_role": "Navigation contract standard defining artifact-kind navigation profiles, band contracts, row shapes, profile gaps, facets, and validation-currentness shape.",
-      "source_sha256": "764cd2c3941e42f24b76413e3c20198def611c8b8a86e6916a2ce7d21e14ad85",
+      "source_sha256": "9edb7ba06fae063bffca4da5cb949c1e18a3952d5a67bdc0f6cae2e031bb1fc6",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
-      "target_sha256": "764cd2c3941e42f24b76413e3c20198def611c8b8a86e6916a2ce7d21e14ad85"
+      "target_sha256": "9edb7ba06fae063bffca4da5cb949c1e18a3952d5a67bdc0f6cae2e031bb1fc6"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation into /tmp, and a fixture route-repair call; copied source modules are body evidence, not authority to run the live macro kernel or inspect private state",
