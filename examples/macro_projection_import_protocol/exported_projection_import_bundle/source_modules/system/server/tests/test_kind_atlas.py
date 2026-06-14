@@ -311,6 +311,16 @@ def test_kind_atlas_marks_supported_rows_and_projection_gaps() -> None:
     assert rows["microcosm_extracted_patterns"]["bands"] == ["cluster_flag", "flag", "card"]
     assert rows["microcosm_extracted_patterns"]["profile_gap"] is None
     assert rows["microcosm_extracted_patterns"]["row_count"] > 0
+    assert rows["microcosm_agent_task_routes"]["support_status"] == "option_surface_supported"
+    assert rows["microcosm_agent_task_routes"]["option_surface_command"].endswith(
+        "--option-surface microcosm_agent_task_routes --band cluster_flag"
+    )
+    assert rows["microcosm_agent_task_routes"]["card_command"].endswith(
+        "--option-surface microcosm_agent_task_routes --band card --ids <task_class>"
+    )
+    assert rows["microcosm_agent_task_routes"]["bands"] == ["cluster_flag", "flag", "card"]
+    assert rows["microcosm_agent_task_routes"]["profile_gap"] is None
+    assert rows["microcosm_agent_task_routes"]["row_count"] > 0
     assert rows["python_files"]["support_status"] == "option_surface_supported"
     assert rows["python_files"]["option_surface_command"].endswith(
         "--option-surface python_files --band cluster_flag"
@@ -484,6 +494,13 @@ def test_kind_atlas_microcosm_extracted_patterns_row_count_matches_option_surfac
     surface = build_option_surface(REPO_ROOT, "microcosm_extracted_patterns", band="flag")
 
     assert atlas_rows["microcosm_extracted_patterns"]["row_count"] == surface["summary"]["total_available"]
+
+
+def test_kind_atlas_microcosm_agent_task_routes_row_count_matches_option_surface_total() -> None:
+    atlas_rows = _rows_by_id(build_kind_atlas(REPO_ROOT, band="flag"))
+    surface = build_option_surface(REPO_ROOT, "microcosm_agent_task_routes", band="flag")
+
+    assert atlas_rows["microcosm_agent_task_routes"]["row_count"] == surface["summary"]["total_available"]
 
 
 def test_kind_atlas_python_files_row_count_matches_option_surface_total() -> None:

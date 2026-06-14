@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 123976,
+      "byte_count": 127242,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2440,
+      "line_count": 2502,
       "material_class": "public_macro_tool_body",
       "module_id": "kind_atlas_body_import",
       "required_anchors": [
@@ -25,17 +25,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kind_atlas.py",
       "source_role": "Kind Atlas control-plane enumerator that exposes supported artifact kinds, option-surface commands, cluster-first navigation rungs, currentness, and first-contact guardrails without keyword-search authority.",
-      "source_sha256": "a6d2e3befb05c77ae84e8542c171e32771d5edc811d4644071f9394d902f9890",
+      "source_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
-      "target_sha256": "a6d2e3befb05c77ae84e8542c171e32771d5edc811d4644071f9394d902f9890"
+      "target_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 32436,
+      "byte_count": 33455,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 657,
+      "line_count": 674,
       "material_class": "public_macro_tool_body",
       "module_id": "kind_atlas_test_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/server/tests/test_kind_atlas.py",
       "source_role": "Focused regression tests for Kind Atlas row enumeration, option-surface parity, card-band rung support, kernel command JSON output, legacy query guidance, and kinds alias routing.",
-      "source_sha256": "03357b058d0617e5ec2ab0f20561d9b6184e4c5772dfb76f99b3a1f1c46dbb77",
+      "source_sha256": "2ca2573a4cea25243b231d87b144ce1e3d2a63f7d5c950ed9c47475191981522",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
-      "target_sha256": "03357b058d0617e5ec2ab0f20561d9b6184e4c5772dfb76f99b3a1f1c46dbb77"
+      "target_sha256": "2ca2573a4cea25243b231d87b144ce1e3d2a63f7d5c950ed9c47475191981522"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing Kind Atlas regression contract; copied source modules are body evidence, not authority to run live macro kernel state, mutate generated Atlas sidecars, read raw operator voice, access provider payloads, or claim private session state.",

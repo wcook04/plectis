@@ -236,6 +236,10 @@ MICROCOSM_EXTRACTED_PATTERN_ROUTE_STANDARD = Path(
     "codex/standards/std_extracted_pattern_route_readiness.json"
 )
 MICROCOSM_SUBSTRATE_MODULE = Path("codex/doctrine/paper_modules/microcosm_substrate.md")
+MICROCOSM_AGENT_TASK_ROUTES = Path("microcosm-substrate/atlas/agent_task_routes.json")
+MICROCOSM_AGENT_ROUTES_DOC = Path("microcosm-substrate/AGENT_ROUTES.md")
+MICROCOSM_ORGAN_ATLAS_BUILDER = Path("microcosm-substrate/scripts/build_organ_atlas.py")
+MICROCOSM_STANDARD = Path("codex/standards/std_microcosm.json")
 PYTHON_STANDARD = Path("codex/standards/std_python.py")
 PYTHON_SCOPE_INDEX = Path("codex/standards/std_python_scope_index.json")
 FRONTEND_COMPONENT_INDEX = Path("state/frontend_navigation/component_index.json")
@@ -471,6 +475,20 @@ SUPPORTED_MICROCOSM_EXTRACTED_PATTERN_ALIASES = {
     "extracted-patterns",
     "microcosm_portfolio_patterns",
     "microcosm-portfolio-patterns",
+}
+SUPPORTED_MICROCOSM_AGENT_TASK_ROUTE_ALIASES = {
+    "microcosm_agent_task_routes",
+    "microcosm_agent_task_route",
+    "microcosm-agent-task-routes",
+    "microcosm-agent-task-route",
+    "agent_task_routes",
+    "agent_task_route",
+    "agent-task-routes",
+    "agent-task-route",
+    "microcosm_route",
+    "microcosm-route",
+    "microcosm_routes",
+    "microcosm-routes",
 }
 SUPPORTED_PYTHON_FILE_ALIASES = {
     "python_files",
@@ -816,6 +834,8 @@ def _normalize_artifact_kind(value: str) -> str:
         return "annex_distillation_patterns"
     if raw in SUPPORTED_MICROCOSM_EXTRACTED_PATTERN_ALIASES:
         return "microcosm_extracted_patterns"
+    if raw in SUPPORTED_MICROCOSM_AGENT_TASK_ROUTE_ALIASES:
+        return "microcosm_agent_task_routes"
     if raw in SUPPORTED_PYTHON_FILE_ALIASES:
         return "python_files"
     if raw in SUPPORTED_PYTHON_SCOPE_ALIASES:
@@ -8360,6 +8380,399 @@ def build_microcosm_extracted_patterns_option_surface(
             {
                 "command": "./repo-python kernel.py --option-surface microcosm_extracted_patterns --band card --ids <pattern_id>",
                 "reason": "Drill one pattern to load-bearing rationale, fixture proposal, bindings, and readiness checks.",
+            },
+        ],
+        "warnings": [],
+    }
+
+
+def _microcosm_agent_task_routes_payload(repo_root: Path) -> dict[str, Any]:
+    try:
+        payload = _load_json(repo_root / MICROCOSM_AGENT_TASK_ROUTES)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload.get("routes"), list) else {}
+
+
+def _microcosm_agent_task_route_entries(repo_root: Path) -> list[dict[str, Any]]:
+    payload = _microcosm_agent_task_routes_payload(repo_root)
+    entries: list[dict[str, Any]] = []
+    routes = payload.get("routes") if isinstance(payload.get("routes"), list) else []
+    for route in routes:
+        if not isinstance(route, dict):
+            continue
+        task_class = str(route.get("task_class") or "").strip()
+        if not task_class:
+            continue
+        entry = dict(route)
+        entry["task_class"] = task_class
+        entries.append(entry)
+    return sorted(entries, key=lambda row: row["task_class"])
+
+
+def _microcosm_agent_task_route_primary_organ(route: Mapping[str, Any]) -> dict[str, Any]:
+    primary_id = str(route.get("primary_organ_id") or "")
+    organs = route.get("relevant_organs")
+    if isinstance(organs, list):
+        for organ in organs:
+            if isinstance(organ, dict) and str(organ.get("organ_id") or "") == primary_id:
+                return dict(organ)
+        for organ in organs:
+            if isinstance(organ, dict):
+                return dict(organ)
+    return {}
+
+
+def _microcosm_agent_task_route_family(route: Mapping[str, Any]) -> str:
+    primary = _microcosm_agent_task_route_primary_organ(route)
+    return str(primary.get("family") or "unclassified")
+
+
+def _microcosm_agent_task_route_omission_receipt(
+    route: Mapping[str, Any], *, band: str
+) -> dict[str, Any]:
+    omitted = [
+        "full ORGANS.md component cards",
+        "runtime execution output and receipt bodies",
+        "source-module body text",
+        "release, provider, private-state, or proof authority",
+    ]
+    if band == "flag":
+        omitted.append("full relevant-organ rows beyond compact route handles")
+    return {
+        "omitted": omitted,
+        "reason": (
+            "The microcosm_agent_task_routes option surface exposes the generated public"
+            " task-to-organ selector for navigation. Rows select existing accepted-organ"
+            " cards; they do not create source authority or raise any component's ceiling."
+        ),
+        "drilldown": (
+            "./repo-python kernel.py --option-surface microcosm_agent_task_routes "
+            f"--band card --ids {route.get('task_class')}"
+        ),
+    }
+
+
+def _microcosm_agent_task_route_currentness(repo_root: Path) -> dict[str, Any]:
+    payload = _microcosm_agent_task_routes_payload(repo_root)
+    currentness: dict[str, Any] = {
+        "status": (
+            "microcosm_agent_task_routes_projection_available"
+            if payload
+            else "microcosm_agent_task_routes_projection_missing"
+        ),
+        "source_refs": [
+            str(MICROCOSM_AGENT_TASK_ROUTES),
+            str(MICROCOSM_AGENT_ROUTES_DOC),
+            str(MICROCOSM_ORGAN_ATLAS_BUILDER),
+        ],
+        "source_mtimes": {
+            str(MICROCOSM_AGENT_TASK_ROUTES): _source_mtime(repo_root / MICROCOSM_AGENT_TASK_ROUTES),
+            str(MICROCOSM_AGENT_ROUTES_DOC): _source_mtime(repo_root / MICROCOSM_AGENT_ROUTES_DOC),
+            str(MICROCOSM_ORGAN_ATLAS_BUILDER): _source_mtime(repo_root / MICROCOSM_ORGAN_ATLAS_BUILDER),
+        },
+        "generated_at": str(payload.get("generated_at") or "") if payload else "",
+    }
+    currentness["freshness_command"] = (
+        "cd microcosm-substrate && PYTHONPATH=src ../repo-python "
+        "scripts/build_organ_atlas.py --check"
+    )
+    currentness["source_coupling_status"] = "owner_check_required_before_trusting_content"
+    return currentness
+
+
+def _microcosm_agent_task_route_flag_row(
+    route: dict[str, Any],
+    *,
+    repo_root: Path,
+) -> dict[str, Any]:
+    task_class = route["task_class"]
+    primary = _microcosm_agent_task_route_primary_organ(route)
+    relevant_organs = route.get("relevant_organs")
+    organ_count = len(relevant_organs) if isinstance(relevant_organs, list) else 0
+    one_line = _truncate_words(str(route.get("allowed_scope") or ""), max_chars=520)
+    return {
+        "row_id": f"microcosm_agent_task_route:{task_class}::flag",
+        "artifact_kind": "microcosm_agent_task_route",
+        "band": "flag",
+        "task_class": task_class,
+        "title": f"{task_class} -> {route.get('primary_display_name') or route.get('primary_organ_id')}",
+        "claim": one_line,
+        "flag": one_line,
+        "route_role": str(route.get("route_role") or "agent_task_class_to_organ_selector"),
+        "primary_organ_id": str(route.get("primary_organ_id") or ""),
+        "primary_display_name": str(route.get("primary_display_name") or ""),
+        "primary_family": str(primary.get("family") or ""),
+        "primary_evidence_class": str(primary.get("evidence_class") or ""),
+        "organ_count": organ_count,
+        "first_command": str(route.get("first_command") or ""),
+        "evidence_ref": str(route.get("evidence_ref") or ""),
+        "receipt_ref": str(route.get("receipt_ref") or ""),
+        "source_ref": (
+            f"{MICROCOSM_AGENT_TASK_ROUTES}::routes[task_class={task_class}]"
+        ),
+        "drilldown_target": str(route.get("drilldown_target") or ""),
+        "drilldown_command": (
+            "./repo-python kernel.py --option-surface microcosm_agent_task_routes "
+            f"--band card --ids {task_class}"
+        ),
+        "evidence_command": (
+            "cd microcosm-substrate && PYTHONPATH=src ../repo-python "
+            "scripts/build_organ_atlas.py --check"
+        ),
+        "currentness": _microcosm_agent_task_route_currentness(repo_root),
+        "authority_boundary": str(
+            route.get("authority_boundary")
+            or "Task routing only; accepted-organ authority stays with the selected organ row."
+        ),
+        "profile_id": "microcosm_agent_task_route_navigation_v0",
+        "omission_receipt": _microcosm_agent_task_route_omission_receipt(
+            route, band="flag"
+        ),
+    }
+
+
+def _microcosm_agent_task_route_card_row(
+    route: dict[str, Any],
+    *,
+    repo_root: Path,
+) -> dict[str, Any]:
+    row = _microcosm_agent_task_route_flag_row(route, repo_root=repo_root)
+    relevant_organs = [
+        dict(organ)
+        for organ in route.get("relevant_organs", [])
+        if isinstance(organ, dict)
+    ]
+    row.update(
+        {
+            "row_id": f"microcosm_agent_task_route:{route['task_class']}::card",
+            "band": "card",
+            "stop_condition": str(route.get("stop_condition") or ""),
+            "allowed_scope": str(route.get("allowed_scope") or ""),
+            "source_relation_summary": (
+                dict(route.get("source_relation_summary"))
+                if isinstance(route.get("source_relation_summary"), dict)
+                else {}
+            ),
+            "relevant_organs": relevant_organs,
+            "relevant_organ_ids": [
+                str(organ.get("organ_id"))
+                for organ in relevant_organs
+                if organ.get("organ_id")
+            ],
+            "adapter_supported_bands": ["cluster_flag", "flag", "card"],
+            "source_refs": [
+                str(MICROCOSM_AGENT_TASK_ROUTES),
+                str(MICROCOSM_AGENT_ROUTES_DOC),
+                str(MICROCOSM_ORGAN_ATLAS_BUILDER),
+                str(MICROCOSM_STANDARD),
+            ],
+            "nearest_standard": {
+                "ref": str(MICROCOSM_STANDARD),
+                "why": "Keeps Microcosm public entry and first-screen navigation boundaries explicit.",
+            },
+            "generator": {
+                "check_command": (
+                    "cd microcosm-substrate && PYTHONPATH=src ../repo-python "
+                    "scripts/build_organ_atlas.py --check"
+                ),
+                "write_command": (
+                    "cd microcosm-substrate && PYTHONPATH=src ../repo-python "
+                    "scripts/build_organ_atlas.py --write"
+                ),
+                "generated_paths": [
+                    str(MICROCOSM_AGENT_ROUTES_DOC),
+                    str(MICROCOSM_AGENT_TASK_ROUTES),
+                ],
+            },
+            "omission_receipt": _microcosm_agent_task_route_omission_receipt(
+                route, band="card"
+            ),
+        }
+    )
+    return row
+
+
+def _microcosm_agent_task_route_cluster_rows(routes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[str, dict[str, Any]] = {}
+    for route in routes:
+        family = _microcosm_agent_task_route_family(route)
+        primary = _microcosm_agent_task_route_primary_organ(route)
+        bucket = grouped.setdefault(
+            family,
+            {
+                "cluster_id": family,
+                "count": 0,
+                "top_task_classes": [],
+                "_primary_organ_ids": [],
+                "_evidence_classes": [],
+            },
+        )
+        bucket["count"] += 1
+        if len(bucket["top_task_classes"]) < 6:
+            bucket["top_task_classes"].append(route["task_class"])
+        bucket["_primary_organ_ids"].append(route.get("primary_organ_id") or "")
+        bucket["_evidence_classes"].append(primary.get("evidence_class") or "unknown")
+
+    rows = sorted(
+        grouped.values(),
+        key=lambda row: (-int(row.get("count") or 0), str(row.get("cluster_id") or "")),
+    )
+    for row in rows:
+        primary_counts = _python_counter(row.pop("_primary_organ_ids", []))
+        evidence_counts = _python_counter(row.pop("_evidence_classes", []))
+        row["top_primary_organ_ids"] = [
+            key
+            for key, _count in sorted(
+                primary_counts.items(),
+                key=lambda item: (-item[1], item[0]),
+            )[:6]
+            if key
+        ]
+        row["primary_organ_id_counts"] = {
+            key: primary_counts[key] for key in row["top_primary_organ_ids"]
+        }
+        row["evidence_class_counts"] = evidence_counts
+        row["claim"] = f"{row['cluster_id']}: {row['count']} Microcosm agent task routes"
+        row["drilldown_command"] = (
+            "./repo-python kernel.py --option-surface microcosm_agent_task_routes "
+            f"--band flag --ids {','.join(row['top_task_classes'])}"
+        )
+        row["status_boundary"] = (
+            "Cluster rows group generated task selectors by accepted-organ family; "
+            "they do not prove runtime correctness or raise organ authority."
+        )
+    return rows
+
+
+def build_microcosm_agent_task_routes_option_surface(
+    repo_root: Path,
+    *,
+    band: str,
+    ids: list[str],
+    generated_at: str,
+) -> dict[str, Any]:
+    if band not in {"cluster_flag", "flag", "card"}:
+        return _profile_gap_payload(
+            repo_root=repo_root,
+            artifact_kind="microcosm_agent_task_routes",
+            band=band,
+            ids=ids,
+            generated_at=generated_at,
+        )
+
+    payload = _microcosm_agent_task_routes_payload(repo_root)
+    entries = _microcosm_agent_task_route_entries(repo_root)
+    by_task_class = {entry["task_class"]: entry for entry in entries}
+    if ids:
+        rows_source: list[dict[str, Any]] = []
+        missing_ids: list[str] = []
+        seen: set[str] = set()
+        for item in ids:
+            entry = by_task_class.get(item)
+            if not entry:
+                missing_ids.append(item)
+                continue
+            if entry["task_class"] in seen:
+                continue
+            seen.add(entry["task_class"])
+            rows_source.append(entry)
+    else:
+        rows_source = entries
+        missing_ids = []
+
+    if band == "cluster_flag":
+        rows = _microcosm_agent_task_route_cluster_rows(rows_source)
+    elif band == "card":
+        rows = [
+            _microcosm_agent_task_route_card_row(entry, repo_root=repo_root)
+            for entry in rows_source
+        ]
+    else:
+        rows = [
+            _microcosm_agent_task_route_flag_row(entry, repo_root=repo_root)
+            for entry in rows_source
+        ]
+
+    return {
+        "kind": "standard_owned_option_surface",
+        "schema_version": "standard_owned_option_surface_v0",
+        "generated_at": generated_at,
+        "artifact_kind": "microcosm_agent_task_routes",
+        "band": band,
+        "selection": {
+            "mode": "ids" if ids else "all",
+            "ids": ids,
+            "missing_ids": missing_ids,
+        },
+        "profile_status": "supported",
+        "authority_posture": "generated_microcosm_task_selector_not_source_authority",
+        "governing_standard": {
+            "ref": str(MICROCOSM_STANDARD),
+            "owned_bands": ["cluster_flag", "flag", "card"],
+        },
+        "source_refs": [
+            str(MICROCOSM_AGENT_TASK_ROUTES),
+            str(MICROCOSM_AGENT_ROUTES_DOC),
+            str(MICROCOSM_ORGAN_ATLAS_BUILDER),
+            str(MICROCOSM_STANDARD),
+        ],
+        "summary": {
+            "row_count": len(rows),
+            "total_available": len(entries),
+            "query_used": False,
+            "selection_method": (
+                "artifact_kind_cluster_overview_from_agent_task_routes"
+                if band == "cluster_flag"
+                else "artifact_kind_enumeration_from_agent_task_routes"
+            ),
+            "drilldown_by": "accepted_organ_family" if band == "cluster_flag" else "task_class",
+            "source_projection_reused": str(MICROCOSM_AGENT_TASK_ROUTES),
+            "route_count": int(payload.get("route_count") or len(entries)) if payload else len(entries),
+            "accepted_organ_count": int(payload.get("accepted_organ_count") or 0) if payload else 0,
+        },
+        "navigation_boundary": {
+            "not_keyword_search": True,
+            "artifact_kind_first": True,
+            "standard_owned_band_rules": True,
+            "adapter_supported_bands": ["cluster_flag", "flag", "card"],
+            "generated_projection_only": True,
+            "source_authority": False,
+            "public_release_authority": False,
+            "provider_authority": False,
+            "runtime_correctness_authority": False,
+            "cluster_first_for_task_route_browse": band == "cluster_flag",
+        },
+        "omission_receipt": {
+            "omitted": [
+                "full accepted-organ cards outside selected route handles",
+                "source-module body text",
+                "runtime receipts and execution output",
+                "release, provider, private-state, proof, or source mutation authority",
+            ],
+            "reason": (
+                "cluster_flag is the contents page for the generated Microcosm agent task"
+                " selector. Flag/card rows require explicit task_class ids and route only"
+                " to accepted public organ surfaces."
+            ),
+            "drilldown": (
+                "./repo-python kernel.py --option-surface microcosm_agent_task_routes "
+                "--band flag --ids <task_class>"
+            ),
+        },
+        "rows": rows,
+        "next": [
+            {
+                "command": "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band cluster_flag",
+                "reason": "Browse accepted-organ family clusters before expanding task-class route rows.",
+            },
+            {
+                "command": "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band flag --ids <task_class>[,<task_class>...]",
+                "reason": "Browse explicit task-class selectors by stable task_class.",
+            },
+            {
+                "command": "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band card --ids <task_class>",
+                "reason": "Drill one task route to relevant organs, route limits, receipts, and generator checks.",
             },
         ],
         "warnings": [],
@@ -16378,6 +16791,17 @@ def build_option_surface(
     if normalized_kind == "microcosm_extracted_patterns":
         return _with_option_surface_contract(
             build_microcosm_extracted_patterns_option_surface(
+                root,
+                band=normalized_band,
+                ids=selected_ids,
+                generated_at=generated_at,
+            ),
+            normalized_kind=normalized_kind,
+        )
+
+    if normalized_kind == "microcosm_agent_task_routes":
+        return _with_option_surface_contract(
+            build_microcosm_agent_task_routes_option_surface(
                 root,
                 band=normalized_band,
                 ids=selected_ids,

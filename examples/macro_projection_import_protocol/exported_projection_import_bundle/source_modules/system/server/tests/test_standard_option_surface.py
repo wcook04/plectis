@@ -28,6 +28,7 @@ ANNEX_DISTILLATION_TEST_ID = (
     f"{ANNEX_DISTILLATION_TEST_SLUG}:{ANNEX_DISTILLATION_TEST_PATTERN_ID}"
 )
 MICROCOSM_EXTRACTED_PATTERN_TEST_ID = "navigation_hologram_unified_route_plane"
+MICROCOSM_AGENT_TASK_ROUTE_TEST_ID = "agent-concurrency"
 PYTHON_FILE_TEST_ID = "codex/standards/std_python.py"
 PYTHON_SCOPE_TEST_ID = "codex/standards/std_python.py::StandardReference"
 PYTHON_SCOPE_TEST_PATH = "codex/standards/std_python.py"
@@ -4295,6 +4296,54 @@ def test_microcosm_extracted_patterns_card_routes_agent_self_observability_ancho
     assert "route_card_agent_observability_runtime" in membership["route_card_ids"]
     assert "agent_observability_runtime_rows" in membership["router_ids"]
     assert membership["individual_row_selection"] == ["forbidden"]
+
+
+def test_microcosm_agent_task_routes_cluster_flag_groups_by_accepted_organ_family() -> None:
+    payload = build_option_surface(REPO_ROOT, "microcosm_agent_task_routes", band="cluster_flag")
+
+    assert payload["profile_status"] == "supported"
+    assert payload["artifact_kind"] == "microcosm_agent_task_routes"
+    assert payload["summary"]["total_available"] >= 30
+    assert payload["summary"]["drilldown_by"] == "accepted_organ_family"
+    assert payload["navigation_boundary"]["generated_projection_only"] is True
+    assert payload["navigation_boundary"]["source_authority"] is False
+    assert "release, provider, private-state, proof, or source mutation authority" in (
+        payload["omission_receipt"]["omitted"]
+    )
+
+    rows = {row["cluster_id"]: row for row in payload["rows"]}
+    assert rows
+    assert any(
+        MICROCOSM_AGENT_TASK_ROUTE_TEST_ID in row["top_task_classes"]
+        for row in rows.values()
+    )
+
+
+def test_microcosm_agent_task_routes_card_drills_task_selector_boundary() -> None:
+    payload = build_option_surface(
+        REPO_ROOT,
+        "microcosm_agent_task_routes",
+        band="card",
+        ids=[MICROCOSM_AGENT_TASK_ROUTE_TEST_ID],
+    )
+
+    assert payload["profile_status"] == "supported"
+    assert payload["selection"]["missing_ids"] == []
+    assert len(payload["rows"]) == 1
+    row = payload["rows"][0]
+    assert row["row_id"] == (
+        f"microcosm_agent_task_route:{MICROCOSM_AGENT_TASK_ROUTE_TEST_ID}::card"
+    )
+    assert row["artifact_kind"] == "microcosm_agent_task_route"
+    assert row["task_class"] == MICROCOSM_AGENT_TASK_ROUTE_TEST_ID
+    assert row["primary_organ_id"] == "mission_transaction_work_spine"
+    assert "mission_transaction_work_spine" in row["relevant_organ_ids"]
+    assert row["source_ref"] == (
+        "microcosm-substrate/atlas/agent_task_routes.json::routes[task_class=agent-concurrency]"
+    )
+    assert row["generator"]["check_command"].endswith("scripts/build_organ_atlas.py --check")
+    assert row["authority_boundary"]
+    assert "release, provider, private-state, or proof authority" in row["omission_receipt"]["omitted"]
 
 
 def test_python_files_flag_surface_enumerates_scope_index_files() -> None:
