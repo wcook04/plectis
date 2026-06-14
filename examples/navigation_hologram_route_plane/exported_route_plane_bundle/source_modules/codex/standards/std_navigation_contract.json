@@ -3680,6 +3680,169 @@
         "./repo-python kernel.py --kind-band-contract-audit"
       ]
     },
+    "microcosm_agent_task_routes": {
+      "profile_id": "microcosm_agent_task_route_navigation_v0",
+      "artifact_kind": "microcosm_agent_task_routes",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse over generated Microcosm task-class selectors grouped by accepted-organ family.",
+          "minimum_payload": [
+            "cluster_id",
+            "count",
+            "top_task_classes",
+            "top_primary_organ_ids",
+            "status_boundary"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "runtime_receipt_body",
+            "release_or_provider_authority"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One generated task-class selector row with primary organ, first command, evidence ref, receipt ref, and authority boundary.",
+          "minimum_payload": [
+            "task_class",
+            "primary_organ_id",
+            "organ_count",
+            "first_command",
+            "authority_boundary"
+          ],
+          "forbidden": [
+            "full_organ_card_body",
+            "source_module_body_text",
+            "implicit_source_authority"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready route card for one task class, with relevant organs, generator checks, source refs, and scope limits.",
+          "minimum_payload": [
+            "task_class",
+            "relevant_organs",
+            "source_relation_summary",
+            "generator",
+            "omission_receipt"
+          ],
+          "forbidden": [
+            "runtime_correctness_claim",
+            "public_release_authorization",
+            "private_state_equivalence",
+            "support_evidence_upgrade"
+          ],
+          "drilldown_to": "accepted_organ_source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "task_class",
+        "accepted_organ_family",
+        "accepted_organ",
+        "generated_projection",
+        "generator_check"
+      ],
+      "navigable_facets": [
+        "primary_route",
+        "relevant_organs",
+        "authority_boundary",
+        "receipt_ref",
+        "source_relation",
+        "freshness"
+      ],
+      "telescope_facets": [
+        "primary_route",
+        "relevant_organs",
+        "authority_boundary",
+        "receipt_ref",
+        "source_relation",
+        "freshness"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "microcosm-substrate/atlas/agent_task_routes.json"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band flag",
+          "source": "microcosm-substrate/atlas/agent_task_routes.json::routes"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band card --ids <task_class>",
+          "source": "microcosm-substrate/atlas/agent_task_routes.json::routes[task_class=<task_class>]"
+        }
+      },
+      "creator_skill_id": "microcosm_maintenance",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_microcosm.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "generator": "microcosm-substrate/scripts/build_organ_atlas.py",
+        "generated_projection": "microcosm-substrate/atlas/agent_task_routes.json",
+        "projection_boundary": "Microcosm agent task route rows are generated selectors over accepted public organ cards; organ authority stays with each accepted organ's registry row, receipts, standard, paper module, and claim ceiling."
+      },
+      "currentness_policy": {
+        "mode": "owner_builder_check_plus_option_surface_currentness",
+        "rule": "Use option-surface rows for navigation only. Before treating route content as fresh, run the organ-atlas owner check; before mutating route content, change upstream organ source rows and regenerate with the builder.",
+        "check_commands": [
+          "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_organ_atlas.py --check",
+          "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band cluster_flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "task_selector_to_accepted_organ_edges",
+        "rule": "Expose task class, primary organ, relevant organs, first command, receipt refs, and source-relation summaries first; downshift full organ cards, source bodies, and runtime receipts to explicit drilldowns.",
+        "first_order": [
+          "task_class",
+          "primary_organ",
+          "relevant_organs",
+          "first_command",
+          "receipt_ref",
+          "authority_boundary"
+        ],
+        "second_order": [
+          "source_relation_summary",
+          "organ_standard",
+          "paper_module",
+          "generated_receipts"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_organ_atlas.py --check",
+        "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band cluster_flag",
+        "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band card --ids agent-concurrency",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
     "authoring_contracts": {
       "profile_id": "authoring_contracts_navigation_v0",
       "artifact_kind": "authoring_contracts",
