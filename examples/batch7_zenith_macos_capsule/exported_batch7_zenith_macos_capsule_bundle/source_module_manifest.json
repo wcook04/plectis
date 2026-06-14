@@ -5,6 +5,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 517,
       "line_count": 23,
       "path": "source_modules/apps/zenith-macos/Package.swift",
       "required_anchors": [
@@ -22,6 +23,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 13730,
       "line_count": 472,
       "path": "source_modules/apps/zenith-macos/Sources/ZenithApp/ZenithModels.swift",
       "required_anchors": [
@@ -40,6 +42,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 49746,
       "line_count": 1291,
       "path": "source_modules/apps/zenith-macos/Sources/ZenithApp/ZenithAppModel.swift",
       "required_anchors": [
@@ -58,6 +61,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 5515,
       "line_count": 159,
       "path": "source_modules/apps/zenith-macos/Sources/ZenithApp/ZenithAPIClient.swift",
       "required_anchors": [
@@ -76,6 +80,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 24726,
       "line_count": 594,
       "path": "source_modules/apps/zenith-macos/Sources/ZenithApp/EmbeddedLensWebView.swift",
       "required_anchors": [
@@ -94,6 +99,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 438,
       "line_count": 18,
       "path": "source_modules/apps/zenith-macos/Sources/ZenithApp/RuntimeSupervisor.swift",
       "required_anchors": [
@@ -111,6 +117,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 1293,
       "line_count": 41,
       "path": "source_modules/apps/zenith-macos/Sources/ZenithApp/GlobalHotKeyCenter.swift",
       "required_anchors": [
@@ -128,6 +135,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 11673,
       "line_count": 322,
       "path": "source_modules/apps/zenith-macos/Tests/ZenithAppTests/ZenithAppTests.swift",
       "required_anchors": [
