@@ -8,6 +8,7 @@ from typing import Any
 
 from microcosm_core.organs import durable_agent_work_landing_replay
 from microcosm_core.organs.durable_agent_work_landing_replay import (
+    BUNDLE_RESULT_NAME,
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     main,
@@ -42,6 +43,17 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_durable_agent_work_landing_card_sanitizes_receipt_paths_without_write() -> None:
+    card = durable_agent_work_landing_replay.result_card(
+        {
+            "status": "pass",
+            "receipt_paths": ["/private/tmp/durable/result.json"],
+        }
+    )
+
+    assert card["receipt_paths"] == ["<host-temp>/durable/result.json"]
 
 
 def test_durable_agent_work_landing_replay_observes_negative_cases(
@@ -288,6 +300,14 @@ def test_durable_agent_work_landing_card_reuses_fresh_bundle_receipt(
     assert "source_module_imports" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
     assert "authority_ceiling" not in _walk_keys(first_card)
+    first_card_text = json.dumps(first_card, sort_keys=True)
+    assert "/private/tmp" not in first_card_text
+    assert "/Users/" not in first_card_text
+    assert "src/ai_workflow" not in first_card_text
+    persisted_receipt = json.loads(
+        (out / BUNDLE_RESULT_NAME).read_text(encoding="utf-8")
+    )
+    assert first_card["receipt_paths"] == persisted_receipt["receipt_paths"]
 
     def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
         raise AssertionError("fresh card path should reuse the existing receipt")
