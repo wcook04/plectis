@@ -17,7 +17,7 @@
   "body_in_receipt": false,
   "digest_drift_rows": [
     {
-      "current_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "current_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
       "material_id": "navigation_route_plane_option_surface_source_body_import",
       "source_ref": "system/lib/standard_option_surface.py",
       "stale_recorded_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",

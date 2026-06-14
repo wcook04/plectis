@@ -4,8 +4,8 @@
   "modules": [
     {
       "body_copied": true,
-      "byte_count": 764177,
-      "line_count": 17364,
+      "byte_count": 781390,
+      "line_count": 17788,
       "material_class": "public_macro_tool_body",
       "module_id": "standard_option_surface_source",
       "path": "source_modules/system/lib/standard_option_surface.py",
@@ -19,14 +19,14 @@
         "def build_task_ledger_option_surface",
         "option_surface_lens_packet_v0"
       ],
-      "sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
       "sha256_match": true,
       "source_ref": "system/lib/standard_option_surface.py",
       "source_role": "Standard-owned option-surface router and task-ledger browse adapter.",
-      "source_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "source_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b"
+      "target_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd"
     },
     {
       "body_copied": true,
