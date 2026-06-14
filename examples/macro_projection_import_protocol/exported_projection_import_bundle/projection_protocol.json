@@ -9873,24 +9873,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:7dfe93f910653ce484c00142a21cbff7167528073dbc7974ce9535bf8e41303c",
+      "body_digest": "sha256:6751be66bdf3125541fe57721b2eacbd3e19ecc8395b200c90e6c88080f06501",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:7dfe93f910653ce484c00142a21cbff7167528073dbc7974ce9535bf8e41303c",
-        "source_line_count": 10567,
+        "source_body_digest": "sha256:6751be66bdf3125541fe57721b2eacbd3e19ecc8395b200c90e6c88080f06501",
+        "source_line_count": 10727,
         "source_ref": "system/server/main.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:7dfe93f910653ce484c00142a21cbff7167528073dbc7974ce9535bf8e41303c",
-        "target_line_count": 10567,
+        "target_body_digest": "sha256:6751be66bdf3125541fe57721b2eacbd3e19ecc8395b200c90e6c88080f06501",
+        "target_line_count": 10727,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 10567,
+      "body_line_count": 10727,
       "body_text_in_receipt": false,
       "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [

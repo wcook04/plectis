@@ -606,7 +606,18 @@ _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE: Dict[str, Any] = {
     "signature": None,
     "loaded_at": 0.0,
     "payload": None,
+    "refreshing": False,
 }
+# Stale-while-revalidate control for the work-ledger runtime status. That file
+# is a multi-megabyte JSON blob (thousands of *ended* sessions) whose parse +
+# cohort rebuild can take 10-25s, yet the Agent Trace live floor polls
+# /animation continuously and only consumes the session *map* for attribution.
+# Blocking each poll on that parse is what made the "scene fetch stalled after
+# 6.5s" timeout fire. In the running server we serve the last-good (or empty)
+# payload immediately and revalidate on a background thread; under unit tests
+# (the FastAPI lifespan never starts) we stay fully synchronous so the existing
+# cache-contract assertions continue to hold.
+_AGENT_OBSERVABILITY_WORK_LEDGER_BACKGROUND_REFRESH = False
 _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_TTL_S = 1.0
 _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_LOCK = threading.Lock()
 _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE: Dict[str, Any] = {
@@ -650,36 +661,127 @@ def _agent_observability_work_ledger_signature(
     )
 
 
+def _call_work_ledger_loader(repo_root: Path) -> Dict[str, Any]:
+    """Invoke the (possibly monkeypatched) runtime-status loader.
+
+    Production binds ``work_ledger_runtime.load_runtime_status``, which accepts a
+    ``rebuild`` flag. The animation / attribution path consumes only the raw
+    ``sessions`` map, so we pass ``rebuild=False`` and skip the expensive cohort
+    rebuild (proven equivalent: identical session set and mission rows). Tests
+    patch a one-argument loader, so we feature-detect the parameter rather than
+    pass it unconditionally.
+    """
+    loader = _load_work_ledger_runtime_status
+    try:
+        accepts_rebuild = "rebuild" in inspect.signature(loader).parameters
+    except (TypeError, ValueError):
+        accepts_rebuild = False
+    payload = loader(repo_root, rebuild=False) if accepts_rebuild else loader(repo_root)
+    return payload if isinstance(payload, dict) else {}
+
+
+def _refresh_agent_observability_work_ledger_status(
+    repo_root: Path,
+    signature: tuple[str, Optional[int], Optional[int], int],
+) -> Dict[str, Any]:
+    """Load the work-ledger status and fold it into the cache.
+
+    Returns the freshly loaded payload, or the retained copy if the load fails
+    (a transient read error must not evict a usable cache entry). Always clears
+    the in-flight flag so a future request can schedule the next refresh.
+    """
+    payload: Optional[Dict[str, Any]] = None
+    try:
+        payload = _call_work_ledger_loader(repo_root)
+    except Exception:  # noqa: BLE001 - a background refresh must never crash its thread
+        logger.exception("agent-observability work-ledger refresh failed")
+    with _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_LOCK:
+        if isinstance(payload, dict):
+            _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.update({
+                "signature": signature,
+                "loaded_at": time.monotonic(),
+                "payload": payload,
+            })
+            result = payload
+        else:
+            existing = _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("payload")
+            result = existing if isinstance(existing, dict) else {}
+        _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE["refreshing"] = False
+    return result
+
+
 def _load_agent_observability_work_ledger_status(repo_root: Path) -> Dict[str, Any]:
+    """Return the work-ledger runtime status for live agent-observability reads.
+
+    Stale-while-revalidate: a fresh cache entry is returned directly; a stale
+    one is returned immediately while a single-flight background thread
+    revalidates it (live server only). A true cold read returns ``{}`` once the
+    background path is armed, so the live floor renders active agents (from the
+    trace store) without ever blocking on the multi-megabyte parse. Under tests
+    the background path is disarmed and the load happens synchronously.
+    """
     signature = _agent_observability_work_ledger_signature(repo_root)
     now = time.monotonic()
     with _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_LOCK:
         cached = _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("payload")
-        if (
-            isinstance(cached, dict)
+        has_cache = isinstance(cached, dict)
+        fresh = (
+            has_cache
             and _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("signature") == signature
             and now - float(_AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("loaded_at") or 0.0)
             <= _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_TTL_S
-        ):
+        )
+        if fresh:
             return cached
-        payload = _load_work_ledger_runtime_status(repo_root)
-        if not isinstance(payload, dict):
-            payload = {}
-        _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.update({
-            "signature": signature,
-            "loaded_at": now,
-            "payload": payload,
-        })
-        return payload
+        stale = cached if has_cache else None
+        start_refresh = not bool(_AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("refreshing"))
+        if start_refresh:
+            _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE["refreshing"] = True
+    # Outside the lock: revalidate in the background (live server) and serve the
+    # stale/empty payload now, or — for tests, prewarm, and any cold read before
+    # the background path is armed — load synchronously.
+    if start_refresh and _AGENT_OBSERVABILITY_WORK_LEDGER_BACKGROUND_REFRESH:
+        threading.Thread(
+            target=_refresh_agent_observability_work_ledger_status,
+            args=(repo_root, signature),
+            name="agent-observability-work-ledger-refresh",
+            daemon=True,
+        ).start()
+        return stale if stale is not None else {}
+    if start_refresh:
+        return _refresh_agent_observability_work_ledger_status(repo_root, signature)
+    # A refresh is already in flight; serve the best payload we currently hold.
+    return stale if stale is not None else {}
+
+
+def _arm_agent_observability_work_ledger_background_refresh() -> None:
+    """Enable stale-while-revalidate and prewarm the cache.
+
+    Invoked from the FastAPI lifespan so unit tests that drive the app without a
+    lifespan stay fully synchronous. The prewarm read schedules one background
+    refresh and returns immediately, so the cache is warm before the live floor
+    polls.
+    """
+    global _AGENT_OBSERVABILITY_WORK_LEDGER_BACKGROUND_REFRESH
+    _AGENT_OBSERVABILITY_WORK_LEDGER_BACKGROUND_REFRESH = True
+    try:
+        _load_agent_observability_work_ledger_status(REPO_ROOT)
+    except Exception:  # pragma: no cover - defensive
+        logger.exception("agent-observability work-ledger prewarm failed to schedule")
 
 
 def _clear_agent_observability_work_ledger_cache_for_tests() -> None:
+    global _AGENT_OBSERVABILITY_WORK_LEDGER_BACKGROUND_REFRESH
     with _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_LOCK:
         _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.update({
             "signature": None,
             "loaded_at": 0.0,
             "payload": None,
+            "refreshing": False,
         })
+    # Keep the synchronous contract deterministic across the test session even
+    # if some other test exercised the app through a real lifespan.
+    _AGENT_OBSERVABILITY_WORK_LEDGER_BACKGROUND_REFRESH = False
 
 
 def _agent_observability_host_pressure_signature(
@@ -1430,6 +1532,15 @@ async def lifespan(app: FastAPI):
     except Exception as exc:  # pragma: no cover - defensive
         logger.warning("code map packet prewarm failed to schedule: %s", exc)
 
+    # Agent Trace live floor: arm stale-while-revalidate + prewarm the
+    # work-ledger status so /agent-observability/animation never blocks the
+    # live poll on the multi-megabyte runtime_status.json parse (the cause of
+    # the "scene fetch stalled" timeout).
+    try:
+        _arm_agent_observability_work_ledger_background_refresh()
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("agent-observability work-ledger prewarm failed to schedule: %s", exc)
+
     # Inspector's tree view is visible in recording takes and its cold scan can
     # exceed the frontend capture budget. Prewarm it in the background; the
     # route also has a schema-clean warming shell if the first request wins the
@@ -1623,6 +1734,26 @@ def _frontend_bundle_missing_response(full_path: str) -> HTMLResponse:
             "X-Zenith-Static-Fallback": "frontend_bundle_missing",
         },
     )
+
+
+# Vite emits content-hashed asset filenames (e.g. index-BH48XvIr.js). The hash
+# is the cache key, so those files are safe to cache forever. index.html is the
+# opposite: it names the current hashed entry chunk, so it MUST be revalidated
+# on every load or a rebuilt SPA is never picked up. WKWebView (the macOS
+# Zenith host) heuristically caches HTML that carries no Cache-Control, which
+# strands the app on a stale bundle whose lazy chunks 404 on navigation —
+# surfacing as "Station view did not load / Importing a module script failed".
+# Sending no-cache here lets the existing in-app reload + lazyRoute recovery
+# actually escape a stale build without a native cache-bypass round trip.
+_SPA_HASHED_ASSET_RE = re.compile(r"-[A-Za-z0-9_]{8,}\.[A-Za-z0-9]+$")
+
+
+def _spa_cache_headers(path: Path, *, is_index: bool) -> Dict[str, str]:
+    if is_index or path.name == "index.html":
+        return {"Cache-Control": "no-cache, must-revalidate"}
+    if path.parent.name == "assets" and _SPA_HASHED_ASSET_RE.search(path.name):
+        return {"Cache-Control": "public, max-age=31536000, immutable"}
+    return {}
 
 # =============================================================================
 # Configuration Helpers
@@ -2034,6 +2165,32 @@ def _write_master_config(data: Dict[str, Any]) -> None:
 # =============================================================================
 # NEW API SURFACE
 # =============================================================================
+
+# Boot timestamp for the health surface: the supervisor compares this against
+# newest backend-source mtime to decide whether landed code is dark-in-live.
+_SERVER_PROCESS_STARTED_AT_EPOCH = time.time()
+
+
+@app.get("/api/health")
+def get_server_health():
+    """
+    [ACTION]
+    - Teleology: Cheap liveness + boot-time surface so process supervision can detect a stale server without ps archaeology.
+    - Reads: Module-level boot timestamp only; no filesystem or service calls.
+    - Writes: None.
+    - Guarantee: Constant-time; returns pid, boot epoch, and uptime under schema server_health_v0.
+    - When-needed: Open when dev_daemon_supervisor staleness verdicts or external health probes need the contract.
+    - Escalates-to: tools/meta/control/dev_daemon_supervisor.py::cockpit_status
+    """
+    now = time.time()
+    return {
+        "schema": "server_health_v0",
+        "status": "ok",
+        "pid": os.getpid(),
+        "started_at_epoch": _SERVER_PROCESS_STARTED_AT_EPOCH,
+        "uptime_seconds": now - _SERVER_PROCESS_STARTED_AT_EPOCH,
+    }
+
 
 @app.get("/api/lobby", response_model=LobbyState)
 def get_lobby_state():
@@ -10558,10 +10715,13 @@ async def serve_spa(full_path: str):
         raise HTTPException(status_code=404, detail="Not Found")
     possible_static = _static_file_under_root(full_path)
     if possible_static.exists() and possible_static.is_file():
-        return FileResponse(str(possible_static))
+        return FileResponse(
+            str(possible_static),
+            headers=_spa_cache_headers(possible_static, is_index=False),
+        )
     if _static_asset_request(full_path):
         raise HTTPException(status_code=404, detail="Static frontend asset not found")
     index = static_dir / "index.html"
     if not index.exists():
         return _frontend_bundle_missing_response(full_path)
-    return FileResponse(str(index))
+    return FileResponse(str(index), headers=_spa_cache_headers(index, is_index=True))
