@@ -465,6 +465,8 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
             routed_organs.add(organ["organ_id"])
             assert organ["first_command"]
             assert organ["scope_limit"]
+            assert organ["claim_ceiling_restated"] == organ["scope_limit"]
+            assert organ["authority_boundary"] == organ["scope_limit"]
             assert organ["compression_authority_ceiling"]
             assert organ["standard_ref"].startswith("standards/std_microcosm_")
             assert organ["concept_ref"] == (

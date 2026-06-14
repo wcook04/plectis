@@ -1537,6 +1537,7 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                 if str(ref).strip()
             ]
             organ_source_summary = card.get("source_relation_summary")
+            scope_limit = _public_scope_text(card.get("claim_ceiling_restated"))
             relevant_organs.append(
                 {
                     "organ_id": card["organ_id"],
@@ -1554,7 +1555,9 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                     "capsule_id": card.get("capsule_id"),
                     "capsule_join_status": card.get("capsule_join_status"),
                     "first_command": card.get("first_command"),
-                    "scope_limit": _public_scope_text(card.get("claim_ceiling_restated")),
+                    "scope_limit": scope_limit,
+                    "claim_ceiling_restated": scope_limit,
+                    "authority_boundary": scope_limit,
                     "receipt_refs": receipts,
                     "acceptance_ref": card.get("acceptance"),
                     "standard_ref": card.get("standard"),
