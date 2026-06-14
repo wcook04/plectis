@@ -13,7 +13,8 @@ The cold-clone probe validates source-root public bootstrap mechanics by importi
 ## Lattice Neighbours
 
 - `grounded_in` -> `code_locus:src/microcosm_core/cold_clone_probe.py` (resolved_code_locus)
-- `runs_in` -> `organ:cold_clone_probe` (planned_registry_or_atlas_target)
+- `runs_in` -> `organ:pattern_binding_contract` (resolved_registry_or_atlas_target)
+- `grounds` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
 - `grounds` -> `concept:concept.entry_and_reveal_route_readiness_bundle` (resolved_json_instance)
 - `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
 

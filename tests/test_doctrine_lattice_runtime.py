@@ -1043,7 +1043,7 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
     }
 
 
-def test_cold_clone_probe_mechanism_preserves_unresolved_host_residual() -> None:
+def test_cold_clone_probe_mechanism_runs_in_pattern_binding_contract() -> None:
     mechanism = json.loads(
         (
             MICROCOSM_ROOT
@@ -1053,12 +1053,19 @@ def test_cold_clone_probe_mechanism_preserves_unresolved_host_residual() -> None
     relationships = mechanism["relationships"]
     edges = relationships["edges"]
 
-    assert mechanism["organ_refs"] == ["cold_clone_probe"]
-    assert relationships["runs_in"] == ["cold_clone_probe"]
+    assert mechanism["organ_refs"] == ["pattern_binding_contract"]
+    assert relationships["runs_in"] == ["pattern_binding_contract"]
     assert any(
         edge["relation_id"] == "mechanism.grounded_in.code_locus"
         and edge["target_id"] == "src/microcosm_core/cold_clone_probe.py"
         and edge["target_status"] == "resolved_code_locus"
+        for edge in edges
+    )
+    assert any(
+        edge["relation_id"] == "mechanism.grounds.concept"
+        and edge["target_id"]
+        == "concept.architecture_and_navigation_route_contract_bundle"
+        and edge["target_status"] == "resolved_json_instance"
         for edge in edges
     )
     assert any(
@@ -1069,16 +1076,15 @@ def test_cold_clone_probe_mechanism_preserves_unresolved_host_residual() -> None
     )
     assert any(
         edge["relation_id"] == "mechanism.runs_in.organ"
-        and edge["target_id"] == "cold_clone_probe"
-        and edge["target_status"] == "planned_registry_or_atlas_target"
-        and edge["residual_pressure_ref"]
-        == "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+        and edge["target_id"] == "pattern_binding_contract"
+        and edge["target_status"] == "resolved_registry_or_atlas_target"
+        and edge["residual_pressure_ref"] is None
         for edge in edges
     )
     assert not any(
         edge["relation_id"] == "mechanism.runs_in.organ"
         and edge["target_id"] == "cold_clone_probe"
-        and edge["target_status"] == "resolved_registry_or_atlas_target"
+        and edge["target_status"] == "planned_registry_or_atlas_target"
         for edge in edges
     )
     residuals = relationships["unpopulated_selective_relations"]
@@ -1144,9 +1150,6 @@ def test_family_concept_refs_bind_organs_mechanisms_and_paper_modules() -> None:
             expected_planned_hosts = {
                 "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule": [
                     "batch7_zenith_macos_capsule"
-                ],
-                "mechanism.cold_clone_probe.validates_public_source_root_bootstrap": [
-                    "cold_clone_probe"
                 ],
                 "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary": [
                     "microcosm_axiom_substrate"

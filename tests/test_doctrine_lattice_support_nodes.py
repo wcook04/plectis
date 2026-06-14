@@ -1104,6 +1104,10 @@ def test_organs_publish_wiring_named_by_mechanism_upstream_graph() -> None:
             "missing_wires_to": ["durable_agent_work_landing_replay"],
         },
         {
+            "organ_id": "public_reveal_walkthrough",
+            "missing_wires_to": ["cold_reader_route_map"],
+        },
+        {
             "organ_id": "macro_projection_import_protocol",
             "missing_wires_to": [
                 "agent_monitor_redteam_falsification_replay",
@@ -1116,8 +1120,14 @@ def test_organs_publish_wiring_named_by_mechanism_upstream_graph() -> None:
                 "world_model_projection_drift_control_room",
             ],
         },
+        {
+            "organ_id": "cold_reader_route_map",
+            "missing_wires_to": ["public_reveal_walkthrough"],
+        },
     ]
-    assert any(
-        row["target_organ"] == "cold_clone_probe"
-        for row in unadmitted_target_hosts
-    )
+    assert sorted(row["target_organ"] for row in unadmitted_target_hosts) == [
+        "batch7_zenith_macos_capsule",
+        "microcosm_axiom_substrate",
+        "microcosm_axiom_substrate",
+        "microcosm_axiom_substrate",
+    ]

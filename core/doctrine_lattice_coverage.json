@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python -m microcosm_core.doctrine_lattice --write",
-    "generated_at": "2026-06-14T00:46:49.669003Z",
+    "generated_at": "2026-06-14T06:51:47.752526Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -3415,7 +3415,7 @@
       "concepts/concept.work_landing_and_continuity_control_bundle.json": "e228aa3998f9f015def1f6975b32ae591569c10a5f800fc67e69bbf89608546e",
       "core/axiom_organ_routing.json": "5ae5ebd2c5ceb5e417cb8d4d0aeeb8212970980e16e92ff794691c396ca70e31",
       "core/doctrine_lattice_relations.json": "bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-      "core/mechanism_sources.json": "4b32d105dcdaf2e1f6b03d51a5996d8db5651d598c36269dcdce7c269ec1daee",
+      "core/mechanism_sources.json": "b4e389912e8a9bba41d10a9deab17a9d6bb322fb05e53fc13f3ad2127ca871ba",
       "core/organ_atlas.json": "1a66e926c0f90305cd44a4d546107355f02b6985a27a2df565114d23bd8bd5eb",
       "core/organ_registry.json": "4351ff1add4138cdf7c589ff001abfa6c94d84f9dee08913cd1be6105d84b759",
       "core/paper_module_capsules.json": "e9e95cd7755b8d72c32dcd57f50e24ba6c0c986c14fc18b60b9cd27b1003153b",
@@ -3459,7 +3459,7 @@
       "mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "558bbb2988e52ff10588cb9ca03eef3b15c0436f5027d73ffa87ad319853130a",
       "mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json": "ba4bc4280241bbe8c475216e2e953e5b053b94af67ed2ac50e0a7f5d86d9e996",
       "mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json": "88d729bdf8c2db3c2458672f296485158ebb0d5b03c8c1259676323f00bc965c",
-      "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "6c9535f4401a826ec7989b535a2ab95605184954bafb5af9a1dc5d46a0a1b0e9",
+      "mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "c4a86c32966d0ca4ac338ae29334494502e387e81d9929277df090ff43870fa4",
       "mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "e0f7b865f2aca3dafde456c8fd44767b9224c78753ad5b45750ed026287a993f",
       "mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json": "63bb07a7abe16f205ebf39bb0edea9838dc774cdcd30f2d1c034723958a8500b",
       "mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json": "e7c69bd7f17d5c36c00507b4aff17372577894d5e0544c042f2c30c51099ad7e",

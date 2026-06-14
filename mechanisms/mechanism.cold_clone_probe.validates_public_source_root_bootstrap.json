@@ -79,8 +79,8 @@
         "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
         "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
       ],
-      "concept_pair_ref": "entry_and_reveal_route_readiness_bundle.concept_binding",
-      "mechanism_role": "family validators that expose cold-reader and public-reveal paths while preserving claim ceilings and source boundaries",
+      "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
+      "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
         "drilldown": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
         "omitted": [
@@ -106,10 +106,11 @@
         "tests/test_cold_clone_probe.py",
         "tests/test_bootstrap_script.py",
         "tests/test_public_entry_docs.py",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[5:architecture_and_navigation_route_contract_bundle]",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[6:entry_and_reveal_route_readiness_bundle]"
       ],
-      "state_or_proof_effect": "entry evidence shows what a reader can inspect, not that the whole substrate is ready or correct",
-      "transformation_shape": "entry/reveal fixture -> route-readiness validator -> public receipt and bounded reader card",
+      "state_or_proof_effect": "navigation and doctrine surfaces become walkable through source-bound contracts while generated views stay below source authority",
+      "transformation_shape": "public route or doctrine fixture -> contract validator -> bounded route/projection receipt and lattice edge set",
       "validator_refs": [
         "microcosm-substrate/scripts/build_doctrine_projection.py --check"
       ]
@@ -152,6 +153,7 @@
         }
       ],
       "concept_refs": [
+        "concept.architecture_and_navigation_route_contract_bundle",
         "concept.entry_and_reveal_route_readiness_bundle"
       ],
       "guardrails": [
@@ -171,17 +173,6 @@
         "tests/test_public_entry_docs.py"
       ],
       "kind": "mechanism",
-      "planned_targets": [
-        {
-          "authority_boundary": "planned_target_marker_not_resolved_organ_authority",
-          "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
-          "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
-          "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-          "target_id": "cold_clone_probe",
-          "target_kind": "organ",
-          "target_status": "planned_registry_or_atlas_target"
-        }
-      ],
       "projection_hooks": [
         "markdown_reference",
         "mermaid_graph",
@@ -206,7 +197,7 @@
         "validator_command": "PYTHONPATH=src python3 -m microcosm_core.cold_clone_probe --suite first-wave --emit .microcosm/cold_clone_probe.json"
       },
       "runs_in": [
-        "cold_clone_probe"
+        "pattern_binding_contract"
       ],
       "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
       "statement": "The cold-clone probe validates source-root public bootstrap mechanics by importing the package from src, running the secret-exclusion scan, executing the first-wave pattern-binding fixture, mirroring the declared public receipt refs when missing, and writing an ignored local receipt without claiming release, hosted-product, private-root, provider-call, source-mutation, or whole-system correctness authority.",
@@ -236,7 +227,7 @@
     ]
   },
   "organ_refs": [
-    "cold_clone_probe"
+    "pattern_binding_contract"
   ],
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -283,6 +274,7 @@
       }
     ],
     "concept_refs": [
+      "concept.architecture_and_navigation_route_contract_bundle",
       "concept.entry_and_reveal_route_readiness_bundle"
     ],
     "edges": [
@@ -306,11 +298,24 @@
         },
         "relation_id": "mechanism.runs_in.organ",
         "relation_verb": "runs_in",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "operates_through",
-        "target_id": "cold_clone_probe",
+        "target_id": "pattern_binding_contract",
         "target_kind": "organ",
-        "target_status": "planned_registry_or_atlas_target"
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].concept_refs",
+          "summary": "Mechanism registry row names this concept grounding target."
+        },
+        "relation_id": "mechanism.grounds.concept",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "concept.architecture_and_navigation_route_contract_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {
@@ -327,7 +332,7 @@
       }
     ],
     "runs_in": [
-      "cold_clone_probe"
+      "pattern_binding_contract"
     ],
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
     "unpopulated_selective_relations": [

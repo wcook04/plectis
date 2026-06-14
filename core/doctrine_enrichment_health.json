@@ -276,14 +276,14 @@
             "id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
           }
         ],
-        "planned_edge_count": 3,
+        "planned_edge_count": 2,
         "planned_edge_counts_by_target_kind": {
-          "organ": 3
+          "organ": 2
         },
         "planned_edge_counts_by_target_status": {
-          "planned_registry_or_atlas_target": 3
+          "planned_registry_or_atlas_target": 2
         },
-        "planned_edge_detail_count": 3,
+        "planned_edge_detail_count": 2,
         "planned_edge_details": [
           {
             "authority_boundary": "planned_edge_visibility_only_not_target_admission_support_evidence_or_release_authority",
@@ -297,21 +297,6 @@
             "source_ref": "core/mechanism_sources.json::mechanisms[88:mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule].runs_in",
             "summary": "Mechanism registry row names this organ as the runtime host.",
             "target_id": "batch7_zenith_macos_capsule",
-            "target_kind": "organ",
-            "target_status": "planned_registry_or_atlas_target"
-          },
-          {
-            "authority_boundary": "planned_edge_visibility_only_not_target_admission_support_evidence_or_release_authority",
-            "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap",
-            "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
-            "planned_target_authority_boundary": "planned_target_marker_not_resolved_organ_authority",
-            "planned_target_source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].planned_targets[0]",
-            "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
-            "relation_id": "mechanism.runs_in.organ",
-            "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-            "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].runs_in",
-            "summary": "Mechanism registry row names this organ as the runtime host.",
-            "target_id": "cold_clone_probe",
             "target_kind": "organ",
             "target_status": "planned_registry_or_atlas_target"
           },
@@ -331,15 +316,11 @@
             "target_status": "planned_registry_or_atlas_target"
           }
         ],
-        "planned_edge_row_count": 3,
+        "planned_edge_row_count": 2,
         "planned_edge_rows": [
           {
             "count": 1,
             "id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
           },
           {
             "count": 1,

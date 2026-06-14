@@ -152,18 +152,22 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     assert mechanism["issue_rows"] == []
     assert mechanism["known_residual_selective_relation_row_count"] == 27
     assert mechanism["known_residual_selective_relation_count"] == 27
-    assert mechanism["planned_edge_row_count"] == 3
-    assert mechanism["planned_edge_count"] == 3
-    assert mechanism["planned_edge_detail_count"] == 3
-    assert mechanism["planned_edge_counts_by_target_kind"] == {"organ": 3}
+    assert mechanism["planned_edge_row_count"] == 2
+    assert mechanism["planned_edge_count"] == 2
+    assert mechanism["planned_edge_detail_count"] == 2
+    assert mechanism["planned_edge_counts_by_target_kind"] == {"organ": 2}
     assert mechanism["planned_edge_counts_by_target_status"] == {
-        "planned_registry_or_atlas_target": 3
+        "planned_registry_or_atlas_target": 2
     }
     planned_details = {
         row["id"]: row for row in mechanism["planned_edge_details"]
     }
     assert (
         "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
+        not in planned_details
+    )
+    assert (
+        "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
         not in planned_details
     )
     axiom_host = planned_details[

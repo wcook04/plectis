@@ -6609,7 +6609,7 @@
       "statement": "The cold-clone probe validates source-root public bootstrap mechanics by importing the package from src, running the secret-exclusion scan, executing the first-wave pattern-binding fixture, mirroring the declared public receipt refs when missing, and writing an ignored local receipt without claiming release, hosted-product, private-root, provider-call, source-mutation, or whole-system correctness authority.",
       "status": "active",
       "runs_in": [
-        "cold_clone_probe"
+        "pattern_binding_contract"
       ],
       "code_loci": [
         {
@@ -6667,18 +6667,8 @@
       },
       "upstream_of": [],
       "concept_refs": [
+        "concept.architecture_and_navigation_route_contract_bundle",
         "concept.entry_and_reveal_route_readiness_bundle"
-      ],
-      "planned_targets": [
-        {
-          "target_kind": "organ",
-          "target_id": "cold_clone_probe",
-          "target_status": "planned_registry_or_atlas_target",
-          "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-          "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
-          "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
-          "authority_boundary": "planned_target_marker_not_resolved_organ_authority"
-        }
       ]
     },
     {
