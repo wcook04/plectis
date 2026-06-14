@@ -2792,7 +2792,7 @@ def run_authorization_bundle(
         "receipt_paths": [_display(bundle_path, public_root=public_root)],
     }
     write_json_atomic(bundle_path, payload)
-    return payload
+    return read_json_strict(bundle_path)
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:

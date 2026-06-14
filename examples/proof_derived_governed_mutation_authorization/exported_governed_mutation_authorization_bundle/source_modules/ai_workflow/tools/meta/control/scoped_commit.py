@@ -1665,13 +1665,19 @@ def _work_ledger_mutation_guard(
     }
     if collisions:
         first = collisions[0]
+        owner_session_hint = str(first.get("session_id") or "").strip()
+        owner_session_arg = (
+            f"--work-ledger-session-id {shlex.quote(owner_session_hint)}"
+            if owner_session_hint
+            else "--work-ledger-session-id <owner_session_id>"
+        )
         raise RuntimeError(
             "scoped-commit: Work Ledger active claim overlap; "
             f"requested_path={first.get('requested_path')}; "
             f"claim_path={first.get('claim_path')}; "
             f"claim_id={first.get('claim_id')}; "
             f"owner_session_id={first.get('session_id')}; "
-            "rerun with the owning Work Ledger session id only if this "
+            f"rerun with {owner_session_arg} only if this "
             "actor owns the active claim, or wait for/release/finalize the owner claim"
         )
     return payload
