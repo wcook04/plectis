@@ -254,9 +254,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 764177,
+      "byte_count": 781390,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 17364,
+      "line_count": 17788,
       "material_class": "public_macro_tool_body",
       "module_id": "standard_option_surface_tool_body_import",
       "path": "source_modules/system/lib/standard_option_surface.py",
@@ -265,22 +265,22 @@
         "def build_option_surface(",
         "def _standard_index("
       ],
-      "sha256": "sha256:cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "sha256": "sha256:caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/standard_option_surface.py",
       "source_role": "Macro runtime tool that projects standards and related artifacts into option surfaces with validation and evidence commands",
-      "source_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "source_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b"
+      "target_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd"
     },
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 123976,
+      "byte_count": 127242,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2440,
+      "line_count": 2502,
       "material_class": "public_macro_tool_body",
       "module_id": "kind_atlas_tool_body_import",
       "path": "source_modules/system/lib/kind_atlas.py",
@@ -289,15 +289,15 @@
         "def _build_rows(",
         "def _standard_count("
       ],
-      "sha256": "sha256:a6d2e3befb05c77ae84e8542c171e32771d5edc811d4644071f9394d902f9890",
+      "sha256": "sha256:b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/kind_atlas.py",
       "source_role": "Macro runtime tool that builds kind atlas rows and live counts for standards, papers, ledgers, seeds, and system artifacts",
-      "source_sha256": "a6d2e3befb05c77ae84e8542c171e32771d5edc811d4644071f9394d902f9890",
+      "source_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/kind_atlas.py",
-      "target_sha256": "a6d2e3befb05c77ae84e8542c171e32771d5edc811d4644071f9394d902f9890"
+      "target_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f"
     }
   ],
   "receipt_body_policy": "receipts may report paths, hashes, counts, and verdicts but must not duplicate full source bodies",

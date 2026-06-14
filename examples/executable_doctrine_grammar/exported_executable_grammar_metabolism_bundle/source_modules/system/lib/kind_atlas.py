@@ -96,6 +96,10 @@ MICROCOSM_EXTRACTED_PATTERN_SUBSTRATE_STANDARD = Path(
 MICROCOSM_EXTRACTED_PATTERN_ROUTE_STANDARD = Path(
     "codex/standards/std_extracted_pattern_route_readiness.json"
 )
+MICROCOSM_STANDARD = Path("codex/standards/std_microcosm.json")
+MICROCOSM_AGENT_TASK_ROUTES = Path("microcosm-substrate/atlas/agent_task_routes.json")
+MICROCOSM_AGENT_ROUTES_DOC = Path("microcosm-substrate/AGENT_ROUTES.md")
+MICROCOSM_ORGAN_ATLAS_BUILDER = Path("microcosm-substrate/scripts/build_organ_atlas.py")
 NAVIGATION_THEORY = Path("codex/doctrine/paper_modules/navigation_hologram_theory.md")
 PROFILE_SKILL = Path("codex/doctrine/skills/compression/profile_governed_compression.md")
 TYPE_A_AUTONOMOUS_SEED_ROOT = Path("state/meta_missions/type_a_autonomous_seed_loop/seeds")
@@ -173,6 +177,7 @@ FAST_KIND_ORDER = (
     "external_benchmark_calibration",
     "compression_profiles",
     "microcosm_extracted_patterns",
+    "microcosm_agent_task_routes",
     "annex_patterns",
     "annex_distillation_patterns",
     "config_authorities",
@@ -694,6 +699,16 @@ def _microcosm_extracted_pattern_count(root: Path) -> int:
         if isinstance(row, dict) and str(row.get("pattern_id") or "").strip():
             total += 1
     return total
+
+
+def _microcosm_agent_task_route_count(root: Path) -> int:
+    payload = _load_json(root / MICROCOSM_AGENT_TASK_ROUTES)
+    routes = payload.get("routes") if isinstance(payload.get("routes"), list) else []
+    return sum(
+        1
+        for route in routes
+        if isinstance(route, dict) and str(route.get("task_class") or "").strip()
+    )
 
 
 def _currentness(*, source_refs: list[str], generated_at: str | None = None, status: str = "live_probe") -> dict[str, Any]:
@@ -2177,6 +2192,50 @@ def _build_rows(root: Path, *, band: str, include_generated: bool = True) -> lis
             else None,
         ),
         _row(
+            kind_id="microcosm_agent_task_routes",
+            title="Microcosm Agent Task Routes",
+            flag=(
+                "Generated public task-class selectors for Microcosm accepted organs are "
+                "selectable through cluster/flag/card rows backed by atlas/agent_task_routes.json."
+            ),
+            row_count=_microcosm_agent_task_route_count(root),
+            governing_standard_refs=[str(MICROCOSM_STANDARD)],
+            projection_refs=[
+                str(MICROCOSM_AGENT_TASK_ROUTES),
+                str(MICROCOSM_AGENT_ROUTES_DOC),
+            ],
+            bands=["cluster_flag", "flag", "card"],
+            support_status="option_surface_supported",
+            option_surface_command="./repo-python kernel.py --option-surface microcosm_agent_task_routes --band cluster_flag",
+            card_command="./repo-python kernel.py --option-surface microcosm_agent_task_routes --band card --ids <task_class>",
+            evidence_command="./repo-python kernel.py --option-surface microcosm_agent_task_routes --band flag",
+            currentness=_currentness(
+                source_refs=[
+                    str(MICROCOSM_AGENT_TASK_ROUTES),
+                    str(MICROCOSM_AGENT_ROUTES_DOC),
+                    str(MICROCOSM_ORGAN_ATLAS_BUILDER),
+                ],
+                status="microcosm_agent_task_route_option_surface_available",
+            ),
+            profile_gap=None,
+            card=_card_extra(
+                rung1="option_surface_supported",
+                next_moves=[
+                    "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band cluster_flag",
+                    "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band flag --ids agent-concurrency",
+                    "./repo-python kernel.py --option-surface microcosm_agent_task_routes --band card --ids agent-concurrency",
+                    "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_organ_atlas.py --check",
+                ],
+                omissions=[
+                    "full accepted-organ cards outside selected route handles",
+                    "runtime receipts and source-module body text",
+                    "release, provider, private-state, proof, or source mutation authority",
+                ],
+            )
+            if card_band
+            else None,
+        ),
+        _row(
             kind_id="annex_patterns",
             title="Annex Patterns",
             flag="Local annex annotations are selectable through flag/card rows backed by annex_notes.json files; one row per stable <slug>:<note_id>.",
@@ -2403,6 +2462,9 @@ def build_kind_atlas(
             str(MICROCOSM_EXTRACTED_PATTERN_LEDGER),
             str(MICROCOSM_EXTRACTED_PATTERN_BINDINGS),
             str(MICROCOSM_EXTRACTED_PATTERN_READINESS_AUDIT),
+            str(MICROCOSM_AGENT_TASK_ROUTES),
+            str(MICROCOSM_AGENT_ROUTES_DOC),
+            str(MICROCOSM_ORGAN_ATLAS_BUILDER),
             str(ANNEX_ROOT),
             str(ANNEX_ROOT / "*" / ANNEX_DISTILLATION_FILE_NAME),
         ],

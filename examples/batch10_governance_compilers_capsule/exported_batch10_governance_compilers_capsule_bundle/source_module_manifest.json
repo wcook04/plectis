@@ -166,8 +166,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 404194,
-      "line_count": 9790,
+      "byte_count": 404883,
+      "line_count": 9802,
       "material_class": "public_macro_kernel_decision_body",
       "module_id": "receipt_reuse_staleness_decider",
       "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
@@ -177,14 +177,14 @@
         "def _fingerprint_rows_by_path",
         "def _stable_json_fingerprint"
       ],
-      "sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+      "sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
-      "source_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71",
+      "source_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "1ef1692872cfa7e16ae4be3eac75050ee5b5190024a35bf8f465c3b1dc048c71"
+      "target_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55"
     },
     {
       "body_copied": true,

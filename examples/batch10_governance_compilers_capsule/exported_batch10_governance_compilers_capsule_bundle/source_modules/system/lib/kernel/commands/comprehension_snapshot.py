@@ -169,6 +169,17 @@ ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES = 16000
 ENTRY_PACKET_NAVIGATION_MIN_SAVED_BYTES = 12000
 ENTRY_PACKET_SPEED_REFINEMENT_TARGET_BYTES = 12500
 
+# Standing operator-voice caveat carried in every entry packet (Codex + Claude
+# Code both read this surface). The operator dictates via speech-to-text and has
+# a British accent on US-tuned recognisers, so literal transcription slips are
+# expected. This is a one-line reflex, not a directive lane: read for intent.
+OPERATOR_VOICE_CAVEAT = (
+    "Operator input is often dictated via speech-to-text (British accent on "
+    "US-tuned recognisers), so occasional words may be mis-transcribed. Read "
+    "for intent over literal wording, use common sense, and ask if a surprising "
+    "literal reading would change what you do."
+)
+
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -9325,6 +9336,7 @@ def build_entry_packet(
         "first_contact_allowed": True,
         "generated_at": _utc_now(),
         "task": task_text,
+        "operator_voice_caveat": OPERATOR_VOICE_CAVEAT,
         "recognized_situation": recognized_situation,
         "agent_operating_packet": agent_operating_packet,
         "agent_principle_lens": agent_principle_lens,
