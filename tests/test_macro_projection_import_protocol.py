@@ -3563,6 +3563,79 @@ def test_refresh_exact_copy_source_modules_resolves_microcosm_local_sources(
     assert target.read_bytes() == source.read_bytes()
 
 
+def test_refresh_exact_copy_source_modules_resolves_private_macro_source_fixtures(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    marker_path = public_root / "core/private_state_forbidden_classes.json"
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
+    source_root = tmp_path / "macro-root"
+    source_root.mkdir()
+    source_ref = (
+        "private-macro-source/microcosms/"
+        "executable_grammar_metabolism/README.md"
+    )
+    target_ref = (
+        "examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/source_modules/"
+        f"{source_ref}"
+    )
+    source = public_root / target_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text("# Executable grammar metabolism\n", encoding="utf-8")
+
+    manifest_path = (
+        public_root
+        / "examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/"
+        "executable_grammar_metabolism_source_module_manifest.json"
+    )
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "private_macro_source_manifest_v1",
+                "modules": [
+                    {
+                        "module_id": "executable_grammar_metabolism_readme_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_to_target_relation": "exact_copy",
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                        "sha256": "stale",
+                        "source_sha256": "stale",
+                        "target_sha256": "stale",
+                        "line_count": 1,
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path.parent,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["defect_count"] == 0
+    assert result["target_copy_count"] == 0
+    assert result["manifest_row_update_count"] == 1
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    assert row["source_sha256"] == digest
+    assert row["target_sha256"] == digest
+    assert row["sha256_match"] is True
+
+
 def test_refresh_exact_copy_source_modules_refreshes_public_light_edit_metadata(
     tmp_path: Path,
 ) -> None:

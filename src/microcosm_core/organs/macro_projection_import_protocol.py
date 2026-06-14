@@ -40,6 +40,10 @@ ACCEPTANCE_RECEIPT_REL = (
 BUNDLE_RESULT_NAME = "exported_projection_import_bundle_validation_result.json"
 PUBLIC_ROOT_POLICY_REL = Path("core/private_state_forbidden_classes.json")
 MODULE_PUBLIC_ROOT = Path(__file__).resolve().parents[3]
+PRIVATE_MACRO_SOURCE_MODULE_ROOT = Path(
+    "examples/macro_projection_import_protocol/"
+    "exported_projection_import_bundle/source_modules"
+)
 DEPENDENCY_PREFLIGHT_RECEIPT_REL = Path("receipts/preflight/dependency_preflight.json")
 ORGAN_REGISTRY_REL = Path("core/organ_registry.json")
 ORGAN_LIFECYCLE_ACCEPTED_COUNT_FIELDS = (
@@ -3155,6 +3159,8 @@ def _resolve_source_path(
     candidates = [source_root / ref_path]
     if public_root is not None:
         candidates.extend([public_root / ref_path, public_root.parent / ref_path])
+        if ref_path.parts[:1] == ("private-macro-source",):
+            candidates.append(public_root / PRIVATE_MACRO_SOURCE_MODULE_ROOT / ref_path)
     candidates.append(Path.cwd() / ref_path)
 
     unique: list[Path] = []
