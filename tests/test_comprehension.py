@@ -1097,6 +1097,50 @@ def test_first_action_contract_for_improvement_goal(tmp_path: Path) -> None:
     assert "not release approval" in pack["do_not_claim"]
 
 
+def test_first_action_preserves_path_reference_goal(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    _write_owned_module(tmp_path, "src/microcosm_core/widget.py", n_symbols=1)
+    bundle = C.load_inputs(tmp_path)
+    mode, target, _ = C.route_goal("inspect src/microcosm_core/widget.py", bundle)
+    assert (mode, target) == ("path", "src/microcosm_core/widget.py")
+
+    pack = C.comprehend(
+        root=tmp_path, mode="first_action",
+        target="inspect src/microcosm_core/widget.py",
+    )
+    assert pack["routing"]["basis"] == "path_reference_goal"
+    assert pack["routing"]["target"] == "src/microcosm_core/widget.py"
+    assert pack["first_action"]["action_kind"] == "open_packet"
+    assert pack["first_action"]["command"].endswith(
+        "comprehend --path src/microcosm_core/widget.py"
+    )
+    assert pack["owner"]["target"] == "src/microcosm_core/widget.py"
+    assert C._first_action_contract_complete(pack) is True
+
+
+def test_first_action_preserves_path_mutation_goal(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    _write_owned_module(tmp_path, "src/microcosm_core/widget.py", n_symbols=1)
+    bundle = C.load_inputs(tmp_path)
+    for verb in ("change", "mutate", "edit", "fix"):
+        goal = f"{verb} src/microcosm_core/widget.py"
+        mode, target, _ = C.route_goal(goal, bundle)
+        assert (mode, target) == ("mutation_plan", "src/microcosm_core/widget.py")
+        pack = C.comprehend(root=tmp_path, mode="first_action", target=goal)
+        assert pack["routing"]["basis"] == "path_mutation_goal"
+        assert pack["routing"]["target"] == "src/microcosm_core/widget.py"
+        assert pack["first_action"]["action_kind"] == "inspect_mutation_target"
+        assert pack["first_action"]["command"].endswith(
+            "comprehend --mutation src/microcosm_core/widget.py"
+        )
+        assert pack["first_action"]["claim_paths"] == [
+            "src/microcosm_core/widget.py"
+        ]
+        assert pack["owner"]["claim_paths"] == pack["first_action"]["claim_paths"]
+        assert "src/microcosm_core/comprehension.py" not in pack["first_action"]["command"]
+        assert C._first_action_contract_complete(pack) is True
+
+
 def test_path_mutation_plan_preserves_improvement_handoff(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     _write_owned_module(tmp_path, "src/microcosm_core/comprehension.py", n_symbols=1)

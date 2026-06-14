@@ -1000,6 +1000,20 @@ def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
     return pack
 
 
+def _goal_path_token(token: str) -> str | None:
+    """Return a normalized path-like token from a freeform goal, if present."""
+    candidate = token.strip("`'\".,;:!?()[]{}")
+    if candidate.endswith(".py") or "/" in candidate:
+        return candidate
+    return None
+
+
+def _is_path_target(target: Any) -> bool:
+    """Return True when ``target`` is a source/path ref rather than an organ id."""
+    text = str(target or "")
+    return bool(text) and (text.endswith(".py") or "/" in text)
+
+
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
     """Route a freeform goal string to a comprehension packet mode + target.
 
@@ -1012,7 +1026,8 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     - Reads: the in-memory inputs (organ id + family sets) only.
     - Non-goal: explicit CLI flags always override this fuzzy router.
     """
-    text = (goal or "").lower()
+    raw_text = goal or ""
+    text = raw_text.lower()
     organ = next(
         (oid for oid in inputs.get("atlas_by_organ", {}) if oid.lower() in text), None
     )
@@ -1021,7 +1036,7 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         (f for f in families if f and (f in text or f.replace("_", " ") in text)), None
     )
     path = next(
-        (tok for tok in text.split() if tok.endswith(".py") or "/" in tok), None
+        (path for tok in raw_text.split() if (path := _goal_path_token(tok))), None
     )
     if any(
         w in text
@@ -2237,6 +2252,118 @@ def _first_action_owner(
     }
 
 
+def _first_action_path_contract(
+    inputs: dict[str, Any], goal: str, path: str, *, mutation: bool
+) -> dict[str, Any]:
+    """Build a first-action contract that preserves a named path target."""
+    mode = "mutation_plan" if mutation else "path"
+    command_flag = "--mutation" if mutation else "--path"
+    command = _runnable_command(f"microcosm comprehend {command_flag} {path}")
+    pack = _pack_skeleton("how_to", goal or path)
+    pack["found"] = True
+    pack["graph_backed"] = _graph_backed_block(inputs, _FIRST_ACTION_GRAPH_CLASSES)
+    pack["deferred_edges"] = _deferred_edges_for(inputs, _FIRST_ACTION_GRAPH_CLASSES)
+    pack["routing"] = {
+        "basis": "path_mutation_goal" if mutation else "path_reference_goal",
+        "mode": mode,
+        "target": path,
+    }
+    pack["summary"]["what_this_is"] = (
+        f"First-action contract for the named path {path}: open its "
+        f"{mode} packet before drawing broader conclusions."
+    )
+    pack["summary"]["what_not_to_trust"] = (
+        "This contract preserves a requested path target; it does not authorize "
+        "release, source-body export, static-analysis correctness, or edits before "
+        "a Work Ledger claim and validator run."
+    )
+    pack["summary"]["what_to_inspect_next"] = [path, command]
+    if mutation:
+        pack["first_action"] = {
+            "action_kind": "inspect_mutation_target",
+            "command": command,
+            "target": path,
+            "claim_paths": [path],
+            "validation_commands": [
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system",
+            ],
+            "why": (
+                "The goal names a concrete path with mutation intent; inspect that "
+                "path's mutation plan before claiming or editing it."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "path_mutation_plan",
+            "target": path,
+            "claim_paths": [path],
+            "packet_id": "mutation_plan",
+        }
+        pack["proof_path"] = {
+            "validation_commands": list(pack["first_action"]["validation_commands"]),
+            "receipt_refs": [],
+            "note": "the next mutation-plan packet names the concrete validators for this path",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop after the mutation plan names owned paths and validators; "
+                "claim the path before editing."
+            ),
+            "task_classes": [],
+            "source": "comprehension-layer path-target preservation",
+        }
+        pack["do_not_claim"] = (
+            "A path-specific mutation first action is not edit authority, release "
+            "approval, or correctness proof."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "do not edit the named path until a Work Ledger claim and preflight pass",
+        }
+    else:
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": command,
+            "target": path,
+            "why": (
+                "The goal names a concrete path without mutation intent; open the "
+                "bounded path packet instead of matching an unrelated task route."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "owned_source_path",
+            "target": path,
+            "packet_id": "path",
+        }
+        pack["proof_path"] = {
+            "validation_commands": [
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
+            ],
+            "receipt_refs": [],
+            "note": "the path packet is the bounded local read surface; it remains source-body-free",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the bounded path packet; open source only to prove or mutate "
+                "under the mutation contract."
+            ),
+            "task_classes": [],
+            "source": "comprehension-layer path-target preservation",
+        }
+        pack["do_not_claim"] = (
+            "A path first action is a bounded read route only; it is not release "
+            "approval, source-body export, or static-analysis authority."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "read-only path contracts do not authorize edits",
+        }
+    pack["next_packet_commands"] = [command]
+    return pack
+
+
 def compile_first_action(
     inputs: dict[str, Any], root: Path | None, goal: str
 ) -> dict[str, Any]:
@@ -2357,6 +2484,10 @@ def compile_first_action(
     organs = _resolve_goal_organs(goal, inputs)
     organ_target = organs["selected"]
     mode, _rg_target, _note = route_goal(goal, inputs)
+    if not organ_target and mode in ("path", "mutation_plan") and _is_path_target(_rg_target):
+        return _first_action_path_contract(
+            inputs, goal, str(_rg_target), mutation=(mode == "mutation_plan")
+        )
     # Start-shaped intent maps deterministically to the getting-started route
     # when the graph carries one; otherwise the generic matcher gets its chance.
     route = None
@@ -4043,6 +4174,13 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("what should I work on for the Microcosm release?",
      {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
       "routing_basis": "improvement_goal"}),
+    ("inspect src/microcosm_core/cli.py",
+     {"action_kind": "open_packet", "command_has": "--path src/microcosm_core/cli.py",
+      "routing_basis": "path_reference_goal"}),
+    ("change src/microcosm_core/cli.py",
+     {"action_kind": "inspect_mutation_target",
+      "command_has": "--mutation src/microcosm_core/cli.py",
+      "routing_basis": "path_mutation_goal"}),
     ("understand the whole substrate at once",
      {"action_kind": "open_packet", "command_has": "--self-model"}),
     ("is mission_transaction_work_spine safe to edit?",
