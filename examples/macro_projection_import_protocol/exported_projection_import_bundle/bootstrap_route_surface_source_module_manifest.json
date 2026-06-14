@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/agent_bootstrap_live.json",
       "source_role": "Generated Codex bootstrap control-plane sidecar carrying situation routes, instruction discovery, actor packets, live bindings, and agent operating packet strips.",
-      "source_sha256": "73c4187513d8881ad00d7d2f27bec96f22fd6f7c1ebec3adeb6a3aaf0ee82a8e",
+      "source_sha256": "6d8a2a2e096c5be1fd9cecb015bcc5c56dcc13605eab9bdd9497552cf5a6ab0c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
-      "target_sha256": "73c4187513d8881ad00d7d2f27bec96f22fd6f7c1ebec3adeb6a3aaf0ee82a8e"
+      "target_sha256": "6d8a2a2e096c5be1fd9cecb015bcc5c56dcc13605eab9bdd9497552cf5a6ab0c"
     },
     {
       "anchor_count": 5,

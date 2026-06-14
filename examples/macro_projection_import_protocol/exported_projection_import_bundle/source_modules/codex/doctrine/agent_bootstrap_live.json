@@ -1,7 +1,7 @@
 {
   "kind": "agent_bootstrap_live",
   "schema_version": "agent_bootstrap_live_v0",
-  "generated_at": "2026-06-13T02:06:05.157177+00:00",
+  "generated_at": "2026-06-14T00:36:40.058722+00:00",
   "source_event": null,
   "live_bindings": {
     "pipeline_state_rel": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/09.54 - Phase 09.54 - Monday Dissemination Rollout Readiness, Public-Safe Proof Bundle, and Recipient Packet Execution/09.54.1 - Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import/pipeline_state.json",
@@ -20,7 +20,7 @@
     "orchestration_active_driver": "phase_pipeline",
     "orchestration_gate_reason": null,
     "orchestration_event_log_rel": "tools/meta/control/orchestration_events.jsonl",
-    "orchestration_latest_event_id": "orch_20260613T020604_962139_0000_31b8a04efa",
+    "orchestration_latest_event_id": "orch_20260614T003638_693778_0000_df5a9efdca",
     "orchestration_current_owner": "control_room_manager",
     "orchestration_next_handoff": "control_room_manager",
     "active_directive_path": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/09.54 - Phase 09.54 - Monday Dissemination Rollout Readiness, Public-Safe Proof Bundle, and Recipient Packet Execution/09.54.1 - Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import/focus_directive.json",
@@ -3548,7 +3548,7 @@
         "path": "AGENTS.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 34903,
+        "bytes": 34923,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3556,7 +3556,7 @@
         "path": "CODEX.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 31476,
+        "bytes": 31496,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3564,7 +3564,7 @@
         "path": "CLAUDE.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 31113,
+        "bytes": 31618,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       }
