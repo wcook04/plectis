@@ -24,7 +24,6 @@
     "agent_sandbox_policy_escape_replay": "Maps sandboxed agent actions to show each was approved or blocked before running, then rolled back.",
     "agentic_vulnerability_discovery_patch_proof_replay": "Checks a fixed-bug evidence chain and re-runs three small real security checks; no real attack material.",
     "batch10_cold_eval_honesty_capsule": "Runs a copied route-quality simulator and checks its all-B scorecard against the original code.",
-    "batch10_frontend_work_market_cockpit_capsule": "Verifies copied work-lens and market-cockpit code for read-only state and honest, advice-free signals.",
     "batch10_governance_compilers_capsule": "Checks thirteen copied governance and compiler routines against the code they were copied from.",
     "batch10_live_source_drift_capsule": "Compares four copied router and landing routines against current code to surface stale copies.",
     "batch11_saturation_engines_capsule": "Verifies twelve copied engine routines and computes each failure probe from inputs, not echoes.",
@@ -38,11 +37,9 @@
     "batch7_macro_engines_capsule": "Runs fifteen trace, code-map, and scheduling engines on test data, blocking truth overclaims.",
     "batch7_oracle_sibling_capsule": "Replays subject-index and truth-diff logic on copied code, rejecting reasoning overclaims.",
     "batch7_secondary_runtime_capsule": "Runs eight trace, graph, and market engines on test rows without fetching live markets.",
-    "batch7_station_runtime_capsule": "Checks console boot and instrument logic on copied code without starting the live screen.",
     "batch8_audio_level_rms_port": "Computes the audio loudness math on test arrays without opening a microphone or capturing input.",
     "batch8_compliance_pipeline_capsule": "Confirms six copied compliance source files carry their functions; runs one helper on sample text.",
     "batch8_policy_engines_capsule": "Maps three policy engines over test data without model calls or live campaign execution.",
-    "batch8_station_surface_atlas_layout_port": "Solves the map band-and-lane layout on test nodes without rendering a browser screen.",
     "batch8_structural_theses_capsule": "Runs a copied finance-thesis model through dated test cases with no live market data or advice.",
     "batch8_tools_tail_primitives_capsule": "Exercises four copied helper tools over fixed inputs without touching live systems or data.",
     "batch8_validator_checker_capsule": "Runs the real validator code over public examples so its safety checks stay inspectable.",
@@ -95,7 +92,6 @@
     "verifier_lab_execution_spine": "Runs Lean on small bounded proof attempts in a temp copy and records what passed or failed.",
     "verifier_lab_kernel": "Folds nine proof checks into one report labeling each line by which source actually backs it.",
     "voice_to_doctrine_self_improvement_loop": "Verifies each lesson changed a named owner page with evidence before the loop closes.",
-    "workstream_driver_recency_coalescer": "Groups work-change rows by driver, newest first, from a copied frontend grouping helper.",
     "world_model_projection_drift_control_room": "Pinpoints where a projected world-model copy drifted from its real source, with repair routes."
   }
 }

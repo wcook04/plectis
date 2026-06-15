@@ -12,7 +12,6 @@
   ],
   "created_at": "2026-06-02T00:00:00Z",
   "governs": [
-    "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
     "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
     "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
     "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
@@ -78,11 +77,9 @@
         "governed_concept_ids": [
           "concept.agent_reliability_and_safety_validator_bundle",
           "concept.formal_math_and_proof_witness_bundle",
-          "concept.import_projection_and_drift_control_bundle",
           "concept.work_landing_and_continuity_control_bundle"
         ],
         "governed_mechanism_ids": [
-          "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
           "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
           "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
           "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
@@ -120,7 +117,7 @@
           "PRINCIPLES.md obligation grounding text",
           "core/organ_atlas.json principle_refs plus mechanism_refs/concept_refs"
         ],
-        "governance_source_ref_count": 6,
+        "governance_source_ref_count": 5,
         "refinement_rule": "Substrate rows may refine which mechanisms or concepts the principle governs when organ-atlas source rows name those ids; support remains inherited from specific grounding axiom obligations.",
         "residual_relation_count": 0
       }
@@ -175,20 +172,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[63:batch8_station_surface_atlas_layout_port]",
-          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
-        },
-        "relation_id": "principle.governs.mechanism",
-        "relation_verb": "governs",
-        "residual_pressure_ref": null,
-        "reverse_verb": "governed_by",
-        "target_id": "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -279,19 +263,6 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[63:batch8_station_surface_atlas_layout_port]",
-          "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
-        },
-        "relation_id": "principle.governs.concept",
-        "relation_verb": "governs",
-        "residual_pressure_ref": null,
-        "reverse_verb": "governed_by",
-        "target_id": "concept.import_projection_and_drift_control_bundle",
-        "target_kind": "concept",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
           "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
         },
@@ -337,11 +308,9 @@
     "governs_concept_ids": [
       "concept.agent_reliability_and_safety_validator_bundle",
       "concept.formal_math_and_proof_witness_bundle",
-      "concept.import_projection_and_drift_control_bundle",
       "concept.work_landing_and_continuity_control_bundle"
     ],
     "governs_mechanism_ids": [
-      "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
       "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
       "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",

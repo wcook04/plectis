@@ -13,10 +13,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 118,
+  "first_wave_required_standard_count": 114,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 146,
+  "standard_count": 141,
   "standards": [
     {
       "first_wave_required": true,
@@ -1661,20 +1661,6 @@
     },
     {
       "first_wave_required": true,
-      "kind_id": "batch8_station_surface_atlas_layout_port",
-      "kind_name": "Batch 8 StationSurfaceAtlas layoutNodes port",
-      "path": "standards/std_microcosm_batch8_station_surface_atlas_layout_port.json",
-      "receipt_id": "receipt.microcosm.batch8_station_surface_atlas_layout_port",
-      "standard_id": "std_microcosm_batch8_station_surface_atlas_layout_port",
-      "status": "accepted_public_runtime_standard",
-      "used_by_organs": [
-        "batch8_station_surface_atlas_layout_port"
-      ],
-      "validator_id": "validator.microcosm.organs.batch8_station_surface_atlas_layout_port",
-      "wave": "w1_batch8_station_surface_atlas_layout_port"
-    },
-    {
-      "first_wave_required": true,
       "kind_id": "batch8_structural_theses_capsule",
       "kind_name": "Batch 8 Structural Theses capsule",
       "path": "standards/std_microcosm_batch8_structural_theses_capsule.json",
@@ -1759,20 +1745,6 @@
     },
     {
       "first_wave_required": true,
-      "kind_id": "workstream_driver_recency_coalescer",
-      "kind_name": "Workstream driver recency coalescer",
-      "path": "standards/std_microcosm_workstream_driver_recency_coalescer.json",
-      "receipt_id": "receipt.microcosm.workstream_driver_recency_coalescer",
-      "standard_id": "std_microcosm_workstream_driver_recency_coalescer",
-      "status": "accepted_public_runtime_standard",
-      "used_by_organs": [
-        "workstream_driver_recency_coalescer"
-      ],
-      "validator_id": "validator.microcosm.organs.workstream_driver_recency_coalescer",
-      "wave": "w1_workstream_driver_recency_coalescer"
-    },
-    {
-      "first_wave_required": true,
       "kind_id": "batch8_compliance_pipeline_capsule",
       "kind_name": "Batch 8 compliance pipeline capsule",
       "path": "standards/std_microcosm_batch8_compliance_pipeline_capsule.json",
@@ -1843,20 +1815,6 @@
     },
     {
       "first_wave_required": true,
-      "kind_id": "batch7_station_runtime_capsule",
-      "kind_name": "Batch 7 station runtime capsule",
-      "path": "standards/std_microcosm_batch7_station_runtime_capsule.json",
-      "receipt_id": "receipt.microcosm.batch7_station_runtime_capsule",
-      "standard_id": "std_microcosm_batch7_station_runtime_capsule",
-      "status": "accepted_public_runtime_standard",
-      "used_by_organs": [
-        "batch7_station_runtime_capsule"
-      ],
-      "validator_id": "validator.microcosm.organs.batch7_station_runtime_capsule",
-      "wave": "w1_batch7_station_runtime_capsule"
-    },
-    {
-      "first_wave_required": true,
       "kind_id": "batch12_market_dashboard_read_model_capsule",
       "kind_name": "Batch 12 market dashboard read-model capsule",
       "path": "standards/std_microcosm_batch12_market_dashboard_read_model_capsule.json",
@@ -1896,20 +1854,6 @@
       ],
       "validator_id": "validator.microcosm.organs.batch12_release_claim_language_gate",
       "wave": "w1_batch12_release_claim_language_gate"
-    },
-    {
-      "first_wave_required": true,
-      "kind_id": "batch10_frontend_work_market_cockpit_capsule",
-      "kind_name": "Batch 10 frontend work/market cockpit capsule",
-      "path": "standards/std_microcosm_batch10_frontend_work_market_cockpit_capsule.json",
-      "receipt_id": "receipt.microcosm.batch10_frontend_work_market_cockpit_capsule",
-      "standard_id": "std_microcosm_batch10_frontend_work_market_cockpit_capsule",
-      "status": "accepted_public_runtime_standard",
-      "used_by_organs": [
-        "batch10_frontend_work_market_cockpit_capsule"
-      ],
-      "validator_id": "validator.microcosm.organs.batch10_frontend_work_market_cockpit_capsule",
-      "wave": "w1_batch10_frontend_work_market_cockpit_capsule"
     },
     {
       "first_wave_required": false,
@@ -1965,20 +1909,6 @@
         "batch7_secondary_runtime_capsule"
       ],
       "validator_id": null,
-      "wave": "w1_unregistered_standard_file_inventory"
-    },
-    {
-      "first_wave_required": false,
-      "kind_id": "batch7_zenith_macos_capsule",
-      "kind_name": "Batch 7 Zenith macOS Capsule Standard",
-      "path": "standards/std_microcosm_batch7_zenith_macos_capsule.json",
-      "receipt_id": null,
-      "standard_id": "std_microcosm_batch7_zenith_macos_capsule",
-      "status": "draft",
-      "used_by_organs": [
-        "batch7_zenith_macos_capsule"
-      ],
-      "validator_id": "validator.microcosm.organs.batch7_zenith_macos_capsule",
       "wave": "w1_unregistered_standard_file_inventory"
     },
     {

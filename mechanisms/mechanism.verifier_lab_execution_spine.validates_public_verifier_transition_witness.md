@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

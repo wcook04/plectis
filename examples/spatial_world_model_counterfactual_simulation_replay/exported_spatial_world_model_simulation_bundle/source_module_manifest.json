@@ -3,7 +3,7 @@
   "bundle_id": "public_spatial_world_model_counterfactual_simulation_replay_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "spatial_world_model_source_modules_import",
-  "module_count": 3,
+  "module_count": 2,
   "modules": [
     {
       "anchor_count": 6,
@@ -52,28 +52,6 @@
       "source_sha256": "9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3",
       "target_ref": "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
       "target_sha256": "9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3"
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 2807,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 63,
-      "material_class": "public_macro_tool_body",
-      "module_id": "station_geometry_build_wiring_source_body_import",
-      "required_anchors": [
-        "\"build\": \"npm run check:station-geometry && npm run typecheck && vite build\"",
-        "\"build:web\": \"npm run check:station-geometry && npm run typecheck && vite build\"",
-        "\"check:station-geometry\": \"cd ../../.. && ./repo-python tools/meta/factory/check_station_geometry.py --check\""
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "system/server/ui/package.json",
-      "source_role": "Station UI package build wiring that runs the geometry checker before TypeScript and Vite build steps.",
-      "source_sha256": "a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
-      "target_ref": "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json",
-      "target_sha256": "a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029"
     }
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",

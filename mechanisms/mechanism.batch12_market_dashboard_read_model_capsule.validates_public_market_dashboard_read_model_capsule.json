@@ -197,7 +197,6 @@
       "statement": "The Batch 12 market dashboard read-model capsule validates copied public read-model helpers over synthetic fixtures through market-dashboard import stubs, freshness classification, related-situation scoring, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without market truth, investment advice, provider dispatch, release, publication, or whole-system correctness claims.",
       "status": "active",
       "upstream_of": [
-        "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
         "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
       ]
     },
@@ -323,19 +322,6 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -347,7 +333,6 @@
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
-      "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
       "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
     ]
   },

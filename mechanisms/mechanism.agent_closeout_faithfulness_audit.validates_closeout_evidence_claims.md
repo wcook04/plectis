@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

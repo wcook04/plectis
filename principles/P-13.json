@@ -146,7 +146,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -198,7 +198,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.concept",

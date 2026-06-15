@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 8933,
+    "actual_bytes": 8929,
     "band": "compact",
     "max_bytes": 16000,
     "target_bytes": 8000,
     "within_budget": true
   },
-  "compile_ms": 0.992,
+  "compile_ms": 1.233,
   "default_entry": "first_contact",
   "evidence_refs": [
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
@@ -115,7 +115,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/self_model.json",
-      "cached_bytes": 18129,
+      "cached_bytes": 17828,
       "command": "microcosm comprehend --self-model",
       "data_status": "full",
       "export_band": "presence_only",
@@ -138,7 +138,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
-      "cached_bytes": 31013,
+      "cached_bytes": 29639,
       "command": "microcosm comprehend --first-contact",
       "data_status": "full",
       "export_band": "presence_only",
@@ -161,7 +161,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/authority.json",
-      "cached_bytes": 25913,
+      "cached_bytes": 24856,
       "command": "microcosm comprehend --slice authority",
       "data_status": "full",
       "export_band": "presence_only",
@@ -181,7 +181,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/organs_index.json",
-      "cached_bytes": 41716,
+      "cached_bytes": 39817,
       "command": "microcosm comprehend --slice organs",
       "data_status": "full",
       "export_band": "presence_only",
@@ -299,7 +299,7 @@
       "data_status": "substantive_local",
       "export_band": "local_semantic_excerpt",
       "kind": "packet",
-      "max_bytes": 240000,
+      "max_bytes": 64000,
       "next_packets": [
         "organ",
         "claim_trace",
@@ -308,7 +308,7 @@
       "packet_id": "mutation_plan",
       "packet_kind": "how_to",
       "slo_ms": 800,
-      "target_bytes": 150000,
+      "target_bytes": 40000,
       "when_needed": "I want to change something safely: what to inspect, test, refresh"
     },
     {
@@ -318,7 +318,7 @@
       "data_status": "full",
       "export_band": "local_semantic_excerpt",
       "kind": "packet",
-      "max_bytes": 240000,
+      "max_bytes": 64000,
       "next_packets": [
         "mutation_plan",
         "organ"
@@ -326,7 +326,7 @@
       "packet_id": "path",
       "packet_kind": "reference",
       "slo_ms": 800,
-      "target_bytes": 150000,
+      "target_bytes": 40000,
       "when_needed": "read a file's authored atom values without opening source"
     }
   ],

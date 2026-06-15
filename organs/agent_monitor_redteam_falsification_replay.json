@@ -33,7 +33,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Agent Monitor Redteam Falsification Replay",
   "entry_surface_contract": null,
-  "evidence_class": "bounded_runtime_computation",
+  "evidence_class": "algorithmic_projection",
   "family": "agent_reliability_and_safety",
   "id": "agent_monitor_redteam_falsification_replay",
   "kind": "organ",
@@ -105,7 +105,7 @@
         "concept.agent_reliability_and_safety_validator_bundle"
       ],
       "display_name": "Agent Monitor Redteam Falsification Replay",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
       "human_gloss": "It replays three made-up agent trajectories (a normal one, one trying to hide a failure, and one overstepping a tool's permissions) and checks that every monitor verdict — including a clean \"pass\" — comes with the receipts needed to re-run and verify it. The receipts show exactly which checks each verdict depends on, and any verdict missing its backing evidence gets quarantined instead of trusted. It is a demo over fictional data, not a measurement of how well a real monitor catches anything.",
@@ -138,12 +138,12 @@
     },
     "source_registry_row": {
       "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed monitor-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live agent execution, monitor product performance, control-eval scores, safety validation, benchmark scores, provider calls, source mutation, release, publication, or product authority",
-      "classification_basis": "bounded runtime computation over public monitor-redteam bundles: copied macro pattern body plus sanitized dogfood trace slice digests, recomputed monitor verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, verdict-mismatch negatives, and required forbidden-input negatives",
+      "classification_basis": "validates copied public monitor-redteam macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the monitor verdict is a consistency fold over fixture-declared spans, not in-process runtime computation",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_monitor_redteam_falsification_replay]",
-      "evidence_strength_rank": 4,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
@@ -154,7 +154,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
     },
     "support_contract": {

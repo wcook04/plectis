@@ -88,7 +88,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -105,7 +105,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+        "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
         "fixtures/first_wave/batch7_demo_take_console_capsule/input",
         "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle",
         "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
@@ -202,7 +202,7 @@
       "runs_in": [
         "batch7_demo_take_console_capsule"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
       "statement": "The Batch 7 Demo Take Console capsule validates copied public Swift source bodies through deterministic SwiftPM build-witness, recording-state, helper-bridge, recorder-store, hotkey/audio-meter, transcribe-payload, exported-bundle, digest-anchor, negative-case, body-free receipt, and authority-ceiling checks without granting app launch authority, screen or microphone capture authority, model dispatch, source mutation, publication, release, private-root equivalence, or whole-system correctness.",
       "status": "active",
       "upstream_of": [
@@ -216,7 +216,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -291,7 +291,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -304,7 +304,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -317,7 +317,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -330,7 +330,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -343,7 +343,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -358,7 +358,7 @@
     "runs_in": [
       "batch7_demo_take_console_capsule"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
@@ -368,7 +368,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+      "path": "core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

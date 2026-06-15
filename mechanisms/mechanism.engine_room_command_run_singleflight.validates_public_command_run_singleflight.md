@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[91:mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[77:mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

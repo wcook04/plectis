@@ -88,7 +88,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -105,7 +105,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+        "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
         "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input",
         "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
         "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
@@ -202,7 +202,7 @@
       "runs_in": [
         "formal_evidence_cell_anchor_resolver"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
       "statement": "The formal evidence cell anchor resolver validates proof-language evidence boundaries by resolving public paper claims to evidence-cell ids, requiring source-anchor refs and machine-anchor classes, checking copied source-module digests and body-free receipt policy, anchoring verifier-trace cells to real Ring2 receipts, and rejecting proof-body, private-ref, human-approval, theorem-correctness, missing-cell, and missing-anchor overclaims.",
       "status": "active",
       "upstream_of": [
@@ -216,7 +216,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -287,7 +287,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -300,7 +300,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -313,7 +313,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -326,7 +326,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -339,7 +339,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -354,7 +354,7 @@
     "runs_in": [
       "formal_evidence_cell_anchor_resolver"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
@@ -364,7 +364,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[26:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+      "path": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

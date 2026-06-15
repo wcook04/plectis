@@ -198,8 +198,7 @@
       "upstream_of": [
         "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
         "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
-        "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
-        "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+        "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
       ]
     },
     "support_contract": {
@@ -350,19 +349,6 @@
         "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
-        "target_id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
@@ -373,8 +359,7 @@
     "upstream_mechanism_refs": [
       "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
-      "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
-      "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+      "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
     ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",

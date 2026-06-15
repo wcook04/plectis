@@ -50,15 +50,15 @@ The source-module file graph is body-free relation metadata from `organ-surface-
 
 | Handle | Count |
 |---|---:|
-| Accepted organs with source relations | 82 |
-| Source-module edges | 8149 |
-| Source files (per-organ aggregate) | 710 |
-| Source shards (per-organ aggregate) | 2556 |
-| Target files (per-organ aggregate) | 721 |
-| Target shards (per-organ aggregate) | 2598 |
-| Validation refs (per-organ aggregate) | 116 |
+| Accepted organs with source relations | 77 |
+| Source-module edges | 7931 |
+| Source files (per-organ aggregate) | 671 |
+| Source shards (per-organ aggregate) | 2431 |
+| Target files (per-organ aggregate) | 682 |
+| Target shards (per-organ aggregate) | 2473 |
+| Validation refs (per-organ aggregate) | 115 |
 
-Top relation types: `source_shard.retained_as_public_target_shard` `2599` · `source_shard.validated_by_ref` `1424` · `target_shard.validated_by_ref` `1424` · `target_file.shares_macro_source_with_target_file` `914` · `source_file.copied_to_public_target` `722`
+Top relation types: `source_shard.retained_as_public_target_shard` `2474` · `source_shard.validated_by_ref` `1404` · `target_shard.validated_by_ref` `1404` · `target_file.shares_macro_source_with_target_file` `912` · `source_file.copied_to_public_target` `683`
 
 Route into the live topology surface:
 
@@ -89,7 +89,7 @@ Organs do not call each other. They bind to these kernel primitives, projected i
 
 ## Level 3 — the organ spine, grouped into families
 
-The 82 accepted organs cluster into 7 families. Open [ORGANS.md](ORGANS.md) for the full per-organ cards.
+The 78 accepted organs cluster into 7 families. Open [ORGANS.md](ORGANS.md) for the full per-organ cards.
 
 ```mermaid
 flowchart LR
@@ -101,10 +101,10 @@ flowchart LR
   S --> EAR["Entry & Reveal (2)"]
   S --> AAN["Architecture & Navigation (10)"]
   S --> FMAP["Formal Math & Proof (18)"]
-  S --> ARAS["Agent Reliability & Safety Replays (18)"]
+  S --> ARAS["Agent Reliability & Safety Replays (17)"]
   S --> RASR["Research & Science Replays (8)"]
-  S --> IPAD["Import, Projection & Drift (21)"]
-  S --> WLAC["Work, Landing & Continuity (5)"]
+  S --> IPAD["Import, Projection & Drift (19)"]
+  S --> WLAC["Work, Landing & Continuity (4)"]
   S --> V[Validators + receipts]
   S --> AC[Scope limit]
 ```
@@ -114,10 +114,10 @@ flowchart LR
 | [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | Microcosm's entry point and what its short guided path actually proves. |
 | [Architecture & Navigation](ORGANS.md#architecture--navigation) | 10 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
 | [Formal Math & Proof](ORGANS.md#formal-math--proof) | 18 | The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates. |
-| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 18 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
+| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 17 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
 | [Research & Science Replays](ORGANS.md#research--science-replays) | 8 | Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
-| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 21 | The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source. |
-| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 5 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
+| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 19 | The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source. |
+| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 4 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
 
 ## Level 3 — organ wiring map
 
@@ -161,7 +161,7 @@ flowchart LR
     o2_16["Proof / Control / Runtime Import Capsule"]
     o2_17["Proof Derived Governed Mutation Authorization"]
   end
-  subgraph F3["Agent Reliability & Safety Replays (18)"]
+  subgraph F3["Agent Reliability & Safety Replays (17)"]
     o3_0["Agent Benchmark Integrity Anti Gaming Replay"]
     o3_1["Cold-Eval Honesty Capsule"]
     o3_2["Validator Checker Capsule"]
@@ -178,8 +178,7 @@ flowchart LR
     o3_13["Provider Context Recipe Budget Policy"]
     o3_14["Agent Closeout Faithfulness Audit"]
     o3_15["Bounded Autonomy Campaign Packet"]
-    o3_16["Station Runtime Evidence Capsule"]
-    o3_17["Secondary Runtime Source Capsule"]
+    o3_16["Secondary Runtime Source Capsule"]
   end
   subgraph F4["Research & Science Replays (8)"]
     o4_0["Research Replication Rubric Artifact Replay"]
@@ -191,7 +190,7 @@ flowchart LR
     o4_6["Market Dashboard Read-Model Capsule"]
     o4_7["Prediction Market Board Capsule"]
   end
-  subgraph F5["Import, Projection & Drift (21)"]
+  subgraph F5["Import, Projection & Drift (19)"]
     o5_0["Macro Projection Import Protocol"]
     o5_1["World Model Projection Drift Control Room"]
     o5_2["Unsurfaced Macro Primitives Capsule"]
@@ -202,24 +201,21 @@ flowchart LR
     o5_7["Tools-Tail Primitives Capsule"]
     o5_8["Policy Engines Capsule"]
     o5_9["Audio Level RMS Port"]
-    o5_10["Surface Atlas Layout Port"]
-    o5_11["Structural Theses Finance Capsule"]
-    o5_12["Engine Room Demo"]
-    o5_13["Backend and Governance Engines Capsule"]
-    o5_14["Governance and Compiler Mechanisms Capsule"]
-    o5_15["Saturation Engines Capsule"]
-    o5_16["Tool Server Pressure Inventory"]
-    o5_17["Compliance Pipeline Capsule"]
-    o5_18["Live Source Drift Capsule"]
-    o5_19["Release Claim-Language Gate"]
-    o5_20["Frontend Work/Market Cockpit Capsule"]
+    o5_10["Structural Theses Finance Capsule"]
+    o5_11["Engine Room Demo"]
+    o5_12["Backend and Governance Engines Capsule"]
+    o5_13["Governance and Compiler Mechanisms Capsule"]
+    o5_14["Saturation Engines Capsule"]
+    o5_15["Tool Server Pressure Inventory"]
+    o5_16["Compliance Pipeline Capsule"]
+    o5_17["Live Source Drift Capsule"]
+    o5_18["Release Claim-Language Gate"]
   end
-  subgraph F6["Work, Landing & Continuity (5)"]
+  subgraph F6["Work, Landing & Continuity (4)"]
     o6_0["Mission Transaction Work Spine"]
     o6_1["Durable Agent Work Landing Replay"]
     o6_2["Bridge Phase Continuity Runtime"]
-    o6_3["Workstream Driver Recency Coalescer"]
-    o6_4["Concurrency Mission Control"]
+    o6_3["Concurrency Mission Control"]
   end
   o0_0 --> o1_3
   o0_0 --> o3_12
@@ -229,7 +225,7 @@ flowchart LR
   o0_0 --> o1_7
   o0_0 --> o1_9
   o0_0 --> o1_5
-  o0_1 --> o5_19
+  o0_1 --> o5_18
   o0_1 --> o4_3
   o0_1 --> o5_9
   o0_1 --> o3_2
@@ -248,15 +244,14 @@ flowchart LR
   o1_3 --> o5_0
   o1_3 --> o1_9
   o1_3 --> o1_5
-  o1_3 --> o5_12
-  o1_3 --> o5_15
-  o1_3 --> o5_17
-  o1_3 --> o5_10
+  o1_3 --> o5_11
+  o1_3 --> o5_14
+  o1_3 --> o5_16
   o1_5 --> o1_1
   o1_7 --> o1_3
   o1_7 --> o3_12
   o1_7 --> o0_0
-  o1_8 --> o5_12
+  o1_8 --> o5_11
   o1_8 --> o1_9
   o2_0 --> o2_8
   o2_0 --> o2_9
@@ -323,14 +318,14 @@ flowchart LR
   o2_13 --> o2_12
   o2_13 --> o2_14
   o2_14 --> o2_15
-  o2_14 --> o5_12
-  o2_17 --> o5_19
+  o2_14 --> o5_11
+  o2_17 --> o5_18
   o2_17 --> o2_16
   o2_17 --> o5_8
   o3_0 --> o4_0
   o3_0 --> o3_1
   o3_2 --> o3_1
-  o3_2 --> o5_19
+  o3_2 --> o5_18
   o3_3 --> o3_4
   o3_5 --> o3_6
   o3_7 --> o3_9
@@ -342,19 +337,17 @@ flowchart LR
   o3_12 --> o1_0
   o3_12 --> o5_0
   o3_12 --> o3_15
-  o3_12 --> o5_15
+  o3_12 --> o5_14
   o3_12 --> o2_16
   o3_12 --> o5_2
   o3_12 --> o5_4
-  o3_12 --> o3_16
-  o3_12 --> o5_17
+  o3_12 --> o5_16
   o3_12 --> o3_5
   o3_12 --> o3_9
   o3_12 --> o3_13
   o3_12 --> o3_8
   o3_13 --> o3_15
-  o3_13 --> o5_16
-  o3_16 --> o5_10
+  o3_13 --> o5_15
   o4_0 --> o4_2
   o4_0 --> o4_3
   o4_0 --> o4_4
@@ -363,85 +356,75 @@ flowchart LR
   o4_2 --> o4_1
   o4_4 --> o4_6
   o4_4 --> o4_7
-  o4_4 --> o5_11
+  o4_4 --> o5_10
   o4_5 --> o4_7
   o4_5 --> o4_4
-  o4_6 --> o5_20
   o4_6 --> o5_2
-  o4_7 --> o5_11
+  o4_7 --> o5_10
   o5_0 --> o2_1
   o5_0 --> o3_12
   o5_0 --> o6_0
   o5_0 --> o1_3
   o5_0 --> o1_0
   o5_0 --> o4_2
-  o5_0 --> o5_15
-  o5_0 --> o5_17
-  o5_0 --> o5_20
   o5_0 --> o5_14
-  o5_0 --> o5_18
+  o5_0 --> o5_16
+  o5_0 --> o5_13
+  o5_0 --> o5_17
   o5_0 --> o2_16
   o5_0 --> o5_3
   o5_0 --> o5_2
   o5_0 --> o5_4
   o5_0 --> o5_6
   o5_0 --> o5_5
-  o5_0 --> o3_17
+  o5_0 --> o3_16
   o5_0 --> o5_9
   o5_0 --> o5_8
-  o5_0 --> o5_13
-  o5_0 --> o6_4
   o5_0 --> o5_12
-  o5_0 --> o1_2
   o5_0 --> o6_3
+  o5_0 --> o5_11
+  o5_0 --> o1_2
   o5_1 --> o4_2
   o5_1 --> o4_3
   o5_1 --> o4_4
   o5_1 --> o4_1
-  o5_1 --> o5_16
+  o5_1 --> o5_15
   o5_1 --> o4_6
   o5_1 --> o5_10
-  o5_1 --> o5_11
   o5_4 --> o5_8
   o5_4 --> o5_7
-  o5_4 --> o5_13
+  o5_4 --> o5_12
   o5_5 --> o5_7
   o5_6 --> o5_9
   o5_6 --> o5_2
-  o5_7 --> o3_16
-  o5_10 --> o3_16
-  o5_11 --> o4_7
-  o5_12 --> o5_17
-  o5_12 --> o3_2
-  o5_13 --> o5_14
-  o5_15 --> o5_0
-  o5_15 --> o5_17
-  o5_15 --> o1_3
-  o5_15 --> o3_12
-  o5_17 --> o5_0
-  o5_17 --> o5_15
-  o5_17 --> o1_3
-  o5_17 --> o3_12
-  o5_18 --> o5_20
-  o5_18 --> o5_14
-  o5_20 --> o4_6
+  o5_10 --> o4_7
+  o5_11 --> o5_16
+  o5_11 --> o3_2
+  o5_12 --> o5_13
+  o5_14 --> o5_0
+  o5_14 --> o5_16
+  o5_14 --> o1_3
+  o5_14 --> o3_12
+  o5_16 --> o5_0
+  o5_16 --> o5_14
+  o5_16 --> o1_3
+  o5_16 --> o3_12
+  o5_17 --> o5_13
   o6_0 --> o3_15
-  o6_0 --> o6_4
+  o6_0 --> o6_3
   o6_0 --> o5_0
-  o6_0 --> o5_16
-  o6_0 --> o5_18
+  o6_0 --> o5_15
+  o6_0 --> o5_17
   o6_0 --> o2_16
   o6_0 --> o5_7
   o6_0 --> o3_0
   o6_0 --> o3_11
-  o6_1 --> o6_3
   o6_1 --> o3_14
   o6_1 --> o5_0
   o6_2 --> o3_5
-  o6_2 --> o6_4
   o6_2 --> o6_3
-  o6_4 --> o6_0
-  o6_4 --> o5_18
+  o6_3 --> o6_0
+  o6_3 --> o5_17
 ```
 
 ## Level 4 — import & drift membrane

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

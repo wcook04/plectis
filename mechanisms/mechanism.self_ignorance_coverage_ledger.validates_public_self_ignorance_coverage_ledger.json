@@ -79,7 +79,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -96,7 +96,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
+        "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
         "fixtures/first_wave/self_ignorance_coverage_ledger/input",
         "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle",
         "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
@@ -184,7 +184,7 @@
       "runs_in": [
         "self_ignorance_coverage_ledger"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
       "statement": "The self-ignorance coverage ledger organ validates known Kind Atlas coverage-debt fixtures through declared gap rows, missing-category checks, source-module digest anchors, negative cases, body-free receipts, and authority ceilings while refusing unknown-unknown omniscience, absence proof, total-search proof, source mutation, release, publication, or whole-system correctness claims.",
       "status": "active"
     },
@@ -194,7 +194,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -260,7 +260,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -273,7 +273,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -286,7 +286,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -301,7 +301,7 @@
     "runs_in": [
       "self_ignorance_coverage_ledger"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -315,7 +315,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
+      "path": "core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

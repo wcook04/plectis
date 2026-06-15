@@ -158,7 +158,7 @@
     },
     "source_registry_row": {
       "claim_ceiling": "bounded public reveal runtime and digest-verified body-import witness only; not release, hosting, publication, provider-call, private-root equivalence, whole-system correctness, or general product authority",
-      "classification_basis": "fixture card requires the exported reveal bundle witness; bundle validation digest-verifies five copied non-secret public macro bodies, rejects tampered source-module digests, and the focused proof ladder exercises microcosm compile/explain over a scratch project",
+      "classification_basis": "fixture card requires exported-bundle witness; bundle validation digest-verifies copied public macro bodies and rejects tampered source-module digests while focused tests exercise the advertised compile/explain path",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
       "evidence_class": "bounded_runtime_computation",

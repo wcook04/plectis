@@ -198,7 +198,6 @@
       "statement": "The Batch 10 live-source drift capsule validates copied public macro-body behavior through deterministic fixture and exported-bundle exercises, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without granting source authority, private-root equivalence, provider dispatch, publication, release, or whole-system correctness.",
       "status": "active",
       "upstream_of": [
-        "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
         "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
       ]
     },
@@ -325,19 +324,6 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -349,7 +335,6 @@
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
-      "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
       "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
     ]
   },

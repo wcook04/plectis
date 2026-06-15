@@ -1,8 +1,0 @@
-{
-  "body_in_receipt": false,
-  "case_id": "lane_progress_unknown_state",
-  "error_codes": [
-    "BATCH7_SECONDARY_LANE_PROGRESS_UNKNOWN_STATE"
-  ],
-  "schema_version": "batch7_secondary_runtime_capsule_negative_case_v1"
-}

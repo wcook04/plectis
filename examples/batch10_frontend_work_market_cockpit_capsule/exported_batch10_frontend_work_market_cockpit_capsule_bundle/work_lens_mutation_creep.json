@@ -1,8 +1,0 @@
-{
-  "case_id": "work_lens_mutation_creep",
-  "error_codes": [
-    "BATCH10_FRONTEND_WORK_LENS_MUTATION_CREEP_REFUSED"
-  ],
-  "blocked_claim": "A work cockpit source body may observe live WorkItems but may not claim Task Ledger or Work Ledger mutation authority.",
-  "body_in_receipt": false
-}

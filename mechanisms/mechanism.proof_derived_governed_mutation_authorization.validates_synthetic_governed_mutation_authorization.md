@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[19:mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[15:mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

@@ -82,7 +82,7 @@
       "concept_pair_ref": "research_and_science_replay_evidence_bundle.concept_binding",
       "mechanism_role": "family validators that check research, forecasting, chemistry, and world-model replay evidence without exporting private bodies",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
+        "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
         "fixtures/first_wave/batch12_prediction_market_board_capsule/input",
         "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle",
         "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json",
@@ -189,7 +189,7 @@
       "runs_in": [
         "batch12_prediction_market_board_capsule"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
       "statement": "The Batch 12 prediction market board capsule validates copied public prediction-board and quant-mart diagnostics over synthetic fixtures through event join and dedupe, provider drift flags, missingness classification, previous-green deltas, macro lifecycle enrichment, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without market/provider truth, investment advice, provider dispatch, release, publication, or whole-system correctness claims.",
       "status": "active",
       "upstream_of": [
@@ -202,7 +202,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -270,7 +270,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -283,7 +283,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -296,7 +296,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -309,7 +309,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -324,7 +324,7 @@
     "runs_in": [
       "batch12_prediction_market_board_capsule"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule"
@@ -333,7 +333,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
+      "path": "core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

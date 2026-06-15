@@ -3,7 +3,6 @@
   "claim_ceiling": "Batch 7 public macro engine capsule only; no release, publication, semantic-truth, investment-advice, sandbox-completeness, or CI-completeness authority.",
   "engine_ids": [
     "agent_trace_ir_compiler",
-    "codemap_orbit_layout",
     "constitutional_dag_kernel",
     "release_root_compiler",
     "source_surgeon_patch",
@@ -16,7 +15,6 @@
   "organ_id": "batch7_macro_engines_capsule",
   "schema_version": "batch7_macro_engines_exercise_manifest_v1",
   "witness_commands": {
-    "agent_trace_ir_compiler": "node --test parser.test.mjs against copied parser source module",
-    "codemap_orbit_layout": "npm exec -- vitest run src/lib/codemap/__tests__ from macro UI root"
+    "agent_trace_ir_compiler": "node --test parser.test.mjs against copied parser source module"
   }
 }

@@ -45,9 +45,6 @@ EXPECTED_MECHANISMS: tuple[str, ...] = (
     "session_dependency_wave_executor",
     "claim_conflict_wait_tax_detector",
     "role_aware_dag_block_propagation",
-    "generic_table_shaping_sort_filter_paginate_kernel",
-    "annex_source_kind_group_ranker",
-    "recent_change_fingerprint_coalescer",
     "weighted_lane_width_apportionment_binding_repair",
 )
 
@@ -66,9 +63,6 @@ EXPECTED_NEGATIVE_CASES = {
     ),
     "claim_parent_child_overlap_reported": ("BATCH10_CLAIM_PARENT_CHILD_OVERLAP_REPORTED",),
     "dag_quality_error_not_overblocked": ("BATCH10_DAG_QUALITY_ERROR_NOT_OVERBLOCKED",),
-    "table_missing_values_sort_last": ("BATCH10_TABLE_MISSING_VALUES_SORT_LAST",),
-    "annex_empty_facets_no_fake_counts": ("BATCH10_ANNEX_EMPTY_FACETS_NO_FAKE_COUNTS",),
-    "recent_empty_summary_bucketed": ("BATCH10_RECENT_EMPTY_SUMMARY_BUCKETED",),
     "lane_width_binding_deferred_to_batch9": (
         "BATCH10_LANE_WIDTH_BINDING_DEFERRED_TO_BATCH9",
     ),
@@ -144,24 +138,6 @@ NEGATIVE_CASE_BINDINGS: dict[str, dict[str, Any]] = {
         "expected": True,
         "input_shape": {"upstream_status": "quality_error", "downstream_role": "probe"},
     },
-    "table_missing_values_sort_last": {
-        "mechanism_id": "generic_table_shaping_sort_filter_paginate_kernel",
-        "computed_path": "price_sort_order",
-        "expected": ["C", "A", "B"],
-        "input_shape": {"sort_column": "price", "missing_value_ticker": "B"},
-    },
-    "annex_empty_facets_no_fake_counts": {
-        "mechanism_id": "annex_source_kind_group_ranker",
-        "computed_path": "empty_facet_counts",
-        "expected": [],
-        "input_shape": {"domains": [], "problem_spaces": []},
-    },
-    "recent_empty_summary_bucketed": {
-        "mechanism_id": "recent_change_fingerprint_coalescer",
-        "computed_path": "group_keys",
-        "expected_contains": "empty",
-        "input_shape": {"summary": ""},
-    },
     "lane_width_binding_deferred_to_batch9": {
         "mechanism_id": "weighted_lane_width_apportionment_binding_repair",
         "computed_path": "disposition",
@@ -192,11 +168,6 @@ MECHANISM_SOURCE_REFS: dict[str, tuple[str, ...]] = {
     "session_dependency_wave_executor": ("tools/meta/apply/session_core.py",),
     "claim_conflict_wait_tax_detector": ("system/lib/action_quote.py",),
     "role_aware_dag_block_propagation": ("tools/meta/apply/run_observe_plan.py",),
-    "generic_table_shaping_sort_filter_paginate_kernel": (
-        "system/server/ui/src/components/views/DataView.tsx",
-    ),
-    "annex_source_kind_group_ranker": ("system/server/ui/src/pages/Annexes.utils.ts",),
-    "recent_change_fingerprint_coalescer": ("system/server/ui/src/pages/HomeStation.tsx",),
     "weighted_lane_width_apportionment_binding_repair": (
         "system/server/ui/src/pages/RootNavigator.tsx",
     ),
@@ -227,9 +198,9 @@ ANTI_CLAIM = (
     "public ports for mutation governance, observe/apply compilation, public "
     "artifact review, release-blocker triage, publication path-contract checks, "
     "receipt staleness, no-lookahead finance horizons, session-wave execution, "
-    "claim-conflict wait-tax detection, role-aware block propagation, table "
-    "shaping, annex grouping, recent-change coalescing, and a blocked Batch-9 "
-    "lane-width binding repair. It is not release approval, publication "
+    "claim-conflict wait-tax detection, role-aware block propagation, and a "
+    "blocked Batch-9 lane-width binding repair. It is not release approval, "
+    "publication "
     "authority, live Work Ledger truth, neutral benchmark evidence, source "
     "mutation permission, or investment advice."
 )
@@ -293,24 +264,6 @@ SOURCE_REQUIRED_ANCHORS = {
         "def _claim_conflicts",
         "def _wait_tax_match",
         "ranked_wait_taxes",
-    ),
-    "system/server/ui/src/components/views/DataView.tsx": (
-        "function normalizeComparableValue",
-        "function resolveSortValue",
-        "function compareByColumn",
-        "function sortedRows",
-    ),
-    "system/server/ui/src/pages/Annexes.utils.ts": (
-        "function countValues",
-        "export function summarizeAnnexes",
-        "export function groupAnnexesBySourceKind",
-        "ANNEX_SOURCE_KIND_ORDER",
-    ),
-    "system/server/ui/src/pages/HomeStation.tsx": (
-        "function summaryFingerprint",
-        "function groupRecentChanges",
-        "latestIso",
-        "return order.slice(0, limit)",
     ),
 }
 
@@ -1036,193 +989,6 @@ def _role_aware_dag_matrix() -> dict[str, Any]:
     }
 
 
-def normalize_comparable_value(value: Any) -> int | float | str | None:
-    if value is None:
-        return None
-    if isinstance(value, bool):
-        return 1 if value else 0
-    if isinstance(value, (int, float)):
-        return value if math.isfinite(float(value)) else None
-    if isinstance(value, str):
-        trimmed = value.strip()
-        if not trimmed:
-            return None
-        if re.fullmatch(r"-?\d+(\.\d+)?", trimmed):
-            return float(trimmed) if "." in trimmed else int(trimmed)
-        return trimmed.lower()
-    if isinstance(value, list):
-        return "|".join(str(item) for item in value).lower()
-    return json.dumps(value, sort_keys=True).lower()
-
-
-def resolve_sort_value(value: Any, column: str, metadata: Mapping[str, Any] | None) -> Any:
-    if column.lower() == "sec" and metadata:
-        definitions = metadata.get("definitions") if isinstance(metadata.get("definitions"), Mapping) else {}
-        definition = definitions.get(column) or definitions.get(column.lower())
-        sector_map = metadata.get("sector_map") if isinstance(metadata.get("sector_map"), Mapping) else {}
-        if isinstance(definition, Mapping) and definition.get("encoding") == "integer_enum":
-            try:
-                sec_value = int(value)
-            except (TypeError, ValueError):
-                sec_value = None
-            for label, raw_id in sector_map.items():
-                if sec_value is not None and int(raw_id) == sec_value:
-                    return str(label).lower()
-    return normalize_comparable_value(value)
-
-
-def _compare_values(left: Any, right: Any, direction: str = "asc") -> int:
-    if left is None and right is None:
-        return 0
-    if left is None:
-        return 1
-    if right is None:
-        return -1
-    if isinstance(left, (int, float)) and isinstance(right, (int, float)):
-        result = -1 if left < right else 1 if left > right else 0
-    else:
-        result = -1 if str(left) < str(right) else 1 if str(left) > str(right) else 0
-    return result if direction == "asc" else -result
-
-
-def _sorted_rows(rows: list[dict[str, Any]], column: str, direction: str, metadata: Mapping[str, Any] | None = None) -> list[dict[str, Any]]:
-    indexed = list(enumerate(rows))
-
-    def compare(left: tuple[int, dict[str, Any]], right: tuple[int, dict[str, Any]]) -> int:
-        left_value = resolve_sort_value(left[1].get(column), column, metadata)
-        right_value = resolve_sort_value(right[1].get(column), column, metadata)
-        compared = _compare_values(left_value, right_value, direction)
-        return left[0] - right[0] if compared == 0 else compared
-
-    indexed.sort(key=functools.cmp_to_key(compare))
-    return [row for _, row in indexed]
-
-
-def _table_shaping_matrix() -> dict[str, Any]:
-    rows = [
-        {"ticker": "A", "price": "10", "active": True, "tags": ["z", "a"], "sec": 2},
-        {"ticker": "B", "price": "", "active": False, "tags": ["a"], "sec": 1},
-        {"ticker": "C", "price": "2", "active": True, "tags": [{"x": 1}], "sec": 3},
-    ]
-    metadata = {
-        "definitions": {"sec": {"encoding": "integer_enum"}},
-        "sector_map": {"Energy": 1, "Health": 2, "Tech": 3},
-    }
-    sorted_by_price = _sorted_rows(rows, "price", "asc")
-    sorted_by_sector = _sorted_rows(rows, "sec", "asc", metadata)
-    filtered = [row for row in rows if "a" in " ".join(str(value).lower() for value in row.values())]
-    page = filtered[:2]
-    return {
-        "status": "pass"
-        if [row["ticker"] for row in sorted_by_price] == ["C", "A", "B"]
-        and [row["ticker"] for row in sorted_by_sector] == ["B", "A", "C"]
-        and len(page) <= 2
-        else "blocked",
-        "mechanism_id": "generic_table_shaping_sort_filter_paginate_kernel",
-        "price_sort_order": [row["ticker"] for row in sorted_by_price],
-        "sector_sort_order": [row["ticker"] for row in sorted_by_sector],
-        "page_count": len(page),
-        "claim_ceiling": "Deterministic table shaping over controlled rows only.",
-    }
-
-
-def _count_values(rows: Sequence[Mapping[str, Any]], key: str) -> list[tuple[str, int]]:
-    counts: dict[str, int] = {}
-    for row in rows:
-        values = row.get(key)
-        if isinstance(values, str):
-            values = [values] if values else []
-        if not isinstance(values, list):
-            continue
-        for value in values:
-            counts[str(value)] = counts.get(str(value), 0) + 1
-    return sorted(counts.items(), key=lambda item: -item[1])
-
-
-def _group_annexes_by_source_kind(rows: Sequence[Mapping[str, Any]]) -> list[tuple[str, list[str]]]:
-    groups: dict[str, list[str]] = {}
-    for row in rows:
-        key = str(row.get("source_kind") or "").strip() or "unknown"
-        groups.setdefault(key, []).append(str(row.get("slug") or ""))
-    ordered = [kind for kind in ("git_repo", "document", "unknown") if kind in groups]
-    ordered.extend(sorted(kind for kind in groups if kind not in set(ordered)))
-    return [(kind, groups[kind]) for kind in ordered]
-
-
-def _annex_ranker_matrix() -> dict[str, Any]:
-    rows = [
-        {"slug": "repo-a", "source_kind": "git_repo", "domains": ["runtime"], "problem_spaces": ["agents"]},
-        {"slug": "repo-b", "source_kind": "git_repo", "domains": ["runtime", "docs"], "problem_spaces": ["agents"]},
-        {"slug": "doc-a", "source_kind": "document", "domains": ["docs"], "problem_spaces": []},
-        {"slug": "unknown-a", "source_kind": None, "domains": [], "problem_spaces": []},
-    ]
-    groups = _group_annexes_by_source_kind(rows)
-    empty_facet_counts = _count_values([{"domains": [], "problem_spaces": []}], "domains")
-    return {
-        "status": "pass"
-        if [kind for kind, _ in groups] == ["git_repo", "document", "unknown"]
-        and _count_values(rows, "domains")[0] == ("runtime", 2)
-        and empty_facet_counts == []
-        else "blocked",
-        "mechanism_id": "annex_source_kind_group_ranker",
-        "source_kind_order": [kind for kind, _ in groups],
-        "top_domain": _count_values(rows, "domains")[0],
-        "empty_facet_counts": empty_facet_counts,
-        "claim_ceiling": "Faceted aggregation over controlled annex rows only.",
-    }
-
-
-def summary_fingerprint(summary: str | None) -> str:
-    raw = (summary or "").strip().lower()
-    if not raw:
-        return "empty"
-    return re.sub(r"\s+", " ", raw)[:80]
-
-
-def _group_recent_changes(changes: Sequence[Mapping[str, Any]], limit: int = 3) -> list[dict[str, Any]]:
-    order: list[str] = []
-    groups: dict[str, dict[str, Any]] = {}
-    for change in changes:
-        summary_raw = change.get("summary")
-        summary = str(summary_raw) if summary_raw is not None else "-"
-        key = summary_fingerprint(summary)
-        existing = groups.get(key)
-        if existing:
-            existing["count"] += 1
-            recorded = change.get("recorded_at")
-            if isinstance(recorded, str) and (not existing["latestIso"] or recorded > existing["latestIso"]):
-                existing["latestIso"] = recorded
-        else:
-            order.append(key)
-            groups[key] = {
-                "key": key,
-                "summary": summary,
-                "count": 1,
-                "latestIso": change.get("recorded_at"),
-                "driver": change.get("active_driver"),
-            }
-    return [groups[key] for key in order[:limit]]
-
-
-def _recent_change_matrix() -> dict[str, Any]:
-    changes = [
-        {"summary": " Missing   Review Packet ", "recorded_at": "2026-05-01T00:00:00Z", "active_driver": "a"},
-        {"summary": "missing review packet", "recorded_at": "2026-05-02T00:00:00Z", "active_driver": "b"},
-        {"summary": "", "recorded_at": "2026-05-03T00:00:00Z", "active_driver": "c"},
-        {"summary": "distinct", "recorded_at": "2026-05-04T00:00:00Z", "active_driver": "d"},
-    ]
-    groups = _group_recent_changes(changes, limit=3)
-    return {
-        "status": "pass"
-        if groups[0]["count"] == 2 and groups[0]["latestIso"] == "2026-05-02T00:00:00Z" and groups[1]["key"] == "empty"
-        else "blocked",
-        "mechanism_id": "recent_change_fingerprint_coalescer",
-        "group_keys": [row["key"] for row in groups],
-        "first_count": groups[0]["count"],
-        "claim_ceiling": "Recent-change coalescing over controlled rows only.",
-    }
-
-
 def clamp_root_number(value: float, minimum: float, maximum: float) -> float:
     return max(minimum, min(maximum, value))
 
@@ -1452,40 +1218,6 @@ def _semantic_observed_value(
         _resolve_blocked_groups(groups)
         by_label = {str(group["label"]): group for group in groups}
         return by_label["downstream"].get("runtime_state") != "blocked"
-    if case_id == "table_missing_values_sort_last":
-        sort_column = str(probe_input.get("sort_column") or "price")
-        missing_ticker = str(probe_input.get("missing_value_ticker") or "")
-        rows = [
-            {"ticker": "A", "price": "10"},
-            {"ticker": "B", "price": "5"},
-            {"ticker": "C", "price": "2"},
-        ]
-        for row in rows:
-            if row["ticker"] == missing_ticker:
-                row[sort_column] = ""
-        return [row["ticker"] for row in _sorted_rows(rows, sort_column, "asc")]
-    if case_id == "annex_empty_facets_no_fake_counts":
-        return _count_values(
-            [
-                {
-                    "domains": probe_input.get("domains") or [],
-                    "problem_spaces": probe_input.get("problem_spaces") or [],
-                }
-            ],
-            "domains",
-        )
-    if case_id == "recent_empty_summary_bucketed":
-        groups = _group_recent_changes(
-            [
-                {
-                    "summary": probe_input.get("summary"),
-                    "recorded_at": "2026-05-03T00:00:00Z",
-                    "active_driver": "probe",
-                }
-            ],
-            limit=3,
-        )
-        return [row["key"] for row in groups]
     if case_id == "lane_width_binding_deferred_to_batch9":
         source_target = str(probe_input.get("source_target") or "")
         action = str(probe_input.get("batch10_action") or "")
@@ -1753,9 +1485,6 @@ def _evaluate(
         _session_wave_matrix(),
         _claim_conflict_wait_tax_matrix(),
         _role_aware_dag_matrix(),
-        _table_shaping_matrix(),
-        _annex_ranker_matrix(),
-        _recent_change_matrix(),
         _lane_width_binding_matrix(public_root),
     ]
     negative_payloads = _negative_case_payloads(input_path)
@@ -1788,12 +1517,12 @@ def _evaluate(
                 observed=integrity_summary["fixture_verdict_echo_risk_count"],
             )
         )
-    if source_manifest.get("module_count", 0) != 13:
+    if source_manifest.get("module_count", 0) != 10:
         findings.append(
             finding(
                 "BATCH10_SOURCE_MODULE_COUNT_INVALID",
-                "Batch-10 capsule must carry 13 copied non-secret source modules.",
-                expected=13,
+                "Batch-10 capsule must carry 10 copied non-secret source modules.",
+                expected=10,
                 observed=source_manifest.get("module_count"),
             )
         )

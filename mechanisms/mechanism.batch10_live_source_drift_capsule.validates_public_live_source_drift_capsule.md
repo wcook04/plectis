@@ -15,7 +15,6 @@ The Batch 10 live-source drift capsule validates copied public macro-body behavi
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/batch10_live_source_drift_capsule.py` (resolved_code_locus)
 - `runs_in` -> `organ:batch10_live_source_drift_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule` (resolved_json_instance)
 
 ## Anti-Claims

@@ -1,9 +1,0 @@
-{
-  "body_in_receipt": false,
-  "case_id": "station_warming_no_retry",
-  "error_codes": [
-    "BATCH7_STATION_WARMING_RETRY_REQUIRED"
-  ],
-  "negative_contract": "A warming launcher payload must schedule a bounded forced follow-up refresh.",
-  "schema_version": "batch7_station_runtime_negative_case_v1"
-}

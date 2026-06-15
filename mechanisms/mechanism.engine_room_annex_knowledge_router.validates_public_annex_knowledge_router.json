@@ -82,7 +82,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
+        "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
         "fixtures/first_wave/engine_room_annex_knowledge_router/input",
         "core/fixture_manifests/engine_room_annex_knowledge_router.fixture_manifest.json",
         "standards/std_microcosm_engine_room_annex_knowledge_router.json",
@@ -189,7 +189,7 @@
       "runs_in": [
         "engine_room_demo"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
       "statement": "The Engine Room annex knowledge router mechanism validates explainable tiered routing over sanitized annex catalog fixtures by scoring structured routing fields, family text, open-first summaries, and curated notes while rejecting domain-mismatch and empty-query cases without claiming BM25, TF-IDF, embeddings, repository cloning, license authority, private annex corpus access, release, or private-root authority.",
       "status": "active",
       "upstream_of": [
@@ -202,7 +202,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -267,7 +267,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -280,7 +280,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -293,7 +293,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -306,7 +306,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -319,7 +319,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -334,7 +334,7 @@
     "runs_in": [
       "engine_room_demo"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.engine_room_demo.validates_public_engine_room_demo"
@@ -343,7 +343,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
+      "path": "core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

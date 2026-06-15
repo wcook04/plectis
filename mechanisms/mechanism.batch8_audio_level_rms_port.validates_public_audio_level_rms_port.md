@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

@@ -83,7 +83,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -100,7 +100,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
+        "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
         "fixtures/first_wave/tool_server_pressure_inventory/input",
         "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle",
         "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_module_manifest.json",
@@ -192,7 +192,7 @@
       "runs_in": [
         "tool_server_pressure_inventory"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
       "statement": "The tool-server pressure inventory organ validates public helper-process pressure fixtures through synthetic process rows, active-owner descendant classification, owner-release pressure rows, redaction checks, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without live process reads, process signalling, host mutation, provider calls, release, publication, private-data equivalence, or whole-system correctness claims.",
       "status": "active"
     },
@@ -202,7 +202,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -272,7 +272,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -285,7 +285,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -298,7 +298,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -313,7 +313,7 @@
     "runs_in": [
       "tool_server_pressure_inventory"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -327,7 +327,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
+      "path": "core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

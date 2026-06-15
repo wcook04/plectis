@@ -20,8 +20,8 @@
   "frontier_audit_sections": [
     "paper_module_readiness_audit"
   ],
-  "governed_floor_complete": true,
-  "governed_floor_total_objects": 160,
+  "governed_floor_complete": false,
+  "governed_floor_total_objects": 155,
   "incomplete": [],
   "kinds": {
     "anti_principle": {
@@ -81,7 +81,7 @@
     "incomplete_ids": [],
     "issue_rows": [],
     "readiness_complete": true,
-    "ready_objects": 98,
+    "ready_objects": 93,
     "required_gap_ids": [],
     "required_residual_relation_count": 0,
     "required_structures": [
@@ -107,7 +107,7 @@
     "schema_version": "microcosm_paper_module_readiness_audit_v1",
     "selective_residual_relation_count": 0,
     "source_authority_counts": {
-      "json_capsule": 98
+      "json_capsule": 93
     },
     "source_of_record": {
       "instance_owner": "microcosm_core.doctrine_lattice",
@@ -118,7 +118,7 @@
       ]
     },
     "status": "complete",
-    "total_objects": 98
+    "total_objects": 93
   },
   "plane": "microcosm_substrate_public_read_model",
   "plane_note": "Public read model over microcosm-substrate sources only. External orchestration or control planes that operate on this repository are not represented in this projection and are never sources of record for it.",
@@ -136,16 +136,92 @@
   "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
   "routing_floor": {
     "authority_boundary": "Concept and mechanism routing floor over governed JSON rows. Structure and route presence only; not concept completeness, topology completeness, support evidence, release authority, or proof correctness.",
-    "coverage_complete": true,
+    "coverage_complete": false,
     "covered_kinds": [
       "concept",
       "mechanism"
     ],
-    "incomplete": [],
+    "incomplete": [
+      {
+        "id": "concept.agent_reliability_and_safety_validator_bundle",
+        "issues": [
+          "edge_8_target_unresolved"
+        ]
+      },
+      {
+        "id": "concept.architecture_and_navigation_route_contract_bundle",
+        "issues": [
+          "edge_7_target_unresolved"
+        ]
+      },
+      {
+        "id": "concept.import_projection_and_drift_control_bundle",
+        "issues": [
+          "edge_5_target_unresolved",
+          "edge_18_target_unresolved",
+          "edge_29_target_unresolved",
+          "edge_31_target_unresolved"
+        ]
+      },
+      {
+        "id": "concept.research_and_science_replay_evidence_bundle",
+        "issues": [
+          "edge_4_target_unresolved"
+        ]
+      },
+      {
+        "id": "concept.work_landing_and_continuity_control_bundle",
+        "issues": [
+          "edge_4_target_unresolved",
+          "edge_6_target_unresolved"
+        ]
+      }
+    ],
     "kinds": {
       "concept": {
-        "incomplete_ids": [],
-        "issue_rows": [],
+        "incomplete_ids": [
+          "concept.agent_reliability_and_safety_validator_bundle",
+          "concept.architecture_and_navigation_route_contract_bundle",
+          "concept.import_projection_and_drift_control_bundle",
+          "concept.research_and_science_replay_evidence_bundle",
+          "concept.work_landing_and_continuity_control_bundle"
+        ],
+        "issue_rows": [
+          {
+            "id": "concept.agent_reliability_and_safety_validator_bundle",
+            "issues": [
+              "edge_8_target_unresolved"
+            ]
+          },
+          {
+            "id": "concept.architecture_and_navigation_route_contract_bundle",
+            "issues": [
+              "edge_7_target_unresolved"
+            ]
+          },
+          {
+            "id": "concept.import_projection_and_drift_control_bundle",
+            "issues": [
+              "edge_5_target_unresolved",
+              "edge_18_target_unresolved",
+              "edge_29_target_unresolved",
+              "edge_31_target_unresolved"
+            ]
+          },
+          {
+            "id": "concept.research_and_science_replay_evidence_bundle",
+            "issues": [
+              "edge_4_target_unresolved"
+            ]
+          },
+          {
+            "id": "concept.work_landing_and_continuity_control_bundle",
+            "issues": [
+              "edge_4_target_unresolved",
+              "edge_6_target_unresolved"
+            ]
+          }
+        ],
         "required_structures": [
           "source_refs",
           "valid_json_object",
@@ -158,14 +234,14 @@
           "resolved_mechanism_route",
           "empty_unpopulated_selective_relations"
         ],
-        "routed": 11,
+        "routed": 6,
         "total": 11
       },
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 27,
-        "known_residual_selective_relation_row_count": 27,
+        "known_residual_selective_relation_count": 25,
+        "known_residual_selective_relation_row_count": 25,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -206,10 +282,6 @@
           {
             "count": 1,
             "id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
           },
           {
             "count": 1,
@@ -270,58 +342,35 @@
           {
             "count": 1,
             "id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
           }
         ],
-        "planned_edge_count": 2,
+        "planned_edge_count": 1,
         "planned_edge_counts_by_target_kind": {
-          "organ": 2
+          "organ": 1
         },
         "planned_edge_counts_by_target_status": {
-          "planned_registry_or_atlas_target": 2
+          "planned_registry_or_atlas_target": 1
         },
-        "planned_edge_detail_count": 2,
+        "planned_edge_detail_count": 1,
         "planned_edge_details": [
-          {
-            "authority_boundary": "planned_edge_visibility_only_not_target_admission_support_evidence_or_release_authority",
-            "id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
-            "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
-            "planned_target_authority_boundary": "planned_target_marker_not_resolved_organ_authority",
-            "planned_target_source_ref": "core/mechanism_sources.json::mechanisms[88:mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule].planned_targets[0]",
-            "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
-            "relation_id": "mechanism.runs_in.organ",
-            "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-            "source_ref": "core/mechanism_sources.json::mechanisms[88:mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule].runs_in",
-            "summary": "Mechanism registry row names this organ as the runtime host.",
-            "target_id": "batch7_zenith_macos_capsule",
-            "target_kind": "organ",
-            "target_status": "planned_registry_or_atlas_target"
-          },
           {
             "authority_boundary": "planned_edge_visibility_only_not_target_admission_support_evidence_or_release_authority",
             "id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary",
             "next_safe_mutation_route": "organ_owner_admission_or_runs_in_source_remap",
             "planned_target_authority_boundary": "planned_target_marker_not_resolved_organ_authority",
-            "planned_target_source_ref": "core/mechanism_sources.json::mechanisms[99:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].planned_targets[0]",
+            "planned_target_source_ref": "core/mechanism_sources.json::mechanisms[85:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].planned_targets[0]",
             "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
             "relation_id": "mechanism.runs_in.organ",
             "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-            "source_ref": "core/mechanism_sources.json::mechanisms[99:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in",
+            "source_ref": "core/mechanism_sources.json::mechanisms[85:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in",
             "summary": "Mechanism registry row names this organ as the runtime host.",
             "target_id": "microcosm_axiom_substrate",
             "target_kind": "organ",
             "target_status": "planned_registry_or_atlas_target"
           }
         ],
-        "planned_edge_row_count": 2,
+        "planned_edge_row_count": 1,
         "planned_edge_rows": [
-          {
-            "count": 1,
-            "id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
-          },
           {
             "count": 1,
             "id": "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
@@ -342,18 +391,18 @@
           "known_residual_selective_relations_counted_not_blocking"
         ],
         "residual_policy": "Residual selective relations and planned non-floor edges are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-        "routed": 100,
-        "total": 100
+        "routed": 95,
+        "total": 95
       }
     },
-    "routed_objects": 111,
+    "routed_objects": 101,
     "schema_version": "microcosm_doctrine_routing_floor_v2",
     "source_of_record": {
       "concept": "concepts/concept.*.json",
       "mechanism": "mechanisms/mechanism.*.json"
     },
-    "status": "complete",
-    "total_objects": 111
+    "status": "partial",
+    "total_objects": 106
   },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
   "sections": {
@@ -429,6 +478,6 @@
   },
   "source_of_record": "core/doctrine_enrichment.json",
   "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
-  "status": "complete",
+  "status": "partial",
   "total_objects": 49
 }

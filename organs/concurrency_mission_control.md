@@ -3,8 +3,8 @@
 _Generated from the governed organ JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `organs/concurrency_mission_control.json`
-- Atlas source of record: `core/organ_atlas.json::organs[75:concurrency_mission_control]`
-- Registry source of record: `core/organ_registry.json::implemented_organs[75:concurrency_mission_control]`
+- Atlas source of record: `core/organ_atlas.json::organs[73:concurrency_mission_control]`
+- Registry source of record: `core/organ_registry.json::implemented_organs[73:concurrency_mission_control]`
 - Authority boundary: JSON parity seed; organ atlas/registry source authority has not flipped.
 
 ## Role

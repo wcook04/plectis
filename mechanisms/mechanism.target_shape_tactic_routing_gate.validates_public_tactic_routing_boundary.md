@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement
@@ -17,12 +17,12 @@ The mission transaction work-spine organ validates public work-landing and close
 - `grounds` -> `concept:concept.work_landing_and_continuity_control_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (unresolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule` (unresolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (unresolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory` (resolved_json_instance)
 

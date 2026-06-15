@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[37:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[31:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

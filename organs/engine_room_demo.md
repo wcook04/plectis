@@ -3,8 +3,8 @@
 _Generated from the governed organ JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `organs/engine_room_demo.json`
-- Atlas source of record: `core/organ_atlas.json::organs[65:engine_room_demo]`
-- Registry source of record: `core/organ_registry.json::implemented_organs[65:engine_room_demo]`
+- Atlas source of record: `core/organ_atlas.json::organs[64:engine_room_demo]`
+- Registry source of record: `core/organ_registry.json::implemented_organs[64:engine_room_demo]`
 - Authority boundary: JSON parity seed; organ atlas/registry source authority has not flipped.
 
 ## Role

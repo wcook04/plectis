@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

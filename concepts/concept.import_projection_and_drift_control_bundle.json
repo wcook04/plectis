@@ -35,7 +35,7 @@
     "concept_id": "concept.import_projection_and_drift_control_bundle",
     "drilldown": "concepts/concept.import_projection_and_drift_control_bundle.json",
     "kind": "concept",
-    "mechanism_count": 31,
+    "mechanism_count": 28,
     "principle_count": 4,
     "schema_version": "microcosm_concept_cluster_flag_v1",
     "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle]",
@@ -96,7 +96,14 @@
       "unstated source refs",
       "live freshness beyond named receipts"
     ],
-    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure.",
+    "residual_pressure": [
+      {
+        "gap_class": "concept_selective_edges_unpopulated_or_unresolved",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind concept implements/instantiated_by/abides_by edges from source evidence once target ids are named and resolve as generated instances."
+      }
+    ]
   },
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -189,19 +196,6 @@
         "relation_verb": "instantiated_by",
         "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
-        "target_id": "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
-          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
-        },
-        "relation_id": "concept.instantiated_by.mechanism",
-        "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
-        "reverse_verb": "instantiates",
         "target_id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -213,11 +207,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -371,19 +365,6 @@
         "relation_verb": "instantiated_by",
         "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
-        "target_id": "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
-          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
-        },
-        "relation_id": "concept.instantiated_by.mechanism",
-        "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
-        "reverse_verb": "instantiates",
         "target_id": "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -395,11 +376,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -538,11 +519,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -564,24 +545,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
-          "summary": "The mechanism source row names this import/projection concept while retaining a planned organ-target marker."
-        },
-        "relation_id": "concept.instantiated_by.mechanism",
-        "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
-        "reverse_verb": "instantiates",
-        "target_id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -639,7 +607,6 @@
     "entry_ref": "core/organ_atlas.json::family=import_projection_and_drift",
     "mechanism_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
     "mechanism_refs": [
-      "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
       "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
       "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
       "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
@@ -653,7 +620,6 @@
       "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
       "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
       "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
-      "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
       "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule",
       "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
       "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
@@ -668,8 +634,7 @@
       "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
       "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
       "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
-      "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
-      "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
+      "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
     ],
     "payload_shape_ref": "core/organ_atlas.json.family=import_projection_and_drift plus source-module manifest refs",
     "principle_refs": [

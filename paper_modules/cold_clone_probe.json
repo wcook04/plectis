@@ -14,7 +14,7 @@
   "id": "paper_module.cold_clone_probe",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -126,7 +126,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe]",
       "strangler_note": "Binds the authored Markdown projection, root bootstrap script, resolved source-root probe code locus, public standard, first-wave pattern-binding fixture, secret-exclusion scan, focused tests, and admitted mechanism row without inventing an accepted cold_clone_probe organ or treating ignored local receipts as public body authority.",
       "subjects": [
         {
@@ -177,7 +177,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -190,7 +190,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -203,7 +203,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -216,7 +216,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -229,7 +229,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -242,7 +242,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -255,7 +255,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -268,7 +268,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -281,7 +281,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -294,7 +294,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -307,7 +307,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -320,7 +320,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -333,7 +333,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -346,7 +346,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -359,7 +359,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -372,7 +372,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -385,7 +385,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -398,7 +398,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -411,7 +411,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for source-root bootstrap validation, first-wave pattern-binding fixture replay, public receipt-ref mirroring, secret-exclusion scan enforcement, and ignored local receipt emission."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -436,7 +436,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe]",
     "subjects": [
       {
         "kind": "mechanism",
@@ -448,7 +448,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[94:paper_module.cold_clone_probe]",
+      "path": "core/paper_module_capsules.json::paper_modules[89:paper_module.cold_clone_probe]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

@@ -83,7 +83,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -100,7 +100,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
+        "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
         "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input",
         "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
@@ -187,7 +187,7 @@
       "runs_in": [
         "corpus_readiness_mathlib_absence_gate"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
       "statement": "The corpus readiness Mathlib absence gate validates recorded corpus and toolchain readiness accounting, Mathlib absence boundaries, consumer gate cases, source-module digests, leakage guards, and body-free public receipts.",
       "status": "active",
       "upstream_of": [
@@ -200,7 +200,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -267,7 +267,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -280,7 +280,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -293,7 +293,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -306,7 +306,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -321,7 +321,7 @@
     "runs_in": [
       "corpus_readiness_mathlib_absence_gate"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness"
@@ -330,7 +330,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[32:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
+      "path": "core/mechanism_sources.json::mechanisms[26:mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

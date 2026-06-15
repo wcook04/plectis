@@ -99,8 +99,8 @@
       "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
     ],
     "operates_standard": "std_microcosm_standards_meta_diagnostics",
-    "source_markdown_digest": "d3a6a9b86c82cc8a2830908786689f919a14866b92d84dfb9249a4f24ca7716e",
-    "source_markdown_line_count": 52,
+    "source_markdown_digest": "b0882ea966607e16ac8707ad977dd4a648c4d2c71b082e7a3528f487993d9620",
+    "source_markdown_line_count": 51,
     "source_markdown_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate.md",
     "triad_role": "refine_standard_and_propagate",
     "unpopulated_selective_relations": []
@@ -121,8 +121,8 @@
       "markdown_status": "legacy_public_projection_source_until_parity_flip",
       "source_json_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate.json"
     },
-    "source_markdown_digest": "d3a6a9b86c82cc8a2830908786689f919a14866b92d84dfb9249a4f24ca7716e",
-    "source_markdown_line_count": 52,
+    "source_markdown_digest": "b0882ea966607e16ac8707ad977dd4a648c4d2c71b082e7a3528f487993d9620",
+    "source_markdown_line_count": 51,
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
       "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"

@@ -1,9 +1,0 @@
-{
-  "body_in_receipt": false,
-  "case_id": "live_instrument_underfiring_attention",
-  "error_codes": [
-    "BATCH7_STATION_ATTENTION_UNDERFIRING_EXPLICIT"
-  ],
-  "negative_contract": "A degraded stream with no loss or gap and no attention rows must surface an explicit under-firing reason.",
-  "schema_version": "batch7_station_runtime_negative_case_v1"
-}

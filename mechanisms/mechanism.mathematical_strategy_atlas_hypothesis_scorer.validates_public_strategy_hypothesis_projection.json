@@ -82,7 +82,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
+        "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
         "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input",
         "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
@@ -188,7 +188,7 @@
       "runs_in": [
         "mathematical_strategy_atlas_hypothesis_scorer"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
       "statement": "The mathematical strategy atlas hypothesis scorer validates pre-oracle strategy selection, feature-overlap routing, source-artifact consistency, copied source-module digests, unknown-strategy refusals, and body-free strategy receipts.",
       "status": "active"
     },
@@ -198,7 +198,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -266,7 +266,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -279,7 +279,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -292,7 +292,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -307,7 +307,7 @@
     "runs_in": [
       "mathematical_strategy_atlas_hypothesis_scorer"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -321,7 +321,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[33:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
+      "path": "core/mechanism_sources.json::mechanisms[27:mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

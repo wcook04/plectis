@@ -14,7 +14,7 @@ An agent runs this over recorded work-landing rows to confirm they satisfy the d
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.durable_agent_work_landing_replay` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/durable_agent_work_landing_replay.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.work_landing_and_continuity_control_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-10` (resolved_json_instance)
@@ -26,7 +26,6 @@ An agent runs this over recorded work-landing rows to confirm they satisfy the d
 - `governed_by` -> `principle:P-5` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-4` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-9` (resolved_json_instance)
-- `wires_to` -> `organ:workstream_driver_recency_coalescer` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:agent_closeout_faithfulness_audit` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:macro_projection_import_protocol` (resolved_registry_or_atlas_target)
 

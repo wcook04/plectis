@@ -201,7 +201,6 @@
         "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
         "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
         "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-        "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
         "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
         "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
         "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
@@ -389,19 +388,6 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -547,7 +533,6 @@
       "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
       "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
       "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-      "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
       "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
       "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
       "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",

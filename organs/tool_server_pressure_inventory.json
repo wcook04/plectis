@@ -51,7 +51,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory]",
+    "drilldown": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -135,8 +135,8 @@
         "P-6",
         "P-9"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[69:tool_server_pressure_inventory]",
-      "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[68:tool_server_pressure_inventory]",
+      "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
       "specialty": [
         "source-import",
         "provenance",
@@ -219,7 +219,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -232,7 +232,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].mechanism_refs[0]",
           "summary": "The JSON capsule, source-faithful pressure-inventory bundle, focused validator, and receipts validate public process-pressure classification without host mutation or live process authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -245,7 +245,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for tool-server pressure fixture validation, redaction checks, source-module digest checks, negative cases, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -258,7 +258,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -271,7 +271,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -284,7 +284,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -297,7 +297,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -310,7 +310,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -323,7 +323,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -336,7 +336,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -349,7 +349,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -362,7 +362,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -389,8 +389,8 @@
       "P-6",
       "P-9"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[69:tool_server_pressure_inventory]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[68:tool_server_pressure_inventory]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -406,11 +406,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory]",
+      "path": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[69:tool_server_pressure_inventory]",
+      "path": "core/organ_registry.json::implemented_organs[68:tool_server_pressure_inventory]",
       "role": "accepted_current_authority_registry_row"
     },
     {

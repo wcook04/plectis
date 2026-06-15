@@ -88,7 +88,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -105,7 +105,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+        "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
         "fixtures/first_wave/batch7_oracle_sibling_capsule/input",
         "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle",
         "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
@@ -202,7 +202,7 @@
       "runs_in": [
         "batch7_oracle_sibling_capsule"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
       "statement": "The Batch 7 Oracle sibling capsule validates copied public Oracle source bodies through deterministic subject-index, subject-snapshot, truth-diff, quartet-plan, original-pytest, exported-bundle, digest-anchor, negative-case, body-free receipt, and authority-ceiling checks without granting Oracle reasoning authority, semantic truth authority, provider dispatch, source mutation, publication, release, private-root equivalence, or whole-system correctness.",
       "status": "active",
       "upstream_of": [
@@ -215,7 +215,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -290,7 +290,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -303,7 +303,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -316,7 +316,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -329,22 +329,22 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       }
     ],
     "runs_in": [
       "batch7_oracle_sibling_capsule"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule"
@@ -353,7 +353,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[87:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+      "path": "core/mechanism_sources.json::mechanisms[74:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

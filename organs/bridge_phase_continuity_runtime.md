@@ -14,7 +14,7 @@ An agent runs it to confirm, against a public synthetic fixture, that detached-j
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.bridge_phase_continuity_runtime` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/bridge_phase_continuity_runtime.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.work_landing_and_continuity_control_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-1` (resolved_json_instance)
@@ -34,7 +34,6 @@ An agent runs it to confirm, against a public synthetic fixture, that detached-j
 - `constrained_by` -> `axiom:AX-11` (resolved_json_instance)
 - `wires_to` -> `organ:agent_memory_temporal_conflict_replay` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:concurrency_mission_control` (resolved_registry_or_atlas_target)
-- `wires_to` -> `organ:workstream_driver_recency_coalescer` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims
 

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[6:mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[3:mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

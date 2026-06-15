@@ -140,7 +140,6 @@
       ],
       "standalone_or_wired": "standalone_specimen",
       "wires_to": [
-        "workstream_driver_recency_coalescer",
         "agent_closeout_faithfulness_audit",
         "macro_projection_import_protocol"
       ],
@@ -236,11 +235,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -394,19 +393,6 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
-        "target_id": "workstream_driver_recency_coalescer",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[21:durable_agent_work_landing_replay].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
         "target_id": "agent_closeout_faithfulness_audit",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -447,7 +433,6 @@
     "source_registry_row_ref": "core/organ_registry.json::implemented_organs[21:durable_agent_work_landing_replay]",
     "unpopulated_selective_relations": [],
     "wires_to": [
-      "workstream_driver_recency_coalescer",
       "agent_closeout_faithfulness_audit",
       "macro_projection_import_protocol"
     ]
@@ -480,7 +465,6 @@
     "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
   ],
   "wires_to": [
-    "workstream_driver_recency_coalescer",
     "agent_closeout_faithfulness_audit",
     "macro_projection_import_protocol"
   ]

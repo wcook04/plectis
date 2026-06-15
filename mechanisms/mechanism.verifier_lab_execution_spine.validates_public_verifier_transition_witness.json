@@ -81,7 +81,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -98,7 +98,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
+        "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
         "fixtures/first_wave/verifier_lab_execution_spine/input",
         "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
@@ -184,7 +184,7 @@
       "runs_in": [
         "verifier_lab_execution_spine"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
       "statement": "The verifier lab execution spine validates bounded public Lean transition rows by running the local checker on a temporary fixture, preserving accept/reject and residual-retry buckets, safety counters, source-module manifests, and redacted body-free receipts.",
       "status": "active",
       "upstream_of": [
@@ -198,7 +198,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -265,7 +265,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -278,7 +278,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -291,7 +291,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -304,7 +304,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -317,7 +317,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -332,7 +332,7 @@
     "runs_in": [
       "verifier_lab_execution_spine"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
@@ -342,7 +342,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[43:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
+      "path": "core/mechanism_sources.json::mechanisms[37:mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

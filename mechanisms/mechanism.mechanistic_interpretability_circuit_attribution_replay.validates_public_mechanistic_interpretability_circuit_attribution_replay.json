@@ -84,7 +84,7 @@
       "concept_pair_ref": "research_and_science_replay_evidence_bundle.concept_binding",
       "mechanism_role": "family validators that check research, forecasting, chemistry, and world-model replay evidence without exporting private bodies",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -101,7 +101,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
+        "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
         "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input",
         "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
         "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
@@ -196,7 +196,7 @@
       "runs_in": [
         "mechanistic_interpretability_circuit_attribution_replay"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
       "statement": "The mechanistic interpretability circuit-attribution replay organ validates public toy-transformer attribution rows, machine-readable graph edges, causal inhibition and injection deltas, sufficiency and faithfulness limits, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without exporting private model weights, raw activation dumps, proprietary prompts, hidden chain-of-thought, provider payloads, private model internals, benchmark scores, hosted-public claims, publication, or release authority.",
       "status": "active"
     },
@@ -206,7 +206,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -277,7 +277,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -290,7 +290,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -303,7 +303,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -318,7 +318,7 @@
     "runs_in": [
       "mechanistic_interpretability_circuit_attribution_replay"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -332,7 +332,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[80:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
+      "path": "core/mechanism_sources.json::mechanisms[68:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

@@ -34,10 +34,9 @@ Use this public-safe skill projection when a Microcosm public runtime organ stan
     "std_microcosm_routing_anti_patterns_registry",
     "std_microcosm_self_ignorance_coverage_ledger",
     "std_microcosm_standards_meta_diagnostics",
-    "std_microcosm_tactic_portfolio_availability_probe",
-    "std_microcosm_workstream_driver_recency_coalescer"
+    "std_microcosm_tactic_portfolio_availability_probe"
   ],
-  "mapping_basis": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
+  "mapping_basis": "These ten accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
 }
 ```
 
@@ -47,6 +46,6 @@ This skill source governs public runtime organ standard authoring only. It can a
 
 Anti-claims:
 
-- Resolving this shared triad improves route coverage for eleven standards; it is not proof that those standards are complete or runtime-correct.
+- Resolving this shared triad improves route coverage for ten standards; it is not proof that those standards are complete or runtime-correct.
 - Generated health, graph, and coverage output are projections, not source evidence for standard truth.
 - Body-floor imports, receipt existence, and validator refs must keep their authority ceilings; they cannot become release or private-equivalence claims.

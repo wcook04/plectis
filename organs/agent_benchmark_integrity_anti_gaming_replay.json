@@ -33,7 +33,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
   "entry_surface_contract": null,
-  "evidence_class": "bounded_runtime_computation",
+  "evidence_class": "algorithmic_projection",
   "family": "agent_reliability_and_safety",
   "id": "agent_benchmark_integrity_anti_gaming_replay",
   "kind": "organ",
@@ -105,7 +105,7 @@
         "concept.agent_reliability_and_safety_validator_bundle"
       ],
       "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
       "human_gloss": "Checks a public benchmark-integrity example bundle that contains three copied public-safe macro pattern provenance bodies under source_artifacts. The organ verifies the source-module manifest digests, requires each replay row to cite those copied source artifacts, recomputes pass/quarantine verdicts from contamination, file-access, and locked-evaluator spans, and rejects common gaming attempts such as peeking at hidden answers, training on the test set, exposing the oracle patch, cherry-picking the best of many tries, or asserting a score. It still does not run real bug fixes or claim any benchmark score.",
@@ -140,12 +140,12 @@
     },
     "source_registry_row": {
       "claim_ceiling": "bounded public runtime validation over digest-verified copied macro pattern provenance bodies and body-free benchmark-integrity replay rows only; not benchmark scores, SWE-bench performance, provider execution, live repo mutation, product progress, or release authority",
-      "classification_basis": "runner validates three copied public-safe macro pattern provenance bodies by source-module manifest digest, requires source-artifact evidence refs on each replay row, recomputes public trace pass/quarantine verdicts, rejects digest/manifest/verdict negatives, and keeps receipts body-free",
+      "classification_basis": "validates three copied public-safe macro pattern provenance bodies by source-module manifest digest and checks each replay row's structure and negatives, but the pass/quarantine verdict is a consistency fold over fixture-declared contamination flags, not in-process runtime computation",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_benchmark_integrity_anti_gaming_replay]",
-      "evidence_strength_rank": 4,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
@@ -156,7 +156,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
     },
     "support_contract": {

@@ -50,7 +50,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
+    "drilldown": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -136,8 +136,8 @@
         "P-6",
         "P-8"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[75:concurrency_mission_control]",
-      "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[73:concurrency_mission_control]",
+      "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
       "specialty": [
         "agent-concurrency",
         "workflow-engineering",
@@ -226,7 +226,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -239,7 +239,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].mechanism_refs[0]",
           "summary": "The JSON capsule, copied source-module bundle, focused organ validator, and receipts validate the public coordination membrane without granting live scheduling or release authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -252,7 +252,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for concurrency mission-control fixture validation, Work Ledger topology classification, failure-class gates, negative cases, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -265,7 +265,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -278,7 +278,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -291,7 +291,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -304,7 +304,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -317,7 +317,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -330,7 +330,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -343,7 +343,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -356,7 +356,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -369,7 +369,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -382,7 +382,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -395,7 +395,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -408,7 +408,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -421,7 +421,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -434,7 +434,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -464,8 +464,8 @@
       "P-6",
       "P-8"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[75:concurrency_mission_control]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[73:concurrency_mission_control]",
     "unpopulated_selective_relations": [],
     "wires_to": [
       "mission_transaction_work_spine",
@@ -476,11 +476,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
+      "path": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[75:concurrency_mission_control]",
+      "path": "core/organ_registry.json::implemented_organs[73:concurrency_mission_control]",
       "role": "accepted_current_authority_registry_row"
     },
     {

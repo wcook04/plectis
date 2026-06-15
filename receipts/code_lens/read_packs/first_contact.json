@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 18147,
+    "actual_bytes": 17373,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.901,
+  "compile_ms": 0.324,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",
@@ -70,7 +70,7 @@
     {
       "families": [
         {
-          "count": 22,
+          "count": 20,
           "family": "import_projection_and_drift",
           "organs": [
             {
@@ -172,16 +172,6 @@
               ]
             },
             {
-              "display_name": "Surface Atlas Layout Port",
-              "organ_id": "batch8_station_surface_atlas_layout_port",
-              "specialty": [
-                "source-import",
-                "provenance",
-                "drift-control",
-                "frontend"
-              ]
-            },
-            {
               "display_name": "Structural Theses Finance Capsule",
               "organ_id": "batch8_structural_theses_capsule",
               "specialty": [
@@ -276,16 +266,6 @@
                 "source-import",
                 "provenance",
                 "drift-control"
-              ]
-            },
-            {
-              "display_name": "Frontend Work/Market Cockpit Capsule",
-              "organ_id": "batch10_frontend_work_market_cockpit_capsule",
-              "specialty": [
-                "source-import",
-                "frontend-boundary",
-                "market-boundary",
-                "provenance"
               ]
             }
           ]
@@ -471,7 +451,7 @@
           ]
         },
         {
-          "count": 17,
+          "count": 16,
           "family": "agent_reliability_and_safety",
           "organs": [
             {
@@ -626,16 +606,6 @@
                 "agent-evaluation",
                 "red-teaming",
                 "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Station Runtime Evidence Capsule",
-              "organ_id": "batch7_station_runtime_capsule",
-              "specialty": [
-                "ai-safety",
-                "agent-evaluation",
-                "red-teaming",
-                "frontend"
               ]
             }
           ]
@@ -821,7 +791,7 @@
           ]
         },
         {
-          "count": 5,
+          "count": 4,
           "family": "work_landing_and_continuity",
           "organs": [
             {
@@ -848,16 +818,6 @@
               "specialty": [
                 "workflow-engineering",
                 "continuity"
-              ]
-            },
-            {
-              "display_name": "Workstream Driver Recency Coalescer",
-              "organ_id": "workstream_driver_recency_coalescer",
-              "specialty": [
-                "workflow-engineering",
-                "continuity",
-                "frontend",
-                "provider-ops"
               ]
             },
             {
@@ -905,10 +865,10 @@
     {
       "by_evidence_class": {
         "algorithmic_projection": 27,
-        "bounded_runtime_computation": 6,
-        "external_subprocess_witness": 6,
-        "semantic_validator": 20,
-        "verified_macro_body_import": 23
+        "bounded_runtime_computation": 5,
+        "external_subprocess_witness": 7,
+        "semantic_validator": 18,
+        "verified_macro_body_import": 21
       },
       "kind": "evidence_distribution"
     }
@@ -917,17 +877,16 @@
   "specificity_risks": [
     {
       "custody_split": {
-        "directory_coupling_marker": 81,
-        "owned": 1
+        "unresolved": 78
       },
       "kind": "runner_custody",
       "note": "Most organ runners are exact-copy macro bodies (directory_coupling_marker); comprehend them via registry metadata + receipts, not by reading the runner.",
-      "runners_resolved": 82
+      "runners_resolved": 0
     }
   ],
   "summary": {
     "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
-    "what_this_is": "Microcosm is a local-first, source-open substrate of 82 runtime organs across 7 families. Comprehend it through governed metadata -- glosses, evidence classes, receipts, and authority ceilings -- rather than by reading source. Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
+    "what_this_is": "Microcosm is a local-first, source-open substrate of 78 runtime organs across 7 families. Comprehend it through governed metadata -- glosses, evidence classes, receipts, and authority ceilings -- rather than by reading source. Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
     "what_to_inspect_next": [
       "microcosm comprehend --first-action \"<goal>\"",
       "microcosm comprehend --first-contact",

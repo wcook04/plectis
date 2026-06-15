@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 33874,
+    "actual_bytes": 32343,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.335,
+  "compile_ms": 0.456,
   "evidence_refs": [],
   "export_band": "presence_only",
   "goal": "list all organs",
@@ -62,7 +62,7 @@
   "selected_nodes": [
     {
       "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
@@ -72,7 +72,7 @@
         "red-teaming",
         "provider-ops"
       ],
-      "synopsis": "Recomputes benchmark pass and quarantine verdicts and rejects gaming tricks like test-set peeking."
+      "synopsis": "Validates a synthetic benchmark-integrity record and flags the contamination cases it declares."
     },
     {
       "display_name": "Agent Closeout Faithfulness Audit",
@@ -103,7 +103,7 @@
     },
     {
       "display_name": "Agent Monitor Redteam Falsification Replay",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "agent_monitor_redteam_falsification_replay",
@@ -112,7 +112,7 @@
         "agent-evaluation",
         "red-teaming"
       ],
-      "synopsis": "Replays honest and deceptive agent runs and quarantines any verdict missing its backing evidence."
+      "synopsis": "Replays honest and deceptive agent runs and flags any verdict missing its declared backing evidence."
     },
     {
       "display_name": "Agent Route Observability Runtime",
@@ -126,11 +126,11 @@
         "red-teaming",
         "provider-ops"
       ],
-      "synopsis": "Checks a recorded agent run for a clean trail and the authority limit it declared up front."
+      "synopsis": "Recomputes an agent run's route-compliance score and anti-pattern flags with real trace-analytics code."
     },
     {
       "display_name": "Agent Sabotage Scheming Monitor Replay",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "agent_sabotage_scheming_monitor_replay",
@@ -167,7 +167,7 @@
         "agent-evaluation",
         "red-teaming"
       ],
-      "synopsis": "Lays out a found-and-fixed bug claim as a consistent evidence chain with no real attack material."
+      "synopsis": "Checks a fixed-bug evidence chain and re-runs three small real security checks; no real attack material."
     },
     {
       "display_name": "Cold-Eval Honesty Capsule",
@@ -182,20 +182,6 @@
         "provider-ops"
       ],
       "synopsis": "Runs a copied route-quality simulator and checks its all-B scorecard against the original code."
-    },
-    {
-      "display_name": "Frontend Work/Market Cockpit Capsule",
-      "evidence_class": "verified_macro_body_import",
-      "family": "import_projection_and_drift",
-      "kind": "organ_synopsis",
-      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
-      "specialty": [
-        "source-import",
-        "frontend-boundary",
-        "market-boundary",
-        "provenance"
-      ],
-      "synopsis": "Verifies copied work-lens and market-cockpit code for read-only state and honest, advice-free signals."
     },
     {
       "display_name": "Governance & Compiler Mechanisms Capsule",
@@ -376,20 +362,6 @@
       "synopsis": "Runs eight trace, graph, and market engines on test rows without fetching live markets."
     },
     {
-      "display_name": "Station Runtime Evidence Capsule",
-      "evidence_class": "verified_macro_body_import",
-      "family": "agent_reliability_and_safety",
-      "kind": "organ_synopsis",
-      "organ_id": "batch7_station_runtime_capsule",
-      "specialty": [
-        "ai-safety",
-        "agent-evaluation",
-        "red-teaming",
-        "frontend"
-      ],
-      "synopsis": "Checks console boot and instrument logic on copied code without starting the live screen."
-    },
-    {
       "display_name": "Audio Level RMS Port",
       "evidence_class": "algorithmic_projection",
       "family": "import_projection_and_drift",
@@ -405,7 +377,7 @@
     },
     {
       "display_name": "Compliance Pipeline Capsule",
-      "evidence_class": "semantic_validator",
+      "evidence_class": "algorithmic_projection",
       "family": "import_projection_and_drift",
       "kind": "organ_synopsis",
       "organ_id": "batch8_compliance_pipeline_capsule",
@@ -415,7 +387,7 @@
         "drift-control",
         "compliance"
       ],
-      "synopsis": "Runs six compliance scanners on test data without touching the live record or any provider."
+      "synopsis": "Confirms six copied compliance source files carry their functions; runs one helper on sample text."
     },
     {
       "display_name": "Policy Engines Capsule",
@@ -430,20 +402,6 @@
         "finance"
       ],
       "synopsis": "Maps three policy engines over test data without model calls or live campaign execution."
-    },
-    {
-      "display_name": "Surface Atlas Layout Port",
-      "evidence_class": "algorithmic_projection",
-      "family": "import_projection_and_drift",
-      "kind": "organ_synopsis",
-      "organ_id": "batch8_station_surface_atlas_layout_port",
-      "specialty": [
-        "source-import",
-        "provenance",
-        "drift-control",
-        "frontend"
-      ],
-      "synopsis": "Solves the map band-and-lane layout on test nodes without rendering a browser screen."
     },
     {
       "display_name": "Structural Theses Finance Capsule",
@@ -512,7 +470,7 @@
         "agent-evaluation",
         "red-teaming"
       ],
-      "synopsis": "Checks that each agent-step reward in a recorded run is backed by a real verifier, not a trick."
+      "synopsis": "Checks that each step reward in a recorded run cites a declared verifier-feedback row, not a trick."
     },
     {
       "display_name": "Bounded Autonomy Campaign Packet",
@@ -599,7 +557,7 @@
     },
     {
       "display_name": "Corpus Readiness Mathlib Absence Gate",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "external_subprocess_witness",
       "family": "formal_math_and_proof",
       "kind": "organ_synopsis",
       "organ_id": "corpus_readiness_mathlib_absence_gate",
@@ -609,7 +567,7 @@
         "lean",
         "provider-ops"
       ],
-      "synopsis": "Gates proof work on a recorded Lean readiness report, blocking tasks while the math library is missing."
+      "synopsis": "Runs the real Lean toolchain to confirm the math library is absent, then gates proof tasks."
     },
     {
       "display_name": "Doctrine Fact Claim Audit",
@@ -715,7 +673,7 @@
         "lean",
         "provider-ops"
       ],
-      "synopsis": "Shows which lemmas a plain search surfaces per query and proves it never leaks proof text or answer keys."
+      "synopsis": "Shows which lemmas a plain search surfaces per query, and never leaks proof text or answer keys."
     },
     {
       "display_name": "Formal Math Readiness Gate",
@@ -838,7 +796,7 @@
     },
     {
       "display_name": "Mission Transaction Work Spine",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "family": "work_landing_and_continuity",
       "kind": "organ_synopsis",
       "organ_id": "mission_transaction_work_spine",
@@ -848,7 +806,7 @@
         "continuity",
         "work-ledger"
       ],
-      "synopsis": "Replays work-landing cases to show why each change is allowed to land or blocked."
+      "synopsis": "Runs the real work-ledger engine on a sanitised snapshot to re-derive each change's verdict."
     },
     {
       "display_name": "Navigation Hologram Route Plane",
@@ -888,7 +846,7 @@
         "navigation",
         "doctrine"
       ],
-      "synopsis": "Checks each reusable pattern names its source, its rule, and what it does not claim."
+      "synopsis": "Checks a real pattern catalog for digest, cross-reference, and dependency-cycle integrity."
     },
     {
       "display_name": "Prediction Oracle Reconciliation",
@@ -914,7 +872,7 @@
         "theorem-proving",
         "lean"
       ],
-      "synopsis": "Proves each change carried proof and two approvals before it was allowed to run."
+      "synopsis": "Checks a synthetic change-authorization record for its proof-and-approval chain, bound to a real commit."
     },
     {
       "display_name": "Proof Diagnostic Evidence Spine",
@@ -932,7 +890,7 @@
     },
     {
       "display_name": "Provider Context Recipe Budget Policy",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "provider_context_recipe_budget_policy",
@@ -942,7 +900,7 @@
         "red-teaming",
         "provider-ops"
       ],
-      "synopsis": "Checks context bundles stay within size limits and carry no answer keys."
+      "synopsis": "Runs the real context harness to measure assembled byte sizes and check each bundle fits its budget."
     },
     {
       "display_name": "Public Reveal Walkthrough",
@@ -1022,7 +980,7 @@
         "red-teaming",
         "security"
       ],
-      "synopsis": "Replays how a tampered agent memory gets quarantined, blocked, and deleted with an audit trail."
+      "synopsis": "Replays a recorded memory-tamper case, checking its declared quarantine, block, and delete steps line up."
     },
     {
       "display_name": "Spatial World Model Counterfactual Simulation Replay",
@@ -1149,20 +1107,6 @@
       "synopsis": "Verifies each lesson changed a named owner page with evidence before the loop closes."
     },
     {
-      "display_name": "Workstream Driver Recency Coalescer",
-      "evidence_class": "semantic_validator",
-      "family": "work_landing_and_continuity",
-      "kind": "organ_synopsis",
-      "organ_id": "workstream_driver_recency_coalescer",
-      "specialty": [
-        "workflow-engineering",
-        "continuity",
-        "frontend",
-        "provider-ops"
-      ],
-      "synopsis": "Groups work-change rows by driver, newest first, from a copied frontend grouping helper."
-    },
-    {
       "display_name": "World Model Projection Drift Control Room",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
@@ -1181,7 +1125,7 @@
   "specificity_risks": [],
   "summary": {
     "what_not_to_trust": "",
-    "what_this_is": "82 organs, one synopsis line each.",
+    "what_this_is": "78 organs, one synopsis line each.",
     "what_to_inspect_next": [
       "microcosm comprehend --organ <organ_id>"
     ]

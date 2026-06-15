@@ -96,7 +96,14 @@
       "provider payloads",
       "financial advice or live market claims"
     ],
-    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure.",
+    "residual_pressure": [
+      {
+        "gap_class": "concept_selective_edges_unpopulated_or_unresolved",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind concept implements/instantiated_by/abides_by edges from source evidence once target ids are named and resolve as generated instances."
+      }
+    ]
   },
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -187,11 +194,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {

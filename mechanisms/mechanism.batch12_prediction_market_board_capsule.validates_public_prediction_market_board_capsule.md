@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[61:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[50:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

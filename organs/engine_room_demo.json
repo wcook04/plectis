@@ -62,7 +62,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[65:engine_room_demo]",
+    "drilldown": "core/organ_atlas.json::organs[64:engine_room_demo]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -168,8 +168,8 @@
         "receipts/first_wave/engine_room_demo/engine_room_demo_board.json",
         "receipts/first_wave/engine_room_demo/engine_room_demo_validation_receipt.json"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[65:engine_room_demo]",
-      "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[64:engine_room_demo]",
+      "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
       "specialty": [
         "source-import",
         "provenance",
@@ -270,7 +270,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -283,7 +283,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].mechanism_refs[0]",
           "summary": "The tracked public fixtures, Engine Room controller audit, focused organ validator, and body-free receipts validate the staged composition demo without granting production, proof, security, provider, source-mutation, release, or publication authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -296,7 +296,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for Engine Room demo fixture evaluation, controller audit binding, missing-target negative cases, body-free receipts, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -309,7 +309,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].code_loci[1]",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].code_loci[1]",
           "summary": "Staged Engine Room composition locus that enumerates the capsule surfaces, 14 jewel targets, controller audit, and shared-registry non-mutation evidence."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -322,7 +322,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -335,7 +335,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -348,7 +348,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -361,7 +361,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -374,7 +374,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -387,7 +387,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -400,7 +400,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -413,7 +413,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -426,7 +426,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -439,7 +439,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -452,7 +452,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -465,7 +465,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -478,7 +478,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -491,7 +491,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -504,7 +504,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -517,7 +517,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -530,7 +530,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -543,7 +543,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -575,8 +575,8 @@
       "P-12",
       "P-15"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[65:engine_room_demo]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[65:engine_room_demo]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[64:engine_room_demo]",
     "unpopulated_selective_relations": [],
     "wires_to": [
       "batch8_compliance_pipeline_capsule",
@@ -587,11 +587,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[65:engine_room_demo]",
+      "path": "core/organ_atlas.json::organs[64:engine_room_demo]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[65:engine_room_demo]",
+      "path": "core/organ_registry.json::implemented_organs[64:engine_room_demo]",
       "role": "accepted_current_authority_registry_row"
     },
     {

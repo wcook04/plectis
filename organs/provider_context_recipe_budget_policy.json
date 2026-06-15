@@ -34,7 +34,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Provider Context Recipe Budget Policy",
   "entry_surface_contract": null,
-  "evidence_class": "algorithmic_projection",
+  "evidence_class": "bounded_runtime_computation",
   "family": "agent_reliability_and_safety",
   "id": "provider_context_recipe_budget_policy",
   "kind": "organ",
@@ -107,7 +107,7 @@
         "concept.agent_reliability_and_safety_validator_bundle"
       ],
       "display_name": "Provider Context Recipe Budget Policy",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "family": "agent_reliability_and_safety",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
       "human_gloss": "This organ checks that the bundles of context an AI agent would assemble before calling an outside model provider stay inside fixed size limits (in bytes), fill their sections in the declared order until the budget runs out, list any section that was dropped for not fitting, and never carry answer keys, proof solutions, or other \"correct answer\" material. The record shows the exact size ceilings for each recipe, which sections fit versus got left out, and which output each recipe is allowed to produce, so the context boundary is inspectable as plain accounting before any provider call or answer authority is ever in play. It only validates this metadata; it does not itself call any provider.",
@@ -148,9 +148,9 @@
       "classification_basis": "bounded context-budget packing and section omission computation",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[provider_context_recipe_budget_policy]",
-      "evidence_strength_rank": 3,
+      "evidence_strength_rank": 4,
       "generated_receipts": [
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
@@ -161,7 +161,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.provider_context_recipe_budget_policy",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy"
     },
     "support_contract": {

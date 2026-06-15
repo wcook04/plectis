@@ -79,7 +79,7 @@
       "concept_pair_ref": "standards_meta_diagnostics_bundle.concept_binding",
       "mechanism_role": "diagnostic bundle checks accepted organs against standards, runtime contracts, and real receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -96,7 +96,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+        "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
         "fixtures/first_wave/standards_meta_diagnostics/input",
         "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
         "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
@@ -186,7 +186,7 @@
       "runs_in": [
         "standards_meta_diagnostics"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
       "statement": "The standards meta diagnostics organ validates public projection-only diagnostics over accepted-organ standards inventory, runtime contracts, receipt refs, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without becoming source authority for standards_registry, authorizing source mutation, provider dispatch, release, publication, or whole-system correctness claims.",
       "status": "active",
       "upstream_of": [
@@ -199,7 +199,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -266,7 +266,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -279,7 +279,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -292,7 +292,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -305,7 +305,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -318,7 +318,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -333,7 +333,7 @@
     "runs_in": [
       "standards_meta_diagnostics"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary"
@@ -342,7 +342,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
+      "path": "core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

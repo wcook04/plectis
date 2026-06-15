@@ -85,7 +85,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -102,7 +102,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
+        "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
         "fixtures/first_wave/engine_room_lean_proof_search_lab/input",
         "core/fixture_manifests/engine_room_lean_proof_search_lab.fixture_manifest.json",
         "standards/std_microcosm_engine_room_lean_proof_search_lab.json",
@@ -195,7 +195,7 @@
       "runs_in": [
         "engine_room_demo"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
       "statement": "The Engine Room Lean proof-search lab mechanism validates bounded public proof-search fixtures by running tiny Lean statements through symbolic tactic search, statement-only candidate checking, problem-id ablation, oracle-body forward-firewall rejection, and axiom cleanliness checks without claiming neural theorem proving, frontier-scale automation, private macro prover run export, oracle body solving, release, or private-root authority.",
       "status": "active",
       "upstream_of": [
@@ -208,7 +208,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -276,7 +276,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -289,7 +289,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -302,7 +302,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -315,7 +315,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -328,7 +328,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -343,7 +343,7 @@
     "runs_in": [
       "engine_room_demo"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.engine_room_demo.validates_public_engine_room_demo"
@@ -352,7 +352,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
+      "path": "core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

@@ -2,8 +2,8 @@
   "body_in_receipt": false,
   "claim_ceiling": "Controlled public Batch-10 fixtures exercise imported or source-faithful macro logic only.",
   "fixture_id": "first_wave.batch10_governance_compilers_capsule",
-  "mechanism_count": 14,
-  "negative_case_count": 14,
+  "mechanism_count": 11,
+  "negative_case_count": 11,
   "organ_id": "batch10_governance_compilers_capsule",
   "schema_version": "batch10_governance_compilers_capsule_probe_manifest_v1"
 }

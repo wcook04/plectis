@@ -81,7 +81,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -98,7 +98,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
+        "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
         "fixtures/first_wave/pattern_assimilation_step/input",
         "examples/pattern_assimilation_step/exported_assimilation_bundle",
         "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
@@ -187,7 +187,7 @@
       "runs_in": [
         "pattern_assimilation_step"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
       "statement": "The pattern-assimilation step organ validates refinement, nothing-to-refine, stewardship, re-entry, source-module manifest, negative-case, body-free receipt, and authority-ceiling contracts without promoting local lessons into broader doctrine outside their owning lanes or claiming macro source authority.",
       "status": "active"
     },
@@ -197,7 +197,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -264,7 +264,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -277,7 +277,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -290,7 +290,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -305,7 +305,7 @@
     "runs_in": [
       "pattern_assimilation_step"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -319,7 +319,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[75:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
+      "path": "core/mechanism_sources.json::mechanisms[63:mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

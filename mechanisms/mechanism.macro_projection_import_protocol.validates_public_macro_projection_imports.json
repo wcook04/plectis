@@ -204,7 +204,6 @@
         "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
         "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
-        "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
         "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
         "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
         "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
@@ -215,7 +214,6 @@
         "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
         "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
         "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
-        "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
         "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
         "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
         "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
@@ -229,8 +227,7 @@
         "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
         "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
         "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
-        "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
-        "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+        "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
       ]
     },
     "support_contract": {
@@ -393,19 +390,6 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -524,19 +508,6 @@
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
       },
@@ -721,19 +692,6 @@
         "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
-        "target_id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
@@ -745,7 +703,6 @@
       "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
       "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
       "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
-      "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
       "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
       "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
       "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
@@ -756,7 +713,6 @@
       "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
       "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
       "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
-      "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
       "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
       "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
       "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
@@ -770,8 +726,7 @@
       "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
       "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
       "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
-      "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
-      "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+      "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
     ]
   },
   "schema_version": "microcosm_mechanism_instance_v1",

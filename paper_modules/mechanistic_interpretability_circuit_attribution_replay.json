@@ -14,7 +14,7 @@
   "id": "paper_module.mechanistic_interpretability_circuit_attribution_replay",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -124,7 +124,7 @@
         "P-9"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
       "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row, and the atlas row currently relies on this capsule for paper-module binding.",
       "subjects": [
         {
@@ -182,7 +182,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -195,7 +195,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].subjects[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].subjects[1]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -208,7 +208,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -221,7 +221,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -234,7 +234,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -247,7 +247,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -260,7 +260,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -273,7 +273,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -286,7 +286,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -299,7 +299,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -312,7 +312,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -325,7 +325,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -338,7 +338,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -351,7 +351,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -364,7 +364,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for public circuit-attribution replay validation, source-module digest checks, secret-exclusion policy, negative cases, and authority ceilings."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -384,7 +384,7 @@
       "P-9"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
     "subjects": [
       {
         "kind": "organ",
@@ -400,7 +400,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[52:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
+      "path": "core/paper_module_capsules.json::paper_modules[51:paper_module.mechanistic_interpretability_circuit_attribution_replay]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

@@ -14,7 +14,7 @@ An agent runs this to validate a synthetic route-feedback fixture against the de
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.agent_route_observability_runtime` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/agent_route_observability_runtime.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.agent_reliability_and_safety_validator_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-1` (resolved_json_instance)
@@ -30,7 +30,6 @@ An agent runs this to validate a synthetic route-feedback fixture against the de
 - `wires_to` -> `organ:batch4_proof_authority_runtime` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch6_unsurfaced_primitives_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch7_macro_engines_capsule` (resolved_registry_or_atlas_target)
-- `wires_to` -> `organ:batch7_station_runtime_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch8_compliance_pipeline_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:agent_memory_temporal_conflict_replay` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:agent_sandbox_policy_escape_replay` (resolved_registry_or_atlas_target)

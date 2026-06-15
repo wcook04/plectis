@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[36:mechanism.lean_std_premise_index.validates_public_lean_std_premise_index]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[30:mechanism.lean_std_premise_index.validates_public_lean_std_premise_index]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

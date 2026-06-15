@@ -88,7 +88,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -105,7 +105,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
+        "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
         "fixtures/first_wave/certificate_kernel_execution_lab/input",
         "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle",
         "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
@@ -203,7 +203,7 @@
       "runs_in": [
         "certificate_kernel_execution_lab"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
       "statement": "The certificate kernel execution lab organ validates public proof-adjacent execution boundaries by checking a Lean/Lake certificate-kernel fixture, generated certificate rows, analyzer metadata, transition traces, typed CP2 action translations, bounded Evolve reruns, source-module manifest digests, copied non-secret Lean/tool/profile bodies, body-free receipt policy, authority counters, and negative cases before writing bounded receipts.",
       "status": "active"
     },
@@ -213,7 +213,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -287,7 +287,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -300,7 +300,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -313,7 +313,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -328,7 +328,7 @@
     "runs_in": [
       "certificate_kernel_execution_lab"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -342,7 +342,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
+      "path": "core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

@@ -15,7 +15,6 @@ The Batch 8 tools-tail primitives capsule validates four copied public tools-tai
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py` (resolved_code_locus)
 - `runs_in` -> `organ:batch8_tools_tail_primitives_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule` (resolved_json_instance)
 
 ## Anti-Claims
 

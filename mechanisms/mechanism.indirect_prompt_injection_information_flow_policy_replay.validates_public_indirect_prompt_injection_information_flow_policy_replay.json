@@ -81,7 +81,7 @@
       "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
       "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -98,7 +98,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
+        "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
         "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input",
         "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
         "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
@@ -188,7 +188,7 @@
       "runs_in": [
         "indirect_prompt_injection_information_flow_policy_replay"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
       "statement": "The indirect prompt-injection information-flow policy replay organ validates public source-trust rows, taint-flow edges, policy verdicts, sanitized outputs, cold replay, public trace spans, negative cases, source-module digest anchors, body-free receipts, and authority ceilings without using real accounts, raw prompts, credentials, hidden system messages, live tools, provider payloads, benchmark claims, source mutation, or release authority.",
       "status": "active"
     },
@@ -198,7 +198,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -266,7 +266,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -279,7 +279,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -292,7 +292,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -307,7 +307,7 @@
     "runs_in": [
       "indirect_prompt_injection_information_flow_policy_replay"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -321,7 +321,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[78:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
+      "path": "core/mechanism_sources.json::mechanisms[66:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

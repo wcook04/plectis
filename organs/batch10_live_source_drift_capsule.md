@@ -3,8 +3,8 @@
 _Generated from the governed organ JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `organs/batch10_live_source_drift_capsule.json`
-- Atlas source of record: `core/organ_atlas.json::organs[72:batch10_live_source_drift_capsule]`
-- Registry source of record: `core/organ_registry.json::implemented_organs[72:batch10_live_source_drift_capsule]`
+- Atlas source of record: `core/organ_atlas.json::organs[70:batch10_live_source_drift_capsule]`
+- Registry source of record: `core/organ_registry.json::implemented_organs[70:batch10_live_source_drift_capsule]`
 - Authority boundary: JSON parity seed; organ atlas/registry source authority has not flipped.
 
 ## Role
@@ -14,7 +14,7 @@ An agent runs it to validate the live-source drift membrane: all four exact copi
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.batch10_live_source_drift_capsule` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/batch10_live_source_drift_capsule.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-1` (resolved_json_instance)
@@ -27,7 +27,6 @@ An agent runs it to validate the live-source drift membrane: all four exact copi
 - `constrained_by` -> `axiom:AX-4` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-5` (resolved_json_instance)
 - `constrained_by` -> `axiom:AX-8` (resolved_json_instance)
-- `wires_to` -> `organ:batch10_frontend_work_market_cockpit_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch10_governance_compilers_capsule` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims

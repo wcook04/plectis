@@ -31,7 +31,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Agent Sabotage Scheming Monitor Replay",
   "entry_surface_contract": null,
-  "evidence_class": "bounded_runtime_computation",
+  "evidence_class": "algorithmic_projection",
   "family": "agent_reliability_and_safety",
   "id": "agent_sabotage_scheming_monitor_replay",
   "kind": "organ",
@@ -101,7 +101,7 @@
         "concept.agent_reliability_and_safety_validator_bundle"
       ],
       "display_name": "Agent Sabotage Scheming Monitor Replay",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "first_command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
       "human_gloss": "This inspects whether a write-up that claims an AI agent was caught secretly working a hidden side-goal actually carries the supporting structure a reader would need: the step-by-step actions, a per-step \"how suspicious did the monitor find this?\" score, and a stated counterfactual saying that removing the sneaky steps would drop the hidden goal while keeping the real task working. It runs only on synthetic, scrubbed example data, so it shows what the skeleton of such a safety claim should look like and checks the pieces line up with each other. It does not run a real agent, does not detect real scheming, and proves nothing about how any deployed monitor performs.",
@@ -133,12 +133,12 @@
     },
     "source_registry_row": {
       "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live sabotage, live agent execution, exploit instructions, credentials or account material, private reasoning export, harmful payloads, monitor product performance, deployment-risk claims, benchmark scores, provider calls, source mutation, release, publication, or product authority",
-      "classification_basis": "bounded runtime computation over public sabotage/scheming monitor bundles: copied macro pattern body plus sanitized dogfood trace slice digests, recomputed caught-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, verdict-mismatch negatives, and required forbidden-input negatives",
+      "classification_basis": "validates copied public sabotage/scheming monitor macro bodies and sanitized dogfood trace-slice digests and checks source-artifact evidence refs and negatives, but the caught-verdict is a consistency fold over fixture-declared scores, not in-process runtime computation",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-      "evidence_class": "bounded_runtime_computation",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_sabotage_scheming_monitor_replay]",
-      "evidence_strength_rank": 4,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
@@ -149,7 +149,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_runtime_receipt",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
     },
     "support_contract": {

@@ -52,7 +52,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule]",
+    "drilldown": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -139,8 +139,8 @@
         "P-9",
         "P-15"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[68:batch11_saturation_engines_capsule]",
-      "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[67:batch11_saturation_engines_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule]",
       "specialty": [
         "source-import",
         "provenance",
@@ -230,7 +230,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -243,7 +243,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].mechanism_refs[0]",
           "summary": "The copied public Batch 11 saturation-engine bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting live ledger mutation, provider dispatch, publication, release, or whole-system correctness authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -256,7 +256,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for Batch 11 saturation-engine source imports, deterministic source-faithful exercises, computed negative probes, exact-copy digest checks, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -269,7 +269,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -282,7 +282,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -295,7 +295,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -308,7 +308,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -321,7 +321,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -334,7 +334,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -347,7 +347,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -360,7 +360,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -373,7 +373,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -386,7 +386,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -399,7 +399,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -412,7 +412,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -425,7 +425,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -438,7 +438,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -451,7 +451,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -480,8 +480,8 @@
       "P-9",
       "P-15"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[68:batch11_saturation_engines_capsule]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[67:batch11_saturation_engines_capsule]",
     "unpopulated_selective_relations": [],
     "wires_to": [
       "macro_projection_import_protocol",
@@ -494,11 +494,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule]",
+      "path": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[68:batch11_saturation_engines_capsule]",
+      "path": "core/organ_registry.json::implemented_organs[67:batch11_saturation_engines_capsule]",
       "role": "accepted_current_authority_registry_row"
     },
     {

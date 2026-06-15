@@ -3,8 +3,8 @@
 _Generated from the governed organ JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `organs/batch8_compliance_pipeline_capsule.json`
-- Atlas source of record: `core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule]`
-- Registry source of record: `core/organ_registry.json::implemented_organs[71:batch8_compliance_pipeline_capsule]`
+- Atlas source of record: `core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]`
+- Registry source of record: `core/organ_registry.json::implemented_organs[69:batch8_compliance_pipeline_capsule]`
 - Authority boundary: JSON parity seed; organ atlas/registry source authority has not flipped.
 
 ## Role

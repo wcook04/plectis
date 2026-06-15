@@ -75,14 +75,13 @@
         "agent_sandbox_policy_escape_replay",
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
-      "agent_route_observability_runtime",
-      "provider_context_recipe_budget_policy",
-      "agent_closeout_faithfulness_audit",
-      "bounded_autonomy_campaign_packet",
-      "batch7_station_runtime_capsule",
-      "batch7_secondary_runtime_capsule"
-    ]
-  },
+        "agent_route_observability_runtime",
+        "provider_context_recipe_budget_policy",
+        "agent_closeout_faithfulness_audit",
+        "bounded_autonomy_campaign_packet",
+        "batch7_secondary_runtime_capsule"
+      ]
+    },
     {
       "blurb": "Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.",
       "family_id": "research_and_science_replays",
@@ -113,7 +112,6 @@
         "batch8_tools_tail_primitives_capsule",
         "batch8_policy_engines_capsule",
         "batch8_audio_level_rms_port",
-        "batch8_station_surface_atlas_layout_port",
         "batch8_structural_theses_capsule",
         "engine_room_demo",
         "batch9_macro_engines_capsule",
@@ -122,8 +120,7 @@
         "tool_server_pressure_inventory",
         "batch8_compliance_pipeline_capsule",
         "batch10_live_source_drift_capsule",
-        "batch12_release_claim_language_gate",
-        "batch10_frontend_work_market_cockpit_capsule"
+        "batch12_release_claim_language_gate"
       ]
     },
     {
@@ -134,7 +131,6 @@
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
         "bridge_phase_continuity_runtime",
-        "workstream_driver_recency_coalescer",
         "concurrency_mission_control"
       ]
     }

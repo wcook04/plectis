@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

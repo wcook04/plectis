@@ -18,7 +18,6 @@ The durable agent work-landing replay organ validates public work-landing replay
 - `upstream_of` -> `mechanism:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer` (resolved_json_instance)
 
 ## Anti-Claims
 

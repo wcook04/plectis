@@ -1,8 +1,0 @@
-{
-  "body_in_receipt": false,
-  "case_id": "cap_cartography_mutation_action",
-  "error_codes": [
-    "BATCH7_SECONDARY_CAP_CARTOGRAPHY_OBSERVE_ONLY"
-  ],
-  "schema_version": "batch7_secondary_runtime_capsule_negative_case_v1"
-}

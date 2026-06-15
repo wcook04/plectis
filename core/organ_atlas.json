@@ -1302,8 +1302,7 @@
         "voice_to_doctrine_self_improvement_loop",
         "engine_room_demo",
         "batch11_saturation_engines_capsule",
-        "batch8_compliance_pipeline_capsule",
-        "batch8_station_surface_atlas_layout_port"
+        "batch8_compliance_pipeline_capsule"
       ],
       "concept_refs": [
         "concept.architecture_and_navigation_route_contract_bundle"
@@ -1432,7 +1431,6 @@
         "continuity"
       ],
       "wires_to": [
-        "workstream_driver_recency_coalescer",
         "agent_closeout_faithfulness_audit",
         "macro_projection_import_protocol"
       ],
@@ -1582,7 +1580,6 @@
         "spatial_world_model_counterfactual_simulation_replay",
         "tool_server_pressure_inventory",
         "batch12_market_dashboard_read_model_capsule",
-        "batch8_station_surface_atlas_layout_port",
         "batch8_structural_theses_capsule"
       ],
       "concept_refs": [
@@ -1769,7 +1766,6 @@
         "batch4_proof_authority_runtime",
         "batch6_unsurfaced_primitives_capsule",
         "batch7_macro_engines_capsule",
-        "batch7_station_runtime_capsule",
         "batch8_compliance_pipeline_capsule",
         "agent_memory_temporal_conflict_replay",
         "agent_sandbox_policy_escape_replay",
@@ -1847,8 +1843,7 @@
       ],
       "wires_to": [
         "agent_memory_temporal_conflict_replay",
-        "concurrency_mission_control",
-        "workstream_driver_recency_coalescer"
+        "concurrency_mission_control"
       ],
       "concept_refs": [
         "concept.work_landing_and_continuity_control_bundle"
@@ -2055,7 +2050,6 @@
         "materials_chemistry_closed_loop_lab_safety_replay",
         "batch11_saturation_engines_capsule",
         "batch8_compliance_pipeline_capsule",
-        "batch10_frontend_work_market_cockpit_capsule",
         "batch10_governance_compilers_capsule",
         "batch10_live_source_drift_capsule",
         "batch4_proof_authority_runtime",
@@ -2070,8 +2064,7 @@
         "batch9_macro_engines_capsule",
         "concurrency_mission_control",
         "engine_room_demo",
-        "executable_doctrine_grammar",
-        "workstream_driver_recency_coalescer"
+        "executable_doctrine_grammar"
       ],
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -3950,9 +3943,7 @@
         "drift-control",
         "provider-ops"
       ],
-      "wires_to": [
-        "batch7_station_runtime_capsule"
-      ],
+      "wires_to": [],
       "axiom_refs": [
         "AX-1",
         "AX-4",
@@ -4091,70 +4082,6 @@
         "P-6",
         "P-9",
         "P-15"
-      ],
-      "concept_refs": [
-        "concept.import_projection_and_drift_control_bundle"
-      ]
-    },
-    {
-      "agent_gloss": "An agent runs it to validate that the public Python port preserves declared band/lane layout semantics over fixture nodes, rejects planted malformed cases, and keeps UI runtime, browser-render, navigation-authority, publication, and release claims fenced off.",
-      "claim_ceiling_restated": "projection mechanics only, not domain correctness",
-      "evidence_class": "algorithmic_projection",
-      "family": "import_projection_and_drift",
-      "first_command": "microcosm batch8-station-surface-atlas-layout-port run --input fixtures/first_wave/batch8_station_surface_atlas_layout_port/input --out receipts/first_wave/batch8_station_surface_atlas_layout_port --acceptance-out receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
-      "human_gloss": "This port projects the StationSurfaceAtlas band/lane layout solver into a runnable Python fixture over synthetic node rows. The fixture exercises deterministic layout behavior without starting React, rendering a browser, claiming navigation-graph authority, publishing, or authorizing release.",
-      "organ_id": "batch8_station_surface_atlas_layout_port",
-      "paper_module_ref": "paper_modules/batch8_station_surface_atlas_layout_port.md",
-      "mechanism_refs": [
-        {
-          "ref": "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
-          "resolution_status": "resolved",
-          "authority_class": "algorithmic_projection",
-          "edge_justification": "The public Python StationSurfaceAtlas layout port, deterministic fixture cases, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to an algorithmic projection without granting React runtime evidence, browser visual acceptance, navigation-graph authority, source mutation, publication, release, or whole-system correctness authority."
-        }
-      ],
-      "code_loci": [
-        {
-          "path": "src/microcosm_core/organs/batch8_station_surface_atlas_layout_port.py",
-          "symbols": [
-            "layout_nodes",
-            "capture_posture_sort_key",
-            "map_pair_layout_sort_key",
-            "lane_count_for_group",
-            "_evaluate_reference_cases",
-            "_evaluate_negative_exercises",
-            "_layout_evaluator",
-            "run",
-            "run_batch8_station_surface_atlas_layout_bundle",
-            "result_card"
-          ],
-          "role": "Runtime and receipt-writing locus for StationSurfaceAtlas geometry parity, fallback layout cases, negative exercises, and authority ceilings.",
-          "resolution": "resolved"
-        }
-      ],
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "Ports deterministic StationSurfaceAtlas layout mechanics into public Python and binds them to fixture, receipt, CLI/runtime-shell, standards, and authority-ceiling checks; it does not start React/browser runtime, mutate source, publish, or release.",
-      "display_name": "Surface Atlas Layout Port",
-      "specialty": [
-        "source-import",
-        "provenance",
-        "drift-control",
-        "frontend"
-      ],
-      "wires_to": [
-        "batch7_station_runtime_capsule"
-      ],
-      "axiom_refs": [
-        "AX-5",
-        "AX-7",
-        "AX-8",
-        "AX-10"
-      ],
-      "principle_refs": [
-        "P-2",
-        "P-9",
-        "P-15",
-        "P-16"
       ],
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
@@ -4573,65 +4500,6 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the workstream driver membrane: the fixture must exercise the copied groupByDriver semantics, observe all five negative cases, verify WorkstreamBoard.tsx source-module digests and anchors, and keep receipts free of body text, live cockpit state, browser/HUD state, provider payloads, and release authority.",
-      "claim_ceiling_restated": "validates declared public WorkstreamBoard grouping contract only; no live cockpit reads, frontend release, source mutation, provider calls, private data equivalence, or whole-system correctness",
-      "evidence_class": "semantic_validator",
-      "family": "work_landing_and_continuity",
-      "first_command": "microcosm workstream-driver-recency-coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
-      "human_gloss": "This organ imports the WorkstreamBoard driver grouping helper as public runnable substrate. Over synthetic AttentionRecentChange rows it surfaces active_driver normalization, newest-wins summary refresh, recency-desc ordering, and unclassified-last behavior backed by an exact copied frontend source body.",
-      "organ_id": "workstream_driver_recency_coalescer",
-      "paper_module_ref": "paper_modules/workstream_driver_recency_coalescer.md",
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "Imports an exact copied non-secret WorkstreamBoard.tsx frontend body and binds a source-faithful Python exercise to fixture, receipt, source-digest, CLI/runtime-shell, standard, package-data, and authority-ceiling checks; it does not feed or invoke live cockpit state, browser/HUD state, provider dispatch, release, source mutation, or private-root equivalence lanes.",
-      "display_name": "Workstream Driver Recency Coalescer",
-      "specialty": [
-        "workflow-engineering",
-        "continuity",
-        "frontend",
-        "provider-ops"
-      ],
-      "wires_to": [],
-      "mechanism_refs": [
-        {
-          "ref": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
-          "resolution_status": "resolved",
-          "authority_class": "semantic_validator",
-          "edge_justification": "The JSON capsule, copied WorkstreamBoard source-module bundle, focused validator, and receipts validate public grouping semantics without live cockpit or frontend release authority."
-        }
-      ],
-      "code_loci": [
-        {
-          "path": "src/microcosm_core/organs/workstream_driver_recency_coalescer.py",
-          "symbols": [
-            "run",
-            "run_workstream_bundle",
-            "evaluate",
-            "group_by_driver",
-            "result_card",
-            "EXPECTED_NEGATIVE_CASES",
-            "AUTHORITY_CEILING"
-          ],
-          "role": "Runtime and receipt-writing locus for WorkstreamBoard grouping fixture validation, recency coalescing, source-module digest checks, negative cases, and authority ceilings.",
-          "resolution": "resolved"
-        }
-      ],
-      "principle_refs": [
-        "P-2",
-        "P-6",
-        "P-9",
-        "P-15"
-      ],
-      "axiom_refs": [
-        "AX-5",
-        "AX-7",
-        "AX-8",
-        "AX-10"
-      ],
-      "concept_refs": [
-        "concept.work_landing_and_continuity_control_bundle"
-      ]
-    },
-    {
       "agent_gloss": "An agent runs it to validate the Batch 8 compliance pipeline membrane: the fixture must exercise all six compliance/pipeline engines, observe six negative cases, verify 11 exact copied source-module digests and anchors, and keep receipts free of body text, raw seed, provider payloads, absolute paths, release authority, source mutation, and full compliance-ledger overclaims.",
       "claim_ceiling_restated": "validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, provider dispatch, model dispatch, source mutation, raw-seed mutation, release, publication, private data equivalence, or whole-system correctness",
       "evidence_class": "algorithmic_projection",
@@ -4747,7 +4615,6 @@
         "drift-control"
       ],
       "wires_to": [
-        "batch10_frontend_work_market_cockpit_capsule",
         "batch10_governance_compilers_capsule"
       ],
       "axiom_refs": [
@@ -4969,73 +4836,6 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to validate the Batch 7 station runtime capsule: exact copied station host, live instrument, store, and source-test bodies must preserve digests and anchors, frontend witness metadata must stay bounded, all five negative cases must be observed, and receipts must omit copied body text, private refs, browser/HUD state, provider payloads, source mutation, release authority, and live UI correctness overclaims.",
-      "claim_ceiling_restated": "verified non-secret macro body import only; no hosted UI/browser session, live station runtime authority, provider dispatch, source mutation, private-root equivalence, release, publication, or whole-system correctness claim",
-      "evidence_class": "verified_macro_body_import",
-      "family": "agent_reliability_and_safety",
-      "first_command": "microcosm batch7-station-runtime-capsule run --input fixtures/first_wave/batch7_station_runtime_capsule/input --out receipts/first_wave/batch7_station_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the station runtime evidence path as public runnable substrate. It checks the agent trace workbench host boot probe, live agent instrument view-model contracts, and station store resilience states against exact copied frontend/runtime source bodies and synthetic negative cases, without starting the UI or claiming live station authority.",
-      "organ_id": "batch7_station_runtime_capsule",
-      "axiom_refs": [
-        "AX-1",
-        "AX-4",
-        "AX-5",
-        "AX-8"
-      ],
-      "principle_refs": [
-        "P-1",
-        "P-2",
-        "P-5",
-        "P-6",
-        "P-9",
-        "P-15"
-      ],
-      "paper_module_ref": "paper_modules/batch7_station_runtime_capsule.md",
-      "mechanism_refs": [
-        {
-          "ref": "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
-          "resolution_status": "resolved",
-          "authority_class": "verified_macro_body_import",
-          "edge_justification": "The copied public Station runtime bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without launching Electron, mutating source, reading private runtime state, publication, release, or whole-system correctness authority."
-        }
-      ],
-      "code_loci": [
-        {
-          "path": "src/microcosm_core/organs/batch7_station_runtime_capsule.py",
-          "symbols": [
-            "_run_public_witness",
-            "_ui_vitest_witness",
-            "_app_host_exercise",
-            "_live_instrument_exercise",
-            "_station_store_exercise",
-            "_evaluate",
-            "run",
-            "run_batch7_station_bundle",
-            "result_card",
-            "EXPECTED_NEGATIVE_CASES",
-            "AUTHORITY_CEILING"
-          ],
-          "role": "Runtime and receipt-writing locus for Station runtime copied source witnesses, UI witness checks, host/live-instrument/store exercises, negative cases, and authority ceilings.",
-          "resolution": "resolved"
-        }
-      ],
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "Binds exact copied station runtime/frontend source bodies to fixture, receipt, CLI/runtime-shell, standards, package-data, and authority-ceiling checks; it does not start the frontend, read live browser/HUD/operator state, mutate source, dispatch providers, publish, or release.",
-      "display_name": "Station Runtime Evidence Capsule",
-      "specialty": [
-        "ai-safety",
-        "agent-evaluation",
-        "red-teaming",
-        "frontend"
-      ],
-      "wires_to": [
-        "batch8_station_surface_atlas_layout_port"
-      ],
-      "concept_refs": [
-        "concept.agent_reliability_and_safety_validator_bundle"
-      ]
-    },
-    {
       "agent_gloss": "An agent runs it to validate the Batch 7 secondary runtime capsule: all eight runtime, graph, cartography, stockgrid, and Polymarket fixture engines must execute, copied source modules must preserve digest anchors, planted negative cases must stay visible, and receipts must remain body-free inside the public authority ceiling.",
       "claim_ceiling_restated": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, source mutation, private-root equivalence, publication, release, semantic-truth, or whole-system correctness claim",
       "evidence_class": "verified_macro_body_import",
@@ -5119,7 +4919,6 @@
         "frontend"
       ],
       "wires_to": [
-        "batch10_frontend_work_market_cockpit_capsule",
         "batch6_unsurfaced_primitives_capsule"
       ],
       "mechanism_refs": [
@@ -5285,75 +5084,6 @@
         "receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle_validation_result.json"
       ],
       "family": "import_projection_and_drift",
-      "concept_refs": [
-        "concept.import_projection_and_drift_control_bundle"
-      ]
-    },
-    {
-      "agent_gloss": "An agent runs it to validate the Batch-10 frontend Work/Market cockpit source-open capsule: exact copied WorkLens and MarketCockpit source bodies must match digests and anchors, read-only work-state and honest market-signal contracts must pass, planted negative cases must be observed, private source refs must be rejected, and receipts must omit copied body text and private state.",
-      "claim_ceiling_restated": "verified non-secret frontend source-body import only, not live UI correctness, Task Ledger or Work Ledger mutation authority, market advice, source mutation, release, or publication",
-      "evidence_class": "verified_macro_body_import",
-      "family": "import_projection_and_drift",
-      "first_command": "microcosm batch10-frontend-work-market-cockpit-capsule run --input fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input --out receipts/first_wave/batch10_frontend_work_market_cockpit_capsule --acceptance-out receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json",
-      "human_gloss": "This capsule imports the Batch-10 frontend Work Lens and Market Cockpit macro source bodies as public-safe source-open substrate. It exposes digest evidence, source anchors, read-only work-state checks, honest market-signal checks, route-readiness checks, focused source-test witnesses, and negative cases without exposing private paths, copied body text in receipts, live browser state, ledger mutation authority, release authority, or market advice.",
-      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
-      "paper_module_ref": "paper_modules/batch10_frontend_work_market_cockpit_capsule.md",
-      "mechanism_refs": [
-        {
-          "ref": "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
-          "resolution_status": "resolved",
-          "authority_class": "verified_macro_body_import",
-          "edge_justification": "The copied public WorkLens and MarketCockpit bodies, fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified frontend source-body import without granting live UI correctness, ledger mutation, provider dispatch, market advice, release, publication, or source-mutation authority."
-        }
-      ],
-      "code_loci": [
-        {
-          "path": "src/microcosm_core/organs/batch10_frontend_work_market_cockpit_capsule.py",
-          "symbols": [
-            "_source_evidence",
-            "_work_lens_live_state_read_contract",
-            "_market_cockpit_honest_signal_contract",
-            "_market_lens_route_readiness_contract",
-            "_frontend_source_test_witness",
-            "_private_frontend_source_ref_guard",
-            "_build_integrity_matrix",
-            "_evaluate",
-            "run",
-            "run_batch10_frontend_work_market_bundle",
-            "result_card",
-            "EXPECTED_ENGINES",
-            "EXPECTED_NEGATIVE_CASES",
-            "AUTHORITY_CEILING",
-            "main"
-          ],
-          "role": "Runtime and receipt-writing locus for Batch 10 frontend Work/Market source-open imports, read-only work-state checks, honest market-signal checks, route-readiness checks, source-test witnesses, negative cases, exact-copy digest checks, and authority ceilings.",
-          "resolution": "resolved"
-        }
-      ],
-      "standalone_or_wired": "standalone_specimen",
-      "wiring_note": "Imports five copied non-secret frontend TS/TSX source modules into a source-open capsule and binds them to fixture, receipt, source-digest, public-exercise, CLI/runtime-shell, standards, and authority-ceiling checks; it does not run a browser, feed live ledgers, authorize Task Ledger or Work Ledger mutation, dispatch providers, provide market advice, approve release/publication, mutate source, or claim private-root equivalence.",
-      "display_name": "Frontend Work/Market Cockpit Capsule",
-      "specialty": [
-        "source-import",
-        "frontend-boundary",
-        "market-boundary",
-        "provenance"
-      ],
-      "wires_to": [
-        "batch12_market_dashboard_read_model_capsule"
-      ],
-      "axiom_refs": [
-        "AX-4",
-        "AX-8",
-        "AX-10",
-        "AX-11"
-      ],
-      "principle_refs": [
-        "P-2",
-        "P-5",
-        "P-9",
-        "P-15"
-      ],
       "concept_refs": [
         "concept.import_projection_and_drift_control_bundle"
       ]

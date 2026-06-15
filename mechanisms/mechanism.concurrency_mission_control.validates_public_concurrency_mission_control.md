@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement
@@ -15,7 +15,7 @@ The concurrency mission-control organ validates copied public mission-control bu
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/concurrency_mission_control.py` (resolved_code_locus)
 - `runs_in` -> `organ:concurrency_mission_control` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.work_landing_and_continuity_control_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (unresolved_json_instance)
 
 ## Anti-Claims
 

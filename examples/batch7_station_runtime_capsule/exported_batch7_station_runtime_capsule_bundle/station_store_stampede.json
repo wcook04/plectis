@@ -1,9 +1,0 @@
-{
-  "body_in_receipt": false,
-  "case_id": "station_store_stampede",
-  "error_codes": [
-    "BATCH7_STATION_SINGLE_FLIGHT_REQUIRED"
-  ],
-  "negative_contract": "Duplicate operation launches for the same stable key must reuse the in-flight promise.",
-  "schema_version": "batch7_station_runtime_negative_case_v1"
-}

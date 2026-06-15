@@ -82,7 +82,7 @@
       "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
       "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
+        "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
         "fixtures/first_wave/agent_closeout_faithfulness_audit/input",
         "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[4:agent_reliability_and_safety_validator_bundle]"
@@ -187,7 +187,7 @@
       "runs_in": [
         "agent_closeout_faithfulness_audit"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
       "statement": "The agent closeout faithfulness audit organ validates public closeout evidence claims by checking fixture commit objects and HEAD with git subprocesses, pytest span execution and explicit pass status with pytest subprocesses, fixture-ledger cap rows, copied source-module digests, and stable overclaim negative cases before writing body-free receipts.",
       "status": "active"
     },
@@ -197,7 +197,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -261,7 +261,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -274,7 +274,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -287,7 +287,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -302,7 +302,7 @@
     "runs_in": [
       "agent_closeout_faithfulness_audit"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -316,7 +316,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[15:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
+      "path": "core/mechanism_sources.json::mechanisms[12:mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

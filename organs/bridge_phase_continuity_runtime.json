@@ -147,8 +147,7 @@
       "standalone_or_wired": "standalone_specimen",
       "wires_to": [
         "agent_memory_temporal_conflict_replay",
-        "concurrency_mission_control",
-        "workstream_driver_recency_coalescer"
+        "concurrency_mission_control"
       ],
       "wiring_note": "binds only to the shared kernel + evidence/authority spine (receipts, private-state scan, strict-JSON schemas). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
     },
@@ -248,11 +247,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -500,19 +499,6 @@
         "target_id": "concurrency_mission_control",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
-        "target_id": "workstream_driver_recency_coalescer",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -540,8 +526,7 @@
     "unpopulated_selective_relations": [],
     "wires_to": [
       "agent_memory_temporal_conflict_replay",
-      "concurrency_mission_control",
-      "workstream_driver_recency_coalescer"
+      "concurrency_mission_control"
     ]
   },
   "role": "An agent runs it to confirm, against a public synthetic fixture, that detached-job continuity rules hold before relying on them: a resumable job needs a continuation packet, a packet resumes exactly once (duplicate resume is rejected), heartbeats are liveness-only (and stale heartbeats are not live-health evidence), resource pressure blocks dispatch as a recorded decision, worker-skip rows dedupe without silently closing a claim, and only a closeout transition receipt marks work as landed. Each rule is exercised by a matching negative case.",
@@ -573,7 +558,6 @@
   ],
   "wires_to": [
     "agent_memory_temporal_conflict_replay",
-    "concurrency_mission_control",
-    "workstream_driver_recency_coalescer"
+    "concurrency_mission_control"
   ]
 }

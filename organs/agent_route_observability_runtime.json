@@ -134,7 +134,6 @@
         "batch4_proof_authority_runtime",
         "batch6_unsurfaced_primitives_capsule",
         "batch7_macro_engines_capsule",
-        "batch7_station_runtime_capsule",
         "batch8_compliance_pipeline_capsule",
         "agent_memory_temporal_conflict_replay",
         "agent_sandbox_policy_escape_replay",
@@ -229,11 +228,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -439,19 +438,6 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
-        "target_id": "batch7_station_runtime_capsule",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[26:agent_route_observability_runtime].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
         "target_id": "batch8_compliance_pipeline_capsule",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -534,7 +520,6 @@
       "batch4_proof_authority_runtime",
       "batch6_unsurfaced_primitives_capsule",
       "batch7_macro_engines_capsule",
-      "batch7_station_runtime_capsule",
       "batch8_compliance_pipeline_capsule",
       "agent_memory_temporal_conflict_replay",
       "agent_sandbox_policy_escape_replay",
@@ -582,7 +567,6 @@
     "batch4_proof_authority_runtime",
     "batch6_unsurfaced_primitives_capsule",
     "batch7_macro_engines_capsule",
-    "batch7_station_runtime_capsule",
     "batch8_compliance_pipeline_capsule",
     "agent_memory_temporal_conflict_replay",
     "agent_sandbox_policy_escape_replay",

@@ -14,7 +14,7 @@ An agent runs it to confirm a fixture's route-plane contract holds and that brow
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.navigation_hologram_route_plane` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/navigation_hologram_route_plane.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-1` (resolved_json_instance)
@@ -43,7 +43,6 @@ An agent runs it to confirm a fixture's route-plane contract holds and that brow
 - `wires_to` -> `organ:engine_room_demo` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch11_saturation_engines_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch8_compliance_pipeline_capsule` (resolved_registry_or_atlas_target)
-- `wires_to` -> `organ:batch8_station_surface_atlas_layout_port` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims
 

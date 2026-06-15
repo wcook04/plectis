@@ -18,7 +18,6 @@ The navigation hologram route-plane organ validates public route-plane fixture r
 - `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.cold_reader_route_map.validates_public_first_run_route_map` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark` (resolved_json_instance)

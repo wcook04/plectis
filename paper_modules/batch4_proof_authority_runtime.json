@@ -14,7 +14,7 @@
   "id": "paper_module.batch4_proof_authority_runtime",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -130,7 +130,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime]",
       "strangler_note": "Binds the authored Markdown projection, accepted-organ atlas row, refreshed exact-copy source-open bundle, Batch 4 proof/authority/runtime organ source locus, and body-free receipts to JSON source authority. The mechanism subject is named from the resolving Microcosm mechanism row; concept edges remain residual until resolving Microcosm rows exist; proof success, live runtime, source-mutation, publication, and release authority stay out of scope.",
       "subjects": [
         {
@@ -194,7 +194,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -207,7 +207,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].subjects[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].subjects[1]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -220,7 +220,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -233,7 +233,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -246,7 +246,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -259,7 +259,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -272,7 +272,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -285,7 +285,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -298,7 +298,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -311,7 +311,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -324,7 +324,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -337,7 +337,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -350,7 +350,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -363,7 +363,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -376,7 +376,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -389,7 +389,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -402,7 +402,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for Batch 4 proof/authority/runtime source imports, static proof-placeholder checks, bounded synthetic exercises, exact-copy digest checks, negative cases, and authority ceilings."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -422,7 +422,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime]",
     "subjects": [
       {
         "kind": "organ",
@@ -438,7 +438,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[77:paper_module.batch4_proof_authority_runtime]",
+      "path": "core/paper_module_capsules.json::paper_modules[74:paper_module.batch4_proof_authority_runtime]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

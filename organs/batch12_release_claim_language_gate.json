@@ -48,7 +48,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]",
+    "drilldown": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -134,8 +134,8 @@
         "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json",
         "receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle_validation_result.json"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[80:batch12_release_claim_language_gate]",
-      "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[77:batch12_release_claim_language_gate]",
+      "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
       "specialty": [
         "source-import",
         "provenance",
@@ -211,7 +211,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -224,7 +224,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].mechanism_refs[0]",
           "summary": "The JSON capsule, release-claim bundle, focused organ validator, and receipts validate the public release-claim language membrane without granting release or publication authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -237,7 +237,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for release-claim fixture generation, claim-language blocking, main assert-clear checks, negative cases, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -250,7 +250,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -263,7 +263,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -276,7 +276,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -289,7 +289,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -302,7 +302,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -328,8 +328,8 @@
       "P-18",
       "P-20"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[80:batch12_release_claim_language_gate]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[77:batch12_release_claim_language_gate]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -345,11 +345,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]",
+      "path": "core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[80:batch12_release_claim_language_gate]",
+      "path": "core/organ_registry.json::implemented_organs[77:batch12_release_claim_language_gate]",
       "role": "accepted_current_authority_registry_row"
     },
     {

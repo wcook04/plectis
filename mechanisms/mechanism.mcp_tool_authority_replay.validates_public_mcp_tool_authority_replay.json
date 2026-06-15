@@ -81,7 +81,7 @@
       "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
       "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -98,7 +98,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
+        "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
         "fixtures/first_wave/mcp_tool_authority_replay/input",
         "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
         "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
@@ -188,7 +188,7 @@
       "runs_in": [
         "mcp_tool_authority_replay"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
       "statement": "The MCP tool authority replay organ validates public tool manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback and cold-replay receipts, untrusted-output instruction/data separation, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without accessing live MCP accounts, exporting credentials or provider payloads, obeying tool output as instruction, claiming benchmark safety, mutating source, or authorizing release.",
       "status": "active",
       "upstream_of": [
@@ -202,7 +202,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -270,7 +270,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -283,7 +283,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -296,7 +296,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -309,7 +309,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -322,7 +322,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -337,7 +337,7 @@
     "runs_in": [
       "mcp_tool_authority_replay"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
@@ -347,7 +347,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[79:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
+      "path": "core/mechanism_sources.json::mechanisms[67:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

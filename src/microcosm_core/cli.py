@@ -281,9 +281,6 @@ batch7_oracle_sibling_capsule = _LazyModule(
 batch7_secondary_runtime_capsule = _LazyModule(
     "microcosm_core.organs.batch7_secondary_runtime_capsule"
 )
-batch7_station_runtime_capsule = _LazyModule(
-    "microcosm_core.organs.batch7_station_runtime_capsule"
-)
 batch8_tools_tail_primitives_capsule = _LazyModule(
     "microcosm_core.organs.batch8_tools_tail_primitives_capsule"
 )
@@ -292,9 +289,6 @@ batch8_policy_engines_capsule = _LazyModule(
 )
 batch8_audio_level_rms_port = _LazyModule(
     "microcosm_core.organs.batch8_audio_level_rms_port"
-)
-batch8_station_surface_atlas_layout_port = _LazyModule(
-    "microcosm_core.organs.batch8_station_surface_atlas_layout_port"
 )
 batch8_structural_theses_capsule = _LazyModule(
     "microcosm_core.organs.batch8_structural_theses_capsule"
@@ -313,9 +307,6 @@ batch9_macro_engines_capsule = _LazyModule(
 )
 batch10_governance_compilers_capsule = _LazyModule(
     "microcosm_core.organs.batch10_governance_compilers_capsule"
-)
-batch10_frontend_work_market_cockpit_capsule = _LazyModule(
-    "microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule"
 )
 batch10_live_source_drift_capsule = _LazyModule(
     "microcosm_core.organs.batch10_live_source_drift_capsule"
@@ -437,9 +428,6 @@ routing_anti_patterns_registry = _LazyModule(
 )
 tool_server_pressure_inventory = _LazyModule(
     "microcosm_core.organs.tool_server_pressure_inventory"
-)
-workstream_driver_recency_coalescer = _LazyModule(
-    "microcosm_core.organs.workstream_driver_recency_coalescer"
 )
 standards_meta_diagnostics = _LazyModule(
     "microcosm_core.organs.standards_meta_diagnostics"
@@ -851,18 +839,15 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
     "batch7-macro-engines-capsule": "run Batch 7 macro engines capsule",
     "batch7-oracle-sibling-capsule": "run Batch 7 oracle sibling capsule",
     "batch7-secondary-runtime-capsule": "run Batch 7 secondary runtime capsule",
-    "batch7-station-runtime-capsule": "run Batch 7 station runtime capsule",
     "batch8-tools-tail-primitives-capsule": "run Batch 8 tools-tail primitives capsule",
     "batch8-policy-engines-capsule": "run Batch 8 policy engines capsule",
     "batch8-audio-level-rms-port": "run Batch 8 audio RMS normalized-level port",
-    "batch8-station-surface-atlas-layout-port": "run Batch 8 StationSurfaceAtlas layout port",
     "batch8-structural-theses-capsule": "run Batch 8 structural theses capsule",
     "batch8-compliance-pipeline-capsule": "run Batch 8 compliance pipeline capsule",
     "batch8-validator-checker-capsule": "run Batch 8 validator checker capsule",
     "concurrency-mission-control": "run concurrency mission-control capsule",
     "batch9-macro-engines-capsule": "run Batch 9 macro engines capsule",
     "batch10-governance-compilers-capsule": "run Batch 10 governance compilers capsule",
-    "batch10-frontend-work-market-cockpit-capsule": "run Batch 10 frontend work-market cockpit capsule",
     "batch10-live-source-drift-capsule": "run Batch 10 live source drift capsule",
     "batch10-cold-eval-honesty-capsule": "run Batch 10 cold eval honesty capsule",
     "batch11-saturation-engines-capsule": "run Batch 11 saturation engines capsule",
@@ -921,7 +906,6 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
     "cognitive-operator-registry": "run cognitive-operator-registry bundle",
     "routing-anti-patterns-registry": "run routing anti-patterns registry bundle",
     "tool-server-pressure-inventory": "run tool-server pressure inventory bundle",
-    "workstream-driver-recency-coalescer": "run workstream driver recency coalescer bundle",
 }
 
 PUBLIC_BUNDLE_COMMAND_EPILOGS = {
@@ -3294,13 +3278,6 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(batch8_audio_parser)
     batch8_audio_parser.add_argument("--acceptance-out")
 
-    batch8_station_parser = _add_bundle_parser(
-        subparsers, "batch8-station-surface-atlas-layout-port"
-    )
-    batch8_station_parser.add_argument("action", choices=["run", "validate-bundle"])
-    _add_input_out(batch8_station_parser)
-    batch8_station_parser.add_argument("--acceptance-out")
-
     batch8_structural_parser = _add_bundle_parser(
         subparsers, "batch8-structural-theses-capsule"
     )
@@ -3338,15 +3315,6 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(batch7_parser)
     batch7_parser.add_argument("--acceptance-out")
 
-    batch7_station_parser = _add_bundle_parser(
-        subparsers, "batch7-station-runtime-capsule"
-    )
-    batch7_station_parser.add_argument(
-        "action", choices=["run", "run-batch7-station-bundle"]
-    )
-    _add_input_out(batch7_station_parser)
-    batch7_station_parser.add_argument("--acceptance-out")
-
     batch9_parser = _add_bundle_parser(
         subparsers, "batch9-macro-engines-capsule"
     )
@@ -3360,15 +3328,6 @@ def main(argv: list[str] | None = None) -> int:
     batch10_governance_parser.add_argument("action", choices=["run", "validate-bundle"])
     _add_input_out(batch10_governance_parser)
     batch10_governance_parser.add_argument("--acceptance-out")
-
-    batch10_frontend_parser = _add_bundle_parser(
-        subparsers, "batch10-frontend-work-market-cockpit-capsule"
-    )
-    batch10_frontend_parser.add_argument(
-        "action", choices=["run", "run-batch10-frontend-work-market-bundle"]
-    )
-    _add_input_out(batch10_frontend_parser)
-    batch10_frontend_parser.add_argument("--acceptance-out")
 
     batch10_live_drift_parser = _add_bundle_parser(
         subparsers, "batch10-live-source-drift-capsule"
@@ -3686,13 +3645,6 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(tool_server_pressure_parser)
     tool_server_pressure_parser.add_argument("--acceptance-out")
-
-    workstream_driver_parser = _add_bundle_parser(
-        subparsers, "workstream-driver-recency-coalescer"
-    )
-    workstream_driver_parser.add_argument("action", choices=["run", "validate-bundle"])
-    _add_input_out(workstream_driver_parser)
-    workstream_driver_parser.add_argument("--acceptance-out")
 
     standards_meta_parser = _add_bundle_parser(subparsers, "standards-meta-diagnostics")
     standards_meta_parser.add_argument("action", choices=["run", "run-diagnostics-bundle"])
@@ -4397,9 +4349,6 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "batch8-audio-level-rms-port":
         batch8_audio_args = _organ_command_args(args)
         return batch8_audio_level_rms_port.main(batch8_audio_args)
-    if args.command == "batch8-station-surface-atlas-layout-port":
-        batch8_station_args = _organ_command_args(args)
-        return batch8_station_surface_atlas_layout_port.main(batch8_station_args)
     if args.command == "batch8-structural-theses-capsule":
         batch8_structural_args = _organ_command_args(args)
         return batch8_structural_theses_capsule.main(batch8_structural_args)
@@ -4414,9 +4363,6 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out:
             batch7_args.extend(["--acceptance-out", args.acceptance_out])
         return batch7_macro_engines_capsule.main(batch7_args)
-    if args.command == "batch7-station-runtime-capsule":
-        batch7_station_args = _organ_command_args(args)
-        return batch7_station_runtime_capsule.main(batch7_station_args)
     if args.command == "batch9-macro-engines-capsule":
         batch9_args = [
             args.action,
@@ -4439,17 +4385,6 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out:
             batch10_governance_args.extend(["--acceptance-out", args.acceptance_out])
         return batch10_governance_compilers_capsule.main(batch10_governance_args)
-    if args.command == "batch10-frontend-work-market-cockpit-capsule":
-        batch10_frontend_args = [
-            args.action,
-            "--input",
-            args.input,
-            "--out",
-            args.out,
-        ]
-        if args.acceptance_out:
-            batch10_frontend_args.extend(["--acceptance-out", args.acceptance_out])
-        return batch10_frontend_work_market_cockpit_capsule.main(batch10_frontend_args)
     if args.command == "batch11-saturation-engines-capsule":
         batch11_saturation_args = [
             args.action,
@@ -4659,11 +4594,6 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             pressure_args.extend(["--acceptance-out", args.acceptance_out])
         return tool_server_pressure_inventory.main(pressure_args)
-    if args.command == "workstream-driver-recency-coalescer":
-        workstream_args = [args.action, "--input", args.input, "--out", args.out]
-        if args.acceptance_out and args.action == "run":
-            workstream_args.extend(["--acceptance-out", args.acceptance_out])
-        return workstream_driver_recency_coalescer.main(workstream_args)
     if args.command == "batch8-compliance-pipeline-capsule":
         batch8_compliance_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":

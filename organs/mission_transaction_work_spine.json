@@ -35,7 +35,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Mission Transaction Work Spine",
   "entry_surface_contract": null,
-  "evidence_class": "algorithmic_projection",
+  "evidence_class": "bounded_runtime_computation",
   "family": "work_landing_and_continuity",
   "id": "mission_transaction_work_spine",
   "kind": "organ",
@@ -109,7 +109,7 @@
         "concept.work_landing_and_continuity_control_bundle"
       ],
       "display_name": "Mission Transaction Work Spine",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "family": "work_landing_and_continuity",
       "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
       "human_gloss": "Replays a fixed set of pre-recorded work-landing situations against a toy repository and shows when a change would be allowed to \"land\" versus blocked: two claims competing on the same file, a claim built on a stale parent commit, a claim missing its owned path, a clean preflight check that wrongly says the work is already finished, and which commit lane (a narrow scoped commit vs a broad checkpoint) a dirty working tree is permitted to use. Its exported bundle also anchors the public Work Ledger seed-speed source imports for session heartbeat, mutation-check, active-claim snapshot, and path-collision handling. The resulting receipts show exactly why each situation was permitted or refused, instead of an opaque \"it's done\" message.",
@@ -156,9 +156,9 @@
       "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "bounded_runtime_computation",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[mission_transaction_work_spine]",
-      "evidence_strength_rank": 3,
+      "evidence_strength_rank": 4,
       "generated_receipts": [
         "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
         "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
@@ -173,7 +173,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.mission_transaction_work_spine",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
     },
     "support_contract": {

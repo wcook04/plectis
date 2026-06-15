@@ -49,26 +49,6 @@ def _semantic_runtime_fixture(
     overrides: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     cases: dict[str, dict[str, Any]] = {
-        "trace_view_missing_raw_authority": {
-            "status": "blocked",
-            "missing_raw_authority_negative": False,
-        },
-        "lane_progress_unknown_state": {
-            "status": "blocked",
-            "unknown_state_negative": True,
-        },
-        "graph_lens_hidden_descendant": {
-            "status": "blocked",
-            "semantic_blocked": True,
-        },
-        "graph_projection_self_edge": {
-            "status": "blocked",
-            "semantic_blocked": True,
-        },
-        "cap_cartography_mutation_action": {
-            "status": "blocked",
-            "observe_only_actions_enforced": False,
-        },
         "stockgrid_extreme_momentum": {
             "status": "blocked",
             "extreme_momentum_refused": True,
@@ -138,27 +118,6 @@ def test_batch7_secondary_runtime_capsule_runs_all_engines(
     assert all(row["status"] == "pass" for row in exercise["engines"])
 
     by_engine = {row["engine_id"]: row for row in exercise["engines"]}
-    assert by_engine["agent_trace_view_model_trust_taxonomy"]["trust_class_count"] == 7
-    assert by_engine["agent_trace_view_model_trust_taxonomy"]["original_witness"]["returncode"] == 0
-    assert by_engine["agent_trace_view_model_trust_taxonomy"]["original_witness"]["body_in_receipt"] is False
-    assert by_engine["agent_trace_view_model_trust_taxonomy"]["missing_raw_authority_negative"] is True
-    assert by_engine["lane_progress_state_normalizer"]["state_map"]["completed"] == "success"
-    assert by_engine["lane_progress_state_normalizer"]["state_map"]["new_state"] == "idle"
-    assert by_engine["lane_progress_state_normalizer"]["unknown_state_negative"] is True
-    assert by_engine["lane_progress_state_normalizer"]["tail_summary_present"] is True
-    assert by_engine["universal_graph_lens_focus_roles"]["visible_nodes_after_collapse"] == [
-        "cluster",
-        "root",
-    ]
-    assert by_engine["universal_graph_lens_focus_roles"]["hidden_descendant_negative"] is True
-    assert by_engine["graph_projection_summary_quotient"]["summary_cluster_count"] == 3
-    assert by_engine["graph_projection_summary_quotient"]["projected_edges"] == [
-        "spine->summary_cluster_build_1",
-        "summary_cluster_build_1->summary_cluster_check_1",
-    ]
-    assert by_engine["graph_projection_summary_quotient"]["self_edge_dropped"] is True
-    assert by_engine["cap_cartography_shadow_render"]["observe_only_actions_enforced"] is True
-    assert by_engine["cap_cartography_shadow_render"]["renderer_function_present"] is True
     assert by_engine["stockgrid_payload_factory_terms"]["dependency_versions"]["pandas"]
     assert by_engine["stockgrid_payload_factory_terms"]["daily_log_momentum_bps"] > 90
     assert by_engine["stockgrid_payload_factory_terms"]["zscore_triplet"] == [-1.224745, 0.0, 1.224745]
@@ -183,8 +142,8 @@ def test_batch7_secondary_runtime_bundle_validates_runtime_shape(tmp_path: Path)
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_batch7_secondary_runtime_capsule_bundle"
-    assert result["source_module_manifest"]["module_count"] >= 13
-    assert result["exercise"]["copied_macro_source_module_count"] >= 13
+    assert result["source_module_manifest"]["module_count"] >= 4
+    assert result["exercise"]["copied_macro_source_module_count"] >= 4
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["receipt_body_scan"]["status"] == "pass"
 
@@ -194,7 +153,7 @@ def test_batch7_secondary_runtime_source_modules_are_exact_macro_body_imports() 
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] >= 13
+    assert manifest["module_count"] >= 4
 
     for row in manifest["modules"]:
         source = SOURCE_ROOT / row["source_ref"]
@@ -216,7 +175,7 @@ def test_batch7_secondary_runtime_card_omits_private_bodies(
 
     assert card["status"] == "pass"
     assert card["engine_count"] == len(EXPECTED_ENGINES)
-    assert card["copied_macro_source_module_count"] >= 13
+    assert card["copied_macro_source_module_count"] >= 4
     assert card["semantic_negative_case_evaluator_used"] is True
     assert card["body_in_receipt"] is False
     serialized = json.dumps(result, sort_keys=True)

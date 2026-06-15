@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[63:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[52:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

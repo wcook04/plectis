@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

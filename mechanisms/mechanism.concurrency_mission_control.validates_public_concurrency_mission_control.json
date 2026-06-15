@@ -82,7 +82,7 @@
       "concept_pair_ref": "work_landing_and_continuity_control_bundle.concept_binding",
       "mechanism_role": "family validators that bind work landing, bridge continuity, recency coalescing, concurrency, and transaction closeout to receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
+        "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
         "fixtures/first_wave/concurrency_mission_control/input",
         "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle",
         "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json",
@@ -190,7 +190,7 @@
       "runs_in": [
         "concurrency_mission_control"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
       "statement": "The concurrency mission-control organ validates copied public mission-control builder and bridge artifacts through fixture failure classes, Work Ledger seed-speed topology, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without becoming a live scheduler, provider dispatcher, hosted orchestrator, production concurrency proof, release, or publication authority.",
       "status": "active",
       "upstream_of": [
@@ -203,7 +203,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -272,7 +272,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -285,7 +285,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -298,7 +298,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -311,22 +311,22 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       }
     ],
     "runs_in": [
       "concurrency_mission_control"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule"
@@ -335,7 +335,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[64:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
+      "path": "core/mechanism_sources.json::mechanisms[53:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

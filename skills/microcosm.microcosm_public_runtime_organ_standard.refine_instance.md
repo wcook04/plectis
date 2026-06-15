@@ -34,8 +34,7 @@ Use this public-safe skill projection when an existing Microcosm public runtime 
     "std_microcosm_routing_anti_patterns_registry",
     "std_microcosm_self_ignorance_coverage_ledger",
     "std_microcosm_standards_meta_diagnostics",
-    "std_microcosm_tactic_portfolio_availability_probe",
-    "std_microcosm_workstream_driver_recency_coalescer"
+    "std_microcosm_tactic_portfolio_availability_probe"
   ],
   "mapping_basis": "This markdown maps instance refinement for the shared public-runtime-organ-standard triad to durable work-landing evidence because bounded corrections must be tied to source refs, receipts, manifests, scoped commits, and explicit authority ceilings rather than status-board prose."
 }

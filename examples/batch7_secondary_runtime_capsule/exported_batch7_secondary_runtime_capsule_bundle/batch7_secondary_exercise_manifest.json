@@ -1,18 +1,13 @@
 {
   "body_in_receipt": false,
   "engine_ids": [
-    "agent_trace_view_model_trust_taxonomy",
-    "lane_progress_state_normalizer",
-    "universal_graph_lens_focus_roles",
-    "graph_projection_summary_quotient",
-    "cap_cartography_shadow_render",
     "stockgrid_payload_factory_terms",
     "polymarket_clob_microstructure",
     "polymarket_four_lens_scanner"
   ],
   "fixture_id": "first_wave.batch7_secondary_runtime_capsule",
   "organ_id": "batch7_secondary_runtime_capsule",
-  "public_fixture_policy": "synthetic_runtime_packets_and_market_rows_only",
-  "runtime_slice": "batch7_secondary_runtime_and_market_macro_engines",
+  "public_fixture_policy": "synthetic_market_rows_only",
+  "runtime_slice": "batch7_secondary_market_macro_engines",
   "schema_version": "batch7_secondary_runtime_capsule_exercise_manifest_v1"
 }

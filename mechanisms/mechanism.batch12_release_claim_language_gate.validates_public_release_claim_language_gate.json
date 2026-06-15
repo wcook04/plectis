@@ -83,7 +83,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -100,7 +100,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
+        "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
         "fixtures/first_wave/batch12_release_claim_language_gate/input",
         "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle",
         "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json",
@@ -192,7 +192,7 @@
       "runs_in": [
         "batch12_release_claim_language_gate"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
       "statement": "The Batch 12 release-claim language gate organ validates release-claim fixture generation, claim-language blocking, assert-clear exits, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without authorizing open-source production readiness, publication claims, release status, or source mutation.",
       "status": "active"
     },
@@ -202,7 +202,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -272,7 +272,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -285,7 +285,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -298,7 +298,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -313,7 +313,7 @@
     "runs_in": [
       "batch12_release_claim_language_gate"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -327,7 +327,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
+      "path": "core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

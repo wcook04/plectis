@@ -14,7 +14,7 @@
   "id": "paper_module.first_screen_composition_root",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -133,7 +133,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root]",
       "strangler_note": "Binds the authored Markdown projection, first-screen standard, package card helper, CLI emitter, focused tests, README entry contract, and admitted mechanism row without inventing an accepted first_screen_composition_root organ or treating the card as release, hosted-publication, provider, source-mutation, private-equivalence, score-based-progress, reader-success, or whole-system correctness authority.",
       "subjects": [
         {
@@ -191,7 +191,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -204,7 +204,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -217,7 +217,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -230,7 +230,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -243,7 +243,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -256,7 +256,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -269,7 +269,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -282,7 +282,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -295,7 +295,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -308,7 +308,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -321,7 +321,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -334,7 +334,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -347,7 +347,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -360,7 +360,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -373,7 +373,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -386,7 +386,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -399,7 +399,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -412,7 +412,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -425,7 +425,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].code_loci[0]",
           "summary": "Runtime locus for first-screen card composition, standard-backed validation, reader routes, text projection, omission receipts, and authority ceilings."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -438,7 +438,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root].code_loci[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root].code_loci[1]",
           "summary": "CLI projection locus for public JSON and terminal text first-screen cards."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -463,7 +463,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root]",
     "subjects": [
       {
         "kind": "mechanism",
@@ -475,7 +475,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[95:paper_module.first_screen_composition_root]",
+      "path": "core/paper_module_capsules.json::paper_modules[90:paper_module.first_screen_composition_root]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

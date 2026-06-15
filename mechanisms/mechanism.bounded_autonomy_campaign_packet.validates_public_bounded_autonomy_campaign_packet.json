@@ -80,7 +80,7 @@
       "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
       "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -97,7 +97,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
+        "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
         "fixtures/first_wave/bounded_autonomy_campaign_packet/input",
         "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle",
         "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_module_manifest.json",
@@ -186,7 +186,7 @@
       "runs_in": [
         "bounded_autonomy_campaign_packet"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
       "statement": "The bounded-autonomy campaign packet organ validates campaign policy, failed-campaign digest handling, source-write refusal, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without authorizing autonomous source mutation, campaign execution, publication, or release readiness.",
       "status": "active"
     },
@@ -196,7 +196,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -263,7 +263,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -276,7 +276,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -289,7 +289,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -304,7 +304,7 @@
     "runs_in": [
       "bounded_autonomy_campaign_packet"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -318,7 +318,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
+      "path": "core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

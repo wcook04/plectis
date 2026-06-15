@@ -80,7 +80,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -97,7 +97,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
+        "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
         "fixtures/first_wave/target_shape_tactic_routing_gate/input",
         "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
@@ -183,7 +183,7 @@
       "runs_in": [
         "target_shape_tactic_routing_gate"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
       "statement": "The target-shape tactic routing gate validates pre-execution tactic allow/reject decisions against target shape, recorded tactic availability, source artifacts, bundle manifests, negative-case refusals, and body-free routing receipts.",
       "status": "active",
       "upstream_of": [
@@ -198,7 +198,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -263,7 +263,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -276,7 +276,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -289,7 +289,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -302,7 +302,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -315,7 +315,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -328,7 +328,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -343,7 +343,7 @@
     "runs_in": [
       "target_shape_tactic_routing_gate"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
@@ -354,7 +354,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[35:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
+      "path": "core/mechanism_sources.json::mechanisms[29:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

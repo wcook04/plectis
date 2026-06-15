@@ -16,7 +16,6 @@ The world-model projection drift control room organ validates public body-free p
 - `runs_in` -> `organ:world_model_projection_drift_control_room` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay` (resolved_json_instance)

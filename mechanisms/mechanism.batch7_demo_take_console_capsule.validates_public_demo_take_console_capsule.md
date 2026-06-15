@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[89:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[75:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

@@ -75,11 +75,6 @@ def _semantic_runtime_fixture(
             "edit_claim_gate": "covered_by_parser_test_commit_without_diff_case",
             "original_witness": {"status": "pass"},
         },
-        "codemap_orbit_layout": {
-            "status": "pass",
-            "engine_id": "codemap_orbit_layout",
-            "zero_overlap": True,
-        },
         "constitutional_dag_kernel": {
             "status": "pass",
             "engine_id": "constitutional_dag_kernel",
@@ -156,8 +151,6 @@ def test_batch7_macro_engines_capsule_runs_all_engines(
     assert by_engine["agent_trace_ir_compiler"]["original_witness"]["returncode"] == 0
     assert by_engine["agent_trace_ir_compiler"]["original_witness"]["body_in_receipt"] is False
     assert by_engine["agent_trace_ir_compiler"]["public_fixture_policy"] == "synthetic_transcripts_only"
-    assert by_engine["codemap_orbit_layout"]["original_witness"]["returncode"] == 0
-    assert by_engine["codemap_orbit_layout"]["zero_overlap"] is True
     assert by_engine["constitutional_dag_kernel"]["cycle_rejected"] is True
     assert by_engine["constitutional_dag_kernel"]["impure_path_flagged"] is True
     assert by_engine["release_root_compiler"]["bad_ref_negative_covered"] is True
@@ -189,8 +182,8 @@ def test_batch7_macro_engines_bundle_validates_runtime_shape(tmp_path: Path) -> 
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_batch7_macro_engines_capsule_bundle"
-    assert result["source_module_manifest"]["module_count"] >= 15
-    assert result["exercise"]["copied_macro_source_module_count"] >= 15
+    assert result["source_module_manifest"]["module_count"] >= 11
+    assert result["exercise"]["copied_macro_source_module_count"] >= 11
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["receipt_body_scan"]["status"] == "pass"
 
@@ -200,7 +193,7 @@ def test_batch7_macro_engines_source_modules_are_exact_macro_body_imports() -> N
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] >= 15
+    assert manifest["module_count"] >= 11
 
     for row in manifest["modules"]:
         source = SOURCE_ROOT / row["source_ref"]
@@ -225,7 +218,7 @@ def test_batch7_macro_engines_card_omits_private_bodies(
     assert card["status"] == "pass"
     assert card["semantic_negative_case_evaluator_used"] is True
     assert card["engine_count"] == len(EXPECTED_ENGINES)
-    assert card["copied_macro_source_module_count"] >= 15
+    assert card["copied_macro_source_module_count"] >= 11
     assert card["body_in_receipt"] is False
     serialized = json.dumps(result, sort_keys=True)
     assert "/Users/" not in serialized

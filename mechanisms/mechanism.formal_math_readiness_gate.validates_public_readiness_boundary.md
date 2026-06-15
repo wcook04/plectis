@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[31:mechanism.formal_math_readiness_gate.validates_public_readiness_boundary]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[25:mechanism.formal_math_readiness_gate.validates_public_readiness_boundary]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

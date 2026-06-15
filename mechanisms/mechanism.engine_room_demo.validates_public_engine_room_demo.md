@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[76:mechanism.engine_room_demo.validates_public_engine_room_demo]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[64:mechanism.engine_room_demo.validates_public_engine_room_demo]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

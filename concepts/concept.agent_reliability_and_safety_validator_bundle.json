@@ -35,7 +35,7 @@
     "concept_id": "concept.agent_reliability_and_safety_validator_bundle",
     "drilldown": "concepts/concept.agent_reliability_and_safety_validator_bundle.json",
     "kind": "concept",
-    "mechanism_count": 17,
+    "mechanism_count": 16,
     "principle_count": 4,
     "schema_version": "microcosm_concept_cluster_flag_v1",
     "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[4:agent_reliability_and_safety_validator_bundle]",
@@ -96,7 +96,14 @@
       "provider payloads",
       "unpublished benchmark bodies"
     ],
-    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure.",
+    "residual_pressure": [
+      {
+        "gap_class": "concept_selective_edges_unpopulated_or_unresolved",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind concept implements/instantiated_by/abides_by edges from source evidence once target ids are named and resolve as generated instances."
+      }
+    ]
   },
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -239,11 +246,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -294,19 +301,6 @@
         "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
         "target_id": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[4:agent_reliability_and_safety_validator_bundle].mechanism_ids",
-          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety."
-        },
-        "relation_id": "concept.instantiated_by.mechanism",
-        "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
-        "reverse_verb": "instantiates",
-        "target_id": "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
       },
@@ -466,7 +460,6 @@
       "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
       "mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay",
       "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule",
-      "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
       "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
       "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
       "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",

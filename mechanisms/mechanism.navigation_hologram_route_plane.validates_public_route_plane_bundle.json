@@ -219,7 +219,6 @@
         "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
         "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
-        "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
         "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
         "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
         "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",
@@ -393,19 +392,6 @@
         "relation_verb": "upstream_of",
         "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
         "target_id": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
@@ -511,7 +497,6 @@
       "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
       "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
       "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
-      "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
       "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
       "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
       "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",

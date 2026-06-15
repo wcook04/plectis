@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[66:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[55:mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

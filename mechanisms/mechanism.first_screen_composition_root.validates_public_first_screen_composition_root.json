@@ -91,7 +91,7 @@
       "concept_pair_ref": "entry_and_reveal_route_readiness_bundle.concept_binding",
       "mechanism_role": "family validators that expose cold-reader and public-reveal paths while preserving claim ceilings and source boundaries",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -108,7 +108,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
+        "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
         "standards/std_microcosm_first_screen_composition_root.json",
         "scripts/first_screen_composition_card.py",
         "tests/test_first_screen_composition_card.py",
@@ -207,7 +207,7 @@
       "runs_in": [
         "public_reveal_walkthrough"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
       "statement": "The first-screen composition root validates the public one-screen entry card by checking reader-route ids, shared first commands, behavior-proof refs, evidence-accounting frames, doctrine-effect handles, omission receipts, README entry order, observatory landing refs, text projection bounds, and authority ceilings without becoming release, hosted-publication, provider-call, source-mutation, private-data-equivalence, score-based-progress, or whole-system-correctness authority.",
       "status": "active",
       "upstream_of": [
@@ -221,7 +221,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -293,7 +293,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -306,7 +306,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].code_loci[1]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].code_loci[1]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -319,7 +319,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -332,7 +332,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -345,7 +345,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -358,7 +358,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -373,7 +373,7 @@
     "runs_in": [
       "public_reveal_walkthrough"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
@@ -383,7 +383,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[98:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
+      "path": "core/mechanism_sources.json::mechanisms[84:mechanism.first_screen_composition_root.validates_public_first_screen_composition_root]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

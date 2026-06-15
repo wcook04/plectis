@@ -14,7 +14,7 @@
   "id": "paper_module.batch12_release_claim_language_gate",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -123,7 +123,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate]",
       "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
       "subjects": [
         {
@@ -180,7 +180,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -193,7 +193,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].subjects[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].subjects[1]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -206,7 +206,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -219,7 +219,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -232,7 +232,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -245,7 +245,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -258,7 +258,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -271,7 +271,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -284,7 +284,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -297,7 +297,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -310,7 +310,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -323,7 +323,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -336,7 +336,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -349,7 +349,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -362,7 +362,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for release-claim fixture generation, claim-language blocking, main assert-clear checks, negative cases, and authority ceilings."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -382,7 +382,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate]",
     "subjects": [
       {
         "kind": "organ",
@@ -398,7 +398,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[68:paper_module.batch12_release_claim_language_gate]",
+      "path": "core/paper_module_capsules.json::paper_modules[66:paper_module.batch12_release_claim_language_gate]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

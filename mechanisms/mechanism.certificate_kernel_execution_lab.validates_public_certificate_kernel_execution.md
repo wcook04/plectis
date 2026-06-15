@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[12:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[9:mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

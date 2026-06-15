@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement
@@ -15,8 +15,8 @@ The routing anti-patterns registry organ validates public routing anti-pattern r
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/routing_anti_patterns_registry.py` (resolved_code_locus)
 - `runs_in` -> `organ:routing_anti_patterns_registry` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (unresolved_json_instance)
 
 ## Anti-Claims
 

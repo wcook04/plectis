@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[41:mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[35:mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

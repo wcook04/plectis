@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[38:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[32:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

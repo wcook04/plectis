@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[96:mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[82:mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

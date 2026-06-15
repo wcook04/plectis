@@ -34,8 +34,7 @@ Use this public-safe skill projection only when the shared expectations for Micr
     "std_microcosm_routing_anti_patterns_registry",
     "std_microcosm_self_ignorance_coverage_ledger",
     "std_microcosm_standards_meta_diagnostics",
-    "std_microcosm_tactic_portfolio_availability_probe",
-    "std_microcosm_workstream_driver_recency_coalescer"
+    "std_microcosm_tactic_portfolio_availability_probe"
   ],
   "mapping_basis": "This markdown maps class-level public-runtime-organ-standard propagation to standards-meta diagnostics because those diagnostics bind accepted organs to standards, runtime contracts, validator refs, and receipt refs while preserving projection-only authority ceilings."
 }

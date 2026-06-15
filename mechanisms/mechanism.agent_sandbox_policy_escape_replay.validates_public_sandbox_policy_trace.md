@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[8:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[5:mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

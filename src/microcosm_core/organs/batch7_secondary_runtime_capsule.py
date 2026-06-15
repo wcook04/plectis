@@ -2,11 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
-import shutil
-import subprocess
 import sys
-import tempfile
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
@@ -33,30 +29,12 @@ BUNDLE_INPUT_MODE = "exported_batch7_secondary_runtime_capsule_bundle"
 EXERCISE_MANIFEST_NAME = "batch7_secondary_exercise_manifest.json"
 
 EXPECTED_ENGINES: tuple[str, ...] = (
-    "agent_trace_view_model_trust_taxonomy",
-    "lane_progress_state_normalizer",
-    "universal_graph_lens_focus_roles",
-    "graph_projection_summary_quotient",
-    "cap_cartography_shadow_render",
     "stockgrid_payload_factory_terms",
     "polymarket_clob_microstructure",
     "polymarket_four_lens_scanner",
 )
 
 EXPECTED_NEGATIVE_CASES = {
-    "trace_view_missing_raw_authority": (
-        "BATCH7_SECONDARY_TRACE_VIEW_MISSING_RAW_AUTHORITY",
-    ),
-    "lane_progress_unknown_state": ("BATCH7_SECONDARY_LANE_PROGRESS_UNKNOWN_STATE",),
-    "graph_lens_hidden_descendant": (
-        "BATCH7_SECONDARY_GRAPH_LENS_COLLAPSE_ENFORCED",
-    ),
-    "graph_projection_self_edge": (
-        "BATCH7_SECONDARY_GRAPH_PROJECTION_SELF_EDGE_DROPPED",
-    ),
-    "cap_cartography_mutation_action": (
-        "BATCH7_SECONDARY_CAP_CARTOGRAPHY_OBSERVE_ONLY",
-    ),
     "stockgrid_extreme_momentum": (
         "BATCH7_SECONDARY_STOCKGRID_EXTREME_MOMENTUM_REFUSED",
     ),
@@ -88,53 +66,13 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Batch 7 secondary imports public-safe runtime view-model, graph projection, "
-    "cartography render, stockgrid, and Polymarket source bodies. It is not a "
-    "release, not private-root equivalence, not browser or wallet access, not "
-    "market data freshness, not investment advice, and not proof that the UI or "
-    "ranking systems are complete."
+    "Batch 7 secondary imports public-safe stockgrid and Polymarket source "
+    "bodies. It is not a release, not private-root equivalence, not browser or "
+    "wallet access, not market data freshness, not investment advice, and not "
+    "proof that the ranking systems are complete."
 )
 
 SOURCE_REQUIRED_ANCHORS = {
-    "system/server/ui/src/components/world/agentTraceViewModel.ts": (
-        "export type TraceTrustClass",
-        "function buildUnknowns",
-        "export function compileAgentTraceViewModel",
-    ),
-    "system/server/ui/src/components/world/__tests__/agentTraceViewModel.test.ts": (
-        "makes fallback and missingness explicit",
-        "classifies observable commands",
-    ),
-    "system/server/ui/src/components/world/laneProgress.ts": (
-        "export function classifyObserveRuntimeState",
-        "export function buildMetaMissionPackets",
-        "tail_summary",
-    ),
-    "system/server/ui/src/components/world/__tests__/laneProgress.test.ts": (
-        "buildOrchestrationPacket",
-        "classifyObserveRuntimeState",
-    ),
-    "system/server/ui/src/components/graph/universalGraphLens.ts": (
-        "export function buildUniversalGraphLens",
-        "export function universalGraphFocusOpacity",
-    ),
-    "system/server/ui/src/components/graph/__tests__/universalGraphLens.test.ts": (
-        "keeps collapsed parent nodes visible",
-        "stable fallback edge ids",
-    ),
-    "system/server/ui/src/components/graph/graphProjection.ts": (
-        "export function projectGraphForRender",
-        "summary_cluster",
-    ),
-    "system/server/ui/src/lib/capCartographyShadowRender.ts": (
-        "export function capCartographySpecimenToGraphElements",
-        "function observeOnlyActions",
-        "function isMutationActionAvailable",
-    ),
-    "system/server/ui/src/lib/__tests__/capCartographyShadowRender.test.ts": (
-        "projects the world-model exposition specimen",
-        "mutation_supported",
-    ),
     "tools/stockgrid/stockgrid.py": (
         "class PayloadFactory",
         "def _daily_log_momentum_bps",
@@ -191,297 +129,6 @@ def _copied_source(public_root: Path, source_ref: str) -> Path:
         "exported_batch7_secondary_runtime_capsule_bundle/source_modules"
         / source_ref
     )
-
-
-def _copy_public_bundle(public_root: Path, temp_public_root: Path) -> None:
-    shutil.copytree(
-        public_root / "examples/batch7_secondary_runtime_capsule",
-        temp_public_root / "examples/batch7_secondary_runtime_capsule",
-    )
-
-
-def _replace_copied_source_token(
-    public_root: Path,
-    source_ref: str,
-    old: str,
-    new: str,
-) -> bool:
-    source_path = _copied_source(public_root, source_ref)
-    text = source_path.read_text(encoding="utf-8")
-    if old not in text:
-        return False
-    source_path.write_text(text.replace(old, new, 1), encoding="utf-8")
-    return True
-
-
-def _run_public_witness(
-    command: list[str],
-    *,
-    cwd: Path,
-    timeout: int = 30,
-) -> dict[str, Any]:
-    try:
-        completed = subprocess.run(
-            command,
-            cwd=cwd,
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=timeout,
-        )
-    except FileNotFoundError as exc:
-        return {
-            "status": "blocked",
-            "returncode": None,
-            "error_code": "BATCH7_SECONDARY_WITNESS_COMMAND_MISSING",
-            "error_type": type(exc).__name__,
-            "body_in_receipt": False,
-        }
-    except subprocess.TimeoutExpired:
-        return {
-            "status": "blocked",
-            "returncode": None,
-            "error_code": "BATCH7_SECONDARY_WITNESS_TIMEOUT",
-            "body_in_receipt": False,
-        }
-    return {
-        "status": "pass" if completed.returncode == 0 else "blocked",
-        "returncode": completed.returncode,
-        "stdout_byte_count": len(completed.stdout.encode("utf-8")),
-        "stderr_byte_count": len(completed.stderr.encode("utf-8")),
-        "body_in_receipt": False,
-    }
-
-
-def _passing_ui_witness() -> dict[str, Any]:
-    return {
-        "status": "pass",
-        "returncode": 0,
-        "stdout_byte_count": 0,
-        "stderr_byte_count": 0,
-        "body_in_receipt": False,
-    }
-
-
-def _mutated_source_negative(
-    public_root: Path,
-    *,
-    case_id: str,
-    source_ref: str,
-    old: str,
-    new: str,
-    exercise: Any,
-    observed_flag: str | None = None,
-) -> dict[str, Any]:
-    with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_{case_id}_") as tmp:
-        temp_public_root = Path(tmp) / "microcosm-substrate"
-        _copy_public_bundle(public_root, temp_public_root)
-        mutation_applied = _replace_copied_source_token(
-            temp_public_root,
-            source_ref,
-            old,
-            new,
-        )
-        result = exercise(temp_public_root)
-    observed = mutation_applied and result.get("status") == "blocked"
-    if observed_flag is not None:
-        observed = observed and result.get(observed_flag) is False
-    payload = {
-        "status": "blocked" if observed else "pass",
-        "case_id": case_id,
-        "engine_id": result.get("engine_id"),
-        "mutation_applied": mutation_applied,
-        "semantic_blocked": observed,
-        "body_in_receipt": False,
-    }
-    if observed_flag is not None:
-        payload[observed_flag] = result.get(observed_flag)
-    return payload
-
-
-def _ui_vitest_witness(public_root: Path) -> dict[str, Any]:
-    repo = _repo_root(public_root)
-    return _run_public_witness(
-        [
-            "npm",
-            "exec",
-            "--",
-            "vitest",
-            "run",
-            "src/components/world/__tests__/agentTraceViewModel.test.ts",
-            "src/components/world/__tests__/laneProgress.test.ts",
-            "src/components/graph/__tests__/universalGraphLens.test.ts",
-            "src/lib/__tests__/capCartographyShadowRender.test.ts",
-        ],
-        cwd=repo / "system/server/ui",
-        timeout=45,
-    )
-
-
-def _agent_trace_view_model_exercise(public_root: Path, witness: Mapping[str, Any]) -> dict[str, Any]:
-    source = _copied_source(
-        public_root,
-        "system/server/ui/src/components/world/agentTraceViewModel.ts",
-    ).read_text(encoding="utf-8")
-    trust_classes = [
-        "authority",
-        "projection",
-        "derived",
-        "stale",
-        "missing",
-        "fallback",
-        "truncated",
-    ]
-    missing_raw_authority = (
-        "Raw provider JSONL is unavailable from this UI state." in source
-        and "raw missing" in source
-    )
-    return {
-        "status": "pass"
-        if witness.get("status") == "pass"
-        and all(f"'{trust}'" in source for trust in trust_classes)
-        and missing_raw_authority
-        else "blocked",
-        "engine_id": "agent_trace_view_model_trust_taxonomy",
-        "original_witness": {
-            "kind": "vitest",
-            "command": "npm exec -- vitest run agentTraceViewModel/laneProgress/universalGraphLens/capCartography tests",
-            **dict(witness),
-        },
-        "trust_class_count": len(trust_classes),
-        "missing_raw_authority_negative": missing_raw_authority,
-        "claim_ceiling": "UI trust badges are evidence labels, not raw trace authority.",
-    }
-
-
-def _lane_progress_exercise(public_root: Path, witness: Mapping[str, Any]) -> dict[str, Any]:
-    source = _copied_source(
-        public_root,
-        "system/server/ui/src/components/world/laneProgress.ts",
-    ).read_text(encoding="utf-8")
-    state_map = {
-        "dispatching": "running",
-        "running": "running",
-        "awaiting_review": "blocked",
-        "completed": "success",
-        "error": "failure",
-        "aborted": "aborted",
-        "idle": "idle",
-        "new_state": "idle",
-    }
-    required_returns = (
-        "return 'running'",
-        "return 'blocked'",
-        "return 'success'",
-        "return 'failure'",
-        "return 'aborted'",
-        "return 'idle'",
-    )
-    return {
-        "status": "pass"
-        if witness.get("status") == "pass" and all(item in source for item in required_returns)
-        else "blocked",
-        "engine_id": "lane_progress_state_normalizer",
-        "state_map": state_map,
-        "unknown_state_negative": state_map["new_state"] == "idle",
-        "tail_summary_present": "meta_missions:tail_summary" in source,
-        "claim_ceiling": "runtime-lane progress vocabulary only; not operator action authority.",
-    }
-
-
-def _universal_graph_lens_exercise(public_root: Path, witness: Mapping[str, Any]) -> dict[str, Any]:
-    source = _copied_source(
-        public_root,
-        "system/server/ui/src/components/graph/universalGraphLens.ts",
-    ).read_text(encoding="utf-8")
-    nodes = {
-        "root": None,
-        "cluster": "root",
-        "object": "cluster",
-        "evidence": "object",
-    }
-    collapsed = {"cluster"}
-
-    def hidden_by_collapsed(node_id: str) -> bool:
-        parent = nodes[node_id]
-        while parent is not None:
-            if parent in collapsed:
-                return True
-            parent = nodes[parent]
-        return False
-
-    visible = {node_id for node_id in nodes if not hidden_by_collapsed(node_id)}
-    return {
-        "status": "pass"
-        if witness.get("status") == "pass"
-        and visible == {"root", "cluster"}
-        and "closure(start" in source
-        else "blocked",
-        "engine_id": "universal_graph_lens_focus_roles",
-        "visible_nodes_after_collapse": sorted(visible),
-        "hidden_descendant_negative": "object" not in visible and "evidence" not in visible,
-        "claim_ceiling": "graph visibility/focus projection only; not graph truth authority.",
-    }
-
-
-def _graph_projection_exercise(public_root: Path) -> dict[str, Any]:
-    source = _copied_source(
-        public_root,
-        "system/server/ui/src/components/graph/graphProjection.ts",
-    ).read_text(encoding="utf-8")
-    nodes = [
-        {"id": "spine", "wave": 0, "lane": "SPINE", "is_upstream": False},
-        {"id": "a", "wave": 1, "lane": "BUILD", "is_upstream": False},
-        {"id": "b", "wave": 1, "lane": "BUILD", "is_upstream": False},
-        {"id": "c", "wave": 1, "lane": "CHECK", "is_upstream": False},
-    ]
-    projection: dict[str, list[str]] = {"spine": ["spine"]}
-    for node in nodes[1:]:
-        projection.setdefault(f"summary_cluster_{node['lane'].lower()}_{node['wave']}", []).append(node["id"])
-    edges = [("a", "b"), ("a", "c"), ("spine", "a")]
-    projected_edges = set()
-    for left, right in edges:
-        left_projection = next(key for key, members in projection.items() if left in members)
-        right_projection = next(key for key, members in projection.items() if right in members)
-        if left_projection != right_projection:
-            projected_edges.add((left_projection, right_projection))
-    return {
-        "status": "pass"
-        if "if (!sourceId || !targetId || sourceId === targetId) return;" in source
-        and ("summary_cluster_build_1", "summary_cluster_check_1") in projected_edges
-        and ("summary_cluster_build_1", "summary_cluster_build_1") not in projected_edges
-        else "blocked",
-        "engine_id": "graph_projection_summary_quotient",
-        "summary_cluster_count": len(projection),
-        "projected_edges": sorted(f"{left}->{right}" for left, right in projected_edges),
-        "self_edge_dropped": ("summary_cluster_build_1", "summary_cluster_build_1") not in projected_edges,
-        "claim_ceiling": "render quotient projection only; not lossless graph storage.",
-    }
-
-
-def _cap_cartography_exercise(public_root: Path, witness: Mapping[str, Any]) -> dict[str, Any]:
-    source = _copied_source(
-        public_root,
-        "system/server/ui/src/lib/capCartographyShadowRender.ts",
-    ).read_text(encoding="utf-8")
-    observe_only_boundary = (
-        "const REQUIRED_BLOCKED_ACTIONS" in source
-        and "'create_cap'" in source
-        and "'mutate_cap'" in source
-        and "'edit_edge'" in source
-        and "'infer_title_semantics'" in source
-        and "available_actions:" in source
-        and "inspect_source_route" in source
-        and "mutationActionCount" in source
-    )
-    return {
-        "status": "pass"
-        if witness.get("status") == "pass" and observe_only_boundary else "blocked",
-        "engine_id": "cap_cartography_shadow_render",
-        "observe_only_actions_enforced": observe_only_boundary,
-        "renderer_function_present": "capCartographySpecimenToGraphElements" in source,
-        "claim_ceiling": "observe-only renderer projection; no cap creation or mutation authority.",
-    }
 
 
 def _stockgrid_exercise(public_root: Path) -> dict[str, Any]:
@@ -628,71 +275,6 @@ def _polymarket_score_exercise(public_root: Path) -> dict[str, Any]:
     }
 
 
-def _trace_view_missing_raw_authority_negative(public_root: Path) -> dict[str, Any]:
-    return _mutated_source_negative(
-        public_root,
-        case_id="trace_view_missing_raw_authority",
-        source_ref="system/server/ui/src/components/world/agentTraceViewModel.ts",
-        old="Raw provider JSONL is unavailable from this UI state.",
-        new="Provider body available.",
-        exercise=lambda root: _agent_trace_view_model_exercise(root, _passing_ui_witness()),
-        observed_flag="missing_raw_authority_negative",
-    )
-
-
-def _lane_progress_unknown_state_negative(public_root: Path) -> dict[str, Any]:
-    source = _copied_source(
-        public_root,
-        "system/server/ui/src/components/world/laneProgress.ts",
-    ).read_text(encoding="utf-8")
-    observed = (
-        "export function classifyObserveRuntimeState" in source
-        and "if (!state) return 'idle';" in source
-        and "return 'idle';" in source
-    )
-    return {
-        "status": "blocked" if observed else "pass",
-        "case_id": "lane_progress_unknown_state",
-        "engine_id": "lane_progress_state_normalizer",
-        "unknown_state_negative": observed,
-        "body_in_receipt": False,
-    }
-
-
-def _graph_lens_hidden_descendant_negative(public_root: Path) -> dict[str, Any]:
-    return _mutated_source_negative(
-        public_root,
-        case_id="graph_lens_hidden_descendant",
-        source_ref="system/server/ui/src/components/graph/universalGraphLens.ts",
-        old="closure(start",
-        new="closureMissing(start",
-        exercise=lambda root: _universal_graph_lens_exercise(root, _passing_ui_witness()),
-    )
-
-
-def _graph_projection_self_edge_negative(public_root: Path) -> dict[str, Any]:
-    return _mutated_source_negative(
-        public_root,
-        case_id="graph_projection_self_edge",
-        source_ref="system/server/ui/src/components/graph/graphProjection.ts",
-        old="if (!sourceId || !targetId || sourceId === targetId) return;",
-        new="if (!sourceId || !targetId) return;",
-        exercise=_graph_projection_exercise,
-    )
-
-
-def _cap_cartography_mutation_action_negative(public_root: Path) -> dict[str, Any]:
-    return _mutated_source_negative(
-        public_root,
-        case_id="cap_cartography_mutation_action",
-        source_ref="system/server/ui/src/lib/capCartographyShadowRender.ts",
-        old="'mutate_cap'",
-        new="'inspect_cap'",
-        exercise=lambda root: _cap_cartography_exercise(root, _passing_ui_witness()),
-        observed_flag="observe_only_actions_enforced",
-    )
-
-
 def _stockgrid_extreme_momentum_negative(public_root: Path) -> dict[str, Any]:
     result = _stockgrid_exercise(public_root)
     observed = (
@@ -743,11 +325,6 @@ def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
     public_root = public_root_for_path(Path(input_ref))
     return {
         "negative_exercises": {
-            "trace_view_missing_raw_authority": _trace_view_missing_raw_authority_negative(public_root),
-            "lane_progress_unknown_state": _lane_progress_unknown_state_negative(public_root),
-            "graph_lens_hidden_descendant": _graph_lens_hidden_descendant_negative(public_root),
-            "graph_projection_self_edge": _graph_projection_self_edge_negative(public_root),
-            "cap_cartography_mutation_action": _cap_cartography_mutation_action_negative(public_root),
             "stockgrid_extreme_momentum": _stockgrid_extreme_momentum_negative(public_root),
             "polymarket_sorted_book_trap": _polymarket_sorted_book_trap_negative(public_root),
             "polymarket_resolved_market": _polymarket_resolved_market_negative(public_root),
@@ -768,29 +345,6 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
     exercise = _negative_exercise(runtime, case_id)
-    if case_id == "trace_view_missing_raw_authority":
-        return (
-            exercise.get("status") == "blocked"
-            and exercise.get("missing_raw_authority_negative") is False
-        )
-    if case_id == "lane_progress_unknown_state":
-        return (
-            exercise.get("status") == "blocked"
-            and exercise.get("unknown_state_negative") is True
-        )
-    if case_id in {
-        "graph_lens_hidden_descendant",
-        "graph_projection_self_edge",
-    }:
-        return (
-            exercise.get("status") == "blocked"
-            and exercise.get("semantic_blocked") is True
-        )
-    if case_id == "cap_cartography_mutation_action":
-        return (
-            exercise.get("status") == "blocked"
-            and exercise.get("observe_only_actions_enforced") is False
-        )
     if case_id == "stockgrid_extreme_momentum":
         return (
             exercise.get("status") == "blocked"
@@ -832,13 +386,7 @@ def _evaluate(
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
-    witness = _ui_vitest_witness(public_root)
     exercises = [
-        _agent_trace_view_model_exercise(public_root, witness),
-        _lane_progress_exercise(public_root, witness),
-        _universal_graph_lens_exercise(public_root, witness),
-        _graph_projection_exercise(public_root),
-        _cap_cartography_exercise(public_root, witness),
         _stockgrid_exercise(public_root),
         _polymarket_clob_exercise(public_root),
         _polymarket_score_exercise(public_root),

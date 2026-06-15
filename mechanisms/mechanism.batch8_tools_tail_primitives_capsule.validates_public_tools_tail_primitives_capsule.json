@@ -197,9 +197,7 @@
       "source_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
       "statement": "The Batch 8 tools-tail primitives capsule validates four copied public tools-tail source modules by exercising observer set diffs, JSON patch interpretation, stable ledger-id hashing, shadow-envelope parsing, source-module digest anchors, four negative cases, body-free receipts, and authority ceilings without live oracle/provider/source-mutation/release lanes.",
       "status": "active",
-      "upstream_of": [
-        "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule"
-      ]
+      "upstream_of": []
     },
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
@@ -314,19 +312,6 @@
         "target_id": "concept.import_projection_and_drift_control_bundle",
         "target_kind": "concept",
         "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].upstream",
-          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
-        },
-        "relation_id": "mechanism.upstream_of.mechanism",
-        "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
-        "reverse_verb": "downstream_of",
-        "target_id": "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [
@@ -334,9 +319,7 @@
     ],
     "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
     "unpopulated_selective_relations": [],
-    "upstream_mechanism_refs": [
-      "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule"
-    ]
+    "upstream_mechanism_refs": []
   },
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [

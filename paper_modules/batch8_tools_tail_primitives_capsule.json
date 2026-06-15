@@ -14,7 +14,7 @@
   "id": "paper_module.batch8_tools_tail_primitives_capsule",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -129,7 +129,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule]",
       "strangler_note": "Binds the Markdown projection and runtime locus to JSON source authority; the mechanism subject is named from the resolving Microcosm mechanism row. Concept edges remain residual until a stable concept id is selected.",
       "subjects": [
         {
@@ -189,7 +189,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -202,20 +202,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].subjects[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].subjects[1]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
         "relation_verb": "explains",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "explained_by",
         "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -228,7 +228,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -241,7 +241,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -254,7 +254,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -267,7 +267,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -280,7 +280,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -293,7 +293,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -306,7 +306,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -319,7 +319,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -332,7 +332,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -345,7 +345,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -358,7 +358,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -371,7 +371,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -384,7 +384,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -397,7 +397,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -410,7 +410,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -423,7 +423,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -436,7 +436,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for observer-diff, JSON-patch VM, ledger-id, shadow-envelope, source-manifest, negative-case, and authority-ceiling checks."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -459,7 +459,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule]",
     "subjects": [
       {
         "kind": "organ",
@@ -475,7 +475,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[64:paper_module.batch8_tools_tail_primitives_capsule]",
+      "path": "core/paper_module_capsules.json::paper_modules[62:paper_module.batch8_tools_tail_primitives_capsule]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

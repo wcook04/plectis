@@ -85,7 +85,7 @@
       "concept_pair_ref": "voice_to_doctrine_self_improvement_loop_bundle.concept_binding",
       "mechanism_role": "recursive self-improvement loop that senses pressure, classifies, mutates or captures, validates, and publishes reentry",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -102,7 +102,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
+        "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
         "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input",
         "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle",
         "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
@@ -198,7 +198,7 @@
       "runs_in": [
         "voice_to_doctrine_self_improvement_loop"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
       "statement": "The voice-to-doctrine self-improvement loop organ validates public-safe lesson propagation through projection protocol, policy, owner-surface checks, lesson rows, source-module imports, negative cases, body-free receipts, and authority ceilings without exporting raw operator voice or private bodies, granting source/doctrine mutation, live Task Ledger mutation, global-promotion authority, provider calls, release, publication, or whole-system correctness claims.",
       "status": "active",
       "upstream_of": [
@@ -211,7 +211,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -284,7 +284,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -297,7 +297,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -310,7 +310,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -323,7 +323,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -336,7 +336,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -351,7 +351,7 @@
     "runs_in": [
       "voice_to_doctrine_self_improvement_loop"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
@@ -360,7 +360,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[68:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
+      "path": "core/mechanism_sources.json::mechanisms[57:mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

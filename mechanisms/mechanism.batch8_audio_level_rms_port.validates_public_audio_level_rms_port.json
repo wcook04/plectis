@@ -82,7 +82,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
+        "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
         "fixtures/first_wave/batch8_audio_level_rms_port/input",
         "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle",
         "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_module_manifest.json",
@@ -190,7 +190,7 @@
       "runs_in": [
         "batch8_audio_level_rms_port"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
       "statement": "The Batch 8 audio level RMS port validates a source-faithful public projection of AudioLevelMonitor normalized-level RMS behavior by running deterministic fixture arrays, malformed negative exercises, source-module digest checks, body-free receipts, and authority ceilings without starting audio capture or claiming device, release, publication, or domain-correctness authority.",
       "status": "active"
     },
@@ -200,7 +200,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -269,7 +269,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -282,7 +282,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -295,7 +295,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -310,7 +310,7 @@
     "runs_in": [
       "batch8_audio_level_rms_port"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -324,7 +324,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[44:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
+      "path": "core/mechanism_sources.json::mechanisms[38:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

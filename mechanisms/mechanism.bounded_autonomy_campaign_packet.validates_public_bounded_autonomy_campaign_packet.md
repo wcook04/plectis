@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[73:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[61:mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

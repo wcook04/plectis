@@ -1,7 +1,7 @@
 {
   "body_copied": true,
   "body_in_receipt": false,
-  "module_count": 13,
+  "module_count": 10,
   "modules": [
     {
       "body_copied": true,
@@ -231,75 +231,6 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
       "target_sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 52216,
-      "line_count": 1384,
-      "material_class": "public_macro_frontend_ts_body",
-      "module_id": "generic_table_shaping_sort_filter_paginate_kernel",
-      "path": "source_modules/system/server/ui/src/components/views/DataView.tsx",
-      "required_anchors": [
-        "function normalizeComparableValue",
-        "function resolveSortValue",
-        "function compareByColumn",
-        "function sortedRows"
-      ],
-      "sha256": "1923da0e610bb0ee341dd4f9b66adc6725151d657b44a781d49d770d6e599f90",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/components/views/DataView.tsx",
-      "source_sha256": "1923da0e610bb0ee341dd4f9b66adc6725151d657b44a781d49d770d6e599f90",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/components/views/DataView.tsx",
-      "target_sha256": "1923da0e610bb0ee341dd4f9b66adc6725151d657b44a781d49d770d6e599f90"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 3365,
-      "line_count": 108,
-      "material_class": "public_macro_frontend_ts_body",
-      "module_id": "annex_source_kind_group_ranker",
-      "path": "source_modules/system/server/ui/src/pages/Annexes.utils.ts",
-      "required_anchors": [
-        "function countValues",
-        "export function summarizeAnnexes",
-        "export function groupAnnexesBySourceKind",
-        "ANNEX_SOURCE_KIND_ORDER"
-      ],
-      "sha256": "e4947d2729654bc69ed3ef93e27f53e1329af2bc4c8b887f08a3efd236db8f1a",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/pages/Annexes.utils.ts",
-      "source_sha256": "e4947d2729654bc69ed3ef93e27f53e1329af2bc4c8b887f08a3efd236db8f1a",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/pages/Annexes.utils.ts",
-      "target_sha256": "e4947d2729654bc69ed3ef93e27f53e1329af2bc4c8b887f08a3efd236db8f1a"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 95109,
-      "line_count": 2335,
-      "material_class": "public_macro_frontend_ts_body",
-      "module_id": "recent_change_fingerprint_coalescer",
-      "path": "source_modules/system/server/ui/src/pages/HomeStation.tsx",
-      "required_anchors": [
-        "function summaryFingerprint",
-        "function groupRecentChanges",
-        "latestIso",
-        "return order.slice(0, limit)"
-      ],
-      "sha256": "13566e74986ba1013e479ef83d4c9ab9bbf9b52de9842de3fa93cc62aeb5721b",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/pages/HomeStation.tsx",
-      "source_sha256": "13566e74986ba1013e479ef83d4c9ab9bbf9b52de9842de3fa93cc62aeb5721b",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/pages/HomeStation.tsx",
-      "target_sha256": "13566e74986ba1013e479ef83d4c9ab9bbf9b52de9842de3fa93cc62aeb5721b"
     }
   ],
   "organ_id": "batch10_governance_compilers_capsule",

@@ -52,7 +52,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+    "drilldown": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -138,8 +138,8 @@
         "P-9",
         "P-15"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[78:batch12_market_dashboard_read_model_capsule]",
-      "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[75:batch12_market_dashboard_read_model_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
       "specialty": [
         "research-workflows",
         "forecasting",
@@ -147,7 +147,6 @@
         "frontend"
       ],
       "wires_to": [
-        "batch10_frontend_work_market_cockpit_capsule",
         "batch6_unsurfaced_primitives_capsule"
       ]
     },
@@ -226,7 +225,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -239,20 +238,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].mechanism_refs[0]",
           "summary": "The copied public market-dashboard read-model helper, synthetic fixture and bundle exercises, source-module manifest, negative cases, and body-free receipts bind this organ to a verified macro-body import without granting market truth, investment advice, provider dispatch, release, publication, or whole-system correctness authority."
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for market-dashboard read-model fixtures, source digest checks, freshness and related-situation cases, negative cases, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -265,7 +264,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -278,7 +277,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -291,7 +290,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -304,7 +303,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -317,7 +316,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -330,7 +329,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -343,7 +342,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -356,7 +355,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -369,7 +368,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -382,7 +381,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -395,7 +394,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -408,20 +407,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
-        "target_id": "batch10_frontend_work_market_cockpit_capsule",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -450,11 +436,10 @@
       "P-9",
       "P-15"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[78:batch12_market_dashboard_read_model_capsule]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[75:batch12_market_dashboard_read_model_capsule]",
     "unpopulated_selective_relations": [],
     "wires_to": [
-      "batch10_frontend_work_market_cockpit_capsule",
       "batch6_unsurfaced_primitives_capsule"
     ]
   },
@@ -462,11 +447,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+      "path": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[78:batch12_market_dashboard_read_model_capsule]",
+      "path": "core/organ_registry.json::implemented_organs[75:batch12_market_dashboard_read_model_capsule]",
       "role": "accepted_current_authority_registry_row"
     },
     {
@@ -488,7 +473,6 @@
     "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
   ],
   "wires_to": [
-    "batch10_frontend_work_market_cockpit_capsule",
     "batch6_unsurfaced_primitives_capsule"
   ]
 }

@@ -84,7 +84,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -101,7 +101,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
+        "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
         "fixtures/first_wave/routing_anti_patterns_registry/input",
         "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle",
         "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json",
@@ -194,7 +194,7 @@
       "runs_in": [
         "routing_anti_patterns_registry"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
       "statement": "The routing anti-patterns registry organ validates public routing anti-pattern rows, source-module digest anchors, private-leak rejection, negative cases, body-free receipts, and authority ceilings without claiming whole-system routing correctness, route-policy mutation authority, private source authority, or release readiness.",
       "status": "active",
       "upstream_of": [
@@ -208,7 +208,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -279,7 +279,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -292,7 +292,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -305,7 +305,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -318,35 +318,35 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       }
     ],
     "runs_in": [
       "routing_anti_patterns_registry"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
@@ -356,7 +356,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[71:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
+      "path": "core/mechanism_sources.json::mechanisms[59:mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

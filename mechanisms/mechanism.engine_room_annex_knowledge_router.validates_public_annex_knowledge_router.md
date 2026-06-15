@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[92:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[78:mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

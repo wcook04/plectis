@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[40:mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[34:mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

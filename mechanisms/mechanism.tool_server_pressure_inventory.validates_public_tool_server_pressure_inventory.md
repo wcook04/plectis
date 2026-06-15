@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[67:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[56:mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

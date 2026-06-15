@@ -27,7 +27,6 @@
     "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
     "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
     "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-    "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
     "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
     "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
     "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
@@ -142,7 +141,6 @@
           "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
           "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
           "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-          "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
           "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
           "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
           "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
@@ -209,7 +207,7 @@
           "PRINCIPLES.md obligation grounding text",
           "core/organ_atlas.json principle_refs plus mechanism_refs/concept_refs"
         ],
-        "governance_source_ref_count": 53,
+        "governance_source_ref_count": 52,
         "refinement_rule": "Substrate rows may refine which mechanisms or concepts the principle governs when organ-atlas source rows name those ids; support remains inherited from specific grounding axiom obligations.",
         "residual_relation_count": 0
       }
@@ -352,7 +350,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[73:batch10_cold_eval_honesty_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[71:batch10_cold_eval_honesty_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -365,7 +363,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[67:batch10_governance_compilers_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[66:batch10_governance_compilers_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -378,7 +376,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[72:batch10_live_source_drift_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[70:batch10_live_source_drift_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -391,7 +389,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[68:batch11_saturation_engines_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[67:batch11_saturation_engines_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -404,7 +402,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -417,7 +415,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[79:batch12_prediction_market_board_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[76:batch12_prediction_market_board_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -456,19 +454,6 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[76:batch7_station_runtime_capsule]",
-          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
-        },
-        "relation_id": "principle.governs.mechanism",
-        "relation_verb": "governs",
-        "residual_pressure_ref": null,
-        "reverse_verb": "governed_by",
-        "target_id": "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
           "source_ref": "core/organ_atlas.json::organs[62:batch8_audio_level_rms_port]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
@@ -482,7 +467,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -508,7 +493,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[64:batch8_structural_theses_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[63:batch8_structural_theses_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -534,7 +519,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[74:batch8_validator_checker_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -547,7 +532,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[66:batch9_macro_engines_capsule]",
+          "source_ref": "core/organ_atlas.json::organs[65:batch9_macro_engines_capsule]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -625,7 +610,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo]",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -1097,7 +1082,6 @@
       "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
       "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
       "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-      "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
       "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
       "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
       "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",

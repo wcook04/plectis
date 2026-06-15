@@ -15,7 +15,6 @@ The Batch 12 market dashboard read-model capsule validates copied public read-mo
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/batch12_market_dashboard_read_model_capsule.py` (resolved_code_locus)
 - `runs_in` -> `organ:batch12_market_dashboard_read_model_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.research_and_science_replay_evidence_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule` (resolved_json_instance)
 
 ## Anti-Claims

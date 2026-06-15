@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[74:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[62:mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

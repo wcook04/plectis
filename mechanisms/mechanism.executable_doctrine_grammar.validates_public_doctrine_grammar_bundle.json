@@ -88,7 +88,7 @@
       "concept_pair_ref": "executable_doctrine_grammar_standard_bundle.concept_binding",
       "mechanism_role": "validator turns standard rows and fixtures into pass/block receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -105,7 +105,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
+        "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
         "fixtures/first_wave/executable_doctrine_grammar/input",
         "examples/executable_doctrine_grammar/exported_standards_bundle",
         "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle",
@@ -209,7 +209,7 @@
       "runs_in": [
         "executable_doctrine_grammar"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
       "statement": "The executable doctrine grammar organ validates public standards and paper-module grammar fixtures by checking required standard fields, paper-module teleology/governing-standard/receipt/anti-claim sections, duplicate slugs, prose-runtime authority claims, doctrine-completeness overclaims, copied executable-grammar and standards/type-plane source-module digests, source-open body-import accounting, and private-state exclusion before writing bounded body-free receipts.",
       "status": "active",
       "upstream_of": [
@@ -223,7 +223,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -295,7 +295,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -308,7 +308,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -321,7 +321,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -334,7 +334,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -347,7 +347,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -360,7 +360,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -375,7 +375,7 @@
     "runs_in": [
       "executable_doctrine_grammar"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
@@ -385,7 +385,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[21:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
+      "path": "core/mechanism_sources.json::mechanisms[16:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

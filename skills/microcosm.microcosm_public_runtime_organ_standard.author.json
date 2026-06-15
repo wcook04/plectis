@@ -45,7 +45,7 @@
       {
         "justification": {
           "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md::typed_skill_mapping.operates_standard",
-          "summary": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
+          "summary": "These ten accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
         },
         "relation_id": "skill.operates.standard",
         "relation_verb": "operates",
@@ -58,7 +58,7 @@
       {
         "justification": {
           "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md::typed_skill_mapping.acts_on_kind",
-          "summary": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
+          "summary": "These ten accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
         },
         "relation_id": "skill.acts_on.doctrine_kind",
         "relation_verb": "acts_on",
@@ -99,8 +99,8 @@
       "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
     ],
     "operates_standard": "std_microcosm_standards_meta_diagnostics",
-    "source_markdown_digest": "c68879374c99f56e4d1a60f41dcf123ebb2749385b3c98116b3ede2305355332",
-    "source_markdown_line_count": 52,
+    "source_markdown_digest": "5a6de45455a7db7b64c5fc30874dfe69e9399797906cf44217ecd889eca12959",
+    "source_markdown_line_count": 51,
     "source_markdown_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md",
     "triad_role": "author",
     "unpopulated_selective_relations": []
@@ -108,7 +108,7 @@
   "schema_version": "microcosm_skill_instance_v1",
   "skill_payload": {
     "contract_version": "microcosm_skill_instance_payload_v1",
-    "mapping_basis": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof.",
+    "mapping_basis": "These ten accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof.",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
       "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
@@ -121,8 +121,8 @@
       "markdown_status": "legacy_public_projection_source_until_parity_flip",
       "source_json_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.author.json"
     },
-    "source_markdown_digest": "c68879374c99f56e4d1a60f41dcf123ebb2749385b3c98116b3ede2305355332",
-    "source_markdown_line_count": 52,
+    "source_markdown_digest": "5a6de45455a7db7b64c5fc30874dfe69e9399797906cf44217ecd889eca12959",
+    "source_markdown_line_count": 51,
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
       "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"

@@ -58,7 +58,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+    "drilldown": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -149,8 +149,8 @@
         "P-9",
         "P-15"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[77:batch7_secondary_runtime_capsule]",
-      "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[74:batch7_secondary_runtime_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule]",
       "specialty": [
         "source-import",
         "provenance",
@@ -241,7 +241,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -254,7 +254,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].mechanism_refs[0]",
           "summary": "The copied public secondary runtime, graph, cartography, stockgrid, and Polymarket bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting browser/session export, wallet authority, live market data, investment advice, source mutation, publication, release, or whole-system correctness authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -267,7 +267,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for Batch 7 secondary runtime copied source witnesses, UI witness checks, graph/cartography/market exercises, negative cases, and authority ceilings."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -280,7 +280,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -293,7 +293,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -306,7 +306,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -319,7 +319,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -332,7 +332,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -345,7 +345,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -358,7 +358,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -371,7 +371,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -384,7 +384,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -411,8 +411,8 @@
       "P-9",
       "P-15"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[77:batch7_secondary_runtime_capsule]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[74:batch7_secondary_runtime_capsule]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -428,11 +428,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+      "path": "core/organ_atlas.json::organs[74:batch7_secondary_runtime_capsule]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[77:batch7_secondary_runtime_capsule]",
+      "path": "core/organ_registry.json::implemented_organs[74:batch7_secondary_runtime_capsule]",
       "role": "accepted_current_authority_registry_row"
     },
     {

@@ -35,7 +35,7 @@
     "concept_id": "concept.work_landing_and_continuity_control_bundle",
     "drilldown": "concepts/concept.work_landing_and_continuity_control_bundle.json",
     "kind": "concept",
-    "mechanism_count": 5,
+    "mechanism_count": 4,
     "principle_count": 4,
     "schema_version": "microcosm_concept_cluster_flag_v1",
     "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[10:work_landing_and_continuity_control_bundle]",
@@ -96,7 +96,14 @@
       "unowned path state",
       "external publication credentials"
     ],
-    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure.",
+    "residual_pressure": [
+      {
+        "gap_class": "concept_selective_edges_unpopulated_or_unresolved",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind concept implements/instantiated_by/abides_by edges from source evidence once target ids are named and resolve as generated instances."
+      }
+    ]
   },
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -187,11 +194,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -213,11 +220,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "instantiates",
         "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -229,19 +236,6 @@
         "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
         "target_id": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
-        "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[10:work_landing_and_continuity_control_bundle].mechanism_ids",
-          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is work_landing_and_continuity."
-        },
-        "relation_id": "concept.instantiated_by.mechanism",
-        "relation_verb": "instantiated_by",
-        "residual_pressure_ref": null,
-        "reverse_verb": "instantiates",
-        "target_id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
         "target_kind": "mechanism",
         "target_status": "resolved_json_instance"
       },
@@ -304,8 +298,7 @@
       "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
       "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
       "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
-      "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
-      "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+      "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
     ],
     "payload_shape_ref": "core/organ_atlas.json.family=work_landing_and_continuity plus Work Ledger and mission transaction refs",
     "principle_refs": [

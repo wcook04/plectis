@@ -160,7 +160,6 @@
         "spatial_world_model_counterfactual_simulation_replay",
         "tool_server_pressure_inventory",
         "batch12_market_dashboard_read_model_capsule",
-        "batch8_station_surface_atlas_layout_port",
         "batch8_structural_theses_capsule"
       ],
       "wiring_note": "binds only to the shared kernel + evidence/authority spine. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
@@ -262,11 +261,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -576,19 +575,6 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
-        "target_id": "batch8_station_surface_atlas_layout_port",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[23:world_model_projection_drift_control_room].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
         "target_id": "batch8_structural_theses_capsule",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -624,7 +610,6 @@
       "spatial_world_model_counterfactual_simulation_replay",
       "tool_server_pressure_inventory",
       "batch12_market_dashboard_read_model_capsule",
-      "batch8_station_surface_atlas_layout_port",
       "batch8_structural_theses_capsule"
     ]
   },
@@ -664,7 +649,6 @@
     "spatial_world_model_counterfactual_simulation_replay",
     "tool_server_pressure_inventory",
     "batch12_market_dashboard_read_model_capsule",
-    "batch8_station_surface_atlas_layout_port",
     "batch8_structural_theses_capsule"
   ]
 }

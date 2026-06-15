@@ -126,10 +126,6 @@ def test_batch10_governance_compilers_capsule_runs_all_mechanisms(tmp_path: Path
     assert by_mechanism["finance_no_lookahead_temporal_contract"]["invalid_horizon_rejected"] is True
     assert by_mechanism["session_dependency_wave_executor"]["node_states"]["C"] == "skipped"
     assert by_mechanism["role_aware_dag_block_propagation"]["quality_error_softened"] is True
-    assert by_mechanism["generic_table_shaping_sort_filter_paginate_kernel"]["price_sort_order"] == ["C", "A", "B"]
-    assert by_mechanism["annex_source_kind_group_ranker"]["source_kind_order"] == ["git_repo", "document", "unknown"]
-    assert by_mechanism["annex_source_kind_group_ranker"]["empty_facet_counts"] == []
-    assert by_mechanism["recent_change_fingerprint_coalescer"]["first_count"] == 2
     reviewer_gauntlet = by_mechanism["flagship_reviewer_persona_gauntlet_adjudicator"]
     assert reviewer_gauntlet["persona_ids"] == [
         "cold_cloner",
@@ -173,8 +169,8 @@ def test_batch10_governance_compilers_bundle_validates_runtime_shape(tmp_path: P
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_batch10_governance_compilers_capsule_bundle"
     assert result["semantic_negative_case_evaluator_used"] is True
-    assert result["source_module_manifest"]["module_count"] == 13
-    assert result["exercise"]["copied_macro_source_module_count"] == 13
+    assert result["source_module_manifest"]["module_count"] == 10
+    assert result["exercise"]["copied_macro_source_module_count"] == 10
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["receipt_body_scan"]["status"] == "pass"
 
@@ -218,7 +214,7 @@ def test_batch10_source_modules_are_exact_or_declared_public_refactors() -> None
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] == 13
+    assert manifest["module_count"] == 10
     assert manifest["source_faithful_public_refactors"][0]["mechanism_id"] == (
         "publication_manifest_selector_contract_verifier"
     )
@@ -247,7 +243,7 @@ def test_batch10_card_omits_private_bodies(tmp_path: Path) -> None:
 
     assert card["status"] == "pass"
     assert card["mechanism_count"] == len(EXPECTED_MECHANISMS)
-    assert card["source_module_count"] == 13
+    assert card["source_module_count"] == 10
     assert card["body_in_receipt"] is False
     serialized = json.dumps(result, sort_keys=True)
     assert "/Users/" not in serialized

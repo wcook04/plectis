@@ -14,7 +14,7 @@
   "id": "paper_module.routing_anti_patterns_registry",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -131,7 +131,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry]",
       "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; selective concept/principle/axiom refs remain residual unless source evidence names resolving Microcosm doctrine ids.",
       "subjects": [
         {
@@ -191,7 +191,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -204,7 +204,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].subjects[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].subjects[1]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -217,7 +217,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -230,7 +230,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -243,7 +243,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -256,7 +256,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -269,7 +269,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -282,7 +282,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -295,7 +295,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -308,7 +308,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -321,7 +321,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -334,7 +334,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -347,7 +347,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -360,7 +360,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -373,7 +373,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -386,7 +386,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -399,7 +399,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -412,7 +412,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -425,7 +425,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -438,7 +438,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -451,7 +451,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -464,7 +464,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for routing anti-pattern registry validation, source-module digest checks, private-leak rejection, negative cases, and authority ceilings."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -489,7 +489,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry]",
     "subjects": [
       {
         "kind": "organ",
@@ -505,7 +505,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[58:paper_module.routing_anti_patterns_registry]",
+      "path": "core/paper_module_capsules.json::paper_modules[57:paper_module.routing_anti_patterns_registry]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

@@ -3,8 +3,8 @@
 _Generated from the governed organ JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `organs/batch12_release_claim_language_gate.json`
-- Atlas source of record: `core/organ_atlas.json::organs[80:batch12_release_claim_language_gate]`
-- Registry source of record: `core/organ_registry.json::implemented_organs[80:batch12_release_claim_language_gate]`
+- Atlas source of record: `core/organ_atlas.json::organs[77:batch12_release_claim_language_gate]`
+- Registry source of record: `core/organ_registry.json::implemented_organs[77:batch12_release_claim_language_gate]`
 - Authority boundary: JSON parity seed; organ atlas/registry source authority has not flipped.
 
 ## Role

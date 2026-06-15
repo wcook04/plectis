@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[77:mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[65:mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

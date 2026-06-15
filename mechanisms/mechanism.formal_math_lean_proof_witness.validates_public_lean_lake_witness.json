@@ -85,7 +85,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -102,7 +102,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
+        "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
         "fixtures/first_wave/formal_math_lean_proof_witness/input",
         "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle",
         "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json",
@@ -196,7 +196,7 @@
       "runs_in": [
         "formal_math_lean_proof_witness"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
       "statement": "The formal math Lean proof witness organ validates a bounded public Lean/Lake witness by copying a declared toy Lake project into a temporary workspace, probing local Lean and Lake, running lake build, checking copied public source-module digests and anchors, recording declaration/source metadata, and observing forbidden-import, private-source-ref, proof-body, and invalid-proof negative cases before writing redacted receipts.",
       "status": "active",
       "upstream_of": [
@@ -213,7 +213,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -281,7 +281,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -294,7 +294,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -307,7 +307,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -320,7 +320,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -333,7 +333,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -346,7 +346,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -359,7 +359,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -372,7 +372,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -387,7 +387,7 @@
     "runs_in": [
       "formal_math_lean_proof_witness"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
@@ -400,7 +400,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[24:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
+      "path": "core/mechanism_sources.json::mechanisms[19:mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

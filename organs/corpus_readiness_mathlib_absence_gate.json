@@ -33,7 +33,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Corpus Readiness Mathlib Absence Gate",
   "entry_surface_contract": null,
-  "evidence_class": "algorithmic_projection",
+  "evidence_class": "external_subprocess_witness",
   "family": "formal_math_and_proof",
   "id": "corpus_readiness_mathlib_absence_gate",
   "kind": "organ",
@@ -105,7 +105,7 @@
         "concept.formal_math_and_proof_witness_bundle"
       ],
       "display_name": "Corpus Readiness Mathlib Absence Gate",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "external_subprocess_witness",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
       "human_gloss": "It reads a recorded readiness report from a Lean math toolchain run and makes one fact inspectable: when the report was captured, the Mathlib library was not importable (its import probe failed). From that, it lists which math corpora are absent or usable only for translation smoke tests, and which downstream tasks must be blocked before any Mathlib-dependent proof work is attempted. It also re-checks that the recorded source files match their recorded SHA-256 digests and that no proof bodies, provider outputs, or private paths leaked into the public output. The result shows exactly where the proof pipeline draws a hard \"not ready, do not proceed\" line, with provenance, instead of quietly assuming the environment is fine.",
@@ -144,9 +144,9 @@
       "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "external_subprocess_witness",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[corpus_readiness_mathlib_absence_gate]",
-      "evidence_strength_rank": 3,
+      "evidence_strength_rank": 4,
       "generated_receipts": [
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
@@ -157,7 +157,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.corpus_readiness_mathlib_absence_gate",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "truth_accounting_bucket": "real_runtime_receipt",
       "validator_command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate"
     },
     "support_contract": {

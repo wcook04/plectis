@@ -355,10 +355,6 @@ batch7_macro_engines_capsule = globals().get(
     "batch7_macro_engines_capsule",
     _LazyModule("microcosm_core.organs.batch7_macro_engines_capsule"),
 )
-batch7_station_runtime_capsule = globals().get(
-    "batch7_station_runtime_capsule",
-    _LazyModule("microcosm_core.organs.batch7_station_runtime_capsule"),
-)
 batch7_secondary_runtime_capsule = globals().get(
     "batch7_secondary_runtime_capsule",
     _LazyModule("microcosm_core.organs.batch7_secondary_runtime_capsule"),
@@ -382,12 +378,6 @@ batch9_macro_engines_capsule = globals().get(
 batch10_governance_compilers_capsule = globals().get(
     "batch10_governance_compilers_capsule",
     _LazyModule("microcosm_core.organs.batch10_governance_compilers_capsule"),
-)
-batch10_frontend_work_market_cockpit_capsule = globals().get(
-    "batch10_frontend_work_market_cockpit_capsule",
-    _LazyModule(
-        "microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule"
-    ),
 )
 batch10_live_source_drift_capsule = globals().get(
     "batch10_live_source_drift_capsule",
@@ -432,10 +422,6 @@ routing_anti_patterns_registry = globals().get(
 tool_server_pressure_inventory = globals().get(
     "tool_server_pressure_inventory",
     _LazyModule("microcosm_core.organs.tool_server_pressure_inventory"),
-)
-workstream_driver_recency_coalescer = globals().get(
-    "workstream_driver_recency_coalescer",
-    _LazyModule("microcosm_core.organs.workstream_driver_recency_coalescer"),
 )
 self_ignorance_coverage_ledger = globals().get(
     "self_ignorance_coverage_ledger",
@@ -1044,19 +1030,6 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         receipt_name="exported_tool_server_pressure_inventory_bundle_validation_result.json",
     ),
     RuntimeStep(
-        organ_id="workstream_driver_recency_coalescer",
-        span="workstream_driver_recency_coalescer.validate",
-        input_mode="exported_workstream_driver_recency_coalescer_bundle",
-        example_rel=(
-            "examples/workstream_driver_recency_coalescer/"
-            "exported_workstream_driver_recency_coalescer_bundle"
-        ),
-        runner=workstream_driver_recency_coalescer.run_workstream_bundle,
-        receipt_name=(
-            "exported_workstream_driver_recency_coalescer_bundle_validation_result.json"
-        ),
-    ),
-    RuntimeStep(
         organ_id="standards_meta_diagnostics",
         span="standards_meta_diagnostics.validate",
         input_mode="exported_standards_meta_diagnostics_bundle",
@@ -1325,24 +1298,6 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         ),
     ),
     RuntimeStep(
-        organ_id="batch8_station_surface_atlas_layout_port",
-        span="batch8_station_surface_atlas_layout_port.validate",
-        input_mode="exported_batch8_station_surface_atlas_layout_port_bundle",
-        example_rel=(
-            "examples/batch8_station_surface_atlas_layout_port/"
-            "exported_batch8_station_surface_atlas_layout_port_bundle"
-        ),
-        runner=(
-            _keyword_command_runner(
-                batch8_station_surface_atlas_layout_port
-                .run_batch8_station_surface_atlas_layout_bundle
-            )
-        ),
-        receipt_name=(
-            "exported_batch8_station_surface_atlas_layout_port_bundle_validation_result.json"
-        ),
-    ),
-    RuntimeStep(
         organ_id="batch8_structural_theses_capsule",
         span="batch8_structural_theses_capsule.validate",
         input_mode="exported_batch8_structural_theses_capsule_bundle",
@@ -1446,21 +1401,6 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         ),
     ),
     RuntimeStep(
-        organ_id="batch7_station_runtime_capsule",
-        span="batch7_station_runtime_capsule.validate",
-        input_mode="exported_batch7_station_runtime_capsule_bundle",
-        example_rel=(
-            "examples/batch7_station_runtime_capsule/"
-            "exported_batch7_station_runtime_capsule_bundle"
-        ),
-        runner=_keyword_command_runner(
-            batch7_station_runtime_capsule.run_batch7_station_bundle
-        ),
-        receipt_name=(
-            "exported_batch7_station_runtime_capsule_validation_result.json"
-        ),
-    ),
-    RuntimeStep(
         organ_id="batch7_secondary_runtime_capsule",
         span="batch7_secondary_runtime_capsule.validate",
         input_mode="exported_batch7_secondary_runtime_capsule_bundle",
@@ -1504,24 +1444,6 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         ),
         receipt_name=(
             "exported_batch10_governance_compilers_capsule_bundle_validation_result.json"
-        ),
-    ),
-    RuntimeStep(
-        organ_id="batch10_frontend_work_market_cockpit_capsule",
-        span="batch10_frontend_work_market_cockpit_capsule.validate",
-        input_mode="exported_batch10_frontend_work_market_cockpit_capsule_bundle",
-        example_rel=(
-            "examples/batch10_frontend_work_market_cockpit_capsule/"
-            "exported_batch10_frontend_work_market_cockpit_capsule_bundle"
-        ),
-        runner=(
-            _keyword_command_runner(
-                batch10_frontend_work_market_cockpit_capsule
-                .run_batch10_frontend_work_market_bundle
-            )
-        ),
-        receipt_name=(
-            "exported_batch10_frontend_work_market_cockpit_capsule_bundle_validation_result.json"
         ),
     ),
     RuntimeStep(
@@ -15341,42 +15263,6 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_uses_payload_boundary",
                 ],
                 "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
-                "projection_status": PASS,
-            },
-            {
-                "map_row_id": "frontend_cockpit_hud_source_modules_to_import_floor",
-                "source_pattern_id": "frontend_cockpit_hud_source_modules_import",
-                "source_authority": (
-                    "examples/macro_projection_import_protocol/"
-                    "exported_projection_import_bundle/"
-                    "frontend_cockpit_source_projection_protocol.json"
-                ),
-                "public_surface": "microcosm authority && microcosm status",
-                "endpoint": "/authority",
-                "public_ref": (
-                    "examples/macro_projection_import_protocol/"
-                    "exported_projection_import_bundle/"
-                    "frontend_cockpit_source_bundle_manifest.json"
-                ),
-                "copied": [
-                    "6 exact macro Station cockpit source bodies (2,301 lines)",
-                    "source/target sha256 digest parity per module",
-                    "child projection protocol bound to the macro import spine via parent_protocol_ref",
-                ],
-                "cleaned": [
-                    "live operator browser and session state",
-                    "private root paths rewritten to relative source refs",
-                ],
-                "omitted": [
-                    "provider payload bodies",
-                    "raw operator voice",
-                    "private frontend runtime dependency and live browser access",
-                ],
-                "validation_refs": [
-                    "tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports",
-                    "tests/test_runtime_shell.py::test_runtime_shell_child_projection_protocols_surface_in_source_body_lens",
-                ],
-                "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::frontend_cockpit",
                 "projection_status": PASS,
             },
             {

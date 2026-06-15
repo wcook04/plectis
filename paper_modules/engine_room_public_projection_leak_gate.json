@@ -14,7 +14,7 @@
   "id": "paper_module.engine_room_public_projection_leak_gate",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -119,7 +119,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate]",
       "strangler_note": "This capsule binds the authored Markdown projection, staged Engine Room leak-gate runtime, fixture manifest, standard, focused tests, mechanism row, and Engine Room demo dependency evidence to JSON capsule authority without treating the Markdown page, generated JSON projections, optional gitleaks availability, scan green status, or policy exceptions as release, source-mutation, private-root-equivalence, general-security, prompt-injection, sandbox, or information-flow authority. No accepted organ subject is claimed.",
       "subjects": [
         {
@@ -166,7 +166,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -179,7 +179,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -192,7 +192,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -205,7 +205,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -218,7 +218,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -231,7 +231,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -244,7 +244,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -257,7 +257,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -270,7 +270,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -283,7 +283,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -296,7 +296,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -309,7 +309,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -322,7 +322,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -335,7 +335,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -348,7 +348,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for public projection leak-gate scans, fixture evaluation, hash-only evidence, optional gitleaks receipts, and authority ceilings."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -370,7 +370,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate]",
     "subjects": [
       {
         "kind": "mechanism",
@@ -382,7 +382,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[80:paper_module.engine_room_public_projection_leak_gate]",
+      "path": "core/paper_module_capsules.json::paper_modules[76:paper_module.engine_room_public_projection_leak_gate]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

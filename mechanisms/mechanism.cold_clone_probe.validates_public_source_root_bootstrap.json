@@ -82,7 +82,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -99,7 +99,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+        "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
         "fixtures/first_wave/pattern_binding_contract/input",
         "standards/std_microcosm_cold_clone_probe.json",
         "bootstrap.sh",
@@ -199,7 +199,7 @@
       "runs_in": [
         "pattern_binding_contract"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
       "statement": "The cold-clone probe validates source-root public bootstrap mechanics by importing the package from src, running the secret-exclusion scan, executing the first-wave pattern-binding fixture, mirroring the declared public receipt refs when missing, and writing an ignored local receipt without claiming release, hosted-product, private-root, provider-call, source-mutation, or whole-system correctness authority.",
       "status": "active",
       "upstream_of": []
@@ -210,7 +210,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -280,7 +280,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -293,7 +293,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -306,7 +306,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -319,7 +319,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -334,7 +334,7 @@
     "runs_in": [
       "pattern_binding_contract"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -348,7 +348,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+      "path": "core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

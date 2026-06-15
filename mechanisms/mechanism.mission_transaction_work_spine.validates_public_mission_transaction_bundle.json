@@ -87,7 +87,7 @@
       "concept_pair_ref": "work_landing_and_continuity_control_bundle.concept_binding",
       "mechanism_role": "family validators that bind work landing, bridge continuity, recency coalescing, concurrency, and transaction closeout to receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -104,7 +104,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
+        "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
         "fixtures/first_wave/mission_transaction_work_spine/input",
         "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[10:work_landing_and_continuity_control_bundle]"
@@ -203,7 +203,7 @@
       "runs_in": [
         "mission_transaction_work_spine"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
       "statement": "The mission transaction work-spine organ validates public work-landing and closeout metadata by checking fixed WorkItem, claim, dependency, transaction, receipt-drain, closeout, scoped mutation, and checkpoint-lane fixtures, exact copied non-secret Task Ledger/Work Ledger/checkpoint/mission-control source modules, secret-exclusion boundaries, negative cases, and authority ceilings before writing bounded body-free receipts.",
       "status": "active",
       "upstream_of": [
@@ -225,7 +225,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -300,7 +300,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -313,7 +313,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -326,7 +326,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -339,7 +339,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -352,7 +352,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -365,20 +365,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -391,20 +391,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -417,7 +417,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -430,20 +430,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -456,7 +456,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -471,7 +471,7 @@
     "runs_in": [
       "mission_transaction_work_spine"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
@@ -489,7 +489,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[22:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
+      "path": "core/mechanism_sources.json::mechanisms[17:mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

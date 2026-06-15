@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

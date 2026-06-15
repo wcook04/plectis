@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[97:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[83:mechanism.cold_clone_probe.validates_public_source_root_bootstrap]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

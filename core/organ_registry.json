@@ -52,7 +52,7 @@
   "evidence_class_registry": {
     "class_profile_count": 7,
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 82,
+    "organ_evidence_class_count": 78,
     "reader_action": "Read accepted_current_authority together with each row evidence_class, claim_ceiling, and truth_accounting_bucket; status alone is receipt inventory, not evidence strength.",
     "registry_id": "microcosm_organ_evidence_classes",
     "row_fields_projected": [
@@ -1407,27 +1407,6 @@
       "validator_command": "python -m microcosm_core.organs.batch8_audio_level_rms_port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
     },
     {
-      "claim_ceiling": "projection mechanics only, not domain correctness",
-      "classification_basis": "source-faithful public Python port of the StationSurfaceAtlas deterministic band/lane layout solver over synthetic node rows, with bounded negative cases and no browser runtime",
-      "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
-      "evidence_class": "algorithmic_projection",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch8_station_surface_atlas_layout_port]",
-      "evidence_strength_rank": 3,
-      "generated_receipts": [
-        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_result.json",
-        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_board.json",
-        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_validation_receipt.json",
-        "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
-      ],
-      "organ_id": "batch8_station_surface_atlas_layout_port",
-      "real_substrate_disposition": "real_substrate_capsule",
-      "runner": "microcosm_core.organs.batch8_station_surface_atlas_layout_port",
-      "status": "accepted_current_authority",
-      "truth_accounting_bucket": "source_faithful_refactor",
-      "validator_command": "python -m microcosm_core.organs.batch8_station_surface_atlas_layout_port run --input fixtures/first_wave/batch8_station_surface_atlas_layout_port/input --out receipts/first_wave/batch8_station_surface_atlas_layout_port --acceptance-out receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
-    },
-    {
       "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
       "classification_basis": "verified public macro-body import of tools/finance/structural_theses.py with bounded synthetic winner, loser, and control exercises through the public CP1/CP2 finance spine",
       "counts_as_real_substrate_progress": true,
@@ -1555,27 +1534,6 @@
     },
     {
       "claim_ceiling": "validates declared public contract only",
-      "classification_basis": "source-faithful public exercise of WorkstreamBoard.tsx groupByDriver with exact copied non-secret frontend body, synthetic AttentionRecentChange rows, newest-wins recency coalescing, unclassified-last sorting, source-module digest anchors, and five negative cases covering key normalization, stale newest field, sort order, sentinel ordering, and authority overclaim leakage",
-      "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
-      "evidence_class": "semantic_validator",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[workstream_driver_recency_coalescer]",
-      "evidence_strength_rank": 5,
-      "generated_receipts": [
-        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
-        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
-        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
-        "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
-      ],
-      "organ_id": "workstream_driver_recency_coalescer",
-      "real_substrate_disposition": "real_substrate_capsule",
-      "runner": "microcosm_core.organs.workstream_driver_recency_coalescer",
-      "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_import_validation",
-      "validator_command": "python -m microcosm_core.organs.workstream_driver_recency_coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
-    },
-    {
-      "claim_ceiling": "validates declared public contract only",
       "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
@@ -1680,27 +1638,6 @@
       "validator_command": "python -m microcosm_core.organs.concurrency_mission_control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
     },
     {
-      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-      "classification_basis": "exact copied non-secret station runtime and frontend source bodies for the agent trace workbench host boot probe, live agent instrument view model, station store resilience FSM, original source tests, digest anchors, vitest witness metadata, and five negative cases fencing off UI runtime and release authority",
-      "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
-      "evidence_class": "verified_macro_body_import",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch7_station_runtime_capsule]",
-      "evidence_strength_rank": 5,
-      "generated_receipts": [
-        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_result.json",
-        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_board.json",
-        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_validation_receipt.json",
-        "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
-      ],
-      "organ_id": "batch7_station_runtime_capsule",
-      "real_substrate_disposition": "real_substrate_capsule",
-      "runner": "microcosm_core.organs.batch7_station_runtime_capsule",
-      "status": "accepted_current_authority",
-      "truth_accounting_bucket": "copied_non_secret_macro_body",
-      "validator_command": "python -m microcosm_core.organs.batch7_station_runtime_capsule run --input fixtures/first_wave/batch7_station_runtime_capsule/input --out receipts/first_wave/batch7_station_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
-    },
-    {
       "claim_ceiling": "verified non-secret macro body import only, not browser or wallet access, live market data, investment advice, source authority, private-root equivalence, release, or publication",
       "classification_basis": "exact copied non-secret runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies; the runnable exercise invokes eight public fixture engines, verifies source digest anchors and required anchors, observes eight negative cases, and keeps browser/session export, wallet authority, live market data, investment advice, release, publication, source-mutation, semantic-truth, and completeness authority false",
       "counts_as_real_substrate_progress": true,
@@ -1783,27 +1720,6 @@
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "copied_non_secret_macro_body",
       "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
-    },
-    {
-      "claim_ceiling": "verified non-secret frontend source-body import only, not live UI correctness, Task Ledger or Work Ledger mutation authority, market advice, source mutation, release, or publication",
-      "classification_basis": "exact copied non-secret frontend TS/TSX macro source bodies for WorkLens, WorkLens tests, MarketCockpit, MarketIntelligenceLens, and MarketCockpit tests; the runnable exercise verifies source digest equality, required anchors, read-only work-state behavior, honest market-signal presentation, route-readiness and finance-assurance indicators, source-test witness coverage, private-ref guards, and four negative cases for work-lens mutation creep, fake market time-series, recommendation leakage, and private source refs while keeping live UI correctness, browser/provider access, Task Ledger or Work Ledger mutation, market advice, source mutation, release, and publication authority false",
-      "counts_as_real_substrate_progress": true,
-      "current_authority_receipt": "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json",
-      "evidence_class": "verified_macro_body_import",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch10_frontend_work_market_cockpit_capsule]",
-      "evidence_strength_rank": 5,
-      "generated_receipts": [
-        "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_result.json",
-        "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_board.json",
-        "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_validation_receipt.json",
-        "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
-      ],
-      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
-      "real_substrate_disposition": "real_substrate_capsule",
-      "runner": "microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule",
-      "status": "accepted_current_authority",
-      "truth_accounting_bucket": "copied_non_secret_macro_body",
-      "validator_command": "python -m microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule run --input fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input --out receipts/first_wave/batch10_frontend_work_market_cockpit_capsule --acceptance-out receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
     }
   ],
   "registry_status": "accepted_runtime_spine_verifier_lab_kernel_bound",

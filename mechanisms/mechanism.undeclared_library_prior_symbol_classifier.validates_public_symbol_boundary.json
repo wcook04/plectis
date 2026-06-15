@@ -85,7 +85,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -102,7 +102,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
+        "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
         "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input",
         "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
@@ -194,7 +194,7 @@
       "runs_in": [
         "undeclared_library_prior_symbol_classifier"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
       "statement": "The undeclared library prior symbol classifier validates symbol-boundary observations against allowed premise ids, classifier policy, source-module manifests, private/proof-body exclusion, route decisions, and body-free symbol-boundary receipts.",
       "status": "active",
       "upstream_of": [
@@ -207,7 +207,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -278,7 +278,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -291,7 +291,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -304,7 +304,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -317,7 +317,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -332,7 +332,7 @@
     "runs_in": [
       "undeclared_library_prior_symbol_classifier"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary"
@@ -341,7 +341,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[39:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
+      "path": "core/mechanism_sources.json::mechanisms[33:mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

@@ -3,8 +3,8 @@
 _Generated from the governed organ JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `organs/tool_server_pressure_inventory.json`
-- Atlas source of record: `core/organ_atlas.json::organs[69:tool_server_pressure_inventory]`
-- Registry source of record: `core/organ_registry.json::implemented_organs[69:tool_server_pressure_inventory]`
+- Atlas source of record: `core/organ_atlas.json::organs[68:tool_server_pressure_inventory]`
+- Registry source of record: `core/organ_registry.json::implemented_organs[68:tool_server_pressure_inventory]`
 - Authority boundary: JSON parity seed; organ atlas/registry source authority has not flipped.
 
 ## Role

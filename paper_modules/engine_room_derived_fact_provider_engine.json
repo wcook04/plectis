@@ -14,7 +14,7 @@
   "id": "paper_module.engine_room_derived_fact_provider_engine",
   "kind": "paper_module",
   "omission_receipt": {
-    "drilldown": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine]",
+    "drilldown": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -134,7 +134,7 @@
         "P-15"
       ],
       "source_authority": "json_capsule",
-      "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine]",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine]",
       "strangler_note": "Binds the legacy Markdown projection, staged Engine Room derived-fact provider runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating generated projections, provider availability, or green fixture status as truth-audit, semantic-claim-validation, release, private-root-equivalence, or whole-system authority. No accepted organ subject is claimed.",
       "subjects": [
         {
@@ -195,7 +195,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].subjects[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].subjects[0]",
           "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
@@ -208,7 +208,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].concept_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].concept_refs",
           "summary": "Paper-module source row names this concept as a governing concept."
         },
         "relation_id": "paper_module.governed_by.concept",
@@ -221,7 +221,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -234,7 +234,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -247,7 +247,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -260,7 +260,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -273,7 +273,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -286,7 +286,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -299,7 +299,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].principle_refs",
           "summary": "Paper-module source row names this governing principle."
         },
         "relation_id": "paper_module.governed_by.principle",
@@ -312,7 +312,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -325,7 +325,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -338,7 +338,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -351,7 +351,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -364,7 +364,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -377,7 +377,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].axiom_refs",
           "summary": "Paper-module source row names this axiom as a law boundary."
         },
         "relation_id": "paper_module.abides_by.axiom",
@@ -390,7 +390,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -403,7 +403,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].depends_on",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].depends_on",
           "summary": "Paper-module source row names this sibling/dependency paper module."
         },
         "relation_id": "paper_module.depends_on.paper_module",
@@ -416,7 +416,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].code_loci[0]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].code_loci[0]",
           "summary": "Component runtime for public derived-fact registry fixtures, provider resolution, error-as-data rows, git-backed callables, and public receipt emission."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -429,7 +429,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine].code_loci[1]",
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine].code_loci[1]",
           "summary": "Accepted Engine Room composition locus that admits this component as a staged capsule target."
         },
         "relation_id": "paper_module.cites.code_locus",
@@ -452,7 +452,7 @@
       "P-15"
     ],
     "source_authority": "json_capsule",
-    "source_ref": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine]",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine]",
     "subjects": [
       {
         "kind": "mechanism",
@@ -464,7 +464,7 @@
   "schema_version": "microcosm_paper_module_instance_v1",
   "source_refs": [
     {
-      "path": "core/paper_module_capsules.json::paper_modules[90:paper_module.engine_room_derived_fact_provider_engine]",
+      "path": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_derived_fact_provider_engine]",
       "role": "json_capsule_source_of_record_until_instance_authority_flip"
     },
     {

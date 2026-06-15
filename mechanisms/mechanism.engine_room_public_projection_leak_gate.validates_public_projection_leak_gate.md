@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[85:mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[72:mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

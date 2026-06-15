@@ -148,9 +148,7 @@
         "provider-ops"
       ],
       "standalone_or_wired": "standalone_specimen",
-      "wires_to": [
-        "batch7_station_runtime_capsule"
-      ],
+      "wires_to": [],
       "wiring_note": "Imports four copied non-secret tools-tail source modules into a public capsule and binds them to fixture, source-digest, receipt, CLI/runtime-shell, standards, and authority-ceiling checks; it does not invoke live oracle, provider, source-mutation, publication, or release lanes."
     },
     "source_registry_row": {
@@ -246,11 +244,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -407,19 +405,6 @@
         "target_id": "AX-8",
         "target_kind": "axiom",
         "target_status": "resolved_json_instance"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
-        "target_id": "batch7_station_runtime_capsule",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -441,10 +426,16 @@
     ],
     "source_atlas_row_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
     "source_registry_row_ref": "core/organ_registry.json::implemented_organs[60:batch8_tools_tail_primitives_capsule]",
-    "unpopulated_selective_relations": [],
-    "wires_to": [
-      "batch7_station_runtime_capsule"
-    ]
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Organ atlas row does not name sibling wires_to targets.",
+        "relation_id": "organ.wires_to.organ",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ],
+    "wires_to": []
   },
   "role": "An agent runs it to validate that the copied tools-tail source modules preserve required anchors and digests, their public exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
   "schema_version": "microcosm_organ_instance_v1",
@@ -475,7 +466,5 @@
     "python -m microcosm_core.organs.batch8_tools_tail_primitives_capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
     "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
   ],
-  "wires_to": [
-    "batch7_station_runtime_capsule"
-  ]
+  "wires_to": []
 }

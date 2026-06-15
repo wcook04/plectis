@@ -41,7 +41,7 @@
   "created_at": "2026-06-02T00:00:00Z",
   "display_name": "Compliance Pipeline Capsule",
   "entry_surface_contract": null,
-  "evidence_class": "semantic_validator",
+  "evidence_class": "algorithmic_projection",
   "family": "import_projection_and_drift",
   "id": "batch8_compliance_pipeline_capsule",
   "kind": "organ",
@@ -54,7 +54,7 @@
     }
   ],
   "omission_receipt": {
-    "drilldown": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule]",
+    "drilldown": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -121,7 +121,7 @@
         "concept.import_projection_and_drift_control_bundle"
       ],
       "display_name": "Compliance Pipeline Capsule",
-      "evidence_class": "semantic_validator",
+      "evidence_class": "algorithmic_projection",
       "family": "import_projection_and_drift",
       "first_command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
       "human_gloss": "This organ imports the compliance adapter registry, compliance coverage and baseline scanners, Microcosm compliance adapter, bounded compliance-ledger builder, and observe pipeline stages as public runnable substrate. Running it shows how registered compliance adapters, bounded no-write checks, baseline companion scans, digest normalization, observe-plan helper selection, and dispatch/process boundaries fit together without refreshing the live ledger or dispatching providers.",
@@ -143,8 +143,8 @@
         "P-9",
         "P-15"
       ],
-      "registry_ref": "core/organ_registry.json::implemented_organs[71:batch8_compliance_pipeline_capsule]",
-      "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule]",
+      "registry_ref": "core/organ_registry.json::implemented_organs[69:batch8_compliance_pipeline_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]",
       "specialty": [
         "source-import",
         "provenance",
@@ -165,9 +165,9 @@
       "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
       "counts_as_real_substrate_progress": true,
       "current_authority_receipt": "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
-      "evidence_class": "semantic_validator",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch8_compliance_pipeline_capsule]",
-      "evidence_strength_rank": 5,
+      "evidence_strength_rank": 3,
       "generated_receipts": [
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_result.json",
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_board.json",
@@ -178,7 +178,7 @@
       "real_substrate_disposition": "real_substrate_capsule",
       "runner": "microcosm_core.organs.batch8_compliance_pipeline_capsule",
       "status": "accepted_current_authority",
-      "truth_accounting_bucket": "real_import_validation",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "validator_command": "python -m microcosm_core.organs.batch8_compliance_pipeline_capsule run --input fixtures/first_wave/batch8_compliance_pipeline_capsule/input --out receipts/first_wave/batch8_compliance_pipeline_capsule --acceptance-out receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
     },
     "support_contract": {
@@ -237,7 +237,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].paper_module_ref",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].paper_module_ref",
           "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
         },
         "relation_id": "organ.explained_by.paper_module",
@@ -250,7 +250,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].mechanism_refs[0]",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].mechanism_refs[0]",
           "summary": "The public compliance/pipeline fixture contract, copied source-module manifest, bounded no-write checks, negative cases, body-free receipts, and runtime validation receipts bind this organ to a semantic validator without granting full compliance-ledger freshness, provider dispatch, raw-seed mutation, source mutation, publication, or release authority."
         },
         "relation_id": "organ.operates_through.mechanism",
@@ -263,7 +263,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].code_loci[0]",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].code_loci[0]",
           "summary": "Runtime and receipt-writing locus for bounded compliance scanner, pipeline helper, source digest, negative-case, and authority-ceiling checks."
         },
         "relation_id": "organ.implemented_by.code_locus",
@@ -276,7 +276,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].concept_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].concept_refs",
           "summary": "Organ atlas row names this recurring concept boundary for the organ."
         },
         "relation_id": "organ.instantiates.concept",
@@ -289,7 +289,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -302,7 +302,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -315,7 +315,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -328,7 +328,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -341,7 +341,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -354,7 +354,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].principle_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].principle_refs",
           "summary": "Organ atlas row names this principle as governing the organ."
         },
         "relation_id": "organ.governed_by.principle",
@@ -367,7 +367,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -380,7 +380,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -393,7 +393,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -406,7 +406,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].axiom_refs",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].axiom_refs",
           "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
         },
         "relation_id": "organ.constrained_by.axiom",
@@ -419,7 +419,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -432,7 +432,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -445,7 +445,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -458,7 +458,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule].wires_to",
+          "source_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule].wires_to",
           "summary": "Organ atlas row names this sibling organ wiring relation."
         },
         "relation_id": "organ.wires_to.organ",
@@ -487,8 +487,8 @@
       "P-9",
       "P-15"
     ],
-    "source_atlas_row_ref": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule]",
-    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[71:batch8_compliance_pipeline_capsule]",
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[69:batch8_compliance_pipeline_capsule]",
     "unpopulated_selective_relations": [],
     "wires_to": [
       "macro_projection_import_protocol",
@@ -501,11 +501,11 @@
   "schema_version": "microcosm_organ_instance_v1",
   "source_refs": [
     {
-      "path": "core/organ_atlas.json::organs[71:batch8_compliance_pipeline_capsule]",
+      "path": "core/organ_atlas.json::organs[69:batch8_compliance_pipeline_capsule]",
       "role": "organ_atlas_source_of_record_until_json_parity_flip"
     },
     {
-      "path": "core/organ_registry.json::implemented_organs[71:batch8_compliance_pipeline_capsule]",
+      "path": "core/organ_registry.json::implemented_organs[69:batch8_compliance_pipeline_capsule]",
       "role": "accepted_current_authority_registry_row"
     },
     {

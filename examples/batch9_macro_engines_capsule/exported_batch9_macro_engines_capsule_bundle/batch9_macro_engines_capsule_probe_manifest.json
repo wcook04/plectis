@@ -37,17 +37,6 @@
       "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
     },
     {
-      "mechanism_id": "finance_news_dedup_cluster_ranker",
-      "source_module_ids": [
-        "finance_news_dedup_cluster_ranker"
-      ],
-      "evidence_class": "algorithmic_projection",
-      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
-      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
-      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
-      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
-    },
-    {
       "mechanism_id": "mission_graph_topological_compiler",
       "source_module_ids": [
         "mission_graph_topological_compiler"
@@ -75,28 +64,6 @@
         "config_authority_drift_audit"
       ],
       "evidence_class": "semantic_validator",
-      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
-      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
-      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
-      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
-    },
-    {
-      "mechanism_id": "heterogeneous_graph_edge_extractor",
-      "source_module_ids": [
-        "heterogeneous_graph_edge_extractor"
-      ],
-      "evidence_class": "algorithmic_projection",
-      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
-      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
-      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
-      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
-    },
-    {
-      "mechanism_id": "work_atlas_cell_histogram_aggregator",
-      "source_module_ids": [
-        "work_atlas_cell_histogram_aggregator"
-      ],
-      "evidence_class": "algorithmic_projection",
       "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
       "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
       "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
@@ -182,25 +149,6 @@
         "pkg/sample.py": "\"\"\"Module doc.\"\"\"\nclass Outer:\n    \"\"\"Outer doc.\"\"\"\n    def method(self):\n        \"\"\"Method doc.\"\"\"\n        return 1\nasync def async_job():\n    return 2\n"
       }
     },
-    "finance_news": {
-      "rows": [
-        {
-          "headline": "Fed holds rates steady amid inflation cooling",
-          "confidence": 0.7,
-          "relevance": 0.2
-        },
-        {
-          "headline": "Chip exports rally after earnings surprise",
-          "confidence": 0.4,
-          "relevance": 0.1
-        },
-        {
-          "headline": "Copper inventories rebound after port reopenings",
-          "confidence": 0.5,
-          "relevance": 0.2
-        }
-      ]
-    },
     "mission_graph": {
       "nodes": [
         {
@@ -265,61 +213,6 @@
           }
         ]
       }
-    },
-    "heterogeneous_edges": {
-      "row": {
-        "top_dependencies": [
-          "navigation_hologram_theory"
-        ],
-        "related_principles": [
-          "pri_049"
-        ],
-        "principle_edges": [
-          {
-            "target": "pri_088",
-            "relation": "related_to"
-          }
-        ],
-        "code_loci": [
-          {
-            "path": "system/lib/example.py"
-          }
-        ]
-      }
-    },
-    "work_atlas": {
-      "marks": [
-        {
-          "id": "w1",
-          "work_item_type": "repair",
-          "overlays": {
-            "blocked": true
-          },
-          "route_explanation": {
-            "route_reason": "no_owner",
-            "reason_kind": "structural"
-          }
-        },
-        {
-          "id": "w2",
-          "work_item_type": "repair",
-          "overlays": {
-            "unrouted": false
-          },
-          "route_explanation": {
-            "route_reason": "should_not_count",
-            "reason_kind": "noise"
-          }
-        },
-        {
-          "id": "w3",
-          "work_item_type": "feature",
-          "overlays": {
-            "stale": true,
-            "high_unlock": true
-          }
-        }
-      ]
     },
     "host_pressure": {
       "quote": {

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[11:mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[8:mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

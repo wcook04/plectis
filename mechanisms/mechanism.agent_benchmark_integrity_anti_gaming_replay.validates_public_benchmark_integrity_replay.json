@@ -89,7 +89,7 @@
       "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
       "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -106,7 +106,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
+        "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
         "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input",
         "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle",
         "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
@@ -204,7 +204,7 @@
       "runs_in": [
         "agent_benchmark_integrity_anti_gaming_replay"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
       "statement": "The agent benchmark integrity anti-gaming replay organ validates public benchmark-claim boundaries by checking locked evaluator policy, case roster binding, replay observation fields, file-access refs, contamination refs, trusted-reference score refs, output replay refs, public trace verdict recomputation, copied source-module digests, body-free receipt policy, and anti-gaming negative cases before writing bounded receipts.",
       "status": "active",
       "upstream_of": [
@@ -218,7 +218,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -290,7 +290,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -303,7 +303,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -316,7 +316,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -329,7 +329,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -342,7 +342,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -357,7 +357,7 @@
     "runs_in": [
       "agent_benchmark_integrity_anti_gaming_replay"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule",
@@ -367,7 +367,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[5:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
+      "path": "core/mechanism_sources.json::mechanisms[2:mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

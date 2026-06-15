@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import ast
 import json
-import math
 import socket
 import subprocess
 import sys
@@ -34,7 +33,6 @@ EXERCISE_MANIFEST_NAME = "batch7_exercise_manifest.json"
 
 EXPECTED_ENGINES: tuple[str, ...] = (
     "agent_trace_ir_compiler",
-    "codemap_orbit_layout",
     "constitutional_dag_kernel",
     "release_root_compiler",
     "source_surgeon_patch",
@@ -46,7 +44,6 @@ EXPECTED_ENGINES: tuple[str, ...] = (
 
 EXPECTED_NEGATIVE_CASES = {
     "trace_commit_without_diff": ("BATCH7_TRACE_COMMIT_WITHOUT_DIFF_REJECTED",),
-    "codemap_overlap": ("BATCH7_CODEMAP_OVERLAP_REJECTED",),
     "dag_cycle": ("BATCH7_DAG_CYCLE_REJECTED",),
     "release_root_bad_ref": ("BATCH7_RELEASE_ROOT_BAD_REF_REPORTED",),
     "source_surgeon_context_mismatch": ("BATCH7_SOURCE_SURGEON_CONTEXT_MISMATCH",),
@@ -61,11 +58,6 @@ NEGATIVE_CASE_ENGINE_CHECKS: dict[str, tuple[str, str, str]] = {
         "agent_trace_ir_compiler",
         "edit_claim_gate",
         "BATCH7_TRACE_COMMIT_WITHOUT_DIFF_REJECTED",
-    ),
-    "codemap_overlap": (
-        "codemap_orbit_layout",
-        "zero_overlap",
-        "BATCH7_CODEMAP_OVERLAP_REJECTED",
     ),
     "dag_cycle": (
         "constitutional_dag_kernel",
@@ -121,7 +113,7 @@ AUTHORITY_CEILING = {
 
 ANTI_CLAIM = (
     "Batch 7 imports and exercises public-safe macro engines for trace IR, "
-    "code-map layout, DAG scheduling, source indexing, patch validation, "
+    "DAG scheduling, source indexing, patch validation, "
     "clean-clone hermetic checks, robust numeric scoring, PageRank routing, "
     "and regression-test selection. It is not a release, not private-root "
     "equivalence, not semantic truth, not investment advice, not a complete "
@@ -142,23 +134,6 @@ SOURCE_REQUIRED_ANCHORS = {
     "tools/agent_trace_structurer/lifecycle_reducer.mjs": (
         "export function deriveMissionLifecycle",
         "missionIdentityFacts",
-    ),
-    "system/server/ui/src/lib/codemap/codeMapLayout.ts": (
-        "function packOrbitSector",
-        "function buildEgoFocusLayout",
-        "densityTier",
-    ),
-    "system/server/ui/src/lib/codemap/codeMapClusterFlow.ts": (
-        "export function buildClusterFlowModel",
-        "Two-pass fair allocation",
-    ),
-    "system/server/ui/src/lib/codemap/codeMapGraphModel.ts": (
-        "export function deriveFileImportance",
-        "export function clusterKeyForFile",
-    ),
-    "system/server/ui/src/lib/codemap/codeMapCamera.ts": (
-        "readableDirectedZoom",
-        "focusCameraZoom",
     ),
     "system/core/governance.py": (
         "def compile_standard(",
@@ -312,59 +287,6 @@ def _agent_trace_exercise(public_root: Path) -> dict[str, Any]:
         "public_fixture_policy": "synthetic_transcripts_only",
         "edit_claim_gate": "covered_by_parser_test_commit_without_diff_case",
         "claim_ceiling": "parser labels and clips are not proof of source state",
-    }
-
-
-def _layout_nodes(nodes: list[dict[str, float]]) -> dict[str, Any]:
-    placed: list[dict[str, float]] = []
-    radius = 80.0
-    for index, node in enumerate(nodes):
-        angle = (2 * math.pi * index) / max(len(nodes), 1)
-        size = float(node.get("size", 24.0))
-        placed.append(
-            {
-                "id": str(node["id"]),
-                "x": round(math.cos(angle) * radius, 3),
-                "y": round(math.sin(angle) * radius, 3),
-                "r": round(size / 2, 3),
-            }
-        )
-    overlaps: list[tuple[str, str]] = []
-    for left_index, left in enumerate(placed):
-        for right in placed[left_index + 1 :]:
-            distance = math.dist((left["x"], left["y"]), (right["x"], right["y"]))
-            if distance < (left["r"] + right["r"]):
-                overlaps.append((left["id"], right["id"]))
-    return {"nodes": placed, "overlap_pairs": overlaps}
-
-
-def _codemap_exercise(public_root: Path) -> dict[str, Any]:
-    repo = _repo_root(public_root)
-    witness = _run_public_witness(
-        ["npm", "exec", "--", "vitest", "run", "src/lib/codemap/__tests__"],
-        cwd=repo / "system/server/ui",
-        timeout=45,
-    )
-    layout = _layout_nodes(
-        [
-            {"id": "center", "size": 28},
-            {"id": "route", "size": 24},
-            {"id": "tests", "size": 24},
-            {"id": "ui", "size": 24},
-            {"id": "docs", "size": 24},
-        ]
-    )
-    return {
-        "status": "pass" if witness["status"] == "pass" and not layout["overlap_pairs"] else "blocked",
-        "engine_id": "codemap_orbit_layout",
-        "original_witness": {
-            "kind": "vitest",
-            "command": "npm exec -- vitest run src/lib/codemap/__tests__",
-            **witness,
-        },
-        "python_public_projection": layout,
-        "zero_overlap": not layout["overlap_pairs"],
-        "claim_ceiling": "layout geometry only; not semantic route truth",
     }
 
 
@@ -630,7 +552,6 @@ def _semantic_runtime_exercises(input_ref: str) -> dict[str, dict[str, Any]]:
             "agent_trace_ir_compiler",
             lambda: _agent_trace_exercise(public_root),
         ),
-        _safe_engine("codemap_orbit_layout", lambda: _codemap_exercise(public_root)),
         _safe_engine("constitutional_dag_kernel", lambda: _dag_exercise(public_root)),
         _safe_engine(
             "release_root_compiler",
@@ -738,7 +659,6 @@ def _evaluate(
     else:
         exercises = [
             _agent_trace_exercise(public_root),
-            _codemap_exercise(public_root),
             _dag_exercise(public_root),
             _release_root_exercise(public_root),
             _source_surgeon_exercise(public_root),

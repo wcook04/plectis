@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

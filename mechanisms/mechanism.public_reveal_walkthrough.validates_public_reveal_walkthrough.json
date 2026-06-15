@@ -85,7 +85,7 @@
       "concept_pair_ref": "entry_and_reveal_route_readiness_bundle.concept_binding",
       "mechanism_role": "family validators that expose cold-reader and public-reveal paths while preserving claim ceilings and source boundaries",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -102,7 +102,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
+        "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
         "fixtures/first_wave/public_reveal_walkthrough/input",
         "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[6:entry_and_reveal_route_readiness_bundle]"
@@ -194,7 +194,7 @@
       "runs_in": [
         "public_reveal_walkthrough"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
       "statement": "The public reveal walkthrough organ validates public entry material by checking reveal-step density, runnable command refs, evidence refs, claim-floor phrases, source-module manifest digests and anchors, secret-exclusion boundaries, runtime exported-bundle shape, body-free receipts, and release/private-equivalence/marketing negative cases before writing bounded public receipts.",
       "status": "active",
       "upstream_of": [
@@ -210,7 +210,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -278,7 +278,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -291,7 +291,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -304,7 +304,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -317,7 +317,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -330,7 +330,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -343,7 +343,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -356,7 +356,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -371,7 +371,7 @@
     "runs_in": [
       "public_reveal_walkthrough"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate",
@@ -383,7 +383,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[30:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
+      "path": "core/mechanism_sources.json::mechanisms[24:mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

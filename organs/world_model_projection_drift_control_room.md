@@ -14,7 +14,7 @@ An agent runs this to validate that a set of body-free drift rows each cite a so
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.world_model_projection_drift_control_room` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/world_model_projection_drift_control_room.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-1` (resolved_json_instance)
@@ -38,7 +38,6 @@ An agent runs this to validate that a set of body-free drift rows each cite a so
 - `wires_to` -> `organ:spatial_world_model_counterfactual_simulation_replay` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:tool_server_pressure_inventory` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch12_market_dashboard_read_model_capsule` (resolved_registry_or_atlas_target)
-- `wires_to` -> `organ:batch8_station_surface_atlas_layout_port` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch8_structural_theses_capsule` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims

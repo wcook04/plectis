@@ -156,8 +156,7 @@
         "voice_to_doctrine_self_improvement_loop",
         "engine_room_demo",
         "batch11_saturation_engines_capsule",
-        "batch8_compliance_pipeline_capsule",
-        "batch8_station_surface_atlas_layout_port"
+        "batch8_compliance_pipeline_capsule"
       ],
       "wiring_note": "binds only to the shared kernel + evidence/authority spine (private/secret scans, receipts, schemas); its \"feeds\" entries are self-contained pattern assertions, not live consumption of other named organs. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
     },
@@ -260,11 +259,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -629,19 +628,6 @@
         "target_id": "batch8_compliance_pipeline_capsule",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[19:navigation_hologram_route_plane].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
-        "target_id": "batch8_station_surface_atlas_layout_port",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -678,8 +664,7 @@
       "voice_to_doctrine_self_improvement_loop",
       "engine_room_demo",
       "batch11_saturation_engines_capsule",
-      "batch8_compliance_pipeline_capsule",
-      "batch8_station_surface_atlas_layout_port"
+      "batch8_compliance_pipeline_capsule"
     ]
   },
   "role": "An agent runs it to confirm a fixture's route-plane contract holds and that browse rows stay projections, not authority. The fixture run exercises eight expected negative cases and confirms each is detected: (1) stale source coupling bundled with a banned first-contact drilldown route, (2) a route card missing its omission receipt, (3) an atlas projection claiming control-entry authority, (4) a route card leaking private body content, (5) a route summary overclaiming freshness while coupling is stale, (6) a duplicate route id, (7) entry-payload compaction dropping a required control-floor field, and (8) an affordance-passport anti-trigger row that must be demoted before similarity can select it. A separate validate-route-plane-bundle subcommand additionally checks copied source-module digests and required anchors plus a secret-exclusion scan, with all body text kept out of the receipts.",
@@ -722,7 +707,6 @@
     "voice_to_doctrine_self_improvement_loop",
     "engine_room_demo",
     "batch11_saturation_engines_capsule",
-    "batch8_compliance_pipeline_capsule",
-    "batch8_station_surface_atlas_layout_port"
+    "batch8_compliance_pipeline_capsule"
   ]
 }

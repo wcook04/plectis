@@ -91,7 +91,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -108,7 +108,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
+        "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
         "fixtures/first_wave/batch5_authority_systems_capsule/input",
         "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle",
         "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
@@ -207,7 +207,7 @@
       "runs_in": [
         "batch5_authority_systems_capsule"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
       "statement": "The Batch 5 authority systems capsule validates copied public macro authority/control bodies through deterministic fixture and exported-bundle exercises, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without granting live provider dispatch, proof success, process signal authority, generated-state mutation, source mutation, publication, release, private-root equivalence, or whole-system correctness authority.",
       "status": "active"
     },
@@ -217,7 +217,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -294,7 +294,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -307,7 +307,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -320,7 +320,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -335,7 +335,7 @@
     "runs_in": [
       "batch5_authority_systems_capsule"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -349,7 +349,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[86:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
+      "path": "core/mechanism_sources.json::mechanisms[73:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

@@ -12,7 +12,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 15016,
+    "actual_bytes": 14773,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -21,44 +21,42 @@
   "code_lens_health": {
     "by_evidence_class": {
       "algorithmic_projection": 27,
-      "bounded_runtime_computation": 6,
-      "external_subprocess_witness": 6,
-      "semantic_validator": 20,
-      "verified_macro_body_import": 23
+      "bounded_runtime_computation": 5,
+      "external_subprocess_witness": 7,
+      "semantic_validator": 18,
+      "verified_macro_body_import": 21
     },
     "by_evidence_strength_rank": {
       "3": 27,
       "4": 12,
-      "5": 43
+      "5": 39
     },
     "by_truth_accounting_bucket": {
-      "copied_non_secret_macro_body": 23,
-      "real_import_validation": 20,
+      "copied_non_secret_macro_body": 21,
+      "real_import_validation": 18,
       "real_runtime_receipt": 12,
       "source_faithful_refactor": 27
     },
-    "claim_node_count": 82,
-    "edge_count": 2188,
+    "claim_node_count": 78,
+    "edge_count": 2012,
     "edge_kind_counts": {
-      "asserts_claim": 82,
-      "emits_receipt": 342,
-      "grounded_in_doctrine": 932,
-      "implemented_by_runner": 82,
-      "member_of_family": 82,
-      "proven_by": 82,
-      "routes_to": 296,
-      "validated_by": 82,
+      "asserts_claim": 78,
+      "emits_receipt": 326,
+      "grounded_in_doctrine": 886,
+      "member_of_family": 78,
+      "proven_by": 78,
+      "routes_to": 280,
+      "validated_by": 78,
       "wires_to": 208
     },
-    "organ_count": 82,
-    "route_node_count": 33,
+    "organ_count": 78,
+    "route_node_count": 32,
     "runner_custody_split": {
-      "directory_coupling_marker": 81,
-      "owned": 1
+      "unspecified": 78
     },
-    "synopsis_coverage": 82
+    "synopsis_coverage": 78
   },
-  "compile_ms": 0.862,
+  "compile_ms": 1.462,
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
@@ -93,7 +91,7 @@
     {
       "drilldown": "microcosm comprehend --slice cluster --family import_projection_and_drift",
       "family": "import_projection_and_drift",
-      "organ_count": 22
+      "organ_count": 20
     },
     {
       "drilldown": "microcosm comprehend --slice cluster --family formal_math_and_proof",
@@ -103,7 +101,7 @@
     {
       "drilldown": "microcosm comprehend --slice cluster --family agent_reliability_and_safety",
       "family": "agent_reliability_and_safety",
-      "organ_count": 17
+      "organ_count": 16
     },
     {
       "drilldown": "microcosm comprehend --slice cluster --family architecture_and_navigation",
@@ -118,7 +116,7 @@
     {
       "drilldown": "microcosm comprehend --slice cluster --family work_landing_and_continuity",
       "family": "work_landing_and_continuity",
-      "organ_count": 5
+      "organ_count": 4
     },
     {
       "drilldown": "microcosm comprehend --slice cluster --family entry_and_reveal",
@@ -170,12 +168,12 @@
   "packet_id": "self_model",
   "packet_kind": "explanation",
   "read_me_first": [
-    "Microcosm is a 82-organ self-describing substrate; each organ is a bounded capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
-    "Custody truth: 81/82 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
+    "Microcosm is a 78-organ self-describing substrate; each organ is a bounded capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
+    "Custody truth: 0/78 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
     "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, or whole-system correctness.",
     "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
     "Have a concrete goal? microcosm comprehend --first-action \"<goal>\" converts it into ONE graph-backed first action -- owner, runnable command, validator, receipts, stop condition, do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
-    "The join index is a typed graph: 33 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
+    "The join index is a typed graph: 32 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
   ],
   "receipt_refs": [],
   "recommended_drilldowns": [
@@ -228,8 +226,8 @@
   "route_topology": {
     "drilldown": "microcosm comprehend --slice flows --organ <primary_organ_id>",
     "note": "route nodes carry a first_command, a stop_condition, and an allowed_scope where the route plane binds them; the flow and organ packets surface them per organ",
-    "organs_reachable_from_routes": 82,
-    "route_node_count": 33,
+    "organs_reachable_from_routes": 78,
+    "route_node_count": 32,
     "routes": [
       {
         "organ_count": 2,
@@ -244,13 +242,13 @@
         "task_class": "agent-entry"
       },
       {
-        "organ_count": 17,
+        "organ_count": 16,
         "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
         "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
         "task_class": "agent-evaluation"
       },
       {
-        "organ_count": 17,
+        "organ_count": 16,
         "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
         "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
         "task_class": "ai-safety"
@@ -280,7 +278,7 @@
         "task_class": "compliance"
       },
       {
-        "organ_count": 5,
+        "organ_count": 4,
         "primary_display_name": "Mission Transaction Work Spine",
         "primary_organ_id": "mission_transaction_work_spine",
         "task_class": "continuity"
@@ -298,7 +296,7 @@
         "task_class": "doctrine"
       },
       {
-        "organ_count": 21,
+        "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
         "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "drift-control"
@@ -328,16 +326,10 @@
         "task_class": "formal-methods"
       },
       {
-        "organ_count": 6,
-        "primary_display_name": "Station Runtime Evidence Capsule",
-        "primary_organ_id": "batch7_station_runtime_capsule",
+        "organ_count": 3,
+        "primary_display_name": "Secondary Runtime Source Capsule",
+        "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "frontend"
-      },
-      {
-        "organ_count": 1,
-        "primary_display_name": "Frontend Work/Market Cockpit Capsule",
-        "primary_organ_id": "batch10_frontend_work_market_cockpit_capsule",
-        "task_class": "frontend-boundary"
       },
       {
         "organ_count": 2,
@@ -358,7 +350,7 @@
         "task_class": "lean"
       },
       {
-        "organ_count": 2,
+        "organ_count": 1,
         "primary_display_name": "Secondary Runtime Source Capsule",
         "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "market-boundary"
@@ -376,19 +368,19 @@
         "task_class": "oracle-boundary"
       },
       {
-        "organ_count": 22,
+        "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
         "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "provenance"
       },
       {
-        "organ_count": 32,
+        "organ_count": 31,
         "primary_display_name": "Cold Reader Route Map",
         "primary_organ_id": "cold_reader_route_map",
         "task_class": "provider-ops"
       },
       {
-        "organ_count": 17,
+        "organ_count": 16,
         "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
         "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
         "task_class": "red-teaming"
@@ -406,7 +398,7 @@
         "task_class": "security"
       },
       {
-        "organ_count": 22,
+        "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
         "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "source-import"
@@ -424,7 +416,7 @@
         "task_class": "work-ledger"
       },
       {
-        "organ_count": 5,
+        "organ_count": 4,
         "primary_display_name": "Mission Transaction Work Spine",
         "primary_organ_id": "mission_transaction_work_spine",
         "task_class": "workflow-engineering"
@@ -455,19 +447,19 @@
     ]
   },
   "tail_recap": {
-    "core_frame": "82 organs, 7 families; 81/82 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
+    "core_frame": "78 organs, 7 families; 0/78 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
     "next_packet_if_lost": "microcosm comprehend --packet-atlas",
     "to_comprehend_every_organ": "microcosm comprehend --self-model --profile whole_substrate_map"
   },
   "target_reader": "cold Type A / cold codebase reader",
   "thin_or_projection_surfaces": {
-    "copied_non_secret_macro_body_organs": 23,
-    "exact_copy_macro_runners": 81,
+    "copied_non_secret_macro_body_organs": 21,
+    "exact_copy_macro_runners": 0,
     "how_to_probe": "For any organ run --slice claims --organ <id> to see its validator_command + receipts; an algorithmic_projection organ asserts projection mechanics only, not domain truth.",
     "note": "Where to be skeptical: these are projection / import surfaces, not deep domain capability.",
     "projection_or_import_evidence_classes": {
       "algorithmic_projection": 27,
-      "verified_macro_body_import": 23
+      "verified_macro_body_import": 21
     }
   }
 }

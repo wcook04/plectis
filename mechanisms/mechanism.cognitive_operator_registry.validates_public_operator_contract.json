@@ -84,7 +84,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -101,7 +101,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
+        "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
         "fixtures/first_wave/cognitive_operator_registry/input",
         "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[5:architecture_and_navigation_route_contract_bundle]"
@@ -194,7 +194,7 @@
       "runs_in": [
         "cognitive_operator_registry"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
       "statement": "The cognitive operator registry organ validates public reusable-cognition substrate by checking operator-shape fields, active-operator dogfood receipts, cognition-delta evidence, anti-sprawl accretion decisions, operator-voice and authority-overclaim rejection, copied non-secret macro registry/standard/tool body digests, and secret/private-state exclusion before writing bounded body-free receipts.",
       "status": "active"
     },
@@ -204,7 +204,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -271,7 +271,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -284,7 +284,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -297,7 +297,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -312,7 +312,7 @@
     "runs_in": [
       "cognitive_operator_registry"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
     "unpopulated_selective_relations": [
       {
         "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
@@ -326,7 +326,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[3:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
+      "path": "core/mechanism_sources.json::mechanisms[1:mechanism.cognitive_operator_registry.validates_public_operator_contract]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

@@ -143,7 +143,6 @@
         "materials_chemistry_closed_loop_lab_safety_replay",
         "batch11_saturation_engines_capsule",
         "batch8_compliance_pipeline_capsule",
-        "batch10_frontend_work_market_cockpit_capsule",
         "batch10_governance_compilers_capsule",
         "batch10_live_source_drift_capsule",
         "batch4_proof_authority_runtime",
@@ -158,8 +157,7 @@
         "batch9_macro_engines_capsule",
         "concurrency_mission_control",
         "engine_room_demo",
-        "executable_doctrine_grammar",
-        "workstream_driver_recency_coalescer"
+        "executable_doctrine_grammar"
       ],
       "wiring_note": "feeds macro_body_import_floor into microcosm status/spine, bridges via microcosm intake to reveal/evidence, and coordinates per-cell import statuses across named organs (e.g. formal_math_readiness_gate, agent_route_observability_runtime, mission_transaction_work_spine). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
     },
@@ -251,11 +249,11 @@
         },
         "relation_id": "organ.operates_through.mechanism",
         "relation_verb": "operates_through",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "runs_in",
         "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
@@ -474,19 +472,6 @@
         "relation_verb": "wires_to",
         "residual_pressure_ref": null,
         "reverse_verb": "wired_from",
-        "target_id": "batch10_frontend_work_market_cockpit_capsule",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
         "target_id": "batch10_governance_compilers_capsule",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
@@ -672,19 +657,6 @@
         "target_id": "executable_doctrine_grammar",
         "target_kind": "organ",
         "target_status": "resolved_registry_or_atlas_target"
-      },
-      {
-        "justification": {
-          "source_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol].wires_to",
-          "summary": "Organ atlas row names this sibling organ wiring relation."
-        },
-        "relation_id": "organ.wires_to.organ",
-        "relation_verb": "wires_to",
-        "residual_pressure_ref": null,
-        "reverse_verb": "wired_from",
-        "target_id": "workstream_driver_recency_coalescer",
-        "target_kind": "organ",
-        "target_status": "resolved_registry_or_atlas_target"
       }
     ],
     "mechanism_refs": [
@@ -715,7 +687,6 @@
       "materials_chemistry_closed_loop_lab_safety_replay",
       "batch11_saturation_engines_capsule",
       "batch8_compliance_pipeline_capsule",
-      "batch10_frontend_work_market_cockpit_capsule",
       "batch10_governance_compilers_capsule",
       "batch10_live_source_drift_capsule",
       "batch4_proof_authority_runtime",
@@ -730,8 +701,7 @@
       "batch9_macro_engines_capsule",
       "concurrency_mission_control",
       "engine_room_demo",
-      "executable_doctrine_grammar",
-      "workstream_driver_recency_coalescer"
+      "executable_doctrine_grammar"
     ]
   },
   "role": "An agent runs this to preview or validate a projection bundle before import: confirm each proposed cell has source and public-target refs, a matching content digest, omission receipts for any withheld private material, a body-free receipt contract, and an authority ceiling that stays capped below release. Use `plan` for a no-write preview (emits the intake-preview schema and per-cell ready/blocked status); use `run-projection-bundle` to validate-and-record.",
@@ -771,7 +741,6 @@
     "materials_chemistry_closed_loop_lab_safety_replay",
     "batch11_saturation_engines_capsule",
     "batch8_compliance_pipeline_capsule",
-    "batch10_frontend_work_market_cockpit_capsule",
     "batch10_governance_compilers_capsule",
     "batch10_live_source_drift_capsule",
     "batch4_proof_authority_runtime",
@@ -786,7 +755,6 @@
     "batch9_macro_engines_capsule",
     "concurrency_mission_control",
     "engine_room_demo",
-    "executable_doctrine_grammar",
-    "workstream_driver_recency_coalescer"
+    "executable_doctrine_grammar"
   ]
 }

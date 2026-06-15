@@ -252,7 +252,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
+          "source_ref": "core/organ_atlas.json::organs[73:concurrency_mission_control]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -278,7 +278,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[65:engine_room_demo]",
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[34:mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[28:mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

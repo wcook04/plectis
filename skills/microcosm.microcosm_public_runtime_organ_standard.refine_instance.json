@@ -88,19 +88,19 @@
         },
         "relation_id": "skill.uses.mechanism",
         "relation_verb": "uses",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "used_by",
         "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       }
     ],
     "mechanism_refs": [
       "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
     ],
     "operates_standard": "std_microcosm_standards_meta_diagnostics",
-    "source_markdown_digest": "d6e0dcc82afdc20f914588e660db4608c0aa85c867c1dff548803ba6ba8db503",
-    "source_markdown_line_count": 52,
+    "source_markdown_digest": "af60513c6e743000f06a8b2a9c347df3ba06b51a65e2025e657169aa78ae8aa9",
+    "source_markdown_line_count": 51,
     "source_markdown_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md",
     "triad_role": "refine_instance",
     "unpopulated_selective_relations": []
@@ -121,8 +121,8 @@
       "markdown_status": "legacy_public_projection_source_until_parity_flip",
       "source_json_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.json"
     },
-    "source_markdown_digest": "d6e0dcc82afdc20f914588e660db4608c0aa85c867c1dff548803ba6ba8db503",
-    "source_markdown_line_count": 52,
+    "source_markdown_digest": "af60513c6e743000f06a8b2a9c347df3ba06b51a65e2025e657169aa78ae8aa9",
+    "source_markdown_line_count": 51,
     "support_contract": {
       "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
       "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"

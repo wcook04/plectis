@@ -408,11 +408,6 @@
       "organ_id": "batch8_audio_level_rms_port"
     },
     {
-      "classification_basis": "source-faithful public Python port of the StationSurfaceAtlas deterministic band/lane layout solver over synthetic node rows, with bounded negative cases and no browser runtime",
-      "evidence_class": "algorithmic_projection",
-      "organ_id": "batch8_station_surface_atlas_layout_port"
-    },
-    {
       "classification_basis": "verified public macro-body import of tools/finance/structural_theses.py with bounded synthetic winner, loser, and control exercises through the public CP1/CP2 finance spine",
       "evidence_class": "verified_macro_body_import",
       "organ_id": "batch8_structural_theses_capsule"
@@ -463,15 +458,6 @@
       "truth_accounting_bucket": "real_import_validation"
     },
     {
-      "classification_basis": "source-faithful public exercise of WorkstreamBoard.tsx groupByDriver with exact copied non-secret frontend body, synthetic AttentionRecentChange rows, newest-wins recency coalescing, unclassified-last sorting, source-module digest anchors, and five negative cases covering key normalization, stale newest field, sort order, sentinel ordering, and authority overclaim leakage",
-      "counts_as_real_substrate_progress": true,
-      "evidence_class": "semantic_validator",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.semantic_validator",
-      "evidence_strength_rank": 5,
-      "organ_id": "workstream_driver_recency_coalescer",
-      "truth_accounting_bucket": "real_import_validation"
-    },
-    {
       "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
       "counts_as_real_substrate_progress": true,
       "evidence_class": "algorithmic_projection",
@@ -517,15 +503,6 @@
       "truth_accounting_bucket": "copied_non_secret_macro_body"
     },
     {
-      "classification_basis": "exact copied non-secret station runtime and frontend source bodies for the agent trace workbench host boot probe, live agent instrument view model, station store resilience FSM, original source tests, digest anchors, vitest witness metadata, and five negative cases fencing off UI runtime and release authority",
-      "counts_as_real_substrate_progress": true,
-      "evidence_class": "verified_macro_body_import",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
-      "evidence_strength_rank": 5,
-      "organ_id": "batch7_station_runtime_capsule",
-      "truth_accounting_bucket": "copied_non_secret_macro_body"
-    },
-    {
       "classification_basis": "exact copied non-secret runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies; the runnable exercise invokes eight public fixture engines, verifies source digest anchors and required anchors, observes eight negative cases, and keeps browser/session export, wallet authority, live market data, investment advice, release, publication, source-mutation, semantic-truth, and completeness authority false",
       "counts_as_real_substrate_progress": true,
       "evidence_class": "verified_macro_body_import",
@@ -559,15 +536,6 @@
       "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
       "evidence_strength_rank": 5,
       "organ_id": "batch12_release_claim_language_gate",
-      "truth_accounting_bucket": "copied_non_secret_macro_body"
-    },
-    {
-      "classification_basis": "exact copied non-secret frontend TS/TSX macro source bodies for WorkLens, WorkLens tests, MarketCockpit, MarketIntelligenceLens, and MarketCockpit tests; the runnable exercise verifies source digest equality, required anchors, read-only work-state behavior, honest market-signal presentation, route-readiness and finance-assurance indicators, source-test witness coverage, private-ref guards, and four negative cases for work-lens mutation creep, fake market time-series, recommendation leakage, and private source refs while keeping live UI correctness, browser/provider access, Task Ledger or Work Ledger mutation, market advice, source mutation, release, and publication authority false",
-      "counts_as_real_substrate_progress": true,
-      "evidence_class": "verified_macro_body_import",
-      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
-      "evidence_strength_rank": 5,
-      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
       "truth_accounting_bucket": "copied_non_secret_macro_body"
     },
     {

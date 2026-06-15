@@ -1,7 +1,7 @@
 {
   "anti_claim": "Exact source copies and focused exercises do not authorize release, publication, provider dispatch, private-root equivalence, investment advice, semantic truth, or test completeness.",
   "body_in_receipt": false,
-  "module_count": 15,
+  "module_count": 11,
   "modules": [
     {
       "body_copied": true,
@@ -67,91 +67,6 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/agent_trace_structurer/lifecycle_reducer.mjs",
       "target_sha256": "beaa238e80975666bea464163853da498fb39a948fa3e1875cfcc7968fd39e75"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 59640,
-      "line_count": 1530,
-      "material_class": "public_macro_tool_body",
-      "module_id": "codemap_orbit_layout_core",
-      "path": "source_modules/system/server/ui/src/lib/codemap/codeMapLayout.ts",
-      "required_anchors": [
-        "function packOrbitSector",
-        "function buildEgoFocusLayout",
-        "densityTier"
-      ],
-      "sha256": "4f49d3f003fc3e70fe6efce16dd1df2a28983958c1a2a4ddfaaa64f484786c50",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/lib/codemap/codeMapLayout.ts",
-      "source_sha256": "4f49d3f003fc3e70fe6efce16dd1df2a28983958c1a2a4ddfaaa64f484786c50",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/codemap/codeMapLayout.ts",
-      "target_sha256": "4f49d3f003fc3e70fe6efce16dd1df2a28983958c1a2a4ddfaaa64f484786c50"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 13839,
-      "line_count": 373,
-      "material_class": "public_macro_tool_body",
-      "module_id": "codemap_cluster_flow",
-      "path": "source_modules/system/server/ui/src/lib/codemap/codeMapClusterFlow.ts",
-      "required_anchors": [
-        "export function buildClusterFlowModel",
-        "Two-pass fair allocation"
-      ],
-      "sha256": "52a196c6c3f761c1c70634bff82c3e82bcc9304cbe4751a04fb85c53098093f2",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/lib/codemap/codeMapClusterFlow.ts",
-      "source_sha256": "52a196c6c3f761c1c70634bff82c3e82bcc9304cbe4751a04fb85c53098093f2",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/codemap/codeMapClusterFlow.ts",
-      "target_sha256": "52a196c6c3f761c1c70634bff82c3e82bcc9304cbe4751a04fb85c53098093f2"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 8498,
-      "line_count": 242,
-      "material_class": "public_macro_tool_body",
-      "module_id": "codemap_graph_model",
-      "path": "source_modules/system/server/ui/src/lib/codemap/codeMapGraphModel.ts",
-      "required_anchors": [
-        "export function deriveFileImportance",
-        "export function clusterKeyForFile"
-      ],
-      "sha256": "8d226d5bde85c5e9bac28b8082033a1b8cb36ac0f3c8c1dba217020412665ffb",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/lib/codemap/codeMapGraphModel.ts",
-      "source_sha256": "8d226d5bde85c5e9bac28b8082033a1b8cb36ac0f3c8c1dba217020412665ffb",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/codemap/codeMapGraphModel.ts",
-      "target_sha256": "8d226d5bde85c5e9bac28b8082033a1b8cb36ac0f3c8c1dba217020412665ffb"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 5854,
-      "line_count": 140,
-      "material_class": "public_macro_tool_body",
-      "module_id": "codemap_camera",
-      "path": "source_modules/system/server/ui/src/lib/codemap/codeMapCamera.ts",
-      "required_anchors": [
-        "readableDirectedZoom",
-        "focusCameraZoom"
-      ],
-      "sha256": "9b98685012a2c9c5a6f8ec2b861ccd25ac0d76acac3d16588cc45b8f9b88ae67",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/ui/src/lib/codemap/codeMapCamera.ts",
-      "source_sha256": "9b98685012a2c9c5a6f8ec2b861ccd25ac0d76acac3d16588cc45b8f9b88ae67",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/codemap/codeMapCamera.ts",
-      "target_sha256": "9b98685012a2c9c5a6f8ec2b861ccd25ac0d76acac3d16588cc45b8f9b88ae67"
     },
     {
       "body_copied": true,

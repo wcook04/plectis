@@ -1,8 +1,0 @@
-{
-  "body_in_receipt": false,
-  "case_id": "graph_projection_self_edge",
-  "error_codes": [
-    "BATCH7_SECONDARY_GRAPH_PROJECTION_SELF_EDGE_DROPPED"
-  ],
-  "schema_version": "batch7_secondary_runtime_capsule_negative_case_v1"
-}

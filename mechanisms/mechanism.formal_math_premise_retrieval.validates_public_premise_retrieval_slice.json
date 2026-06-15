@@ -87,7 +87,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -104,7 +104,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+        "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
         "fixtures/first_wave/formal_math_premise_retrieval/input",
         "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
         "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
@@ -202,7 +202,7 @@
       "runs_in": [
         "formal_math_premise_retrieval"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
       "statement": "The formal math premise retrieval organ validates a public-safe formal-math retrieval slice by checking copied Lean/Std premise descriptors, retrieval query scoring, context recipe byte budgets, strategy gates, source-module/body-floor provenance, card freshness, body-free receipt policy, and proof/oracle/test-split/strategy negative cases before writing bounded receipts.",
       "status": "active",
       "upstream_of": [
@@ -219,7 +219,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -289,7 +289,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -302,7 +302,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -315,7 +315,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -328,7 +328,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -341,7 +341,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -354,7 +354,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -367,7 +367,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -380,7 +380,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -395,7 +395,7 @@
     "runs_in": [
       "formal_math_premise_retrieval"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
@@ -408,7 +408,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+      "path": "core/mechanism_sources.json::mechanisms[22:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

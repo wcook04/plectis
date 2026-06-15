@@ -14,7 +14,7 @@ An agent runs this to preview or validate a projection bundle before import: con
 ## Lattice Neighbours
 
 - `explained_by` -> `paper_module:paper_module.macro_projection_import_protocol` (resolved_paper_module_ref)
-- `operates_through` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
+- `operates_through` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (unresolved_json_instance)
 - `implemented_by` -> `code_locus:src/microcosm_core/organs/macro_projection_import_protocol.py` (resolved_code_locus)
 - `instantiates` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `governed_by` -> `principle:P-14` (resolved_json_instance)
@@ -31,7 +31,6 @@ An agent runs this to preview or validate a projection bundle before import: con
 - `wires_to` -> `organ:materials_chemistry_closed_loop_lab_safety_replay` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch11_saturation_engines_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch8_compliance_pipeline_capsule` (resolved_registry_or_atlas_target)
-- `wires_to` -> `organ:batch10_frontend_work_market_cockpit_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch10_governance_compilers_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch10_live_source_drift_capsule` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:batch4_proof_authority_runtime` (resolved_registry_or_atlas_target)
@@ -47,7 +46,6 @@ An agent runs this to preview or validate a projection bundle before import: con
 - `wires_to` -> `organ:concurrency_mission_control` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:engine_room_demo` (resolved_registry_or_atlas_target)
 - `wires_to` -> `organ:executable_doctrine_grammar` (resolved_registry_or_atlas_target)
-- `wires_to` -> `organ:workstream_driver_recency_coalescer` (resolved_registry_or_atlas_target)
 
 ## Anti-Claims
 

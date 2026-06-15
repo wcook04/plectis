@@ -86,7 +86,7 @@
       "concept_pair_ref": "entry_and_reveal_route_readiness_bundle.concept_binding",
       "mechanism_role": "family validators that expose cold-reader and public-reveal paths while preserving claim ceilings and source boundaries",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -103,7 +103,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
+        "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
         "fixtures/first_wave/cold_reader_route_map/input",
         "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[6:entry_and_reveal_route_readiness_bundle]"
@@ -196,7 +196,7 @@
       "runs_in": [
         "cold_reader_route_map"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
       "statement": "The cold-reader route-map organ validates public first-run route projections by checking route-row command refs, public docs refs, route-to-receipt bindings, ordinal first-run sequencing, front-door commands, copied non-secret cold-entry source-module digests, body-free receipt boundaries, negative cases, secret/private-state exclusion, and authority ceilings before writing bounded receipts.",
       "status": "active",
       "upstream_of": [
@@ -217,7 +217,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -284,7 +284,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -297,7 +297,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -310,7 +310,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -323,20 +323,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -349,7 +349,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -362,20 +362,20 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -388,7 +388,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -401,7 +401,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -414,7 +414,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -427,7 +427,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -442,7 +442,7 @@
     "runs_in": [
       "cold_reader_route_map"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
@@ -459,7 +459,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[16:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
+      "path": "core/mechanism_sources.json::mechanisms[13:mechanism.cold_reader_route_map.validates_public_first_run_route_map]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

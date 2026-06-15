@@ -164,7 +164,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory]",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.mechanism",
@@ -203,7 +203,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/organ_atlas.json::organs[69:tool_server_pressure_inventory]",
+          "source_ref": "core/organ_atlas.json::organs[68:tool_server_pressure_inventory]",
           "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
         },
         "relation_id": "principle.governs.concept",

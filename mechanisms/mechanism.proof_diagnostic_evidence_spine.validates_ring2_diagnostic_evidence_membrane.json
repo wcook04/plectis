@@ -87,7 +87,7 @@
       "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
       "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -104,7 +104,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
+        "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
         "fixtures/first_wave/proof_diagnostic_evidence_spine/input",
         "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
@@ -199,7 +199,7 @@
       "runs_in": [
         "proof_diagnostic_evidence_spine"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
       "statement": "The proof diagnostic evidence spine organ validates proof-adjacent public evidence by checking Ring2 diagnostic receipt refs, copied runtime artifact digests, verifier-trace and evidence-cell receipt anchors, provider payload policy rows, stale source coupling, negative cases, and body-free receipt boundaries before writing bounded diagnostic receipts.",
       "status": "active",
       "upstream_of": [
@@ -214,7 +214,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -284,7 +284,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -297,7 +297,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -310,7 +310,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -323,7 +323,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -336,7 +336,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -349,7 +349,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -364,7 +364,7 @@
     "runs_in": [
       "proof_diagnostic_evidence_spine"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution",
@@ -375,7 +375,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[18:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
+      "path": "core/mechanism_sources.json::mechanisms[14:mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

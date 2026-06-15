@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[99:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[85:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

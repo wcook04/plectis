@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[72:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[60:mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

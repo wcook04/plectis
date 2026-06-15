@@ -189,11 +189,11 @@
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
         "relation_verb": "explains",
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "reverse_verb": "explained_by",
         "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
         "target_kind": "mechanism",
-        "target_status": "resolved_json_instance"
+        "target_status": "unresolved_json_instance"
       },
       {
         "justification": {

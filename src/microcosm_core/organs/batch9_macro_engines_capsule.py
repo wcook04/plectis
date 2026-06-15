@@ -8,8 +8,7 @@ import math
 import re
 import sys
 import tempfile
-import unicodedata
-from collections import Counter, defaultdict, deque
+from collections import defaultdict, deque
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,12 +38,9 @@ EXPECTED_MECHANISMS: tuple[str, ...] = (
     "lineage_temporal_provenance_chain_resolver",
     "approval_sign_off_claim_adjudicator",
     "python_ast_symbol_index_doc_tree",
-    "finance_news_dedup_cluster_ranker",
     "mission_graph_topological_compiler",
     "dependency_pin_drift_auditor",
     "config_authority_drift_audit",
-    "heterogeneous_graph_edge_extractor",
-    "work_atlas_cell_histogram_aggregator",
     "host_pressure_admission_decision_gate",
     "doctrine_file_enrichment_multihop_join",
     "worker_job_budget_forbidden_surface_gate",
@@ -55,19 +51,15 @@ EXPECTED_MODULE_IDS: tuple[str, ...] = (
     "lineage_temporal_provenance_chain_resolver",
     "approval_sign_off_claim_adjudicator",
     "python_ast_symbol_index_doc_tree",
-    "finance_news_dedup_cluster_ranker",
     "mission_graph_topological_compiler",
     "dependency_pin_drift_auditor",
     "config_authority_drift_audit",
-    "heterogeneous_graph_edge_extractor",
-    "work_atlas_cell_histogram_aggregator",
     "host_pressure_admission_decision_gate",
     "doctrine_file_enrichment_multihop_join",
     "worker_job_budget_forbidden_surface_gate",
     "milestone_relative_promotion_quality_accounting",
 )
 
-FINANCE_MODULE_ID = "finance_news_dedup_cluster_ranker"
 MISSION_GRAPH_MODULE_ID = "mission_graph_topological_compiler"
 DEPENDENCY_PIN_MODULE_ID = "dependency_pin_drift_auditor"
 CONFIG_AUTHORITY_MODULE_ID = "config_authority_drift_audit"
@@ -78,14 +70,9 @@ AST_MODULE_ID = "python_ast_symbol_index_doc_tree"
 DOCTRINE_MODULE_ID = "doctrine_file_enrichment_multihop_join"
 WORKER_GATE_MODULE_ID = "worker_job_budget_forbidden_surface_gate"
 MILESTONE_MODULE_ID = "milestone_relative_promotion_quality_accounting"
-WORK_ATLAS_MODULE_ID = "work_atlas_cell_histogram_aggregator"
-HETEROGENEOUS_MODULE_ID = "heterogeneous_graph_edge_extractor"
 
 TEXT_BACKED_MODULE_IDS: tuple[str, ...] = (
-    FINANCE_MODULE_ID,
     MISSION_GRAPH_MODULE_ID,
-    WORK_ATLAS_MODULE_ID,
-    HETEROGENEOUS_MODULE_ID,
 )
 PATH_BACKED_MODULE_IDS: tuple[str, ...] = (
     LINEAGE_MODULE_ID,
@@ -103,16 +90,11 @@ EXPECTED_NEGATIVE_CASES = {
     "lineage_self_loop_pruned": ("BATCH9_LINEAGE_SELF_LOOP_PRUNED",),
     "approval_preacquired_claim_refused": ("BATCH9_APPROVAL_PREACQUIRED_CLAIM_REFUSED",),
     "ast_syntax_error_gap": ("BATCH9_AST_SYNTAX_ERROR_GAP",),
-    "finance_duplicate_headline_collapsed": ("BATCH9_FINANCE_DUPLICATE_HEADLINE_COLLAPSED",),
     "mission_graph_missing_target": ("BATCH9_MISSION_GRAPH_MISSING_TARGET",),
     "dependency_pin_drift_detected": ("BATCH9_DEPENDENCY_PIN_DRIFT_DETECTED",),
     "config_authority_mutation_allowed_rejected": (
         "BATCH9_CONFIG_AUTHORITY_MUTATION_ALLOWED_REJECTED",
     ),
-    "heterogeneous_edge_relation_normalized": (
-        "BATCH9_EDGE_RELATION_NORMALIZED",
-    ),
-    "work_atlas_routed_reason_excluded": ("BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED",),
     "host_pressure_auto_policy_blocks": ("BATCH9_HOST_PRESSURE_AUTO_POLICY_BLOCKS",),
     "doctrine_enrichment_unindexed_empty": ("BATCH9_DOCTRINE_UNINDEXED_EMPTY",),
     "worker_forbidden_surface_blocked": ("BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",),
@@ -137,11 +119,6 @@ NEGATIVE_CASE_RUNTIME_CHECKS: dict[str, tuple[str, str, str]] = {
         "syntax_error_gap",
         "BATCH9_AST_SYNTAX_ERROR_GAP",
     ),
-    "finance_duplicate_headline_collapsed": (
-        "finance_news_dedup_cluster_ranker",
-        "duplicate_collapsed",
-        "BATCH9_FINANCE_DUPLICATE_HEADLINE_COLLAPSED",
-    ),
     "mission_graph_missing_target": (
         "mission_graph_topological_compiler",
         "missing_target_error",
@@ -156,16 +133,6 @@ NEGATIVE_CASE_RUNTIME_CHECKS: dict[str, tuple[str, str, str]] = {
         "config_authority_drift_audit",
         "mutation_allowed_rejected",
         "BATCH9_CONFIG_AUTHORITY_MUTATION_ALLOWED_REJECTED",
-    ),
-    "heterogeneous_edge_relation_normalized": (
-        "heterogeneous_graph_edge_extractor",
-        "normalized_relation_count",
-        "BATCH9_EDGE_RELATION_NORMALIZED",
-    ),
-    "work_atlas_routed_reason_excluded": (
-        "work_atlas_cell_histogram_aggregator",
-        "route_reason_histogram",
-        "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED",
     ),
     "host_pressure_auto_policy_blocks": (
         "host_pressure_admission_decision_gate",
@@ -211,13 +178,12 @@ AUTHORITY_CEILING = {
 ANTI_CLAIM = (
     "Batch 9 validates copied non-secret macro source bodies plus public "
     "source-faithful exercises for provenance lineage, approval adjudication, "
-    "Python AST indexing, finance headline clustering, mission graph waves, "
-    "dependency pin drift, config authority audit, heterogeneous edge "
-    "extraction, WorkAtlas aggregation, host-pressure admission, doctrine "
-    "enrichment, worker pre-dispatch gating, and milestone-relative quality "
-    "accounting. It is not live authority, not real market or doctrine truth, "
-    "not provider dispatch, not Work Ledger truth, not source mutation "
-    "permission, not publication authority, and not release approval."
+    "Python AST indexing, mission graph waves, dependency pin drift, config "
+    "authority audit, host-pressure admission, doctrine enrichment, worker "
+    "pre-dispatch gating, and milestone-relative quality accounting. It is not "
+    "live authority, not real doctrine truth, not provider dispatch, not Work "
+    "Ledger truth, not source mutation permission, not publication authority, "
+    "and not release approval."
 )
 
 SOURCE_REQUIRED_ANCHORS = {
@@ -236,11 +202,6 @@ SOURCE_REQUIRED_ANCHORS = {
         "ast.FunctionDef",
         "def build_file_entry(",
     ),
-    "system/server/ui/src/lib/financePresentation.ts": (
-        "function extractHeadline(",
-        "function normalizeHeadlineFingerprint(",
-        "export function clusterNewsRows(",
-    ),
     "system/server/graph.py": (
         "def compile_graph_snapshot(",
         "Group Closure Scoping",
@@ -255,16 +216,6 @@ SOURCE_REQUIRED_ANCHORS = {
         "def validate_config_authority_registry(",
         "duplicate_config_id",
         "generated_projection_or_cache",
-    ),
-    "system/server/ui/src/pages/RootNavigator.tsx": (
-        "GENERIC_EDGE_FIELD_MAP",
-        "function normalizeEdgeRelationToken(",
-        "top_dependencies",
-    ),
-    "system/server/ui/src/components/intelligence/WorkAtlas.tsx": (
-        "function aggregateCell(",
-        "route_reason keys for marks where overlays.unrouted is true",
-        "function cellMarksPerRow(",
     ),
     "system/lib/admission_consumer.py": (
         "ADMISSION_POLICY_VALUES",
@@ -412,103 +363,6 @@ def _truthy_negative_observation(value: Any) -> bool:
     return bool(value)
 
 
-_TS_STRING_RE = re.compile(r"['\"]([^'\"]+)['\"]")
-_TS_STOPWORDS_RE = re.compile(
-    r"const\s+STOPWORDS\s*=\s*new\s+Set\(\s*\[(?P<body>.*?)\]\s*\)",
-    re.DOTALL,
-)
-_TS_NORMALIZE_FILTER_RE = re.compile(
-    r"\.filter\(\s*\(token\)\s*=>\s*token\.length\s*>\s*(?P<min>\d+)"
-    r"\s*&&\s*!STOPWORDS\.has\(token\)\s*\)",
-    re.DOTALL,
-)
-_TS_NORMALIZE_SLICE_RE = re.compile(r"\.slice\(\s*0\s*,\s*(?P<limit>\d+)\s*\)")
-_TS_EDGE_FIELD_MAP_RE = re.compile(
-    r"const\s+GENERIC_EDGE_FIELD_MAP:.*?=\s*\[(?P<body>.*?)\]\s*;",
-    re.DOTALL,
-)
-_TS_EDGE_FIELD_ENTRY_RE = re.compile(
-    r"\{\s*field:\s*'(?P<field>[^']+)'\s*,\s*relation:\s*'(?P<relation>[^']+)'"
-    r"\s*,\s*targetKind:\s*'(?P<target_kind>[^']+)'(?P<rest>[^}]*)\}",
-    re.DOTALL,
-)
-
-
-def _source_backed_finance_contract(source_text: str | None) -> dict[str, Any]:
-    findings: list[dict[str, Any]] = []
-    if not source_text:
-        findings.append(
-            finding(
-                "BATCH9_FINANCE_SOURCE_BODY_MISSING",
-                "finance_news_dedup_cluster_ranker requires the copied financePresentation.ts body.",
-                subject_id=FINANCE_MODULE_ID,
-            )
-        )
-        return {"status": "blocked", "findings": findings, "body_in_receipt": False}
-    required = (
-        "function extractHeadline(",
-        "function normalizeHeadlineFingerprint(",
-        "export function clusterNewsRows(",
-        "clusters.get(normalizedHeadline)",
-    )
-    missing = [anchor for anchor in required if anchor not in source_text]
-    if missing:
-        findings.append(
-            finding(
-                "BATCH9_FINANCE_SOURCE_ANCHOR_MISSING",
-                "Copied financePresentation.ts body is missing load-bearing clustering anchors.",
-                expected=list(required),
-                observed={"missing": missing},
-                subject_id=FINANCE_MODULE_ID,
-            )
-        )
-    stopwords_match = _TS_STOPWORDS_RE.search(source_text)
-    stopwords = {
-        token.strip().lower()
-        for token in _TS_STRING_RE.findall(
-            stopwords_match.group("body") if stopwords_match else ""
-        )
-        if token.strip()
-    }
-    if not stopwords:
-        findings.append(
-            finding(
-                "BATCH9_FINANCE_STOPWORDS_NOT_DERIVED",
-                "Copied financePresentation.ts body must expose STOPWORDS for fingerprinting.",
-                subject_id=FINANCE_MODULE_ID,
-            )
-        )
-    filter_match = _TS_NORMALIZE_FILTER_RE.search(source_text)
-    token_min_length = int(filter_match.group("min")) + 1 if filter_match else 2
-    if filter_match is None:
-        findings.append(
-            finding(
-                "BATCH9_FINANCE_TOKEN_FILTER_NOT_DERIVED",
-                "Copied financePresentation.ts body must expose the normalizeHeadlineFingerprint token filter.",
-                subject_id=FINANCE_MODULE_ID,
-            )
-        )
-    slice_match = _TS_NORMALIZE_SLICE_RE.search(source_text)
-    token_limit = int(slice_match.group("limit")) if slice_match else 8
-    if slice_match is None:
-        findings.append(
-            finding(
-                "BATCH9_FINANCE_TOKEN_LIMIT_NOT_DERIVED",
-                "Copied financePresentation.ts body must expose the normalizeHeadlineFingerprint token limit.",
-                subject_id=FINANCE_MODULE_ID,
-            )
-        )
-    return {
-        "status": "pass" if not findings else "blocked",
-        "stopwords": stopwords,
-        "token_min_length": token_min_length,
-        "token_limit": token_limit,
-        "uses_normalized_headline_key": "clusters.get(normalizedHeadline)" in source_text,
-        "findings": findings,
-        "body_in_receipt": False,
-    }
-
-
 def _negative_case_observed(
     case_id: str,
     runtime_exercises: Mapping[str, Mapping[str, Any]],
@@ -522,14 +376,6 @@ def _negative_case_observed(
         return False
     if case_id == "worker_forbidden_surface_blocked":
         return result.get(field) == "blocked"
-    if case_id == "work_atlas_routed_reason_excluded":
-        histogram = result.get(field)
-        return (
-            isinstance(histogram, Mapping)
-            and bool(histogram)
-            and "should_not_count" not in histogram
-            and result.get("top_reason") != "should_not_count"
-        )
     return _truthy_negative_observation(result.get(field))
 
 
@@ -1077,126 +923,6 @@ def source_backed_ast_doc_tree(
             "module_id": AST_MODULE_ID,
             "required_callables": ["build_file_entry"],
             "entry_count": len(files),
-        },
-    }
-
-
-_STOPWORDS = {
-    "a",
-    "an",
-    "and",
-    "amid",
-    "as",
-    "at",
-    "for",
-    "in",
-    "of",
-    "on",
-    "the",
-    "to",
-    "with",
-}
-
-
-def _headline(row: Mapping[str, Any]) -> str:
-    text = str(row.get("text") or row.get("headline") or row.get("title") or "")
-    text = re.sub(r"\s+", " ", text).strip()
-    if not text:
-        return "Headline unavailable"
-    for delimiter in (". ", "!", "? ", " - ", " | ", " -- ", "\n"):
-        text = text.split(delimiter, 1)[0]
-    return text[:140].strip()
-
-
-def _headline_fingerprint(headline: str, contract: Mapping[str, Any]) -> tuple[str, list[str]]:
-    normalized = unicodedata.normalize("NFKD", headline)
-    normalized = re.sub(r"[#*_`~]", " ", normalized)
-    normalized = "".join(
-        char if char.isalnum() or char.isspace() else " "
-        for char in normalized
-    )
-    normalized = re.sub(r"\s+", " ", normalized).strip().lower()
-    stopwords = contract.get("stopwords")
-    if not isinstance(stopwords, set):
-        stopwords = _STOPWORDS
-    token_min_length = int(contract.get("token_min_length") or 2)
-    token_limit = int(contract.get("token_limit") or 8)
-    tokens = [
-        token
-        for token in normalized.split()
-        if len(token) >= token_min_length and token not in stopwords
-    ][:token_limit]
-    if len(tokens) >= 3:
-        return " ".join(tokens), tokens
-    return normalized[:32], tokens
-
-
-def cluster_news_rows(
-    rows: list[Mapping[str, Any]],
-    *,
-    source_text: str | None = None,
-) -> dict[str, Any]:
-    contract = _source_backed_finance_contract(source_text)
-    if contract["status"] != "pass":
-        return {
-            "status": "blocked",
-            "cluster_count": 0,
-            "clusters": [],
-            "duplicate_collapsed": False,
-            "source_body_loaded": bool(source_text),
-            "source_contract_status": contract["status"],
-            "source_contract_findings": contract["findings"],
-            "body_in_receipt": False,
-        }
-    clusters: dict[str, dict[str, Any]] = {}
-    for index, row in enumerate(rows):
-        headline = _headline(row)
-        fingerprint, tokens = _headline_fingerprint(headline, contract)
-        if not fingerprint:
-            continue
-        matched = clusters.get(fingerprint)
-        if matched is None:
-            matched = clusters[fingerprint] = {
-                "id": f"news:{index}:{fingerprint}",
-                "headline": headline,
-                "normalized_headline": fingerprint,
-                "token_set": set(tokens),
-                "items": [],
-                "score": 0.0,
-            }
-        matched["items"].append({"headline": headline, "row": dict(row)})
-        matched["token_set"] = set(matched["token_set"]).union(tokens)
-        confidence = float(row.get("confidence") or 0.0)
-        relevance = float(row.get("relevance") or 0.0)
-        matched["score"] = len(matched["items"]) * 3 + max(
-            float(matched["score"]),
-            confidence + relevance,
-        )
-    output = []
-    for cluster in clusters.values():
-        output.append(
-            {
-                "id": cluster["id"],
-                "headline": cluster["headline"],
-                "normalized_headline": cluster["normalized_headline"],
-                "item_count": len(cluster["items"]),
-                "score": cluster["score"],
-                "tokens": sorted(cluster["token_set"]),
-            }
-        )
-    output.sort(key=lambda row: (-row["score"], row["headline"]))
-    return {
-        "status": "pass",
-        "cluster_count": len(output),
-        "clusters": output,
-        "duplicate_collapsed": any(row["item_count"] >= 2 for row in output),
-        "source_body_loaded": True,
-        "source_contract_status": contract["status"],
-        "source_contract": {
-            "stopword_count": len(contract["stopwords"]),
-            "token_min_length": contract["token_min_length"],
-            "token_limit": contract["token_limit"],
-            "uses_normalized_headline_key": contract["uses_normalized_headline_key"],
         },
     }
 
@@ -1753,310 +1479,6 @@ def source_backed_config_authority_audit(
                     _config_authority_macro_payload(payload, known_roots)
                 )["row_classes"]
             ),
-        },
-    }
-
-
-EDGE_FIELD_MAP = {
-    "top_dependencies": ("depends_on", "paper_module", False),
-    "dependencies": ("depends_on", "paper_module", False),
-    "top_dependents": ("depended_on_by", "paper_module", False),
-    "dependents": ("depended_on_by", "paper_module", False),
-    "related_principles": ("governed_by", "principle", False),
-    "principle_edges": ("related_to", "principle", True),
-    "top_principle_edges": ("related_to", "principle", True),
-    "related_mechanisms": ("implemented_by", "mechanism", False),
-    "mechanism_edges": ("implemented_by", "mechanism", True),
-    "top_mechanism_edges": ("implemented_by", "mechanism", True),
-    "related_concepts": ("related_to", "concept", False),
-    "concept_edges": ("related_to", "concept", True),
-    "top_concept_edges": ("related_to", "concept", True),
-    "related_principles_by_axiom": ("compresses", "principle", False),
-    "code_loci": ("implements", "code_locus", False),
-}
-ALLOWED_RELATIONS = {
-    "depends_on",
-    "depended_on_by",
-    "governed_by",
-    "implemented_by",
-    "related_to",
-    "compresses",
-    "implements",
-}
-
-
-def _source_backed_edge_field_map(source_text: str | None) -> dict[str, Any]:
-    findings: list[dict[str, Any]] = []
-    if not source_text:
-        findings.append(
-            finding(
-                "BATCH9_HETEROGENEOUS_EDGE_SOURCE_BODY_MISSING",
-                "heterogeneous_graph_edge_extractor requires the copied RootNavigator.tsx body.",
-                subject_id=HETEROGENEOUS_MODULE_ID,
-            )
-        )
-        return {
-            "status": "blocked",
-            "edge_field_map": EDGE_FIELD_MAP,
-            "field_count": len(EDGE_FIELD_MAP),
-            "findings": findings,
-            "body_in_receipt": False,
-        }
-
-    required = (
-        "const GENERIC_EDGE_FIELD_MAP",
-        "function normalizeEdgeRelationToken(",
-        "function extractGenericEdges(",
-    )
-    missing = [anchor for anchor in required if anchor not in source_text]
-    if missing:
-        findings.append(
-            finding(
-                "BATCH9_HETEROGENEOUS_EDGE_SOURCE_ANCHOR_MISSING",
-                "Copied RootNavigator.tsx body is missing load-bearing relation extraction anchors.",
-                expected=list(required),
-                observed={"missing": missing},
-                subject_id=HETEROGENEOUS_MODULE_ID,
-            )
-        )
-
-    block = _TS_EDGE_FIELD_MAP_RE.search(source_text)
-    parsed: dict[str, tuple[str, str, bool]] = {}
-    if block is None:
-        findings.append(
-            finding(
-                "BATCH9_HETEROGENEOUS_EDGE_MAP_NOT_DERIVED",
-                "Copied RootNavigator.tsx body must expose GENERIC_EDGE_FIELD_MAP.",
-                subject_id=HETEROGENEOUS_MODULE_ID,
-            )
-        )
-    else:
-        for match in _TS_EDGE_FIELD_ENTRY_RE.finditer(block.group("body")):
-            parsed[match.group("field")] = (
-                match.group("relation"),
-                match.group("target_kind"),
-                "takeRelationFromRow: true" in match.group("rest"),
-            )
-
-    if not parsed:
-        parsed = dict(EDGE_FIELD_MAP)
-    for required_field in ("top_dependencies", "principle_edges", "code_loci"):
-        if required_field not in parsed:
-            findings.append(
-                finding(
-                    "BATCH9_HETEROGENEOUS_EDGE_FIELD_MISSING",
-                    "Copied RootNavigator.tsx relation map must include the required public edge field.",
-                    subject_id=required_field,
-                )
-            )
-
-    return {
-        "status": "pass" if not findings else "blocked",
-        "edge_field_map": parsed,
-        "field_count": len(parsed),
-        "findings": findings,
-        "body_in_receipt": False,
-    }
-
-
-def _source_normalize_edge_relation(relation: str, source_text: str | None) -> str:
-    token = relation.strip().lower()
-    if not token:
-        return "related_to"
-    if source_text and "function normalizeEdgeRelationToken(" in source_text:
-        if token in {"implements", "implemented_by"}:
-            return token
-        if token in {"grounds", "instantiated_by", "refines"}:
-            return "related_to"
-        if token in {"depends_on", "depended_on_by"}:
-            return token
-        if token in {"governs", "governed_by"}:
-            return token
-        if token in {"compresses", "compressed_by"}:
-            return "compresses"
-        if token in {"sources", "evidence", "related_to", "explains"}:
-            return token
-        return "related_to"
-    return token if token in ALLOWED_RELATIONS else "related_to"
-
-
-def extract_heterogeneous_edges(
-    row: Mapping[str, Any],
-    source_id: str,
-    source_text: str | None = None,
-) -> dict[str, Any]:
-    source_contract = _source_backed_edge_field_map(source_text)
-    edge_field_map = source_contract["edge_field_map"]
-    edges: list[dict[str, Any]] = []
-    normalized_relations = 0
-    for field, (default_relation, target_kind, take_relation) in edge_field_map.items():
-        values = row.get(field)
-        if not isinstance(values, list):
-            continue
-        for index, item in enumerate(values):
-            relation = default_relation
-            relation_from_row = False
-            target = item
-            if isinstance(item, Mapping):
-                target = item.get("target") or item.get("id") or item.get("path")
-                raw_relation = item.get("relation")
-                if take_relation and raw_relation:
-                    raw_relation_token = str(raw_relation).strip().lower()
-                    relation = _source_normalize_edge_relation(raw_relation_token, source_text)
-                    relation_from_row = True
-                    if relation != raw_relation_token:
-                        normalized_relations += 1
-            if not target:
-                continue
-            normalized_relation = _source_normalize_edge_relation(str(relation), source_text)
-            if normalized_relation != relation:
-                relation = normalized_relation
-                if not relation_from_row:
-                    normalized_relations += 1
-            edges.append(
-                {
-                    "id": f"{source_id}:{field}:{index}",
-                    "source": source_id,
-                    "target": str(target),
-                    "target_kind": target_kind,
-                    "relation": relation,
-                    "source_field": field,
-                }
-            )
-    return {
-        "status": "pass" if source_contract["status"] == "pass" else "blocked",
-        "edges": edges,
-        "edge_count": len(edges),
-        "normalized_relation_count": normalized_relations,
-        "source_body_loaded": source_text is not None,
-        "source_contract_status": source_contract["status"],
-        "source_contract_findings": source_contract["findings"],
-        "source_contract": {
-            "module_id": HETEROGENEOUS_MODULE_ID,
-            "required_anchors": [
-                "GENERIC_EDGE_FIELD_MAP",
-                "normalizeEdgeRelationToken",
-                "extractGenericEdges",
-            ],
-            "derived_field_count": source_contract["field_count"],
-            "top_dependencies_relation": edge_field_map.get(
-                "top_dependencies",
-                ("", "", False),
-            )[0],
-            "principle_edges_take_relation_from_row": edge_field_map.get(
-                "principle_edges",
-                ("", "", False),
-            )[2],
-        },
-    }
-
-
-def aggregate_work_atlas_cell(marks: list[Mapping[str, Any]]) -> dict[str, Any]:
-    return _aggregate_work_atlas_cell(marks, count_route_reasons_when_unrouted=True)
-
-
-def _aggregate_work_atlas_cell(
-    marks: list[Mapping[str, Any]],
-    *,
-    count_route_reasons_when_unrouted: bool,
-) -> dict[str, Any]:
-    overlays = Counter()
-    type_count = Counter()
-    reason_count = Counter()
-    reason_kind: dict[str, str] = {}
-    for mark in marks:
-        overlay = mark.get("overlays") if isinstance(mark.get("overlays"), Mapping) else {}
-        for key in ("unrouted", "blocked", "stale", "signoff_required", "high_unlock"):
-            if overlay.get(key):
-                overlays[key] += 1
-        work_type = str(mark.get("work_item_type") or "unknown")
-        type_count[work_type] += 1
-        if not count_route_reasons_when_unrouted or overlay.get("unrouted"):
-            explanation = (
-                mark.get("route_explanation")
-                if isinstance(mark.get("route_explanation"), Mapping)
-                else {}
-            )
-            reason = str(explanation.get("route_reason") or "unknown_reason")
-            reason_count[reason] += 1
-            if explanation.get("reason_kind"):
-                reason_kind[reason] = str(explanation.get("reason_kind"))
-    count = len(marks)
-    cols = max(1, math.ceil(math.sqrt(count * 1.6))) if count else 0
-    rows = max(1, math.ceil(count / cols)) if count else 0
-    top_type = type_count.most_common(1)[0][0] if type_count else None
-    top_reason = reason_count.most_common(1)[0][0] if reason_count else None
-    return {
-        "status": "pass",
-        "count": count,
-        "overlays": dict(overlays),
-        "type_histogram": dict(type_count),
-        "route_reason_histogram": dict(reason_count),
-        "top_type": top_type,
-        "top_reason": top_reason,
-        "top_reason_kind": reason_kind.get(top_reason) if top_reason else None,
-        "grid": {"cols": cols, "rows": rows},
-    }
-
-
-def _source_backed_work_atlas_contract(source_text: str | None) -> dict[str, Any]:
-    findings: list[dict[str, Any]] = []
-    if not source_text:
-        findings.append({"code": "source_body_missing", "module_id": WORK_ATLAS_MODULE_ID})
-        return {
-            "status": "blocked",
-            "findings": findings,
-            "source_body_loaded": False,
-            "unrouted_route_reason_gate": False,
-        }
-    required = (
-        "function aggregateCell(",
-        "const reasonCount = new Map<string, number>();",
-        "if (o.unrouted) {",
-        "routeReasonHistogram: Object.fromEntries(reasonCount)",
-        "function cellMarksPerRow(",
-    )
-    missing = [anchor for anchor in required if anchor not in source_text]
-    if missing:
-        findings.append(
-            {
-                "code": "work_atlas_source_anchor_missing",
-                "module_id": WORK_ATLAS_MODULE_ID,
-                "missing": missing,
-            }
-        )
-    return {
-        "status": "pass" if not findings else "blocked",
-        "findings": findings,
-        "source_body_loaded": True,
-        "unrouted_route_reason_gate": "if (o.unrouted) {" in source_text,
-    }
-
-
-def source_backed_aggregate_work_atlas_cell(
-    marks: list[Mapping[str, Any]],
-    source_text: str | None,
-) -> dict[str, Any]:
-    contract = _source_backed_work_atlas_contract(source_text)
-    aggregate = _aggregate_work_atlas_cell(
-        marks,
-        count_route_reasons_when_unrouted=bool(contract["unrouted_route_reason_gate"]),
-    )
-    return {
-        **aggregate,
-        "status": "pass" if contract["status"] == "pass" else "blocked",
-        "source_body_loaded": contract["source_body_loaded"],
-        "source_contract_status": contract["status"],
-        "source_contract_findings": contract["findings"],
-        "source_contract": {
-            "module_id": WORK_ATLAS_MODULE_ID,
-            "required_anchors": [
-                "function aggregateCell(",
-                "if (o.unrouted) {",
-                "routeReasonHistogram: Object.fromEntries(reasonCount)",
-                "function cellMarksPerRow(",
-            ],
-            "unrouted_route_reason_gate": contract["unrouted_route_reason_gate"],
         },
     }
 
@@ -2784,14 +2206,6 @@ def _run_all_exercises(
         "source_contract_status": ast_tree["source_contract_status"],
         "source_contract": ast_tree.get("source_contract"),
     }
-    finance = cluster_news_rows(
-        fixtures["finance_news"]["rows"],
-        source_text=source_bodies.get(FINANCE_MODULE_ID),
-    )
-    exercises["finance_news_dedup_cluster_ranker"] = {
-        "exercise_id": "finance_news_dedup_cluster_ranker",
-        **finance,
-    }
     mission = compile_mission_graph(
         fixtures["mission_graph"]["nodes"],
         "target",
@@ -2837,23 +2251,6 @@ def _run_all_exercises(
         "source_body_loaded": config["source_body_loaded"],
         "source_contract_status": config["source_contract_status"],
         "source_contract": config.get("source_contract"),
-    }
-    edges = extract_heterogeneous_edges(
-        fixtures["heterogeneous_edges"]["row"],
-        "row:fixture",
-        source_bodies.get(HETEROGENEOUS_MODULE_ID),
-    )
-    exercises["heterogeneous_graph_edge_extractor"] = {
-        "exercise_id": "heterogeneous_graph_edge_extractor",
-        **edges,
-    }
-    atlas = source_backed_aggregate_work_atlas_cell(
-        fixtures["work_atlas"]["marks"],
-        source_bodies.get(WORK_ATLAS_MODULE_ID),
-    )
-    exercises["work_atlas_cell_histogram_aggregator"] = {
-        "exercise_id": "work_atlas_cell_histogram_aggregator",
-        **atlas,
     }
     blocked = source_backed_admission_decision(
         fixtures["host_pressure"]["quote"],

@@ -76,7 +76,7 @@
       "concept_pair_ref": "research_and_science_replay_evidence_bundle.concept_binding",
       "mechanism_role": "family validators that check research, forecasting, chemistry, and world-model replay evidence without exporting private bodies",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -93,7 +93,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+        "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
         "fixtures/first_wave/finance_forecast_evaluation_spine/input",
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
@@ -179,7 +179,7 @@
       "runs_in": [
         "finance_forecast_evaluation_spine"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
       "statement": "The finance forecast evaluation spine validates copied public finance-evaluation helpers over synthetic market-shaped fixtures through Diebold-Mariano, HLN refusal, SPA/reality-check bootstrap, stationary-bootstrap and MCS exercises, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without live market data, investment advice, track-record claims, optimizer mutation, release, or publication authority.",
       "status": "active",
       "upstream_of": [
@@ -193,7 +193,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -257,7 +257,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -270,7 +270,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -283,7 +283,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -296,7 +296,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -309,7 +309,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -324,7 +324,7 @@
     "runs_in": [
       "finance_forecast_evaluation_spine"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
@@ -334,7 +334,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+      "path": "core/mechanism_sources.json::mechanisms[51:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

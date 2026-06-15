@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[95:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[81:mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

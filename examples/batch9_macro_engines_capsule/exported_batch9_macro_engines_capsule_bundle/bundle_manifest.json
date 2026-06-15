@@ -6,5 +6,5 @@
   "body_in_receipt": false,
   "source_module_manifest": "source_module_manifest.json",
   "primary_input": "batch9_macro_engines_capsule_probe_manifest.json",
-  "negative_case_count": 13
+  "negative_case_count": 10
 }
