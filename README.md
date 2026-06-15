@@ -58,6 +58,16 @@ the rest of this README is navigation for it. Nothing in the loop mutates
 your source files or calls a model provider; `source_files_mutated=false` is
 a field in the recorded card, not a promise in prose.
 
+That loop, in one picture:
+
+```mermaid
+flowchart LR
+  A["Your folder"] -->|"hello · tour"| B[".microcosm/ state<br/>catalog · routes · work · events · evidence"]
+  B -->|"explain"| C["Read it back<br/>cards · local observatory"]
+  B --> D{{"every claim carries:<br/>evidence class · source link · scope limit"}}
+  D -.->|"overclaim fails its own validator"| C
+```
+
 ## Where To Start, By Reader
 
 | You are | Open |
