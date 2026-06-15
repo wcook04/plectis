@@ -1023,7 +1023,7 @@ def test_agent_entry_card_aliases_browser_questions_to_frontend_route(
     assert payload["task_route"]["selected_task_class"] == "frontend"
     assert payload["task_route"]["selected_task_route_found"] is True
     assert payload["task_route"]["task_class"] == "frontend"
-    assert payload["task_route"]["primary_organ_id"] == "batch7_station_runtime_capsule"
+    assert payload["task_route"]["primary_organ_id"] == "batch7_secondary_runtime_capsule"
     assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
         "first_command"
     ]

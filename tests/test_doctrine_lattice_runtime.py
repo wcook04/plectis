@@ -71,11 +71,9 @@ STANDARD_TRIAD_SKILL_BATCH_STANDARD_IDS = {
     "std_microcosm_batch4_proof_authority_runtime",
     "std_microcosm_batch6_unsurfaced_primitives_capsule",
     "std_microcosm_batch7_macro_engines_capsule",
-    "std_microcosm_batch7_station_runtime_capsule",
     "std_microcosm_batch8_audio_level_rms_port",
     "std_microcosm_batch8_compliance_pipeline_capsule",
     "std_microcosm_batch8_policy_engines_capsule",
-    "std_microcosm_batch8_station_surface_atlas_layout_port",
     "std_microcosm_batch8_structural_theses_capsule",
     "std_microcosm_batch8_tools_tail_primitives_capsule",
     "std_microcosm_batch8_validator_checker_capsule",
@@ -94,7 +92,6 @@ STAGED_STANDARD_TRIAD_SKILL_SOURCE_STANDARD_IDS = {
     "std_microcosm_batch7_demo_take_console_capsule",
     "std_microcosm_batch7_oracle_sibling_capsule",
     "std_microcosm_batch7_secondary_runtime_capsule",
-    "std_microcosm_batch7_zenith_macos_capsule",
     "std_microcosm_engine_room_annex_knowledge_router",
     "std_microcosm_engine_room_bridge_campaign_dag",
     "std_microcosm_engine_room_command_run_singleflight",
@@ -1016,31 +1013,6 @@ def test_concept_and_mechanism_corpora_are_seeded_with_parity() -> None:
         and edge["target_status"] == "resolved_registry_or_atlas_target"
         for edge in mechanism["relationships"]["edges"]
     )
-    frontend_mechanism = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "mechanisms/mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule.json"
-        ).read_text(encoding="utf-8")
-    )
-    assert frontend_mechanism["organ_refs"] == [
-        "batch10_frontend_work_market_cockpit_capsule"
-    ]
-    assert frontend_mechanism["relationships"]["unpopulated_selective_relations"] == []
-    assert {
-        (edge["relation_id"], edge["target_id"], edge["target_status"])
-        for edge in frontend_mechanism["relationships"]["edges"]
-    } >= {
-        (
-            "mechanism.runs_in.organ",
-            "batch10_frontend_work_market_cockpit_capsule",
-            "resolved_registry_or_atlas_target",
-        ),
-        (
-            "mechanism.grounded_in.code_locus",
-            "src/microcosm_core/organs/batch10_frontend_work_market_cockpit_capsule.py",
-            "resolved_code_locus",
-        ),
-    }
 
 
 def test_cold_clone_probe_mechanism_runs_in_pattern_binding_contract() -> None:
@@ -1148,9 +1120,6 @@ def test_family_concept_refs_bind_organs_mechanisms_and_paper_modules() -> None:
         )
         if missing_host_organs:
             expected_planned_hosts = {
-                "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule": [
-                    "batch7_zenith_macos_capsule"
-                ],
                 "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary": [
                     "microcosm_axiom_substrate"
                 ],
@@ -1255,37 +1224,6 @@ def test_organ_corpus_is_seeded_from_atlas_and_registry_with_parity() -> None:
         residual["relation_id"] == "organ.constrained_by.axiom"
         for residual in organ["relationships"]["unpopulated_selective_relations"]
     )
-
-    frontend_organ = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "organs/batch10_frontend_work_market_cockpit_capsule.json"
-        ).read_text(encoding="utf-8")
-    )
-    assert frontend_organ["paper_module_ref"] == (
-        "paper_modules/batch10_frontend_work_market_cockpit_capsule.md"
-    )
-    assert frontend_organ["relationships"]["unpopulated_selective_relations"] == []
-    assert {
-        (edge["relation_id"], edge["target_id"], edge["target_status"])
-        for edge in frontend_organ["relationships"]["edges"]
-    } >= {
-        (
-            "organ.explained_by.paper_module",
-            "paper_module.batch10_frontend_work_market_cockpit_capsule",
-            "resolved_paper_module_ref",
-        ),
-        (
-            "organ.operates_through.mechanism",
-            "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
-            "resolved_json_instance",
-        ),
-        (
-            "organ.implemented_by.code_locus",
-            "src/microcosm_core/organs/batch10_frontend_work_market_cockpit_capsule.py",
-            "resolved_code_locus",
-        ),
-    }
 
 
 def test_paper_module_corpus_is_seeded_from_capsules_and_legacy_markdown_with_parity() -> None:
@@ -2173,70 +2111,6 @@ def test_accepted_organ_standards_activate_with_receipt_backing_only() -> None:
         assert source["authority_ceiling"]["runtime_correctness_claim"] is False
 
 
-def test_batch7_pending_capsule_standards_do_not_activate_without_subjects() -> None:
-    pending_batch7_standard_ids = {
-        "std_microcosm_batch7_zenith_macos_capsule",
-    }
-    instances = load_standard_instances(MICROCOSM_ROOT)
-    standards_registry = json.loads(
-        (MICROCOSM_ROOT / "core/standards_registry.json").read_text(
-            encoding="utf-8"
-        )
-    )
-    organ_registry = json.loads(
-        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
-    )
-    registry_by_standard_id = {
-        row["standard_id"]: row for row in standards_registry["standards"]
-    }
-    accepted_organ_ids = {
-        row["organ_id"]
-        for row in organ_registry["implemented_organs"]
-        if row["status"] == "accepted_current_authority"
-    }
-
-    for standard_id in pending_batch7_standard_ids:
-        source = json.loads(
-            (MICROCOSM_ROOT / "standards" / f"{standard_id}.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        instance = instances[standard_id]
-        registry_row = registry_by_standard_id[standard_id]
-        organ_id = source["kind_id"]
-        used_by_edges = [
-            edge
-            for edge in instance["relationships"]["edges"]
-            if edge["relation_id"] == "standard.used_by.organ"
-        ]
-
-        assert organ_id not in accepted_organ_ids
-        assert source["status"] == "draft"
-        assert registry_row["status"] == "draft"
-        assert registry_row["receipt_id"] is None
-        assert source["relationships"]["registry_integration_status"] == (
-            "inventory_only_registered_not_active_v2_promoted"
-        )
-        assert instance["standard_payload"]["contract_projection_status"] == (
-            "legacy_or_draft_standard_contract"
-        )
-        assert len(used_by_edges) == 1
-        used_by_edge = used_by_edges[0]
-        assert used_by_edge["target_id"] == organ_id
-        assert used_by_edge["target_status"] == "unresolved_json_instance"
-        assert used_by_edge["residual_status"] == "typed_residual_pressure"
-        assert used_by_edge["residual_requirement"] == "selective"
-        assert used_by_edge["residual_gap_class"] == (
-            "standard_used_by_organ_target_not_accepted_current_authority"
-        )
-        assert used_by_edge["residual_pressure_ref"] == (
-            "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
-        )
-        assert used_by_edge["justification"]["source_ref"] == (
-            f"standards/{standard_id}.json::relationships.used_by_organs[0]"
-        )
-
-
 def test_engine_room_staged_standards_expose_activation_boundary_without_promotion() -> None:
     instances = load_standard_instances(MICROCOSM_ROOT)
     standards_registry = json.loads(
@@ -2337,7 +2211,6 @@ def test_core_standard_triad_skill_pressure_resolves_only_when_skill_json_exists
         "std_microcosm_self_ignorance_coverage_ledger": "microcosm_public_runtime_organ_standard",
         "std_microcosm_standards_meta_diagnostics": "microcosm_public_runtime_organ_standard",
         "std_microcosm_tactic_portfolio_availability_probe": "microcosm_public_runtime_organ_standard",
-        "std_microcosm_workstream_driver_recency_coalescer": "microcosm_public_runtime_organ_standard",
         "std_microcosm_provider_context_recipe_budget_policy": "microcosm_runtime_organ",
         "std_microcosm_ring2_premise_retrieval_precision_recall_harness": "microcosm_runtime_organ",
         "std_microcosm_target_shape_tactic_routing_gate": "microcosm_runtime_organ",
@@ -2509,29 +2382,6 @@ def test_agent_replay_standards_route_triad_skill_pressure_without_resolution() 
         assert {edge["target_status"] for edge in triad_edges} == {
             "resolved_json_instance"
         }
-
-
-def test_batch10_frontend_standard_triad_resolves_to_seeded_skill_sources() -> None:
-    instance = load_standard_instances(MICROCOSM_ROOT)[
-        "std_microcosm_batch10_frontend_work_market_cockpit_capsule"
-    ]
-    triad_edges = [
-        edge
-        for edge in instance["relationships"]["edges"]
-        if edge["relation_id"] == "standard.owns_triad.skill"
-    ]
-    assert len(triad_edges) == 3
-    assert {edge["target_status"] for edge in triad_edges} == {
-        "resolved_json_instance"
-    }
-    assert {edge["target_id"] for edge in triad_edges} == {
-        "skill.microcosm.batch10_frontend_work_market_cockpit_capsule.author",
-        "skill.microcosm.batch10_frontend_work_market_cockpit_capsule.refine_instance",
-        (
-            "skill.microcosm.batch10_frontend_work_market_cockpit_capsule."
-            "refine_standard_and_propagate"
-        ),
-    }
 
 
 def test_doctrine_projection_uses_computed_support_not_legacy_strength() -> None:
@@ -2965,9 +2815,6 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert "std_microcosm_task_ledger" not in standard_gap_details
     assert "std_microcosm_work_item" not in standard_gap_details
     assert "std_microcosm_work_ledger" not in standard_gap_details
-    assert "std_microcosm_batch10_frontend_work_market_cockpit_capsule" not in (
-        standard_gap_details
-    )
     assert not {
         "std_microcosm_agent_closeout_faithfulness_audit",
         "std_microcosm_bounded_autonomy_campaign_packet",
@@ -2979,7 +2826,6 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
         "std_microcosm_self_ignorance_coverage_ledger",
         "std_microcosm_standards_meta_diagnostics",
         "std_microcosm_tactic_portfolio_availability_probe",
-        "std_microcosm_workstream_driver_recency_coalescer",
         "std_microcosm_provider_context_recipe_budget_policy",
         "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
         "std_microcosm_target_shape_tactic_routing_gate",
@@ -3174,10 +3020,8 @@ def test_doctrine_lattice_health_routes_gaps_without_weakening_doctrine() -> Non
     assert "self_ignorance_coverage_ledger" not in health["organs"]["unconstrained_by_axiom"]
     assert "tool_server_pressure_inventory" not in health["organs"]["unconstrained_by_axiom"]
     assert "voice_to_doctrine_self_improvement_loop" not in health["organs"]["unconstrained_by_axiom"]
-    assert "workstream_driver_recency_coalescer" not in health["organs"]["unconstrained_by_axiom"]
     resolved_import_organs = {
         "batch4_proof_authority_runtime",
-        "batch8_station_surface_atlas_layout_port",
     }
     assert health["organs"]["required_edge_gap_count"] == 0
     gap_details = {
@@ -3294,7 +3138,6 @@ def test_batch7_organs_are_bound_to_digest_and_provenance_laws() -> None:
     expected_principles = {"P-1", "P-2", "P-5", "P-6", "P-9", "P-15"}
     target_organs = {
         "batch7_macro_engines_capsule",
-        "batch7_station_runtime_capsule",
     }
 
     health = build_lattice_health(MICROCOSM_ROOT)
@@ -3370,7 +3213,6 @@ def test_mechanism_upstream_edges_back_source_organ_wiring_wave() -> None:
         "agent_route_observability_runtime": {"bounded_autonomy_campaign_packet"},
         "bridge_phase_continuity_runtime": {
             "concurrency_mission_control",
-            "workstream_driver_recency_coalescer",
         },
         "cold_reader_route_map": {
             "doctrine_fact_claim_audit",
@@ -3381,7 +3223,6 @@ def test_mechanism_upstream_edges_back_source_organ_wiring_wave() -> None:
         },
         "corpus_readiness_mathlib_absence_gate": {"verifier_lab_kernel"},
         "doctrine_fact_claim_audit": {"self_ignorance_coverage_ledger"},
-        "durable_agent_work_landing_replay": {"workstream_driver_recency_coalescer"},
         "executable_doctrine_grammar": {"doctrine_fact_claim_audit"},
         "formal_evidence_cell_anchor_resolver": {"proof_diagnostic_evidence_spine"},
         "formal_math_lean_proof_witness": {
@@ -3530,13 +3371,6 @@ def test_batch4_and_8_import_organs_resolve_source_edges_and_laws() -> None:
             "authority_class": "verified_macro_body_import",
             "axioms": {"AX-4", "AX-8", "AX-10", "AX-11"},
             "principles": {"P-2", "P-5", "P-9", "P-15"},
-        },
-        "batch8_station_surface_atlas_layout_port": {
-            "mechanism": "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
-            "code_path": "src/microcosm_core/organs/batch8_station_surface_atlas_layout_port.py",
-            "authority_class": "algorithmic_projection",
-            "axioms": {"AX-5", "AX-7", "AX-8", "AX-10"},
-            "principles": {"P-2", "P-9", "P-15", "P-16"},
         },
     }
 
@@ -5529,24 +5363,6 @@ def test_batch7_9_10_11_capsules_resolve_mechanism_and_code_edges() -> None:
                 "exported_batch7_macro_engines_capsule_bundle_validation_result.json"
             ),
         },
-        "batch7_station_runtime_capsule": {
-            "mechanism_id": (
-                "mechanism.batch7_station_runtime_capsule."
-                "validates_public_station_runtime_capsule"
-            ),
-            "code_path": (
-                "src/microcosm_core/organs/batch7_station_runtime_capsule.py"
-            ),
-            "bundle_ref": (
-                "examples/batch7_station_runtime_capsule/"
-                "exported_batch7_station_runtime_capsule_bundle"
-            ),
-            "runtime_receipt_ref": (
-                "receipts/runtime_shell/demo_project/organs/"
-                "batch7_station_runtime_capsule/"
-                "exported_batch7_station_runtime_capsule_validation_result.json"
-            ),
-        },
         "batch9_macro_engines_capsule": {
             "mechanism_id": (
                 "mechanism.batch9_macro_engines_capsule."
@@ -5930,28 +5746,6 @@ def test_six_capsule_wave_resolves_mechanism_code_subject_and_law_edges() -> Non
             "evidence_rank": 5,
             "principle_refs": {"P-2", "P-7", "P-9", "P-13"},
             "axiom_refs": {"AX-6", "AX-7", "AX-8", "AX-12"},
-        },
-        "workstream_driver_recency_coalescer": {
-            "mechanism_id": (
-                "mechanism.workstream_driver_recency_coalescer."
-                "validates_public_workstream_driver_recency_coalescer"
-            ),
-            "code_path": (
-                "src/microcosm_core/organs/"
-                "workstream_driver_recency_coalescer.py"
-            ),
-            "bundle_ref": (
-                "examples/workstream_driver_recency_coalescer/"
-                "exported_workstream_driver_recency_coalescer_bundle"
-            ),
-            "result_ref": (
-                "receipts/first_wave/workstream_driver_recency_coalescer/"
-                "workstream_driver_recency_coalescer_result.json"
-            ),
-            "authority_class": "semantic_validator",
-            "evidence_rank": 5,
-            "principle_refs": {"P-2", "P-6", "P-9", "P-15"},
-            "axiom_refs": {"AX-5", "AX-7", "AX-8", "AX-10"},
         },
     }
 

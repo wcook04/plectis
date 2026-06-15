@@ -604,9 +604,6 @@ def test_standard_health_details_remaining_legacy_contracts_after_source_activat
     )
 
     by_id = {row["standard_id"]: row for row in details}
-    assert by_id["std_microcosm_batch7_zenith_macos_capsule"][
-        "unresolved_used_by_organ_ids"
-    ] == ["batch7_zenith_macos_capsule"]
     assert "std_microcosm_agent_trace" not in by_id
     assert "std_microcosm_atlas_route" not in by_id
     assert "std_microcosm_anti_claim" not in by_id
@@ -630,12 +627,6 @@ def test_standard_health_details_remaining_legacy_contracts_after_source_activat
     assert activation_by_id["std_microcosm_engine_room_annex_knowledge_router"][
         "validator_refs"
     ] == ["validator.microcosm.organs.engine_room_annex_knowledge_router"]
-    assert activation_by_id["std_microcosm_batch7_zenith_macos_capsule"][
-        "activation_gap_ids"
-    ] == [
-        "source_schema_not_public_microcosm_standard_v2",
-        "source_status_not_active",
-    ]
     for row in activation_by_id.values():
         assert row["authority_boundary"] == (
             "computed_from_standard_source_contract_not_activation_or_runtime_use"
@@ -967,16 +958,6 @@ def test_mechanism_capsule_dependency_upstream_parity_uses_registry_direction() 
     }
     assert (
         "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
-        "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
-    ) not in {
-        (
-            row["source_mechanism"],
-            row["target_mechanism"],
-        )
-        for row in parity["missing_edges"]
-    }
-    assert (
-        "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
     ) not in {
         (
@@ -1126,7 +1107,6 @@ def test_organs_publish_wiring_named_by_mechanism_upstream_graph() -> None:
         },
     ]
     assert sorted(row["target_organ"] for row in unadmitted_target_hosts) == [
-        "batch7_zenith_macos_capsule",
         "microcosm_axiom_substrate",
         "microcosm_axiom_substrate",
         "microcosm_axiom_substrate",

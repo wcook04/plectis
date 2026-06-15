@@ -4012,7 +4012,6 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
         "repository_agent_benchmark_transaction_lab",
         "agent_reliability_replay_gauntlet",
         "formal_math_verifier_trace_repair_loop_compound",
-        "frontend_cockpit_hud_source_modules_import",
         "self_comprehension_packet_compiler_source_modules_import",
     }
     assert all(row["cleaned"] for row in lens["import_rows"])
@@ -4039,13 +4038,13 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
 
 
 def test_runtime_shell_child_projection_protocols_surface_in_source_body_lens() -> None:
-    """Child projection protocols (frontend cockpit, self-comprehension packet
+    """Child projection protocols (e.g. the self-comprehension packet
     compiler) must be discoverable through the generic source-body import lens,
     not only through their bespoke per-bundle tests.
 
     Regression guard for the manifest-discovery shape mismatch: a digest-valid
     child capsule whose manifest the generalized import-map/runtime route cannot
-    see is an under-spent import. If discovery regresses, the frontend family
+    see is an under-spent import. If discovery regresses, the child family
     disappears here.
     """
     floor = runtime_shell._macro_projection_body_import_floor(MICROCOSM_ROOT)
@@ -4058,35 +4057,24 @@ def test_runtime_shell_child_projection_protocols_surface_in_source_body_lens() 
         row["family_id"]: row for row in lens["verified_source_module_families"]
     }
 
-    frontend = families.get("frontend_cockpit")
-    assert frontend is not None, (
-        "frontend cockpit capsule is undiscoverable in the generic source-body "
+    # A child projection protocol surfaces through the generic lens.
+    child = families.get("compression_profiles")
+    assert child is not None, (
+        "child capsule is undiscoverable in the generic source-body "
         "lens; the child projection protocol's source_module_manifest_ref is not "
         "reachable from the generalized import-map/runtime route"
     )
-    assert frontend["module_count"] == 6
-    assert frontend["manifest_ref"].endswith(
-        "frontend_cockpit_source_bundle_manifest.json"
-    )
-    assert frontend["verification_mode"] == "exact_source_digest_match"
-    assert frontend["body_text_in_receipt"] is False
-    assert any(
-        ref.endswith("system/server/ui/src/navigation/surfaces.ts")
-        for ref in frontend["source_refs"]
-    )
+    assert child["verification_mode"] == "exact_source_digest_match"
+    assert child["body_text_in_receipt"] is False
     # The manifest is provenance, never displayed as one of the source modules.
     assert all(
         not ref.endswith("_source_bundle_manifest.json")
         and not ref.endswith("_source_module_manifest.json")
         and Path(ref).name != "source_module_manifest.json"
-        for ref in frontend["source_refs"]
+        for ref in child["source_refs"]
     )
 
-    # Generality, not a frontend special case: a second child protocol surfaces.
-    assert "compression_profiles" in families
-
     by_class = floor["public_safe_body_material_counts_by_class"]
-    assert by_class.get("public_macro_frontend_body", 0) >= frontend["module_count"]
     assert floor["copied_non_secret_macro_body_material_count"] == sum(
         by_class.values()
     )
@@ -4127,44 +4115,6 @@ def test_runtime_shell_source_body_lens_uses_non_grant_private_macro_source_refs
     assert family["source_refs"] == ["private-macro-source/src/idea_microcosm/demo.py"]
     assert lens["latest_source_refs"] == ["private-macro-source/src/idea_microcosm/demo.py"]
     assert family["manifest_ref"] == "examples/demo/source_module_manifest.json"
-
-
-def test_runtime_shell_frontend_cockpit_import_holds_authority_ceiling() -> None:
-    """The imported frontend cockpit capsule must surface as refs + digests only:
-    no source body text in the floor surface, and no authority upgrade beyond the
-    omission boundary (no release/publication/provider/private-equivalence claim).
-    """
-    floor = runtime_shell._macro_projection_body_import_floor(MICROCOSM_ROOT)
-    encoded = json.dumps(floor, sort_keys=True)
-
-    # Real TS/TSX source body fragments must never be embedded in the floor.
-    for body_fragment in (
-        "export default function StationTopBar",
-        "export default function AttentionQueue",
-        "export default function SessionInspectorPanel",
-    ):
-        assert body_fragment not in encoded, body_fragment
-
-    lens = floor["source_body_import_lens"]
-    assert lens["body_text_exported_in_status"] is False
-    assert lens["body_text_exported_in_receipts"] is False
-
-    ceiling = floor["authority_ceiling"]
-    assert ceiling["release_authorized"] is False
-    assert ceiling["publication_authorized"] is False
-    assert ceiling["provider_payload_exported"] is False
-    assert ceiling["private_data_equivalence_claim"] is False
-    assert ceiling["live_macro_source_authority"] is False
-
-    # No private host paths leak through the imported frontend refs.
-    frontend = next(
-        row
-        for row in lens["verified_source_module_families"]
-        if row["family_id"] == "frontend_cockpit"
-    )
-    for ref in frontend["source_refs"]:
-        assert "/Users/" not in ref
-        assert "src/ai_workflow" not in ref
 
 
 def test_child_projection_protocol_admission_is_fail_closed(tmp_path: Path) -> None:

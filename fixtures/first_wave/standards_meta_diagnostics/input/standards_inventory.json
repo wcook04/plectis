@@ -14,8 +14,15 @@
         "receipts/first_wave/pattern_binding_contract/source_capsules.json",
         "receipts/first_wave/pattern_binding_contract/omission_receipt.json"
       ],
+      "registry_path": "standards/std_microcosm_pattern_binding_contract.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_pattern_binding_contract]",
+      "registry_standard_id": "std_microcosm_pattern_binding_contract",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_pattern_binding_contract",
+      "standard_payload_standard_id": "std_microcosm_pattern_binding_contract",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_pattern_binding_contract.json"
     },
     {
@@ -29,10 +36,18 @@
         "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
         "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
         "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
-        "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+        "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
+        "receipts/first_wave/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle_validation_result.json"
       ],
+      "registry_path": "standards/std_microcosm_executable_doctrine_grammar.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_executable_doctrine_grammar]",
+      "registry_standard_id": "std_microcosm_executable_doctrine_grammar",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_executable_doctrine_grammar",
+      "standard_payload_standard_id": "std_microcosm_executable_doctrine_grammar",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_executable_doctrine_grammar.json"
     },
     {
@@ -49,8 +64,15 @@
         "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
         "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_proof_diagnostic_evidence_spine.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_proof_diagnostic_evidence_spine]",
+      "registry_standard_id": "std_microcosm_proof_diagnostic_evidence_spine",
+      "registry_status": "accepted",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_proof_diagnostic_evidence_spine",
+      "standard_payload_standard_id": "std_microcosm_proof_diagnostic_evidence_spine",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": false,
       "standard_ref": "standards/std_microcosm_proof_diagnostic_evidence_spine.json"
     },
     {
@@ -67,8 +89,15 @@
         "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
         "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_formal_math_readiness_gate.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_readiness_gate]",
+      "registry_standard_id": "std_microcosm_formal_math_readiness_gate",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_formal_math_readiness_gate",
+      "standard_payload_standard_id": "std_microcosm_formal_math_readiness_gate",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_formal_math_readiness_gate.json"
     },
     {
@@ -84,8 +113,15 @@
         "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
         "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_corpus_readiness_mathlib_absence_gate]",
+      "registry_standard_id": "std_microcosm_corpus_readiness_mathlib_absence_gate",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_corpus_readiness_mathlib_absence_gate",
+      "standard_payload_standard_id": "std_microcosm_corpus_readiness_mathlib_absence_gate",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json"
     },
     {
@@ -101,8 +137,15 @@
         "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_validation_receipt.json",
         "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mathematical_strategy_atlas_hypothesis_scorer]",
+      "registry_standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
+      "standard_payload_standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json"
     },
     {
@@ -118,8 +161,15 @@
         "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
         "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_tactic_portfolio_availability_probe.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_tactic_portfolio_availability_probe]",
+      "registry_standard_id": "std_microcosm_tactic_portfolio_availability_probe",
+      "registry_status": "accepted",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_tactic_portfolio_availability_probe",
+      "standard_payload_standard_id": "std_microcosm_tactic_portfolio_availability_probe",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_tactic_portfolio_availability_probe.json"
     },
     {
@@ -135,8 +185,15 @@
         "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
         "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_target_shape_tactic_routing_gate.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_target_shape_tactic_routing_gate]",
+      "registry_standard_id": "std_microcosm_target_shape_tactic_routing_gate",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_target_shape_tactic_routing_gate",
+      "standard_payload_standard_id": "std_microcosm_target_shape_tactic_routing_gate",
+      "standard_payload_status": "",
+      "standard_payload_used_by_organ": false,
       "standard_ref": "standards/std_microcosm_target_shape_tactic_routing_gate.json"
     },
     {
@@ -152,8 +209,15 @@
         "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
         "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_lean_std_premise_index.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_lean_std_premise_index]",
+      "registry_standard_id": "std_microcosm_lean_std_premise_index",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_lean_std_premise_index",
+      "standard_payload_standard_id": "std_microcosm_lean_std_premise_index",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_lean_std_premise_index.json"
     },
     {
@@ -169,8 +233,15 @@
         "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
         "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_formal_math_premise_retrieval.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_premise_retrieval]",
+      "registry_standard_id": "std_microcosm_formal_math_premise_retrieval",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_formal_math_premise_retrieval",
+      "standard_payload_standard_id": "std_microcosm_formal_math_premise_retrieval",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_formal_math_premise_retrieval.json"
     },
     {
@@ -186,8 +257,15 @@
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
         "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_verifier_trace_repair_loop]",
+      "registry_standard_id": "std_microcosm_formal_math_verifier_trace_repair_loop",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_formal_math_verifier_trace_repair_loop",
+      "standard_payload_standard_id": "std_microcosm_formal_math_verifier_trace_repair_loop",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json"
     },
     {
@@ -203,8 +281,15 @@
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
         "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_evidence_cell_anchor_resolver]",
+      "registry_standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
+      "standard_payload_standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json"
     },
     {
@@ -220,8 +305,15 @@
         "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
         "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_undeclared_library_prior_symbol_classifier]",
+      "registry_standard_id": "std_microcosm_undeclared_library_prior_symbol_classifier",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_undeclared_library_prior_symbol_classifier",
+      "standard_payload_standard_id": "std_microcosm_undeclared_library_prior_symbol_classifier",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json"
     },
     {
@@ -237,8 +329,15 @@
         "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json",
         "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_ring2_premise_retrieval_precision_recall_harness]",
+      "registry_standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+      "registry_status": "accepted",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+      "standard_payload_standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+      "standard_payload_status": "",
+      "standard_payload_used_by_organ": false,
       "standard_ref": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json"
     },
     {
@@ -254,8 +353,15 @@
         "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_benchmark_integrity_anti_gaming_replay]",
+      "registry_standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+      "standard_payload_standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json"
     },
     {
@@ -271,8 +377,15 @@
         "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
         "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_provider_context_recipe_budget_policy]",
+      "registry_standard_id": "std_microcosm_provider_context_recipe_budget_policy",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_provider_context_recipe_budget_policy",
+      "standard_payload_standard_id": "std_microcosm_provider_context_recipe_budget_policy",
+      "standard_payload_status": "",
+      "standard_payload_used_by_organ": false,
       "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json"
     },
     {
@@ -288,8 +401,15 @@
         "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
         "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_formal_math_lean_proof_witness.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_lean_proof_witness]",
+      "registry_standard_id": "std_microcosm_formal_math_lean_proof_witness",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_formal_math_lean_proof_witness",
+      "standard_payload_standard_id": "std_microcosm_formal_math_lean_proof_witness",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_formal_math_lean_proof_witness.json"
     },
     {
@@ -305,8 +425,15 @@
         "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
         "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_verifier_lab_kernel.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_verifier_lab_kernel]",
+      "registry_standard_id": "std_microcosm_verifier_lab_kernel",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_verifier_lab_kernel",
+      "standard_payload_standard_id": "std_microcosm_verifier_lab_kernel",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_verifier_lab_kernel.json"
     },
     {
@@ -322,8 +449,15 @@
         "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
         "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_verifier_lab_execution_spine.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_verifier_lab_execution_spine]",
+      "registry_standard_id": "std_microcosm_verifier_lab_execution_spine",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_verifier_lab_execution_spine",
+      "standard_payload_standard_id": "std_microcosm_verifier_lab_execution_spine",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_verifier_lab_execution_spine.json"
     },
     {
@@ -342,8 +476,15 @@
         "receipts/first_wave/navigation_hologram_route_plane/toy_kind_card.json",
         "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json"
       ],
+      "registry_path": "standards/std_microcosm_navigation_hologram_route_plane.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_navigation_hologram_route_plane]",
+      "registry_standard_id": "std_microcosm_navigation_hologram_route_plane",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_navigation_hologram_route_plane",
+      "standard_payload_standard_id": "std_microcosm_navigation_hologram_route_plane",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json"
     },
     {
@@ -363,8 +504,15 @@
         "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
         "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
       ],
+      "registry_path": "standards/std_microcosm_mission_transaction_work_spine.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mission_transaction_work_spine]",
+      "registry_standard_id": "std_microcosm_mission_transaction_work_spine",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_mission_transaction_work_spine",
+      "standard_payload_standard_id": "std_microcosm_mission_transaction_work_spine",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_mission_transaction_work_spine.json"
     },
     {
@@ -380,8 +528,15 @@
         "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_durable_agent_work_landing_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_durable_agent_work_landing_replay]",
+      "registry_standard_id": "std_microcosm_durable_agent_work_landing_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_durable_agent_work_landing_replay",
+      "standard_payload_standard_id": "std_microcosm_durable_agent_work_landing_replay",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_durable_agent_work_landing_replay.json"
     },
     {
@@ -397,8 +552,15 @@
         "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_research_replication_rubric_artifact_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_research_replication_rubric_artifact_replay]",
+      "registry_standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
+      "standard_payload_standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_research_replication_rubric_artifact_replay.json"
     },
     {
@@ -414,8 +576,15 @@
         "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
         "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_world_model_projection_drift_control_room.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_world_model_projection_drift_control_room]",
+      "registry_standard_id": "std_microcosm_world_model_projection_drift_control_room",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_world_model_projection_drift_control_room",
+      "standard_payload_standard_id": "std_microcosm_world_model_projection_drift_control_room",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_world_model_projection_drift_control_room.json"
     },
     {
@@ -431,8 +600,15 @@
         "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_spatial_world_model_counterfactual_simulation_replay]",
+      "registry_standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+      "standard_payload_standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json"
     },
     {
@@ -448,8 +624,15 @@
         "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mechanistic_interpretability_circuit_attribution_replay]",
+      "registry_standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+      "standard_payload_standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json"
     },
     {
@@ -467,8 +650,15 @@
         "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
         "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_route_observability_runtime.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_route_observability_runtime]",
+      "registry_standard_id": "std_microcosm_agent_route_observability_runtime",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_route_observability_runtime",
+      "standard_payload_standard_id": "std_microcosm_agent_route_observability_runtime",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_route_observability_runtime.json"
     },
     {
@@ -485,8 +675,15 @@
         "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
         "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
       ],
+      "registry_path": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_bridge_phase_continuity_runtime]",
+      "registry_standard_id": "std_microcosm_bridge_phase_continuity_runtime",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_bridge_phase_continuity_runtime",
+      "standard_payload_standard_id": "std_microcosm_bridge_phase_continuity_runtime",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_bridge_phase_continuity_runtime.json"
     },
     {
@@ -499,10 +696,18 @@
       "receipt_refs": [
         "receipts/first_wave/pattern_assimilation_acceptance.json",
         "receipts/first_wave/pattern_assimilation_receipt.json",
-        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+        "receipts/first_wave/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json"
       ],
+      "registry_path": "standards/std_microcosm_pattern_assimilation_step.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_pattern_assimilation_step]",
+      "registry_standard_id": "std_microcosm_pattern_assimilation_step",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": false,
       "standard_id": "std_microcosm_pattern_assimilation_step",
+      "standard_payload_standard_id": "std_microcosm_pattern_assimilation_step",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": false,
       "standard_ref": "standards/std_microcosm_pattern_assimilation_step.json"
     },
     {
@@ -516,10 +721,18 @@
         "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
         "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
         "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
-        "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
+        "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json"
       ],
+      "registry_path": "standards/std_microcosm_public_reveal_walkthrough.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_public_reveal_walkthrough]",
+      "registry_standard_id": "std_microcosm_public_reveal_walkthrough",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_public_reveal_walkthrough",
+      "standard_payload_standard_id": "std_microcosm_public_reveal_walkthrough",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_public_reveal_walkthrough.json"
     },
     {
@@ -536,8 +749,15 @@
         "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
         "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_macro_projection_import_protocol.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_macro_projection_import_protocol]",
+      "registry_standard_id": "std_microcosm_macro_projection_import_protocol",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_macro_projection_import_protocol",
+      "standard_payload_standard_id": "std_microcosm_macro_projection_import_protocol",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     {
@@ -553,8 +773,15 @@
         "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
         "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_prediction_oracle_reconciliation.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_prediction_oracle_reconciliation]",
+      "registry_standard_id": "std_microcosm_prediction_oracle_reconciliation",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_prediction_oracle_reconciliation",
+      "standard_payload_standard_id": "std_microcosm_prediction_oracle_reconciliation",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_prediction_oracle_reconciliation.json"
     },
     {
@@ -570,8 +797,15 @@
         "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
         "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_standards_meta_diagnostics.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_standards_meta_diagnostics]",
+      "registry_standard_id": "std_microcosm_standards_meta_diagnostics",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_standards_meta_diagnostics",
+      "standard_payload_standard_id": "std_microcosm_standards_meta_diagnostics",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_standards_meta_diagnostics.json"
     },
     {
@@ -587,8 +821,15 @@
         "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
         "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_cold_reader_route_map.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_cold_reader_route_map]",
+      "registry_standard_id": "std_microcosm_cold_reader_route_map",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_cold_reader_route_map",
+      "standard_payload_standard_id": "std_microcosm_cold_reader_route_map",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_cold_reader_route_map.json"
     },
     {
@@ -604,8 +845,15 @@
         "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_monitor_redteam_falsification_replay]",
+      "registry_standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
+      "standard_payload_standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json"
     },
     {
@@ -621,8 +869,15 @@
         "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_sabotage_scheming_monitor_replay]",
+      "registry_standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+      "standard_payload_standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json"
     },
     {
@@ -638,8 +893,15 @@
         "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_memory_temporal_conflict_replay]",
+      "registry_standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
+      "standard_payload_standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json"
     },
     {
@@ -655,8 +917,15 @@
         "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_sleeper_memory_poisoning_quarantine_replay]",
+      "registry_standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+      "standard_payload_standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json"
     },
     {
@@ -672,8 +941,15 @@
         "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_mcp_tool_authority_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mcp_tool_authority_replay]",
+      "registry_standard_id": "std_microcosm_mcp_tool_authority_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_mcp_tool_authority_replay",
+      "standard_payload_standard_id": "std_microcosm_mcp_tool_authority_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json"
     },
     {
@@ -689,8 +965,15 @@
         "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
         "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_proof_derived_governed_mutation_authorization]",
+      "registry_standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+      "standard_payload_standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_proof_derived_governed_mutation_authorization.json"
     },
     {
@@ -706,8 +989,15 @@
         "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_belief_state_process_reward_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_belief_state_process_reward_replay]",
+      "registry_standard_id": "std_microcosm_belief_state_process_reward_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_belief_state_process_reward_replay",
+      "standard_payload_standard_id": "std_microcosm_belief_state_process_reward_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json"
     },
     {
@@ -723,8 +1013,15 @@
         "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_sandbox_policy_escape_replay]",
+      "registry_standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+      "standard_payload_standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json"
     },
     {
@@ -740,8 +1037,15 @@
         "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_indirect_prompt_injection_information_flow_policy_replay]",
+      "registry_standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+      "standard_payload_standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json"
     },
     {
@@ -757,8 +1061,15 @@
         "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agentic_vulnerability_discovery_patch_proof_replay]",
+      "registry_standard_id": "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+      "standard_payload_standard_id": "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json"
     },
     {
@@ -774,8 +1085,15 @@
         "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_materials_chemistry_closed_loop_lab_safety_replay]",
+      "registry_standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "standard_payload_standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json"
     },
     {
@@ -791,8 +1109,15 @@
         "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
         "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_certificate_kernel_execution_lab.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_certificate_kernel_execution_lab]",
+      "registry_standard_id": "std_microcosm_certificate_kernel_execution_lab",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_certificate_kernel_execution_lab",
+      "standard_payload_standard_id": "std_microcosm_certificate_kernel_execution_lab",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json"
     },
     {
@@ -808,8 +1133,15 @@
         "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_validation_receipt.json",
         "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_voice_to_doctrine_self_improvement_loop]",
+      "registry_standard_id": "std_microcosm_voice_to_doctrine_self_improvement_loop",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_voice_to_doctrine_self_improvement_loop",
+      "standard_payload_standard_id": "std_microcosm_voice_to_doctrine_self_improvement_loop",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": false,
       "standard_ref": "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json"
     },
     {
@@ -825,8 +1157,15 @@
         "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
         "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_cognitive_operator_registry.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_cognitive_operator_registry]",
+      "registry_standard_id": "std_microcosm_cognitive_operator_registry",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_cognitive_operator_registry",
+      "standard_payload_standard_id": "std_microcosm_cognitive_operator_registry",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_cognitive_operator_registry.json"
     },
     {
@@ -842,8 +1181,15 @@
         "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
         "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_routing_anti_patterns_registry.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_routing_anti_patterns_registry]",
+      "registry_standard_id": "std_microcosm_routing_anti_patterns_registry",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_routing_anti_patterns_registry",
+      "standard_payload_standard_id": "std_microcosm_routing_anti_patterns_registry",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_routing_anti_patterns_registry.json"
     },
     {
@@ -859,8 +1205,15 @@
         "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json",
         "receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_agent_closeout_faithfulness_audit.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_closeout_faithfulness_audit]",
+      "registry_standard_id": "std_microcosm_agent_closeout_faithfulness_audit",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_agent_closeout_faithfulness_audit",
+      "standard_payload_standard_id": "std_microcosm_agent_closeout_faithfulness_audit",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_agent_closeout_faithfulness_audit.json"
     },
     {
@@ -876,8 +1229,15 @@
         "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json",
         "receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_doctrine_fact_claim_audit.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_doctrine_fact_claim_audit]",
+      "registry_standard_id": "std_microcosm_doctrine_fact_claim_audit",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_doctrine_fact_claim_audit",
+      "standard_payload_standard_id": "std_microcosm_doctrine_fact_claim_audit",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_doctrine_fact_claim_audit.json"
     },
     {
@@ -893,8 +1253,15 @@
         "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_validation_receipt.json",
         "receipts/acceptance/first_wave/self_ignorance_coverage_ledger_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_self_ignorance_coverage_ledger.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_self_ignorance_coverage_ledger]",
+      "registry_standard_id": "std_microcosm_self_ignorance_coverage_ledger",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_self_ignorance_coverage_ledger",
+      "standard_payload_standard_id": "std_microcosm_self_ignorance_coverage_ledger",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_self_ignorance_coverage_ledger.json"
     },
     {
@@ -910,8 +1277,15 @@
         "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_validation_receipt.json",
         "receipts/acceptance/first_wave/bounded_autonomy_campaign_packet_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_bounded_autonomy_campaign_packet.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_bounded_autonomy_campaign_packet]",
+      "registry_standard_id": "std_microcosm_bounded_autonomy_campaign_packet",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_bounded_autonomy_campaign_packet",
+      "standard_payload_standard_id": "std_microcosm_bounded_autonomy_campaign_packet",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_bounded_autonomy_campaign_packet.json"
     },
     {
@@ -927,8 +1301,15 @@
         "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json",
         "receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_finance_forecast_evaluation_spine.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_finance_forecast_evaluation_spine]",
+      "registry_standard_id": "std_microcosm_finance_forecast_evaluation_spine",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_finance_forecast_evaluation_spine",
+      "standard_payload_standard_id": "std_microcosm_finance_forecast_evaluation_spine",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_finance_forecast_evaluation_spine.json"
     },
     {
@@ -944,8 +1325,15 @@
         "receipts/first_wave/batch4_proof_authority_runtime/batch4_proof_authority_runtime_validation_receipt.json",
         "receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch4_proof_authority_runtime.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch4_proof_authority_runtime]",
+      "registry_standard_id": "std_microcosm_batch4_proof_authority_runtime",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch4_proof_authority_runtime",
+      "standard_payload_standard_id": "std_microcosm_batch4_proof_authority_runtime",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch4_proof_authority_runtime.json"
     },
     {
@@ -961,15 +1349,46 @@
         "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch6_unsurfaced_primitives_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch6_unsurfaced_primitives_capsule]",
+      "registry_standard_id": "std_microcosm_batch6_unsurfaced_primitives_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch6_unsurfaced_primitives_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch6_unsurfaced_primitives_capsule",
+      "standard_payload_status": "bounded_by_accepted_organ_claim_ceiling",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch6_unsurfaced_primitives_capsule.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json",
+      "body_in_receipt": false,
+      "ordinal": 57,
+      "organ_id": "batch5_authority_systems_capsule",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[batch5_authority_systems_capsule_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/batch5_authority_systems_capsule/batch5_authority_systems_capsule_result.json",
+        "receipts/first_wave/batch5_authority_systems_capsule/batch5_authority_systems_capsule_board.json",
+        "receipts/first_wave/batch5_authority_systems_capsule/batch5_authority_systems_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json"
+      ],
+      "registry_path": "standards/std_microcosm_batch5_authority_systems_capsule.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch5_authority_systems_capsule]",
+      "registry_standard_id": "std_microcosm_batch5_authority_systems_capsule",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
+      "standard_id": "std_microcosm_batch5_authority_systems_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch5_authority_systems_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
+      "standard_ref": "standards/std_microcosm_batch5_authority_systems_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 57,
+      "ordinal": 58,
       "organ_id": "batch7_macro_engines_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch7_macro_engines_capsule_public_pressure]",
       "receipt_refs": [
@@ -978,15 +1397,70 @@
         "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch7_macro_engines_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch7_macro_engines_capsule]",
+      "registry_standard_id": "std_microcosm_batch7_macro_engines_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch7_macro_engines_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch7_macro_engines_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch7_macro_engines_capsule.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json",
+      "body_in_receipt": false,
+      "ordinal": 59,
+      "organ_id": "batch7_oracle_sibling_capsule",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[batch7_oracle_sibling_capsule_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_result.json",
+        "receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_board.json",
+        "receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json"
+      ],
+      "registry_path": "standards/std_microcosm_batch7_oracle_sibling_capsule.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch7_oracle_sibling_capsule]",
+      "registry_standard_id": "std_microcosm_batch7_oracle_sibling_capsule",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
+      "standard_id": "std_microcosm_batch7_oracle_sibling_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch7_oracle_sibling_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
+      "standard_ref": "standards/std_microcosm_batch7_oracle_sibling_capsule.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json",
+      "body_in_receipt": false,
+      "ordinal": 60,
+      "organ_id": "batch7_demo_take_console_capsule",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[batch7_demo_take_console_capsule_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/batch7_demo_take_console_capsule/batch7_demo_take_console_capsule_result.json",
+        "receipts/first_wave/batch7_demo_take_console_capsule/batch7_demo_take_console_capsule_board.json",
+        "receipts/first_wave/batch7_demo_take_console_capsule/batch7_demo_take_console_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json"
+      ],
+      "registry_path": "standards/std_microcosm_batch7_demo_take_console_capsule.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch7_demo_take_console_capsule]",
+      "registry_standard_id": "std_microcosm_batch7_demo_take_console_capsule",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
+      "standard_id": "std_microcosm_batch7_demo_take_console_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch7_demo_take_console_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
+      "standard_ref": "standards/std_microcosm_batch7_demo_take_console_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 58,
+      "ordinal": 61,
       "organ_id": "batch8_tools_tail_primitives_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_tools_tail_primitives_capsule_public_pressure]",
       "receipt_refs": [
@@ -995,15 +1469,22 @@
         "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch8_tools_tail_primitives_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_tools_tail_primitives_capsule]",
+      "registry_standard_id": "std_microcosm_batch8_tools_tail_primitives_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch8_tools_tail_primitives_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch8_tools_tail_primitives_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch8_tools_tail_primitives_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 59,
+      "ordinal": 62,
       "organ_id": "batch8_policy_engines_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_policy_engines_capsule_public_pressure]",
       "receipt_refs": [
@@ -1012,15 +1493,22 @@
         "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch8_policy_engines_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_policy_engines_capsule]",
+      "registry_standard_id": "std_microcosm_batch8_policy_engines_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch8_policy_engines_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch8_policy_engines_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch8_policy_engines_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 60,
+      "ordinal": 63,
       "organ_id": "batch8_audio_level_rms_port",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_audio_level_rms_port_public_pressure]",
       "receipt_refs": [
@@ -1029,32 +1517,22 @@
         "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_validation_receipt.json",
         "receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch8_audio_level_rms_port.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_audio_level_rms_port]",
+      "registry_standard_id": "std_microcosm_batch8_audio_level_rms_port",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch8_audio_level_rms_port",
+      "standard_payload_standard_id": "std_microcosm_batch8_audio_level_rms_port",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch8_audio_level_rms_port.json"
-    },
-    {
-      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
-      "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
-      "body_in_receipt": false,
-      "ordinal": 61,
-      "organ_id": "batch8_station_surface_atlas_layout_port",
-      "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_station_surface_atlas_layout_port_public_pressure]",
-      "receipt_refs": [
-        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_result.json",
-        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_board.json",
-        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_validation_receipt.json",
-        "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
-      ],
-      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_station_surface_atlas_layout_port]",
-      "standard_id": "std_microcosm_batch8_station_surface_atlas_layout_port",
-      "standard_ref": "standards/std_microcosm_batch8_station_surface_atlas_layout_port.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 62,
+      "ordinal": 64,
       "organ_id": "batch8_structural_theses_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_structural_theses_capsule_public_pressure]",
       "receipt_refs": [
@@ -1063,15 +1541,22 @@
         "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch8_structural_theses_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_structural_theses_capsule]",
+      "registry_standard_id": "std_microcosm_batch8_structural_theses_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch8_structural_theses_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch8_structural_theses_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch8_structural_theses_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 63,
+      "ordinal": 65,
       "organ_id": "engine_room_demo",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[engine_room_demo_public_pressure]",
       "receipt_refs": [
@@ -1080,15 +1565,22 @@
         "receipts/first_wave/engine_room_demo/engine_room_demo_validation_receipt.json",
         "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_engine_room_demo.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_engine_room_demo]",
+      "registry_standard_id": "std_microcosm_engine_room_demo",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_engine_room_demo",
+      "standard_payload_standard_id": "std_microcosm_engine_room_demo",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_engine_room_demo.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 64,
+      "ordinal": 66,
       "organ_id": "batch9_macro_engines_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch9_macro_engines_capsule_public_pressure]",
       "receipt_refs": [
@@ -1097,15 +1589,22 @@
         "receipts/first_wave/batch9_macro_engines_capsule/batch9_macro_engines_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch9_macro_engines_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch9_macro_engines_capsule]",
+      "registry_standard_id": "std_microcosm_batch9_macro_engines_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch9_macro_engines_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch9_macro_engines_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch9_macro_engines_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 65,
+      "ordinal": 67,
       "organ_id": "batch10_governance_compilers_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch10_governance_compilers_capsule_public_pressure]",
       "receipt_refs": [
@@ -1114,15 +1613,22 @@
         "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch10_governance_compilers_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch10_governance_compilers_capsule]",
+      "registry_standard_id": "std_microcosm_batch10_governance_compilers_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch10_governance_compilers_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch10_governance_compilers_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch10_governance_compilers_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 66,
+      "ordinal": 68,
       "organ_id": "batch11_saturation_engines_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch11_saturation_engines_capsule_public_pressure]",
       "receipt_refs": [
@@ -1131,15 +1637,22 @@
         "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch11_saturation_engines_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch11_saturation_engines_capsule]",
+      "registry_standard_id": "std_microcosm_batch11_saturation_engines_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch11_saturation_engines_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch11_saturation_engines_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch11_saturation_engines_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 67,
+      "ordinal": 69,
       "organ_id": "tool_server_pressure_inventory",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[tool_server_pressure_inventory_public_pressure]",
       "receipt_refs": [
@@ -1148,32 +1661,22 @@
         "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_validation_receipt.json",
         "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_tool_server_pressure_inventory.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_tool_server_pressure_inventory]",
+      "registry_standard_id": "std_microcosm_tool_server_pressure_inventory",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_tool_server_pressure_inventory",
+      "standard_payload_standard_id": "std_microcosm_tool_server_pressure_inventory",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_tool_server_pressure_inventory.json"
-    },
-    {
-      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
-      "authority_ceiling_ref": "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
-      "body_in_receipt": false,
-      "ordinal": 68,
-      "organ_id": "workstream_driver_recency_coalescer",
-      "pressure_row_ref": "core/public_standard_pressure.json::rows[workstream_driver_recency_coalescer_public_pressure]",
-      "receipt_refs": [
-        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
-        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
-        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
-        "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
-      ],
-      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_workstream_driver_recency_coalescer]",
-      "standard_id": "std_microcosm_workstream_driver_recency_coalescer",
-      "standard_ref": "standards/std_microcosm_workstream_driver_recency_coalescer.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 69,
+      "ordinal": 70,
       "organ_id": "batch8_compliance_pipeline_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_compliance_pipeline_capsule_public_pressure]",
       "receipt_refs": [
@@ -1182,15 +1685,22 @@
         "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch8_compliance_pipeline_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_compliance_pipeline_capsule]",
+      "registry_standard_id": "std_microcosm_batch8_compliance_pipeline_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch8_compliance_pipeline_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch8_compliance_pipeline_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch8_compliance_pipeline_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 70,
+      "ordinal": 71,
       "organ_id": "batch10_live_source_drift_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch10_live_source_drift_capsule_public_pressure]",
       "receipt_refs": [
@@ -1199,15 +1709,22 @@
         "receipts/first_wave/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch10_live_source_drift_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch10_live_source_drift_capsule]",
+      "registry_standard_id": "std_microcosm_batch10_live_source_drift_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch10_live_source_drift_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch10_live_source_drift_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch10_live_source_drift_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 71,
+      "ordinal": 72,
       "organ_id": "batch10_cold_eval_honesty_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch10_cold_eval_honesty_capsule_public_pressure]",
       "receipt_refs": [
@@ -1216,15 +1733,22 @@
         "receipts/first_wave/batch10_cold_eval_honesty_capsule/batch10_cold_eval_honesty_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch10_cold_eval_honesty_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch10_cold_eval_honesty_capsule]",
+      "registry_standard_id": "std_microcosm_batch10_cold_eval_honesty_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch10_cold_eval_honesty_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch10_cold_eval_honesty_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch10_cold_eval_honesty_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 72,
+      "ordinal": 73,
       "organ_id": "batch8_validator_checker_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch8_validator_checker_capsule_public_pressure]",
       "receipt_refs": [
@@ -1233,15 +1757,22 @@
         "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch8_validator_checker_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch8_validator_checker_capsule]",
+      "registry_standard_id": "std_microcosm_batch8_validator_checker_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch8_validator_checker_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch8_validator_checker_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch8_validator_checker_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 73,
+      "ordinal": 74,
       "organ_id": "concurrency_mission_control",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[concurrency_mission_control_public_pressure]",
       "receipt_refs": [
@@ -1250,32 +1781,46 @@
         "receipts/first_wave/concurrency_mission_control/concurrency_mission_control_validation_receipt.json",
         "receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_concurrency_mission_control.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_concurrency_mission_control]",
+      "registry_standard_id": "std_microcosm_concurrency_mission_control",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_concurrency_mission_control",
+      "standard_payload_standard_id": "std_microcosm_concurrency_mission_control",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_concurrency_mission_control.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
-      "authority_ceiling_ref": "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 74,
-      "organ_id": "batch7_station_runtime_capsule",
-      "pressure_row_ref": "core/public_standard_pressure.json::rows[batch7_station_runtime_capsule_public_pressure]",
+      "ordinal": 75,
+      "organ_id": "batch7_secondary_runtime_capsule",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[batch7_secondary_runtime_capsule_public_pressure]",
       "receipt_refs": [
-        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_result.json",
-        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_board.json",
-        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_validation_receipt.json",
-        "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
+        "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_result.json",
+        "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_board.json",
+        "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
       ],
-      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch7_station_runtime_capsule]",
-      "standard_id": "std_microcosm_batch7_station_runtime_capsule",
-      "standard_ref": "standards/std_microcosm_batch7_station_runtime_capsule.json"
+      "registry_path": "standards/std_microcosm_batch7_secondary_runtime_capsule.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch7_secondary_runtime_capsule]",
+      "registry_standard_id": "std_microcosm_batch7_secondary_runtime_capsule",
+      "registry_status": "draft",
+      "registry_used_by_organ": true,
+      "standard_id": "std_microcosm_batch7_secondary_runtime_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch7_secondary_runtime_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
+      "standard_ref": "standards/std_microcosm_batch7_secondary_runtime_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 75,
+      "ordinal": 76,
       "organ_id": "batch12_market_dashboard_read_model_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch12_market_dashboard_read_model_capsule_public_pressure]",
       "receipt_refs": [
@@ -1284,15 +1829,22 @@
         "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch12_market_dashboard_read_model_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch12_market_dashboard_read_model_capsule]",
+      "registry_standard_id": "std_microcosm_batch12_market_dashboard_read_model_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch12_market_dashboard_read_model_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch12_market_dashboard_read_model_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch12_market_dashboard_read_model_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 76,
+      "ordinal": 77,
       "organ_id": "batch12_prediction_market_board_capsule",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch12_prediction_market_board_capsule_public_pressure]",
       "receipt_refs": [
@@ -1301,15 +1853,22 @@
         "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_validation_receipt.json",
         "receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch12_prediction_market_board_capsule.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch12_prediction_market_board_capsule]",
+      "registry_standard_id": "std_microcosm_batch12_prediction_market_board_capsule",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch12_prediction_market_board_capsule",
+      "standard_payload_standard_id": "std_microcosm_batch12_prediction_market_board_capsule",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch12_prediction_market_board_capsule.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json",
       "body_in_receipt": false,
-      "ordinal": 77,
+      "ordinal": 78,
       "organ_id": "batch12_release_claim_language_gate",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[batch12_release_claim_language_gate_public_pressure]",
       "receipt_refs": [
@@ -1318,8 +1877,15 @@
         "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json",
         "receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
       ],
+      "registry_path": "standards/std_microcosm_batch12_release_claim_language_gate.json",
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_batch12_release_claim_language_gate]",
+      "registry_standard_id": "std_microcosm_batch12_release_claim_language_gate",
+      "registry_status": "accepted_public_runtime_standard",
+      "registry_used_by_organ": true,
       "standard_id": "std_microcosm_batch12_release_claim_language_gate",
+      "standard_payload_standard_id": "std_microcosm_batch12_release_claim_language_gate",
+      "standard_payload_status": "pass",
+      "standard_payload_used_by_organ": true,
       "standard_ref": "standards/std_microcosm_batch12_release_claim_language_gate.json"
     }
   ]

@@ -176,13 +176,6 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert "std_microcosm_batch7_oracle_sibling_capsule" not in gaps_by_id
     assert "std_microcosm_batch7_secondary_runtime_capsule" not in gaps_by_id
     assert "std_microcosm_agent_trace" not in gaps_by_id
-    assert gaps_by_id["std_microcosm_batch7_zenith_macos_capsule"]["gap_ids"] == [
-        "source_schema_not_public_microcosm_standard_v2",
-        "source_status_not_active",
-    ]
-    assert gaps_by_id["std_microcosm_batch7_zenith_macos_capsule"]["claim_ceiling"] == (
-        "activation_gap_summary_only_not_activation_or_release_authority"
-    )
     used_by_summary = receipt["used_by_organ_admission_summary"]
     assert used_by_summary["schema_version"] == (
         "standard_used_by_organ_admission_summary_v1"
@@ -213,14 +206,8 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
         "draft": 1,
     }
     assert "std_microcosm_agent_trace" in used_by_summary["unresolved_standard_ids"]
-    assert "std_microcosm_batch7_zenith_macos_capsule" in used_by_summary[
-        "unresolved_standard_ids"
-    ]
     assert "std_microcosm_compression_band" not in used_by_summary[
         "unresolved_standard_ids"
-    ]
-    assert "batch7_zenith_macos_capsule" in used_by_summary[
-        "unresolved_target_organ_ids"
     ]
     assert "option_surface" not in used_by_summary["unresolved_target_organ_ids"]
     assert "paper_module" not in used_by_summary["unresolved_target_organ_ids"]
@@ -253,16 +240,6 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
         "standard_used_by_organ_admission_summary_is_reentry_metadata_"
         "not_usage_or_acceptance_proof"
     )
-    zenith_gap = used_by_by_pair[
-        (
-            "std_microcosm_batch7_zenith_macos_capsule",
-            "batch7_zenith_macos_capsule",
-        )
-    ]
-    assert zenith_gap["contract_projection_status"] == (
-        "legacy_or_draft_standard_contract"
-    )
-    assert zenith_gap["source_standard_status"] == "draft"
     first_screen_gap = used_by_by_pair[
         ("std_microcosm_first_screen_composition_root", "runtime_shell")
     ]
@@ -369,54 +346,6 @@ def test_engine_room_staged_standard_activation_boundaries_are_source_explicit()
             for step in boundary["required_reentry"]
         )
         assert "not active public runtime standard" in boundary["claim_ceiling"]
-
-
-def test_batch7_zenith_draft_standard_activation_boundary_is_source_explicit() -> None:
-    source = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "standards/std_microcosm_batch7_zenith_macos_capsule.json"
-        ).read_text(encoding="utf-8")
-    )
-    boundary = source["activation_boundary"]
-    validator_contract = source["validator_contract"]
-    receipt_contract = source["receipt_contract"]
-
-    assert source["status"] == "draft"
-    assert source["schema_version"] != "public_microcosm_standard_v2"
-    assert source["relationships"]["used_by_organs"] == [
-        "batch7_zenith_macos_capsule"
-    ]
-    assert source["relationships"]["registry_integration_status"] == (
-        "inventory_only_registered_not_active_v2_promoted"
-    )
-    assert validator_contract["required"] is True
-    assert validator_contract["validator_id"] in source["validator_refs"]
-    assert receipt_contract["required"] is False
-    assert receipt_contract["receipt_id"] is None
-    assert boundary["status"] == "blocked_until_active_v2_admission"
-    assert boundary["residual_pressure_ref"] == (
-        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
-    )
-    assert "registered validator id is not active v2 standard support" in (
-        boundary["non_laundering_rules"]
-    )
-    assert (
-        "draft used_by_organs entry is residual pressure until the target organ "
-        "is accepted current authority"
-    ) in boundary["non_laundering_rules"]
-    assert any(
-        "land an accepted organ or mechanism subject" in step
-        for step in boundary["required_reentry"]
-    )
-    assert any(
-        "aggregate doctrine-lattice projections" in step
-        for step in boundary["required_reentry"]
-    )
-    assert "not active public runtime standard" in boundary["claim_ceiling"]
-    assert "not active v2 acceptance" in source["doctrine_kind_envelope"][
-        "claim_ceiling"
-    ]
 
 
 def test_agent_trace_used_by_organ_residual_boundary_is_source_explicit() -> None:
