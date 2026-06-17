@@ -4158,7 +4158,8 @@ def run_whole_system_comprehension_assay(
 #   action_kind   -- the contract's action class
 #   command_has   -- substring the first-action command must carry
 #   routing_basis -- how the goal must have been resolved
-#   do_not_edit_nonempty -- the custody boundary must name concrete paths
+#   do_not_edit_boundary -- the custody boundary must name paths or explain why
+#                           there are no forbidden edit paths for this owner
 # The adversarial rows came out of a red-team review: house vocabulary
 # ("fixture", "dispatch", "exchange"), single-common-word traps ("does this
 # work?"), negation, and destructive/publication intent must all resolve to
@@ -4185,10 +4186,10 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
      {"action_kind": "open_packet", "command_has": "--self-model"}),
     ("is mission_transaction_work_spine safe to edit?",
      {"owner_organ": "mission_transaction_work_spine", "action_kind": "run_fixture_command",
-      "do_not_edit_nonempty": True}),
+      "do_not_edit_boundary": True}),
     ("is the Mission Transaction Work Spine safe to edit?",
      {"owner_organ": "mission_transaction_work_spine",
-      "routing_basis": "organ_named_in_goal", "do_not_edit_nonempty": True}),
+      "routing_basis": "organ_named_in_goal", "do_not_edit_boundary": True}),
     ("run the fixture for finance",
      {"owner_organ": "finance_forecast_evaluation_spine",
       "action_kind": "run_fixture_command", "routing_basis": "task_class_route_match"}),
@@ -4346,8 +4347,9 @@ def run_first_action_assay(
             expect.get("routing_basis") is None
             or (contract.get("routing") or {}).get("basis") == expect["routing_basis"]
         )
-        ok_edit = not expect.get("do_not_edit_nonempty") or bool(
-            (contract.get("do_not_edit") or {}).get("paths")
+        do_not_edit = contract.get("do_not_edit") or {}
+        ok_edit = not expect.get("do_not_edit_boundary") or bool(
+            do_not_edit.get("paths") or do_not_edit.get("note")
         )
         ok = (
             bool(contract.get("found"))

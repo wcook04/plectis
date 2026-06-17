@@ -6,6 +6,7 @@ PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
 EXPORT_OUT ?= ../microcosm-substrate-export
 SMOKE_OUT ?= .microcosm/smoke
 SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0
+PROOF_LAB_SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=1
 FLIGHT_RECORDER_OUT ?= .microcosm/skeptic-flight-recorder
 FLIGHT_RECORDER_VERIFY_DIR ?= $(FLIGHT_RECORDER_OUT)
 RELEASE_CANDIDATE_PROOF_OUT ?= .microcosm/release-candidate-proof
@@ -97,7 +98,7 @@ smoke:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello . > $(SMOKE_OUT)/hello.txt
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card . > $(SMOKE_OUT)/first-screen-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json
-	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json
+	@$(PROOF_LAB_SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab > $(SMOKE_OUT)/proof-lab-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py --root . --project . --out $(SMOKE_OUT)/served-status-card.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json

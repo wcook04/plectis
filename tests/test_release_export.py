@@ -856,7 +856,7 @@ def test_release_export_blocks_source_parent_private_path_leaks(tmp_path: Path) 
     assert repo.as_posix() not in json.dumps(receipt, sort_keys=True)
 
 
-def test_release_export_blocks_private_body_source_module_matches(
+def test_release_export_substitutes_private_body_source_module_matches(
     tmp_path: Path,
 ) -> None:
     private_root = tmp_path / "repo"
@@ -869,11 +869,70 @@ def test_release_export_blocks_private_body_source_module_matches(
         "    return PRIVATE_SENTINEL\n"
     )
     _write(private_root / "system/lib/work_ledger.py", private_body)
-    _write(
+    source_module = (
         root
         / "examples/work_ledger_leak/exported_work_ledger_bundle/"
-        "source_modules/system/lib/work_ledger.py",
-        private_body,
+        "source_modules/system/lib/work_ledger.py"
+    )
+    _write(source_module, private_body)
+    manifest_path = source_module.parents[3] / "source_module_manifest.json"
+    _write(
+        manifest_path,
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "work_ledger_body_import",
+                        "source_ref": "system/lib/work_ledger.py",
+                        "target_ref": "source_modules/system/lib/work_ledger.py",
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                        "source_sha256": "stale",
+                        "target_sha256": "stale",
+                        "sha256": "stale",
+                        "sha256_match": True,
+                        "line_count": 1,
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+    )
+    protocol_path = source_module.parents[3] / "custom_projection_protocol.json"
+    _write(
+        protocol_path,
+        json.dumps(
+            {
+                "copied_material": [
+                    {
+                        "material_id": "work_ledger_body_import",
+                        "source_ref": "system/lib/work_ledger.py",
+                        "target_ref": (
+                            "examples/work_ledger_leak/exported_work_ledger_bundle/"
+                            "source_modules/system/lib/work_ledger.py"
+                        ),
+                        "body_digest": "sha256:stale",
+                        "body_line_count": 1,
+                        "body_import_verification": {
+                            "verification_status": "verified",
+                            "verification_mode": "exact_source_digest_match",
+                            "source_body_digest": "sha256:stale",
+                            "target_body_digest": "sha256:stale",
+                            "source_ref": "system/lib/work_ledger.py",
+                            "target_ref": (
+                                "examples/work_ledger_leak/"
+                                "exported_work_ledger_bundle/source_modules/"
+                                "system/lib/work_ledger.py"
+                            ),
+                            "source_to_target_relation": "exact_copy",
+                        },
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
     )
 
     receipt = release_export.build_release_export(
@@ -885,14 +944,74 @@ def test_release_export_blocks_private_body_source_module_matches(
     )
 
     contamination = receipt["source_modules_contamination"]
-    assert receipt["status"] == "blocked"
-    assert "RELEASE_EXPORT_SOURCE_MODULES_CONTAMINATION_BLOCKED" in receipt[
-        "blocking_codes"
-    ]
-    assert contamination["blocking_row_count"] == 1
-    assert contamination["rows"][0]["contamination_class"] == "private_body_exact_match"
-    assert contamination["rows"][0]["matched_private_ref"] == "system/lib/work_ledger.py"
+    substitution = receipt["exclusion_receipt"]["source_module_private_body_substitution"]
+    target_text = (
+        tmp_path
+        / "out"
+        / release_export.ARTIFACT_DIR_NAME
+        / source_module.relative_to(root)
+    ).read_text(encoding="utf-8")
+
+    assert receipt["status"] == "pass"
+    assert contamination["status"] == "pass"
+    assert contamination["row_count"] == 0
+    assert contamination["blocking_row_count"] == 0
+    assert contamination["source_tree_private_body_row_count"] == 1
+    assert contamination["source_tree_private_body_substitution_count"] == 1
+    assert substitution["substituted_file_count"] == 1
+    assert substitution["substituted_files"][0]["contamination_class"] == (
+        "private_body_exact_match"
+    )
+    assert substitution["substituted_files"][0]["matched_private_ref"] == (
+        "system/lib/work_ledger.py"
+    )
+    assert substitution["metadata_rewrite_file_count"] == 2
+    assert "WITHHELD_PRIVATE_SOURCE_REF = 'system/lib/work_ledger.py'" in target_text
+    assert private_body not in target_text
     assert private_body not in json.dumps(contamination, sort_keys=True)
+    exported_manifest = json.loads(
+        (
+            tmp_path
+            / "out"
+            / release_export.ARTIFACT_DIR_NAME
+            / manifest_path.relative_to(root)
+        ).read_text(encoding="utf-8")
+    )
+    stub_digest = release_export._sha256_file(
+        tmp_path
+        / "out"
+        / release_export.ARTIFACT_DIR_NAME
+        / source_module.relative_to(root)
+    )
+    assert exported_manifest["module_count"] == 0
+    assert exported_manifest["modules"] == []
+    assert exported_manifest["release_substitution_omissions"][0][
+        "source_ref"
+    ] == "system/lib/work_ledger.py"
+    assert exported_manifest["release_substitution_omissions"][0][
+        "release_substitution"
+    ] == (
+        {
+            "substitution": "public_safe_stub",
+            "matched_private_ref": "system/lib/work_ledger.py",
+            "contamination_class": "private_body_exact_match",
+            "body_in_receipt": False,
+        }
+    )
+    exported_protocol = json.loads(
+        (
+            tmp_path
+            / "out"
+            / release_export.ARTIFACT_DIR_NAME
+            / protocol_path.relative_to(root)
+        ).read_text(encoding="utf-8")
+    )
+    protocol_row = exported_protocol["copied_material"][0]
+    assert protocol_row["source_ref"] == source_module.relative_to(root).as_posix()
+    assert protocol_row["body_digest"] == f"sha256:{stub_digest}"
+    assert protocol_row["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{stub_digest}"
+    )
 
 
 def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
@@ -1202,6 +1321,47 @@ def test_release_export_skip_smoke_keeps_install_support_unclaimed(
     )
 
 
+def test_release_export_cleans_validation_residue_before_residue_gate(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+
+    def residue_writing_smoke(target: Path, *, source_root: Path) -> dict:
+        assert source_root == root
+        (target / ".microcosm/evidence").mkdir(parents=True)
+        (target / ".microcosm/evidence/init.json").write_text("{}\n", encoding="utf-8")
+        cache_dir = target / "src/microcosm_core/__pycache__"
+        cache_dir.mkdir(parents=True)
+        (cache_dir / "cli.cpython-313.pyc").write_bytes(b"bytecode")
+        return {"status": "pass"}
+
+    monkeypatch.setattr(release_export, "_run_smoke", residue_writing_smoke)
+    monkeypatch.setattr(
+        release_export,
+        "_run_install_smoke",
+        lambda target, *, source_root: {"status": "pass"},
+    )
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=True,
+        command="pytest release export validation residue cleanup",
+    )
+    target = tmp_path / "out" / release_export.ARTIFACT_DIR_NAME
+    cleanup = receipt["exclusion_receipt"]["validation_residue_cleanup"]
+
+    assert receipt["status"] == "pass"
+    assert receipt["exclusion_receipt"]["artifact_residue_violations"] == []
+    assert cleanup["pre_validation_residue_violation_count"] == 0
+    assert cleanup["post_validation_residue_violation_count"] == 0
+    assert cleanup["cleaned_path_count"] >= 2
+    assert not (target / ".microcosm").exists()
+    assert not (target / "src/microcosm_core/__pycache__").exists()
+
+
 def test_projection_freshness_receipt_names_stale_runtime_shape_subjects(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
@@ -1300,6 +1460,65 @@ def test_projection_freshness_receipt_names_stale_runtime_shape_subjects(
     assert all(row["body_in_receipt"] is False for row in runtime_shape["finding_sample"])
     assert "source body mismatch detail should stay out" not in serialized
     assert root.as_posix() not in serialized
+
+
+def test_projection_freshness_allows_private_body_stub_digest_mismatches(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    (
+        root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+    ).mkdir(parents=True)
+    substituted_ref = (
+        "examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/source_modules/system/lib/work_ledger.py"
+    )
+
+    def fake_run_projection_bundle(
+        bundle_dir: Path,
+        output_dir: Path,
+        *,
+        command: str,
+    ) -> dict:
+        assert bundle_dir.is_dir()
+        return {
+            "status": "blocked",
+            "error_codes": ["MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH"],
+            "findings": [
+                {
+                    "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
+                    "negative_case_id": "public_safe_body_import_floor",
+                    "subject_id": substituted_ref,
+                    "subject_kind": "copied_material",
+                    "body_in_receipt": False,
+                }
+            ],
+            "runtime_severance_status": "pass",
+            "dependency_preflight_gate_status": "pass",
+            "organ_lifecycle_coverage_status": "pass",
+            "macro_runtime_dependency_count": 0,
+        }
+
+    monkeypatch.setattr(
+        release_export.macro_projection_import_protocol,
+        "run_projection_bundle",
+        fake_run_projection_bundle,
+    )
+
+    receipt = release_export._projection_freshness(
+        root,
+        substituted_source_module_paths={substituted_ref},
+    )
+    runtime_shape = receipt["runtime_shape_validation"]
+
+    assert receipt["status"] == "pass"
+    assert runtime_shape["status"] == "pass"
+    assert runtime_shape["effective_source_status"] == "pass"
+    assert runtime_shape["error_codes"] == []
+    assert runtime_shape["waived_private_body_stub_mismatch_count"] == 1
+    assert runtime_shape["waived_private_body_stub_subject_count"] == 1
 
 
 def test_projection_freshness_receipt_rejects_duplicate_json_keys(
