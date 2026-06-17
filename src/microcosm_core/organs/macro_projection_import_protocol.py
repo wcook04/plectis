@@ -23,6 +23,9 @@ from microcosm_core.receipts import (
     write_json_atomic,
 )
 from microcosm_core.schemas import read_json_strict
+from microcosm_core.validators.source_module_boundary import (
+    evaluate_source_module_boundary,
+)
 
 
 ORGAN_ID = "macro_projection_import_protocol"
@@ -4346,6 +4349,21 @@ def refresh_exact_copy_source_modules(
     pending_source_refs = [
         str(row.get("source_ref") or "") for row in (*manifest_rows, *protocol_rows)
     ]
+    source_module_boundary = evaluate_source_module_boundary(
+        direct_refs=pending_source_refs,
+    )
+    blocked_boundary_refs = list(source_module_boundary.get("blocked_refs") or [])
+    if write and blocked_boundary_refs:
+        defects.append(
+            {
+                "defect_code": "source_module_refresh_private_boundary_blocked",
+                "boundary_checker_id": source_module_boundary.get("checker_id"),
+                "blocked_ref_count": len(blocked_boundary_refs),
+                "blocked_refs": blocked_boundary_refs,
+                "next_action": source_module_boundary.get("next_action"),
+                "body_in_receipt": False,
+            }
+        )
     source_coupling = _pending_source_coupling(
         pending_source_refs,
         source_root=source_root_path,
@@ -4470,6 +4488,9 @@ def refresh_exact_copy_source_modules(
         "allow_dirty_sources": allow_dirty_sources,
         "allow_dirty_outputs": allow_dirty_outputs,
         "write_guard": (
+            "source_module_boundary_blocked_write"
+            if write and blocked_boundary_refs
+            else
             "dirty_pending_sources_and_outputs_blocked_write"
             if (
                 write
@@ -4512,6 +4533,7 @@ def refresh_exact_copy_source_modules(
         "bundle_manifest_rows": bundle_manifest_rows,
         "defect_count": len(defects),
         "defects": defects,
+        "source_module_boundary": source_module_boundary,
         "source_coupling": source_coupling,
         "output_coupling": output_coupling,
         "body_text_in_receipt": False,

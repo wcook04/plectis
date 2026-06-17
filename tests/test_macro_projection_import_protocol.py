@@ -3145,7 +3145,7 @@ def test_refresh_exact_copy_source_modules_can_skip_protocol_scan_for_manifest_w
     assert protocol_row["body_digest"] == f"sha256:{old_digest}"
 
 
-def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protocol_mirrors(
+def test_refresh_exact_copy_source_modules_blocks_restricted_private_boundary_write(
     tmp_path: Path,
 ) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
@@ -3211,6 +3211,7 @@ def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protoco
     assert dry_run["manifest_row_update_count"] == 3
     assert dry_run["protocol_row_update_count"] == 4
     assert dry_run["body_text_in_receipt"] is False
+    assert dry_run["source_module_boundary"]["status"] == "blocked"
 
     write_result = refresh_exact_copy_source_modules(
         public_root,
@@ -3221,58 +3222,33 @@ def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protoco
         command="pytest",
     )
 
-    assert write_result["status"] == "pass"
-    assert write_result["write_applied"] is True
+    assert write_result["status"] == "blocked"
+    assert write_result["write_applied"] is False
+    assert write_result["write_guard"] == "source_module_boundary_blocked_write"
     assert write_result["target_copy_count"] == 3
+    boundary_defect = next(
+        row
+        for row in write_result["defects"]
+        if row["defect_code"] == "source_module_refresh_private_boundary_blocked"
+    )
+    assert boundary_defect["blocked_ref_count"] >= 2
+    assert {
+        "tools/meta/observability/cli_prompt_trace.py",
+        "system/server/world_model.py",
+    } <= {row["ref"] for row in boundary_defect["blocked_refs"]}
+    assert write_result["source_module_boundary"]["body_in_receipt"] is False
     for material_id, spec in material_targets.items():
         source = source_root / spec["source_ref"]
         source_bytes = source.read_bytes()
-        digest = hashlib.sha256(source_bytes).hexdigest()
-        line_count = source_bytes.count(b"\n")
 
         for target_ref in spec["target_refs"]:
-            assert (public_root / target_ref).read_bytes() == source_bytes
+            assert (public_root / target_ref).read_bytes() != source_bytes
 
         manifest = json.loads((public_root / spec["manifest_ref"]).read_text())
         manifest_row = next(
             row for row in manifest["modules"] if row["module_id"] == material_id
         )
-        assert manifest_row["source_sha256"] == digest
-        assert manifest_row["target_sha256"] == digest
-        assert manifest_row["line_count"] == line_count
-        assert manifest_row["byte_count"] == len(source_bytes)
-        assert manifest_row["sha256_match"] is True
-
-        for protocol_ref in (
-            "examples/macro_projection_import_protocol/"
-            "exported_projection_import_bundle/projection_protocol.json",
-            "fixtures/first_wave/macro_projection_import_protocol/input/"
-            "projection_protocol.json",
-        ):
-            protocol = json.loads((public_root / protocol_ref).read_text())
-            protocol_row = next(
-                row
-                for row in protocol["copied_material"]
-                if row["material_id"] == material_id
-            )
-            verification = protocol_row["body_import_verification"]
-            assert protocol_row["body_digest"] == f"sha256:{digest}"
-            assert protocol_row["body_line_count"] == line_count
-            assert verification["source_body_digest"] == f"sha256:{digest}"
-            assert verification["target_body_digest"] == f"sha256:{digest}"
-            assert verification["source_line_count"] == line_count
-            assert verification["target_line_count"] == line_count
-            assert verification["source_to_target_relation"] == "exact_copy"
-
-    validation = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
-
-    assert validation["status"] == "pass"
-    assert validation["public_safe_body_import_status"] == "pass"
-    assert validation["body_in_receipt"] is False
+        assert manifest_row["target_sha256"] != hashlib.sha256(source_bytes).hexdigest()
 
     clean_protocol_only_result = refresh_exact_copy_source_modules(
         public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
@@ -3368,7 +3344,7 @@ def test_refresh_exact_copy_source_modules_accepts_legacy_source_import_rows(
     marker_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
     source_root = tmp_path
-    source_ref = "system/lib/legacy_work_landing.py"
+    source_ref = "macro/legacy_work_landing.py"
     source = source_root / source_ref
     source.parent.mkdir(parents=True, exist_ok=True)
     source.write_text("LEGACY = 'refreshed exact copy'\n", encoding="utf-8")
@@ -3376,7 +3352,7 @@ def test_refresh_exact_copy_source_modules_accepts_legacy_source_import_rows(
     manifest_path = (
         public_root / "examples/legacy_work_landing/exported_bundle/source_module_manifest.json"
     )
-    target_ref = "source_modules/system/lib/legacy_work_landing.py"
+    target_ref = "source_modules/macro/legacy_work_landing.py"
     target = manifest_path.parent / target_ref
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text("LEGACY = 'stale copy'\n", encoding="utf-8")
@@ -3433,8 +3409,8 @@ def test_refresh_exact_copy_source_modules_filters_legacy_source_ref_rows(
     marker_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
     source_root = tmp_path
-    selected_source_ref = "system/lib/selected_observability.py"
-    other_source_ref = "system/lib/other_observability.py"
+    selected_source_ref = "macro/selected_observability.py"
+    other_source_ref = "macro/other_observability.py"
     selected_source = source_root / selected_source_ref
     other_source = source_root / other_source_ref
     selected_source.parent.mkdir(parents=True, exist_ok=True)
@@ -3446,8 +3422,8 @@ def test_refresh_exact_copy_source_modules_filters_legacy_source_ref_rows(
         / "examples/legacy_observability/exported_bundle/source_module_manifest.json"
     )
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    selected_target_ref = "source_modules/system/lib/selected_observability.py"
-    other_target_ref = "source_modules/system/lib/other_observability.py"
+    selected_target_ref = "source_modules/macro/selected_observability.py"
+    other_target_ref = "source_modules/macro/other_observability.py"
     for target_ref in (selected_target_ref, other_target_ref):
         target = manifest_path.parent / target_ref
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -3644,7 +3620,7 @@ def test_refresh_exact_copy_source_modules_refreshes_public_light_edit_metadata(
     marker_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
     source_root = tmp_path
-    source_ref = "state/runs/public_normalized_source.json"
+    source_ref = "public_examples/public_normalized_source.json"
     source = source_root / source_ref
     source.parent.mkdir(parents=True, exist_ok=True)
     source.write_text('{"path": "/private/host/path"}\n', encoding="utf-8")
@@ -3653,7 +3629,7 @@ def test_refresh_exact_copy_source_modules_refreshes_public_light_edit_metadata(
         public_root
         / "examples/public_normalized/exported_bundle/source_module_manifest.json"
     )
-    target_ref = "source_modules/state/runs/public_normalized_source.json"
+    target_ref = "source_modules/public_examples/public_normalized_source.json"
     target = manifest_path.parent / target_ref
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text('{"path": "<repo-root>/state/runs"}\n', encoding="utf-8")

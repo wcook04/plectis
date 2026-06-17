@@ -856,6 +856,45 @@ def test_release_export_blocks_source_parent_private_path_leaks(tmp_path: Path) 
     assert repo.as_posix() not in json.dumps(receipt, sort_keys=True)
 
 
+def test_release_export_blocks_private_body_source_module_matches(
+    tmp_path: Path,
+) -> None:
+    private_root = tmp_path / "repo"
+    private_root.mkdir()
+    root = _make_release_root(private_root / release_export.ARTIFACT_DIR_NAME)
+    _write(private_root / "kernel.py", "# private macro root marker\n")
+    private_body = (
+        "PRIVATE_SENTINEL = 'control plane body must not publish'\n"
+        "def run_private_control_plane():\n"
+        "    return PRIVATE_SENTINEL\n"
+    )
+    _write(private_root / "system/lib/work_ledger.py", private_body)
+    _write(
+        root
+        / "examples/work_ledger_leak/exported_work_ledger_bundle/"
+        "source_modules/system/lib/work_ledger.py",
+        private_body,
+    )
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export private body block",
+    )
+
+    contamination = receipt["source_modules_contamination"]
+    assert receipt["status"] == "blocked"
+    assert "RELEASE_EXPORT_SOURCE_MODULES_CONTAMINATION_BLOCKED" in receipt[
+        "blocking_codes"
+    ]
+    assert contamination["blocking_row_count"] == 1
+    assert contamination["rows"][0]["contamination_class"] == "private_body_exact_match"
+    assert contamination["rows"][0]["matched_private_ref"] == "system/lib/work_ledger.py"
+    assert private_body not in json.dumps(contamination, sort_keys=True)
+
+
 def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
     tmp_path: Path,
 ) -> None:

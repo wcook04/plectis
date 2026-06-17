@@ -16,21 +16,21 @@ def test_boundary_passes_public_relative_source_module_refs() -> None:
         "schema_version": "microcosm_source_module_manifest_v1",
         "modules": [
             {
-                "module_id": "work_ledger",
-                "source_ref": "tools/meta/factory/work_ledger.py",
+                "module_id": "public_synthetic_runtime",
+                "source_ref": "public_examples/synthetic_runtime.py",
                 "target_ref": (
                     "microcosm-substrate/examples/demo/source_modules/"
-                    "tools/meta/factory/work_ledger.py"
+                    "public_examples/synthetic_runtime.py"
                 ),
-                "path": "source_modules/tools/meta/factory/work_ledger.py",
+                "path": "source_modules/public_examples/synthetic_runtime.py",
                 "validation_refs": [
                     "microcosm-substrate/tests/test_demo.py::test_source_copy"
                 ],
             },
             {
                 "module_id": "raw_seed_public_tools",
-                "source_ref": "system/lib/raw_seed_keyphrase.py",
-                "target_ref": "source_modules/system/lib/raw_seed_keyphrase.py",
+                "source_ref": "public_examples/raw_seed_keyphrase.py",
+                "target_ref": "source_modules/public_examples/raw_seed_keyphrase.py",
             },
         ],
     }
@@ -42,6 +42,33 @@ def test_boundary_passes_public_relative_source_module_refs() -> None:
     assert card["safe_ref_count"] == 6
     assert card["input_manifest_refs"] == ["fixture_manifest.json"]
     assert "source-open by default" in card["boundary_policy"]
+
+
+def test_boundary_blocks_restricted_private_control_plane_refs() -> None:
+    card = evaluate_source_module_boundary(
+        direct_refs=[
+            "tools/meta/factory/work_ledger.py",
+            "system/lib/work_ledger.py",
+            (
+                "microcosm-substrate/examples/demo/source_modules/"
+                "tools/meta/factory/work_ledger.py"
+            ),
+            "kernel.py",
+        ]
+    )
+
+    assert card["status"] == BLOCKED
+    assert card["blocked_ref_count"] == 4
+    error_codes = {row["error_code"] for row in card["blocked_refs"]}
+    assert (
+        "source_ref_restricted_private_control_plane:tools/meta/"
+        in error_codes
+    )
+    assert (
+        "source_ref_restricted_private_control_plane:system/lib/"
+        in error_codes
+    )
+    assert "source_ref_restricted_private_control_plane:kernel.py" in error_codes
 
 
 def test_boundary_blocks_private_provider_session_and_raw_seed_refs() -> None:
@@ -110,9 +137,9 @@ def test_boundary_blocks_source_module_body_in_receipt_claim() -> None:
         "modules": [
             {
                 "module_id": "receipt_body_liar",
-                "source_ref": "system/lib/navigation_context_pack.py",
+                "source_ref": "public_examples/navigation_context_pack.py",
                 "target_ref": (
-                    "source_modules/system/lib/navigation_context_pack.py"
+                    "source_modules/public_examples/navigation_context_pack.py"
                 ),
                 "source_to_target_relation": "exact_copy",
                 "body_copied": True,
@@ -143,7 +170,7 @@ def test_boundary_blocks_copied_body_claim_without_target_ref() -> None:
         "modules": [
             {
                 "module_id": "targetless_copy_claim",
-                "source_ref": "tools/meta/factory/work_ledger.py",
+                "source_ref": "public_examples/synthetic_runtime.py",
                 "source_to_target_relation": "exact_copy",
                 "body_copied": True,
                 "body_in_receipt": False,
@@ -174,12 +201,12 @@ def test_boundary_blocks_source_module_path_target_ref_mismatch() -> None:
         "modules": [
             {
                 "module_id": "drifted_source_module_target",
-                "source_ref": "system/lib/navigation_context_pack.py",
+                "source_ref": "public_examples/navigation_context_pack.py",
                 "target_ref": (
                     "microcosm-substrate/examples/demo/source_modules/"
-                    "system/lib/navigation_context_pack.py"
+                    "public_examples/navigation_context_pack.py"
                 ),
-                "path": "source_modules/system/lib/wrong_target.py",
+                "path": "source_modules/public_examples/wrong_target.py",
                 "source_to_target_relation": "exact_copy",
                 "body_copied": True,
                 "body_in_receipt": False,
@@ -195,8 +222,8 @@ def test_boundary_blocks_source_module_path_target_ref_mismatch() -> None:
     finding = card["blocked_refs"][0]
     assert finding["row_id"] == "drifted_source_module_target"
     assert finding["error_code"] == "source_module_path_target_ref_mismatch"
-    assert finding["path_tail"] == "system/lib/wrong_target.py"
-    assert finding["target_tail"] == "system/lib/navigation_context_pack.py"
+    assert finding["path_tail"] == "public_examples/wrong_target.py"
+    assert finding["target_tail"] == "public_examples/navigation_context_pack.py"
     assert (
         finding["coordination_action"]
         == "align_path_and_target_ref_to_same_source_modules_body"
@@ -209,7 +236,7 @@ def test_boundary_keeps_distinct_structural_findings_for_same_row() -> None:
         "modules": [
             {
                 "module_id": "receipt_body_targetless_claim",
-                "source_ref": "system/lib/navigation_context_pack.py",
+                "source_ref": "public_examples/navigation_context_pack.py",
                 "source_to_target_relation": "exact_copy",
                 "body_copied": True,
                 "body_in_receipt": True,

@@ -241,6 +241,31 @@ SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES = {
 # exceptions to the source_modules contamination scan must be declared here
 # with a written reason; an empty map means no exceptions exist.
 SOURCE_MODULE_CONTAMINATION_ALLOWLIST: dict[str, str] = {}
+RESTRICTED_PRIVATE_SOURCE_PREFIXES = (
+    ".claude/",
+    ".codex/",
+    "apps/",
+    "codex/ledger/",
+    "obsidian/",
+    "state/",
+    "system/control/",
+    "system/lib/",
+    "system/server/",
+    "tools/agent_trace_structurer/",
+    "tools/meta/",
+)
+RESTRICTED_PRIVATE_SOURCE_FILENAMES = {
+    "kernel.py",
+    "pipeline_codex_handoff.py",
+    "pipeline_overnight.py",
+    "pipeline_signal_watcher.py",
+}
+PRIVATE_BODY_NEAR_VERBATIM_RATIO = 0.92
+PRIVATE_BODY_NEAR_VERBATIM_MIN_BYTES = 200
+PRIVATE_BODY_BLOCKING_CONTAMINATION_CLASSES = {
+    "private_body_exact_match",
+    "private_body_near_verbatim",
+}
 SKIPPED_ROOT_NAMES = {
     ".DS_Store",
     ".microcosm",
@@ -690,6 +715,131 @@ def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None
         return None
 
 
+def _default_private_root_for_public_root(public_root: Path) -> Path | None:
+    """Return the sibling macro root when a local public tree sits inside it."""
+    for candidate in (public_root.parent, public_root.parent.parent):
+        try:
+            resolved = candidate.resolve()
+        except OSError:
+            continue
+        if (resolved / "kernel.py").is_file() and (resolved / "microcosm-substrate").is_dir():
+            return resolved
+    return None
+
+
+def _restricted_private_source_match(source_modules_tail: str) -> str:
+    """Return the restricted private source prefix matched by a source_modules tail."""
+    normalized = source_modules_tail.replace("\\", "/").lstrip("/")
+    candidates = [normalized]
+    if normalized.startswith("ai_workflow/"):
+        candidates.append(normalized.removeprefix("ai_workflow/"))
+    for candidate in candidates:
+        if candidate in RESTRICTED_PRIVATE_SOURCE_FILENAMES:
+            return candidate
+        match = next(
+            (
+                prefix
+                for prefix in RESTRICTED_PRIVATE_SOURCE_PREFIXES
+                if candidate.startswith(prefix)
+            ),
+            "",
+        )
+        if match:
+            return match
+    return ""
+
+
+def _private_body_source_candidates(
+    private_root: Path,
+    source_modules_tail: str,
+) -> list[tuple[str, Path]]:
+    normalized = source_modules_tail.replace("\\", "/").lstrip("/")
+    candidates = [(normalized, private_root / normalized)]
+    if normalized.startswith("ai_workflow/"):
+        stripped = normalized.removeprefix("ai_workflow/")
+        candidates.append((stripped, private_root / stripped))
+    return candidates
+
+
+def _normalized_private_body_text(text: str) -> str:
+    return "\n".join(line.strip() for line in text.splitlines() if line.strip())
+
+
+def _private_body_match_row(
+    path: Path,
+    *,
+    public_root: Path,
+    modules_root: Path,
+    private_root: Path | None,
+    owning_bundle: str,
+) -> dict[str, str] | None:
+    if private_root is None:
+        return None
+    rel = path.relative_to(public_root).as_posix()
+    source_modules_tail = path.relative_to(modules_root).as_posix()
+    restriction = _restricted_private_source_match(source_modules_tail)
+    if not restriction:
+        return None
+
+    for private_ref, private_path in _private_body_source_candidates(
+        private_root,
+        source_modules_tail,
+    ):
+        if not private_path.is_file():
+            continue
+        try:
+            same_size = path.stat().st_size == private_path.stat().st_size
+        except OSError:
+            same_size = False
+        if same_size and _sha256_file(path) == _sha256_file(private_path):
+            return {
+                "path": rel,
+                "contamination_class": "private_body_exact_match",
+                "matched_private_ref": private_ref,
+                "restriction": restriction,
+                "owning_bundle": owning_bundle,
+                "remediation": (
+                    "replace the copied private control-plane body with a "
+                    "public-safe body, synthetic stub, fixture, contract/card, "
+                    "or omit it from the public source-population artifact"
+                ),
+            }
+        public_text = _read_text_if_small(path)
+        private_text = _read_text_if_small(private_path)
+        if public_text is None or private_text is None:
+            continue
+        public_normalized = _normalized_private_body_text(public_text)
+        private_normalized = _normalized_private_body_text(private_text)
+        if (
+            len(public_normalized.encode("utf-8")) < PRIVATE_BODY_NEAR_VERBATIM_MIN_BYTES
+            or len(private_normalized.encode("utf-8"))
+            < PRIVATE_BODY_NEAR_VERBATIM_MIN_BYTES
+        ):
+            continue
+        public_lines = set(public_normalized.splitlines())
+        private_lines = set(private_normalized.splitlines())
+        if not public_lines or not private_lines:
+            continue
+        shared_line_count = len(public_lines & private_lines)
+        containment = shared_line_count / min(len(public_lines), len(private_lines))
+        if containment >= PRIVATE_BODY_NEAR_VERBATIM_RATIO:
+            return {
+                "path": rel,
+                "contamination_class": "private_body_near_verbatim",
+                "matched_private_ref": private_ref,
+                "restriction": restriction,
+                "similarity_ratio": f"{containment:.3f}",
+                "threshold": f"{PRIVATE_BODY_NEAR_VERBATIM_RATIO:.3f}",
+                "owning_bundle": owning_bundle,
+                "remediation": (
+                    "rewrite as a public-safe body, synthetic stub, fixture, "
+                    "contract/card, or omission; near-verbatim private "
+                    "control-plane bodies cannot populate the public slice"
+                ),
+            }
+    return None
+
+
 def _iter_artifact_paths(target: Path) -> Iterator[Path]:
     """Yield artifact paths deterministically without materializing the tree.
 
@@ -823,18 +973,27 @@ _REAL_HOME_PATH_PATTERN = re.compile(
 )
 
 
-def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]:
+def scan_source_modules_contamination(
+    public_root: Path,
+    *,
+    private_root: Path | None = None,
+    compare_private_bodies: bool = True,
+) -> list[dict[str, str]]:
     """
-    - Teleology: population contamination gate over every exported bundle's source_modules payload — committed compiler output (SwiftPM/Xcode .build trees) and real host-private paths are release blockers the bounded import membrane cannot see, because the import trusts exact-copy declarations.
-    - Guarantee: returns one row (path, contamination_class, owning_bundle, remediation) per offending file: build_artifact_directory for any path under SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES, host_private_path for text files carrying a real /Users/<name> or /home/<name> (synthetic /Users/operator is the house fixture convention and is allowed) or a non-synthetic host temp needle; empty list means the scanned payloads are clean.
+    - Teleology: population contamination gate over every public-bound source_modules payload — committed compiler output (SwiftPM/Xcode .build trees), real host-private paths, and byte-identical/near-verbatim restricted private control-plane bodies are release blockers the bounded import membrane cannot see, because the import trusts exact-copy declarations.
+    - Guarantee: returns one row (path, contamination_class, owning_bundle, remediation) per offending file: build_artifact_directory for any path under SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES, host_private_path for text files carrying a real /Users/<name> or /home/<name> (synthetic /Users/operator is the house fixture convention and is allowed) or a non-synthetic host temp needle, private_body_exact_match for restricted source_modules tails byte-identical to the private macro root, or private_body_near_verbatim for restricted tails with text similarity >= PRIVATE_BODY_NEAR_VERBATIM_RATIO; empty list means the scanned payloads are clean.
     - Fails: never raises; unreadable/binary files contribute no content rows; SOURCE_MODULE_CONTAMINATION_ALLOWLIST prefixes are skipped with their declared reason.
-    - Reads: every source_modules subtree under examples/ plus per-file text (bounded by _read_text_if_small).
+    - Reads: every source_modules subtree under the public root plus per-file text (bounded by _read_text_if_small); when a sibling private macro root is available, reads same-tail restricted private files for digest/similarity comparison.
     - Non-goal: does not authorize release or population; a clean scan is a bounded gate result, not a complete privacy audit.
     """
     rows: list[dict[str, str]] = []
-    examples_root = public_root / "examples"
-    if not examples_root.is_dir():
+    if not public_root.is_dir():
         return rows
+    private_root = (
+        private_root or _default_private_root_for_public_root(public_root)
+        if compare_private_bodies
+        else None
+    )
     # Tracked-path set decides build-artifact reporting: untracked compiler
     # noise (e.g. __pycache__ regenerated whenever organ validators import the
     # bundled .py modules) is unreachable on BOTH public lanes — the export
@@ -845,7 +1004,7 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
     tracked_paths: set[str] | None
     try:
         ls_files = subprocess.run(
-            ["git", "ls-files", "-z", "--", "examples"],
+            ["git", "ls-files", "-z"],
             cwd=public_root,
             capture_output=True,
             check=False,
@@ -867,8 +1026,18 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
             tracked_paths = None
     except (OSError, ValueError):
         tracked_paths = None
+    skipped_source_module_ancestors = SKIPPED_DIR_NAMES | SKIPPED_ROOT_NAMES | {
+        ".venv",
+        "venv",
+    }
     source_module_roots = sorted(
-        path for path in examples_root.rglob("source_modules") if path.is_dir()
+        path
+        for path in public_root.rglob("source_modules")
+        if path.is_dir()
+        and not (
+            set(path.relative_to(public_root).parts[:-1])
+            & skipped_source_module_ancestors
+        )
     )
     for modules_root in source_module_roots:
         bundle_ref = modules_root.parent.relative_to(public_root).as_posix()
@@ -942,6 +1111,16 @@ def scan_source_modules_contamination(public_root: Path) -> list[dict[str, str]]
                         ),
                     }
                 )
+                continue
+            private_body_row = _private_body_match_row(
+                path,
+                public_root=public_root,
+                modules_root=modules_root,
+                private_root=private_root,
+                owning_bundle=bundle_ref,
+            )
+            if private_body_row is not None:
+                rows.append(private_body_row)
     return rows
 
 
@@ -3206,24 +3385,30 @@ def build_release_export(
     receipt["standalone_severance_receipt"] = standalone_severance_receipt
     if standalone_severance_receipt.get("status") != "pass":
         blocking_codes.append("RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED")
-    # Source-tree contamination visibility for the population lane: the export
-    # artifact itself is already protected (skip rules drop build dirs; the
-    # home-redaction pass rewrites concrete homes), so contamination here does
-    # not block the export receipt — the fail-closed population gate is
-    # tests/test_export_contamination_gate.py over the committed tree. This key
-    # makes a contaminated source tree visible to receipt consumers either way.
+    # Source-tree contamination hard gate for the population lane: the export
+    # artifact may redact homes and skip build products, but source_modules that
+    # reconstruct restricted private bodies must stop the public candidate.
     contamination_rows = scan_source_modules_contamination(Path(source_root))
+    blocking_contamination_rows = [
+        row
+        for row in contamination_rows
+        if row.get("contamination_class") in PRIVATE_BODY_BLOCKING_CONTAMINATION_CLASSES
+    ]
     receipt["source_modules_contamination"] = {
         "status": "pass" if not contamination_rows else "fail",
         "row_count": len(contamination_rows),
+        "blocking_row_count": len(blocking_contamination_rows),
         "rows": contamination_rows[:40],
-        "scanned_surface": "examples/**/source_modules",
+        "blocking_classes": sorted(PRIVATE_BODY_BLOCKING_CONTAMINATION_CLASSES),
+        "scanned_surface": "**/source_modules excluding cache/venv/generated roots",
         "blocking_jurisdiction": (
             "tree_gate_tests/test_export_contamination_gate.py; artifact-side "
             "mitigations: SKIPPED_DIR_NAMES + source_module_home_redaction"
         ),
         "body_in_receipt": False,
     }
+    if blocking_contamination_rows:
+        blocking_codes.append("RELEASE_EXPORT_SOURCE_MODULES_CONTAMINATION_BLOCKED")
     receipt["release_assurance_v2"] = _release_assurance_receipt(
         target,
         inventory=inventory,

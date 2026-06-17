@@ -144,6 +144,27 @@ FORBIDDEN_SUBSTRINGS = (
     "session_secret",
 )
 
+RESTRICTED_PRIVATE_SOURCE_PREFIXES = (
+    ".claude/",
+    ".codex/",
+    "apps/",
+    "codex/ledger/",
+    "obsidian/",
+    "state/",
+    "system/control/",
+    "system/lib/",
+    "system/server/",
+    "tools/agent_trace_structurer/",
+    "tools/meta/",
+)
+
+RESTRICTED_PRIVATE_SOURCE_FILENAMES = {
+    "kernel.py",
+    "pipeline_codex_handoff.py",
+    "pipeline_overnight.py",
+    "pipeline_signal_watcher.py",
+}
+
 ANTI_CLAIM = (
     "This read-only card checks source-module refs before exact-copy refresh. "
     "It does not certify secret absence, authorize source mutation, authorize "
@@ -294,6 +315,45 @@ def _source_modules_tail(ref: object) -> str:
         return ""
     tail = parts[source_modules_index + 1 :]
     return "/".join(tail)
+
+
+def _restricted_private_source_match(ref: str) -> str:
+    """Return the restricted private source prefix matched by a source ref.
+
+    - Teleology: protects public source-module import from treating control-plane
+      source paths as source-open merely because they are relative.
+    - Guarantee: returns the matched restricted prefix/filename, checking both
+      the raw path and any tail after ``source_modules``; returns ``""`` when
+      no restricted prefix matches.
+    - Fails: None (pure string matching; cannot raise or return a failure envelope).
+    - Writes: None
+    """
+    candidates: list[str] = []
+    path = _path_portion(ref).replace("\\", "/").lstrip("/")
+    if path:
+        candidates.append(path)
+    source_modules_tail = _source_modules_tail(ref)
+    if source_modules_tail:
+        candidates.append(source_modules_tail)
+    expanded: list[str] = []
+    for candidate in candidates:
+        expanded.append(candidate)
+        if candidate.startswith("ai_workflow/"):
+            expanded.append(candidate.removeprefix("ai_workflow/"))
+    for candidate in expanded:
+        if candidate in RESTRICTED_PRIVATE_SOURCE_FILENAMES:
+            return candidate
+        match = next(
+            (
+                prefix
+                for prefix in RESTRICTED_PRIVATE_SOURCE_PREFIXES
+                if candidate.startswith(prefix)
+            ),
+            "",
+        )
+        if match:
+            return match
+    return ""
 
 
 def _looks_like_source_module_claim(row: dict[str, Any]) -> bool:
@@ -551,6 +611,19 @@ def _classify_source_ref(ref: str) -> dict[str, str] | None:
                 "payload, browser/HUD, operator, or recipient-send material"
             ),
         }
+    restricted_private_source = _restricted_private_source_match(value)
+    if restricted_private_source:
+        return {
+            "error_code": (
+                "source_ref_restricted_private_control_plane:"
+                f"{restricted_private_source}"
+            ),
+            "reason": (
+                "source-module imports cannot expose private control-plane, "
+                "runtime, hook, app, ledger, state, or meta-tooling bodies; "
+                "use a public-safe copy, synthetic stub, fixture, card, or omission"
+            ),
+        }
     return None
 
 
@@ -671,13 +744,15 @@ def evaluate_source_module_boundary(
             "exclude secrets, credentials, raw operator voice, provider payloads, "
             "account/session state, browser/HUD live-access material, recipient-send "
             "state, host-private absolute roots, parent traversal, receipt-body "
-            "claims, and copied/refactored body claims without public target refs"
+            "claims, copied/refactored body claims without public target refs, and "
+            "restricted private control-plane/runtime/meta-tooling source bodies"
         ),
         "next_action": next_action,
         "reentry_condition": (
             "All exact-copy source-module refs are relative public macro refs and "
             "none match credential, provider-payload, raw-seed, browser/HUD, "
-            "account/session, private-root, or traversal boundaries."
+            "account/session, private-root, traversal, or restricted private "
+            "control-plane/runtime/meta-tooling boundaries."
         ),
         "anti_claim": ANTI_CLAIM,
     }
