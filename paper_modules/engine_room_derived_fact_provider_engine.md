@@ -49,7 +49,7 @@ becomes an error row rather than aborting the run, so the registry status is
 ```mermaid
 flowchart TD
   Registry["public fixture registry<br/>authored fact rows"]
-  Resolver["evaluate_provider<br/>dispatch on provider_type"]
+  Resolver["evaluate_provider<br/>selects provider_type branch"]
   JsonPointer["json_pointer<br/>read value at pointer in a JSON file"]
   GlobCount["glob_count<br/>count matching files, keep sample matches"]
   Callable["callable<br/>git-backed repo-state count"]

@@ -4,9 +4,9 @@ This organ executes copied non-secret macro substrate for Batch 12 over public s
 
 ## Purpose
 
-Public copy drifts towards over-claiming. A page that started as "fixture-proven, not yet published" gets edited over months until someone writes "open source" or "production-ready" without noticing that nothing changed underneath. This organ answers one question: does a piece of public copy claim more than the receipts behind it can support, and would the release gate catch it if it did?
+Public copy drifts towards over-claiming. A page that started as "fixture-proven, not yet published" gets edited over months until someone writes launch, licensing, or maturity language without noticing that nothing changed underneath. This organ answers one question: does a piece of public copy claim more than the receipts behind it can support, and would the release gate catch it if it did?
 
-The mechanism it wraps is a deterministic regex scan, not a language model. The copied gate body reads a publication manifest, walks every claim-bearing file it lists, and matches each line against a fixed table of risky phrases (`release-ready`, `open source`, `source-available`, `production-ready`, and a separate family for private release-control wording). What makes the scan more than a grep is the classification step. The same phrase is read three ways depending on context: a bare affirmative line ("the system is production-ready") becomes an `active_claim_blocker`; the same words inside a forbidden-example block or near a negation marker ("this is not production-ready", a fenced policy sample) become `boundary_or_negative_context` and are allowed; and a phrase that has neither an affirmative verb nor a clear negation marker is parked in a `needs_review` queue rather than waved through.
+The mechanism it wraps is a deterministic regex scan, not a language model. The copied gate body reads a publication manifest, walks every claim-bearing file it lists, and matches each line against fixed families of risky launch, licensing, maturity, and private release-control wording. What makes the scan more than a grep is the classification step. The same family of wording is read three ways depending on context: a bare affirmative launch or maturity claim becomes an `active_claim_blocker`; the same wording inside a forbidden-example block or near a negation marker becomes `boundary_or_negative_context` and is allowed; and a phrase that has neither an affirmative verb nor a clear negation marker is parked in a `needs_review` queue rather than waved through.
 
 That last branch is the interesting design choice. The gate fails closed. An ambiguous claim does not pass quietly; it lands in a no-go review state, and `main --assert-clear` exits non-zero whenever any active blocker or unresolved review item remains. The scan never rewrites a file, never authorises release, and treats marketing copy as just another claim surface with an evidence ledger rather than a looser register of speech.
 
@@ -34,8 +34,8 @@ This paper module is the public, fixture-bound check that the wrapped gate behav
   only. The proof boundary is restricted to copied non-secret macro substrate,
   typed claim hits, evidence-strength ranks, real-substrate flags,
   boundary-context classification, fail-closed defaults, negative cases, and
-  validation receipts; it does not establish release approval, provider
-  dispatch, private-root equivalence, market truth, investment advice, or
+  validation receipts; it does not establish public launch permission, external
+  model dispatch, private-root equivalence, market truth, investment advice, or
   whole-system correctness.
 
 ## Reader Proof Boundary
@@ -47,9 +47,9 @@ boundary-context classification, negative cases, body-free receipts, and
 focused test. The proof is limited to copied non-secret macro substrate
 exercised over public synthetic release-language fixtures.
 
-The proof stops before release approval, publication readiness, semantic NLP
-truth, complete secret detection, provider dispatch, private-root equivalence,
-source mutation, production readiness, and whole-system correctness. Generated
+The proof stops before public launch permission, publication posture, semantic NLP
+truth, complete secret detection, external model dispatch, private-root equivalence,
+source editing authority, deployment maturity, and whole-system correctness. Generated
 Mermaid and Atlas availability are capsule projections, not release authority.
 
 ## Public Site Availability Boundary
@@ -62,7 +62,7 @@ macro bodies.
 
 Public rendering may explain claim-language classification, evidence-strength
 accounting, active blockers, and fail-closed defaults. It must not imply
-release approval, publication readiness, provider execution, investment advice,
+public launch permission, publication posture, provider execution, investment advice,
 or complete secret detection.
 
 ## Public-Safe Body Handling
@@ -86,10 +86,10 @@ fail-closed defaults, active blockers, negative cases, copied non-secret macro
 source-module refs and bodies, source-manifest pass status, body-free receipt
 scan status, secret-exclusion scan status, and validation receipts.
 
-This module may not claim release approval, publication readiness, hosted
-product status, provider dispatch authority, semantic NLP truth, complete secret
+This module may not claim public launch permission, publication posture, hosted
+product status, external model dispatch authority, semantic NLP truth, complete secret
 detection, private-root equivalence, portability proof, market truth,
-investment advice, source mutation authority, production readiness, proof
+investment advice, source editing authority, deployment maturity, proof
 correctness beyond the listed witnesses, or whole-system correctness.
 
 ## Limitations
@@ -264,8 +264,8 @@ Receipt scanners may downgrade when bodies or credential-equivalent payloads
 leak; they cannot upgrade merely because a narrative is strong.
 
 The boundary-context classifier is allowed to pass negated or limiting language
-such as "not a hosted product" while blocking bare claims such as
-"production-ready" when no release authority exists. Marketing copy is therefore
+such as "not a hosted product" while blocking bare maturity claims when no
+release authority exists. Marketing copy is therefore
 treated as another claim surface with an accounting ledger, not as a looser mode
 of speech.
 
@@ -341,14 +341,14 @@ investment advice, source mutation, or whole-system correctness.
 - Receipts must preserve `body_in_receipt: false`,
   `receipt_body_scan.status: pass`, source manifest pass status, and
   secret-exclusion scan pass status.
-- Receipt success does not authorize release, publication, provider dispatch,
+- Receipt success leaves release, publication, external model dispatch,
   semantic NLP truth, complete secret detection, private-root equivalence,
-  portability proof, market truth, investment advice, source mutation, or
+  portability proof, market truth, investment advice, source editing authority, or
   whole-system correctness.
 
 ## Authority Ceiling
 
-This is fixture-bound release claim-language gate evidence. It does not authorize release approval, publication readiness, provider dispatch, semantic NLP truth, complete secret detection, private-root equivalence, portability proof, market truth, investment advice, source mutation, production readiness, proof correctness beyond the listed witnesses, or whole-system correctness.
+This is fixture-bound release claim-language gate evidence. Its scope stops before public launch permission, publication posture, external model dispatch, semantic NLP truth, complete secret detection, private-root equivalence, portability proof, market truth, investment advice, source editing authority, deployment maturity, proof correctness beyond the listed witnesses, or whole-system correctness.
 
 ## Prior Art Grounding
 
@@ -371,5 +371,5 @@ Microcosm adapts the substantiation pattern to release and evidence language.
 Receipt-backed classes, ordinal evidence strength, real-substrate flags,
 boundary-context exceptions, and fail-closed defaults constrain what public
 copy may say. The gate blocks unsupported elevation without turning itself into
-release approval, market truth, investment advice, legal review, or
+public launch permission, market truth, investment advice, legal review, or
 whole-system correctness.
