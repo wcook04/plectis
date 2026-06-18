@@ -6,7 +6,7 @@ This is the agent-facing selector over the frozen organ atlas. Start here when y
 
 With a goal already in hand, convert it first: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"` returns the owning component, the runnable first command, the validator that proves it, and the stop condition (demonstrated in [FIRST_ACTION.md](FIRST_ACTION.md)). This table is the per-`task_class` selector behind that contract.
 
-> Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence. It does not authorize release, provider access, source mutation, private-root equivalence, proof authority, or whole-system correctness.
+> Family labels and counts are navigation metadata: use them to browse and compare source-linked components; maturity, completeness, and launch posture live in separate review records. Evidence classes describe bounded result-record strength for each component. Use this public artifact for local inspection, source records, fixture replay, and component-specific evidence. Operational deployment, external-service use, source-file changes, non-public-system equivalence, formal-result authority, and whole-system claims remain separate review topics. Continue from the linked card, paper module, command, or source reference.
 
 ## How to use this table
 

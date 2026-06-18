@@ -6,7 +6,7 @@ An **organ** is one accepted public runtime surface: a runnable specimen with a 
 
 Most organs are **standalone specimens**: they do not call each other. They bind to one shared spine — the architecture kernel (`project -> catalog -> pattern -> standard -> route -> work -> event -> evidence -> explanation -> assimilation`), the evidence-class registry, and the scope limit. A few are **wired** to other named surfaces; each card says which. See [ARCHITECTURE.md](ARCHITECTURE.md) for the system shape and [README.md](README.md) for the first run.
 
-> Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence. It does not authorize release, provider access, source mutation, private-root equivalence, proof authority, or whole-system correctness.
+> Family labels and counts are navigation metadata: use them to browse and compare source-linked components; maturity, completeness, and launch posture live in separate review records. Evidence classes describe bounded result-record strength for each component. Use this public artifact for local inspection, source records, fixture replay, and component-specific evidence. Operational deployment, external-service use, source-file changes, non-public-system equivalence, formal-result authority, and whole-system claims remain separate review topics. Continue from the linked card, paper module, command, or source reference.
 
 ## Microcosm at a glance — every organ in one line
 
@@ -121,7 +121,7 @@ Run `microcosm tour --card .` for the local first-screen path, then use [AGENT_R
 
 ### Where the public scope stops
 
-Family labels and counts are navigation metadata: use them to browse and compare source-linked components, not as maturity, completeness, or release signals. Evidence classes describe bounded result-record strength for each component. The public scope stops at local inspection, source records, fixture replay, and component-specific evidence. It does not authorize release, provider access, source mutation, private-root equivalence, proof authority, or whole-system correctness.
+Family labels and counts are navigation metadata: use them to browse and compare source-linked components; maturity, completeness, and launch posture live in separate review records. Evidence classes describe bounded result-record strength for each component. Use this public artifact for local inspection, source records, fixture replay, and component-specific evidence. Operational deployment, external-service use, source-file changes, non-public-system equivalence, formal-result authority, and whole-system claims remain separate review topics. Continue from the linked card, paper module, command, or source reference.
 
 ## How to read a card
 

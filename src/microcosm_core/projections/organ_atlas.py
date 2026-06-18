@@ -110,12 +110,14 @@ NEGATION_CUES = (
 
 PUBLIC_SCOPE_LINE = (
     "Family labels and counts are navigation metadata: use them to browse and compare "
-    "source-linked components, not as maturity, completeness, or release signals. "
-    "Evidence classes describe bounded result-record strength for each component. "
-    "The public scope stops at local inspection, source records, fixture replay, "
-    "and component-specific evidence. It does not authorize release, provider "
-    "access, source mutation, private-root equivalence, proof authority, or "
-    "whole-system correctness."
+    "source-linked components; maturity, completeness, and launch posture live in "
+    "separate review records. Evidence classes describe bounded result-record "
+    "strength for each component. Use this public artifact for local inspection, "
+    "source records, fixture replay, and component-specific evidence. Operational "
+    "deployment, external-service use, source-file changes, non-public-system "
+    "equivalence, formal-result authority, and whole-system claims remain separate "
+    "review topics. Continue from the linked card, paper module, command, or source "
+    "reference."
 )
 
 CLAIM_CEILING_LINE = PUBLIC_SCOPE_LINE
