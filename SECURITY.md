@@ -29,7 +29,8 @@ vulnerability details.
 
 No `security@` email route is published yet. Email intake is deferred until a
 final domain, monitored mailbox, SPF/DKIM/DMARC posture, and ownership boundary
-exist. There is no bug bounty.
+exist. There is no bug bounty because I cannot currently fund one on a student
+budget.
 
 ## Reportable Boundary Failures
 
