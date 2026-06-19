@@ -20,10 +20,8 @@ Goal: “How do I evaluate the finance forecasting system?”
 {
   "do_not_claim": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
   "do_not_edit": {
-    "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
-    "paths": [
-      "src/microcosm_core/organs/finance_forecast_evaluation_spine.py"
-    ]
+    "note": "runner is owned; edits still require the validator + refreshed receipts",
+    "paths": []
   },
   "first_action": {
     "action_kind": "run_fixture_command",
@@ -50,7 +48,7 @@ Goal: “How do I evaluate the finance forecasting system?”
     "evidence_class": "external_subprocess_witness",
     "family": "research_and_science_replays",
     "organ_id": "finance_forecast_evaluation_spine",
-    "runner_custody_basis": "directory_coupling_marker",
+    "runner_custody_basis": null,
     "task_class": "finance"
   },
   "proof_path": {
@@ -148,7 +146,6 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out .microcosm/first_action_runs/finance_forecast_evaluation_spine` (outputs under `.microcosm/first_action_runs/finance_forecast_evaluation_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim
-- do not edit: `src/microcosm_core/organs/finance_forecast_evaluation_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“check the lean proof evidence”**
 
@@ -162,7 +159,6 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out .microcosm/first_action_runs/proof_diagnostic_evidence_spine --card` (outputs under `.microcosm/first_action_runs/proof_diagnostic_evidence_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or who...
-- do not edit: `src/microcosm_core/organs/proof_diagnostic_evidence_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“evaluate prompt injection defenses”**
 
@@ -176,7 +172,6 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out .microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay` (outputs under `.microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live acc...
-- do not edit: `src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“where do I start with this clone?”**
 
@@ -190,25 +185,23 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
-- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“evaluate agent benchmark gaming”**
 
 - resolved via: `task_class_route_match (agent-evaluation)` -> owner `agent_benchmark_integrity_anti_gaming_replay`
 - run: `PYTHONPATH=src python3 -m microcosm_core agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay`
-- why: Recomputes benchmark pass and quarantine verdicts and rejects gaming tricks like test-set peeking.
+- why: Validates a synthetic benchmark-integrity record and flags the contamination cases it declares.
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay`
 - committed evidence (prior runs): `receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json`, `receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json`, `receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json` (+1 more)
 - fresh outputs land under: `.microcosm/agent_benchmark_integrity_anti_gaming_replay`
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capab...
-- do not edit: `src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“is the Mission Transaction Work Spine safe to edit?”**
 
 - resolved via: `organ_named_in_goal (mission_transaction_work_spine)` -> owner `mission_transaction_work_spine`
 - run: `PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine`
-- why: Replays work-landing cases to show why each change is allowed to land or blocked.
+- why: Runs the real work-ledger engine on a sanitised snapshot to re-derive each change's verdict.
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine`
 - committed evidence (prior runs): `receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json`, `receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json`, `receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json` (+5 more)
 - fresh outputs land under: `receipts/first_wave/mission_transaction_work_spine`
@@ -216,7 +209,6 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out .microcosm/first_action_runs/mission_transaction_work_spine` (outputs under `.microcosm/first_action_runs/mission_transaction_work_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator...
-- do not edit: `src/microcosm_core/organs/mission_transaction_work_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map”**
 
@@ -230,7 +222,6 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
-- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“dispatch the route bundle”**
 
@@ -244,7 +235,6 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
-- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 ## Change-shaped goals: inspect before editing
 

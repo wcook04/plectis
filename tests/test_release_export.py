@@ -168,8 +168,11 @@ def test_exported_overnight_test_capsule_uses_public_example_home_only() -> None
     private_home_prefix = "/" + "Users" + "/"
     public_example_home = private_home_prefix + "example"
 
-    assert public_example_home in text
-    assert private_home_prefix not in text.replace(public_example_home, "")
+    if "Public Microcosm stub for a withheld private source module" not in text:
+        assert public_example_home in text
+        assert private_home_prefix not in text.replace(public_example_home, "")
+    else:
+        assert private_home_prefix not in text
 
 
 def test_exported_macro_source_modules_use_public_safe_homes_only() -> None:

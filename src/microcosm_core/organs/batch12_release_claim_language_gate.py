@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import io
 import json
+import re
 import sys
 import tempfile
 import types
@@ -72,6 +73,61 @@ SOURCE_REQUIRED_ANCHORS = {
         "def build_gate",
     )
 }
+
+PUBLIC_FALLBACK_RISKY_PHRASES = (
+    {
+        "id": "release_ready",
+        "family": "claim_overreach",
+        "pattern": r"\brelease[- ]ready\b|\bready to publish\b|\bpublication[- ]ready\b|\bpublish[- ]ready\b",
+    },
+    {
+        "id": "publicly_released",
+        "family": "claim_overreach",
+        "pattern": r"\bpublicly released\b|\breleased publicly\b",
+    },
+    {
+        "id": "source_available",
+        "family": "claim_overreach",
+        "pattern": r"\bsource[- ]available\b",
+    },
+    {
+        "id": "open_source",
+        "family": "claim_overreach",
+        "pattern": r"\bopen[- ]source\b|\bopen source\b",
+    },
+    {
+        "id": "production_ready",
+        "family": "claim_overreach",
+        "pattern": r"\bproduction[- ]ready\b",
+    },
+    {
+        "id": "release_authorization_disclaimer",
+        "family": "private_control_plane_leak",
+        "pattern": (
+            r"\b(?:does\s+not|doesn't|do\s+not|don't|cannot|not)\s+"
+            r"(?:authorize|authorise|approve|grant)\s+"
+            r"(?:a\s+)?(?:public\s+)?(?:release|publication|publishing|hosting|recipient\s+sends?)\b"
+        ),
+    },
+    {
+        "id": "release_authority_surface",
+        "family": "private_control_plane_leak",
+        "pattern": (
+            r"\b(?:release|publication|publishing|hosting|recipient\s+sends?)\s+"
+            r"(?:authority|authorization|authorisation|approval|gate|owner|decision)\b"
+        ),
+    },
+)
+
+PUBLIC_FALLBACK_NEGATIVE_CONTEXT_MARKERS = (
+    "not ",
+    "not-",
+    "do not claim",
+    "forbidden",
+    "blocked",
+    "omitted",
+    "negative context",
+)
 
 SPEC = CrownJewelSpec(
     organ_id=ORGAN_ID,
@@ -176,6 +232,8 @@ def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
 
 
 def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
+    if _source_module_public_stubbed(source_manifest):
+        return _PublicFallbackReleaseClaimGate
     target = _source_target(
         source_manifest,
         "tools/meta/dissemination/release_claim_language_gate.py",
@@ -210,6 +268,150 @@ def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
         else:
             sys.modules["yaml"] = previous_yaml
     return module
+
+
+def _source_module_public_stubbed(source_manifest: Mapping[str, Any]) -> bool:
+    manifest = Path(str(source_manifest.get("source_manifest_path") or ""))
+    if not manifest.is_file():
+        return False
+    manifest_payload = _load_json(manifest)
+    omissions = manifest_payload.get("release_substitution_omissions", [])
+    return (
+        not manifest_payload.get("modules")
+        and isinstance(omissions, list)
+        and any(
+            isinstance(row, Mapping)
+            and row.get("source_ref")
+            == "tools/meta/dissemination/release_claim_language_gate.py"
+            and (
+                row.get("release_substitution", {}).get("substitution")
+                if isinstance(row.get("release_substitution"), Mapping)
+                else None
+            )
+            == "public_safe_stub"
+            for row in omissions
+        )
+    )
+
+
+class _PublicFallbackReleaseClaimGate:
+    """Public replacement used only when the private macro body is stubbed."""
+
+    @staticmethod
+    def _manifest_entries(repo_root: Path) -> list[str]:
+        manifest = repo_root / "publication_manifest.yaml"
+        if not manifest.is_file():
+            return []
+        entries: list[str] = []
+        for line in manifest.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if stripped.startswith("- path:"):
+                entries.append(stripped.split(":", 1)[1].strip())
+        return entries
+
+    @staticmethod
+    def _classify(line: str, *, family: str) -> tuple[str, str]:
+        normalized = line.lower()
+        if family == "private_control_plane_leak":
+            return (
+                "active_claim_blocker",
+                "public reader copy must not expose release authorization control-plane language",
+            )
+        if any(marker in normalized for marker in PUBLIC_FALLBACK_NEGATIVE_CONTEXT_MARKERS):
+            return (
+                "boundary_or_negative_context",
+                "line marks the phrase as forbidden, blocked, omitted, or explicitly not claimed",
+            )
+        return "active_claim_blocker", "public reader copy asserts release status"
+
+    @classmethod
+    def build_gate(cls, repo_root: Path) -> dict[str, Any]:
+        root = Path(repo_root)
+        hits: list[dict[str, Any]] = []
+        for rel in cls._manifest_entries(root):
+            path = root / rel
+            if not path.is_file():
+                continue
+            for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                for phrase in PUBLIC_FALLBACK_RISKY_PHRASES:
+                    if not re.search(str(phrase["pattern"]), line, flags=re.IGNORECASE):
+                        continue
+                    classification, reason = cls._classify(
+                        line,
+                        family=str(phrase["family"]),
+                    )
+                    hits.append(
+                        {
+                            "path": rel,
+                            "line_number": line_number,
+                            "phrase_id": phrase["id"],
+                            "phrase_family": phrase["family"],
+                            "classification": classification,
+                            "reason": reason,
+                            "body_in_receipt": False,
+                        }
+                    )
+        active_count = sum(
+            1 for hit in hits if hit["classification"] == "active_claim_blocker"
+        )
+        boundary_count = sum(
+            1 for hit in hits if hit["classification"] == "boundary_or_negative_context"
+        )
+        status = (
+            "active_claim_blocked"
+            if active_count
+            else "clear_boundary_only"
+            if boundary_count
+            else "clear"
+        )
+        return {
+            "schema_version": "public_fallback_release_claim_language_gate_v1",
+            "status": status,
+            "ok": active_count == 0,
+            "summary": {
+                "active_claim_blocker_count": active_count,
+                "boundary_or_negative_context_count": boundary_count,
+                "claim_surface_count": len(cls._manifest_entries(root)),
+            },
+            "hits": hits,
+            "public_stub_fallback": True,
+            "body_in_receipt": False,
+        }
+
+    @classmethod
+    def main(cls, argv: list[str] | None = None) -> int:
+        args = list(argv or [])
+        repo_root = Path(".")
+        output: Path | None = None
+        assert_clear = False
+        idx = 0
+        while idx < len(args):
+            arg = args[idx]
+            if arg == "--repo-root" and idx + 1 < len(args):
+                repo_root = Path(args[idx + 1])
+                idx += 2
+            elif arg == "--output" and idx + 1 < len(args):
+                output = Path(args[idx + 1])
+                idx += 2
+            elif arg == "--assert-clear":
+                assert_clear = True
+                idx += 1
+            else:
+                idx += 1
+        payload = cls.build_gate(repo_root)
+        if output is not None:
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_text(
+                json.dumps(payload, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+        print(
+            json.dumps(
+                {"ok": payload["ok"], "status": payload["status"]},
+                sort_keys=True,
+            )
+        )
+        return 2 if assert_clear and not payload["ok"] else 0
 
 
 def _fixture_doc_name(
@@ -350,6 +552,7 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
             )
         )
         return _blocked_exercise(findings)
+    source_module_substitution_fallback = module is _PublicFallbackReleaseClaimGate
     with tempfile.TemporaryDirectory(prefix="batch12-release-gate-") as tmp:
         safe_root = Path(tmp) / "safe"
         safe_root.mkdir(parents=True)
@@ -513,6 +716,7 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
         "safe_gate_summary": safe_gate.get("summary"),
         "active_gate_summary": active_gate.get("summary"),
         "release_claim_perturbation": release_claim_perturbation,
+        "source_module_substitution_fallback": source_module_substitution_fallback,
         "computed_negative_case_count": sum(1 for row in computed_cases if row["computed"]),
         "error_codes": [
             code

@@ -70,6 +70,26 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _source_module_is_stubbed(manifest: dict[str, Any]) -> bool:
+    omissions = manifest.get("release_substitution_omissions", [])
+    return (
+        manifest.get("module_count") == 0
+        and isinstance(omissions, list)
+        and any(
+            isinstance(row, dict)
+            and row.get("source_ref")
+            == "tools/meta/dissemination/release_claim_language_gate.py"
+            and (
+                row.get("release_substitution", {}).get("substitution")
+                if isinstance(row.get("release_substitution"), dict)
+                else None
+            )
+            == "public_safe_stub"
+            for row in omissions
+        )
+    )
+
+
 def test_batch12_release_claim_language_gate_runs_macro_mechanism(
     tmp_path: Path,
 ) -> None:
@@ -152,7 +172,11 @@ def test_batch12_release_claim_language_gate_bundle_validates_runtime_shape(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_batch12_release_claim_language_gate_bundle"
-    assert result["source_module_manifest"]["module_count"] == 1
+    manifest = result["source_module_manifest"]
+    assert (
+        manifest["module_count"] == 1
+        or result["exercise"]["source_module_substitution_fallback"] is True
+    )
     assert result["exercise"]["mechanism_count"] == 1
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
 
@@ -170,7 +194,10 @@ def test_batch12_release_claim_language_gate_rejects_source_module_digest_mismat
     shutil.copytree(EXPORTED_BUNDLE, bundle)
     manifest_path = bundle / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["modules"][0]["sha256"] = "0" * 64
+    if manifest["modules"]:
+        manifest["modules"][0]["sha256"] = "0" * 64
+    else:
+        manifest["release_substitution_omissions"] = []
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -184,9 +211,12 @@ def test_batch12_release_claim_language_gate_rejects_source_module_digest_mismat
     )
 
     assert result["status"] == "blocked"
-    assert result["source_module_manifest"]["status"] == "blocked"
-    assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
-    assert result["source_module_manifest"]["all_expected_digests_matched"] is False
+    if manifest["modules"]:
+        assert result["source_module_manifest"]["status"] == "blocked"
+        assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
+        assert result["source_module_manifest"]["all_expected_digests_matched"] is False
+    else:
+        assert "BATCH12_RELEASE_SOURCE_MODULE_UNAVAILABLE" in result["error_codes"]
 
 
 def test_batch12_release_claim_language_gate_rejects_fixture_path_traversal(
@@ -274,6 +304,9 @@ def test_batch12_release_claim_language_gate_source_modules_are_exact_macro_body
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
+    if manifest["module_count"] == 0:
+        assert _source_module_is_stubbed(manifest)
+        return
     assert manifest["module_count"] == 1
     for row in manifest["modules"]:
         source = SOURCE_ROOT / row["source_ref"]
@@ -301,7 +334,7 @@ def test_batch12_release_claim_language_gate_card_omits_bodies(tmp_path: Path) -
     card = result_card(result)
 
     assert card["status"] == "pass"
-    assert card["source_module_count"] == 1
+    assert card["source_module_count"] in {0, 1}
     serialized = json.dumps(result, sort_keys=True)
     assert "/Users/" not in serialized
     assert "src/ai_workflow" not in serialized
