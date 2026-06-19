@@ -59,6 +59,7 @@ DEFAULT_INCLUDE_REFS = (
     "RELEASE_REVIEW.md",
     "README.md",
     "SECURITY.md",
+    "SOURCE_STATUS.md",
     "atlas",
     "bootstrap.sh",
     "core",
@@ -102,6 +103,7 @@ STANDALONE_REQUIRED_PUBLIC_REFS = (
     "RELEASE_DISCIPLINE.md",
     "RELEASE_REVIEW.md",
     "SECURITY.md",
+    "SOURCE_STATUS.md",
 )
 LICENSE_NOTICE_REQUIRED_REFS = (
     "LICENSE",
