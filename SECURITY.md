@@ -22,7 +22,7 @@ https://github.com/wcook04/microcosm-substrate/security/advisories/new
 ```
 
 The release gate binds a current setting receipt proving that the standalone
-public shell repository exists and GitHub Private Vulnerability Reporting is
+public repository exists and GitHub Private Vulnerability Reporting is
 enabled. If the GitHub "Report a vulnerability" button is not visible on the
 repository's Security/Advisories page, do not open a public issue with
 vulnerability details.
