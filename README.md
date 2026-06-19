@@ -87,9 +87,9 @@ or whole-system authority.
 
 ## Source, License, And Provenance
 
-Current state: public shell. Next state: populated public source slice only
-after a fresh release-candidate gate and public-source switch receipt. Until
-then, [SOURCE_STATUS.md](SOURCE_STATUS.md) is the source-status authority.
+Current state: populated standalone public source slice. Generated export
+receipts bind the file inventory, release-candidate checks, and public-safe
+stubs for source bodies that stay outside the public slice.
 
 The public source of record is the standalone `microcosm-substrate` repository
 and any generated standalone export from this tree. The private macro root,

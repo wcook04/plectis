@@ -248,9 +248,7 @@ RESTRICTED_PRIVATE_SOURCE_PREFIXES = (
     "codex/ledger/",
     "obsidian/",
     "state/",
-    "system/control/",
-    "system/lib/",
-    "system/server/",
+    "system/",
     "tools/agent_trace_structurer/",
     "tools/meta/",
 )
