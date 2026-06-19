@@ -254,6 +254,7 @@ def _make_release_root(root: Path) -> Path:
         "RELEASE_REVIEW.md",
         "README.md",
         "SECURITY.md",
+        "SOURCE_STATUS.md",
         "bootstrap.sh",
     ):
         _write(root / file_name, f"{file_name}\n")

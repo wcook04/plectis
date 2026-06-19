@@ -180,13 +180,22 @@ def _owner_scope_requires_committed_ledger_blob(repo_root: Path) -> bool:
 
 
 def _validate_committed_ledger_blob(repo_root: Path) -> dict:
+    private_export_ref = (
+        Path("microcosm-substrate") / LEDGER_REL
+    ).as_posix()
+    standalone_ref = LEDGER_REL.as_posix()
+    git_ref = (
+        private_export_ref
+        if (repo_root / private_export_ref).is_file()
+        else standalone_ref
+    )
     completed = subprocess.run(
         [
             "git",
             "-C",
             str(repo_root),
             "show",
-            "HEAD:microcosm-substrate/core/substrate_substitution_ledger.json",
+            f"HEAD:{git_ref}",
         ],
         text=True,
         capture_output=True,
