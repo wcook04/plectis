@@ -53,7 +53,7 @@ demonstrating:
   provider calls, and whole-system correctness.
 
 Command, then record, then evidence class, then source link, then scope
-limit. The rest of this repository is that loop applied to 82 components, and
+limit. The rest of this repository is that loop applied to 78 components, and
 the rest of this README is navigation for it. Nothing in the loop mutates
 your source files or calls a model provider; `source_files_mutated=false` is
 a field in the recorded card, not a promise in prose.
