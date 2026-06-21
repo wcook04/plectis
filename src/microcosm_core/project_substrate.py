@@ -3289,7 +3289,7 @@ def python_lens(
         "deferred_full_scan": first_screen_summary,
         "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
         "public_claim": (
-            "Microcosm exposes Python project route readiness as path-level metadata "
+            "Plectis exposes Python project route readiness as path-level metadata "
             "without source bodies, provider calls, or source mutation."
         ),
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
