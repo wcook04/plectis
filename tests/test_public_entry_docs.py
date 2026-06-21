@@ -882,6 +882,12 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     normalized_agents = " ".join(agents.split())
     expected_organs = _accepted_organs_from_registry()
 
+    assert text.startswith("# Plectis")
+    assert agents.startswith("# AGENTS.md - Plectis")
+    assert "Microcosm became Plectis" in text
+    assert "Microcosm remains only where compatibility or historical continuity requires it" in normalized_text
+    assert "Microcosm is the public repo form of the macro system" not in text
+    assert "Microcosm is the public repo form of the macro system" not in agents
     assert "Internal Runtime Spine" in text
     assert "Accepted Public Runtime Spine" in agents
     assert "[CLAUDE.md](CLAUDE.md) / [CODEX.md](CODEX.md) / [CURSOR.md](CURSOR.md)" in text
@@ -900,8 +906,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in agents
     assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in text
     assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in agents
-    assert "Microcosm is the public repo form of the macro system" in text
-    assert "Microcosm is the public repo form of the macro system" in agents
+    assert "Plectis is the public repo form of the macro system" in text
+    assert "Plectis is the public repo form of the macro system" in agents
     assert "not a synthetic safety proxy" in text
     assert "not a synthetic safety proxy" in agents
     assert "Public should carry private by default" in text

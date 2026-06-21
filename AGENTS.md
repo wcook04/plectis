@@ -1,4 +1,4 @@
-# AGENTS.md - Microcosm Substrate
+# AGENTS.md - Plectis
 
 Reading this as a person? The human map is [README.md](README.md); this file
 is the agent entry contract.
@@ -133,7 +133,7 @@ is reasoning about the whole substrate from the one slice you happened to open.
   runnable command, the validator, the receipts, and the stop condition; source
   search before that contract is almost always wasted or unsafe reading.
 - **Comprehension reflex.** If you ever catch yourself assessing, summarizing,
-  scoring, or judging Microcosm from only the part you looked at (the tell:
+  scoring, or judging Plectis from only the part you looked at (the tell:
   "based on the part I worked on…"), or you have just arrived cold, then before
   you answer run `microcosm comprehend --self-model` — add
   `--profile whole_substrate_map` to read every organ's essence at once.
@@ -210,7 +210,7 @@ owning route instead of inventing a CLI path from the label.
 
 ## Real Substrate Posture
 
-Microcosm is the public repo form of the macro system, reorganized so a cold
+Plectis is the public repo form of the macro system, reorganized so a cold
 reader can run and inspect it without inheriting the private root's historical
 mess. Public should carry private by default: import, refactor, or export as
 much of the macro substrate as possible into this tree. Use synthetic fixtures
@@ -274,7 +274,7 @@ and humans can also browse through [ORGANS.md#find-your-specialty](ORGANS.md#fin
 
 ## Concept And Mechanism Entry
 
-When a Microcosm task asks to read, populate, or refine concepts and
+When a Plectis task asks to read, populate, or refine concepts and
 mechanisms, use the entry surface instead of starting from the extracted
 pattern inventory. First open `microcosm first-screen <project>` and read
 `doctrine_effect_frame`; it now exposes `CONCEPTS` and `MECHANISMS` as
@@ -401,7 +401,7 @@ of those existing lanes can carry the pressure without distortion.
    capture -> validation -> closeout -> re-entry, while rejecting raw operator
    voice export, private thread body export, direct doctrine-node edits,
    receipt-only progress, and global promotion without owner validation. Use
-   `voice-to-doctrine-self-improvement-loop` when a Microcosm pass needs to
+   `voice-to-doctrine-self-improvement-loop` when a Plectis pass needs to
    prove it imported the macro system's learning loop instead of only adding
    pattern receipts.
    Authority ceiling: start with `microcosm authority --card` for the compact
@@ -410,7 +410,7 @@ of those existing lanes can carry the pressure without distortion.
    spine, intake, reveal, accepted organs, hard public boundaries, safe
    local-only exceptions, evidence refs, `evidence_class` rows, and anti-claims
    into one source-open authority map. `accepted_current_authority` is not an
-   evidence-strength claim. It is the entry point for checking what Microcosm
+   evidence-strength claim. It is the entry point for checking what Plectis
    may not do: release,
    publish, host, call providers with credentials, mutate source unsafely,
    export secrets or credential-equivalent payloads, make general proof claims,
@@ -900,7 +900,7 @@ of those existing lanes can carry the pressure without distortion.
 10. Do copy real non-secret macro bodies into public runtime code, fixtures,
    docs, or exported bundles when they are the mechanism being released. Do not
    copy secrets, credential-equivalent payloads, private operator text, or
-   provider payload bodies. Any macro material that enters Microcosm must pass
+   provider payload bodies. Any macro material that enters Plectis must pass
    the `macro_projection_import_protocol` boundary with source refs, target
    refs, body-import verification, omission receipts, and validation receipts.
 11. Keep research-prototype posture explicit. Do not describe this root as

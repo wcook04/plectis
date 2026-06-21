@@ -3384,11 +3384,11 @@ def _public_reader_block(
 
 
 def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture") -> dict[str, Any]:
-    """Compile the whole-Microcosm self-model: the entire substrate in one budgeted packet.
+    """Compile the whole-Plectis self-model: the entire substrate in one budgeted packet.
 
     - Teleology: let a cold agent comprehend the WHOLE substrate at once -- every family,
       what is real vs thin, what must not be claimed, and where to drill down -- instead of
-      judging Microcosm from whichever slice it opened.
+      judging Plectis from whichever slice it opened.
     - Guarantee: returns a SELF_MODEL_SCHEMA pack with a front anchor (read_me_first), a
       section index, major_subsystems (families), code_lens_health (evidence/truth-
       accounting/strength/custody rollups), authority_membrane, thin_or_projection_surfaces

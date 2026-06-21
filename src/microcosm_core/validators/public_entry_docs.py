@@ -75,7 +75,7 @@ REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
         "repo -> .microcosm",
         "Real Substrate Posture",
-        "Microcosm is the public repo form of the macro system",
+        "Plectis is the public repo form of the macro system",
         "not a synthetic safety proxy",
         "Public should carry private by default",
         "as much of the macro substrate as possible",
@@ -113,7 +113,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "microcosm compile <project>",
         "repo -> `.microcosm`",
         "Real Substrate Posture",
-        "Microcosm is the public repo form of the macro system",
+        "Plectis is the public repo form of the macro system",
         "not a synthetic safety proxy",
         "Public should carry private by default",
         "as much of the macro substrate as possible",

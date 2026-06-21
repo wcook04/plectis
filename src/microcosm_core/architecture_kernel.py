@@ -150,7 +150,7 @@ _DEFAULT_KERNEL = {
     "kernel_id": "microcosm_executable_research_kernel",
     "posture": "executable_research_prototype",
     "job_sentence": (
-        "Microcosm is an executable research prototype of a local project substrate: "
+        "Plectis is an executable research prototype of a local project substrate: "
         "bring a folder, build project-local state, inspect the architecture behind "
         "routes, work, events, and evidence."
     ),

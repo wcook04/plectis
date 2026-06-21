@@ -1,10 +1,17 @@
-# Microcosm Substrate
+# Plectis
 
-Microcosm is the public, source-open cross-section of a larger private
+Plectis is the public, source-open cross-section of a larger private
 AI-native workflow system — one person's working substrate, reorganized into a
 small repository that can be run, inspected, and doubted on its own terms. It
 exists to make the system's architecture, evidence habits, component families,
 and claim limits inspectable without publishing the full working system.
+
+This repository was previously published under the Microcosm name. On 21 June
+2026, Microcosm became Plectis to avoid confusion with the earlier Southampton
+Microcosm hypermedia system and to acknowledge that lineage without implying
+endorsement or affiliation. Microcosm remains only where compatibility or
+historical continuity requires it: the repository path, package ids,
+`.microcosm/` local state, generated records, and old links.
 
 **Reading this as an AI agent?** Your entry document is [AGENTS.md](AGENTS.md),
 not this file. This README is the human map; the provider adapters
@@ -97,13 +104,13 @@ source notes, non-public ledgers, browser/operator state, account material,
 account secrets, recipient-send state, and unexported reference material stay
 outside this repository's public license.
 
-Microcosm Substrate is Copyright 2026 William Cook and is licensed under the
+Plectis is Copyright 2026 William Cook and is licensed under the
 Apache License, Version 2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). The
 project was developed by William Cook as an independent, AI-assisted solo
 project. See [PROVENANCE.md](PROVENANCE.md) for the authorship, source-of-record,
 third-party-material, no-affiliation, and professional-advice boundaries.
 
-Microcosm is a research prototype and developer tool. It is provided for
+Plectis is a research prototype and developer tool. It is provided for
 inspection, experimentation, and education. It is not a hosted service,
 production security product, formal-result correctness authority, financial or
 investment decisions system, trading system, medical/legal/professional advice
@@ -233,7 +240,7 @@ extra doctrine.
 Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external
 subprocess receipts, algorithmic projections, metadata-only rows, or explicit
-omissions. Microcosm puts that evidence legend on the first screen so strong
+omissions. Plectis puts that evidence legend on the first screen so strong
 claims stay narrow. Most projects do not publish that boundary at all, and
 the counts inside it stay inventory, not benchmark scores.
 
@@ -255,10 +262,10 @@ targets, digests, anchors, and omissions.
 
 ## Rigor Without Ceremony
 
-The discipline is visible because Microcosm refuses to collapse different
+The discipline is visible because Plectis refuses to collapse different
 questions into one green badge:
 
-| Cold-reader question | Microcosm surface | Why it matters |
+| Cold-reader question | Plectis surface | Why it matters |
 |---|---|---|
 | What ran locally? | `microcosm tour --card <project>` and `.microcosm/` refs. | The demo is a source-local behavior proof, not a prose claim. |
 | What backs each claim? | Evidence classes, receipts, validators, and source-open body-import counts. | Counts stay legible as claim boundaries instead of maturity scores. |
@@ -557,7 +564,7 @@ mined pattern row a standalone public leaf.
 
 ## Real Substrate Posture
 
-Microcosm is the public repo form of the macro system, reorganized so the
+Plectis is the public repo form of the macro system, reorganized so the
 capabilities are inspectable in a clean clone instead of buried in the private
 root. It is not a synthetic safety proxy, a provenance brochure, or a
 metadata-only substitute for the system.
@@ -623,7 +630,7 @@ my-repo/.microcosm/
 
 ## What You Get
 
-Microcosm creates project-local substrate state in `.microcosm/`:
+The `microcosm` command creates project-local substrate state in `.microcosm/`:
 
 - `project_manifest.json`
 - `architecture.json`
@@ -644,7 +651,7 @@ source files or calling providers.
 
 ## Research Prototype Contract
 
-Microcosm is an executable research prototype of a local project operating
+Plectis is an executable research prototype of a local project operating
 substrate. It is small on purpose: a dense public reorganization of the larger
 architecture, not a downgraded claim about what the architecture can do.
 
@@ -668,7 +675,7 @@ Route explanations also resolve through `core/public_standard_pressure.json`.
 That card set distills public runtime pressure from the macro standards,
 principles, WorkItem spine, projection governance, observability, and
 assimilation surfaces. The cards constrain local state and explanation shape
-and must be backed by real Microcosm commands or explicit omissions.
+and must be backed by real `microcosm` commands or explicit omissions.
 
 ## First Run
 
@@ -979,7 +986,7 @@ Its rows are checkpoint and boundary rows, not score-based progress, maturity,
 readiness, or release evidence.
 
 `microcosm workingness` is the per-organ failure envelope map. It compares
-what each organ needs to work against the evidence Microcosm currently has:
+what each organ needs to work against the evidence Plectis currently has:
 owning standard, typed failure modes, validator command, authority receipt,
 generated receipts, evidence class, claim ceiling, and public/private
 boundary. Its top-level count lens repeats the mapped-organ, adapter-backed,
