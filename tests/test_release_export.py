@@ -168,7 +168,7 @@ def test_exported_overnight_test_capsule_uses_public_example_home_only() -> None
     private_home_prefix = "/" + "Users" + "/"
     public_example_home = private_home_prefix + "example"
 
-    if "Public Microcosm stub for a withheld private source module" not in text:
+    if "Public Plectis compatibility stub for a withheld private source module" not in text:
         assert public_example_home in text
         assert private_home_prefix not in text.replace(public_example_home, "")
     else:

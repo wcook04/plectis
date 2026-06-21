@@ -7,7 +7,7 @@ from pathlib import Path
 def _has_public_data(root: Path) -> bool:
     """Probe whether a directory carries the public-data manifest triple.
 
-    - Teleology: the single membership test that decides whether a candidate path is a usable Microcosm public root.
+    - Teleology: the single membership test that decides whether a candidate path is a usable Plectis public root under the microcosm-substrate compatibility layout.
     - Guarantee: returns True iff all three public manifest files (first-screen composition standard, organ evidence classes, organ registry) exist as files under `root`.
     - Fails: never raises; a missing file or non-directory `root` yields False.
     - Reads: standards/std_microcosm_first_screen_composition_root.json, core/organ_evidence_classes.json, core/organ_registry.json under `root`.

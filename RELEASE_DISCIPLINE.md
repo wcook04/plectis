@@ -1,6 +1,6 @@
 # Release Discipline
 
-These rules govern the public Microcosm boundary. They are corollaries of the
+These rules govern the public Plectis boundary. They are corollaries of the
 axioms, not axioms themselves.
 
 1. JSON contracts, registries, validators, receipts, and source manifests are

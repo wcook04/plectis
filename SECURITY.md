@@ -1,6 +1,8 @@
 # Security And Public Boundary
 
-Microcosm is a public-safe research runtime, not a production security product.
+Plectis is a public-safe research runtime, not a production security product.
+Microcosm remains the historical and technical compatibility label for the
+repository path, package ids, and `.microcosm/` local state.
 A passing receipt proves only the command, fixture boundary, and
 contract named in that receipt. It does not grant release, hosting, provider
 execution, private-root equivalence, proof-correctness, or production security
@@ -15,7 +17,7 @@ fixtures, source capsules, validation shell, and release receipts.
 ## Preferred Private Reporting Channel
 
 The launch-default private intake is GitHub Private Vulnerability Reporting on
-the public Microcosm repository:
+the public Plectis repository:
 
 ```text
 https://github.com/wcook04/microcosm-substrate/security/advisories/new
@@ -34,7 +36,7 @@ budget.
 
 ## Reportable Boundary Failures
 
-Report an issue if public Microcosm material appears to expose or authorize:
+Report an issue if public Plectis material appears to expose or authorize:
 
 - real secrets, credentials, tokens, cookies, private keys, or account sessions,
 - raw operator voice, private personal material, or provider payload bodies,

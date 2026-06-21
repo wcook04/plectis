@@ -632,7 +632,7 @@ def _source_module_private_body_substitution_text(
     contamination_class = str(match_row.get("contamination_class") or "")
     if rel.endswith(".py"):
         return (
-            '"""Public Microcosm stub for a withheld private source module.\n\n'
+            '"""Public Plectis compatibility stub for a withheld private source module.\n\n'
             "The original control-plane body is intentionally not part of the "
             "public slice.\n"
             f"Matched private ref: {matched_ref}\n"
@@ -643,7 +643,7 @@ def _source_module_private_body_substitution_text(
             "def unavailable(*_args, **_kwargs):\n"
             "    raise RuntimeError(\n"
             "        \"This private control-plane body is withheld from the public "
-            "Microcosm release.\"\n"
+            "Plectis release.\"\n"
             "    )\n"
         )
     if rel.endswith(".json"):
@@ -662,7 +662,7 @@ def _source_module_private_body_substitution_text(
             + "\n"
         )
     return (
-        "Public Microcosm stub for a withheld private source module.\n"
+        "Public Plectis compatibility stub for a withheld private source module.\n"
         "The original control-plane body is intentionally not part of the public slice.\n"
         f"Matched private ref: {matched_ref}\n"
         f"Boundary class: {contamination_class}\n"
@@ -4058,7 +4058,7 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry: generate a public Microcosm export, or assess an existing release receipt.
+    """CLI entry: generate a public Plectis export, or assess an existing release receipt.
 
     - Teleology: command-line front door to the release-export pipeline and its candidate-invalidation check.
     - Guarantee: with --out, writes the standalone microcosm-substrate/ export and prints the release receipt (or summary); with --assess-candidate, prints a re-validation assessment instead.
@@ -4069,7 +4069,7 @@ def main(argv: list[str] | None = None) -> int:
     """
     parser = argparse.ArgumentParser(
         prog="python -m microcosm_core.release_export",
-        description="Generate a standalone public Microcosm folder with a bounded release-export receipt.",
+        description="Generate a standalone public Plectis folder with a bounded release-export receipt.",
     )
     parser.add_argument("--root", default=".", help="microcosm-substrate source root")
     parser.add_argument("--out", help="output directory that will receive microcosm-substrate/")
