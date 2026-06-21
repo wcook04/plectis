@@ -1557,7 +1557,7 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
                 "tripwire_id": "release_ready",
                 "overclaim": "Microcosm is release-ready.",
                 "valid_read": (
-                    "Microcosm exposes a local first-run evidence card and "
+                    "Plectis exposes a local first-run evidence card and "
                     "authority ceiling."
                 ),
                 "check_surface": f"microcosm status --card {project_label}",
