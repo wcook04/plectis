@@ -1,7 +1,8 @@
 # Quickstart
 
 This is the shortest cold-clone path for a reader who wants to know whether
-Microcosm is runnable, inspectable, and honest before opening the full README.
+Plectis is runnable, inspectable, and honest before opening the full README.
+The compatibility package, CLI, and local state still use the `microcosm` name.
 After the smoke path passes, use the [README Component Map](README.md#component-map)
 before raw receipts; it names the runtime package, command cards, public
 doctrine, evidence fixtures, source capsules, and validation shell.
@@ -201,13 +202,11 @@ stays inside local review scope.
 
 ## Boundaries
 
-Microcosm is a local source-open research runtime. These commands are for local
-inspection, tests, source-linked records, and result evidence. They do
-not authorize release, hosted publication, provider calls, source mutation,
-private-root equivalence, or proof correctness. The public copy
-supports source review and reproducible local checks; stronger distribution,
-service, domain, security, or operational claims require their own release
-receipts.
+Plectis is a local source-open research runtime. These commands are for local
+inspection, tests, source-linked records, and result evidence. The public copy
+supports source review and reproducible local checks; distribution, hosting,
+project-source writes, excluded private material, formal correctness, service,
+domain, security, or operational claims require their own receipts.
 
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are

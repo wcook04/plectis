@@ -56,14 +56,14 @@ demonstrating:
   behaviour, not a description of it.
 - **Every card ends with a scope limit** — the things it does *not* prove,
   held as machine state rather than disclaimers: `microcosm authority --card`
-  keeps sixteen authority bits explicitly false, including release,
-  provider calls, and whole-system correctness.
+  records the local evidence boundary, including that the card is about the
+  inspected checkout rather than service launch or whole-system correctness.
 
 Command, then record, then evidence class, then source link, then scope
 limit. The rest of this repository is that loop applied to 78 components, and
-the rest of this README is navigation for it. Nothing in the loop mutates
-your source files or calls a model provider; `source_files_mutated=false` is
-a field in the recorded card, not a promise in prose.
+the rest of this README is navigation for it. The recorded card also reports
+`source_files_mutated=false`; local runs inspect the checkout and leave project
+source unchanged.
 
 That loop, in one picture:
 
@@ -136,10 +136,10 @@ Use this map before opening the longer reference body or raw receipt trees:
 | [core/](core/) / [standards/](standards/) / [paper_modules/](paper_modules/) | Public registries, standards, and bounded organ summaries. |
 | [examples/](examples/) / [fixtures/](fixtures/) / [receipts/](receipts/) | Input bundles, negative cases, and drilldown evidence. |
 
-This map is navigation only. It grants no release, hosting, provider calls, source
-mutation, private-root equivalence, or proof authority. Receipts and counts remain
-drilldown evidence; run the cards and validators before drawing broader conclusions
-from a link or count.
+This map is navigation for local review. Use the links to inspect source,
+receipts, and runnable cards; they are not launch decisions and they do not
+turn counts into proof authority. Run the cards and validators before drawing
+broader conclusions from a link or count.
 
 ## Component Map
 
@@ -149,7 +149,7 @@ count, organ count, or route label as a claim:
 | Component family | Local surface | What to inspect |
 |---|---|---|
 | Runtime package | [src/microcosm_core/](src/microcosm_core/) | CLI-backed local behavior: first-screen cards, project scan, route selection, validators, server, and release export. |
-| Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
+| Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, scope boundary, and failure envelope. |
 | Skeptic flight recorder | `make flight-recorder`, `make flight-recorder-verify`, [scripts/skeptic_flight_recorder.py](scripts/skeptic_flight_recorder.py) | A public-safe evaluator packet with command receipts, output digests, private-path scans, source-file change checks, scope limits, and blocked evidence preserved as evidence. |
 | Release-candidate proof | `make release-candidate-proof`, `make release-candidate-proof-verify`, [scripts/release_candidate_proof.py](scripts/release_candidate_proof.py) | One digest-bound packet proving the hero goal resolves to the same complete first-action contract in the source checkout, a fresh package install, and the standalone export. |
 | Reviewer contract | [RELEASE_REVIEW.md](RELEASE_REVIEW.md), `make release-review`, [scripts/build_release_review.py](scripts/build_release_review.py) | The committed review contract: the exact claim under review, the digest-bound artifact subjects, the expectation policy the proof enforces, and how to read a failing packet. |
@@ -242,13 +242,13 @@ they tell you exactly which claims are backed by copied source bodies, external
 subprocess receipts, algorithmic projections, metadata-only rows, or explicit
 omissions. Plectis puts that evidence legend on the first screen so strong
 claims stay narrow. Most projects do not publish that boundary at all, and
-the counts inside it stay inventory, not benchmark scores.
+the counts inside it stay inventory, not comparative scores.
 
 Read the evidence class counters as a claim-boundary legend:
 
 | Evidence class | What the count means | What it does not mean |
 |---|---|---|
-| `verified_macro_body_import` | Non-secret macro source body copied into the public tree with a target, digest, validator, or receipt. | Private-root equivalence, release posture, or source authority above the validator. |
+| `verified_macro_body_import` | Non-secret macro source body copied into the public tree with a target, digest, validator, or receipt. | Equivalence to excluded private material, release posture, or source authority above the validator. |
 | `external_subprocess_witness` | A bounded local tool return code or subprocess receipt exists. | General proof authority or correctness outside the declared witness. |
 | `algorithmic_projection` | A deterministic computation over public/local rows produced the value. | domain-level conclusions or real-world validation. |
 | `semantic_validator` | A validator checked declared schema, policy, or routing semantics. | Runtime behavior, operational launch decision, or source-file change permission. |
@@ -519,9 +519,10 @@ blocked/non-zero commands as preserved evidence. It also carries a
 hero goal's owner, command, validator, stop condition, and claim ceiling — and
 the verifier re-derives that block from the digest-bound outputs, so the
 first-action claims are evidence, not prose. It is a provenance and
-attestation input for later reviewers; it does not authorize release, standards
-compliance, provider calls, proof correctness, frontend readiness, or
-private-system equivalence.
+attestation input for later reviewers. Its claim boundary is evidence integrity
+for the recorded run; release decisions, standards compliance, service
+behavior, frontend readiness, formal correctness, and broader system
+equivalence stay outside this packet.
 
 The release-candidate proof closes the distribution loop over the same
 machinery:
@@ -539,12 +540,12 @@ demonstration — with no private-path leakage and no tracked source
 mutated by the run. Transient install/export work runs under an out-of-source
 temporary root by default, and published evidence refers to it only by
 symbolic tokens (`<work-dir>`, `<export-out>`), so a cold checkout regenerates
-a clean packet with no environment overrides. The verifier re-derives every claim from the recorded
-evidence without rerunning anything. A passing packet proves the goal-shaped
-encounter is distribution-true; it does not authorize release or assert domain
-correctness, and verification proves internal consistency with the digest-bound
-evidence rather than that the run happened as recorded — rerun the generator to
-re-establish provenance.
+a clean packet with no environment overrides. The verifier re-derives every
+claim from the recorded evidence without rerunning anything. A passing packet
+establishes this distribution-shaped encounter against the digest-bound
+evidence and verifies internal consistency with the recorded packet; broader
+publication and domain-review decisions remain separate tracks. Rerun the
+generator to re-establish provenance.
 
 The proof's reviewer contract is committed as
 [RELEASE_REVIEW.md](RELEASE_REVIEW.md): the exact claim under review, the
