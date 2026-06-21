@@ -1473,8 +1473,9 @@ def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
                         "capsule authority and typed subjects remain residual."
                     ),
                     "card": (
-                        f"{slug} is present as legacy Markdown in the public Microcosm paper-module "
-                        "surface, but it has no JSON capsule yet. The governed JSON row records "
+                        f"{slug} is present as legacy Markdown in the public Plectis "
+                        "paper-module compatibility surface, but it has no JSON capsule yet. "
+                        "The governed JSON row records "
                         "the gap without treating Markdown prose as source authority."
                     ),
                     "authority_ceiling": (

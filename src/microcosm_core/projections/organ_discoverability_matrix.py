@@ -550,7 +550,7 @@ def _owner_build_route(organ_id: str) -> dict[str, Any]:
     - Non-goal: does not perform or authorize source mutation or the build; it only names the route.
     """
     return {
-        "owner_surface": "microcosm public organ substrate",
+        "owner_surface": "Plectis public organ substrate",
         "source_authority": [
             f"core/organ_registry.json::implemented_organs[organ_id={organ_id}]",
             f"core/organ_atlas.json::organs[organ_id={organ_id}]",

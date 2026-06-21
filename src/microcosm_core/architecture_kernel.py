@@ -324,7 +324,7 @@ _DEFAULT_KERNEL = {
 
 
 def public_root() -> Path:
-    """Resolve the public Microcosm substrate root for source-ref reads.
+    """Resolve the public Plectis substrate root for source-ref reads.
 
     - Teleology: anchors every source-custody read (kernel manifest, standard-pressure surface) to the package's own public root, never an ambient cwd.
     - Guarantee: returns the absolute `parents[2]` of this module file; stable regardless of caller cwd.

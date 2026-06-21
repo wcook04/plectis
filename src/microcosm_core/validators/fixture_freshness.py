@@ -61,7 +61,7 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """Resolve the public microcosm-substrate root that anchors all public-relative refs.
+    """Resolve the public Plectis root that anchors all public-relative refs.
 
     - Teleology: protects every public-relative path/receipt resolution from anchoring at the wrong tree root (private parent or unrelated cwd).
     - Guarantee: returns a Path that is either a parent named "microcosm-substrate" or a dir holding pyproject.toml + src/microcosm_core + core/private_state_forbidden_classes.json; else the resolved cwd.

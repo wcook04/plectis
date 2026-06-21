@@ -9413,7 +9413,7 @@ class RuntimeShell:
             },
             "anti_claim": (
                 "The public runtime spine is a read-only legibility surface over accepted "
-                "public Microcosm organs and local project substrate commands. It does not "
+                "public Plectis organs and local project substrate commands. It does not "
                 "authorize release, provider calls, source mutation, trading or financial "
                 "advice, private-data equivalence, Mathlib-dependent proof authority, or "
                 "whole-system correctness claims."
@@ -16360,7 +16360,7 @@ class RuntimeShell:
             },
             {
                 "guard_row_id": "release_and_private_equivalence_denial",
-                "source_risk": "a public microcosm is a projection, not release approval or private-root equivalence",
+                "source_risk": "a public Plectis projection is not release approval or private-root equivalence",
                 "public_drilldown": "anti-claim row, authority ceiling, and release_authorized=false",
                 "strip_rule": "deny publication, hosted-public, benchmark, and secret-export claims",
                 **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),

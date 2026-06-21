@@ -66,7 +66,7 @@ PUBLIC_ROOT_RELATIVE_PREFIXES = (
 
 
 def _looks_like_public_root(path: Path) -> bool:
-    """Heuristic test for whether a directory is the public microcosm-substrate root.
+    """Heuristic test for whether a directory is the public Plectis root.
 
     - Teleology: anchors public-relative path rendering so scan findings never leak the operator's absolute filesystem layout.
     - Guarantee: returns True only when pyproject.toml, src/microcosm_core/, and core/private_state_forbidden_classes.json all exist under path; otherwise False.
@@ -482,7 +482,7 @@ def _allowed_synthetic_negative(path: str, text: str) -> bool:
 def _path_hit(path: str, source_context: str) -> dict[str, Any] | None:
     """Detect the structural violation of treating a public-root path as a source authority.
 
-    - Teleology: enforces the target-only-not-source custody boundary so the public microcosm-substrate tree is never written/exported as if it were the macro source of truth.
+    - Teleology: enforces the target-only-not-source custody boundary so the public Plectis compatibility tree is never written/exported as if it were the macro source of truth.
     - Guarantee: returns None when source_context == "target"; otherwise returns a redacted hit (forbidden_class target_only_not_source, term_id microcosm_substrate_as_source_authority) when the path is a public-root path, else None.
     - Fails: never raises; a non-public-root path in a non-target context returns None.
     - Reads: the path string, the source_context flag, and the PUBLIC_ROOT_RELATIVE_PREFIXES constant.

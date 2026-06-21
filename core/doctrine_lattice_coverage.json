@@ -208,8 +208,8 @@
     "unregistered_lattice_edges": 0
   },
   "generation": {
-    "command": "python -m microcosm_core.doctrine_lattice --write",
-    "generated_at": "2026-06-15T16:19:44.733672Z",
+    "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
+    "generated_at": "2026-06-21T18:56:53.403862Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {

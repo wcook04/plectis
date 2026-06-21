@@ -472,7 +472,7 @@ def validate_density(
     - Guarantee: writes a `research_kernel_density_receipt_v1` receipt to `out_path` (atomically via `write_json_atomic`) and returns it; `status` is `PASS` iff `blocking_codes` is empty, else `"blocked"`; `blocking_codes` is the sorted unique union of README, kernel, project, and PRIVATE_STATE_SCAN codes.
     - Guarantee: the receipt always carries `authority_ceiling` with every authorization field False and an `anti_claim` disclaiming hosted release, provider calls, source mutation, and secret export; `density_assertions.release_authorized` is hardcoded False; the embedded private-state scan has `forbidden_output_fields` stripped before serialization.
     - Fails: returns a `status="blocked"` receipt (does not raise) when any posture/density/binding/leak invariant fails; may raise OSError from reading README or from `write_json_atomic` on an unwritable `out_path`.
-    - When-needed: gating or auditing whether the public microcosm slice (plus an optional imported project) meets research-prototype density before any downstream packaging step.
+    - When-needed: gating or auditing whether the public Plectis slice (plus an optional imported project) meets research-prototype density before any downstream packaging step.
     - Escalates-to: std research-kernel density contract and the on-disk receipt at `out_path`; `_kernel_findings` / `_project_findings` / `scan_paths` for per-domain detail.
     - Non-goal: a PASS proves prototype posture, local-state density, and import pressure only; it does NOT authorize hosted release, credentialed provider calls, source mutation, secret export, private-root equivalence, or whole-system correctness.
     """

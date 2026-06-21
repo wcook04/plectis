@@ -1,9 +1,9 @@
-"""Microcosm-native graph-scene projection for the architecture map.
+"""Plectis graph-scene projection for the architecture map.
 
 The public site builder can use the private repo's ``system.lib`` helpers, but
-the standalone Microcosm package cannot. This module exposes the same compact
-graph-scene fields from public Microcosm source refs without depending on the
-parent ai_workflow substrate.
+the standalone microcosm-substrate compatibility package cannot. This module
+exposes the same compact graph-scene fields from public Plectis source refs
+without depending on the parent ai_workflow substrate.
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ UNTYPED_WIRE_RELATION = "declared_dependency_untyped"
 
 
 def public_source_ref(rel_path: str) -> str:
-    """Render a substrate-relative path as a public Microcosm source ref.
+    """Render a substrate-relative path as a public Plectis source ref.
 
     - Teleology: single chokepoint that stamps the ``microcosm-substrate/`` prefix so every node/edge provenance ref points at the public source tree, not a private path.
     - Guarantee: returns ``f"microcosm-substrate/{rel_path}"`` verbatim; no normalization, no filesystem check.

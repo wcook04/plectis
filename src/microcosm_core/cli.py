@@ -493,7 +493,7 @@ def _write_json_atomic(path: Path, payload: dict) -> None:
 
 
 def _public_root_for_project(project: str | None) -> Path | None:
-    """Resolve the public Microcosm root that owns a given project arg.
+    """Resolve the public Plectis root that owns a given project arg.
 
     - Teleology: maps a project path to its enclosing public root for runtime-shell rooting.
     - Guarantee: returns the resolved public root Path or None when unresolved.

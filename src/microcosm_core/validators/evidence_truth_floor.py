@@ -40,7 +40,7 @@ PUBLIC_REFACTOR_CLASSIFICATION_MARKERS = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """Resolve the public microcosm-substrate root that anchors all registry/receipt reads.
+    """Resolve the public Plectis root that anchors all registry/receipt reads.
 
     - Teleology: every audit read is relative to one public root; this fixes that root so callers can pass any path inside it.
     - Guarantee: returns the nearest ancestor (or self) named ``microcosm-substrate`` or carrying the pyproject + ``src/microcosm_core`` + private-state-forbidden marker; falls back to resolved CWD when none matches.
@@ -608,7 +608,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--root",
         default=".",
-        help="Path inside the public microcosm-substrate root.",
+        help="Path inside the public Plectis root.",
     )
     parser.add_argument("--out", help="Optional JSON receipt path.")
     args = parser.parse_args(argv)
