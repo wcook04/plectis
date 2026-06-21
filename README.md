@@ -98,11 +98,13 @@ Current state: populated standalone public source slice. Generated export
 receipts bind the file inventory, release-candidate checks, and public-safe
 stubs for source bodies that stay outside the public slice.
 
-The public source of record is the standalone `microcosm-substrate` repository
-and any generated standalone export from this tree. The private macro root,
-source notes, non-public ledgers, browser/operator state, account material,
-account secrets, recipient-send state, and unexported reference material stay
-outside this repository's public license.
+The public source of record is the standalone Plectis repository and any
+generated standalone export from this tree. The old `microcosm-substrate`
+repository and URL remain compatibility surfaces for previously published
+links. The private macro root, source notes, non-public ledgers,
+browser/operator state, account material, account secrets, recipient-send
+state, and unexported reference material stay outside this repository's public
+license.
 
 Plectis is Copyright 2026 William Cook and is licensed under the
 Apache License, Version 2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). The

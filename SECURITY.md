@@ -20,7 +20,7 @@ The launch-default private intake is GitHub Private Vulnerability Reporting on
 the public Plectis repository:
 
 ```text
-https://github.com/wcook04/microcosm-substrate/security/advisories/new
+https://github.com/wcook04/plectis/security/advisories/new
 ```
 
 The release gate binds a current setting receipt proving that the standalone
