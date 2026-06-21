@@ -165,7 +165,7 @@ New here? Five generated surfaces give you the whole system fast:
 [FIRST_ACTION.md](FIRST_ACTION.md) shows a freeform goal becoming one safe,
 runnable first action (the goal-shaped entry, with refusals and fallbacks
 demonstrated), [AGENT_ROUTES.md](AGENT_ROUTES.md) is the task-class route table for agents,
-[ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line)
+[ORGANS.md#plectis-at-a-glance--every-organ-in-one-line](ORGANS.md#plectis-at-a-glance--every-organ-in-one-line)
 is the one-line organ ladder, [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)
 is the human specialty index, and [ARCHITECTURE.md](ARCHITECTURE.md) is the
 architecture at a glance.

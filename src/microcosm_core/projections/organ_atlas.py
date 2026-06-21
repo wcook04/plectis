@@ -1801,7 +1801,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
       source mutation, private-root equivalence, or proof authority.
     """
     out: list[str] = []
-    out.append("# Microcosm Organ Atlas")
+    out.append("# Plectis Organ Atlas")
     out.append("")
     out.append(GENERATED_MARKER)
     out.append("")
@@ -1825,7 +1825,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
     out.append("")
     out.append(f"> {CLAIM_CEILING_LINE}")
     out.append("")
-    out.append("## Microcosm at a glance — every organ in one line")
+    out.append("## Plectis at a glance — every organ in one line")
     out.append("")
     out.append(
         "This is the lowest faithful pass over the public substrate: one row per "

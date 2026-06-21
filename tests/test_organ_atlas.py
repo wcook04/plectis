@@ -136,14 +136,14 @@ def test_every_organ_resolves_capsule_compression() -> None:
 
 def test_organs_md_starts_with_one_line_glance_ladder() -> None:
     text = (MICROCOSM_ROOT / "ORGANS.md").read_text(encoding="utf-8")
-    assert "## Microcosm at a glance — every organ in one line" in text
+    assert "## Plectis at a glance — every organ in one line" in text
     assert (
-        text.index("## Microcosm at a glance — every organ in one line")
+        text.index("## Plectis at a glance — every organ in one line")
         < text.index("## How to read a card")
         < text.index("\n## Entry & Reveal\n")
     )
     glance = text.split(
-        "## Microcosm at a glance — every organ in one line",
+        "## Plectis at a glance — every organ in one line",
         1,
     )[1].split("## How to read a card", 1)[0]
     for organ_id in _accepted_registry_ids():

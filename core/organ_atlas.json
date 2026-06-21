@@ -1996,7 +1996,7 @@
       "evidence_class": "verified_macro_body_import",
       "family": "import_projection_and_drift",
       "first_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
-      "human_gloss": "This is the checkpoint that handles bringing material from the larger private project into the public Microcosm folder. When someone proposes a batch of files to import, it verifies each one: it only accepts non-secret material, and only when the destination file, a content fingerprint (to confirm the copy matches), a record of where it came from, and the supporting checks all line up. Anything held back as private or secret has to come with a written note saying so, and attempts to claim more authority than allowed are rejected. The record shows exactly what was imported, what was deliberately left out, and what was refused, so the public copy stays honest about its limits instead of quietly leaking private source or pretending to be more than it is.",
+      "human_gloss": "This is the checkpoint that handles bringing material from the larger private project into the public Plectis folder. When someone proposes a batch of files to import, it verifies each one: it only accepts non-secret material, and only when the destination file, a content fingerprint (to confirm the copy matches), a record of where it came from, and the supporting checks all line up. Anything held back as private or secret has to come with a written note saying so, and attempts to claim more authority than allowed are rejected. The record shows exactly what was imported, what was deliberately left out, and what was refused, so the public copy stays honest about its limits instead of quietly leaking private source or pretending to be more than it is.",
       "organ_id": "macro_projection_import_protocol",
       "axiom_refs": [
         "AX-4"
@@ -3110,7 +3110,7 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs this to confirm codex/doctrine/routing_anti_patterns.json has landed as a public Microcosm organ: kind/version are declared, every anti-pattern row has unique id/text, required navigation anchors survive, negative cases reject missing kind, duplicate ids, missing text, authority overclaims, and private source leakage, and the exported bundle source-module manifest validates exact copied non-secret macro body hashes.",
+      "agent_gloss": "An agent runs this to confirm codex/doctrine/routing_anti_patterns.json has landed as a public Plectis organ: kind/version are declared, every anti-pattern row has unique id/text, required navigation anchors survive, negative cases reject missing kind, duplicate ids, missing text, authority overclaims, and private source leakage, and the exported bundle source-module manifest validates exact copied non-secret macro body hashes.",
       "claim_ceiling_restated": "It validates only the declared public routing anti-pattern registry contract and copied non-secret macro body; it never becomes route source authority, mutates routes, exposes private routing notes, calls providers, authorizes release, or proves whole-system correctness.",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",

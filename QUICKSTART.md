@@ -8,7 +8,7 @@ before raw receipts; it names the runtime package, command cards, public
 doctrine, evidence fixtures, source capsules, and validation shell.
 For task-specific agent routing use [AGENT_ROUTES.md](AGENT_ROUTES.md); for the
 one-line organ ladder use
-[ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line);
+[ORGANS.md#plectis-at-a-glance--every-organ-in-one-line](ORGANS.md#plectis-at-a-glance--every-organ-in-one-line);
 for human specialty browsing use [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty);
 for the system shape use [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -172,7 +172,8 @@ make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-rec
 ```
 
 This is an evaluation artifact, not a launch, standards, external-model,
-formal-result correctness, or production-readiness decision.
+formal-result correctness, production-readiness decision, or release; it does
+not authorize release.
 
 For a cold clone, treat `make ci` as the public green floor. `make validate`
 adds the doctrine-lattice drift check and is the maintainer pre-commit gate

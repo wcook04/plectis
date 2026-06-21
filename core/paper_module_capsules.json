@@ -2536,7 +2536,7 @@
       "legacy_markdown_projection": "paper_modules/agent_memory_temporal_conflict_replay.md",
       "compression": {
         "one_line": "Synthetic replay fixture for an agent-memory honesty contract: models scoped-preference episodes and checks temporal-conflict handling; no live memory product.",
-        "card": "Public Microcosm projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
         "authority_ceiling": "Synthetic replay fixture only; not a live memory product, private transcript export, source-authority claim, or release claim."
       },
       "subjects": [
@@ -2604,7 +2604,7 @@
       "legacy_markdown_projection": "paper_modules/agent_monitor_redteam_falsification_replay.md",
       "compression": {
         "one_line": "Synthetic regression drilldown for a monitor/redteam honesty contract; checks falsification handling, negative cases, private-state scan, authority ceilings.",
-        "card": "Public Microcosm regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
         "authority_ceiling": "Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim."
       },
       "subjects": [
@@ -2806,7 +2806,7 @@
       "legacy_markdown_projection": "paper_modules/belief_state_process_reward_replay.md",
       "compression": {
         "one_line": "Public projection of a belief-state process-reward claim contract, backed by the agent-execution trace refactor and copied non-secret macro bodies.",
-        "card": "Public Microcosm projection of a belief-state process-reward claim contract. Backed by the public agent-execution trace refactor lane plus copied non-secret macro source bodies; validates trajectory groups, cold replay receipts, negative cases, and authority ceilings.",
+        "card": "Public Plectis projection of a belief-state process-reward claim contract. Backed by the public agent-execution trace refactor lane plus copied non-secret macro source bodies; validates trajectory groups, cold replay receipts, negative cases, and authority ceilings.",
         "authority_ceiling": "Source-faithful refactored fixtures and copied non-secret macro bodies only; not fixture-echo product evidence, benchmark result, or release claim."
       },
       "subjects": [
@@ -2873,7 +2873,7 @@
       "legacy_markdown_projection": "paper_modules/sleeper_memory_poisoning_quarantine_replay.md",
       "compression": {
         "one_line": "Synthetic replay fixture for a persistent-memory security contract: quarantine of poisoned memory, audit refs, rerun receipts, negative cases, authority",
-        "card": "Public Microcosm projection of a persistent-memory security claim contract. Replays synthetic memory-poisoning episodes and validates quarantine behavior, audit refs, rerun receipts, negative cases, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis projection of a persistent-memory security claim contract. Replays synthetic memory-poisoning episodes and validates quarantine behavior, audit refs, rerun receipts, negative cases, and authority ceilings with body-free receipts.",
         "authority_ceiling": "Synthetic replay fixture only; not a live memory product, live user memory import, benchmark security result, private memory export, or release claim."
       },
       "subjects": [
@@ -3009,7 +3009,7 @@
       "legacy_markdown_projection": "paper_modules/mcp_tool_authority_replay.md",
       "compression": {
         "one_line": "Synthetic MCP-like replay fixture for a tool-authority claim contract: replay receipts, negative cases, authority ceilings; no live MCP/provider/credential",
-        "card": "Public Microcosm projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
         "authority_ceiling": "Synthetic MCP-like replay fixture only; not a live MCP account test, provider call, credential-handling certification, benchmark security result, or release claim."
       },
       "subjects": [
@@ -7275,8 +7275,8 @@
       "source_authority": "json_capsule",
       "legacy_markdown_projection": "paper_modules/microcosm_axiom_substrate.md",
       "compression": {
-        "one_line": "The public Microcosm axiom substrate routes readers from axiom doctrine to the read-only support-cover evaluator, routing registry, standard, tests, and receipts without claiming proof, release, or source-mutation authority.",
-        "card": "Microcosm Axiom Substrate is the public doctrine/routing boundary for axiom support. Its capsule binds the authored paper-module projection to the axiom support-cover mechanism and validator locus, with source refs to AXIOMS.md, PRINCIPLES.md, ANTI_PRINCIPLES.md, core/axiom_organ_routing.json, standards/std_microcosm_axiom.json, and focused tests. The validator computes support cases, anti-axiom rejection mappings, candidate pressure, and strong-gate pressure as a read-only projection.",
+        "one_line": "The public Plectis axiom substrate routes readers from axiom doctrine to the read-only support-cover evaluator, routing registry, standard, tests, and receipts without claiming proof, release, or source-mutation authority.",
+        "card": "Plectis Axiom Substrate is the public doctrine/routing boundary for axiom support. Its capsule binds the authored paper-module projection to the axiom support-cover mechanism and validator locus, with source refs to AXIOMS.md, PRINCIPLES.md, ANTI_PRINCIPLES.md, core/axiom_organ_routing.json, standards/std_microcosm_axiom.json, and focused tests. The validator computes support cases, anti-axiom rejection mappings, candidate pressure, and strong-gate pressure as a read-only projection.",
         "authority_ceiling": "Public doctrine/routing/standard/receipt evidence and read-only evaluator receipts only; axiom witness-route source authority remains core/axiom_organ_routing.json, and claim_ceiling/strongest_allowed_claim remain computed by validator.microcosm.axiom_support_cover, not hand-stamped by this capsule or generated projections. No axiom proof certification, no candidate-law promotion, no source mutation authority, no provider/Lean/Lake execution, no release/publication approval, no private-root equivalence, and no whole-system correctness."
       },
       "subjects": [

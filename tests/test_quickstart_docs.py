@@ -107,8 +107,8 @@ def test_quickstart_cross_doc_anchors_resolve_in_generated_organs() -> None:
 
     # "one-line organ ladder": the em-dash drops out and the two spaces around it
     # each become a hyphen, so the GitHub slug carries a doubled hyphen.
-    assert "ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line" in quickstart
-    assert "## Microcosm at a glance — every organ in one line" in organs
+    assert "ORGANS.md#plectis-at-a-glance--every-organ-in-one-line" in quickstart
+    assert "## Plectis at a glance — every organ in one line" in organs
 
     # "find your specialty" human index.
     assert "ORGANS.md#find-your-specialty" in quickstart
