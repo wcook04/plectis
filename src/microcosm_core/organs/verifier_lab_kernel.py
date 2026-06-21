@@ -723,7 +723,7 @@ def validate_source_module_imports(
             findings.append(
                 _finding(
                     "VERIFIER_LAB_SOURCE_REF_UNEXPECTED",
-                    "Source module rows must point at public microcosm_core organ source files.",
+                    "Source module rows must point at Plectis organ source files under microcosm_core.",
                     case_id="source_module_manifest",
                     subject_id=subject,
                     subject_kind="source_module",

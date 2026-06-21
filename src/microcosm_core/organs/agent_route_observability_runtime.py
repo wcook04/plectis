@@ -2425,7 +2425,7 @@ def validate_session_attribution_source_manifest(
             findings.append(
                 _bundle_finding(
                     "SESSION_ATTRIBUTION_TARGET_REF_MISMATCH",
-                    "Session-attribution copied source body must name the public Microcosm target ref.",
+                    "Session-attribution copied source body must name the public Plectis target ref.",
                     subject_id=expected_path,
                     subject_kind="session_attribution_source_manifest",
                 )
@@ -2790,7 +2790,7 @@ def validate_harness_configuration_audit_source_manifest(
             findings.append(
                 _bundle_finding(
                     "HARNESS_CONFIGURATION_TARGET_REF_MISMATCH",
-                    "Harness configuration copied source body must name the public Microcosm target ref.",
+                    "Harness configuration copied source body must name the public Plectis target ref.",
                     subject_id=expected_path,
                     subject_kind="harness_configuration_source_manifest",
                 )
@@ -7739,7 +7739,7 @@ def run_session_attribution_bundle(
         body_import_findings.append(
             _bundle_finding(
                 "SESSION_ATTRIBUTION_SOURCE_TARGET_DIGEST_MISMATCH",
-                "Session-attribution copied source body must match the public Microcosm target body.",
+                "Session-attribution copied source body must match the public Plectis target body.",
                 subject_id=SESSION_ATTRIBUTION_TARGET_REF,
                 subject_kind="session_attribution_body_import",
             )
@@ -9089,7 +9089,7 @@ def validate_computer_use_source_manifest(
         findings.append(
             _bundle_finding(
                 "COMPUTER_USE_REFACTOR_TARGET_REF_MISMATCH",
-                "Computer-use source manifest must name the public Microcosm refactor target.",
+                "Computer-use source manifest must name the public Plectis refactor target.",
                 subject_id="refactor_target_ref",
                 subject_kind="computer_use_source_manifest",
             )
@@ -9304,7 +9304,7 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
         findings.append(
             _bundle_finding(
                 "COMPUTER_USE_AGENT_EXECUTION_TRACE_REFACTOR_MISSING",
-                "Projection protocol must bind the macro agent-execution trace source to its public Microcosm refactor.",
+                "Projection protocol must bind the macro agent-execution trace source to its public Plectis refactor.",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )

@@ -492,7 +492,7 @@ def validate_source_module_imports(
             findings.append(
                 _finding(
                     "LEAN_WITNESS_SOURCE_REF_UNEXPECTED",
-                    "Source module rows must point at the public first-wave fixture, exported Lean witness bundle, or copied public Microcosm source.",
+                    "Source module rows must point at the public first-wave fixture, exported Lean witness bundle, or copied public Plectis source.",
                     case_id="source_module_manifest",
                     subject_id=module_id or target_ref or "source_module",
                     subject_kind="source_module",

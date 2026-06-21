@@ -133,7 +133,7 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Standards meta diagnostics summarizes public Microcosm standard, organ, "
+    "Standards meta diagnostics summarizes public Plectis standard, organ, "
     "runtime-contract, and receipt coverage only. It does not become source "
     "authority for the registries, expose private macro sources, authorize "
     "release, call providers, prove theorem correctness, or claim whole-system "

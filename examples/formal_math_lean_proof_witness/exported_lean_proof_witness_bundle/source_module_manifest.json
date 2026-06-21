@@ -36,14 +36,14 @@
         "\"bounded_public_lean_lake_witness_only\""
       ],
       "sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
+      "sha256_match": false,
       "source_import_class": "copied_non_secret_formal_math_witness_body",
       "source_ref": "microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
       "source_role": "Public witness manifest with source pattern ids, projection receipt refs, public replacement refs, positive witness metadata, omitted private prover run boundary, and authority ceiling",
+      "source_sha256": "a6ffa51d1da3ac2d6144e82435a38303af6762bfaf19317eff9fa3286915bddc",
       "source_to_target_relation": "public_replacement_source_body",
       "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/witness_manifest.json",
-      "source_sha256": "a6ffa51d1da3ac2d6144e82435a38303af6762bfaf19317eff9fa3286915bddc",
-      "target_sha256": "7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
-      "sha256_match": false
+      "target_sha256": "7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8"
     },
     {
       "body_copied": true,
@@ -120,7 +120,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 64726,
+      "byte_count": 64724,
       "classification": "copied_non_secret_formal_math_witness_body",
       "line_count": 1712,
       "material_class": "public_python_source_body",
@@ -134,15 +134,15 @@
         "def run_witness_bundle(",
         "AUTHORITY_CEILING = {"
       ],
-      "sha256": "sha256:8487ce76855f1483c3a2c5d651665d7eb6b4fb82c129e7410c3d965da291d23b",
+      "sha256": "sha256:38ac95efe22292f423b8a6812dd4ca9b315e7dfc5696da13154f30f804c75f89",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_formal_math_witness_body",
       "source_ref": "microcosm-substrate/src/microcosm_core/organs/formal_math_lean_proof_witness.py",
-      "source_role": "Public Microcosm formal witness validator/control-plane source body copied into the exported bundle so the accepted capsule is not fixture-only.",
-      "source_sha256": "8487ce76855f1483c3a2c5d651665d7eb6b4fb82c129e7410c3d965da291d23b",
+      "source_role": "Public Plectis formal witness validator/control-plane source body copied into the exported bundle so the accepted capsule is not fixture-only.",
+      "source_sha256": "38ac95efe22292f423b8a6812dd4ca9b315e7dfc5696da13154f30f804c75f89",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_modules/microcosm_core/organs/formal_math_lean_proof_witness.py",
-      "target_sha256": "8487ce76855f1483c3a2c5d651665d7eb6b4fb82c129e7410c3d965da291d23b"
+      "target_sha256": "38ac95efe22292f423b8a6812dd4ca9b315e7dfc5696da13154f30f804c75f89"
     }
   ],
   "receipt_body_policy": "receipts may report paths, hashes, declaration counts, and status but must not duplicate full Lean proof bodies, provider payloads, private prover runs, or oracle proofs",

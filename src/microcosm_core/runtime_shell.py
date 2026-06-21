@@ -11191,7 +11191,7 @@ class RuntimeShell:
             "endpoint": "/trace",
             "trace_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a public verifier trace-repair read-model: failure "
+                "Plectis exposes a public verifier trace-repair read-model: failure "
                 "classes, trace grades, repair routing, negative cases, and cold-rerun "
                 "promotion gates without proof bodies, oracle premise identifiers, "
                 "provider payloads, or proof-correctness claims."
@@ -11413,7 +11413,7 @@ class RuntimeShell:
             "source_lens_ref": trace_lens.get("trace_lens_ref"),
             "selected_pattern_id": "formal_math_verifier_trace_repair_loop_compound",
             "public_claim": (
-                "Microcosm exposes a public verifier repair-loop curriculum: classify "
+                "Plectis exposes a public verifier repair-loop curriculum: classify "
                 "failed proof attempts, route metadata-only repairs, require cold reruns, "
                 "and promote only receipt-backed curriculum cells without exporting proof "
                 "bodies, oracle-needed premise identifiers, provider payloads, or proof "
@@ -11634,7 +11634,7 @@ class RuntimeShell:
             "endpoint": "/evidence-cells",
             "evidence_cell_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a public formal evidence-cell lens: proof-strength "
+                "Plectis exposes a public formal evidence-cell lens: proof-strength "
                 "language must resolve to an explicit cell id and receipt ref, while "
                 "unknown cells, missing sources, proof bodies, private refs, and "
                 "general theorem-solution claims stay rejected."
@@ -11964,7 +11964,7 @@ class RuntimeShell:
             "bundle_ref": VERIFIER_EXECUTION_BUNDLE_REF,
             "execution_spine_id": source_receipt.get("execution_spine_id"),
             "public_claim": (
-                "Microcosm exposes the verifier-lab execution spine as a public "
+                "Plectis exposes the verifier-lab execution spine as a public "
                 "runtime lens: bounded Lean transition candidates are checked through "
                 "Lake, CP2 and Evolve reruns are counted only as typed public "
                 "transition effects, and proof bodies, oracle answers, provider "
@@ -12350,7 +12350,7 @@ class RuntimeShell:
                 "formal_evidence_cell_anchor_resolver",
             ],
             "public_claim": (
-                "Microcosm exposes a proof-loop depth map: environment readiness, "
+                "Plectis exposes a proof-loop depth map: environment readiness, "
                 "premise indexing, retrieval, tactic availability, target-shape "
                 "routing, verifier trace, cold-rerun repair promotion, evidence-cell "
                 "resolution, and tiny Lean witness boundaries are one inspectable "
@@ -12628,7 +12628,7 @@ class RuntimeShell:
             "endpoint": "/landing-replay",
             "landing_replay_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a public work-landing replay lens: dirty-tree work "
+                "Plectis exposes a public work-landing replay lens: dirty-tree work "
                 "lands through owned-path claims, validation, scoped commit attempts, "
                 "blocker capture, and ledger finalizers without staging unrelated dirt "
                 "or claiming release."
@@ -12874,7 +12874,7 @@ class RuntimeShell:
             "endpoint": "/view-quality",
             "view_quality_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a public view-quality action map: every requested "
+                "Plectis exposes a public view-quality action map: every requested "
                 "view gets one typed action row, missing and partial views stay visible, "
                 "and the hot-action rollup is explicitly a projection rather than the "
                 "complete view universe."
@@ -13122,7 +13122,7 @@ class RuntimeShell:
             "endpoint": "/drift-control",
             "projection_drift_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes projection drift as a governed read-model: each row "
+                "Plectis exposes projection drift as a governed read-model: each row "
                 "names the public source signal, the bounded repair route, the validator "
                 "that proves the projection, and the authority ceiling that prevents live "
                 "repair or private-root mutation."
@@ -13587,7 +13587,7 @@ class RuntimeShell:
             "endpoint": "/route-cleanup",
             "route_cleanup_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes route cleanup as a public contract: start from "
+                "Plectis exposes route cleanup as a public contract: start from "
                 "entry surfaces, refresh generated projections with owner builders, "
                 "respect option-surface drilldown boundaries, claim work before edits, "
                 "and land through scoped evidence or captured blockers."
@@ -15005,7 +15005,7 @@ class RuntimeShell:
             "endpoint": "/projection-safety",
             "projection_safety_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a projection-safety audit: every compressed public "
+                "Plectis exposes a projection-safety audit: every compressed public "
                 "lens carries an omission receipt, a named drilldown, and an explicit "
                 "authority ceiling before it can be treated as legible public state."
             ),
@@ -15457,7 +15457,7 @@ class RuntimeShell:
             "endpoint": "/projection-import-map",
             "projection_import_map_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a projection import map: each public runtime lens names "
+                "Plectis exposes a projection import map: each public runtime lens names "
                 "what was copied from the macro pattern, what was cleaned, what was omitted, "
                 "what authority ceiling remains, and which validators prove the projection."
             ),
@@ -15829,7 +15829,7 @@ class RuntimeShell:
             "endpoint": "/import-projector",
             "import_projector_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a repeatable import-projector contract: future "
+                "Plectis exposes a repeatable import-projector contract: future "
                 "macro patterns must name what was copied, cleaned, omitted, bounded, "
                 "validated, surfaced, and closed out before they become public runtime cells."
             ),
@@ -16160,7 +16160,7 @@ class RuntimeShell:
             "import_projector_ref": import_projector.get("import_projector_ref"),
             "projection_import_map_ref": projection_import_map.get("projection_import_map_ref"),
             "public_claim": (
-                "Microcosm exposes the compression-profile governed option surface as a "
+                "Plectis exposes the compression-profile governed option surface as a "
                 "public read-model: profile choice becomes command, endpoint, receipt, "
                 "sidecar, validation, and authority-ceiling rows without importing private bodies."
             ),
@@ -16455,7 +16455,7 @@ class RuntimeShell:
             "endpoint": "/stripping-guard",
             "stripping_guard_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a public/private stripping guard: every public-facing "
+                "Plectis exposes a public/private stripping guard: every public-facing "
                 "projection names the private body, proof body, provider payload, raw "
                 "path, secret-completeness, finance, source-mutation, and release claims "
                 "it must reject before becoming a public runtime surface."
@@ -16742,7 +16742,7 @@ class RuntimeShell:
             "endpoint": "/standards-control",
             "standards_control_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a public standards-control lens: standards registry, "
+                "Plectis exposes a public standards-control lens: standards registry, "
                 "standard pressure, validator receipt coverage, fixture manifests, "
                 "acceptance commands, docs, authority ceilings, and projection safety "
                 "are checked as one read-model before public claims can strengthen."
@@ -16980,7 +16980,7 @@ class RuntimeShell:
             "endpoint": "/hook-coverage",
             "hook_intervention_coverage_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes hook intervention coverage as a source-open public read-model: "
+                "Plectis exposes hook intervention coverage as a source-open public read-model: "
                 "hook shadows, route-compliance decisions, actor-axis rejections, debt "
                 "retirement, and route-lease mode control are visible without live "
                 "operator state or provider payloads."
@@ -17578,7 +17578,7 @@ class RuntimeShell:
             "endpoint": "/replay-gauntlet",
             "replay_gauntlet_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a synthetic agent-reliability replay gauntlet: "
+                "Plectis exposes a synthetic agent-reliability replay gauntlet: "
                 "benchmark integrity, monitor falsification, sabotage/scheming, sandbox "
                 "escape, tool authority, indirect prompt injection, and memory poisoning "
                 "cases are replayed as public containment metadata behind an "
@@ -17820,7 +17820,7 @@ class RuntimeShell:
             "endpoint": "/benchmark-lab",
             "benchmark_lab_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a synthetic repository benchmark transaction lab: "
+                "Plectis exposes a synthetic repository benchmark transaction lab: "
                 "two issue/patch fixtures are graded by oracle diffs, FAIL_TO_PASS and "
                 "PASS_TO_PASS-style guards, misleading-test denial, scoped diff receipts, "
                 "workitem admission, and provider-slot cooldown metadata."
@@ -18148,7 +18148,7 @@ class RuntimeShell:
             "endpoint": "/legibility-scorecard",
             "legibility_scorecard_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a cold-reader legibility checkpoint read-model: "
+                "Plectis exposes a cold-reader legibility checkpoint read-model: "
                 "the public reveal must answer what it is, what to run, what evidence "
                 "exists, what is not claimed, and how to extend it inside a 10-minute "
                 "local path."
@@ -18342,7 +18342,7 @@ class RuntimeShell:
             "organ_command": "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
             "corpus_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes formal-math corpus/toolchain readiness as a public "
+                "Plectis exposes formal-math corpus/toolchain readiness as a public "
                 "metadata lens: Mathlib import absence, absent LeanDojo/Pantograph "
                 "corpora, translation-smoke-only rows, consumer gating, and anti-claim "
                 "coverage before retrieval or proof-witness work."
@@ -18522,7 +18522,7 @@ class RuntimeShell:
             "organ_command": "microcosm prediction-oracle-reconciliation run-prediction-bundle",
             "prediction_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes prediction reasoning as public synthetic mechanics: "
+                "Plectis exposes prediction reasoning as public synthetic mechanics: "
                 "target-universe gating, CP1 bifurcation resolution, CP2 prediction rows, "
                 "oracle diff grading, and bounded dossier mutation."
             ),
@@ -18845,7 +18845,7 @@ class RuntimeShell:
             "endpoint": "/market-boundary",
             "market_boundary_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes market and prediction reasoning as a source-open "
+                "Plectis exposes market and prediction reasoning as a source-open "
                 "claim boundary: observations are separated from forecasts, base rates "
                 "and scenario trees precede directional claims, timestamps gate evidence, "
                 "and decision policy is kept distinct from trading or investment advice."

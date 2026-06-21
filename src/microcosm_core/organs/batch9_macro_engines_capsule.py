@@ -554,7 +554,7 @@ def _write_public_approval_request(repo_root: Path, request: Mapping[str, Any]) 
         "approval_id": approval_id,
         "source_ref": str(request.get("source_ref") or f"fixture/{approval_id}"),
         "title": str(request.get("title") or f"Fixture approval {approval_id}"),
-        "detail": str(request.get("detail") or "Public Microcosm fixture approval."),
+        "detail": str(request.get("detail") or "Public Plectis fixture approval."),
         "status": "pending",
         "action_kind": "decide",
         "decision_mode": "overlay_only",

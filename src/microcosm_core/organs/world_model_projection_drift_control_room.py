@@ -985,7 +985,7 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
             findings.append(
                 _finding(
                     "DRIFT_SOURCE_MODULE_TARGET_MISSING",
-                    "source module target must exist inside the public Microcosm bundle",
+                    "source module target must exist inside the public Plectis bundle",
                     case_id="source_module_manifest",
                     subject_id=target_ref or module_id,
                     subject_kind="source_module",
