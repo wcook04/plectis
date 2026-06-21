@@ -1,0 +1,82 @@
+# Plectis
+
+> A runnable, source-linked public map of an AI-native workflow system. Each component is a small, source-bound check you can read, run, and trace to evidence -- served as static files with no backend and no network calls.
+
+Every map below is a generated projection of content-graph.json (the canonical object kernel); none of it is separately authored.
+
+## First local command
+
+- Source checkout: `PYTHONPATH=src python3 -m microcosm_core hello --reader agent .`
+- Installed checkout: `microcosm hello --reader agent <project>`
+- First behavior card: `microcosm tour --card <project>`
+
+Scope: this is a local-first static/public project doorway. Use it to clone, inspect, and compare source-linked records; release operations, hosted service claims, external model access, source-file changes, claims not supported by the public records, formal-result correctness, production use, financial decisions, and specialist review are outside this doorway's scope.
+
+## Repository
+
+- Public repository (source of record): https://github.com/wcook04/plectis
+- Agent entry: AGENTS.md at the repository root
+
+Objects: 814 across 16 kinds.
+
+## Object families (coverage)
+
+- anti_principle: 17 objects -- 17 routed, 17 searchable, 17 source-linked, 0 omitted
+- area: 7 objects -- 7 routed, 7 searchable, 0 source-linked, 0 omitted
+- axiom: 12 objects -- 12 routed, 12 searchable, 12 source-linked, 0 omitted
+- command: 78 objects -- 78 routed, 78 searchable, 78 source-linked, 0 omitted
+- component: 78 objects -- 78 routed, 78 searchable, 78 source-linked, 0 omitted
+- concept: 11 objects -- 11 routed, 11 searchable, 11 source-linked, 0 omitted
+- coverage_gap: 2 objects -- 2 routed, 2 searchable, 2 source-linked, 0 omitted
+- evidence_class: 5 objects -- 5 routed, 5 searchable, 0 source-linked, 0 omitted
+- graph_node: 11 objects -- 11 routed, 11 searchable, 0 source-linked, 0 omitted
+- mechanism: 95 objects -- 95 routed, 95 searchable, 95 source-linked, 0 omitted
+- page: 13 objects -- 13 routed, 13 searchable, 0 source-linked, 0 omitted
+- paper_module: 93 objects -- 93 routed, 93 searchable, 93 source-linked, 0 omitted
+- principle: 20 objects -- 20 routed, 20 searchable, 20 source-linked, 0 omitted
+- relation: 208 objects -- 208 routed, 208 searchable, 0 source-linked, 0 omitted
+- source_ref: 163 objects -- 163 routed, 163 searchable, 163 source-linked, 0 omitted
+- standard: 1 objects -- 0 routed, 0 searchable, 0 source-linked, 1 omitted
+
+## Pages
+
+- [Quickstart](docs/quickstart.html)
+- [How it fits together](docs/architecture.html)
+- [Doctrine](docs/doctrine.html)
+- [Components](docs/components.html)
+- [Field guide](docs/field-guide.html)
+- [Doctrine reference](docs/rules-and-ideas.html)
+- [Paper modules](docs/paper-modules.html)
+- [What the pass proves](docs/evidence.html)
+- [Glossary](docs/glossary.html)
+- [Source & license](docs/source.html)
+- [Vulnerability disclosure](docs/vulnerability-disclosure.html)
+
+## Availability objects
+
+These source-linked objects are routed and searchable without promoting them beyond their current source status.
+
+### Coverage gaps
+
+- [Component relation fill](docs/rules-and-ideas.html#coverage-gap-component-relation-fill)
+- [Mechanism relation fill](docs/rules-and-ideas.html#coverage-gap-mechanism-relation-fill)
+
+
+## Reader ladder (open in order of need)
+
+- [reader digest](microcosm-ai-reader-digest.json): the default AI handoff -- quick_path, canonical_question_routes, component_digest, family_digest, claim_ceiling_index, and provenance, without the deep bodies. Start here.
+- [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
+- [field guide](docs/field-guide.html): the human middle layer -- areas, components, and evidence in one navigable roster.
+- [AI review packet](microcosm-ai-review-packet.json): advanced full-text packet -- read_me_first, answer contract, question routes, starter prompts, view descriptors, and the full visible-text record in a single self-describing file.
+- [full JSON map](microcosm-site-map.json): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
+- source of record: the public repository linked from each component's source_links.
+
+## Machine-readable
+
+- [object-map.json](object-map.json): canonical object identity + per-kind coverage
+- [content-graph.json](content-graph.json): the canonical kernel
+- [projection-status.json](projection-status.json): packet lineage and counts
+- [search-index.js](assets/search-index.js): static search records
+- [architecture-graph-scene.json](docs/architecture-graph-scene.json): graph topology
+- Surface contract: content-graph.json::surface_sync_contract
+

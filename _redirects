@@ -1,0 +1,12 @@
+/docs /docs/index.html 301
+/quickstart /docs/quickstart.html 301
+/architecture /docs/architecture.html 301
+/doctrine /docs/doctrine.html 301
+/components /docs/components.html 301
+/rules /docs/rules-and-ideas.html 301
+/rules-and-ideas /docs/rules-and-ideas.html 301
+/doctrine-reference /docs/rules-and-ideas.html 301
+/source /docs/source.html 301
+/vulnerability-disclosure /docs/vulnerability-disclosure.html 301
+/security-policy /docs/vulnerability-disclosure.html 301
+/security.txt /.well-known/security.txt 301

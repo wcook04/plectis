@@ -1,0 +1,2002 @@
+{
+  "ai_orientation_packet": {
+    "advanced_public_handoff": "microcosm-ai-review-packet.json",
+    "copy_and_download_equivalent": false,
+    "copy_control_selector": "[data-site-export][data-site-packet-kind=\"orientation\"]",
+    "copy_format": "markdown",
+    "copy_payload_field": "copy_brief.copy_text_markdown",
+    "copy_payload_schema": "microcosm_public_ai_concise_copy_packet_v2",
+    "download_control_selector": "[data-site-download][data-site-packet-kind=\"reader-digest\"]",
+    "global": "window.__MICROCOSM_AI_ORIENTATION_PACKET__",
+    "json_map_sidecar_path": "assets/site-packet.js",
+    "path": "assets/ai-orientation-packet.js",
+    "primary_public_handoff": "microcosm-ai-reader-digest.json",
+    "reader_digest_control_selector": "[data-site-download][data-site-packet-kind=\"reader-digest\"]",
+    "reader_digest_sidecar_path": "microcosm-ai-reader-digest.json",
+    "reader_digest_text_packet_path": "assets/ai-reader-digest-packet.js",
+    "recommended_copy_filename": "microcosm-ai-concise-orientation-guide.md",
+    "recommended_full_filename": "microcosm-ai-reader-digest.json",
+    "recommended_raw_map_filename": "microcosm-site-map.json",
+    "review_packet_control_selector": "[data-site-download][data-site-packet-kind=\"review-packet\"]",
+    "review_packet_path": "microcosm-ai-review-packet.json",
+    "review_packet_text_packet_path": "assets/ai-review-packet.js"
+  },
+  "artifact_identity": {
+    "advanced_public_handoff": "microcosm-ai-review-packet.json",
+    "advanced_public_handoff_sha256": "sha256:22c373af3ee65baaa674e61f29263ffb99f826cb03708e6fcb4e1b58cf749efc",
+    "digest_algorithm": "sha256",
+    "exact_byte_hash_scope": "Generated in-memory text outputs at build time. projection-status.json cannot self-embed its own final byte digest; all other generated outputs are exact.",
+    "exact_byte_sha256_by_path": {
+      ".well-known/security.txt": {
+        "byte_count": 269,
+        "sha256": "sha256:cbd6fe1d756159d331aa6f0f43c64611c5f86c32131de615353af743c1a86454"
+      },
+      "404.html": {
+        "byte_count": 704,
+        "sha256": "sha256:25f688e045ed7286cbcea909bb91b9f9fd915d747466b8a8a8157fab40e80af6"
+      },
+      "_headers": {
+        "byte_count": 3748,
+        "sha256": "sha256:54655d7575d9c5135acf9f9dc19ad1db335885236af479d04621d31690b60c72"
+      },
+      "_redirects": {
+        "byte_count": 513,
+        "sha256": "sha256:8d198e75d6472021db910a02128cc491d5864aa7369c0691e2266ad159a64529"
+      },
+      "assets/ai-orientation-packet.js": {
+        "byte_count": 85967,
+        "sha256": "sha256:7b5cd6d68700073d7e9c1550f856282f168c5159cee0e1743332c9cc2abe42c6"
+      },
+      "assets/ai-reader-digest-packet.js": {
+        "byte_count": 232674,
+        "sha256": "sha256:1491f2dd05e377f983e67c129b1382251f47dc0589cad5b0f43f93e1435d1fbf"
+      },
+      "assets/ai-review-packet.js": {
+        "byte_count": 10364532,
+        "sha256": "sha256:d9978cb0141278c744eb660167db9799faab15b5b78840e4fa3f31e3aed00b0b"
+      },
+      "assets/object-map.js": {
+        "byte_count": 5100195,
+        "sha256": "sha256:73be2c1d7a90ee92072389d483628e0f5b0be6bf551a6d8af32bf82aa63bb7bb"
+      },
+      "assets/search-index.js": {
+        "byte_count": 622916,
+        "sha256": "sha256:b7744643dfc38cf84014e58a807033fc224bdfc28b6435a2efc46e39bdbf0bfc"
+      },
+      "assets/site-packet.js": {
+        "byte_count": 8852783,
+        "sha256": "sha256:494b7ba1b1fd7cec36da0f1fe6f6447c0193e9f179e28aa81884ff1dd4bfaf5c"
+      },
+      "content-graph.json": {
+        "byte_count": 10229822,
+        "sha256": "sha256:2e186d3c635ec94c4bf07fc71c1a4267e8600e9cd25eb15be8d7812b96af59bb"
+      },
+      "content-manifest.json": {
+        "byte_count": 172033,
+        "sha256": "sha256:6cbd82b2931e018954f32c7dd3a3dfbbb9d70abda7be56d266b60fbe00394dc7"
+      },
+      "docs/architecture-graph-scene.json": {
+        "byte_count": 226338,
+        "sha256": "sha256:2440c20e08af879b850e93e1102c0cc273079f65d81bb4b7e84a733b4ab6d955"
+      },
+      "docs/architecture.html": {
+        "byte_count": 124699,
+        "sha256": "sha256:c30e65dc3312af0e6c807d958ff1d2dd4b258756d3f17a657181d163f8e914af"
+      },
+      "docs/area-agent-reliability.html": {
+        "byte_count": 538073,
+        "sha256": "sha256:bcb22cae4579aaaafd2a095399a27b2dce130a0581671c7a29189c08d15a878d"
+      },
+      "docs/area-architecture.html": {
+        "byte_count": 291603,
+        "sha256": "sha256:3a8b5fe1a5c515457c951e32204efc3bda839f90f607088ef1aec7c7d27da663"
+      },
+      "docs/area-continuity.html": {
+        "byte_count": 120016,
+        "sha256": "sha256:c9ca96406a5813d5d9563427acd39d1c0d40c63edc309527095e5c4a10d04db7"
+      },
+      "docs/area-entry.html": {
+        "byte_count": 68254,
+        "sha256": "sha256:c23affbbf437ee3b073e3986eac0d65451d827d44039eacbd5615c7bcaa853a0"
+      },
+      "docs/area-formal-math.html": {
+        "byte_count": 568116,
+        "sha256": "sha256:4af8eb5284b6798ba668853c79879c95d4682e4d1defb5e7967469d5abbb5462"
+      },
+      "docs/area-import-drift.html": {
+        "byte_count": 507916,
+        "sha256": "sha256:c2059d875c8de819108c1b59d9da985b03379df97d1c8c1efad8463813b19b22"
+      },
+      "docs/area-research.html": {
+        "byte_count": 261280,
+        "sha256": "sha256:99802f307bc2d3087c74b273c2f5c7644ee02efffcb17d3b4fff91e32eb8359d"
+      },
+      "docs/coding-agents.html": {
+        "byte_count": 9360,
+        "sha256": "sha256:58b2f0c39a11c046f1c936218040b612ceff415cffeab95cf7770a7c542efbb8"
+      },
+      "docs/components.html": {
+        "byte_count": 2315951,
+        "sha256": "sha256:97f70c88c21f6db8e9d57068ff34e8b5743070f640a6e3dc86100a71c1d77b53"
+      },
+      "docs/contact.html": {
+        "byte_count": 10307,
+        "sha256": "sha256:99ded8f2632f5edb85b19d9b05cf715962bd471bbc88be96776d85997d058360"
+      },
+      "docs/doctrine.html": {
+        "byte_count": 479817,
+        "sha256": "sha256:b39afa96ec1e5175ce48f5c7689236a672dbba067994b5a2100195de8beeb02b"
+      },
+      "docs/evidence.html": {
+        "byte_count": 26633,
+        "sha256": "sha256:d4da3555fbaec814518b14079aba40a2163898723257169e77438c00f22362c8"
+      },
+      "docs/field-guide.html": {
+        "byte_count": 821446,
+        "sha256": "sha256:7578fdabe926aa1732d9de152d4c667a2bb40eef2195a6a883740584abc1b663"
+      },
+      "docs/glossary.html": {
+        "byte_count": 377073,
+        "sha256": "sha256:67a6585e9ee043f32cb8a9c43a0bb5f53971b4bc6b6d6d7c3c653a96bbb186d4"
+      },
+      "docs/index.html": {
+        "byte_count": 10745,
+        "sha256": "sha256:981f7d07608576671d9316b664e8fcb089d8ce4e3fd805c3cf36da2a263297ad"
+      },
+      "docs/lineage.html": {
+        "byte_count": 12833,
+        "sha256": "sha256:f1ebfea6a926dfc28765dc10f8a0f8397fb6a0a437493a447d797ef10f98ea5c"
+      },
+      "docs/paper-modules.html": {
+        "byte_count": 2732282,
+        "sha256": "sha256:9893c1915422bb7ed6a6cc6c22224276bec2315e0c78242c4dae5c2f46913675"
+      },
+      "docs/quickstart.html": {
+        "byte_count": 8613,
+        "sha256": "sha256:5372da10e00e089027dcdd079e3a4648a49e3e68ba5c1f74420b7e787b57a1dc"
+      },
+      "docs/rules-and-ideas.html": {
+        "byte_count": 734318,
+        "sha256": "sha256:b6f9d7d0e8424179558f1691beb0a63d65aef068fa2e0d20c1605a6921acc280"
+      },
+      "docs/source.html": {
+        "byte_count": 14450,
+        "sha256": "sha256:7e4a9141935a225ab73d4e97509a3b6fc8e975af89665d388f4c3ae5a932eaf5"
+      },
+      "docs/tour.html": {
+        "byte_count": 18734,
+        "sha256": "sha256:02052192bd6d89f94c81851c3fd5e8509ff7e56bae4f7430257349cd5bb2b7ce"
+      },
+      "docs/updates.html": {
+        "byte_count": 8712,
+        "sha256": "sha256:0f4ecaa36917e211792a73b4cf4ad67911299ec008ef4f71076b863260b6fb25"
+      },
+      "docs/vulnerability-disclosure.html": {
+        "byte_count": 9628,
+        "sha256": "sha256:2e17ed105a2f2055c3c827f3e8f75f5b9099da1cffdaf6dac4c853afa5851aca"
+      },
+      "index.html": {
+        "byte_count": 46997,
+        "sha256": "sha256:9e43af933bba111c9fab6205e1370cfc1e9d15b6888f0049156e8f8294f3f11e"
+      },
+      "legacy-route-manifest.json": {
+        "byte_count": 30128,
+        "sha256": "sha256:adcd0e75385c6bba27bca7a3e8d55638439f800876271d724f55dc40df159c12"
+      },
+      "llms.txt": {
+        "byte_count": 4772,
+        "sha256": "sha256:12bf88eb4088b4f6042be6f0e6f09626606dc08b64812d08c5bb1ce784947d4c"
+      },
+      "microcosm-ai-reader-digest.json": {
+        "byte_count": 216515,
+        "sha256": "sha256:3430de0c54520aa75d756193c8c2d9609c9ab2ee53bc28e5ac7d55c69a65d356"
+      },
+      "microcosm-ai-review-packet.json": {
+        "byte_count": 9836991,
+        "sha256": "sha256:22c373af3ee65baaa674e61f29263ffb99f826cb03708e6fcb4e1b58cf749efc"
+      },
+      "microcosm-legacy/.nojekyll": {
+        "byte_count": 0,
+        "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "microcosm-legacy/.well-known/security.txt": {
+        "byte_count": 293,
+        "sha256": "sha256:b9b85887f4ebcee573ce9f30c396f63ceeb451843b0963c31be2075d0e258406"
+      },
+      "microcosm-legacy/404.html": {
+        "byte_count": 777,
+        "sha256": "sha256:73dcfabff17693ba443bd166f1af04d9f13392b78eaaa05e2d320f8515edc55d"
+      },
+      "microcosm-legacy/assets/ai-orientation-packet.js": {
+        "byte_count": 85967,
+        "sha256": "sha256:7b5cd6d68700073d7e9c1550f856282f168c5159cee0e1743332c9cc2abe42c6"
+      },
+      "microcosm-legacy/assets/ai-reader-digest-packet.js": {
+        "byte_count": 232674,
+        "sha256": "sha256:1491f2dd05e377f983e67c129b1382251f47dc0589cad5b0f43f93e1435d1fbf"
+      },
+      "microcosm-legacy/assets/ai-review-packet.js": {
+        "byte_count": 10364532,
+        "sha256": "sha256:d9978cb0141278c744eb660167db9799faab15b5b78840e4fa3f31e3aed00b0b"
+      },
+      "microcosm-legacy/assets/docs.js": {
+        "byte_count": 158569,
+        "sha256": "sha256:80180f7b7b7218c854ee5398b26a19548875e319c0aef03bfca03ed085f83ef7"
+      },
+      "microcosm-legacy/assets/object-map.js": {
+        "byte_count": 5100195,
+        "sha256": "sha256:73be2c1d7a90ee92072389d483628e0f5b0be6bf551a6d8af32bf82aa63bb7bb"
+      },
+      "microcosm-legacy/assets/search-index.js": {
+        "byte_count": 622916,
+        "sha256": "sha256:b7744643dfc38cf84014e58a807033fc224bdfc28b6435a2efc46e39bdbf0bfc"
+      },
+      "microcosm-legacy/assets/site-packet.js": {
+        "byte_count": 8852783,
+        "sha256": "sha256:494b7ba1b1fd7cec36da0f1fe6f6447c0193e9f179e28aa81884ff1dd4bfaf5c"
+      },
+      "microcosm-legacy/assets/style.css": {
+        "byte_count": 139118,
+        "sha256": "sha256:c74bdd8f06030a972abd2bc3de60796d207bfd505f1a9be6388f9d92278d68ed"
+      },
+      "microcosm-legacy/content-graph.json": {
+        "byte_count": 10229822,
+        "sha256": "sha256:2e186d3c635ec94c4bf07fc71c1a4267e8600e9cd25eb15be8d7812b96af59bb"
+      },
+      "microcosm-legacy/content-manifest.json": {
+        "byte_count": 172033,
+        "sha256": "sha256:6cbd82b2931e018954f32c7dd3a3dfbbb9d70abda7be56d266b60fbe00394dc7"
+      },
+      "microcosm-legacy/docs/architecture.html": {
+        "byte_count": 1467,
+        "sha256": "sha256:fd229706f180c6c1d88df26e67f428d37822d400d9ad034b8db251049d05a15b"
+      },
+      "microcosm-legacy/docs/area-agent-reliability.html": {
+        "byte_count": 1507,
+        "sha256": "sha256:4151bc697208336ac76f2a0041966d760e73c9a7a9cc3e7f2b7de9da156ae422"
+      },
+      "microcosm-legacy/docs/area-architecture.html": {
+        "byte_count": 1487,
+        "sha256": "sha256:ab238c130d6ee45d509e097626220a7579be466e1d9e6ed5c3ca593ac8bf7ad3"
+      },
+      "microcosm-legacy/docs/area-continuity.html": {
+        "byte_count": 1479,
+        "sha256": "sha256:8a0bab79747d4a5d901ea61d3bae2d31d91cfdbacb66367926d9d00a2623a9f9"
+      },
+      "microcosm-legacy/docs/area-entry.html": {
+        "byte_count": 1459,
+        "sha256": "sha256:df89179656321e65162d909836b391478667b9d293930c2c7705ca83e5a088cc"
+      },
+      "microcosm-legacy/docs/area-formal-math.html": {
+        "byte_count": 1483,
+        "sha256": "sha256:cf53b4ec75733991fb6a3fc2545d58d321e515ea2a97436407d810f30dabac75"
+      },
+      "microcosm-legacy/docs/area-import-drift.html": {
+        "byte_count": 1487,
+        "sha256": "sha256:a7884490967b407560a9a3b5d486a8d6fe0aaf1ca36e7733a3d5fe3f1a5241db"
+      },
+      "microcosm-legacy/docs/area-research.html": {
+        "byte_count": 1471,
+        "sha256": "sha256:8eeb92489d8720370ffeb9ca08696c99210ea8ff99f89b4001ffe60504177b77"
+      },
+      "microcosm-legacy/docs/coding-agents.html": {
+        "byte_count": 1471,
+        "sha256": "sha256:7cd08ce023165173a5f2a87c01c12916228a10f065669d742c5d2237c7565a93"
+      },
+      "microcosm-legacy/docs/components.html": {
+        "byte_count": 1459,
+        "sha256": "sha256:0f38126092df174a650762f0389787388b4093be0ceed44ad08a6001f59a6153"
+      },
+      "microcosm-legacy/docs/contact.html": {
+        "byte_count": 1447,
+        "sha256": "sha256:b0c8c2f6923d84f54c1273eb829529a58de06e79d74395316c93e8aa907547c1"
+      },
+      "microcosm-legacy/docs/doctrine.html": {
+        "byte_count": 1451,
+        "sha256": "sha256:1b7d932ef74aaca1f1dc989312ada5e59f4ec798d7f9afb6a8023dba227d4804"
+      },
+      "microcosm-legacy/docs/evidence.html": {
+        "byte_count": 1451,
+        "sha256": "sha256:b70a0467ba5205094b473663b1d23aa84e389a08a133f199af87ed203cc91673"
+      },
+      "microcosm-legacy/docs/field-guide.html": {
+        "byte_count": 1463,
+        "sha256": "sha256:57bc045bfd3e0c6881f65441deddcde511de37451fc0d0e1def93caf773c496d"
+      },
+      "microcosm-legacy/docs/glossary.html": {
+        "byte_count": 1451,
+        "sha256": "sha256:3134aaefe07c69abd3a08c43a5f9005c088d56e29f7f4fd1f068cd6dda950164"
+      },
+      "microcosm-legacy/docs/index.html": {
+        "byte_count": 1439,
+        "sha256": "sha256:4b730a9bc6698761cb9194e4938965e6e2ce3f4345cd6b91263f9e0246b0f3f7"
+      },
+      "microcosm-legacy/docs/lineage.html": {
+        "byte_count": 1447,
+        "sha256": "sha256:4e91e6de8b88f2d25f409dbca107c6ebabd56cab8d3ed8dff3f5daa2afe2d361"
+      },
+      "microcosm-legacy/docs/paper-modules.html": {
+        "byte_count": 1471,
+        "sha256": "sha256:0301db1eb85a0f94c3271d457611faa9b13ebbc875ff4ba79bd8d7962f74d7b3"
+      },
+      "microcosm-legacy/docs/quickstart.html": {
+        "byte_count": 1459,
+        "sha256": "sha256:45c6a93b6e5865377f0ed5d1000c9357e2e7ae47afa587c6a9009ecd46b722f6"
+      },
+      "microcosm-legacy/docs/rules-and-ideas.html": {
+        "byte_count": 1479,
+        "sha256": "sha256:63b7e9196edbf583a63df89fbce2c18b14c61320b8a54b50cc3c5e5ad2495b62"
+      },
+      "microcosm-legacy/docs/source.html": {
+        "byte_count": 1443,
+        "sha256": "sha256:8ada403683694276dbec8e23e0cb2b7545d578924f9fc376b99bfb6dcfc0c158"
+      },
+      "microcosm-legacy/docs/tour.html": {
+        "byte_count": 1435,
+        "sha256": "sha256:b8adcd8a68bb2980aecf5554f8b7f5f918c39604e5a4db094efc4de8dff8bc9a"
+      },
+      "microcosm-legacy/docs/updates.html": {
+        "byte_count": 1447,
+        "sha256": "sha256:9f79a0e342ea0b180fc758a1df5c9b247af5d529c1d98e885c2c0d53ebd52236"
+      },
+      "microcosm-legacy/docs/vulnerability-disclosure.html": {
+        "byte_count": 1806,
+        "sha256": "sha256:b7b6cb881ef1bfa42290a0e98726487c61f05dc5829399ae143e768b585c3fd5"
+      },
+      "microcosm-legacy/index.html": {
+        "byte_count": 1391,
+        "sha256": "sha256:704056ee0a69670141fdcee3ebe0d1cc1c61f3278228b355119cfa5b48aea1d3"
+      },
+      "microcosm-legacy/legacy-route-manifest.json": {
+        "byte_count": 30128,
+        "sha256": "sha256:adcd0e75385c6bba27bca7a3e8d55638439f800876271d724f55dc40df159c12"
+      },
+      "microcosm-legacy/microcosm-ai-reader-digest.json": {
+        "byte_count": 216515,
+        "sha256": "sha256:3430de0c54520aa75d756193c8c2d9609c9ab2ee53bc28e5ac7d55c69a65d356"
+      },
+      "microcosm-legacy/microcosm-ai-review-packet.json": {
+        "byte_count": 9836991,
+        "sha256": "sha256:22c373af3ee65baaa674e61f29263ffb99f826cb03708e6fcb4e1b58cf749efc"
+      },
+      "microcosm-legacy/object-map.json": {
+        "byte_count": 6460701,
+        "sha256": "sha256:e361fbd7e0b9e1a16a83ea5d3c9a69fdfc37d57d7209100c2b3e25ab957080b1"
+      },
+      "microcosm-legacy/projection-status.json": {
+        "byte_count": 810,
+        "sha256": "sha256:bccfb9e928f94193c56cae544798660ce05751e197d80155ae0c2d1e0ccb7b10"
+      },
+      "microcosm-legacy/security.txt": {
+        "byte_count": 293,
+        "sha256": "sha256:b9b85887f4ebcee573ce9f30c396f63ceeb451843b0963c31be2075d0e258406"
+      },
+      "microcosm-legacy/updates.xml": {
+        "byte_count": 958,
+        "sha256": "sha256:77a06587b7024d6a7037151366e49b8b26eb7a41de77ffd6f0511af58dcc499c"
+      },
+      "object-map.json": {
+        "byte_count": 6460701,
+        "sha256": "sha256:e361fbd7e0b9e1a16a83ea5d3c9a69fdfc37d57d7209100c2b3e25ab957080b1"
+      },
+      "robots.txt": {
+        "byte_count": 78,
+        "sha256": "sha256:1b61036e04aff3edc11434899bab16ff0290711d924e85d2fcdc9ac07b36933c"
+      },
+      "security.txt": {
+        "byte_count": 269,
+        "sha256": "sha256:cbd6fe1d756159d331aa6f0f43c64611c5f86c32131de615353af743c1a86454"
+      },
+      "sitemap.xml": {
+        "byte_count": 2113,
+        "sha256": "sha256:591c507f47c35c8a4ac0b0f774135b374886e26b76aa5741fd25a1d5b6a32f04"
+      },
+      "updates.xml": {
+        "byte_count": 958,
+        "sha256": "sha256:77a06587b7024d6a7037151366e49b8b26eb7a41de77ffd6f0511af58dcc499c"
+      }
+    },
+    "primary_public_handoff": "microcosm-ai-reader-digest.json",
+    "primary_public_handoff_sha256": "sha256:3430de0c54520aa75d756193c8c2d9609c9ab2ee53bc28e5ac7d55c69a65d356",
+    "projection_status_self_digest": "not_self_embedded",
+    "reader_digest": "microcosm-ai-reader-digest.json",
+    "reader_digest_sha256": "sha256:3430de0c54520aa75d756193c8c2d9609c9ab2ee53bc28e5ac7d55c69a65d356",
+    "schema": "microcosm_public_generated_artifact_identity_v0",
+    "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc"
+  },
+  "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+  "component_count": 78,
+  "component_synopsis_audit": {
+    "budget": {
+      "hard_ceiling_chars": 120,
+      "layout": "two_line_row_synopsis_on_own_line",
+      "target_max_chars": 100,
+      "warn_over_chars": 108
+    },
+    "component_count": 78,
+    "duplicate_clusters": [],
+    "fail_count": 0,
+    "fail_ids": [],
+    "flag_counts": {},
+    "length_range": [
+      71,
+      105
+    ],
+    "records": [
+      {
+        "component_id": "cold_reader_route_map",
+        "flags": [],
+        "length": 89,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "public_reveal_walkthrough",
+        "flags": [],
+        "length": 77,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "pattern_binding_contract",
+        "flags": [],
+        "length": 90,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "pattern_assimilation_step",
+        "flags": [],
+        "length": 83,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "executable_doctrine_grammar",
+        "flags": [],
+        "length": 101,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "navigation_hologram_route_plane",
+        "flags": [],
+        "length": 78,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "standards_meta_diagnostics",
+        "flags": [],
+        "length": 92,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "voice_to_doctrine_self_improvement_loop",
+        "flags": [],
+        "length": 85,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "cognitive_operator_registry",
+        "flags": [],
+        "length": 93,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "routing_anti_patterns_registry",
+        "flags": [],
+        "length": 73,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "doctrine_fact_claim_audit",
+        "flags": [],
+        "length": 84,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "self_ignorance_coverage_ledger",
+        "flags": [],
+        "length": 71,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "proof_diagnostic_evidence_spine",
+        "flags": [],
+        "length": 79,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "formal_math_readiness_gate",
+        "flags": [],
+        "length": 89,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "corpus_readiness_mathlib_absence_gate",
+        "flags": [],
+        "length": 91,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "mathematical_strategy_atlas_hypothesis_scorer",
+        "flags": [],
+        "length": 85,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "tactic_portfolio_availability_probe",
+        "flags": [],
+        "length": 89,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "target_shape_tactic_routing_gate",
+        "flags": [],
+        "length": 91,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "lean_std_premise_index",
+        "flags": [],
+        "length": 104,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "formal_math_premise_retrieval",
+        "flags": [],
+        "length": 96,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "formal_math_verifier_trace_repair_loop",
+        "flags": [],
+        "length": 101,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "formal_evidence_cell_anchor_resolver",
+        "flags": [],
+        "length": 104,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "undeclared_library_prior_symbol_classifier",
+        "flags": [],
+        "length": 82,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "ring2_premise_retrieval_precision_recall_harness",
+        "flags": [],
+        "length": 73,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "formal_math_lean_proof_witness",
+        "flags": [],
+        "length": 102,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "verifier_lab_kernel",
+        "flags": [],
+        "length": 93,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "verifier_lab_execution_spine",
+        "flags": [],
+        "length": 91,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "certificate_kernel_execution_lab",
+        "flags": [],
+        "length": 92,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch4_proof_authority_runtime",
+        "flags": [],
+        "length": 91,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "proof_derived_governed_mutation_authorization",
+        "flags": [],
+        "length": 104,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "flags": [],
+        "length": 95,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch10_cold_eval_honesty_capsule",
+        "flags": [],
+        "length": 95,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch8_validator_checker_capsule",
+        "flags": [],
+        "length": 88,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_monitor_redteam_falsification_replay",
+        "flags": [],
+        "length": 100,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_sabotage_scheming_monitor_replay",
+        "flags": [],
+        "length": 94,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_memory_temporal_conflict_replay",
+        "flags": [],
+        "length": 92,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "sleeper_memory_poisoning_quarantine_replay",
+        "flags": [],
+        "length": 105,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "mcp_tool_authority_replay",
+        "flags": [],
+        "length": 97,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "belief_state_process_reward_replay",
+        "flags": [],
+        "length": 99,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_sandbox_policy_escape_replay",
+        "flags": [],
+        "length": 99,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "indirect_prompt_injection_information_flow_policy_replay",
+        "flags": [],
+        "length": 101,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agentic_vulnerability_discovery_patch_proof_replay",
+        "flags": [],
+        "length": 104,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_route_observability_runtime",
+        "flags": [],
+        "length": 103,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "provider_context_recipe_budget_policy",
+        "flags": [],
+        "length": 100,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "agent_closeout_faithfulness_audit",
+        "flags": [],
+        "length": 96,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "bounded_autonomy_campaign_packet",
+        "flags": [],
+        "length": 95,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch7_secondary_runtime_capsule",
+        "flags": [],
+        "length": 87,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "research_replication_rubric_artifact_replay",
+        "flags": [],
+        "length": 73,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "spatial_world_model_counterfactual_simulation_replay",
+        "flags": [],
+        "length": 90,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "materials_chemistry_closed_loop_lab_safety_replay",
+        "flags": [],
+        "length": 99,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "mechanistic_interpretability_circuit_attribution_replay",
+        "flags": [],
+        "length": 78,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "prediction_oracle_reconciliation",
+        "flags": [],
+        "length": 83,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "finance_forecast_evaluation_spine",
+        "flags": [],
+        "length": 97,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch12_market_dashboard_read_model_capsule",
+        "flags": [],
+        "length": 97,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch12_prediction_market_board_capsule",
+        "flags": [],
+        "length": 93,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "macro_projection_import_protocol",
+        "flags": [],
+        "length": 93,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "world_model_projection_drift_control_room",
+        "flags": [],
+        "length": 94,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch6_unsurfaced_primitives_capsule",
+        "flags": [],
+        "length": 94,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch5_authority_systems_capsule",
+        "flags": [],
+        "length": 93,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch7_macro_engines_capsule",
+        "flags": [],
+        "length": 93,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch7_oracle_sibling_capsule",
+        "flags": [],
+        "length": 90,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch7_demo_take_console_capsule",
+        "flags": [],
+        "length": 89,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch8_tools_tail_primitives_capsule",
+        "flags": [],
+        "length": 91,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch8_policy_engines_capsule",
+        "flags": [],
+        "length": 88,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch8_audio_level_rms_port",
+        "flags": [],
+        "length": 96,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch8_structural_theses_capsule",
+        "flags": [],
+        "length": 95,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "engine_room_demo",
+        "flags": [],
+        "length": 100,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch9_macro_engines_capsule",
+        "flags": [],
+        "length": 86,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch10_governance_compilers_capsule",
+        "flags": [],
+        "length": 95,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch11_saturation_engines_capsule",
+        "flags": [],
+        "length": 95,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "tool_server_pressure_inventory",
+        "flags": [],
+        "length": 88,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch8_compliance_pipeline_capsule",
+        "flags": [],
+        "length": 98,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch10_live_source_drift_capsule",
+        "flags": [],
+        "length": 94,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "batch12_release_claim_language_gate",
+        "flags": [],
+        "length": 96,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "mission_transaction_work_spine",
+        "flags": [],
+        "length": 92,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "durable_agent_work_landing_replay",
+        "flags": [],
+        "length": 96,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "bridge_phase_continuity_runtime",
+        "flags": [],
+        "length": 97,
+        "source": "authored_synopsis",
+        "status": "pass"
+      },
+      {
+        "component_id": "concurrency_mission_control",
+        "flags": [],
+        "length": 92,
+        "source": "authored_synopsis",
+        "status": "pass"
+      }
+    ],
+    "repair_policy": "edit microcosm-substrate/core/component_public_synopses.json then rebuild --write --validate",
+    "status": "pass",
+    "synopsis_count": 78,
+    "warn_count": 0,
+    "warn_ids": []
+  },
+  "content_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc",
+  "contract": {
+    "browser_connect_src": "none",
+    "repository_is_source_of_record": true,
+    "runtime_backend": "none",
+    "site_is_source_of_truth": false
+  },
+  "coverage_deficit_count": 2,
+  "coverage_deficit_total_count": 51,
+  "curated_surfaces": [
+    "index.html",
+    "assets/style.css",
+    "assets/docs.js"
+  ],
+  "deploy": {
+    "base_url": "https://wcook04.github.io/plectis/",
+    "envelope": [
+      "_headers",
+      "_redirects",
+      ".well-known/security.txt",
+      "security.txt"
+    ],
+    "host_bound": true,
+    "hsts": {
+      "header": "Strict-Transport-Security",
+      "mode": "host-only",
+      "reason": "base_url_is_https_public_launch_url_host_only",
+      "requires_domain_inventory": false,
+      "requires_preload_consent": false,
+      "status": "active_host_only",
+      "value": "max-age=31536000"
+    },
+    "security_txt": {
+      "contact": "https://github.com/wcook04/plectis/security/advisories/new",
+      "contact_status": "github_private_vulnerability_reporting_receipt_pass",
+      "expires": "2027-06-03T00:00:00Z",
+      "legacy_path": "security.txt",
+      "path": ".well-known/security.txt",
+      "policy": "https://wcook04.github.io/plectis/docs/vulnerability-disclosure.html",
+      "policy_path": "docs/vulnerability-disclosure.html",
+      "private_intake_kind": "github_private_vulnerability_reporting",
+      "private_intake_published": true,
+      "private_intake_receipt": "docs/dissemination/microcosm_github_private_vulnerability_reporting_receipt_v0.json",
+      "private_intake_setting_status": "enabled"
+    }
+  },
+  "diagram_asset_count": 93,
+  "field_omission_summary": {},
+  "generated_at": "1970-01-01T00:00:00+00:00",
+  "generated_outputs": [
+    ".well-known/security.txt",
+    "404.html",
+    "_headers",
+    "_redirects",
+    "assets/ai-orientation-packet.js",
+    "assets/ai-reader-digest-packet.js",
+    "assets/ai-review-packet.js",
+    "assets/object-map.js",
+    "assets/search-index.js",
+    "assets/site-packet.js",
+    "content-graph.json",
+    "content-manifest.json",
+    "docs/architecture-graph-scene.json",
+    "docs/architecture.html",
+    "docs/area-agent-reliability.html",
+    "docs/area-architecture.html",
+    "docs/area-continuity.html",
+    "docs/area-entry.html",
+    "docs/area-formal-math.html",
+    "docs/area-import-drift.html",
+    "docs/area-research.html",
+    "docs/coding-agents.html",
+    "docs/components.html",
+    "docs/contact.html",
+    "docs/doctrine.html",
+    "docs/evidence.html",
+    "docs/field-guide.html",
+    "docs/glossary.html",
+    "docs/index.html",
+    "docs/lineage.html",
+    "docs/paper-modules.html",
+    "docs/quickstart.html",
+    "docs/rules-and-ideas.html",
+    "docs/source.html",
+    "docs/tour.html",
+    "docs/updates.html",
+    "docs/vulnerability-disclosure.html",
+    "legacy-route-manifest.json",
+    "llms.txt",
+    "microcosm-ai-reader-digest.json",
+    "microcosm-ai-review-packet.json",
+    "object-map.json",
+    "projection-status.json",
+    "robots.txt",
+    "security.txt",
+    "sites/microcosm-legacy/.well-known/security.txt",
+    "sites/microcosm-legacy/404.html",
+    "sites/microcosm-legacy/assets/ai-orientation-packet.js",
+    "sites/microcosm-legacy/assets/ai-reader-digest-packet.js",
+    "sites/microcosm-legacy/assets/ai-review-packet.js",
+    "sites/microcosm-legacy/assets/docs.js",
+    "sites/microcosm-legacy/assets/object-map.js",
+    "sites/microcosm-legacy/assets/search-index.js",
+    "sites/microcosm-legacy/assets/site-packet.js",
+    "sites/microcosm-legacy/assets/style.css",
+    "sites/microcosm-legacy/content-graph.json",
+    "sites/microcosm-legacy/content-manifest.json",
+    "sites/microcosm-legacy/docs/architecture.html",
+    "sites/microcosm-legacy/docs/area-agent-reliability.html",
+    "sites/microcosm-legacy/docs/area-architecture.html",
+    "sites/microcosm-legacy/docs/area-continuity.html",
+    "sites/microcosm-legacy/docs/area-entry.html",
+    "sites/microcosm-legacy/docs/area-formal-math.html",
+    "sites/microcosm-legacy/docs/area-import-drift.html",
+    "sites/microcosm-legacy/docs/area-research.html",
+    "sites/microcosm-legacy/docs/coding-agents.html",
+    "sites/microcosm-legacy/docs/components.html",
+    "sites/microcosm-legacy/docs/contact.html",
+    "sites/microcosm-legacy/docs/doctrine.html",
+    "sites/microcosm-legacy/docs/evidence.html",
+    "sites/microcosm-legacy/docs/field-guide.html",
+    "sites/microcosm-legacy/docs/glossary.html",
+    "sites/microcosm-legacy/docs/index.html",
+    "sites/microcosm-legacy/docs/lineage.html",
+    "sites/microcosm-legacy/docs/paper-modules.html",
+    "sites/microcosm-legacy/docs/quickstart.html",
+    "sites/microcosm-legacy/docs/rules-and-ideas.html",
+    "sites/microcosm-legacy/docs/source.html",
+    "sites/microcosm-legacy/docs/tour.html",
+    "sites/microcosm-legacy/docs/updates.html",
+    "sites/microcosm-legacy/docs/vulnerability-disclosure.html",
+    "sites/microcosm-legacy/index.html",
+    "sites/microcosm-legacy/legacy-route-manifest.json",
+    "sites/microcosm-legacy/microcosm-ai-reader-digest.json",
+    "sites/microcosm-legacy/microcosm-ai-review-packet.json",
+    "sites/microcosm-legacy/object-map.json",
+    "sites/microcosm-legacy/projection-status.json",
+    "sites/microcosm-legacy/security.txt",
+    "sites/microcosm-legacy/updates.xml"
+  ],
+  "legacy_compatibility": {
+    "canonical_site_base_url": "https://wcook04.github.io/plectis/",
+    "legacy_site_base_url": "https://wcook04.github.io/microcosm-substrate/",
+    "legacy_site_output_root": "sites/microcosm-legacy",
+    "machine_json_aliases": [
+      "content-graph.json",
+      "content-manifest.json",
+      "object-map.json",
+      "microcosm-ai-reader-digest.json",
+      "microcosm-ai-review-packet.json",
+      "legacy-route-manifest.json",
+      "projection-status.json"
+    ],
+    "machine_readable_policy": "Old JSON packets, download files, generated assets, and projection-status routes remain machine-readable files. Only old human HTML pages use visible transition HTML; validation parses JSON routes and fails if they return HTML.",
+    "manifest_path": "legacy-route-manifest.json",
+    "mode_counts": {
+      "byte_compatible_alias": 15,
+      "html_redirect": 25,
+      "legacy_404": 1,
+      "legacy_projection_status": 1,
+      "legacy_security_txt": 2
+    },
+    "mode_rows": [
+      {
+        "content_types": [
+          "application/atom+xml; charset=utf-8",
+          "application/javascript; charset=utf-8",
+          "application/json; charset=utf-8",
+          "text/css; charset=utf-8"
+        ],
+        "html_transition": false,
+        "label": "Machine-readable aliases",
+        "machine_readable": true,
+        "mode": "byte_compatible_alias",
+        "policy": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
+        "route_count": 15,
+        "sample_paths": [
+          "content-graph.json",
+          "content-manifest.json",
+          "object-map.json",
+          "microcosm-ai-reader-digest.json",
+          "microcosm-ai-review-packet.json",
+          "assets/search-index.js"
+        ]
+      },
+      {
+        "content_types": [
+          "application/json; charset=utf-8"
+        ],
+        "html_transition": false,
+        "label": "Legacy projection status",
+        "machine_readable": true,
+        "mode": "legacy_projection_status",
+        "policy": "The old projection-status URL returns a legacy JSON status pointer, not an HTML redirect.",
+        "route_count": 1,
+        "sample_paths": [
+          "projection-status.json"
+        ]
+      },
+      {
+        "content_types": [
+          "text/plain; charset=utf-8"
+        ],
+        "html_transition": false,
+        "label": "Legacy security.txt",
+        "machine_readable": true,
+        "mode": "legacy_security_txt",
+        "policy": "The old host serves its own security.txt so vulnerability-reporting metadata remains valid while the human-facing site is a tombstone.",
+        "route_count": 2,
+        "sample_paths": [
+          ".well-known/security.txt",
+          "security.txt"
+        ]
+      },
+      {
+        "content_types": [
+          "text/html; charset=utf-8"
+        ],
+        "html_transition": true,
+        "label": "Human HTML transitions",
+        "machine_readable": false,
+        "mode": "html_redirect",
+        "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
+        "route_count": 25,
+        "sample_paths": [
+          "index.html",
+          "docs/index.html",
+          "docs/tour.html",
+          "docs/quickstart.html",
+          "docs/coding-agents.html",
+          "docs/architecture.html"
+        ]
+      },
+      {
+        "content_types": [
+          "text/html; charset=utf-8"
+        ],
+        "html_transition": false,
+        "label": "Legacy 404 fallback",
+        "machine_readable": false,
+        "mode": "legacy_404",
+        "policy": "The GitHub Pages 404 is a visible compatibility fallback, not a server-side redirect.",
+        "route_count": 1,
+        "sample_paths": [
+          "404.html"
+        ]
+      }
+    ],
+    "route_count": 44,
+    "schema": "plectis_legacy_compatibility_summary_v0"
+  },
+  "math_latex_asset_count": 0,
+  "packet_lineage": {
+    "canonical_kernel": {
+      "note": "The single public query kernel. Every derived view below is a projection of this packet and carries this source_fingerprint; none re-projects source independently.",
+      "path": "content-graph.json",
+      "schema": "microcosm_public_content_graph_v1",
+      "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc"
+    },
+    "derived_views": [
+      {
+        "adds": "per-record search text plus area, rules-and-ideas, paper-module, and page records",
+        "global": "window.__MICROCOSM_INDEX__",
+        "path": "assets/search-index.js",
+        "schema": "microcosm_public_search_index_v1",
+        "view_of": "content-graph.json"
+      },
+      {
+        "adds": "concise Markdown guide from quickstart, overview, what-it-is, architecture, and doctrine page bodies, plus evidence and source routes",
+        "global": "window.__MICROCOSM_AI_ORIENTATION_PACKET__",
+        "path": "assets/ai-orientation-packet.js",
+        "schema": "microcosm_public_ai_concise_copy_packet_v2",
+        "view_of": "content-graph.json + object-map.json"
+      },
+      {
+        "adds": "lightweight public site JSON map: reader contract, route index, source-map refs, sidecar refs, and projection summary",
+        "global": "window.__MICROCOSM_SITE_PACKET__",
+        "path": "assets/site-packet.js",
+        "schema": "microcosm_public_site_json_map_packet_v2",
+        "view_of": "content-graph.json"
+      },
+      {
+        "adds": "page manifest, rule-lattice counts, coverage-gap counts, and graph-scene summary",
+        "path": "content-manifest.json",
+        "schema": "microcosm_public_site_content_manifest_v1",
+        "view_of": "content-graph.json"
+      },
+      {
+        "adds": "canonical public object identity, routes, typed omissions, and per-kind coverage assertions",
+        "path": "object-map.json",
+        "schema": "microcosm_public_object_map_v1",
+        "view_of": "content-graph.json"
+      },
+      {
+        "adds": "CSP-safe script transport for the object coverage panel",
+        "global": "window.__MICROCOSM_OBJECTS__",
+        "path": "assets/object-map.js",
+        "schema": "microcosm_public_object_map_v1",
+        "view_of": "object-map.json"
+      },
+      {
+        "adds": "agent-readable doorway over public object families and source-safe maps",
+        "path": "llms.txt",
+        "schema": "microcosm_public_llms_doorway_v1",
+        "view_of": "object-map.json"
+      },
+      {
+        "adds": "default AI handoff: question routes, component/family digests, claim ceilings, and provenance without the heavy visible-text bodies",
+        "path": "microcosm-ai-reader-digest.json",
+        "schema": "microcosm_public_ai_reader_digest_v0",
+        "view_of": "assets/site-packet.js"
+      },
+      {
+        "adds": "lazy exact-text JS wrapper used only when a local file:// preview must force a download instead of opening JSON in a tab",
+        "global": "window.__MICROCOSM_AI_READER_DIGEST_JSON__",
+        "path": "assets/ai-reader-digest-packet.js",
+        "view_of": "microcosm-ai-reader-digest.json"
+      },
+      {
+        "adds": "advanced full-text AI review capsule: read_me_first, answer contract, preflight, starter prompts, question router, view descriptors, and the full deep record strata in one self-describing file",
+        "path": "microcosm-ai-review-packet.json",
+        "schema": "microcosm_ai_review_packet_v1",
+        "view_of": "assets/site-packet.js"
+      },
+      {
+        "adds": "lazy exact-text JS wrapper used only when a local file:// preview must force a download instead of opening JSON in a tab",
+        "global": "window.__MICROCOSM_AI_REVIEW_PACKET_JSON__",
+        "path": "assets/ai-review-packet.js",
+        "view_of": "microcosm-ai-review-packet.json"
+      },
+      {
+        "adds": "old/new route classes, JSON alias policy, visible HTML transition policy, and legacy 404 contract",
+        "path": "legacy-route-manifest.json",
+        "schema": "plectis_legacy_route_manifest_v0",
+        "view_of": "content-graph.json + content-manifest.json"
+      }
+    ],
+    "graph_scene_kernel": {
+      "note": "The graph-topology projection; carries its own scene source fingerprint.",
+      "path": "docs/architecture-graph-scene.json",
+      "scene_source_fingerprint": "bdaece0e350c5bf5888345ecf4cf5c87",
+      "schema": "microcosm_public_architecture_graph_scene_v1"
+    }
+  },
+  "paper_module_availability_gap_count": 0,
+  "paper_module_count": 93,
+  "paper_module_doctrine_feed_link_count": 1350,
+  "paper_module_doctrine_feed_link_counts": {
+    "axiom": 374,
+    "concept": 97,
+    "mechanism": 108,
+    "organ": 78,
+    "paper_module": 223,
+    "principle": 470
+  },
+  "public_base_url": "https://wcook04.github.io/plectis/",
+  "public_export_egress_posture": {
+    "artifact_identity_pointer": "composition_identity + projection-status.json::artifact_identity",
+    "authorization_boundary": "The standalone public Plectis source slice and review packets are public distribution artifacts in populated-source release mode. That authorization does not publish the private macro root, private raw media, account material, future cohorts, follow-ups, live services, or any material absent from the public repository/review packet boundary.",
+    "class_rules": {
+      "prohibited_secret_or_live_payload": "Secret material and live non-public data are excluded from the public packet; any finding in this class blocks distribution until removed.",
+      "public_by_design": "Public repository URLs, public page routes, stable public component ids, evidence modes, scope limits, and public contact routes intended for review.",
+      "public_optional_personal_data": "Name, project email, public professional links, and student-budget context only when they serve contact or reviewer-calibration purposes.",
+      "strategic_private_origin_metadata_requiring_explicit_allowlist": "Non-secret internal coordinates such as private-origin root slugs, state paths, implementation module paths, internal tool paths, source-body hashes, line counts, and capability symbols. Default action is project to a public handle or omit; keep only with an explicit allowlist receipt."
+    },
+    "classification_classes": [
+      "public_by_design",
+      "public_optional_personal_data",
+      "strategic_private_origin_metadata_requiring_explicit_allowlist",
+      "prohibited_secret_or_live_payload"
+    ],
+    "personal_disclosure_policy": {
+      "allowed_public_contact_fields": [
+        "William Cook",
+        "williamwkcook+microcosm@gmail.com",
+        "https://www.linkedin.com/in/will-cook-278127234/",
+        "https://github.com/wcook04/plectis/security/advisories/new",
+        "https://github.com/wcook04/plectis"
+      ],
+      "current_public_contact_decision": {
+        "reason": "Retained fields let reviewers identify and contact the maintainer; exact age is unnecessary personal data for the public packet.",
+        "removed_fields": [
+          "exact age"
+        ],
+        "retained_fields": [
+          "name",
+          "project email alias",
+          "LinkedIn profile",
+          "University of Bristol economics undergraduate context",
+          "University non-affiliation statement"
+        ],
+        "schema": "microcosm_public_personal_disclosure_decision_v0"
+      },
+      "excluded_by_default": [
+        "exact age",
+        "private email address",
+        "home path or host username",
+        "private institution account state"
+      ],
+      "optional_context_fields": [
+        "University of Bristol economics undergraduate context",
+        "student-budget context when explaining support constraints",
+        "non-affiliation statements needed to avoid institutional endorsement"
+      ]
+    },
+    "public_runtime_rule": {
+      "current_public_artifact_runnable_components": "see_component_digest",
+      "runs_real_tools_meaning": "runs_real_tools describes whether the public component command invokes external machinery.",
+      "where_to_start_shape": [
+        "quickstart",
+        "one_component",
+        "evidence_line",
+        "source_link",
+        "scope_limit"
+      ]
+    },
+    "publication_authorized": true,
+    "release_decision": "authorized_for_standalone_public_source_slice_distribution",
+    "release_mode": "populated_source_release",
+    "reuse_terms_pointer": "legal_manifest.present_packet_and_docs_reuse_terms",
+    "schema": "microcosm_hostile_recipient_public_export_egress_v0",
+    "strategic_metadata_policy": {
+      "current_public_packet_posture": "Strategic-coordinate scanner hits are review-blocking for hostile distribution until a human allowlists them or the builder projects them to public handles.",
+      "default_action": "project_or_omit_unless_explicitly_allowlisted",
+      "scanner_pattern_ids": [
+        "private_system_public_root_slug",
+        "private_portfolio_state_path",
+        "private_system_lib_path",
+        "private_system_ui_path",
+        "private_standard_path",
+        "private_control_tool_path",
+        "private_capability_symbol"
+      ]
+    }
+  },
+  "publication_authorized": true,
+  "rank_site_proof_consumer": {
+    "authority": "projection_status_summary_only_not_release_approval_or_source_truth",
+    "basis_distribution": [
+      {
+        "basis": "Source-faithful refactor",
+        "count": 27
+      },
+      {
+        "basis": "Copied source body",
+        "count": 21
+      },
+      {
+        "basis": "Import validation",
+        "count": 18
+      },
+      {
+        "basis": "Real runtime result",
+        "count": 12
+      }
+    ],
+    "classes": [
+      {
+        "count": 27,
+        "evidence_url": "docs/evidence.html#computed-projection",
+        "label": "Computed projection",
+        "max_rank": 3,
+        "runs_real_tools": false
+      },
+      {
+        "count": 21,
+        "evidence_url": "docs/evidence.html#verified-source-import",
+        "label": "Verified source import",
+        "max_rank": 5,
+        "runs_real_tools": false
+      },
+      {
+        "count": 20,
+        "evidence_url": "docs/evidence.html#contract-validator",
+        "label": "Contract validator",
+        "max_rank": 5,
+        "runs_real_tools": false
+      },
+      {
+        "count": 7,
+        "evidence_url": "docs/evidence.html#external-tool-run",
+        "label": "External tool run",
+        "max_rank": 4,
+        "runs_real_tools": true
+      },
+      {
+        "count": 3,
+        "evidence_url": "docs/evidence.html#bounded-runtime-computation",
+        "label": "Bounded runtime computation",
+        "max_rank": 4,
+        "runs_real_tools": true
+      }
+    ],
+    "consumer": "tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "content_graph_path": "content-graph.json",
+    "evidence_class_count": 5,
+    "highest_rank": 5,
+    "rank_distribution": [
+      {
+        "count": 39,
+        "rank": 5
+      },
+      {
+        "count": 12,
+        "rank": 4
+      },
+      {
+        "count": 27,
+        "rank": 3
+      }
+    ],
+    "ranked_component_count": 78,
+    "readback_contract": {
+      "projection_source": "content-graph.json",
+      "safe_refresh_blocker": "source_coupling.status must be clear before landing generated site outputs",
+      "status_command": "tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    },
+    "real_execution_component_count": 10,
+    "schema": "microcosm_rank_site_proof_consumer_v1",
+    "site_views_consuming_rank": [
+      "docs/evidence.html",
+      "docs/components.html",
+      "assets/search-index.js",
+      "assets/site-packet.js",
+      "projection-status.json"
+    ],
+    "source": "content-graph.json::authority_map",
+    "status_path": "projection-status.json",
+    "total_component_count": 78,
+    "view_path": "docs/evidence.html"
+  },
+  "relation_count": 208,
+  "relation_grammar_relation_count": 37,
+  "relation_grammar_verb_count": 44,
+  "release_mode": "populated_source_release",
+  "roster_status": {
+    "count_semantics": {
+      "object_count": "distinct component plus rules-and-ideas objects",
+      "projection_row_count": "all rendered roster rows, including alternate paper-module detail rows"
+    },
+    "duplicate_projection_groups": [
+      "paper_module_detail"
+    ],
+    "duplicate_projection_row_count": 93,
+    "missing_card_href_count": 0,
+    "missing_source_href_count": 0,
+    "object_count": 326,
+    "one_line_quality_counts": {
+      "fail": 0,
+      "pass": 357,
+      "warn": 62
+    },
+    "one_line_quality_flag_counts": {
+      "raw_snake_case": 8,
+      "too_long": 54
+    },
+    "projection_row_count": 419,
+    "quality_examples": [
+      {
+        "flags": [
+          "raw_snake_case"
+        ],
+        "id": "AX-3",
+        "kind": "axiom",
+        "label": "Authority by derivation, not possession",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "raw_snake_case"
+        ],
+        "id": "AX-6",
+        "kind": "axiom",
+        "label": "Open-world epistemics",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "raw_snake_case"
+        ],
+        "id": "AX-10",
+        "kind": "axiom",
+        "label": "Temporal validity and freshness contracts",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "raw_snake_case"
+        ],
+        "id": "AP-9",
+        "kind": "anti_principle",
+        "label": "Frozen live fact",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "raw_snake_case"
+        ],
+        "id": "concept.standards_meta_diagnostics_bundle",
+        "kind": "concept",
+        "label": "component-standard-runtime-result record coverage as projection-only evidence",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "raw_snake_case"
+        ],
+        "id": "concept.voice_to_doctrine_self_improvement_loop_bundle",
+        "kind": "concept",
+        "label": "local pressure rows as typed candidates for owner-surface refinement",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "too_long"
+        ],
+        "id": "paper_module.verifier_lab_kernel",
+        "kind": "paper_module",
+        "label": "Verifier Lab Kernel",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "too_long"
+        ],
+        "id": "paper_module.navigation_hologram_route_plane",
+        "kind": "paper_module",
+        "label": "Navigation Hologram Route Plane",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "too_long"
+        ],
+        "id": "paper_module.agent_route_observability_runtime",
+        "kind": "paper_module",
+        "label": "Agent Route Observability Runtime",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      },
+      {
+        "flags": [
+          "too_long"
+        ],
+        "id": "paper_module.bridge_phase_continuity_runtime",
+        "kind": "paper_module",
+        "label": "Bridge Phase Continuity Runtime",
+        "one_line_source": "rules_and_ideas.records.summary_line",
+        "roster_id": "rules_and_ideas"
+      }
+    ],
+    "quality_policy": {
+      "minimum": "non_empty_human_readable_not_id_or_label_echo_source_bound",
+      "repair": "write_to_owner_source_then_rerun_build_microcosm_public_site"
+    },
+    "schema": "roster_status_v1",
+    "section_counts": {
+      "components_by_area": 78,
+      "paper_module_detail": 93,
+      "rules_and_ideas": 248
+    },
+    "status": "needs_population"
+  },
+  "rules_and_ideas_count": 248,
+  "rules_and_ideas_group_counts": {
+    "anti_principle": 17,
+    "axiom": 12,
+    "concept": 11,
+    "mechanism": 95,
+    "paper_module": 93,
+    "principle": 20
+  },
+  "rules_and_ideas_relation_count": 37,
+  "scene_revision": "gsc_198a1217343334754611",
+  "scene_source_fingerprint": "bdaece0e350c5bf5888345ecf4cf5c87",
+  "schema": "microcosm_public_site_projection_status_v1",
+  "source_hashes": {
+    "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
+    "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
+    "microcosm-substrate/anti_principles/AP-11.json": "sha256:e70d5e5b298ac7be02c3675fce3730ebda327c94a2c63e68cc3ba7bb99bf3e76",
+    "microcosm-substrate/anti_principles/AP-12.json": "sha256:f2d2cdddbc8d11125e39b14089bab7d06c3ac4e065ec4c714af8d50415cd7862",
+    "microcosm-substrate/anti_principles/AP-13.json": "sha256:bbffbe03103c43b0fb58e98456defe644a2d53eb07db2842b06519809b0df4f3",
+    "microcosm-substrate/anti_principles/AP-14.json": "sha256:9267ddb2a88507e8ca84a1bbc7e9a875485ee2517201dde0c0278b4a1d6a4af7",
+    "microcosm-substrate/anti_principles/AP-15.json": "sha256:138fdcc6b10c8f8fcaa1fda76978a6270563a89dee3a61f702064559a105c42b",
+    "microcosm-substrate/anti_principles/AP-16.json": "sha256:5d5182b3907b5ccf5827a62c8fcedb558666a7006bef088c670c7678970c2c04",
+    "microcosm-substrate/anti_principles/AP-17.json": "sha256:1e46d232b36bc5d3a610742829df43ef8dc52da9809c6387e52f75f09ae9236c",
+    "microcosm-substrate/anti_principles/AP-2.json": "sha256:db16178ad9407aa6b0fc5035b3d120d69e317d72ce9bb26205f450213058d830",
+    "microcosm-substrate/anti_principles/AP-3.json": "sha256:4a79203a8a6e8e4407b4a1b1eff4dfe3ba53d6a5a36380ad2b11af53efa16185",
+    "microcosm-substrate/anti_principles/AP-4.json": "sha256:7ccebd2557d19e527ba8390b3cbbea3437ab4c6302e2db179cb1b26c39be8908",
+    "microcosm-substrate/anti_principles/AP-5.json": "sha256:c9860f96f0757651e7f7812f18341b9dc807f6004087c03351fa9ced608346e4",
+    "microcosm-substrate/anti_principles/AP-6.json": "sha256:aba86c76e478b7f1c3d0cda3570d0234e6e68e80fcefdf226195d5a8832d3ff4",
+    "microcosm-substrate/anti_principles/AP-7.json": "sha256:b4958c38fe6f9f889a8c5ba02cff0362a69ae797b234cb61bebc6fc03f641bed",
+    "microcosm-substrate/anti_principles/AP-8.json": "sha256:0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
+    "microcosm-substrate/anti_principles/AP-9.json": "sha256:0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
+    "microcosm-substrate/atlas/entry_packet.json": "sha256:a038737d2ab18ac7bc18b5a7039360ca35a37fe959504e4c0334d3cc30adcf74",
+    "microcosm-substrate/axioms/AX-1.json": "sha256:9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
+    "microcosm-substrate/axioms/AX-10.json": "sha256:c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
+    "microcosm-substrate/axioms/AX-11.json": "sha256:606a8b913d2bbd162d6ded70f3fa0d48343ec54df818bfed87e3b7b9fe6b1606",
+    "microcosm-substrate/axioms/AX-12.json": "sha256:0c725cf3b4999cc96fde8f6185ed5902ab29c6982aeda34fb70d9c45b022eaaa",
+    "microcosm-substrate/axioms/AX-2.json": "sha256:81162fc32c4a3763bcadae289d29b4da04e6702a75758ef49213750198edf89f",
+    "microcosm-substrate/axioms/AX-3.json": "sha256:172e642cbeec0a0533147d3f927f4db2a60cdd36864ebc9e737ef36dfe44728a",
+    "microcosm-substrate/axioms/AX-4.json": "sha256:055e90bc73571610672e3ed83fb8d44aa911dc6bb4e49b3c06ac915dedc5f463",
+    "microcosm-substrate/axioms/AX-5.json": "sha256:225e32a0c3c352f5b87b3a86a8c72c87e80413b5374750aaf802c18d7ee1f4fe",
+    "microcosm-substrate/axioms/AX-6.json": "sha256:7fbb907e209af0f0e5a321ecaa15a360ba5a334729d2bcad862a6a850410f11a",
+    "microcosm-substrate/axioms/AX-7.json": "sha256:af9577e8ec3cfd491b64cb088c9d6b95701d5c3b8314eac627a31801469de96b",
+    "microcosm-substrate/axioms/AX-8.json": "sha256:4a58794de3daadeceef94d2451056f39ae37ee549f87c5f6091b7ce8f71941a9",
+    "microcosm-substrate/axioms/AX-9.json": "sha256:0914785fdb5bbbd264732498f22e09c5b8ffc12d196f7728b9fc95b465dcdc54",
+    "microcosm-substrate/concepts/concept.agent_reliability_and_safety_validator_bundle.json": "sha256:27dc963688c6c14fba9d3dc153a7c511ada6d4fb408c8305d68d3c90cc6afbed",
+    "microcosm-substrate/concepts/concept.architecture_and_navigation_route_contract_bundle.json": "sha256:e36579d772a8064da87dde5ae956f7034af609deb6efb4de278029bb7835e162",
+    "microcosm-substrate/concepts/concept.entry_and_reveal_route_readiness_bundle.json": "sha256:b9d274a2c03efe6459d9b30cc30218458f94fc27ab5a42f8afcbfd3bd2bf7c90",
+    "microcosm-substrate/concepts/concept.executable_doctrine_grammar_standard_bundle.json": "sha256:d9ca8c8317e43b491e351c109a14c3f475d7330c578e4006c37c4ad38b839872",
+    "microcosm-substrate/concepts/concept.first_screen_doctrine_effect_frame.json": "sha256:1a30a6def1af3ff02cb3dfb7e52a634c9ab8ec1e8fab4982fbcfaeb77fa71c5f",
+    "microcosm-substrate/concepts/concept.formal_math_and_proof_witness_bundle.json": "sha256:800e73b73f609d6c370a29ed06ad75a5f5900b62a6a8246f8aee44269cf1e0a0",
+    "microcosm-substrate/concepts/concept.import_projection_and_drift_control_bundle.json": "sha256:3df70cfb302b1fe62caaa69710ee93318299e4ed366f86d1a490d35d387996ab",
+    "microcosm-substrate/concepts/concept.research_and_science_replay_evidence_bundle.json": "sha256:60e97f41e69411abc6cbf57315ed251db2bcaa761dd1a0990c267300967fd2ad",
+    "microcosm-substrate/concepts/concept.standards_meta_diagnostics_bundle.json": "sha256:a4a9d140acadc397e09ffb12fa6a898e7dc5e7b03420c7466e044a02b5952dcc",
+    "microcosm-substrate/concepts/concept.voice_to_doctrine_self_improvement_loop_bundle.json": "sha256:e177bd7ab06d80896e1aa39c288fa16873f458a3143d591bb1089978b373fb8a",
+    "microcosm-substrate/concepts/concept.work_landing_and_continuity_control_bundle.json": "sha256:a2fec673894ac89272337a72dc629955215ef130a6036f56a662569905de4453",
+    "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:d878ecb6f4cbe7be1004b4a250cfb46ad5a1eb0b48b5cdf5928d7117ce492d71",
+    "microcosm-substrate/core/doctrine_lattice_relations.json": "sha256:bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
+    "microcosm-substrate/core/mechanism_sources.json": "sha256:f494459ea6f3ef94e5d458719a5e82d5d8058aba036a653baa772afc404af4f6",
+    "microcosm-substrate/core/organ_atlas.json": "sha256:aa0d9705139c7404de4a2e8c4368ca52911dd97917e638c01deef0dc401923d1",
+    "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
+    "microcosm-substrate/core/organ_registry.json": "sha256:2587fc365278101f4af777a0c9e2d28caad45d6d11b9772c6d1ada19b8340ea0",
+    "microcosm-substrate/core/paper_module_capsules.json": "sha256:a078383ec618366a197fc618c7c6e11bf6a71854dff5b6539d2772eb90d18893",
+    "microcosm-substrate/mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "sha256:6135ad264a355eb0245e0d2f4778a2cc2a1eb5fe018fa3a7887dccb69e7e7dac",
+    "microcosm-substrate/mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json": "sha256:8eeafeda3f656f1d508ef30ae334bd3f7d2be8dc61e1e9e66cabe24eb24fd70a",
+    "microcosm-substrate/mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json": "sha256:80b6e1d8344d58a88ecfaf492528f34f6db9b712d49d90acc2f2e48b527ae01b",
+    "microcosm-substrate/mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json": "sha256:a2384b1804522425e1bd6e1bbf7c6d12ccc11201f9d857337ce17f99684fed00",
+    "microcosm-substrate/mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json": "sha256:e15625a6e1109552e646d41d49bbc45a9cf4b4de2e04c780c288fbf66b4cfdf0",
+    "microcosm-substrate/mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json": "sha256:f4defb02097979f33dfac84237b59bbd6e31b138b3eeb08070e8d9c76e53aa1e",
+    "microcosm-substrate/mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json": "sha256:604afbeef3496a7a3cc223a97f16a720a33bbe3c005afad2b3d8ef590a1e8613",
+    "microcosm-substrate/mechanisms/mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay.json": "sha256:9b0582182e6a864f28b0bd9b42d3591ff1026f7d0654bc0c69a504917abc3967",
+    "microcosm-substrate/mechanisms/mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule.json": "sha256:0532d68ed82ff46c5dc9756436c4ce14072d594a9e64441ed4ddbb6e23c38060",
+    "microcosm-substrate/mechanisms/mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule.json": "sha256:044257510744fb58f1acbc010d9d47f529a665826e770951edbdc65295b83855",
+    "microcosm-substrate/mechanisms/mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule.json": "sha256:861fa2d51fb5160c343e69932ecb4763ec6266fc472548f45ba436b5ac0fd487",
+    "microcosm-substrate/mechanisms/mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule.json": "sha256:3ef0f4cdfb26ed1592d9395b955353b3bb78e97d2ac7897adace027e2736e40d",
+    "microcosm-substrate/mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json": "sha256:b97212db67672d9be420b55c375b2c5ba5906fba5cff87ecc2e5681d3c4a805d",
+    "microcosm-substrate/mechanisms/mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule.json": "sha256:f68e4fbd80693944b0abc42e48dbe295e11297ee1de9e6fd30a6a9f26ea9ac49",
+    "microcosm-substrate/mechanisms/mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate.json": "sha256:bd8114a4fb2873d7b23815b9558547de3cf3ba921f9e1f0803998aa7e347ae77",
+    "microcosm-substrate/mechanisms/mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule.json": "sha256:c8c9bcd4f016c6ec99bf59360e55a8408c69316ae671392513b2129e80dfebae",
+    "microcosm-substrate/mechanisms/mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule.json": "sha256:4a185b0bb6a8256def8c0f8694d9034690355f02a5661d99d17ec87cb40b79e9",
+    "microcosm-substrate/mechanisms/mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule.json": "sha256:9926387b1ca8a94e9cadd9495644bf392b786f54e6105977b81474709e4cf369",
+    "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json": "sha256:8ff00fb871a4bf162687badc656368ebd38c3216e814293c92ab99dfe6c13fd0",
+    "microcosm-substrate/mechanisms/mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule.json": "sha256:b70db0b237ec2fb4e4bcdc22e6df6faf70be7878697cf818b910dad5dee0f3a2",
+    "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json": "sha256:d1efd911e81520efb2c13fa127a533e5f94b09ebace8ff06ffc8db93e02fccce",
+    "microcosm-substrate/mechanisms/mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule.json": "sha256:123bbb0b873a73ec8e98b6cd8cd8d3f63a8b68ae720fd01f2f834018aac1f1f9",
+    "microcosm-substrate/mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json": "sha256:9ce5943a304c948d27c9b202f9068d247803734cb4f5e4e215435832b1ec7608",
+    "microcosm-substrate/mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json": "sha256:9603348a31d9d339bdb6afa6a662f0ff2456c6c421a0d3c2175c0fed2eb685da",
+    "microcosm-substrate/mechanisms/mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule.json": "sha256:7976f9a84c632de51a6954ecf8868a41f424e438ed138fa44ef1bcca098f3997",
+    "microcosm-substrate/mechanisms/mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule.json": "sha256:4d1f867de5f61ca09598cfa5b28d7bbe4c9d2406181056601b41acff6308afba",
+    "microcosm-substrate/mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json": "sha256:73142a751dc31e75ad78abdb1f367fd575603fbca44cadc63718e4adb171489f",
+    "microcosm-substrate/mechanisms/mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule.json": "sha256:29c2e3a3668724e51061f4ea015989d3a97e9b8e29d37649f059aecdab2caac3",
+    "microcosm-substrate/mechanisms/mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule.json": "sha256:1e122cea4794fa92ed0945df9445d222bf3d9caf52aaa53cdf37b3e116cfa5ec",
+    "microcosm-substrate/mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json": "sha256:c53df5ea6932a243ae93282b1f583c2f02a32e07c6a0686a74691c65fb7adbf6",
+    "microcosm-substrate/mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json": "sha256:198b6d5a025fa32afb28594ee3664abcad43eaf19fcdd985e37659c00a6b1b72",
+    "microcosm-substrate/mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "sha256:1d7c4d91a58e6fd2200445da969dd21244efb47fbd4d87bf34f2960e0a942446",
+    "microcosm-substrate/mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json": "sha256:90ff1b6269a04fb1e5340931be00f1e22ab8e8eb177af7ecdd5e6594cdf9f3d7",
+    "microcosm-substrate/mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json": "sha256:0e0f1485ff6968bfe35a7808e8ae46f07d7f5d1751385f28b5634a7e745a37bd",
+    "microcosm-substrate/mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "sha256:3292fcef006eee1a0b459ed17efc605df4ffbe5c0d08f8efc41e1bfae02b4249",
+    "microcosm-substrate/mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "sha256:12c8f70f660e71b2eafbec7037bdf2c2e5a4dc7108a962caffb3bb5e47070051",
+    "microcosm-substrate/mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json": "sha256:726ff50858d8ada011ffe2bb4652f636e4486df1c49a093803ac80ac82113d25",
+    "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json": "sha256:0aaaa5322f2081348ea21a150d62fef9ae7cea806a9cca54177566c9dd7e33c0",
+    "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary.json": "sha256:54575b08d976ff4c814f8a563edbf06b2083156d11aa4a580be3c4c0e34f915f",
+    "microcosm-substrate/mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json": "sha256:5ed59d4e67eb532100d8d7367ff07988dd7b2f165654eb1eac06677879c1b88a",
+    "microcosm-substrate/mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json": "sha256:04cce1905ac1d2cee1528c8d6bcff6157a3ed95cbdcab7ee4b65bb19f9e91d57",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router.json": "sha256:9cf96ad07a0e8a0cd65a8f30b3fef2e106726215ec601305c982bf2a3b5cee74",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json": "sha256:649c1ec383df6d4505087103102d24ff73f7748b87c134234ab12b56e5a161b5",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json": "sha256:e1f24e1a88dca57c0789971dc3741dcbbba93c07609408668324c57eded016c8",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine.json": "sha256:9f83a0af1357303b849286b175622439094e65741f89f26656297f63a9c10b9f",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json": "sha256:b6727bb905a02db775697274ddab504da1e3c4e3ff7a2d16a3b2fbb59a4515eb",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.json": "sha256:d760a19b29087e564a5b0b599292cedd20da170aa7ebd85d8be4ca61dd4e6c0c",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab.json": "sha256:4689426c64a7f5dd33f780e9b4c33afc8a537db357995c195d3a7786928e199e",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark.json": "sha256:13423ee70b6c6c9322bf64511f2e67928214791b67dfe3ebb63efc5b2a6e4864",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json": "sha256:a4397141b5b92e9718ae0c4a3e8fbc58c8e2622b80bad154773d5c14d27479a9",
+    "microcosm-substrate/mechanisms/mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle.json": "sha256:09f01bb72a4d3e461c03731cf669dfe78442c72d05e454c1d3dd25e153d05a4e",
+    "microcosm-substrate/mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json": "sha256:92beaf200a89d5ca4e04daa38b8a23f0f123db3815ae08512a41cff871813eca",
+    "microcosm-substrate/mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json": "sha256:f1a202fbdc98a8290760352726bc57cf253cf9c893d3e6e2868c0726908832be",
+    "microcosm-substrate/mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json": "sha256:4469c10c59f507b2d9792e775c1b807bf55c9fd43bc0d6c98f6afdbfa2372f48",
+    "microcosm-substrate/mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json": "sha256:cc9c7e9fad0f956756b8dfcdec0f33cd0485092c701432d7b55e377b9aafffb6",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json": "sha256:a2249db850ed9f7e9211c76231adc188a13879f13ff023cee0379cf372711549",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json": "sha256:2ed697d22cb9b854af78eecf840544df23745180782976de32bc6ad03206c37c",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json": "sha256:1e17974d4cd8edae5660529ce16db3418fb9d0274523ed6ebc5681514a994519",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json": "sha256:e1489f6a1db365e77ac96c5801ad2606d34dcbd1fb53cce31a432708e0715110",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json": "sha256:36cc0852afe877ed89556d2f92f3e20fd7ffcfc2eb4552b95a33e9c5f98120bf",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json": "sha256:d456ea450d649ea197ba4e7373a20f66ee7a6b733e1049162cae2cfce94d2ce0",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle.json": "sha256:90d8c184e2a28580b012c2379d285a034f3b1ee5de0efeaf8973a9eaa09b0859",
+    "microcosm-substrate/mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "sha256:106c36f5c2c93848413ee3fecfae892a47df073b849f71ab3c57f6e8f3eb40a2",
+    "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "sha256:9813b749b406847e1824af812bddef9703a4db2870eb9871f04b03be714fd0fd",
+    "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json": "sha256:e5c93e2c59f26fb7cc6744af1fa1e5911f13f8e0d2e2740ff2c0b22daab65a67",
+    "microcosm-substrate/mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "sha256:c97bdc0fd14f10bfa87fd60eb4b9fc196ed35eda8c35a458b425e5396c64d395",
+    "microcosm-substrate/mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "sha256:fa0f465d706fe16eade4aad595ef25c815dc594ed0d19917fb0e0c89e26f8b1e",
+    "microcosm-substrate/mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "sha256:e3f402edd6f101c10128ee0d5534991cc02ce3e08ed3894023f6623ab4181a46",
+    "microcosm-substrate/mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "sha256:cc4fe8ed7c821bc8d46d8b09ce12efd1690c6d73ec925a542630a5de145efa16",
+    "microcosm-substrate/mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json": "sha256:5d8cb4b39fe3c63b4ac4a7766a3a59d0ea70244a16a1fc9f6dc0a3137ed89c37",
+    "microcosm-substrate/mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json": "sha256:1e7d8ee2bec186f738ffc613ea35879d8e0d709f3bf9352c823b3ae7c9341b25",
+    "microcosm-substrate/mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "sha256:eda80a8ebe61e38b07a88bf17dc7f4ef1793593decb20ccafc51dd94e99504a6",
+    "microcosm-substrate/mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json": "sha256:082ea0af67c3542fd83c3ae13308f422393e0a009075225ab9e4d58478281e7f",
+    "microcosm-substrate/mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json": "sha256:2c05466c7bcdfaacd5db78ab80037bac354b671e3e477a8c0a67eb0a9464143e",
+    "microcosm-substrate/mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json": "sha256:5d8aeae1244115ce42dc0281a6d448bd427a64c25ff4d9675acd0bc5c9504260",
+    "microcosm-substrate/mechanisms/mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation.json": "sha256:8513c2715986ced1221b989df459e5d8377d473ed3ee0fd0b83cd304053fc1a0",
+    "microcosm-substrate/mechanisms/mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization.json": "sha256:a812cad563fcb11690263fa6530cebc37a460de8b1c2afbf86f6058c85105d07",
+    "microcosm-substrate/mechanisms/mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane.json": "sha256:75bbe8ab382ea4983400de3de1eb86e7e2db2625ce41e8dafcea90465c31eda4",
+    "microcosm-substrate/mechanisms/mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary.json": "sha256:a0979104a3b830ee5800fa4a84e7c37efe6f7b2197e8aed6e4fd5d9220908030",
+    "microcosm-substrate/mechanisms/mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough.json": "sha256:c5e5c81f9a17baf04ee94c32a00d026a675f6a2b01c5f6dada7c4f4571f6cdcf",
+    "microcosm-substrate/mechanisms/mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay.json": "sha256:4ec847ed80dc11f3e600a4d067b0476f950a72c5d662de26dc7008358d6429a6",
+    "microcosm-substrate/mechanisms/mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution.json": "sha256:fa869c1f75be7e25338ea62433adb93148c25bd6a6b16aa7e211d7e21f5ac2cc",
+    "microcosm-substrate/mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json": "sha256:35de2183475624021b84956de40d476a7ad16528e0af2443df207a846ef71386",
+    "microcosm-substrate/mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json": "sha256:2dcda90038f9669fafb592c1eda73e7c2426e7a8726db541f38cd15b23d67ece",
+    "microcosm-substrate/mechanisms/mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay.json": "sha256:db72cd442f3ed2f24ab61891e1dab0a33016ef3b7f7f7f807fcbf6220a2b104c",
+    "microcosm-substrate/mechanisms/mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay.json": "sha256:d88d9fda6912729b6ed21dfe168d55e63b050cff1ebffe28f6e746d00e9f5ecb",
+    "microcosm-substrate/mechanisms/mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics.json": "sha256:13a93fc42263963887fc44c36641529511755de8d175f91129750d85605b6a67",
+    "microcosm-substrate/mechanisms/mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection.json": "sha256:8ef42afae017342406e480106081597760285fb7023a6d11404c9244df2d5cb1",
+    "microcosm-substrate/mechanisms/mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary.json": "sha256:4f302284600300b127ab4ffecf4a827624dae6480b16fa96e692bc7635e16f8b",
+    "microcosm-substrate/mechanisms/mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory.json": "sha256:04b3d18fec2926ddd3fde3401633cdc3ac578aa324022ba31f64f69408696e06",
+    "microcosm-substrate/mechanisms/mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary.json": "sha256:46ef9340c5858885777ebd5a667e2d9586f43793abe3fb450e95369a179ca03c",
+    "microcosm-substrate/mechanisms/mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness.json": "sha256:b76590154f02ade97b4b34961c0e4d463b3bee8d7f5d9f14a304ad9f506952ae",
+    "microcosm-substrate/mechanisms/mechanism.verifier_lab_kernel.composes_public_formal_math_receipts.json": "sha256:851572d9924f07e7e0f56575cba6ec3651d589962a17a7d0c8528d5ad07760ab",
+    "microcosm-substrate/mechanisms/mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop.json": "sha256:5c07d17e4908a21c7ef1f39e0b7d52188a11bfcc39d4798f69e0091189d779e7",
+    "microcosm-substrate/mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json": "sha256:e04bb3d2a219dcf7519e07444c45101a2da412871f01ff2c3ce1ed279f54986b",
+    "microcosm-substrate/principles/P-1.json": "sha256:fa5fe4061170a939d2b9cc30827590933ed9abb97d660a6ac25d5634ac266f49",
+    "microcosm-substrate/principles/P-10.json": "sha256:93535704e81cc9774cc87ea5d038ca82fa3f24a9551958b91a198aa735eab585",
+    "microcosm-substrate/principles/P-11.json": "sha256:48f795ed37ac1f4584b358a8e817a3acb356c3e6403a386f118944dcd2e9ade8",
+    "microcosm-substrate/principles/P-12.json": "sha256:d45a7777a5dcc0de3f267630453eed538f77ea1a8444cb4e9f2f212dc6de66ce",
+    "microcosm-substrate/principles/P-13.json": "sha256:169472acd94f388a6b51124d1de522440dd54bb39e0c3c68fa59261b6fa06062",
+    "microcosm-substrate/principles/P-14.json": "sha256:7d4f0930e4be0c152a6ce164b8d76b7eec708c19e34bde98307254268f9952de",
+    "microcosm-substrate/principles/P-15.json": "sha256:b7bd4cad15001c488c0214d61e74509a870350f263c8a1efdb2fb54e4699c022",
+    "microcosm-substrate/principles/P-16.json": "sha256:b85890625a5aa6497220e8f7c0c690d56a47b38d5f1dbfe9cd6b2506ac5e1a6b",
+    "microcosm-substrate/principles/P-17.json": "sha256:ea7c0d84a46b3d6f39b792df381f8a6e7a08e233f0c22cb52f68ddfa01200b3e",
+    "microcosm-substrate/principles/P-18.json": "sha256:925fcf710105ea5a699e662410c42c1893bb129c21b6ff5fe423e80264415565",
+    "microcosm-substrate/principles/P-19.json": "sha256:409aa66b29116398c9614900d815de774aa82439c0bcfa5ee1f17cc6fb5a0c36",
+    "microcosm-substrate/principles/P-2.json": "sha256:10c6c6dd6f6f0901bac252373ab7925c1292a9bb6b2d9866b0cc49fba92bb1ac",
+    "microcosm-substrate/principles/P-20.json": "sha256:31afc429108f752af6fa811c178e4b66509a5f3c9be50cecd8cd7fbaf1422988",
+    "microcosm-substrate/principles/P-3.json": "sha256:f9e7168287c7db057c0d898df17e7bda617ff32f8e49373bf0a793443aa60016",
+    "microcosm-substrate/principles/P-4.json": "sha256:c4e8a1014c56df2d5646c8db1bfd310038c955eb59179e6bc38012bbe74ce90f",
+    "microcosm-substrate/principles/P-5.json": "sha256:534e133f82c45221f381d3d9f9b3278da192936caa314c68d5adb1a96ca2a3a0",
+    "microcosm-substrate/principles/P-6.json": "sha256:29b19ccdb49725e36ea91c6f02ee036102d5440e77a326b439a8b1b5c69ca509",
+    "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
+    "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
+    "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
+    "sites/microcosm/index.html": "sha256:9e43af933bba111c9fab6205e1370cfc1e9d15b6888f0049156e8f8294f3f11e"
+  },
+  "source_refs": [
+    "microcosm-substrate/anti_principles/AP-1.json",
+    "microcosm-substrate/anti_principles/AP-10.json",
+    "microcosm-substrate/anti_principles/AP-11.json",
+    "microcosm-substrate/anti_principles/AP-12.json",
+    "microcosm-substrate/anti_principles/AP-13.json",
+    "microcosm-substrate/anti_principles/AP-14.json",
+    "microcosm-substrate/anti_principles/AP-15.json",
+    "microcosm-substrate/anti_principles/AP-16.json",
+    "microcosm-substrate/anti_principles/AP-17.json",
+    "microcosm-substrate/anti_principles/AP-2.json",
+    "microcosm-substrate/anti_principles/AP-3.json",
+    "microcosm-substrate/anti_principles/AP-4.json",
+    "microcosm-substrate/anti_principles/AP-5.json",
+    "microcosm-substrate/anti_principles/AP-6.json",
+    "microcosm-substrate/anti_principles/AP-7.json",
+    "microcosm-substrate/anti_principles/AP-8.json",
+    "microcosm-substrate/anti_principles/AP-9.json",
+    "microcosm-substrate/atlas/entry_packet.json",
+    "microcosm-substrate/axioms/AX-1.json",
+    "microcosm-substrate/axioms/AX-10.json",
+    "microcosm-substrate/axioms/AX-11.json",
+    "microcosm-substrate/axioms/AX-12.json",
+    "microcosm-substrate/axioms/AX-2.json",
+    "microcosm-substrate/axioms/AX-3.json",
+    "microcosm-substrate/axioms/AX-4.json",
+    "microcosm-substrate/axioms/AX-5.json",
+    "microcosm-substrate/axioms/AX-6.json",
+    "microcosm-substrate/axioms/AX-7.json",
+    "microcosm-substrate/axioms/AX-8.json",
+    "microcosm-substrate/axioms/AX-9.json",
+    "microcosm-substrate/concepts/concept.agent_reliability_and_safety_validator_bundle.json",
+    "microcosm-substrate/concepts/concept.architecture_and_navigation_route_contract_bundle.json",
+    "microcosm-substrate/concepts/concept.entry_and_reveal_route_readiness_bundle.json",
+    "microcosm-substrate/concepts/concept.executable_doctrine_grammar_standard_bundle.json",
+    "microcosm-substrate/concepts/concept.first_screen_doctrine_effect_frame.json",
+    "microcosm-substrate/concepts/concept.formal_math_and_proof_witness_bundle.json",
+    "microcosm-substrate/concepts/concept.import_projection_and_drift_control_bundle.json",
+    "microcosm-substrate/concepts/concept.research_and_science_replay_evidence_bundle.json",
+    "microcosm-substrate/concepts/concept.standards_meta_diagnostics_bundle.json",
+    "microcosm-substrate/concepts/concept.voice_to_doctrine_self_improvement_loop_bundle.json",
+    "microcosm-substrate/concepts/concept.work_landing_and_continuity_control_bundle.json",
+    "microcosm-substrate/core/doctrine_lattice_coverage.json",
+    "microcosm-substrate/core/doctrine_lattice_relations.json",
+    "microcosm-substrate/core/mechanism_sources.json",
+    "microcosm-substrate/core/organ_atlas.json",
+    "microcosm-substrate/core/organ_families.json",
+    "microcosm-substrate/core/organ_registry.json",
+    "microcosm-substrate/core/paper_module_capsules.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json",
+    "microcosm-substrate/mechanisms/mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate.json",
+    "microcosm-substrate/mechanisms/mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json",
+    "microcosm-substrate/mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule.json",
+    "microcosm-substrate/mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json",
+    "microcosm-substrate/mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json",
+    "microcosm-substrate/mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json",
+    "microcosm-substrate/mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json",
+    "microcosm-substrate/mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json",
+    "microcosm-substrate/mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json",
+    "microcosm-substrate/mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json",
+    "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json",
+    "microcosm-substrate/mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark.json",
+    "microcosm-substrate/mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json",
+    "microcosm-substrate/mechanisms/mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle.json",
+    "microcosm-substrate/mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json",
+    "microcosm-substrate/mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle.json",
+    "microcosm-substrate/mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json",
+    "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json",
+    "microcosm-substrate/mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json",
+    "microcosm-substrate/mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json",
+    "microcosm-substrate/mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json",
+    "microcosm-substrate/mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json",
+    "microcosm-substrate/mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json",
+    "microcosm-substrate/mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json",
+    "microcosm-substrate/mechanisms/mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation.json",
+    "microcosm-substrate/mechanisms/mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization.json",
+    "microcosm-substrate/mechanisms/mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane.json",
+    "microcosm-substrate/mechanisms/mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough.json",
+    "microcosm-substrate/mechanisms/mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution.json",
+    "microcosm-substrate/mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json",
+    "microcosm-substrate/mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json",
+    "microcosm-substrate/mechanisms/mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay.json",
+    "microcosm-substrate/mechanisms/mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics.json",
+    "microcosm-substrate/mechanisms/mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection.json",
+    "microcosm-substrate/mechanisms/mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory.json",
+    "microcosm-substrate/mechanisms/mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary.json",
+    "microcosm-substrate/mechanisms/mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness.json",
+    "microcosm-substrate/mechanisms/mechanism.verifier_lab_kernel.composes_public_formal_math_receipts.json",
+    "microcosm-substrate/mechanisms/mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop.json",
+    "microcosm-substrate/mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json",
+    "microcosm-substrate/principles/P-1.json",
+    "microcosm-substrate/principles/P-10.json",
+    "microcosm-substrate/principles/P-11.json",
+    "microcosm-substrate/principles/P-12.json",
+    "microcosm-substrate/principles/P-13.json",
+    "microcosm-substrate/principles/P-14.json",
+    "microcosm-substrate/principles/P-15.json",
+    "microcosm-substrate/principles/P-16.json",
+    "microcosm-substrate/principles/P-17.json",
+    "microcosm-substrate/principles/P-18.json",
+    "microcosm-substrate/principles/P-19.json",
+    "microcosm-substrate/principles/P-2.json",
+    "microcosm-substrate/principles/P-20.json",
+    "microcosm-substrate/principles/P-3.json",
+    "microcosm-substrate/principles/P-4.json",
+    "microcosm-substrate/principles/P-5.json",
+    "microcosm-substrate/principles/P-6.json",
+    "microcosm-substrate/principles/P-7.json",
+    "microcosm-substrate/principles/P-8.json",
+    "microcosm-substrate/principles/P-9.json",
+    "sites/microcosm/index.html"
+  ],
+  "stale_when": "source hashes change without a rebuild; --check --validate fails until the site is regenerated and current.",
+  "surface_sync_contract_id": "microcosm_public_machine_surface_sync",
+  "surface_sync_derived_view_count": 7,
+  "validators": [
+    "tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "tools/meta/dissemination/release_claim_language_gate.py"
+  ]
+}

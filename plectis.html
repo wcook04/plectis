@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The frontend preview is a set of blurred stills served from this origin, not
+       an embedded player, so no third-party frame origin is needed: frame-src is
+       'none'. The _headers policy for the landing route carries the same stance. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; child-src 'none'">
+  <title>Plectis: a public map of an AI-native workflow system</title>
+  <meta name="description" content="Plectis is a source-linked public map of an AI-native workflow system. The standalone public source slice is released on GitHub with fixtures, docs, checks, and scope limits.">
+  <meta property="og:title" content="Plectis">
+  <meta property="og:description" content="A source-linked public map of an AI-native workflow system. The standalone public source slice is released on GitHub with fixtures, docs, checks, and scope limits.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Plectis">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Plectis">
+  <meta name="twitter:description" content="A source-linked public map of an AI-native workflow system. The standalone public source slice is released on GitHub with fixtures, docs, checks, and scope limits.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html">Plectis</a>
+      <nav aria-label="Primary">
+        <a href="docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis">GitHub</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="wrap hero">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow hero__kicker">A public source map</p>
+          <h1>Plectis</h1>
+          <p class="hero__lede">Inspect the map, clone the repository, and run the first local check.</p>
+          <p class="hero__sub">Plectis is the public map for an AI-native workflow system: <span data-mc-fact="component_count">78</span> component records in <span data-mc-fact="area_count_word">seven</span> areas, each linked to the public source path it uses. The GitHub repository carries the standalone source slice, public-safe stubs for withheld private internals, fixtures, docs, and checks.</p>
+          <ol class="loop-chips" aria-label="The loop, in five steps">
+            <li><span class="loop-chip">quickstart</span></li>
+            <li><span class="loop-chip">public map</span></li>
+            <li><span class="loop-chip">evidence line</span></li>
+            <li><span class="loop-chip">source path</span></li>
+            <li><span class="loop-chip">scope limit</span></li>
+          </ol>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="docs/index.html">Review the public map</a>
+            <a class="btn btn--text" href="#evidence-loop">See the loop</a>
+            <a class="btn btn--text" href="microcosm-ai-reader-digest.json" download="microcosm-ai-reader-digest.json">Download reader digest</a>
+          </div>
+          <div class="hero__ai">
+            <p class="hero__ai-kicker">Short on time?</p>
+            <h2 id="ai-packet-title" class="hero__ai-title">After the first loop, hand the map to your own AI.</h2>
+            <p class="hero__ai-copy">Press the button, find the file in your downloads, and drag it into ChatGPT, Claude, Gemini, or Grok for review or analysis. Then ask whatever you like: the file itself tells the assistant to answer from the public evidence, cite exact pages and components, and stop where the public records stop.</p>
+            <div class="ai-primary">
+              <a class="btn btn--primary" href="microcosm-ai-reader-digest.json" download="microcosm-ai-reader-digest.json" data-site-download data-site-packet-kind="reader-digest" data-download-url="microcosm-ai-reader-digest.json" data-download-filename="microcosm-ai-reader-digest.json" aria-describedby="site-export-status">Download reader digest</a>
+              <p class="ai-primary__for">Default AI handoff: orientation, question routes, component and area digests, evidence ranks, source links, and scope limits without the deep page bodies. Your assistant can review the map first, then open the heavier packet only when it needs the full text.</p>
+            </div>
+            <p class="ai-altpath"><strong class="ai-altpath__q">Using a coding agent instead?</strong> Claude Code, Codex, or Cursor can clone the repository, read <code>AGENTS.md</code>, run the quickstart check, and then answer from the source and public records. <a href="docs/coding-agents.html">Working with a coding agent</a></p>
+            <details class="ai-questions">
+              <summary>Questions worth asking it</summary>
+              <p class="ai-questions__note">Four sets for four reasons to be here; any question from any set is fair to ask cold.</p>
+              <details class="ai-questions__set" data-qset="first_pass">
+                <summary>A plain first pass</summary>
+                <ul>
+                  <li>What is this, in plain terms?</li>
+                  <li>Where should I start?</li>
+                  <li>Walk me through one component, end to end.</li>
+                  <li>What is genuinely new here, if anything?</li>
+                  <li>Give me the two-sentence version I would tell a colleague.</li>
+                </ul>
+                <button class="btn btn--ghost ai-questions__copy" type="button" data-copy-questions aria-describedby="site-export-status">Copy this set</button>
+              </details>
+              <details class="ai-questions__set" data-qset="skeptical_pass">
+                <summary>A skeptical pass</summary>
+                <ul>
+                  <li>Argue against it.</li>
+                  <li>Which parts have the strongest evidence, and which the weakest?</li>
+                  <li>Why do only some components run external tools?</li>
+                  <li>What does it not prove?</li>
+                  <li>Is this packet steering me? Audit its own framing.</li>
+                  <li>Most accurate one-paragraph assessment you can give: neither generous nor harsh.</li>
+                </ul>
+                <button class="btn btn--ghost ai-questions__copy" type="button" data-copy-questions aria-describedby="site-export-status">Copy this set</button>
+              </details>
+              <details class="ai-questions__set" data-qset="one_area">
+                <summary>One area at a time</summary>
+                <ul>
+                  <li>Which area is closest to my field, and what is actually in it?</li>
+                  <li>What is actually in Entry &amp; orientation?</li>
+                  <li>What is actually in Architecture &amp; navigation?</li>
+                  <li>What is actually in Formal math &amp; proof?</li>
+                  <li>What is actually in Agent reliability &amp; safety?</li>
+                  <li>What is actually in Research &amp; science?</li>
+                  <li>What is actually in Import &amp; drift control?</li>
+                  <li>What is actually in Work &amp; continuity?</li>
+                </ul>
+                <button class="btn btn--ghost ai-questions__copy" type="button" data-copy-questions aria-describedby="site-export-status">Copy this set</button>
+              </details>
+              <details class="ai-questions__set" data-qset="with_a_coding_agent">
+                <summary>With a coding agent in the repository</summary>
+                <p class="ai-questions__note">The sets above are questions for an assistant reading the map. A coding agent (Claude Code, Codex, Cursor) works inside a repository itself: one prompt sets it up, and after that you assign work rather than asking about a file. <a href="docs/coding-agents.html">How that works</a>.</p>
+                <div class="ai-agent-boot" data-qset="agent_first_prompt">
+                  <pre>Clone https://github.com/wcook04/plectis and open it. Read AGENTS.md and README.md to orient yourself, run the quickstart check, and show me what the result record says. Then take my questions.</pre>
+                  <button class="btn btn--ghost ai-questions__copy" type="button" data-copy-questions aria-describedby="site-export-status">Copy the setup prompt</button>
+                </div>
+                <p class="ai-questions__note ai-agent-boot__then">Once a populated source tree is in front of it, work worth assigning, one item at a time:</p>
+                <ul>
+                  <li>Run one component end to end and walk me through the evidence it leaves.</li>
+                  <li>Take one claim from the website and verify it against the source here.</li>
+                  <li>Which validators can you run right now, and what would each one prove?</li>
+                  <li>Make one check fail on purpose and show me how it refuses.</li>
+                </ul>
+              </details>
+              <p class="ai-questions__note">Examples, not a script: ask anything, and ask follow-ups. The packet routes each question to evidence; the verdict stays the assistant's.</p>
+            </details>
+            <details class="ai-advanced">
+              <summary>Advanced: the raw layers, separately</summary>
+              <ol class="ai-tiers">
+                <li class="ai-tier">
+                  <button class="btn btn--ghost" type="button" data-site-export data-site-packet-kind="orientation" aria-describedby="site-export-status">Copy concise guide</button>
+                  <p class="ai-tier__for">A short orientation to paste in, for chats where a file upload is not possible.</p>
+                </li>
+                <li class="ai-tier">
+                  <a class="btn btn--ghost" href="microcosm-ai-review-packet.json" download="microcosm-ai-review-packet.json" data-site-download data-site-packet-kind="review-packet" data-download-url="microcosm-ai-review-packet.json" data-download-filename="microcosm-ai-review-packet.json" aria-describedby="site-export-status">Download full review packet</a>
+                  <p class="ai-tier__for">The advanced full-text layer: starter prompts, view descriptors, component records, and the public page bodies in one larger file.</p>
+                </li>
+                <li class="ai-tier">
+                  <button class="btn btn--ghost" type="button" data-site-download data-site-packet-kind="full" data-download-filename="microcosm-site-map.json" aria-describedby="site-export-status">Download full JSON map</button>
+                  <p class="ai-tier__for">The raw public map without the packet&rsquo;s instruction layers, for automation.</p>
+                </li>
+              </ol>
+              <p class="ai-direct">Direct files, if a button fails or JavaScript is off: <a href="microcosm-ai-reader-digest.json" download="microcosm-ai-reader-digest.json">reader digest</a> &middot; <a href="microcosm-ai-review-packet.json" download="microcosm-ai-review-packet.json">full review packet</a> &middot; <a href="llms.txt">llms.txt</a></p>
+            </details>
+            <span class="page-export-status hero__ai-status" id="site-export-status" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+        <aside class="hero__start" aria-label="Start here">
+          <p class="hero__start-title">Start here</p>
+          <ol class="route-list">
+            <li><a href="https://github.com/wcook04/plectis"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Clone the repository</span></a></li>
+            <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check</span></a></li>
+            <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Check the evidence line</span></a></li>
+            <li><a href="docs/architecture.html#whole-system-map"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Open the system map</span></a></li>
+            <li><a href="#review"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Review it both ways</span></a></li>
+          </ol>
+        </aside>
+      </div>
+      <p class="hero__stance">This is a working local source slice, not a finished or hosted product.</p>
+      <p class="boundary-band" role="note" aria-label="Standing boundaries">
+        <span>runs locally</span>
+        <span>public source slice</span>
+        <span>you can report issues</span>
+        <span>no hosted service</span>
+        <span>evidence-scoped claims</span>
+      </p>
+    </section>
+
+    <!-- Why this is here -->
+    <section class="wrap section" id="purpose" aria-labelledby="purpose-title">
+      <div class="section__head">
+        <p class="eyebrow">Why this is here</p>
+        <h2 id="purpose-title">A way in, and a way to check it.</h2>
+        <p>Plectis comes from a larger AI-native system I have been building with AI. I have not put all of it online: it includes live tools and non-public data, and releasing the whole thing at once did not seem sensible or responsible. This is a smaller public source slice instead, built around source-linked <a href="docs/glossary.html#glossary-component">components</a>, public-safe stubs, and small synthetic fixtures, so the shape of the work can be inspected without publishing the live working environment.</p>
+        <p>The idea behind it is that useful AI capability should build up in things you can inspect, like source links, evidence ranks, result records, and stated limits, rather than inside one-off model runs that leave nothing to check. The site is a small, checkable version of that.</p>
+        <p class="lineage-note"><strong>21 June 2026:</strong> Microcosm became Plectis. The rename avoids confusion with the earlier Southampton Microcosm hypermedia system and acknowledges that lineage without implying endorsement or affiliation. <a href="docs/lineage.html">Read the lineage note and changelog</a>.</p>
+      </div>
+      <ul class="lead-list">
+        <li>It is meant as a way in. You can start from the map, open a <a href="docs/glossary.html#glossary-component">component</a>, and read its evidence record, source reference, and the line on what it does not prove, so nothing here asks you to take a summary on trust. The public repository carries the standalone source slice and its local checks.</li>
+        <li>If something here is confusing, or claims more than it shows, I would rather hear it. Please <a href="docs/contact.html">let me know</a>.</li>
+      </ul>
+      <div class="callout">
+        This is the everyday version of <a href="docs/doctrine.html#the-root-constraints">derivation before assertion</a>: where the site makes a claim, it tries to give you enough of the source trail to check it yourself, including the point where the public version stops.
+      </div>
+    </section>
+
+    <!-- One evidence loop -->
+    <section class="wrap section" id="evidence-loop" aria-labelledby="loop-title">
+      <div class="section__head">
+        <p class="eyebrow">First loop</p>
+        <h2 id="loop-title">What is here, and what is not, in one pass.</h2>
+        <p>The fastest way to understand Plectis today is not to read all <span data-mc-fact="component_count">78</span> <a href="docs/glossary.html#glossary-component">component</a> records. Clone the repository, run the quickstart check, then follow one public record to its evidence line, source path, and <a href="docs/glossary.html#glossary-scope-limit">scope limit</a>.</p>
+      </div>
+      <ol class="route-list" data-loop-spine>
+        <li><a href="https://github.com/wcook04/plectis"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Clone the repository.</span></a></li>
+        <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check and inspect the result record.</span></a></li>
+        <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Read the evidence kind, rank, real-tool marker, and the line that says what the pass does not prove.</span></a></li>
+        <li><a href="docs/components.html#component-cold_reader_route_map"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Inspect one component card, such as the cold-reader route map, and follow its source link.</span></a></li>
+        <li><a href="docs/source.html#provenance"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Read where the public record stops, and check the site never claims past it.</span></a></li>
+      </ol>
+      <div class="callout">
+        The loop is the useful unit: quickstart &rarr; public map &rarr; <a href="docs/glossary.html#glossary-component">component</a> card &rarr; evidence line &rarr; source path &rarr; <a href="docs/glossary.html#glossary-scope-limit">scope limit</a>.
+      </div>
+    </section>
+
+    <!-- How to read this site -->
+    <section class="wrap section orient" aria-labelledby="orient-title">
+      <div class="section__head">
+        <p class="eyebrow">How to read this site</p>
+        <h2 id="orient-title">The source first, then the map.</h2>
+        <p>This website is the current public map over the source slice. The quickstart is the natural first step; the architecture, evidence, and source pages read better once you have seen the local result record.</p>
+      </div>
+      <ul class="orient-grid">
+        <li><a class="orient-card" href="docs/quickstart.html">
+          <span class="orient-card__kicker">First</span>
+          <span class="orient-card__name">Run quickstart</span>
+          <span class="orient-card__desc">Clone the public source slice and inspect the first local result record.</span>
+        </a></li>
+        <li><a class="orient-card" href="docs/evidence.html">
+          <span class="orient-card__kicker">Evidence</span>
+          <span class="orient-card__name">What the pass proves</span>
+          <span class="orient-card__desc">Read the evidence kind, independence rank, real-tool marker, and the scope limit.</span>
+        </a></li>
+        <li><a class="orient-card" href="docs/architecture.html#whole-system-map">
+          <span class="orient-card__kicker">Architecture</span>
+          <span class="orient-card__name">Whole-system map</span>
+          <span class="orient-card__desc">The shared path every component binds to, drawn from the source files.</span>
+        </a></li>
+        <li><a class="orient-card" href="https://github.com/wcook04/plectis">
+          <span class="orient-card__kicker">Source</span>
+          <span class="orient-card__name">Open the repository</span>
+          <span class="orient-card__desc">Apache-2.0 source slice with public-safe stubs where private internals are withheld.</span>
+        </a></li>
+      </ul>
+      <p class="orient-note">The site and repository must agree: the map explains the public slice, and the repository is the source you can inspect and run.</p>
+    </section>
+
+    <!-- What this is -->
+    <section class="wrap section" aria-labelledby="what-title">
+      <div class="section__head">
+        <p class="eyebrow">What this is</p>
+        <h2 id="what-title"><a class="section-route" href="docs/components.html"><span data-mc-fact="component_count_word_titlecase">Seventy-eight</span> components across <span data-mc-fact="area_count_word">seven</span> areas.<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
+      </div>
+      <ul class="lead-list">
+        <li>Each of the <span data-mc-fact="area_count_word">seven</span> areas carries <a href="docs/glossary.html#glossary-component">component</a> records for the public slice. Formal math and proof has a Lean and Lake proof-check pipeline, premise retrieval, tactic routing, and verifier-trace repair. Agent reliability and safety replays sabotage, sandbox-escape, prompt-injection, and memory-poisoning cases. Research and science covers finance forecasting, a spatial world model, and a replication rubric. The rest cover source import and drift control, architecture and navigation, work and continuity, and entry and orientation.</li>
+        <li>The populated source slice is designed to run locally against a folder and write readable state without external model calls. The public repository contains the standalone source slice; non-public internals stay out or appear only as explicit public-safe stubs.</li>
+        <li>Most bind to one shared path that runs from a project on disk through to a result you can read.</li>
+        <li>Each component declares its own evidence: a class, a strength rank from 1 to 5 for how independently it is checked, and a line on what it does not prove. The card gives you that, so you can judge it on the evidence rather than the wording.</li>
+        <li>Some components run real tools: the Lean prover, Lake, finance statistics, git provenance checks. Others derive their verdict over copied source or a declared contract against small synthetic fixtures. Each card says which, in plain language.</li>
+      </ul>
+      <div class="callout">
+        <strong>What it is not.</strong> It is not a hosted agent service, not a production security product, and not a maturity score.
+      </div>
+      <dl class="reads-as" aria-label="How to read the headline count">
+        <div class="reads-as__row"><dt>Reads as</dt><dd><span data-mc-fact="component_count">78</span> components</dd></div>
+        <div class="reads-as__row"><dt>Means</dt><dd><span data-mc-fact="component_count">78</span> public component contracts, each with its own evidence line</dd></div>
+        <div class="reads-as__row"><dt>Does not mean</dt><dd>product maturity, or whole-system correctness</dd></div>
+        <div class="reads-as__row"><dt>To check it</dt><dd>open a <a href="docs/components.html">component card</a>, read its <a href="docs/evidence.html">evidence class and rank</a>, then the line on what it does not prove</dd></div>
+      </dl>
+    </section>
+
+    <!-- What's real -->
+    <section class="wrap section" id="real" aria-labelledby="real-title">
+      <div class="section__head">
+        <p class="eyebrow">What's real</p>
+        <h2 id="real-title"><a class="section-route" href="docs/evidence.html">What runs, and how it's checked.<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
+        <p>Some components execute real tools or runtimes: the <a href="docs/area-formal-math.html">Lean prover</a> and Lake, <a href="docs/area-research.html#component-finance_forecast_evaluation_spine">finance statistics code</a>, git provenance checks, or copied modules run in process. Others derive an independent verdict over a public contract and small fixtures. These are separate signals: the rank tells you how independent the verdict is; the execution marker tells you whether the public check invokes extra machinery.</p>
+      </div>
+      <div class="callout">
+        <strong>How to read the rank.</strong> Rank measures verdict independence, not how much machinery a component runs or how mature it is: how far a check can reach its own pass or fail rather than echo an answer a fixture handed it, from 1, where the fixture supplies the answer, to 5, where the check derives the whole verdict with nothing fed to it. A component can run real tools and still sit at a bounded rank; a validator with no tool can rank higher when it checks more of its own contract unaided.
+      </div>
+      <ul class="lead-list">
+        <li>Running a real tool and earning a high rank are separate signals. A real-tool run is bounded to a small scope on purpose, so it is capped at 4: a bounded run proves less than a check that derives its own verdict. <a href="docs/evidence.html">The evidence page</a> ranks all <span data-mc-fact="component_count">78</span> and says what each class checks.</li>
+        <li>A fixture-bound replay is not a product substitute. It is the public-safe form of a mechanism that should not be disclosed as live private-system authority: it exposes the mechanism, the boundary, and the refusal, not a running service.</li>
+        <li>The weakest class is honest about being weak: it confirms a fixture is well-formed. That is shape, not behaviour, and the components that carry it say so on their own card.</li>
+      </ul>
+      <div class="callout">
+        A class and a rank describe how a component checks its own contract and fixtures. They do not claim whole-system correctness, live freshness, or anything past the component's stated scope. Each component holds that line in its own &ldquo;Does not prove&rdquo; text.
+      </div>
+    </section>
+
+    <!-- Agent claim audit casebook -->
+    <section class="wrap section" id="casebook" aria-labelledby="casebook-title">
+      <div class="section__head">
+        <p class="eyebrow">Claim audit</p>
+        <h2 id="casebook-title">When an agent says it's done.</h2>
+        <p>The Agent Claim Audit Casebook is a small evidence companion released with this site: redacted, replayable cases where an agent completion note or a monitor sign-off sounds finished, and the evidence records say something smaller. Each case runs a deliberately shallow reader next to the evidence check, so you can see exactly which claims survive and which are lowered or blocked.</p>
+      </div>
+      <ul class="lead-list">
+        <li>One case is a real agent trace whose "committed, clean" completion note lacked a final delta and any terminal validation; the claim is lowered, not accepted.</li>
+        <li>One plants fabricated commit, ledger, and test-pass claims in a fixture completion note: real git and pytest checks block each one with a typed error code.</li>
+        <li>One takes a monitor's "coverage complete, cleared" sign-off and reduces it to what its probes actually backed. A verdict is not authority; its evidence is.</li>
+      </ul>
+      <div class="callout">
+        The casebook also records what it refused: candidates rejected for publication safety, candidates deferred as redundant, and a selection index over recent agent sessions, so the cases are picked by criteria rather than chosen to flatter. It does not claim general agent honesty, deception detection, or production monitoring coverage; each case states what it does not prove. The casebook is available as a download alongside this site.
+      </div>
+    </section>
+
+    <!-- Why this shape -->
+    <section class="wrap section" id="why" aria-labelledby="why-title">
+      <div class="section__head">
+        <p class="eyebrow">Why this shape</p>
+        <h2 id="why-title">Why a slice, and not the whole thing.</h2>
+        <p>The fuller system is not all here, and that is on purpose. Putting its live parts and private data online at once did not seem sensible or responsible, so the public version shows the shape of the work in a form you can inspect on your own.</p>
+      </div>
+      <ul class="lead-list">
+        <li>It is standalone code you can run, with non-secret source copied and checked against where it came from, and result records over small synthetic fixtures.</li>
+        <li>The fixtures are there for a reason: they are how a piece of the work can be shown without shipping the live system it normally runs against. Where a component only checks the shape of a fixture, its card says so.</li>
+        <li>You can inspect the public map with no special access: run the quickstart, read the ranks, open the source paths, and follow the records.</li>
+      </ul>
+      <div class="callout">
+        If you would find it useful to see more of the fuller system, and have the background to, the <a href="#contact">contact routes</a> are below.
+      </div>
+    </section>
+
+    <!-- Explore by area -->
+    <section class="wrap section" id="areas" aria-labelledby="areas-title">
+      <div class="section__head">
+        <p class="eyebrow">Explore by area</p>
+        <h2 id="areas-title"><a class="section-route" href="docs/components.html"><span data-mc-fact="area_count_word_titlecase">Seven</span> areas, one map.<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
+        <p>The <span data-mc-fact="component_count">78</span> components are grouped into <span data-mc-fact="area_count_word">seven</span> areas, and each one leads into the source behind it. The one that matches why you came is the natural way in. The strongest material is near the top; the lighter, fixture-bound pieces say so on their own card.</p>
+      </div>
+      <div class="area-grid">
+        <a class="area-card" href="docs/area-formal-math.html">
+          <h3>Formal math &amp; proof <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>Pieces of a proof pipeline you can open and run: premise retrieval over a copied Lean Std index, tactic routing, verifier-trace repair, claim separation. Three components run the real Lean prover locally on bounded examples; the rest release the checking layers as contracts you can open.</p>
+          <p class="examples">Lean proof check · Verifier trace repair · Premise retrieval</p>
+        </a>
+        <a class="area-card" href="docs/area-architecture.html">
+          <h3>Architecture &amp; navigation <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>The shared path every component binds to, and the pattern rules and routing that give the system its shape and let you move through it.</p>
+          <p class="examples">Pattern binding · Routing plane · Standards diagnostics</p>
+        </a>
+        <a class="area-card" href="docs/area-import-drift.html">
+          <h3>Import &amp; drift control <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>The boundary that copies non-secret material into the public tree, checks it against its origin, and flags anything that has drifted.</p>
+          <p class="examples">Source projection import · Source-drift checks · Drift control room</p>
+        </a>
+        <a class="area-card" href="docs/area-continuity.html">
+          <h3>Work &amp; continuity <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>How reversible work is recorded, how landing decisions are made, and how a detached run picks back up where it left off.</p>
+          <p class="examples">Work transactions · Landing replay · Continuity runtime</p>
+        </a>
+        <a class="area-card" href="docs/area-research.html">
+          <h3>Research &amp; science <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>Replays of scientific and forecasting work, run over synthetic fixtures. One runs real finance statistics code; the rest check the shape of a result rather than producing it.</p>
+          <p class="examples">Finance forecast evaluation · Spatial world model · Replication rubric</p>
+        </a>
+        <a class="area-card" href="docs/area-agent-reliability.html">
+          <h3>Agent reliability &amp; safety <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>Agent failure modes you can open and inspect, replayed over fixtures: sabotage, sandbox escape, prompt injection, memory poisoning. These are specimens, not live defences.</p>
+          <p class="examples">Sabotage monitor · Sandbox-escape replay · Prompt-injection policy</p>
+        </a>
+        <a class="area-card" href="docs/area-entry.html">
+          <h3>Entry &amp; orientation <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>How a newcomer first meets the system and follows a short guided path through it.</p>
+          <p class="examples">Cold-reader route map · Guided walkthrough</p>
+        </a>
+        <a class="area-card area-card--sunk" href="docs/index.html">
+          <h3>Browse the docs <span class="arrow" aria-hidden="true">&#8594;</span></h3>
+          <p>Open the documentation to browse every area, the quickstart, and how the system fits together.</p>
+          <p class="examples">Go to the docs</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Architecture atlas: globally-blurred stills of the WIDER system's own
+         frontend (the working console its backend serves) -- NOT the microcosm
+         running. Each card is a PORTAL: it opens the part of the public map the
+         view corresponds to (an architectural concern -> a map node). Stills are
+         baked, source-capability-gated, metadata-stripped public assets selected
+         by tools/meta/dissemination/build_blurred_frontend_stills.py; the
+         selection + eligibility manifest is
+         docs/dissemination/microcosm_frontend_preview_eligibility_v0.json
+         (schema microcosm_architecture_atlas_v0), and the independent source
+         capability sidecar is
+         docs/dissemination/microcosm_frontend_preview_source_capabilities_v0.json.
+         No embedded player, no third-party request (frame-src 'none' in <meta>
+         CSP and _headers). The richer orientation, code-map, component, and
+         inspector views join only after their source-capability receipts exist. -->
+    <section class="wrap section" id="walkthrough" aria-labelledby="walk-title">
+      <div class="section__head">
+        <p class="eyebrow">Optional context</p>
+        <h2 id="walk-title">Wider-system views, mapped back to evidence.</h2>
+        <p>Plectis is the public map of a wider system I have been building. These globally-blurred stills are optional context from its frontend, the working console its backend serves. They are not a film, proof video, teaser, or recording promise. The public artifact is still the map above: each still only opens the part of the public map it points at. Additional orientation, code-map, component, and inspector views are held until their source-capability receipts exist. The underlying source footage stays private.</p>
+      </div>
+      <div class="atlas" data-atlas>
+        <div class="atlas__track" data-atlas-track tabindex="0" aria-label="Frontend views: scroll, swipe, or use the arrows">
+          <a class="atlas__slide video-card" href="docs/architecture.html#map=component:agent_route_observability_runtime">
+            <div class="video-card__frame">
+              <img class="video-card__still" src="assets/previews/frontend-agent-trace-blur.png" width="1280" height="720" loading="lazy" decoding="async" alt="Blurred still of the system's frontend: an agent-trace workbench, a dark console with a live fleet of streaming panels under a top navigation bar. The detail is blurred out; only the layout is visible.">
+              <span class="video-card__tag">Work in motion</span>
+            </div>
+            <div class="video-card__body">
+              <h3>See how the system watches its agents run</h3>
+              <p>An agent-trace workbench: a live fleet of runs streaming in. Opens the agent-observability runtime in the public map.</p>
+              <span class="video-card__go">Open in the map<span aria-hidden="true"> &rarr;</span></span>
+            </div>
+          </a>
+          <a class="atlas__slide video-card" href="docs/architecture.html#map=component:finance_forecast_evaluation_spine">
+            <div class="video-card__frame">
+              <img class="video-card__still" src="assets/previews/frontend-detail-view-blur.png" width="1280" height="720" loading="lazy" decoding="async" alt="Blurred still of the system's frontend: a detail view, with a list of records on the left and an inspector panel on the right. The detail is blurred out; only the layout is visible.">
+              <span class="video-card__tag">Domain execution</span>
+            </div>
+            <div class="video-card__body">
+              <h3>See a research workload running</h3>
+              <p>A market-intelligence view: records on the left, an inspector on the right. Opens the finance-forecast evaluation spine in the public map.</p>
+              <span class="video-card__go">Open in the map<span aria-hidden="true"> &rarr;</span></span>
+            </div>
+          </a>
+        </div>
+        <button class="atlas__nav atlas__nav--prev" type="button" data-atlas-prev aria-label="Previous view">&lsaquo;</button>
+        <button class="atlas__nav atlas__nav--next" type="button" data-atlas-next aria-label="Next view">&rsaquo;</button>
+        <div class="atlas__dots" data-atlas-dots></div>
+        <p class="atlas__status" data-atlas-status aria-live="polite"></p>
+      </div>
+      <p class="orient-note">Open a view to land on its node in the public map. There you can select any node to inspect it, then open it (double-click, or press Enter) to follow it into the component, its evidence record, and the source on GitHub. The blur is baked into the image, not a filter that can be switched off. Additional code-map, orientation, inspection, and component views are prepared privately and added only when their source-capability receipts exist.</p>
+    </section>
+
+    <!-- Guided review route -->
+    <section class="wrap section" id="review" aria-labelledby="review-title">
+      <div class="section__head">
+        <p class="eyebrow">Review it</p>
+        <h2 id="review-title">Built to be read sceptically.</h2>
+        <p>It is worth reading sceptically, in both directions: a rank can overstate a component, but the plain wording can also undersell one. The system is built to be held to that standard, so it seems fair to do the same. A short route:</p>
+      </div>
+      <ol class="route-list">
+        <li><a href="docs/components.html" data-link-kind="internal"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Start from a component card and its evidence record here.</span></a></li>
+        <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check before expecting broad component behaviour.</span></a></li>
+        <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Read how each component is checked: the 1-to-5 rank and the line on what it does not prove.</span></a></li>
+        <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Compare a strong component with a weak one. The weak ones say so on their own card; check that they are right to.</span></a></li>
+        <li><a href="docs/source.html#provenance"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Read where the public version stops, and confirm the site never claims past it.</span></a></li>
+      </ol>
+      <div class="callout">
+        <p>Or hand it to your own assistant and ask it to argue against me:</p>
+        <pre><code>Read this repository as a calibration reviewer. First, by area, name the strongest components and what each actually does, with its evidence class. Then judge both directions: where the wording claims more than the evidence shows, and where it undersells what a component demonstrates. Do not reduce the system to a set of projections; computed projection is one evidence class among several.</code></pre>
+      </div>
+    </section>
+
+    <!-- What would help -->
+    <section class="wrap section" id="help" aria-labelledby="help-title">
+      <div class="section__head">
+        <p class="eyebrow">What would help</p>
+        <h2 id="help-title">If you think this is worth it.</h2>
+        <p>I'm not selling anything. If you want to follow public changes, use the generated updates route; if Plectis seems worth your time, here is what actually helps.</p>
+      </div>
+      <ol class="route-list">
+        <li><a href="#review"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Run the review route and tell me where a claim reaches past its evidence, or where the wording undersells what is there.</span></a></li>
+        <li><a href="https://github.com/wcook04/plectis/discussions" data-link-kind="exogenous" rel="external noopener"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Open an issue or start a discussion if a component claims more than it proves.</span></a></li>
+        <li><a href="mailto:williamwkcook+microcosm@gmail.com"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Tell me what I have got wrong, or what you would do differently. I'm a student without industry experience, so a careful outside read of the design, the boundaries, or the writing helps more than anything.</span></a></li>
+        <li><a href="docs/updates.html" data-link-kind="internal"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Follow updates through the generated feed, repository watch route, releases, and discussions; there is no mailing-list signup form.</span></a></li>
+      </ol>
+      <p class="orient-note">The model time this runs on comes out of a student budget I cover myself, so it is the real limit on how fast the work moves. Feedback is still the most useful thing you can give; if you would rather help with the compute side, the email above is the way to do it.</p>
+    </section>
+
+    <!-- Source & contact -->
+    <section class="wrap section" id="contact" aria-labelledby="contact-title">
+      <div class="section__head">
+        <p class="eyebrow">Source &amp; contact</p>
+        <h2 id="contact-title">Open the source, or get in touch.</h2>
+        <p>The public repository is up now with the standalone source slice, docs, fixtures, and checks. You can reach me directly below.</p>
+      </div>
+      <div class="link-rows">
+        <a class="link-row" href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">
+          <strong>GitHub repository</strong>
+          <span class="desc">Standalone source slice, docs, fixtures, and checks.</span>
+          <span class="go">Open repo</span>
+        </a>
+        <a class="link-row" href="docs/index.html" data-link-kind="internal">
+          <strong>Documentation</strong>
+          <span class="desc">Quickstart, architecture, whole-system map, and the <span data-mc-fact="area_count_word">seven</span> areas.</span>
+          <span class="go">Read docs</span>
+        </a>
+        <a class="link-row" href="docs/architecture.html#whole-system-map" data-link-kind="internal">
+          <strong>Whole-system map</strong>
+          <span class="desc">The architecture map, drawn from the public source files behind it.</span>
+          <span class="go">Open map</span>
+        </a>
+        <a class="link-row" href="docs/source.html#provenance" data-link-kind="internal">
+          <strong>Source, license &amp; provenance</strong>
+          <span class="desc">Apache-2.0 terms, authorship, the no-affiliation note, and where the public slice ends.</span>
+          <span class="go">Open reference</span>
+        </a>
+        <a class="link-row" href="docs/updates.html" data-link-kind="internal">
+          <strong>Follow updates</strong>
+          <span class="desc">Generated Atom feed, GitHub Watch route, releases, and repository discussions.</span>
+          <span class="go">Open updates</span>
+        </a>
+        <a class="link-row" href="https://github.com/wcook04/plectis/security/policy" data-link-kind="exogenous" rel="external noopener">
+          <strong>Security policy</strong>
+          <span class="desc">Use the public repository policy for vulnerability reports or source-site issues.</span>
+          <span class="go">Open policy</span>
+        </a>
+        <a class="link-row" href="https://github.com/wcook04/plectis/discussions" data-link-kind="exogenous" rel="external noopener">
+          <strong>Repository discussions</strong>
+          <span class="desc">Use public repository issues or discussions for questions, critique, or collaboration.</span>
+          <span class="go">Open GitHub</span>
+        </a>
+        <a class="link-row" href="mailto:williamwkcook+microcosm@gmail.com" data-link-kind="exogenous" rel="external noopener">
+          <strong>Email</strong>
+          <span class="desc">Reach me at williamwkcook+microcosm@gmail.com with questions, feedback, or anything you think I have got wrong.</span>
+          <span class="go">Send email</span>
+        </a>
+        <a class="link-row" href="https://www.linkedin.com/in/will-cook-278127234/" data-link-kind="exogenous" rel="external noopener">
+          <strong>LinkedIn</strong>
+          <span class="desc">Will Cook, who builds and maintains Plectis.</span>
+          <span class="go">Open profile</span>
+        </a>
+      </div>
+      <p class="contact-line">Public security contact: <a href="https://github.com/wcook04/plectis/security/policy" data-link-kind="exogenous" rel="external noopener">repository security policy</a> · <a href="https://github.com/wcook04/plectis" data-link-kind="exogenous" rel="external noopener">GitHub source</a></p>
+    </section>
+
+    <!-- Quiet verification strip -->
+    <section class="wrap section" aria-label="How this site relates to the source">
+      <p class="verify-strip">Every area names the public source path it maps and the evidence record that bounds it. <strong>The website, reader digest, and repository should agree on the public source slice and its scope limits.</strong> If you are pointing an automated agent at Plectis today, give it the repository, public packets, and this site.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <p>Plectis: a public cross-section of an AI-native workflow system.</p>
+      <nav aria-label="Footer">
+        <a href="docs/index.html">Docs</a>
+        <a href="https://github.com/wcook04/plectis">GitHub</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Shared docs runtime. On the landing page every docs-only module no-ops
+       (it guards each lookup); the exact-return view-state trail is what runs, so
+       leaving for the docs and stepping back returns here to the same place.
+       The ?v= query is a manual cache-bust: bump it whenever docs.js download
+       semantics change, so a stale cached copy can never reintroduce broken
+       packet-download behavior. -->
+  <script src="assets/docs.js?v=mrc10"></script>
+</body>
+</html>

@@ -1,0 +1,2896 @@
+/* Microcosm — public site
+   Hand-written static CSS. No build step, no framework.
+   Design intent: serious, restrained, technical. Warm-neutral paper,
+   near-black ink, one quiet slate accent. Borrows information architecture
+   from good docs systems, not their colour palettes. */
+
+:root {
+  /* ---- Colour (semantic; stable names — sibling threads consume these) ---- */
+  --page: #fbfaf7;
+  --surface: #ffffff;
+  --surface-sunk: #f5f3ed;
+  --ink: #1b1a17;
+  --ink-soft: #3b3934;
+  /* Secondary body tier. Held a touch darker than --faint so the named
+     hierarchy (muted = body meta, faint = quietest labels) holds on screen;
+     the two values were previously near-equal and slightly inverted. */
+  --muted: #696558;
+  --faint: #6f6960;
+  --rule: #e9e6df;
+  --rule-strong: #d9d4ca;
+  --accent: #3a5066;
+  --accent-strong: #2a3d50;
+  /* Tint of the accent for quiet fills (selection, active wash) — derived, low-chroma. */
+  --accent-wash: #eef1f4;
+  /* Selection region marker — must read as a region, kept distinct from --accent-wash so each tunes independently. */
+  --select-bg: #eef1f4;
+  /* Map wiring strokes — achromatic grey held at >=3:1 (WCAG 1.4.11) on --surface. */
+  --edge: #918d84;
+  --code-bg: #f4f2ec;
+  --code-ink: #2c2a25;
+  /* Raw ink channel for alpha overlays/shadows so dark mode can re-point one token. */
+  --ink-rgb: 27, 26, 23;
+  --on-accent: #ffffff;
+  /* Pressed/hover state for ink-filled controls (deepens in light, brightens in dark). */
+  --ink-press: #000000;
+  /* Scrim behind modals / mobile drawer. */
+  --scrim: rgba(27, 26, 23, 0.34);
+
+  /* ---- Layout ---- */
+  --max: 1080px;
+  --prose: 660px;
+  --docs-max: 1320px;
+  --reader-stage-max: 1040px;
+  --topbar-h: 58px;
+
+  /* ---- Type families ---- */
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, ui-serif, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---- Type scale (1rem = 16px base; ~1.18 ratio, hand-tuned to existing steps) ---- */
+  --fs-micro: 0.72rem;   /* eyebrows, kbd, tags, group labels */
+  --fs-small: 0.82rem;   /* meta, captions, secondary chips */
+  --fs-meta:  0.88rem;   /* card body meta, fine print */
+  --fs-body:  0.92rem;   /* dense body, card copy */
+  --fs-base:  1rem;       /* default body */
+  --fs-lede:  1.12rem;   /* doc ledes */
+  --fs-h3:    1.06rem;
+  --fs-h2:    1.2rem;     /* sans section headings */
+  --lh-tight: 1.2;
+  --lh-snug:  1.4;
+  --lh-body:  1.62;
+  --tracking-eyebrow: 0.12em;
+  --tracking-label: 0.1em;
+  --tracking-kicker: 0.08em;  /* tightest tier: in-card kickers, pager dir, palette/panel kind */
+
+  /* ---- Spacing scale (4px base; one coherent system) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.75rem;
+  --space-8: 3.5rem;
+  --gutter: 24px;           /* page side gutter (half of the 48px clamp) */
+  --section-y: 56px;        /* vertical rhythm between landing sections */
+
+  /* ---- Radii (one small ladder, replacing scattered 4/6/7/8/10/12) ---- */
+  --r-xs: 4px;    /* code, tiny chips */
+  --r-sm: 6px;    /* inputs, small buttons */
+  --r-control: 7px; /* interactive controls — buttons, search/filter inputs */
+  --r-md: 8px;    /* callouts, panels */
+  --r-lg: 10px;   /* cards, code blocks */
+  --r-xl: 12px;   /* hero card, modal, primary cards */
+  --r-pill: 999px;
+
+  /* ---- Elevation (restrained; no shadow soup) ---- */
+  --shadow: 0 1px 2px rgba(var(--ink-rgb), 0.04), 0 6px 22px rgba(var(--ink-rgb), 0.05);
+  --shadow-pop: 0 18px 60px rgba(var(--ink-rgb), 0.22);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 0.12s;
+  --dur: 0.16s;
+  --dur-slow: 0.2s;
+
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  scroll-behavior: smooth; scroll-padding-top: calc(var(--topbar-h) + 8px);
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+/* Quiet, on-brand text selection — replaces the browser default blue. */
+::selection { background: var(--select-bg); color: var(--ink); }
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; color: var(--ink); text-wrap: balance; }
+h1, h2 { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.01em; line-height: var(--lh-tight); }
+p { margin: 0; }
+
+/* ----------------------------------------------------------------------------
+   Dark mode — re-point semantic colour tokens only.
+   The whole sheet reads var(--page)/var(--ink)/var(--rule)/… so the cascade
+   carries the theme with no per-component overrides. Same design language:
+   warm near-black paper, one quiet slate accent (lifted for legibility on dark),
+   crisp 1px rules. No glow, no pure-black, no chroma theatre. WCAG-AA verified.
+---------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #1a1916;
+    --surface: #211f1c;
+    --surface-sunk: #252320;
+    --ink: #ece8e1;
+    --ink-soft: #cfcabf;
+    --muted: #a39d91;
+    --faint: #9a9488;
+    --rule: #34312c;
+    --rule-strong: #46423b;
+    --accent: #9db4cb;
+    --accent-strong: #bccedf;
+    --accent-wash: #2b3540;
+    --select-bg: #3a4a5c;
+    --edge: #6f6b61;
+    --code-bg: #26241f;
+    --code-ink: #d9d3c8;
+    --ink-rgb: 0, 0, 0;          /* shadows read as depth against dark paper */
+    --on-accent: #1a1916;         /* dark text sits on the lifted accent */
+    --ink-press: #ffffff;         /* ink-filled controls brighten toward white on press */
+    --scrim: rgba(0, 0, 0, 0.58);
+    color-scheme: dark;
+  }
+  /* Slightly deepen elevation so raised surfaces separate on dark paper. */
+  :root {
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 26px rgba(0, 0, 0, 0.36);
+    --shadow-pop: 0 20px 64px rgba(0, 0, 0, 0.55);
+  }
+  /* The sticky headers use color-mix over --page; that holds on dark. */
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 0.18em; }
+/* Form controls inherit the UA font (e.g. Arial on <button>), which reads as a
+   foreign typeface next to the page stack. Inherit the page font so buttons match
+   the surrounding type. Size/weight stay with each control's own rule. */
+button, input, select, textarea { font-family: inherit; }
+/* WCAG 1.4.1 (use of colour): a link inside running prose must be distinguishable
+   without relying on colour, so underline in-paragraph links persistently. Standalone
+   UI links -- nav, cards, chips, pills, TOC, pager -- carry their own non-colour
+   affordances (borders/backgrounds/position) and are not inside text blocks. */
+.docs-article p a,
+.obj-coverage p a,
+.section__head p a,
+.lead-list a,
+.callout a,
+.contact-line a,
+p.muted a { text-decoration: underline; text-underline-offset: 0.18em; }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Link grammar: endogenous (stays in Microcosm) vs exogenous (leaves it) ───
+   The operator's ask: a click that goes off-site (Source / GitHub / License)
+   must not read identically to one that stays, and a depth-jump into the
+   reference index ("Read the full module") must not look like an inline prose
+   link. Signalled by BOTH a distinct colour AND a non-colour cue (an outbound
+   ↗ on exogenous, a → on reference), so it satisfies WCAG 1.4.1 — never colour
+   alone. `data-link-kind` is stamped by the builder: `exogenous` = absolute
+   off-site href (mark_external_links); `reference` = an in-site jump into the
+   reference index. Plain in-site links carry no marker and keep the accent
+   style above. */
+:root { --link-ext: #6f5d3a; }
+@media (prefers-color-scheme: dark) { :root { --link-ext: #c8b388; } }
+
+/* Warm "boundary / does-not-prove" doctrine label literal — hoisted like
+   --link-ext so dark mode can lift it. The light value reads ~5.6:1 on paper;
+   the dark value clears 4.5:1 on --surface, --surface-sunk and the --accent-wash
+   ladder the reader-ladder labels sit on. Consumers: .dcard__label--bad,
+   .dcard__bound-label. */
+:root { --warn-warm: #8a5a2b; }
+@media (prefers-color-scheme: dark) { :root { --warn-warm: #d09a5e; } }
+
+a[data-link-kind="exogenous"] { color: var(--link-ext); }
+a[data-link-kind="exogenous"]:hover { color: var(--link-ext); }
+a[data-link-kind="exogenous"]::after {
+  content: "\2197";                 /* ↗ leaves the site -- the non-colour signal */
+  display: inline-block; margin-left: 0.14em;
+  font-size: 0.8em; line-height: 1; vertical-align: baseline;
+  text-decoration: none;
+}
+/* Footer link-rows already announce destination (label + .go arrow); stay quiet. */
+.link-row[data-link-kind="exogenous"]::after { content: none; }
+
+a[data-link-kind="reference"] { color: var(--accent); font-weight: 600; white-space: nowrap; }
+a[data-link-kind="reference"]::after {
+  content: "\2192";                 /* → a jump deeper into the reference index */
+  margin-left: 0.25em; color: var(--muted); font-weight: 400;
+}
+a[data-link-kind="reference"]:hover,
+a[data-link-kind="reference"]:hover::after { color: var(--accent-strong); }
+
+.docs-main .narrative-ref {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 36%, transparent);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.16em;
+  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+}
+
+.docs-main .narrative-ref:hover {
+  color: var(--accent-strong);
+  text-decoration-color: var(--accent-strong);
+}
+
+.docs-main .narrative-ref--axiom,
+.docs-main .narrative-ref--principle {
+  text-decoration-style: dotted;
+}
+
+.docs-main .narrative-ref:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Doctrine object-model map (taxonomy block on doctrine.html). */
+.docs-main .doctrine-map {
+  display: grid;
+  /* Stack the two object-family cards by default. At the doctrine article
+     measure (--prose, 660px) a fixed two-up split starves the gloss column
+     into portrait word-stacks ("Vocabulary / boundaries / shared / ..."), so
+     the layout is driven by the card's own width, not the viewport: auto-fit
+     keeps them side by side only where each card stays above a real measure
+     (>=33rem, ~36ch of gloss after the kind and route columns). min(...,100%)
+     keeps the single column from overflowing at phone widths. */
+  grid-template-columns: repeat(auto-fit, minmax(min(33rem, 100%), 1fr));
+  gap: 16px;
+  margin: 26px 0 10px;
+}
+.docs-main .doctrine-map__col {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--surface-sunk);
+  padding: 16px 18px 8px;
+}
+.docs-main .doctrine-map__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+/* Column status chip: "expanded below" vs "in reference" — tells the reader,
+   at a glance, that this page unfolds the governing half and routes the
+   explanatory half to the reference layer. */
+.docs-main .doctrine-map__status {
+  flex: none;
+  padding: 2px 9px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+.docs-main .doctrine-map__note {
+  margin: 4px 0 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.docs-main .doctrine-map__row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, max-content) 1fr auto;
+  gap: 4px 14px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
+.docs-main .doctrine-map__kind {
+  font-weight: 600;
+  color: var(--ink);
+}
+.docs-main .doctrine-map__gloss {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+/* Route affordance on explanatory rows only: a small "Reference ->" link to
+   where that object kind actually lives. Governing rows carry no route. */
+.docs-main .doctrine-map__route {
+  grid-column: 3;
+  justify-self: end;
+  align-self: center;
+  white-space: nowrap;
+  font-size: var(--fs-small);
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+.docs-main .doctrine-map__route:hover { color: var(--accent); text-decoration: underline; }
+.docs-main .doctrine-map__route-arrow { font-family: var(--font-mono); }
+/* Global section-header routing: when an h2 names an object with a fuller
+   dedicated view, the header itself is a link to that view. Muted always-on
+   arrow keeps the affordance discoverable without turning headers into CTAs. */
+h2 > .section-route { color: inherit; text-decoration: none; }
+h2 > .section-route:hover,
+h2 > .section-route:focus-visible { color: var(--accent); }
+h2 > .section-route .section-route__arrow {
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  opacity: 0.45;
+}
+h2 > .section-route:hover .section-route__arrow,
+h2 > .section-route:focus-visible .section-route__arrow { opacity: 1; }
+/* Map legend sentence: this page expands governing; explanatory is in reference. */
+.docs-main .doctrine-map__scope {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-left: 2px solid var(--accent);
+  background: var(--accent-wash);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.docs-main .doctrine-map__caption {
+  margin: 8px 0 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+@media (max-width: 640px) {
+  /* Phone reflow: stack each row to one column — kind, then gloss, then a
+     quiet left-aligned route under the description. Preserves reading order
+     and the full description measure with no horizontal scroll. The cards
+     themselves already stack via the auto-fit grid above. */
+  .docs-main .doctrine-map__row { grid-template-columns: 1fr; gap: 3px 0; }
+  .docs-main .doctrine-map__route {
+    grid-column: 1; justify-self: start; margin-top: 4px;
+  }
+}
+
+/* Doctrine disclosure cards: axioms, principles, and anti-principles on
+   doctrine.html. Each card is a native <details> (the WAI-ARIA disclosure
+   pattern), with a visible plain-language line and a source-backed body. */
+.docs-main .dcard-group { margin: 24px 0 0; }
+.docs-main .dcard-group__title {
+  margin: 0 0 2px;
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+.docs-main .dcard-group__note {
+  margin: 0 0 10px;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.docs-main .dcard-list { display: grid; gap: 8px; }
+.docs-main .dcard {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.docs-main .dcard[open] { border-color: var(--rule-strong); }
+.docs-main .dcard__summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  display: block;
+  padding: 12px 40px 12px 16px;
+}
+.docs-main .dcard__summary::-webkit-details-marker { display: none; }
+.docs-main .dcard__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.docs-main .dcard__id {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--accent-strong);
+}
+.docs-main .dcard__name { font-weight: 600; color: var(--ink); }
+.docs-main .dcard__plain {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink-soft);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+/* Disclosure chevron, drawn from a border so there is no asset dependency. */
+.docs-main .dcard__summary::after {
+  content: "";
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.6px solid var(--muted);
+  border-bottom: 1.6px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.15s ease, border-color 0.12s ease;
+}
+.docs-main .dcard[open] .dcard__summary::after { transform: rotate(225deg); top: 20px; }
+.docs-main .dcard__summary:hover .dcard__name { color: var(--accent-strong); }
+.docs-main .dcard__summary:hover::after { border-color: var(--accent-strong); }
+.docs-main .dcard__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 10px;
+}
+.docs-main .dcard__clause,
+.docs-main .dcard__rel,
+.docs-main .dcard__refs {
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-meta);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.docs-main .dcard__label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.docs-main .dcard__clause-text {
+  color: var(--ink);
+}
+.docs-main .dcard__chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.docs-main .dcard__chip {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--surface-sunk);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+.docs-main a.dcard__chip:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  background: var(--accent-wash);
+}
+.docs-main .dcard__chip--flat { color: var(--muted); }
+.docs-main .dcard__refs { font-size: var(--fs-small); }
+
+/* Enriched doctrine card body: deep reading, rendered formal statement with a
+   symbol table, a governs/requires/refuses triad, a worked example and the
+   tempting mistake, and the does-not-prove bound. */
+.docs-main .dcard__deep,
+.docs-main .dcard__formal,
+.docs-main .dcard__triad,
+.docs-main .dcard__clause {
+  margin: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--rule);
+}
+.docs-main .dcard__deep {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.docs-main .dcard__formal {
+  background: var(--surface-sunk);
+}
+.docs-main .dcard__math {
+  display: block;
+  margin: 4px 0 2px;
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  line-height: 1.7;
+  color: var(--ink);
+  overflow-x: auto;
+}
+.docs-main .dcard__math i { font-style: italic; }
+.docs-main .dcard__math sub,
+.docs-main .dcard__math sup { font-size: 0.74em; }
+.docs-main .dcard__mtext {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+.docs-main .dcard__reads {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+.docs-main .dcard__symbols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--rule);
+}
+.docs-main .dcard__sym {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: var(--fs-small);
+}
+.docs-main .dcard__sym-k {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink);
+  min-width: 1.1em;
+}
+.docs-main .dcard__sym-v { color: var(--muted); }
+.docs-main .dcard__latex-raw {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  color: var(--code-ink);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+.docs-main .dcard__triad {
+  display: grid;
+  gap: 6px 14px;
+}
+.docs-main .dcard__tri {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, max-content) 1fr;
+  gap: 4px 14px;
+  align-items: baseline;
+}
+.docs-main .dcard__tri .dcard__label { margin-bottom: 0; }
+.docs-main .dcard__tri-text { color: var(--ink-soft); font-size: var(--fs-meta); }
+.docs-main .dcard__label--good { color: var(--accent-strong); }
+.docs-main .dcard__label--bad { color: var(--warn-warm); }
+.docs-main .dcard__chip--organ {
+  font-family: var(--font-sans);
+  border-radius: 6px;
+}
+
+/* Reader ladder: the plain-language onramp at the top of each doctrine card.
+   A plain reading, an analogy with its explicit doctrine->analogy mappings and
+   the boundary where the analogy breaks, why the law matters, and the common
+   misreading. Tinted as one panel so it reads as the lay entry, distinct from
+   the formal statement below; a lay reader and an expert use the same card. */
+.docs-main .dcard__ladder {
+  border-top: 1px solid var(--rule);
+  background: var(--accent-wash);
+}
+.docs-main .dcard__ladder > * { border-top: 1px solid var(--rule); }
+.docs-main .dcard__ladder > :first-child { border-top: none; }
+.docs-main .dcard__analogy {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: var(--fs-meta);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.docs-main .dcard__analogy-text { display: block; color: var(--ink); }
+.docs-main .dcard__maps {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--rule);
+}
+.docs-main .dcard__map {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 4px 10px;
+  align-items: baseline;
+  font-size: var(--fs-small);
+}
+.docs-main .dcard__map-d { color: var(--ink); text-align: right; }
+.docs-main .dcard__map-link {
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.docs-main .dcard__map-a { color: var(--muted); }
+.docs-main .dcard__analogy-bound {
+  display: block;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--rule);
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+.docs-main .dcard__bound-label {
+  margin-right: 7px;
+  color: var(--warn-warm);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+@media (max-width: 640px) {
+  .docs-main .dcard__label { display: block; }
+  .docs-main .dcard__tri { grid-template-columns: 1fr; gap: 1px; }
+  .docs-main .dcard__map { grid-template-columns: 1fr; gap: 1px; }
+  .docs-main .dcard__map-d { text-align: left; }
+}
+
+/* Controls that live inside an overflow:hidden clip (cards, the palette panel)
+   would have an outward focus ring clipped away — WCAG 2.4.7 fails silently.
+   Draw the ring just *inside* the edge instead so it is always visible. */
+.comp-card__summary:focus-visible,
+.comp-card[open] .comp-card__summary:focus-visible {
+  outline-offset: -2px;
+  border-radius: inherit;
+}
+/* Open card paints a 3px --accent left-border; lift the inside focus ring to
+   --accent-strong so the left edge of the ring stays distinct from that border. */
+.comp-card[open] .comp-card__summary:focus-visible { outline-color: var(--accent-strong); }
+.cmdk__panel :focus-visible {
+  outline-offset: -2px;
+}
+
+code, kbd, pre { font-family: var(--font-mono); }
+:where(p, li) code {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  padding: 0.12em 0.36em;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.eyebrow {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--faint);
+  font-family: var(--font-sans);
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 50;
+  background: var(--ink); color: var(--page); padding: 0.6rem 0.9rem; border-radius: 0 0 6px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* Visually hidden but exposed to assistive tech (live-region announcements). */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   Landing
+---------------------------------------------------------------------------- */
+.wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  background: color-mix(in srgb, var(--page) 88%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.site-header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: 1.18rem; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.wordmark:hover { text-decoration: none; color: var(--ink); }
+.site-header nav { display: flex; gap: 1.6rem; align-items: center; }
+.site-header nav a { color: var(--ink-soft); font-size: 0.92rem; }
+.site-header nav a:hover { color: var(--accent); text-decoration: none; }
+
+.hero { padding: 80px 0 60px; }
+/* Standalone 404 uses <main class="wrap hero">; centre it in the viewport so the
+   sparse error layout reads as deliberate rather than stranded top-left. The
+   landing hero is <section class="hero"> and is unaffected. */
+main.hero {
+  min-height: calc(100vh - 200px);
+  display: flex; flex-direction: column; justify-content: center;
+  padding-block: 64px;
+}
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 52px; align-items: start; }
+.hero__kicker { margin-bottom: 1.1rem; }
+.hero h1 {
+  font-size: clamp(2.5rem, 5.2vw, 3.5rem);
+  margin: 0 0 1.1rem;
+}
+.hero__lede {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  line-height: var(--lh-snug); color: var(--ink-soft);
+  max-width: var(--prose);
+  margin-bottom: 0.7rem;
+  /* Short serif display line: even the two lines and prevent a lone last word
+     ("…system."), the same wrap discipline h1/h2 already get. */
+  text-wrap: balance;
+}
+.hero__sub { font-size: 1.02rem; color: var(--muted); max-width: var(--prose); margin-bottom: 1.9rem; text-wrap: pretty; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem 0.9rem; align-items: center; }
+.hero__ai {
+  margin-top: 1.4rem; padding: 1.2rem 1.35rem 1.05rem;
+  max-width: var(--prose);
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--r-lg); box-shadow: var(--shadow);
+}
+.hero__ai-kicker {
+  margin-bottom: 0.35rem;
+  font-size: var(--fs-micro); font-weight: 700; letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase; color: var(--faint);
+}
+.hero__ai-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-sans); font-size: var(--fs-h3); line-height: var(--lh-snug);
+  letter-spacing: 0; color: var(--ink);
+}
+.hero__ai-copy { color: var(--muted); font-size: var(--fs-body); line-height: var(--lh-snug); text-wrap: pretty; }
+.hero__ai-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.65rem; margin-top: 0.85rem; }
+.hero__ai-status { flex-basis: 100%; }
+.hero__stance {
+  margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+  font-size: 0.9rem; color: var(--muted); max-width: var(--prose);
+}
+
+/* Hero orientation card — the "Start here" route map */
+.hero__start {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 12px; padding: 1.1rem 1.2rem 0.5rem; box-shadow: var(--shadow);
+}
+.hero__start-title {
+  font-size: var(--fs-micro); font-weight: 700; letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--faint); margin-bottom: 0.5rem;
+}
+.route-list { list-style: none; margin: 0; padding: 0; }
+.route-list li { border-top: 1px solid var(--rule); }
+.route-list li:first-child { border-top: none; }
+.route-list a {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.6rem 0.5rem; margin-inline: -0.35rem;
+  border-radius: var(--r-sm); color: var(--ink); font-size: 0.95rem;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+/* The whole row is the hit target, matching .docs-nav / .cmdk__item; the
+   negative inline margin keeps the label optically flush with the title above. */
+.route-list a:hover,
+.route-list a:focus-visible { background: var(--surface-sunk); text-decoration: none; color: var(--accent); }
+.route-num {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--rule-strong); display: grid; place-items: center;
+  font-size: 0.72rem; font-weight: 600; color: var(--muted); font-family: var(--font-mono);
+}
+.route-list a:hover .route-num,
+.route-list a:focus-visible .route-num { border-color: var(--accent); color: var(--accent); }
+.route-label { flex: 1; }
+.route-list a::after { content: "\2192"; color: var(--faint); }
+.route-list a:hover::after,
+.route-list a:focus-visible::after { color: var(--accent); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.95rem; font-weight: 500;
+  padding: 0.62rem 1.05rem; border-radius: var(--r-control);
+  border: 1px solid transparent; cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.btn--primary { background: var(--ink); color: var(--page); }
+.btn--primary:hover { background: var(--ink-press); color: var(--page); text-decoration: none; }
+.btn--ghost { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
+.btn--ghost:hover { border-color: var(--ink-soft); color: var(--ink); text-decoration: none; }
+/* Tactile press on the filled/bordered controls; the text variant stays a link. */
+.btn--primary:active, .btn--ghost:active { transform: translateY(1px); }
+.btn--text { color: var(--accent); padding: 0.62rem 0.3rem; }
+.btn--text:hover { color: var(--accent-strong); }
+.btn--text::after { content: " \2192"; }
+.btn__format {
+  font-family: var(--font-mono); font-size: 0.68rem; line-height: 1;
+  border-radius: var(--r-xs); padding: 0.16rem 0.28rem;
+  color: var(--ink); background: var(--page);
+}
+.btn--ghost .btn__format { background: var(--surface-sunk); }
+
+.section { padding: 56px 0; border-top: 1px solid var(--rule); }
+.section__head { max-width: var(--prose); margin-bottom: 2rem; }
+.section__head h2 { font-size: clamp(1.5rem, 3vw, 1.95rem); margin: 0.5rem 0 0.7rem; }
+.section__head p { color: var(--muted); }
+.lead-list { max-width: var(--prose); margin: 0; padding: 0; list-style: none; display: grid; gap: 0.85rem; }
+.lead-list li { padding-left: 1.3rem; position: relative; color: var(--ink-soft); }
+.lead-list li::before {
+  content: ""; position: absolute; left: 0; top: 0.62em;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+}
+
+/* Area cards */
+.area-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+}
+.area-card {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 12px; padding: 1.3rem 1.35rem;
+  color: var(--ink); transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.area-card--sunk { background: var(--surface-sunk); }
+.area-card--sunk .examples { border-top-color: var(--rule-strong); }
+.area-card:hover { text-decoration: none; color: var(--ink); border-color: var(--rule-strong); transform: translateY(-2px); box-shadow: var(--shadow); }
+.area-card h3 { font-size: var(--fs-h3); display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.area-card h3 .arrow { color: var(--faint); font-weight: 400; transition: transform .15s ease; }
+.area-card:hover h3 .arrow { transform: translateX(3px); color: var(--accent); }
+.area-card p { font-size: 0.92rem; color: var(--muted); }
+.area-card .examples {
+  margin-top: auto; padding-top: 0.7rem; border-top: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: 0.76rem; color: var(--faint);
+  letter-spacing: 0.01em;
+}
+
+/* Architecture-atlas view cards: static blurred stills link into the public map.
+   The retired video facade is intentionally absent; no player is created here. */
+.video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+.video-card { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+.video-card__frame {
+  aspect-ratio: 16 / 9; display: grid; place-items: center;
+  background: var(--surface-sunk);
+  background-size: cover; background-position: center;
+  border-bottom: 1px solid var(--rule);
+  color: var(--faint); position: relative; padding: 0;
+}
+/* The "posted at launch" chip on a placeholder tile. */
+.video-card__frame > span {
+  font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0.3rem 0.8rem;
+}
+/* Blurred frontend still fills the frame; the facade play button is retired. */
+.video-card__still {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center top; display: block;
+}
+.video-card__frame > .video-card__tag {
+  position: absolute; left: 0.7rem; bottom: 0.7rem; z-index: 1;
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 999px;
+  padding: 0.26rem 0.7rem; color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.45);
+}
+/* Atlas cards are links (portals into the public map), not static figures. */
+a.video-card {
+  display: block; text-decoration: none; color: inherit;
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+a.video-card:hover { border-color: var(--rule-strong); transform: translateY(-2px); }
+a.video-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.video-card__go {
+  display: inline-block; margin-top: 0.6rem;
+  font-size: 0.85rem; font-weight: 500; color: var(--accent-strong);
+}
+a.video-card:hover .video-card__go { text-decoration: underline; }
+/* Architecture-atlas carousel: swipeable track, desktop arrows + dots. */
+.atlas { position: relative; }
+.atlas__track {
+  display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+  padding: 0.2rem; margin: 0 -0.2rem; scrollbar-width: none;
+}
+.atlas__track::-webkit-scrollbar { display: none; }
+.atlas__track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 14px; }
+.atlas__slide { flex: 0 0 100%; scroll-snap-align: center; }
+@media (min-width: 720px) { .atlas__slide { flex-basis: calc(58% - 0.6rem); } }
+.atlas__nav {
+  position: absolute; top: 33%; transform: translateY(-50%); z-index: 2;
+  width: 2.7rem; height: 2.7rem; border-radius: 999px;
+  border: 1px solid var(--rule-strong); background: var(--surface); color: var(--ink);
+  font-size: 1.5rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  display: none; place-items: center;
+  transition: border-color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+@media (min-width: 720px) { .atlas__nav { display: grid; } }
+.atlas__nav--prev { left: -0.7rem; }
+.atlas__nav--next { right: -0.7rem; }
+.atlas__nav:hover { border-color: var(--accent); }
+.atlas__nav:disabled { opacity: 0.3; cursor: default; }
+.atlas__dots { display: flex; gap: 0.45rem; justify-content: center; margin-top: 0.9rem; }
+.atlas__dot {
+  width: 0.5rem; height: 0.5rem; padding: 0; border: 0; border-radius: 999px;
+  background: var(--rule-strong); cursor: pointer;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.atlas__dot[aria-current="true"] { background: var(--accent-strong); transform: scale(1.25); }
+.atlas__status { margin: 0.7rem 0 0; text-align: center; font-size: 0.82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.atlas__status:empty { display: none; }
+.video-card__body { padding: 1.05rem 1.2rem 1.25rem; margin: 0; }
+.video-card__body h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+.video-card__body p { font-size: 0.9rem; color: var(--muted); }
+
+/* Contact + source */
+.link-rows { max-width: var(--prose); display: grid; gap: 0; }
+/* An aligned action table, not a ragged list: label | description | typed action,
+   with shared columns across rows so the eye reads down clean edges. The action
+   colour declares whether the click STAYS in-site (accent) or LEAVES it
+   (exogenous gold + an outbound ↗) -- the same endogenous/exogenous grammar used
+   in prose, surfaced where the reader is choosing where to go next. */
+.link-row {
+  display: grid; grid-template-columns: minmax(9rem, 15rem) 1fr auto;
+  align-items: baseline; gap: 0.3rem 1.4rem;
+  padding: 0.95rem 0; border-top: 1px solid var(--rule); color: var(--ink);
+}
+.link-row:hover { text-decoration: none; color: var(--ink); }
+.link-row:last-child { border-bottom: 1px solid var(--rule); }
+.link-row strong { font-weight: 600; }
+.link-row .desc { color: var(--muted); font-size: 0.9rem; }
+.link-row .go { color: var(--accent); font-size: 0.88rem; white-space: nowrap; text-align: right; }
+.link-row:hover .go,
+.link-row:focus-visible .go { text-decoration: underline; text-underline-offset: 0.2em; }
+.link-row[data-link-kind="exogenous"] .go { color: var(--link-ext); }
+.link-row[data-link-kind="exogenous"] .go::after { content: " \2197"; }  /* ↗ leaves the site */
+@media (max-width: 640px) {
+  .link-row { grid-template-columns: 1fr auto; column-gap: 1rem; }
+  .link-row .desc { grid-column: 1 / -1; }
+}
+.contact-line { margin-top: 1.6rem; font-size: 0.95rem; color: var(--ink-soft); }
+.contact-line a { font-weight: 500; }
+
+.verify-strip {
+  margin: 0; padding: 1.4rem 1.5rem; background: var(--surface-sunk);
+  border: 1px solid var(--rule); border-radius: 10px;
+  font-size: 0.92rem; color: var(--muted); max-width: var(--prose);
+}
+.verify-strip strong { color: var(--ink-soft); font-weight: 600; }
+
+/* How-to-read orientation band — four plain anchor cards mapping the primary
+   surfaces (Docs / Architecture / Evidence / Source). Reuses .section + .eyebrow
+   grammar and the semantic tokens, so it inherits dark mode and print for free. */
+.orient-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3);
+}
+.orient-card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  min-width: 0; height: 100%;
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--r-lg); padding: var(--space-4) var(--space-4) var(--space-5);
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.orient-card:hover {
+  text-decoration: none; color: var(--ink);
+  border-color: var(--rule-strong); transform: translateY(-2px); box-shadow: var(--shadow);
+}
+.orient-card__kicker {
+  align-self: flex-start;
+  font-family: var(--font-mono); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--accent-strong);
+  background: var(--accent-wash); border: 1px solid var(--rule);
+  border-radius: var(--r-xs); padding: 0.1rem 0.45rem;
+}
+.orient-card__name { font-weight: 600; font-size: var(--fs-h3); color: var(--ink); overflow-wrap: anywhere; }
+.orient-card__desc { margin-top: auto; font-size: var(--fs-body); color: var(--muted); }
+.orient-note {
+  margin-top: var(--space-5); font-size: var(--fs-meta); color: var(--muted);
+  max-width: var(--prose);
+}
+.orient-note strong { color: var(--ink-soft); font-weight: 600; }
+@media (max-width: 820px) {
+  .orient-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 540px) {
+  .orient-grid { grid-template-columns: 1fr; }
+}
+
+.site-footer { border-top: 1px solid var(--rule); padding: 32px 0 60px; }
+.site-footer__inner { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; justify-content: space-between; }
+.site-footer p { font-size: 0.85rem; color: var(--faint); }
+.site-footer nav { display: flex; gap: 1.2rem; }
+.site-footer nav a { font-size: 0.85rem; color: var(--muted); }
+
+/* ----------------------------------------------------------------------------
+   Docs shell
+---------------------------------------------------------------------------- */
+.docs-topbar {
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--page) 90%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.docs-topbar__inner {
+  display: flex; align-items: center; gap: 1rem; height: 58px;
+  width: min(1320px, calc(100% - 40px)); margin-inline: auto;
+}
+.docs-topbar .wordmark { margin-right: 0.4rem; }
+.docs-topbar__links { margin-left: auto; display: flex; gap: 1.3rem; }
+.docs-topbar__links a { color: var(--ink-soft); font-size: 0.9rem; }
+.docs-topbar__links a:hover { color: var(--accent); text-decoration: none; }
+
+.docs-menu-btn {
+  display: none; font: inherit; font-size: 0.85rem; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--rule-strong);
+  border-radius: var(--r-control); padding: 0.4rem 0.7rem; cursor: pointer; color: var(--ink);
+}
+
+.docs-layout {
+  width: min(1320px, calc(100% - 40px)); margin-inline: auto;
+  display: grid; grid-template-columns: 244px minmax(0, 1fr) 208px;
+  gap: 40px; align-items: start;
+}
+
+.docs-sidebar {
+  position: sticky; top: 58px; align-self: start;
+  height: calc(100vh - 58px); overflow-y: auto;
+  padding: 28px 8px 40px 0;
+}
+.docs-nav { display: flex; flex-direction: column; gap: 0.1rem; }
+.docs-nav__group {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--faint); margin: 1.4rem 0 0.5rem; padding-left: 0.7rem;
+}
+.docs-nav__group:first-child { margin-top: 0; }
+.docs-nav a {
+  font-size: 0.9rem; color: var(--ink-soft);
+  padding: 0.34rem 0.7rem; border-radius: 6px; border-left: 3px solid transparent;
+}
+.docs-nav a:hover { background: var(--surface-sunk); color: var(--ink); text-decoration: none; }
+.docs-nav a.is-active {
+  color: var(--accent-strong); font-weight: 600;
+  background: var(--surface-sunk); border-left-color: var(--accent);
+}
+
+.docs-main { padding: 36px 0 80px; min-width: 0; container-type: inline-size; }
+.docs-article { max-width: var(--prose); }
+.docs-eyebrow { margin-bottom: 0.7rem; }
+.docs-article h1 { font-size: clamp(1.9rem, 4vw, 2.4rem); margin-bottom: 1rem; }
+.docs-article h2 {
+  font-family: var(--font-sans); font-size: var(--fs-h2); font-weight: 600;
+  margin: 2.4rem 0 0.8rem; padding-top: 0.4rem;
+}
+.docs-article h3 { font-size: 1rem; margin: 1.6rem 0 0.5rem; }
+.docs-article p { margin: 0.9rem 0; color: var(--ink-soft); }
+.docs-article ul { margin: 0.9rem 0; padding-left: 1.2rem; color: var(--ink-soft); }
+.docs-article li::marker { color: var(--faint); }
+.docs-article li { margin: 0.4rem 0; }
+.docs-article .muted { color: var(--muted); font-size: 0.92rem; }
+
+.docs-lede { font-size: var(--fs-lede); line-height: var(--lh-snug); color: var(--ink-soft); }
+
+pre {
+  background: var(--code-bg); border: 1px solid var(--rule);
+  border-radius: 10px; padding: 1rem 1.15rem;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+  font-size: 0.85rem; line-height: 1.6; color: var(--code-ink);
+  margin: 1.1rem 0;
+}
+pre .c { color: var(--faint); } /* comment */
+
+.callout {
+  border: 1px solid var(--rule); background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md); padding: 0.9rem 1.1rem; margin: 1.3rem 0;
+  font-size: 0.92rem; color: var(--ink-soft);
+}
+
+.next-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.9rem; margin: 1.4rem 0; }
+.next-card {
+  border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.1rem; background: var(--surface);
+  color: var(--ink); display: flex; flex-direction: column; gap: 0.25rem;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.next-card:hover { text-decoration: none; color: var(--ink); border-color: var(--rule-strong); box-shadow: var(--shadow); }
+.next-card strong { font-size: 0.96rem; }
+.next-card span { font-size: 0.85rem; color: var(--muted); }
+
+/* component list on area pages */
+.comp-list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: 0; }
+.comp-list li {
+  padding: 0.7rem 0; border-top: 1px solid var(--rule);
+  display: flex; flex-direction: column; gap: 0.15rem;
+}
+.comp-list li:last-child { border-bottom: 1px solid var(--rule); }
+.comp-list .name { font-weight: 600; color: var(--ink); font-size: 0.96rem; }
+.comp-list .what { font-size: 0.88rem; color: var(--muted); }
+.comp-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.18rem; }
+/* Tags are pure taxonomy labels (never interactive): quiet wash, no border, so
+   they stop competing with evidence chips and reference links for attention. */
+.tag {
+  font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6;
+  color: var(--muted); background: var(--surface-sunk);
+  border: 0; border-radius: 999px; padding: 0.12rem 0.55rem;
+}
+.spine {
+  font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-soft);
+  background: var(--surface-sunk); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 0.85rem 1rem; overflow-x: auto; margin: 1.1rem 0; line-height: 1.8;
+}
+
+.system-map {
+  margin: 2rem 0 1.6rem; padding: 1rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+.system-map__header h2 { margin-top: 0.2rem; margin-bottom: 0.5rem; }
+.system-map__scene {
+  border: 1px solid var(--rule); background: var(--surface);
+  border-radius: 10px; padding: 1rem; margin: 1rem 0;
+}
+.system-map__spine {
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink);
+  background: var(--surface-sunk); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 0.8rem 0.9rem; overflow-x: auto;
+}
+.system-map__areas {
+  list-style: none; padding: 0; margin: 1rem 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem;
+}
+.system-map__areas li { margin: 0; }
+.system-map__areas a {
+  display: flex; flex-direction: column; gap: 0.15rem;
+  min-height: 78px; border: 1px solid var(--rule); border-radius: 8px;
+  padding: 0.75rem 0.85rem; color: var(--ink); background: var(--page);
+}
+.system-map__areas a:hover {
+  text-decoration: none; border-color: var(--rule-strong); box-shadow: var(--shadow);
+}
+.system-map__areas strong { font-size: 0.92rem; }
+.system-map__areas span { font-size: 0.8rem; color: var(--muted); }
+.system-map__receipt {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  color: var(--muted); font-size: 0.82rem;
+}
+.system-map__receipt strong,
+.system-map__receipt span {
+  border: 1px solid var(--rule); background: var(--surface-sunk);
+  border-radius: 999px; padding: 0.25rem 0.55rem;
+}
+.wire-list {
+  list-style: none; padding: 0; margin: 0.8rem 0 1rem;
+  border-top: 1px solid var(--rule);
+}
+.wire-list li {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem;
+  border-bottom: 1px solid var(--rule); padding: 0.58rem 0;
+}
+.wire-source { color: var(--ink); font-weight: 600; font-size: 0.92rem; }
+.wire-targets { color: var(--muted); font-size: 0.82rem; text-align: right; overflow-wrap: anywhere; }
+/* Enriched wire-list (Wave 35): docs.js replaces each bare "N declared links"
+   count with the component's actual declared neighbours as links to their cards,
+   and stacks the row (source heading above its wrapping target links) so the text
+   wiring index is interpretable and navigable. JS-off keeps the static flex count
+   row above (no .is-enriched class). */
+.wire-list.is-enriched li { display: block; }
+.wire-list.is-enriched .wire-source { display: inline-block; margin-bottom: 0.2rem; font-size: 0.95rem; }
+.wire-list.is-enriched .wire-targets { display: block; text-align: left; font-size: 0.85rem; line-height: 1.55; }
+.wire-list .wire-source-link { color: var(--ink); text-decoration: none; }
+.wire-list .wire-source-link:hover { color: var(--accent); }
+.wire-list .wire-target { color: var(--accent); text-decoration: none; }
+.wire-list .wire-target:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+
+/* On this page */
+.docs-toc { position: sticky; top: 58px; padding: 36px 0; font-size: 0.84rem; }
+.docs-toc__title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--faint); margin-bottom: 0.7rem;
+}
+.docs-toc a { display: block; color: var(--muted); padding: 0.25rem 0; border-left: 2px solid var(--rule); padding-left: 0.8rem; }
+.docs-toc a:hover { color: var(--accent); text-decoration: none; border-left-color: var(--accent); }
+
+.page-foot {
+  margin-top: 3rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+  display: flex; flex-wrap: wrap; gap: 1.2rem; font-size: 0.9rem;
+}
+
+/* Component filter and page export controls */
+.comp-controls {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start; gap: 0.7rem 1rem; margin: 1.4rem 0 0.4rem;
+}
+.comp-toolbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem; margin: 0; }
+.comp-toolbar__label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint);
+}
+.comp-toolbar__input {
+  flex: 1; min-width: 220px;
+  font: inherit; font-size: 0.92rem; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule-strong);
+  border-radius: var(--r-control); padding: 0.5rem 0.8rem;
+}
+.comp-toolbar__input::placeholder { color: var(--faint); }
+.comp-toolbar__status { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+.comp-actions {
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 0.55rem; min-height: 2.3rem;
+  /* Grid col 2 alongside the label+input+status stack: center-align so the copy
+     buttons sit level with the input box, not floated up by the FILTER label. */
+  align-self: center;
+}
+.page-export-btn {
+  display: inline-flex; align-items: center; gap: 0.48rem;
+  min-height: 2.18rem; max-width: 100%;
+  font: inherit; font-size: 0.84rem; font-weight: 600;
+  color: var(--page); background: var(--ink);
+  border: 1px solid var(--ink); border-radius: var(--r-control);
+  padding: 0.42rem 0.72rem; cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.page-export-btn:hover { background: var(--ink-press); border-color: var(--ink-press); transform: translateY(-1px); }
+.page-export-btn.is-copied { background: var(--accent-strong); border-color: var(--accent-strong); }
+.page-export-btn--secondary {
+  color: var(--ink); background: var(--surface);
+  border-color: var(--rule-strong);
+}
+.page-export-btn--secondary:hover { background: var(--surface-sunk); border-color: var(--accent); }
+.page-export-btn--secondary.is-copied {
+  color: var(--page); background: var(--accent-strong); border-color: var(--accent-strong);
+}
+.page-export-btn__format {
+  font-family: var(--font-mono); font-size: 0.68rem; line-height: 1;
+  color: var(--ink); background: var(--page);
+  border-radius: 4px; padding: 0.16rem 0.28rem;
+}
+.page-export-btn__label { white-space: nowrap; }
+.page-export-status { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.comp-empty { color: var(--muted); font-size: 0.92rem; margin: 1.2rem 0; }
+.comp-empty__clear {
+  font: inherit; font-size: 0.92rem; color: var(--accent);
+  background: none; border: none; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 0.18em;
+}
+.comp-empty__clear:hover { color: var(--accent-strong); }
+.comp-group__count { color: var(--faint); font-weight: 400; }
+.comp-toolbar[hidden], .comp-empty[hidden], .comp-group[hidden], .comp-item[hidden] { display: none; }
+
+/* Component drilldown cards (generated; native <details>, no JS required) */
+.comp-list--cards { display: grid; gap: 0.55rem; margin: 1rem 0; }
+.comp-card {
+  border: 1px solid var(--rule); border-radius: 10px;
+  background: var(--surface); overflow: hidden;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+/* Collapsed cards now answer the cursor like the rest of the site's cards
+   (area / next / pager all lift on hover) — a quiet border + shadow so an 82-row
+   list reads as inspectable surfaces, not flat text. No transform: a vertical
+   list shouldn't jump. */
+.comp-card:hover:not([open]) { border-color: var(--rule-strong); box-shadow: var(--shadow); }
+.comp-card[open] { border-color: var(--rule-strong); border-left: 3px solid var(--accent); box-shadow: var(--shadow); }
+.comp-card__summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  padding: 0.62rem 2.1rem 0.68rem 0.9rem; position: relative;
+}
+.comp-card__summary::-webkit-details-marker { display: none; }
+.comp-card__summary::after {
+  content: "+"; position: absolute; right: 0.9rem; top: 0.82rem; transform: none;
+  font-family: var(--font-mono); color: var(--muted); font-size: 1.05rem; line-height: 1;
+}
+.comp-card[open] .comp-card__summary::after { content: "\2212"; color: var(--accent); }
+.comp-card__summary { transition: background var(--dur) var(--ease); }
+.comp-card__summary:hover { background: var(--surface-sunk); }
+/* Scannable collapsed row: component name over a scale-complete synopsis (a full
+   sentence on its own line), evidence signal pinned to the name's row. The synopsis
+   is never a single-line clipped prefix; it wraps and is clamped at two lines only
+   as a safety net (the build's synopsis audit keeps authored text within budget). */
+.comp-card__head { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0.2rem; }
+.comp-card__summary .name { min-width: 0; overflow-wrap: anywhere; font-weight: 600; color: var(--ink); font-size: 0.96rem; line-height: 1.3; }
+.comp-card__job {
+  min-width: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.4;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+/* When a card opens, the two-line clamp releases so the full text renders inline.
+   Rules-and-ideas closed rows carry the COMPLETE statement (soft-clamped here,
+   never a hard "…"-clipped prefix); opening the card reveals all of it in place.
+   For component cards the job is a short synopsis already inside two lines, so
+   this is a visual no-op there. */
+details.comp-card[open] .comp-card__job {
+  display: block; -webkit-line-clamp: unset; overflow: visible;
+}
+.comp-card__sig { flex: none; display: flex; gap: 0.3rem; margin-top: 0.1rem; }
+.comp-chip--rank {
+  color: var(--accent-strong); border-color: var(--accent-wash);
+  background: var(--accent-wash); font-weight: 700;
+}
+.comp-card__body {
+  padding: 0 0.9rem 0.9rem; border-top: 1px solid var(--rule);
+  display: grid; gap: 0.65rem;
+}
+.comp-card__body > * { margin: 0; }
+.comp-card__what { color: var(--ink-soft); font-size: 0.92rem; padding-top: 0.8rem; overflow-wrap: anywhere; }
+.comp-card__scope {
+  font-size: 0.88rem; color: var(--muted);
+  background: var(--surface-sunk); border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px; padding: 0.55rem 0.7rem;
+}
+.comp-card__klabel {
+  font-size: 0.66rem; font-weight: 700; letter-spacing: var(--tracking-kicker); text-transform: uppercase;
+  color: var(--faint); margin-right: 0.4rem;
+}
+.comp-card__klabel--run { display: block; margin: 0 0 0.3rem; }
+.comp-card__run { font-size: 0.85rem; color: var(--muted); }
+.comp-card__cmd { margin: 0; font-size: 0.8rem; padding-right: 3rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Quiet meta footer: evidence, links, tags (receded), source */
+.comp-card__meta {
+  display: grid; gap: 0.42rem; padding-top: 0.7rem;
+  border-top: 1px dashed var(--rule);
+}
+.comp-card__meta > * { margin: 0; }
+.comp-card__evidence { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+.comp-chip {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft);
+  background: var(--surface-sunk); border: 1px solid var(--rule);
+  border-radius: 999px; padding: 0.1rem 0.55rem;
+}
+.comp-card__links, .comp-card__source { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+.comp-card__source { color: var(--faint); }
+/* Meta footer rows hang their kicker as a label column so Evidence / Links to /
+   Source scan as a keyed list instead of running into their own content. */
+.comp-card__meta .comp-card__klabel { display: inline-block; min-width: 5.6rem; }
+/* Relation feed (Explains / Governed by / Abides by / Depends on): a small label
+   column with definition-pair targets. References use link grammar, not pill
+   costumes — pills are reserved for evidence/status chips. Doctrine groups of 3+
+   (the governing principles) come from the builder as a stacked .comp-card__rel-list
+   so long rule phrases read as rules, each on its own line slot. */
+.comp-card__relfeed {
+  display: grid; grid-template-columns: 6.4rem minmax(0, 1fr);
+  gap: 0.2rem 0.6rem; align-items: baseline;
+}
+.comp-card__relfeed .comp-card__klabel { margin-right: 0; }
+.comp-card__relbody {
+  min-width: 0; display: flex; flex-wrap: wrap;
+  gap: 0.3rem 1.2rem; align-items: baseline;
+}
+.comp-card__relgroup {
+  display: inline-flex; flex-wrap: wrap; gap: 0.25rem 0.45rem;
+  align-items: baseline; min-width: 0;
+}
+.comp-card__relgroup--list { display: block; flex: 1 1 100%; }
+.comp-card__relkind {
+  color: var(--faint); font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.comp-card__rel-list {
+  list-style: none; margin: 0.2rem 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.2rem 1.4rem;
+}
+/* Reset the .comp-list li leak (flex column + row borders) for nested rel lists. */
+.comp-card__rel-list li {
+  display: block; margin: 0; border: 0;
+  padding: 0 0 0 0.85rem; position: relative; min-width: 0;
+}
+.comp-card__rel-list li::before {
+  content: ""; position: absolute; left: 0; top: 0.6em;
+  width: 0.4rem; height: 1px; background: var(--rule-strong);
+}
+.comp-card__reltarget { font-size: 0.82rem; color: var(--ink-soft); overflow-wrap: anywhere; }
+a.comp-card__reltarget {
+  color: var(--accent); text-decoration: none;
+  transition: color var(--dur) var(--ease);
+}
+a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
+  text-decoration: underline; text-underline-offset: 0.16em;
+}
+@media (max-width: 560px) {
+  .comp-card__relfeed { grid-template-columns: 1fr; gap: 0.12rem; }
+}
+.comp-card__tags-row { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+@media (max-width: 540px) { .comp-card__job { -webkit-line-clamp: 3; } }
+
+/* Paper-module full-text drawer: the third tier (scan row -> summary -> full body) */
+.pm-fulltext { border-top: 1px dashed var(--rule); padding-top: 0.6rem; }
+.pm-fulltext__toggle {
+  cursor: pointer; list-style: none;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent); padding: 0.15rem 0;
+}
+.pm-fulltext__toggle::-webkit-details-marker { display: none; }
+.pm-fulltext__toggle::before { content: "\25B8  "; }
+.pm-fulltext[open] .pm-fulltext__toggle::before { content: "\25BE  "; }
+.pm-body {
+  margin-top: 0.7rem; padding: 1rem 1.15rem 1.1rem;
+  background: var(--surface-sunk); border: 1px solid var(--rule); border-radius: 8px;
+  font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.7rem; overflow-wrap: break-word;
+}
+.pm-body > * { margin: 0; }
+/* Reading measure: clamp prose (not code, tables, or diagrams) to a comfortable
+   line length so wide cards stop producing 120+ character lines. */
+.pm-body > p, .pm-body > ul, .pm-body > ol { max-width: 74ch; }
+/* Section heads inside the module body read as document headings: a touch more
+   presence than the metadata kickers, a hairline underneath for rhythm. */
+.pm-body__h {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink-soft); margin-top: 0.6rem;
+  padding-bottom: 0.3rem; border-bottom: 1px solid var(--rule); max-width: 74ch;
+}
+.pm-body ul { margin: 0; padding-left: 1.2rem; list-style: disc; }
+/* Override .comp-list li (flex column + borders) leaking into rendered body lists. */
+.comp-card .pm-body li { display: list-item; margin: 0.3rem 0; padding: 0; border: 0; }
+.pm-body code {
+  font-family: var(--font-mono); font-size: 0.82em;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+  padding: 0.05rem 0.3rem; overflow-wrap: anywhere;
+}
+.comp-card .pm-body ol { display: block; margin: 0; padding-left: 1.4rem; list-style: decimal; }
+.pm-body pre.pm-pre {
+  margin: 0; padding: 0.6rem 0.7rem; background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 6px; font-size: 0.8rem;
+}
+.pm-body pre.pm-pre code {
+  background: none; border: 0; padding: 0; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.pm-body table.pm-table {
+  width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.82rem;
+}
+.pm-body .pm-table th, .pm-body .pm-table td {
+  border: 1px solid var(--rule); padding: 0.4rem 0.5rem;
+  text-align: left; vertical-align: top; overflow-wrap: anywhere; word-break: break-word;
+}
+.pm-body .pm-table th { background: var(--surface); font-weight: 600; color: var(--ink-soft); }
+/* Reader information architecture: the body renders substance and the validation
+   route first, then a single grouped "what this does not prove" block, then a
+   collapsed provenance drawer -- so contract boilerplate no longer wedges between
+   the explanation and the runnable command. */
+.pm-body__h--sub {
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink-soft); margin-top: 0.5rem; max-width: 74ch; opacity: 0.85;
+}
+.pm-body__boundary {
+  display: grid; gap: 0.6rem; margin-top: 0.4rem;
+  padding: 0.8rem 0.95rem; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+}
+.pm-body__boundary > * { margin: 0; max-width: 74ch; }
+.pm-body__boundary-h { border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; }
+.pm-body__provenance {
+  margin-top: 0.2rem; border: 1px solid var(--rule); border-radius: 8px;
+  background: var(--surface-sunk); font-size: 0.86rem;
+}
+.pm-body__provenance > summary {
+  cursor: pointer; padding: 0.55rem 0.9rem; list-style: none;
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft);
+}
+.pm-body__provenance[open] > summary { border-bottom: 1px solid var(--rule); }
+.pm-body__provenance > :not(summary) { margin: 0.5rem 0.95rem; max-width: 74ch; }
+/* Mermaid "Shape" flowcharts: rendered to deterministic build-time SVG (same as
+   the system map), with the raw source kept in a <details> fallback. Token-driven
+   so it tracks the light/dark/high-contrast themes; width:100% keeps wide LR
+   diagrams inside the column (no page-level horizontal scroll, Wave 6 contract). */
+/* Diagrams render at natural size so node text stays legible; the figure scrolls
+   horizontally within its own column for wide LR graphs (contained — never a
+   page-level horizontal scroll). Scaling a 6000px LR chain down to fit would make
+   the text unreadable, which is worse than the raw source it replaces. */
+.pm-diagram { margin: 0; max-width: 100%; overflow-x: auto; }
+.pm-diagram__svg {
+  display: block; box-sizing: content-box;
+  background: var(--surface-sunk); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 8px;
+}
+.pmd-node { fill: var(--surface); stroke: var(--rule-strong); stroke-width: 1.5; }
+.pmd-label { fill: var(--ink); font-size: 12.5px; font-family: inherit; font-weight: 500; }
+.pmd-edge { stroke: var(--muted); stroke-width: 1.45; fill: none; }
+.pmd-arrow { fill: var(--muted); }
+.pmd-elabel-bg { fill: var(--surface-sunk); }
+.pmd-elabel { fill: var(--ink-soft); font-size: 10.5px; font-family: inherit; }
+/* Source refs: the locators demoted out of the node labels. Kept one glance
+   below the diagram as a calm keyed list — exact paths stay available and wrap
+   inside their column, so they never reintroduce the horizontal scroll. */
+.pm-diagram__refs { margin-top: 0.6rem; }
+.pm-diagram__refs-title {
+  margin: 0 0 0.3rem; text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 0.68rem; font-weight: 600; color: var(--muted);
+}
+.pm-diagram__refs-list { margin: 0; display: grid; gap: 0.3rem 0; }
+.pm-diagram__ref {
+  display: grid; grid-template-columns: minmax(6.5rem, 12rem) 1fr;
+  gap: 0.2rem 0.8rem; align-items: baseline;
+}
+.pm-diagram__ref dt {
+  margin: 0; color: var(--ink-soft); font-weight: 600; font-size: 0.8rem;
+}
+.pm-diagram__ref dd {
+  margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; min-width: 0;
+}
+.pm-diagram__ref-loc {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  background: var(--code-bg); color: var(--code-ink);
+  border-radius: var(--r-xs); padding: 0.05rem 0.32rem;
+  overflow-wrap: anywhere; word-break: break-word; line-height: 1.5;
+}
+@media (max-width: 560px) {
+  .pm-diagram__ref { grid-template-columns: 1fr; gap: 0.1rem; }
+}
+.pm-diagram__source { margin-top: 0.5rem; }
+.pm-diagram__source summary {
+  cursor: pointer; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.01em;
+}
+.pm-diagram__source[open] summary { margin-bottom: 0.35rem; }
+@supports (width: 100cqw) {
+  @media (min-width: 920px) {
+    /* Reader-stage objects stay anchored in article flow but spend the whole
+       docs-main column. Prose remains clamped to --prose. */
+    .docs-article .reader-stage__item {
+      box-sizing: border-box;
+      width: min(100cqw, var(--reader-stage-max));
+      max-width: none;
+    }
+    /* A reader-stage body nested inside a component card must fill the CARD column,
+       not the docs-main column width (100cqw). Without this the nested .pm-body is
+       sized to the whole column -- wider than the card -- so every line (prose
+       included, not just long code spans) overflows and is clipped at the card's
+       right edge. Let the card grid size it instead. */
+    .docs-article .comp-card__pm-body .reader-stage__item {
+      width: auto;
+      max-width: 100%;
+    }
+  }
+}
+/* Keep wide body content (tables, fenced commands) inside the card column so it
+   reflows instead of forcing page-level horizontal scroll (Wave 6 contract).
+   Grid/flex items default to min-width:auto and refuse to shrink below their
+   content; min-width:0 down the chain lets the column constrain them. */
+.comp-list { grid-template-columns: minmax(0, 1fr); }
+.comp-card, .comp-card__body, .comp-card__body > *, .pm-fulltext, .pm-body, .pm-body > *,
+.comp-card__pm, .comp-card__pm-body, .comp-card__pm-body > * { min-width: 0; }
+
+/* Paper-module section on a component card: the idea renders flat and in place --
+   a small "Paper module" head, the relation feed, then the module's full body and
+   Shape diagram -- as the card's deepest layer. No nested <details>, no capsule,
+   no "read the full module" bounce: opening the card shows the real module. */
+.comp-card__pm { margin-top: 0.45rem; padding-top: 0.7rem; border-top: 1px solid var(--rule); }
+/* Reading header: the kicker sits above its title like a document masthead,
+   not inline beside it as one more metadata sentence. */
+.comp-card__pm-head {
+  display: flex; flex-direction: column; gap: 0.12rem;
+  font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 0.55rem;
+}
+.comp-card__pm-title { font-weight: 600; color: var(--ink); font-size: 1rem; overflow-wrap: anywhere; }
+/* Inset sheet, not box-in-box-in-box: the card already owns the container, so the
+   module marks its depth with one accent rail and breathing room — no third frame. */
+.comp-card__pm-body {
+  margin-top: 0.4rem; padding: 0.15rem 0 0.15rem 0.95rem;
+  border-left: 2px solid var(--accent);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.6rem;
+}
+.comp-card__pm-body > * { margin: 0; }
+/* The inline module body flows as continuous content inside the paper-module
+   inset -- not a nested sunk box-in-a-box. Drop its own frame; keep its rhythm. */
+.comp-card__pm-body .pm-body {
+  margin-top: 0.1rem; padding: 0; background: none; border: 0; border-radius: 0;
+}
+.comp-card__pm-body .comp-card__what { padding-top: 0; }
+.comp-card__pm-thesis { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
+.comp-card__pm-more { font-size: 0.84rem; padding-top: 0.1rem; }
+.comp-card__pm-full { font-weight: 600; }
+
+/* Field-guide roster: generated middle-layer rows over the content graph.
+   The label and one-line own the row; ids, source, quality, and links recede. */
+.roster-status { margin-top: 1rem; }
+.roster-section { margin-top: 1.8rem; }
+.roster-group { margin-top: 1.15rem; }
+.roster-list {
+  display: grid; gap: 0;
+  border: 1px solid var(--rule); border-radius: 10px; overflow: hidden;
+  background: var(--surface);
+}
+.roster-row {
+  display: grid; grid-template-columns: minmax(7rem, 10rem) minmax(0, 1fr);
+  gap: 0.75rem; padding: 0.72rem 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+.roster-row:first-child { border-top: 0; }
+.roster-row:hover { background: var(--surface-sunk); }
+.roster-row__signals {
+  min-width: 0; display: flex; flex-wrap: wrap; align-content: start;
+  align-items: center; gap: 0.28rem; padding-top: 0.12rem;
+}
+/* Nested grid needs an explicit constrained column, like .comp-list: without it
+   the single auto track grows to a child's min-content (e.g. a long formal token
+   in __one), overflowing the row. minmax(0,1fr) caps it so children wrap. */
+.roster-row__body { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.24rem; }
+.roster-row__label {
+  display: inline-block; width: fit-content; max-width: 100%;
+  color: var(--ink); font-size: 0.96rem; font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.roster-row__label:hover { color: var(--accent); text-decoration-thickness: 0.08em; }
+.roster-row__one {
+  margin: 0; color: var(--ink-soft); font-size: 0.9rem; line-height: var(--lh-snug);
+  overflow-wrap: break-word;
+}
+.roster-row__meta {
+  margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.28rem 0.55rem;
+  color: var(--faint); font-size: 0.78rem;
+}
+.roster-row__meta code {
+  max-width: 100%; color: var(--faint); font-size: 0.9em;
+  white-space: normal; overflow-wrap: anywhere; word-break: break-word;
+}
+.roster-row__source, .roster-row__quality { color: var(--muted); }
+.roster-row--quality-fail .roster-row__quality { color: var(--accent-strong); }
+.roster-row--quality-warn .roster-row__quality { color: var(--muted); }
+.roster-row__edges {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.45rem;
+  color: var(--muted); font-size: 0.8rem;
+}
+.roster-row__edges a {
+  color: var(--ink-soft); background: var(--surface-sunk);
+  border: 1px solid var(--rule); border-radius: 999px;
+  padding: 0.04rem 0.45rem; text-decoration: none;
+  max-width: 100%; overflow-wrap: anywhere;
+}
+.roster-row__edges a:hover { color: var(--accent); border-color: var(--accent); }
+.roster-row__more { color: var(--faint); }
+
+@media (max-width: 700px) {
+  .roster-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.38rem; padding: 0.78rem 0.82rem;
+  }
+  .roster-row__signals { order: 0; }
+  .roster-row__body { order: 1; }
+  .roster-row__label { display: block; width: 100%; }
+  .roster-row__one { font-size: 0.92rem; }
+  .roster-row__meta { gap: 0.22rem 0.48rem; }
+  .roster-row__edges { padding-top: 0.1rem; }
+}
+
+/* Heavy generated docs surfaces are mostly long lists and source-bound artifact
+   blocks. Let the browser skip layout/paint for offscreen bodies while keeping
+   a stable intrinsic size so scrolling through the corpus does not lurch.
+   The architecture map (.system-map__graph) is deliberately NOT deferred: it is
+   the landing target of the primary "Open the system map" CTA, so it must paint
+   immediately with no anchor-jump. Intrinsic sizes are tuned close to real
+   rendered heights so jump-to-anchor lands accurately. */
+@supports (content-visibility: auto) {
+  .docs-article > section,
+  .wire-list,
+  .comp-list--cards,
+  .rule-group,
+  .auth-class {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 640px;
+  }
+
+  /* Compact text-fallback scene box — reserve closer to its true height. */
+  .system-map__scene {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
+  }
+
+  .comp-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 88px;
+  }
+
+  .comp-card[open] {
+    contain-intrinsic-size: auto 360px;
+  }
+}
+
+/* Evidence / authority-map exhibit (the Evaluate surface) */
+.auth-ranks { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.6rem; }
+.auth-class { margin: 1.7rem 0; }
+.auth-class h2 { margin-bottom: 0.3rem; }
+.auth-members { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+.auth-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; padding: 0.25rem 0.55rem;
+  background: var(--surface-sunk); border: 1px solid var(--rule); border-radius: 6px;
+  color: var(--ink-soft); text-decoration: none; overflow-wrap: anywhere;
+}
+.auth-chip:hover { border-color: var(--accent); color: var(--ink); }
+/* The chip sets overflow-wrap:anywhere for the long component name; keep the tiny
+   rank token (e.g. "3/5") atomic so it never breaks into "3/" + "5" when the name
+   wraps to two lines. */
+.auth-chip__rank { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--accent-strong); white-space: nowrap; flex: none; }
+
+/* On-this-page active section (scrollspy, set by docs.js) */
+.docs-toc a.is-current {
+  color: var(--accent); font-weight: 600;
+  border-left-color: var(--accent);
+}
+
+/* Copy button on code blocks (added by docs.js) */
+pre { position: relative; }
+.copy-btn {
+  position: absolute; top: 0.5rem; right: 0.5rem;
+  font: inherit; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500;
+  color: var(--ink-soft); background: var(--surface);
+  border: 1px solid var(--rule-strong); border-radius: 6px;
+  padding: 0.2rem 0.55rem; cursor: pointer; opacity: 0.55;
+  transition: opacity var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+pre:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
+.copy-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
+.copy-btn.is-copied { color: var(--accent-strong); border-color: var(--accent); opacity: 1; }
+/* Touch / coarse-pointer devices can't hover to reveal the button — keep it legible. */
+@media (hover: none) { .copy-btn { opacity: 1; } }
+/* Coarse-pointer hit area: top/footer/docs-topbar nav are bare inline anchors;
+   grow the touch box toward ~44px on touch without changing desktop visuals. */
+@media (hover: none) {
+  .site-header nav a, .docs-topbar__links a, .site-footer nav a {
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+}
+.copy-proxy { position: absolute; left: -9999px; top: 0; opacity: 0; }
+
+/* Prev / next pager */
+.docs-pager {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  margin-top: 2.6rem; padding-top: 1.6rem; border-top: 1px solid var(--rule);
+}
+.docs-pager__link {
+  flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; gap: 0.2rem;
+  border: 1px solid var(--rule); border-radius: 10px;
+  padding: 0.85rem 1.05rem; background: var(--surface); color: var(--ink);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.docs-pager__link:hover { text-decoration: none; color: var(--ink); border-color: var(--rule-strong); box-shadow: var(--shadow); }
+.docs-pager__link--next { text-align: right; align-items: flex-end; }
+.docs-pager__link--empty { visibility: hidden; border: none; background: none; box-shadow: none; }
+.docs-pager__dir { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.docs-pager__title { font-size: 0.98rem; font-weight: 600; color: var(--accent); }
+.docs-pager__link:hover .docs-pager__title { color: var(--accent-strong); }
+
+/* ----------------------------------------------------------------------------
+   Responsive
+---------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .docs-layout { grid-template-columns: 230px minmax(0, 1fr); }
+  .docs-toc { display: none; }
+}
+@media (max-width: 820px) {
+  .area-grid, .video-grid { grid-template-columns: 1fr; }
+  .system-map__areas { grid-template-columns: 1fr; }
+  .hero__grid { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 768px) {
+  .docs-menu-btn { display: inline-flex; }
+  .docs-layout { grid-template-columns: minmax(0, 1fr); }
+  .docs-sidebar {
+    position: fixed; left: 0; top: 58px; z-index: 35;
+    width: 280px; max-width: 86vw; height: calc(100vh - 58px);
+    background: var(--page); border-right: 1px solid var(--rule);
+    padding: 20px 16px 40px; box-shadow: var(--shadow);
+    transform: translateX(-102%); visibility: hidden;
+    transition: transform .2s ease, visibility 0s linear .2s;
+  }
+  /* Lock background scroll while the drawer is open, matching body.cmdk-open. */
+  body.nav-open { overflow: hidden; }
+  body.nav-open .docs-sidebar { transform: translateX(0); visibility: visible; transition: transform .2s ease, visibility 0s; }
+  body.nav-open::after {
+    content: ""; position: fixed; inset: 58px 0 0 0; background: var(--scrim); z-index: 34;
+  }
+  .docs-main { padding-top: 26px; }
+}
+@media (max-width: 540px) {
+  .site-header nav { gap: 1rem; }
+  .hero { padding: 56px 0 44px; }
+  .docs-pager__link { flex-basis: 100%; }
+  .comp-controls { grid-template-columns: 1fr; }
+  .comp-actions { justify-content: flex-start; flex-wrap: wrap; }
+  .comp-toolbar__status { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Print — a clean, self-contained paper document.
+   Drop interactive chrome (sticky bars, search, palette, copy buttons, focus
+   rails), collapse the docs grid to one readable column, render on white with
+   black ink, expose prose link targets, and keep cards/headings from breaking
+   across pages.
+---------------------------------------------------------------------------- */
+@media print {
+  :root {
+    --page: #ffffff; --surface: #ffffff; --surface-sunk: #ffffff;
+    --ink: #000000; --ink-soft: #1a1a1a; --muted: #333333; --faint: #444444;
+    --rule: #cccccc; --rule-strong: #999999;
+    --edge: #808080;
+    --accent: #1a1a1a; --accent-strong: #000000;
+    --shadow: none; --shadow-pop: none;
+    color-scheme: light;
+  }
+  html { scroll-padding-top: 0; }
+  body {
+    background: #fff; color: #000;
+    font-size: 11pt; line-height: 1.5;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  /* Remove interactive / decorative chrome that has no meaning on paper. */
+  .site-header, .docs-topbar, .docs-search-btn, .docs-menu-btn,
+  .cmdk, .copy-btn, .page-export-btn, .page-export-status,
+  [data-site-export], [data-site-download],
+  .comp-actions, .gfocus, .gpanel, .skip-link,
+  .docs-toc, .docs-pager, .site-footer nav, .video-card__frame { display: none !important; }
+
+  /* Static, single-column flow. */
+  .site-header, .docs-topbar { position: static; }
+  .docs-layout, .docs-layout--wide { display: block; width: auto; }
+  .docs-sidebar {
+    position: static; height: auto; overflow: visible;
+    border: 0; padding: 0; margin: 0 0 1.5rem;
+  }
+  .docs-nav { display: block; columns: 2; gap: 1.5rem; }
+  .docs-nav a { border-left: 0; padding-left: 0; color: #000; }
+  .docs-nav a.is-active { background: none; font-weight: 700; }
+  .wrap, .docs-main, .docs-article { width: auto; max-width: 100%; margin: 0; padding: 0; }
+
+  /* Let every collapsible body print open. */
+  details, .comp-card, .pm-fulltext, .comp-card__pm { display: block !important; }
+  .comp-card__body, .pm-body, .comp-card__pm-body { display: block !important; }
+  .comp-card__summary::after, .pm-fulltext__toggle::before,
+  .comp-card__pm-toggle::before { content: "" !important; }
+
+  /* Borders read as hairlines; backgrounds drop to white. */
+  pre, .callout, .comp-card, .next-card, .area-card, .spine, .system-map__scene,
+  .system-map__spine, .status-grid, .auth-chip, .comp-chip, .tag, .verify-strip,
+  .hero__start, .system-map__graph, .gscroll, .orient-card {
+    background: #fff !important; box-shadow: none !important;
+    border: 1px solid #ccc; break-inside: avoid;
+  }
+  pre, code, .comp-card__cmd { color: #000; }
+
+  /* Expose link targets for prose links so the page is self-contained. */
+  .docs-article p a[href^="http"]::after,
+  .obj-coverage p a[href^="http"]::after {
+    content: " (" attr(href) ")"; font-size: 0.85em; color: #555; word-break: break-all;
+  }
+  a { color: #000; text-decoration: underline; }
+
+  /* Pagination discipline. */
+  h1, h2, h3, h4 { break-after: avoid; }
+  .docs-article h2, .docs-article h3, .auth-class, .system-map { break-before: auto; }
+  p, li { orphans: 3; widows: 3; }
+  .content-visibility-auto, .docs-article > section, .comp-card,
+  .comp-list--cards, .rule-group, .auth-class, .wire-list, .system-map__scene {
+    content-visibility: visible !important; /* never hide content from print */
+  }
+
+  /* Defensive: never attempt a backdrop blur on the print compositor. */
+  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+  /* Architecture map carries the live salience/isolate LOD classes into print.
+     Re-show component labels and neutralize hover/isolate dimming so the printed
+     map is a labeled, fully-connected figure rather than unlabeled faint dots. */
+  .system-map__graph .gnode__label,
+  .system-map__graph.has-salience .gnode--component .gnode__label,
+  .system-map__graph.has-salience .gnode--wired_component .gnode__label { opacity: 1 !important; }
+  .system-map__graph .gnode.is-dim, .system-map__graph .gedge.is-dim,
+  .system-map__graph .gedge, .system-map__graph .gedge--bridge { opacity: 1 !important; }
+
+  /* Content the screen reveals on hover should always show on paper. */
+  .copy-proxy { display: none !important; }
+}
+
+/* ── Search trigger in the docs topbar ─────────────────────────────────── */
+.docs-search-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-left: auto;
+  padding: 0.32rem 0.7rem;
+  background: var(--surface); color: var(--muted);
+  border: 1px solid var(--rule-strong); border-radius: var(--r-control);
+  font: inherit; font-size: 0.84rem; cursor: pointer;
+}
+.docs-search-btn:hover { color: var(--ink); border-color: var(--accent); }
+.docs-search-btn__kbd {
+  font-family: var(--font-mono); font-size: 0.74rem; line-height: 1;
+  padding: 0.12rem 0.4rem; color: var(--faint);
+  background: var(--surface-sunk); border: 1px solid var(--rule); border-radius: 4px;
+}
+.docs-topbar__links + .docs-search-btn, .docs-search-btn + .docs-topbar__links { margin-left: 0.5rem; }
+/* On phones the topbar can't fit Menu + wordmark + Search + secondary nav;
+   drop the secondary links (GitHub/Contact are linked throughout the content). */
+@media (max-width: 600px) { .docs-topbar__links { display: none; } }
+
+/* ── Command palette ───────────────────────────────────────────────────── */
+body.cmdk-open { overflow: hidden; }
+.cmdk { position: fixed; inset: 0; z-index: 60; display: grid; place-items: start center; }
+.cmdk[hidden] { display: none; }
+@keyframes cmdk-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cmdk-panel-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.cmdk__backdrop { position: absolute; inset: 0; background: var(--scrim); animation: cmdk-backdrop-in var(--dur-fast) var(--ease); }
+.cmdk__panel {
+  position: relative; margin-top: 9vh; width: min(620px, 92vw);
+  background: var(--surface); border: 1px solid var(--rule-strong); border-radius: 12px;
+  box-shadow: var(--shadow-pop); overflow: hidden;
+  display: flex; flex-direction: column; max-height: calc(100dvh - 18vh);
+  animation: cmdk-panel-in var(--dur) var(--ease);
+}
+.cmdk__head { display: flex; flex: none; align-items: center; gap: 0.5rem; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--rule); }
+.cmdk__input {
+  flex: 1; border: 0; background: transparent; color: var(--ink);
+  font: inherit; font-size: 1.02rem; padding: 0.4rem 0.5rem;
+}
+.cmdk__input:focus { outline: none; }
+.cmdk__close {
+  font: inherit; font-size: 0.74rem; color: var(--faint); cursor: pointer;
+  background: var(--surface-sunk); border: 1px solid var(--rule); border-radius: 5px; padding: 0.2rem 0.45rem;
+  display: inline-flex; align-items: center; min-height: 24px;
+}
+.cmdk__results { list-style: none; margin: 0; padding: 0.3rem; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.cmdk__item {
+  display: grid; grid-template-columns: 5.4rem 1fr; align-items: baseline; gap: 0.1rem 0.7rem;
+  padding: 0.5rem 0.6rem; border-left: 2px solid transparent; border-radius: 8px; cursor: pointer;
+}
+.cmdk__item.is-active { background: var(--surface-sunk); border-left-color: var(--accent); }
+.cmdk__item.is-active .cmdk__label { color: var(--accent-strong); }
+.cmdk__kind {
+  grid-row: span 2; align-self: center;
+  font-size: 0.64rem; letter-spacing: var(--tracking-kicker); text-transform: uppercase; color: var(--faint);
+}
+.cmdk__label { color: var(--ink); font-weight: 600; }
+.cmdk__rank {
+  display: inline-block; margin-left: 0.45rem; vertical-align: baseline;
+  font-size: 0.7rem; font-weight: 600; color: var(--accent-strong);
+  background: var(--accent-wash); border: 1px solid var(--rule);
+  border-radius: 999px; padding: 0 0.4rem;
+}
+.cmdk__meta { grid-column: 2; color: var(--muted); font-size: 0.84rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmdk__actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.3rem 0.4rem; margin-top: 0.25rem; }
+.cmdk__action { font-family: inherit; font-size: 0.72rem; font-weight: 600; padding: 0.1rem 0.55rem; border: 1px solid var(--rule); border-radius: 999px; color: var(--accent); text-decoration: none; background: var(--surface); cursor: pointer; display: inline-flex; align-items: center; min-height: 24px; }
+.cmdk__action:hover { border-color: var(--accent); }
+.cmdk__item.is-active .cmdk__action { border-color: var(--accent); }
+.cmdk__empty { padding: 1.4rem 1rem; color: var(--muted); text-align: center; }
+.cmdk__foot {
+  display: flex; justify-content: space-between; gap: 1rem;
+  flex: none;
+  padding: 0.45rem 0.7rem; border-top: 1px solid var(--rule);
+  color: var(--muted); font-size: 0.74rem;
+}
+.cmdk__hint { font-family: var(--font-mono); }
+
+/* ── Architecture map (interactive SVG) ────────────────────────────────── */
+.system-map__graph { margin: 1.4rem 0 0.4rem; contain: layout paint style; }
+.system-map__graphcap { margin: 0 0 0.7rem; color: var(--muted); font-size: 0.92rem; max-width: var(--prose); }
+.gfocus { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.7rem; }
+.gfocus__btn {
+  font: inherit; font-size: 0.8rem; cursor: pointer;
+  padding: 0.28rem 0.66rem; color: var(--ink-soft);
+  background: var(--surface); border: 1px solid var(--rule-strong); border-radius: 999px;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.gfocus__btn:hover { border-color: var(--accent); color: var(--ink); }
+.gfocus__btn.is-active { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.gscroll {
+  overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--rule); border-radius: 12px; background: var(--surface);
+}
+.gsvg { display: block; width: 100%; min-width: 0; height: auto; }
+
+.gcluster__box { fill: var(--surface-sunk); stroke: var(--rule-strong); stroke-width: 1; }
+.gcluster__label { fill: var(--ink-soft); font-family: var(--font-sans); font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
+.gcluster__count { fill: var(--muted); font-weight: 700; }
+
+.gedge { stroke: var(--edge); stroke-width: 1.2; }
+/* Token-driven so the salience tiers re-point in dark/print: the dashed binds
+   edge is the quietest tier (--rule), the untyped declared dependency tracks the
+   generic edge base (--rule-strong). Hardcoded greys here inverted in dark. */
+.gedge--binds_to_shared_path { stroke: var(--rule); stroke-dasharray: 3 3; }
+.gedge--spine_sequence { stroke: var(--accent); stroke-width: 1.6; }
+.gedge--declared_dependency_untyped { stroke: var(--edge); }
+
+/* Nodes are role="button" (click pins, double-click opens the card), so they
+   answer the cursor like every other interactive control on the site. */
+.gnode { cursor: pointer; }
+.gnode .gnode__dot { stroke: var(--surface); stroke-width: 1.5; transition: r .12s ease; }
+.gnode__hithalo { fill: transparent; }
+/* Three node tokens separated by shape/fill, not hue alone, so the map holds at
+   small size and under colour-vision differences: area = filled disc (a place),
+   shared-path primitive = filled disc in the path hue, component = hollow
+   ring (a part). The hollow fill matches the card so it reads as an open circle
+   while still occluding the lines that pass beneath it. */
+.gnode--area .gnode__dot { fill: var(--accent); }
+.gnode--shared_spine .gnode__dot, .gnode--spine_step .gnode__dot { fill: var(--muted); }
+.gnode--component .gnode__dot,
+.gnode--wired_component .gnode__dot { fill: var(--surface-sunk); stroke: var(--accent-strong); stroke-width: 2; }
+.gnode__label {
+  fill: var(--ink-soft); font-family: var(--font-sans); font-size: 13px; pointer-events: none;
+  paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+}
+.gnode__hit { cursor: pointer; }
+  /* Scoped to areas: the component token owns its ring (above), so a generic
+   hit stroke must not repaint the hollow components solid-edged. */
+.gnode--area .gnode__hit .gnode__dot { stroke: var(--accent); }
+
+.system-map__graph.is-isolating .gnode.is-dim { opacity: 0.18; }
+.system-map__graph.is-isolating .gedge.is-dim { opacity: 0.07; }
+.gnode.is-active .gnode__dot { stroke: var(--accent-strong); stroke-width: 2.5; }
+.gnode.is-active .gnode__label, .gnode.is-neighbour .gnode__label { fill: var(--ink); font-weight: 600; }
+.gedge.is-active { stroke: var(--accent-strong); stroke-width: 2; }
+
+/* ── Whole-map salience grammar (enabled by docs.js via .has-salience) ──────
+   Resting view, three tiers, so the cards read before the wiring: the shared
+   path stays full-strength, within-card links are legible-but-calm, cross-card
+   "bridge" links recede to a quiet background. The moment a node is hovered,
+   focused, or selected the figure gains .is-isolating and the is-active / is-dim
+   rules above take over — revealing that node's full fan at full weight. */
+.system-map__graph.has-salience:not(.is-isolating) .gedge--bridge { opacity: 0.16; }
+.system-map__graph.has-salience:not(.is-isolating) .gedge--local.gedge--declared_dependency_untyped { opacity: 0.5; }
+
+/* Label ladder. At overview only the structural labels show — the card titles
+   (cluster labels), the seven areas, the ten shared-path primitives, and the
+   promoted hubs. Routine component names are held back until a node is hovered,
+   focused, or selected, so the labels stop colliding. Full names remain in each
+   node's <title>, the inspector panel, and the text list below the map. */
+.system-map__graph.has-salience .gnode--component .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component .gnode__label { opacity: 0; }
+.system-map__graph.has-salience .gnode--component.is-hub .gnode__label,
+.system-map__graph.has-salience .gnode--component.is-active .gnode__label,
+.system-map__graph.has-salience .gnode--component.is-neighbour .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component.is-hub .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component.is-active .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component.is-neighbour .gnode__label { opacity: 1; }
+
+/* Hub promotion: a faint outer ring on the otherwise-invisible hit halo, a
+   firmer dot edge, and a persistent heavier label — so the handful of true
+   connectors read as connectors without enlarging every node. */
+.system-map__graph.has-salience .gnode.is-hub .gnode__hithalo { stroke: var(--accent); stroke-width: 1.4; opacity: 0.4; }
+.system-map__graph.has-salience .gnode.is-hub .gnode__dot { stroke-width: 2.4; }
+.system-map__graph.has-salience .gnode.is-hub .gnode__label { font-weight: 700; }
+
+/* A selected/hovered component fills in (hollow → solid) on top of its thicker
+   ring, so the pinned node is unmistakable among its hollow neighbours. */
+.system-map__graph.has-salience .gnode--component.is-active .gnode__dot,
+.system-map__graph.has-salience .gnode--wired_component.is-active .gnode__dot { fill: var(--accent); }
+
+/* Selected-node inspector (built at runtime by docs.js from the SVG nodes).
+   Lives inside .system-map__graph, so it follows the same phone hide rule and
+   the reflowing scene list below remains the small-screen fallback. */
+.gpanel { margin: 0.9rem 0 0.2rem; padding: 0.85rem 1rem; max-width: var(--prose); border: 1px solid var(--rule-strong); border-radius: 12px; background: var(--surface-sunk); }
+.gpanel.is-pinned { border-color: var(--accent); }
+.gpanel__hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.gpanel__head { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+.gpanel__kind { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.gpanel__pin { font: inherit; font-size: 0.8rem; padding: 0.2rem 0.7rem; border: 1px solid var(--rule-strong); border-radius: 999px; background: var(--surface); color: var(--ink); cursor: pointer; }
+.gpanel__pin:hover { border-color: var(--accent); color: var(--accent); }
+.gpanel.is-pinned .gpanel__pin { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.gpanel__title { margin: 0.3rem 0 0.1rem; font-size: 1.05rem; overflow-wrap: anywhere; }
+.gpanel__where { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.85rem; }
+/* Reader detail surfaced from the public object map (Wave: map inspector reads
+   the backplane): the evidence rank as an accent pill (matching .comp-chip--rank),
+   the validator kind and a quiet runs-real-tools pill, then the honest ceiling. */
+.gpanel__evidence { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0 0 0.5rem; }
+.gpanel__rank { font-size: 0.74rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 999px; color: var(--accent-strong); border: 1px solid var(--accent-wash); background: var(--accent-wash); }
+.gpanel__evkind { font-size: 0.74rem; padding: 0.1rem 0.5rem; border-radius: 999px; color: var(--ink-soft); border: 1px solid var(--rule); background: var(--surface); }
+.gpanel__evtool { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.12rem 0.5rem; border-radius: 999px; color: var(--muted); border: 1px solid var(--rule); }
+.gpanel__job { margin: 0 0 0.55rem; font-size: 0.86rem; color: var(--ink-soft); line-height: 1.45; }
+.gpanel__ceiling { margin: 0 0 0.55rem; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.45; }
+.gpanel__links-label { margin: 0.3rem 0 0.35rem; font-size: 0.82rem; color: var(--muted); }
+.gpanel__links { list-style: none; margin: 0 0 0.4rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.gpanel__links li { margin: 0; }
+.gpanel__nbr { font: inherit; font-size: 0.82rem; padding: 0.18rem 0.6rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); color: var(--ink); cursor: pointer; overflow-wrap: anywhere; text-align: left; }
+.gpanel__nbr:hover { border-color: var(--accent); color: var(--accent); }
+.gpanel__note { margin: 0.4rem 0 0.6rem; font-size: 0.78rem; color: var(--muted); }
+.gpanel__actions { display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: center; }
+.gpanel__open { font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.gpanel__open:hover { text-decoration: underline; }
+.gpanel__share { font: inherit; font-size: 0.82rem; padding: 0.2rem 0.7rem; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--surface); color: var(--ink); cursor: pointer; }
+.gpanel__share:hover { border-color: var(--accent); color: var(--accent); }
+.gpanel__act { font: inherit; font-size: 0.78rem; font-weight: 600; padding: 0.18rem 0.6rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); color: var(--accent); text-decoration: none; cursor: pointer; }
+.gpanel__act:hover { border-color: var(--accent); }
+.gpanel__pin, .gpanel__nbr, .gpanel__share, .gpanel__act { transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.gpanel__pin, .gpanel__nbr, .gpanel__share, .gpanel__act { display: inline-flex; align-items: center; min-height: 24px; }
+
+/* ── Docked topology workbench (Wave 33: enabled by docs.js via .is-docked) ──
+   At desktop width the figure becomes a grid: a top band (caption, focus pills,
+   legend) spans both columns; the lower row places the scrollable graph and the
+   selected-node inspector SIDE BY SIDE, so the active node, its fan, and the
+   inspector heading are co-visible in one viewport. Keyed off the data-dock roles
+   docs.js stamps onto the EXISTING direct children — no DOM re-parenting — so with
+   JS off this whole block is inert and the figure is the unchanged stacked flow.
+   minmax(0,1fr) on the graph column is the no-horizontal-scroll guarantee for the
+   PAGE: the track may shrink, and the over-wide SVG is absorbed by .gscroll's own
+   overflow-x. The SVG itself KEEPS its intrinsic scale in the dock (min-width
+   below) and scrolls inside the bordered box, instead of shrinking to an illegible
+   thumbnail — that scrolling is what the keyboard-scroll affordance is for. */
+@media (min-width: 981px) {
+  .system-map__graph.is-docked {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(20rem, 27vw, 24rem);
+    grid-template-areas:
+      "cap    cap"
+      "focus  focus"
+      "legend legend"
+      "scroll panel";
+    column-gap: 1rem;
+    align-items: start;
+  }
+  .system-map__graph.is-docked > [data-dock="cap"]    { grid-area: cap; }
+  .system-map__graph.is-docked > [data-dock="focus"]  { grid-area: focus; }
+  .system-map__graph.is-docked > [data-dock="legend"] { grid-area: legend; }
+  .system-map__graph.is-docked > [data-dock="scroll"] {
+    grid-area: scroll; min-width: 0;
+    /* Fit-scroll: the graph column grows with the page and the SVG below scales to
+       fill it, so widening the window reveals MORE of the map until the whole thing
+       is on screen -- not an empty gutter beside a fixed-scale thumbnail. The cap is
+       generous so the full map shows; the inspector beside it is sticky, so it stays
+       co-visible without forcing the map down to a thumbnail. */
+    max-height: min(88vh, 1180px); overflow: auto; overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  /* Scale the map to fill the column (whole map visible, growing with the window);
+     only the legibility floor (--map-fit-floor) forces horizontal scroll, on tracks
+     too narrow to read the map at full size. */
+  .system-map__graph.is-docked > [data-dock="scroll"] .gsvg {
+    width: 100%; min-width: var(--map-fit-floor, 680px); height: auto; max-height: none;
+  }
+  .system-map__graph.is-docked > [data-dock="scroll"]:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: -2px;
+  }
+  .system-map__graph.is-docked > [data-dock="panel"] {
+    grid-area: panel; min-width: 0;
+    margin: 0;            /* override .gpanel margin */
+    max-width: none;      /* fill the dock column, not var(--prose) */
+    position: sticky; top: 0.8rem; align-self: start;
+    max-height: min(78vh, 760px); overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+}
+/* Medium width: collapse to a drawer — inspector returns to normal flow beneath a
+   capped graph. The SVG still keeps a legible scale and scrolls inside .gscroll. */
+@media (min-width: 701px) and (max-width: 980px) {
+  .system-map__graph.is-docked > [data-dock="scroll"] {
+    max-height: min(82vh, 900px); overflow: auto; overscroll-behavior: contain;
+  }
+  .system-map__graph.is-docked > [data-dock="scroll"] .gsvg {
+    width: 100%; min-width: var(--map-fit-floor, 680px); height: auto; max-height: none;
+  }
+  .system-map__graph.is-docked > [data-dock="scroll"]:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: -2px;
+  }
+  .system-map__graph.is-docked > [data-dock="panel"] {
+    margin: 0.7rem 0 0.2rem; max-width: none; max-height: 44vh; overflow-y: auto;
+  }
+}
+/* Never apply the sticky two-column dock on paper — the min-width dock query could
+   otherwise fire on a wide print canvas. */
+@media print {
+  .system-map__graph.is-docked { display: block; }
+  .system-map__graph.is-docked > [data-dock="scroll"],
+  .system-map__graph.is-docked > [data-dock="panel"] {
+    max-height: none; overflow: visible; position: static;
+  }
+  .system-map__graph.is-docked > [data-dock="scroll"] .gsvg { min-width: 0; width: 100%; }
+}
+
+/* On-map durable active-node badge (built by docs.js). Replaces reliance on the
+   native <title> tooltip for the active node with a persistent label + relation
+   count. Token-driven so it inverts in the dark archival palette and prints. The
+   paint-order halo keeps the text legible over any line beneath it. */
+.gbadge { pointer-events: none; }
+.gbadge__box { fill: var(--surface); stroke: var(--accent-strong); stroke-width: 1.5; opacity: 0.97; }
+.gbadge__text {
+  fill: var(--ink); font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+}
+
+/* Routed active-fan paths (orthogonal <path> overlays from the gutter router).
+   Rest LIGHTER than a straight active edge so a routed hub fan reads as a calm
+   ribbon, not an accent flood (orthogonal routes pool ink at corners and run
+   parallel, so equal weight would bloom). Full weight is reserved for the hovered
+   route via .is-chiplit. The straight line a route replaces is hidden via .is-routed
+   (added only after the safety gate passes). */
+.groute { fill: none; stroke: var(--accent-strong); stroke-width: 1.5; opacity: 0.85; stroke-linejoin: round; stroke-linecap: round; pointer-events: none; }
+.system-map__graph .gedge.is-routed { display: none; }
+
+/* Bidirectional chip->graph highlight (Wave 33). A hovered/focused neighbour chip
+   lifts its node + connecting edge/route. (The node->chip mirror is intentionally
+   omitted — see docs.js: isolate() is always followed by renderNode(), which
+   rebuilds the panel, so a chip lit inside isolate would be instantly replaced.)
+   Non-colour cue (stroke-weight + label reveal). */
+.system-map__graph .gnode.is-chiplit .gnode__dot { stroke: var(--accent-strong); stroke-width: 3; }
+.system-map__graph .gnode.is-chiplit .gnode__label { opacity: 1; fill: var(--ink); font-weight: 600; }
+.system-map__graph .gedge.is-chiplit, .system-map__graph .groute.is-chiplit { stroke: var(--accent-strong); stroke-width: 2.6; opacity: 1; }
+
+/* Cluster-hover LOCAL label expansion (Wave 33; docs.js toggles .is-clusterlabel on
+   the hovered cluster's member nodes only, and only for low-density cards). Reveals
+   routine component names in one card while the rest of the map keeps its label LOD.
+   Composes additively over the Wave 31 LOD rule (more specific). */
+.system-map__graph.has-salience .gnode--component.is-clusterlabel .gnode__label,
+.system-map__graph.has-salience .gnode--wired_component.is-clusterlabel .gnode__label { opacity: 0.95; }
+
+/* Full-label de-clutter (Wave 34; docs.js swaps the truncated <text> for the full
+   name on the revealed minority via .is-fulllabel, and suppresses the active node's
+   own under-dot label via .is-labelsuppressed since the on-map badge already names
+   it). .is-fulllabel forces the label opaque and thickens its halo a touch, since a
+   full name crosses more lines than the 16-char stub. */
+.system-map__graph .gnode.is-fulllabel .gnode__label { opacity: 1; stroke-width: 3.6px; }
+.system-map__graph.has-workbench .gnode.is-labelsuppressed .gnode__label { opacity: 0 !important; }
+
+/* ── Projection status panel ───────────────────────────────────────────── */
+.status-grid { margin: 0.6rem 0 1.1rem; display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.status-grid__row { display: grid; grid-template-columns: 13rem 1fr; gap: 0.6rem; padding: 0.6rem 0.9rem; border-top: 1px solid var(--rule); }
+.status-grid__row:first-child { border-top: 0; }
+.status-grid dt { color: var(--muted); font-size: 0.9rem; }
+.status-grid dd { margin: 0; color: var(--ink); }
+.status-grid dd code { font-size: 0.84em; word-break: break-all; }
+@media (max-width: 540px) { .status-grid__row { grid-template-columns: 1fr; gap: 0.15rem; } }
+
+/* Visible object coverage (source page) — runtime-built from object-map.js.
+   A reflowing list (not a wide table) so it keeps the no-horizontal-scroll
+   contract on phones. */
+.obj-coverage { margin: 1.6rem 0 1.1rem; }
+.obj-coverage > h2 { font-size: var(--fs-h2); }
+.obj-coverage__list { list-style: none; margin: 0.7rem 0; padding: 0; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.obj-coverage__list li { display: flex; flex-wrap: wrap; gap: 0.15rem 0.8rem; align-items: baseline; padding: 0.5rem 0.9rem; border-top: 1px solid var(--rule); }
+.obj-coverage__list li:first-child { border-top: 0; }
+.obj-coverage__kind { font-family: var(--font-mono); font-size: 0.84rem; color: var(--ink); min-width: 8.5rem; }
+.obj-coverage__stat { color: var(--muted); font-size: 0.88rem; overflow-wrap: anywhere; }
+a.obj-coverage__kind { color: var(--accent); text-decoration: none; }
+a.obj-coverage__kind:hover { text-decoration: underline; text-underline-offset: 0.18em; }
+/* Coverage as a factored matrix: the metric word lives once in the column header,
+   so rows carry only kind + bare counts (a dash = binding not applicable to the kind). */
+.obj-coverage__table {
+  width: 100%; border-collapse: collapse; margin: 0.7rem 0;
+  border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; font-size: 0.86rem;
+}
+.obj-coverage__caption {
+  caption-side: bottom; text-align: left; color: var(--muted);
+  font-size: 0.82rem; line-height: 1.5; padding: 0.65rem 0.2rem 0;
+}
+.obj-coverage__table thead th {
+  text-align: right; font-weight: 700; color: var(--faint); font-size: 0.66rem;
+  letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+  padding: 0.5rem 0.4rem; border-bottom: 1px solid var(--rule);
+}
+.obj-coverage__table thead th.obj-coverage__kind-head { text-align: left; padding-left: 0.7rem; }
+.obj-coverage__table tbody th, .obj-coverage__table tbody td {
+  padding: 0.4rem 0.4rem; border-top: 1px solid var(--rule);
+}
+.obj-coverage__table tbody .obj-coverage__kind-cell { padding-left: 0.7rem; }
+.obj-coverage__table tbody tr:first-child th, .obj-coverage__table tbody tr:first-child td { border-top: 0; }
+.obj-coverage__kind-cell { text-align: left; font-weight: 400; }
+.obj-coverage__num {
+  text-align: right; color: var(--ink-soft);
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+}
+.obj-coverage__num--na { color: var(--faint); }
+/* Reader-decision layer: lead with the coverage exceptions, demote the full matrix. */
+.obj-coverage__summary { margin: 0.7rem 0 0.3rem; }
+.obj-coverage__lead { color: var(--ink-soft); margin: 0 0 0.5rem; }
+.obj-coverage__exhead { color: var(--muted); font-size: 0.84rem; margin: 0 0 0.35rem; }
+.obj-coverage__exceptions { margin: 0; display: grid; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.obj-coverage__exceptions > div { display: grid; grid-template-columns: minmax(7rem, 9rem) 1fr; gap: 0.9rem; padding: 0.45rem 0.8rem; border-top: 1px solid var(--rule); }
+.obj-coverage__exceptions > div:first-child { border-top: 0; }
+.obj-coverage__exceptions dt { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink); }
+.obj-coverage__exceptions dd { margin: 0; color: var(--ink-soft); font-size: 0.86rem; }
+.obj-coverage__audit { margin: 0.6rem 0 0; }
+.obj-coverage__audit-toggle {
+  cursor: pointer; list-style: none; font-size: 0.78rem; color: var(--accent);
+  padding: 0.35rem 0; display: inline-flex; align-items: center; gap: 0.3rem;
+}
+.obj-coverage__audit-toggle::-webkit-details-marker { display: none; }
+.obj-coverage__audit-toggle::before { content: "\25B8"; font-size: 0.7rem; }
+.obj-coverage__audit[open] .obj-coverage__audit-toggle::before { content: "\25BE"; }
+.obj-coverage__audit .obj-coverage__table { margin-top: 0.4rem; }
+@media (max-width: 640px) { .obj-coverage__exceptions > div { grid-template-columns: 1fr; gap: 0.1rem; } }
+/* Field-guide roster counts as one full-width equation, not a half-empty two-col table. */
+.fg-equation {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem 0.8rem;
+  padding: 0.9rem 1.05rem; border: 1px solid var(--rule); border-radius: 10px; margin: 0.8rem 0 0.5rem;
+}
+.fg-equation__term { color: var(--muted); font-size: 0.94rem; }
+.fg-equation__term strong {
+  color: var(--ink); font-size: 1.2rem; font-weight: 700;
+  font-variant-numeric: tabular-nums; margin-right: 0.25rem;
+}
+.fg-equation__op { color: var(--faint); font-size: 1.05rem; font-family: var(--font-mono); }
+.fg-equation__note { margin: 0 0 0.5rem; }
+@media (max-width: 640px) {
+  .obj-coverage__table, .obj-coverage__table tbody, .obj-coverage__table tbody tr { display: block; }
+  .obj-coverage__caption { display: block; width: auto; caption-side: bottom; }
+  .obj-coverage__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .obj-coverage__table tbody tr { border-top: 1px solid var(--rule); padding: 0.55rem 0.2rem; }
+  .obj-coverage__table tbody tr:first-child { border-top: 0; }
+  .obj-coverage__kind-cell { padding: 0 0 0.4rem; border: 0; }
+  .obj-coverage__num { display: flex; justify-content: space-between; gap: 1rem; padding: 0.14rem 0; border: 0; }
+  .obj-coverage__num--na { display: none; }
+  .obj-coverage__num::before {
+    content: attr(data-label); color: var(--faint); text-transform: uppercase;
+    letter-spacing: var(--tracking-kicker); font-size: 0.64rem; font-family: var(--font-sans);
+  }
+}
+
+/* ── Wide artifact workbench (architecture map page) ───────────────────── */
+/* Artifact pages (the system map) earn more of a wide monitor than prose pages:
+   the layout breaks past the 1320px reading cap so the map can keep growing, while
+   text blocks inside stay clamped to --prose for readability. This is the page-level
+   half of the map's fit-scroll; together they turn dead side-gutter into map. */
+.docs-layout--wide { width: min(1680px, calc(100% - 48px)); grid-template-columns: 244px minmax(0, 1fr); }
+.docs-main > .docs-article { max-width: var(--prose); }
+/* Card-index pages (Components and the seven area pages) were clamping their card
+   GROUPS to the 660px prose measure too, leaving a wide empty gutter beside an
+   82-row list. Let the groups use the whole content column while the page's prose
+   intro (eyebrow, title, lede, filter bar) stays at the readable measure. :has()
+   targets only an article that actually holds card groups, so prose-only docs
+   pages are untouched and no builder change is needed. */
+.docs-main > .docs-article:has(> .comp-group, > .comp-list--cards, > .rule-group) { max-width: none; }
+.docs-article:has(> .comp-group, > .comp-list--cards, > .rule-group)
+  > :not(.comp-group):not(.comp-list--cards):not(.rule-group) { max-width: var(--prose); }
+.artifact-stage { margin: 1.8rem 0 2.2rem; }
+.artifact-stage--paper-modules > h2,
+.artifact-stage--paper-modules > p,
+.artifact-stage--paper-modules > .status-grid { max-width: var(--prose); }
+.artifact-stage--paper-modules .comp-list--cards { width: 100%; }
+.artifact-stage .system-map { margin: 0; border-top: 0; padding-top: 0; }
+.artifact-stage .system-map__header,
+.artifact-stage .system-map > p,
+.artifact-stage .system-map > h3,
+.artifact-stage .system-map__scene,
+.artifact-stage .wire-list { max-width: var(--prose); }
+.artifact-stage .system-map__graph { margin-top: 0.5rem; }
+
+/* Map legend — a key to the node glyphs, matched to the graph tokens (shape and
+   fill, not colour alone): area = filled disc, shared path = filled disc in the
+   path hue, wired component = hollow ring. */
+.glegend { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0 0 0.7rem; font-size: 0.82rem; color: var(--muted); }
+.glegend__item { display: inline-flex; align-items: center; gap: 0.42rem; }
+.glegend__dot { width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 1.5px var(--surface), 0 0 0 2.5px var(--rule-strong); }
+.glegend__dot--area { background: var(--accent); }
+.glegend__dot--spine { background: var(--muted); }
+.glegend__dot--wired { background: var(--surface-sunk); box-shadow: inset 0 0 0 2px var(--accent-strong), 0 0 0 1.5px var(--surface), 0 0 0 2.5px var(--rule-strong); }
+
+@media (max-width: 1080px) { .docs-layout--wide { grid-template-columns: 230px minmax(0, 1fr); } }
+@media (max-width: 768px) { .docs-layout--wide { grid-template-columns: minmax(0, 1fr); } }
+/* On phones the 3-column SVG map cannot reflow legibly; hide the raw pan-map
+   and let the already-reflowing area cards + wiring list below carry the same
+   structure (areas, counts, spine, declared links) with no horizontal scroll. */
+@media (max-width: 700px) { .system-map__graph { display: none; } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Reader View Continuity Pass — the map's legibility floor, the flattened paper-
+   module body, and the "Back to previous view" return affordance (paired with the
+   viewState module in docs.js). Generalised so any wide artifact can reuse them.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* One knob for the system map's legibility floor: above this column width the map
+   scales to fit (no scroll); below it, the bordered .gscroll scrolls horizontally. */
+:root { --map-fit-floor: 680px; }
+
+/* Generalised fit-scroll surface: any wide artifact (a future graph, a wide table)
+   opts in with data-fit-scroll on the scroll box + data-fit-scroll-child on the
+   content. Same law as the map: grow to fill, scroll only below a legible floor. */
+[data-fit-scroll] { overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+[data-fit-scroll] > [data-fit-scroll-child] { width: 100%; min-width: var(--fit-floor, 640px); height: auto; }
+
+/* Flattened paper-module body: the builder now inlines the full essay (no second
+   "Read the full module" click). The .pm-body box already reads as its own panel;
+   the label is the quiet heading marking this as the full module, not a summary. */
+.pm-body__label {
+  font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule);
+}
+
+/* ── Breadcrumb: spatial "where am I in the site" trail ──────────────────────
+   The quiet sibling of the .viewback pill below. The pill is TEMPORAL ("back to
+   where I just was", session history); this is SPATIAL ("where this page sits",
+   site hierarchy). Built into the docs shell from the page's nav group + label,
+   above the article. Separators are CSS-owned so a screen reader reads a clean
+   list, not "/". */
+.docs-breadcrumb { margin: 0 0 1.4rem; }
+.docs-breadcrumb__list {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.55rem;
+  list-style: none; margin: 0; padding: 0;
+  font-family: var(--font-sans); font-size: 0.76rem; letter-spacing: 0.01em;
+  color: var(--muted);
+}
+.docs-crumb { display: inline-flex; align-items: center; gap: 0.55rem; min-width: 0; }
+/* Separator belongs to the PRECEDING crumb (::after), so on wrap the slash stays
+   with "Areas /" instead of hanging at the start of the next line. */
+.docs-crumb:not(:last-child)::after { content: "/"; color: var(--faint); }
+.docs-breadcrumb a {
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid transparent; transition: color var(--dur) var(--ease);
+}
+.docs-breadcrumb a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.docs-breadcrumb a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.docs-breadcrumb [aria-current="page"] { color: var(--ink-soft); font-weight: 600; }
+.docs-breadcrumb__section { color: var(--muted); }
+@media (max-width: 700px) { .docs-breadcrumb { margin-bottom: 1rem; } }
+
+/* ── Back to previous view ───────────────────────────────────────────────────
+   A visible, exact-return affordance: a click that navigated away (a mis-clicked
+   map node, a drill into a component or module) can be undone to the precise view
+   it left -- same page, scroll position, and open cards. docs.js injects this only
+   when a previous in-session view exists; otherwise there is nothing to show. */
+.viewback {
+  position: fixed; left: 16px; bottom: 16px; z-index: 60;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  max-width: min(22rem, calc(100vw - 32px));
+  padding: 0.55rem 1rem 0.55rem 0.82rem;
+  font: inherit; font-size: 0.88rem; color: var(--ink); text-align: left;
+  /* A touch more prominent than a hairline pill so a returning reader actually
+     notices the way back: an accent ring + a deeper lift off the page. */
+  background: var(--surface); border: 1.5px solid var(--accent); border-radius: 999px;
+  box-shadow: 0 10px 28px -8px rgba(0,0,0,0.5), 0 2px 8px -3px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transform: translateY(6px); opacity: 0;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease),
+              border-color var(--dur) var(--ease), color var(--dur) var(--ease),
+              gap 0.28s var(--ease), padding 0.28s var(--ease);
+}
+.viewback.is-shown { transform: translateY(0); opacity: 1; }
+.viewback:hover { border-color: var(--accent-strong); color: var(--accent); }
+.viewback:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.viewback__arrow { font-size: 1.05rem; line-height: 1; color: var(--accent); font-weight: 700; }
+.viewback__label {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  max-width: 24rem;
+  transition: max-width 0.28s var(--ease), opacity 0.22s var(--ease);
+}
+.viewback__where { color: var(--muted); }
+.viewback:hover .viewback__where { color: var(--accent); }
+/* Rest state: the pill enters with its full label (that moment IS the feature
+   announcement), then folds to the arrow chip so it stops talking over the
+   page; hovering or keyboard-focusing it unfolds the label again. docs.js
+   arms .is-rested on a timer; CSS owns all geometry. */
+.viewback.is-rested:not(:hover):not(:focus-visible) { gap: 0; padding-right: 0.82rem; }
+.viewback.is-rested:not(:hover):not(:focus-visible) .viewback__label { max-width: 0; opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .viewback, .viewback__label { transition: opacity var(--dur) var(--ease); }
+}
+@media (max-width: 700px) { .viewback { left: 12px; bottom: 12px; font-size: 0.8rem; } }
+/* The pill (z 60) outranks the mobile nav drawer (z 35) and shares a layer with
+   the search palette, so while either is open it would float over their lower
+   rows ("Back to Overview" covering the drawer's last nav items). It yields:
+   the drawer/palette own the screen, the pill returns when they close. */
+body.nav-open .viewback, body.cmdk-open .viewback {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+/* While the pill is shown (docs.js stamps body.has-viewback), give the document
+   matching bottom clearance so the last content can always scroll clear of it
+   instead of sitting trapped underneath. */
+body.has-viewback { padding-bottom: 64px; }
+@media print { .viewback { display: none !important; } }
+
+/* ===== Doctrine object-class visual grammar ==============================
+   Axioms, principles, and anti-principles are different kinds of doctrine, so
+   each card is recognisable at a glance (and in greyscale) through THREE
+   non-color cues: a left-rail treatment, an id-badge shape, and a small kind
+   tag. Color reinforces but never carries the distinction alone (WCAG 1.4.1).
+   The kind comes from the source record's kind field, not the id prefix. */
+.docs-main .dcard {
+  position: relative;
+  border-left-width: 3px;
+  border-left-style: solid;
+  border-left-color: var(--rule-strong);
+}
+.docs-main .dcard__head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
+.docs-main .dcard__kind {
+  padding: 1px 8px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+/* Axiom — root law: cool solid rail, square id badge, a touch more title weight. */
+/* Doctrine-card kind colours — one token per family so the left rail, the
+   AX-/P-/AP- id code, and the (hidden) kind pill stay a single hue and re-point
+   together in dark. The id code is small --fs-small/600 text, so each LIGHT value
+   must clear WCAG AA 4.5:1 as text on the card surface; DARK values are lifted to
+   clear AA on dark paper (same approach as --link-ext). The anti-principle warm
+   also drives a faint surface wash, so its raw channel is exposed for the rgba().
+   Light anti is darkened from the former #a4703c (~4.0:1 on its own wash, below AA)
+   to #965f32 (~5:1) so rail, id, and wash stay one coherent hue and clear AA. */
+:root {
+  --dcard-axiom: #5d7796;
+  --dcard-principle: #5b7d6a;
+  --dcard-anti: #965f32;
+  --dcard-anti-rgb: 150, 95, 50;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dcard-axiom: #7e9bbb;
+    --dcard-principle: #7aa78c;
+    --dcard-anti: #c08b58;
+    --dcard-anti-rgb: 192, 139, 88;
+  }
+}
+.docs-main .dcard--axiom { border-left-color: var(--dcard-axiom); }
+.docs-main .dcard--axiom .dcard__id { border-radius: 3px; }
+.docs-main .dcard--axiom .dcard__name { font-weight: 650; }
+.docs-main .dcard--axiom .dcard__kind { color: var(--dcard-axiom); border-color: var(--dcard-axiom); }
+/* Principle — operating move derived from law: dashed rail, pill id badge. */
+.docs-main .dcard--principle { border-left-style: dashed; border-left-color: var(--dcard-principle); }
+.docs-main .dcard--principle .dcard__id { border-radius: 999px; }
+.docs-main .dcard--principle .dcard__kind { color: var(--dcard-principle); border-color: var(--dcard-principle); }
+/* Anti-principle — refusal: warm rail, faint warm surface wash, clipped id badge. */
+.docs-main .dcard--anti-principle { border-left-color: var(--dcard-anti); background: rgba(var(--dcard-anti-rgb), 0.045); }
+.docs-main .dcard--anti-principle .dcard__id { border-radius: 3px; clip-path: polygon(0 0, 100% 0, 100% 64%, 84% 100%, 0 100%); }
+.docs-main .dcard--anti-principle .dcard__kind { color: var(--dcard-anti); border-color: var(--dcard-anti); }
+/* Doctrine cards live in homogeneous sections (Axioms / Principles /
+   Anti-principles), so the section heading + the colour-matched AX-/P-/AP- code
+   prefix + the left rail already name the kind three ways. The repeated kind pill
+   ("Axiom"/"Principle"/"Anti-principle") on every card was a fourth, redundant
+   copy -- drop it. It is aria-hidden="true", so assistive tech loses nothing. If
+   dcards ever render in a MIXED list/search, reintroduce a kind label scoped to
+   that context (the kind is no longer carried by a section heading there). */
+.docs-main .dcard__kind { display: none; }
+/* Colour the code prefix (AX-8 / P-1 / AP-3) by kind so the id itself carries the
+   kind. The AX/P/AP letter prefix + the section heading stay the non-colour cues,
+   so kind is never conveyed by colour alone (WCAG 1.4.1). */
+.docs-main .dcard--axiom .dcard__id { color: var(--dcard-axiom); }
+.docs-main .dcard--principle .dcard__id { color: var(--dcard-principle); }
+.docs-main .dcard--anti-principle .dcard__id { color: var(--dcard-anti); }
+
+/* ===== Per-view reader tools (copy text / download JSON) =================
+   A small toolbar above each prose view. Copy gives a clean transcription with
+   every collapsed card expanded; Download gives the structured page JSON. Both
+   are JS-only, so they stay hidden until docs.js marks <html> as .js (matches
+   the Search pill pattern; no dead affordance when JS is off). */
+.docs-main .docs-pagetools { display: none; }
+html.js .docs-main .docs-pagetools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: var(--prose);
+  margin: 0 0 20px;
+}
+.docs-main .docs-pagetools__label {
+  margin-right: auto;
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+}
+.docs-main .docs-pagetool {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 7px;
+  background: var(--surface);
+  font: inherit;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.docs-main .docs-pagetool:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  background: var(--surface-sunk);
+}
+.docs-main .docs-pagetool:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.docs-main .docs-pagetool.is-copied { border-color: var(--accent); color: var(--accent-strong); }
+.docs-main .docs-pagetool__icon { font-size: 0.95em; line-height: 1; }
+.docs-main .docs-pagetools__status { font-size: var(--fs-small); color: var(--muted); }
+
+/* Author contact emphasis. The landing "please let me know" link routes a reader
+   who wants to get in touch to the author note on the Source page, and draws the
+   address out on arrival: quiet by default, a brief wash that settles to a held
+   accent edge. Honours reduced-motion. */
+#about-the-author:target ~ .author-email {
+  padding: 0.7rem 0.9rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-wash);
+  border-radius: 0 6px 6px 0;
+  animation: author-email-arrival 2.2s ease-out 1;
+}
+@keyframes author-email-arrival {
+  from { background: color-mix(in srgb, var(--accent) 28%, var(--accent-wash)); }
+  to { background: var(--accent-wash); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #about-the-author:target ~ .author-email { animation: none; }
+}
+
+/* ----------------------------------------------------------------------------
+   Landing first-impression components — loop chips, boundary band, AI handoff
+   tiers, the reads-as card, and a one-time evidence-spine wash. Static-first:
+   every animated state exists as plain DOM text, and motion honours
+   prefers-reduced-motion (the global guard above, plus explicit opt-outs).
+---------------------------------------------------------------------------- */
+.loop-chips {
+  list-style: none; counter-reset: loop-chip;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.4rem 0.45rem; margin: -0.9rem 0 1.9rem; padding: 0;
+  font-size: 0.8rem; color: var(--muted);
+}
+.loop-chips li { display: inline-flex; align-items: center; }
+/* The arrow is a leading separator on every chip after the first, so when the
+   row wraps the arrow travels with its chip ("→ 5 scope limit") instead of
+   dangling at the end of the previous line over an orphaned chip. */
+.loop-chips li + li::before { content: "\2192"; color: var(--faint); margin-right: 0.45rem; }
+.loop-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: 1.72rem; padding: 0.14rem 0.42rem 0.14rem 0.22rem;
+  border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--surface); white-space: nowrap; line-height: 1.15;
+}
+.loop-chip::before {
+  content: counter(loop-chip); counter-increment: loop-chip;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.15rem; height: 1.15rem; flex: none;
+  border: 1px solid var(--rule-strong); border-radius: 999px;
+  background: var(--surface-sunk);
+  font-size: 0.68rem; font-variant-numeric: tabular-nums; color: var(--muted);
+}
+.loop-chips code { font-size: 0.92em; }
+@media (max-width: 640px) {
+  .loop-chips {
+    display: grid; grid-template-columns: 1fr;
+    align-items: stretch; gap: 0.38rem;
+    margin: -0.45rem 0 1.45rem;
+    max-width: 22rem;
+  }
+  .loop-chips li { display: flex; min-width: 0; }
+  .loop-chips li + li::before { content: none; }
+  .loop-chips li:last-child:nth-child(odd) { grid-column: auto; }
+  .loop-chip {
+    width: 100%; min-height: 2.1rem;
+    padding: 0.3rem 0.58rem 0.3rem 0.36rem;
+    border-radius: 8px;
+    white-space: normal; overflow-wrap: break-word;
+  }
+  .loop-chip::before { width: 1.28rem; height: 1.28rem; flex-basis: 1.28rem; }
+}
+
+.boundary-band {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  margin: 0.7rem 0 0; padding: 0.55rem 0.1rem 0;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-small); color: var(--muted);
+}
+.boundary-band span { white-space: nowrap; }
+.boundary-band span + span::before { content: "\00B7"; margin: 0 0.6rem; color: var(--faint); }
+
+/* One primary handoff + advanced disclosure: the capsule button leads, the raw
+   strata sit behind a <details> so a cold visitor never faces three equal
+   choices. */
+.ai-primary { margin: 0.9rem 0 0; }
+.ai-primary .btn { width: 100%; justify-content: center; line-height: normal; }
+.ai-primary__for {
+  margin: 0.5rem 0 0; font-size: var(--fs-small); color: var(--muted);
+  line-height: var(--lh-snug); text-wrap: pretty;
+}
+.ai-advanced { margin: 0.8rem 0 0; border-top: 1px solid var(--rule); }
+.ai-advanced > summary {
+  display: flex; align-items: center; gap: 0.5rem;
+  cursor: pointer; list-style: none; padding: 0.55rem 0 0.1rem;
+  font-size: var(--fs-small); color: var(--faint);
+  transition: color var(--dur) var(--ease);
+}
+.ai-advanced > summary::-webkit-details-marker { display: none; }
+.ai-advanced > summary::before {
+  content: ""; flex: none; width: 0.38em; height: 0.38em; margin-top: -0.08em;
+  border-right: 1.5px solid var(--faint); border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform var(--dur) var(--ease);
+}
+.ai-advanced[open] > summary::before { transform: rotate(45deg); margin-top: -0.16em; }
+.ai-advanced > summary:hover { color: var(--muted); }
+.ai-advanced[open] > summary { color: var(--muted); }
+.ai-direct {
+  margin: 0.7rem 0 0.2rem; font-size: var(--fs-small); color: var(--faint);
+}
+.ai-direct a { color: var(--muted); }
+
+.ai-questions { margin: 0.85rem 0 0; }
+.ai-questions > summary {
+  display: flex; align-items: center; gap: 0.5rem;
+  cursor: pointer; list-style: none; padding: 0.15rem 0;
+  font-size: var(--fs-small); font-weight: 600; color: var(--muted);
+  transition: color var(--dur) var(--ease);
+}
+.ai-questions > summary::-webkit-details-marker { display: none; }
+.ai-questions > summary::before {
+  content: ""; flex: none; width: 0.38em; height: 0.38em; margin-top: -0.08em;
+  border-right: 1.5px solid var(--faint); border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.ai-questions[open] > summary::before { transform: rotate(45deg); margin-top: -0.16em; }
+.ai-questions > summary:hover { color: var(--ink-soft); }
+.ai-questions > summary:hover::before { border-color: var(--muted); }
+.ai-questions ul {
+  margin: 0.45rem 0 0.2rem; padding-left: 1.2rem;
+  font-size: var(--fs-small); color: var(--muted); line-height: var(--lh-snug);
+}
+.ai-questions li { margin: 0.18rem 0; }
+.ai-questions__note { margin: 0.3rem 0 0.2rem; font-size: var(--fs-small); color: var(--faint); }
+
+/* The four question sets read as a quiet menu, not raw disclosure defaults:
+   custom caret that turns when open, hairlines between sets, tighter list
+   rhythm, and a copy affordance sized as a footnote action, not a CTA. */
+.ai-questions__set { border-top: 1px solid var(--rule); }
+.ai-questions__set:first-of-type { margin-top: 0.45rem; }
+.ai-questions__set > summary {
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.52rem 0.1rem; cursor: pointer; list-style: none;
+  font-size: 0.9rem; font-weight: 600; color: var(--ink-soft);
+  transition: color var(--dur) var(--ease);
+}
+.ai-questions__set > summary::-webkit-details-marker { display: none; }
+.ai-questions__set > summary::before {
+  content: ""; flex: none; width: 0.4em; height: 0.4em; margin-top: -0.1em;
+  border-right: 1.5px solid var(--faint); border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.ai-questions__set[open] > summary::before { transform: rotate(45deg); margin-top: -0.2em; }
+.ai-questions__set > summary:hover { color: var(--accent); }
+.ai-questions__set > summary:hover::before { border-color: var(--accent); }
+.ai-questions__set ul { margin: 0.05rem 0 0.6rem; }
+.ai-questions__set li { color: var(--muted); }
+.ai-questions__set .ai-questions__note { margin: 0 0 0.45rem; }
+.ai-questions__copy {
+  margin: 0.1rem 0 0.8rem;
+  font-size: 0.78rem; padding: 0.3rem 0.75rem;
+  color: var(--muted);
+}
+.ai-questions__copy:hover { color: var(--ink); }
+
+/* Agent setup block inside the coding-agent set: the one prompt that is
+   actually pasted (the work items below it are assigned one at a time, never
+   as a batch — so the copy affordance covers only this). */
+.ai-agent-boot { margin: 0.2rem 0 0.3rem; }
+.ai-agent-boot pre {
+  margin: 0 0 0.45rem; padding: 0.6rem 0.75rem;
+  background: var(--surface-sunk); border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  font-size: 0.78rem; line-height: 1.5; color: var(--muted);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.ai-agent-boot .ai-questions__copy { margin-bottom: 0.55rem; }
+.ai-agent-boot__then { color: var(--muted); }
+
+/* Alternative-door row in the AI handoff card: the coding-agent lane is a
+   different way in, not more of the same paragraph — separated by a hairline
+   with a question lead-in. */
+.ai-altpath {
+  margin: 0.95rem 0 0; padding-top: 0.85rem; border-top: 1px solid var(--rule);
+  font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--faint);
+  text-wrap: pretty;
+}
+.ai-altpath__q { color: var(--ink-soft); font-weight: 600; }
+
+.ai-tiers { list-style: none; margin: 0.9rem 0 0; padding: 0; }
+.ai-tier {
+  display: grid; grid-template-columns: 14.5rem minmax(0, 1fr);
+  gap: 0.35rem 0.95rem; align-items: start;
+  padding: 0.6rem 0; border-top: 1px solid var(--rule);
+}
+.ai-tier:first-child { border-top: none; padding-top: 0.15rem; }
+.ai-tier .btn { width: 100%; justify-content: center; line-height: normal; }
+.ai-tier__for { margin: 0; font-size: var(--fs-small); color: var(--muted); line-height: var(--lh-snug); text-wrap: pretty; }
+@media (max-width: 600px) {
+  .ai-tier { grid-template-columns: 1fr; }
+  .ai-tier .btn { width: auto; justify-self: start; }
+}
+
+.reads-as {
+  margin: 1.4rem 0 0; padding: 0.4rem 1rem;
+  border: 1px solid var(--rule); border-radius: 8px;
+  background: var(--surface-sunk); font-size: var(--fs-body);
+}
+.reads-as__row {
+  display: grid; grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 0.85rem; padding: 0.55rem 0; border-top: 1px solid var(--rule);
+}
+.reads-as__row:first-child { border-top: none; }
+.reads-as dt {
+  margin: 0; padding-top: 0.12rem; font-size: var(--fs-small);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--faint); font-weight: 600;
+}
+.reads-as dd { margin: 0; color: var(--ink-soft); text-wrap: pretty; }
+@media (max-width: 540px) {
+  .reads-as__row { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+
+/* Evidence-spine wash: when the first-loop list scrolls into view, the step
+   numbers light in sequence — command, record, evidence, source, scope — and
+   settle back. Cause-and-effect motion only; the list reads identically with
+   JS off, and reduced-motion readers never see it. */
+.loop-spine-live .route-num { animation: loop-spine-wash 0.9s ease-out 1 backwards; }
+.loop-spine-live li:nth-child(2) .route-num { animation-delay: 0.22s; }
+.loop-spine-live li:nth-child(3) .route-num { animation-delay: 0.44s; }
+.loop-spine-live li:nth-child(4) .route-num { animation-delay: 0.66s; }
+.loop-spine-live li:nth-child(5) .route-num { animation-delay: 0.88s; }
+@keyframes loop-spine-wash {
+  0% { background: transparent; }
+  35% { background: var(--accent-wash); border-color: var(--accent); color: var(--accent-strong); }
+  100% { background: transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loop-spine-live .route-num { animation: none; }
+}
+
+.term-list { margin: 1.4rem 0 1.2rem; }
+.term-card__kind {
+  padding: 1px 8px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+.term-card__phrase {
+  display: block;
+  margin: 0 0 0.3rem;
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+.term-card__relations {
+  align-items: flex-start;
+}
+.term-card__rel {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.35rem;
+  margin: 0 0.35rem 0.35rem 0;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+.term-card__relverb {
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.term-card__relgloss { color: var(--muted); }
+.term-card__source-list {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+.term-card__source-list li { margin: 0.25rem 0; }
+.term-card__cmd {
+  margin: 0.15rem 0;
+  padding: 0.35rem 0.5rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+}
+.term-card__source {
+  margin: 0.7rem 0 0;
+  color: var(--faint);
+  font-size: var(--fs-small);
+}

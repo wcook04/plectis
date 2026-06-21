@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Follow updates</title>
+  <id>https://wcook04.github.io/plectis/updates.xml</id>
+  <link href="https://wcook04.github.io/plectis/updates.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://wcook04.github.io/plectis/docs/updates.html" rel="alternate" type="text/html"/>
+  <updated>2026-06-21T00:00:00+00:00</updated>
+  <entry>
+    <title>Microcosm became Plectis</title>
+    <id>https://wcook04.github.io/plectis/updates/rename-2026-06-21</id>
+    <link href="https://wcook04.github.io/plectis/docs/lineage.html#rename-2026-06-21" rel="alternate" type="text/html"/>
+    <updated>2026-06-21T00:00:00+00:00</updated>
+    <summary>Plectis became the preferred public name, with Microcosm retained only as a historical and compatibility label. The acknowledgement is source-backed and does not imply endorsement or affiliation.</summary>
+  </entry>
+</feed>
