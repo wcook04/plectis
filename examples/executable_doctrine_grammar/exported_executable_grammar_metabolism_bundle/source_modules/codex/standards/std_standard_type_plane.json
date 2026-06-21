@@ -934,18 +934,18 @@
     {
       "type_id": "public_microcosm_exports",
       "canonical_type_id": "microcosm",
-      "title": "Public Microcosm Exports",
+      "title": "Public Plectis Exports",
       "artifact_family": "public_projection",
       "compression_passport": {
         "cluster_keys": [
-          "public microcosm exports",
-          "microcosm public export type plane",
-          "microcosm paper module depth",
+          "public plectis exports",
+          "plectis public export type plane",
+          "plectis paper module depth",
           "public projection boundary",
           "dissemination export readiness"
         ],
-        "atom": "Type-plane bridge from public Microcosm export questions into product doctrine, entry-lattice depth, behavior proof, and disclosure-bound projection checks.",
-        "when_to_open": "Open when a task asks how public Microcosm exports, public projection files, dissemination boundaries, or Microcosm export readiness should route through standards, paper modules, and first-screen behavior proof.",
+        "atom": "Type-plane bridge from public Plectis export questions into product doctrine, entry-lattice depth, behavior proof, and disclosure-bound projection checks.",
+        "when_to_open": "Open when a task asks how public Plectis exports, public projection files, dissemination boundaries, or Plectis export readiness should route through standards, paper modules, and first-screen behavior proof.",
         "when_not_to_open": "Do not open as release approval, source truth, provider proof, candidate-axiom authority, or a substitute for the renderer/publication receipt owned by dissemination builders.",
         "safe_drilldown": "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids public_microcosm_exports",
         "landmines": [
@@ -954,7 +954,7 @@
           "Behavior proof, paper-module depth, and claim-boundary accounting must be visible before export file inspection."
         ],
         "sufficiency_claims": [
-          "Names the Microcosm paper-module depth order, supporting lattice depth, entry-depth contract, validation probes, and source/projection boundaries.",
+          "Names the Plectis paper-module depth order, supporting lattice depth, entry-depth contract, validation probes, and source/projection boundaries.",
           "Routes back to std_microcosm and microcosm_public_export_type_plane before generated public export files."
         ]
       },
@@ -969,12 +969,12 @@
         "codex/doctrine/paper_modules/public_constellation_strategy.md",
         "codex/standards/std_command_output_projection.json"
       ],
-      "source_authority": "microcosm-substrate/, publication_manifest.yaml, self-indexing-cognitive-substrate/ archaeology, and dissemination builders; public exports are projections over internal source authority and public Microcosm owner surfaces.",
-      "write_contract": "Public microcosm exports require redaction, synthetic fixture, rights, and projection receipts before publication; internal authority remains upstream.",
-      "read_contract": "Use standards-first entry, then the Microcosm first-screen sequence (`microcosm hello <project>` for the non-writing map, `microcosm tour --card <project>` for behavior proof, and `microcosm first-screen <project>` for JSON route shape), then microcosm_substrate product doctrine, microcosm_entry_lattice route depth, microcosm_public_export_type_plane bridge guidance, microcosm_runtime_organ_atlas source-loci depth, paper_module_coverage_metabolism, paper_module_entry_projection_integrity, and dissemination/public constellation context before opening public export files; the legacy system_microcosm option surface is a Laboratory/control-view compatibility route, not the public Microcosm definition.",
+      "source_authority": "microcosm-substrate/, publication_manifest.yaml, self-indexing-cognitive-substrate/ archaeology, and dissemination builders; public exports are projections over internal source authority and public Plectis owner surfaces while Microcosm remains a compatibility label.",
+      "write_contract": "Public Plectis exports require redaction, synthetic fixture, rights, and projection receipts before publication; internal authority remains upstream.",
+      "read_contract": "Use standards-first entry, then the Plectis local compatibility first-screen sequence (`microcosm hello <project>` for the non-writing map, `microcosm tour --card <project>` for behavior proof, and `microcosm first-screen <project>` for JSON route shape), then microcosm_substrate product doctrine, microcosm_entry_lattice route depth, microcosm_public_export_type_plane bridge guidance, microcosm_runtime_organ_atlas source-loci depth, paper_module_coverage_metabolism, paper_module_entry_projection_integrity, and dissemination/public constellation context before opening public export files; the legacy system_microcosm option surface is a Laboratory/control-view compatibility route, not the public Plectis definition.",
       "option_surface_command": "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_public_export_type_plane",
       "atlas_projection_policy": "System Atlas may project public export candidates only as public/dissemination leaves with disclosure and provenance posture.",
-      "currentness_policy": "Public exports are current only when the publication manifest, renderer output, receipt bundle, and Microcosm first-screen/authority/workingness contracts agree with the selected internal authority snapshot.",
+      "currentness_policy": "Public exports are current only when the publication manifest, renderer output, receipt bundle, and Plectis first-screen/authority/workingness contracts agree with the selected internal authority snapshot.",
       "validation_probe": [
         "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_public_export_type_plane",
         "./repo-python kernel.py --paper-module microcosm_substrate",
@@ -984,7 +984,7 @@
         "./repo-python kernel.py --context-pack \"public microcosm export dissemination boundary\" --context-budget 12000"
       ],
       "entry_depth_contract": {
-        "control_entry": "./repo-python kernel.py --entry \"public Microcosm export dissemination boundary\" --context-budget 12000",
+        "control_entry": "./repo-python kernel.py --entry \"public Plectis export dissemination boundary\" --context-budget 12000",
         "human_first_screen_projection": "microcosm hello <project>",
         "shared_behavior_proof": "microcosm tour --card <project>",
         "json_first_screen_projection": "microcosm first-screen <project>",

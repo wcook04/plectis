@@ -782,7 +782,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
         ),
         "entry_route": (
-            './repo-python kernel.py --entry "public Microcosm export '
+            './repo-python kernel.py --entry "public Plectis export '
             'dissemination boundary" --context-budget 12000'
         ),
         "atlas_drilldowns": [
@@ -2111,7 +2111,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "entry/count honesty as required depth rungs" in entry_lattice
     assert "Verify paper-module coverage/depth" in entry_lattice
     assert "Verify entry/count honesty" in entry_lattice
-    assert "Route public Microcosm exports" in entry_lattice
+    assert "Route public Plectis exports" in entry_lattice
     assert "Verify runtime organ source-loci depth" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
     assert "microcosm_runtime_organ_atlas" in product_roof
@@ -2386,7 +2386,7 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "./repo-python kernel.py --option-surface navigation_type_plane --band card "
         "--ids public_microcosm_exports"
     )
-    assert "microcosm paper module depth" in row["compression_passport"][
+    assert "plectis paper module depth" in row["compression_passport"][
         "cluster_keys"
     ]
     assert "generated public export files only after behavior proof" in (

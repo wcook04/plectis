@@ -158,7 +158,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 91926,
+      "byte_count": 91964,
       "classification": "copied_non_secret_macro_body",
       "line_count": 1349,
       "material_class": "public_macro_standard_body",
@@ -169,15 +169,15 @@
         "\"type_plane_rows\"",
         "\"validation_rules\""
       ],
-      "sha256": "sha256:ee74619504f484107aedb38b9a056ce385d8affcd590bb6a97c33d10fd3e9da1",
+      "sha256": "sha256:8c0ef27100ebfbd0b6b59a3aa6e25812b79b9311473894f941153c75d7ef0d97",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "codex/standards/std_standard_type_plane.json",
       "source_role": "Macro standard-type plane grammar for read/write contracts, authorities, option surfaces, and projection policy",
-      "source_sha256": "ee74619504f484107aedb38b9a056ce385d8affcd590bb6a97c33d10fd3e9da1",
+      "source_sha256": "8c0ef27100ebfbd0b6b59a3aa6e25812b79b9311473894f941153c75d7ef0d97",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standard_type_plane.json",
-      "target_sha256": "ee74619504f484107aedb38b9a056ce385d8affcd590bb6a97c33d10fd3e9da1"
+      "target_sha256": "8c0ef27100ebfbd0b6b59a3aa6e25812b79b9311473894f941153c75d7ef0d97"
     },
     {
       "body_copied": true,
