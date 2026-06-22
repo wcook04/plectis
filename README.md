@@ -101,20 +101,6 @@ Underneath that one run, Plectis is a small runtime and a spine of **78 componen
 grouped into seven areas**. One person sets the direction; AI agents do the building
 and upkeep; and every component's work is kept as evidence a separate check can read.
 
-```mermaid
-flowchart TD
-    OP["One person sets the direction"]
-    AG["AI agents build and maintain it"]
-    RT["The Plectis runtime<br/>your repo becomes .microcosm local state"]
-    SP["A spine of 78 components in 7 areas"]
-    EV["Every finding kept as evidence<br/>a separate check can read"]
-    OP --> AG
-    AG --> RT
-    RT --> SP
-    SP --> EV
-    EV -->|"read · rerun · challenge"| OP
-```
-
 Each area groups related components. Open one to read a card for every component
 inside it — one line at a glance, or expanded in full:
 
