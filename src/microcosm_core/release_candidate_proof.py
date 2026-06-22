@@ -79,7 +79,7 @@ VERIFICATION_SCHEMA_VERSION = "microcosm_release_candidate_proof_verification_v1
 PACKET_FILENAME = "release-candidate-proof.json"
 CARD_FILENAME = "release-candidate-proof-card.md"
 VERIFICATION_FILENAME = "release-candidate-proof-verification.json"
-EXPORT_ARTIFACT_DIR_NAME = "microcosm-substrate"
+EXPORT_ARTIFACT_DIR_NAME = "plectis"
 CONTEXT_IDS = ("source_checkout", "fresh_install", "standalone_export")
 # The committed demonstration is the artifact's PROMISE: the expectation policy
 # pins the agreed encounter to this receipt, and the reviewer contract
@@ -697,8 +697,8 @@ def _run_encounter_context(
     evidence = CONTEXT_EVIDENCE[context_id]
     records = []
     for step, display_head in (
-        ("hero", ["microcosm", "comprehend", "--first-action", FIRST_ACTION_HERO_GOAL]),
-        ("assay", ["microcosm", "comprehension-assay", "--first-action"]),
+        ("hero", ["plectis", "comprehend", "--first-action", FIRST_ACTION_HERO_GOAL]),
+        ("assay", ["plectis", "comprehension-assay", "--first-action"]),
         (
             "demo_check",
             ["python", "scripts/build_first_action_demo.py", "--check"],

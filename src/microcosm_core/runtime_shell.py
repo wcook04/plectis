@@ -44,7 +44,7 @@ def _runtime_receipt_writes_enabled() -> bool:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     override = getattr(_RUNTIME_RECEIPT_WRITE_STATE, "enabled", None)
@@ -63,7 +63,7 @@ def _runtime_receipt_write_override(enabled: bool) -> Iterator[None]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     previous = getattr(_RUNTIME_RECEIPT_WRITE_STATE, "enabled", None)
@@ -88,7 +88,7 @@ def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
     - Fails: I-O / OSError suppressed by the helper; returns without raising.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     if _runtime_receipt_writes_enabled():
@@ -103,7 +103,7 @@ def _runtime_receipt_write_persists(path: Path) -> bool:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     return (
@@ -120,7 +120,7 @@ def _tracked_receipt_refresh_requires_env(path: Path) -> bool:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     return receipt_policy.tracked_receipt_write_blocked(path)
@@ -134,7 +134,7 @@ def _tracked_receipt_refresh_env(path: Path) -> str | None:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     if _tracked_receipt_refresh_requires_env(path):
@@ -149,7 +149,7 @@ class _LazyAttr:
     - Guarantee: returns control to the caller after the documented effect.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: you need any projection this coordinator's methods expose.
-    - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+    - Escalates-to: the individual method whose lens you need, or `plectis status`.
     """
     def __init__(self, module_loader: Callable[[], Any], attr_name: str) -> None:
         """Read-only projection helper.
@@ -529,10 +529,10 @@ PROOF_LAB_RECEIPT_REF = (
     "receipts/first_wave/verifier_lab_kernel/"
     "exported_verifier_lab_kernel_bundle_validation_result.json"
 )
-PROOF_LAB_FIRST_SCREEN_COMMAND = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+PROOF_LAB_FIRST_SCREEN_COMMAND = "plectis proof-lab --out /tmp/microcosm-proof-lab"
 PROOF_LAB_DEFAULT_OUT_REF = "/tmp/microcosm-proof-lab"
 OBSERVATORY_SERVE_COMMAND = (
-    "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    "plectis serve <project> --host 127.0.0.1 --port 8765"
 )
 OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 7
 OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
@@ -573,9 +573,9 @@ VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF = (
     "receipts/first_wave/verifier_lab_execution_spine/"
     "verifier_lab_execution_spine_validation_receipt.json"
 )
-VERIFIER_EXECUTION_LENS_COMMAND = "microcosm verifier-lab-execution-spine-lens"
+VERIFIER_EXECUTION_LENS_COMMAND = "plectis verifier-lab-execution-spine-lens"
 VERIFIER_EXECUTION_SOURCE_COMMAND = (
-    "microcosm verifier-lab-execution-spine run-execution-bundle "
+    "plectis verifier-lab-execution-spine run-execution-bundle "
     f"--input {VERIFIER_EXECUTION_BUNDLE_REF} "
     "--out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine"
 )
@@ -592,8 +592,8 @@ LOCAL_FIRST_SCREEN_ROUTE_SELECTION_RULE = (
 )
 WORKINGNESS_ENDPOINT = "/workingness"
 WORKINGNESS_CARD_ENDPOINT = "/workingness-card"
-PROJECT_OBSERVE_CARD_COMMAND = "microcosm observe --card <project>"
-PROJECT_OBSERVE_FULL_COMMAND = "microcosm observe <project>"
+PROJECT_OBSERVE_CARD_COMMAND = "plectis observe --card <project>"
+PROJECT_OBSERVE_FULL_COMMAND = "plectis observe <project>"
 WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
 SUBSTRATE_SUBSTITUTION_LEDGER_REF = Path("core/substrate_substitution_ledger.json")
 FIRST_SCREEN_STATE_REFS = (
@@ -663,7 +663,7 @@ class RuntimeStep:
     - Guarantee: returns control to the caller after the documented effect.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: you need any projection this coordinator's methods expose.
-    - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+    - Escalates-to: the individual method whose lens you need, or `plectis status`.
     """
     organ_id: str
     span: str
@@ -1664,7 +1664,7 @@ def _organ_authority_ref_fields(root: Path, row: dict[str, Any]) -> dict[str, An
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     source_ref = row.get("current_authority_receipt")
@@ -1782,7 +1782,7 @@ def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     if not _path_is_file(path):
@@ -1803,7 +1803,7 @@ def _count_jsonl_dict_rows(path: Path) -> int:
     - Guarantee: returns an int computed from the inspected inputs.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     return sum(1 for _row in _iter_jsonl_dict_rows(path))
@@ -1816,7 +1816,7 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     value = payload.get(key, [])
@@ -1912,7 +1912,7 @@ def _project_state_inspection_card(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     refs = [
@@ -1965,7 +1965,7 @@ def _compact_observatory_payload(
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     always_keep = {
@@ -2077,7 +2077,7 @@ def _lens_payload_boundary(
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     return public_payload_boundary(
@@ -2125,7 +2125,7 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     input_payload_schema_normalized = python_lens.get(OMITTED_PAYLOAD_BODY_FLAG) is True
@@ -2159,7 +2159,7 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
         "unsafe_payload_bodies_in_receipt": False,
         "payload_boundary": public_payload_boundary(
             boundary_id="project_python_lens_read_model",
-            command=str(python_lens.get("command") or "microcosm python-lens <project>"),
+            command=str(python_lens.get("command") or "plectis python-lens <project>"),
             surface_ref=surface_ref,
             input_payload_schema_normalized=input_payload_schema_normalized,
         ),
@@ -2234,7 +2234,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     project_summary = (
@@ -2454,7 +2454,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         },
         "surface_status_refs": {
             "status": "/status",
-            "front_door_status": "microcosm status --card <project>::front_door_status",
+            "front_door_status": "plectis status --card <project>::front_door_status",
             "first_screen": "/project/first-screen",
             "first_screen_composition": "/project/first-screen-full",
             "status_card": "/project/status",
@@ -2467,7 +2467,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             "evidence": ".microcosm/evidence/",
             "graph": graph_summary.get("graph_ref") or ".microcosm/graph.json",
             "state_inspection": ".microcosm/",
-            "state_write_proof": "microcosm observe <project>::state_write_proof",
+            "state_write_proof": "plectis observe <project>::state_write_proof",
             "proof_lab": "/proof-lab",
             "observatory": "/project/observatory",
         },
@@ -2490,7 +2490,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             {
                 "step_id": "read_project_status_card",
                 "endpoint": "/project/status",
-                "shows": "same compressed status-card lens as microcosm status --card <project>",
+                "shows": "same compressed status-card lens as plectis status --card <project>",
             },
             {
                 "step_id": "inspect_project_state",
@@ -2537,8 +2537,8 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
                 "/project/status or full tour for drilldown warnings"
             ),
             "source_refs": [
-                "microcosm tour --card <project>::front_door_status",
-                "microcosm status --card <project>::front_door_status",
+                "plectis tour --card <project>::front_door_status",
+                "plectis status --card <project>::front_door_status",
             ],
         },
         "first_screen_composition": {
@@ -2620,7 +2620,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             "safe_to_show": state_write_proof.get("safe_to_show", {}),
             "reader_action": (
                 "Use this browser card to verify the same local state-write "
-                "handoff exposed by microcosm observe before drilling into the "
+                "handoff exposed by plectis observe before drilling into the "
                 "full observatory model."
             ),
         },
@@ -2852,7 +2852,7 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
         "unsafe_payload_bodies_in_receipt": False,
         "payload_boundary": public_payload_boundary(
             boundary_id="runtime_receipt_contract",
-            command=str(payload.get("command") or "microcosm receipt"),
+            command=str(payload.get("command") or "plectis receipt"),
             surface_ref=str(
                 payload.get("receipt_ref")
                 or payload.get("authority_map_ref")
@@ -2980,7 +2980,7 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     return runtime_evidence_index.compact_receipt_summary(path, root)
@@ -3249,7 +3249,7 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     receipt_path = root / PROOF_LAB_RECEIPT_REF
@@ -3416,45 +3416,45 @@ def _reader_first_screen_routes() -> list[dict[str, Any]]:
     return [
         {
             "reader_id": "public_github_visitor",
-            "first_screen_command": "microcosm hello <project>",
-            "next_command": "microcosm tour --card <project>",
+            "first_screen_command": "plectis hello <project>",
+            "next_command": "plectis tour --card <project>",
             "evidence_focus": "copyable first command, shared behavior proof, authority ceiling",
             "anti_misread": "first-screen legibility is not publication readiness or release approval",
         },
         {
             "reader_id": "safety_evals_engineer",
-            "first_screen_command": "microcosm status --card <project>",
-            "next_command": "microcosm authority --card",
-            "followup_command": "microcosm workingness --card",
+            "first_screen_command": "plectis status --card <project>",
+            "next_command": "plectis authority --card",
+            "followup_command": "plectis workingness --card",
             "evidence_focus": "evidence_class, body_import_floor, authority ceilings, failure gaps",
             "anti_misread": "body-import counts are accounting, not maturity scores",
         },
         {
             "reader_id": "hiring_reviewer",
-            "first_screen_command": "microcosm legibility-scorecard",
-            "next_command": "microcosm tour --card <project>",
+            "first_screen_command": "plectis legibility-scorecard",
+            "next_command": "plectis tour --card <project>",
             "evidence_focus": "question-to-command path, endpoint parity, local behavior",
             "anti_misread": "legibility is not release, benchmark, or production authority",
         },
         {
             "reader_id": "peer_developer",
-            "first_screen_command": "microcosm tour --card <project>",
+            "first_screen_command": "plectis tour --card <project>",
             "next_command": PROJECT_OBSERVE_CARD_COMMAND,
             "evidence_focus": ".microcosm state, selected route, work/event/evidence chain",
             "anti_misread": "raw receipts and full organ inventory are drilldowns",
         },
         {
             "reader_id": "domain_specialist",
-            "first_screen_command": "microcosm hello --reader domain_specialist <project>",
+            "first_screen_command": "plectis hello --reader domain_specialist <project>",
             "next_command": "ORGANS.md#find-your-specialty",
-            "followup_command": "microcosm tour --card <project>",
+            "followup_command": "plectis tour --card <project>",
             "evidence_focus": "specialty-to-organ route, evidence class, authority ceiling",
             "anti_misread": "specialty routing is not domain correctness or expert review",
         },
         {
             "reader_id": "type_a_agent",
-            "first_screen_command": "microcosm first-screen --card <project>",
-            "next_command": "microcosm organ-surface-contract --card --root .",
+            "first_screen_command": "plectis first-screen --card <project>",
+            "next_command": "plectis organ-surface-contract --card --root .",
             "followup_command": "AGENTS.md::Concept And Mechanism Entry",
             "evidence_focus": "agent first-read contract, mechanism status, owner surface, claim ceiling",
             "anti_misread": "agent routing is not source-mutation, release, or proof authority",
@@ -3470,7 +3470,7 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     state = project_path / project_substrate.STATE_DIR
@@ -3523,8 +3523,8 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
             ),
             "card_id": "compile_fast_cached_state",
             "headline": "repo -> .microcosm",
-            "command": "microcosm compile --card <project>",
-            "full_command": "microcosm compile <project>",
+            "command": "plectis compile --card <project>",
+            "full_command": "plectis compile <project>",
             "cache_status": (
                 "stale_cached_state"
                 if freshness_status == "stale"
@@ -3558,8 +3558,8 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         "status": PASS if route_id else "missing_cached_route",
         "card_id": "compile_fast_cached_state",
         "headline": "repo -> .microcosm",
-        "command": "microcosm compile --card <project>",
-        "full_command": "microcosm compile <project>",
+        "command": "plectis compile --card <project>",
+        "full_command": "plectis compile <project>",
         "cache_status": "cached_state_read",
         "cache_source_ref": f"{project_substrate.STATE_DIR}/state_index.json",
         "cache_freshness": cache_freshness,
@@ -3589,7 +3589,7 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         },
         "reader_action": (
             "Use this fast cached card for repeat first-screen entry. Run "
-            "`microcosm compile <project>` when source freshness matters."
+            "`plectis compile <project>` when source freshness matters."
         ),
         "source_files_mutated": False,
         "safe_to_show": {
@@ -3646,7 +3646,7 @@ def _cold_reader_first_screen_card(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     compiled = compiled if isinstance(compiled, dict) else {}
@@ -3663,7 +3663,7 @@ def _cold_reader_first_screen_card(
         or (available_route_ids[0] if available_route_ids else "")
     )
     explain_route_id = selected_route_id or "<route_id>"
-    route_explanation_command = f"microcosm explain <project> {explain_route_id}"
+    route_explanation_command = f"plectis explain <project> {explain_route_id}"
     compile_status = compiled.get("status")
     state_refs = [
         f"{project_substrate.STATE_DIR}/{state_ref}"
@@ -3694,7 +3694,7 @@ def _cold_reader_first_screen_card(
         "local_first_screen_route": _local_first_screen_route_ref(),
         "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
         "project_ref": project_ref,
-        "primary_command": "microcosm tour --card <project>",
+        "primary_command": "plectis tour --card <project>",
         "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
         "reader_routes": _reader_first_screen_routes(),
         "selected_route_id": selected_route_id or None,
@@ -3704,7 +3704,7 @@ def _cold_reader_first_screen_card(
         "route_explanation": {
             "command": route_explanation_command,
             "endpoint": f"/project/explain/{explain_route_id}",
-            "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
+            "route_id_source": "plectis tour --card/tour/compile selected_route_id",
             "route_state_ref": (
                 f"{project_substrate.STATE_DIR}/routes.json::{explain_route_id}"
             ),
@@ -3721,7 +3721,7 @@ def _cold_reader_first_screen_card(
         "minimal_command_path": [
             {
                 "step_id": "inspect_first_screen",
-                "command": "microcosm tour --card <project>",
+                "command": "plectis tour --card <project>",
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "repo -> .microcosm",
@@ -3734,7 +3734,7 @@ def _cold_reader_first_screen_card(
             },
             {
                 "step_id": "inspect_status_card",
-                "command": "microcosm status --card <project>",
+                "command": "plectis status --card <project>",
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "compressed project/runtime first-screen status",
@@ -3742,19 +3742,19 @@ def _cold_reader_first_screen_card(
                     "body-import floor",
                     "release/provider/source/proof authority ceiling",
                 ],
-                "status_card_command": "microcosm status --card <project>",
+                "status_card_command": "plectis status --card <project>",
                 "status_card_endpoint": "/project/status",
             },
             {
                 "step_id": "inspect_workingness",
-                "command": "microcosm workingness --card",
+                "command": "plectis workingness --card",
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "workingness failure-envelope counts",
                     "missing standards and failure-mode gaps",
                     "not a score, maturity board, release gate, or proof authority",
                 ],
-                "workingness_command": "microcosm workingness --card",
+                "workingness_command": "plectis workingness --card",
                 "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
                 "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
             },
@@ -3795,7 +3795,7 @@ def _cold_reader_first_screen_card(
             },
             {
                 "step_id": "compile_project",
-                "command": "microcosm compile <project>",
+                "command": "plectis compile <project>",
                 "shows": [
                     "explicit .microcosm rebuild after first-screen proof",
                     "project-local catalog",
@@ -3809,7 +3809,7 @@ def _cold_reader_first_screen_card(
             },
             {
                 "step_id": "inspect_python_routes",
-                "command": "microcosm python-lens <project>",
+                "command": "plectis python-lens <project>",
                 "state_ref": f"{project_substrate.STATE_DIR}/python_lens.json",
             },
             {
@@ -3817,7 +3817,7 @@ def _cold_reader_first_screen_card(
                 "command": route_explanation_command,
                 "selected_route_id": selected_route_id or None,
                 "available_project_route_ids": available_route_ids,
-                "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
+                "route_id_source": "plectis tour --card/tour/compile selected_route_id",
                 "state_refs": [
                     f"{project_substrate.STATE_DIR}/routes.json",
                     f"{project_substrate.STATE_DIR}/work_items.json",
@@ -3827,7 +3827,7 @@ def _cold_reader_first_screen_card(
             },
             {
                 "step_id": "drill_receipts_only_after_behavior",
-                "command": "microcosm evidence inspect <receipt>",
+                "command": "plectis evidence inspect <receipt>",
                 "evidence_ref_count": len(evidence_refs or []),
             },
         ],
@@ -3903,7 +3903,7 @@ def _verifier_lab_execution_spine_card(root: Path) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     receipt = _read_json_if_exists(root / VERIFIER_EXECUTION_RECEIPT_REF)
@@ -4162,7 +4162,7 @@ def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     profiles = registry.get("class_profiles", {})
@@ -4241,7 +4241,7 @@ def _substrate_substitution_summary(root: Path) -> dict[str, Any]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     payload = _read_json_if_exists(root / SUBSTRATE_SUBSTITUTION_LEDGER_REF)
@@ -4318,7 +4318,7 @@ def _sha256_file_digest(path: Path) -> str:
     - Fails: missing / unreadable path -> propagates OSError (path.open).
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     digest = hashlib.sha256()
@@ -4337,7 +4337,7 @@ def _source_module_family_spotlights(
     - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     spotlights: list[dict[str, Any]] = []
@@ -4386,7 +4386,7 @@ def _public_source_ref_display(ref: str) -> str:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     prefix = "microcosm-substrate/"
@@ -4407,7 +4407,7 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     family_order: list[str] = []
@@ -4422,7 +4422,7 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Reads: the declared source-ref / digest / receipt path under the public tree.
         - When-needed: auditing what source refs/digests this projection actually checks.
-        - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+        - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
         - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
         """
         for ref in source_refs:
@@ -4577,7 +4577,7 @@ def _macro_body_target_path(root: Path, target_ref: str) -> Path:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     target_path = root / target_ref if target_ref else root
@@ -4606,7 +4606,7 @@ def _source_module_manifest_body_rows(
     - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     rows: list[dict[str, Any]] = []
@@ -4756,7 +4756,7 @@ def _child_projection_protocol_body_rows(
     - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     if not _path_is_dir(bundle_dir):
@@ -4810,7 +4810,7 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
@@ -4961,7 +4961,7 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
         {
             "hook_id": "fixture_protocol_acceptance",
             "command": (
-                "microcosm macro-projection-import-protocol run --input "
+                "plectis macro-projection-import-protocol run --input "
                 f"{MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix()} --out "
                 "receipts/first_wave/macro_projection_import_protocol"
             ),
@@ -4974,7 +4974,7 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
         {
             "hook_id": "runtime_bundle_projection",
             "command": (
-                "microcosm macro-projection-import-protocol run-projection-bundle "
+                "plectis macro-projection-import-protocol run-projection-bundle "
                 f"--input {MACRO_PROJECTION_IMPORT_PLAN_REF.parent.as_posix()} "
                 f"--out {MACRO_PROJECTION_RUNTIME_RECEIPT_REF.as_posix()}"
             ),
@@ -5059,7 +5059,7 @@ def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     authority_path = root / PUBLIC_AUTHORITY_MAP_REF
@@ -5074,7 +5074,7 @@ def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     cached["cache_status"] = "public_authority_map_receipt"
     cached["cache_source_ref"] = PUBLIC_AUTHORITY_MAP_REF.as_posix()
     cached["live_digest_verification_status"] = "deferred_to_full_status_or_authority"
-    cached["full_verification_command"] = "microcosm status"
+    cached["full_verification_command"] = "plectis status"
     return cached
 
 
@@ -5086,7 +5086,7 @@ def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     cached = _cached_macro_projection_body_import_floor(root)
@@ -5106,7 +5106,7 @@ def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
         live["cache_status"] = "live_recomputed_after_stale_authority_map_receipt"
         live["cache_source_ref"] = PUBLIC_AUTHORITY_MAP_REF.as_posix()
         live["live_digest_verification_status"] = "performed_for_compact_card"
-        live["full_verification_command"] = "microcosm status"
+        live["full_verification_command"] = "plectis status"
         return live
     return live
 
@@ -5118,7 +5118,7 @@ def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     path = project / project_substrate.STATE_DIR / filename
@@ -5152,7 +5152,7 @@ def _preview_with_selected(
     - Guarantee: returns a list of the projected values (possibly empty).
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     preview = values[:limit]
@@ -5175,7 +5175,7 @@ def _compact_project_route_explanation(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     """
     route_id = selected_route_id or "<selected_route_id>"
-    command = f"microcosm explain <project> {route_id}"
+    command = f"plectis explain <project> {route_id}"
     summary: dict[str, Any] = {
         "schema_version": "microcosm_project_route_explanation_status_card_v1",
         "status": "missing_route" if not selected_route_id else "missing_explanation",
@@ -5262,7 +5262,7 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
@@ -5340,7 +5340,7 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
         "route_explanation_status": route_explanation.get("status"),
         "route_explanation_status_required": PASS,
         "observatory_route_proof_ref": (
-            "microcosm serve <project>::first_screen_route_proof"
+            "plectis serve <project>::first_screen_route_proof"
         ),
         "state_refs_checked_count": 2 if selected_route_id else 1,
     }
@@ -5355,16 +5355,16 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
                 "evidence, graph, observatory, and explanation fields cannot "
                 "be selected yet."
             )
-            primary_recovery_command = "microcosm tour --card <project>"
-            alternate_recovery_command = "microcosm compile <project>"
+            primary_recovery_command = "plectis tour --card <project>"
+            alternate_recovery_command = "plectis compile <project>"
         else:
             recovery_reason = (
                 "Project-local .microcosm state exists but does not yet expose "
                 "a selected route; rebuild the local route state before using "
                 "status, observe, observatory, or explain as proof surfaces."
             )
-            primary_recovery_command = "microcosm compile <project>"
-            alternate_recovery_command = "microcosm tour --card <project>"
+            primary_recovery_command = "plectis compile <project>"
+            alternate_recovery_command = "plectis tour --card <project>"
         recovery = {
             "schema_version": "microcosm_project_status_recovery_v1",
             "status": "actionable",
@@ -5373,11 +5373,11 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
             "state_dir": project_substrate.STATE_DIR,
             "reason": recovery_reason,
             "primary_command": primary_recovery_command,
-            "status_after_recovery_command": "microcosm status --card <project>",
+            "status_after_recovery_command": "plectis status --card <project>",
             "alternate_command": alternate_recovery_command,
             "next_commands": [
                 primary_recovery_command,
-                "microcosm status --card <project>",
+                "plectis status --card <project>",
                 alternate_recovery_command,
             ],
             "source_files_mutated": False,
@@ -5402,22 +5402,22 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
             else None
         ),
         "route_explanation_command": (
-            f"microcosm explain <project> {selected_route_id}"
+            f"plectis explain <project> {selected_route_id}"
             if selected_route_id
-            else "microcosm explain <project> <selected_route_id>"
+            else "plectis explain <project> <selected_route_id>"
         ),
         "route_explanation": route_explanation,
         "route_selection_proof": route_selection_proof,
         "state_write_proof": state_write_proof,
         "recovery": recovery,
         "route_selection_rule": (
-            "derived from compiled .microcosm/routes.json; run microcosm "
-            "tour --card <project> or microcosm compile <project> first if empty"
+            "derived from compiled .microcosm/routes.json; run plectis "
+            "tour --card <project> or plectis compile <project> first if empty"
         ),
         "reader_action": (
             "Use selected_route_id here for explain/observatory drilldowns."
             if selected_route_id
-            else "Run microcosm tour --card <project> before expecting project route fields."
+            else "Run plectis tour --card <project> before expecting project route fields."
         ),
         "source_files_mutated": False,
     }
@@ -5430,7 +5430,7 @@ def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     route_explanation = project_overlay.get("route_explanation", {})
@@ -5477,14 +5477,14 @@ def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str
         "route_selection_proof_status": route_selection_proof.get("status"),
         "route_selection_proof_ref": "front_door.route_selection_proof",
         "state_write_result_ref": (
-            "microcosm tour --card <project>::state_write_result"
+            "plectis tour --card <project>::state_write_result"
         ),
         "state_write_status_ref": (
-            "microcosm tour --card <project>::front_door_status."
+            "plectis tour --card <project>::front_door_status."
             "surface_statuses.state_write"
         ),
         "state_inspection_status_ref": (
-            "microcosm tour --card <project>::front_door_status."
+            "plectis tour --card <project>::front_door_status."
             "surface_statuses.state_inspection"
         ),
         "status_card_writes_microcosm_state": False,
@@ -5521,7 +5521,7 @@ def _compact_project_state_write_proof(
             "state_inspection_status_ref"
         ),
         "project_state_ref": "front_door.project_state",
-        "observe_ref": "microcosm observe <project>::state_write_proof",
+        "observe_ref": "plectis observe <project>::state_write_proof",
         "tour_card_writes_microcosm_state": state_write_proof.get(
             "tour_card_writes_microcosm_state"
         ),
@@ -5552,14 +5552,14 @@ def _compact_project_card_body_import_floor(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     compact = {
         "schema_version": "microcosm_project_status_body_import_floor_ref_v1",
         "status": body_floor.get("status"),
         "ref": "front_door.source_open_body_import_floor",
-        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "full_status_ref": "plectis status::macro_body_import_floor",
         "public_safe_body_material_count": body_floor.get(
             "public_safe_body_material_count"
         ),
@@ -5598,7 +5598,7 @@ def _compact_project_card_body_import_floor(
                 ),
                 "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
                 "full_defects_ref": (
-                    "microcosm status::macro_body_import_floor.defects"
+                    "plectis status::macro_body_import_floor.defects"
                 ),
             }
         )
@@ -5612,7 +5612,7 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     source_body_imports = (
@@ -5640,8 +5640,8 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
     )
     summary = {
         "status": body_floor.get("status"),
-        "summary_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
-        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "summary_ref": "plectis status --card <project>::front_door.source_open_body_import_floor",
+        "full_status_ref": "plectis status::macro_body_import_floor",
         "source_ref": body_floor.get("source_ref"),
         "public_safe_body_material_count": body_floor.get(
             "public_safe_body_material_count"
@@ -5690,7 +5690,7 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
                 "defect_count": body_floor.get("defect_count"),
                 "defect_preview": defect_preview,
                 "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
-                "full_defects_ref": "microcosm status::macro_body_import_floor.defects",
+                "full_defects_ref": "plectis status::macro_body_import_floor.defects",
             }
         )
     return summary
@@ -5704,7 +5704,7 @@ def _status_card_surface_is_nonblocking(status: Any) -> bool:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     return status in {PASS, "clear", "actionable"}
@@ -5718,7 +5718,7 @@ def _status_card_surface_blocks_front_door(surface_id: str, status: Any) -> bool
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     if surface_id == "route_explanation" and status in {
@@ -5792,10 +5792,10 @@ def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[st
 
     return {
         "schema_version": "microcosm_tour_card_first_contact_surface_refs_v1",
-        "source_ref": "microcosm first-screen <project>::first_contact_surface_refs",
+        "source_ref": "plectis first-screen <project>::first_contact_surface_refs",
         "command_refs": {
             "observe": PROJECT_OBSERVE_CARD_COMMAND,
-            "status_card": "microcosm status --card <project>",
+            "status_card": "plectis status --card <project>",
             "observatory_bounded": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
         },
         "reader_rule": refs.get("reader_rule"),
@@ -5827,12 +5827,12 @@ def _source_checkout_cli_command(command: str) -> str:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
-    if command.startswith("microcosm "):
+    if command.startswith("plectis "):
         return "PYTHONPATH=src python3 -m microcosm_core " + command.removeprefix(
-            "microcosm "
+            "plectis "
         )
     return command
 
@@ -5849,7 +5849,7 @@ def _compact_tour_card_body_floor_defects(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     if not isinstance(defect_preview, list):
@@ -5883,7 +5883,7 @@ def _compact_body_import_defects(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     defects = body_floor.get("defects", [])
@@ -5946,7 +5946,7 @@ def _compact_status_card_body_floor_defects(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     compact: list[dict[str, Any]] = []
@@ -5975,7 +5975,7 @@ def _status_card_front_door_status(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     front_door = (
@@ -6107,11 +6107,11 @@ def _status_card_front_door_status(
                     ),
                     "full_status_ref": body_floor.get(
                         "full_status_ref",
-                        "microcosm status::macro_body_import_floor",
+                        "plectis status::macro_body_import_floor",
                     ),
                     "full_defects_ref": body_floor.get(
                         "full_defects_ref",
-                        "microcosm status::macro_body_import_floor.defects",
+                        "plectis status::macro_body_import_floor.defects",
                     ),
                 }
             )
@@ -6186,7 +6186,7 @@ def _status_card_front_door_status(
                     "observe_ref": state_write_proof.get("observe_ref"),
                     "reader_action": state_write_proof.get(
                         "reader_action",
-                        "Run microcosm tour --card <project>, then rerun status.",
+                        "Run plectis tour --card <project>, then rerun status.",
                     ),
                 }
             )
@@ -6208,7 +6208,7 @@ def _status_card_front_door_status(
             "not_evaluated_in_status_card"
         ),
         "drilldown_blocked_surface_ids_ref": (
-            "microcosm tour <project>::front_door_status."
+            "plectis tour <project>::front_door_status."
             "drilldown_blocked_surface_ids"
         ),
         "top_level_status_rule": (
@@ -6284,7 +6284,7 @@ def _runtime_status_card(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     front_door = (
@@ -6407,8 +6407,8 @@ def _runtime_status_card(
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
         "posture": status.get("posture"),
-        "card_command": "microcosm status --card",
-        "full_status_command": "microcosm status",
+        "card_command": "plectis status --card",
+        "full_status_command": "plectis status",
         "source_files_mutated": (
             front_door_safe_to_show.get("source_files_mutated")
             if front_door_safe_to_show.get("source_files_mutated") is not None
@@ -6423,7 +6423,7 @@ def _runtime_status_card(
                 else _local_first_screen_route_ref()
             ),
             "tour_front_door_status_ref": (
-                "microcosm tour <project>::front_door_status"
+                "plectis tour <project>::front_door_status"
             ),
             "tour_warning_drilldowns": ["authority", "intake"],
             "state_dir": generated_state.get("state_dir"),
@@ -6442,9 +6442,9 @@ def _runtime_status_card(
             "source_open_body_import_floor": {
                 "status": body_floor.get("status"),
                 "summary_ref": (
-                    "microcosm status --card::macro_body_import_floor"
+                    "plectis status --card::macro_body_import_floor"
                 ),
-                "full_status_ref": "microcosm status::macro_body_import_floor",
+                "full_status_ref": "plectis status::macro_body_import_floor",
                 "public_safe_body_material_count": body_floor.get(
                     "public_safe_body_material_count"
                 ),
@@ -6579,7 +6579,7 @@ def _runtime_status_card(
                 ]
             ),
             "validation_commands_ref": (
-                "microcosm status::macro_body_import_floor.validation_hooks"
+                "plectis status::macro_body_import_floor.validation_hooks"
             ),
             "public_safe_body_material_counts_by_class": body_floor.get(
                 "public_safe_body_material_counts_by_class", {}
@@ -6667,16 +6667,16 @@ def _runtime_status_card(
         },
         "safe_to_show": {
             "front_door_safe_to_show_ref": (
-                "microcosm tour --card <project>::safe_to_show"
+                "plectis tour --card <project>::safe_to_show"
             ),
-            "proof_lab_safe_to_show_ref": "microcosm proof-lab::safe_to_show",
+            "proof_lab_safe_to_show_ref": "plectis proof-lab::safe_to_show",
             "receipts_are_drilldown_evidence": True,
             "credential_equivalent_live_access_excluded": True,
         },
         "next_commands": [
-            "microcosm tour --card <project>",
-            "microcosm compile <project>",
-            "microcosm workingness --card",
+            "plectis tour --card <project>",
+            "plectis compile <project>",
+            "plectis workingness --card",
         ],
         "anti_claim": (
             "Compact status only: no release/hosting/provider/source mutation/"
@@ -6691,7 +6691,7 @@ def _runtime_status_card(
                 "macro_body_import_floor.defect_preview"
             ),
             "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
-            "full_defects_ref": "microcosm status::macro_body_import_floor.defects",
+            "full_defects_ref": "plectis status::macro_body_import_floor.defects",
         }
         card["front_door"]["source_open_body_import_floor"].update(defect_summary)
         card["macro_body_import_floor"].update(defect_summary)
@@ -6706,9 +6706,9 @@ def _runtime_status_card(
             _compact_project_status_overlay(project_overlay),
             project_ref,
         )
-        card["card_command"] = f"microcosm status --card {project_ref}"
+        card["card_command"] = f"plectis status --card {project_ref}"
         card["project_ref"] = project_ref
-        card["front_door"]["primary_command"] = f"microcosm tour --card {project_ref}"
+        card["front_door"]["primary_command"] = f"plectis tour --card {project_ref}"
         card["front_door"]["project_state"] = project_state_summary
         card["macro_body_import_floor"] = _compact_project_card_body_import_floor(
             body_floor,
@@ -6844,8 +6844,8 @@ def _runtime_status_card(
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
         "status_card_endpoint": "/project/status",
-        "project_observe_command": f"microcosm observe --card {project_ref}",
-        "project_observe_full_command": f"microcosm observe {project_ref}",
+        "project_observe_command": f"plectis observe --card {project_ref}",
+        "project_observe_full_command": f"plectis observe {project_ref}",
         "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
@@ -6874,7 +6874,7 @@ def _runtime_status_card(
         "status": boundary_status,
         "checked_surface_count": 4,
         "source_open_body_policy_ref": (
-            "microcosm authority::source_open_body_policy"
+            "plectis authority::source_open_body_policy"
         ),
         "omitted_payload_schema_terms_exported": boundary_hit_count > 0,
         "omitted_payload_schema_hit_count": boundary_hit_count,
@@ -6909,7 +6909,7 @@ def _workingness_gap_preview(
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     rows = workingness.get("thing_failure_map", [])
@@ -6974,10 +6974,10 @@ def _workingness_gap_preview(
     return {
         "status": "actionable" if preview_rows else "clear",
         "limit": limit,
-        "drilldown_command": "microcosm workingness",
+        "drilldown_command": "plectis workingness",
         "rows": preview_rows,
         "reader_action": (
-            "Open microcosm workingness for the full row before treating "
+            "Open plectis workingness for the full row before treating "
             "accepted status as evidence strength."
         ),
     }
@@ -6994,7 +6994,7 @@ def _workingness_source_body_import_exception_preview(
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     rows = workingness.get("thing_failure_map", [])
@@ -7058,11 +7058,11 @@ def _workingness_source_body_import_exception_preview(
         "count": total_count,
         "limit": limit,
         "truncated": total_count > limit,
-        "drilldown_command": "microcosm workingness",
+        "drilldown_command": "plectis workingness",
         "rows": preview_rows,
         "reader_action": (
             "Use these IDs to distinguish honest drilldown-only exceptions from "
-            "hidden source-body import debt; open microcosm workingness for full rows."
+            "hidden source-body import debt; open plectis workingness for full rows."
         ),
     }
 
@@ -7104,7 +7104,7 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
     - Guarantee: returns a JSON-safe projection dict payload.
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     surface_counts = (
@@ -7141,9 +7141,9 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
             "status describes bounded failure-envelope debt; "
             "map_generation_status describes whether the workingness map ran"
         ),
-        "command": "microcosm workingness --card",
+        "command": "plectis workingness --card",
         "source_command": workingness.get("command"),
-        "drilldown_command": "microcosm workingness",
+        "drilldown_command": "plectis workingness",
         "endpoint": WORKINGNESS_CARD_ENDPOINT,
         "full_endpoint": WORKINGNESS_ENDPOINT,
         "drilldown_endpoint": WORKINGNESS_ENDPOINT,
@@ -7171,7 +7171,7 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
         "not_a_scorecard": map_policy.get("not_a_scorecard"),
         "gap_preview": _workingness_gap_preview(workingness),
         "reader_action": (
-            "Open microcosm workingness for per-organ failure modes, body "
+            "Open plectis workingness for per-organ failure modes, body "
             "provenance, and future targets."
         ),
     }
@@ -7200,7 +7200,7 @@ def _workingness_command_speed_card(
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     summary = _workingness_status_summary(workingness)
@@ -7218,10 +7218,10 @@ def _workingness_command_speed_card(
         "schema_version": "microcosm_workingness_command_speed_card_v1",
         "status": summary.get("map_generation_status"),
         "card_status": summary.get("failure_envelope_status"),
-        "command": "microcosm workingness --card",
+        "command": "plectis workingness --card",
         "source_command": summary.get("source_command") or summary.get("command"),
         "drilldown_command": (
-            summary.get("drilldown_command") or "microcosm workingness"
+            summary.get("drilldown_command") or "plectis workingness"
         ),
         "endpoint": summary.get("endpoint"),
         "full_endpoint": summary.get("full_endpoint"),
@@ -7265,7 +7265,7 @@ def _workingness_command_speed_card(
         },
         "reader_action": (
             "Use this compact card for first-screen command selection; run "
-            "microcosm workingness only when per-organ failure rows are needed."
+            "plectis workingness only when per-organ failure rows are needed."
         ),
     }
 
@@ -7278,7 +7278,7 @@ def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, 
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Reads: the declared source-ref / digest / receipt path under the public tree.
     - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
     """
     manifest_ref = Path("core/fixture_manifests") / f"{organ_id}.fixture_manifest.json"
@@ -7558,7 +7558,7 @@ class RuntimeShell:
     - Guarantee: returns control to the caller after the documented effect.
     - Fails: invalid / unexpected input -> raises ValueError.
     - When-needed: you need any projection this coordinator's methods expose.
-    - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+    - Escalates-to: the individual method whose lens you need, or `plectis status`.
     """
     def __init__(self, root: str | Path | None = None) -> None:
         """Read-only projection helper.
@@ -7579,7 +7579,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Reads: the declared source-ref / digest / receipt path under the public tree.
         - When-needed: auditing what source refs/digests this projection actually checks.
-        - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+        - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
         - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
         """
         cached = self._macro_body_import_floor_cache.get("live")
@@ -7597,7 +7597,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         cached = self._macro_body_import_floor_cache.get("card")
@@ -7623,7 +7623,7 @@ class RuntimeShell:
             live["cache_status"] = "live_recomputed_after_stale_authority_map_receipt"
             live["cache_source_ref"] = PUBLIC_AUTHORITY_MAP_REF.as_posix()
             live["live_digest_verification_status"] = "performed_for_compact_card"
-            live["full_verification_command"] = "microcosm status"
+            live["full_verification_command"] = "plectis status"
         self._macro_body_import_floor_cache["card"] = copy.deepcopy(live)
         return live
 
@@ -7644,7 +7644,7 @@ class RuntimeShell:
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         registry = _read_json_if_exists(self.root / "core/organ_registry.json")
         rows = registry.get("implemented_organs", [])
@@ -7704,7 +7704,7 @@ class RuntimeShell:
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         rows = _iter_jsonl_dict_rows(
             self.root
@@ -7731,7 +7731,7 @@ class RuntimeShell:
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         payload = _read_json_if_exists(
             self.root / "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json"
@@ -7755,7 +7755,7 @@ class RuntimeShell:
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         payload = _read_json_if_exists(
             self.root / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/workitems.json"
@@ -7778,7 +7778,7 @@ class RuntimeShell:
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         return list(self.evidence_index(limit=limit).get("evidence", []))
 
@@ -7789,7 +7789,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         return runtime_evidence_index.list_runtime_evidence(self.root, limit=limit)
 
@@ -7800,7 +7800,7 @@ class RuntimeShell:
         - Guarantee: returns an int computed from the inspected inputs.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         return _count_files_under(self.root / "receipts", suffix=".json")
 
@@ -7811,7 +7811,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         organs = self.organs()
         substrate_substitution = _substrate_substitution_summary(self.root)
@@ -7963,7 +7963,7 @@ class RuntimeShell:
             "source_open_body_material_count_kind": "per_organ_row_sum",
             "counted_surface": "workingness.thing_failure_map[].source_open_body_imports",
             "canonical_aggregate_floor_ref": (
-                "microcosm status --card::front_door.source_open_body_import_floor"
+                "plectis status --card::front_door.source_open_body_import_floor"
             ),
             "aggregate_public_safe_body_material_count": (
                 aggregate_body_material_count if aggregate_count_available else None
@@ -8035,7 +8035,7 @@ class RuntimeShell:
             if missing_standard_count == 0 and missing_failure_modes_count == 0
             else "partial_failure_modes",
             "map_id": "runtime_organ_workingness_failure_map",
-            "command": "microcosm workingness",
+            "command": "plectis workingness",
             "endpoint": WORKINGNESS_ENDPOINT,
             "workingness_map_ref": WORKINGNESS_MAP_REF.as_posix(),
             "projection_not_authority": True,
@@ -8120,7 +8120,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         return _workingness_command_speed_card(
@@ -8149,7 +8149,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         return {
@@ -8192,7 +8192,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         organs = self.organs()
         adapter_backed_rows = [
@@ -8241,188 +8241,188 @@ class RuntimeShell:
             "public_root": _public_relative(self.root, self.root),
             "runtime_surface": {
                 "commands": [
-                    "microcosm init <project>",
-                    "microcosm index <project>",
-                    "microcosm catalog <project>",
-                    "microcosm architecture <project>",
-                    "microcosm compile <project>",
-                    "microcosm python-lens <project>",
-                    "microcosm patterns <project>",
-                    "microcosm route <project>",
-                    "microcosm explain <project> <route_id>",
-                    "microcosm graph <project>",
-                    "microcosm work create <project>",
-                    "microcosm work run <project>",
-                    "microcosm observe --card <project>",
-                    "microcosm observe <project>",
-                    "microcosm evidence list <project> --limit 25",
-                    "microcosm tour --card <project>",
-                    "microcosm tour <project>",
-                    "microcosm status",
-                    "microcosm status --card",
-                    "microcosm spine",
-                    "microcosm authority",
-                    "microcosm workingness",
-                    "microcosm prediction-lens",
-                    "microcosm market-boundary",
-                    "microcosm corpus-lens",
-                    "microcosm trace-lens",
-                    "microcosm repair-loop",
-                    "microcosm evidence-cells",
-                    "microcosm proof-loop-depth",
+                    "plectis init <project>",
+                    "plectis index <project>",
+                    "plectis catalog <project>",
+                    "plectis architecture <project>",
+                    "plectis compile <project>",
+                    "plectis python-lens <project>",
+                    "plectis patterns <project>",
+                    "plectis route <project>",
+                    "plectis explain <project> <route_id>",
+                    "plectis graph <project>",
+                    "plectis work create <project>",
+                    "plectis work run <project>",
+                    "plectis observe --card <project>",
+                    "plectis observe <project>",
+                    "plectis evidence list <project> --limit 25",
+                    "plectis tour --card <project>",
+                    "plectis tour <project>",
+                    "plectis status",
+                    "plectis status --card",
+                    "plectis spine",
+                    "plectis authority",
+                    "plectis workingness",
+                    "plectis prediction-lens",
+                    "plectis market-boundary",
+                    "plectis corpus-lens",
+                    "plectis trace-lens",
+                    "plectis repair-loop",
+                    "plectis evidence-cells",
+                    "plectis proof-loop-depth",
                     VERIFIER_EXECUTION_LENS_COMMAND,
-                    "microcosm landing-replay",
-                    "microcosm view-quality",
-                    "microcosm projection-safety",
-                    "microcosm drift-control",
-                    "microcosm spatial-simulation",
-                    "microcosm circuit-attribution",
-                    "microcosm route-cleanup",
-                    "microcosm projection-import-map",
-                    "microcosm import-projector",
-                    "microcosm option-surface-lens",
-                    "microcosm stripping-guard",
-                    "microcosm standards-control",
-                    "microcosm hook-coverage",
-                    "microcosm replay-gauntlet",
-                    "microcosm benchmark-lab",
-                    "microcosm legibility-scorecard",
-                    "microcosm intake",
-                    "microcosm run --card examples/runtime_shell/demo_project",
-                    "microcosm reveal",
-                    "microcosm formal-math-lean-proof-witness run-witness-bundle",
-                    "microcosm formal-math-premise-retrieval run-retrieval-bundle",
-                    "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle",
+                    "plectis landing-replay",
+                    "plectis view-quality",
+                    "plectis projection-safety",
+                    "plectis drift-control",
+                    "plectis spatial-simulation",
+                    "plectis circuit-attribution",
+                    "plectis route-cleanup",
+                    "plectis projection-import-map",
+                    "plectis import-projector",
+                    "plectis option-surface-lens",
+                    "plectis stripping-guard",
+                    "plectis standards-control",
+                    "plectis hook-coverage",
+                    "plectis replay-gauntlet",
+                    "plectis benchmark-lab",
+                    "plectis legibility-scorecard",
+                    "plectis intake",
+                    "plectis run --card examples/runtime_shell/demo_project",
+                    "plectis reveal",
+                    "plectis formal-math-lean-proof-witness run-witness-bundle",
+                    "plectis formal-math-premise-retrieval run-retrieval-bundle",
+                    "plectis formal-math-verifier-trace-repair-loop run-loop-bundle",
                     PROOF_LAB_FIRST_SCREEN_COMMAND,
-                    "microcosm verifier-lab-execution-spine run-execution-bundle",
-                    "microcosm certificate-kernel-execution-lab run-certificate-bundle",
-                    "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle",
-                    "microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle",
-                    "microcosm lean-std-premise-index run-index-bundle",
+                    "plectis verifier-lab-execution-spine run-execution-bundle",
+                    "plectis certificate-kernel-execution-lab run-certificate-bundle",
+                    "plectis formal-evidence-cell-anchor-resolver run-anchor-bundle",
+                    "plectis undeclared-library-prior-symbol-classifier run-symbol-bundle",
+                    "plectis lean-std-premise-index run-index-bundle",
                     (
-                        "microcosm ring2-premise-retrieval-precision-recall-harness "
+                        "plectis ring2-premise-retrieval-precision-recall-harness "
                         "run-precision-recall-bundle"
                     ),
-                    "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+                    "plectis durable-agent-work-landing-replay run-work-landing-bundle",
                     (
-                        "microcosm work-landing-control-spine "
+                        "plectis work-landing-control-spine "
                         "validate-control-bundle"
                     ),
                     (
-                        "microcosm finance-eval-spine "
+                        "plectis finance-eval-spine "
                         "validate-finance-eval-bundle"
                     ),
-                    "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
+                    "plectis research-replication-rubric-artifact-replay run-replication-bundle",
                     (
-                        "microcosm world-model-projection-drift-control-room "
+                        "plectis world-model-projection-drift-control-room "
                         "run-drift-control-bundle"
                     ),
                     (
-                        "microcosm spatial-world-model-counterfactual-simulation-replay "
+                        "plectis spatial-world-model-counterfactual-simulation-replay "
                         "run-simulation-bundle"
                     ),
                     (
-                        "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                        "plectis materials-chemistry-closed-loop-lab-safety-replay "
                         "run-lab-bundle"
                     ),
                     (
-                        "microcosm mechanistic-interpretability-circuit-attribution-replay "
+                        "plectis mechanistic-interpretability-circuit-attribution-replay "
                         "run-attribution-bundle"
                     ),
                     (
-                        "microcosm agent-memory-temporal-conflict-replay "
+                        "plectis agent-memory-temporal-conflict-replay "
                         "run-memory-bundle"
                     ),
                     (
-                        "microcosm sleeper-memory-poisoning-quarantine-replay "
+                        "plectis sleeper-memory-poisoning-quarantine-replay "
                         "run-quarantine-bundle"
                     ),
                     (
-                        "microcosm mcp-tool-authority-replay "
+                        "plectis mcp-tool-authority-replay "
                         "run-tool-authority-bundle"
                     ),
                     (
-                        "microcosm proof-derived-governed-mutation-authorization "
+                        "plectis proof-derived-governed-mutation-authorization "
                         "run-authorization-bundle"
                     ),
                     (
-                        "microcosm belief-state-process-reward-replay "
+                        "plectis belief-state-process-reward-replay "
                         "run-reward-bundle"
                     ),
                     (
-                        "microcosm agent-sandbox-policy-escape-replay "
+                        "plectis agent-sandbox-policy-escape-replay "
                         "run-sandbox-bundle"
                     ),
                     (
-                        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                        "plectis indirect-prompt-injection-information-flow-policy-replay "
                         "run-prompt-injection-bundle"
                     ),
                     (
-                        "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                        "plectis agentic-vulnerability-discovery-patch-proof-replay "
                         "run-patch-proof-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-computer-use-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-session-attribution-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-harness-configuration-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-multi-agent-fanin-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-bridge-dispatch-yield-resume-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-controller-heartbeat-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-agent-trace-route-repair-bundle"
                     ),
                     (
-                        "microcosm agent-route-observability-runtime "
+                        "plectis agent-route-observability-runtime "
                         "validate-agent-observability-store-bundle"
                     ),
-                    "microcosm provider-context-recipe-budget-policy run-budget-bundle",
-                    "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
-                    "microcosm tactic-portfolio-availability-probe run-availability-bundle",
-                    "microcosm target-shape-tactic-routing-gate run-routing-bundle",
-                    "microcosm macro-projection-import-protocol run-projection-bundle",
-                    "microcosm prediction-oracle-reconciliation run-prediction-bundle",
-                    "microcosm standards-meta-diagnostics run-diagnostics-bundle",
-                    "microcosm cold-reader-route-map run-route-map-bundle",
-                    "microcosm serve",
-                    "microcosm route list",
-                    "microcosm route inspect <id>",
-                    "microcosm work demo",
-                    "microcosm evidence list",
-                    "microcosm evidence inspect <receipt>",
+                    "plectis provider-context-recipe-budget-policy run-budget-bundle",
+                    "plectis corpus-readiness-mathlib-absence-gate run-projection-bundle",
+                    "plectis tactic-portfolio-availability-probe run-availability-bundle",
+                    "plectis target-shape-tactic-routing-gate run-routing-bundle",
+                    "plectis macro-projection-import-protocol run-projection-bundle",
+                    "plectis prediction-oracle-reconciliation run-prediction-bundle",
+                    "plectis standards-meta-diagnostics run-diagnostics-bundle",
+                    "plectis cold-reader-route-map run-route-map-bundle",
+                    "plectis serve",
+                    "plectis route list",
+                    "plectis route inspect <id>",
+                    "plectis work demo",
+                    "plectis evidence list",
+                    "plectis evidence inspect <receipt>",
                 ],
                 "demoted_drilldown_commands": [
                     (
-                        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+                        "plectis agent-benchmark-integrity-anti-gaming-replay "
                         "run-benchmark-integrity-bundle"
                     ),
                     (
-                        "microcosm agent-monitor-redteam-falsification-replay "
+                        "plectis agent-monitor-redteam-falsification-replay "
                         "run-monitor-bundle"
                     ),
                     (
-                        "microcosm agent-sabotage-scheming-monitor-replay "
+                        "plectis agent-sabotage-scheming-monitor-replay "
                         "run-sabotage-bundle"
                     ),
                     (
-                        "microcosm mathematical-strategy-atlas-hypothesis-scorer "
+                        "plectis mathematical-strategy-atlas-hypothesis-scorer "
                         "run-strategy-bundle"
                     )
                 ],
@@ -8469,52 +8469,52 @@ class RuntimeShell:
             "kernel_primitive_count": architecture_kernel.load_kernel_manifest(self.root).get("primitive_count"),
             "release_authorized": False,
             "next_actions": [
-                "run microcosm init <project>",
-                "run microcosm compile <project>",
-                "run microcosm python-lens <project>",
-                "run microcosm tour --card <project>",
-                "run microcosm tour <project>",
-                "run microcosm status --card",
-                "run microcosm explain <project> <route_id>",
-                "run microcosm spine",
-                "run microcosm authority",
-                "run microcosm workingness",
-                "run microcosm prediction-lens",
-                "run microcosm market-boundary",
-                "run microcosm corpus-lens",
-                "run microcosm trace-lens",
-                "run microcosm repair-loop",
-                "run microcosm evidence-cells",
-                "run microcosm proof-loop-depth",
+                "run plectis init <project>",
+                "run plectis compile <project>",
+                "run plectis python-lens <project>",
+                "run plectis tour --card <project>",
+                "run plectis tour <project>",
+                "run plectis status --card",
+                "run plectis explain <project> <route_id>",
+                "run plectis spine",
+                "run plectis authority",
+                "run plectis workingness",
+                "run plectis prediction-lens",
+                "run plectis market-boundary",
+                "run plectis corpus-lens",
+                "run plectis trace-lens",
+                "run plectis repair-loop",
+                "run plectis evidence-cells",
+                "run plectis proof-loop-depth",
                 f"run {PROOF_LAB_FIRST_SCREEN_COMMAND}",
                 f"run {VERIFIER_EXECUTION_LENS_COMMAND}",
-                "run microcosm landing-replay",
-                "run microcosm work-landing-control-spine validate-control-bundle",
-                "run microcosm view-quality",
-                "run microcosm projection-safety",
-                "run microcosm drift-control",
-                "run microcosm spatial-simulation",
-                "run microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
-                "run microcosm circuit-attribution",
-                "run microcosm route-cleanup",
-                "run microcosm projection-import-map",
-                "run microcosm import-projector",
-                "run microcosm option-surface-lens",
-                "run microcosm stripping-guard",
-                "run microcosm standards-control",
-                "run microcosm hook-coverage",
-                "run microcosm replay-gauntlet",
-                "run microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
-                "run microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
-                "run microcosm mcp-tool-authority-replay run-tool-authority-bundle",
-                "run microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
-                "run microcosm belief-state-process-reward-replay run-reward-bundle",
-                "run microcosm certificate-kernel-execution-lab run-certificate-bundle",
-                "run microcosm finance-eval-spine validate-finance-eval-bundle",
-                "run microcosm benchmark-lab",
-                "run microcosm legibility-scorecard",
-                "run microcosm intake",
-                "run microcosm reveal",
+                "run plectis landing-replay",
+                "run plectis work-landing-control-spine validate-control-bundle",
+                "run plectis view-quality",
+                "run plectis projection-safety",
+                "run plectis drift-control",
+                "run plectis spatial-simulation",
+                "run plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
+                "run plectis circuit-attribution",
+                "run plectis route-cleanup",
+                "run plectis projection-import-map",
+                "run plectis import-projector",
+                "run plectis option-surface-lens",
+                "run plectis stripping-guard",
+                "run plectis standards-control",
+                "run plectis hook-coverage",
+                "run plectis replay-gauntlet",
+                "run plectis agent-memory-temporal-conflict-replay run-memory-bundle",
+                "run plectis sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
+                "run plectis mcp-tool-authority-replay run-tool-authority-bundle",
+                "run plectis proof-derived-governed-mutation-authorization run-authorization-bundle",
+                "run plectis belief-state-process-reward-replay run-reward-bundle",
+                "run plectis certificate-kernel-execution-lab run-certificate-bundle",
+                "run plectis finance-eval-spine validate-finance-eval-bundle",
+                "run plectis benchmark-lab",
+                "run plectis legibility-scorecard",
+                "run plectis intake",
+                "run plectis reveal",
                 "open evidence only when drilldown is needed",
             ],
         }
@@ -8597,7 +8597,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         organs = self.organs()
@@ -8641,7 +8641,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         return _runtime_status_card(
@@ -8657,7 +8657,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
@@ -8693,7 +8693,7 @@ class RuntimeShell:
             "first_run_path": [
                 {
                     "step_id": "run_compact_tour_card",
-                    "command": "microcosm tour --card <project>",
+                    "command": "plectis tour --card <project>",
                     "shows": [
                         "compact source-open path from repo -> .microcosm",
                         "compile summary",
@@ -8704,7 +8704,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "compile_project",
-                    "command": "microcosm compile <project>",
+                    "command": "plectis compile <project>",
                     "produces": [
                         ".microcosm/catalog.json",
                         ".microcosm/python_lens.json",
@@ -8717,7 +8717,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_python_lens",
-                    "command": "microcosm python-lens <project>",
+                    "command": "plectis python-lens <project>",
                     "shows": [
                         "Python file roles",
                         "package roots",
@@ -8727,9 +8727,9 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_route",
-                    "command": "microcosm explain <project> <selected_route_id>",
+                    "command": "plectis explain <project> <selected_route_id>",
                     "route_id_source": (
-                        "microcosm tour --card/tour/compile selected_route_id"
+                        "plectis tour --card/tour/compile selected_route_id"
                     ),
                     "shows": [
                         "grounded_refs",
@@ -8752,7 +8752,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_public_spine",
-                    "command": "microcosm spine",
+                    "command": "plectis spine",
                     "shows": [
                         "accepted adapter-backed organs",
                         "runtime evidence refs",
@@ -8762,7 +8762,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_authority_map",
-                    "command": "microcosm authority",
+                    "command": "plectis authority",
                     "shows": [
                         "global authority ceiling",
                         "organ evidence classes",
@@ -8773,7 +8773,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_prediction_lens",
-                    "command": "microcosm prediction-lens",
+                    "command": "plectis prediction-lens",
                     "shows": [
                         "synthetic CP1/CP2 prediction mechanics",
                         "oracle diff grading summary",
@@ -8783,7 +8783,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_market_prediction_boundary",
-                    "command": "microcosm market-boundary",
+                    "command": "plectis market-boundary",
                     "shows": [
                         "source-open forecast claim contract",
                         "base-rate and scenario-tree gates before single-point claims",
@@ -8794,7 +8794,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_corpus_lens",
-                    "command": "microcosm corpus-lens",
+                    "command": "plectis corpus-lens",
                     "shows": [
                         "Mathlib import absence",
                         "translation-smoke-only corpora",
@@ -8804,7 +8804,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_verifier_trace_repair_lens",
-                    "command": "microcosm trace-lens",
+                    "command": "plectis trace-lens",
                     "shows": [
                         "verifier failure class taxonomy",
                         "trace grade before repair promotion",
@@ -8815,7 +8815,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_verifier_repair_loop",
-                    "command": "microcosm repair-loop",
+                    "command": "plectis repair-loop",
                     "shows": [
                         "failure class to repair-route transitions",
                         "cold rerun as a promotion gate",
@@ -8826,7 +8826,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_formal_evidence_cells",
-                    "command": "microcosm evidence-cells",
+                    "command": "plectis evidence-cells",
                     "shows": [
                         "proof-language claim strength mapped to evidence cell ids",
                         "unknown and missing-source cell rejection",
@@ -8837,7 +8837,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_proof_loop_depth",
-                    "command": "microcosm proof-loop-depth",
+                    "command": "plectis proof-loop-depth",
                     "shows": [
                         "formal-math gate depth from corpus readiness to Lean witness",
                         "premise index, retrieval, tactic, and target-shape routing gates",
@@ -8876,7 +8876,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_work_landing_replay",
-                    "command": "microcosm landing-replay",
+                    "command": "plectis landing-replay",
                     "shows": [
                         "dirty-tree work landing lanes",
                         "scoped commit versus broad checkpoint boundary",
@@ -8887,7 +8887,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_durable_agent_work_landing_replay",
-                    "command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+                    "command": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
                     "shows": [
                         "owned-path claim, validation, and closeout evidence refs",
                         "scoped commit head-advance gate before landed language",
@@ -8899,7 +8899,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_research_replication_rubric_artifact_replay",
                     "command": (
-                        "microcosm research-replication-rubric-artifact-replay "
+                        "plectis research-replication-rubric-artifact-replay "
                         "run-replication-bundle"
                     ),
                     "shows": [
@@ -8912,7 +8912,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_view_quality_action_map",
-                    "command": "microcosm view-quality",
+                    "command": "plectis view-quality",
                     "shows": [
                         "one action row for every requested view",
                         "hot-action rollup as a projection, not the universe",
@@ -8923,7 +8923,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_projection_safety_audit",
-                    "command": "microcosm projection-safety",
+                    "command": "plectis projection-safety",
                     "shows": [
                         "omission receipts for compressed public projections",
                         "named drilldowns back to owner routes and receipt refs",
@@ -8934,7 +8934,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_projection_drift_control",
-                    "command": "microcosm drift-control",
+                    "command": "plectis drift-control",
                     "shows": [
                         "world-model and projection drift rows as public metadata",
                         "source signal, repair route, and validation ref per row",
@@ -8946,7 +8946,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_world_model_projection_drift_control_room",
                     "command": (
-                        "microcosm world-model-projection-drift-control-room "
+                        "plectis world-model-projection-drift-control-room "
                         "run-drift-control-bundle"
                     ),
                     "shows": [
@@ -8960,7 +8960,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_spatial_world_model_counterfactual_simulation_replay",
                     "command": (
-                        "microcosm spatial-world-model-counterfactual-simulation-replay "
+                        "plectis spatial-world-model-counterfactual-simulation-replay "
                         "run-simulation-bundle"
                     ),
                     "shows": [
@@ -8974,7 +8974,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_mechanistic_interpretability_circuit_attribution_replay",
                     "command": (
-                        "microcosm mechanistic-interpretability-circuit-attribution-replay "
+                        "plectis mechanistic-interpretability-circuit-attribution-replay "
                         "run-attribution-bundle"
                     ),
                     "shows": [
@@ -8987,7 +8987,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_route_cleanup_contract",
-                    "command": "microcosm route-cleanup",
+                    "command": "plectis route-cleanup",
                     "shows": [
                         "route cleanup rows from first contact to scoped landing",
                         "owner command and validator refs for every cleanup boundary",
@@ -8998,7 +8998,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_projection_import_map",
-                    "command": "microcosm projection-import-map",
+                    "command": "plectis projection-import-map",
                     "shows": [
                         "macro pattern to public runtime surface rows",
                         "copy, clean, omit, validate, and authority-ceiling stages",
@@ -9008,7 +9008,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_import_projector_contract",
-                    "command": "microcosm import-projector",
+                    "command": "plectis import-projector",
                     "shows": [
                         "repeatable public projection contract rows",
                         "source, clean, omit, fixture, validator, and observatory stages",
@@ -9019,7 +9019,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_compression_profile_option_surface",
-                    "command": "microcosm option-surface-lens",
+                    "command": "plectis option-surface-lens",
                     "shows": [
                         "compression-profile governed option-surface rows",
                         "import-plan cell refs consumed through the projector contract",
@@ -9029,7 +9029,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_public_private_stripping_guard",
-                    "command": "microcosm stripping-guard",
+                    "command": "plectis stripping-guard",
                     "shows": [
                         "public/private export guard rows",
                         "private body, proof body, provider payload, and raw path denials",
@@ -9040,7 +9040,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_standards_control",
-                    "command": "microcosm standards-control",
+                    "command": "plectis standards-control",
                     "shows": [
                         "standards registry and public standard pressure counts",
                         "validator receipt coverage and acceptance command refs",
@@ -9051,7 +9051,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_hook_intervention_coverage",
-                    "command": "microcosm hook-coverage",
+                    "command": "plectis hook-coverage",
                     "shows": [
                         "agent observability hook-shadow coverage",
                         "route-lease intervention decisions",
@@ -9062,7 +9062,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_agent_reliability_replay_gauntlet",
-                    "command": "microcosm replay-gauntlet",
+                    "command": "plectis replay-gauntlet",
                     "shows": [
                         "synthetic red-team replay episodes",
                         "monitor and evaluator integrity gates",
@@ -9074,7 +9074,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_agent_memory_temporal_conflict_replay",
                     "command": (
-                        "microcosm agent-memory-temporal-conflict-replay "
+                        "plectis agent-memory-temporal-conflict-replay "
                         "run-memory-bundle"
                     ),
                     "shows": [
@@ -9088,7 +9088,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_sleeper_memory_poisoning_quarantine_replay",
                     "command": (
-                        "microcosm sleeper-memory-poisoning-quarantine-replay "
+                        "plectis sleeper-memory-poisoning-quarantine-replay "
                         "run-quarantine-bundle"
                     ),
                     "shows": [
@@ -9102,7 +9102,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_mcp_tool_authority_replay",
                     "command": (
-                        "microcosm mcp-tool-authority-replay "
+                        "plectis mcp-tool-authority-replay "
                         "run-tool-authority-bundle"
                     ),
                     "shows": [
@@ -9116,7 +9116,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_proof_derived_governed_mutation_authorization",
                     "command": (
-                        "microcosm proof-derived-governed-mutation-authorization "
+                        "plectis proof-derived-governed-mutation-authorization "
                         "run-authorization-bundle"
                     ),
                     "shows": [
@@ -9130,7 +9130,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_belief_state_process_reward_replay",
                     "command": (
-                        "microcosm belief-state-process-reward-replay "
+                        "plectis belief-state-process-reward-replay "
                         "run-reward-bundle"
                     ),
                     "shows": [
@@ -9144,7 +9144,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_agent_sandbox_policy_escape_replay",
                     "command": (
-                        "microcosm agent-sandbox-policy-escape-replay "
+                        "plectis agent-sandbox-policy-escape-replay "
                         "run-sandbox-bundle"
                     ),
                     "shows": [
@@ -9158,7 +9158,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_indirect_prompt_injection_information_flow_policy_replay",
                     "command": (
-                        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                        "plectis indirect-prompt-injection-information-flow-policy-replay "
                         "run-prompt-injection-bundle"
                     ),
                     "shows": [
@@ -9172,7 +9172,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_agentic_vulnerability_discovery_patch_proof_replay",
                     "command": (
-                        "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                        "plectis agentic-vulnerability-discovery-patch-proof-replay "
                         "run-patch-proof-bundle"
                     ),
                     "shows": [
@@ -9186,7 +9186,7 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_certificate_kernel_execution_lab",
                     "command": (
-                        "microcosm certificate-kernel-execution-lab "
+                        "plectis certificate-kernel-execution-lab "
                         "run-certificate-bundle"
                     ),
                     "shows": [
@@ -9199,7 +9199,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_repository_benchmark_transaction_lab",
-                    "command": "microcosm benchmark-lab",
+                    "command": "plectis benchmark-lab",
                     "shows": [
                         "synthetic two-repo issue/patch oracle lab",
                         "FAIL_TO_PASS and PASS_TO_PASS-style regression gates",
@@ -9210,7 +9210,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_public_legibility_scorecard",
-                    "command": "microcosm legibility-scorecard",
+                    "command": "plectis legibility-scorecard",
                     "shows": [
                         "cold-reader question-to-command scorecard",
                         "10-minute comprehension checkpoints",
@@ -9221,7 +9221,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "open_import_bridge",
-                    "command": "microcosm intake",
+                    "command": "plectis intake",
                     "shows": [
                         "macro projection cells",
                         "runtime reveal/import bridge",
@@ -9232,7 +9232,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "open_reveal_board",
-                    "command": "microcosm reveal",
+                    "command": "plectis reveal",
                     "shows": [
                         "ten-minute reveal board",
                         "evidence-strength policy",
@@ -9243,7 +9243,7 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_cold_reader_route_map",
-                    "command": "microcosm cold-reader-route-map run-route-map-bundle",
+                    "command": "plectis cold-reader-route-map run-route-map-bundle",
                     "shows": [
                         "first-run route sequence",
                         "command refs",
@@ -9428,7 +9428,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         organs = self.organs()
@@ -9466,8 +9466,8 @@ class RuntimeShell:
             "schema_version": "microcosm_public_runtime_spine_card_v1",
             "card_id": "public_runtime_spine",
             "status": status,
-            "command": "microcosm spine --card",
-            "full_command": "microcosm spine",
+            "command": "plectis spine --card",
+            "full_command": "plectis spine",
             "endpoint": "/spine-card",
             "full_endpoint": "/spine",
             "posture": "executable_research_prototype",
@@ -9555,22 +9555,22 @@ class RuntimeShell:
                 "accepted_organ_count": len(adapter_backed),
                 "accepted_preview_count": len(accepted_preview),
                 "accepted_preview": accepted_preview,
-                "full_payload_ref": "microcosm spine::accepted_runtime_spine",
+                "full_payload_ref": "plectis spine::accepted_runtime_spine",
                 "demoted_drilldown_surface_count": len(demoted_drilldowns),
             },
             "first_run_path_preview": [
-                "microcosm tour --card <project>",
-                "microcosm status --card <project>",
-                "microcosm compile <project>",
-                "microcosm explain <project> <selected_route_id>",
-                "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-                "microcosm spine",
+                "plectis tour --card <project>",
+                "plectis status --card <project>",
+                "plectis compile <project>",
+                "plectis explain <project> <selected_route_id>",
+                "plectis proof-lab --out /tmp/microcosm-proof-lab",
+                "plectis spine",
             ],
             "payload_boundary": {
                 "omits_full_accepted_runtime_spine": True,
                 "omits_full_first_run_path": True,
                 "omits_full_macro_body_import_assay": True,
-                "full_payload_command": "microcosm spine",
+                "full_payload_command": "plectis spine",
             },
             "authority_ceiling": {
                 "release_authorized": False,
@@ -9582,10 +9582,10 @@ class RuntimeShell:
                 "whole_system_correctness_claim": False,
             },
             "next_commands": [
-                "microcosm status --card <project>",
-                "microcosm authority --card",
-                "microcosm workingness --card",
-                "microcosm spine",
+                "plectis status --card <project>",
+                "plectis authority --card",
+                "plectis workingness --card",
+                "plectis spine",
             ],
         }
 
@@ -9601,7 +9601,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
         project_path = Path(raw_project).expanduser()
@@ -9794,11 +9794,11 @@ class RuntimeShell:
                         ),
                         "full_status_ref": body_floor_summary.get(
                             "full_status_ref",
-                            "microcosm status::macro_body_import_floor",
+                            "plectis status::macro_body_import_floor",
                         ),
                         "full_defects_ref": body_floor_summary.get(
                             "full_defects_ref",
-                            "microcosm status::macro_body_import_floor.defects",
+                            "plectis status::macro_body_import_floor.defects",
                         ),
                     }
                 )
@@ -9837,52 +9837,52 @@ class RuntimeShell:
             },
         }
         commands = [
-            "microcosm tour --card <project>",
-            "microcosm tour <project>",
-            "microcosm compile <project>",
-            "microcosm python-lens <project>",
-            "microcosm spine",
-            "microcosm authority",
-            "microcosm prediction-lens",
-            "microcosm market-boundary",
-            "microcosm corpus-lens",
-            "microcosm trace-lens",
-            "microcosm repair-loop",
-            "microcosm evidence-cells",
-            "microcosm proof-loop-depth",
+            "plectis tour --card <project>",
+            "plectis tour <project>",
+            "plectis compile <project>",
+            "plectis python-lens <project>",
+            "plectis spine",
+            "plectis authority",
+            "plectis prediction-lens",
+            "plectis market-boundary",
+            "plectis corpus-lens",
+            "plectis trace-lens",
+            "plectis repair-loop",
+            "plectis evidence-cells",
+            "plectis proof-loop-depth",
             VERIFIER_EXECUTION_LENS_COMMAND,
             PROOF_LAB_FIRST_SCREEN_COMMAND,
-            "microcosm landing-replay",
-            "microcosm view-quality",
-            "microcosm projection-safety",
-            "microcosm drift-control",
-            "microcosm spatial-simulation",
-            "microcosm circuit-attribution",
-            "microcosm route-cleanup",
-            "microcosm projection-import-map",
-            "microcosm import-projector",
-            "microcosm option-surface-lens",
-            "microcosm stripping-guard",
-            "microcosm standards-control",
-            "microcosm hook-coverage",
-            "microcosm replay-gauntlet",
-            "microcosm benchmark-lab",
-            "microcosm legibility-scorecard",
-            "microcosm status --card <project>",
-            "microcosm status --card",
-            "microcosm workingness",
-            "microcosm intake",
-            "microcosm reveal",
-            "microcosm observe --card <project>",
-            "microcosm observe <project>",
-            "microcosm serve <project>",
-            "microcosm evidence inspect <receipt>",
+            "plectis landing-replay",
+            "plectis view-quality",
+            "plectis projection-safety",
+            "plectis drift-control",
+            "plectis spatial-simulation",
+            "plectis circuit-attribution",
+            "plectis route-cleanup",
+            "plectis projection-import-map",
+            "plectis import-projector",
+            "plectis option-surface-lens",
+            "plectis stripping-guard",
+            "plectis standards-control",
+            "plectis hook-coverage",
+            "plectis replay-gauntlet",
+            "plectis benchmark-lab",
+            "plectis legibility-scorecard",
+            "plectis status --card <project>",
+            "plectis status --card",
+            "plectis workingness",
+            "plectis intake",
+            "plectis reveal",
+            "plectis observe --card <project>",
+            "plectis observe <project>",
+            "plectis serve <project>",
+            "plectis evidence inspect <receipt>",
         ]
         route_cards = [
             {
                 "card_id": "compile",
                 "minute_budget": 2,
-                "command": "microcosm compile <project>",
+                "command": "plectis compile <project>",
                 "endpoint": None,
                 "shows": [
                     ".microcosm/catalog.json",
@@ -9896,7 +9896,7 @@ class RuntimeShell:
             {
                 "card_id": "front_door_status",
                 "minute_budget": 0.5,
-                "command": "microcosm tour <project>",
+                "command": "plectis tour <project>",
                 "endpoint": "/tour",
                 "local_first_screen_route": _local_first_screen_route_ref(),
                 "shows": [
@@ -9917,8 +9917,8 @@ class RuntimeShell:
             {
                 "card_id": "status_and_workingness",
                 "minute_budget": 0.5,
-                "command": "microcosm status --card <project>",
-                "next_command": "microcosm workingness --card",
+                "command": "plectis status --card <project>",
+                "next_command": "plectis workingness --card",
                 "endpoint": WORKINGNESS_CARD_ENDPOINT,
                 "full_endpoint": WORKINGNESS_ENDPOINT,
                 "shows": [
@@ -9937,10 +9937,10 @@ class RuntimeShell:
                 "top_level_status_rule": workingness_summary.get(
                     "top_level_status_rule"
                 ),
-                "status_card_command": "microcosm status --card",
-                "project_status_card_command": "microcosm status --card <project>",
+                "status_card_command": "plectis status --card",
+                "project_status_card_command": "plectis status --card <project>",
                 "status_card_endpoint": "/project/status",
-                "workingness_command": "microcosm workingness --card",
+                "workingness_command": "plectis workingness --card",
                 "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
                 "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
                 "workingness_map_ref": workingness.get("workingness_map_ref"),
@@ -9956,7 +9956,7 @@ class RuntimeShell:
             {
                 "card_id": "runtime_spine",
                 "minute_budget": 1,
-                "command": "microcosm spine",
+                "command": "plectis spine",
                 "endpoint": "/spine",
                 "shows": [
                     "accepted runtime organs",
@@ -9968,7 +9968,7 @@ class RuntimeShell:
             {
                 "card_id": "authority",
                 "minute_budget": 1,
-                "command": "microcosm authority",
+                "command": "plectis authority",
                 "endpoint": "/authority",
                 "shows": [
                     "release/provider/source ceilings",
@@ -9981,23 +9981,23 @@ class RuntimeShell:
                 "card_id": "prediction_and_corpus",
                 "minute_budget": 2,
                 "command": (
-                    "microcosm prediction-lens && microcosm corpus-lens && "
-                    "microcosm trace-lens && microcosm repair-loop && "
-                    "microcosm evidence-cells && microcosm proof-loop-depth && "
-                    "microcosm landing-replay && "
-                    "microcosm view-quality && microcosm projection-safety && "
-                    "microcosm market-boundary && "
-                    "microcosm drift-control && "
-                    "microcosm spatial-simulation && "
-                    "microcosm circuit-attribution && "
-                    "microcosm route-cleanup && "
-                    "microcosm projection-import-map && "
-                    "microcosm import-projector && "
-                    "microcosm option-surface-lens && "
-                    "microcosm stripping-guard && "
-                    "microcosm standards-control && "
-                    "microcosm hook-coverage && microcosm replay-gauntlet && "
-                    "microcosm benchmark-lab && microcosm legibility-scorecard"
+                    "plectis prediction-lens && plectis corpus-lens && "
+                    "plectis trace-lens && plectis repair-loop && "
+                    "plectis evidence-cells && plectis proof-loop-depth && "
+                    "plectis landing-replay && "
+                    "plectis view-quality && plectis projection-safety && "
+                    "plectis market-boundary && "
+                    "plectis drift-control && "
+                    "plectis spatial-simulation && "
+                    "plectis circuit-attribution && "
+                    "plectis route-cleanup && "
+                    "plectis projection-import-map && "
+                    "plectis import-projector && "
+                    "plectis option-surface-lens && "
+                    "plectis stripping-guard && "
+                    "plectis standards-control && "
+                    "plectis hook-coverage && plectis replay-gauntlet && "
+                    "plectis benchmark-lab && plectis legibility-scorecard"
                 ),
                 "endpoint": (
                     "/prediction + /corpus + /trace + /repair-loop + "
@@ -10105,7 +10105,7 @@ class RuntimeShell:
             {
                 "card_id": "intake_and_reveal",
                 "minute_budget": 3,
-                "command": "microcosm intake && microcosm reveal",
+                "command": "plectis intake && plectis reveal",
                 "endpoint": "/intake + /reveal",
                 "shows": [
                     "macro projection cells",
@@ -10120,7 +10120,7 @@ class RuntimeShell:
             {
                 "card_id": "evidence_drilldown",
                 "minute_budget": 1,
-                "command": "microcosm evidence inspect <receipt>",
+                "command": "plectis evidence inspect <receipt>",
                 "endpoint": "/evidence",
                 "shows": [
                     "receipt refs only after the causal path is visible",
@@ -10140,7 +10140,7 @@ class RuntimeShell:
             "created_at": utc_now(),
             "status": PASS if not blocking_surface_ids else "blocked",
             "tour_id": "public_ten_minute_tour",
-            "command": "microcosm tour <project>",
+            "command": "plectis tour <project>",
             "endpoint": "/tour",
             "tour_ref": _public_relative(tour_path, self.root),
             "project_ref": project_ref,
@@ -10512,7 +10512,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
@@ -10663,7 +10663,7 @@ class RuntimeShell:
                 else "blocked"
             ),
             "status_scope": "project_local_state_write_only",
-            "command": "microcosm tour --card <project>",
+            "command": "plectis tour --card <project>",
             "writes_microcosm_state": project_compile_state_written,
             "writes_microcosm_state_semantics": "current_invocation_only",
             "current_invocation_wrote_microcosm_state": project_compile_state_written,
@@ -10677,7 +10677,7 @@ class RuntimeShell:
             "state_file_count": state_file_count,
             "source_files_mutated": source_files_mutated,
             "first_screen_map_ref": (
-                "microcosm first-screen <project>::state_write_boundary"
+                "plectis first-screen <project>::state_write_boundary"
             ),
             "front_door_status_ref": "front_door_status",
             "inspect_command": state_inspection["inspect_command"],
@@ -10739,11 +10739,11 @@ class RuntimeShell:
                         ),
                         "full_status_ref": body_floor_summary.get(
                             "full_status_ref",
-                            "microcosm status::macro_body_import_floor",
+                            "plectis status::macro_body_import_floor",
                         ),
                         "full_defects_ref": body_floor_summary.get(
                             "full_defects_ref",
-                            "microcosm status::macro_body_import_floor.defects",
+                            "plectis status::macro_body_import_floor.defects",
                         ),
                     }
                 )
@@ -10804,9 +10804,9 @@ class RuntimeShell:
             "schema_version": "microcosm_tour_command_speed_card_v1",
             "status": PASS if not blocking_surface_ids else "blocked",
             "card_status": "clear" if not blocking_surface_ids else "blocked",
-            "command": "microcosm tour --card <project>",
-            "source_command": "microcosm tour <project>",
-            "drilldown_command": "microcosm tour <project>",
+            "command": "plectis tour --card <project>",
+            "source_command": "plectis tour <project>",
+            "drilldown_command": "plectis tour <project>",
             "endpoint": "/tour",
             "project_ref": project_ref,
             "selected_route_id": selected_route_id,
@@ -10864,9 +10864,9 @@ class RuntimeShell:
             "state_inspection": state_inspection,
             "state_write_result": state_write_result,
             "status_card": {
-                "command": "microcosm status --card <project>",
+                "command": "plectis status --card <project>",
                 "endpoint": "/project/status",
-                "workingness_command": "microcosm workingness --card",
+                "workingness_command": "plectis workingness --card",
                 "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
                 "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
             },
@@ -10878,10 +10878,10 @@ class RuntimeShell:
                 "compact_endpoint": "/project/observatory-card",
                 "expanded_endpoint": "/project/observatory",
                 "project_observe_endpoint": "/project/observe",
-                "project_observe_ref": "microcosm serve <project>::/project/observe",
+                "project_observe_ref": "plectis serve <project>::/project/observe",
                 "route_explanation_endpoint": route_explanation_endpoint,
                 "first_screen_route_proof_ref": (
-                    "microcosm serve <project>::first_screen_route_proof"
+                    "plectis serve <project>::first_screen_route_proof"
                 ),
             },
             "compile_summary": {
@@ -10974,20 +10974,20 @@ class RuntimeShell:
                 "state_write_result_exported": True,
             },
             "next_commands": [
-                f"microcosm status --card {project_ref}",
-                "microcosm workingness --card",
-                "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-                f"microcosm observe --card {project_ref}",
-                f"microcosm tour {project_ref}",
+                f"plectis status --card {project_ref}",
+                "plectis workingness --card",
+                "plectis proof-lab --out /tmp/microcosm-proof-lab",
+                f"plectis observe --card {project_ref}",
+                f"plectis tour {project_ref}",
             ],
             "source_checkout_next_commands": [
-                _source_checkout_cli_command(f"microcosm status --card {project_ref}"),
-                _source_checkout_cli_command("microcosm workingness --card"),
+                _source_checkout_cli_command(f"plectis status --card {project_ref}"),
+                _source_checkout_cli_command("plectis workingness --card"),
                 _source_checkout_cli_command(
-                    "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+                    "plectis proof-lab --out /tmp/microcosm-proof-lab"
                 ),
-                _source_checkout_cli_command(f"microcosm observe --card {project_ref}"),
-                _source_checkout_cli_command(f"microcosm tour {project_ref}"),
+                _source_checkout_cli_command(f"plectis observe --card {project_ref}"),
+                _source_checkout_cli_command(f"plectis tour {project_ref}"),
             ],
             "safe_to_show": {
                 "project_local_state_refs_visible": True,
@@ -11020,7 +11020,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         readiness_ref = (
             "receipts/first_wave/formal_math_readiness_gate/"
@@ -11187,7 +11187,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_verifier_trace_repair_lens",
             "organ_family": "formal_math",
-            "command": "microcosm trace-lens",
+            "command": "plectis trace-lens",
             "endpoint": "/trace",
             "trace_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -11246,7 +11246,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_verifier_trace_repair_lens",
-                command="microcosm trace-lens",
+                command="plectis trace-lens",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 proof_bodies_omitted=True,
@@ -11278,7 +11278,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         trace_lens = self.trace_lens()
         lens_path = self.runtime_receipt_dir / "public_verifier_repair_loop_lens.json"
@@ -11407,7 +11407,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_verifier_repair_loop_lens",
             "organ_family": "formal_math",
-            "command": "microcosm repair-loop",
+            "command": "plectis repair-loop",
             "endpoint": "/repair-loop",
             "repair_loop_ref": _public_relative(lens_path, self.root),
             "source_lens_ref": trace_lens.get("trace_lens_ref"),
@@ -11479,7 +11479,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_verifier_repair_loop_lens",
-                command="microcosm repair-loop",
+                command="plectis repair-loop",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 proof_bodies_omitted=True,
@@ -11510,7 +11510,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         witness_ref = (
             "receipts/first_wave/formal_math_lean_proof_witness/"
@@ -11630,7 +11630,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_formal_evidence_cell_lens",
             "organ_family": "formal_math",
-            "command": "microcosm evidence-cells",
+            "command": "plectis evidence-cells",
             "endpoint": "/evidence-cells",
             "evidence_cell_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -11692,7 +11692,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_formal_evidence_cell_lens",
-                command="microcosm evidence-cells",
+                command="plectis evidence-cells",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 proof_bodies_omitted=True,
@@ -11721,7 +11721,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         source_receipt_ref = VERIFIER_EXECUTION_RECEIPT_REF
         source_receipt_path = self.root / source_receipt_ref
@@ -12077,7 +12077,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         corpus_lens = self.corpus_lens()
         trace_lens = self.trace_lens()
@@ -12339,7 +12339,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_proof_loop_depth_lens",
             "organ_family": "formal_math",
-            "command": "microcosm proof-loop-depth",
+            "command": "plectis proof-loop-depth",
             "endpoint": "/proof-loop-depth",
             "proof_loop_depth_ref": _public_relative(lens_path, self.root),
             "selected_pattern_ids": [
@@ -12417,7 +12417,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_proof_loop_depth_lens",
-                command="microcosm proof-loop-depth",
+                command="plectis proof-loop-depth",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 proof_bodies_omitted=True,
@@ -12449,7 +12449,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         return _proof_lab_first_screen_card(self.root)
 
@@ -12460,7 +12460,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         attempt_ref = "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json"
         mutation_ref = "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
@@ -12562,7 +12562,7 @@ class RuntimeShell:
             {
                 "event_id": "validate_owner_native",
                 "status": "required_before_commit_attempt_and_closeout",
-                "public_evidence_ref": "microcosm focused tests and validators",
+                "public_evidence_ref": "plectis focused tests and validators",
                 "source_body_exported": False,
             },
             {
@@ -12624,7 +12624,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_work_landing_replay_lens",
             "organ_family": "work_spine",
-            "command": "microcosm landing-replay",
+            "command": "plectis landing-replay",
             "endpoint": "/landing-replay",
             "landing_replay_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -12684,7 +12684,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_work_landing_replay_lens",
-                command="microcosm landing-replay",
+                command="plectis landing-replay",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 receipt_refs_only=True,
@@ -12713,7 +12713,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_view_quality_action_map_lens.json"
         requested_views = [
@@ -12870,7 +12870,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_view_quality_action_map_lens",
             "organ_family": "frontend_observability",
-            "command": "microcosm view-quality",
+            "command": "plectis view-quality",
             "endpoint": "/view-quality",
             "view_quality_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -12916,7 +12916,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_view_quality_action_map_lens",
-                command="microcosm view-quality",
+                command="plectis view-quality",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 synthetic_view_rows_only=True,
@@ -12944,7 +12944,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_projection_drift_control_lens.json"
         drift_rows = [
@@ -12955,7 +12955,7 @@ class RuntimeShell:
                     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
                     "world_model_projection_drift_control_room"
                 ),
-                "repair_route": "microcosm projection-safety",
+                "repair_route": "plectis projection-safety",
                 "validation_ref": (
                     "tests/test_runtime_shell.py::"
                     "test_runtime_shell_projection_drift_control_lens_uses_payload_boundary"
@@ -12970,8 +12970,8 @@ class RuntimeShell:
             {
                 "drift_row_id": "view_quality_all_view_action_map",
                 "source_signal": "view action rows are drift targets, not final UI quality claims",
-                "source_ref": "microcosm view-quality::action_rows",
-                "repair_route": "microcosm view-quality",
+                "source_ref": "plectis view-quality::action_rows",
+                "repair_route": "plectis view-quality",
                 "validation_ref": (
                     "tests/test_observatory_legibility.py::"
                     "test_observatory_legibility_validator_exposes_causal_chain"
@@ -12987,7 +12987,7 @@ class RuntimeShell:
                 "drift_row_id": "compression_profile_governed_option_surface",
                 "source_signal": "compressed command rows require omission receipts and drilldowns",
                 "source_ref": "codex/standards/std_command_output_projection.json",
-                "repair_route": "microcosm spine",
+                "repair_route": "plectis spine",
                 "validation_ref": "tests/test_launch_compression.py",
                 "public_drilldown_ref": "receipts/runtime_shell/wave044_launch_compression.json",
                 **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
@@ -13000,7 +13000,7 @@ class RuntimeShell:
                 "drift_row_id": "navigation_hologram_unified_route_plane",
                 "source_signal": "route lease and navigation projection drift are inspectable before import",
                 "source_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_plane.json",
-                "repair_route": "microcosm route list",
+                "repair_route": "plectis route list",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_status_surface_lists_commands",
                 "public_drilldown_ref": "receipts/first_wave/navigation_hologram_route_plane/route_plane_result.json",
                 **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
@@ -13041,8 +13041,8 @@ class RuntimeShell:
             {
                 "drift_row_id": "omission_receipt_reversible_projection_boundary",
                 "source_signal": "public projection rows carry owner route and omission receipt before reveal",
-                "source_ref": "microcosm projection-safety::projection_rows",
-                "repair_route": "microcosm projection-safety",
+                "source_ref": "plectis projection-safety::projection_rows",
+                "repair_route": "plectis projection-safety",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
                 "public_drilldown_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
                 **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
@@ -13055,7 +13055,7 @@ class RuntimeShell:
                 "drift_row_id": "entry_payload_admission_nonnegotiable_floor",
                 "source_signal": "entry payload omissions become explicit next-run gates",
                 "source_ref": "kernel.py --entry::task_conditioned_context_pack_entry",
-                "repair_route": "microcosm drift-control",
+                "repair_route": "plectis drift-control",
                 "validation_ref": "tests/test_cli.py::test_cli_projection_drift_control_smoke",
                 "public_drilldown_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
                 **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
@@ -13118,7 +13118,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_projection_drift_control_lens",
             "organ_family": "compression_projection",
-            "command": "microcosm drift-control",
+            "command": "plectis drift-control",
             "endpoint": "/drift-control",
             "projection_drift_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -13134,8 +13134,8 @@ class RuntimeShell:
                 "codex/standards/std_command_output_projection.json",
                 "codex/standards/std_task_ledger.json",
                 "codex/doctrine/paper_modules/navigation_hologram_theory.md",
-                "microcosm projection-safety::projection_rows",
-                "microcosm view-quality::action_rows",
+                "plectis projection-safety::projection_rows",
+                "plectis view-quality::action_rows",
             ],
             "drift_rows": drift_rows,
             "drift_summary": {
@@ -13175,7 +13175,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_projection_drift_control_lens",
-                command="microcosm drift-control",
+                command="plectis drift-control",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 private_paths_omitted=True,
@@ -13203,7 +13203,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         example_dir = (
             self.root
@@ -13218,7 +13218,7 @@ class RuntimeShell:
         payload = spatial_world_model_counterfactual_simulation_replay.run_simulation_bundle(
             example_dir,
             out_dir,
-            command="microcosm spatial-simulation",
+            command="plectis spatial-simulation",
         )
         lens_path = (
             self.runtime_receipt_dir
@@ -13232,7 +13232,7 @@ class RuntimeShell:
             ),
             "lens_id": "public_spatial_world_model_counterfactual_simulation_replay_lens",
             "organ_family": "spatial_world_model_counterfactual_simulation",
-            "command": "microcosm spatial-simulation",
+            "command": "plectis spatial-simulation",
             "endpoint": "/spatial-simulation",
             "spatial_simulation_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -13253,7 +13253,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_spatial_world_model_counterfactual_simulation_replay_lens",
-                command="microcosm spatial-simulation",
+                command="plectis spatial-simulation",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 counterfactual_replay_rows_are_public_payload_boundary_rows=True,
@@ -13273,7 +13273,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         example_dir = (
             self.root
@@ -13290,7 +13290,7 @@ class RuntimeShell:
             .run_attribution_bundle(
                 example_dir,
                 out_dir,
-                command="microcosm circuit-attribution",
+                command="plectis circuit-attribution",
             )
         )
         lens_path = (
@@ -13308,7 +13308,7 @@ class RuntimeShell:
                 "attribution_replay_lens"
             ),
             "organ_family": "mechanistic_interpretability_circuit_attribution",
-            "command": "microcosm circuit-attribution",
+            "command": "plectis circuit-attribution",
             "endpoint": "/circuit-attribution",
             "circuit_attribution_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -13338,7 +13338,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         example_dir = (
@@ -13356,7 +13356,7 @@ class RuntimeShell:
             .run_attribution_bundle(
                 example_dir,
                 out_dir,
-                command="microcosm circuit-attribution --card",
+                command="plectis circuit-attribution --card",
                 reuse_fresh_receipt=True,
             )
         )
@@ -13365,14 +13365,14 @@ class RuntimeShell:
         )
         return {
             **card,
-            "command": "microcosm circuit-attribution --card",
-            "source_command": "microcosm circuit-attribution",
+            "command": "plectis circuit-attribution --card",
+            "source_command": "plectis circuit-attribution",
             "endpoint": "/circuit-attribution",
-            "drilldown_command": "microcosm circuit-attribution",
+            "drilldown_command": "plectis circuit-attribution",
             "output_economy": {
                 "receipt_reused": payload.get("receipt_reused") is True,
                 "full_lens_exported": False,
-                "full_lens_drilldown": "microcosm circuit-attribution",
+                "full_lens_drilldown": "plectis circuit-attribution",
             },
         }
 
@@ -13383,7 +13383,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_route_cleanup_contract_lens.json"
         cleanup_rows = [
@@ -13391,7 +13391,7 @@ class RuntimeShell:
                 "cleanup_row_id": "atlas_first_contact_before_wide_search",
                 "source_signal": "cold entry must start at compact seed and kernel routing surfaces",
                 "source_ref": "AGENTS.override.md::First Moves",
-                "owner_route": "microcosm spine",
+                "owner_route": "plectis spine",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_route_cleanup_contract_lens_uses_payload_boundary",
                 "public_drilldown_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
                 "cleanup_action_class": "route_entry_order",
@@ -13410,7 +13410,7 @@ class RuntimeShell:
                 "source_ref": "system/lib/navigation_context_pack.py",
                 "owner_route": "kernel.py --context-pack",
                 "validation_ref": "tests/test_cli.py::test_cli_route_cleanup_contract_smoke",
-                "public_drilldown_ref": "microcosm route-cleanup",
+                "public_drilldown_ref": "plectis route-cleanup",
                 "cleanup_action_class": "navigation_context_admission",
                 "public_boundary": "grep_is_drilldown_after_named_target_or_exact_error_string",
                 **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
@@ -13427,7 +13427,7 @@ class RuntimeShell:
                 "source_ref": "AGENTS.override.md::Mutation Rules",
                 "owner_route": "owner builder for generated projection",
                 "validation_ref": "tools/meta/factory/check_agent_bootstrap_projection.py",
-                "public_drilldown_ref": "microcosm projection-safety",
+                "public_drilldown_ref": "plectis projection-safety",
                 "cleanup_action_class": "generated_projection_refresh",
                 "public_boundary": "generated_region_hand_edit_is_rejected_until_owner_builder_runs",
                 **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
@@ -13444,7 +13444,7 @@ class RuntimeShell:
                 "source_ref": "AGENTS.override.md::Theory Pointers",
                 "owner_route": "kernel.py --option-surface",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_spine_is_cold_reader_xray",
-                "public_drilldown_ref": "microcosm spine",
+                "public_drilldown_ref": "plectis spine",
                 "cleanup_action_class": "drilldown_boundary",
                 "public_boundary": "option_surface_rows_are_not_first_contact_control_edges",
                 **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
@@ -13461,7 +13461,7 @@ class RuntimeShell:
                 "source_ref": "tools/meta/factory/work_ledger.py::session-preflight",
                 "owner_route": "Work Ledger session-preflight",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_uses_payload_boundary",
-                "public_drilldown_ref": "microcosm authority",
+                "public_drilldown_ref": "plectis authority",
                 "cleanup_action_class": "transaction_claim_gate",
                 "public_boundary": "collision_signal_blocks_or_replans_mutation_before_landing",
                 **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
@@ -13515,8 +13515,8 @@ class RuntimeShell:
             {
                 "cleanup_row_id": "public_private_route_cleanup_boundary",
                 "source_signal": "route cleanup must preserve public/private stripping and projection safety",
-                "source_ref": "microcosm stripping-guard::guard_rows",
-                "owner_route": "microcosm stripping-guard + microcosm projection-safety",
+                "source_ref": "plectis stripping-guard::guard_rows",
+                "owner_route": "plectis stripping-guard + plectis projection-safety",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
                 "public_drilldown_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
                 "cleanup_action_class": "public_private_projection_guard",
@@ -13583,7 +13583,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_route_cleanup_contract_lens",
             "organ_family": "navigation_hologram_route_plane",
-            "command": "microcosm route-cleanup",
+            "command": "plectis route-cleanup",
             "endpoint": "/route-cleanup",
             "route_cleanup_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -13601,7 +13601,7 @@ class RuntimeShell:
                 "system/lib/navigation_context_pack.py",
                 "tools/meta/factory/work_ledger.py::session-preflight",
                 "tools/meta/control/scoped_commit.py",
-                "microcosm projection-safety::projection_rows",
+                "plectis projection-safety::projection_rows",
             ],
             "cleanup_rows": cleanup_rows,
             "cleanup_summary": {
@@ -13646,7 +13646,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_route_cleanup_contract_lens",
-                command="microcosm route-cleanup",
+                command="plectis route-cleanup",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 route_cleanup_is_source_open_drilldown_contract=True,
@@ -13673,21 +13673,21 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_projection_safety_audit_lens.json"
         projection_rows = [
             {
                 "projection_id": "public_ten_minute_tour",
-                "command": "microcosm tour <project>",
+                "command": "plectis tour <project>",
                 "endpoint": "/tour",
                 "public_ref": "receipts/runtime_shell/public_ten_minute_tour.json",
                 "owner_route": "runtime_shell.tour",
-                "authority_ceiling_ref": "microcosm authority::public_ten_minute_tour",
+                "authority_ceiling_ref": "plectis authority::public_ten_minute_tour",
                 "omission_receipt": {
                     "omitted": ["raw compile payloads", "raw receipt bodies"],
-                    "drilldown": "microcosm evidence inspect <receipt>",
-                    "source_ref": "microcosm tour <project>::evidence_refs",
+                    "drilldown": "plectis evidence inspect <receipt>",
+                    "source_ref": "plectis tour <project>::evidence_refs",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -13697,11 +13697,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_authority_map",
-                "command": "microcosm authority",
+                "command": "plectis authority",
                 "endpoint": "/authority",
                 "public_ref": "receipts/runtime_shell/public_authority_map.json",
                 "owner_route": "runtime_shell.authority",
-                "authority_ceiling_ref": "microcosm authority::surface_authority",
+                "authority_ceiling_ref": "plectis authority::surface_authority",
                 "omission_receipt": {
                     "omitted": ["private source bodies", "unreviewed release claims"],
                     "drilldown": "/authority",
@@ -13715,11 +13715,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_prediction_lens",
-                "command": "microcosm prediction-lens",
+                "command": "plectis prediction-lens",
                 "endpoint": "/prediction",
                 "public_ref": "receipts/runtime_shell/public_prediction_lens.json",
                 "owner_route": "runtime_shell.prediction_lens",
-                "authority_ceiling_ref": "microcosm authority::public_prediction_lens",
+                "authority_ceiling_ref": "plectis authority::public_prediction_lens",
                 "omission_receipt": {
                     "omitted": ["live market data", "private dossiers", "provider payloads"],
                     "drilldown": "/prediction",
@@ -13733,12 +13733,12 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_market_prediction_evidence_boundary_lens",
-                "command": "microcosm market-boundary",
+                "command": "plectis market-boundary",
                 "endpoint": "/market-boundary",
                 "public_ref": "receipts/runtime_shell/public_market_prediction_evidence_boundary_lens.json",
                 "owner_route": "runtime_shell.market_boundary",
                 "authority_ceiling_ref": (
-                    "microcosm authority::public_market_prediction_evidence_boundary_lens"
+                    "plectis authority::public_market_prediction_evidence_boundary_lens"
                 ),
                 "omission_receipt": {
                     "omitted": [
@@ -13749,7 +13749,7 @@ class RuntimeShell:
                         "forecast performance guarantees",
                     ],
                     "drilldown": "/market-boundary",
-                    "source_ref": "microcosm market-boundary::boundary_rows",
+                    "source_ref": "plectis market-boundary::boundary_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -13759,11 +13759,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_corpus_readiness_lens",
-                "command": "microcosm corpus-lens",
+                "command": "plectis corpus-lens",
                 "endpoint": "/corpus",
                 "public_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
                 "owner_route": "runtime_shell.corpus_lens",
-                "authority_ceiling_ref": "microcosm authority::public_corpus_readiness_lens",
+                "authority_ceiling_ref": "plectis authority::public_corpus_readiness_lens",
                 "omission_receipt": {
                     "omitted": ["private corpus bodies", "Mathlib-dependent proof attempts"],
                     "drilldown": "/corpus",
@@ -13777,11 +13777,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_verifier_trace_repair_lens",
-                "command": "microcosm trace-lens",
+                "command": "plectis trace-lens",
                 "endpoint": "/trace",
                 "public_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
                 "owner_route": "runtime_shell.trace_lens",
-                "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
+                "authority_ceiling_ref": "plectis authority::public_verifier_trace_repair_lens",
                 "omission_receipt": {
                     "omitted": ["proof bodies", "oracle-needed premise ids", "provider payloads"],
                     "drilldown": "/trace",
@@ -13795,11 +13795,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_verifier_repair_loop_lens",
-                "command": "microcosm repair-loop",
+                "command": "plectis repair-loop",
                 "endpoint": "/repair-loop",
                 "public_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
                 "owner_route": "runtime_shell.repair_loop",
-                "authority_ceiling_ref": "microcosm authority::public_verifier_repair_loop_lens",
+                "authority_ceiling_ref": "plectis authority::public_verifier_repair_loop_lens",
                 "omission_receipt": {
                     "omitted": ["proof bodies", "oracle-needed premise ids", "provider payloads"],
                     "drilldown": "/repair-loop",
@@ -13813,11 +13813,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_formal_evidence_cell_lens",
-                "command": "microcosm evidence-cells",
+                "command": "plectis evidence-cells",
                 "endpoint": "/evidence-cells",
                 "public_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
                 "owner_route": "runtime_shell.evidence_cells",
-                "authority_ceiling_ref": "microcosm authority::public_formal_evidence_cell_lens",
+                "authority_ceiling_ref": "plectis authority::public_formal_evidence_cell_lens",
                 "omission_receipt": {
                     "omitted": ["proof bodies", "private source refs", "general theorem claims"],
                     "drilldown": "/evidence-cells",
@@ -13831,7 +13831,7 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_undeclared_library_prior_symbol_lens",
-                "command": "microcosm undeclared-library-prior-symbol-classifier",
+                "command": "plectis undeclared-library-prior-symbol-classifier",
                 "endpoint": "/undeclared-library-priors",
                 "public_ref": (
                     "receipts/runtime_shell/"
@@ -13839,7 +13839,7 @@ class RuntimeShell:
                 ),
                 "owner_route": "runtime_shell.undeclared_library_prior_symbol_classifier",
                 "authority_ceiling_ref": (
-                    "microcosm authority::public_undeclared_library_prior_symbol_lens"
+                    "plectis authority::public_undeclared_library_prior_symbol_lens"
                 ),
                 "omission_receipt": {
                     "omitted": [
@@ -13863,11 +13863,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_proof_loop_depth_lens",
-                "command": "microcosm proof-loop-depth",
+                "command": "plectis proof-loop-depth",
                 "endpoint": "/proof-loop-depth",
                 "public_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
                 "owner_route": "runtime_shell.proof_loop_depth",
-                "authority_ceiling_ref": "microcosm authority::public_proof_loop_depth_lens",
+                "authority_ceiling_ref": "plectis authority::public_proof_loop_depth_lens",
                 "omission_receipt": {
                     "omitted": [
                         "proof bodies",
@@ -13887,11 +13887,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_work_landing_replay_lens",
-                "command": "microcosm landing-replay",
+                "command": "plectis landing-replay",
                 "endpoint": "/landing-replay",
                 "public_ref": "receipts/runtime_shell/public_work_landing_replay_lens.json",
                 "owner_route": "runtime_shell.landing_replay",
-                "authority_ceiling_ref": "microcosm authority::public_work_landing_replay_lens",
+                "authority_ceiling_ref": "plectis authority::public_work_landing_replay_lens",
                 "omission_receipt": {
                     "omitted": ["unrelated dirty path bodies", "live git metadata", "commit-only proof claims"],
                     "drilldown": "/landing-replay",
@@ -13906,7 +13906,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_durable_agent_work_landing_replay_lens",
                 "command": (
-                    "microcosm durable-agent-work-landing-replay "
+                    "plectis durable-agent-work-landing-replay "
                     "run-work-landing-bundle"
                 ),
                 "endpoint": "/landing-replay",
@@ -13919,7 +13919,7 @@ class RuntimeShell:
                     "microcosm_core.organs.durable_agent_work_landing_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_durable_agent_work_landing_replay_lens"
                 ),
                 "omission_receipt": {
@@ -13931,7 +13931,7 @@ class RuntimeShell:
                         "commit-landed claims without HEAD evidence",
                     ],
                     "drilldown": (
-                        "microcosm durable-agent-work-landing-replay "
+                        "plectis durable-agent-work-landing-replay "
                         "run-work-landing-bundle"
                     ),
                     "source_ref": (
@@ -13948,7 +13948,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_research_replication_rubric_artifact_replay_lens",
                 "command": (
-                    "microcosm research-replication-rubric-artifact-replay "
+                    "plectis research-replication-rubric-artifact-replay "
                     "run-replication-bundle"
                 ),
                 "endpoint": "/research-replication",
@@ -13962,7 +13962,7 @@ class RuntimeShell:
                     "research_replication_rubric_artifact_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_research_replication_rubric_artifact_replay_lens"
                 ),
                 "omission_receipt": {
@@ -13975,7 +13975,7 @@ class RuntimeShell:
                         "benchmark performance claims",
                     ],
                     "drilldown": (
-                        "microcosm research-replication-rubric-artifact-replay "
+                        "plectis research-replication-rubric-artifact-replay "
                         "run-replication-bundle"
                     ),
                     "source_ref": (
@@ -13992,7 +13992,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_world_model_projection_drift_control_room_lens",
                 "command": (
-                    "microcosm world-model-projection-drift-control-room "
+                    "plectis world-model-projection-drift-control-room "
                     "run-drift-control-bundle"
                 ),
                 "endpoint": "/drift-control",
@@ -14006,7 +14006,7 @@ class RuntimeShell:
                     "world_model_projection_drift_control_room"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_world_model_projection_drift_control_room_lens"
                 ),
                 "omission_receipt": {
@@ -14018,7 +14018,7 @@ class RuntimeShell:
                         "automatic doctrine promotion",
                     ],
                     "drilldown": (
-                        "microcosm world-model-projection-drift-control-room "
+                        "plectis world-model-projection-drift-control-room "
                         "run-drift-control-bundle"
                     ),
                     "source_ref": (
@@ -14037,7 +14037,7 @@ class RuntimeShell:
                     "public_spatial_world_model_counterfactual_simulation_replay_lens"
                 ),
                 "command": (
-                    "microcosm spatial-world-model-counterfactual-simulation-replay "
+                    "plectis spatial-world-model-counterfactual-simulation-replay "
                     "run-simulation-bundle"
                 ),
                 "endpoint": "/spatial-simulation",
@@ -14051,7 +14051,7 @@ class RuntimeShell:
                     "spatial_world_model_counterfactual_simulation_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_spatial_world_model_counterfactual_simulation_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14065,7 +14065,7 @@ class RuntimeShell:
                         "benchmark score claims",
                     ],
                     "drilldown": (
-                        "microcosm spatial-world-model-counterfactual-simulation-replay "
+                        "plectis spatial-world-model-counterfactual-simulation-replay "
                         "run-simulation-bundle"
                     ),
                     "source_ref": (
@@ -14084,7 +14084,7 @@ class RuntimeShell:
                     "public_materials_chemistry_closed_loop_lab_safety_replay_lens"
                 ),
                 "command": (
-                    "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                    "plectis materials-chemistry-closed-loop-lab-safety-replay "
                     "run-lab-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14098,7 +14098,7 @@ class RuntimeShell:
                     "materials_chemistry_closed_loop_lab_safety_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_materials_chemistry_closed_loop_lab_safety_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14113,7 +14113,7 @@ class RuntimeShell:
                         "discovery or benchmark score claims",
                     ],
                     "drilldown": (
-                        "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                        "plectis materials-chemistry-closed-loop-lab-safety-replay "
                         "run-lab-bundle"
                     ),
                     "source_ref": (
@@ -14133,7 +14133,7 @@ class RuntimeShell:
                     "attribution_replay_lens"
                 ),
                 "command": (
-                    "microcosm mechanistic-interpretability-circuit-attribution-replay "
+                    "plectis mechanistic-interpretability-circuit-attribution-replay "
                     "run-attribution-bundle"
                 ),
                 "endpoint": "/circuit-attribution",
@@ -14147,7 +14147,7 @@ class RuntimeShell:
                     "mechanistic_interpretability_circuit_attribution_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_mechanistic_interpretability_circuit_attribution_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14161,7 +14161,7 @@ class RuntimeShell:
                         "benchmark score claims",
                     ],
                     "drilldown": (
-                        "microcosm mechanistic-interpretability-circuit-attribution-replay "
+                        "plectis mechanistic-interpretability-circuit-attribution-replay "
                         "run-attribution-bundle"
                     ),
                     "source_ref": (
@@ -14177,11 +14177,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_view_quality_action_map_lens",
-                "command": "microcosm view-quality",
+                "command": "plectis view-quality",
                 "endpoint": "/view-quality",
                 "public_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
                 "owner_route": "runtime_shell.view_quality",
-                "authority_ceiling_ref": "microcosm authority::public_view_quality_action_map_lens",
+                "authority_ceiling_ref": "plectis authority::public_view_quality_action_map_lens",
                 "omission_receipt": {
                     "omitted": ["private screenshot paths", "live browser state", "complete quality claims"],
                     "drilldown": "/view-quality",
@@ -14195,11 +14195,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_projection_drift_control_lens",
-                "command": "microcosm drift-control",
+                "command": "plectis drift-control",
                 "endpoint": "/drift-control",
                 "public_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
                 "owner_route": "runtime_shell.projection_drift",
-                "authority_ceiling_ref": "microcosm authority::public_projection_drift_control_lens",
+                "authority_ceiling_ref": "plectis authority::public_projection_drift_control_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private runtime bodies",
@@ -14208,7 +14208,7 @@ class RuntimeShell:
                         "source mutation authority",
                     ],
                     "drilldown": "/drift-control",
-                    "source_ref": "microcosm drift-control::drift_rows",
+                    "source_ref": "plectis drift-control::drift_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14218,11 +14218,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_route_cleanup_contract_lens",
-                "command": "microcosm route-cleanup",
+                "command": "plectis route-cleanup",
                 "endpoint": "/route-cleanup",
                 "public_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
                 "owner_route": "runtime_shell.route_cleanup",
-                "authority_ceiling_ref": "microcosm authority::public_route_cleanup_contract_lens",
+                "authority_ceiling_ref": "plectis authority::public_route_cleanup_contract_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private route bodies",
@@ -14231,7 +14231,7 @@ class RuntimeShell:
                         "provider payloads",
                     ],
                     "drilldown": "/route-cleanup",
-                    "source_ref": "microcosm route-cleanup::cleanup_rows",
+                    "source_ref": "plectis route-cleanup::cleanup_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14241,11 +14241,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_hook_intervention_coverage_lens",
-                "command": "microcosm hook-coverage",
+                "command": "plectis hook-coverage",
                 "endpoint": "/hook-coverage",
                 "public_ref": "receipts/runtime_shell/public_hook_intervention_coverage_lens.json",
                 "owner_route": "runtime_shell.hook_coverage",
-                "authority_ceiling_ref": "microcosm authority::public_hook_intervention_coverage_lens",
+                "authority_ceiling_ref": "plectis authority::public_hook_intervention_coverage_lens",
                 "omission_receipt": {
                     "omitted": [
                         "live operator state",
@@ -14263,11 +14263,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_agent_reliability_replay_gauntlet_lens",
-                "command": "microcosm replay-gauntlet",
+                "command": "plectis replay-gauntlet",
                 "endpoint": "/replay-gauntlet",
                 "public_ref": "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
                 "owner_route": "runtime_shell.replay_gauntlet",
-                "authority_ceiling_ref": "microcosm authority::public_agent_reliability_replay_gauntlet_lens",
+                "authority_ceiling_ref": "plectis authority::public_agent_reliability_replay_gauntlet_lens",
                 "omission_receipt": {
                     "omitted": [
                         "real secret material",
@@ -14286,11 +14286,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_repository_benchmark_transaction_lab_lens",
-                "command": "microcosm benchmark-lab",
+                "command": "plectis benchmark-lab",
                 "endpoint": "/benchmark-lab",
                 "public_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
                 "owner_route": "runtime_shell.benchmark_lab",
-                "authority_ceiling_ref": "microcosm authority::public_repository_benchmark_transaction_lab_lens",
+                "authority_ceiling_ref": "plectis authority::public_repository_benchmark_transaction_lab_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private issue bodies",
@@ -14310,7 +14310,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_agent_benchmark_integrity_anti_gaming_lens",
                 "command": (
-                    "microcosm agent-benchmark-integrity-anti-gaming-replay "
+                    "plectis agent-benchmark-integrity-anti-gaming-replay "
                     "run-benchmark-integrity-bundle"
                 ),
                 "endpoint": "/benchmark-lab",
@@ -14324,7 +14324,7 @@ class RuntimeShell:
                     "agent_benchmark_integrity_anti_gaming_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_agent_benchmark_integrity_anti_gaming_lens"
                 ),
                 "omission_receipt": {
@@ -14336,7 +14336,7 @@ class RuntimeShell:
                         "benchmark score claims",
                     ],
                     "drilldown": (
-                        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+                        "plectis agent-benchmark-integrity-anti-gaming-replay "
                         "run-benchmark-integrity-bundle"
                     ),
                     "source_ref": (
@@ -14353,7 +14353,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_agent_monitor_redteam_falsification_lens",
                 "command": (
-                    "microcosm agent-monitor-redteam-falsification-replay "
+                    "plectis agent-monitor-redteam-falsification-replay "
                     "run-monitor-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14367,7 +14367,7 @@ class RuntimeShell:
                     "agent_monitor_redteam_falsification_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_agent_monitor_redteam_falsification_lens"
                 ),
                 "omission_receipt": {
@@ -14380,7 +14380,7 @@ class RuntimeShell:
                         "monitor product performance claims",
                     ],
                     "drilldown": (
-                        "microcosm agent-monitor-redteam-falsification-replay "
+                        "plectis agent-monitor-redteam-falsification-replay "
                         "run-monitor-bundle"
                     ),
                     "source_ref": (
@@ -14397,7 +14397,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_agent_sabotage_scheming_monitor_replay_lens",
                 "command": (
-                    "microcosm agent-sabotage-scheming-monitor-replay "
+                    "plectis agent-sabotage-scheming-monitor-replay "
                     "run-sabotage-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14411,7 +14411,7 @@ class RuntimeShell:
                     "agent_sabotage_scheming_monitor_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_agent_sabotage_scheming_monitor_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14424,7 +14424,7 @@ class RuntimeShell:
                         "deployment-risk product claims",
                     ],
                     "drilldown": (
-                        "microcosm agent-sabotage-scheming-monitor-replay "
+                        "plectis agent-sabotage-scheming-monitor-replay "
                         "run-sabotage-bundle"
                     ),
                     "source_ref": (
@@ -14441,7 +14441,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_agent_sandbox_policy_escape_replay_lens",
                 "command": (
-                    "microcosm agent-sandbox-policy-escape-replay "
+                    "plectis agent-sandbox-policy-escape-replay "
                     "run-sandbox-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14455,7 +14455,7 @@ class RuntimeShell:
                     "agent_sandbox_policy_escape_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_agent_sandbox_policy_escape_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14468,7 +14468,7 @@ class RuntimeShell:
                         "security benchmark performance claims",
                     ],
                     "drilldown": (
-                        "microcosm agent-sandbox-policy-escape-replay "
+                        "plectis agent-sandbox-policy-escape-replay "
                         "run-sandbox-bundle"
                     ),
                     "source_ref": (
@@ -14485,7 +14485,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_indirect_prompt_injection_information_flow_policy_replay_lens",
                 "command": (
-                    "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                    "plectis indirect-prompt-injection-information-flow-policy-replay "
                     "run-prompt-injection-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14499,7 +14499,7 @@ class RuntimeShell:
                     "indirect_prompt_injection_information_flow_policy_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_indirect_prompt_injection_information_flow_policy_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14512,7 +14512,7 @@ class RuntimeShell:
                         "general prompt-injection robustness claims",
                     ],
                     "drilldown": (
-                        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                        "plectis indirect-prompt-injection-information-flow-policy-replay "
                         "run-prompt-injection-bundle"
                     ),
                     "source_ref": (
@@ -14529,7 +14529,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_agentic_vulnerability_discovery_patch_proof_replay_lens",
                 "command": (
-                    "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                    "plectis agentic-vulnerability-discovery-patch-proof-replay "
                     "run-patch-proof-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14543,7 +14543,7 @@ class RuntimeShell:
                     "agentic_vulnerability_discovery_patch_proof_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_agentic_vulnerability_discovery_patch_proof_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14558,7 +14558,7 @@ class RuntimeShell:
                         "benchmark security-score claims",
                     ],
                     "drilldown": (
-                        "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                        "plectis agentic-vulnerability-discovery-patch-proof-replay "
                         "run-patch-proof-bundle"
                     ),
                     "source_ref": (
@@ -14575,7 +14575,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
-                    "microcosm agent-memory-temporal-conflict-replay "
+                    "plectis agent-memory-temporal-conflict-replay "
                     "run-memory-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14589,7 +14589,7 @@ class RuntimeShell:
                     "agent_memory_temporal_conflict_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_agent_memory_temporal_conflict_lens"
                 ),
                 "omission_receipt": {
@@ -14602,7 +14602,7 @@ class RuntimeShell:
                         "live memory product claims",
                     ],
                     "drilldown": (
-                        "microcosm agent-memory-temporal-conflict-replay "
+                        "plectis agent-memory-temporal-conflict-replay "
                         "run-memory-bundle"
                     ),
                     "source_ref": (
@@ -14619,7 +14619,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_sleeper_memory_poisoning_quarantine_lens",
                 "command": (
-                    "microcosm sleeper-memory-poisoning-quarantine-replay "
+                    "plectis sleeper-memory-poisoning-quarantine-replay "
                     "run-quarantine-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14633,7 +14633,7 @@ class RuntimeShell:
                     "sleeper_memory_poisoning_quarantine_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_sleeper_memory_poisoning_quarantine_lens"
                 ),
                 "omission_receipt": {
@@ -14646,7 +14646,7 @@ class RuntimeShell:
                         "benchmark security claims",
                     ],
                     "drilldown": (
-                        "microcosm sleeper-memory-poisoning-quarantine-replay "
+                        "plectis sleeper-memory-poisoning-quarantine-replay "
                         "run-quarantine-bundle"
                     ),
                     "source_ref": (
@@ -14663,7 +14663,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_mcp_tool_authority_replay_lens",
                 "command": (
-                    "microcosm mcp-tool-authority-replay "
+                    "plectis mcp-tool-authority-replay "
                     "run-tool-authority-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14674,7 +14674,7 @@ class RuntimeShell:
                 ),
                 "owner_route": "microcosm_core.organs.mcp_tool_authority_replay",
                 "authority_ceiling_ref": (
-                    "microcosm authority::public_mcp_tool_authority_replay_lens"
+                    "plectis authority::public_mcp_tool_authority_replay_lens"
                 ),
                 "omission_receipt": {
                     "omitted": [
@@ -14686,7 +14686,7 @@ class RuntimeShell:
                         "benchmark security claims",
                     ],
                     "drilldown": (
-                        "microcosm mcp-tool-authority-replay "
+                        "plectis mcp-tool-authority-replay "
                         "run-tool-authority-bundle"
                     ),
                     "source_ref": (
@@ -14705,7 +14705,7 @@ class RuntimeShell:
                     "public_proof_derived_governed_mutation_authorization_lens"
                 ),
                 "command": (
-                    "microcosm proof-derived-governed-mutation-authorization "
+                    "plectis proof-derived-governed-mutation-authorization "
                     "run-authorization-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14719,7 +14719,7 @@ class RuntimeShell:
                     "proof_derived_governed_mutation_authorization"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_proof_derived_governed_mutation_authorization_lens"
                 ),
                 "omission_receipt": {
@@ -14732,7 +14732,7 @@ class RuntimeShell:
                         "irreversible mutation authority",
                     ],
                     "drilldown": (
-                        "microcosm proof-derived-governed-mutation-authorization "
+                        "plectis proof-derived-governed-mutation-authorization "
                         "run-authorization-bundle"
                     ),
                     "source_ref": (
@@ -14749,7 +14749,7 @@ class RuntimeShell:
             {
                 "projection_id": "public_belief_state_process_reward_replay_lens",
                 "command": (
-                    "microcosm belief-state-process-reward-replay "
+                    "plectis belief-state-process-reward-replay "
                     "run-reward-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -14762,7 +14762,7 @@ class RuntimeShell:
                     "microcosm_core.organs.belief_state_process_reward_replay"
                 ),
                 "authority_ceiling_ref": (
-                    "microcosm authority::"
+                    "plectis authority::"
                     "public_belief_state_process_reward_replay_lens"
                 ),
                 "omission_receipt": {
@@ -14774,7 +14774,7 @@ class RuntimeShell:
                         "benchmark submission payloads",
                     ],
                     "drilldown": (
-                        "microcosm belief-state-process-reward-replay "
+                        "plectis belief-state-process-reward-replay "
                         "run-reward-bundle"
                     ),
                     "source_ref": (
@@ -14790,11 +14790,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_cold_reader_legibility_scorecard_lens",
-                "command": "microcosm legibility-scorecard",
+                "command": "plectis legibility-scorecard",
                 "endpoint": "/legibility-scorecard",
                 "public_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
                 "owner_route": "runtime_shell.legibility_scorecard",
-                "authority_ceiling_ref": "microcosm authority::public_cold_reader_legibility_scorecard_lens",
+                "authority_ceiling_ref": "plectis authority::public_cold_reader_legibility_scorecard_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private macro context",
@@ -14803,7 +14803,7 @@ class RuntimeShell:
                         "provider payloads",
                     ],
                     "drilldown": "/legibility-scorecard",
-                    "source_ref": "microcosm legibility-scorecard::checkpoint_rows",
+                    "source_ref": "plectis legibility-scorecard::checkpoint_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14813,11 +14813,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_projection_import_map_lens",
-                "command": "microcosm projection-import-map",
+                "command": "plectis projection-import-map",
                 "endpoint": "/projection-import-map",
                 "public_ref": "receipts/runtime_shell/public_projection_import_map_lens.json",
                 "owner_route": "runtime_shell.projection_import_map",
-                "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
+                "authority_ceiling_ref": "plectis authority::public_projection_import_map_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private macro bodies",
@@ -14826,7 +14826,7 @@ class RuntimeShell:
                         "automated import guarantee",
                     ],
                     "drilldown": "/projection-import-map",
-                    "source_ref": "microcosm projection-import-map::import_rows",
+                    "source_ref": "plectis projection-import-map::import_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14836,11 +14836,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_import_projector_contract_lens",
-                "command": "microcosm import-projector",
+                "command": "plectis import-projector",
                 "endpoint": "/import-projector",
                 "public_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
                 "owner_route": "runtime_shell.import_projector",
-                "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+                "authority_ceiling_ref": "plectis authority::public_import_projector_contract_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private source bodies",
@@ -14850,7 +14850,7 @@ class RuntimeShell:
                         "lossless private projection claims",
                     ],
                     "drilldown": "/import-projector",
-                    "source_ref": "microcosm import-projector::projector_rows",
+                    "source_ref": "plectis import-projector::projector_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14860,7 +14860,7 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_compression_profile_option_surface_lens",
-                "command": "microcosm option-surface-lens",
+                "command": "plectis option-surface-lens",
                 "endpoint": "/option-surface-lens",
                 "public_ref": (
                     "receipts/runtime_shell/"
@@ -14868,7 +14868,7 @@ class RuntimeShell:
                 ),
                 "owner_route": "runtime_shell.option_surface_lens",
                 "authority_ceiling_ref": (
-                    "microcosm authority::public_compression_profile_option_surface_lens"
+                    "plectis authority::public_compression_profile_option_surface_lens"
                 ),
                 "omission_receipt": {
                     "omitted": [
@@ -14878,7 +14878,7 @@ class RuntimeShell:
                         "lossless private projection claims",
                     ],
                     "drilldown": "/option-surface-lens",
-                    "source_ref": "microcosm option-surface-lens::option_rows",
+                    "source_ref": "plectis option-surface-lens::option_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14888,11 +14888,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_stripping_guard_lens",
-                "command": "microcosm stripping-guard",
+                "command": "plectis stripping-guard",
                 "endpoint": "/stripping-guard",
                 "public_ref": "receipts/runtime_shell/public_stripping_guard_lens.json",
                 "owner_route": "runtime_shell.stripping_guard",
-                "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
+                "authority_ceiling_ref": "plectis authority::public_stripping_guard_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private source bodies",
@@ -14902,7 +14902,7 @@ class RuntimeShell:
                         "secret detector completeness claims",
                     ],
                     "drilldown": "/stripping-guard",
-                    "source_ref": "microcosm stripping-guard::guard_rows",
+                    "source_ref": "plectis stripping-guard::guard_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14912,11 +14912,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_standards_control_lens",
-                "command": "microcosm standards-control",
+                "command": "plectis standards-control",
                 "endpoint": "/standards-control",
                 "public_ref": "receipts/runtime_shell/public_standards_control_lens.json",
                 "owner_route": "runtime_shell.standards_control",
-                "authority_ceiling_ref": "microcosm authority::public_standards_control_lens",
+                "authority_ceiling_ref": "plectis authority::public_standards_control_lens",
                 "omission_receipt": {
                     "omitted": [
                         "private doctrine bodies",
@@ -14925,7 +14925,7 @@ class RuntimeShell:
                         "standards completeness guarantee",
                     ],
                     "drilldown": "/standards-control",
-                    "source_ref": "microcosm standards-control::standards_rows",
+                    "source_ref": "plectis standards-control::standards_rows",
                 },
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -14935,11 +14935,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "runtime_reveal_import_bridge",
-                "command": "microcosm intake",
+                "command": "plectis intake",
                 "endpoint": "/intake",
                 "public_ref": "receipts/runtime_shell/intake_bridge/observatory_intake_bridge.json",
                 "owner_route": "runtime_shell.intake",
-                "authority_ceiling_ref": "microcosm authority::runtime_reveal_import_bridge",
+                "authority_ceiling_ref": "plectis authority::runtime_reveal_import_bridge",
                 "omission_receipt": {
                     "omitted": ["macro private bodies", "unprojected raw seed voice"],
                     "drilldown": "/intake",
@@ -14953,11 +14953,11 @@ class RuntimeShell:
             },
             {
                 "projection_id": "public_reveal_view",
-                "command": "microcosm reveal",
+                "command": "plectis reveal",
                 "endpoint": "/reveal",
                 "public_ref": "receipts/runtime_shell/public_reveal_walkthrough.json",
                 "owner_route": "runtime_shell.reveal",
-                "authority_ceiling_ref": "microcosm authority::public_reveal_view",
+                "authority_ceiling_ref": "plectis authority::public_reveal_view",
                 "omission_receipt": {
                     "omitted": ["private macro equivalence claims", "publication authority"],
                     "drilldown": "/reveal",
@@ -15001,7 +15001,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_projection_safety_audit_lens",
             "organ_family": "compression_projection",
-            "command": "microcosm projection-safety",
+            "command": "plectis projection-safety",
             "endpoint": "/projection-safety",
             "projection_safety_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -15063,7 +15063,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_projection_safety_audit_lens",
-                command="microcosm projection-safety",
+                command="plectis projection-safety",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 private_paths_omitted=True,
@@ -15102,7 +15102,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_projection_import_map_lens.json"
         import_stages = [
@@ -15167,7 +15167,7 @@ class RuntimeShell:
                 "map_row_id": "macro_projection_import_protocol_to_intake",
                 "source_pattern_id": "macro_projection_import_protocol",
                 "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::macro_projection_import_protocol",
-                "public_surface": "microcosm intake",
+                "public_surface": "plectis intake",
                 "endpoint": "/intake",
                 "public_ref": "receipts/runtime_shell/intake_bridge/observatory_intake_bridge.json",
                 "copied": ["public import-plan metadata", "projection-cell status vocabulary"],
@@ -15177,14 +15177,14 @@ class RuntimeShell:
                     "tests/test_macro_projection_import_protocol.py",
                     "tests/test_runtime_shell.py::test_runtime_shell_serves_observatory",
                 ],
-                "authority_ceiling_ref": "microcosm authority::runtime_reveal_import_bridge",
+                "authority_ceiling_ref": "plectis authority::runtime_reveal_import_bridge",
                 "projection_status": PASS,
             },
             {
                 "map_row_id": "projection_safety_to_runtime_audit",
                 "source_pattern_id": "omission_receipt_reversible_projection_boundary",
                 "source_authority": "codex/standards/std_command_output_projection.json",
-                "public_surface": "microcosm projection-safety",
+                "public_surface": "plectis projection-safety",
                 "endpoint": "/projection-safety",
                 "public_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
                 "copied": ["omission receipt rule", "drilldown-before-claim boundary"],
@@ -15194,14 +15194,14 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
                     "tests/test_launch_compression.py",
                 ],
-                "authority_ceiling_ref": "microcosm authority::public_projection_safety_audit_lens",
+                "authority_ceiling_ref": "plectis authority::public_projection_safety_audit_lens",
                 "projection_status": PASS,
             },
             {
                 "map_row_id": "cold_reader_legibility_to_scorecard",
                 "source_pattern_id": "cold_reader_route_map",
                 "source_authority": "microcosm-substrate/paper_modules/cold_reader_route_map.md",
-                "public_surface": "microcosm legibility-scorecard",
+                "public_surface": "plectis legibility-scorecard",
                 "endpoint": "/legibility-scorecard",
                 "public_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
                 "copied": ["question-to-command map", "10-minute comprehension budget"],
@@ -15211,14 +15211,14 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
                     "tests/test_observatory_legibility.py",
                 ],
-                "authority_ceiling_ref": "microcosm authority::public_cold_reader_legibility_scorecard_lens",
+                "authority_ceiling_ref": "plectis authority::public_cold_reader_legibility_scorecard_lens",
                 "projection_status": PASS,
             },
             {
                 "map_row_id": "repository_benchmark_to_transaction_lab",
                 "source_pattern_id": "repository_agent_benchmark_transaction_lab",
                 "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::repository_agent_benchmark_transaction_lab",
-                "public_surface": "microcosm benchmark-lab",
+                "public_surface": "plectis benchmark-lab",
                 "endpoint": "/benchmark-lab",
                 "public_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
                 "copied": ["oracle-diff grading shape", "FAIL_TO_PASS/PASS_TO_PASS guard vocabulary"],
@@ -15228,14 +15228,14 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_uses_payload_boundary",
                     "tests/test_cli.py::test_cli_benchmark_lab_smoke",
                 ],
-                "authority_ceiling_ref": "microcosm authority::public_repository_benchmark_transaction_lab_lens",
+                "authority_ceiling_ref": "plectis authority::public_repository_benchmark_transaction_lab_lens",
                 "projection_status": PASS,
             },
             {
                 "map_row_id": "agent_reliability_to_replay_gauntlet",
                 "source_pattern_id": "agent_reliability_replay_gauntlet",
                 "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_reliability_replay_gauntlet",
-                "public_surface": "microcosm replay-gauntlet",
+                "public_surface": "plectis replay-gauntlet",
                 "endpoint": "/replay-gauntlet",
                 "public_ref": "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
                 "copied": ["monitor verdict rows", "containment and quarantine vocabulary"],
@@ -15245,14 +15245,14 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary",
                     "tests/test_cli.py::test_cli_replay_gauntlet_smoke",
                 ],
-                "authority_ceiling_ref": "microcosm authority::public_agent_reliability_replay_gauntlet_lens",
+                "authority_ceiling_ref": "plectis authority::public_agent_reliability_replay_gauntlet_lens",
                 "projection_status": PASS,
             },
             {
                 "map_row_id": "formal_trace_repair_to_public_lenses",
                 "source_pattern_id": "formal_math_verifier_trace_repair_loop_compound",
                 "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_math_verifier_trace_repair_loop_compound",
-                "public_surface": "microcosm trace-lens && microcosm repair-loop",
+                "public_surface": "plectis trace-lens && plectis repair-loop",
                 "endpoint": "/trace + /repair-loop",
                 "public_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
                 "copied": ["failure class taxonomy", "cold-rerun promotion gate"],
@@ -15262,7 +15262,7 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_uses_payload_boundary",
                     "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_uses_payload_boundary",
                 ],
-                "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
+                "authority_ceiling_ref": "plectis authority::public_verifier_trace_repair_lens",
                 "projection_status": PASS,
             },
             {
@@ -15273,7 +15273,7 @@ class RuntimeShell:
                     "exported_projection_import_bundle/"
                     "self_comprehension_packet_compiler_source_projection_protocol.json"
                 ),
-                "public_surface": "microcosm authority && microcosm status",
+                "public_surface": "plectis authority && plectis status",
                 "endpoint": "/authority",
                 "public_ref": (
                     "examples/macro_projection_import_protocol/"
@@ -15298,7 +15298,7 @@ class RuntimeShell:
                     "tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports",
                     "tests/test_runtime_shell.py::test_runtime_shell_child_projection_protocols_surface_in_source_body_lens",
                 ],
-                "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::compression_profiles",
+                "authority_ceiling_ref": "plectis authority::macro_body_import_floor.source_body_import_lens::compression_profiles",
                 "projection_status": PASS,
             },
         ]
@@ -15350,12 +15350,12 @@ class RuntimeShell:
                 else "blocked"
             ),
             "source_ref": (
-                "microcosm status --card <project>::"
+                "plectis status --card <project>::"
                 "front_door.source_open_body_import_floor"
             ),
-            "full_status_ref": "microcosm status::macro_body_import_floor",
+            "full_status_ref": "plectis status::macro_body_import_floor",
             "source_body_lens_ref": (
-                "microcosm status::macro_body_import_floor."
+                "plectis status::macro_body_import_floor."
                 "source_body_import_lens"
             ),
             "projection_map_role": "aggregate_handoff_not_body_text",
@@ -15453,7 +15453,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_projection_import_map_lens",
             "organ_family": "projection_import",
-            "command": "microcosm projection-import-map",
+            "command": "plectis projection-import-map",
             "endpoint": "/projection-import-map",
             "projection_import_map_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -15480,7 +15480,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_projection_import_map_lens",
-                command="microcosm projection-import-map",
+                command="plectis projection-import-map",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 private_paths_omitted=True,
@@ -15509,7 +15509,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_import_projector_contract_lens.json"
         contract_stages = [
@@ -15580,7 +15580,7 @@ class RuntimeShell:
                 "public_output": "selected_pattern_ids plus source authority refs",
                 "owner_route": "build_public_microcosm_substrate_import_prep.py --json",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_import_projector_contract_lens_is_public_safe",
-                "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+                "authority_ceiling_ref": "plectis authority::public_import_projector_contract_lens",
                 "copied": ["pattern id", "public readiness signal", "source authority pointer"],
                 "cleaned": ["private source path bodies", "operator-specific context"],
                 "omitted": ["raw macro source bodies", "unreviewed publication claims"],
@@ -15594,11 +15594,11 @@ class RuntimeShell:
             {
                 "projector_row_id": "public_manifest_contract",
                 "projector_stage": "public_manifest",
-                "source_ref": "microcosm projection-import-map::import_stages",
+                "source_ref": "plectis projection-import-map::import_stages",
                 "public_output": "projection manifest row with copied, cleaned, omitted, and validated fields",
                 "owner_route": "runtime_shell.projection_import_map",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_import_map_lens_is_public_safe",
-                "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
+                "authority_ceiling_ref": "plectis authority::public_projection_import_map_lens",
                 "copied": ["stage vocabulary", "public drilldown refs"],
                 "cleaned": ["lossless-import language", "automatic success language"],
                 "omitted": ["private implementation bodies", "provider payload bodies"],
@@ -15612,11 +15612,11 @@ class RuntimeShell:
             {
                 "projector_row_id": "stripping_omission_contract",
                 "projector_stage": "stripping_and_omission",
-                "source_ref": "microcosm stripping-guard::guard_rows",
+                "source_ref": "plectis stripping-guard::guard_rows",
                 "public_output": "omission receipt with drilldown before claim",
                 "owner_route": "runtime_shell.stripping_guard",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
-                "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
+                "authority_ceiling_ref": "plectis authority::public_stripping_guard_lens",
                 "copied": ["guard row id", "public drilldown", "payload-boundary rule"],
                 "cleaned": ["private bodies", "proof bodies", "raw private paths"],
                 "omitted": ["secret-like material", "provider prompts and completions"],
@@ -15630,11 +15630,11 @@ class RuntimeShell:
             {
                 "projector_row_id": "authority_ceiling_contract",
                 "projector_stage": "public_manifest",
-                "source_ref": "microcosm authority::surface_authority",
+                "source_ref": "plectis authority::surface_authority",
                 "public_output": "surface-specific authority ceiling and anti-claim",
                 "owner_route": "runtime_shell.authority",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
-                "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+                "authority_ceiling_ref": "plectis authority::public_import_projector_contract_lens",
                 "copied": ["forbidden authority flags", "safe local exception vocabulary"],
                 "cleaned": ["release permission ambiguity", "private-data equivalence claims"],
                 "omitted": ["publication authorization", "provider call authorization"],
@@ -15652,7 +15652,7 @@ class RuntimeShell:
                 "public_output": "synthetic fixture or metadata-only public drilldown",
                 "owner_route": "fixture-backed validator",
                 "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha",
-                "authority_ceiling_ref": "microcosm projection-safety::projection_rows",
+                "authority_ceiling_ref": "plectis projection-safety::projection_rows",
                 "copied": ["synthetic row shape", "public metric names"],
                 "cleaned": ["private examples", "real user or account data"],
                 "omitted": ["production data", "private benchmark bodies"],
@@ -15667,10 +15667,10 @@ class RuntimeShell:
                 "projector_row_id": "runtime_surface_contract",
                 "projector_stage": "runtime_binding",
                 "source_ref": "src/microcosm_core/runtime_shell.py",
-                "public_output": "microcosm command, endpoint, receipt, and status row",
+                "public_output": "plectis command, endpoint, receipt, and status row",
                 "owner_route": "runtime_shell.<lens>",
                 "validation_ref": "tests/test_cli.py::test_cli_import_projector_contract_smoke",
-                "authority_ceiling_ref": "microcosm authority::surface_authority",
+                "authority_ceiling_ref": "plectis authority::surface_authority",
                 "copied": ["schema version", "command id", "endpoint id"],
                 "cleaned": ["unstable local file paths", "private route payloads"],
                 "omitted": ["source mutation action", "automated import execution"],
@@ -15684,11 +15684,11 @@ class RuntimeShell:
             {
                 "projector_row_id": "observatory_binding_contract",
                 "projector_stage": "runtime_binding",
-                "source_ref": "microcosm project-observatory model",
+                "source_ref": "plectis project-observatory model",
                 "public_output": "first-screen HTML section plus JSON drilldown endpoint",
                 "owner_route": "runtime_shell._observatory_html",
                 "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain",
-                "authority_ceiling_ref": "microcosm authority::local_observatory",
+                "authority_ceiling_ref": "plectis authority::local_observatory",
                 "copied": ["section title", "row counts", "negative cases"],
                 "cleaned": ["raw JSON first-screen dependence", "private drilldown payloads"],
                 "omitted": ["operator browser state", "private screenshot paths"],
@@ -15702,11 +15702,11 @@ class RuntimeShell:
             {
                 "projector_row_id": "projection_safety_registration_contract",
                 "projector_stage": "stripping_and_omission",
-                "source_ref": "microcosm projection-safety::projection_rows",
+                "source_ref": "plectis projection-safety::projection_rows",
                 "public_output": "registered projection row with omission receipt",
                 "owner_route": "runtime_shell.projection_safety",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
-                "authority_ceiling_ref": "microcosm authority::public_projection_safety_audit_lens",
+                "authority_ceiling_ref": "plectis authority::public_projection_safety_audit_lens",
                 "copied": ["projection id", "public ref", "owner route"],
                 "cleaned": ["unbounded export claims", "private body assumptions"],
                 "omitted": ["proof body text", "provider payload bodies"],
@@ -15724,7 +15724,7 @@ class RuntimeShell:
                 "public_output": "seed closeout, next reentry prompt, Work Ledger append, and scoped landing attempt",
                 "owner_route": "type_a_autonomous_seed_loop",
                 "validation_ref": "kernel.py --validate-seed-heartbeat",
-                "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
+                "authority_ceiling_ref": "plectis landing-replay::scoped_commit_requires_head_advance",
                 "copied": ["selected import cell", "commands/tests", "next reentry prompt"],
                 "cleaned": ["private prompt bodies", "unlanded release language"],
                 "omitted": ["operator raw seed voice", "unreviewed publication claims"],
@@ -15825,7 +15825,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_import_projector_contract_lens",
             "organ_family": "projection_import",
-            "command": "microcosm import-projector",
+            "command": "plectis import-projector",
             "endpoint": "/import-projector",
             "import_projector_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -15850,7 +15850,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_import_projector_contract_lens",
-                command="microcosm import-projector",
+                command="plectis import-projector",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 private_paths_omitted=True,
@@ -15879,7 +15879,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_compression_profile_option_surface_lens.json"
         import_plan_ref = (
@@ -15966,8 +15966,8 @@ class RuntimeShell:
                 "cleaned": ["private source path bodies", "volatile run counters"],
                 "omitted": ["raw macro context", "operator prompts", "private route payloads"],
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe",
-                "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
+                "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
+                **_source_open_row_boundary("plectis option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -15977,14 +15977,14 @@ class RuntimeShell:
             {
                 "option_row_id": "quick_profile_public_card",
                 "option_stage": "public_profile_contract",
-                "source_ref": "microcosm import-projector::candidate_selection",
+                "source_ref": "plectis import-projector::candidate_selection",
                 "public_output": "quick profile as a bounded cold-reader card",
                 "copied": ["profile name", "reader budget", "surface list"],
                 "cleaned": ["live route rankings", "private phase-specific counts"],
                 "omitted": ["full private context pack", "private operator history"],
                 "validation_ref": "tests/test_cli.py::test_cli_option_surface_lens_smoke",
-                "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
+                "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
+                **_source_open_row_boundary("plectis option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -15994,14 +15994,14 @@ class RuntimeShell:
             {
                 "option_row_id": "full_profile_sidecar_boundary",
                 "option_stage": "sidecar_projection",
-                "source_ref": "microcosm route-cleanup::option_surface_hygiene",
+                "source_ref": "plectis route-cleanup::option_surface_hygiene",
                 "public_output": "full profile points at sidecar/receipt refs instead of prompt-body expansion",
                 "copied": ["sidecar vocabulary", "receipt-first proof rule"],
                 "cleaned": ["unbounded prompt stuffing", "private note bodies"],
                 "omitted": ["raw sidecar payload bodies", "private generated-region diffs"],
                 "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha",
-                "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
+                "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
+                **_source_open_row_boundary("plectis option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -16011,14 +16011,14 @@ class RuntimeShell:
             {
                 "option_row_id": "observatory_option_surface_card",
                 "option_stage": "runtime_binding",
-                "source_ref": "microcosm project-observatory::json_drilldowns",
+                "source_ref": "plectis project-observatory::json_drilldowns",
                 "public_output": "first-screen option-surface card and JSON drilldown endpoint",
                 "copied": ["section title", "row count", "authority booleans"],
                 "cleaned": ["raw JSON first-screen dependence", "private drilldown payloads"],
                 "omitted": ["live operator browser state", "private screenshot paths"],
                 "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain",
-                "authority_ceiling_ref": "microcosm authority::local_observatory",
-                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
+                "authority_ceiling_ref": "plectis authority::local_observatory",
+                **_source_open_row_boundary("plectis option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -16028,14 +16028,14 @@ class RuntimeShell:
             {
                 "option_row_id": "validator_option_profile_parity",
                 "option_stage": "validation",
-                "source_ref": "microcosm launch-compression::assertions",
+                "source_ref": "plectis launch-compression::assertions",
                 "public_output": "validator checks command, endpoint, receipt, and observatory parity",
                 "copied": ["status assertion", "endpoint assertion", "no-private-export assertion"],
                 "cleaned": ["green-check-only posture", "unbound profile claims"],
                 "omitted": ["release-readiness claim", "automatic profile correctness guarantee"],
                 "validation_ref": "tests/test_observatory_legibility.py",
-                "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
+                "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
+                **_source_open_row_boundary("plectis option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -16051,8 +16051,8 @@ class RuntimeShell:
                 "cleaned": ["raw seed voice", "unreviewed public release language"],
                 "omitted": ["operator private prompt body", "publication authorization"],
                 "validation_ref": "kernel.py --validate-seed-heartbeat",
-                "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
-                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
+                "authority_ceiling_ref": "plectis landing-replay::scoped_commit_requires_head_advance",
+                **_source_open_row_boundary("plectis option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -16154,7 +16154,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_compression_profile_option_surface_lens",
             "organ_family": "projection_import",
-            "command": "microcosm option-surface-lens",
+            "command": "plectis option-surface-lens",
             "endpoint": "/option-surface-lens",
             "option_surface_lens_ref": _public_relative(lens_path, self.root),
             "import_projector_ref": import_projector.get("import_projector_ref"),
@@ -16185,7 +16185,7 @@ class RuntimeShell:
                     ),
                     "omitted_payload_schema_terms_exported": False,
                     "source_open_payload_boundary_ref": (
-                        "microcosm option-surface-lens::payload_boundary"
+                        "plectis option-surface-lens::payload_boundary"
                     ),
                     "public_contract_fields": [
                         "source_open_body_policy",
@@ -16201,7 +16201,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_compression_profile_option_surface_lens",
-                command="microcosm option-surface-lens",
+                command="plectis option-surface-lens",
                 input_payload_schema_normalized=bool(option_cell),
             ),
             "option_stages": option_stages,
@@ -16235,7 +16235,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_stripping_guard_lens.json"
         guard_rows = [
@@ -16244,7 +16244,7 @@ class RuntimeShell:
                 "source_risk": "private source bodies can orient implementation but cannot be copied out",
                 "public_drilldown": "receipt ref, owner route, omission receipt, and payload boundary",
                 "strip_rule": "exclude unsafe payload bodies; carry public drilldown and payload boundary",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
                     "tests/test_launch_compression.py",
@@ -16261,7 +16261,7 @@ class RuntimeShell:
                 "source_risk": "formal proof attempts may contain private working state or unreviewed proof claims",
                 "public_drilldown": "metadata failure class, evidence cell id, and anti-claim",
                 "strip_rule": "export claim strength metadata, never proof body text",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_uses_payload_boundary",
                     "tests/test_runtime_shell.py::test_runtime_shell_evidence_cell_lens_uses_payload_boundary",
@@ -16278,7 +16278,7 @@ class RuntimeShell:
                 "source_risk": "provider prompts, completions, and tool payloads are not public evidence",
                 "public_drilldown": "synthetic case id, decision row, and validator receipt",
                 "strip_rule": "publish only public synthetic rows and provider_call_authorized=false",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary",
                     "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_uses_payload_boundary",
@@ -16295,7 +16295,7 @@ class RuntimeShell:
                 "source_risk": "absolute private paths can leak operator identity and host layout",
                 "public_drilldown": "root-relative public refs or stable command ids",
                 "strip_rule": "reject absolute private paths and private-root identifiers from public JSON",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py",
                     "tests/test_observatory_legibility.py",
@@ -16312,7 +16312,7 @@ class RuntimeShell:
                 "source_risk": "secret-like strings require fail-closed handling and cannot be evidence",
                 "public_drilldown": "negative case id and no-completeness anti-claim",
                 "strip_rule": "strip example token material and deny complete secret-scanner claims",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
                     "tests/test_observatory_legibility.py",
@@ -16329,7 +16329,7 @@ class RuntimeShell:
                 "source_risk": "prediction and finance reasoning can be shown as synthetic mechanics only",
                 "public_drilldown": "no-advice fixture row and synthetic prediction lens",
                 "strip_rule": "deny trading advice, live market claims, and private dossiers",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_uses_payload_boundary",
                     "tests/test_cli.py::test_cli_prediction_lens_smoke",
@@ -16346,7 +16346,7 @@ class RuntimeShell:
                 "source_risk": "public runtime commands should inspect, compile, or write receipts only",
                 "public_drilldown": "authority row and explicit source_mutation_authorized=false",
                 "strip_rule": "route mutations through owner tests/commits, not runtime lens commands",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_landing_replay_lens_is_public_safe",
@@ -16363,7 +16363,7 @@ class RuntimeShell:
                 "source_risk": "a public Plectis projection is not release approval or private-root equivalence",
                 "public_drilldown": "anti-claim row, authority ceiling, and release_authorized=false",
                 "strip_rule": "deny publication, hosted-public, benchmark, and secret-export claims",
-                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
+                **_source_open_row_boundary("plectis stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_tour_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
@@ -16451,7 +16451,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_stripping_guard_lens",
             "organ_family": "projection_import",
-            "command": "microcosm stripping-guard",
+            "command": "plectis stripping-guard",
             "endpoint": "/stripping-guard",
             "stripping_guard_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -16474,7 +16474,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_stripping_guard_lens",
-                command="microcosm stripping-guard",
+                command="plectis stripping-guard",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 private_paths_omitted=True,
@@ -16505,7 +16505,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_standards_control_lens.json"
         registry_ref = "core/standards_registry.json"
@@ -16544,7 +16544,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "public_standard_pressure_contract",
@@ -16561,7 +16561,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "validator_receipt_coverage_contract",
@@ -16578,7 +16578,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "acceptance_gate_contract",
@@ -16588,14 +16588,14 @@ class RuntimeShell:
                 "observed_count": len(acceptance_commands),
                 "validation_refs": [
                     "core/acceptance/first_wave_acceptance.json",
-                    "microcosm standards-registry --registry core/standards_registry.json",
+                    "plectis standards-registry --registry core/standards_registry.json",
                 ],
                 "source_authority_claim": False,
                 "private_body_exported": False,
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "fixture_manifest_contract",
@@ -16612,7 +16612,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "docs_entry_contract",
@@ -16629,16 +16629,16 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "authority_ceiling_contract",
-                "source_ref": "microcosm authority::public_standards_control_lens",
+                "source_ref": "plectis authority::public_standards_control_lens",
                 "public_role": "global authority map lists standards control as read-model only",
                 "required_signal": "release, provider, source mutation, and secret export are false",
                 "observed_count": 1,
                 "validation_refs": [
-                    "microcosm authority",
+                    "plectis authority",
                     "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
                 ],
                 "source_authority_claim": False,
@@ -16646,16 +16646,16 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
             {
                 "control_row_id": "projection_safety_contract",
-                "source_ref": "microcosm projection-safety::public_standards_control_lens",
+                "source_ref": "plectis projection-safety::public_standards_control_lens",
                 "public_role": "compressed standards-control projection has omission receipt and drilldown",
                 "required_signal": "projection row is reversible and carries authority ceiling",
                 "observed_count": 1,
                 "validation_refs": [
-                    "microcosm projection-safety",
+                    "plectis projection-safety",
                     "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
                 ],
                 "source_authority_claim": False,
@@ -16663,7 +16663,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
-                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
+                **_source_open_row_boundary("plectis standards-control::standards_rows"),
             },
         ]
         negative_case_ids = [
@@ -16738,7 +16738,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_standards_control_lens",
             "organ_family": "standards_control",
-            "command": "microcosm standards-control",
+            "command": "plectis standards-control",
             "endpoint": "/standards-control",
             "standards_control_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -16776,7 +16776,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_standards_control_lens",
-                command="microcosm standards-control",
+                command="plectis standards-control",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 private_paths_omitted=True,
@@ -16807,7 +16807,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         route_ref = "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json"
         hook_ref = "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
@@ -16891,7 +16891,7 @@ class RuntimeShell:
                 ),
                 "over_budget_denial_count": hook.get("over_budget_denial_count"),
                 "decision": "retain_as_advisory_public_metadata",
-                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
+                **_source_open_row_boundary("plectis hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "route_compliance_trace_feedback_gate",
@@ -16904,7 +16904,7 @@ class RuntimeShell:
                 ),
                 "duplicate_trace_event_ids": _strings(route.get("duplicate_trace_event_ids")),
                 "decision": "reject_overclaiming_or_duplicate_trace_metadata",
-                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
+                **_source_open_row_boundary("plectis hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "actor_axis_authority_boundary",
@@ -16912,7 +16912,7 @@ class RuntimeShell:
                 "authority_rejection_count": route.get("authority_rejection_count"),
                 "actor_axis_mismatch_count": route.get("actor_axis_mismatch_count"),
                 "decision": "type_b_advisory_cannot_claim_mutation_authority",
-                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
+                **_source_open_row_boundary("plectis hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "anti_pattern_debt_retirement_gate",
@@ -16923,7 +16923,7 @@ class RuntimeShell:
                 ),
                 "evidence_only_trace_ids": _strings(debt.get("evidence_only_trace_ids")),
                 "decision": "retire_only_with_behavior_change_trace_evidence",
-                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
+                **_source_open_row_boundary("plectis hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "route_lease_mode_control_gate",
@@ -16939,7 +16939,7 @@ class RuntimeShell:
                     "static_metadata_without_trace_feedback_count"
                 ),
                 "decision": "consume_route_lease_trace_before_broad_context_return",
-                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
+                **_source_open_row_boundary("plectis hook-coverage::intervention_rows"),
             },
         ]
         forbidden_export_summary = {
@@ -16976,7 +16976,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_hook_intervention_coverage_lens",
             "organ_family": "agent_route_observability_runtime",
-            "command": "microcosm hook-coverage",
+            "command": "plectis hook-coverage",
             "endpoint": "/hook-coverage",
             "hook_intervention_coverage_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -17000,7 +17000,7 @@ class RuntimeShell:
                     "event_id": row.get("event_id"),
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
-                    **_source_open_row_boundary("microcosm hook-coverage::route_compliance_decisions"),
+                    **_source_open_row_boundary("plectis hook-coverage::route_compliance_decisions"),
                 }
                 for row in route_decisions
             ],
@@ -17012,7 +17012,7 @@ class RuntimeShell:
                         "mutation_authority_claim_rejected"
                     )
                     is True,
-                    **_source_open_row_boundary("microcosm hook-coverage::actor_axis_decisions"),
+                    **_source_open_row_boundary("plectis hook-coverage::actor_axis_decisions"),
                 }
                 for row in actor_axis_decisions
             ],
@@ -17028,7 +17028,7 @@ class RuntimeShell:
                     ),
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
-                    **_source_open_row_boundary("microcosm hook-coverage::hook_shadow_decisions"),
+                    **_source_open_row_boundary("plectis hook-coverage::hook_shadow_decisions"),
                 }
                 for row in hook_shadow_decisions
             ],
@@ -17041,7 +17041,7 @@ class RuntimeShell:
                         [],
                     ),
                     "evidence_only_trace_ids": row.get("evidence_only_trace_ids", []),
-                    **_source_open_row_boundary("microcosm hook-coverage::debt_decisions"),
+                    **_source_open_row_boundary("plectis hook-coverage::debt_decisions"),
                 }
                 for row in debt_decisions
             ],
@@ -17052,7 +17052,7 @@ class RuntimeShell:
                     "lease_consumed": row.get("lease_consumed") is True,
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
-                    **_source_open_row_boundary("microcosm hook-coverage::route_lease_decisions"),
+                    **_source_open_row_boundary("plectis hook-coverage::route_lease_decisions"),
                 }
                 for row in lease_decisions
             ],
@@ -17090,7 +17090,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_hook_intervention_coverage_lens",
-                command="microcosm hook-coverage",
+                command="plectis hook-coverage",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 receipt_refs_only=True,
@@ -17118,7 +17118,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = (
             self.runtime_receipt_dir
@@ -17183,7 +17183,7 @@ class RuntimeShell:
                     "agent_monitor_redteam_falsification_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm agent-monitor-redteam-falsification-replay "
+                    "plectis agent-monitor-redteam-falsification-replay "
                     "run-monitor-bundle",
                     "examples/agent_monitor_redteam_falsification_replay/"
                     "exported_monitor_redteam_bundle",
@@ -17215,7 +17215,7 @@ class RuntimeShell:
                     "agent_sabotage_scheming_monitor_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm agent-sabotage-scheming-monitor-replay "
+                    "plectis agent-sabotage-scheming-monitor-replay "
                     "run-sabotage-bundle",
                     "examples/agent_sabotage_scheming_monitor_replay/"
                     "exported_sabotage_monitor_bundle",
@@ -17244,7 +17244,7 @@ class RuntimeShell:
                     "agent_sandbox_policy_escape_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm agent-sandbox-policy-escape-replay "
+                    "plectis agent-sandbox-policy-escape-replay "
                     "run-sandbox-bundle",
                     "examples/agent_sandbox_policy_escape_replay/"
                     "exported_sandbox_policy_escape_bundle",
@@ -17276,7 +17276,7 @@ class RuntimeShell:
                     "mcp_tool_authority_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm mcp-tool-authority-replay "
+                    "plectis mcp-tool-authority-replay "
                     "run-tool-authority-bundle",
                     "examples/mcp_tool_authority_replay/"
                     "exported_mcp_tool_authority_bundle",
@@ -17313,7 +17313,7 @@ class RuntimeShell:
                     "proof_derived_governed_mutation_authorization_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm proof-derived-governed-mutation-authorization "
+                    "plectis proof-derived-governed-mutation-authorization "
                     "run-authorization-bundle",
                     "examples/proof_derived_governed_mutation_authorization/"
                     "exported_governed_mutation_authorization_bundle",
@@ -17350,7 +17350,7 @@ class RuntimeShell:
                     "belief_state_process_reward_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm belief-state-process-reward-replay "
+                    "plectis belief-state-process-reward-replay "
                     "run-reward-bundle",
                     "examples/belief_state_process_reward_replay/"
                     "exported_belief_state_process_reward_bundle",
@@ -17385,7 +17385,7 @@ class RuntimeShell:
                     "indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                    "plectis indirect-prompt-injection-information-flow-policy-replay "
                     "run-prompt-injection-bundle",
                     "examples/indirect_prompt_injection_information_flow_policy_replay/"
                     "exported_prompt_injection_flow_bundle",
@@ -17421,7 +17421,7 @@ class RuntimeShell:
                     "agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                    "plectis agentic-vulnerability-discovery-patch-proof-replay "
                     "run-patch-proof-bundle",
                     "examples/agentic_vulnerability_discovery_patch_proof_replay/"
                     "exported_patch_proof_bundle",
@@ -17452,7 +17452,7 @@ class RuntimeShell:
                     "agent_memory_temporal_conflict_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm agent-memory-temporal-conflict-replay "
+                    "plectis agent-memory-temporal-conflict-replay "
                     "run-memory-bundle",
                     "examples/agent_memory_temporal_conflict_replay/"
                     "exported_memory_temporal_conflict_bundle",
@@ -17483,7 +17483,7 @@ class RuntimeShell:
                     "sleeper_memory_poisoning_quarantine_replay_validation_receipt.json"
                 ),
                 "cold_reader_command": cold_reader_bundle_command(
-                    "microcosm sleeper-memory-poisoning-quarantine-replay "
+                    "plectis sleeper-memory-poisoning-quarantine-replay "
                     "run-quarantine-bundle",
                     "examples/sleeper_memory_poisoning_quarantine_replay/"
                     "exported_sleeper_memory_poisoning_bundle",
@@ -17574,7 +17574,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_agent_reliability_replay_gauntlet_lens",
             "organ_family": "agent_reliability_replay_gauntlet",
-            "command": "microcosm replay-gauntlet",
+            "command": "plectis replay-gauntlet",
             "endpoint": "/replay-gauntlet",
             "replay_gauntlet_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -17618,7 +17618,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_agent_reliability_replay_gauntlet_lens",
-                command="microcosm replay-gauntlet",
+                command="plectis replay-gauntlet",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 synthetic_episodes_only=True,
@@ -17649,7 +17649,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_repository_benchmark_transaction_lab_lens.json"
         selected_pattern_ids = [
@@ -17816,7 +17816,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_repository_benchmark_transaction_lab_lens",
             "organ_family": "repository_benchmark_transaction_lab",
-            "command": "microcosm benchmark-lab",
+            "command": "plectis benchmark-lab",
             "endpoint": "/benchmark-lab",
             "benchmark_lab_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -17847,7 +17847,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_repository_benchmark_transaction_lab_lens",
-                command="microcosm benchmark-lab",
+                command="plectis benchmark-lab",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 synthetic_issue_bodies_only=True,
@@ -17878,7 +17878,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         lens_path = self.runtime_receipt_dir / "public_cold_reader_legibility_scorecard_lens.json"
@@ -17891,12 +17891,12 @@ class RuntimeShell:
             "public_view_quality_action_map_lens",
         ]
         card_first_commands = [
-            "microcosm hello <project>",
-            "microcosm tour --card <project>",
-            "microcosm status --card <project>",
-            "microcosm authority --card",
-            "microcosm workingness --card",
-            "microcosm legibility-scorecard",
+            "plectis hello <project>",
+            "plectis tour --card <project>",
+            "plectis status --card <project>",
+            "plectis authority --card",
+            "plectis workingness --card",
+            "plectis legibility-scorecard",
         ]
         pre_install_probe = {
             "schema_version": "microcosm_pre_install_probe_v1",
@@ -17920,43 +17920,43 @@ class RuntimeShell:
             {
                 "checkpoint_id": "repo_to_local_substrate",
                 "reader_question": "What does this thing do?",
-                "command": "microcosm hello <project>",
+                "command": "plectis hello <project>",
                 "pre_install_probe_command": pre_install_probe["command"],
                 "pre_install_probe_receipt": pre_install_probe["receipt_ref"],
                 "endpoint": "/",
                 "expected_signal": "human first-screen card names the local substrate and points to behavior proofs",
-                "evidence_ref": "microcosm first-screen <project>",
+                "evidence_ref": "plectis first-screen <project>",
                 "minute_budget": 2,
                 "pass_condition": "hello_card_visible_before_behavior_drilldowns",
             },
             {
                 "checkpoint_id": "entry_path_visible",
                 "reader_question": "Where do I start?",
-                "command": "microcosm tour --card <project>",
+                "command": "plectis tour --card <project>",
                 "endpoint": "/tour",
                 "expected_signal": "front-door status, state refs, and next commands are visible before full route cards",
-                "evidence_ref": "microcosm tour --card <project>::front_door_status",
+                "evidence_ref": "plectis tour --card <project>::front_door_status",
                 "minute_budget": 2,
                 "pass_condition": "tour_card_status_pass_and_front_door_status_visible",
             },
             {
                 "checkpoint_id": "authority_ceiling_visible",
                 "reader_question": "What is not being claimed?",
-                "command": "microcosm authority --card",
+                "command": "plectis authority --card",
                 "endpoint": "/authority-card",
                 "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false in the compact card",
-                "evidence_ref": "microcosm authority --card",
+                "evidence_ref": "plectis authority --card",
                 "minute_budget": 1,
                 "pass_condition": "authority_card_has_false_public_ceiling",
             },
             {
                 "checkpoint_id": "weird_substrate_visible",
                 "reader_question": "Where is the unusual intelligence compression?",
-                "command": "microcosm trace-lens",
+                "command": "plectis trace-lens",
                 "command_sequence": [
-                    "microcosm trace-lens",
-                    "microcosm replay-gauntlet",
-                    "microcosm benchmark-lab",
+                    "plectis trace-lens",
+                    "plectis replay-gauntlet",
+                    "plectis benchmark-lab",
                 ],
                 "endpoint": "/trace + /replay-gauntlet + /benchmark-lab",
                 "expected_signal": (
@@ -17980,7 +17980,7 @@ class RuntimeShell:
             {
                 "checkpoint_id": "receipts_after_causality",
                 "reader_question": "How do I verify the claim without reading the macro root?",
-                "command": "microcosm evidence inspect <receipt>",
+                "command": "plectis evidence inspect <receipt>",
                 "endpoint": "/evidence",
                 "expected_signal": "receipt refs are drilldowns after commands, not the first screen",
                 "evidence_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
@@ -17993,36 +17993,36 @@ class RuntimeShell:
                 "question_id": "identity",
                 "question": "What is Microcosm?",
                 "answer_contract": "repo -> .microcosm local operating substrate",
-                "proof_command": "microcosm hello <project>",
+                "proof_command": "plectis hello <project>",
             },
             {
                 "question_id": "first_run",
                 "question": "What should I run first?",
                 "answer_contract": "pre-install bootstrap probe, then hello, compact cards, authority ceiling, and drilldowns",
                 "pre_install_probe_command": pre_install_probe["command"],
-                "proof_command": "microcosm hello <project>",
+                "proof_command": "plectis hello <project>",
                 "proof_command_sequence": [
-                    "microcosm hello <project>",
-                    "microcosm tour --card <project>",
+                    "plectis hello <project>",
+                    "plectis tour --card <project>",
                 ],
             },
             {
                 "question_id": "evidence",
                 "question": "What makes this more than prose?",
                 "answer_contract": "compact JSON cards, receipts, validators, and endpoint parity",
-                "proof_command": "microcosm status --card <project>",
+                "proof_command": "plectis status --card <project>",
             },
             {
                 "question_id": "limits",
                 "question": "What claims are out of scope?",
                 "answer_contract": "no release, secret export, provider execution, proof correctness, benchmark score, or reader-success guarantee",
-                "proof_command": "microcosm authority --card",
+                "proof_command": "plectis authority --card",
             },
             {
                 "question_id": "extension",
                 "question": "How would I add a new organ or lens?",
                 "answer_contract": "add an owned runtime surface, receipt, validator, docs, and authority ceiling",
-                "proof_command": "microcosm legibility-scorecard",
+                "proof_command": "plectis legibility-scorecard",
             },
         ]
         for row in checkpoint_rows:
@@ -18053,7 +18053,7 @@ class RuntimeShell:
             "drilldown_after": [
                 PROOF_LAB_FIRST_SCREEN_COMMAND,
                 OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
-                "microcosm evidence inspect <receipt>",
+                "plectis evidence inspect <receipt>",
             ],
             "reader_rule": (
                 "Run ./bootstrap.sh first from a cold public root, then run "
@@ -18144,7 +18144,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_cold_reader_legibility_scorecard_lens",
             "organ_family": "cold_reader_legibility",
-            "command": "microcosm legibility-scorecard",
+            "command": "plectis legibility-scorecard",
             "endpoint": "/legibility-scorecard",
             "legibility_scorecard_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -18176,7 +18176,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_cold_reader_legibility_scorecard_lens",
-                command="microcosm legibility-scorecard",
+                command="plectis legibility-scorecard",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 receipt_refs_only=True,
@@ -18207,7 +18207,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         fixture_ref = "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json"
         example_ref = (
@@ -18337,9 +18337,9 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_corpus_readiness_lens",
             "organ_id": "corpus_readiness_mathlib_absence_gate",
-            "command": "microcosm corpus-lens",
+            "command": "plectis corpus-lens",
             "endpoint": "/corpus",
-            "organ_command": "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
+            "organ_command": "plectis corpus-readiness-mathlib-absence-gate run-projection-bundle",
             "corpus_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
                 "Plectis exposes formal-math corpus/toolchain readiness as a public "
@@ -18398,7 +18398,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_corpus_readiness_lens",
-                command="microcosm corpus-lens",
+                command="plectis corpus-lens",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 fixture_metadata_only=True,
@@ -18427,7 +18427,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         packet_ref = "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json"
         board_ref = "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json"
@@ -18517,9 +18517,9 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_prediction_lens",
             "organ_id": "prediction_oracle_reconciliation",
-            "command": "microcosm prediction-lens",
+            "command": "plectis prediction-lens",
             "endpoint": "/prediction",
-            "organ_command": "microcosm prediction-oracle-reconciliation run-prediction-bundle",
+            "organ_command": "plectis prediction-oracle-reconciliation run-prediction-bundle",
             "prediction_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
                 "Plectis exposes prediction reasoning as public synthetic mechanics: "
@@ -18579,7 +18579,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_prediction_lens",
-                command="microcosm prediction-lens",
+                command="plectis prediction-lens",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 synthetic_targets_only=True,
@@ -18606,15 +18606,15 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         lens_path = self.runtime_receipt_dir / "public_market_prediction_evidence_boundary_lens.json"
         boundary_rows = [
             {
                 "boundary_row_id": "observation_forecast_separation_gate",
                 "source_signal": "prediction statements separate observed state from forecast state",
-                "source_ref": "microcosm prediction-lens::mechanics",
-                "owner_route": "microcosm prediction-lens",
+                "source_ref": "plectis prediction-lens::mechanics",
+                "owner_route": "plectis prediction-lens",
                 "validation_ref": (
                     "tests/test_runtime_shell.py::"
                     "test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary"
@@ -18635,7 +18635,7 @@ class RuntimeShell:
                 "boundary_row_id": "base_rate_before_narrative_pressure",
                 "source_signal": "forecast rows carry base-rate or prior-context hooks before narrative pressure",
                 "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::prediction_oracle_reconciliation",
-                "owner_route": "microcosm market-boundary",
+                "owner_route": "plectis market-boundary",
                 "validation_ref": "tests/test_cli.py::test_cli_market_prediction_boundary_smoke",
                 "public_rule": "base_rate_or_prior_context_precedes_high_conviction_language",
                 "decision_boundary": "no_single_story_forecast_without_prior_context",
@@ -18652,8 +18652,8 @@ class RuntimeShell:
             {
                 "boundary_row_id": "scenario_tree_before_single_point_claim",
                 "source_signal": "CP1 branch mechanics make alternatives visible before CP2 prediction rows",
-                "source_ref": "microcosm prediction-lens::cp1_bifurcation_resolution",
-                "owner_route": "microcosm prediction-lens",
+                "source_ref": "plectis prediction-lens::cp1_bifurcation_resolution",
+                "owner_route": "plectis prediction-lens",
                 "validation_ref": (
                     "receipts/first_wave/prediction_oracle_reconciliation/"
                     "prediction_oracle_validation_receipt.json"
@@ -18674,7 +18674,7 @@ class RuntimeShell:
                 "boundary_row_id": "confidence_band_not_certainty_gate",
                 "source_signal": "synthetic prediction rows expose confidence bands instead of certainty claims",
                 "source_ref": "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
-                "owner_route": "microcosm prediction-lens",
+                "owner_route": "plectis prediction-lens",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_uses_payload_boundary",
                 "public_rule": "confidence_band_is_required_and_certainty_language_is_denied",
                 "decision_boundary": "forecast_is_uncertainty_annotation_not_truth_claim",
@@ -18691,8 +18691,8 @@ class RuntimeShell:
             {
                 "boundary_row_id": "timestamped_data_freshness_gate",
                 "source_signal": "market-facing evidence must name freshness before being interpreted",
-                "source_ref": "microcosm projection-safety::projection_rows",
-                "owner_route": "microcosm projection-safety",
+                "source_ref": "plectis projection-safety::projection_rows",
+                "owner_route": "plectis projection-safety",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
                 "public_rule": "live_or_recent_data_claims_require_timestamp_and_source_boundary",
                 "decision_boundary": "untimestamped_price_or_macro_claim_is_not_public_evidence",
@@ -18709,8 +18709,8 @@ class RuntimeShell:
             {
                 "boundary_row_id": "decision_policy_not_advice_gate",
                 "source_signal": "policy rows explain how to reason; they do not prescribe trades",
-                "source_ref": "microcosm authority::no_financial_or_trading_advice",
-                "owner_route": "microcosm authority",
+                "source_ref": "plectis authority::no_financial_or_trading_advice",
+                "owner_route": "plectis authority",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_uses_payload_boundary",
                 "public_rule": "decision_policy_can_name_checks_but_not_buy_sell_hold_actions",
                 "decision_boundary": "portfolio_action_or_investment_recommendation_is_rejected",
@@ -18728,7 +18728,7 @@ class RuntimeShell:
                 "boundary_row_id": "backtest_not_live_performance_gate",
                 "source_signal": "fixture evaluation can grade synthetic rows but cannot imply live performance",
                 "source_ref": "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
-                "owner_route": "microcosm prediction-lens",
+                "owner_route": "plectis prediction-lens",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary",
                 "public_rule": "fixture_or_backtest_metrics_are_labeled_as_retrospective_synthetic_evidence",
                 "decision_boundary": "past_fit_or_oracle_diff_score_is_not_live_performance",
@@ -18745,8 +18745,8 @@ class RuntimeShell:
             {
                 "boundary_row_id": "private_account_state_exclusion_gate",
                 "source_signal": "private account, portfolio, and brokerage state never enters the public lens",
-                "source_ref": "microcosm stripping-guard::guard_rows",
-                "owner_route": "microcosm stripping-guard",
+                "source_ref": "plectis stripping-guard::guard_rows",
+                "owner_route": "plectis stripping-guard",
                 "validation_ref": (
                     "microcosm-substrate/src/microcosm_core/validators/observatory_legibility.py"
                     "::market_prediction_boundary_no_private_exports_or_advice"
@@ -18841,7 +18841,7 @@ class RuntimeShell:
             "status": status,
             "lens_id": "public_market_prediction_evidence_boundary_lens",
             "organ_family": "prediction_reasoning_boundary",
-            "command": "microcosm market-boundary",
+            "command": "plectis market-boundary",
             "endpoint": "/market-boundary",
             "market_boundary_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
@@ -18853,10 +18853,10 @@ class RuntimeShell:
             "selected_route_id": "market_prediction_evidence_boundary",
             "selected_pattern_ids": [row["boundary_row_id"] for row in boundary_rows],
             "source_projection_refs": [
-                "microcosm prediction-lens::mechanics",
-                "microcosm projection-safety::projection_rows",
-                "microcosm authority::hard_boundaries",
-                "microcosm stripping-guard::guard_rows",
+                "plectis prediction-lens::mechanics",
+                "plectis projection-safety::projection_rows",
+                "plectis authority::hard_boundaries",
+                "plectis stripping-guard::guard_rows",
                 "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::prediction_oracle_reconciliation",
             ],
             "boundary_rows": boundary_rows,
@@ -18898,7 +18898,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=lens_path,
                 boundary_id="public_market_prediction_evidence_boundary_lens",
-                command="microcosm market-boundary",
+                command="plectis market-boundary",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 synthetic_fixture_only=True,
@@ -18928,7 +18928,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         status = self.status()
         spine = self.spine()
@@ -18986,7 +18986,7 @@ class RuntimeShell:
         surfaces = [
             {
                 "surface_id": "runtime_status",
-                "command": "microcosm status",
+                "command": "plectis status",
                 "endpoint": "/status",
                 "authority_role": "runtime health projection",
                 "release_authorized": False,
@@ -18995,7 +18995,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_runtime_spine",
-                "command": "microcosm spine",
+                "command": "plectis spine",
                 "endpoint": "/spine",
                 "authority_role": "accepted organ and first-run route projection",
                 "release_authorized": False,
@@ -19004,7 +19004,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_ten_minute_tour",
-                "command": "microcosm tour <project>",
+                "command": "plectis tour <project>",
                 "endpoint": "/tour",
                 "authority_role": "cold-reader launch path compression",
                 "release_authorized": False,
@@ -19014,7 +19014,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "project_python_lens",
-                "command": "microcosm python-lens <project>",
+                "command": "plectis python-lens <project>",
                 "endpoint": "/project/python-lens",
                 "authority_role": "project-local Python route/readiness lens",
                 "release_authorized": False,
@@ -19025,7 +19025,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_authority_map",
-                "command": "microcosm authority",
+                "command": "plectis authority",
                 "endpoint": "/authority",
                 "authority_role": "global authority ceiling and anti-claim index",
                 "release_authorized": False,
@@ -19034,7 +19034,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_prediction_lens",
-                "command": "microcosm prediction-lens",
+                "command": "plectis prediction-lens",
                 "endpoint": "/prediction",
                 "authority_role": "synthetic prediction mechanics and no-advice boundary",
                 "release_authorized": False,
@@ -19044,7 +19044,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_market_prediction_evidence_boundary_lens",
-                "command": "microcosm market-boundary",
+                "command": "plectis market-boundary",
                 "endpoint": "/market-boundary",
                 "authority_role": "market and prediction claim boundary with no-advice ceiling",
                 "release_authorized": False,
@@ -19058,7 +19058,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_corpus_readiness_lens",
-                "command": "microcosm corpus-lens",
+                "command": "plectis corpus-lens",
                 "endpoint": "/corpus",
                 "authority_role": "formal-math corpus/toolchain readiness and Mathlib-absence boundary",
                 "release_authorized": False,
@@ -19070,7 +19070,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_verifier_trace_repair_lens",
-                "command": "microcosm trace-lens",
+                "command": "plectis trace-lens",
                 "endpoint": "/trace",
                 "authority_role": "formal verifier trace-repair metadata lens and no-proof boundary",
                 "release_authorized": False,
@@ -19084,7 +19084,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_verifier_repair_loop_lens",
-                "command": "microcosm repair-loop",
+                "command": "plectis repair-loop",
                 "endpoint": "/repair-loop",
                 "authority_role": "formal verifier repair-loop curriculum and cold-rerun boundary",
                 "release_authorized": False,
@@ -19099,7 +19099,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_formal_evidence_cell_lens",
-                "command": "microcosm evidence-cells",
+                "command": "plectis evidence-cells",
                 "endpoint": "/evidence-cells",
                 "authority_role": "formal evidence-cell resolver and claim-strength boundary",
                 "release_authorized": False,
@@ -19114,7 +19114,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_proof_loop_depth_lens",
-                "command": "microcosm proof-loop-depth",
+                "command": "plectis proof-loop-depth",
                 "endpoint": "/proof-loop-depth",
                 "authority_role": "formal proof-loop depth map and metadata-only proof boundary",
                 "release_authorized": False,
@@ -19192,7 +19192,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_work_landing_replay_lens",
-                "command": "microcosm landing-replay",
+                "command": "plectis landing-replay",
                 "endpoint": "/landing-replay",
                 "authority_role": "dirty-tree work landing replay and commit-claim boundary",
                 "release_authorized": False,
@@ -19204,7 +19204,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_view_quality_action_map_lens",
-                "command": "microcosm view-quality",
+                "command": "plectis view-quality",
                 "endpoint": "/view-quality",
                 "authority_role": "synthetic all-view action map and UI-observability boundary",
                 "release_authorized": False,
@@ -19216,7 +19216,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_projection_safety_audit_lens",
-                "command": "microcosm projection-safety",
+                "command": "plectis projection-safety",
                 "endpoint": "/projection-safety",
                 "authority_role": "omission receipt and reversible projection boundary audit",
                 "release_authorized": False,
@@ -19228,7 +19228,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_projection_drift_control_lens",
-                "command": "microcosm drift-control",
+                "command": "plectis drift-control",
                 "endpoint": "/drift-control",
                 "authority_role": "projection drift, route repair, and CAP assimilation read-model",
                 "release_authorized": False,
@@ -19242,7 +19242,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_spatial_world_model_counterfactual_simulation_replay_lens",
-                "command": "microcosm spatial-simulation",
+                "command": "plectis spatial-simulation",
                 "endpoint": "/spatial-simulation",
                 "authority_role": "synthetic spatial counterfactual replay and simulator-claim boundary",
                 "release_authorized": False,
@@ -19261,7 +19261,7 @@ class RuntimeShell:
                     "public_materials_chemistry_closed_loop_lab_safety_replay_lens"
                 ),
                 "command": (
-                    "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                    "plectis materials-chemistry-closed-loop-lab-safety-replay "
                     "run-lab-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19286,7 +19286,7 @@ class RuntimeShell:
                     "public_mechanistic_interpretability_circuit_"
                     "attribution_replay_lens"
                 ),
-                "command": "microcosm circuit-attribution",
+                "command": "plectis circuit-attribution",
                 "endpoint": "/circuit-attribution",
                 "authority_role": (
                     "synthetic circuit attribution replay and mechanistic "
@@ -19305,7 +19305,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_route_cleanup_contract_lens",
-                "command": "microcosm route-cleanup",
+                "command": "plectis route-cleanup",
                 "endpoint": "/route-cleanup",
                 "authority_role": "route cleanup contract, owner route, and validation boundary",
                 "release_authorized": False,
@@ -19320,7 +19320,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_projection_import_map_lens",
-                "command": "microcosm projection-import-map",
+                "command": "plectis projection-import-map",
                 "endpoint": "/projection-import-map",
                 "authority_role": "public macro-pattern to runtime-lens import map and stripping boundary",
                 "release_authorized": False,
@@ -19334,7 +19334,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_import_projector_contract_lens",
-                "command": "microcosm import-projector",
+                "command": "plectis import-projector",
                 "endpoint": "/import-projector",
                 "authority_role": "repeatable public projection import contract and closeout checklist",
                 "release_authorized": False,
@@ -19350,7 +19350,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_compression_profile_option_surface_lens",
-                "command": "microcosm option-surface-lens",
+                "command": "plectis option-surface-lens",
                 "endpoint": "/option-surface-lens",
                 "authority_role": "compression-profile governed option-surface read-model and profile-switch boundary",
                 "release_authorized": False,
@@ -19366,7 +19366,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_stripping_guard_lens",
-                "command": "microcosm stripping-guard",
+                "command": "plectis stripping-guard",
                 "endpoint": "/stripping-guard",
                 "authority_role": "public/private stripping export guard and anti-claim boundary",
                 "release_authorized": False,
@@ -19382,7 +19382,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_standards_control_lens",
-                "command": "microcosm standards-control",
+                "command": "plectis standards-control",
                 "endpoint": "/standards-control",
                 "authority_role": "standards registry, standard pressure, validator coverage, and docs-control boundary",
                 "release_authorized": False,
@@ -19397,7 +19397,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_hook_intervention_coverage_lens",
-                "command": "microcosm hook-coverage",
+                "command": "plectis hook-coverage",
                 "endpoint": "/hook-coverage",
                 "authority_role": "agent observability hook-intervention coverage and live-state boundary",
                 "release_authorized": False,
@@ -19412,7 +19412,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_agent_reliability_replay_gauntlet_lens",
-                "command": "microcosm replay-gauntlet",
+                "command": "plectis replay-gauntlet",
                 "endpoint": "/replay-gauntlet",
                 "authority_role": "synthetic agent reliability replay and containment boundary",
                 "release_authorized": False,
@@ -19429,7 +19429,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_agent_monitor_redteam_falsification_lens",
                 "command": (
-                    "microcosm agent-monitor-redteam-falsification-replay "
+                    "plectis agent-monitor-redteam-falsification-replay "
                     "run-monitor-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19451,7 +19451,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_agent_sabotage_scheming_monitor_replay_lens",
                 "command": (
-                    "microcosm agent-sabotage-scheming-monitor-replay "
+                    "plectis agent-sabotage-scheming-monitor-replay "
                     "run-sabotage-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19476,7 +19476,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_agent_sandbox_policy_escape_replay_lens",
                 "command": (
-                    "microcosm agent-sandbox-policy-escape-replay "
+                    "plectis agent-sandbox-policy-escape-replay "
                     "run-sandbox-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19496,7 +19496,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_indirect_prompt_injection_information_flow_policy_replay_lens",
                 "command": (
-                    "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                    "plectis indirect-prompt-injection-information-flow-policy-replay "
                     "run-prompt-injection-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19516,7 +19516,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_agentic_vulnerability_discovery_patch_proof_replay_lens",
                 "command": (
-                    "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                    "plectis agentic-vulnerability-discovery-patch-proof-replay "
                     "run-patch-proof-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19538,7 +19538,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_certificate_kernel_execution_lab_lens",
                 "command": (
-                    "microcosm certificate-kernel-execution-lab "
+                    "plectis certificate-kernel-execution-lab "
                     "run-certificate-bundle"
                 ),
                 "endpoint": "/proof-loop-depth",
@@ -19559,7 +19559,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
-                    "microcosm agent-memory-temporal-conflict-replay "
+                    "plectis agent-memory-temporal-conflict-replay "
                     "run-memory-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19577,7 +19577,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_sleeper_memory_poisoning_quarantine_lens",
                 "command": (
-                    "microcosm sleeper-memory-poisoning-quarantine-replay "
+                    "plectis sleeper-memory-poisoning-quarantine-replay "
                     "run-quarantine-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19595,7 +19595,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_mcp_tool_authority_replay_lens",
                 "command": (
-                    "microcosm mcp-tool-authority-replay "
+                    "plectis mcp-tool-authority-replay "
                     "run-tool-authority-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19614,7 +19614,7 @@ class RuntimeShell:
                     "public_proof_derived_governed_mutation_authorization_lens"
                 ),
                 "command": (
-                    "microcosm proof-derived-governed-mutation-authorization "
+                    "plectis proof-derived-governed-mutation-authorization "
                     "run-authorization-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19635,7 +19635,7 @@ class RuntimeShell:
             {
                 "surface_id": "public_belief_state_process_reward_replay_lens",
                 "command": (
-                    "microcosm belief-state-process-reward-replay "
+                    "plectis belief-state-process-reward-replay "
                     "run-reward-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
@@ -19654,7 +19654,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_repository_benchmark_transaction_lab_lens",
-                "command": "microcosm benchmark-lab",
+                "command": "plectis benchmark-lab",
                 "endpoint": "/benchmark-lab",
                 "authority_role": "synthetic repository benchmark transaction lab and oracle-grading boundary",
                 "release_authorized": False,
@@ -19668,7 +19668,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_cold_reader_legibility_scorecard_lens",
-                "command": "microcosm legibility-scorecard",
+                "command": "plectis legibility-scorecard",
                 "endpoint": "/legibility-scorecard",
                 "authority_role": "cold-reader comprehension path scorecard and anti-claim boundary",
                 "release_authorized": False,
@@ -19681,7 +19681,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "runtime_reveal_import_bridge",
-                "command": "microcosm intake",
+                "command": "plectis intake",
                 "endpoint": "/intake",
                 "authority_role": "projection-cell status and receipt ref bridge",
                 "release_authorized": False,
@@ -19690,7 +19690,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_reveal_view",
-                "command": "microcosm reveal",
+                "command": "plectis reveal",
                 "endpoint": "/reveal",
                 "authority_role": "ten-minute reveal board projection",
                 "release_authorized": False,
@@ -19699,7 +19699,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "local_observatory",
-                "command": "microcosm serve <project>",
+                "command": "plectis serve <project>",
                 "endpoint": "/",
                 "authority_role": "browser read-model over local project substrate state",
                 "release_authorized": False,
@@ -20004,7 +20004,7 @@ class RuntimeShell:
                 "what is runnable, what evidence class it belongs to, and what remains "
                 "forbidden."
             ),
-            "command": "microcosm authority",
+            "command": "plectis authority",
             "endpoint": "/authority",
             "authority_map_ref": _public_relative(authority_path, self.root),
             "projection_not_authority": True,
@@ -20012,69 +20012,69 @@ class RuntimeShell:
             "unsafe_payload_bodies_exported": False,
             "payload_boundary": public_payload_boundary(
                 boundary_id="public_authority_map",
-                command="microcosm authority",
+                command="plectis authority",
                 surface_ref=_public_relative(authority_path, self.root),
             ),
             "release_authorized": False,
             "command_path": [
-                "microcosm compile <project>",
-                "microcosm tour <project>",
-                "microcosm python-lens <project>",
-                "microcosm authority",
-                "microcosm spine",
-                "microcosm prediction-lens",
-                "microcosm market-boundary",
-                "microcosm corpus-lens",
-                "microcosm trace-lens",
-                "microcosm repair-loop",
-                "microcosm evidence-cells",
-                "microcosm proof-loop-depth",
+                "plectis compile <project>",
+                "plectis tour <project>",
+                "plectis python-lens <project>",
+                "plectis authority",
+                "plectis spine",
+                "plectis prediction-lens",
+                "plectis market-boundary",
+                "plectis corpus-lens",
+                "plectis trace-lens",
+                "plectis repair-loop",
+                "plectis evidence-cells",
+                "plectis proof-loop-depth",
                 PROOF_LAB_FIRST_SCREEN_COMMAND,
-                "microcosm verifier-lab-execution-spine run-execution-bundle",
-                "microcosm certificate-kernel-execution-lab run-certificate-bundle",
-                "microcosm landing-replay",
-                "microcosm view-quality",
-                "microcosm projection-safety",
-                "microcosm drift-control",
-                "microcosm spatial-simulation",
-                "microcosm circuit-attribution",
-                "microcosm route-cleanup",
-                "microcosm projection-import-map",
-                "microcosm import-projector",
-                "microcosm stripping-guard",
-                "microcosm standards-control",
-                "microcosm hook-coverage",
-                "microcosm replay-gauntlet",
+                "plectis verifier-lab-execution-spine run-execution-bundle",
+                "plectis certificate-kernel-execution-lab run-certificate-bundle",
+                "plectis landing-replay",
+                "plectis view-quality",
+                "plectis projection-safety",
+                "plectis drift-control",
+                "plectis spatial-simulation",
+                "plectis circuit-attribution",
+                "plectis route-cleanup",
+                "plectis projection-import-map",
+                "plectis import-projector",
+                "plectis stripping-guard",
+                "plectis standards-control",
+                "plectis hook-coverage",
+                "plectis replay-gauntlet",
                 (
-                    "microcosm agent-memory-temporal-conflict-replay "
+                    "plectis agent-memory-temporal-conflict-replay "
                     "run-memory-bundle"
                 ),
                 (
-                    "microcosm sleeper-memory-poisoning-quarantine-replay "
+                    "plectis sleeper-memory-poisoning-quarantine-replay "
                     "run-quarantine-bundle"
                 ),
                 (
-                    "microcosm mcp-tool-authority-replay "
+                    "plectis mcp-tool-authority-replay "
                     "run-tool-authority-bundle"
                 ),
                 (
-                    "microcosm proof-derived-governed-mutation-authorization "
+                    "plectis proof-derived-governed-mutation-authorization "
                     "run-authorization-bundle"
                 ),
                 (
-                    "microcosm belief-state-process-reward-replay "
+                    "plectis belief-state-process-reward-replay "
                     "run-reward-bundle"
                 ),
                 (
-                    "microcosm certificate-kernel-execution-lab "
+                    "plectis certificate-kernel-execution-lab "
                     "run-certificate-bundle"
                 ),
-                "microcosm benchmark-lab",
-                "microcosm legibility-scorecard",
-                "microcosm intake",
-                "microcosm reveal",
-                "microcosm serve <project>",
-                "microcosm evidence inspect <receipt>",
+                "plectis benchmark-lab",
+                "plectis legibility-scorecard",
+                "plectis intake",
+                "plectis reveal",
+                "plectis serve <project>",
+                "plectis evidence inspect <receipt>",
             ],
             "authority_ceiling": authority_ceiling,
             "first_screen_proof_lab": proof_lab,
@@ -20127,33 +20127,33 @@ class RuntimeShell:
             "source_surfaces": [
                 "core/organ_registry.json",
                 "core/acceptance/first_wave_acceptance.json",
-                "microcosm spine",
-                "microcosm tour <project>",
-                "microcosm python-lens <project>",
-                "microcosm intake",
-                "microcosm reveal",
-                "microcosm prediction-lens",
-                "microcosm market-boundary",
-                "microcosm corpus-lens",
-                "microcosm trace-lens",
-                "microcosm repair-loop",
-                "microcosm evidence-cells",
+                "plectis spine",
+                "plectis tour <project>",
+                "plectis python-lens <project>",
+                "plectis intake",
+                "plectis reveal",
+                "plectis prediction-lens",
+                "plectis market-boundary",
+                "plectis corpus-lens",
+                "plectis trace-lens",
+                "plectis repair-loop",
+                "plectis evidence-cells",
                 PROOF_LAB_RECEIPT_REF,
                 PROOF_LAB_ROUTE_REF,
-                "microcosm proof-loop-depth",
-                "microcosm landing-replay",
-                "microcosm view-quality",
-                "microcosm projection-safety",
-                "microcosm drift-control",
-                "microcosm route-cleanup",
-                "microcosm projection-import-map",
-                "microcosm import-projector",
-                "microcosm stripping-guard",
-                "microcosm standards-control",
-                "microcosm hook-coverage",
-                "microcosm replay-gauntlet",
-                "microcosm benchmark-lab",
-                "microcosm legibility-scorecard",
+                "plectis proof-loop-depth",
+                "plectis landing-replay",
+                "plectis view-quality",
+                "plectis projection-safety",
+                "plectis drift-control",
+                "plectis route-cleanup",
+                "plectis projection-import-map",
+                "plectis import-projector",
+                "plectis stripping-guard",
+                "plectis standards-control",
+                "plectis hook-coverage",
+                "plectis replay-gauntlet",
+                "plectis benchmark-lab",
+                "plectis legibility-scorecard",
             ],
             "anti_claim": (
                 "The authority map is a public source-open index over command outputs, receipt refs, "
@@ -20175,7 +20175,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         organs = self.organs()
@@ -20237,22 +20237,22 @@ class RuntimeShell:
         surface_authority_preview = [
             {
                 "surface_id": "runtime_status",
-                "command": "microcosm status --card <project>",
+                "command": "plectis status --card <project>",
                 "endpoint": "/project/status",
             },
             {
                 "surface_id": "public_runtime_spine",
-                "command": "microcosm spine --card",
+                "command": "plectis spine --card",
                 "endpoint": "/spine-card",
             },
             {
                 "surface_id": "public_authority_map",
-                "command": "microcosm authority --card",
+                "command": "plectis authority --card",
                 "endpoint": "/authority-card",
             },
             {
                 "surface_id": "public_ten_minute_tour",
-                "command": "microcosm tour --card <project>",
+                "command": "plectis tour --card <project>",
                 "endpoint": "/tour",
             },
             {
@@ -20262,7 +20262,7 @@ class RuntimeShell:
             },
             {
                 "surface_id": "runtime_reveal_import_bridge",
-                "command": "microcosm intake --card",
+                "command": "plectis intake --card",
                 "endpoint": "/intake-card",
             },
         ]
@@ -20281,8 +20281,8 @@ class RuntimeShell:
                 "Microcosm makes its public authority ceiling inspectable as a compact "
                 "first-screen card before the full authority map is opened."
             ),
-            "command": "microcosm authority --card",
-            "full_command": "microcosm authority",
+            "command": "plectis authority --card",
+            "full_command": "plectis authority",
             "endpoint": "/authority-card",
             "full_endpoint": "/authority",
             "authority_map_ref": _public_relative(authority_path, self.root),
@@ -20335,7 +20335,7 @@ class RuntimeShell:
                 "source_mutation_authorized": False,
                 "proof_correctness_claim": False,
                 "trading_or_financial_advice_authorized": False,
-                "full_payload_ref": "microcosm authority",
+                "full_payload_ref": "plectis authority",
             },
             "evidence_class_registry": _evidence_registry_summary(evidence_registry),
             "count_scope": _authority_count_scope(),
@@ -20348,13 +20348,13 @@ class RuntimeShell:
                 "omits_full_projection_cells": True,
                 "omits_full_evidence_refs": True,
                 "omits_full_command_path": True,
-                "full_payload_command": "microcosm authority",
+                "full_payload_command": "plectis authority",
             },
             "authority_ceiling": authority_ceiling,
             "next_commands": [
-                "microcosm authority",
-                "microcosm spine --card",
-                "microcosm workingness --card",
+                "plectis authority",
+                "plectis spine --card",
+                "plectis workingness --card",
             ],
         }
 
@@ -20365,7 +20365,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         projection_input = (
             self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
@@ -20376,11 +20376,11 @@ class RuntimeShell:
         reveal_result = public_reveal_walkthrough.run_reveal_bundle(
             reveal_input,
             reveal_out,
-            "microcosm intake",
+            "plectis intake",
         )
         projection_preview = macro_projection_import_protocol.preview_import_plan(
             projection_input,
-            "microcosm intake",
+            "plectis intake",
         )
         projection_board = projection_preview.get("projection_intake_board", {})
         cells = _rows(projection_board if isinstance(projection_board, dict) else {}, "projection_cells")
@@ -20465,13 +20465,13 @@ class RuntimeShell:
                         ]
                     )
                 ),
-                "next_runtime_surface": runtime_cell.get("next_runtime_surface") or "microcosm intake",
+                "next_runtime_surface": runtime_cell.get("next_runtime_surface") or "plectis intake",
                 "runtime_bridge_status": "landed_as_microcosm_intake",
                 "selected_pattern_ids": runtime_cell.get("selected_pattern_ids", []),
                 "target_refs": [
-                    "microcosm intake",
-                    "microcosm spine",
-                    "microcosm reveal",
+                    "plectis intake",
+                    "plectis spine",
+                    "plectis reveal",
                     *[
                         str(ref)
                         for ref in runtime_cell.get("target_refs", [])
@@ -20534,41 +20534,41 @@ class RuntimeShell:
                 "substrate receipts."
             ),
             "cold_reader_goal": "under_10_minutes_with_import_context_visible",
-            "command": "microcosm intake",
+            "command": "plectis intake",
             "projection_intake_ref": (
                 "receipts/first_wave/macro_projection_import_protocol/"
                 "projection_import_intake_board.json"
             ),
             "projection_plan_command": (
-                "microcosm macro-projection-import-protocol plan --input "
+                "plectis macro-projection-import-protocol plan --input "
                 "examples/macro_projection_import_protocol/exported_projection_import_bundle"
             ),
-            "reveal_command": "microcosm reveal",
-            "spine_command": "microcosm spine",
+            "reveal_command": "plectis reveal",
+            "spine_command": "plectis spine",
             "first_run_bridge": [
                 {
                     "step_id": "compile_project",
-                    "command": "microcosm compile <project>",
+                    "command": "plectis compile <project>",
                     "why": "create local .microcosm substrate state",
                 },
                 {
                     "step_id": "inspect_spine",
-                    "command": "microcosm spine",
+                    "command": "plectis spine",
                     "why": "see accepted runtime organs and authority ceiling",
                 },
                 {
                     "step_id": "inspect_import_bridge",
-                    "command": "microcosm intake",
+                    "command": "plectis intake",
                     "why": "see which macro projection cells are ready, landed, bridged, or consumed",
                 },
                 {
                     "step_id": "open_reveal",
-                    "command": "microcosm reveal",
+                    "command": "plectis reveal",
                     "why": "follow the ten-minute public reveal board",
                 },
                 {
                     "step_id": "drill_evidence",
-                    "command": "microcosm evidence inspect <receipt>",
+                    "command": "plectis evidence inspect <receipt>",
                     "why": "open receipts only after the causal path is visible",
                 },
             ],
@@ -20624,7 +20624,7 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         projection_input = (
@@ -20632,7 +20632,7 @@ class RuntimeShell:
         )
         projection_preview = macro_projection_import_protocol.preview_import_plan(
             projection_input,
-            "microcosm intake --card",
+            "plectis intake --card",
         )
         projection_board = projection_preview.get("projection_intake_board", {})
         if not isinstance(projection_board, dict):
@@ -20666,7 +20666,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             projection_status = _normalize_runtime_projection_status(
@@ -20705,8 +20705,8 @@ class RuntimeShell:
             ),
             "card_id": "runtime_reveal_import_bridge",
             "bridge_id": "runtime_reveal_import_bridge",
-            "command": "microcosm intake --card",
-            "full_command": "microcosm intake",
+            "command": "plectis intake --card",
+            "full_command": "plectis intake",
             "endpoint": "/intake-card",
             "full_endpoint": "/intake",
             "cold_reader_goal": "under_10_minutes_with_import_context_visible",
@@ -20719,11 +20719,11 @@ class RuntimeShell:
                 "projection_import_intake_board.json"
             ),
             "projection_plan_command": (
-                "microcosm macro-projection-import-protocol plan --input "
+                "plectis macro-projection-import-protocol plan --input "
                 "examples/macro_projection_import_protocol/exported_projection_import_bundle"
             ),
-            "reveal_command": "microcosm reveal",
-            "spine_command": "microcosm spine --card",
+            "reveal_command": "plectis reveal",
+            "spine_command": "plectis spine --card",
             "surface_counts": {
                 "projection_cell_count": len(cells),
                 "ready_cell_count": projection_board.get("ready_cell_count"),
@@ -20753,7 +20753,7 @@ class RuntimeShell:
                 "omits_full_first_run_bridge": True,
                 "omits_full_runtime_bridge_evidence_refs": True,
                 "omits_reveal_result_payload": True,
-                "full_payload_command": "microcosm intake",
+                "full_payload_command": "plectis intake",
             },
             "authority_ceiling": {
                 "release_authorized": False,
@@ -20770,9 +20770,9 @@ class RuntimeShell:
             },
             "body_in_receipt": False,
             "next_commands": [
-                "microcosm intake",
-                "microcosm reveal",
-                "microcosm evidence inspect <receipt>",
+                "plectis intake",
+                "plectis reveal",
+                "plectis evidence inspect <receipt>",
             ],
         }
 
@@ -20783,7 +20783,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         for route in self.routes():
             if route["route_id"] == route_id or route.get("row_id") == route_id:
@@ -20805,7 +20805,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         receipt_path = self.root / receipt_ref
         if not _path_is_file(receipt_path):
@@ -20861,12 +20861,12 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         _, project_ref, project_id, run_root = (
             self._runtime_demo_project_context(project)
         )
-        runtime_command = command or f"microcosm run {project_ref}"
+        runtime_command = command or f"plectis run {project_ref}"
         event_rows: list[dict[str, Any]] = []
         evidence_refs: list[str] = []
         summaries: list[str] = []
@@ -20945,11 +20945,11 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         """
         return [
-            f"microcosm status --card {project_ref}",
-            f"microcosm observe {project_ref}",
-            "microcosm evidence list --limit 8",
+            f"plectis status --card {project_ref}",
+            f"plectis observe {project_ref}",
+            "plectis evidence list --limit 8",
             (
-                f"microcosm serve {project_ref} --host 127.0.0.1 "
+                f"plectis serve {project_ref} --host 127.0.0.1 "
                 "--port 8765 --max-requests 7"
             ),
         ]
@@ -21029,11 +21029,11 @@ class RuntimeShell:
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - Writes: the in-memory card payload only (no source-of-truth file).
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         _, project_ref, _, _ = self._runtime_demo_project_context(project)
-        card_command = f"microcosm run --card {project_ref}"
+        card_command = f"plectis run --card {project_ref}"
         result = self._cached_runtime_demo_result(project)
         if result is None:
             result = self.run_demo(project, command=card_command)
@@ -21079,7 +21079,7 @@ class RuntimeShell:
             "anti_claim": result.get("anti_claim"),
             "body_in_receipt": False,
             "output_economy": {
-                "full_payload_drilldown": f"microcosm run {project_ref}",
+                "full_payload_drilldown": f"plectis run {project_ref}",
                 "full_result_ref": result_ref,
                 "cached_result_ref": result.get("cached_result_ref"),
                 "events_exported": False,
@@ -21095,12 +21095,12 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "mission_transaction_work_spine")
         input_dir = self.root / step.example_rel
         out_dir = self.runtime_receipt_dir / "work_demo" / "organs" / step.organ_id
-        result = step.runner(input_dir, out_dir, "microcosm work demo")
+        result = step.runner(input_dir, out_dir, "plectis work demo")
         receipt_ref = _public_relative(out_dir / step.receipt_name, self.root)
         payload = {
             "schema_version": "microcosm_runtime_work_demo_v1",
@@ -21127,12 +21127,12 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "public_reveal_walkthrough")
         input_dir = self.root / step.example_rel
         out_dir = self.runtime_receipt_dir / "public_reveal" / "organs" / step.organ_id
-        result = step.runner(input_dir, out_dir, "microcosm reveal")
+        result = step.runner(input_dir, out_dir, "plectis reveal")
         receipt_ref = _public_relative(out_dir / step.receipt_name, self.root)
         spine = self.spine()
         payload = {
@@ -21147,7 +21147,7 @@ class RuntimeShell:
             "reveal_board": result.get("reveal_board"),
             "evidence_ref": receipt_ref,
             "evidence_strength_policy": {
-                "next_command": "microcosm authority --card",
+                "next_command": "plectis authority --card",
                 "source_ref": spine.get("evidence_class_registry", {}).get("source_ref"),
                 "accepted_status_is_not_evidence_strength": True,
                 "unclassified_organs_block_authority_projection": True,
@@ -21175,7 +21175,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         bridge_receipt_path = (
             self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json"
@@ -21192,7 +21192,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = lenses.get(lens_id)
@@ -21384,7 +21384,7 @@ class RuntimeShell:
                 root=self.root,
                 lens_path=bridge_receipt_path,
                 boundary_id="public_observatory_intake_bridge",
-                command="microcosm serve <project> /project/observatory",
+                command="plectis serve <project> /project/observatory",
             ),
             "safe_to_show": _source_open_safe_to_show(
                 observatory_bridge_rows_are_public_payload_boundary_rows=True,
@@ -21395,34 +21395,34 @@ class RuntimeShell:
                 "causality that the JSON commands expose."
             ),
             "commands": [
-                "microcosm tour --card <project>",
-                "microcosm tour <project>",
-                "microcosm spine",
-                "microcosm authority",
-                "microcosm prediction-lens",
-                "microcosm market-boundary",
-                "microcosm corpus-lens",
-                "microcosm trace-lens",
-                "microcosm repair-loop",
-                "microcosm evidence-cells",
-                "microcosm proof-loop-depth",
-                "microcosm landing-replay",
-                "microcosm view-quality",
-                "microcosm projection-safety",
-                "microcosm drift-control",
-                "microcosm route-cleanup",
-                "microcosm projection-import-map",
-                "microcosm import-projector",
-                "microcosm option-surface-lens",
-                "microcosm stripping-guard",
-                "microcosm standards-control",
-                "microcosm hook-coverage",
-                "microcosm replay-gauntlet",
-                "microcosm benchmark-lab",
-                "microcosm legibility-scorecard",
-                "microcosm intake",
-                "microcosm reveal",
-                "microcosm evidence inspect <receipt>",
+                "plectis tour --card <project>",
+                "plectis tour <project>",
+                "plectis spine",
+                "plectis authority",
+                "plectis prediction-lens",
+                "plectis market-boundary",
+                "plectis corpus-lens",
+                "plectis trace-lens",
+                "plectis repair-loop",
+                "plectis evidence-cells",
+                "plectis proof-loop-depth",
+                "plectis landing-replay",
+                "plectis view-quality",
+                "plectis projection-safety",
+                "plectis drift-control",
+                "plectis route-cleanup",
+                "plectis projection-import-map",
+                "plectis import-projector",
+                "plectis option-surface-lens",
+                "plectis stripping-guard",
+                "plectis standards-control",
+                "plectis hook-coverage",
+                "plectis replay-gauntlet",
+                "plectis benchmark-lab",
+                "plectis legibility-scorecard",
+                "plectis intake",
+                "plectis reveal",
+                "plectis evidence inspect <receipt>",
             ],
             "endpoints": {
                 "tour": "/tour",
@@ -21504,7 +21504,7 @@ class RuntimeShell:
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: tour_payload_mode not in {'full','card'} -> raises ValueError.
         - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
         """
         if tour_payload_mode not in {"full", "card"}:
             raise ValueError("tour_payload_mode must be 'full' or 'card'")
@@ -21625,7 +21625,7 @@ class RuntimeShell:
         authority_map = {
             "schema_version": "microcosm_public_authority_map_v2",
             "status": status.get("status", PASS),
-            "command": "microcosm authority",
+            "command": "plectis authority",
             "endpoint": "/authority",
             "surface_counts": {
                 "adapter_backed_organ_count": status.get("adapter_backed_organ_count", 0),
@@ -21675,8 +21675,8 @@ class RuntimeShell:
                 "embedded_tour_payload": (
                     "compact_card" if tour_payload_mode == "card" else "full_tour"
                 ),
-                "full_tour_command": "microcosm tour <project>",
-                "compact_tour_command": "microcosm tour --card <project>",
+                "full_tour_command": "plectis tour <project>",
+                "compact_tour_command": "plectis tour --card <project>",
                 "reason": (
                     "The browser observatory can embed the compact tour card so "
                     "entry stays fast; the full ten-minute tour remains the "
@@ -21684,7 +21684,7 @@ class RuntimeShell:
                 ),
             },
             "front_door_status": front_door_status,
-            "status_card_ref": f"microcosm status --card {project_command_ref}",
+            "status_card_ref": f"plectis status --card {project_command_ref}",
             "source_open_body_import_floor": source_open_body_import_floor,
             "local_first_screen_route": _local_first_screen_route_ref(),
             "runtime_bridge": _compact_observatory_payload(
@@ -21928,7 +21928,7 @@ class RuntimeShell:
                     and route_proof_ids_match
                     and front_door_status.get("blocking_surface_ids") == []
                     else "blocked",
-                    "command": "microcosm tour --card <project>",
+                    "command": "plectis tour --card <project>",
                     "selected_route_id": route_id or None,
                     "tour_selected_route_id": tour.get("selected_route_id"),
                     "first_screen_selected_route_id": tour_first_screen.get(
@@ -21938,25 +21938,25 @@ class RuntimeShell:
                         "selected_route_id"
                     ),
                     "route_id_source": (
-                        "microcosm tour --card <project>::selected_route_id or "
-                        "microcosm tour <project>::selected_route_id or "
-                        "microcosm tour <project>::first_screen.selected_route_id "
-                        "or microcosm compile <project>::selected_route_id"
+                        "plectis tour --card <project>::selected_route_id or "
+                        "plectis tour <project>::selected_route_id or "
+                        "plectis tour <project>::first_screen.selected_route_id "
+                        "or plectis compile <project>::selected_route_id"
                     ),
                     "route_proof_ids_match": route_proof_ids_match,
                     "route_explanation_endpoint": f"/project/explain/{route_id}"
                     if route_id
                     else None,
                     "route_explanation_command": (
-                        f"microcosm explain <project> {route_id}"
+                        f"plectis explain <project> {route_id}"
                         if route_id
-                        else "microcosm explain <project> <selected_route_id>"
+                        else "plectis explain <project> <selected_route_id>"
                     ),
                     "status_card_ref": (
-                        f"microcosm status --card {project_command_ref}"
+                        f"plectis status --card {project_command_ref}"
                     ),
                     "front_door_status_ref": (
-                        "microcosm tour <project>::front_door_status"
+                        "plectis tour <project>::front_door_status"
                     ),
                     "blocking_surface_ids": front_door_status.get(
                         "blocking_surface_ids", []
@@ -22057,7 +22057,7 @@ class RuntimeShell:
                         "preview_limit": evidence_limit,
                         "truncated": evidence.get("truncated") is True,
                         "full_drilldown_endpoint": "/project/evidence",
-                        "full_drilldown_command": "microcosm evidence list <project>",
+                        "full_drilldown_command": "plectis evidence list <project>",
                     },
                     "authority_boundary": explanation.get("authority_boundary")
                     or "project_local_projection_not_source_authority",
@@ -22148,7 +22148,7 @@ class RuntimeShell:
         - Guarantee: returns a string result built from the inspected inputs.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
         - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
         - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
         """
         if model is None:
@@ -22267,10 +22267,10 @@ class RuntimeShell:
             first_screen_text_projection = ""
         if not first_screen_text_projection:
             first_screen_text_projection = (
-                "Microcosm first screen\n"
+                "Plectis first screen\n"
                 "Source-only card: PYTHONPATH=src python3 -m microcosm_core "
-                "hello <project> | Open card: microcosm hello <project>\n"
-                "First run: microcosm tour --card <project> | Source-only "
+                "hello <project> | Open card: plectis hello <project>\n"
+                "First run: plectis tour --card <project> | Source-only "
                 "first run: PYTHONPATH=src python3 -m microcosm_core tour "
                 "--card <project>"
             )
@@ -22700,7 +22700,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -22727,7 +22727,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not first_screen_reader_routes:
@@ -22783,7 +22783,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             state_file_count = _safe_text(state_inspection.get("state_file_count"))
@@ -22871,7 +22871,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -22897,7 +22897,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -22922,7 +22922,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -22948,7 +22948,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -22974,7 +22974,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23000,7 +23000,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23026,7 +23026,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23057,7 +23057,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23084,7 +23084,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23111,7 +23111,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23138,7 +23138,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23165,7 +23165,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23192,7 +23192,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23219,7 +23219,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23246,7 +23246,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23273,7 +23273,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23300,7 +23300,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23326,7 +23326,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23352,7 +23352,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23378,7 +23378,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23404,7 +23404,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             if not rows:
@@ -23515,8 +23515,8 @@ class RuntimeShell:
         <h3>Demo To Scale</h3>
         {first_screen_demo_to_scale_cards()}
         <div class="chain">
-          <div class="node"><strong>Human First Command</strong><span><code>{html.escape(_safe_text(first_screen_card.get("human_first_command") or "microcosm hello <project>"))}</code></span></div>
-          <div class="node"><strong>Behavior Proof</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
+          <div class="node"><strong>Human First Command</strong><span><code>{html.escape(_safe_text(first_screen_card.get("human_first_command") or "plectis hello <project>"))}</code></span></div>
+          <div class="node"><strong>Behavior Proof</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "plectis tour --card <project>"))}</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/project/first-screen</code></span></div>
           <div class="node"><strong>Reader Routes</strong><span>{_badge_list(first_screen_reader_ids)}</span></div>
           <div class="node"><strong>Evidence Counts</strong><span>{html.escape(_safe_text(first_screen_evidence_frame.get("interpretation") or "accounting_not_maturity_score"))}</span></div>
@@ -23549,7 +23549,7 @@ class RuntimeShell:
           <div class="node"><strong>Route Proof</strong><span>{html.escape(_safe_text(first_screen_route_proof.get("status")))} · <code>/project/explain/{html.escape(route_id)}</code></span></div>
           <div class="node"><strong>Observatory Card</strong><span><code>/project/observatory-card</code> · {html.escape(_safe_text(observatory_card.get("status")))}</span></div>
           <div class="node"><strong>State Inspection</strong><span>{html.escape(_safe_text(state_inspection.get("status")))} · {html.escape(_safe_text(state_inspection.get("state_file_count")))} files · <code>{html.escape(_safe_text(state_inspection.get("state_dir") or project_substrate.STATE_DIR))}/</code></span></div>
-          <div class="node"><strong>State Write Proof</strong><span>{html.escape(_safe_text(state_write_proof.get("status")))} · <code>{html.escape(public_project_ref(state_write_proof.get("state_write_result_ref") or "microcosm tour --card <project>::state_write_result"))}</code></span></div>
+          <div class="node"><strong>State Write Proof</strong><span>{html.escape(_safe_text(state_write_proof.get("status")))} · <code>{html.escape(public_project_ref(state_write_proof.get("state_write_result_ref") or "plectis tour --card <project>::state_write_result"))}</code></span></div>
           <div class="node"><strong>Work</strong><span>{html.escape(_safe_text(work.get("work_id") or "not yet created"))}</span></div>
           <div class="node"><strong>Events</strong><span>{len(events)} shown</span></div>
           <div class="node"><strong>Evidence</strong><span>{len(evidence)} shown / {html.escape(_safe_text(evidence_summary.get("evidence_count") or len(evidence)))} refs</span></div>
@@ -23647,7 +23647,7 @@ class RuntimeShell:
       <h2>Source-Open Body Import Floor</h2>
       <div class="content">
         <div class="chain">
-          <div class="node"><strong>Command</strong><span><code>microcosm status --card &lt;project&gt;</code></span></div>
+          <div class="node"><strong>Command</strong><span><code>plectis status --card &lt;project&gt;</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/project/status</code></span></div>
           <div class="node"><strong>Public-Safe Body Materials</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("public_safe_body_material_count")))}</span></div>
           <div class="node"><strong>Verified Families</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("verified_source_module_family_count")))}</span></div>
@@ -23674,7 +23674,7 @@ class RuntimeShell:
       <h2>Ten-Minute Tour</h2>
       <div class="content">
         <div class="chain">
-          <div class="node"><strong>Command</strong><span><code>microcosm tour &lt;project&gt;</code></span></div>
+          <div class="node"><strong>Command</strong><span><code>plectis tour &lt;project&gt;</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/tour</code></span></div>
           <div class="node"><strong>Budget</strong><span>{html.escape(_safe_text(tour.get("time_budget_minutes")))} minutes</span></div>
           <div class="node"><strong>Evidence</strong><span>{html.escape(_safe_text(len(tour.get("evidence_refs", []) if isinstance(tour.get("evidence_refs"), list) else [])))} refs</span></div>
@@ -23708,7 +23708,7 @@ class RuntimeShell:
       <h2>Python Route Lens</h2>
       <div class="content">
         <table>
-          {row("Command", project_python_lens.get("command") or "microcosm python-lens <project>")}
+          {row("Command", project_python_lens.get("command") or "plectis python-lens <project>")}
           {row("Python files", project_python_lens.get("python_file_count"))}
           {row("Package roots", ", ".join([str(value) for value in project_python_lens.get("package_roots", [])]) if isinstance(project_python_lens.get("package_roots"), list) else "")}
           {row("Ready route count", project_python_lens.get("ready_route_count"))}
@@ -23735,7 +23735,7 @@ class RuntimeShell:
           <div class="node"><strong>Blocked consumers</strong><span>{html.escape(_safe_text(len(corpus_gate.get("blocked_case_ids", []) if isinstance(corpus_gate.get("blocked_case_ids"), list) else [])))}</span></div>
         </div>
         <table>
-          {row("Command", corpus_lens.get("command") or "microcosm corpus-lens")}
+          {row("Command", corpus_lens.get("command") or "plectis corpus-lens")}
           {row("Corpus count", corpus_summary.get("corpus_count"))}
           {row("Translation smoke-only", ", ".join([str(value) for value in corpus_summary.get("translation_smoke_only_ids", [])]) if isinstance(corpus_summary.get("translation_smoke_only_ids"), list) else "")}
           {row("Allowed cases", ", ".join([str(value) for value in corpus_gate.get("allowed_case_ids", [])]) if isinstance(corpus_gate.get("allowed_case_ids"), list) else "")}
@@ -23811,7 +23811,7 @@ class RuntimeShell:
           <div class="node"><strong>Proof authority</strong><span>{html.escape(_safe_text((trace_lens.get("authority_ceiling") or {}).get("formal_proof_authority") if isinstance(trace_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", trace_lens.get("command") or "microcosm trace-lens")}
+          {row("Command", trace_lens.get("command") or "plectis trace-lens")}
           {row("Status", trace_lens.get("status"))}
           {row("Source patterns", ", ".join([str(value) for value in trace_lens.get("source_pattern_ids", [])]) if isinstance(trace_lens.get("source_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in trace_negative_cases]))}
@@ -23833,7 +23833,7 @@ class RuntimeShell:
           <div class="node"><strong>Curriculum scope</strong><span>{html.escape(_safe_text((repair_loop_lens.get("curriculum_policy") or {}).get("promotion_scope") if isinstance(repair_loop_lens.get("curriculum_policy"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", repair_loop_lens.get("command") or "microcosm repair-loop")}
+          {row("Command", repair_loop_lens.get("command") or "plectis repair-loop")}
           {row("Status", repair_loop_lens.get("status"))}
           {row("Selected pattern", repair_loop_lens.get("selected_pattern_id"))}
           {row("Negative cases", ", ".join([str(value) for value in repair_loop_negative_cases]))}
@@ -23860,7 +23860,7 @@ class RuntimeShell:
           <div class="node"><strong>Proof authority</strong><span>{html.escape(_safe_text((evidence_cell_lens.get("authority_ceiling") or {}).get("formal_proof_authority") if isinstance(evidence_cell_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", evidence_cell_lens.get("command") or "microcosm evidence-cells")}
+          {row("Command", evidence_cell_lens.get("command") or "plectis evidence-cells")}
           {row("Status", evidence_cell_lens.get("status"))}
           {row("Selected pattern", evidence_cell_lens.get("selected_pattern_id"))}
           {row("Negative cases", ", ".join([str(value) for value in formal_evidence_negative_cases]))}
@@ -23882,7 +23882,7 @@ class RuntimeShell:
           <div class="node"><strong>Git mutation</strong><span>{html.escape(_safe_text((landing_replay_lens.get("authority_ceiling") or {}).get("live_git_mutation_authorized") if isinstance(landing_replay_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", landing_replay_lens.get("command") or "microcosm landing-replay")}
+          {row("Command", landing_replay_lens.get("command") or "plectis landing-replay")}
           {row("Status", landing_replay_lens.get("status"))}
           {row("Selected pattern", landing_replay_lens.get("selected_pattern_id"))}
           {row("Negative cases", ", ".join([str(value) for value in landing_negative_cases]))}
@@ -23904,7 +23904,7 @@ class RuntimeShell:
           <div class="node"><strong>Proof authority</strong><span>{html.escape(_safe_text((proof_loop_depth_lens.get("authority_ceiling") or {}).get("formal_proof_authority") if isinstance(proof_loop_depth_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", proof_loop_depth_lens.get("command") or "microcosm proof-loop-depth")}
+          {row("Command", proof_loop_depth_lens.get("command") or "plectis proof-loop-depth")}
           {row("Status", proof_loop_depth_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in proof_loop_depth_lens.get("selected_pattern_ids", [])]) if isinstance(proof_loop_depth_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in proof_loop_depth_negative_cases]))}
@@ -23931,7 +23931,7 @@ class RuntimeShell:
           <div class="node"><strong>Browser control</strong><span>{html.escape(_safe_text((view_quality_lens.get("authority_ceiling") or {}).get("live_browser_control_authorized") if isinstance(view_quality_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", view_quality_lens.get("command") or "microcosm view-quality")}
+          {row("Command", view_quality_lens.get("command") or "plectis view-quality")}
           {row("Status", view_quality_lens.get("status"))}
           {row("Selected pattern", view_quality_lens.get("selected_pattern_id"))}
           {row("Negative cases", ", ".join([str(value) for value in view_quality_negative_cases]))}
@@ -23957,7 +23957,7 @@ class RuntimeShell:
           <div class="node"><strong>Release authority</strong><span>{html.escape(_safe_text((projection_safety_lens.get("authority_ceiling") or {}).get("release_authorized") if isinstance(projection_safety_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", projection_safety_lens.get("command") or "microcosm projection-safety")}
+          {row("Command", projection_safety_lens.get("command") or "plectis projection-safety")}
           {row("Status", projection_safety_lens.get("status"))}
           {row("Selected pattern", projection_safety_lens.get("selected_pattern_id"))}
           {row("Negative cases", ", ".join([str(value) for value in projection_negative_cases]))}
@@ -23984,7 +23984,7 @@ class RuntimeShell:
           <div class="node"><strong>Advice authority</strong><span>{html.escape(_safe_text((market_boundary_lens.get("authority_ceiling") or {}).get("trading_advice_authorized") if isinstance(market_boundary_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", market_boundary_lens.get("command") or "microcosm market-boundary")}
+          {row("Command", market_boundary_lens.get("command") or "plectis market-boundary")}
           {row("Status", market_boundary_lens.get("status"))}
           {row("Selected route", market_boundary_lens.get("selected_route_id"))}
           {row("Negative cases", ", ".join([str(value) for value in market_boundary_negative_cases]))}
@@ -24011,7 +24011,7 @@ class RuntimeShell:
           <div class="node"><strong>Live repair</strong><span>{html.escape(_safe_text((projection_drift_lens.get("authority_ceiling") or {}).get("live_route_repair_authorized") if isinstance(projection_drift_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", projection_drift_lens.get("command") or "microcosm drift-control")}
+          {row("Command", projection_drift_lens.get("command") or "plectis drift-control")}
           {row("Status", projection_drift_lens.get("status"))}
           {row("Selected route", projection_drift_lens.get("selected_route_id"))}
           {row("Negative cases", ", ".join([str(value) for value in projection_drift_negative_cases]))}
@@ -24038,7 +24038,7 @@ class RuntimeShell:
           <div class="node"><strong>Route deletion</strong><span>{html.escape(_safe_text((route_cleanup_lens.get("authority_ceiling") or {}).get("route_deletion_authorized") if isinstance(route_cleanup_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", route_cleanup_lens.get("command") or "microcosm route-cleanup")}
+          {row("Command", route_cleanup_lens.get("command") or "plectis route-cleanup")}
           {row("Status", route_cleanup_lens.get("status"))}
           {row("Selected route", route_cleanup_lens.get("selected_route_id"))}
           {row("Negative cases", ", ".join([str(value) for value in route_cleanup_negative_cases]))}
@@ -24065,7 +24065,7 @@ class RuntimeShell:
           <div class="node"><strong>Automated import</strong><span>{html.escape(_safe_text((projection_import_map_lens.get("authority_ceiling") or {}).get("automated_import_guarantee") if isinstance(projection_import_map_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", projection_import_map_lens.get("command") or "microcosm projection-import-map")}
+          {row("Command", projection_import_map_lens.get("command") or "plectis projection-import-map")}
           {row("Status", projection_import_map_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in projection_import_map_lens.get("selected_pattern_ids", [])]) if isinstance(projection_import_map_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in projection_import_negative_cases]))}
@@ -24092,7 +24092,7 @@ class RuntimeShell:
           <div class="node"><strong>Automated execution</strong><span>{html.escape(_safe_text((import_projector_lens.get("authority_ceiling") or {}).get("automated_import_execution_authorized") if isinstance(import_projector_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", import_projector_lens.get("command") or "microcosm import-projector")}
+          {row("Command", import_projector_lens.get("command") or "plectis import-projector")}
           {row("Status", import_projector_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in import_projector_lens.get("selected_pattern_ids", [])]) if isinstance(import_projector_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in import_projector_negative_cases]))}
@@ -24119,7 +24119,7 @@ class RuntimeShell:
 	          <div class="node"><strong>Profile switching</strong><span>{html.escape(_safe_text((option_surface_lens.get("authority_ceiling") or {}).get("profile_switch_execution_authorized") if isinstance(option_surface_lens.get("authority_ceiling"), dict) else ""))}</span></div>
 	        </div>
 	        <table>
-	          {row("Command", option_surface_lens.get("command") or "microcosm option-surface-lens")}
+	          {row("Command", option_surface_lens.get("command") or "plectis option-surface-lens")}
 	          {row("Status", option_surface_lens.get("status"))}
 	          {row("Selected patterns", ", ".join([str(value) for value in option_surface_lens.get("selected_pattern_ids", [])]) if isinstance(option_surface_lens.get("selected_pattern_ids"), list) else "")}
 	          {row("Negative cases", ", ".join([str(value) for value in option_surface_negative_cases]))}
@@ -24146,7 +24146,7 @@ class RuntimeShell:
           <div class="node"><strong>Release authority</strong><span>{html.escape(_safe_text((stripping_guard_lens.get("authority_ceiling") or {}).get("release_authorized") if isinstance(stripping_guard_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", stripping_guard_lens.get("command") or "microcosm stripping-guard")}
+          {row("Command", stripping_guard_lens.get("command") or "plectis stripping-guard")}
           {row("Status", stripping_guard_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in stripping_guard_lens.get("selected_pattern_ids", [])]) if isinstance(stripping_guard_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in stripping_guard_negative_cases]))}
@@ -24175,7 +24175,7 @@ class RuntimeShell:
           <div class="node"><strong>Release authority</strong><span>{html.escape(_safe_text((standards_control_lens.get("authority_ceiling") or {}).get("release_authorized") if isinstance(standards_control_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", standards_control_lens.get("command") or "microcosm standards-control")}
+          {row("Command", standards_control_lens.get("command") or "plectis standards-control")}
           {row("Status", standards_control_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in standards_control_lens.get("selected_pattern_ids", [])]) if isinstance(standards_control_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in standards_control_negative_cases]))}
@@ -24204,7 +24204,7 @@ class RuntimeShell:
           <div class="node"><strong>Live state read</strong><span>{html.escape(_safe_text((hook_coverage_lens.get("authority_ceiling") or {}).get("live_operator_state_read") if isinstance(hook_coverage_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", hook_coverage_lens.get("command") or "microcosm hook-coverage")}
+          {row("Command", hook_coverage_lens.get("command") or "plectis hook-coverage")}
           {row("Status", hook_coverage_lens.get("status"))}
           {row("Selected pattern", hook_coverage_lens.get("selected_pattern_id"))}
           {row("Negative cases", ", ".join([str(value) for value in hook_negative_cases]))}
@@ -24231,7 +24231,7 @@ class RuntimeShell:
           <div class="node"><strong>Quarantined</strong><span>{html.escape(_safe_text((replay_gauntlet_lens.get("coverage_summary") or {}).get("quarantined_episode_count") if isinstance(replay_gauntlet_lens.get("coverage_summary"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", replay_gauntlet_lens.get("command") or "microcosm replay-gauntlet")}
+          {row("Command", replay_gauntlet_lens.get("command") or "plectis replay-gauntlet")}
           {row("Status", replay_gauntlet_lens.get("status"))}
           {row("Selected route", replay_gauntlet_lens.get("selected_route_id"))}
           {row("Negative cases", ", ".join([str(value) for value in replay_negative_cases]))}
@@ -24259,7 +24259,7 @@ class RuntimeShell:
           <div class="node"><strong>Provider call</strong><span>{html.escape(_safe_text((benchmark_lab_lens.get("authority_ceiling") or {}).get("provider_call_authorized") if isinstance(benchmark_lab_lens.get("authority_ceiling"), dict) else ""))}</span></div>
         </div>
         <table>
-          {row("Command", benchmark_lab_lens.get("command") or "microcosm benchmark-lab")}
+          {row("Command", benchmark_lab_lens.get("command") or "plectis benchmark-lab")}
           {row("Status", benchmark_lab_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in benchmark_lab_lens.get("selected_pattern_ids", [])]) if isinstance(benchmark_lab_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in benchmark_negative_cases]))}
@@ -24286,7 +24286,7 @@ class RuntimeShell:
           <div class="node"><strong>Time budget</strong><span>{html.escape(_safe_text((legibility_scorecard_lens.get("scorecard") or {}).get("time_budget_minutes") if isinstance(legibility_scorecard_lens.get("scorecard"), dict) else ""))} min</span></div>
         </div>
         <table>
-          {row("Command", legibility_scorecard_lens.get("command") or "microcosm legibility-scorecard")}
+          {row("Command", legibility_scorecard_lens.get("command") or "plectis legibility-scorecard")}
           {row("Status", legibility_scorecard_lens.get("status"))}
           {row("Selected patterns", ", ".join([str(value) for value in legibility_scorecard_lens.get("selected_pattern_ids", [])]) if isinstance(legibility_scorecard_lens.get("selected_pattern_ids"), list) else "")}
           {row("Negative cases", ", ".join([str(value) for value in legibility_negative_cases]))}
@@ -24498,7 +24498,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             body = observatory_cache.get("html")
@@ -24516,7 +24516,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get("runtime_bridge")
@@ -24549,7 +24549,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get(cache_key)
@@ -24573,7 +24573,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get(cache_key)
@@ -24594,7 +24594,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             return {
@@ -24759,7 +24759,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get("spine_payload")
@@ -24781,7 +24781,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             card = observatory_cache.get("spine_card")
@@ -24802,7 +24802,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get("authority_payload")
@@ -24830,7 +24830,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             card = observatory_cache.get("authority_card")
@@ -24851,7 +24851,7 @@ class RuntimeShell:
             - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
             - Fails: I-O / OSError suppressed by the helper; returns without raising.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             cached_authority_payload()
@@ -24863,7 +24863,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get("workingness_payload")
@@ -24885,7 +24885,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             card = observatory_cache.get("workingness_card")
@@ -24911,7 +24911,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get("status_payload")
@@ -24931,7 +24931,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             ensure_project_first_screen_state()
@@ -24944,7 +24944,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             payload = observatory_cache.get("status_payload")
@@ -24974,7 +24974,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             card = observatory_cache.get("status_card")
@@ -25003,7 +25003,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             card = observatory_cache.get("first_screen_full_card")
@@ -25024,7 +25024,7 @@ class RuntimeShell:
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - Writes: the in-memory card payload only (no source-of-truth file).
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             card = observatory_cache.get("first_screen_card")
@@ -25205,7 +25205,7 @@ class RuntimeShell:
                         route_selection_proof.get("route_id_available_in_state")
                     ),
                     "route_id_source": (
-                        "microcosm status --card <project>::front_door.selected_route_id"
+                        "plectis status --card <project>::front_door.selected_route_id"
                     ),
                     "route_explanation_endpoint": route_explanation_endpoint,
                 },
@@ -25261,8 +25261,8 @@ class RuntimeShell:
                 "tour": {
                     "schema_version": "microcosm_tour_server_landing_ref_v1",
                     "status": status_card.get("status"),
-                    "command": "microcosm tour --card <project>",
-                    "full_payload_command": "microcosm tour <project>",
+                    "command": "plectis tour --card <project>",
+                    "full_payload_command": "plectis tour <project>",
                     "endpoint": "/tour",
                 },
                 "json_drilldowns": {
@@ -25291,7 +25291,7 @@ class RuntimeShell:
             - Guarantee: returns a string result built from the inspected inputs.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             body = observatory_cache.get("landing_html")
@@ -25411,7 +25411,7 @@ class RuntimeShell:
                 - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
                 - Writes: the in-memory card payload only (no source-of-truth file).
                 - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
                 - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
                 """
                 proof_html = (
@@ -25462,7 +25462,7 @@ class RuntimeShell:
       <div class="panel">
         <h2>One-Screen Entry</h2>
         <p>Status: <code>{html.escape(str(first_screen_card.get("status")))}</code></p>
-        <p>Human first command: <code>{html.escape(str(first_screen_card.get("human_first_command") or "microcosm hello <project>"))}</code></p>
+        <p>Human first command: <code>{html.escape(str(first_screen_card.get("human_first_command") or "plectis hello <project>"))}</code></p>
         <p>Behavior proof: <code>{html.escape(str(first_screen_card.get("shared_first_command")))}</code></p>
         <p>Selected route: <code>{html.escape(str(selected_route_id))}</code></p>
       </div>
@@ -25504,7 +25504,7 @@ class RuntimeShell:
             - Guarantee: returns a JSON-safe projection dict payload.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
             - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
             """
             cached_model = observatory_cache.get("model")
@@ -25529,7 +25529,7 @@ class RuntimeShell:
             - Guarantee: returns control to the caller after the documented effect.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: you need any projection this coordinator's methods expose.
-            - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+            - Escalates-to: the individual method whose lens you need, or `plectis status`.
             """
             daemon_threads = True
             block_on_close = False
@@ -25554,7 +25554,7 @@ class RuntimeShell:
             - Guarantee: returns control to the caller after the documented effect.
             - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
             - When-needed: you need any projection this coordinator's methods expose.
-            - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+            - Escalates-to: the individual method whose lens you need, or `plectis status`.
             """
             def finish(self) -> None:
                 """Read-only projection helper.
@@ -25594,7 +25594,7 @@ class RuntimeShell:
                 - Guarantee: returns a bool verdict computed from the inspected inputs.
                 - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
                 - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
                 - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
                 """
                 accept = (self.headers.get("Accept") or "").lower()
@@ -25611,7 +25611,7 @@ class RuntimeShell:
                 - Guarantee: returns a string result built from the inspected inputs.
                 - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
                 - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
                 - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
                 """
                 path = urlparse(self.path).path or "/"
@@ -25656,7 +25656,7 @@ class RuntimeShell:
                 - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
                 - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
                 - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
                 - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
                 """
                 body = self._json_drilldown_html(status_code, payload)
@@ -25695,7 +25695,7 @@ class RuntimeShell:
                 - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
                 - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
                 - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
                 - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
                 """
                 encoded = body.encode("utf-8")
@@ -25900,7 +25900,7 @@ def _print_json_card(payload: Any) -> int:
     - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
     - Writes: the in-memory card payload only (no source-of-truth file).
     - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
     - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
@@ -26167,7 +26167,7 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
             else ""
         )
         print(
-            f"microcosm runtime shell listening on http://{args.host}:{args.port}{limit_note}",
+            f"plectis runtime shell listening on http://{args.host}:{args.port}{limit_note}",
             flush=True,
         )
         try:

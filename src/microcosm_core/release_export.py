@@ -22,7 +22,7 @@ from .schemas import StrictJsonError, read_json_strict
 from .validators.evidence_truth_floor import audit_evidence_truth_floor
 
 
-ARTIFACT_DIR_NAME = "microcosm-substrate"
+ARTIFACT_DIR_NAME = "plectis"
 RELEASE_RECEIPT_REF = "receipts/release/release_export_receipt.json"
 PROJECTION_FRESHNESS_RECEIPT_REF = (
     "receipts/first_wave/macro_projection_import_protocol/"
@@ -190,7 +190,7 @@ FINANCE_PROMOTION_REVIEW_PATTERNS = (
 PUBLICATION_REVIEW_CHECKLISTS = {
     "github_repository": [
         "initialize_public_repo_from_generated_artifact_not_private_root_history",
-        "verify_public_remote_points_to_github.com/wcook04/microcosm-substrate",
+        "verify_public_remote_points_to_github.com/wcook04/plectis",
         "enable_secret_scanning_and_push_protection_where_available",
         "protect_default_branch_and_require_public_ci",
         "publish_SECURITY_md_and_issue_reporting_policy",
@@ -1021,7 +1021,10 @@ def _default_private_root_for_public_root(public_root: Path) -> Path | None:
             resolved = candidate.resolve()
         except OSError:
             continue
-        if (resolved / "kernel.py").is_file() and (resolved / "microcosm-substrate").is_dir():
+        has_public_tree = (resolved / "microcosm-substrate").is_dir() or (
+            resolved / ARTIFACT_DIR_NAME
+        ).is_dir()
+        if (resolved / "kernel.py").is_file() and has_public_tree:
             return resolved
     return None
 
@@ -1878,7 +1881,7 @@ def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
             "generate_standalone_export",
             "scan_exported_artifact",
             "initialize_new_public_repository_from_artifact",
-            "set_public_remote_to_github.com/wcook04/microcosm-substrate",
+            "set_public_remote_to_github.com/wcook04/plectis",
             "push_clean_initial_history_after_operator_release_authorization",
         ],
         "body_in_receipt": False,
@@ -2550,6 +2553,41 @@ def _display_argv(argv: list[str | Path]) -> list[str]:
     return [str(part) for part in argv]
 
 
+# Observational `--card` commands are assertion commands: they emit a valid machine
+# card and then return an exit code derived from the inspected SUBJECT's health
+# (pass/warn/blocked). For release install-smoke we must verify the package RAN and
+# EMITTED a valid card (the emission plane), not that a freshly-created smoke project's
+# subject happens to be green (the subject plane). A crash that prints no parseable card
+# still blocks. See _card_emission_planes.
+_EXIT_ZERO_ASSERTION = "exit_zero"
+_CARD_EMISSION_ASSERTION = "card_emission"
+
+
+def _card_emission_planes(
+    completed: subprocess.CompletedProcess[str],
+) -> tuple[str, str | None]:
+    """
+    - Teleology: split an observational `--card` result into an emission plane (did the
+      command emit a valid machine card?) and a subject plane (what the card reported),
+      so a non-green subject cannot masquerade as a failed package run.
+    - Guarantee: returns (emission_status, subject_status); emission_status is "pass" iff
+      stdout parses as a JSON object carrying a non-empty string "status"; empty,
+      unparseable, non-object, or status-less stdout yields ("blocked", None) regardless
+      of the process exit code.
+    - Fails: never raises; JSON/decode errors fold to ("blocked", None).
+    """
+    try:
+        payload = json.loads(completed.stdout)
+    except (ValueError, TypeError):
+        return "blocked", None
+    if not isinstance(payload, dict):
+        return "blocked", None
+    subject = payload.get("status")
+    if not isinstance(subject, str) or not subject:
+        return "blocked", None
+    return "pass", subject
+
+
 def _command_receipt_row(
     command_id: str,
     completed: subprocess.CompletedProcess[str],
@@ -2558,21 +2596,28 @@ def _command_receipt_row(
     cwd: str,
     target: Path,
     source_root: Path,
+    assertion: str = _EXIT_ZERO_ASSERTION,
 ) -> dict[str, Any]:
     """
     - Teleology: capture one smoke/install subprocess result as a privacy-redacted receipt row.
-    - Guarantee: returns a row with status pass iff return_code is 0, redacted stdout/stderr byte counts, and private-path-hit flags; raw bodies are excluded (body_in_receipt False).
-    - Fails: never raises; a non-zero return code yields status=blocked rather than an exception.
+    - Guarantee: returns a row with redacted stdout/stderr byte counts and private-path-hit
+      flags (raw bodies excluded, body_in_receipt False). For exit_zero commands status is
+      pass iff return_code is 0. For card_emission commands status is pass iff a valid
+      machine card was emitted (emission plane), independent of the inspected subject's
+      health, which is recorded separately as subject_status; a crash emitting no parseable
+      card still blocks.
+    - Fails: never raises; a failed exit_zero command or a non-emitting card command yields
+      status=blocked rather than an exception.
     - Reads: the CompletedProcess stdout/stderr (redacted against target and source_root).
     """
     stdout = _redact_local(completed.stdout, target=target, source_root=source_root)
     stderr = _redact_local(completed.stderr, target=target, source_root=source_root)
-    return {
+    row: dict[str, Any] = {
         "command_id": command_id,
+        "assertion": assertion,
         "argv": _display_argv(display_argv),
         "cwd": cwd,
         "return_code": completed.returncode,
-        "status": "pass" if completed.returncode == 0 else "blocked",
         "stdout_bytes": len(completed.stdout.encode("utf-8")),
         "stderr_bytes": len(completed.stderr.encode("utf-8")),
         "stdout_private_path_hit": (
@@ -2583,6 +2628,14 @@ def _command_receipt_row(
         ),
         "body_in_receipt": False,
     }
+    if assertion == _CARD_EMISSION_ASSERTION:
+        emission_status, subject_status = _card_emission_planes(completed)
+        row["emission_status"] = emission_status
+        row["subject_status"] = subject_status
+        row["status"] = "pass" if emission_status == "pass" else "blocked"
+    else:
+        row["status"] = "pass" if completed.returncode == 0 else "blocked"
+    return row
 
 
 def _receipt_status_from_rows(rows: list[dict[str, Any]]) -> str:
@@ -3563,7 +3616,7 @@ def _run_install_smoke(
         microcosm_exe = _venv_bin_path(install_prefix, "microcosm")
         if site_packages is None or not microcosm_exe.is_file():
             missing_install = subprocess.CompletedProcess(
-                args=["microcosm", "--installed-prefix-check"],
+                args=["plectis", "--installed-prefix-check"],
                 returncode=1,
                 stdout="",
                 stderr="installed prefix did not expose site-packages or console script",
@@ -3572,7 +3625,7 @@ def _run_install_smoke(
                 _command_receipt_row(
                     "installed_prefix_check",
                     missing_install,
-                    display_argv=["microcosm", "--installed-prefix-check"],
+                    display_argv=["plectis", "--installed-prefix-check"],
                     cwd="<temp-smoke-root>",
                     target=target,
                     source_root=source_root,
@@ -3583,24 +3636,32 @@ def _run_install_smoke(
         runtime_env = dict(env)
         runtime_env["PYTHONPATH"] = str(site_packages)
         command_specs = (
-            ("hello", ["hello", str(project)], ["microcosm", "hello", "<smoke-project>"]),
+            (
+                "hello",
+                ["hello", str(project)],
+                ["plectis", "hello", "<smoke-project>"],
+                _EXIT_ZERO_ASSERTION,
+            ),
             (
                 "tour_card",
                 ["tour", "--card", str(project)],
-                ["microcosm", "tour", "--card", "<smoke-project>"],
+                ["plectis", "tour", "--card", "<smoke-project>"],
+                _CARD_EMISSION_ASSERTION,
             ),
             (
                 "first_screen",
                 ["first-screen", str(project)],
-                ["microcosm", "first-screen", "<smoke-project>"],
+                ["plectis", "first-screen", "<smoke-project>"],
+                _EXIT_ZERO_ASSERTION,
             ),
             (
                 "authority_card",
                 ["authority", "--card"],
-                ["microcosm", "authority", "--card"],
+                ["plectis", "authority", "--card"],
+                _CARD_EMISSION_ASSERTION,
             ),
         )
-        for command_id, runtime_args, display_args in command_specs:
+        for command_id, runtime_args, display_args, assertion in command_specs:
             completed = subprocess.run(
                 [str(microcosm_exe), *runtime_args],
                 cwd=tmp_root,
@@ -3618,6 +3679,7 @@ def _run_install_smoke(
                     cwd="<temp-smoke-root>",
                     target=target,
                     source_root=source_root,
+                    assertion=assertion,
                 )
             )
     return _install_smoke_summary(rows)
@@ -3626,7 +3688,7 @@ def _run_install_smoke(
 def _prepare_target(root: Path, out: Path, *, force: bool) -> Path:
     """
     - Teleology: create the artifact target directory while refusing to write inside or over the source root.
-    - Guarantee: returns target=<out>/microcosm-substrate, freshly created; with force it replaces an existing target.
+    - Guarantee: returns target=<out>/plectis, freshly created; with force it replaces an existing target.
     - Fails: output inside source root or target == source root -> ValueError; existing target without force -> FileExistsError; missing root -> FileNotFoundError from resolve(strict=True).
     - Reads: resolves root and out; Writes: creates (and with force removes) the target directory.
     """
@@ -3657,7 +3719,7 @@ def build_release_export(
     - Teleology: top-level release-export builder: materialize the public artifact, run every gate, and write the bounded release receipt.
     - Guarantee: returns the microcosm_release_export_receipt_v1 dict (status pass iff blocking_codes empty) and writes it to target/<RELEASE_RECEIPT_REF>; every authority flag (release/publish/hosted/provider/source-mutation/equivalence) is hard False.
     - Fails: out inside/equal source root -> ValueError; existing target without force -> FileExistsError; smoke timeouts propagate; gate failures surface as blocking_codes + status=blocked, not exceptions.
-    - Reads: the allowlisted source tree under root; Writes: the <out>/microcosm-substrate artifact and its release receipt.
+    - Reads: the allowlisted source tree under root; Writes: the <out>/plectis artifact and its release receipt.
     - When-needed: generating a public release artifact and its evidence receipt.
     - Non-goal: does not authorize release, publication, hosted launch, private-root equivalence, or claim a complete secret audit.
     - Escalates-to: RELEASE_RECEIPT_REF on disk, release_export_summary, and the standalone/assurance/candidate sub-receipts.
@@ -3877,7 +3939,7 @@ def build_release_export(
             "standalone_run_command": (
                 "PYTHONPATH=src python3 -m microcosm_core hello <project>"
             ),
-            "installed_run_command": "microcosm hello <project>",
+            "installed_run_command": "plectis hello <project>",
         },
         "runnable_receipt": runnable_receipt,
         "install_smoke_receipt": install_smoke_receipt,
@@ -4061,7 +4123,7 @@ def main(argv: list[str] | None = None) -> int:
     """CLI entry: generate a public Plectis export, or assess an existing release receipt.
 
     - Teleology: command-line front door to the release-export pipeline and its candidate-invalidation check.
-    - Guarantee: with --out, writes the standalone microcosm-substrate/ export and prints the release receipt (or summary); with --assess-candidate, prints a re-validation assessment instead.
+    - Guarantee: with --out, writes the standalone plectis/ export and prints the release receipt (or summary); with --assess-candidate, prints a re-validation assessment instead.
     - Reads: --root source tree, and --assess-candidate receipt JSON / --compare-ref git ref.
     - Writes: --out/<microcosm-substrate> export directory and bounded receipts via build_release_export.
     - When-needed: producing or re-validating a public release artifact.
@@ -4071,8 +4133,8 @@ def main(argv: list[str] | None = None) -> int:
         prog="python -m microcosm_core.release_export",
         description="Generate a standalone public Plectis folder with a bounded release-export receipt.",
     )
-    parser.add_argument("--root", default=".", help="microcosm-substrate source root")
-    parser.add_argument("--out", help="output directory that will receive microcosm-substrate/")
+    parser.add_argument("--root", default=".", help="Plectis source root")
+    parser.add_argument("--out", help="output directory that will receive plectis/")
     parser.add_argument(
         "--assess-candidate",
         help="read an existing release receipt and assess whether later commits invalidate it",

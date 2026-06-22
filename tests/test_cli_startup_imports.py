@@ -40,7 +40,7 @@ def test_cli_version_flag_reports_package_version() -> None:
     )
 
     assert result.returncode == 0, result.stderr
-    assert result.stdout.strip() == f"microcosm {package_version}"
+    assert result.stdout.strip() == f"plectis {package_version}"
     assert result.stderr == ""
 
 
@@ -71,7 +71,7 @@ def test_cli_version_flag_defers_public_root_discovery() -> None:
     )
 
     assert result.returncode == 0, result.stderr
-    assert result.stdout.strip().startswith("microcosm ")
+    assert result.stdout.strip().startswith("plectis ")
     assert "microcosm_core.resource_root" not in result.stderr
 
 
@@ -98,7 +98,7 @@ def test_package_module_entry_delegates_to_cli() -> None:
     )
 
     assert result.returncode == 0, result.stderr
-    assert result.stdout.strip() == f"microcosm {package_version}"
+    assert result.stdout.strip() == f"plectis {package_version}"
     assert result.stderr == ""
 
 

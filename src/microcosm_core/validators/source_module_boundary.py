@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections.abc import Iterable, Iterator
 from pathlib import Path
@@ -11,6 +12,14 @@ from microcosm_core.schemas import read_json_strict
 
 CHECKER_ID = "checker.microcosm.validators.source_module_boundary"
 SCHEMA_VERSION = "source_module_boundary_card_v1"
+REFRESH_AUTHORITY_CHECKER_ID = (
+    "checker.microcosm.validators.source_module_refresh_authority"
+)
+REFRESH_AUTHORITY_SCHEMA_VERSION = "source_module_refresh_authority_card_v1"
+REFRESH_POLICY_VALIDATION_SCHEMA_VERSION = "source_module_refresh_policy_validation_v1"
+SOURCE_MODULE_REFRESH_POLICY_SCHEMA_VERSION = "source_module_refresh_policy_v0"
+SOURCE_MODULE_REFRESH_POLICY_REF = "core/source_module_refresh_policy_v0.json"
+EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION = "exact_copy_source_module_refresh"
 PASS = "pass"
 BLOCKED = "blocked"
 
@@ -163,6 +172,58 @@ RESTRICTED_PRIVATE_SOURCE_FILENAMES = {
     "pipeline_codex_handoff.py",
     "pipeline_overnight.py",
     "pipeline_signal_watcher.py",
+}
+
+REFRESH_POLICY_TOP_LEVEL_KEYS = frozenset(
+    {
+        "_policy_ref",
+        "authority_boundary",
+        "authority_source",
+        "field_contract",
+        "grant_contract",
+        "grants",
+        "operation",
+        "policy_id",
+        "policy_ref",
+        "policy_revision",
+        "provenance_refs",
+        "schema_version",
+    }
+)
+
+REFRESH_GRANT_KEYS = frozenset(
+    {
+        "anti_claim",
+        "authority_boundary",
+        "authority_revision",
+        "classification_override_scope",
+        "field_contract",
+        "grant_id",
+        "material_ids",
+        "operation",
+        "provenance_refs",
+        "source_ref",
+        "source_to_target_relation",
+        "source_to_target_relations",
+        "status",
+        "target_ref",
+        "target_ref_prefixes",
+        "target_refs",
+    }
+)
+
+REFRESH_GRANT_STATUSES = frozenset({"active", "inactive", "revoked"})
+REFRESH_GRANT_ACTIVE_STATUS = "active"
+REFRESH_GRANT_CLASSIFICATION_OVERRIDE_SCOPES = frozenset(
+    {"restricted_private_control_plane_only"}
+)
+REFRESH_POLICY_GRANT_CONTRACT = {
+    "hard_denies_dominate_grants": True,
+    "classification_retained": True,
+    "operation_required": True,
+    "target_scope_required": True,
+    "source_to_target_relation_required": True,
+    "release_publicity_not_sufficient": True,
 }
 
 ANTI_CLAIM = (
@@ -625,6 +686,731 @@ def _classify_source_ref(ref: str) -> dict[str, str] | None:
             ),
         }
     return None
+
+
+def _source_ref_match_variants(ref: object) -> set[str]:
+    """Return normalized source-ref variants used for grant matching."""
+    value = _normalize_ref(ref)
+    variants = {value} if value else set()
+    path = _path_portion(value).replace("\\", "/").lstrip("/")
+    if path:
+        variants.add(path)
+    tail = _source_modules_tail(value)
+    if tail:
+        variants.add(tail)
+    for item in list(variants):
+        if item.startswith("ai_workflow/"):
+            variants.add(item.removeprefix("ai_workflow/"))
+        if item.startswith("microcosm-substrate/"):
+            variants.add(item.removeprefix("microcosm-substrate/"))
+    return {item for item in variants if item}
+
+
+def _target_ref_match_variants(ref: object) -> set[str]:
+    value = _normalize_ref(ref)
+    variants = {value} if value else set()
+    for item in list(variants):
+        if item.startswith("microcosm-substrate/"):
+            variants.add(item.removeprefix("microcosm-substrate/"))
+    return {item for item in variants if item}
+
+
+def _canonical_refresh_ref(ref: object) -> str:
+    value = _normalize_ref(ref).replace("\\", "/")
+    if value.startswith("microcosm-substrate/"):
+        value = value.removeprefix("microcosm-substrate/")
+    return value
+
+
+def _ref_is_canonical_segment_path(ref: str) -> bool:
+    if not ref:
+        return False
+    if ref.startswith(("/", "../")) or "/../" in f"/{ref}/":
+        return False
+    if "\\" in ref or "//" in ref or ref.startswith("./"):
+        return False
+    return ref == _normalize_ref(ref)
+
+
+def _target_ref_matches_prefix(target: str, prefix: str) -> bool:
+    target_value = _canonical_refresh_ref(target).rstrip("/")
+    prefix_value = _canonical_refresh_ref(prefix).rstrip("/")
+    return bool(
+        target_value
+        and prefix_value
+        and (target_value == prefix_value or target_value.startswith(f"{prefix_value}/"))
+    )
+
+
+def _as_string_list(value: object) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value] if value else []
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item or "")]
+    return [str(value)] if str(value or "") else []
+
+
+def _default_refresh_policy(policy_ref: str = "<missing>") -> dict[str, Any]:
+    return {
+        "schema_version": SOURCE_MODULE_REFRESH_POLICY_SCHEMA_VERSION,
+        "policy_id": "missing_source_module_refresh_policy",
+        "policy_revision": "missing_policy_empty_grant_default_v0",
+        "policy_ref": policy_ref,
+        "operation": EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION,
+        "authority_boundary": (
+            "empty fallback: no restricted source-module refresh grants; "
+            "public relative non-secret sources may still refresh"
+        ),
+        "grants": [],
+    }
+
+
+def _policy_for_fingerprint(policy: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in policy.items() if not key.startswith("_")}
+
+
+def source_module_refresh_policy_fingerprint(policy: dict[str, Any]) -> str:
+    payload = json.dumps(
+        _policy_for_fingerprint(policy),
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return f"sha256:{hashlib.sha256(payload).hexdigest()}"
+
+
+def load_source_module_refresh_policy(
+    *,
+    public_root: str | Path | None = None,
+    policy_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Load the operation-scoped exact-copy refresh grant policy."""
+    resolved_policy_path: Path | None = Path(policy_path) if policy_path else None
+    if resolved_policy_path is None and public_root is not None:
+        resolved_policy_path = Path(public_root) / SOURCE_MODULE_REFRESH_POLICY_REF
+    if resolved_policy_path is None or not resolved_policy_path.is_file():
+        return _default_refresh_policy(
+            str(resolved_policy_path or SOURCE_MODULE_REFRESH_POLICY_REF)
+        )
+    payload = read_json_strict(resolved_policy_path)
+    if not isinstance(payload, dict):
+        return _default_refresh_policy(str(resolved_policy_path))
+    policy = dict(payload)
+    policy["_policy_ref"] = str(resolved_policy_path)
+    return policy
+
+
+def _source_finding_disposition(finding: dict[str, str] | None) -> str:
+    if not finding:
+        return "public_open"
+    if str(finding.get("error_code") or "").startswith(
+        "source_ref_restricted_private_control_plane:"
+    ):
+        return "grantable_restricted_private_control_plane"
+    return "hard_denied"
+
+
+def _is_hard_denied_source_finding(finding: dict[str, str] | None) -> bool:
+    return _source_finding_disposition(finding) == "hard_denied"
+
+
+def _policy_finding(
+    code: str,
+    *,
+    path: str,
+    message: str,
+    severity: str = BLOCKED,
+) -> dict[str, str]:
+    return {
+        "finding_code": code,
+        "path": path,
+        "message": message,
+        "severity": severity,
+    }
+
+
+def _grant_target_exact_values(grant: dict[str, Any]) -> set[str]:
+    targets: set[str] = set()
+    for ref in _as_string_list(grant.get("target_refs") or grant.get("target_ref")):
+        targets.update(_target_ref_match_variants(ref))
+    return {_canonical_refresh_ref(item) for item in targets if item}
+
+
+def _grant_target_prefix_values(grant: dict[str, Any]) -> set[str]:
+    prefixes: set[str] = set()
+    for ref in _as_string_list(grant.get("target_ref_prefixes")):
+        prefixes.update(_target_ref_match_variants(ref))
+    return {_canonical_refresh_ref(item).rstrip("/") for item in prefixes if item}
+
+
+def _grant_matches_target_scope(row_targets: set[str], grant: dict[str, Any]) -> bool:
+    canonical_row_targets = {
+        _canonical_refresh_ref(target) for target in row_targets if target
+    }
+    exact_targets = _grant_target_exact_values(grant)
+    if exact_targets and canonical_row_targets.intersection(exact_targets):
+        return True
+    prefixes = _grant_target_prefix_values(grant)
+    return any(
+        _target_ref_matches_prefix(target, prefix)
+        for target in canonical_row_targets
+        for prefix in prefixes
+    )
+
+
+def _grant_overlap_signature(grant: dict[str, Any]) -> tuple[Any, ...]:
+    source_variants = tuple(sorted(_source_ref_match_variants(grant.get("source_ref"))))
+    relations = tuple(
+        sorted(
+            _as_string_list(
+                grant.get("source_to_target_relations")
+                or grant.get("source_to_target_relation")
+            )
+        )
+    )
+    material_ids = tuple(sorted(_as_string_list(grant.get("material_ids"))))
+    exact_targets = tuple(sorted(_grant_target_exact_values(grant)))
+    prefixes = tuple(sorted(_grant_target_prefix_values(grant)))
+    return (source_variants, relations, material_ids, exact_targets, prefixes)
+
+
+def compile_source_module_refresh_policy(
+    policy: dict[str, Any],
+    *,
+    operation: str = EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION,
+) -> dict[str, Any]:
+    findings: list[dict[str, str]] = []
+    if not isinstance(policy, dict):
+        return {
+            "schema_version": REFRESH_POLICY_VALIDATION_SCHEMA_VERSION,
+            "status": BLOCKED,
+            "finding_count": 1,
+            "findings": [
+                _policy_finding(
+                    "refresh_policy_not_object",
+                    path="$",
+                    message="source-module refresh policy must be a JSON object",
+                )
+            ],
+            "active_grants": [],
+            "active_grant_count": 0,
+        }
+
+    unknown_top = sorted(set(policy) - REFRESH_POLICY_TOP_LEVEL_KEYS)
+    for key in unknown_top:
+        findings.append(
+            _policy_finding(
+                "refresh_policy_unknown_top_level_field",
+                path=f"$.{key}",
+                message="top-level policy fields must be enforced or explicitly informational",
+            )
+        )
+
+    required_top = ("schema_version", "policy_id", "policy_revision", "operation", "grants")
+    for key in required_top:
+        if key not in policy or policy.get(key) in ("", None):
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_missing_required_field",
+                    path=f"$.{key}",
+                    message=f"missing required policy field: {key}",
+                )
+            )
+
+    if policy.get("schema_version") != SOURCE_MODULE_REFRESH_POLICY_SCHEMA_VERSION:
+        findings.append(
+            _policy_finding(
+                "refresh_policy_unknown_schema_version",
+                path="$.schema_version",
+                message="unknown source-module refresh policy schema version",
+            )
+        )
+    if str(policy.get("operation") or "") != operation:
+        findings.append(
+            _policy_finding(
+                "refresh_policy_wrong_operation",
+                path="$.operation",
+                message=(
+                    "document operation must match the evaluator operation; "
+                    "release/publication policies are not refresh authority"
+                ),
+            )
+        )
+
+    grant_contract = policy.get("grant_contract")
+    if grant_contract is not None:
+        if not isinstance(grant_contract, dict):
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_contract_not_object",
+                    path="$.grant_contract",
+                    message="grant_contract must be an object",
+                )
+            )
+        else:
+            unknown_contract_keys = sorted(
+                set(grant_contract) - set(REFRESH_POLICY_GRANT_CONTRACT)
+            )
+            for key in unknown_contract_keys:
+                findings.append(
+                    _policy_finding(
+                        "refresh_policy_unknown_grant_contract_field",
+                        path=f"$.grant_contract.{key}",
+                        message="grant_contract fields must be compiler-known",
+                    )
+                )
+            for key, expected in REFRESH_POLICY_GRANT_CONTRACT.items():
+                if grant_contract.get(key) is not expected:
+                    findings.append(
+                        _policy_finding(
+                            "refresh_policy_grant_contract_not_enforced",
+                            path=f"$.grant_contract.{key}",
+                            message=(
+                                "grant_contract must declare the enforced compiler "
+                                f"value {expected!r}"
+                            ),
+                        )
+                    )
+
+    grants = policy.get("grants")
+    if not isinstance(grants, list):
+        findings.append(
+            _policy_finding(
+                "refresh_policy_grants_not_list",
+                path="$.grants",
+                message="grants must be a list",
+            )
+        )
+        grants = []
+
+    active_grants: list[dict[str, Any]] = []
+    grant_ids_seen: set[str] = set()
+    active_signatures: dict[tuple[Any, ...], str] = {}
+    for index, grant in enumerate(grants):
+        path = f"$.grants[{index}]"
+        if not isinstance(grant, dict):
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_not_object",
+                    path=path,
+                    message="grant entries must be objects",
+                )
+            )
+            continue
+        unknown_grant_keys = sorted(set(grant) - REFRESH_GRANT_KEYS)
+        for key in unknown_grant_keys:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_unknown_grant_field",
+                    path=f"{path}.{key}",
+                    message="grant fields must be compiler-known",
+                )
+            )
+
+        grant_id = str(grant.get("grant_id") or "")
+        if not grant_id:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_missing_id",
+                    path=f"{path}.grant_id",
+                    message="grant_id is required",
+                )
+            )
+        elif grant_id in grant_ids_seen:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_duplicate_grant_id",
+                    path=f"{path}.grant_id",
+                    message=f"duplicate grant_id: {grant_id}",
+                )
+            )
+        grant_ids_seen.add(grant_id)
+
+        if "status" not in grant:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_missing_status",
+                    path=f"{path}.status",
+                    message="grant status is required; absent status is not active",
+                )
+            )
+            status = ""
+        else:
+            status = str(grant.get("status") or "")
+            if status not in REFRESH_GRANT_STATUSES:
+                findings.append(
+                    _policy_finding(
+                        "refresh_policy_grant_unknown_status",
+                        path=f"{path}.status",
+                        message="grant status must be active, inactive, or revoked",
+                    )
+                )
+
+        if str(grant.get("operation") or "") != operation:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_wrong_operation",
+                    path=f"{path}.operation",
+                    message="grant operation must match document and evaluator operation",
+                )
+            )
+
+        source_ref = _canonical_refresh_ref(grant.get("source_ref"))
+        if not _ref_is_canonical_segment_path(source_ref):
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_noncanonical_source_ref",
+                    path=f"{path}.source_ref",
+                    message="source_ref must be a canonical relative segment path",
+                )
+            )
+
+        relations = _as_string_list(
+            grant.get("source_to_target_relations")
+            or grant.get("source_to_target_relation")
+        )
+        if not relations:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_missing_relation",
+                    path=f"{path}.source_to_target_relation",
+                    message="operation grants must declare a source_to_target_relation",
+                )
+            )
+        material_ids = _as_string_list(grant.get("material_ids"))
+        if not material_ids:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_missing_material_ids",
+                    path=f"{path}.material_ids",
+                    message="operation grants must declare target material ids",
+                )
+            )
+
+        target_refs = _as_string_list(grant.get("target_refs") or grant.get("target_ref"))
+        target_prefixes = _as_string_list(grant.get("target_ref_prefixes"))
+        if not target_refs and not target_prefixes:
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_missing_target_scope",
+                    path=f"{path}.target_refs",
+                    message="operation grants must declare exact target refs or prefixes",
+                )
+            )
+        for ref_index, ref in enumerate(target_refs):
+            canonical = _canonical_refresh_ref(ref)
+            if not _ref_is_canonical_segment_path(canonical):
+                findings.append(
+                    _policy_finding(
+                        "refresh_policy_grant_noncanonical_target_ref",
+                        path=f"{path}.target_refs[{ref_index}]",
+                        message="target refs must be canonical relative segment paths",
+                    )
+                )
+        for ref_index, ref in enumerate(target_prefixes):
+            canonical = _canonical_refresh_ref(ref).rstrip("/")
+            if not _ref_is_canonical_segment_path(canonical):
+                findings.append(
+                    _policy_finding(
+                        "refresh_policy_grant_noncanonical_target_prefix",
+                        path=f"{path}.target_ref_prefixes[{ref_index}]",
+                        message="target prefixes must be canonical relative segment paths",
+                    )
+                )
+
+        override_scope = str(grant.get("classification_override_scope") or "")
+        if (
+            override_scope
+            and override_scope not in REFRESH_GRANT_CLASSIFICATION_OVERRIDE_SCOPES
+        ):
+            findings.append(
+                _policy_finding(
+                    "refresh_policy_grant_invalid_override_scope",
+                    path=f"{path}.classification_override_scope",
+                    message="classification override scope is not compiler-known",
+                )
+            )
+
+        if status == REFRESH_GRANT_ACTIVE_STATUS:
+            signature = _grant_overlap_signature(grant)
+            previous_grant_id = active_signatures.get(signature)
+            if previous_grant_id:
+                findings.append(
+                    _policy_finding(
+                        "refresh_policy_overlapping_active_grants",
+                        path=path,
+                        message=(
+                            "active grants overlap exactly; ambiguous ordering is "
+                            f"not authority ({previous_grant_id}, {grant_id})"
+                        ),
+                    )
+                )
+            active_signatures[signature] = grant_id
+            active_grants.append(grant)
+
+    return {
+        "schema_version": REFRESH_POLICY_VALIDATION_SCHEMA_VERSION,
+        "status": PASS if not findings else BLOCKED,
+        "finding_count": len(findings),
+        "findings": findings,
+        "active_grant_count": len(active_grants),
+        "active_grant_ids": [
+            str(grant.get("grant_id") or "") for grant in active_grants
+        ],
+        "active_grants": active_grants,
+    }
+
+
+def _matches_refresh_grant(
+    row: dict[str, Any],
+    grant: dict[str, Any],
+    *,
+    operation: str,
+) -> bool:
+    if str(grant.get("status") or "") != REFRESH_GRANT_ACTIVE_STATUS:
+        return False
+    if str(grant.get("operation") or "") != operation:
+        return False
+
+    row_source_variants = _source_ref_match_variants(row.get("source_ref"))
+    grant_source_variants = _source_ref_match_variants(grant.get("source_ref"))
+    if not row_source_variants or row_source_variants.isdisjoint(grant_source_variants):
+        return False
+
+    row_relation = str(row.get("source_to_target_relation") or "")
+    grant_relations = _as_string_list(
+        grant.get("source_to_target_relations")
+        or grant.get("source_to_target_relation")
+    )
+    if grant_relations and row_relation not in grant_relations:
+        return False
+
+    row_material_id = str(row.get("material_id") or row.get("row_id") or "")
+    grant_material_ids = set(_as_string_list(grant.get("material_ids")))
+    if grant_material_ids and row_material_id not in grant_material_ids:
+        return False
+
+    row_targets = _target_ref_match_variants(row.get("target_ref"))
+    return _grant_matches_target_scope(row_targets, grant)
+
+
+def _matching_refresh_grants(
+    row: dict[str, Any],
+    grants: Iterable[dict[str, Any]],
+    *,
+    operation: str,
+) -> list[dict[str, Any]]:
+    return [
+        grant
+        for grant in grants
+        if isinstance(grant, dict)
+        and _matches_refresh_grant(row, grant, operation=operation)
+    ]
+
+
+def evaluate_source_module_refresh_authority(
+    rows: Iterable[dict[str, Any]],
+    *,
+    public_root: str | Path | None = None,
+    policy: dict[str, Any] | None = None,
+    policy_path: str | Path | None = None,
+    operation: str = EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION,
+) -> dict[str, Any]:
+    """Join pure source classification with operation-scoped refresh grants."""
+    refresh_policy = (
+        load_source_module_refresh_policy(public_root=public_root, policy_path=policy_path)
+        if policy is None
+        else dict(policy)
+    )
+    fingerprint = source_module_refresh_policy_fingerprint(refresh_policy)
+    policy_ref = str(
+        refresh_policy.get("_policy_ref")
+        or refresh_policy.get("policy_ref")
+        or policy_path
+        or SOURCE_MODULE_REFRESH_POLICY_REF
+    )
+    policy_validation = compile_source_module_refresh_policy(
+        refresh_policy,
+        operation=operation,
+    )
+    active_grants = list(policy_validation.get("active_grants") or [])
+
+    decisions: list[dict[str, Any]] = []
+    for index, row in enumerate(rows):
+        source_ref = _normalize_ref(row.get("source_ref"))
+        target_ref = _normalize_ref(row.get("target_ref"))
+        relation = str(row.get("source_to_target_relation") or "")
+        material_id = str(row.get("material_id") or row.get("row_id") or f"row_{index}")
+        finding = _classify_source_ref(source_ref)
+        base_decision: dict[str, Any] = {
+            "material_id": material_id,
+            "source_ref": source_ref,
+            "target_ref": target_ref,
+            "source_to_target_relation": relation,
+            "source_sha256": row.get("source_sha256"),
+            "target_sha256": row.get("target_sha256"),
+            "operation": operation,
+            "policy_ref": policy_ref,
+            "policy_fingerprint": fingerprint,
+            "body_in_receipt": False,
+        }
+        if policy_validation.get("status") != PASS:
+            decisions.append(
+                {
+                    **base_decision,
+                    "classification_status": "not_evaluated_policy_invalid",
+                    "authorization_status": "blocked_invalid_refresh_policy",
+                    "authorized": False,
+                    "grant_id": None,
+                    "policy_validation_status": policy_validation.get("status"),
+                    "policy_validation_finding_count": policy_validation.get(
+                        "finding_count"
+                    ),
+                    "coordination_action": (
+                        "repair_source_module_refresh_policy_before_refresh"
+                    ),
+                }
+            )
+            continue
+
+        if finding is None:
+            decisions.append(
+                {
+                    **base_decision,
+                    "classification_status": "public_open",
+                    "authorization_status": "allow_open_source",
+                    "authorized": True,
+                    "grant_id": None,
+                }
+            )
+            continue
+
+        classification_error_code = str(finding.get("error_code") or "")
+        source_disposition = _source_finding_disposition(finding)
+        if source_disposition == "hard_denied":
+            decisions.append(
+                {
+                    **base_decision,
+                    "classification_status": "hard_denied",
+                    "source_disposition": source_disposition,
+                    "classification_error_code": classification_error_code,
+                    "classification_reason": finding.get("reason"),
+                    "authorization_status": "blocked_hard_denial",
+                    "authorized": False,
+                    "grant_id": None,
+                    "coordination_action": (
+                        "exclude_hard_denied_source_before_exact_copy_refresh"
+                    ),
+                }
+            )
+            continue
+
+        matching_grants = _matching_refresh_grants(
+            {
+                **row,
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "source_to_target_relation": relation,
+                "material_id": material_id,
+            },
+            active_grants,
+            operation=operation,
+        )
+        if not matching_grants:
+            decisions.append(
+                {
+                    **base_decision,
+                    "classification_status": "restricted_private_control_plane",
+                    "source_disposition": source_disposition,
+                    "classification_error_code": classification_error_code,
+                    "classification_reason": finding.get("reason"),
+                    "authorization_status": "blocked_missing_refresh_grant",
+                    "authorized": False,
+                    "grant_id": None,
+                    "coordination_action": (
+                        "add_operation_scoped_refresh_grant_or_demote_body_import"
+                    ),
+                }
+            )
+            continue
+        if len(matching_grants) != 1:
+            decisions.append(
+                {
+                    **base_decision,
+                    "classification_status": "restricted_private_control_plane",
+                    "source_disposition": source_disposition,
+                    "classification_error_code": classification_error_code,
+                    "classification_reason": finding.get("reason"),
+                    "authorization_status": "blocked_ambiguous_refresh_grant",
+                    "authorized": False,
+                    "grant_id": None,
+                    "matching_grant_ids": [
+                        str(grant.get("grant_id") or "") for grant in matching_grants
+                    ],
+                    "coordination_action": (
+                        "make_refresh_grants_exactly_one_match_for_this_request"
+                    ),
+                }
+            )
+            continue
+
+        grant = matching_grants[0]
+
+        decisions.append(
+            {
+                **base_decision,
+                "classification_status": "restricted_private_control_plane",
+                "source_disposition": source_disposition,
+                "classification_error_code": classification_error_code,
+                "classification_reason": finding.get("reason"),
+                "authorization_status": "allow_with_authority",
+                "authorized": True,
+                "grant_id": str(grant.get("grant_id") or ""),
+                "grant_status": str(grant.get("status") or ""),
+                "authority_revision": str(
+                    grant.get("authority_revision")
+                    or refresh_policy.get("policy_revision")
+                    or ""
+                ),
+                "classification_retained": True,
+            }
+        )
+
+    blocked_decisions = [row for row in decisions if row.get("authorized") is not True]
+    allowed_with_authority = [
+        row for row in decisions if row.get("authorization_status") == "allow_with_authority"
+    ]
+    return {
+        "schema_version": REFRESH_AUTHORITY_SCHEMA_VERSION,
+        "checker_id": REFRESH_AUTHORITY_CHECKER_ID,
+        "status": PASS if not blocked_decisions else BLOCKED,
+        "operation": operation,
+        "policy_schema_version": refresh_policy.get("schema_version"),
+        "policy_ref": policy_ref,
+        "policy_id": refresh_policy.get("policy_id"),
+        "policy_revision": refresh_policy.get("policy_revision"),
+        "policy_fingerprint": fingerprint,
+        "policy_validation": {
+            key: value
+            for key, value in policy_validation.items()
+            if key != "active_grants"
+        },
+        "decision_count": len(decisions),
+        "allowed_decision_count": len(decisions) - len(blocked_decisions),
+        "allow_with_authority_count": len(allowed_with_authority),
+        "blocked_decision_count": len(blocked_decisions),
+        "blocked_decisions": blocked_decisions,
+        "decisions": decisions,
+        "hard_denies_dominate_grants": True,
+        "body_in_receipt": False,
+        "authority_boundary": (
+            "operation-scoped exact-copy refresh authorization only; not release, "
+            "publication, source mutation, provider, account/session, or "
+            "private-root equivalence authority"
+        ),
+    }
 
 
 def _dedupe_rows(rows: Iterable[dict[str, str]]) -> list[dict[str, str]]:

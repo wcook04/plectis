@@ -1,43 +1,30 @@
 {
-  "schema_version": "microcosm_source_module_manifest_v1",
-  "manifest_id": "tool_server_pressure_inventory_fixture_source_modules_v1",
-  "organ_id": "tool_server_pressure_inventory",
-  "source_import_class": "copied_non_secret_macro_body",
   "authority_ceiling": {
     "body_text_in_receipt": false,
     "credential_or_account_bound_payload_exported": false,
-    "provider_payload_exported": false,
     "process_signal_authorized": false,
+    "provider_payload_exported": false,
     "release_authorized": false,
     "whole_system_correctness_claim": false
   },
-  "modules": [
+  "manifest_id": "tool_server_pressure_inventory_fixture_source_modules_v1",
+  "module_count": 0,
+  "modules": [],
+  "organ_id": "tool_server_pressure_inventory",
+  "release_substitution_omissions": [
     {
-      "module_id": "orphan_reaper_pressure_inventory_public_refactor",
-      "source_ref": "tools/meta/control/orphan_reaper.py",
-      "source_sha256": "sha256:5b7c41e11e079c2f20ef3e95d424350c1cda109e25fb4a281639b83f906b9c58",
-      "target_ref": "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
-      "path": "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
-      "sha256": "sha256:5521e1854bd5ebff0fce67789fbaad7df668579b6925a1d448abffcc773375db",
-      "target_sha256": "sha256:5521e1854bd5ebff0fce67789fbaad7df668579b6925a1d448abffcc773375db",
-      "source_to_target_relation": "source_faithful_public_refactor",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "required_anchors": [
-        "ACTIVE_OWNER_STATUS_VALUES",
-        "build_tool_server_pressure_inventory",
-        "build_pressure_hygiene_relief_receipt",
-        "active_owner_release_request_count",
-        "no_process_signal_sent",
-        "request_owner_release"
-      ],
-      "public_safety_notes": [
-        "no live process table read",
-        "no process signal authority",
-        "synthetic command tokens only"
-      ]
+      "module_id": "orphan_reaper_pressure_inventory_public_refactor",
+      "path": "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "tools/meta/control/orphan_reaper_pressure_inventory.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/orphan_reaper.py"
     }
-  ]
+  ],
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body"
 }

@@ -3224,19 +3224,20 @@ def test_refresh_exact_copy_source_modules_blocks_restricted_private_boundary_wr
 
     assert write_result["status"] == "blocked"
     assert write_result["write_applied"] is False
-    assert write_result["write_guard"] == "source_module_boundary_blocked_write"
+    assert write_result["write_guard"] == "source_module_refresh_authority_blocked_write"
     assert write_result["target_copy_count"] == 3
-    boundary_defect = next(
+    authority_defect = next(
         row
         for row in write_result["defects"]
-        if row["defect_code"] == "source_module_refresh_private_boundary_blocked"
+        if row["defect_code"] == "source_module_refresh_authority_blocked"
     )
-    assert boundary_defect["blocked_ref_count"] >= 2
+    assert authority_defect["blocked_decision_count"] >= 2
     assert {
         "tools/meta/observability/cli_prompt_trace.py",
         "system/server/world_model.py",
-    } <= {row["ref"] for row in boundary_defect["blocked_refs"]}
+    } <= {row["source_ref"] for row in authority_defect["blocked_decisions"]}
     assert write_result["source_module_boundary"]["body_in_receipt"] is False
+    assert write_result["source_module_refresh_authority"]["body_in_receipt"] is False
     for material_id, spec in material_targets.items():
         source = source_root / spec["source_ref"]
         source_bytes = source.read_bytes()
@@ -3264,6 +3265,219 @@ def test_refresh_exact_copy_source_modules_blocks_restricted_private_boundary_wr
     assert clean_protocol_only_result["matched_material_ids"] == [
         "agent_session_attribution_body_import"
     ]
+
+
+def _granted_restricted_exact_copy_fixture(tmp_path: Path) -> dict[str, Any]:
+    public_root = tmp_path / "microcosm-substrate"
+    source_root = tmp_path
+    bundle = (
+        public_root
+        / "examples/proof_derived_governed_mutation_authorization/"
+        "exported_governed_mutation_authorization_bundle"
+    )
+    source = source_root / "tools/meta/control/scoped_commit.py"
+    target = bundle / "source_modules/ai_workflow/tools/meta/control/scoped_commit.py"
+    manifest_path = bundle / "source_module_manifest.json"
+    old_body = "def scoped_commit():\n    return 'old'\n"
+    new_body = "def scoped_commit():\n    return 'new'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    source.parent.mkdir(parents=True, exist_ok=True)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    (public_root / "core").mkdir(parents=True)
+    (public_root / "core/private_state_forbidden_classes.json").write_text(
+        "{}",
+        encoding="utf-8",
+    )
+    (public_root / "core/source_module_refresh_policy_v0.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "source_module_refresh_policy_v0",
+                "policy_id": "test_refresh_policy",
+                "policy_revision": "test_policy_rev",
+                "operation": "exact_copy_source_module_refresh",
+                "grants": [
+                    {
+                        "grant_id": "scoped_commit_refresh_grant",
+                        "status": "active",
+                        "operation": "exact_copy_source_module_refresh",
+                        "source_ref": "tools/meta/control/scoped_commit.py",
+                        "source_to_target_relation": "exact_copy",
+                        "material_ids": [
+                            "scoped_commit_private_index_control_body_import"
+                        ],
+                        "target_refs": [
+                            (
+                                "examples/proof_derived_governed_mutation_authorization/"
+                                "exported_governed_mutation_authorization_bundle/"
+                                "source_modules/ai_workflow/tools/meta/control/scoped_commit.py"
+                            )
+                        ],
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    source.write_text(new_body, encoding="utf-8")
+    target.write_text(old_body, encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "scoped_commit_private_index_control_body_import",
+                        "path": "source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
+                        "source_ref": "tools/meta/control/scoped_commit.py",
+                        "target_ref": (
+                            "microcosm-substrate/examples/"
+                            "proof_derived_governed_mutation_authorization/"
+                            "exported_governed_mutation_authorization_bundle/"
+                            "source_modules/ai_workflow/tools/meta/control/scoped_commit.py"
+                        ),
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                        "source_to_target_relation": "exact_copy",
+                        "sha256_match": True,
+                        "source_sha256": f"sha256:{old_digest}",
+                        "target_sha256": f"sha256:{old_digest}",
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return {
+        "public_root": public_root,
+        "source_root": source_root,
+        "bundle": bundle,
+        "source": source,
+        "target": target,
+        "manifest_path": manifest_path,
+        "old_body": old_body,
+        "new_body": new_body,
+    }
+
+
+def test_refresh_exact_copy_source_modules_allows_granted_restricted_exact_copy(
+    tmp_path: Path,
+) -> None:
+    fixture = _granted_restricted_exact_copy_fixture(tmp_path)
+    bundle = fixture["bundle"]
+    source_root = fixture["source_root"]
+    target = fixture["target"]
+    manifest_path = fixture["manifest_path"]
+    new_body = fixture["new_body"]
+
+    dry_run = refresh_exact_copy_source_modules(
+        bundle,
+        source_root=source_root,
+        write=False,
+        command="pytest",
+    )
+
+    assert dry_run["status"] == "drift_detected"
+    assert dry_run["source_module_boundary"]["status"] == "blocked"
+    assert dry_run["source_module_refresh_authority"]["status"] == "pass"
+    dry_run_decision = dry_run["source_module_refresh_authority"]["decisions"][0]
+    assert dry_run_decision["classification_status"] == (
+        "restricted_private_control_plane"
+    )
+    assert dry_run_decision["classification_retained"] is True
+    assert dry_run_decision["authorization_status"] == "allow_with_authority"
+    assert dry_run_decision["policy_fingerprint"].startswith("sha256:")
+    assert dry_run_decision["source_sha256"].startswith("sha256:")
+    dry_plan = dry_run["source_module_refresh_plan"]
+    assert dry_plan["plan_fingerprint"].startswith("sha256:")
+    assert dry_plan["target_copy_preconditions"][0]["target_preimage_sha256"].startswith(
+        "sha256:"
+    )
+    assert dry_plan["target_copy_preconditions"][0][
+        "intended_target_sha256"
+    ].startswith("sha256:")
+
+    write_result = refresh_exact_copy_source_modules(
+        bundle,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    assert write_result["status"] == "pass"
+    assert write_result["write_guard"] == "source_coupling_checked"
+    assert write_result["write_applied"] is True
+    assert target.read_text(encoding="utf-8") == new_body
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_row = manifest["modules"][0]
+    assert manifest_row["source_sha256"] == f"sha256:{new_digest}"
+    assert manifest_row["target_sha256"] == f"sha256:{new_digest}"
+    receipt_row = write_result["manifest_rows"][0]
+    assert receipt_row["target_preimage_sha256"].startswith("sha256:")
+    assert receipt_row["intended_target_sha256"] == f"sha256:{new_digest}"
+    assert receipt_row["observed_postwrite_sha256"] == f"sha256:{new_digest}"
+
+
+def test_refresh_exact_copy_source_modules_refuses_stale_source_target_or_policy(
+    tmp_path: Path,
+) -> None:
+    for stale_case in ("source", "target", "policy"):
+        fixture = _granted_restricted_exact_copy_fixture(tmp_path / stale_case)
+        bundle = fixture["bundle"]
+        source_root = fixture["source_root"]
+        source = fixture["source"]
+        target = fixture["target"]
+        public_root = fixture["public_root"]
+
+        def mutate_after_plan() -> None:
+            if stale_case == "source":
+                source.write_text(
+                    "def scoped_commit():\n    return 'changed after plan'\n",
+                    encoding="utf-8",
+                )
+            elif stale_case == "target":
+                target.write_text(
+                    "def scoped_commit():\n    return 'target changed after plan'\n",
+                    encoding="utf-8",
+                )
+            else:
+                policy_path = public_root / "core/source_module_refresh_policy_v0.json"
+                policy = json.loads(policy_path.read_text(encoding="utf-8"))
+                policy["grants"][0]["status"] = "revoked"
+                policy_path.write_text(json.dumps(policy, indent=2) + "\n")
+
+        result = refresh_exact_copy_source_modules(
+            bundle,
+            source_root=source_root,
+            write=True,
+            command=f"pytest stale {stale_case}",
+            _pre_write_hook=mutate_after_plan,
+        )
+
+        assert result["status"] == "blocked"
+        assert result["write_applied"] is False
+        assert result["write_guard"] == "source_module_refresh_stale_plan_blocked_write"
+        stale_defect = next(
+            row
+            for row in result["defects"]
+            if row["defect_code"] == "source_module_refresh_stale_plan"
+        )
+        observed_preconditions = {
+            row["precondition"] for row in stale_defect["stale_preconditions"]
+        }
+        if stale_case == "source":
+            assert "source_sha256" in observed_preconditions
+        elif stale_case == "target":
+            assert "target_preimage_sha256" in observed_preconditions
+        else:
+            assert "policy_fingerprint" in observed_preconditions
+            assert "policy_authority_decisions" in observed_preconditions
 
 
 def test_refresh_exact_copy_source_modules_accepts_source_import_class_rows(

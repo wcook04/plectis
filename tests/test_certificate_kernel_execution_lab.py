@@ -389,7 +389,10 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
     assert result["authority_counters"]["evolve_accepted_count"] == 2
     assert result["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
     assert result["body_in_receipt"] is False
-    assert result["real_runtime_receipt"] is True
+    # Standalone exported certificate contract is synthetic, not a live lean/lake run.
+    assert result["real_runtime_receipt"] is False
+    assert result["synthetic_contract"] is True
+    assert result["not_a_live_run"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
     assert result["source_module_manifest_status"] == "pass"
     assert result["source_module_manifest_ref"].endswith(

@@ -18,13 +18,13 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
         "The smoke target is the no-install public sanity check."
     )
     assert "`.microcosm/` route state through `tour --card`" in text
-    assert "Microcosm smoke check: pass" in text
+    assert "Plectis smoke check: pass" in text
     assert "authority: pass" in text
     assert "workingness: clear" in text
     assert "served status: pass" in text
     assert "make install" in text
     assert ".venv/bin/python -m pip install -e '.[test]'" in text
-    assert ".venv/bin/microcosm hello ." in text
+    assert ".venv/bin/plectis hello ." in text
     assert "pytest basetemp, Python bytecode" in text
     assert "per-run folders inside" in text
     assert "`$(TMPDIR)/microcosm-substrate-test-tmp`" in text
@@ -82,12 +82,12 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
         "\npython3 -m pytest tests/test_public_entry_docs.py "
         "tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py"
     ) not in text
-    assert "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export" in text
+    assert "make standalone-export EXPORT_OUT=/tmp/plectis-export" in text
     assert "receipts/release/release_export_receipt.json" in text
     assert "release_authorized=false" in text
     assert "intentionally not part of `make ci`" in text
     assert "validate it from inside the exported artifact" in text
-    assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in text
+    assert "cd /tmp/plectis-export/plectis" in text
     assert "That cold-clone check proves the exported package can install" in text
     assert "It does not authorize release" in text
     assert "`make test-all`" in text

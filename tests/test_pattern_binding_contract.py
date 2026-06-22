@@ -435,7 +435,7 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
 
 
 def test_pattern_binding_substrate_bundle_accepts_installed_share_root(tmp_path: Path) -> None:
-    public_root = tmp_path / "share/microcosm-substrate"
+    public_root = tmp_path / "share/plectis"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
         MICROCOSM_ROOT / "examples/pattern_binding_contract",
@@ -565,7 +565,7 @@ def test_route_readiness_bundle_validator_rejects_row_level_leaf_authority(tmp_p
 
 
 def test_route_readiness_bundle_validator_accepts_installed_share_root(tmp_path: Path) -> None:
-    public_root = tmp_path / "share/microcosm-substrate"
+    public_root = tmp_path / "share/plectis"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
         MICROCOSM_ROOT / "examples/pattern_binding_contract",

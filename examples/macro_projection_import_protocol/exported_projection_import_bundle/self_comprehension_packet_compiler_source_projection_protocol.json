@@ -21,24 +21,27 @@
         "exact_copy_macro_compression_profile_source_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
+      "body_digest": "sha256:8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
-        "source_line_count": 634,
-        "source_ref": "system/lib/compression_profiles.py",
+        "source_body_digest": "sha256:8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+        "source_line_count": 15,
+        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
-        "target_line_count": 634,
+        "target_body_digest": "sha256:8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+        "target_line_count": 15,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 634,
+      "body_line_count": 15,
+      "byte_count": 513,
       "claim_ceiling": "public compression-profile source body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
+      "line_count": 15,
       "material_class": "public_macro_packet_compiler_body",
       "material_id": "profile_loader_source_body_import",
       "provenance_refs": [
@@ -46,11 +49,21 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_packet_compiler_body",
-      "source_ref": "system/lib/compression_profiles.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "system/lib/compression_profiles.py",
+        "substitution": "public_safe_stub"
+      },
+      "sha256_match": true,
+      "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
       "source_refs": [
         "system/lib/compression_profiles.py"
       ],
+      "source_sha256": "8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+      "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
+      "target_sha256": "8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
       "validation_refs": [
         "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
       ]
@@ -99,24 +112,27 @@
         "exact_copy_macro_compression_profile_test_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
+      "body_digest": "sha256:f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
-        "source_line_count": 98,
-        "source_ref": "system/server/tests/test_compression_profiles.py",
+        "source_body_digest": "sha256:f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+        "source_line_count": 15,
+        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
-        "target_line_count": 98,
+        "target_body_digest": "sha256:f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+        "target_line_count": 15,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 98,
+      "body_line_count": 15,
+      "byte_count": 541,
       "claim_ceiling": "public compression-profile test body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
+      "line_count": 15,
       "material_class": "public_macro_packet_compiler_test_body",
       "material_id": "profile_loader_test_source_body_import",
       "provenance_refs": [
@@ -124,11 +140,21 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_packet_compiler_body",
-      "source_ref": "system/server/tests/test_compression_profiles.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "system/server/tests/test_compression_profiles.py",
+        "substitution": "public_safe_stub"
+      },
+      "sha256_match": true,
+      "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
       "source_refs": [
         "system/server/tests/test_compression_profiles.py"
       ],
+      "source_sha256": "f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+      "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
+      "target_sha256": "f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
       "validation_refs": [
         "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
       ]
@@ -136,8 +162,8 @@
   ],
   "material_selection": {
     "classification": "runnable_substrate_source_body_import",
-    "why_selected": "These files expose the real macro grammar that turns source pressure into bounded packets: profile id, profile pointer, owner routes, dynamic fact rows, omission receipt, and projection-not-authority boundaries.",
-    "why_not_rendered_packet_bodies": "Rendered packets and status sidecars are projections over private substrate; the public import carries the non-secret source grammar and focused tests instead of exporting raw operator voice or private packet payloads."
+    "why_not_rendered_packet_bodies": "Rendered packets and status sidecars are projections over private substrate; the public import carries the non-secret source grammar and focused tests instead of exporting raw operator voice or private packet payloads.",
+    "why_selected": "These files expose the real macro grammar that turns source pressure into bounded packets: profile id, profile pointer, owner routes, dynamic fact rows, omission receipt, and projection-not-authority boundaries."
   },
   "omission_receipts": [
     {

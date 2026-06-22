@@ -171,7 +171,7 @@ def _expected_public_data_files(top_level: str) -> dict[str, list[str]]:
             if path.is_file() and path.name in PUBLIC_DATA_FILENAMES
         )
         if patterns:
-            expected[f"share/microcosm-substrate/{rel_dir}"] = patterns
+            expected[f"share/plectis/{rel_dir}"] = patterns
     return expected
 
 
@@ -222,7 +222,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
     data_files = payload["tool"]["setuptools"]["data-files"]
 
-    assert data_files["share/microcosm-substrate"] == [
+    assert data_files["share/plectis"] == [
         ".gitignore",
         "AGENTS.md",
         "AGENT_ROUTES.md",
@@ -250,47 +250,47 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "bootstrap.sh",
         "pyproject.toml",
     ]
-    assert data_files["share/microcosm-substrate/core"] == ["core/*.json"]
-    assert data_files["share/microcosm-substrate/.github/workflows"] == [
+    assert data_files["share/plectis/core"] == ["core/*.json"]
+    assert data_files["share/plectis/.github/workflows"] == [
         ".github/workflows/*.yml"
     ]
-    assert data_files["share/microcosm-substrate/.github"] == [
+    assert data_files["share/plectis/.github"] == [
         ".github/PULL_REQUEST_TEMPLATE.md"
     ]
 
-    assert data_files["share/microcosm-substrate/atlas"] == ["atlas/*.json"]
-    assert data_files["share/microcosm-substrate/core/preflight_support"] == [
+    assert data_files["share/plectis/atlas"] == ["atlas/*.json"]
+    assert data_files["share/plectis/core/preflight_support"] == [
         "core/preflight_support/*.json"
     ]
-    assert data_files["share/microcosm-substrate/src/microcosm_core/macro_tools"] == [
+    assert data_files["share/plectis/src/microcosm_core/macro_tools"] == [
         "src/microcosm_core/macro_tools/*.py"
     ]
-    assert data_files["share/microcosm-substrate/paper_modules"] == [
+    assert data_files["share/plectis/paper_modules"] == [
         "paper_modules/*.md"
     ]
-    assert data_files["share/microcosm-substrate/scripts"] == ["scripts/*.py"]
-    assert data_files["share/microcosm-substrate/skills"] == ["skills/*.md"]
-    assert data_files["share/microcosm-substrate/standards"] == ["standards/*.json"]
-    assert data_files["share/microcosm-substrate/receipts/acceptance"] == [
+    assert data_files["share/plectis/scripts"] == ["scripts/*.py"]
+    assert data_files["share/plectis/skills"] == ["skills/*.md"]
+    assert data_files["share/plectis/standards"] == ["standards/*.json"]
+    assert data_files["share/plectis/receipts/acceptance"] == [
         "receipts/acceptance/*.json",
         "receipts/acceptance/pattern_assimilation_step",
     ]
-    assert data_files["share/microcosm-substrate/receipts/acceptance/first_wave"] == [
+    assert data_files["share/plectis/receipts/acceptance/first_wave"] == [
         "receipts/acceptance/first_wave/*.json"
     ]
-    assert data_files["share/microcosm-substrate/receipts/preflight"] == [
+    assert data_files["share/plectis/receipts/preflight"] == [
         "receipts/preflight/*.json"
     ]
-    assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [
+    assert data_files["share/plectis/receipts/runtime_shell"] == [
         "receipts/runtime_shell/*.json"
     ]
     # The comprehension product (join index -> first-action contracts) must ship
     # with the package: without receipts/code_lens the installed share tree has
     # no graph substrate and `comprehend` is dev-tree-only.
-    assert data_files["share/microcosm-substrate/receipts/code_lens"] == [
+    assert data_files["share/plectis/receipts/code_lens"] == [
         "receipts/code_lens/*.json"
     ]
-    assert data_files["share/microcosm-substrate/receipts/code_lens/read_packs"] == [
+    assert data_files["share/plectis/receipts/code_lens/read_packs"] == [
         "receipts/code_lens/read_packs/*.json"
     ]
     for receipt_dir in (
@@ -302,7 +302,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "pattern_binding_contract",
         "proof_diagnostic_evidence_spine",
     ):
-        assert data_files[f"share/microcosm-substrate/receipts/first_wave/{receipt_dir}"] == [
+        assert data_files[f"share/plectis/receipts/first_wave/{receipt_dir}"] == [
             f"receipts/first_wave/{receipt_dir}/*.json"
         ]
     for receipt_dir in (
@@ -318,11 +318,11 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "target_shape_tactic_routing_gate",
         "verifier_lab_execution_spine",
     ):
-        assert data_files[f"share/microcosm-substrate/receipts/first_wave/{receipt_dir}"] == [
+        assert data_files[f"share/plectis/receipts/first_wave/{receipt_dir}"] == [
             f"receipts/first_wave/{receipt_dir}/*.json"
         ]
     assert data_files[
-        "share/microcosm-substrate/receipts/first_wave/verifier_lab_kernel"
+        "share/plectis/receipts/first_wave/verifier_lab_kernel"
     ] == ["receipts/first_wave/verifier_lab_kernel/*.json"]
     for receipt_dir in (
         "prediction_oracle_reconciliation",
@@ -332,7 +332,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "agent_monitor_redteam_falsification_replay",
         "agent_sabotage_scheming_monitor_replay",
     ):
-        assert data_files[f"share/microcosm-substrate/receipts/first_wave/{receipt_dir}"] == [
+        assert data_files[f"share/plectis/receipts/first_wave/{receipt_dir}"] == [
             f"receipts/first_wave/{receipt_dir}/*.json"
         ]
 
@@ -342,7 +342,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "examples/pattern_binding_contract/exported_substrate_bundle",
         "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
     ):
-        assert f"share/microcosm-substrate/{rel}" in data_files
+        assert f"share/plectis/{rel}" in data_files
 
 
 def test_provider_adapter_files_stay_thin_and_route_to_canonical_agent_contract() -> None:
@@ -366,11 +366,11 @@ def test_package_data_contract_includes_all_public_fixture_directories() -> None
     observed = {
         key: data_files.get(key)
         for key in expected
-        if key.startswith("share/microcosm-substrate/fixtures/")
+        if key.startswith("share/plectis/fixtures/")
     }
 
     assert observed == expected
-    assert "share/microcosm-substrate/fixtures" not in data_files
+    assert "share/plectis/fixtures" not in data_files
 
 
 def test_package_data_contract_includes_all_public_example_directories() -> None:
@@ -381,11 +381,11 @@ def test_package_data_contract_includes_all_public_example_directories() -> None
     observed = {
         key: data_files.get(key)
         for key in expected
-        if key.startswith("share/microcosm-substrate/examples/")
+        if key.startswith("share/plectis/examples/")
     }
 
     assert observed == expected
-    assert "share/microcosm-substrate/examples" not in data_files
+    assert "share/plectis/examples" not in data_files
 
 
 def test_package_data_contract_excludes_generated_runtime_state() -> None:
@@ -446,7 +446,7 @@ def test_installed_proof_lab_cache_freshness_ignores_install_mtimes(
     monkeypatch,
 ) -> None:
     venv = tmp_path / "venv"
-    installed_root = venv / "share/microcosm-substrate"
+    installed_root = venv / "share/plectis"
     receipt_path = installed_root / runtime_shell.PROOF_LAB_RECEIPT_REF
     input_root = installed_root / runtime_shell.PROOF_LAB_BUNDLE_REF
     receipt_path.parent.mkdir(parents=True)
@@ -472,7 +472,7 @@ def test_cli_proof_lab_defaults_follow_installed_data_root(
     monkeypatch,
 ) -> None:
     venv = tmp_path / "venv"
-    installed_root = venv / "share/microcosm-substrate"
+    installed_root = venv / "share/plectis"
     receipt_path = installed_root / runtime_shell.PROOF_LAB_RECEIPT_REF
     input_root = installed_root / runtime_shell.PROOF_LAB_BUNDLE_REF
 
@@ -530,7 +530,7 @@ def test_resource_root_follows_prefix_install_module_layout(
 ) -> None:
     prefix = tmp_path / "install-prefix"
     site_package = prefix / "lib/python3.13/site-packages/microcosm_core"
-    installed_root = prefix / "share/microcosm-substrate"
+    installed_root = prefix / "share/plectis"
     module_file = site_package / "resource_root.py"
     module_file.parent.mkdir(parents=True)
     module_file.write_text("# installed module placeholder\n", encoding="utf-8")

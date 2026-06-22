@@ -2,7 +2,8 @@
 
 Plectis is a public-safe research runtime, not a production security product.
 Microcosm remains the historical and technical compatibility label for the
-repository path, package ids, and `.microcosm/` local state.
+`microcosm_core` import path, the legacy `microcosm` command alias,
+`.microcosm/` local state, historical paths, and frozen receipts.
 A passing receipt proves only the command, fixture boundary, and
 contract named in that receipt. It does not grant release, hosting, provider
 execution, private-root equivalence, proof-correctness, or production security
@@ -53,9 +54,9 @@ output.
 
 ## Useful Local Checks
 
-Run these from `microcosm-substrate/` before reporting or accepting a boundary
-change. Start with the source-root probe so fixture availability and the
-public-safe boundary are checked before any install step:
+Run these from the Plectis source checkout before reporting or accepting a
+boundary change. Start with the source-root probe so fixture availability and
+the public-safe boundary are checked before any install step:
 
 ```bash
 ./bootstrap.sh
@@ -70,12 +71,13 @@ standalone environment as the public repo:
 
 ```bash
 make install
-.venv/bin/microcosm authority --card
-.venv/bin/microcosm stripping-guard
+.venv/bin/plectis authority --card
+.venv/bin/plectis stripping-guard
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py tests/test_public_entry_docs.py
 ```
 
-If you are not using the Makefile wrapper, create the same local test
+The legacy `.venv/bin/microcosm` command remains supported as a compatibility
+alias. If you are not using the Makefile wrapper, create the same local test
 environment explicitly:
 
 ```bash
@@ -83,7 +85,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[test]'
 ```
 
-If the `microcosm` console command is not available yet and you only need the
+If the `plectis` console command is not available yet and you only need the
 card checks, use the source form without changing the check boundary:
 
 ```bash
@@ -98,13 +100,12 @@ publication, hosting, or provider authority, create a bounded release receipt
 before reporting it:
 
 ```bash
-make standalone-export EXPORT_OUT=/tmp/microcosm-security-boundary-export
+make standalone-export EXPORT_OUT=/tmp/plectis-security-boundary-export
 ```
 
-Inspect
-`/tmp/microcosm-security-boundary-export/microcosm-substrate/receipts/release/release_export_receipt.json`
-and include the receipt id, artifact hash, blocking codes, and release gate
-fields in the report. The expected public boundary is:
+Inspect the `receipts/release/release_export_receipt.json` file inside the
+exported Plectis tree and include the receipt id, artifact hash, blocking
+codes, and release gate fields in the report. The expected public boundary is:
 
 - `authority_receipt.release_authorized=false`
 - `authority_receipt.publish_authorized=false`

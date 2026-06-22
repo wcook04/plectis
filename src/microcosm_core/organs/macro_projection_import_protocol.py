@@ -25,6 +25,7 @@ from microcosm_core.receipts import (
 from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators.source_module_boundary import (
     evaluate_source_module_boundary,
+    evaluate_source_module_refresh_authority,
 )
 
 
@@ -3150,6 +3151,182 @@ def _digest_for_existing_format(existing: Any, stats: dict[str, Any]) -> str:
     return str(stats["sha256"])
 
 
+def _path_preimage_digest(path: Path) -> str | None:
+    return _sha256_digest(path) if path.is_file() else None
+
+
+def _refresh_mutation_class(*, relation: str, verified_light_edit: bool) -> str:
+    if verified_light_edit:
+        return "verified_light_edit_metadata_refresh"
+    if relation in EXACT_COPY_SOURCE_TO_TARGET_RELATIONS or relation == "":
+        return "exact_copy_body_refresh"
+    return "exact_copy_relation_alias_body_refresh"
+
+
+def _sanitize_receipt_payload(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: _sanitize_receipt_payload(item)
+            for key, item in value.items()
+            if not key.startswith("_")
+        }
+    if isinstance(value, list):
+        return [_sanitize_receipt_payload(item) for item in value]
+    return value
+
+
+def _plan_fingerprint(payload: dict[str, Any]) -> str:
+    data = json.dumps(
+        _sanitize_receipt_payload(payload),
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return f"sha256:{hashlib.sha256(data).hexdigest()}"
+
+
+def _build_source_module_refresh_plan(
+    *,
+    target_copy_plans: dict[str, dict[str, Any]],
+    json_updates: dict[str, tuple[Path, dict[str, Any]]],
+    public_root: Path,
+    source_module_refresh_authority: dict[str, Any],
+    pending_authority_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    target_copy_entries = [
+        dict(entry)
+        for _target_key, entry in sorted(target_copy_plans.items(), key=lambda item: item[0])
+    ]
+    json_update_entries: list[dict[str, Any]] = []
+    for key, (path, _payload) in sorted(json_updates.items(), key=lambda item: item[0]):
+        if path.name.endswith("source_module_manifest.json"):
+            role = "manifest_json_update"
+        elif path.name == "projection_protocol.json":
+            role = "protocol_json_update"
+        elif path.name == "bundle_manifest.json":
+            role = "bundle_manifest_json_update"
+        else:
+            role = "json_update"
+        json_update_entries.append(
+            {
+                "role": role,
+                "path_ref": _display(path, public_root=public_root),
+                "preimage_sha256": _path_preimage_digest(path),
+                "_path": path,
+            }
+        )
+
+    plan = {
+        "schema_version": "source_module_refresh_authorization_plan_v1",
+        "operation": source_module_refresh_authority.get("operation"),
+        "policy_ref": source_module_refresh_authority.get("policy_ref"),
+        "policy_id": source_module_refresh_authority.get("policy_id"),
+        "policy_revision": source_module_refresh_authority.get("policy_revision"),
+        "policy_fingerprint": source_module_refresh_authority.get("policy_fingerprint"),
+        "authority_checker_id": source_module_refresh_authority.get("checker_id"),
+        "authority_decision_count": source_module_refresh_authority.get("decision_count"),
+        "target_copy_precondition_count": len(target_copy_entries),
+        "json_update_precondition_count": len(json_update_entries),
+        "pending_authority_row_count": len(pending_authority_rows),
+        "target_copy_preconditions": target_copy_entries,
+        "json_update_preconditions": json_update_entries,
+        "write_set_identity": {
+            "target_copy_refs": [
+                entry["target_ref"] for entry in target_copy_entries
+            ],
+            "json_update_refs": [
+                entry["path_ref"] for entry in json_update_entries
+            ],
+        },
+        "body_in_receipt": False,
+    }
+    plan["plan_fingerprint"] = _plan_fingerprint(plan)
+    return plan
+
+
+def _revalidate_source_module_refresh_plan(
+    plan: dict[str, Any],
+    *,
+    pending_authority_rows: list[dict[str, Any]],
+    public_root: Path,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+
+    fresh_authority = evaluate_source_module_refresh_authority(
+        pending_authority_rows,
+        public_root=public_root,
+    )
+    if fresh_authority.get("policy_fingerprint") != plan.get("policy_fingerprint"):
+        findings.append(
+            {
+                "precondition": "policy_fingerprint",
+                "expected": plan.get("policy_fingerprint"),
+                "observed": fresh_authority.get("policy_fingerprint"),
+            }
+        )
+    if fresh_authority.get("status") != PASS:
+        findings.append(
+            {
+                "precondition": "policy_authority_decisions",
+                "expected": PASS,
+                "observed": fresh_authority.get("status"),
+                "blocked_decision_count": fresh_authority.get(
+                    "blocked_decision_count"
+                ),
+            }
+        )
+
+    for entry in plan.get("target_copy_preconditions") or []:
+        source_path = entry.get("_source_path")
+        target_path = entry.get("_target_path")
+        observed_source = (
+            _sha256_digest(source_path)
+            if isinstance(source_path, Path) and source_path.is_file()
+            else None
+        )
+        observed_target = (
+            _sha256_digest(target_path)
+            if isinstance(target_path, Path) and target_path.is_file()
+            else None
+        )
+        if observed_source != entry.get("source_sha256"):
+            findings.append(
+                {
+                    "precondition": "source_sha256",
+                    "target_ref": entry.get("target_ref"),
+                    "source_ref": entry.get("source_ref"),
+                    "expected": entry.get("source_sha256"),
+                    "observed": observed_source,
+                }
+            )
+        if observed_target != entry.get("target_preimage_sha256"):
+            findings.append(
+                {
+                    "precondition": "target_preimage_sha256",
+                    "target_ref": entry.get("target_ref"),
+                    "expected": entry.get("target_preimage_sha256"),
+                    "observed": observed_target,
+                }
+            )
+
+    for entry in plan.get("json_update_preconditions") or []:
+        path = entry.get("_path")
+        observed = (
+            _sha256_digest(path) if isinstance(path, Path) and path.is_file() else None
+        )
+        if observed != entry.get("preimage_sha256"):
+            findings.append(
+                {
+                    "precondition": "json_update_preimage_sha256",
+                    "path_ref": entry.get("path_ref"),
+                    "expected": entry.get("preimage_sha256"),
+                    "observed": observed,
+                }
+            )
+
+    return findings
+
+
 def _resolve_source_path(
     source_ref: str,
     *,
@@ -3827,6 +4004,7 @@ def _update_source_module_manifest_row(
     public_root: Path,
     source_root: Path,
     target_copies: dict[str, tuple[Path, Path]],
+    target_copy_plans: dict[str, dict[str, Any]],
     defects: list[dict[str, Any]],
     exact_copy_targets: dict[str, tuple[Path, Path]] | None = None,
 ) -> dict[str, Any] | None:
@@ -3933,6 +4111,8 @@ def _update_source_module_manifest_row(
 
     source_target_match = stats["body_digest"] == desired_target_stats["body_digest"]
     current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
+    target_preimage_sha256 = _path_preimage_digest(target_path)
+    intended_target_sha256 = desired_target_stats["body_digest"]
     row_updates = {
         "body_copied": True,
         "source_sha256": _digest_for_existing_format(row.get("source_sha256"), stats),
@@ -3988,12 +4168,42 @@ def _update_source_module_manifest_row(
         return None
     if target_changed:
         target_copies[target_key] = (source_path, target_path)
+        plan_entry = target_copy_plans.setdefault(
+            target_key,
+            {
+                "material_ids": [],
+                "source_ref": source_ref,
+                "target_ref": _display(target_path, public_root=public_root),
+                "source_to_target_relation": relation or "exact_copy",
+                "mutation_class": _refresh_mutation_class(
+                    relation=relation,
+                    verified_light_edit=verified_light_edit,
+                ),
+                "source_sha256": stats["body_digest"],
+                "target_preimage_sha256": target_preimage_sha256,
+                "intended_target_sha256": intended_target_sha256,
+                "_source_path": source_path,
+                "_target_path": target_path,
+            },
+        )
+        if material_id not in plan_entry["material_ids"]:
+            plan_entry["material_ids"].append(material_id)
 
     row.update(row_updates)
     return {
         "material_id": material_id,
         "source_ref": source_ref,
         "target_ref": _display(target_path, public_root=public_root),
+        "source_to_target_relation": relation or "exact_copy",
+        "mutation_class": _refresh_mutation_class(
+            relation=relation,
+            verified_light_edit=verified_light_edit,
+        ),
+        "source_sha256": stats["body_digest"],
+        "target_preimage_sha256": target_preimage_sha256,
+        "intended_target_sha256": intended_target_sha256,
+        "target_sha256": intended_target_sha256,
+        "observed_postwrite_sha256": None,
         "manifest_ref": _display(manifest_path, public_root=public_root),
         "target_refresh_required": target_changed,
         "metadata_refresh_required": metadata_changed,
@@ -4010,6 +4220,7 @@ def _update_protocol_refreshable_row(
     public_root: Path,
     source_root: Path,
     target_copies: dict[str, tuple[Path, Path]],
+    target_copy_plans: dict[str, dict[str, Any]],
     defects: list[dict[str, Any]],
 ) -> dict[str, Any] | None:
     verification = row.get("body_import_verification")
@@ -4100,6 +4311,8 @@ def _update_protocol_refreshable_row(
         return None
     desired_target_stats = target_stats if verified_light_edit and target_stats else stats
     current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
+    target_preimage_sha256 = _path_preimage_digest(target_path)
+    intended_target_sha256 = desired_target_stats["body_digest"]
     target_changed = (
         (not verified_light_edit) and current_target_digest != stats["body_digest"]
     )
@@ -4142,6 +4355,26 @@ def _update_protocol_refreshable_row(
         return None
     if target_changed:
         target_copies[target_key] = (source_path, target_path)
+        plan_entry = target_copy_plans.setdefault(
+            target_key,
+            {
+                "material_ids": [],
+                "source_ref": source_ref,
+                "target_ref": _display(target_path, public_root=public_root),
+                "source_to_target_relation": relation,
+                "mutation_class": _refresh_mutation_class(
+                    relation=relation,
+                    verified_light_edit=verified_light_edit,
+                ),
+                "source_sha256": stats["body_digest"],
+                "target_preimage_sha256": target_preimage_sha256,
+                "intended_target_sha256": intended_target_sha256,
+                "_source_path": source_path,
+                "_target_path": target_path,
+            },
+        )
+        if material_id not in plan_entry["material_ids"]:
+            plan_entry["material_ids"].append(material_id)
 
     row.update(row_updates)
     verification.update(verification_updates)
@@ -4149,6 +4382,16 @@ def _update_protocol_refreshable_row(
         "material_id": material_id,
         "source_ref": source_ref,
         "target_ref": _display(target_path, public_root=public_root),
+        "source_to_target_relation": relation,
+        "mutation_class": _refresh_mutation_class(
+            relation=relation,
+            verified_light_edit=verified_light_edit,
+        ),
+        "source_sha256": stats["body_digest"],
+        "target_preimage_sha256": target_preimage_sha256,
+        "intended_target_sha256": intended_target_sha256,
+        "target_sha256": intended_target_sha256,
+        "observed_postwrite_sha256": None,
         "protocol_ref": _display(protocol_path, public_root=public_root),
         "target_refresh_required": target_changed,
         "metadata_refresh_required": metadata_changed,
@@ -4169,6 +4412,7 @@ def refresh_exact_copy_source_modules(
     all_examples: bool = False,
     scan_protocols: bool = True,
     command: str | None = None,
+    _pre_write_hook: Any | None = None,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     public_root = _public_root_for_path(input_path)
@@ -4189,6 +4433,7 @@ def refresh_exact_copy_source_modules(
         else []
     )
     target_copies: dict[str, tuple[Path, Path]] = {}
+    target_copy_plans: dict[str, dict[str, Any]] = {}
     defects: list[dict[str, Any]] = []
     manifest_rows: list[dict[str, Any]] = []
     protocol_rows: list[dict[str, Any]] = []
@@ -4230,6 +4475,7 @@ def refresh_exact_copy_source_modules(
                     public_root=public_root,
                     source_root=source_root_path,
                     target_copies=target_copies,
+                    target_copy_plans=target_copy_plans,
                     defects=defects,
                     exact_copy_targets=exact_copy_targets,
                 )
@@ -4314,6 +4560,7 @@ def refresh_exact_copy_source_modules(
                 public_root=public_root,
                 source_root=source_root_path,
                 target_copies=target_copies,
+                target_copy_plans=target_copy_plans,
                 defects=defects,
             )
             if update is not None:
@@ -4352,15 +4599,41 @@ def refresh_exact_copy_source_modules(
     source_module_boundary = evaluate_source_module_boundary(
         direct_refs=pending_source_refs,
     )
-    blocked_boundary_refs = list(source_module_boundary.get("blocked_refs") or [])
-    if write and blocked_boundary_refs:
+    pending_authority_rows = [
+        {
+            "material_id": row.get("material_id"),
+            "source_ref": row.get("source_ref"),
+            "target_ref": row.get("target_ref"),
+            "source_to_target_relation": row.get("source_to_target_relation"),
+            "source_sha256": row.get("source_sha256"),
+            "target_preimage_sha256": row.get("target_preimage_sha256"),
+            "intended_target_sha256": row.get("intended_target_sha256"),
+            "target_sha256": row.get("intended_target_sha256")
+            or row.get("target_sha256"),
+            "mutation_class": row.get("mutation_class"),
+        }
+        for row in (*manifest_rows, *protocol_rows)
+        if row.get("source_ref")
+    ]
+    source_module_refresh_authority = evaluate_source_module_refresh_authority(
+        pending_authority_rows,
+        public_root=public_root,
+    )
+    blocked_authority_decisions = list(
+        source_module_refresh_authority.get("blocked_decisions") or []
+    )
+    if write and blocked_authority_decisions:
         defects.append(
             {
-                "defect_code": "source_module_refresh_private_boundary_blocked",
-                "boundary_checker_id": source_module_boundary.get("checker_id"),
-                "blocked_ref_count": len(blocked_boundary_refs),
-                "blocked_refs": blocked_boundary_refs,
-                "next_action": source_module_boundary.get("next_action"),
+                "defect_code": "source_module_refresh_authority_blocked",
+                "authority_checker_id": source_module_refresh_authority.get("checker_id"),
+                "blocked_decision_count": len(blocked_authority_decisions),
+                "blocked_decisions": blocked_authority_decisions,
+                "policy_fingerprint": source_module_refresh_authority.get(
+                    "policy_fingerprint"
+                ),
+                "policy_ref": source_module_refresh_authority.get("policy_ref"),
+                "next_action": "exclude_blocked_rows_or_add_operation_scoped_refresh_grants",
                 "body_in_receipt": False,
             }
         )
@@ -4408,6 +4681,37 @@ def refresh_exact_copy_source_modules(
                 "body_in_receipt": False,
             }
         )
+
+    refresh_plan = _build_source_module_refresh_plan(
+        target_copy_plans=target_copy_plans,
+        json_updates=json_updates,
+        public_root=public_root,
+        source_module_refresh_authority=source_module_refresh_authority,
+        pending_authority_rows=pending_authority_rows,
+    )
+    stale_plan_findings: list[dict[str, Any]] = []
+    if write and not defects:
+        if _pre_write_hook is not None:
+            _pre_write_hook()
+        stale_plan_findings = _revalidate_source_module_refresh_plan(
+            refresh_plan,
+            pending_authority_rows=pending_authority_rows,
+            public_root=public_root,
+        )
+        if stale_plan_findings:
+            defects.append(
+                {
+                    "defect_code": "source_module_refresh_stale_plan",
+                    "stale_precondition_count": len(stale_plan_findings),
+                    "stale_preconditions": stale_plan_findings,
+                    "plan_fingerprint": refresh_plan.get("plan_fingerprint"),
+                    "policy_fingerprint": refresh_plan.get("policy_fingerprint"),
+                    "next_action": (
+                        "rerun_exact_copy_refresh_after_policy_source_or_target_settles"
+                    ),
+                    "body_in_receipt": False,
+                }
+            )
 
     pending_manifest_keys = {
         str(path.resolve(strict=False))
@@ -4457,6 +4761,12 @@ def refresh_exact_copy_source_modules(
         for path, payload in bundle_updates.values():
             write_json_atomic(path, payload)
 
+        for row in (*manifest_rows, *protocol_rows):
+            target_ref = str(row.get("target_ref") or "")
+            target_path = _resolve_public_target_path(target_ref, public_root=public_root)
+            if target_path is not None and target_path.is_file():
+                row["observed_postwrite_sha256"] = _sha256_digest(target_path)
+
     pending_update_count = (
         len(manifest_rows)
         + len(protocol_rows)
@@ -4488,8 +4798,10 @@ def refresh_exact_copy_source_modules(
         "allow_dirty_sources": allow_dirty_sources,
         "allow_dirty_outputs": allow_dirty_outputs,
         "write_guard": (
-            "source_module_boundary_blocked_write"
-            if write and blocked_boundary_refs
+            "source_module_refresh_authority_blocked_write"
+            if write and blocked_authority_decisions
+            else "source_module_refresh_stale_plan_blocked_write"
+            if write and stale_plan_findings
             else
             "dirty_pending_sources_and_outputs_blocked_write"
             if (
@@ -4534,6 +4846,9 @@ def refresh_exact_copy_source_modules(
         "defect_count": len(defects),
         "defects": defects,
         "source_module_boundary": source_module_boundary,
+        "source_module_refresh_authority": source_module_refresh_authority,
+        "source_module_refresh_plan": _sanitize_receipt_payload(refresh_plan),
+        "source_module_refresh_stale_plan_findings": stale_plan_findings,
         "source_coupling": source_coupling,
         "output_coupling": output_coupling,
         "body_text_in_receipt": False,

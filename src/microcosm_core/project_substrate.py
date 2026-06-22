@@ -30,7 +30,7 @@ STATE_DIR = ".microcosm"
 EVIDENCE_DIR = "evidence"
 EVENT_STREAM = "events.jsonl"
 OBSERVATORY_SERVE_COMMAND = (
-    "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    "plectis serve <project> --host 127.0.0.1 --port 8765"
 )
 OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 7
 OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
@@ -81,8 +81,8 @@ PYTHON_LENS_SCAN_FULL = "full"
 PYTHON_LENS_SCAN_FIRST_SCREEN = "first_screen_summary"
 PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES = 4096
 PYTHON_LENS_CARD_PREVIEW_LIMIT = 12
-PROJECT_OBSERVE_CARD_COMMAND = "microcosm observe --card <project>"
-PROJECT_OBSERVE_FULL_COMMAND = "microcosm observe <project>"
+PROJECT_OBSERVE_CARD_COMMAND = "plectis observe --card <project>"
+PROJECT_OBSERVE_FULL_COMMAND = "plectis observe <project>"
 COMPILE_STATE_REFS = (
     f"{STATE_DIR}/project_manifest.json",
     f"{STATE_DIR}/architecture.json",
@@ -1524,7 +1524,7 @@ CODE_LENS_CRITICALITY_CLASSES = (
 # In-tree exact-copy / macro-body-import zones. Files under these dirs carry
 # imported macro source bodies that must byte-match upstream (the source-capsule
 # / macro_body_import_floor coupling gate). Authoring docstrings into them breaks
-# that coupling and blocks `microcosm spine`, so they are custody, not owned
+# that coupling and blocks `plectis spine`, so they are custody, not owned
 # authoring targets — even though they live under src/.
 CODE_LENS_COUPLING_GOVERNED_MARKERS = (
     "/organs/",
@@ -1541,7 +1541,7 @@ def _is_imported_source_bundle(path: str) -> bool:
        ``source_modules``/``source_artifacts`` — imported macro source.
     2. In-tree exact-copy / macro-body-import zones (``organs/``,
        ``macro_tools/``, ``engine_room/``) whose bodies must byte-match upstream
-       under the coupling gate; authoring them breaks ``microcosm spine``.
+       under the coupling gate; authoring them breaks ``plectis spine``.
 
     A usage-funded authoring campaign must not target either, or it would mutate
     code it does not own and break source coupling.
@@ -3161,7 +3161,7 @@ def python_lens(
     python_navigation_route = {
         "route_id": "std_python_microcosm_navigation_assay",
         "surface_id": "project_python_lens",
-        "command": "microcosm python-lens <project>",
+        "command": "plectis python-lens <project>",
         "endpoint": "/project/python-lens",
         "assay_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::navigation_assay",
         "implementation_atlas_ref": (
@@ -3281,10 +3281,10 @@ def python_lens(
     payload = {
         **_base_payload("microcosm_project_python_lens_v1", project),
         "lens_id": "project_python_route_lens",
-        "command": "microcosm python-lens <project>",
+        "command": "plectis python-lens <project>",
         "scan_mode": scan_mode,
-        "full_lens_command": "microcosm python-lens --full <project>",
-        "compact_lens_command": "microcosm python-lens <project>",
+        "full_lens_command": "plectis python-lens --full <project>",
+        "compact_lens_command": "plectis python-lens <project>",
         "first_screen_summary": first_screen_summary,
         "deferred_full_scan": first_screen_summary,
         "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
@@ -3295,7 +3295,7 @@ def python_lens(
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
         "unsafe_payload_bodies_in_receipt": False,
         "payload_boundary": _project_python_lens_payload_boundary(
-            "microcosm python-lens <project>"
+            "plectis python-lens <project>"
         ),
         "safe_to_show": {
             "project_source_bodies_omitted": True,
@@ -3422,7 +3422,7 @@ def python_lens_card(
     - Fails: filesystem failures in write mode -> raise OSError (inherited from python_lens).
     - When-needed: first contact with a project before exact spans/symbols/imports are required.
     - Writes: same state as python_lens when write_state is True (first-screen scan).
-    - Escalates-to: python_lens (``microcosm python-lens --full``) for the full rows.
+    - Escalates-to: python_lens (``plectis python-lens --full``) for the full rows.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     lens = python_lens(
@@ -3457,8 +3457,8 @@ def python_lens_card(
         **_base_payload("microcosm_project_python_lens_card_v1", project),
         "card_id": "project_python_lens_card",
         "lens_id": lens.get("lens_id"),
-        "command": "microcosm python-lens <project>",
-        "full_lens_command": "microcosm python-lens --full <project>",
+        "command": "plectis python-lens <project>",
+        "full_lens_command": "plectis python-lens --full <project>",
         "scan_mode": lens.get("scan_mode"),
         "deferred_full_scan": True,
         "state_file_ref": lens.get("state_file_ref"),
@@ -3469,7 +3469,7 @@ def python_lens_card(
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
         "unsafe_payload_bodies_in_receipt": False,
         "payload_boundary": _project_python_lens_payload_boundary(
-            "microcosm python-lens <project>"
+            "plectis python-lens <project>"
         ),
         "safe_to_show": {
             "project_source_bodies_omitted": True,
@@ -3495,7 +3495,7 @@ def python_lens_card(
             "schema_version": lens.get("self_description_contract", {}).get(
                 "schema_version"
             ),
-            "full_lens_command": "microcosm python-lens --full <project>",
+            "full_lens_command": "plectis python-lens --full <project>",
             "note": "full self_description_contract is in the --full lens payload",
         },
         "readiness_checks": checks,
@@ -3555,7 +3555,7 @@ def python_lens_card(
         "anti_claim": lens.get("anti_claim"),
         "reader_action": (
             "Use this compact lens for first contact. Run "
-            "`microcosm python-lens --full <project>` only when exact source-span, "
+            "`plectis python-lens --full <project>` only when exact source-span, "
             "symbol, import, or graph rows are needed."
         ),
     }
@@ -3810,7 +3810,7 @@ def run_work(
             },
             {
                 "action_id": "inspect_event_stream",
-                "command": "microcosm observe <project>",
+                "command": "plectis observe <project>",
             },
         ],
         "authority_boundary": "project_local_closeout_not_global_doctrine_promotion",
@@ -4088,7 +4088,7 @@ def _reader_causal_chain_card(
             else "/project/explain/<selected_route_id>",
         },
         "proof_lab": {
-            "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+            "command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
             "endpoint": "/proof-lab",
             "role": "first_screen_formal_route_smoke_not_project_correctness_proof",
         },
@@ -4209,18 +4209,18 @@ def _project_observe_state_write_proof_card(
         "missing_state_refs": missing_state_refs,
         "state_ref_statuses": state_ref_statuses,
         "state_write_result_ref": (
-            f"microcosm tour --card {project_ref}::state_write_result"
+            f"plectis tour --card {project_ref}::state_write_result"
         ),
         "state_write_status_ref": (
-            f"microcosm tour --card {project_ref}::front_door_status."
+            f"plectis tour --card {project_ref}::front_door_status."
             "surface_statuses.state_write"
         ),
         "state_inspection_status_ref": (
-            f"microcosm tour --card {project_ref}::front_door_status."
+            f"plectis tour --card {project_ref}::front_door_status."
             "surface_statuses.state_inspection"
         ),
         "status_card_project_state_ref": (
-            f"microcosm status --card {project_ref}::front_door.project_state"
+            f"plectis status --card {project_ref}::front_door.project_state"
         ),
         "tour_card_writes_microcosm_state": True,
         "observe_writes_microcosm_state": False,
@@ -4296,7 +4296,7 @@ def observe_project_card(
     - Guarantee: returns a card with card_status, event/span counts, state-write proof summary, and a causal-chain summary; runs observe_project under the hood.
     - Fails: inherits observe_project's behavior (optional architecture refresh may raise OSError).
     - When-needed: a cheap status check before pulling full observe event rows.
-    - Escalates-to: observe_project (``microcosm observe <project>``) for full event rows.
+    - Escalates-to: observe_project (``plectis observe <project>``) for full event rows.
     """
     observed = observe_project(
         project_path,
@@ -4309,8 +4309,8 @@ def observe_project_card(
     return {
         **_base_payload("microcosm_project_observe_card_v1", Path(project_path)),
         "card_status": observed.get("status"),
-        "command": f"microcosm observe --card {observed.get('project_ref', '<project>')}",
-        "full_command": f"microcosm observe {observed.get('project_ref', '<project>')}",
+        "command": f"plectis observe --card {observed.get('project_ref', '<project>')}",
+        "full_command": f"plectis observe {observed.get('project_ref', '<project>')}",
         "endpoint": None,
         "endpoint_available": False,
         "full_endpoint": "/project/observe",
@@ -4497,7 +4497,7 @@ def list_evidence(
             {
                 "evidence_ref": evidence_ref,
                 "inspect_command": (
-                    f"microcosm evidence inspect --project {project_ref} {evidence_ref}"
+                    f"plectis evidence inspect --project {project_ref} {evidence_ref}"
                 ),
                 "source_checkout_inspect_command": (
                     "PYTHONPATH=src python3 -m microcosm_core evidence inspect "
@@ -4523,7 +4523,7 @@ def list_evidence(
         "truncated": len(rows) < evidence_count,
         "inspect_drilldown": {
             "command_template": (
-                "microcosm evidence inspect --project <project> <evidence_ref>"
+                "plectis evidence inspect --project <project> <evidence_ref>"
             ),
             "source_checkout_command_template": (
                 "PYTHONPATH=src python3 -m microcosm_core evidence inspect "
@@ -5025,8 +5025,8 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         **_base_payload("microcosm_project_compile_cached_card_v1", project),
         "status": status,
         "card_id": "compile_cached_state",
-        "command": "microcosm compile --card <project>",
-        "full_command": "microcosm compile <project>",
+        "command": "plectis compile --card <project>",
+        "full_command": "plectis compile <project>",
         "cache_status": cache_status,
         "cache_source_ref": f"{STATE_DIR}/state_index.json",
         "cache_freshness": cache_freshness,
@@ -5063,11 +5063,11 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "truth_readiness_surface": truth_readiness,
         "reader_action": (
             "Use this cached card for repeat compile-state inspection; run "
-            "`microcosm compile <project>` when cache_status is missing_cached_state "
+            "`plectis compile <project>` when cache_status is missing_cached_state "
             "or stale_cached_state."
         ),
         "next_commands": [
-            "microcosm status --card <project>",
+            "plectis status --card <project>",
             (
                 f"microcosm explain <project> {route_id}"
                 if route_id
@@ -5223,7 +5223,7 @@ def compile_project(
         ),
         "python_lens_full_command": python_projection.get(
             "full_lens_command",
-            "microcosm python-lens <project>",
+            "plectis python-lens <project>",
         ),
         "python_navigation_assay_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::navigation_assay",
         "python_file_count": python_projection.get("python_file_count", 0),

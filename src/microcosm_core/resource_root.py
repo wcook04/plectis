@@ -24,8 +24,8 @@ def _has_public_data(root: Path) -> bool:
 def installed_microcosm_root() -> Path:
     """Resolve the public root of an installed (pip/share) Microcosm payload.
 
-    - Teleology: locate the share/microcosm-substrate data dir for an installed package so readers find the manifest off-checkout.
-    - Guarantee: returns the first candidate that passes `_has_public_data`; otherwise returns the canonical `sys.prefix/share/microcosm-substrate` fallback (which may not exist).
+    - Teleology: locate the share/plectis data dir for an installed package so readers find the manifest off-checkout.
+    - Guarantee: returns the first candidate that passes `_has_public_data`; otherwise returns the canonical `sys.prefix/share/plectis` fallback (which may not exist).
     - Fails: never raises; returns the prefix-based fallback Path when no candidate carries the manifest triple.
     - Reads: the public manifest triple under each candidate (via `_has_public_data`); `sys.prefix` and this module's path.
     - When-needed: when a reader is running against an installed package rather than a source checkout.
@@ -34,7 +34,7 @@ def installed_microcosm_root() -> Path:
     for candidate in _installed_microcosm_root_candidates():
         if _has_public_data(candidate):
             return candidate
-    return Path(sys.prefix) / "share/microcosm-substrate"
+    return Path(sys.prefix) / "share/plectis"
 
 
 def _installed_microcosm_root_candidates() -> tuple[Path, ...]:
@@ -47,10 +47,12 @@ def _installed_microcosm_root_candidates() -> tuple[Path, ...]:
     - When-needed: when debugging which share directory order the installed-root resolver walks.
     - Non-goal: does not test for manifest presence or authorize any candidate; ordering/dedup only.
     """
-    candidates = [Path(sys.prefix) / "share/microcosm-substrate"]
+    share_names = ("plectis", "microcosm-substrate")
+    candidates = [Path(sys.prefix) / "share" / name for name in share_names]
     module_path = Path(__file__).resolve(strict=False)
     for parent in module_path.parents:
-        candidates.append(parent / "share/microcosm-substrate")
+        for name in share_names:
+            candidates.append(parent / "share" / name)
 
     deduped: list[Path] = []
     seen: set[str] = set()

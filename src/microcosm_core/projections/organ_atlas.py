@@ -1679,7 +1679,7 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
     """
     route_model = render_agent_task_routes_json(model)
     out: list[str] = []
-    out.append("# Microcosm Agent Task Routes")
+    out.append("# Plectis Agent Task Routes")
     out.append("")
     out.append(GENERATED_MARKER)
     out.append("")
@@ -1873,7 +1873,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
     out.append("### First command")
     out.append("")
     out.append(
-        "Run `microcosm tour --card .` for the local first-screen path, then use "
+        "Run `plectis tour --card .` for the local first-screen path, then use "
         "[AGENT_ROUTES.md](AGENT_ROUTES.md) for task-class routing or the "
         "family sections below for per-organ cards."
     )
@@ -2042,12 +2042,12 @@ def render_architecture_md(model: dict[str, Any]) -> str:
       provider calls, source mutation, or proof/production authority.
     """
     out: list[str] = []
-    out.append("# Microcosm Architecture at a Glance")
+    out.append("# Plectis Architecture at a Glance")
     out.append("")
     out.append(GENERATED_MARKER)
     out.append("")
     out.append(
-        "Microcosm is a local, source-open operating substrate for inspecting how a "
+        "Plectis is a local, source-open operating substrate for inspecting how a "
         "larger AI-native workflow system thinks, routes, records work, binds "
         "evidence, and limits its own claims. It turns a folder into local "
         "`.microcosm/` state without mutating your source files, calling external "
@@ -2064,30 +2064,30 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("## Level 0 — what it is")
     out.append("")
     out.append("```text")
-    out.append("Microcosm is the public, local cross-section of a larger AI-native system.")
+    out.append("Plectis is the public, local cross-section of a larger AI-native system.")
     out.append("A cold reader can run and inspect the architecture without receiving private state.")
-    out.append("Start: microcosm hello .   Prove local behavior: microcosm tour --card .")
+    out.append("Start: plectis hello .   Prove local behavior: plectis tour --card .")
     out.append("```")
     out.append("")
 
     out.append("## Level 1 — the local runtime loop")
     out.append("")
     out.append(
-        "Bring a folder; Microcosm builds project-local state and reads it back as "
+        "Bring a folder; Plectis builds project-local state and reads it back as "
         "cards and a local observatory."
     )
     out.append("")
     out.append("```mermaid")
     out.append("flowchart TD")
-    out.append('  A[Cold reader or agent] --> B["microcosm hello PROJECT"]')
-    out.append('  B --> C["microcosm tour --card PROJECT"]')
+    out.append('  A[Cold reader or agent] --> B["plectis hello PROJECT"]')
+    out.append('  B --> C["plectis tour --card PROJECT"]')
     out.append('  C --> D[".microcosm/ state: catalog, patterns, routes,<br/>work_items, events, evidence, graph, explanations"]')
     out.append('  D --> E["selected_route_id"]')
     out.append('  E --> F["microcosm explain PROJECT ROUTE_ID"]')
-    out.append('  E --> G["microcosm observe --card PROJECT"]')
-    out.append('  G --> G2["microcosm observe PROJECT (event rows)"]')
-    out.append('  D --> H["microcosm status --card PROJECT"]')
-    out.append('  H --> I["microcosm authority --card / workingness --card"]')
+    out.append('  E --> G["plectis observe --card PROJECT"]')
+    out.append('  G --> G2["plectis observe PROJECT (event rows)"]')
+    out.append('  D --> H["plectis status --card PROJECT"]')
+    out.append('  H --> I["plectis authority --card / workingness --card"]')
     out.append("```")
     out.append("")
 
@@ -2103,7 +2103,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("flowchart LR")
     out.append('  Claim["Public claim<br/>(route / organ / count)"] --> Class["Evidence class<br/>core/organ_evidence_classes.json"]')
     out.append('  Class --> Proof["Validator / receipt / source ref<br/>core/organ_registry.json"]')
-    out.append('  Proof --> Ceiling["Scope limit<br/>microcosm authority --card"]')
+    out.append('  Proof --> Ceiling["Scope limit<br/>plectis authority --card"]')
     out.append('  Ceiling --> Anti["Boundary<br/>(where the claim stops)"]')
     out.append('  Anti --> Drill["Drilldown: paper module / fixture / receipt"]')
     out.append("```")
@@ -2277,7 +2277,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append('  Copy -->|no| Omit["Omission receipt + public metadata"]')
     out.append("  Target --> Receipt[Validation receipt]")
     out.append("  Omit --> Receipt")
-    out.append('  Receipt --> Intake["microcosm intake"]')
+    out.append('  Receipt --> Intake["plectis intake"]')
     out.append('  Intake --> Drift["microcosm drift-control"]')
     out.append('  Drift --> Ceiling["Local inspection · source records · release scope unchanged"]')
     out.append("```")

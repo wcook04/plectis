@@ -163,9 +163,9 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
     for duplicated_command in (
         'python -m pip install -e ".[test]"',
         "python -m pytest",
-        "microcosm hello .",
+        "plectis hello .",
         "python -m microcosm_core --version",
-        "microcosm stripping-guard",
+        "plectis stripping-guard",
     ):
         assert duplicated_command not in workflow
 
@@ -209,13 +209,13 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
     assert pyproject["project"]["urls"] == {
-        "Homepage": "https://github.com/wcook04/microcosm-substrate",
+        "Homepage": "https://github.com/wcook04/plectis",
         "Documentation": (
-            "https://github.com/wcook04/microcosm-substrate/blob/main/README.md"
+            "https://github.com/wcook04/plectis/blob/main/README.md"
         ),
-        "Source": "https://github.com/wcook04/microcosm-substrate",
-        "Issues": "https://github.com/wcook04/microcosm-substrate/issues",
-        "Repository": "https://github.com/wcook04/microcosm-substrate",
+        "Source": "https://github.com/wcook04/plectis",
+        "Issues": "https://github.com/wcook04/plectis/issues",
+        "Repository": "https://github.com/wcook04/plectis",
     }
     assert all("zenith" not in url for url in pyproject["project"]["urls"].values())
     assert "zenith/blob/main/microcosm-substrate" not in (

@@ -101,9 +101,9 @@ EXPECTED_NEGATIVE_CASES = {
 }
 
 FRONT_DOOR_ROUTE_COMMANDS = {
-    "tour_project": "microcosm tour <project>",
-    "status_card": "microcosm status --card <project>",
-    "proof_lab": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+    "tour_project": "plectis tour <project>",
+    "status_card": "plectis status --card <project>",
+    "proof_lab": "plectis proof-lab --out /tmp/microcosm-proof-lab",
 }
 FRONT_DOOR_ROUTE_IDS = tuple(FRONT_DOOR_ROUTE_COMMANDS)
 

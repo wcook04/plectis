@@ -84,16 +84,16 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "make smoke",
         ".microcosm/smoke/",
-        "Microcosm smoke check: pass",
+        "Plectis smoke check: pass",
         "authority: pass",
         "workingness: clear",
         "served status: pass",
-        "microcosm hello .",
-        "microcosm hello --reader cold_cloner .",
-        "microcosm hello --reader reviewer .",
-        "microcosm hello --reader skeptical_reviewer .",
-        "microcosm hello --reader agent .",
-        "microcosm hello --reader domain_specialist .",
+        "plectis hello .",
+        "plectis hello --reader cold_cloner .",
+        "plectis hello --reader reviewer .",
+        "plectis hello --reader skeptical_reviewer .",
+        "plectis hello --reader agent .",
+        "plectis hello --reader domain_specialist .",
         "`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch",
         "`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch",
         "and `agent` / `type-a-agent` maps to the",
@@ -101,23 +101,23 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "`domain_specialist` / `domain-specialist` is the specialty",
         "ORGANS.md#find-your-specialty",
         "not an expert-review or\ndomain-correctness claim",
-        "microcosm tour --card .",
-        "microcosm status --card .",
-        "microcosm authority --card",
-        "microcosm workingness --card",
-        "microcosm legibility-scorecard",
+        "plectis tour --card .",
+        "plectis status --card .",
+        "plectis authority --card",
+        "plectis workingness --card",
+        "plectis legibility-scorecard",
         "If you are staying source-only",
         "PYTHONPATH=src python3 -m microcosm_core tour --card .",
         "PYTHONPATH=src python3 -m microcosm_core status --card .",
         "PYTHONPATH=src python3 -m microcosm_core authority --card",
         "PYTHONPATH=src python3 -m microcosm_core workingness --card",
         "PYTHONPATH=src python3 -m microcosm_core legibility-scorecard",
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7",
+        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7",
         "/project/observatory-card",
         "/workingness-card",
         "Open `/workingness` only when you need the full per-organ failure-envelope map.",
         "make check",
-        "Microcosm preflight: organ evidence-class registry loads\ncleanly.",
+        "Plectis preflight: organ evidence-class registry loads\ncleanly.",
         "make ci",
         "For a cold clone, treat `make ci` as the public green floor.",
         "`make validate`\nadds the doctrine-lattice drift check",
@@ -125,18 +125,18 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "not a broader release, proof-correctness, or production claim",
         "make package-smoke",
         "package-install smoke",
-        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
+        "make standalone-export EXPORT_OUT=/tmp/plectis-export",
         "receipts/release/release_export_receipt.json",
-        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
+        "cd /tmp/plectis-export/plectis",
         "validate the exported artifact as its own clone",
         "release_authorized=false",
         "provider calls",
         "source mutation",
         "private-root equivalence",
         "Receipts are drilldown evidence",
-        "microcosm evidence list . --limit 25",
-        "microcosm evidence inspect . .microcosm/evidence/routes.json",
-        "microcosm evidence inspect --project . .microcosm/evidence/routes.json",
+        "plectis evidence list . --limit 25",
+        "plectis evidence inspect . .microcosm/evidence/routes.json",
+        "plectis evidence inspect --project . .microcosm/evidence/routes.json",
         "PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25",
         "PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json",
         "--limit 0",
@@ -164,8 +164,8 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "./bootstrap.sh",
         "./bootstrap.sh --dry-run",
         "ignored `.microcosm/cold_clone_probe.json` evidence",
-        "microcosm authority --card",
-        "microcosm stripping-guard",
+        "plectis authority --card",
+        "plectis stripping-guard",
         "make install",
         ".venv/bin/python -m pip install -e '.[test]'",
         "PYTHONPATH=src .venv/bin/python -m pytest tests/test_secret_exclusion_scan.py",
@@ -186,17 +186,17 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "make package-smoke",
         "make ci",
         ".microcosm/smoke/",
-        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
+        "make standalone-export EXPORT_OUT=/tmp/plectis-export",
         "receipts/release/release_export_receipt.json",
-        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
+        "cd /tmp/plectis-export/plectis",
         "validate it from inside the exported artifact",
         "release_authorized=false",
-        "microcosm hello .",
-        "microcosm tour --card .",
-        "microcosm status --card .",
-        "microcosm authority --card",
-        "microcosm workingness --card",
-        "microcosm legibility-scorecard",
+        "plectis hello .",
+        "plectis tour --card .",
+        "plectis status --card .",
+        "plectis authority --card",
+        "plectis workingness --card",
+        "plectis legibility-scorecard",
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "real non-secret macro bodies",
         "fake progress",
@@ -222,19 +222,19 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "make smoke",
         "make check",
         "make ci",
-        "Microcosm preflight: organ evidence-class registry loads\ncleanly.",
+        "Plectis preflight: organ evidence-class registry loads\ncleanly.",
         "package-install smoke",
-        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
+        "make standalone-export EXPORT_OUT=/tmp/plectis-export",
         "receipts/release/release_export_receipt.json",
-        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
+        "cd /tmp/plectis-export/plectis",
         "cold-clone check proves the exported package can install",
         "release_authorized=false",
-        "microcosm hello .",
-        "microcosm hello --reader cold_cloner .",
-        "microcosm hello --reader reviewer .",
-        "microcosm hello --reader skeptical_reviewer .",
-        "microcosm hello --reader agent .",
-        "microcosm hello --reader domain_specialist .",
+        "plectis hello .",
+        "plectis hello --reader cold_cloner .",
+        "plectis hello --reader reviewer .",
+        "plectis hello --reader skeptical_reviewer .",
+        "plectis hello --reader agent .",
+        "plectis hello --reader domain_specialist .",
         "`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch",
         "`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch",
         "and `agent` / `type-a-agent` maps to the",
@@ -242,11 +242,11 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "`domain_specialist` / `domain-specialist` is the specialty",
         "generated organ specialty index",
         "without claiming domain\ncorrectness or expert review",
-        "microcosm tour --card .",
-        "microcosm status --card .",
-        "microcosm authority --card",
-        "microcosm workingness --card",
-        "microcosm legibility-scorecard",
+        "plectis tour --card .",
+        "plectis status --card .",
+        "plectis authority --card",
+        "plectis workingness --card",
+        "plectis legibility-scorecard",
         "PYTHONPATH=src python3 -m microcosm_core <command>",
         "public GitHub Actions entry",
         "Do not launch multiple raw `pytest` processes",
@@ -319,9 +319,9 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     route_contract = receipt["entry_packet_route_contract"]
     assert route_contract["status"] == "pass"
     assert route_contract["source_ref"] == "atlas/entry_packet.json"
-    assert route_contract["first_command"] == "microcosm tour --card <project>"
+    assert route_contract["first_command"] == "plectis tour --card <project>"
     assert route_contract["primary_first_screen_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert route_contract["missing_local_first_screen_commands"] == []
     assert route_contract["missing_state_refs"] == []
@@ -343,12 +343,12 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         "src/microcosm_core/cli.py::FIRST_SCREEN_HELP"
     )
     assert help_contract["required_command_order"] == [
-        "microcosm tour --card <project>",
-        "microcosm status --card <project>",
-        "microcosm workingness --card",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm serve <project>",
-        "microcosm compile <project>",
+        "plectis tour --card <project>",
+        "plectis status --card <project>",
+        "plectis workingness --card",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis serve <project>",
+        "plectis compile <project>",
     ]
     assert help_contract["missing_help_commands"] == []
     assert help_contract["help_command_order_mismatch"] == []
@@ -648,7 +648,7 @@ def test_public_entry_docs_block_entry_packet_route_contract_drift(
     entry_packet_path = public_root / "atlas/entry_packet.json"
     entry_packet = json.loads(entry_packet_path.read_text(encoding="utf-8"))
     entry_packet["local_first_screen_route"]["command_path"].remove(
-        "microcosm status --card <project>"
+        "plectis status --card <project>"
     )
     entry_packet_path.write_text(
         json.dumps(entry_packet, ensure_ascii=True, indent=2, sort_keys=True),
@@ -666,7 +666,7 @@ def test_public_entry_docs_block_entry_packet_route_contract_drift(
     assert receipt["entry_packet_route_contract"]["status"] == "blocked"
     assert receipt["entry_packet_route_contract"][
         "missing_local_first_screen_commands"
-    ] == ["microcosm status --card <project>"]
+    ] == ["plectis status --card <project>"]
     assert "missing_local_first_screen_commands" in receipt[
         "entry_packet_route_contract"
     ]["blocking_reasons"]
@@ -825,33 +825,33 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
     cli_path = public_root / "src/microcosm_core/cli.py"
     original = cli_path.read_text(encoding="utf-8")
     expected_help_block = (
-        "  microcosm status --card <project> read the compressed "
+        "  plectis status --card <project> read the compressed "
         "project/runtime status lens\n"
-        "  microcosm status-card <project> alias for the compact status lens\n"
-        "  microcosm spine --card          read the compact runtime spine lens\n"
-        "  microcosm run --card examples/runtime_shell/demo_project "
+        "  plectis status-card <project> alias for the compact status lens\n"
+        "  plectis spine --card          read the compact runtime spine lens\n"
+        "  plectis run --card examples/runtime_shell/demo_project "
         "replay the public runtime demo\n"
-        "  microcosm authority --card      read the compact authority ceiling lens\n"
-        "  microcosm intake --card         read the compact intake/projection bridge lens\n"
-        "  microcosm workingness --card    read the compact behavior/failure "
+        "  plectis authority --card      read the compact authority ceiling lens\n"
+        "  plectis intake --card         read the compact intake/projection bridge lens\n"
+        "  plectis workingness --card    read the compact behavior/failure "
         "lens\n"
-        "  microcosm workingness           inspect behavior evidence "
+        "  plectis workingness           inspect behavior evidence "
         "and failure gaps\n"
     )
     assert expected_help_block in original
     mutated_help_block = (
-        "  microcosm workingness --card    read the compact behavior/failure "
+        "  plectis workingness --card    read the compact behavior/failure "
         "lens\n"
-        "  microcosm workingness           inspect behavior evidence "
+        "  plectis workingness           inspect behavior evidence "
         "and failure gaps\n"
-        "  microcosm status --card <project> read the compressed "
+        "  plectis status --card <project> read the compressed "
         "project/runtime status lens\n"
-        "  microcosm status-card <project> alias for the compact status lens\n"
-        "  microcosm spine --card          read the compact runtime spine lens\n"
-        "  microcosm run --card examples/runtime_shell/demo_project "
+        "  plectis status-card <project> alias for the compact status lens\n"
+        "  plectis spine --card          read the compact runtime spine lens\n"
+        "  plectis run --card examples/runtime_shell/demo_project "
         "replay the public runtime demo\n"
-        "  microcosm authority --card      read the compact authority ceiling lens\n"
-        "  microcosm intake --card         read the compact intake/projection bridge lens\n"
+        "  plectis authority --card      read the compact authority ceiling lens\n"
+        "  plectis intake --card         read the compact intake/projection bridge lens\n"
     )
     cli_path.write_text(
         original.replace(expected_help_block, mutated_help_block),
@@ -870,7 +870,7 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
     assert help_contract["status"] == "blocked"
     assert help_contract["missing_help_commands"] == []
     assert help_contract["help_command_order_mismatch"] == [
-        "microcosm status --card <project> before microcosm workingness --card"
+        "plectis status --card <project> before plectis workingness --card"
     ]
     assert help_contract["blocking_reasons"] == ["help_command_order_mismatch"]
 
@@ -946,13 +946,13 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "core/organ_evidence_classes.json" in agents
     assert "AGENT_ROUTES.md" in text
     assert "AGENT_ROUTES.md" in agents
-    assert "microcosm reveal" in text
-    assert "microcosm spatial-simulation" in text
-    assert "microcosm reveal" in agents
+    assert "plectis reveal" in text
+    assert "plectis spatial-simulation" in text
+    assert "plectis reveal" in agents
     assert "spatial-simulation" in agents
-    assert "microcosm tour --card <project>" in agents
-    assert agents.index("microcosm tour --card <project>") < agents.index(
-        "microcosm tour <project>"
+    assert "plectis tour --card <project>" in agents
+    assert agents.index("plectis tour --card <project>") < agents.index(
+        "plectis tour <project>"
     )
     assert "Do not widen Lean/Lake" in agents
     assert "Do not treat prediction fixtures as trading or financial advice" in agents
@@ -965,7 +965,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "macro reconstruction contracts" not in agents
     assert "local project operating substrate" in normalized_text
     assert "repo -> .microcosm" in text
-    assert "microcosm compile ." in text
+    assert "plectis compile ." in text
     assert "front_door.route_explanation" in text
     assert "source_files_mutated=false" in text
     assert "std_python_microcosm_navigation_assay" in text
@@ -974,13 +974,13 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "route_utility_curriculum.ratchet" in text
     assert "executable research prototype" in text
     assert "Architecture Kernel" in text
-    assert "microcosm explain <project> <route_id>" in text
+    assert "plectis explain <project> <route_id>" in text
     assert "Evidence receipts are the black-box recorder" in text
     assert "evidence_class" in text
     assert "`accepted_current_authority` is not an evidence-strength claim" in normalized_text
     assert "executable research prototype" in normalized_agents
     assert "local project operating substrate" in normalized_agents
-    assert "microcosm compile <project>" in agents
+    assert "plectis compile <project>" in agents
     assert "repo -> `.microcosm`" in agents
     assert "Fixtures Are Tests" in agents
     assert "Receipts Are Evidence" in agents
@@ -1032,9 +1032,9 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "First-Screen Route Contract" in cold_start
     assert "Bring a folder after the source-root probe" in cold_start
     assert "route_cards_by_id.status_and_workingness" in cold_start
-    assert "microcosm evidence list <project> --limit 25" in cold_start
-    assert "microcosm evidence inspect <project> <ref>" in cold_start
-    assert "microcosm status --card <project>" in cold_start
+    assert "plectis evidence list <project> --limit 25" in cold_start
+    assert "plectis evidence inspect <project> <ref>" in cold_start
+    assert "plectis status --card <project>" in cold_start
     assert "`cold_cloner` maps to `public_github_visitor`" in cold_start
     assert "`interesting_parts` / `interesting-parts` maps to that same public visitor" in cold_start
     assert "`skeptical_reviewer` maps to `safety_evals_engineer`" in normalized_cold_start
@@ -1042,7 +1042,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "`type_a_agent`" in cold_start
     assert "six cold reader branches" in normalized_cold_start
     assert "Domain specialist: run" in cold_start
-    assert "microcosm hello --reader domain_specialist <project>" in cold_start
+    assert "plectis hello --reader domain_specialist <project>" in cold_start
     assert "ORGANS.md#find-your-specialty" in cold_start
     assert (
         "explicit non-claim of domain correctness or expert review"
@@ -1050,12 +1050,12 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     )
     assert "not new routes" in normalized_cold_start
     assert "front_door.route_explanation" in cold_start
-    assert "microcosm workingness" in cold_start
+    assert "plectis workingness" in cold_start
     assert (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765" in cold_start
+        "plectis serve <project> --host 127.0.0.1 --port 8765" in cold_start
     )
     assert (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         in cold_start
     )
     assert (
@@ -1080,8 +1080,8 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "atlas/entry_packet.json::cold_clone_probe_route" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start
     assert "atlas/entry_packet.json::status_and_workingness_route" in cold_start
-    assert "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export" in cold_start
-    assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in cold_start
+    assert "make standalone-export EXPORT_OUT=/tmp/plectis-export" in cold_start
+    assert "cd /tmp/plectis-export/plectis" in cold_start
     assert "cold-clone check proves the exported artifact can install" in cold_start
     assert "receipts/release/release_export_receipt.json" in cold_start
     assert "release_authorized=false" in cold_start
@@ -1091,17 +1091,17 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
     )
-    assert entry_packet["first_command"] == "microcosm tour --card <project>"
+    assert entry_packet["first_command"] == "plectis tour --card <project>"
 
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     assert "New here? Five generated surfaces give you the whole system fast:" in readme
     for phrase in (
         "| Repo-reading agent |",
-        "microcosm hello --reader agent <project>",
+        "plectis hello --reader agent <project>",
         "PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>",
         "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check",
-        "microcosm first-screen --card <project>",
-        "microcosm organ-surface-contract --card --root .",
+        "plectis first-screen --card <project>",
+        "plectis organ-surface-contract --card --root .",
         "mechanism/validator/projection boundaries",
         "source-mutation ceiling",
     ):
@@ -1115,11 +1115,11 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     )[1].split("```", 2)[1]
     assert "python3 -m microcosm_core.cli" not in no_install_block
     assert (
-        "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 "
+        "plectis serve /tmp/microcosm-scratch --host 127.0.0.1 "
         "--port 8765 --max-requests 7"
     ) in installed_block
     assert (
-        "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765\n"
+        "plectis serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765\n"
         not in installed_block
     )
     tour_command = (
@@ -1162,13 +1162,13 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )
-    assert cold_start.index("Run `microcosm tour --card <project>`") < cold_start.index(
-        "Run `microcosm compile <project>`"
+    assert cold_start.index("Run `plectis tour --card <project>`") < cold_start.index(
+        "Run `plectis compile <project>`"
     )
     assert cold_start.index(
         "Open `atlas/entry_packet.json::status_and_workingness_route`"
     ) < cold_start.index(
-        "Run `microcosm compile <project>`"
+        "Run `plectis compile <project>`"
     )
     assert cold_start.index(
         "`PYTHONPATH=src python3 -m microcosm_core tour --card <project>`"
@@ -1183,51 +1183,51 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     )
 
     route = entry_packet["local_first_screen_route"]
-    assert entry_packet["first_command"] == "microcosm tour --card <project>"
+    assert entry_packet["first_command"] == "plectis tour --card <project>"
     assert route["surface_id"] == "microcosm_local_first_screen"
-    assert route["primary_first_screen_command"] == "microcosm tour --card <project>"
+    assert route["primary_first_screen_command"] == "plectis tour --card <project>"
     assert route["primary_first_screen_command"] == entry_packet["first_command"]
     assert route["command_path"][:6] == [
-        "microcosm tour --card <project>",
-        "microcosm status --card <project>",
-        "microcosm workingness --card",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe --card <project>",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "plectis tour --card <project>",
+        "plectis status --card <project>",
+        "plectis workingness --card",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis observe --card <project>",
+        "plectis serve <project> --host 127.0.0.1 --port 8765",
     ]
     assert (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         in route["command_path"]
     )
     assert route["command_path"].index(
-        "microcosm status --card <project>"
-    ) < route["command_path"].index("microcosm compile <project>")
+        "plectis status --card <project>"
+    ) < route["command_path"].index("plectis compile <project>")
     assert route["command_path"].index(
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
-    ) < route["command_path"].index("microcosm python-lens <project>")
-    assert "microcosm python-lens <project>" in route["command_path"]
+        "plectis proof-lab --out /tmp/microcosm-proof-lab"
+    ) < route["command_path"].index("plectis python-lens <project>")
+    assert "plectis python-lens <project>" in route["command_path"]
     assert (
-        "microcosm explain <project> <selected_route_id>"
+        "plectis explain <project> <selected_route_id>"
         in route["command_path"]
     )
     assert route["selected_route_id_source"] == (
-        "microcosm tour --card <project>::selected_route_id or "
-        "microcosm tour <project>::selected_route_id or "
-        "microcosm tour <project>::first_screen.selected_route_id or "
-        "microcosm compile <project>::selected_route_id"
+        "plectis tour --card <project>::selected_route_id or "
+        "plectis tour <project>::selected_route_id or "
+        "plectis tour <project>::first_screen.selected_route_id or "
+        "plectis compile <project>::selected_route_id"
     )
     assert "readme_onboarding_route is a generated route only" in route[
         "route_selection_rule"
     ]
-    assert "microcosm evidence list <project> --limit 25" in route["command_path"]
-    assert "microcosm evidence inspect <project> <ref>" in route["command_path"]
-    assert "microcosm status --card <project>" in route["command_path"]
-    assert "microcosm workingness --card" in route["command_path"]
-    assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in route[
+    assert "plectis evidence list <project> --limit 25" in route["command_path"]
+    assert "plectis evidence inspect <project> <ref>" in route["command_path"]
+    assert "plectis status --card <project>" in route["command_path"]
+    assert "plectis workingness --card" in route["command_path"]
+    assert "plectis proof-lab --out /tmp/microcosm-proof-lab" in route[
         "command_path"
     ]
-    assert "microcosm observe --card <project>" in route["command_path"]
-    assert "microcosm observe <project>" in entry_packet["allowed_drilldowns"]
+    assert "plectis observe --card <project>" in route["command_path"]
+    assert "plectis observe <project>" in entry_packet["allowed_drilldowns"]
     assert route["reader_routes_ref"] == (
         "atlas/entry_packet.json::reader_first_screen_routes"
     )
@@ -1307,7 +1307,7 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
 
     reader_routes = entry_packet["reader_first_screen_routes"]
     assert reader_routes["shared_prerequisite_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     rows = {row["reader_id"]: row for row in reader_routes["routes"]}
     assert set(rows) == {
@@ -1319,33 +1319,33 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
         "type_a_agent",
     }
     assert rows["public_github_visitor"]["first_screen_command"] == (
-        "microcosm hello <project>"
+        "plectis hello <project>"
     )
     assert rows["public_github_visitor"]["next_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert rows["safety_evals_engineer"]["first_screen_command"] == (
-        "microcosm status --card <project>"
+        "plectis status --card <project>"
     )
     assert rows["hiring_reviewer"]["first_screen_command"] == (
-        "microcosm legibility-scorecard"
+        "plectis legibility-scorecard"
     )
     assert rows["peer_developer"]["next_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
-    assert rows["peer_developer"]["followup_command"] == "microcosm observe <project>"
+    assert rows["peer_developer"]["followup_command"] == "plectis observe <project>"
     assert rows["domain_specialist"]["next_command"] == (
         "ORGANS.md#find-your-specialty"
     )
     assert rows["domain_specialist"]["followup_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert "domain correctness" in rows["domain_specialist"]["anti_misread"]
     assert rows["type_a_agent"]["first_screen_command"] == (
-        "microcosm first-screen --card <project>"
+        "plectis first-screen --card <project>"
     )
     assert rows["type_a_agent"]["next_command"] == (
-        "microcosm organ-surface-contract --card --root ."
+        "plectis organ-surface-contract --card --root ."
     )
     assert rows["type_a_agent"]["followup_command"] == (
         "AGENTS.md::Concept And Mechanism Entry"
@@ -1362,12 +1362,12 @@ def test_cold_reader_route_map_names_compact_path_before_drilldowns() -> None:
         "Full drilldowns stay available", 1
     )[0]
     compact_commands = [
-        "microcosm hello <project>",
-        "microcosm tour --card <project>",
-        "microcosm status --card <project>",
-        "microcosm authority --card",
-        "microcosm workingness --card",
-        "microcosm legibility-scorecard",
+        "plectis hello <project>",
+        "plectis tour --card <project>",
+        "plectis status --card <project>",
+        "plectis authority --card",
+        "plectis workingness --card",
+        "plectis legibility-scorecard",
     ]
 
     command_positions = []
@@ -1381,9 +1381,9 @@ def test_cold_reader_route_map_names_compact_path_before_drilldowns() -> None:
         "## Reader-Specific Evidence Routing", 1
     )[0]
     for command in [
-        "microcosm tour <project>",
-        "microcosm compile <project>",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis tour <project>",
+        "plectis compile <project>",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
     ]:
         assert f"`{command}`" in drilldowns
 
@@ -1399,7 +1399,7 @@ def test_public_entry_packet_routes_python_navigation_assay() -> None:
 
     route = entry_packet["python_navigation_route"]
     assert route["surface_id"] == "project_python_lens"
-    assert route["command"] == "microcosm python-lens <project>"
+    assert route["command"] == "plectis python-lens <project>"
     assert route["assay_id"] == "std_python_microcosm_navigation_assay"
     assert route["assay_ref"] == ".microcosm/python_lens.json::navigation_assay"
     assert route["implementation_atlas_ref"] == (
@@ -1439,9 +1439,9 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     proof_lab = entry_packet["proof_lab_route"]
     assert proof_lab["surface_id"] == "first_screen_verifier_lab_kernel"
     assert proof_lab["organ_id"] == "verifier_lab_kernel"
-    assert proof_lab["command"] == "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    assert proof_lab["command"] == "plectis proof-lab --out /tmp/microcosm-proof-lab"
     assert proof_lab["expanded_command"] == (
-        "microcosm verifier-lab-kernel run-kernel-bundle --input "
+        "plectis verifier-lab-kernel run-kernel-bundle --input "
         "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out "
         "/tmp/microcosm-proof-lab"
     )
@@ -1467,7 +1467,7 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
 
     front_door = entry_packet["tour_front_door_status_route"]
     assert front_door["surface_id"] == "microcosm_tour_front_door_status"
-    assert front_door["command"] == "microcosm tour <project>"
+    assert front_door["command"] == "plectis tour <project>"
     assert front_door["endpoint"] == "/tour"
     assert front_door["status_ref"] in entry_packet["allowed_drilldowns"]
     assert front_door["receipt_ref"] in entry_packet["allowed_drilldowns"]
@@ -1482,15 +1482,15 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
 
     recovery_route = entry_packet["status_before_tour_recovery_route"]
     assert recovery_route["surface_id"] == "microcosm_status_before_tour_recovery"
-    assert recovery_route["command"] == "microcosm status --card <project>"
+    assert recovery_route["command"] == "plectis status --card <project>"
     assert recovery_route["recovery_ref"] in entry_packet["allowed_drilldowns"]
     assert recovery_route["blocking_detail_ref"] in entry_packet["allowed_drilldowns"]
     assert recovery_route["expected_blocked_state"] == {
         "status": "blocked",
         "project_state_status": "missing_state",
-        "primary_recovery_command": "microcosm tour --card <project>",
-        "status_after_recovery_command": "microcosm status --card <project>",
-        "alternate_recovery_command": "microcosm compile <project>",
+        "primary_recovery_command": "plectis tour --card <project>",
+        "status_after_recovery_command": "plectis status --card <project>",
+        "alternate_recovery_command": "plectis compile <project>",
     }
     assert recovery_route["safe_to_show"]["recovery_command_visible"] is True
     assert recovery_route["safe_to_show"]["source_files_mutated"] is False
@@ -1498,32 +1498,32 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
 
     workingness = entry_packet["status_and_workingness_route"]
     assert workingness["surface_id"] == "microcosm_status_and_workingness"
-    assert workingness["command"] == "microcosm status --card <project>"
-    assert workingness["next_command"] == "microcosm workingness --card"
-    assert workingness["status_card_command"] == "microcosm status --card <project>"
-    assert workingness["workingness_command"] == "microcosm workingness --card"
+    assert workingness["command"] == "plectis status --card <project>"
+    assert workingness["next_command"] == "plectis workingness --card"
+    assert workingness["status_card_command"] == "plectis status --card <project>"
+    assert workingness["workingness_command"] == "plectis workingness --card"
     assert workingness["endpoint"] == "/workingness-card"
     assert workingness["full_endpoint"] == "/workingness"
     assert workingness["workingness_endpoint"] == "/workingness-card"
     assert workingness["workingness_drilldown_endpoint"] == "/workingness"
     assert (
         workingness["status_card_front_door_ref"]
-        == "microcosm status --card <project>::front_door"
+        == "plectis status --card <project>::front_door"
     )
     assert (
         workingness["status_card_route_explanation_ref"]
-        == "microcosm status --card <project>::front_door.route_explanation"
+        == "plectis status --card <project>::front_door.route_explanation"
     )
     assert (
         workingness["status_card_front_door_body_import_ref"]
-        == "microcosm status --card <project>::front_door.source_open_body_import_floor"
+        == "plectis status --card <project>::front_door.source_open_body_import_floor"
     )
     assert (
         workingness["status_card_body_import_floor_ref"]
-        == "microcosm status --card <project>::macro_body_import_floor"
+        == "plectis status --card <project>::macro_body_import_floor"
     )
     assert workingness["tour_route_card_ref"] == (
-        "microcosm tour <project>::route_cards_by_id.status_and_workingness"
+        "plectis tour <project>::route_cards_by_id.status_and_workingness"
     )
     assert workingness["tour_receipt_ref"] == (
         "receipts/runtime_shell/public_ten_minute_tour.json::"
@@ -1831,7 +1831,7 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     composition = importlib.import_module("microcosm_core.first_screen_composition")
     card = composition.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
     hello_text = composition.first_screen_text_card(card)
-    assert 'Have a goal? microcosm comprehend --first-action "<your goal>"' in hello_text
+    assert 'Have a goal? plectis comprehend --first-action "<your goal>"' in hello_text
     # The goal line must LEAD the card (line 2, directly under the title), not
     # trail it: position is the product here, presence alone can be demoted.
     assert hello_text.splitlines()[1].startswith("Have a goal? ")

@@ -1082,7 +1082,7 @@ def _standalone_exported_tool_versions() -> dict[str, Any]:
         "lean_version_command": {
             "argv": ["lean", "--version"],
             "cwd_name": Path.cwd().name,
-            "return_code": 0,
+            "return_code": None,
             "stdout_line_count": 0,
             "stderr_line_count": 0,
             "timed_out": False,
@@ -1094,7 +1094,7 @@ def _standalone_exported_tool_versions() -> dict[str, Any]:
         "lake_version_command": {
             "argv": ["lake", "--version"],
             "cwd_name": Path.cwd().name,
-            "return_code": 0,
+            "return_code": None,
             "stdout_line_count": 0,
             "stderr_line_count": 0,
             "timed_out": False,
@@ -2108,7 +2108,11 @@ def _build_result(
         "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
         "anti_claim": ANTI_CLAIM,
         "body_in_receipt": False,
-        "real_runtime_receipt": status == PASS,
+        # Honest run-provenance: a standalone exported certificate contract is a
+        # declared synthetic shape, never a live lean/lake execution receipt.
+        "real_runtime_receipt": status == PASS and not standalone_exported_certificate,
+        "synthetic_contract": standalone_exported_certificate,
+        "not_a_live_run": standalone_exported_certificate,
         "synthetic_receipt_standin_allowed": False,
     }
 
@@ -2265,7 +2269,7 @@ def write_receipts(
             "receipt_body_is_public_evidence": True,
             "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
             "body_in_receipt": False,
-            "real_runtime_receipt": result["status"] == PASS,
+            "real_runtime_receipt": result["real_runtime_receipt"],
             "synthetic_receipt_standin_allowed": False,
             "release_authorized": False,
         }
@@ -2528,7 +2532,7 @@ def build_public_readout(
         "anti_claim": result.get("anti_claim", ANTI_CLAIM),
         "evidence_refs": evidence_refs,
         "body_in_receipt": False,
-        "real_runtime_receipt": status == PASS,
+        "real_runtime_receipt": result.get("real_runtime_receipt", False),
         "synthetic_receipt_standin_allowed": False,
     }
     if out is not None:

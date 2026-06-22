@@ -304,7 +304,7 @@ def validate_launch_compression(
     assertions = {
         "one_line_identity_present": "repo -> .microcosm" in readme_first_screen
         and ("inspectable work substrate" in readme_first_screen or "inspect routes" in readme_first_screen),
-        "one_command_quickstart_present": "microcosm hello ." in readme_first_screen,
+        "one_command_quickstart_present": "plectis hello ." in readme_first_screen,
         "try_it_on_your_repo_present": "try it on your repo" in readme_lower
         or "start with one compact local command" in first_screen_lower,
         "first_screen_not_receipt_forward": not any(
@@ -323,7 +323,7 @@ def validate_launch_compression(
         "compile_does_not_mutate_source": compiled.get("source_files_mutated") is False,
         "ten_minute_tour_passes": tour.get("status") == PASS,
         "ten_minute_tour_endpoint_visible": "/tour" in (tour.get("endpoint_path") or []),
-        "ten_minute_tour_command_present": "microcosm tour <project>" in (tour.get("command_path") or []),
+        "ten_minute_tour_command_present": "plectis tour <project>" in (tour.get("command_path") or []),
         "verifier_trace_lens_passes": trace_lens.get("status") == PASS,
         "verifier_trace_endpoint_visible": "/trace" in (tour.get("endpoint_path") or []),
         "verifier_trace_command_present": "microcosm trace-lens" in (tour.get("command_path") or []),
@@ -343,7 +343,7 @@ def validate_launch_compression(
         "verifier_repair_loop_first_screen_present": "Verifier Repair Loop Lens" in observatory_html,
         "formal_evidence_cell_lens_passes": evidence_cells.get("status") == PASS,
         "formal_evidence_cell_endpoint_visible": "/evidence-cells" in (tour.get("endpoint_path") or []),
-        "formal_evidence_cell_command_present": "microcosm evidence-cells" in (tour.get("command_path") or []),
+        "formal_evidence_cell_command_present": "plectis evidence-cells" in (tour.get("command_path") or []),
         "formal_evidence_cell_no_proof_authority": isinstance(
             evidence_cells.get("authority_ceiling"), dict
         )
@@ -443,7 +443,7 @@ def validate_launch_compression(
         "route_cleanup_contract_lens_passes": route_cleanup.get("status") == PASS,
         "route_cleanup_contract_endpoint_visible": "/route-cleanup"
         in (tour.get("endpoint_path") or []),
-        "route_cleanup_contract_command_present": "microcosm route-cleanup"
+        "route_cleanup_contract_command_present": "plectis route-cleanup"
         in (tour.get("command_path") or []),
         "route_cleanup_contract_no_route_or_source_mutation": isinstance(
             route_cleanup.get("authority_ceiling"), dict
@@ -689,8 +689,8 @@ def validate_launch_compression(
         "command": command,
         "project_ref": project_path.name,
         "one_line_identity": "repo -> .microcosm: turn any folder into an inspectable work substrate.",
-        "quickstart_command": "microcosm hello .",
-        "full_rebuild_command": "microcosm compile .",
+        "quickstart_command": "plectis hello .",
+        "full_rebuild_command": "plectis compile .",
         "compiled_summary": {
             "headline": compiled.get("headline"),
             "file_count": compiled.get("file_count"),

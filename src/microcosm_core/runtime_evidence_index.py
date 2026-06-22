@@ -89,7 +89,7 @@ def _receipt_evidence_contract_summary(payload: dict[str, Any]) -> dict[str, Any
     - Fails: never raises; missing/odd fields collapse to False signals (e.g. absent status -> real_runtime_receipt False).
     - Reads: status, negative-case lists, secret_exclusion_scan, the private-state-scan key, body-import keys, blocked_import_debt / projection_status within the in-memory <payload>.
     - Non-goal: does not authorize source-body export, treat a passing receipt as release-readiness, or assert whole-system correctness; the summary is a claim envelope, not proof.
-    - Escalates-to: compact_receipt_summary (its only caller) and the "microcosm evidence inspect <receipt_ref>" drilldown for the full contract.
+    - Escalates-to: compact_receipt_summary (its only caller) and the "plectis evidence inspect <receipt_ref>" drilldown for the full contract.
     """
     has_negative_cases = _has_nonempty_list(
         payload,
@@ -132,7 +132,7 @@ def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     - When-needed: inspect when an evidence index row shows wrong status/organ, or when verifying a receipt body is not leaking into the compact projection.
     - Reads: the receipt JSON at <path> (via _read_json_object), normalized against <root>.
     - Non-goal: does not authorize source-body export, validate the receipt, or treat the row as release authority.
-    - Escalates-to: "microcosm evidence inspect <receipt_ref>" for the full contract; _receipt_evidence_contract_summary for the booleans; tests covering runtime_evidence_index.
+    - Escalates-to: "plectis evidence inspect <receipt_ref>" for the full contract; _receipt_evidence_contract_summary for the booleans; tests covering runtime_evidence_index.
     """
     payload = _read_json_object(path)
     receipt_ref = _public_relative(path, root)
@@ -184,7 +184,7 @@ def list_runtime_evidence(
     - When-needed: run when you need a public inventory of runtime evidence, to check receipt_count/truncation, or as the entry before drilling into a single receipt.
     - Reads: the <root>/receipts tree (recursively, via _iter_json_files) under the expanded/resolved root.
     - Non-goal: does not validate receipts, authorize release/source-body export, or assert the evidence proves whole-system correctness; truncated indexes are partial views.
-    - Escalates-to: "microcosm evidence inspect <receipt_ref>" (full_contract_drilldown) per row; compact_receipt_summary for row shape; tests covering runtime_evidence_index.
+    - Escalates-to: "plectis evidence inspect <receipt_ref>" (full_contract_drilldown) per row; compact_receipt_summary for row shape; tests covering runtime_evidence_index.
     """
     root_path = Path(root).expanduser().resolve(strict=False)
     receipt_count, returned_receipts = _bounded_sorted_paths(
@@ -203,9 +203,9 @@ def list_runtime_evidence(
         "limit": limit,
         "truncated": len(returned_evidence) < receipt_count,
         "compact_rows": True,
-        "full_contract_drilldown_command": "microcosm evidence inspect <receipt_ref>",
+        "full_contract_drilldown_command": "plectis evidence inspect <receipt_ref>",
         "full_contract_drilldown": {
-            "command_template": "microcosm evidence inspect <receipt_ref>",
+            "command_template": "plectis evidence inspect <receipt_ref>",
             "row_key": "receipt_ref",
             "field": "evidence_contract",
         },

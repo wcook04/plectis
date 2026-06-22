@@ -73,7 +73,7 @@
         "explanation"
       ],
       "route_refs": [
-        "microcosm first-screen <project>::doctrine_effect_frame",
+        "plectis first-screen <project>::doctrine_effect_frame",
         "AGENTS.md::Concept And Mechanism Entry"
       ],
       "runtime_hook": "first_screen_composition.doctrine_effect_frame",
@@ -94,9 +94,9 @@
         "explanation"
       ],
       "route_refs": [
-        "microcosm first-screen <project>::doctrine_effect_frame",
+        "plectis first-screen <project>::doctrine_effect_frame",
         "AGENTS.md::Concept And Mechanism Entry",
-        "microcosm executable-doctrine-grammar validate-standards-bundle"
+        "plectis executable-doctrine-grammar validate-standards-bundle"
       ],
       "runtime_hook": "first_screen_composition.doctrine_effect_frame",
       "source_refs": [
@@ -119,10 +119,10 @@
       "route_refs": [
         "AGENTS.md::Concept And Mechanism Entry",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
-        "microcosm first-screen --full <project>",
-        "microcosm executable-doctrine-grammar validate-standards-bundle",
-        "microcosm standards-meta-diagnostics run-diagnostics-bundle",
-        "microcosm voice-to-doctrine-self-improvement-loop run-bundle"
+        "plectis first-screen --full <project>",
+        "plectis executable-doctrine-grammar validate-standards-bundle",
+        "plectis standards-meta-diagnostics run-diagnostics-bundle",
+        "plectis voice-to-doctrine-self-improvement-loop run-bundle"
       ],
       "runtime_hook": "atlas.entry_packet.concept_mechanism_entry_route.population_specimens",
       "source_refs": [

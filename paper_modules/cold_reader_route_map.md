@@ -193,26 +193,26 @@ instead of editing `ORGANS.md`, `ARCHITECTURE.md`, `AGENT_ROUTES.md`, or
 
 The accepted path is:
 
-1. `microcosm hello <project>`
-2. `microcosm tour --card <project>`
-3. `microcosm status --card <project>`
-4. `microcosm authority --card`
-5. `microcosm workingness --card`
-6. `microcosm legibility-scorecard`
+1. `plectis hello <project>`
+2. `plectis tour --card <project>`
+3. `plectis status --card <project>`
+4. `plectis authority --card`
+5. `plectis workingness --card`
+6. `plectis legibility-scorecard`
 7. Read `selected_route_id` from the compact tour or status card.
-8. `microcosm explain <project> <selected_route_id>`
-9. `microcosm observe --card <project>`
-10. `microcosm cold-reader-route-map run-route-map-bundle`
+8. `plectis explain <project> <selected_route_id>`
+9. `plectis observe --card <project>`
+10. `plectis cold-reader-route-map run-route-map-bundle`
 
 Full drilldowns stay available after the compact path is visible:
 
-- `microcosm tour <project>` for the full first-screen route tree.
-- `microcosm compile <project>` for project-state materialization details.
-- `microcosm proof-lab --out /tmp/microcosm-proof-lab` for proof-lab
+- `plectis tour <project>` for the full first-screen route tree.
+- `plectis compile <project>` for project-state materialization details.
+- `plectis proof-lab --out /tmp/microcosm-proof-lab` for proof-lab
   component receipts.
-- `microcosm serve <project> --host 127.0.0.1 --port 8765` for the local
+- `plectis serve <project> --host 127.0.0.1 --port 8765` for the local
   observatory.
-- `microcosm spine`, `microcosm intake`, and `microcosm reveal` for deeper
+- `plectis spine`, `plectis intake`, and `plectis reveal` for deeper
   runtime-spine, intake, and reveal surfaces.
 
 ## Reader-Specific Evidence Routing
@@ -220,15 +220,15 @@ Full drilldowns stay available after the compact path is visible:
 The route map should make the evidence-count frame visible before the reader
 chooses a drilldown. Honest counters are not progress badges:
 
-- A safety/evals engineer follows `microcosm status --card`,
-  `microcosm authority --card`, and `microcosm workingness --card` first. The
+- A safety/evals engineer follows `plectis status --card`,
+  `plectis authority --card`, and `plectis workingness --card` first. The
   useful question is whether each claim names its evidence class, validator,
   failure mode, and authority ceiling.
 - A hiring reviewer follows the first-screen card and legibility scorecard
   first. The useful question is whether small verified counts are framed as
   honest proof boundaries instead of hidden or inflated.
-- A peer developer follows `microcosm tour --card`, `microcosm observe --card`,
-  and then full `microcosm observe`, `microcosm compile`, or `microcosm explain`
+- A peer developer follows `plectis tour --card`, `plectis observe --card`,
+  and then full `plectis observe`, `plectis compile`, or `plectis explain`
   as drilldowns. The useful question is whether a fresh clone can reproduce the
   route/work/event/evidence chain locally without opening full event rows first.
 
@@ -243,7 +243,7 @@ import" from being read as either failure or marketing.
 The route map consumes the first-screen card as the handoff, not as another
 route row. A cold reader should see this sequence:
 
-1. First-screen card: claim frame, `microcosm hello <project>`, shared proof,
+1. First-screen card: claim frame, `plectis hello <project>`, shared proof,
    evidence legend, structural join, reader rail, and exit rule.
 2. Route map: the accepted command order, with receipt refs and authority
    ceilings attached to each command.
@@ -281,7 +281,7 @@ Browser-first readers follow the same route map as terminal-first readers. The
 route order is compressed, not replaced:
 
 1. First-screen card or compact browser board.
-2. `microcosm tour --card <project>` as the shared behavior proof.
+2. `plectis tour --card <project>` as the shared behavior proof.
 3. Selected route plus work/event/evidence refs.
 4. Compact observatory view for the same route.
 5. Full route map, receipts, standards, and raw JSON drilldowns.
@@ -324,7 +324,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli cold-reader-route-map run-route-map
 The fixture observes negative cases for missing command refs, missing receipt
 refs, route sequence gaps, release/provider overclaims, and private source body
 fields. The exported bundle omits negative cases and validates the real runtime
-shape used by `microcosm run`, with synthetic receipt stand-ins explicitly
+shape used by `plectis run`, with synthetic receipt stand-ins explicitly
 disallowed as product evidence.
 If focused validation reports an exact-copy source-module body mismatch, route
 that repair through `microcosm_exact_copy_refresh`; do not treat this Markdown

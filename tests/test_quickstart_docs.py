@@ -31,7 +31,7 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         < quickstart.index("## 1. Install The Local Command")
     )
     assert (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in quickstart
     )
     assert (
@@ -52,7 +52,7 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         "failure-envelope map."
     ) in quickstart
     assert "validates those receipts" in quickstart
-    assert "Microcosm smoke check: pass" in quickstart
+    assert "Plectis smoke check: pass" in quickstart
     assert "authority: pass" in quickstart
     assert "workingness: clear" in quickstart
     assert "served status: pass" in quickstart
@@ -68,11 +68,11 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
     assert quickstart.index("- `/workingness-card`") < quickstart.index(
         "Open `/workingness` only"
     )
-    assert "microcosm first-screen --card ." in compact_smoke
+    assert "plectis first-screen --card ." in compact_smoke
     assert (
-        compact_smoke.index("microcosm hello .")
-        < compact_smoke.index("microcosm first-screen --card .")
-        < compact_smoke.index("microcosm tour --card .")
+        compact_smoke.index("plectis hello .")
+        < compact_smoke.index("plectis first-screen --card .")
+        < compact_smoke.index("plectis tour --card .")
     )
     assert (
         "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
@@ -88,7 +88,7 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         )
     )
     assert "validate the exported artifact as its own clone" in quickstart
-    assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in quickstart
+    assert "cd /tmp/plectis-export/plectis" in quickstart
     assert (
         "This checks standalone install, tests, and smoke from the exported root"
         in quickstart

@@ -38,7 +38,7 @@ The smoke target is the no-install public sanity check. It writes ignored
 `.microcosm/smoke/`, then checks the compact public authority, workingness,
 legibility, version, and stripping-boundary surfaces without dumping the full
 cards into CI logs. A healthy terminal summary includes
-`Microcosm smoke check: pass`, `authority: pass`, `workingness: clear`, and
+`Plectis smoke check: pass`, `authority: pass`, `workingness: clear`, and
 `served status: pass`:
 
 ```bash
@@ -106,13 +106,13 @@ standalone public verification floor.
 After install, the fuller first-screen route is:
 
 ```bash
-.venv/bin/microcosm hello .
-.venv/bin/microcosm first-screen --card .
-.venv/bin/microcosm tour --card .
-.venv/bin/microcosm status --card .
-.venv/bin/microcosm authority --card
-.venv/bin/microcosm workingness --card
-.venv/bin/microcosm legibility-scorecard
+.venv/bin/plectis hello .
+.venv/bin/plectis first-screen --card .
+.venv/bin/plectis tour --card .
+.venv/bin/plectis status --card .
+.venv/bin/plectis authority --card
+.venv/bin/plectis workingness --card
+.venv/bin/plectis legibility-scorecard
 ```
 
 If editable install is not available, keep the same first-screen route in
@@ -139,10 +139,10 @@ To generate a bounded standalone folder and release-export receipt for review,
 run the explicit export target:
 
 ```bash
-make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export
+make standalone-export EXPORT_OUT=/tmp/plectis-export
 ```
 
-This writes `/tmp/microcosm-substrate-export/microcosm-substrate/` and records
+This writes `/tmp/plectis-export/plectis/` and records
 `receipts/release/release_export_receipt.json` inside that artifact. The target
 is intentionally not part of `make ci`; it performs heavier outside-root smoke
 checks and still keeps `release_authorized=false` until a separate human release
@@ -151,7 +151,7 @@ decision exists.
 Before handing off that folder, validate it from inside the exported artifact:
 
 ```bash
-cd /tmp/microcosm-substrate-export/microcosm-substrate
+cd /tmp/plectis-export/plectis
 make ci
 ```
 

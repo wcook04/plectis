@@ -3689,7 +3689,7 @@ def _is_runnable_public_command(command: str, *, allow_project_placeholder: bool
     tokens = _command_tokens(command)
     if not tokens:
         return False
-    if tokens[0] == "microcosm":
+    if tokens[0] in {"plectis", "microcosm"}:
         return True
     if len(tokens) >= 5 and tokens[0].startswith("PYTHONPATH=") and tokens[1:4] == [
         "python3",
@@ -3710,8 +3710,8 @@ def _is_runnable_public_command(command: str, *, allow_project_placeholder: bool
 def _source_checkout_command(command: str) -> str | None:
     """Translate an installed-console command into its source-checkout (no-install) form.
 
-    - Teleology: give source-only readers a `PYTHONPATH=src python3 -m microcosm_core ...` invocation alongside the `microcosm ...` form.
-    - Guarantee: returns the command unchanged when already PYTHONPATH=src-prefixed; rewrites a `microcosm`/`microcosm <args>` command to the module form; returns None for blank or non-matching commands.
+    - Teleology: give source-only readers a `PYTHONPATH=src python3 -m microcosm_core ...` invocation alongside the `plectis ...` form.
+    - Guarantee: returns the command unchanged when already PYTHONPATH=src-prefixed; rewrites a `plectis`/`plectis <args>` command, and the legacy `microcosm` alias, to the module form; returns None for blank or non-matching commands.
     - Fails: never raises; unrecognized command shapes return None.
     - Non-goal: an invocation hint only; adds no source-mutation, release, provider-call, or private-root authority.
     """
@@ -3720,10 +3720,12 @@ def _source_checkout_command(command: str) -> str | None:
         return None
     if command.startswith("PYTHONPATH=src "):
         return command
-    if command == "microcosm":
+    if command in {"plectis", "microcosm"}:
         return "PYTHONPATH=src python3 -m microcosm_core"
-    if command.startswith("microcosm "):
-        return f"PYTHONPATH=src python3 -m microcosm_core {command[len('microcosm '):]}"
+    for console_name in ("plectis", "microcosm"):
+        prefix = f"{console_name} "
+        if command.startswith(prefix):
+            return f"PYTHONPATH=src python3 -m microcosm_core {command[len(prefix):]}"
     return None
 
 
@@ -4122,7 +4124,7 @@ def _build_viewer_modes(
         _as_dict(entry_packet.get("reader_first_screen_routes")).get(
             "shared_prerequisite_command"
         )
-        or "microcosm tour --card <project>"
+        or "plectis tour --card <project>"
     )
     task_class = str(task_route_card.get("task_class") or DEFAULT_TASK)
     task_source_checkout_command = str(
@@ -4173,7 +4175,7 @@ def _build_viewer_modes(
         ],
     )
 
-    human_first_action = str(public_reader.get("route_command") or "microcosm hello <project>")
+    human_first_action = str(public_reader.get("route_command") or "plectis hello <project>")
     human_stop = str(
         public_reader.get("stop_when")
         or "You can name what the card proves, what it only projects, and which authority claims it refuses."

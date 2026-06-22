@@ -1,12 +1,12 @@
 {
   "schema_version": "entry_packet_v1",
   "surface_role": "source_open_public_entry",
-  "first_command": "microcosm tour --card <project>",
+  "first_command": "plectis tour --card <project>",
   "reader_first_screen_routes": {
     "schema_version": "microcosm_reader_first_screen_routes_v1",
     "route_ref": "atlas/entry_packet.json::reader_first_screen_routes",
     "purpose": "Choose the reader-specific second screen after the shared local behavior card has made .microcosm state visible.",
-    "shared_prerequisite_command": "microcosm tour --card <project>",
+    "shared_prerequisite_command": "plectis tour --card <project>",
     "reader_selection_card": {
       "schema_version": "microcosm_reader_selection_card_v1",
       "surface_ref": "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
@@ -16,7 +16,7 @@
         {
           "reader_id": "public_github_visitor",
           "cold_question": "Can I trust and run this public repo quickly?",
-          "route_command": "microcosm hello <project>",
+          "route_command": "plectis hello <project>",
           "trust_signal": "copyable first command, shared behavior proof, and authority ceiling stay visible before receipt drilldown.",
           "stop_when": "You can run hello/tour --card and name the release, hosting, and reader-success claims this repo refuses.",
           "anti_overread": "A first-screen map is not release readiness, publication approval, or proof of reader success."
@@ -24,7 +24,7 @@
         {
           "reader_id": "safety_evals_engineer",
           "cold_question": "Can I audit the evidence discipline without trusting product claims?",
-          "route_command": "microcosm status --card <project>",
+          "route_command": "plectis status --card <project>",
           "trust_signal": "evidence classes, body-import counts, failure modes, and authority ceilings stay separated.",
           "stop_when": "You can name what the public package proves, what it only projects, and what remains warning-only.",
           "anti_overread": "A low body-import count is a scoped evidence boundary, not a failure score."
@@ -32,7 +32,7 @@
         {
           "reader_id": "hiring_reviewer",
           "cold_question": "Is this real enough to judge the builder quickly?",
-          "route_command": "microcosm legibility-scorecard",
+          "route_command": "plectis legibility-scorecard",
           "trust_signal": "question-to-command mapping, endpoint parity, and no-reader-success guarantees are explicit.",
           "stop_when": "You can point to a runnable local card, a 10-minute route, and the boundaries it refuses to cross.",
           "anti_overread": "Legibility is interview signal only, not production readiness or benchmark authority."
@@ -40,7 +40,7 @@
         {
           "reader_id": "peer_developer",
           "cold_question": "Can I clone it and inspect useful local state in an hour?",
-          "route_command": "microcosm tour --card <project>",
+          "route_command": "plectis tour --card <project>",
           "trust_signal": ".microcosm refs, selected_route_id, causal-chain refs, and source_files_mutated=false are visible.",
           "stop_when": "You can rerun the first card, inspect observe/explain refs, and avoid raw receipt spelunking.",
           "anti_overread": "A useful route card is not a claim that every organ is complete."
@@ -48,7 +48,7 @@
         {
           "reader_id": "domain_specialist",
           "cold_question": "Where should I start if I care about one technical domain or specialty?",
-          "route_command": "microcosm hello --reader domain_specialist <project>",
+          "route_command": "plectis hello --reader domain_specialist <project>",
           "trust_signal": "specialty-to-organ navigation, evidence class, and authority ceiling stay explicit before domain interpretation.",
           "stop_when": "You can map a domain to a specialty route and name the evidence ceiling without claiming domain correctness.",
           "anti_overread": "Specialty routing is not domain expertise, expert review, or proof that the domain claim is correct."
@@ -56,7 +56,7 @@
         {
           "reader_id": "type_a_agent",
           "cold_question": "What should I read first as a Type A agent, and where do I patch if the route misleads me?",
-          "route_command": "microcosm first-screen --card <project>",
+          "route_command": "plectis first-screen --card <project>",
           "trust_signal": "agent first-read contract, mechanism-vs-validator status, owner surface, and claim ceiling are visible before mutation.",
           "stop_when": "You can name the agent first-read path, distinguish mechanisms from validators or projections, and identify the owner surface to patch without overclaiming source mutation.",
           "anti_overread": "Agent entry routing is not source-mutation, release, proof-correctness, or private-root-equivalence authority."
@@ -68,8 +68,8 @@
       {
         "reader_id": "public_github_visitor",
         "reader_question": "Can I trust and run this public repo quickly?",
-        "first_screen_command": "microcosm hello <project>",
-        "next_command": "microcosm tour --card <project>",
+        "first_screen_command": "plectis hello <project>",
+        "next_command": "plectis tour --card <project>",
         "evidence_focus": [
           "copyable first command",
           "shared local behavior proof",
@@ -81,9 +81,9 @@
       {
         "reader_id": "safety_evals_engineer",
         "reader_question": "Does the evidence discipline survive scale and boundary pressure?",
-        "first_screen_command": "microcosm status --card <project>",
-        "next_command": "microcosm authority --card",
-        "followup_command": "microcosm workingness --card",
+        "first_screen_command": "plectis status --card <project>",
+        "next_command": "plectis authority --card",
+        "followup_command": "plectis workingness --card",
         "evidence_focus": [
           "front_door.source_open_body_import_floor",
           "explicit evidence_class rows",
@@ -95,8 +95,8 @@
       {
         "reader_id": "hiring_reviewer",
         "reader_question": "Is this real, and is the builder worth interviewing?",
-        "first_screen_command": "microcosm legibility-scorecard",
-        "next_command": "microcosm tour --card <project>",
+        "first_screen_command": "plectis legibility-scorecard",
+        "next_command": "plectis tour --card <project>",
         "evidence_focus": [
           "question-to-command scorecard",
           "10-minute checkpoint path",
@@ -108,9 +108,9 @@
       {
         "reader_id": "peer_developer",
         "reader_question": "Can I clone this and inspect useful local state within an hour?",
-        "first_screen_command": "microcosm tour --card <project>",
-        "next_command": "microcosm observe --card <project>",
-        "followup_command": "microcosm observe <project>",
+        "first_screen_command": "plectis tour --card <project>",
+        "next_command": "plectis observe --card <project>",
+        "followup_command": "plectis observe <project>",
         "evidence_focus": [
           ".microcosm state refs",
           "selected_route_id",
@@ -122,9 +122,9 @@
       {
         "reader_id": "domain_specialist",
         "reader_question": "Where should I start if I care about one technical domain or specialty?",
-        "first_screen_command": "microcosm hello --reader domain_specialist <project>",
+        "first_screen_command": "plectis hello --reader domain_specialist <project>",
         "next_command": "ORGANS.md#find-your-specialty",
-        "followup_command": "microcosm tour --card <project>",
+        "followup_command": "plectis tour --card <project>",
         "evidence_focus": [
           "specialty-to-organ route",
           "evidence class and authority ceiling",
@@ -136,8 +136,8 @@
       {
         "reader_id": "type_a_agent",
         "reader_question": "What should I read first as a Type A agent, and where do I patch if the route misleads me?",
-        "first_screen_command": "microcosm first-screen --card <project>",
-        "next_command": "microcosm organ-surface-contract --card --root .",
+        "first_screen_command": "plectis first-screen --card <project>",
+        "next_command": "plectis organ-surface-contract --card --root .",
         "followup_command": "AGENTS.md::Concept And Mechanism Entry",
         "evidence_focus": [
           "agent first-read contract",
@@ -157,7 +157,7 @@
     "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
     "atlas/entry_packet.json::concept_mechanism_entry_route",
     "AGENTS.md::Concept And Mechanism Entry",
-    "microcosm first-screen <project>::doctrine_effect_frame",
+    "plectis first-screen <project>::doctrine_effect_frame",
     "standards/std_microcosm_concept.json",
     "standards/std_microcosm_mechanism.json",
     "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
@@ -168,23 +168,23 @@
     "atlas/entry_packet.json::observatory_route",
     "./bootstrap.sh",
     ".microcosm/cold_clone_probe.json",
-    "microcosm tour --card <project>",
-    "microcosm tour --card <project>::state_inspection",
-    "microcosm tour --card <project>::state_refs",
-    "microcosm tour --card <project>::status_card",
-    "microcosm tour --card <project>::observatory",
-    "microcosm tour --card <project>::proof_lab",
-    "microcosm tour --card <project>::macro_body_import_floor",
-    "microcosm tour <project>",
-    "microcosm compile <project>",
-    "microcosm evidence list <project> --limit 25",
-    "microcosm evidence inspect <project> <ref>",
-    "microcosm observe --card <project>",
-    "microcosm observe <project>",
-    "microcosm observe <project>::causal_chain",
-    "microcosm serve <project> --host 127.0.0.1 --port 8765",
-    "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
-    "microcosm serve <project>::first_screen_route_proof",
+    "plectis tour --card <project>",
+    "plectis tour --card <project>::state_inspection",
+    "plectis tour --card <project>::state_refs",
+    "plectis tour --card <project>::status_card",
+    "plectis tour --card <project>::observatory",
+    "plectis tour --card <project>::proof_lab",
+    "plectis tour --card <project>::macro_body_import_floor",
+    "plectis tour <project>",
+    "plectis compile <project>",
+    "plectis evidence list <project> --limit 25",
+    "plectis evidence inspect <project> <ref>",
+    "plectis observe --card <project>",
+    "plectis observe <project>",
+    "plectis observe <project>::causal_chain",
+    "plectis serve <project> --host 127.0.0.1 --port 8765",
+    "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+    "plectis serve <project>::first_screen_route_proof",
     "/",
     "/status",
     "/project/status",
@@ -204,45 +204,45 @@
     "core/pattern_binding_contract.json",
     "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
-    "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "plectis pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
     "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_route_readiness_audit.json",
     "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_organ_route_cards.json",
     "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
-    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-    "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "plectis proof-lab --out /tmp/microcosm-proof-lab",
+    "plectis verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
-    "microcosm proof-loop-depth",
-    "microcosm verifier-lab-execution-spine-lens",
-    "microcosm tour <project>::front_door_status",
+    "plectis proof-loop-depth",
+    "plectis verifier-lab-execution-spine-lens",
+    "plectis tour <project>::front_door_status",
     "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
     "atlas/entry_packet.json::status_before_tour_recovery_route",
-    "microcosm status --card",
-    "microcosm status --card <project>",
-    "microcosm legibility-scorecard",
-    "microcosm authority",
-    "microcosm status --card <project>::front_door",
-    "microcosm status --card <project>::front_door.project_state.recovery",
-    "microcosm status --card <project>::front_door.project_recovery",
-    "microcosm status --card <project>::front_door_status.blocking_surface_details.project_state",
-    "microcosm status --card <project>::front_door.route_explanation",
-    "microcosm status --card <project>::front_door.proof_lab",
-    "microcosm status --card <project>::front_door.observatory",
-    "microcosm status --card <project>::front_door.source_open_body_import_floor",
-    "microcosm status --card <project>::macro_body_import_floor",
-    "microcosm workingness --card",
-    "microcosm tour <project>::route_cards_by_id.status_and_workingness",
+    "plectis status --card",
+    "plectis status --card <project>",
+    "plectis legibility-scorecard",
+    "plectis authority",
+    "plectis status --card <project>::front_door",
+    "plectis status --card <project>::front_door.project_state.recovery",
+    "plectis status --card <project>::front_door.project_recovery",
+    "plectis status --card <project>::front_door_status.blocking_surface_details.project_state",
+    "plectis status --card <project>::front_door.route_explanation",
+    "plectis status --card <project>::front_door.proof_lab",
+    "plectis status --card <project>::front_door.observatory",
+    "plectis status --card <project>::front_door.source_open_body_import_floor",
+    "plectis status --card <project>::macro_body_import_floor",
+    "plectis workingness --card",
+    "plectis tour <project>::route_cards_by_id.status_and_workingness",
     "/workingness-card",
     "/workingness",
     "receipts/runtime_shell/public_ten_minute_tour.json::route_cards_by_id.status_and_workingness",
     "receipts/runtime_shell/workingness_failure_map.json",
-    "microcosm python-lens <project>",
+    "plectis python-lens <project>",
     ".microcosm/python_lens.json",
     ".microcosm/python_lens.json::navigation_assay",
     ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
     ".microcosm/python_lens.json::route_utility_curriculum",
     ".microcosm/python_lens.json::route_utility_curriculum.ratchet",
-    "microcosm explain <project> <selected_route_id>",
+    "plectis explain <project> <selected_route_id>",
     ".microcosm/explanations/<selected_route_id>.json",
     ".microcosm/evidence/explain_<selected_route_id>.json",
     ".microcosm/work_items.json",
@@ -252,19 +252,19 @@
     "surface_id": "microcosm_local_first_screen",
     "entry_role": "bring-a-folder behavioral first contact before validation-suite drilldowns",
     "command_path": [
-      "microcosm tour --card <project>",
-      "microcosm status --card <project>",
-      "microcosm workingness --card",
-      "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-      "microcosm observe --card <project>",
-      "microcosm serve <project> --host 127.0.0.1 --port 8765",
-      "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
-      "microcosm compile <project>",
-      "microcosm python-lens <project>",
-      "microcosm explain <project> <selected_route_id>",
-      "microcosm evidence list <project> --limit 25",
-      "microcosm evidence inspect <project> <ref>",
-      "microcosm tour <project>"
+      "plectis tour --card <project>",
+      "plectis status --card <project>",
+      "plectis workingness --card",
+      "plectis proof-lab --out /tmp/microcosm-proof-lab",
+      "plectis observe --card <project>",
+      "plectis serve <project> --host 127.0.0.1 --port 8765",
+      "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+      "plectis compile <project>",
+      "plectis python-lens <project>",
+      "plectis explain <project> <selected_route_id>",
+      "plectis evidence list <project> --limit 25",
+      "plectis evidence inspect <project> <ref>",
+      "plectis tour <project>"
     ],
     "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
     "reader_selection_ref": "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
@@ -276,10 +276,10 @@
       "domain_specialist",
       "type_a_agent"
     ],
-    "primary_first_screen_command": "microcosm tour --card <project>",
+    "primary_first_screen_command": "plectis tour --card <project>",
     "state_dir": ".microcosm",
     "state_inspection": {
-      "surface_ref": "microcosm tour --card <project>::state_inspection",
+      "surface_ref": "plectis tour --card <project>::state_inspection",
       "inspect_command": "find <project>/.microcosm -maxdepth 2 -type f | sort",
       "route_state_json_check_command": "python3 -m json.tool <project>/.microcosm/routes.json",
       "reader_action": "Inspect the local .microcosm files named by state_inspection before doctrine or receipt drilldowns."
@@ -319,7 +319,7 @@
       "proof_lab_route"
     ],
     "cold_clone_validation_suite": "./bootstrap.sh",
-    "selected_route_id_source": "microcosm tour --card <project>::selected_route_id or microcosm tour <project>::selected_route_id or microcosm tour <project>::first_screen.selected_route_id or microcosm compile <project>::selected_route_id",
+    "selected_route_id_source": "plectis tour --card <project>::selected_route_id or plectis tour <project>::selected_route_id or plectis tour <project>::first_screen.selected_route_id or plectis compile <project>::selected_route_id",
     "route_selection_rule": "Use the selected_route_id emitted by tour --card, tour, or compile. readme_onboarding_route is a generated route only when the project has a README. Empty or non-README folders can select missing_tests_route, including missing_tests_route when tests are absent.",
     "authority": "project-local behavioral route only, not release, provider, source mutation, production, or proof-correctness authority",
     "safe_to_show": {
@@ -333,7 +333,7 @@
   "concept_mechanism_entry_route": {
     "surface_id": "microcosm_concept_mechanism_entry",
     "entry_role": "agent-facing doctrine population and refinement route after the shared first-screen card",
-    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "first_screen_ref": "plectis first-screen <project>::doctrine_effect_frame",
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
     "standards": [
       {
@@ -353,7 +353,7 @@
       "composition_root": "atlas/entry_packet.json::concept_mechanism_entry_route",
       "reader_rule": "Use the first-screen doctrine frame only as the door; choose one specimen, inspect its concept/mechanism binding, run or cite its validator, then refine the owning standard, pressure row, fixture, or WorkItem residual and record an activation receipt.",
       "sequence": [
-        "read microcosm first-screen <project>::doctrine_effect_frame",
+        "read plectis first-screen <project>::doctrine_effect_frame",
         "open standards/std_microcosm_concept.json and standards/std_microcosm_mechanism.json",
         "choose one population_specimens row",
         "run the specimen validation command or inspect the named receipt",
@@ -374,7 +374,7 @@
       {
         "specimen_id": "first_screen_doctrine_effect_frame",
         "specimen_role": "entry_surface_specimen",
-        "entry_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+        "entry_ref": "plectis first-screen <project>::doctrine_effect_frame",
         "source_refs": [
           "src/microcosm_core/first_screen_composition.py::_doctrine_effect_frame",
           "tests/test_first_screen_composition_card.py",
@@ -428,7 +428,7 @@
           "AX-12": "The concept handle applies the same anti-claim and authority-boundary floor to Microcosm doctrine handles themselves."
         },
         "validator_refs": [
-          "microcosm first-screen --full <project>",
+          "plectis first-screen --full <project>",
           "tests/test_first_screen_composition_card.py::test_first_screen_payload_exposes_doctrine_effect_frame",
           "tests/test_readme_first_screen_entry.py::test_agent_entry_routes_concepts_and_mechanisms_from_first_screen"
         ]
@@ -436,7 +436,7 @@
       {
         "specimen_id": "executable_doctrine_grammar_standard_bundle",
         "specimen_role": "standard_shape_specimen",
-        "entry_ref": "microcosm executable-doctrine-grammar validate-standards-bundle",
+        "entry_ref": "plectis executable-doctrine-grammar validate-standards-bundle",
         "source_refs": [
           "src/microcosm_core/organs/executable_doctrine_grammar.py",
           "examples/executable_doctrine_grammar/exported_standards_bundle",
@@ -494,14 +494,14 @@
           "AX-12": "The grammar floor applies to Microcosm doctrine artifacts about Microcosm, not only external claims."
         },
         "validator_refs": [
-          "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
+          "plectis executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
           "tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_exported_standards_bundle"
         ]
       },
       {
         "specimen_id": "standards_meta_diagnostics_bundle",
         "specimen_role": "organ_standard_receipt_mapping_specimen",
-        "entry_ref": "microcosm standards-meta-diagnostics run-diagnostics-bundle",
+        "entry_ref": "plectis standards-meta-diagnostics run-diagnostics-bundle",
         "source_refs": [
           "src/microcosm_core/organs/standards_meta_diagnostics.py",
           "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
@@ -560,14 +560,14 @@
           "AX-12": "Microcosm's own coverage diagnostics obey the same accountability floor as any external artifact."
         },
         "validator_refs": [
-          "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
+          "plectis standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
           "tests/test_standards_meta_diagnostics.py::test_standards_meta_diagnostics_bundle_validates_runtime_shape"
         ]
       },
       {
         "specimen_id": "voice_to_doctrine_self_improvement_loop_bundle",
         "specimen_role": "refinement_loop_specimen",
-        "entry_ref": "microcosm voice-to-doctrine-self-improvement-loop run-bundle",
+        "entry_ref": "plectis voice-to-doctrine-self-improvement-loop run-bundle",
         "source_refs": [
           "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
           "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle",
@@ -627,7 +627,7 @@
           "AX-12": "Self-improvement artifacts are held to the same admissibility relation as external claims."
         },
         "validator_refs": [
-          "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
+          "plectis voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
           "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_exported_bundle_validates_runtime_shape"
         ]
       },
@@ -1424,10 +1424,10 @@
       }
     ],
     "validation_commands": [
-      "microcosm first-screen --full <project>",
-      "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
-      "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
-      "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
+      "plectis first-screen --full <project>",
+      "plectis executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
+      "plectis standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
+      "plectis voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
       "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
       "python -m microcosm_core.projections.concept_mechanism_read_model --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-read-model"
     ],
@@ -1443,7 +1443,7 @@
   },
   "python_navigation_route": {
     "surface_id": "project_python_lens",
-    "command": "microcosm python-lens <project>",
+    "command": "plectis python-lens <project>",
     "endpoint": "/project/python-lens",
     "assay_id": "std_python_microcosm_navigation_assay",
     "assay_ref": ".microcosm/python_lens.json::navigation_assay",
@@ -1465,15 +1465,15 @@
   },
   "route_explanation_chain_route": {
     "surface_id": "project_route_explanation_causal_chain",
-    "compact_observe_command": "microcosm observe --card <project>",
+    "compact_observe_command": "plectis observe --card <project>",
     "compact_observe_endpoint": null,
-    "full_observe_command": "microcosm observe <project>",
+    "full_observe_command": "plectis observe <project>",
     "full_observe_endpoint": "/project/observe",
-    "full_proof_prerequisite_command": "microcosm tour --card <project>",
+    "full_proof_prerequisite_command": "plectis tour --card <project>",
     "full_proof_status_rule": "Treat explain as a full first-screen causal-chain proof only after the shared tour card has materialized .microcosm state and the selected-route work transaction; direct explain before project state/work exists can be a partial drilldown.",
-    "command": "microcosm explain <project> <selected_route_id>",
+    "command": "plectis explain <project> <selected_route_id>",
     "endpoint": "/project/explain/<route_id>",
-    "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
+    "route_id_source": "plectis tour --card/tour/compile selected_route_id",
     "example_route_id_when_readme_present": "readme_onboarding_route",
     "route_state_ref": ".microcosm/routes.json::<selected_route_id>",
     "explanation_ref": ".microcosm/explanations/<selected_route_id>.json",
@@ -1482,7 +1482,7 @@
     "event_stream_ref": ".microcosm/events.jsonl",
     "standard_pressure_ref": ".microcosm/architecture.json::standard_pressure_surface",
     "pattern_state_ref": ".microcosm/patterns.json",
-    "entry_role": "first-screen causal-chain proof for how a selected route binds catalog evidence, pattern rows, standard pressure, work transaction state, events, and evidence refs; use microcosm observe --card <project> for the compact route/work/event/evidence/graph lens before the expanded explain drilldown",
+    "entry_role": "first-screen causal-chain proof for how a selected route binds catalog evidence, pattern rows, standard pressure, work transaction state, events, and evidence refs; use plectis observe --card <project> for the compact route/work/event/evidence/graph lens before the expanded explain drilldown",
     "expected_fields": [
       "grounded_refs",
       "pattern_bindings",
@@ -1519,9 +1519,9 @@
   },
   "tour_front_door_status_route": {
     "surface_id": "microcosm_tour_front_door_status",
-    "command": "microcosm tour <project>",
+    "command": "plectis tour <project>",
     "endpoint": "/tour",
-    "status_ref": "microcosm tour <project>::front_door_status",
+    "status_ref": "plectis tour <project>::front_door_status",
     "receipt_ref": "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
     "entry_role": "cold-reader status rule that separates required first-screen blockers from authority/intake warning drilldowns",
     "top_level_status_rule": "tour passes only when front_door_status.status equals pass and front_door_status.blocking_surface_ids is empty; authority and intake may still appear in drilldown_blocked_surface_ids as warning drilldowns",
@@ -1555,18 +1555,18 @@
   },
   "status_before_tour_recovery_route": {
     "surface_id": "microcosm_status_before_tour_recovery",
-    "command": "microcosm status --card <project>",
+    "command": "plectis status --card <project>",
     "entry_role": "honest blocked-status lens when a cold reader asks for status before .microcosm state exists; it must expose the missing state and the recovery command instead of hiding the blocker",
-    "status_ref": "microcosm status --card <project>::front_door_status",
-    "project_state_ref": "microcosm status --card <project>::front_door.project_state",
-    "recovery_ref": "microcosm status --card <project>::front_door.project_state.recovery",
-    "blocking_detail_ref": "microcosm status --card <project>::front_door_status.blocking_surface_details.project_state",
+    "status_ref": "plectis status --card <project>::front_door_status",
+    "project_state_ref": "plectis status --card <project>::front_door.project_state",
+    "recovery_ref": "plectis status --card <project>::front_door.project_state.recovery",
+    "blocking_detail_ref": "plectis status --card <project>::front_door_status.blocking_surface_details.project_state",
     "expected_blocked_state": {
       "status": "blocked",
       "project_state_status": "missing_state",
-      "primary_recovery_command": "microcosm tour --card <project>",
-      "status_after_recovery_command": "microcosm status --card <project>",
-      "alternate_recovery_command": "microcosm compile <project>"
+      "primary_recovery_command": "plectis tour --card <project>",
+      "status_after_recovery_command": "plectis status --card <project>",
+      "alternate_recovery_command": "plectis compile <project>"
     },
     "safe_to_show": {
       "blocked_state_visible": true,
@@ -1580,22 +1580,22 @@
   },
   "status_and_workingness_route": {
     "surface_id": "microcosm_status_and_workingness",
-    "command": "microcosm status --card <project>",
-    "next_command": "microcosm workingness --card",
-    "status_card_command": "microcosm status --card <project>",
+    "command": "plectis status --card <project>",
+    "next_command": "plectis workingness --card",
+    "status_card_command": "plectis status --card <project>",
     "status_card_endpoint": "/project/status",
-    "workingness_command": "microcosm workingness --card",
+    "workingness_command": "plectis workingness --card",
     "endpoint": "/workingness-card",
     "full_endpoint": "/workingness",
     "workingness_endpoint": "/workingness-card",
     "workingness_drilldown_endpoint": "/workingness",
-    "status_card_front_door_ref": "microcosm status --card <project>::front_door",
-    "status_card_route_explanation_ref": "microcosm status --card <project>::front_door.route_explanation",
-    "status_card_proof_lab_ref": "microcosm status --card <project>::front_door.proof_lab",
-    "status_card_observatory_ref": "microcosm status --card <project>::front_door.observatory",
-    "status_card_front_door_body_import_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
-    "status_card_body_import_floor_ref": "microcosm status --card <project>::macro_body_import_floor",
-    "tour_route_card_ref": "microcosm tour <project>::route_cards_by_id.status_and_workingness",
+    "status_card_front_door_ref": "plectis status --card <project>::front_door",
+    "status_card_route_explanation_ref": "plectis status --card <project>::front_door.route_explanation",
+    "status_card_proof_lab_ref": "plectis status --card <project>::front_door.proof_lab",
+    "status_card_observatory_ref": "plectis status --card <project>::front_door.observatory",
+    "status_card_front_door_body_import_ref": "plectis status --card <project>::front_door.source_open_body_import_floor",
+    "status_card_body_import_floor_ref": "plectis status --card <project>::macro_body_import_floor",
+    "tour_route_card_ref": "plectis tour <project>::route_cards_by_id.status_and_workingness",
     "tour_receipt_ref": "receipts/runtime_shell/public_ten_minute_tour.json::route_cards_by_id.status_and_workingness",
     "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
     "entry_role": "cold-reader honesty lens after tour status and before receipt drilldown",
@@ -1658,8 +1658,8 @@
   },
   "observatory_route": {
     "surface_id": "microcosm_project_observatory",
-    "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
-    "bounded_validation_command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+    "command": "plectis serve <project> --host 127.0.0.1 --port 8765",
+    "bounded_validation_command": "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
     "bounded_validation_request_count": 7,
     "bounded_validation_rule": "Use bounded_validation_command for first-screen route smokes; use command for an interactive browser session.",
     "endpoint": "/project/observatory",
@@ -1671,10 +1671,10 @@
     "proof_lab_endpoint": "/proof-lab",
     "python_lens_endpoint": "/project/python-lens",
     "route_explanation_endpoint": "/project/explain/<selected_route_id>",
-    "first_screen_route_proof_ref": "microcosm serve <project>::first_screen_route_proof",
-    "status_card_ref": "microcosm status --card <project>",
-    "front_door_status_ref": "microcosm tour <project>::front_door_status",
-    "source_open_body_import_floor_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+    "first_screen_route_proof_ref": "plectis serve <project>::first_screen_route_proof",
+    "status_card_ref": "plectis status --card <project>",
+    "front_door_status_ref": "plectis tour <project>::front_door_status",
+    "source_open_body_import_floor_ref": "plectis status --card <project>::front_door.source_open_body_import_floor",
     "entry_role": "local browser/read-model over the same .microcosm state, route, work, evidence, graph, proof, and status surfaces emitted by the CLI",
     "expected_fields": [
       "project_summary",
@@ -1707,16 +1707,16 @@
   "proof_lab_route": {
     "surface_id": "first_screen_verifier_lab_kernel",
     "organ_id": "verifier_lab_kernel",
-    "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-    "expanded_command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
+    "expanded_command": "plectis verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
     "endpoint": "/proof-lab",
     "alias_endpoints": [
       "/verifier-lab-kernel"
     ],
     "source_lens_endpoint": "/proof-loop-depth",
     "supporting_lens_commands": [
-      "microcosm proof-loop-depth",
-      "microcosm verifier-lab-execution-spine-lens"
+      "plectis proof-loop-depth",
+      "plectis verifier-lab-execution-spine-lens"
     ],
     "route_id": "formal_prover_context_strategy_gate",
     "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
@@ -1747,8 +1747,8 @@
   "pattern_route_readiness_route": {
     "surface_id": "pattern_route_readiness_selector_admission",
     "organ_id": "pattern_binding_contract",
-    "command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
-    "compatibility_command": "microcosm pattern-binding validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "command": "plectis pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "compatibility_command": "plectis pattern-binding validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
     "route_ref": "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_route_readiness_audit.json",
     "receipt_ref": "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
     "standard_refs": [
@@ -1814,7 +1814,7 @@
       "codex/standards/std_microcosm.json",
       "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
     ],
-    "selection_rule": "Use local_first_screen_route when the reader asks what to run first with a brought folder; use proof_lab_route when the reader asks what proof-lab behavior is runnable; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use observatory_route when the reader asks how the local browser/read-model ties status, route, work, evidence, graph, and proof surfaces together; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route or microcosm observe --card <project> when the reader asks why a selected route exists or how route, work, events, graph, and evidence connect; use full microcosm observe <project> only when event rows are needed; use standards and paper modules as drilldowns after the behavior is visible."
+    "selection_rule": "Use local_first_screen_route when the reader asks what to run first with a brought folder; use proof_lab_route when the reader asks what proof-lab behavior is runnable; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use observatory_route when the reader asks how the local browser/read-model ties status, route, work, evidence, graph, and proof surfaces together; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route or plectis observe --card <project> when the reader asks why a selected route exists or how route, work, events, graph, and evidence connect; use full plectis observe <project> only when event rows are needed; use standards and paper modules as drilldowns after the behavior is visible."
   },
   "doctrine_lattice_route": {
     "surface_id": "microcosm_doctrine_lattice",
@@ -1899,7 +1899,7 @@
         "command": "./repo-python kernel.py --option-surface axiom_candidates --band flag"
       }
     ],
-    "selection_rule": "Start from proof_lab_route for visible behavior; use observatory_route to inspect the local read-model over status, route, work, evidence, graph, and proof surfaces; use microcosm observe --card <project> and route_explanation_chain_route before asking readers to infer the causal chain from receipts; use full microcosm observe <project> only when event rows are needed; use pattern_route_readiness_route before treating imported pattern rows as selectable; then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns. Do not treat candidate axioms as active law.",
+    "selection_rule": "Start from proof_lab_route for visible behavior; use observatory_route to inspect the local read-model over status, route, work, evidence, graph, and proof surfaces; use plectis observe --card <project> and route_explanation_chain_route before asking readers to infer the causal chain from receipts; use full plectis observe <project> only when event rows are needed; use pattern_route_readiness_route before treating imported pattern rows as selectable; then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns. Do not treat candidate axioms as active law.",
     "authority": "navigation lattice only, not source authority, release authority, proof authority, doctrine-promotion authority, or candidate-axiom promotion authority"
   },
   "banned_routes": [

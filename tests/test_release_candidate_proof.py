@@ -139,10 +139,10 @@ def test_first_action_release_candidate_proof_is_distribution_true() -> None:
         (MICROCOSM_ROOT / "pyproject.toml").read_text(encoding="utf-8")
     )
     data_files = pyproject.get("tool", {}).get("setuptools", {}).get("data-files", {})
-    share_root = data_files.get("share/microcosm-substrate") or []
+    share_root = data_files.get("share/plectis") or []
     assert "FIRST_ACTION.md" in share_root
     assert any(
-        destination.startswith("share/microcosm-substrate/receipts/code_lens")
+        destination.startswith("share/plectis/receipts/code_lens")
         for destination in data_files
     ), sorted(data_files)
 
@@ -242,9 +242,9 @@ def _flight_recorder_fake_runner(
         elif spec.command_id == "first_action_assay":
             body = json.dumps(ASSAY_PAYLOAD).encode("utf-8")
         elif spec.command_id == "hello":
-            body = b"Microcosm first screen\n"
+            body = b"Plectis first screen\n"
         elif spec.command_id == "version":
-            body = b"microcosm 0.1.0\n"
+            body = b"plectis 0.1.0\n"
         else:
             body = json.dumps(
                 {
@@ -429,10 +429,12 @@ def _release_candidate_fake_runner(export_owner_organ_id: str | None = None):
             (work_dir / "venv-shim.txt").write_text(
                 "#!/Users/someone/venv/bin/python\n", encoding="utf-8"
             )
-            return RunnerResult(0, b"Microcosm package smoke: pass\n", b"", 0.01)
+            return RunnerResult(0, b"Plectis package smoke: pass\n", b"", 0.01)
         if command_id == "standalone_export.release_export":
             export_out = Path(spec.actual_argv[spec.actual_argv.index("--out") + 1])
-            (export_out / "microcosm-substrate").mkdir(parents=True, exist_ok=True)
+            (export_out / release_candidate_proof.EXPORT_ARTIFACT_DIR_NAME).mkdir(
+                parents=True, exist_ok=True
+            )
             return RunnerResult(0, b'{"status": "pass"}\n', b"", 0.01)
         if command_id.endswith("first_action_hero"):
             payload = json.loads(json.dumps(HERO_CONTRACT_PAYLOAD))

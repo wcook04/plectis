@@ -117,8 +117,8 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert pre_install_probe["runs_before_install"] is True
     assert pre_install_probe["writes_ignored_local_state"] is True
     assert pre_install_probe["safe_to_show"]["release_authorized"] is False
-    assert card["human_first_command"] == "microcosm hello <project>"
-    assert card["shared_first_command"] == "microcosm tour --card <project>"
+    assert card["human_first_command"] == "plectis hello <project>"
+    assert card["shared_first_command"] == "plectis tour --card <project>"
     text_projection = card["text_projection"]
     assert text_projection == {
         "command": card["human_first_command"],
@@ -161,32 +161,32 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert reader_route_menu["machine_card_command"] == (
-        "microcosm first-screen --card <project>"
+        "plectis first-screen --card <project>"
     )
     assert reader_route_menu["default_json_command"] == (
-        "microcosm first-screen <project>"
+        "plectis first-screen <project>"
     )
     assert set(menu_by_id) == route_ids
     assert menu_by_id["safety_evals_engineer"]["terminal_command"] == (
-        "microcosm hello --reader safety_evals_engineer <project>"
+        "plectis hello --reader safety_evals_engineer <project>"
     )
     assert menu_by_id["safety_evals_engineer"]["text_projection_command"] == (
-        "microcosm first-screen --format text --reader safety_evals_engineer <project>"
+        "plectis first-screen --format text --reader safety_evals_engineer <project>"
     )
     assert menu_by_id["safety_evals_engineer"]["not_a_claim"] == (
         "safety_evaluation_complete"
     )
     assert menu_by_id["public_github_visitor"]["terminal_command"] == (
-        "microcosm hello --reader public_github_visitor <project>"
+        "plectis hello --reader public_github_visitor <project>"
     )
     assert menu_by_id["public_github_visitor"]["text_projection_command"] == (
-        "microcosm first-screen --format text --reader public_github_visitor <project>"
+        "plectis first-screen --format text --reader public_github_visitor <project>"
     )
     assert menu_by_id["public_github_visitor"]["not_a_claim"] == (
         "publication_or_reader_success_ready"
     )
     assert menu_by_id["public_github_visitor"]["first_action"] == (
-        "Run `microcosm tour --card <project>` after this card."
+        "Run `plectis tour --card <project>` after this card."
     )
     assert menu_by_id["public_github_visitor"]["source_checkout_first_action"] == (
         "Run `PYTHONPATH=src python3 -m microcosm_core tour --card <project>` "
@@ -196,8 +196,8 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "`PYTHONPATH=src python3 -m microcosm_core tour --card <project>`"
     )
     assert menu_by_id["safety_evals_engineer"]["first_action"] == (
-        "Run `microcosm tour --card <project>` first, then "
-        "`microcosm status --card <project>`."
+        "Run `plectis tour --card <project>` first, then "
+        "`plectis status --card <project>`."
     )
     assert menu_by_id["safety_evals_engineer"]["source_checkout_first_action"] == (
         "Run `PYTHONPATH=src python3 -m microcosm_core tour --card <project>` "
@@ -209,26 +209,26 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "`PYTHONPATH=src python3 -m microcosm_core workingness --card`"
     )
     assert menu_by_id["hiring_reviewer"]["first_action"] == (
-        "Run `microcosm legibility-scorecard`, then "
-        "`microcosm tour --card <project>`."
+        "Run `plectis legibility-scorecard`, then "
+        "`plectis tour --card <project>`."
     )
     assert menu_by_id["hiring_reviewer"]["proof_surface"] == (
-        "`microcosm legibility-scorecard` plus "
-        "`microcosm tour --card <project>`"
+        "`plectis legibility-scorecard` plus "
+        "`plectis tour --card <project>`"
     )
     assert menu_by_id["domain_specialist"]["terminal_command"] == (
-        "microcosm hello --reader domain_specialist <project>"
+        "plectis hello --reader domain_specialist <project>"
     )
     assert menu_by_id["domain_specialist"]["text_projection_command"] == (
-        "microcosm first-screen --format text --reader domain_specialist <project>"
+        "plectis first-screen --format text --reader domain_specialist <project>"
     )
     assert menu_by_id["domain_specialist"]["first_action"] == (
         "Open `ORGANS.md#find-your-specialty`, then run "
-        "`microcosm tour --card <project>`."
+        "`plectis tour --card <project>`."
     )
     assert menu_by_id["domain_specialist"]["proof_surface"] == (
         "`ORGANS.md#find-your-specialty` plus "
-        "`microcosm tour --card <project>`"
+        "`plectis tour --card <project>`"
     )
     assert menu_by_id["domain_specialist"]["source_checkout_first_action"] == (
         "Open `ORGANS.md#find-your-specialty`, then run "
@@ -242,19 +242,19 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "domain_expertise_or_domain_correctness_complete"
     )
     assert menu_by_id["type_a_agent"]["terminal_command"] == (
-        "microcosm hello --reader type_a_agent <project>"
+        "plectis hello --reader type_a_agent <project>"
     )
     assert menu_by_id["type_a_agent"]["text_projection_command"] == (
-        "microcosm first-screen --format text --reader type_a_agent <project>"
+        "plectis first-screen --format text --reader type_a_agent <project>"
     )
     assert menu_by_id["type_a_agent"]["first_action"] == (
-        "Run `microcosm first-screen --card <project>`. "
+        "Run `plectis first-screen --card <project>`. "
         "If you need `doctrine_effect_frame`, run "
-        "`microcosm first-screen --full <project>` before reading it; then run "
-        "`microcosm organ-surface-contract --card --root .`."
+        "`plectis first-screen --full <project>` before reading it; then run "
+        "`plectis organ-surface-contract --card --root .`."
     )
     assert menu_by_id["type_a_agent"]["proof_surface"] == (
-        "`microcosm organ-surface-contract --card --root .`"
+        "`plectis organ-surface-contract --card --root .`"
     )
     assert menu_by_id["type_a_agent"]["source_checkout_proof_surface"] == (
         "`PYTHONPATH=src python3 -m microcosm_core "
@@ -304,7 +304,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "README.md#first-run"
     )
     assert packet_by_id["public_github_visitor"]["first_action"] == (
-        "Run `microcosm tour --card <project>` after this card."
+        "Run `plectis tour --card <project>` after this card."
     )
     assert "from the repo root" not in packet_by_id["public_github_visitor"][
         "first_action"
@@ -316,12 +316,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "safety_evals_engineer"
     ]["success_criterion"]
     assert packet_by_id["hiring_reviewer"]["first_action"] == (
-        "Run `microcosm legibility-scorecard`, then "
-        "`microcosm tour --card <project>`."
+        "Run `plectis legibility-scorecard`, then "
+        "`plectis tour --card <project>`."
     )
     assert packet_by_id["hiring_reviewer"]["proof_surface"] == (
-        "`microcosm legibility-scorecard` plus "
-        "`microcosm tour --card <project>`"
+        "`plectis legibility-scorecard` plus "
+        "`plectis tour --card <project>`"
     )
     assert "provider calls" in packet_by_id["peer_developer"]["success_criterion"]
     assert packet_by_id["domain_specialist"]["next_drilldown"] == (
@@ -334,7 +334,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "AGENTS.md::Concept And Mechanism Entry"
     )
     assert packet_by_id["type_a_agent"]["proof_surface"] == (
-        "`microcosm organ-surface-contract --card --root .`"
+        "`plectis organ-surface-contract --card --root .`"
     )
     assert "mechanisms from validators/projections" in packet_by_id[
         "type_a_agent"
@@ -391,7 +391,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert ladder_steps["behavior_proof"]["writes_microcosm_state"] is True
     assert "selected_route_id" in ladder_steps["behavior_proof"]["success_read"]
     assert ladder_steps["status_confirmation"]["command"] == (
-        "microcosm status --card <project>"
+        "plectis status --card <project>"
     )
     assert ladder_steps["status_confirmation"]["writes_microcosm_state"] is False
     assert ladder_steps["reader_branch"]["command"] == (
@@ -487,13 +487,13 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert problem_slot_by_id["runnable_vs_structural_split"] == "proof_chain"
     assert first_viewport_manifest["consumer_surfaces"] == {
-        "terminal": "microcosm hello <project>",
+        "terminal": "plectis hello <project>",
         "readme": "README.md::Choose Your First Screen",
         "browser": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "plectis serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 7 -> /"
         ),
-        "json": "microcosm first-screen --card <project>",
+        "json": "plectis first-screen --card <project>",
         "video": "video_storyboard_packet",
     }
     assert first_viewport_manifest["safe_to_show"] == {
@@ -573,25 +573,25 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert first_contact_surfaces["evidence"]["body_text_exported"] is False
     assert first_contact_surfaces["graph"]["state_ref"] == ".microcosm/graph.json"
     assert first_contact_surfaces["observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert first_contact_surfaces["observatory"]["bounded_validation_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert first_contact_surfaces["observatory"]["compact_endpoint"] == (
         "/project/observatory-card"
     )
     assert first_contact_surfaces["proof_lab"]["command"] == (
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+        "plectis proof-lab --out /tmp/microcosm-proof-lab"
     )
     assert first_contact_surfaces["proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
     assert first_contact_surfaces["status"]["body_import_floor_ref"] == (
-        "microcosm status --card <project>::front_door.source_open_body_import_floor"
+        "plectis status --card <project>::front_door.source_open_body_import_floor"
     )
     assert first_contact_surfaces["status"]["workingness_command"] == (
-        "microcosm workingness --card"
+        "plectis workingness --card"
     )
     assert first_contact_surface_refs["safe_to_show"] == {
         "project_local_state_refs_visible": True,
@@ -628,13 +628,13 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     }
     assert "release-ready" in tripwire_by_id["release_ready"]["overclaim"]
     assert tripwire_by_id["release_ready"]["check_surface"] == (
-        "microcosm status --card <project>"
+        "plectis status --card <project>"
     )
     assert "Forty-seven organs" in tripwire_by_id[
         "organ_count_whole_system"
     ]["overclaim"]
     assert tripwire_by_id["organ_count_whole_system"]["check_surface"] == (
-        "microcosm workingness"
+        "plectis workingness"
     )
     assert "low verified body-import count" in tripwire_by_id[
         "low_body_import_count_fake"
@@ -667,22 +667,22 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert set(exit_by_id) == route_ids
     assert exit_by_id["public_github_visitor"]["next_if_not_met"] == (
-        "microcosm hello <project>"
+        "plectis hello <project>"
     )
     assert exit_by_id["safety_evals_engineer"]["next_if_not_met"] == (
-        "microcosm status --card <project>"
+        "plectis status --card <project>"
     )
     assert exit_by_id["hiring_reviewer"]["next_if_not_met"] == (
-        "microcosm legibility-scorecard"
+        "plectis legibility-scorecard"
     )
     assert exit_by_id["peer_developer"]["next_if_not_met"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert exit_by_id["domain_specialist"]["next_if_not_met"] == (
         "ORGANS.md#find-your-specialty"
     )
     assert exit_by_id["type_a_agent"]["next_if_not_met"] == (
-        "microcosm organ-surface-contract --card --root ."
+        "plectis organ-surface-contract --card --root ."
     )
     assert exit_by_id["safety_evals_engineer"]["not_a_claim"] == (
         "safety_evaluation_complete"
@@ -728,7 +728,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert video_storyboard_packet["bounded_observatory_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert set(storyboard_by_id) == {
         "open_map",
@@ -740,7 +740,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     }
     assert sum(row["timebox_seconds"] for row in storyboard_by_id.values()) <= 60
     assert storyboard_by_id["open_map"]["visible_surface"] == (
-        "microcosm hello <project>"
+        "plectis hello <project>"
     )
     assert storyboard_by_id["prove_local_behavior"]["visible_surface"] == (
         card["shared_first_command"]
@@ -801,7 +801,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert artifact_fit_by_id["machine_json_card"]["consumer_surface"] == (
-        "microcosm first-screen --card <project>"
+        "plectis first-screen --card <project>"
     )
     assert artifact_fit_by_id["machine_json_card"]["source_projection"] == (
         "microcosm_core.first_screen_composition.first_screen_compact_card"
@@ -813,7 +813,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "README.md::Choose Your First Screen"
     )
     assert artifact_fit_by_id["browser_landing"]["consumer_surface"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert artifact_fit_by_id["short_video_storyboard"]["consumer_surface"] == (
         "video_storyboard_packet"
@@ -1126,7 +1126,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     ) in readme_order_pairs
     assert (
         card["shared_first_command"],
-        "microcosm first-screen --card <project>",
+        "plectis first-screen --card <project>",
     ) in readme_order_pairs
     assert ("reader_route_menu", "quickstart_command_inventory") in readme_order_pairs
     assert ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
@@ -1199,7 +1199,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert state_write_boundary["front_door_status_ref"] == (
-        "microcosm tour --card <project>::front_door_status"
+        "plectis tour --card <project>::front_door_status"
     )
     assert state_write_boundary["safe_to_show"] == {
         "source_files_mutated": False,
@@ -1260,10 +1260,10 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert observatory_landing_frame["serve_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert observatory_landing_frame["bounded_validation_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert observatory_landing_frame["bounded_validation_request_count"] == 7
     assert "route smokes" in observatory_landing_frame["bounded_validation_rule"]
@@ -1271,9 +1271,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "source_projection": (
             "microcosm_core.first_screen_composition.first_screen_text_card"
         ),
-        "serve_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "serve_command": "plectis serve <project> --host 127.0.0.1 --port 8765",
         "bounded_validation_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+            "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         ),
         "default_endpoint": "/",
         "card_endpoint": "/project/first-screen",
@@ -1367,18 +1367,18 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["omission_receipt"]["drilldown"] == "paper_modules/first_screen_composition_root.md"
     assert any(
         drilldown.get("command")
-        == "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        == "plectis serve <project> --host 127.0.0.1 --port 8765"
         and drilldown.get("endpoint") == "/"
         for drilldown in card["drilldowns"]
     )
     assert any(
         drilldown.get("command")
-        == "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        == "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         and drilldown.get("endpoint") == "/"
         for drilldown in card["drilldowns"]
     )
     assert any(
-        drilldown.get("command") == "microcosm workingness"
+        drilldown.get("command") == "plectis workingness"
         for drilldown in card["drilldowns"]
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
@@ -1511,8 +1511,8 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     card = json.loads(result.stdout)
 
     assert card["status"] == "pass"
-    assert card["human_first_command"] == "microcosm hello ."
-    assert card["shared_first_command"] == "microcosm tour --card ."
+    assert card["human_first_command"] == "plectis hello ."
+    assert card["shared_first_command"] == "plectis tour --card ."
     assert card["source_checkout_commands"] == {
         "schema_version": "microcosm_source_checkout_commands_v1",
         "purpose": "keep_the_no_install_entry_path_copyable_after_hello",
@@ -1536,12 +1536,12 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         ),
         "authority": "source_checkout_fallback_not_package_install_or_release_claim",
     }
-    assert card["text_projection"]["command"] == "microcosm hello ."
+    assert card["text_projection"]["command"] == "plectis hello ."
     assert card["text_projection"]["source_checkout_command"] == (
         "PYTHONPATH=src python3 -m microcosm_core hello ."
     )
     assert card["text_projection"]["behavioral_proof_command"] == (
-        "microcosm tour --card ."
+        "plectis tour --card ."
     )
     assert card["text_projection"]["source_checkout_behavioral_proof_command"] == (
         "PYTHONPATH=src python3 -m microcosm_core tour --card ."
@@ -1558,10 +1558,10 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "authority_boundary",
     ]
     assert card["first_viewport_manifest"]["consumer_surfaces"]["terminal"] == (
-        "microcosm hello ."
+        "plectis hello ."
     )
     assert card["first_viewport_manifest"]["consumer_surfaces"]["json"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert card["first_viewport_manifest"]["authority"] == (
         "viewport_manifest_not_new_claim_or_renderer_authority"
@@ -1587,17 +1587,17 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "composition_contract_only_not_local_run_result"
     )
     assert card["state_write_boundary"]["behavioral_proof_command"] == (
-        "microcosm tour --card ."
+        "plectis tour --card ."
     )
     assert card["state_write_boundary"]["front_door_status_ref"] == (
-        "microcosm tour --card .::front_door_status"
+        "plectis tour --card .::front_door_status"
     )
     assert [
         row["command"] for row in card["first_run_ladder"]["steps"][:3]
     ] == [
-        "microcosm hello .",
-        "microcosm tour --card .",
-        "microcosm status --card .",
+        "plectis hello .",
+        "plectis tour --card .",
+        "plectis status --card .",
     ]
     assert [
         row["source_checkout_command"]
@@ -1607,34 +1607,34 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "PYTHONPATH=src python3 -m microcosm_core tour --card .",
         "PYTHONPATH=src python3 -m microcosm_core status --card .",
     ]
-    assert card["reader_route_menu"]["default_command"] == "microcosm hello ."
+    assert card["reader_route_menu"]["default_command"] == "plectis hello ."
     assert card["reader_route_menu"]["alias_hint"] == (
         "reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, "
         "reviewer, type-a-agent, domain-specialist"
     )
     assert card["reader_route_menu"]["shared_behavior_command"] == (
-        "microcosm tour --card ."
+        "plectis tour --card ."
     )
     assert card["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert card["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
     assert {
         row["reader_route_id"]: row["terminal_command"]
         for row in card["reader_route_menu"]["routes"]
     } == {
         "public_github_visitor": (
-            "microcosm hello --reader public_github_visitor ."
+            "plectis hello --reader public_github_visitor ."
         ),
         "safety_evals_engineer": (
-            "microcosm hello --reader safety_evals_engineer ."
+            "plectis hello --reader safety_evals_engineer ."
         ),
-        "hiring_reviewer": "microcosm hello --reader hiring_reviewer .",
-        "peer_developer": "microcosm hello --reader peer_developer .",
-        "domain_specialist": "microcosm hello --reader domain_specialist .",
-        "type_a_agent": "microcosm hello --reader type_a_agent .",
+        "hiring_reviewer": "plectis hello --reader hiring_reviewer .",
+        "peer_developer": "plectis hello --reader peer_developer .",
+        "domain_specialist": "plectis hello --reader domain_specialist .",
+        "type_a_agent": "plectis hello --reader type_a_agent .",
     }
     assert [
         row["state_ref"] for row in card["local_state_receipt_trail"]["trail"]
@@ -1647,7 +1647,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     ]
     assert card["first_contact_surface_refs"]["surfaces"]["observatory"][
         "bounded_validation_command"
-    ] == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+    ] == "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     assert card["first_contact_surface_refs"]["surfaces"]["proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
@@ -1687,18 +1687,18 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
     )
     assert compact["output_policy"] == {
         "default_json_is_first_screen_projection": True,
-        "default_json_command": "microcosm first-screen .",
-        "compact_card_command": "microcosm first-screen --card .",
+        "default_json_command": "plectis first-screen .",
+        "compact_card_command": "plectis first-screen --card .",
         "stdout_budget_chars": module.COMPACT_JSON_CARD_MAX_CHARS,
-        "full_contract_command": "microcosm first-screen --full .",
-        "text_projection_command": "microcosm first-screen --format text .",
+        "full_contract_command": "plectis first-screen --full .",
+        "text_projection_command": "plectis first-screen --format text .",
         "full_contract_preserved": True,
     }
     assert compact["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert compact["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
     assert {
         row["reader_route_id"] for row in compact["reader_route_menu"]["routes"]
@@ -1734,7 +1734,7 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
     assert compact_glance["authority"] == (
         "representative_glance_not_inventory_score_or_readiness_claim"
     )
-    assert compact["drilldowns"]["full_json"] == "microcosm first-screen --full ."
+    assert compact["drilldowns"]["full_json"] == "plectis first-screen --full ."
     assert "video_storyboard_packet" not in compact
     assert compact["omission_receipt"]["summary_first_projection"] is True
 
@@ -1754,20 +1754,20 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     )
 
     text.encode("ascii")
-    assert text.startswith("Microcosm first screen\n")
+    assert text.startswith("Plectis first screen\n")
     assert (
         "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
         in text
     )
-    assert "Open card: microcosm hello ." in text
-    assert "First run: microcosm tour --card ." in text
+    assert "Open card: plectis hello ." in text
+    assert "First run: plectis tour --card ." in text
     assert (
-        "First run: microcosm tour --card . | Source-only first run: "
+        "First run: plectis tour --card . | Source-only first run: "
         "PYTHONPATH=src python3 -m microcosm_core tour --card ."
         in text
     )
     assert (
-        "Check state: microcosm status --card . | Source-only status: "
+        "Check state: plectis status --card . | Source-only status: "
         "PYTHONPATH=src python3 -m microcosm_core status --card . | "
         "Trail: catalog -> routes -> events -> evidence -> graph."
         in text
@@ -1801,31 +1801,31 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "reviewer, type-a-agent, domain-specialist"
     ) in text
     assert (
-        "GitHub visitor: microcosm hello --reader public_github_visitor . | Proof: "
-        "`microcosm tour --card .`"
+        "GitHub visitor: plectis hello --reader public_github_visitor . | Proof: "
+        "`plectis tour --card .`"
     ) in text
     assert (
-        "Safety/evals: microcosm hello --reader safety_evals_engineer . | Proof: "
-        "`microcosm authority --card` plus `microcosm workingness --card`"
+        "Safety/evals: plectis hello --reader safety_evals_engineer . | Proof: "
+        "`plectis authority --card` plus `plectis workingness --card`"
     ) in text
     assert (
-        "Hiring: microcosm hello --reader hiring_reviewer . | Proof: "
-        "`microcosm legibility-scorecard` plus `microcosm tour --card .`"
+        "Hiring: plectis hello --reader hiring_reviewer . | Proof: "
+        "`plectis legibility-scorecard` plus `plectis tour --card .`"
     ) in text
     assert (
-        "Peer developer: microcosm hello --reader peer_developer . | Proof: "
-        "`microcosm observe --card .`"
+        "Peer developer: plectis hello --reader peer_developer . | Proof: "
+        "`plectis observe --card .`"
     ) in text
     assert (
-        "Domain specialist: microcosm hello --reader domain_specialist . | Proof: "
-        "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`"
+        "Domain specialist: plectis hello --reader domain_specialist . | Proof: "
+        "`ORGANS.md#find-your-specialty` plus `plectis tour --card .`"
     ) in text
     assert (
-        "Type A agent: microcosm hello --reader type_a_agent . | Proof: "
-        "`microcosm organ-surface-contract --card --root .`"
+        "Type A agent: plectis hello --reader type_a_agent . | Proof: "
+        "`plectis organ-surface-contract --card --root .`"
     ) in text
     assert (
-        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        "observatory: plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in text
     )
     assert "-> /project/first-screen -> /project/observatory-card" in text
@@ -1852,8 +1852,8 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
     expected = {
         "public_github_visitor": {
             "label": "GitHub visitor",
-            "first_action": "Run `microcosm tour --card .` after this card.",
-            "proof": "`microcosm tour --card .`",
+            "first_action": "Run `plectis tour --card .` after this card.",
+            "proof": "`plectis tour --card .`",
             "source_first_action": (
                 "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` "
                 "after this card."
@@ -1873,10 +1873,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         "safety_evals_engineer": {
             "label": "Safety/evals",
             "first_action": (
-                "Run `microcosm tour --card .` first, then "
-                "`microcosm status --card .`."
+                "Run `plectis tour --card .` first, then "
+                "`plectis status --card .`."
             ),
-            "proof": "`microcosm authority --card` plus `microcosm workingness --card`",
+            "proof": "`plectis authority --card` plus `plectis workingness --card`",
             "source_first_action": (
                 "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` "
                 "first, then `PYTHONPATH=src python3 -m microcosm_core status "
@@ -1899,10 +1899,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         "hiring_reviewer": {
             "label": "Hiring",
             "first_action": (
-                "Run `microcosm legibility-scorecard`, then "
-                "`microcosm tour --card .`."
+                "Run `plectis legibility-scorecard`, then "
+                "`plectis tour --card .`."
             ),
-            "proof": "`microcosm legibility-scorecard` plus `microcosm tour --card .`",
+            "proof": "`plectis legibility-scorecard` plus `plectis tour --card .`",
             "success": "public card explicitly refuses to make",
             "absent": [
                 "Reader branch: GitHub visitor",
@@ -1914,8 +1914,8 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         },
         "peer_developer": {
             "label": "Peer developer",
-            "first_action": "Run `microcosm tour --card .`.",
-            "proof": "`microcosm observe --card .`",
+            "first_action": "Run `plectis tour --card .`.",
+            "proof": "`plectis observe --card .`",
             "success": "without provider calls",
             "absent": [
                 "Reader branch: GitHub visitor",
@@ -1929,9 +1929,9 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
             "label": "Domain specialist",
             "first_action": (
                 "Open `ORGANS.md#find-your-specialty`, then run "
-                "`microcosm tour --card .`."
+                "`plectis tour --card .`."
             ),
-            "proof": "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`",
+            "proof": "`ORGANS.md#find-your-specialty` plus `plectis tour --card .`",
             "source_first_action": (
                 "Open `ORGANS.md#find-your-specialty`, then run "
                 "`PYTHONPATH=src python3 -m microcosm_core tour --card .`."
@@ -1952,12 +1952,12 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         "type_a_agent": {
             "label": "Type A agent",
             "first_action": (
-                "Run `microcosm first-screen --card .`. "
+                "Run `plectis first-screen --card .`. "
                 "If you need `doctrine_effect_frame`, run "
-                "`microcosm first-screen --full .` before reading it; then run "
-                "`microcosm organ-surface-contract --card --root .`."
+                "`plectis first-screen --full .` before reading it; then run "
+                "`plectis organ-surface-contract --card --root .`."
             ),
-            "proof": "`microcosm organ-surface-contract --card --root .`",
+            "proof": "`plectis organ-surface-contract --card --root .`",
             "source_first_action": (
                 "Run `PYTHONPATH=src python3 -m microcosm_core first-screen "
                 "--card .`. If you need `doctrine_effect_frame`, run "
@@ -1984,28 +1984,28 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         text = module.first_screen_text_card(card, reader_id=reader_id)
 
         text.encode("ascii")
-        assert text.startswith("Microcosm first screen\n")
+        assert text.startswith("Plectis first screen\n")
         assert (
             "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
             in text
         )
-        assert "Open card: microcosm hello ." in text
-        assert "First run: microcosm tour --card ." in text
+        assert "Open card: plectis hello ." in text
+        assert "First run: plectis tour --card ." in text
         assert (
-            "First run: microcosm tour --card . | Source-only first run: "
+            "First run: plectis tour --card . | Source-only first run: "
             "PYTHONPATH=src python3 -m microcosm_core tour --card ."
             in text
         )
         assert (
-            "Check state: microcosm status --card . | Source-only status: "
+            "Check state: plectis status --card . | Source-only status: "
             "PYTHONPATH=src python3 -m microcosm_core status --card . | "
             "Trail: catalog -> routes -> events -> evidence -> graph."
             in text
         )
         assert f"Reader branch: {assertions['label']}" in text
-        assert f"  Command: microcosm hello --reader {reader_id} ." in text
+        assert f"  Command: plectis hello --reader {reader_id} ." in text
         assert (
-            "Text card: microcosm first-screen --format text "
+            "Text card: plectis first-screen --format text "
             f"--reader {reader_id} ."
         ) in text
         assert "  Question: " in text
@@ -2058,9 +2058,9 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     )
 
     result.stdout.encode("ascii")
-    assert result.stdout.startswith("Microcosm first screen\n")
-    assert "Open card: microcosm hello ." in result.stdout
-    assert "First run: microcosm tour --card ." in result.stdout
+    assert result.stdout.startswith("Plectis first screen\n")
+    assert "Open card: plectis hello ." in result.stdout
+    assert "First run: plectis tour --card ." in result.stdout
     assert "doctrine names boundaries" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
@@ -2095,9 +2095,9 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     )
 
     result.stdout.encode("ascii")
-    assert result.stdout.startswith("Microcosm first screen\n")
-    assert "Open card: microcosm hello ." in result.stdout
-    assert "First run: microcosm tour --card ." in result.stdout
+    assert result.stdout.startswith("Plectis first screen\n")
+    assert "Open card: plectis hello ." in result.stdout
+    assert "First run: plectis tour --card ." in result.stdout
     assert "doctrine names boundaries" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
@@ -2110,20 +2110,20 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "Behavior proof after tour --card: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert (
-        "  Command: microcosm hello --reader safety_evals_engineer ."
+        "  Command: plectis hello --reader safety_evals_engineer ."
         in result.stdout
     )
     assert (
-        "Text card: microcosm first-screen --format text --reader "
+        "Text card: plectis first-screen --format text --reader "
         "safety_evals_engineer ."
         in result.stdout
     )
     assert (
-        "  First step: Run `microcosm tour --card .` first, then "
-        "`microcosm status --card .`."
+        "  First step: Run `plectis tour --card .` first, then "
+        "`plectis status --card .`."
     ) in result.stdout
     assert (
-        "  Proof: `microcosm authority --card` plus `microcosm workingness --card`"
+        "  Proof: `plectis authority --card` plus `plectis workingness --card`"
         in result.stdout
     )
     assert "maturity or release readiness" in result.stdout

@@ -593,7 +593,7 @@ DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 PROOF_LAB_INPUT_PLACEHOLDER = "<proof-lab-input>"
 PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
 OBSERVATORY_SERVE_COMMAND = (
-    "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    "plectis serve <project> --host 127.0.0.1 --port 8765"
 )
 OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 7
 OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
@@ -618,42 +618,42 @@ PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
 }
 
 FIRST_SCREEN_HELP = """Goal route (start here when you arrive with a goal):
-  microcosm comprehend --first-action "<your goal>"
+  plectis comprehend --first-action "<your goal>"
       your goal -> one graph-backed first correct action: owner, runnable
       command, validator, receipts, stop condition, do-not-edit boundary
       (FIRST_ACTION.md demonstrates it across a goal battery)
 First-screen route:
-  microcosm hello <project>      print the cold-entry one-screen card (--card accepted)
-  microcosm hello --reader {cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} <project> branch by reader
+  plectis hello <project>      print the cold-entry one-screen card (--card accepted)
+  plectis hello --reader {cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} <project> branch by reader
   reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
-  microcosm tour --card <project> build .microcosm and read route/state/proof refs
-  microcosm first-screen --card <project> emit the compact JSON first-screen card
-  microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (pick a different lens when first-action is not the question)
-  microcosm comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
-  microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
-  microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
-  microcosm comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
-  microcosm comprehend --improvements rank concrete Microcosm improvement targets with validation commands
-  microcosm comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
-  microcosm comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
-  microcosm comprehension-assay [--hard|--packet-route|--whole-system|--first-action] prove the packets answer / carry atoms / navigate / comprehend-the-whole / route first actions without opening source
-  microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
-  microcosm status --card <project> read the compressed project/runtime status lens
-  microcosm status-card <project> alias for the compact status lens
-  microcosm spine --card          read the compact runtime spine lens
-  microcosm run --card examples/runtime_shell/demo_project replay the public runtime demo
-  microcosm authority --card      read the compact authority ceiling lens
-  microcosm intake --card         read the compact intake/projection bridge lens
-  microcosm workingness --card    read the compact behavior/failure lens
-  microcosm workingness           inspect behavior evidence and failure gaps
-  microcosm proof-lab --card      read the cached verifier-lab receipt card
-  microcosm proof-lab --out /tmp/microcosm-proof-lab
-  microcosm observe --card <project> read compact route/work/event/evidence refs
-  microcosm observe <project>     inspect route/work/event/evidence chain
-  microcosm serve <project>       open the local observatory
-  microcosm compile --card <project> read cached .microcosm state; stale cache exits 1
-  microcosm compile <project>     rebuild local .microcosm state after the first-screen check
-  microcosm tour <project>        inspect full route cards, endpoint path, and evidence refs
+  plectis tour --card <project> build .microcosm and read route/state/proof refs
+  plectis first-screen --card <project> emit the compact JSON first-screen card
+  plectis comprehend --packet-atlas  the navigable MENU of comprehension packets (pick a different lens when first-action is not the question)
+  plectis comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
+  plectis comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
+  plectis comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
+  plectis comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
+  plectis comprehend --improvements rank concrete Microcosm improvement targets with validation commands
+  plectis comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
+  plectis comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
+  plectis comprehension-assay [--hard|--packet-route|--whole-system|--first-action] prove the packets answer / carry atoms / navigate / comprehend-the-whole / route first actions without opening source
+  plectis agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
+  plectis status --card <project> read the compressed project/runtime status lens
+  plectis status-card <project> alias for the compact status lens
+  plectis spine --card          read the compact runtime spine lens
+  plectis run --card examples/runtime_shell/demo_project replay the public runtime demo
+  plectis authority --card      read the compact authority ceiling lens
+  plectis intake --card         read the compact intake/projection bridge lens
+  plectis workingness --card    read the compact behavior/failure lens
+  plectis workingness           inspect behavior evidence and failure gaps
+  plectis proof-lab --card      read the cached verifier-lab receipt card
+  plectis proof-lab --out /tmp/microcosm-proof-lab
+  plectis observe --card <project> read compact route/work/event/evidence refs
+  plectis observe <project>     inspect route/work/event/evidence chain
+  plectis serve <project>       open the local observatory
+  plectis compile --card <project> read cached .microcosm state; stale cache exits 1
+  plectis compile <project>     rebuild local .microcosm state after the first-screen check
+  plectis tour <project>        inspect full route cards, endpoint path, and evidence refs
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 Receipts are evidence drilldowns after the behavior route is visible.
@@ -662,17 +662,17 @@ Receipts are evidence drilldowns after the behavior route is visible.
 STATUS_CARD_HELP = """Reads the compact project/runtime status lens.
 
 Equivalent command:
-  microcosm status --card <project>
+  plectis status --card <project>
 
 Next command:
-  microcosm tour --card <project>
+  plectis tour --card <project>
 
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 """
 
 STATUS_HELP_EPILOG = """Cold-clone check path:
-  microcosm status --card <project>
+  plectis status --card <project>
   make check
   make smoke
   make ci
@@ -700,8 +700,8 @@ Interpretation:
 EVIDENCE_LIST_HELP = """Lists compact evidence refs.
 
 Reviewer path:
-  microcosm evidence list <project> --limit 25
-  microcosm evidence inspect --project <project> <evidence_ref>
+  plectis evidence list <project> --limit 25
+  plectis evidence inspect --project <project> <evidence_ref>
   PYTHONPATH=src python3 -m microcosm_core evidence list <project> --limit 25
   PYTHONPATH=src python3 -m microcosm_core evidence inspect --project <project> <evidence_ref>
 
@@ -712,8 +712,8 @@ Interpretation:
 """
 
 EVIDENCE_HELP_EPILOG = """Reviewer path:
-  microcosm evidence list <project> --limit 25
-  microcosm evidence inspect --project <project> <evidence_ref>
+  plectis evidence list <project> --limit 25
+  plectis evidence inspect --project <project> <evidence_ref>
   PYTHONPATH=src python3 -m microcosm_core evidence list <project> --limit 25
   PYTHONPATH=src python3 -m microcosm_core evidence inspect --project <project> <evidence_ref>
 
@@ -760,22 +760,22 @@ PUBLIC_LENS_CARD_AWARE_COMMANDS = frozenset(
 )
 PUBLIC_LENS_EPILOGS = {
     "workingness": """Skeptical-reviewer route:
-  microcosm workingness --card
-  microcosm workingness
+  plectis workingness --card
+  plectis workingness
 
 Boundary: status describes map generation, while card_status describes bounded
 failure-envelope debt. Accepted status and source-body counts are not evidence
 strength, release readiness, score progress, or whole-system correctness.
 """,
     "evidence-cells": """Formal-methods reader route:
-  microcosm evidence-cells --card .
+  plectis evidence-cells --card .
 
 Boundary: resolves proof-language claims to public evidence-cell metadata and
 receipt refs. It does not run Lean/Lake, expose proof bodies, certify theorem
 correctness, call providers, mutate source, or authorize release.
 """,
     "proof-loop-depth": """Formal-methods reader route:
-  microcosm proof-loop-depth --card .
+  plectis proof-loop-depth --card .
 
 Boundary: maps the public formal-math gate chain and receipt refs as metadata.
 It does not run Lean/Lake, prove theorem correctness, export proof bodies,
@@ -783,7 +783,7 @@ claim benchmark performance, call providers, mutate source, or authorize
 release.
 """,
     "legibility-scorecard": """Repo-reading agent route:
-  microcosm legibility-scorecard
+  plectis legibility-scorecard
   PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
 
 Boundary: reports first-screen legibility and boundary gaps as a public
@@ -795,8 +795,8 @@ certify production readiness.
 }
 
 AUTHORITY_HELP_EPILOG = """Skeptical-reviewer route:
-  microcosm authority --card
-  microcosm authority
+  plectis authority --card
+  plectis authority
 
 Boundary: the authority card exposes false ceilings and count scopes before the
 full map. A passing card does not authorize release, provider calls, source
@@ -805,17 +805,19 @@ whole-system correctness.
 """
 
 AGENT_ENTRY_COMPOSITION_HELP_EPILOG = """Task selector examples:
-  microcosm agent-entry-composition --task agent-entry --viewer human --card --check
-  microcosm agent-entry-composition --task evaluation --viewer human --card --check
-  microcosm agent-entry-composition --task ai-safety --viewer human --card --check
+  plectis agent-entry-composition --task agent-entry --viewer human --card --check
+  plectis agent-entry-composition --task evaluation --viewer human --card --check
+  plectis agent-entry-composition --task ai-safety --viewer human --card --check
 
 Alias note: reviewer, skeptical-reviewer, and skeptical-review route to the
 ai-safety task route. Use evaluation for the cold route-map/receipt evaluator
-path; receipt/evidence meaning, review, risk, and brokenness questions route
-there too. Use agent-entry for the general cold-agent entry path; "What is
-this?" routes there too. "What is interesting here?" routes to
-interesting-parts. "Show me formal methods" routes to formal-methods. "Show me
-AI safety" routes to ai-safety.
+path; receipt/evidence meaning questions route there too. Review, risk, and
+brokenness questions route there too. Use agent-entry for the general
+cold-agent entry path; "What is this?" routes there too.
+"What is
+interesting here?" routes to interesting-parts.
+"Show me formal methods" routes
+to formal-methods. "Show me AI safety" routes to ai-safety.
 
 Boundary: this card selects public route metadata and first commands; it does
 not authorize release, provider calls, source mutation, private-root
@@ -910,7 +912,7 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
 
 PUBLIC_BUNDLE_COMMAND_EPILOGS = {
     "cold-reader-route-map": """Runnable fixture example:
-  microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out /tmp/microcosm-cold-reader-route-map
+  plectis cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out /tmp/microcosm-cold-reader-route-map
 
 Boundary: validates the declared public route-map bundle and writes receipts.
 It is projection-only route metadata, not route-registry authority, source
@@ -918,7 +920,7 @@ mutation permission, provider-call authority, release/publication authority,
 financial advice, private-data equivalence, or whole-system correctness.
 """,
     "finance-forecast-evaluation-spine": """Runnable fixture example:
-  microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out /tmp/microcosm-finance-forecast-evaluation-spine
+  plectis finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out /tmp/microcosm-finance-forecast-evaluation-spine
 
 Boundary: validates synthetic forecast-evaluation fixtures and writes receipts.
 It is not investment or trading advice, uses no live market data, claims no
@@ -926,7 +928,7 @@ track record or performance result, mutates no optimizer, and does not
 authorize release.
 """,
     "proof-diagnostic-evidence-spine": """Runnable fixture example:
-  microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out /tmp/microcosm-proof-diagnostic-evidence-spine
+  plectis proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out /tmp/microcosm-proof-diagnostic-evidence-spine
 
 Boundary: validates declared proof-diagnostic evidence metadata and writes
 receipts. It does not run Lean/Lake, prove theorem correctness, expose proof
@@ -934,7 +936,7 @@ bodies, call providers, mutate source, turn a passing check into proof
 authority, or authorize release/publication.
 """,
     "formal-math-readiness-gate": """Runnable fixture example:
-  microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out /tmp/microcosm-formal-readiness-gate
+  plectis formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out /tmp/microcosm-formal-readiness-gate
 
 Boundary: validates declared formal-math readiness metadata and writes receipts.
 It does not run Lean/Lake, claim Mathlib availability beyond probe status,
@@ -942,7 +944,7 @@ prove theorem correctness, expose proof bodies, call providers, mutate source,
 or authorize release.
 """,
     "public-reveal-walkthrough": """Runnable fixture example:
-  microcosm public-reveal-walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out /tmp/microcosm-public-reveal-walkthrough
+  plectis public-reveal-walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out /tmp/microcosm-public-reveal-walkthrough
 
 Boundary: validates bounded public reveal behavior and writes receipts. It does
 not authorize release, hosted deployment, publication, recipient work, provider
@@ -950,7 +952,7 @@ calls, secret export, private-data equivalence, proof correctness, trading
 advice, or whole-system correctness.
 """,
     "agent-benchmark-integrity-anti-gaming-replay": """Runnable fixture example:
-  microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out /tmp/microcosm-agent-benchmark-integrity
+  plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out /tmp/microcosm-agent-benchmark-integrity
 
 Boundary: validates a public benchmark-integrity replay bundle and writes
 receipts. It does not run a live benchmark, score agent capability, call
@@ -1113,7 +1115,7 @@ def _status_card_exit_code(payload: dict) -> int:
     """Map a status-card payload to an exit code, tolerating actionable missing-state.
 
     - Teleology: treat a project whose only block is recoverable missing `.microcosm` state as exit 0.
-    - Guarantee: returns 0 when status is pass, or when the sole blocking surfaces are project_state/state_write_proof with an actionable `microcosm tour --card` recovery; else 1.
+    - Guarantee: returns 0 when status is pass, or when the sole blocking surfaces are project_state/state_write_proof with an actionable `plectis tour --card` recovery; else 1.
     - Fails: None.
     """
     if payload.get("status") == "pass":
@@ -1138,7 +1140,7 @@ def _status_card_exit_code(payload: dict) -> int:
     primary_command = project_recovery.get("primary_command")
     if not (
         isinstance(primary_command, str)
-        and primary_command.startswith("microcosm tour --card ")
+        and primary_command.startswith("plectis tour --card ")
     ):
         return 1
     return 0
@@ -1185,7 +1187,7 @@ def _project_evidence_state_boundary(project_arg: str) -> dict | None:
             "release_authorized": False,
             "receipts_are_drilldown_evidence": True,
             "reader_action": (
-                "Pass an existing project path, then run microcosm tour --card "
+                "Pass an existing project path, then run plectis tour --card "
                 "<project> before evidence drilldown."
             ),
         }
@@ -1203,7 +1205,7 @@ def _project_evidence_state_boundary(project_arg: str) -> dict | None:
             "release_authorized": False,
             "receipts_are_drilldown_evidence": True,
             "reader_action": (
-                "Run microcosm tour --card <project> to create .microcosm "
+                "Run plectis tour --card <project> to create .microcosm "
                 "state before evidence drilldown."
             ),
         }
@@ -1233,13 +1235,13 @@ def _proof_lab_cache_action_hint(cache_status: object) -> dict:
     if cache_status == "stale_cached_receipt":
         return {
             "status": "actionable",
-            "command": f"microcosm proof-lab --out {DEFAULT_PROOF_LAB_OUT}",
+            "command": f"plectis proof-lab --out {DEFAULT_PROOF_LAB_OUT}",
             "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
         }
     if cache_status == "missing_cached_receipt":
         return {
             "status": "missing_cached_receipt",
-            "command": f"microcosm proof-lab --out {DEFAULT_PROOF_LAB_OUT}",
+            "command": f"plectis proof-lab --out {DEFAULT_PROOF_LAB_OUT}",
             "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
         }
     return {
@@ -1272,7 +1274,7 @@ def _proof_lab_status_scope(cache_status: object) -> str:
 def _emit_hello(project: str, reader: str) -> int:
     """Print the cold-entry first-screen text card for a reader and return its exit code.
 
-    - Teleology: render the `microcosm hello` reader-branched first-screen card.
+    - Teleology: render the `plectis hello` reader-branched first-screen card.
     - Guarantee: writes the reader-focused text card to stdout and returns 0 when the card status is 'pass', else 1.
     - Fails: None.
     - Writes: stdout.
@@ -1293,7 +1295,7 @@ def _emit_hello(project: str, reader: str) -> int:
 def _emit_first_screen(project: str, *, output_format: str, full: bool, reader: str) -> int:
     """Emit the first-screen card as text or (compact/full) JSON and return its exit code.
 
-    - Teleology: render the `microcosm first-screen` card in the requested format/depth.
+    - Teleology: render the `plectis first-screen` card in the requested format/depth.
     - Guarantee: prints the text or JSON card (full vs compact) and returns 0 when status=='pass', else 1.
     - Fails: None.
     - Writes: stdout.
@@ -1329,7 +1331,7 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
 
     if raw_argv[0] == "hello":
         parser = argparse.ArgumentParser(
-            prog="microcosm hello",
+            prog="plectis hello",
             description="Print the cold-entry first-screen card.",
         )
         parser.add_argument(
@@ -1355,7 +1357,7 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
 
     if raw_argv[0] == "first-screen":
         parser = argparse.ArgumentParser(
-            prog="microcosm first-screen",
+            prog="plectis first-screen",
             description="Preview the one-screen reader route map.",
         )
         parser.add_argument(
@@ -1453,7 +1455,7 @@ def _proof_lab_output_ref(out_dir: str) -> str:
 
 
 def _proof_lab_command(input_path: str, out_dir: str) -> str:
-    """Build the public-safe `microcosm proof-lab` command for given input/out paths.
+    """Build the public-safe `plectis proof-lab` command for given input/out paths.
 
     - Teleology: emit a reproducible proof-lab command without leaking private input/out paths.
     - Guarantee: returns the command string, omitting `--input` when the input is the default bundle.
@@ -1462,12 +1464,12 @@ def _proof_lab_command(input_path: str, out_dir: str) -> str:
     display_input = _proof_lab_input_ref(input_path)
     display_out = _proof_lab_output_ref(out_dir)
     if display_input == _public_ref(str(DEFAULT_PROOF_LAB_INPUT)):
-        return f"microcosm proof-lab --out {display_out}"
-    return f"microcosm proof-lab --input {display_input} --out {display_out}"
+        return f"plectis proof-lab --out {display_out}"
+    return f"plectis proof-lab --input {display_input} --out {display_out}"
 
 
 def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
-    """Build the public-safe `microcosm proof-lab --card` command for given input/out paths.
+    """Build the public-safe `plectis proof-lab --card` command for given input/out paths.
 
     - Teleology: emit a reproducible cached-card proof-lab command without leaking private paths.
     - Guarantee: returns the `--card` command string, omitting `--input` when the input is the default bundle.
@@ -1476,8 +1478,8 @@ def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
     display_input = _proof_lab_input_ref(input_path)
     display_out = _proof_lab_output_ref(out_dir)
     if display_input == _public_ref(str(DEFAULT_PROOF_LAB_INPUT)):
-        return f"microcosm proof-lab --card --out {display_out}"
-    return f"microcosm proof-lab --card --input {display_input} --out {display_out}"
+        return f"plectis proof-lab --card --out {display_out}"
+    return f"plectis proof-lab --card --input {display_input} --out {display_out}"
 
 
 def _path_is_file(path: Path) -> bool:
@@ -1703,7 +1705,7 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
             "body_in_receipt": False,
             "authority_ceiling": {
                 "status": "missing_cached_receipt",
-                "run_required": "microcosm proof-lab --out <out>",
+                "run_required": "plectis proof-lab --out <out>",
             },
             "anti_claim": (
                 "Cached proof-lab cards read public receipts only; run the "
@@ -1869,15 +1871,15 @@ def _receipt_refs_for_out(result: dict, out_dir: str) -> list[str]:
 
 
 def _evidence_inspect_command(receipt_ref: str) -> str:
-    """Build a shell-safe `microcosm evidence inspect` command for a receipt ref.
+    """Build a shell-safe `plectis evidence inspect` command for a receipt ref.
 
     - Teleology: emit a copy-pasteable inspect command for a receipt.
     - Guarantee: returns the command, shell-quoting concrete refs but leaving `<...>` placeholders unquoted.
     - Fails: None.
     """
     if "<" in receipt_ref and ">" in receipt_ref:
-        return f"microcosm evidence inspect {receipt_ref}"
-    return f"microcosm evidence inspect {shlex.quote(receipt_ref)}"
+        return f"plectis evidence inspect {receipt_ref}"
+    return f"plectis evidence inspect {shlex.quote(receipt_ref)}"
 
 
 def _cached_receipt_ref_for_card(result: dict, out_dir: str) -> object:
@@ -1923,7 +1925,7 @@ def _proof_lab_first_screen_card(
     if receipt_refs:
         evidence_drilldown = _evidence_inspect_command(receipt_refs[0])
     else:
-        evidence_drilldown = "microcosm evidence inspect <proof-lab-receipt>"
+        evidence_drilldown = "plectis evidence inspect <proof-lab-receipt>"
     input_ref = _proof_lab_input_ref(input_path)
     out_ref = _proof_lab_output_ref(out_dir)
     return {
@@ -1932,7 +1934,7 @@ def _proof_lab_first_screen_card(
         "status": status,
         "command": command,
         "expanded_command": (
-            "microcosm verifier-lab-kernel run-kernel-bundle "
+            "plectis verifier-lab-kernel run-kernel-bundle "
             f"--input {input_ref} --out {out_ref}"
         ),
         "endpoint": "/proof-lab",
@@ -2003,8 +2005,8 @@ def _proof_lab_first_screen_card(
             "first-screen card is visible."
         ),
         "next_commands": [
-            "microcosm status --card",
-            "microcosm proof-loop-depth",
+            "plectis status --card",
+            "plectis proof-loop-depth",
             evidence_drilldown,
         ],
     }
@@ -2161,14 +2163,14 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
         "status_card_endpoint": "/project/status",
-        "project_observe_command": f"microcosm observe --card {project_ref}",
+        "project_observe_command": f"plectis observe --card {project_ref}",
         "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
             "observatory_route_proof_ref"
         ),
         "status_card_ref": payload.get("card_command")
-        or f"microcosm status --card {project_ref}",
+        or f"plectis status --card {project_ref}",
         "related_endpoint_count": 9,
         "model_field_count": 13,
         "validation_status": (
@@ -2543,7 +2545,7 @@ def main(argv: list[str] | None = None) -> int:
     """
     raw_argv = list(sys.argv[1:] if argv is None else argv)
     if raw_argv == ["--version"]:
-        print(f"microcosm {__version__}")
+        print(f"plectis {__version__}")
         return 0
 
     fast_path_status = _first_screen_fast_path(raw_argv)
@@ -2551,11 +2553,11 @@ def main(argv: list[str] | None = None) -> int:
         return fast_path_status
 
     parser = argparse.ArgumentParser(
-        prog="microcosm",
+        prog="plectis",
         description=(
             "Local-first project substrate: repo -> .microcosm without provider "
             "calls or source mutation. Have a goal? "
-            'microcosm comprehend --first-action "<your goal>".'
+            'plectis comprehend --first-action "<your goal>".'
         ),
         epilog=FIRST_SCREEN_HELP,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -2950,7 +2952,7 @@ def main(argv: list[str] | None = None) -> int:
     evidence_inspect_parser.add_argument(
         "project_evidence_ref",
         nargs="?",
-        help="project evidence ref for shorthand: microcosm evidence inspect <project> <ref>",
+        help="project evidence ref for shorthand: plectis evidence inspect <project> <ref>",
     )
 
     scan_parser = subparsers.add_parser("private-state-scan")
@@ -3937,7 +3939,7 @@ def main(argv: list[str] | None = None) -> int:
             task=args.task,
             viewer=args.viewer,
             out=args.out,
-            command="microcosm agent-entry-composition",
+            command="plectis agent-entry-composition",
         )
         if args.card:
             payload = agent_entry_composition.compact_agent_entry_card(payload)
@@ -3996,9 +3998,9 @@ def main(argv: list[str] | None = None) -> int:
                 raise
             print(
                 (
-                    f"microcosm serve could not bind http://{args.host}:{args.port}: "
+                    f"plectis serve could not bind http://{args.host}:{args.port}: "
                     "address already in use. Choose a free port, for example "
-                    f"`microcosm serve {args.project or '<project>'} "
+                    f"`plectis serve {args.project or '<project>'} "
                     f"--host {args.host} --port {args.port + 1} --max-requests "
                     f"{args.max_requests or 7}`."
                 ),
@@ -4062,7 +4064,7 @@ def main(argv: list[str] | None = None) -> int:
                 if args.project:
                     print(
                         (
-                            "microcosm evidence inspect accepts either "
+                            "plectis evidence inspect accepts either "
                             "`--project <project> <ref>` or `<project> <ref>`, not both."
                         ),
                         file=sys.stderr,

@@ -1,0 +1,74 @@
+{
+  "schema_version": "source_module_refresh_policy_v0",
+  "policy_id": "microcosm_source_module_exact_copy_refresh_policy",
+  "policy_revision": "source_module_refresh_policy_2026_06_22_governed_mutation_v1",
+  "operation": "exact_copy_source_module_refresh",
+  "authority_boundary": "Operation-scoped authority for canonical exact-copy source-module refresh only. This is not release, publication, source-mutation, provider-call, account/session, private-root equivalence, or whole-system correctness authority.",
+  "authority_source": {
+    "kind": "manual_constitutional_policy",
+    "owner": "microcosm_source_module_refresh_authority",
+    "authority_scope": "operation_scoped_exact_copy_refresh_grants"
+  },
+  "provenance_refs": [
+    "docs/dissemination/reconstructability_release_allowlist_v0.json",
+    "commit:9416da9933",
+    "commit:05eff92f7f"
+  ],
+  "grant_contract": {
+    "hard_denies_dominate_grants": true,
+    "classification_retained": true,
+    "operation_required": true,
+    "target_scope_required": true,
+    "source_to_target_relation_required": true,
+    "release_publicity_not_sufficient": true
+  },
+  "field_contract": {
+    "authority_boundary": "informational_boundary_statement",
+    "authority_source": "enforced_policy_owner_metadata",
+    "provenance_refs": "informational_lineage_not_refresh_authority",
+    "grant_contract": "enforced_by_policy_compiler",
+    "grants": "enforced_by_policy_compiler"
+  },
+  "grants": [
+    {
+      "grant_id": "proof_derived_governed_mutation_scoped_commit_exact_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "tools/meta/control/scoped_commit.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "scoped_commit_private_index_control_body_import"
+      ],
+      "target_refs": [
+        "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/scoped_commit.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_22_governed_mutation_v1",
+      "provenance_refs": [
+        "docs/dissemination/reconstructability_release_allowlist_v0.json::tools/meta/control/scoped_commit.py",
+        "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::scoped_commit_private_index_control_body_import"
+      ],
+      "anti_claim": "This grant permits only the governed-mutation bundle exact-copy refresh for this source/target relation. It does not make tools/meta/control globally source-open."
+    },
+    {
+      "grant_id": "proof_derived_governed_mutation_work_ledger_exact_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "tools/meta/factory/work_ledger.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "work_ledger_claim_runtime_body_import"
+      ],
+      "target_refs": [
+        "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/factory/work_ledger.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_22_governed_mutation_v1",
+      "provenance_refs": [
+        "docs/dissemination/reconstructability_release_allowlist_v0.json::tools/meta/factory/work_ledger.py",
+        "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::work_ledger_claim_runtime_body_import"
+      ],
+      "anti_claim": "This grant permits only the governed-mutation bundle exact-copy refresh for this source/target relation. It does not make tools/meta/factory globally source-open."
+    }
+  ]
+}

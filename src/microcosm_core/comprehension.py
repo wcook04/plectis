@@ -2,7 +2,7 @@
 """Microcosm Comprehension Plane: a source-body-free, goal-directed read-pack compiler.
 
 A cold agent that clones this repo should not be met with "read the source." It
-should be met with ``microcosm comprehend``: a route that compiles bounded read
+should be met with ``plectis comprehend``: a route that compiles bounded read
 packs from already-public substrate facts so the agent can answer "what is this?",
 "what does this organ do?", and "what may I trust?" without rereading code.
 
@@ -104,11 +104,11 @@ _ATOM_BULLET_MARKERS = (
 # entry leads: a cold agent with a concrete goal should get its first correct action
 # before absorbing any inventory.
 _START_HERE_ROUTES = [
-    'microcosm comprehend --first-action "<goal>"',
-    "microcosm comprehend --first-contact",
-    "microcosm comprehend --slice authority",
-    "microcosm comprehend --organ <organ_id>",
-    "microcosm comprehend --slice organs",
+    'plectis comprehend --first-action "<goal>"',
+    "plectis comprehend --first-contact",
+    "plectis comprehend --slice authority",
+    "plectis comprehend --organ <organ_id>",
+    "plectis comprehend --slice organs",
 ]
 
 # --- atom_value_membrane_v1: the local_semantic_excerpt band -----------------------
@@ -137,7 +137,7 @@ def default_root() -> Path:
 
     - Teleology: let comprehend find its public inputs regardless of the caller's
       cwd, including from an installed package where the public data lives under
-      share/microcosm-substrate rather than a source checkout.
+      share/plectis rather than a source checkout.
     - Guarantee: returns resource_root.microcosm_root() -- the source checkout
       when it carries the public manifest triple, else the installed share root.
     - Fails: never raises; pure path resolution.
@@ -500,9 +500,9 @@ def _runnable_command(command: Any) -> str:
 
     - Teleology: a packet that says "run this" must hand over a command that works
       VERBATIM from a fresh clone; the registry stores bare `python -m ...`
-      identities and the atlas stores `microcosm ...` console-script forms that
+      identities and the atlas stores `plectis ...` console-script forms that
       only exist after pip install.
-    - Guarantee: rewrites a leading "microcosm " to
+    - Guarantee: rewrites a leading "plectis " or legacy "microcosm " to
       "PYTHONPATH=src python3 -m microcosm_core " (identical CLI per the
       project's console-script entry), prefixes bare
       "python/python3 -m microcosm_core" with "PYTHONPATH=src" and normalizes
@@ -511,8 +511,10 @@ def _runnable_command(command: Any) -> str:
     - Fails: never raises.
     """
     text = str(command or "")
-    if text.startswith("microcosm "):
-        return "PYTHONPATH=src python3 -m microcosm_core " + text[len("microcosm "):]
+    for console_name in ("plectis", "microcosm"):
+        prefix = f"{console_name} "
+        if text.startswith(prefix):
+            return "PYTHONPATH=src python3 -m microcosm_core " + text[len(prefix) :]
     if text.startswith("python -m microcosm_core"):
         return "PYTHONPATH=src python3" + text[len("python"):]
     if text.startswith("python3 -m microcosm_core"):
@@ -795,7 +797,7 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
     if atlas_row is None and join_node is None:
         pack = _pack_skeleton("reference", f"comprehend organ {organ_id}")
         pack["summary"]["what_this_is"] = f"No organ named {organ_id!r} in the atlas or join index."
-        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["summary"]["what_to_inspect_next"] = ["plectis comprehend --slice organs"]
         pack["organ_id"] = organ_id
         pack["found"] = False
         return pack
@@ -940,7 +942,7 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
         "source authority."
     )
     pack["summary"]["what_to_inspect_next"] = [
-        "microcosm comprehend --organ <organ_id> for a single organ's ceiling",
+        "plectis comprehend --organ <organ_id> for a single organ's ceiling",
         "core/organ_evidence_classes.json for evidence-class definitions",
     ]
     pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
@@ -983,7 +985,7 @@ def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
     pack = _pack_skeleton("reference", "list all organs")
     pack["summary"]["what_this_is"] = f"{len(organ_ids)} organs, one synopsis line each."
     pack["summary"]["what_to_inspect_next"] = [
-        "microcosm comprehend --organ <organ_id>",
+        "plectis comprehend --organ <organ_id>",
     ]
     pack["selected_nodes"] = [
         {
@@ -1284,7 +1286,7 @@ def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
             f"{rel} is not owned-excerpt-eligible ({excerpts.get('reason')}); its atoms "
             "stay behind the membrane. Comprehend it via organ/registry metadata instead."
         )
-        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["summary"]["what_to_inspect_next"] = ["plectis comprehend --slice organs"]
         pack["semantic_excerpts"] = []
         pack["excerpt_guard"] = {"custody_basis": excerpts["custody_basis"]}
         return pack
@@ -1398,7 +1400,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "reference",
         "mode": "packet-atlas",
         "when_needed": "cold clone, first move: which packet answers my question?",
-        "command": "microcosm comprehend --packet-atlas",
+        "command": "plectis comprehend --packet-atlas",
         "inputs": ["packet_specs"],
         "export_band": "presence_only",
         "cache_policy": "prebuilt",
@@ -1413,7 +1415,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "how_to",
         "mode": "first_action",
         "when_needed": "I have a goal: what is my FIRST correct action, who owns it, what proves it, where do I stop?",
-        "command": 'microcosm comprehend --first-action "<goal>"',
+        "command": 'plectis comprehend --first-action "<goal>"',
         "inputs": ["join_index", "organ_atlas", "synopses"],
         "export_band": "presence_only",
         "cache_policy": "on_demand",
@@ -1428,7 +1430,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "explanation",
         "mode": "self-model",
         "when_needed": "comprehend the WHOLE substrate at once: every family, what's real vs thin, what not to claim",
-        "command": "microcosm comprehend --self-model",
+        "command": "plectis comprehend --self-model",
         "inputs": ["join_index", "organ_atlas", "synopses"],
         "export_band": "presence_only",
         "cache_policy": "prebuilt",
@@ -1443,7 +1445,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "explanation",
         "mode": "first-contact",
         "when_needed": "new clone: what is this substrate and where do I start?",
-        "command": "microcosm comprehend --first-contact",
+        "command": "plectis comprehend --first-contact",
         "inputs": ["join_index", "organ_atlas", "synopses"],
         "export_band": "presence_only",
         "cache_policy": "prebuilt",
@@ -1458,7 +1460,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "reference",
         "mode": "authority",
         "when_needed": "before acting: what is authoritative vs projection, and what does passing NOT authorize?",
-        "command": "microcosm comprehend --slice authority",
+        "command": "plectis comprehend --slice authority",
         "inputs": ["join_index", "organ_atlas"],
         "export_band": "presence_only",
         "cache_policy": "prebuilt",
@@ -1473,7 +1475,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "reference",
         "mode": "organs",
         "when_needed": "what organs exist? one synopsis line each",
-        "command": "microcosm comprehend --slice organs",
+        "command": "plectis comprehend --slice organs",
         "inputs": ["join_index", "organ_atlas", "synopses"],
         "export_band": "presence_only",
         "cache_policy": "prebuilt",
@@ -1488,7 +1490,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "explanation",
         "mode": "organ_cluster",
         "when_needed": "understand a whole family/subsystem at once (the middle doll)",
-        "command": "microcosm comprehend --slice cluster --family <family>",
+        "command": "plectis comprehend --slice cluster --family <family>",
         "inputs": ["join_index", "organ_atlas", "synopses"],
         "export_band": "presence_only",
         "cache_policy": "on_demand",
@@ -1503,7 +1505,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "explanation",
         "mode": "organ",
         "when_needed": "understand one organ: purpose, first command, custody, ceiling",
-        "command": "microcosm comprehend --organ <organ_id>",
+        "command": "plectis comprehend --organ <organ_id>",
         "inputs": ["join_index", "organ_atlas", "synopses"],
         "export_band": "presence_only",
         "cache_policy": "on_demand",
@@ -1518,7 +1520,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "explanation",
         "mode": "math",
         "when_needed": "where are the formal-math / proof surfaces and what do they claim?",
-        "command": "microcosm comprehend --slice math",
+        "command": "plectis comprehend --slice math",
         "inputs": ["join_index", "organ_atlas"],
         "export_band": "presence_only",
         "cache_policy": "on_demand",
@@ -1534,7 +1536,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "proof_trace",
         "mode": "claim_trace",
         "when_needed": "how is a claim justified? claim -> validator -> receipt -> ceiling",
-        "command": "microcosm comprehend --slice claims --organ <organ_id>",
+        "command": "plectis comprehend --slice claims --organ <organ_id>",
         "inputs": ["join_index", "organ_atlas"],
         "export_band": "presence_only",
         "cache_policy": "on_demand",
@@ -1550,7 +1552,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "proof_trace",
         "mode": "flow",
         "when_needed": "how does execution flow? validator -> runner -> receipt",
-        "command": "microcosm comprehend --slice flows --organ <organ_id>",
+        "command": "plectis comprehend --slice flows --organ <organ_id>",
         "inputs": ["join_index", "organ_atlas"],
         "export_band": "presence_only",
         "cache_policy": "on_demand",
@@ -1566,7 +1568,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "how_to",
         "mode": "mutation_plan",
         "when_needed": "I want to change something safely: what to inspect, test, refresh",
-        "command": "microcosm comprehend --mutation <organ_id|path>",
+        "command": "plectis comprehend --mutation <organ_id|path>",
         "inputs": ["join_index", "organ_atlas", "local_excerpts"],
         "export_band": "local_semantic_excerpt",
         "cache_policy": "local_on_demand",
@@ -1581,7 +1583,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "reference",
         "mode": "path",
         "when_needed": "read a file's authored atom values without opening source",
-        "command": "microcosm comprehend --path <owned_file>",
+        "command": "plectis comprehend --path <owned_file>",
         "inputs": ["owned_source"],
         "export_band": "local_semantic_excerpt",
         "cache_policy": "local_on_demand",
@@ -1770,7 +1772,7 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
         pack["found"] = False
         pack["summary"]["what_this_is"] = f"Name a family. {len(known)} exist."
         pack["summary"]["what_to_inspect_next"] = [
-            f"microcosm comprehend --slice cluster --family {entry['family']}"
+            f"plectis comprehend --slice cluster --family {entry['family']}"
             for entry in roster
         ]
         pack["selected_nodes"] = roster
@@ -1785,7 +1787,7 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
         f"The {family} family: {len(members)} organs sharing a specialty."
     )
     pack["summary"]["what_to_inspect_next"] = [
-        f"microcosm comprehend --organ {m}" for m in members[:6]
+        f"plectis comprehend --organ {m}" for m in members[:6]
     ]
     pack["summary"]["what_not_to_trust"] = (
         "Family grouping is navigation metadata; each organ carries its own claim ceiling."
@@ -1858,7 +1860,7 @@ def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
         "over proof evidence; none runs Lean or asserts domain correctness here."
     )
     pack["summary"]["what_to_inspect_next"] = [
-        f"microcosm comprehend --slice claims --organ {m}" for m in members[:4]
+        f"plectis comprehend --slice claims --organ {m}" for m in members[:4]
     ]
     pack["summary"]["what_not_to_trust"] = (
         "Passing a proof-evidence gate is projection mechanics, not proof of any theorem."
@@ -1909,7 +1911,7 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
         pack["summary"]["what_this_is"] = (
             "Name an organ to trace its claim -> validator -> receipt."
         )
-        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["summary"]["what_to_inspect_next"] = ["plectis comprehend --slice organs"]
         pack["selected_nodes"] = [
             {"organ_id": oid, "claim_ceiling": (join_by.get(oid) or {}).get("claim_ceiling")}
             for oid in sorted(set(atlas_by) | set(join_by))[:20]
@@ -2009,7 +2011,7 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
         pack["summary"]["what_this_is"] = (
             "Name an organ to order its validator -> runner -> receipt flow."
         )
-        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["summary"]["what_to_inspect_next"] = ["plectis comprehend --slice organs"]
         pack["selected_nodes"] = [
             {"organ_id": oid} for oid in sorted(set(atlas_by) | set(join_by))[:20]
         ]
@@ -2072,7 +2074,7 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
                 "kind": "wired_neighbors",
                 "wires_to": wires_out,
                 "wired_from": wires_in,
-                "drilldown": "microcosm comprehend --slice flows --organ <neighbor>",
+                "drilldown": "plectis comprehend --slice flows --organ <neighbor>",
             }
         )
     pack["selected_edges"] = edges
@@ -2258,7 +2260,7 @@ def _first_action_path_contract(
     """Build a first-action contract that preserves a named path target."""
     mode = "mutation_plan" if mutation else "path"
     command_flag = "--mutation" if mutation else "--path"
-    command = _runnable_command(f"microcosm comprehend {command_flag} {path}")
+    command = _runnable_command(f"plectis comprehend {command_flag} {path}")
     pack = _pack_skeleton("how_to", goal or path)
     pack["found"] = True
     pack["graph_backed"] = _graph_backed_block(inputs, _FIRST_ACTION_GRAPH_CLASSES)
@@ -2406,8 +2408,8 @@ def compile_first_action(
         inputs, ("cross_organ_route_topology", "claim_node_ontology")
     )
     pack["if_this_is_wrong"] = [
-        "microcosm comprehend --packet-atlas",
-        'microcosm comprehend --goal "<rephrase your goal>"',
+        "plectis comprehend --packet-atlas",
+        'plectis comprehend --goal "<rephrase your goal>"',
     ]
 
     if not text.strip():
@@ -2426,7 +2428,7 @@ def compile_first_action(
             for r in state["route_nodes"]
         ]
         pack["summary"]["what_to_inspect_next"] = [
-            'microcosm comprehend --first-action "where do I start?"'
+            'plectis comprehend --first-action "where do I start?"'
         ]
         return pack
 
@@ -2548,8 +2550,8 @@ def compile_first_action(
         )
         pack["do_not_edit"] = _custody_do_not_edit(join_node)
         pack["next_packet_commands"] = [
-            f"microcosm comprehend --slice claims --organ {organ_target}",
-            f"microcosm comprehend --slice flows --organ {organ_target}",
+            f"plectis comprehend --slice claims --organ {organ_target}",
+            f"plectis comprehend --slice flows --organ {organ_target}",
         ]
         return pack
 
@@ -2598,8 +2600,8 @@ def compile_first_action(
         )
         pack["do_not_edit"] = _custody_do_not_edit(join_node)
         pack["next_packet_commands"] = [
-            f"microcosm comprehend --organ {primary}",
-            f"microcosm comprehend --slice claims --organ {primary}",
+            f"plectis comprehend --organ {primary}",
+            f"plectis comprehend --slice claims --organ {primary}",
         ]
         return pack
 
@@ -2692,7 +2694,7 @@ def compile_first_action(
         )
         pack["do_not_edit"] = _custody_do_not_edit(join_node)
         pack["next_packet_commands"] = [
-            f"microcosm comprehend --organ {token_organ}",
+            f"plectis comprehend --organ {token_organ}",
         ]
         return pack
 
@@ -3375,9 +3377,9 @@ def _public_reader_block(
         ],
         "known_thinness": health.get("by_truth_accounting_bucket"),
         "recommended_demo_path": [
-            "microcosm comprehend --self-model",
-            "microcosm comprehend --slice math",
-            "microcosm comprehend --slice claims --organ <a proof organ>",
+            "plectis comprehend --self-model",
+            "plectis comprehend --slice math",
+            "plectis comprehend --slice claims --organ <a proof organ>",
             "microcosm comprehension-assay --whole-system",
         ],
     }
@@ -3438,7 +3440,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         "release, source export, or whole-system correctness.",
         f"{len(families)} organ families. This packet IS the hub: open --slice cluster --family <f> "
         "for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
-        'Have a concrete goal? microcosm comprehend --first-action "<goal>" converts it into ONE '
+        'Have a concrete goal? plectis comprehend --first-action "<goal>" converts it into ONE '
         "graph-backed first action -- owner, runnable command, validator, receipts, stop condition, "
         "do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
     ]
@@ -3461,7 +3463,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["summary"]["what_this_is"] = (
         str(atlas.get("authority_boundary") or "A self-describing organ substrate.")
     )
-    pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+    pack["summary"]["what_to_inspect_next"] = ["plectis comprehend --slice organs"]
     pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
     pack["sections"] = [
         "read_me_first", "major_subsystems", "route_topology", "code_lens_health",
@@ -3472,7 +3474,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         {
             "family": entry["family"],
             "organ_count": entry["count"],
-            "drilldown": f"microcosm comprehend --slice cluster --family {entry['family']}",
+            "drilldown": f"plectis comprehend --slice cluster --family {entry['family']}",
         }
         for entry in families
     ]
@@ -3491,7 +3493,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
                 }
                 for r in state["route_nodes"]
             ],
-            "drilldown": "microcosm comprehend --slice flows --organ <primary_organ_id>",
+            "drilldown": "plectis comprehend --slice flows --organ <primary_organ_id>",
             "note": "route nodes carry a first_command, a stop_condition, and an "
             "allowed_scope where the route plane binds them; the flow and organ "
             "packets surface them per organ",
@@ -3534,23 +3536,23 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     # The self-model is the HUB: it routes to the specialized packets rather than duplicating them.
     pack["recommended_drilldowns"] = [
         {"question": "what is my FIRST correct action for a goal?", "packet": "first_action",
-         "command": 'microcosm comprehend --first-action "<goal>"'},
+         "command": 'plectis comprehend --first-action "<goal>"'},
         {"question": "what organs exist (one line each)?", "packet": "organs_index",
-         "command": "microcosm comprehend --slice organs"},
+         "command": "plectis comprehend --slice organs"},
         {"question": "understand a whole family?", "packet": "organ_cluster",
-         "command": "microcosm comprehend --slice cluster --family <f>"},
+         "command": "plectis comprehend --slice cluster --family <f>"},
         {"question": "where is the math / proof?", "packet": "math",
-         "command": "microcosm comprehend --slice math"},
+         "command": "plectis comprehend --slice math"},
         {"question": "what may I trust?", "packet": "authority",
-         "command": "microcosm comprehend --slice authority"},
+         "command": "plectis comprehend --slice authority"},
         {"question": "how is a claim justified?", "packet": "claim_trace",
-         "command": "microcosm comprehend --slice claims --organ <id>"},
+         "command": "plectis comprehend --slice claims --organ <id>"},
         {"question": "how does an organ run?", "packet": "flow",
-         "command": "microcosm comprehend --slice flows --organ <id>"},
+         "command": "plectis comprehend --slice flows --organ <id>"},
         {"question": "change something safely?", "packet": "mutation_plan",
-         "command": "microcosm comprehend --mutation <id|path>"},
+         "command": "plectis comprehend --mutation <id|path>"},
         {"question": "read a file's atoms without opening source?", "packet": "path",
-         "command": "microcosm comprehend --path <owned_file>"},
+         "command": "plectis comprehend --path <owned_file>"},
     ]
     if profile == "whole_substrate_map":
         pack["whole_substrate_map"] = _whole_substrate_rows(
@@ -3562,8 +3564,8 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["tail_recap"] = {
         "core_frame": f"{organ_count} organs, {len(families)} families; {exact_copy}/{organ_count} "
         "runners are exact-copy macro bodies; presence_only; authorizes nothing.",
-        "next_packet_if_lost": "microcosm comprehend --packet-atlas",
-        "to_comprehend_every_organ": "microcosm comprehend --self-model --profile whole_substrate_map",
+        "next_packet_if_lost": "plectis comprehend --packet-atlas",
+        "to_comprehend_every_organ": "plectis comprehend --self-model --profile whole_substrate_map",
     }
     pack["evidence_refs"] = [
         "core/organ_atlas.json",

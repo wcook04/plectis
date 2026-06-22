@@ -4,34 +4,8 @@
   "bundle_id": "provider_context_budget_runtime_example",
   "classification": "copied_non_secret_macro_body_and_standard_body",
   "manifest_id": "provider_context_recipe_budget_policy_source_modules_import",
-  "module_count": 8,
+  "module_count": 4,
   "modules": [
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 16038,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 356,
-      "material_class": "public_macro_tool_body",
-      "module_id": "provider_context_batch_calibration_report_body_import",
-      "required_anchors": [
-        "Build aggregate reports for the prover provider batch calibration run.",
-        "def build_reports(run_root: Path) -> dict[str, Any]:",
-        "\"schema_version\": \"prover_provider_reducer_taxonomy_decision_v0\"",
-        "\"schema_version\": \"prover_provider_recipe_policy_metrics_v0\"",
-        "\"provider_calls_by_reducer\": 0",
-        "\"fake_provider_results_counted\": 0"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_provider_payload_export",
-      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
-      "source_role": "Macro batch calibration report builder that aggregates reduced provider receipts into recipe-policy, leakage, row-patch-review, cost, and taxonomy reports without provider dispatch.",
-      "source_sha256": "076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
-      "target_ref": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
-      "target_sha256": "076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a"
-    },
     {
       "anchor_count": 6,
       "body_copied": true,
@@ -57,58 +31,6 @@
       "source_sha256": "5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb",
       "target_ref": "source_modules/codex/standards/std_compute_provider.json",
       "target_sha256": "5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb"
-    },
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 64437,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1478,
-      "material_class": "public_macro_tool_body",
-      "module_id": "provider_context_formal_ladder_eval_body_import",
-      "required_anchors": [
-        "DEFAULT_RECIPES = (\"minimal_4kb\", \"skill_32kb\", \"repair_32kb\")",
-        "def compile_jobs(",
-        "harness._provider_context_pack(",
-        "\"schema_version\": \"provider_context_pack_manifest_v0\"",
-        "def reduce_dispatched_receipts(",
-        "\"schema_version\": \"prover_formal_problem_ladder_recipe_policy_metrics_v0\""
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_provider_payload_export",
-      "source_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
-      "source_role": "Macro formal problem ladder evaluator that consumes the provider-context harness into transform jobs, optional provider dispatch receipts, reduction, and recipe policy metrics.",
-      "source_sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6",
-      "target_ref": "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
-      "target_sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6"
-    },
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 315755,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 7168,
-      "material_class": "public_macro_tool_body",
-      "module_id": "provider_context_graph_benchmark_body_import",
-      "required_anchors": [
-        "PROVIDER_CONTEXT_RECIPES = (",
-        "DEFAULT_PROVIDER_CONTEXT_RECIPES =",
-        "def _provider_context_recipe(recipe_id: str) -> dict[str, Any]:",
-        "def _provider_context_pack(",
-        "def run_provider_context_sweep(",
-        "\"schema_version\": \"prover_provider_context_sweep_run_v0\""
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_provider_payload_export",
-      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
-      "source_role": "Macro prover graph benchmark harness that defines provider context recipe ids, budget ceilings, bounded section fill, leakage audits, and std_transform_job compilation without provider dispatch in v0.",
-      "source_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "target_ref": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-      "target_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590"
     },
     {
       "anchor_count": 6,
@@ -167,32 +89,6 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 39193,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 926,
-      "material_class": "public_macro_tool_body",
-      "module_id": "provider_context_receipt_reducer_body_import",
-      "required_anchors": [
-        "Reduce prover provider receipts into Lean-checked Oracle/Foundry evidence.",
-        "TRUTH_SIDE_FORBIDDEN_MARKERS = (",
-        "def _truth_side_leakage_hits(",
-        "def _classify_failure(",
-        "def reduce_receipt(",
-        "\"schema_version\": \"provider_receipt_reducer_run_summary_v0\""
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_provider_payload_export",
-      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
-      "source_role": "Macro provider receipt reducer that classifies provider output, detects truth-side leakage, audits premise budgets, reviews row patches, and writes advisory evidence without provider calls or source promotion.",
-      "source_sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
-      "target_ref": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
-      "target_sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6"
-    },
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
       "byte_count": 8649,
       "classification": "copied_non_secret_macro_standard_body",
       "line_count": 208,
@@ -218,6 +114,56 @@
   "organ_id": "provider_context_recipe_budget_policy",
   "public_runtime_policy": "Public validation checks source module hashes and anchors only; it does not call providers, dispatch transform jobs, read live provider receipts, run reducer over live payloads, or run Lean/Lake.",
   "receipt_body_policy": "receipts report paths, hashes, counts, and anchor results without duplicating full source bodies or provider payload/session bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "provider_context_batch_calibration_report_body_import",
+      "path": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "provider_context_formal_ladder_eval_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "provider_context_graph_benchmark_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "provider_context_receipt_reducer_body_import",
+      "path": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py"
+    }
+  ],
   "schema_version": "provider_context_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

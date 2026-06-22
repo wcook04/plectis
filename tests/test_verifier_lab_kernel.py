@@ -316,7 +316,10 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert len(result["claim_separation"]["cp2_translated"]) == 2
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["body_in_receipt"] is False
-    assert result["real_runtime_receipt"] is True
+    # Exported bundle is a standalone synthetic component contract, not a live run.
+    assert result["real_runtime_receipt"] is False
+    assert result["synthetic_contract"] is True
+    assert result["not_a_live_run"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in result

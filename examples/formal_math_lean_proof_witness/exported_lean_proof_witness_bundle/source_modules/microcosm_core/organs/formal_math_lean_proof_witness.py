@@ -19,7 +19,7 @@ from microcosm_core.private_state_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import normalize_public_receipt_paths, utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 
 
@@ -232,7 +232,8 @@ def _fresh_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_lean_proof_witness_bundle":
         return None
-    if payload.get("command") != command:
+    expected_command = normalize_public_receipt_paths({"command": command}).get("command")
+    if payload.get("command") != expected_command:
         return None
     if payload.get("validator_cache_version") != VALIDATOR_CACHE_VERSION:
         return None
@@ -835,7 +836,7 @@ def _standalone_exported_tool_versions() -> dict[str, Any]:
         "lean_version_command": {
             "argv": ["lean", "--version"],
             "cwd_name": Path.cwd().name,
-            "return_code": 0,
+            "return_code": None,
             "stdout_line_count": 0,
             "stderr_line_count": 0,
             "timeout_seconds": VERSION_PROBE_TIMEOUT_SECONDS,
@@ -847,7 +848,7 @@ def _standalone_exported_tool_versions() -> dict[str, Any]:
         "lake_version_command": {
             "argv": ["lake", "--version"],
             "cwd_name": Path.cwd().name,
-            "return_code": 0,
+            "return_code": None,
             "stdout_line_count": 0,
             "stderr_line_count": 0,
             "timeout_seconds": VERSION_PROBE_TIMEOUT_SECONDS,
@@ -1293,6 +1294,12 @@ def _build_result(
             if source_module_blocked
             else "live_lean_lake_execution"
         ),
+        # Honest run-provenance: the standalone exported contract is a declared
+        # synthetic shape, not a live lean/lake execution. Only the live path is
+        # a real runtime receipt.
+        "real_runtime_receipt": not standalone_exported_witness,
+        "synthetic_contract": standalone_exported_witness,
+        "not_a_live_run": standalone_exported_witness,
         "tool_versions": tool_versions,
         "lake_build": lake_build,
         "source_files": source_metadata,
@@ -1663,7 +1670,8 @@ def run_witness_bundle(
         receipt_paths=[_display(result_path, public_root=public_root)],
     )
     write_json_atomic(result_path, receipt)
-    result["receipt_paths"] = [_display(result_path, public_root=public_root)]
+    written_receipt = normalize_public_receipt_paths(receipt)
+    result["receipt_paths"] = written_receipt["receipt_paths"]
     return result
 
 

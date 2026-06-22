@@ -37,7 +37,7 @@ def test_skeptic_flight_recorder_preserves_blocked_authority_evidence(
             payload = {
                 "schema_version": "microcosm_public_authority_card_v1",
                 "status": "blocked",
-                "command": "microcosm authority --card",
+                "command": "plectis authority --card",
                 "authority_ceiling": {
                     "provider_calls_authorized": False,
                     "release_authorized": False,
@@ -59,7 +59,7 @@ def test_skeptic_flight_recorder_preserves_blocked_authority_evidence(
             return RunnerResult(
                 returncode=1,
                 stdout=b"",
-                stderr=b"Microcosm smoke check: fail\nreason: authority blocked\n",
+                stderr=b"Plectis smoke check: fail\nreason: authority blocked\n",
                 duration_seconds=0.01,
             )
         payload = {
@@ -74,14 +74,14 @@ def test_skeptic_flight_recorder_preserves_blocked_authority_evidence(
         if spec.command_id == "hello":
             return RunnerResult(
                 returncode=0,
-                stdout=b"Microcosm first screen\n",
+                stdout=b"Plectis first screen\n",
                 stderr=b"",
                 duration_seconds=0.01,
             )
         if spec.command_id == "version":
             return RunnerResult(
                 returncode=0,
-                stdout=b"microcosm 0.1.0\n",
+                stdout=b"plectis 0.1.0\n",
                 stderr=b"",
                 duration_seconds=0.01,
             )

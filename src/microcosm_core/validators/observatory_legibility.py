@@ -190,7 +190,7 @@ def _observable_first_artifact_contract(
 
     - Teleology: assert the compact command-to-route board exposes, in order, a local action, the selected route, a non-mutating work transaction, an event+evidence chain, an authority boundary, and a structural-scale bridge before any drilldown — so a cold reader sees the causal artifact first, not raw JSON.
     - Guarantee: returns a ``microcosm_observable_first_artifact_contract_v1`` dict whose top-level ``status`` is PASS only when all six slots are PASS, else "blocked" with the failing ids in ``blocked_slot_ids``; always carries ``slots``, ``contract_ref``, ``required_slot_ids``, ``presentation_boundary`` (raw_json_first / marketing / live-trace all disallowed), ``endpoint_order``, and an ``anti_claim`` denying release/hosting/provider/equivalence/whole-system claims.
-    - Fails: never raises; degrades by marking individual slots "blocked" when their required cue (microcosm command prefix, matching route_id, closed non-mutating work, event/evidence refs, denied authority ceiling, or legible source-open floor) is absent.
+    - Fails: never raises; degrades by marking individual slots "blocked" when their required cue (plectis command prefix, matching route_id, closed non-mutating work, event/evidence refs, denied authority ceiling, or legible source-open floor) is absent.
     - When-needed: inspect when ``observable_first_artifact_contract_pass`` blocks or to learn which of the six first-screen slots regressed.
     - Escalates-to: ``OBSERVABLE_FIRST_ARTIFACT_CONTRACT_REF`` (agent_route_observability_runtime.md#observable-first-artifact-contract) and the ``observable_first_artifact_proof`` block of the emitted receipt.
     - Non-goal: a PASS envelope does not authorize release, hosting, provider calls, private-data equivalence, or whole-system correctness.
@@ -223,7 +223,7 @@ def _observable_first_artifact_contract(
     slots = {
         "local_action": {
             "status": PASS
-            if any(ref.startswith("microcosm ") for ref in command_refs)
+            if any(ref.startswith("plectis ") for ref in command_refs)
             else "blocked",
             "command_refs": command_refs,
             "required_cue": "exact command before visual state",
@@ -562,7 +562,7 @@ def validate_legibility(
         "observable_first_artifact_slots_visible": all(
             token in html
             for token in [
-                "microcosm hello",
+                "plectis hello",
                 "Causal Chain",
                 "Work Transaction",
                 "Events and Evidence",
@@ -573,7 +573,7 @@ def validate_legibility(
         ),
         "first_screen_card_endpoint_visible": "/project/first-screen" in html,
         "observatory_card_endpoint_visible": "/project/observatory-card" in html,
-        "first_screen_text_card_visible": "Microcosm first screen" in html
+        "first_screen_text_card_visible": "Plectis first screen" in html
         and "Open card:" in html,
         "first_screen_reader_branches_visible": "Reader branches:" in html
         and "Safety/evals:" in html
@@ -609,8 +609,8 @@ def validate_legibility(
             in html
         ),
         "first_screen_hello_command_visible": (
-            "microcosm hello &lt;project&gt;" in html
-            or "microcosm hello <project>" in html
+            "plectis hello &lt;project&gt;" in html
+            or "plectis hello <project>" in html
         ),
         "first_screen_authority_ceiling_visible": "No release, hosted publication"
         in html,
@@ -751,9 +751,9 @@ def validate_legibility(
         "first_screen_landing_frame_targets_browser_root": (
             landing_frame.get("role")
             == "make_the_hello_first_screen_card_the_browser_landing_frame"
-            and landing_frame.get("human_first_command") == "microcosm hello <project>"
+            and landing_frame.get("human_first_command") == "plectis hello <project>"
             and landing_frame.get("shared_first_command")
-            == "microcosm tour --card <project>"
+            == "plectis tour --card <project>"
             and browser_landing_reuse.get("default_endpoint") == "/"
             and browser_landing_reuse.get("card_endpoint") == "/project/first-screen"
             and browser_landing_reuse.get("source_projection")

@@ -38,7 +38,7 @@ and the public authority membrane:
 1. Read `README.md` for the human map and install mode. In that README, use
    `Public Repo Map` and `Component Map` before opening raw receipts or the
    long organ inventory.
-2. From `microcosm-substrate/`, run the bounded cold-clone probe before any
+2. From the repository root, run the bounded cold-clone probe before any
    install step:
 
 ```bash
@@ -49,7 +49,7 @@ and the public authority membrane:
    `.microcosm/cold_clone_probe.json` evidence, and points back to the README
    map. Use `./bootstrap.sh --dry-run` when you need to see the exact command
    without writing the ignored receipt.
-3. From `microcosm-substrate/`, make the console command available with
+3. From the repository root, make the console command available with
    `make install`. If you cannot use `make`, run
    `python3 -m pip install -e '.[test]'` directly; if you cannot install, use
    the source form `PYTHONPATH=src python3 -m microcosm_core <command>`.
@@ -61,26 +61,26 @@ make smoke
 
 The smoke target writes ignored receipts under `.microcosm/smoke/`, validates
 them, and prints a compact terminal summary. A healthy run includes
-`Microcosm smoke check: pass`, `authority: pass`, `workingness: clear`, and
+`Plectis smoke check: pass`, `authority: pass`, `workingness: clear`, and
 `served status: pass`. If you are inspecting each output, use the same commands
 by hand:
 
 ```bash
-microcosm hello .
-microcosm hello --reader cold_cloner .
-microcosm hello --reader reviewer .
-microcosm hello --reader skeptical_reviewer .
-microcosm hello --reader agent .
-microcosm hello --reader domain_specialist .
-microcosm first-screen --card .
-microcosm comprehend --first-action "<goal>"
-microcosm comprehend --first-contact
-microcosm comprehend --organ <organ_id>
-microcosm tour --card .
-microcosm status --card .
-microcosm authority --card
-microcosm workingness --card
-microcosm legibility-scorecard
+plectis hello .
+plectis hello --reader cold_cloner .
+plectis hello --reader reviewer .
+plectis hello --reader skeptical_reviewer .
+plectis hello --reader agent .
+plectis hello --reader domain_specialist .
+plectis first-screen --card .
+plectis comprehend --first-action "<goal>"
+plectis comprehend --first-contact
+plectis comprehend --organ <organ_id>
+plectis tour --card .
+plectis status --card .
+plectis authority --card
+plectis workingness --card
+plectis legibility-scorecard
 ```
 
 The reader aliases are shortcuts into existing first-screen branches, not new
@@ -94,29 +94,29 @@ points to the generated organ specialty index without claiming domain
 correctness or expert review. The card echoes the requested alias or route id
 for copy/paste while resolving it to the selected branch.
 
-Read those outputs as the first contract: `microcosm hello` is the no-write
-human card, `microcosm first-screen --card` is the compact JSON reader map,
-`microcosm comprehend --first-action "<goal>"` is the goal-shaped entry (one
+Read those outputs as the first contract: `plectis hello` is the no-write
+human card, `plectis first-screen --card` is the compact JSON reader map,
+`plectis comprehend --first-action "<goal>"` is the goal-shaped entry (one
 graph-backed First Correct Action contract: action, owner, validator, receipts,
 stop condition, do-not-edit boundary — demonstrated in
 [FIRST_ACTION.md](FIRST_ACTION.md)),
-`microcosm comprehend --packet-atlas` is the navigable menu of comprehension
+`plectis comprehend --packet-atlas` is the navigable menu of comprehension
 packets (pick the one matching your goal: self_model, first_contact, authority,
 organ_cluster, math, claim_trace, flow, mutation_plan, path),
-`microcosm comprehend --self-model` compiles the WHOLE substrate into one
+`plectis comprehend --self-model` compiles the WHOLE substrate into one
 budgeted packet so you comprehend every family, the real-vs-thin calibration,
 and what not to claim at once (`--profile whole_substrate_map` for all 82
-organ essences), `microcosm comprehend --first-contact` is the source-body-free
+organ essences), `plectis comprehend --first-contact` is the source-body-free
 comprehension read pack that answers "what is this substrate, what does each
 organ do, and what may I trust" without rereading source (drill in with
-`microcosm comprehend --organ <organ_id>`, trace a claim with
-`microcosm comprehend --slice claims --organ <organ_id>`, and prove the whole
-surface comprehends with `microcosm comprehension-assay --whole-system`),
-`microcosm tour --card` is the shared state-writing behavior proof,
-`microcosm status --card` is the compressed public evidence map,
-`microcosm authority --card` is the claim ceiling, `microcosm workingness --card`
-is the failure envelope, `microcosm observe --card` is the compact
-route/work/event/evidence handoff, and `microcosm legibility-scorecard` is the
+`plectis comprehend --organ <organ_id>`, trace a claim with
+`plectis comprehend --slice claims --organ <organ_id>`, and prove the whole
+surface comprehends with `plectis comprehension-assay --whole-system`),
+`plectis tour --card` is the shared state-writing behavior proof,
+`plectis status --card` is the compressed public evidence map,
+`plectis authority --card` is the claim ceiling, `plectis workingness --card`
+is the failure envelope, `plectis observe --card` is the compact
+route/work/event/evidence handoff, and `plectis legibility-scorecard` is the
 cold-reader comprehension check. These commands do not create release, hosting,
 proof, production, provider-call, source-mutation, or financial-advice
 authority.
@@ -129,13 +129,13 @@ is reasoning about the whole substrate from the one slice you happened to open.
 
 - **First-action reflex.** If you have a concrete goal (or were handed one) and
   you are about to grep, glob, or open source to figure out where to start, run
-  `microcosm comprehend --first-action "<goal>"` first. It names the owner, the
+  `plectis comprehend --first-action "<goal>"` first. It names the owner, the
   runnable command, the validator, the receipts, and the stop condition; source
   search before that contract is almost always wasted or unsafe reading.
 - **Comprehension reflex.** If you ever catch yourself assessing, summarizing,
   scoring, or judging Plectis from only the part you looked at (the tell:
   "based on the part I worked on…"), or you have just arrived cold, then before
-  you answer run `microcosm comprehend --self-model` — add
+  you answer run `plectis comprehend --self-model` — add
   `--profile whole_substrate_map` to read every organ's essence at once.
   Comprehend the whole substrate first, then speak.
 - **Calibration-before-claim reflex.** If you ever are about to state how good,
@@ -150,10 +150,10 @@ is reasoning about the whole substrate from the one slice you happened to open.
 - **Escalate-only-when-needed reflex.** If you ever are about to open a source
   file, confirm you are mutating or proving. Otherwise stay in the
   source-body-free read packs. When unsure which packet to open,
-  `microcosm comprehend --packet-atlas` is the menu.
+  `plectis comprehend --packet-atlas` is the menu.
 
 Before the full test floor, run `make check` for the fastest public preflight.
-It should print `Microcosm preflight: organ evidence-class registry loads
+It should print `Plectis preflight: organ evidence-class registry loads
 cleanly.` Before publishing, handing off, or treating the standalone clone as
 verified, run `make ci`. It is the public GitHub Actions entry and expands to
 editable install, public tests, source-form smoke, and package-install smoke
@@ -173,7 +173,7 @@ and the relevant checker commands. Do not add formatter commands to closeout
 claims unless package metadata provides them.
 
 If you need a bounded standalone review artifact, run
-`make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export`. This
+`make standalone-export EXPORT_OUT=/tmp/plectis-export`. This
 writes a candidate folder plus `receipts/release/release_export_receipt.json`;
 it is not part of `make ci`, performs heavier outside-root smoke checks, and
 still keeps `release_authorized=false` until a separate human release decision
@@ -183,7 +183,7 @@ Before handing off or reviewing that artifact as a standalone clone, validate
 the exported root itself:
 
 ```bash
-cd /tmp/microcosm-substrate-export/microcosm-substrate
+cd /tmp/plectis-export/plectis
 make ci
 ```
 
@@ -197,7 +197,7 @@ index, not as a substitute for running the commands.
 
 ## Live CLI Registry Boundary
 
-Treat `microcosm --help` as the bounded first-screen console-command registry.
+Treat `plectis --help` as the bounded first-screen console-command registry.
 It is not the full drilldown inventory. In a source-only checkout, use
 `PYTHONPATH=src python3 -m microcosm_core --help` for the same first-screen
 registry without installing the console script. The organ inventory below also
@@ -264,7 +264,7 @@ The atlas is regenerated from substrate with
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` and gated by
 `tests/test_organ_atlas.py`; do not hand-edit `AGENT_ROUTES.md`,
 `ORGANS.md`, `ARCHITECTURE.md`, or `atlas/agent_task_routes.json`.
-Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation` are
+Drilldown CLIs such as `plectis reveal` and `plectis spatial-simulation` are
 documented per organ in [ORGANS.md](ORGANS.md). The accepted organs cluster into
 generated families in [ORGANS.md#families](ORGANS.md#families). Do not copy that
 family inventory into AGENTS; agents enter through [AGENT_ROUTES.md](AGENT_ROUTES.md),
@@ -276,7 +276,7 @@ and humans can also browse through [ORGANS.md#find-your-specialty](ORGANS.md#fin
 
 When a Plectis task asks to read, populate, or refine concepts and
 mechanisms, use the entry surface instead of starting from the extracted
-pattern inventory. First open `microcosm first-screen <project>` and read
+pattern inventory. First open `plectis first-screen <project>` and read
 `doctrine_effect_frame`; it now exposes `CONCEPTS` and `MECHANISMS` as
 authority-boundary handles, not ceremonial doctrine labels.
 
@@ -303,22 +303,22 @@ first-screen route shape, executable grammar standard shape, standards-meta
 organ mapping, or voice-to-doctrine refinement. Only create a new packet if none
 of those existing lanes can carry the pressure without distortion.
 
-- Standard shape: `microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar`
-- Organ-to-standard mapping: `microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics`
-- Local pressure -> owner surface -> validation -> closeout loop: `microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine`
+- Standard shape: `plectis executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar`
+- Organ-to-standard mapping: `plectis standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics`
+- Local pressure -> owner surface -> validation -> closeout loop: `plectis voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine`
 
 ## Rules
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. The human first-screen text projection is `microcosm hello <project>`.
+2. The human first-screen text projection is `plectis hello <project>`.
    It opens the cold-entry card without writing `.microcosm/`, mutating source
    files (`source_files_mutated=false`), calling providers, or proving local
    behavior. The shared
-   state-writing behavior proof is `microcosm tour --card <project>`:
+   state-writing behavior proof is `plectis tour --card <project>`:
    repo -> `.microcosm` plus the first-screen route card. The full drilldown
-   tour is `microcosm tour <project>`, and the explicit rebuild loop is
-   `microcosm compile <project>`. The ten-minute tour should compress
+   tour is `plectis tour <project>`, and the explicit rebuild loop is
+   `plectis compile <project>`. The ten-minute tour should compress
    compile state, Python lens, spine, authority, workingness, prediction, market boundary, corpus, trace repair,
    repair-loop curriculum, formal evidence cells, proof-loop depth, verifier-lab
    execution spine, work landing replay, durable agent work landing replay, view quality, projection safety, drift control,
@@ -337,46 +337,46 @@ of those existing lanes can carry the pressure without distortion.
    authority ceiling, safety/evals readers go from the shared local card to
    status, authority card, and workingness card,
    hiring reviewers go to the legibility scorecard plus the local card, and
-   peer developers go to the local card plus `microcosm observe --card <project>`;
-   use `microcosm observe <project>` only when full event rows are needed.
+   peer developers go to the local card plus `plectis observe --card <project>`;
+   use `plectis observe <project>` only when full event rows are needed.
    Those branches route attention; they do not create release, proof,
    production, hiring, or safety-evaluation authority.
-   The Python route loop is `microcosm python-lens <project>`; it should expose
+   The Python route loop is `plectis python-lens <project>`; it should expose
    path-level Python roles, package roots, readiness checks, and route rows
    without source bodies, provider calls, source mutation, package-quality
    claims, or static-analysis authority claims.
-   The public spine loop is `microcosm spine`; it should expose the accepted
+   The public spine loop is `plectis spine`; it should expose the accepted
    runtime organs, first-run command path, counts, evidence policy, explicit
    `evidence_class` rows, and
    secret-only boundary without forcing a cold reader into raw receipts first.
-   The pattern route-readiness loop is `microcosm pattern-route-readiness
+   The pattern route-readiness loop is `plectis pattern-route-readiness
    validate-bundle`; it should validate the exported route-readiness selector
    overlays before any mined pattern row is treated as selectable. It keeps
    pattern selection organ-first and fixture-bound, with no standalone public
    leaf, release, publication, or private-data equivalence authority.
-   The workingness map is `microcosm workingness`; it should compare each
+   The workingness map is `plectis workingness`; it should compare each
    organ's required substrate against observed evidence and owning-standard
    failure modes.
-   The runtime intake loop is `microcosm intake`; it should connect the macro
+   The runtime intake loop is `plectis intake`; it should connect the macro
    projection intake board, formal-math readiness extension board, reveal
    bundle, body-import verification rows, and runtime evidence refs so ready,
    landed, bridged, copied, and consumed projection cells are visible without
    secrets or credential-bearing payloads.
-   The public reveal loop is `microcosm reveal`; it should show the ten-minute
+   The public reveal loop is `plectis reveal`; it should show the ten-minute
    path from repo compile to route explanation, observatory, evidence, and
    secret-only boundary.
    `mission_transaction_work_spine` also exposes checkpoint lane receipts:
    scoped commit is the normal lane for isolated owned paths, broad checkpoint
    requires explicit operator authorization, and suspected private leakage
    routes to hard stop.
-   The cold-reader route loop is `microcosm cold-reader-route-map
+   The cold-reader route loop is `plectis cold-reader-route-map
    run-route-map-bundle`; it should validate first-run route order, command
    refs, docs refs, receipt refs, and the public-runtime authority boundary.
-   The expanded local loop is `microcosm tour --card <project>`,
-   `microcosm status --card <project>`, `microcosm observe <project>`,
-   `microcosm explain <project> <route_id>`, and
-   `microcosm evidence list <project> --limit 25`, then
-   `microcosm evidence inspect <project> <ref>` for a listed project evidence
+   The expanded local loop is `plectis tour --card <project>`,
+   `plectis status --card <project>`, `plectis observe <project>`,
+   `plectis explain <project> <route_id>`, and
+   `plectis evidence list <project> --limit 25`, then
+   `plectis evidence inspect <project> <ref>` for a listed project evidence
    ref. Older macro stage labels such as init, index, architecture, route
    selection, and work-run are conceptual
    stages inside the current commands, not separate live top-level commands.
@@ -385,16 +385,16 @@ of those existing lanes can carry the pressure without distortion.
    The `public_reveal_walkthrough` organ is the exception that binds entry
    legibility itself to fixtures, commands, negative cases, and receipts.
    The `macro_projection_import_protocol` organ is the import membrane for
-   future macro patterns: use `microcosm macro-projection-import-protocol` to
+   future macro patterns: use `plectis macro-projection-import-protocol` to
    import real non-secret bodies when they are copyable, and to demote
-   metadata-only cells when they are not. Use `microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle`
+   metadata-only cells when they are not. Use `plectis macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle`
    before a new import slice; it is the non-writing intake board for per-cell
    source refs, target refs,
    validation refs, copy policy, body-import verification, omitted material, and
    ready/blocked status. It must also expose `projection_status`,
    `cell_state`, `action_required`, landed evidence refs, status counts, and
    open-actionable count so a landed cell is not reread as unfinished work. Use
-   `microcosm intake` when a cold reader needs the public runtime bridge from
+   `plectis intake` when a cold reader needs the public runtime bridge from
    that intake board into spine/reveal/evidence.
    The `voice_to_doctrine_self_improvement_loop` organ is the public self-update
    membrane: it validates local pressure -> owner surface -> mutation or
@@ -404,8 +404,8 @@ of those existing lanes can carry the pressure without distortion.
    `voice-to-doctrine-self-improvement-loop` when a Plectis pass needs to
    prove it imported the macro system's learning loop instead of only adding
    pattern receipts.
-   Authority ceiling: start with `microcosm authority --card` for the compact
-   public ceiling, then open `microcosm authority` only when a claim needs the
+   Authority ceiling: start with `plectis authority --card` for the compact
+   public ceiling, then open `plectis authority` only when a claim needs the
    full map. The authority loop should aggregate status,
    spine, intake, reveal, accepted organs, hard public boundaries, safe
    local-only exceptions, evidence refs, `evidence_class` rows, and anti-claims
@@ -416,49 +416,49 @@ of those existing lanes can carry the pressure without distortion.
    export secrets or credential-equivalent payloads, make general proof claims,
    or offer financial advice. It must not treat private-state language as a
    generic reason to replace real non-secret bodies with placeholders.
-   The workingness loop is `microcosm workingness`; it should expose one
+   The workingness loop is `plectis workingness`; it should expose one
    failure envelope per organ: required substrate, observed evidence class,
    known failure modes from the owning standard, and concrete future-work
    targets. It is not a maturity board, activation label, release signal, or
    score-based progress surface.
-   The prediction lens loop is `microcosm prediction-lens`; it should project
+   The prediction lens loop is `plectis prediction-lens`; it should project
    `prediction_oracle_reconciliation` as a public synthetic reasoning surface
    with target-universe gating, CP1 bifurcation resolution, CP2 prediction
    rows, oracle diff grading, bounded dossier mutation, negative-case coverage,
    source/projection refs, and no-advice/no-live-data boundaries.
-   The market-boundary loop is `microcosm market-boundary`; it should project
+   The market-boundary loop is `plectis market-boundary`; it should project
    market-facing prediction reasoning as a public claim contract: observation
    versus forecast labels, base-rate/prior-context gates, scenario-tree gates,
    confidence-band uncertainty, timestamp/freshness boundaries, and decision
    policy that is not trading or investment advice. It must not use live market
    data, export private portfolio or account state, call providers, claim
    performance, publish, host, mutate source, or imply release authority.
-   The corpus lens loop is `microcosm corpus-lens`; it should project
+   The corpus lens loop is `plectis corpus-lens`; it should project
    `corpus_readiness_mathlib_absence_gate` as a public formal-math
    corpus/toolchain surface with Mathlib import absence, absent-corpus blocks,
    translation-smoke-only rows, consumer gating, negative-case coverage, and
    metadata-only authority before retrieval or proof-witness work.
-   The trace-repair lens loop is `microcosm trace-lens`; it should project
+   The trace-repair lens loop is `plectis trace-lens`; it should project
    formal-math verifier feedback as public metadata: failure classes, trace
    grades, repair routes, negative cases, cold-rerun promotion gates, and
    omission/authority ceilings. It must not expose proof bodies,
    oracle-needed premise ids, provider payloads, Lean/Lake proof execution,
    human-approval proof authority, source mutation, secret export, or
    release authority.
-   The verifier repair-loop lens is `microcosm repair-loop`; it should turn
+   The verifier repair-loop lens is `plectis repair-loop`; it should turn
    trace rows into an explicit public curriculum transition table: capture the
    verifier failure, classify it, route a metadata-only repair, require a cold
    rerun, and promote only a receipt-backed metadata cell. It must not expose
    proof bodies, oracle-needed premise ids, provider payloads, Lean/Lake proof
    execution, human-approval proof authority, source mutation, private
    equivalence, or release authority.
-   The formal evidence-cell loop is `microcosm evidence-cells`; it should
+   The formal evidence-cell loop is `plectis evidence-cells`; it should
    resolve proof-adjacent public language to explicit metadata cell ids,
    receipt refs, source-anchor status, negative cases, and authority ceilings.
    It must reject unknown cells, missing source anchors, embedded proof bodies,
    private refs, general theorem-solution claims, Lean/Lake proof authority,
    provider calls, source mutation, secret export, and release authority.
-   The proof-loop depth lens is `microcosm proof-loop-depth`; it should show
+   The proof-loop depth lens is `plectis proof-loop-depth`; it should show
    the public metadata-only chain from corpus boundary through premise
    retrieval, tactic availability, target-shape routing, verifier trace repair,
    cold rerun, evidence-cell resolution, and verifier-lab execution-spine
@@ -466,11 +466,11 @@ of those existing lanes can carry the pressure without distortion.
    provider payloads, benchmark scores, Lean/Lake proof execution,
    theorem-solution claims, source mutation, private equivalence, or release
    authority. The verifier-lab execution-spine lens is
-   `microcosm verifier-lab-execution-spine-lens`; it should expose bounded
+   `plectis verifier-lab-execution-spine-lens`; it should expose bounded
    Lean/Lake transition rows, CP2 downstream rerun effects, Evolve rerun
    acceptance, tool return-code evidence, and secret-exclusion status without
    turning tool execution into general proof authority.
-   The work landing replay loop is `microcosm landing-replay`; it should
+   The work landing replay loop is `plectis landing-replay`; it should
    expose dirty-tree landing lanes, scoped commit versus broad checkpoint
    boundaries, metadata-blocked recovery, blocker refs, ledger finalizer refs,
    and negative cases. It must not mutate Git, stage unrelated dirty paths,
@@ -621,13 +621,13 @@ of those existing lanes can carry the pressure without distortion.
    export hidden reasoning, use hidden gold labels, rely on neural-judge-only
    labels, claim benchmark performance, run live RL, call providers, mutate
    source, or authorize release.
-   The view-quality action-map loop is `microcosm view-quality`; it should
+   The view-quality action-map loop is `plectis view-quality`; it should
    expose one typed next-action row per requested view, including missing and
    partial rows, plus a hot-action rollup that is explicitly a projection and
    not the whole census. It must not export private screenshot paths, control
    browsers, import private UI state, claim complete frontend quality, mutate
    source, call providers, or imply release authority.
-   The projection-safety audit loop is `microcosm projection-safety`; it should
+   The projection-safety audit loop is `plectis projection-safety`; it should
    expose omission receipts, named drilldowns, owner routes, source refs, and
    per-projection authority ceilings for the compressed public lenses. It must
    not export private source bodies, proof bodies, provider payloads, raw
@@ -636,26 +636,26 @@ of those existing lanes can carry the pressure without distortion.
    The market-boundary loop should be included in projection-safety and
    authority checks before any market-facing public claim is treated as
    evidence.
-   The projection-drift control loop is `microcosm drift-control`; it should
+   The projection-drift control loop is `plectis drift-control`; it should
    expose drift rows with source signals, repair routes, validation refs, and
    explicit no-live-repair/no-source-authority/no-doctrine-promotion ceilings.
    It must not inspect private runtime bodies, mutate source, perform live
    route repair, export provider payloads, promote doctrine, or imply release
    authority.
-   The route-cleanup contract loop is `microcosm route-cleanup`; it should
+   The route-cleanup contract loop is `plectis route-cleanup`; it should
    expose first-contact, context-pack, generated-region, option-surface, Work
    Ledger, scoped landing, seed reentry, and public/private cleanup rows with
    owner routes, validator refs, and explicit authority ceilings. It must not
    delete routes, hand-edit generated regions, mutate source, export private
    bodies or provider payloads, promote doctrine, or imply release authority.
-   The projection import-map loop is `microcosm projection-import-map`; it
+   The projection import-map loop is `plectis projection-import-map`; it
    should name each macro-pattern-to-public-lens projection row, what was
    copied, cleaned, omitted, validated, and bounded by authority ceiling. It
    must separate body imports from metadata projections and reject provenance,
    activation, maturity, or fixture/projection refs as proof that a body was copied.
    It must not automate imports, export private bodies, expose proof bodies or
    provider payloads, mutate source, or imply release authority.
-   The public import-projector contract loop is `microcosm import-projector`;
+   The public import-projector contract loop is `plectis import-projector`;
    it should turn the next macro import into candidate-selection,
    public-manifest, secret stripping, body-import verification,
    runtime-binding, and validation-closeout rows with source refs, target refs,
@@ -664,7 +664,7 @@ of those existing lanes can carry the pressure without distortion.
    public fixture/projection refs as imported bodies; export private bodies; expose
    proof bodies or provider payloads; mutate source; or imply release
    authority.
-   The compression profile option-surface loop is `microcosm
+   The compression profile option-surface loop is `plectis
    option-surface-lens`; it should consume
    `compression_profile_governed_option_surface` through the import-projector
    contract and expose profile choice as command, endpoint, receipt, sidecar,
@@ -672,18 +672,18 @@ of those existing lanes can carry the pressure without distortion.
    options, export private context or sidecar bodies, hand-edit generated
    regions, mutate source, claim lossless projection, or imply release
    authority.
-   The public/private stripping guard loop is `microcosm stripping-guard`; it
+   The public/private stripping guard loop is `plectis stripping-guard`; it
    should name the export-denial rows for private source bodies, proof bodies,
    provider payloads, raw private paths, example secrets, financial advice,
    source mutation, release, and private-root equivalence. It is a read-model
    only; it must not claim complete secret scanning or authorize publication.
-   The standards-control loop is `microcosm standards-control`; it should tie
+   The standards-control loop is `plectis standards-control`; it should tie
    the standards registry, public standard pressure, validator receipt coverage,
    fixture manifests, acceptance commands, docs, authority ceilings, and
    projection safety into one public read-model. It must not make the registry
    source authority, claim complete standards coverage, call providers, mutate
    source, claim secret export, or imply release authority.
-   The hook intervention coverage loop is `microcosm hook-coverage`; it should
+   The hook intervention coverage loop is `plectis hook-coverage`; it should
    compress `agent_route_observability_runtime` receipts into public hook-shadow,
    route-compliance, actor-axis, anti-pattern debt, and route-lease intervention
    rows with mapped repair classes and hook-shadow denial cases. It must not
@@ -691,19 +691,19 @@ of those existing lanes can carry the pressure without distortion.
    mutate Task Ledger, authorize pattern
    assimilation, certify runtime behavior, or imply release authority.
    The same organ owns the computer-use action-trace replay path:
-   `microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out /tmp/microcosm-computer-use` validates synthetic observations,
+   `plectis agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out /tmp/microcosm-computer-use` validates synthetic observations,
    affordances, actions, pre-action authority verdicts, state transitions,
    recovery receipts, cold replay, and negative cases without live browser
    control, accounts, credentials, external network mutation, raw screenshots,
    benchmark claims, source mutation, or release authority.
-   The bridge-continuity loop is `microcosm bridge-phase-continuity-runtime`;
+   The bridge-continuity loop is `plectis bridge-phase-continuity-runtime`;
    it should validate synthetic transport continuation packets, heartbeat boundaries,
    resource-pressure blocking, resume-once semantics, duplicate-resume rejection,
    worker-skip dedupe, closeout transition receipts, and private-state scans.
    It must not claim live bridge transport health, provider or UI uptime,
    operator HUD/browser state, phase runtime state, work landing, source
    mutation, or release authority.
-   The replay-gauntlet loop is `microcosm replay-gauntlet`; it should expose
+   The replay-gauntlet loop is `plectis replay-gauntlet`; it should expose
    synthetic agent-reliability replay episodes across benchmark integrity,
    monitor falsification, sabotage/scheming, sandbox escape, MCP/tool authority,
    indirect prompt injection, temporal memory conflict, and sleeper-memory
@@ -711,7 +711,7 @@ of those existing lanes can carry the pressure without distortion.
    real user memory, authorize sandbox escape, claim benchmark performance,
    prove complete security, mutate source, call providers, or imply release
    authority.
-   The repository benchmark transaction lab is `microcosm benchmark-lab`; it
+   The repository benchmark transaction lab is `plectis benchmark-lab`; it
    should expose two synthetic issue/patch fixtures, oracle diff grading,
    FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped
    diff receipts, workitem admission, and provider-slot cooldown decisions. It
@@ -720,7 +720,7 @@ of those existing lanes can carry the pressure without distortion.
    checkpointing, prove production delivery rate, or imply release authority.
    Its rows are synthetic transaction boundary rows, not benchmark scores,
    score-based progress, maturity, readiness, or release evidence.
-   The cold-reader legibility scorecard is `microcosm legibility-scorecard`;
+   The cold-reader legibility scorecard is `plectis legibility-scorecard`;
    it should map the public reveal to five reader questions, six runnable
    checkpoints, endpoint parity, evidence refs, and negative cases. It must
    not prove reader understanding, claim private-root equivalence, publish,
@@ -744,7 +744,7 @@ of those existing lanes can carry the pressure without distortion.
    widening docs, reveal views, or route commands. It is not route-registry
    authority.
    The `formal_math_readiness_gate` organ is the formal-math intake boundary:
-   use `microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input` to inspect the
+   use `plectis formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input` to inspect the
    `formal_math_readiness_extensions` board before retrieval or proof witness
    work. It reports closed-premise coverage, tactic probe availability,
    target-shape routing admissibility, context budget posture, selected
@@ -822,9 +822,9 @@ of those existing lanes can carry the pressure without distortion.
    Explanations must also resolve public standard pressure from
    `core/public_standard_pressure.json`; do not inline private doctrine or
    create a second pattern taxonomy.
-   The causal chain must stay stable across `microcosm route`,
-   `microcosm explain`, `microcosm work run`, `microcosm observe`,
-   `microcosm graph`, and `microcosm evidence`: route refs, pattern bindings,
+   The causal chain must stay stable across `plectis route`,
+   `plectis explain`, `plectis work run`, `plectis observe`,
+   `plectis graph`, and `plectis evidence`: route refs, pattern bindings,
    standard bindings, work state, event ids, and evidence refs should agree.
    The local observatory is the first browser-facing cockpit for that chain:
    keep causal-chain sections legible before raw JSON drilldowns. It must also

@@ -1,19 +1,27 @@
 # Provenance
 
-Microcosm Substrate is an independent, AI-assisted solo project by William
-Cook. The public release artifact is this standalone repository and its
-generated standalone export, not the private `ai_workflow` macro root.
+Plectis is an independent, AI-assisted solo project by William Cook. The public
+release artifact is the standalone Plectis repository and its generated
+standalone export, not the private `ai_workflow` macro root.
+
+Microcosm is the former public name. It is retained only as a bounded
+compatibility and historical label for old links, the `microcosm_core` import
+path, the legacy `microcosm` command alias, `.microcosm/` local state, fixture
+names, schema names, and frozen receipts.
 
 The project was developed with human direction, selection, review, and
 integration by William Cook. AI coding and research tools were used as
 assistants during development. Tool and provider names are descriptive only;
-Microcosm Substrate is not affiliated with, sponsored by, or endorsed by
-OpenAI, Anthropic, Anysphere/Cursor, the University of Bristol, or any other
-third party named descriptively in development records.
+Plectis is not affiliated with, sponsored by, or endorsed by OpenAI, Anthropic,
+Anysphere/Cursor, the University of Bristol, or any other third party named
+descriptively in development records.
 
 ## Release Boundary
 
-- Released artifact: the standalone `microcosm-substrate` repository/export.
+- Released artifact: the standalone Plectis repository/export.
+- Compatibility labels: Microcosm names may remain in package internals,
+  historical routes, receipts, fixtures, and schema identifiers where renaming
+  would break reviewability or existing local use.
 - Not released: private macro-root state, raw seed, private ledgers, browser or
   provider state, account/session material, credentials, recipient-send state,
   private personal data, and any unexported internal annex material.
@@ -38,8 +46,8 @@ until it is removed, rewritten, or licensed and attributed.
 
 ## Public Claims
 
-Microcosm Substrate is a research prototype and developer tool. It is provided
-for inspection, experimentation, and education. It is not a hosted service,
+Plectis is a research prototype and developer tool. It is provided for
+inspection, experimentation, and education. It is not a hosted service,
 production security product, proof-correctness authority, financial or
 investment advice system, trading system, medical/legal/professional advice
 system, or claim of endorsement by any tool provider or institution.

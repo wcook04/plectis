@@ -2148,7 +2148,12 @@ def _build_result(
         "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
         "anti_claim": ANTI_CLAIM,
         "body_in_receipt": False,
-        "real_runtime_receipt": status == PASS,
+        # Honest run-provenance: the exported-bundle path is a declared synthetic
+        # component contract, not a live verifier/lean execution receipt.
+        "real_runtime_receipt": status == PASS
+        and input_mode != "exported_verifier_lab_kernel_bundle",
+        "synthetic_contract": input_mode == "exported_verifier_lab_kernel_bundle",
+        "not_a_live_run": input_mode == "exported_verifier_lab_kernel_bundle",
         "synthetic_receipt_standin_allowed": False,
     }
 

@@ -1,34 +1,4 @@
-// swift-tools-version: 6.0
-import PackageDescription
-
-let package = Package(
-    name: "demo-take-console",
-    platforms: [
-        .macOS(.v15),
-    ],
-    products: [
-        .executable(name: "DemoTakeConsoleApp", targets: ["DemoTakeConsoleApp"]),
-        .executable(name: "demo-take-transcribe", targets: ["DemoTakeTranscribe"]),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/argmaxinc/WhisperKit", from: "1.0.0"),
-    ],
-    targets: [
-        .executableTarget(
-            name: "DemoTakeConsoleApp",
-            path: "Sources/DemoTakeConsoleApp"
-        ),
-        .executableTarget(
-            name: "DemoTakeTranscribe",
-            dependencies: [
-                .product(name: "WhisperKit", package: "WhisperKit"),
-            ],
-            path: "Sources/DemoTakeTranscribe"
-        ),
-        .testTarget(
-            name: "DemoTakeConsoleAppTests",
-            dependencies: ["DemoTakeConsoleApp"],
-            path: "Tests/DemoTakeConsoleAppTests"
-        ),
-    ]
-)
+Public Plectis compatibility stub for a withheld private source module.
+The original control-plane body is intentionally not part of the public slice.
+Matched private ref: apps/demo-take-console/Package.swift
+Boundary class: restricted_private_source_ref

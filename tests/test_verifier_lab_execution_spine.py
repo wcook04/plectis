@@ -368,7 +368,10 @@ def test_verifier_lab_execution_spine_bundle_is_public_structured(
     assert result["body_copied_material_count"] == 5
     assert result["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
     assert result["body_in_receipt"] is False
-    assert result["real_runtime_receipt"] is True
+    # Exported bundle is a standalone synthetic execution contract, not a live run.
+    assert result["real_runtime_receipt"] is False
+    assert result["synthetic_contract"] is True
+    assert result["not_a_live_run"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert all(

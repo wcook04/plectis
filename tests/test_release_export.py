@@ -273,13 +273,14 @@ license = "Apache-2.0"
 license-files = ["LICENSE"]
 
 [project.scripts]
+plectis = "microcosm_core.cli:main"
 microcosm = "microcosm_core.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.data-files]
-"share/microcosm-substrate" = [
+"share/plectis" = [
   "LICENSE",
   "NOTICE",
   "PROVENANCE.md",
@@ -329,7 +330,7 @@ where = ["src"]
     _write(root / ".DS_Store", "local")
     _write(root / ".microcosm/project_manifest.json", "{}\n")
     _write(root / ".pytest_cache/CACHEDIR.TAG", "cache")
-    _write(root / "microcosm-substrate/.microcosm/project_manifest.json", "{}\n")
+    _write(root / "plectis/.microcosm/project_manifest.json", "{}\n")
     _write(
         root
         / release_export.PROJECTION_FRESHNESS_RECEIPT_REF,
@@ -1886,7 +1887,7 @@ def test_candidate_invalidation_assessment_stales_on_release_material_change(
     candidate = receipt["release_candidate_packet"]
 
     _write(root / "README.md", "# Updated Microcosm\n")
-    _commit_all(repo, "microcosm release material")
+    _commit_all(repo, "plectis release material")
 
     assessment = release_export.assess_candidate_invalidation(candidate, root)
 
@@ -1959,3 +1960,97 @@ def test_assess_candidate_cli_rejects_duplicate_receipt_keys(tmp_path: Path) -> 
                 str(receipt_path),
             ]
         )
+
+
+# --- install-smoke two-plane (emission vs subject) contract -------------------
+# Observational `--card` commands emit a valid machine card and then return an exit
+# code derived from the inspected SUBJECT (a fresh smoke project is legitimately
+# non-green). Install-smoke must verify the package RAN and EMITTED a valid card,
+# not that the subject is green. A crash with no parseable card still blocks.
+
+
+def _completed(stdout: str, returncode: int) -> subprocess.CompletedProcess[str]:
+    return subprocess.CompletedProcess(
+        args=["plectis", "demo"],
+        returncode=returncode,
+        stdout=stdout,
+        stderr="",
+    )
+
+
+_ROW_KWARGS = dict(
+    display_argv=["plectis", "demo"],
+    cwd="<temp-smoke-root>",
+    target=Path("/tmp/release-artifact-sentinel"),
+    source_root=Path("/tmp/source-root-sentinel"),
+)
+
+
+def test_card_emission_planes_splits_emission_from_subject() -> None:
+    emission, subject = release_export._card_emission_planes(
+        _completed('{"status": "blocked", "detail": "fresh project"}\n', 1)
+    )
+    assert emission == "pass"
+    assert subject == "blocked"
+
+    emission, subject = release_export._card_emission_planes(
+        _completed('{"status": "pass"}\n', 0)
+    )
+    assert emission == "pass"
+    assert subject == "pass"
+
+
+def test_card_emission_planes_blocks_on_non_card_output() -> None:
+    for bad in (
+        "Traceback (most recent call last):\n  RuntimeError: boom\n",
+        "",
+        "[]",
+        '{"detail": "no status field"}',
+        '{"status": ""}',
+    ):
+        emission, subject = release_export._card_emission_planes(_completed(bad, 1))
+        assert emission == "blocked", bad
+        assert subject is None, bad
+
+
+def test_command_receipt_row_card_emission_passes_despite_nonzero_subject_exit() -> None:
+    row = release_export._command_receipt_row(
+        "tour_card",
+        _completed('{"status": "blocked"}\n', 1),
+        assertion=release_export._CARD_EMISSION_ASSERTION,
+        **_ROW_KWARGS,
+    )
+    assert row["status"] == "pass"
+    assert row["emission_status"] == "pass"
+    assert row["subject_status"] == "blocked"
+    assert row["return_code"] == 1  # raw exit code preserved for transparency
+    assert row["assertion"] == "card_emission"
+
+
+def test_command_receipt_row_card_emission_blocks_on_crash() -> None:
+    row = release_export._command_receipt_row(
+        "tour_card",
+        _completed("Traceback (most recent call last):\n", 1),
+        assertion=release_export._CARD_EMISSION_ASSERTION,
+        **_ROW_KWARGS,
+    )
+    assert row["status"] == "blocked"
+    assert row["emission_status"] == "blocked"
+
+
+def test_command_receipt_row_exit_zero_requires_clean_exit() -> None:
+    blocked = release_export._command_receipt_row(
+        "hello",
+        _completed("ok\n", 1),
+        assertion=release_export._EXIT_ZERO_ASSERTION,
+        **_ROW_KWARGS,
+    )
+    assert blocked["status"] == "blocked"
+
+    ok = release_export._command_receipt_row(
+        "hello",
+        _completed("ok\n", 0),
+        **_ROW_KWARGS,
+    )
+    assert ok["status"] == "pass"
+    assert ok["assertion"] == "exit_zero"

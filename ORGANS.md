@@ -117,7 +117,7 @@ This is the lowest faithful pass over the public substrate: one row per accepted
 
 ### First command
 
-Run `microcosm tour --card .` for the local first-screen path, then use [AGENT_ROUTES.md](AGENT_ROUTES.md) for task-class routing or the family sections below for per-organ cards.
+Run `plectis tour --card .` for the local first-screen path, then use [AGENT_ROUTES.md](AGENT_ROUTES.md) for task-class routing or the family sections below for per-organ cards.
 
 ### Where the public scope stops
 

@@ -157,11 +157,11 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     output_dir = work_dir / "outputs"
     project_dir = work_dir / "project"
     project_dir.mkdir(parents=True)
-    (project_dir / "app.py").write_text('print("microcosm package smoke")\n', encoding="utf-8")
+    (project_dir / "app.py").write_text('print("plectis package smoke")\n', encoding="utf-8")
 
     _run([python, "-m", "venv", str(venv_dir)])
     venv_python = _bin_dir(venv_dir) / ("python.exe" if os.name == "nt" else "python")
-    microcosm = _bin_dir(venv_dir) / ("microcosm.exe" if os.name == "nt" else "microcosm")
+    plectis = _bin_dir(venv_dir) / ("plectis.exe" if os.name == "nt" else "plectis")
     env = {
         **os.environ,
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
@@ -203,26 +203,26 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         )
 
     checks: list[tuple[str, list[str], str]] = [
-        ("version", [str(microcosm), "--version"], "text"),
-        ("hello", [str(microcosm), "hello", str(project_dir)], "text"),
+        ("version", [str(plectis), "--version"], "text"),
+        ("hello", [str(plectis), "hello", str(project_dir)], "text"),
         (
             "first-screen",
-            [str(microcosm), "first-screen", "--card", str(project_dir)],
+            [str(plectis), "first-screen", "--card", str(project_dir)],
             "json",
         ),
-        ("tour", [str(microcosm), "tour", "--card", str(project_dir)], "json"),
-        ("status", [str(microcosm), "status", "--card", str(project_dir)], "json"),
-        ("authority", [str(microcosm), "authority", "--card"], "json"),
-        ("workingness", [str(microcosm), "workingness", "--card"], "json"),
-        ("legibility", [str(microcosm), "legibility-scorecard"], "json"),
+        ("tour", [str(plectis), "tour", "--card", str(project_dir)], "json"),
+        ("status", [str(plectis), "status", "--card", str(project_dir)], "json"),
+        ("authority", [str(plectis), "authority", "--card"], "json"),
+        ("workingness", [str(plectis), "workingness", "--card"], "json"),
+        ("legibility", [str(plectis), "legibility-scorecard"], "json"),
         # The goal-shaped product center: the installed console must convert a
         # freeform goal into a first-action contract (graph substrate ships via
-        # the share/microcosm-substrate data files), and its assay must pass
+        # the share/plectis data files), and its assay must pass
         # from the installed root, not only the dev tree.
         (
             "first-action",
             [
-                str(microcosm),
+                str(plectis),
                 "comprehend",
                 "--first-action",
                 "How do I evaluate the finance forecasting system?",
@@ -231,7 +231,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
         ),
         (
             "first-action-assay",
-            [str(microcosm), "comprehension-assay", "--first-action"],
+            [str(plectis), "comprehension-assay", "--first-action"],
             "text",
         ),
     ]
@@ -249,8 +249,8 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
             _assert_status_pass(_json_payload(out_path, label=name), label=name)
 
     version_text = (output_dir / "version.txt").read_text(encoding="utf-8").strip()
-    if not version_text.startswith("microcosm "):
-        raise SystemExit(f"version output is not a microcosm version: {version_text!r}")
+    if not version_text.startswith("plectis "):
+        raise SystemExit(f"version output is not a plectis version: {version_text!r}")
 
     authority = _json_payload(output_dir / "authority.json", label="authority")
     authority_ceiling = authority.get("authority_ceiling")

@@ -176,9 +176,20 @@ def test_finance_forecast_bundle_uses_standalone_statistics_contract(
     exercise = result["exercise"]
     assert exercise["statistics_witness_mode"] == "standalone_exported_statistics_contract"
     assert exercise["external_witness"]["skipped"] is True
-    assert exercise["reality_check"]["status"] == "computed_bootstrap"
-    assert exercise["spa"]["status"] == "computed_bootstrap"
+    # Standalone exported contract must DECLARE itself synthetic, never ASSERT a live computation.
+    assert exercise["synthetic_contract"] is True
+    assert exercise["not_a_live_run"] is True
+    assert exercise["real_runtime_receipt"] is False
+    assert exercise["reality_check"]["status"] == "declared_standalone_contract_not_recomputed"
+    assert exercise["reality_check"]["executed"] is False
+    assert exercise["spa"]["status"] == "declared_standalone_contract_not_recomputed"
+    assert exercise["spa"]["executed"] is False
     assert exercise["mcs"]["implemented"] is True
+    assert exercise["mcs"]["executed"] is False
+    assert (
+        exercise["paired_loss"]["diebold_mariano"]["status"]
+        == "declared_standalone_contract_not_recomputed"
+    )
     assert exercise["hln_dependency_refusal"]["reason"] == "scipy_unavailable_for_t_distribution"
 
 

@@ -88,14 +88,14 @@ REQUIRED_PHRASES_BY_DOC = {
         # converges on this same string.
         "private notes, personal material, and other content that is unsafe for a public source package",
         "Any `body_copied=true` claim must name the source file",
-        "microcosm compile .",
+        "plectis compile .",
         "std_python_microcosm_navigation_assay",
         "implementation_atlas.python_navigation_assay",
         "executable research prototype",
         "local project operating substrate",
         ".microcosm/",
         "Architecture Kernel",
-        "microcosm explain <project> <route_id>",
+        "plectis explain <project> <route_id>",
         "Evidence receipts are the black-box recorder",
         "`accepted_current_authority` is not an evidence-strength claim",
         "evidence_class",
@@ -108,9 +108,9 @@ REQUIRED_PHRASES_BY_DOC = {
         "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)"
     ],
     "AGENTS.md": [
-        "microcosm tour --card <project>",
-        "microcosm tour <project>",
-        "microcosm compile <project>",
+        "plectis tour --card <project>",
+        "plectis tour <project>",
+        "plectis compile <project>",
         "repo -> `.microcosm`",
         "Real Substrate Posture",
         "Plectis is the public repo form of the macro system",
@@ -123,13 +123,13 @@ REQUIRED_PHRASES_BY_DOC = {
         "Any `body_copied=true` claim must point at a real target file",
         "executable research prototype",
         "local project operating substrate",
-        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
+        "make standalone-export EXPORT_OUT=/tmp/plectis-export",
         "receipts/release/release_export_receipt.json",
         "cold-clone check proves the exported package can install",
         "It does not authorize release",
-        "Treat `microcosm --help` as the bounded first-screen console-command registry.",
+        "Treat `plectis --help` as the bounded first-screen console-command registry.",
         "PYTHONPATH=src python3 -m microcosm_core --help",
-        "microcosm explain <project> <route_id>",
+        "plectis explain <project> <route_id>",
         "Accepted Public Runtime Spine",
         "public entry inventory",
         "inventory-only route-alignment metadata",
@@ -147,15 +147,15 @@ REQUIRED_PHRASES_BY_DOC = {
         "First-Screen Route Contract",
         "Bring a folder first",
         "atlas/entry_packet.json::local_first_screen_route",
-        "microcosm tour --card <project>",
-        "microcosm tour <project>",
+        "plectis tour --card <project>",
+        "plectis tour <project>",
         "route_cards_by_id.status_and_workingness",
-        "microcosm status --card <project>",
+        "plectis status --card <project>",
         "front_door.route_explanation",
-        "microcosm workingness --card",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+        "plectis workingness --card",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis serve <project> --host 127.0.0.1 --port 8765",
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
         "Omit `--max-requests` only when you intentionally want an interactive server",
         "/project/observatory-card",
         "Receipts are evidence drilldowns after the behavior route is visible",
@@ -163,14 +163,14 @@ REQUIRED_PHRASES_BY_DOC = {
         "`accepted_current_authority` is not an evidence-strength claim",
         "std_python_microcosm_navigation_assay",
         "implementation_atlas.python_navigation_assay",
-        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
-        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
+        "make standalone-export EXPORT_OUT=/tmp/plectis-export",
+        "cd /tmp/plectis-export/plectis",
         "cold-clone check proves the exported artifact can install",
         "receipts/release/release_export_receipt.json",
         "release_authorized=false",
         "six cold reader branches",
         "Domain specialist: run",
-        "microcosm hello --reader domain_specialist <project>",
+        "plectis hello --reader domain_specialist <project>",
         "ORGANS.md#find-your-specialty",
         "explicit non-claim of domain correctness or expert review"
     ],
@@ -264,12 +264,12 @@ PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_PATTERNS = (
 )
 CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
 CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
-    "microcosm tour --card <project>",
-    "microcosm status --card <project>",
-    "microcosm workingness --card",
-    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-    "microcosm serve <project>",
-    "microcosm compile <project>",
+    "plectis tour --card <project>",
+    "plectis status --card <project>",
+    "plectis workingness --card",
+    "plectis proof-lab --out /tmp/microcosm-proof-lab",
+    "plectis serve <project>",
+    "plectis compile <project>",
 ]
 CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES = [
     "local-first only",
@@ -587,7 +587,7 @@ def _top_level_string_assignment(source: str, name: str) -> str | None:
 def _cli_first_screen_help_contract(public_root: Path) -> dict[str, Any]:
     """Check that cli.py's FIRST_SCREEN_HELP carries the required commands, in order, with the authority-boundary phrases.
 
-    - Teleology: protects the `microcosm --help` first-screen claim that it is a local-first, bounded console registry from drifting (missing/mis-ordered commands or a dropped boundary disclaimer).
+    - Teleology: protects the `plectis --help` first-screen claim that it is a local-first, bounded console registry from drifting (missing/mis-ordered commands or a dropped boundary disclaimer).
     - Guarantee: returns a dict whose status == PASS only when FIRST_SCREEN_HELP contains every CLI_FIRST_SCREEN_HELP_COMMAND_ORDER command, in non-decreasing position order, and every CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASE; else status 'blocked'/'missing' with the specific missing_* lists and blocking_reasons.
     - Fails: absent cli.py -> status 'missing'+['missing_cli_help_source']; SyntaxError -> status 'blocked'+['invalid_cli_help_source']+parse_error; no FIRST_SCREEN_HELP string -> 'blocked'+['missing_first_screen_help_assignment']; missing/mis-ordered command or missing boundary phrase -> 'blocked' with the matching blocking_reason.
     - Reads: <public_root>/src/microcosm_core/cli.py (FIRST_SCREEN_HELP constant via AST).
@@ -690,7 +690,7 @@ def _entry_packet_route_contract(
     """Validate atlas/entry_packet.json's local-first-screen route, reader routes, cold-clone boundary, and the README/cold-start prose that mirror them.
 
     - Teleology: protects the cold-reader first-screen route claim (commands, state-refs, observatory endpoints, drilldowns, reader-typed branches, local cold-clone receipt boundary, and safe_to_show flags) from drifting between the packet and the entry prose.
-    - Guarantee: returns a dict whose status == PASS only when the packet supplies all required commands/state_refs/observatory_endpoints/drilldown_routes/allowed_drilldowns in the required order, first_command == 'microcosm tour --card <project>' (and primary matches), the route-selection rules are present in packet+README+cold-start, all six reader_ids carry complete fields, the cold-clone boundary points at ./bootstrap.sh + .microcosm/cold_clone_probe.json (and excludes the stale tracked emit/receipt), and every safe_to_show flag (source_files_mutated/provider_calls_authorized/release_authorized/proof_correctness_claim) is exactly False; else 'blocked' with the specific blocking_reasons.
+    - Guarantee: returns a dict whose status == PASS only when the packet supplies all required commands/state_refs/observatory_endpoints/drilldown_routes/allowed_drilldowns in the required order, first_command == 'plectis tour --card <project>' (and primary matches), the route-selection rules are present in packet+README+cold-start, all six reader_ids carry complete fields, the cold-clone boundary points at ./bootstrap.sh + .microcosm/cold_clone_probe.json (and excludes the stale tracked emit/receipt), and every safe_to_show flag (source_files_mutated/provider_calls_authorized/release_authorized/proof_correctness_claim) is exactly False; else 'blocked' with the specific blocking_reasons.
     - Fails: absent entry_packet.json -> status 'missing'+['missing_entry_packet']; unparseable JSON -> 'blocked'+['invalid_entry_packet_json']+parse_error; any missing/mis-ordered/unsafe field -> 'blocked' with the corresponding blocking_reason (e.g. unsafe_safe_to_show_flags, cold_clone_local_receipt_boundary_mismatch, reader_first_screen_routes_missing).
     - Reads: <public_root>/atlas/entry_packet.json; doc_text_by_rel for README.md and skills/cold_start_navigation.md.
     - Writes: None (returns a dict; receipt is written by the top-level validator).
@@ -700,17 +700,17 @@ def _entry_packet_route_contract(
     """
     path = public_root / "atlas/entry_packet.json"
     required_commands = [
-        "microcosm tour --card <project>",
-        "microcosm compile <project>",
-        "microcosm python-lens <project>",
-        "microcosm explain <project> <selected_route_id>",
-        "microcosm evidence list <project> --limit 25",
-        "microcosm status --card <project>",
-        "microcosm workingness --card",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe --card <project>",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+        "plectis tour --card <project>",
+        "plectis compile <project>",
+        "plectis python-lens <project>",
+        "plectis explain <project> <selected_route_id>",
+        "plectis evidence list <project> --limit 25",
+        "plectis status --card <project>",
+        "plectis workingness --card",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis observe --card <project>",
+        "plectis serve <project> --host 127.0.0.1 --port 8765",
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
     ]
     required_state_refs = [
         ".microcosm/catalog.json",
@@ -746,21 +746,21 @@ def _entry_packet_route_contract(
         "atlas/entry_packet.json::local_first_screen_route",
         "atlas/entry_packet.json::reader_first_screen_routes",
         "atlas/entry_packet.json::cold_clone_probe_route",
-        "microcosm tour --card <project>::state_refs",
-        "microcosm tour --card <project>::status_card",
-        "microcosm tour --card <project>::observatory",
-        "microcosm tour --card <project>::proof_lab",
+        "plectis tour --card <project>::state_refs",
+        "plectis tour --card <project>::status_card",
+        "plectis tour --card <project>::observatory",
+        "plectis tour --card <project>::proof_lab",
         "atlas/entry_packet.json::status_before_tour_recovery_route",
-        "microcosm status --card <project>::front_door.project_state.recovery",
-        "microcosm status --card <project>::front_door.project_recovery",
-        "microcosm status --card <project>::front_door_status.blocking_surface_details.project_state",
-        "microcosm status --card <project>::front_door.route_explanation",
-        "microcosm status --card <project>::front_door.source_open_body_import_floor",
-        "microcosm status --card <project>::macro_body_import_floor",
-        "microcosm observe --card <project>",
-        "microcosm observe <project>",
-        "microcosm legibility-scorecard",
-        "microcosm authority",
+        "plectis status --card <project>::front_door.project_state.recovery",
+        "plectis status --card <project>::front_door.project_recovery",
+        "plectis status --card <project>::front_door_status.blocking_surface_details.project_state",
+        "plectis status --card <project>::front_door.route_explanation",
+        "plectis status --card <project>::front_door.source_open_body_import_floor",
+        "plectis status --card <project>::macro_body_import_floor",
+        "plectis observe --card <project>",
+        "plectis observe <project>",
+        "plectis legibility-scorecard",
+        "plectis authority",
         "/workingness-card",
         "/workingness",
     ]
@@ -826,16 +826,16 @@ def _entry_packet_route_contract(
         if ref not in allowed_drilldowns
     ]
     required_command_order = [
-        "microcosm tour --card <project>",
-        "microcosm status --card <project>",
-        "microcosm workingness --card",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe --card <project>",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765",
-        "microcosm compile <project>",
-        "microcosm python-lens <project>",
-        "microcosm explain <project> <selected_route_id>",
-        "microcosm evidence list <project> --limit 25",
+        "plectis tour --card <project>",
+        "plectis status --card <project>",
+        "plectis workingness --card",
+        "plectis proof-lab --out /tmp/microcosm-proof-lab",
+        "plectis observe --card <project>",
+        "plectis serve <project> --host 127.0.0.1 --port 8765",
+        "plectis compile <project>",
+        "plectis python-lens <project>",
+        "plectis explain <project> <selected_route_id>",
+        "plectis evidence list <project> --limit 25",
     ]
     command_positions = {
         command: command_path.index(command)
@@ -852,7 +852,7 @@ def _entry_packet_route_contract(
     first_command = str(payload.get("first_command") or "")
     primary_command = str(route.get("primary_first_screen_command") or "")
     command_mismatch = []
-    if first_command != "microcosm tour --card <project>":
+    if first_command != "plectis tour --card <project>":
         command_mismatch.append("first_command")
     if primary_command != first_command:
         command_mismatch.append("primary_first_screen_command")
@@ -874,7 +874,7 @@ def _entry_packet_route_contract(
     missing_route_selection_rule = bool(route_selection_missing_phrases)
     readme_text = _normalized_text(doc_text_by_rel.get("README.md", ""))
     readme_route_selection_required_phrases = [
-        "`selected_route_id` from `microcosm tour --card .`, `microcosm tour .`, or `microcosm compile .`",
+        "`selected_route_id` from `plectis tour --card .`, `plectis tour .`, or `plectis compile .`",
         "do not hardcode `readme_onboarding_route` for arbitrary folders",
         "`readme_onboarding_route` is present when the project has a README",
         "`missing_tests_route` when tests are absent",
@@ -926,7 +926,7 @@ def _entry_packet_route_contract(
     ]
     reader_route_contract_missing = []
     if reader_routes.get("shared_prerequisite_command") != (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     ):
         reader_route_contract_missing.append("shared_prerequisite_command")
     if reader_routes.get("route_ref") != (
@@ -986,7 +986,7 @@ def _entry_packet_route_contract(
                 "atlas/entry_packet.json::reader_first_screen_routes",
                 "six cold reader branches",
                 "Domain specialist: run",
-                "microcosm hello --reader domain_specialist <project>",
+                "plectis hello --reader domain_specialist <project>",
                 "ORGANS.md#find-your-specialty",
                 "explicit non-claim of domain correctness or expert review",
             ]

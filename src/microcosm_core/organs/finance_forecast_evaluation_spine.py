@@ -121,6 +121,9 @@ def _standalone_exported_statistics_contract(
     return {
         "status": PASS,
         "statistics_witness_mode": "standalone_exported_statistics_contract",
+        "synthetic_contract": True,
+        "not_a_live_run": True,
+        "real_runtime_receipt": False,
         "external_witness": {
             "subprocess_returncode": None,
             "skipped": True,
@@ -130,7 +133,8 @@ def _standalone_exported_statistics_contract(
         "sample_size": len(rows),
         "candidate_count": len(candidate_ids),
         "reality_check": {
-            "status": "computed_bootstrap",
+            "status": "declared_standalone_contract_not_recomputed",
+            "executed": False,
             "witness_mode": "standalone_exported_statistics_contract",
             "bootstrap_reps": 40,
             "seed": 1729,
@@ -138,7 +142,8 @@ def _standalone_exported_statistics_contract(
             "candidate_count": len(candidate_ids),
         },
         "spa": {
-            "status": "computed_bootstrap",
+            "status": "declared_standalone_contract_not_recomputed",
+            "executed": False,
             "witness_mode": "standalone_exported_statistics_contract",
             "bootstrap_reps": 40,
             "seed": 1729,
@@ -146,6 +151,7 @@ def _standalone_exported_statistics_contract(
         },
         "mcs": {
             "implemented": True,
+            "executed": False,
             "witness_mode": "standalone_exported_statistics_contract",
             "bootstrap_reps": 40,
             "seed": 1729,
@@ -159,7 +165,8 @@ def _standalone_exported_statistics_contract(
                 ]
             ),
             "diebold_mariano": {
-                "status": "computed_hac_normal_approximation",
+                "status": "declared_standalone_contract_not_recomputed",
+                "executed": False,
                 "witness_mode": "standalone_exported_statistics_contract",
             },
         },

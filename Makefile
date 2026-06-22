@@ -3,7 +3,7 @@ VENV ?= .venv
 VENV_PYTHON ?= $(VENV)/bin/python
 PIP_CACHE_DIR ?= $(VENV)/.pip-cache
 PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
-EXPORT_OUT ?= ../microcosm-substrate-export
+EXPORT_OUT ?= ../plectis-export
 SMOKE_OUT ?= .microcosm/smoke
 SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0
 PROOF_LAB_SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=1
@@ -140,7 +140,7 @@ ci: test smoke package-smoke
 
 check preflight:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -c "from microcosm_core.runtime_shell import _load_evidence_class_registry; from pathlib import Path; _load_evidence_class_registry(Path('.'))"
-	@printf '%s\n' "Microcosm preflight: organ evidence-class registry loads cleanly."
+	@printf '%s\n' "Plectis preflight: organ evidence-class registry loads cleanly."
 
 validate: ci doctrine-lattice-check
 

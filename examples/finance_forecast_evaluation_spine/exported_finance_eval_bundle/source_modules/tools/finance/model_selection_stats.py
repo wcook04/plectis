@@ -437,36 +437,6 @@ def reality_check_summary(
     }
 
 
-def spa_summary(
-    *,
-    reality_check_status: str,
-    sample_size: int,
-    min_sample: int,
-    blocked_status: Optional[str] = None,
-) -> dict[str, Any]:
-    if blocked_status:
-        return {
-            "status": blocked_status,
-            "implemented": False,
-            "authority": MODEL_SELECTION_STATS_AUTHORITY,
-            "reason": "family_contract_blocker_prevents_spa",
-        }
-    if sample_size < min_sample:
-        return {
-            "status": "reserved_or_not_computed_minimum_sample",
-            "implemented": False,
-            "authority": MODEL_SELECTION_STATS_AUTHORITY,
-            "reason": "studentized_loss_differential_kernel_not_yet_admitted",
-        }
-    return {
-        "status": "reserved",
-        "implemented": False,
-        "authority": MODEL_SELECTION_STATS_AUTHORITY,
-        "reality_check_status": reality_check_status,
-        "reason": "studentized_loss_differential_kernel_not_yet_admitted",
-    }
-
-
 def model_confidence_set_summary(
     family_loss_matrix: Optional[Mapping[str, Any]] = None,
     *,

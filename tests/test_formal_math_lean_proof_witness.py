@@ -406,6 +406,11 @@ def test_formal_math_lean_proof_witness_exported_bundle_uses_standalone_contract
 
     assert result["status"] == "pass"
     assert result["execution_witness_mode"] == "standalone_exported_witness_contract"
+    # The standalone exported contract must declare itself synthetic, never a live run.
+    assert result["real_runtime_receipt"] is False
+    assert result["synthetic_contract"] is True
+    assert result["not_a_live_run"] is True
+    assert result["tool_versions"]["lean_version_command"]["return_code"] is None
     assert result["tool_versions"]["standalone_exported_witness_contract"] is True
     assert result["lake_build"]["skipped"] is True
     assert result["lake_build"]["skip_reason"] == "standalone_exported_witness_contract"

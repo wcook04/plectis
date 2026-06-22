@@ -161,7 +161,7 @@ def test_review_contract_ships_in_every_distribution_lane() -> None:
 
     pyproject = tomllib.loads((_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     data_files = pyproject.get("tool", {}).get("setuptools", {}).get("data-files", {})
-    assert "RELEASE_REVIEW.md" in (data_files.get("share/microcosm-substrate") or [])
+    assert "RELEASE_REVIEW.md" in (data_files.get("share/plectis") or [])
 
     assert "RELEASE_REVIEW.md" in release_export.DEFAULT_INCLUDE_REFS
     assert "RELEASE_REVIEW.md" in release_export.STANDALONE_REQUIRED_PUBLIC_REFS

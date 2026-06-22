@@ -59,10 +59,10 @@ def _write_valid_smoke_outputs(smoke_out: Path) -> None:
     workingness_import_signature = _live_workingness_import_signature()
     smoke_out.mkdir(parents=True)
     (smoke_out / "hello.txt").write_text(
-        "Microcosm first screen\n",
+        "Plectis first screen\n",
         encoding="utf-8",
     )
-    (smoke_out / "version.txt").write_text("microcosm 0.1.0\n", encoding="utf-8")
+    (smoke_out / "version.txt").write_text("plectis 0.1.0\n", encoding="utf-8")
     _write_json(smoke_out / "first-screen-card.json", {"status": "pass"})
     _write_json(
         smoke_out / "tour-card.json",
@@ -217,7 +217,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "VENV_PYTHON ?= $(VENV)/bin/python",
         "PIP_CACHE_DIR ?= $(VENV)/.pip-cache",
         "PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)",
-        "EXPORT_OUT ?= ../microcosm-substrate-export",
+        "EXPORT_OUT ?= ../plectis-export",
         "SMOKE_OUT ?= .microcosm/smoke",
         "SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0",
         "TMPDIR ?= /tmp",
@@ -358,7 +358,7 @@ def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
     )
 
     assert result.returncode == 0
-    assert "Microcosm smoke check: pass" in result.stdout
+    assert "Plectis smoke check: pass" in result.stdout
     assert f"receipts: {smoke_out}" in result.stdout
     accepted_organ_count = _accepted_organ_count()
     assert (
@@ -376,7 +376,7 @@ def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
     assert "served observatory: pass (compact card bound)" in result.stdout
     assert "proof lab: pass (cache bound, proof correctness false)" in result.stdout
     assert "first action: contract pass" in result.stdout
-    assert "version: microcosm 0.1.0" in result.stdout
+    assert "version: plectis 0.1.0" in result.stdout
     assert result.stderr == ""
 
 
@@ -398,7 +398,7 @@ def test_check_smoke_outputs_fails_when_first_action_contract_is_unresolved(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert (
         "first-action.json: contract did not resolve the smoke goal"
         in result.stderr
@@ -449,7 +449,7 @@ def test_check_smoke_outputs_fails_when_workingness_is_not_clear(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert (
         "workingness-card.json: expected surface_counts.missing_standard_count 0, got 1"
         in result.stderr
@@ -478,7 +478,7 @@ def test_check_smoke_outputs_fails_when_workingness_import_signature_is_stale(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert "workingness-card.json: stale source-body import signature" in result.stderr
     assert "re-run `make smoke`" in result.stderr
 
@@ -509,7 +509,7 @@ def test_check_smoke_outputs_fails_when_proof_lab_cache_is_stale(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert (
         "status-card.json: proof_lab_cache must be pass after proof-lab smoke receipt"
         in result.stderr
@@ -537,7 +537,7 @@ def test_check_smoke_outputs_fails_when_served_observatory_is_unbound(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert (
         "served-status-card.json: expected observatory_contract_status 'pass'"
         in result.stderr
@@ -564,7 +564,7 @@ def test_check_smoke_outputs_fails_when_proof_lab_claims_formal_authority(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert (
         "proof-lab-card.json: expected authority_ceiling.formal_proof_authority false"
         in result.stderr
@@ -589,7 +589,7 @@ def test_check_smoke_outputs_fails_when_a_card_is_empty(
 
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "Microcosm smoke check: fail" in result.stderr
+    assert "Plectis smoke check: fail" in result.stderr
     assert "tour-card.json: file is empty" in result.stderr
 
 

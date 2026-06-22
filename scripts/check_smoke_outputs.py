@@ -380,12 +380,12 @@ def _expect_served_observatory_bound(served_status: dict[str, Any]) -> None:
 
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     hello = _read_text(smoke_out / "hello.txt")
-    if not hello.splitlines()[0].startswith("Microcosm first screen"):
-        raise SmokeCheckError("hello.txt: first line must start with Microcosm first screen")
+    if not hello.splitlines()[0].startswith("Plectis first screen"):
+        raise SmokeCheckError("hello.txt: first line must start with Plectis first screen")
 
     version = _read_text(smoke_out / "version.txt")
-    if not version.startswith("microcosm "):
-        raise SmokeCheckError(f"version.txt: expected microcosm version line, got {version!r}")
+    if not version.startswith("plectis "):
+        raise SmokeCheckError(f"version.txt: expected plectis version line, got {version!r}")
 
     first_screen = _read_json(smoke_out / "first-screen-card.json")
     tour = _read_json(smoke_out / "tour-card.json")
@@ -580,7 +580,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
 
 
 def print_summary(summary: dict[str, Any]) -> None:
-    print("Microcosm smoke check: pass")
+    print("Plectis smoke check: pass")
     print(f"receipts: {summary['smoke_out']}")
     print(
         "authority: pass "
@@ -627,7 +627,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         summary = check_smoke_outputs(Path(args.smoke_out))
     except SmokeCheckError as exc:
-        print("Microcosm smoke check: fail", file=sys.stderr)
+        print("Plectis smoke check: fail", file=sys.stderr)
         print(f"reason: {exc}", file=sys.stderr)
         return 1
     print_summary(summary)

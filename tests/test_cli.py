@@ -305,7 +305,7 @@ def _assert_body_floor_blocking_details(details: dict) -> None:
     assert first_defect["defect_codes"]
     assert first_defect["body_text_in_receipt"] is False
     assert details["full_defects_ref"] == (
-        "microcosm status::macro_body_import_floor.defects"
+        "plectis status::macro_body_import_floor.defects"
     )
 
 
@@ -338,8 +338,8 @@ def test_package_metadata_describes_runtime_spine() -> None:
         "requests>=2,<3",
     ]
     assert "License :: OSI Approved :: Apache Software License" not in project["classifiers"]
-    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/microcosm-substrate"
-    assert payload["project"]["urls"]["Source"].endswith("/microcosm-substrate")
+    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/plectis"
+    assert payload["project"]["urls"]["Source"].endswith("/plectis")
     assert "Macro-System" not in payload["project"]["urls"]
     assert (MICROCOSM_ROOT / "LICENSE").read_text(encoding="utf-8").startswith("Apache License")
 
@@ -353,11 +353,11 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert excinfo.value.code == 0
     output = capsys.readouterr().out
     first_line = output.splitlines()[0]
-    assert first_line == "usage: microcosm [-h] [--version] <command> ..."
+    assert first_line == "usage: plectis [-h] [--version] <command> ..."
     assert "{init,index" not in first_line
     assert "First-screen route:" in output
     assert (
-        "microcosm hello --reader "
+        "plectis hello --reader "
         "{cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} "
         "<project> branch by reader"
     ) in output
@@ -366,20 +366,20 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "reviewer, type-a-agent, domain-specialist"
     ) in output
     assert (
-        "microcosm tour --card <project> build .microcosm and read "
+        "plectis tour --card <project> build .microcosm and read "
         "route/state/proof refs"
     ) in output
     assert (
-        "microcosm first-screen --card <project> emit the compact JSON "
+        "plectis first-screen --card <project> emit the compact JSON "
         "first-screen card"
         in output
     )
     assert (
-        "microcosm comprehend --improvements rank concrete Microcosm improvement targets"
+        "plectis comprehend --improvements rank concrete Microcosm improvement targets"
         in output
     )
     task_hint = (
-        "microcosm agent-entry-composition --task "
+        "plectis agent-entry-composition --task "
         "{agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card"
     )
     assert task_hint in output
@@ -395,93 +395,93 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "compliance",
     ]:
         assert task_class in task_hint
-    assert "microcosm agent-entry-composition --task agent-entry emit" not in output
+    assert "plectis agent-entry-composition --task agent-entry emit" not in output
     assert (
-        "microcosm status --card <project> read the compressed "
+        "plectis status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
     assert (
-        "microcosm status-card <project> alias for the compact status lens"
+        "plectis status-card <project> alias for the compact status lens"
         in output
     )
-    assert "microcosm spine --card          read the compact runtime spine lens" in output
+    assert "plectis spine --card          read the compact runtime spine lens" in output
     assert (
-        "microcosm run --card examples/runtime_shell/demo_project replay the public "
+        "plectis run --card examples/runtime_shell/demo_project replay the public "
         "runtime demo"
     ) in output
-    assert "microcosm authority --card      read the compact authority ceiling lens" in output
+    assert "plectis authority --card      read the compact authority ceiling lens" in output
     assert (
-        "microcosm intake --card         read the compact intake/projection bridge lens"
+        "plectis intake --card         read the compact intake/projection bridge lens"
         in output
     )
     assert (
-        "microcosm workingness --card    read the compact behavior/failure lens"
+        "plectis workingness --card    read the compact behavior/failure lens"
         in output
     )
-    assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
-    assert "microcosm proof-lab --card      read the cached verifier-lab receipt card" in output
-    assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
+    assert "plectis workingness           inspect behavior evidence and failure gaps" in output
+    assert "plectis proof-lab --card      read the cached verifier-lab receipt card" in output
+    assert "plectis proof-lab --out /tmp/microcosm-proof-lab" in output
     assert (
-        "microcosm observe --card <project> read compact route/work/event/evidence refs"
+        "plectis observe --card <project> read compact route/work/event/evidence refs"
         in output
     )
     assert (
-        "microcosm observe <project>     inspect route/work/event/evidence chain"
+        "plectis observe <project>     inspect route/work/event/evidence chain"
         in output
     )
-    assert "microcosm serve <project>       open the local observatory" in output
+    assert "plectis serve <project>       open the local observatory" in output
     assert (
-        "microcosm compile --card <project> read cached .microcosm state; "
+        "plectis compile --card <project> read cached .microcosm state; "
         "stale cache exits 1"
     ) in output
     assert (
-        "microcosm compile <project>     rebuild local .microcosm state "
+        "plectis compile <project>     rebuild local .microcosm state "
         "after the first-screen check"
     ) in output
-    assert output.index("microcosm tour --card <project>") < output.index(
-        "microcosm first-screen --card <project>"
+    assert output.index("plectis tour --card <project>") < output.index(
+        "plectis first-screen --card <project>"
     )
-    assert output.index("microcosm first-screen --card <project>") < (
-        output.index("microcosm status --card <project>")
+    assert output.index("plectis first-screen --card <project>") < (
+        output.index("plectis status --card <project>")
     )
-    assert output.index("microcosm status --card <project>") < output.index(
-        "microcosm status-card <project>"
+    assert output.index("plectis status --card <project>") < output.index(
+        "plectis status-card <project>"
     )
-    assert output.index("microcosm status-card <project>") < output.index(
-        "microcosm spine --card"
+    assert output.index("plectis status-card <project>") < output.index(
+        "plectis spine --card"
     )
-    assert output.index("microcosm spine --card") < output.index(
-        "microcosm run --card examples/runtime_shell/demo_project"
-    )
-    assert output.index(
-        "microcosm run --card examples/runtime_shell/demo_project"
-    ) < output.index("microcosm authority --card")
-    assert output.index("microcosm authority --card") < output.index(
-        "microcosm intake --card"
-    )
-    assert output.index("microcosm intake --card") < output.index(
-        "microcosm workingness --card"
-    )
-    assert output.index("microcosm workingness --card") < output.index(
-        "microcosm workingness           inspect behavior evidence and failure gaps"
-    )
-    assert output.index("microcosm workingness") < output.index(
-        "microcosm proof-lab --card"
-    )
-    assert output.index("microcosm proof-lab --card") < output.index(
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    assert output.index("plectis spine --card") < output.index(
+        "plectis run --card examples/runtime_shell/demo_project"
     )
     assert output.index(
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
-    ) < output.index("microcosm serve <project>")
-    assert output.index("microcosm serve <project>") < output.index(
-        "microcosm compile --card <project>"
+        "plectis run --card examples/runtime_shell/demo_project"
+    ) < output.index("plectis authority --card")
+    assert output.index("plectis authority --card") < output.index(
+        "plectis intake --card"
     )
-    assert output.index("microcosm compile --card <project>") < output.index(
-        "microcosm compile <project>"
+    assert output.index("plectis intake --card") < output.index(
+        "plectis workingness --card"
     )
-    assert output.index("microcosm compile <project>") < output.index(
-        "microcosm tour <project>        inspect full route cards"
+    assert output.index("plectis workingness --card") < output.index(
+        "plectis workingness           inspect behavior evidence and failure gaps"
+    )
+    assert output.index("plectis workingness") < output.index(
+        "plectis proof-lab --card"
+    )
+    assert output.index("plectis proof-lab --card") < output.index(
+        "plectis proof-lab --out /tmp/microcosm-proof-lab"
+    )
+    assert output.index(
+        "plectis proof-lab --out /tmp/microcosm-proof-lab"
+    ) < output.index("plectis serve <project>")
+    assert output.index("plectis serve <project>") < output.index(
+        "plectis compile --card <project>"
+    )
+    assert output.index("plectis compile --card <project>") < output.index(
+        "plectis compile <project>"
+    )
+    assert output.index("plectis compile <project>") < output.index(
+        "plectis tour <project>        inspect full route cards"
     )
     assert "no provider calls, source mutation, release," in output
     assert "Receipts are evidence drilldowns after the behavior route is visible." in output
@@ -598,7 +598,7 @@ def test_cli_comprehend_improvements_returns_ranked_targets() -> None:
 
 def test_cli_comprehension_assay_whole_system_is_green() -> None:
     """The CLI assay surface itself (not just the library) must run green: a cold
-    agent's literal first proof command is `microcosm comprehension-assay ...`."""
+    agent's literal first proof command is `plectis comprehension-assay ...`."""
     result = _run_microcosm_cli("comprehension-assay", "--whole-system")
     assert result.returncode == 0, result.stderr
     payload = json.loads(result.stdout)
@@ -618,7 +618,7 @@ def test_cli_comprehend_first_action_returns_contract() -> None:
     payload = json.loads(result.stdout)
     assert payload["packet_id"] == "first_action"
     assert payload["found"] is True
-    assert payload["first_action"]["command"].startswith(("microcosm", "PYTHONPATH=src"))
+    assert payload["first_action"]["command"].startswith(("plectis", "PYTHONPATH=src"))
     assert payload["owner"]["organ_id"]
     assert payload["proof_path"]["receipt_refs"]
     assert payload["reading_boundary"]["stop_condition"]
@@ -652,7 +652,7 @@ def test_cli_comprehension_assay_first_action_red_on_legacy_clone(tmp_path) -> N
                         "organ_id": "alpha_validator",
                         "display_name": "Alpha Validator",
                         "family": "agent_reliability_and_safety",
-                        "first_command": "microcosm alpha-validator validate --input fixtures/x",
+                        "first_command": "plectis alpha-validator validate --input fixtures/x",
                         "claim_ceiling_restated": "Fixture contract only.",
                     }
                 ],
@@ -709,7 +709,7 @@ def test_cli_root_help_listed_commands_have_help_routes() -> None:
                 f"{command}: rc={command_help.returncode} stderr={command_help.stderr[-500:]}"
             )
             continue
-        if f"usage: microcosm {command}" not in command_help.stdout:
+        if f"usage: plectis {command}" not in command_help.stdout:
             failures.append(f"{command}: missing command-specific usage line")
 
     assert not failures, "\n".join(failures)
@@ -720,13 +720,13 @@ def test_cli_status_card_help_explains_alias_and_boundaries() -> None:
 
     assert help_result.returncode == 0, help_result.stderr
     output = help_result.stdout
-    assert "usage: microcosm status-card [-h] [project]" in output
+    assert "usage: plectis status-card [-h] [project]" in output
     assert "Alias for the compact first-screen project/runtime status lens." in output
     assert "project path with .microcosm state; omit for runtime-only status" in output
     assert "Equivalent command:" in output
-    assert "microcosm status --card <project>" in output
+    assert "plectis status --card <project>" in output
     assert "Next command:" in output
-    assert "microcosm tour --card <project>" in output
+    assert "plectis tour --card <project>" in output
     assert "Boundaries: local-first only; no provider calls" in output
     assert "credential-equivalent live-access authority" in output
 
@@ -737,7 +737,7 @@ def test_cli_status_help_names_cold_clone_check_path() -> None:
     assert help_result.returncode == 0, help_result.stderr
     output = help_result.stdout
     assert "Cold-clone check path:" in output
-    assert "microcosm status --card <project>" in output
+    assert "plectis status --card <project>" in output
     assert "make check" in output
     assert "make smoke" in output
     assert "make ci" in output
@@ -759,7 +759,7 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
     assert "task string to normalize into the agent-entry route" not in help_result.stdout
     assert "Task selector examples:" in help_result.stdout
     assert (
-        "microcosm agent-entry-composition --task evaluation --viewer human --card --check"
+        "plectis agent-entry-composition --task evaluation --viewer human --card --check"
         in help_result.stdout
     )
     assert (
@@ -786,8 +786,8 @@ def test_cli_evidence_help_explains_receipt_interpretation() -> None:
     assert help_result.returncode == 0, help_result.stderr
     output = help_result.stdout
     assert "Reviewer path:" in output
-    assert "microcosm evidence list <project> --limit 25" in output
-    assert "microcosm evidence inspect --project <project> <evidence_ref>" in output
+    assert "plectis evidence list <project> --limit 25" in output
+    assert "plectis evidence inspect --project <project> <evidence_ref>" in output
     assert (
         "PYTHONPATH=src python3 -m microcosm_core evidence list <project> "
         "--limit 25"
@@ -813,7 +813,7 @@ def test_cli_public_reveal_walkthrough_help_names_fixture_and_boundary() -> None
     output = help_result.stdout
     assert "Runnable fixture example:" in output
     assert (
-        "microcosm public-reveal-walkthrough run --input "
+        "plectis public-reveal-walkthrough run --input "
         "fixtures/first_wave/public_reveal_walkthrough/input --out "
         "/tmp/microcosm-public-reveal-walkthrough"
     ) in output
@@ -835,7 +835,7 @@ def test_cli_agent_benchmark_integrity_help_names_fixture_and_boundary() -> None
     output = help_result.stdout
     assert "Runnable fixture example:" in output
     assert (
-        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+        "plectis agent-benchmark-integrity-anti-gaming-replay "
         "run-benchmark-integrity-bundle --input "
         "examples/agent_benchmark_integrity_anti_gaming_replay/"
         "exported_benchmark_integrity_bundle --out "
@@ -882,7 +882,7 @@ def test_cli_work_help_exposes_route_explanation_actions() -> None:
 
     work_help = _run_microcosm_cli("work", "--help")
     assert work_help.returncode == 0, work_help.stderr
-    assert "usage: microcosm work" in work_help.stdout
+    assert "usage: plectis work" in work_help.stdout
     assert "create" in work_help.stdout
     assert "run" in work_help.stdout
     assert "record a project-local work transaction from a selected" in work_help.stdout
@@ -891,13 +891,13 @@ def test_cli_work_help_exposes_route_explanation_actions() -> None:
 
     create_help = _run_microcosm_cli("work", "create", "--help")
     assert create_help.returncode == 0, create_help.stderr
-    assert "usage: microcosm work create" in create_help.stdout
+    assert "usage: plectis work create" in create_help.stdout
     assert "--route" in create_help.stdout
     assert "route id to snapshot" in create_help.stdout
 
     run_help = _run_microcosm_cli("work", "run", "--help")
     assert run_help.returncode == 0, run_help.stderr
-    assert "usage: microcosm work run" in run_help.stdout
+    assert "usage: plectis work run" in run_help.stdout
     assert "--work-id" in run_help.stdout
     assert "work id to run" in run_help.stdout
 
@@ -913,7 +913,7 @@ def test_cli_proof_lab_card_exits_zero_for_actionable_cache_status() -> None:
     if payload["status"] == "stale_cached_receipt":
         assert payload["cache_action"]["status"] == "actionable"
         assert payload["cache_action"]["command"] == (
-            "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+            "plectis proof-lab --out /tmp/microcosm-proof-lab"
         )
         assert payload["fresh_receipt_required"] is True
         assert payload["status_scope"] == "route_presence_not_cache_freshness"
@@ -936,7 +936,7 @@ def test_cli_proof_lab_card_effective_stale_status_controls_action_fields() -> N
         },
         input_path=str(cli.DEFAULT_PROOF_LAB_INPUT),
         out_dir="/tmp/microcosm-proof-lab",
-        command="microcosm proof-lab --card --out /tmp/microcosm-proof-lab",
+        command="plectis proof-lab --card --out /tmp/microcosm-proof-lab",
     )
 
     assert payload["status"] == "stale_cached_receipt"
@@ -955,7 +955,7 @@ def test_cli_proof_lab_card_accepts_project_argument_for_first_screen_parity() -
 
     payload = json.loads(result.stdout)
     assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
-    assert payload["command"].startswith("microcosm proof-lab --card")
+    assert payload["command"].startswith("plectis proof-lab --card")
     assert " ." not in payload["command"]
 
 
@@ -965,22 +965,22 @@ def test_cli_proof_lab_card_accepts_project_argument_for_first_screen_parity() -
         (
             ("spine", "--card", "."),
             "microcosm_public_runtime_spine_card_v1",
-            "microcosm spine --card",
+            "plectis spine --card",
         ),
         (
             ("intake", "--card", "."),
             "microcosm_runtime_reveal_import_bridge_card_v1",
-            "microcosm intake --card",
+            "plectis intake --card",
         ),
         (
             ("projection-import-map", "--card", "."),
             "microcosm_public_projection_import_map_lens_v1",
-            "microcosm projection-import-map",
+            "plectis projection-import-map",
         ),
         (
             ("legibility-scorecard", "."),
             "microcosm_public_cold_reader_legibility_scorecard_lens_v1",
-            "microcosm legibility-scorecard",
+            "plectis legibility-scorecard",
         ),
     ),
 )
@@ -1009,8 +1009,8 @@ def test_cli_circuit_attribution_card_smoke(
     assert payload["schema_version"] == (
         "mechanistic_interpretability_circuit_attribution_replay_command_card_v1"
     )
-    assert payload["command"] == "microcosm circuit-attribution --card"
-    assert payload["source_command"] == "microcosm circuit-attribution"
+    assert payload["command"] == "plectis circuit-attribution --card"
+    assert payload["source_command"] == "plectis circuit-attribution"
     assert payload["endpoint"] == "/circuit-attribution"
     assert payload["output_economy"]["full_lens_exported"] is False
     assert payload["body_floor"]["features_in_card"] is False
@@ -1057,11 +1057,11 @@ def test_cli_bridge_phase_continuity_runtime_help_matches_documented_shape(
 
     assert result.returncode == 0, result.stderr
     assert (
-        "microcosm bridge-phase-continuity-runtime run --input INPUT --out OUT [--card]"
+        "plectis bridge-phase-continuity-runtime run --input INPUT --out OUT [--card]"
         in result.stdout
     )
     assert (
-        "microcosm bridge-phase-continuity-runtime [-h] --input INPUT --out OUT"
+        "plectis bridge-phase-continuity-runtime [-h] --input INPUT --out OUT"
         not in result.stdout
     )
 
@@ -1109,7 +1109,7 @@ def test_cli_hidden_drilldown_commands_remain_callable(
 
     assert excinfo.value.code == 0
     output = capsys.readouterr().out
-    assert f"usage: microcosm {command}" in output
+    assert f"usage: plectis {command}" in output
     assert expected in output
 
 
@@ -1127,7 +1127,7 @@ def test_cli_root_evidence_list_uses_compact_rows(
                 "schema_version": "demo_receipt_v1",
                 "status": "pass",
                 "organ_id": "demo_organ",
-                "command": "microcosm demo",
+                "command": "plectis demo",
             }
         ),
         encoding="utf-8",
@@ -1149,7 +1149,7 @@ def test_cli_root_evidence_list_uses_compact_rows(
         == "inspect_drilldown"
     )
     assert payload["full_contract_drilldown"] == {
-        "command_template": "microcosm evidence inspect <receipt_ref>",
+        "command_template": "plectis evidence inspect <receipt_ref>",
         "row_key": "receipt_ref",
         "field": "evidence_contract",
     }
@@ -1302,16 +1302,16 @@ def test_cli_first_screen_text_projection_is_package_backed(
 
     text = capsys.readouterr().out
     assert status == 0
-    assert text.startswith("Microcosm first screen\n")
-    assert "First run: microcosm tour --card ." in text
+    assert text.startswith("Plectis first screen\n")
+    assert "First run: plectis tour --card ." in text
     assert (
-        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        "observatory: plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in text
     )
     assert "A local evidence router; doctrine names boundaries" in text
     assert "Reader branch: Peer developer" in text
-    assert "  First step: Run `microcosm tour --card .`." in text
-    assert "  Proof: `microcosm observe --card .`" in text
+    assert "  First step: Run `plectis tour --card .`." in text
+    assert "  Proof: `plectis observe --card .`" in text
     assert "Authority ceiling:" in text
     assert "reader_routes" not in text
     assert "/Users/" not in text
@@ -1328,10 +1328,10 @@ def test_cli_first_screen_accepts_interesting_parts_alias(
     text = capsys.readouterr().out
     assert status == 0
     assert "Reader branch: GitHub visitor" in text
-    assert "Command: microcosm hello --reader interesting-parts ." in text
-    assert "Text card: microcosm first-screen --format text --reader interesting-parts ." in text
+    assert "Command: plectis hello --reader interesting-parts ." in text
+    assert "Text card: plectis first-screen --format text --reader interesting-parts ." in text
     assert (
-        "Interesting-parts selector: `microcosm agent-entry-composition --root . "
+        "Interesting-parts selector: `plectis agent-entry-composition --root . "
         "--task interesting-parts --viewer human --card --check`"
     ) in text
     assert (
@@ -1339,7 +1339,7 @@ def test_cli_first_screen_accepts_interesting_parts_alias(
         "agent-entry-composition --root . --task interesting-parts "
         "--viewer human --card --check`"
     ) in text
-    assert "Proof: `microcosm tour --card .`" in text
+    assert "Proof: `plectis tour --card .`" in text
 
 
 def test_cli_first_screen_domain_specialist_names_task_selector(
@@ -1353,7 +1353,7 @@ def test_cli_first_screen_domain_specialist_names_task_selector(
     assert status == 0
     assert "Reader branch: Domain specialist" in text
     assert (
-        "Task selector: `microcosm agent-entry-composition --root . --task <domain> "
+        "Task selector: `plectis agent-entry-composition --root . --task <domain> "
         "--viewer human --card --check`"
     ) in text
     assert (
@@ -1373,11 +1373,11 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
     assert status == 0
     assert payload["schema_version"] == "microcosm_first_screen_compact_card_v1"
     assert payload["status"] == "pass"
-    assert payload["shared_first_command"] == "microcosm tour --card ."
+    assert payload["shared_first_command"] == "plectis tour --card ."
     assert payload["compact_projection_of"] == "microcosm_first_screen_composition_card_v1"
-    assert payload["drilldowns"]["full_json"] == "microcosm first-screen --full ."
+    assert payload["drilldowns"]["full_json"] == "plectis first-screen --full ."
     assert payload["drilldowns"]["observatory"] == (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert payload["output_policy"]["default_json_is_first_screen_projection"] is True
 
@@ -1385,25 +1385,25 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
-    assert payload["shared_first_command"] == "microcosm tour --card ."
+    assert payload["shared_first_command"] == "plectis tour --card ."
     assert (
         payload["entry_surface_contract"]["shared_behavior_surface"]
         == payload["shared_first_command"]
     )
     assert payload["observatory_landing_frame"]["serve_command"] == (
-        "microcosm serve . --host 127.0.0.1 --port 8765"
+        "plectis serve . --host 127.0.0.1 --port 8765"
     )
     assert payload["observatory_landing_frame"]["bounded_validation_command"] == (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert any(
-        row.get("command") == "microcosm serve . --host 127.0.0.1 --port 8765"
+        row.get("command") == "plectis serve . --host 127.0.0.1 --port 8765"
         and row.get("endpoint") == "/"
         for row in payload["drilldowns"]
     )
     assert any(
         row.get("command")
-        == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        == "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         and row.get("endpoint") == "/"
         for row in payload["drilldowns"]
     )
@@ -1415,11 +1415,11 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
         "schema_version": "microcosm_first_screen_state_write_boundary_v1",
         "this_card_writes_microcosm_state": False,
         "this_card_status_scope": "composition_contract_only_not_local_run_result",
-        "shared_first_command": "microcosm tour --card .",
+        "shared_first_command": "plectis tour --card .",
         "shared_first_command_writes_state": True,
         "state_dir": ".microcosm",
-        "behavioral_proof_command": "microcosm tour --card .",
-        "front_door_status_ref": "microcosm tour --card .::front_door_status",
+        "behavioral_proof_command": "plectis tour --card .",
+        "front_door_status_ref": "plectis tour --card .::front_door_status",
         "reader_action": (
             "Run the shared first command to write .microcosm state and read "
             "front_door_status before treating the first screen as behavior."
@@ -1453,11 +1453,11 @@ def test_cli_status_card_can_overlay_project_route_state(
     project_ref = "<project>"
 
     assert len(json.dumps(payload, sort_keys=True)) < 12000
-    assert payload["card_command"] == f"microcosm status --card {project_ref}"
+    assert payload["card_command"] == f"plectis status --card {project_ref}"
     assert payload["source_files_mutated"] is False
     assert "next_commands" not in payload
     assert payload["front_door"]["front_door_status_ref"] == (
-        f"microcosm status --card {project_ref}::front_door_status"
+        f"plectis status --card {project_ref}::front_door_status"
     )
     front_door_status = payload["front_door_status"]
     body_floor_blocked = (
@@ -1498,7 +1498,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     ] in {"clear", "actionable"}
     assert (
         front_door_status["drilldown_blocked_surface_ids_ref"]
-        == f"microcosm tour {project_ref}::front_door_status."
+        == f"plectis tour {project_ref}::front_door_status."
         "drilldown_blocked_surface_ids"
     )
     assert payload["front_door"]["project_state_status"] == "pass"
@@ -1513,10 +1513,10 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert route_selection_proof["route_id_available_in_state"] is True
     assert route_selection_proof["route_explanation_status"] == "pass"
     assert route_selection_proof["observatory_route_proof_ref"] == (
-        f"microcosm serve {project_ref}::first_screen_route_proof"
+        f"plectis serve {project_ref}::first_screen_route_proof"
     )
     assert payload["front_door"]["route_explanation_command"] == (
-        f"microcosm explain {project_ref} readme_onboarding_route"
+        f"plectis explain {project_ref} readme_onboarding_route"
     )
     route_explanation = payload["front_door"]["route_explanation"]
     assert route_explanation["status"] == "pass"
@@ -1527,7 +1527,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert route_explanation["evidence_ref_count"] >= 1
     assert route_explanation["reader_drilldown_count"] == 4
     assert route_explanation["drilldown_ref"] == (
-        f"microcosm explain {project_ref} readme_onboarding_route"
+        f"plectis explain {project_ref} readme_onboarding_route"
     )
     assert "reader_drilldowns" not in route_explanation
     assert "readme_onboarding_route" in payload["front_door"][
@@ -1535,10 +1535,10 @@ def test_cli_status_card_can_overlay_project_route_state(
     ]
     assert payload["front_door"]["project_state"]["state_dir_exists"] is True
     assert payload["front_door"]["project_state"]["state_write_result_ref"] == (
-        f"microcosm tour --card {project_ref}::state_write_result"
+        f"plectis tour --card {project_ref}::state_write_result"
     )
     assert payload["front_door"]["project_state"]["state_write_status_ref"] == (
-        f"microcosm tour --card {project_ref}::front_door_status."
+        f"plectis tour --card {project_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert (
@@ -1548,15 +1548,15 @@ def test_cli_status_card_can_overlay_project_route_state(
     state_write_proof = payload["front_door"]["state_write_proof"]
     assert state_write_proof["status"] == "pass"
     assert state_write_proof["state_write_result_ref"] == (
-        f"microcosm tour --card {project_ref}::state_write_result"
+        f"plectis tour --card {project_ref}::state_write_result"
     )
     assert state_write_proof["state_write_status_ref"] == (
-        f"microcosm tour --card {project_ref}::front_door_status."
+        f"plectis tour --card {project_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert state_write_proof["project_state_ref"] == "front_door.project_state"
     assert state_write_proof["observe_ref"] == (
-        f"microcosm observe {project_ref}::state_write_proof"
+        f"plectis observe {project_ref}::state_write_proof"
     )
     assert state_write_proof["observe_writes_microcosm_state"] is False
     assert state_write_proof["status_card_writes_microcosm_state"] is False
@@ -1575,11 +1575,11 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert observatory["status"] == "actionable"
     assert observatory["validation_status"] == "not_evaluated_in_status_card"
     assert observatory["command"] == (
-        f"microcosm serve {project_ref} --host 127.0.0.1 "
+        f"plectis serve {project_ref} --host 127.0.0.1 "
         "--port 8765 --max-requests 7"
     )
     assert observatory["interactive_command"] == (
-        f"microcosm serve {project_ref} --host 127.0.0.1 --port 8765"
+        f"plectis serve {project_ref} --host 127.0.0.1 --port 8765"
     )
     assert observatory["endpoint"] == "/project/observatory"
     assert observatory["compact_endpoint"] == "/project/observatory-card"
@@ -1588,13 +1588,13 @@ def test_cli_status_card_can_overlay_project_route_state(
         "/project/explain/readme_onboarding_route"
     )
     assert observatory["first_screen_route_proof_ref"] == (
-        f"microcosm serve {project_ref}::first_screen_route_proof"
+        f"plectis serve {project_ref}::first_screen_route_proof"
     )
     assert observatory["project_observe_command"] == (
-        f"microcosm observe --card {project_ref}"
+        f"plectis observe --card {project_ref}"
     )
     assert observatory["status_card_ref"] == (
-        f"microcosm status --card {project_ref}"
+        f"plectis status --card {project_ref}"
     )
     assert observatory["source_files_mutated"] is False
     assert observatory["provider_calls_authorized"] is False
@@ -1604,7 +1604,7 @@ def test_cli_status_card_can_overlay_project_route_state(
         "macro_body_import_floor"
     ]
     assert body_floor["summary_ref"] == (
-        "microcosm status --card::macro_body_import_floor"
+        "plectis status --card::macro_body_import_floor"
     )
     assert (
         body_floor["public_safe_body_material_count"]
@@ -1637,7 +1637,7 @@ def test_cli_status_card_alias_matches_status_card(
 
     assert alias_rc == canonical_rc
     assert alias_payload == canonical_payload
-    assert alias_payload["card_command"] == "microcosm status --card <project>"
+    assert alias_payload["card_command"] == "plectis status --card <project>"
 
 
 def test_cli_status_card_preserves_relative_project_ref(
@@ -1654,14 +1654,14 @@ def test_cli_status_card_preserves_relative_project_ref(
 
     assert status_rc == (1 if payload["status"] == "blocked" else 0)
     assert payload["project_ref"] == "scratch"
-    assert payload["card_command"] == "microcosm status --card scratch"
+    assert payload["card_command"] == "plectis status --card scratch"
     assert payload["front_door"]["project_ref"] == "scratch"
-    assert payload["front_door"]["primary_command"] == "microcosm tour --card scratch"
+    assert payload["front_door"]["primary_command"] == "plectis tour --card scratch"
     assert payload["front_door"]["project_state"]["state_write_result_ref"] == (
-        "microcosm tour --card scratch::state_write_result"
+        "plectis tour --card scratch::state_write_result"
     )
     assert payload["front_door"]["observatory"]["status_card_ref"] == (
-        "microcosm status --card scratch"
+        "plectis status --card scratch"
     )
 
 
@@ -1680,7 +1680,7 @@ def test_cli_full_status_preserves_project_route_overlay(
     assert payload["front_door"]["project_state_status"] == "pass"
     assert payload["front_door"]["selected_route_id"] == "readme_onboarding_route"
     assert payload["front_door"]["route_explanation_command"] == (
-        "microcosm explain <project> readme_onboarding_route"
+        "plectis explain <project> readme_onboarding_route"
     )
     assert payload["front_door"]["route_selection_proof"]["status"] == "pass"
     assert payload["front_door"]["observatory"]["status"] == "actionable"
@@ -1722,7 +1722,7 @@ def test_cli_full_status_preserves_project_route_overlay(
         "readme_onboarding_route"
     )
     assert minimal_steps["inspect_route_causal_chain"]["command"] == (
-        "microcosm explain <project> readme_onboarding_route"
+        "plectis explain <project> readme_onboarding_route"
     )
     assert minimal_steps["drill_receipts_only_after_behavior"][
         "evidence_ref_count"
@@ -1740,12 +1740,12 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
     project_ref = "<project>"
 
     assert payload["status"] == "blocked"
-    assert payload["card_command"] == f"microcosm status --card {project_ref}"
+    assert payload["card_command"] == f"plectis status --card {project_ref}"
     assert payload["source_files_mutated"] is False
     assert payload["next_commands"] == [
-        f"microcosm tour --card {project_ref}",
-        f"microcosm status --card {project_ref}",
-        f"microcosm compile {project_ref}",
+        f"plectis tour --card {project_ref}",
+        f"plectis status --card {project_ref}",
+        f"plectis compile {project_ref}",
     ]
     front_door = payload["front_door"]
     project_state = front_door["project_state"]
@@ -1755,15 +1755,15 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
     assert project_state["existing_state_ref_count"] == 0
     assert project_state["route_count"] == 0
     assert project_state["recovery_command"] == (
-        f"microcosm tour --card {project_ref}"
+        f"plectis tour --card {project_ref}"
     )
     assert project_state["status_after_recovery_command"] == (
-        f"microcosm status --card {project_ref}"
+        f"plectis status --card {project_ref}"
     )
     assert recovery["status"] == "actionable"
     assert recovery["blocked_surface_id"] == "project_state"
-    assert recovery["primary_command"] == f"microcosm tour --card {project_ref}"
-    assert recovery["alternate_command"] == f"microcosm compile {project_ref}"
+    assert recovery["primary_command"] == f"plectis tour --card {project_ref}"
+    assert recovery["alternate_command"] == f"plectis compile {project_ref}"
     assert recovery["provider_calls_authorized"] is False
     assert recovery["source_files_mutated"] is False
     assert front_door["project_recovery"] == recovery
@@ -1775,10 +1775,10 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
     assert "project_state" in front_door_status["blocking_surface_ids"]
     assert front_door_status["blocking_surface_details"]["project_state"][
         "primary_recovery_command"
-    ] == f"microcosm tour --card {project_ref}"
+    ] == f"plectis tour --card {project_ref}"
     assert front_door_status["blocking_surface_details"]["project_state"][
         "status_after_recovery_command"
-    ] == f"microcosm status --card {project_ref}"
+    ] == f"plectis status --card {project_ref}"
 
 
 def test_cli_tour_card_relative_external_project_writes_caller_project_state(
@@ -1863,23 +1863,23 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "event_log_ref": ".microcosm/events.jsonl",
         "evidence_dir_ref": ".microcosm/evidence/",
         "graph_ref": ".microcosm/graph.json",
-        "project_observe_command": "microcosm observe --card <project>",
-        "project_observe_full_command": "microcosm observe <project>",
+        "project_observe_command": "plectis observe --card <project>",
+        "project_observe_full_command": "plectis observe <project>",
         "project_observe_endpoint": "/project/observe",
         "observatory_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "plectis serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 7"
         ),
         "observatory_bounded_validation_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "plectis serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 7"
         ),
         "observatory_interactive_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765"
+            "plectis serve <project> --host 127.0.0.1 --port 8765"
         ),
     }
     assert first_screen["route_explanation"]["command"] == (
-        "microcosm explain <project> readme_onboarding_route"
+        "plectis explain <project> readme_onboarding_route"
     )
     assert first_screen["route_explanation"]["endpoint"] == (
         "/project/explain/readme_onboarding_route"
@@ -1923,8 +1923,8 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     observe_step = {
         row["step_id"]: row for row in first_screen["minimal_command_path"]
     }["inspect_project_observe"]
-    assert observe_step["command"] == "microcosm observe --card <project>"
-    assert observe_step["full_drilldown"] == "microcosm observe <project>"
+    assert observe_step["command"] == "plectis observe --card <project>"
+    assert observe_step["full_drilldown"] == "plectis observe <project>"
     assert observe_step["endpoint"] == "/project/observe"
     assert step_ids.index("run_first_screen_proof_lab") < step_ids.index(
         "inspect_python_routes"
@@ -1933,11 +1933,11 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         row["step_id"]: row for row in first_screen["minimal_command_path"]
     }["open_observatory"]
     assert observatory_step["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+        "plectis serve <project> --host 127.0.0.1 --port 8765 "
         "--max-requests 7"
     )
     assert observatory_step["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert observatory_step["endpoint"] == "/project/observatory-card"
     assert observatory_step["expanded_endpoint"] == "/project/observatory"
@@ -2039,20 +2039,20 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["observatory"][
         "bounded_validation_command"
     ] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+        "plectis serve <project> --host 127.0.0.1 --port 8765 "
         "--max-requests 7"
     )
     assert status_card["front_door"]["observatory"]["command"] == (
         status_card["front_door"]["observatory"]["bounded_validation_command"]
     )
     assert status_card["front_door"]["observatory"]["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert status_card["front_door"]["observatory"][
         "bounded_validation_request_count"
     ] == 7
     assert status_card["front_door"]["observatory"]["project_observe_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert status_card["front_door"]["observatory"]["status"] == "actionable"
     assert (
@@ -2174,7 +2174,7 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
         observatory_card["bounded_validation_command"]
     )
     assert status_front_door["observatory"]["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert status_front_door["observatory"]["bounded_validation_request_count"] == (
         observatory_card["bounded_validation_request_count"]
@@ -2183,7 +2183,7 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
         observatory_card["json_drilldowns"]["project_observe"]
     )
     assert status_front_door["observatory"]["project_observe_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert observatory["observatory_card"] == observatory_card
     assert status_card["payload_boundary_audit"]["status"] == "pass"
@@ -2223,8 +2223,8 @@ def test_cli_observe_card_is_compact_peer_developer_handoff(
     assert card["schema_version"] == "microcosm_project_observe_card_v1"
     assert card["status"] == "pass"
     assert card["card_status"] == "pass"
-    assert card["command"] == f"microcosm observe --card {project}"
-    assert card["full_command"] == f"microcosm observe {project}"
+    assert card["command"] == f"plectis observe --card {project}"
+    assert card["full_command"] == f"plectis observe {project}"
     assert card["endpoint"] is None
     assert card["endpoint_available"] is False
     assert card["full_endpoint"] == "/project/observe"
@@ -2285,7 +2285,7 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
             if process.poll() is not None:
                 stdout, stderr = process.communicate(timeout=1)
                 pytest.fail(
-                    "microcosm serve exited before first-screen endpoints were readable: "
+                    "plectis serve exited before first-screen endpoints were readable: "
                     f"rc={process.returncode}\nstdout={stdout[-1000:]}\nstderr={stderr[-1000:]}"
                 )
             try:
@@ -2303,7 +2303,7 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
 
         if status_card is None:
             pytest.fail(
-                f"microcosm serve did not expose /project/status: {last_error!r}"
+                f"plectis serve did not expose /project/status: {last_error!r}"
             )
 
         selected_route_id = status_card["front_door"]["selected_route_id"]
@@ -2363,14 +2363,14 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
         state_write_proof = project_observe["state_write_proof"]
         assert state_write_proof["status"] == "pass"
         assert state_write_proof["state_write_result_ref"] == (
-            f"microcosm tour --card {project}::state_write_result"
+            f"plectis tour --card {project}::state_write_result"
         )
         assert state_write_proof["state_write_status_ref"] == (
-            f"microcosm tour --card {project}::front_door_status."
+            f"plectis tour --card {project}::front_door_status."
             "surface_statuses.state_write"
         )
         assert state_write_proof["state_inspection_status_ref"] == (
-            f"microcosm tour --card {project}::front_door_status."
+            f"plectis tour --card {project}::front_door_status."
             "surface_statuses.state_inspection"
         )
         assert state_write_proof["observe_writes_microcosm_state"] is False
@@ -2446,7 +2446,7 @@ def test_cli_serve_reports_busy_port_without_traceback(tmp_path: Path) -> None:
 
     assert result.returncode == 2
     assert result.stdout == ""
-    assert f"microcosm serve could not bind http://127.0.0.1:{port}" in result.stderr
+    assert f"plectis serve could not bind http://127.0.0.1:{port}" in result.stderr
     assert "address already in use" in result.stderr
     assert "--port" in result.stderr
     assert "Traceback" not in result.stderr
@@ -2454,7 +2454,7 @@ def test_cli_serve_reports_busy_port_without_traceback(tmp_path: Path) -> None:
     assert default_result.returncode == 2
     assert default_result.stdout == ""
     assert (
-        f"microcosm serve could not bind http://127.0.0.1:{port}"
+        f"plectis serve could not bind http://127.0.0.1:{port}"
         in default_result.stderr
     )
     assert "--max-requests 7" in default_result.stderr
@@ -2510,68 +2510,68 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     _assert_commands_in_order(
         payload["first_run_path"],
         [
-            "microcosm tour --card <project>",
-            "microcosm python-lens <project>",
-            "microcosm spine",
-            "microcosm authority",
-            "microcosm prediction-lens",
-            "microcosm market-boundary",
-            "microcosm corpus-lens",
-            "microcosm trace-lens",
-            "microcosm repair-loop",
-            "microcosm evidence-cells",
-            "microcosm proof-loop-depth",
+            "plectis tour --card <project>",
+            "plectis python-lens <project>",
+            "plectis spine",
+            "plectis authority",
+            "plectis prediction-lens",
+            "plectis market-boundary",
+            "plectis corpus-lens",
+            "plectis trace-lens",
+            "plectis repair-loop",
+            "plectis evidence-cells",
+            "plectis proof-loop-depth",
             PROOF_LAB_FIRST_SCREEN_COMMAND,
             VERIFIER_EXECUTION_LENS_COMMAND,
         ],
     )
     expected_step_commands = {
-        "run_compact_tour_card": "microcosm tour --card <project>",
-        "inspect_python_lens": "microcosm python-lens <project>",
-        "inspect_public_spine": "microcosm spine",
-        "inspect_authority_map": "microcosm authority",
-        "inspect_prediction_lens": "microcosm prediction-lens",
-        "inspect_market_prediction_boundary": "microcosm market-boundary",
-        "inspect_corpus_lens": "microcosm corpus-lens",
-        "inspect_verifier_trace_repair_lens": "microcosm trace-lens",
-        "inspect_verifier_repair_loop": "microcosm repair-loop",
-        "inspect_formal_evidence_cells": "microcosm evidence-cells",
-        "inspect_proof_loop_depth": "microcosm proof-loop-depth",
+        "run_compact_tour_card": "plectis tour --card <project>",
+        "inspect_python_lens": "plectis python-lens <project>",
+        "inspect_public_spine": "plectis spine",
+        "inspect_authority_map": "plectis authority",
+        "inspect_prediction_lens": "plectis prediction-lens",
+        "inspect_market_prediction_boundary": "plectis market-boundary",
+        "inspect_corpus_lens": "plectis corpus-lens",
+        "inspect_verifier_trace_repair_lens": "plectis trace-lens",
+        "inspect_verifier_repair_loop": "plectis repair-loop",
+        "inspect_formal_evidence_cells": "plectis evidence-cells",
+        "inspect_proof_loop_depth": "plectis proof-loop-depth",
         "inspect_verifier_lab_kernel": PROOF_LAB_FIRST_SCREEN_COMMAND,
         "inspect_verifier_lab_execution_spine": VERIFIER_EXECUTION_LENS_COMMAND,
-        "inspect_work_landing_replay": "microcosm landing-replay",
-        "inspect_view_quality_action_map": "microcosm view-quality",
-        "inspect_projection_safety_audit": "microcosm projection-safety",
-        "inspect_projection_drift_control": "microcosm drift-control",
-        "inspect_route_cleanup_contract": "microcosm route-cleanup",
-        "inspect_projection_import_map": "microcosm projection-import-map",
-        "inspect_import_projector_contract": "microcosm import-projector",
-        "inspect_compression_profile_option_surface": "microcosm option-surface-lens",
-        "inspect_public_private_stripping_guard": "microcosm stripping-guard",
-        "inspect_standards_control": "microcosm standards-control",
-        "inspect_hook_intervention_coverage": "microcosm hook-coverage",
-        "inspect_agent_reliability_replay_gauntlet": "microcosm replay-gauntlet",
-        "inspect_repository_benchmark_transaction_lab": "microcosm benchmark-lab",
-        "inspect_public_legibility_scorecard": "microcosm legibility-scorecard",
-        "inspect_cold_reader_route_map": "microcosm cold-reader-route-map run-route-map-bundle",
+        "inspect_work_landing_replay": "plectis landing-replay",
+        "inspect_view_quality_action_map": "plectis view-quality",
+        "inspect_projection_safety_audit": "plectis projection-safety",
+        "inspect_projection_drift_control": "plectis drift-control",
+        "inspect_route_cleanup_contract": "plectis route-cleanup",
+        "inspect_projection_import_map": "plectis projection-import-map",
+        "inspect_import_projector_contract": "plectis import-projector",
+        "inspect_compression_profile_option_surface": "plectis option-surface-lens",
+        "inspect_public_private_stripping_guard": "plectis stripping-guard",
+        "inspect_standards_control": "plectis standards-control",
+        "inspect_hook_intervention_coverage": "plectis hook-coverage",
+        "inspect_agent_reliability_replay_gauntlet": "plectis replay-gauntlet",
+        "inspect_repository_benchmark_transaction_lab": "plectis benchmark-lab",
+        "inspect_public_legibility_scorecard": "plectis legibility-scorecard",
+        "inspect_cold_reader_route_map": "plectis cold-reader-route-map run-route-map-bundle",
     }
     for step_id, command in expected_step_commands.items():
         _assert_step_command(first_run_by_step, step_id, command)
     expected_prefix_commands = {
-        "inspect_durable_agent_work_landing_replay": "microcosm durable-agent-work-landing-replay",
-        "inspect_research_replication_rubric_artifact_replay": "microcosm research-replication-rubric-artifact-replay",
-        "inspect_world_model_projection_drift_control_room": "microcosm world-model-projection-drift-control-room",
-        "inspect_spatial_world_model_counterfactual_simulation_replay": "microcosm spatial-world-model-counterfactual-simulation-replay",
-        "inspect_mechanistic_interpretability_circuit_attribution_replay": "microcosm mechanistic-interpretability-circuit-attribution-replay",
-        "inspect_agent_memory_temporal_conflict_replay": "microcosm agent-memory-temporal-conflict-replay",
-        "inspect_sleeper_memory_poisoning_quarantine_replay": "microcosm sleeper-memory-poisoning-quarantine-replay",
-        "inspect_mcp_tool_authority_replay": "microcosm mcp-tool-authority-replay",
-        "inspect_proof_derived_governed_mutation_authorization": "microcosm proof-derived-governed-mutation-authorization",
-        "inspect_belief_state_process_reward_replay": "microcosm belief-state-process-reward-replay",
-        "inspect_agent_sandbox_policy_escape_replay": "microcosm agent-sandbox-policy-escape-replay",
-        "inspect_indirect_prompt_injection_information_flow_policy_replay": "microcosm indirect-prompt-injection-information-flow-policy-replay",
-        "inspect_agentic_vulnerability_discovery_patch_proof_replay": "microcosm agentic-vulnerability-discovery-patch-proof-replay",
-        "inspect_certificate_kernel_execution_lab": "microcosm certificate-kernel-execution-lab",
+        "inspect_durable_agent_work_landing_replay": "plectis durable-agent-work-landing-replay",
+        "inspect_research_replication_rubric_artifact_replay": "plectis research-replication-rubric-artifact-replay",
+        "inspect_world_model_projection_drift_control_room": "plectis world-model-projection-drift-control-room",
+        "inspect_spatial_world_model_counterfactual_simulation_replay": "plectis spatial-world-model-counterfactual-simulation-replay",
+        "inspect_mechanistic_interpretability_circuit_attribution_replay": "plectis mechanistic-interpretability-circuit-attribution-replay",
+        "inspect_agent_memory_temporal_conflict_replay": "plectis agent-memory-temporal-conflict-replay",
+        "inspect_sleeper_memory_poisoning_quarantine_replay": "plectis sleeper-memory-poisoning-quarantine-replay",
+        "inspect_mcp_tool_authority_replay": "plectis mcp-tool-authority-replay",
+        "inspect_proof_derived_governed_mutation_authorization": "plectis proof-derived-governed-mutation-authorization",
+        "inspect_belief_state_process_reward_replay": "plectis belief-state-process-reward-replay",
+        "inspect_agent_sandbox_policy_escape_replay": "plectis agent-sandbox-policy-escape-replay",
+        "inspect_indirect_prompt_injection_information_flow_policy_replay": "plectis indirect-prompt-injection-information-flow-policy-replay",
+        "inspect_agentic_vulnerability_discovery_patch_proof_replay": "plectis agentic-vulnerability-discovery-patch-proof-replay",
+        "inspect_certificate_kernel_execution_lab": "plectis certificate-kernel-execution-lab",
     }
     for step_id, command_prefix in expected_prefix_commands.items():
         _assert_step_command_prefix(first_run_by_step, step_id, command_prefix)
@@ -2614,7 +2614,7 @@ def test_cli_authority_smoke(
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_authority_map_v2"
     assert payload["status"] == "pass"
-    assert payload["command"] == "microcosm authority"
+    assert payload["command"] == "plectis authority"
     assert payload["unsafe_payload_bodies_exported"] is False
     assert payload["payload_boundary"]["source_open_default"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
@@ -2795,7 +2795,7 @@ def test_cli_authority_card_exposes_top_level_false_authority_booleans(
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_authority_card_v1"
     assert payload["status"] == "pass"
-    assert payload["command"] == "microcosm authority --card"
+    assert payload["command"] == "plectis authority --card"
     assert payload["release_authorized"] is False
     assert payload["provider_calls_authorized"] is False
     assert payload["source_mutation_authorized"] is False
@@ -2821,7 +2821,7 @@ def test_cli_authority_card_accepts_project_argument_for_first_screen_parity(
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_authority_card_v1"
-    assert payload["command"] == "microcosm authority --card"
+    assert payload["command"] == "plectis authority --card"
     assert payload["release_authorized"] is False
 
 
@@ -2839,7 +2839,7 @@ def test_cli_workingness_smoke(
     assert status == 0
     assert payload["schema_version"] == "microcosm_workingness_failure_map_v1"
     assert payload["status"] == "pass"
-    assert payload["command"] == "microcosm workingness"
+    assert payload["command"] == "plectis workingness"
     assert payload["endpoint"] == "/workingness"
     assert payload["completeness_status"] == "complete_failure_modes"
     assert payload["map_generation_status"] == "pass"
@@ -2891,9 +2891,9 @@ def test_cli_workingness_card_smoke(
     assert payload["schema_version"] == "microcosm_workingness_command_speed_card_v1"
     assert payload["status"] == "pass"
     assert payload["card_status"] == "clear"
-    assert payload["command"] == "microcosm workingness --card"
-    assert payload["source_command"] == "microcosm workingness"
-    assert payload["drilldown_command"] == "microcosm workingness"
+    assert payload["command"] == "plectis workingness --card"
+    assert payload["source_command"] == "plectis workingness"
+    assert payload["drilldown_command"] == "plectis workingness"
     assert payload["endpoint"] == "/workingness-card"
     assert payload["full_endpoint"] == "/workingness"
     assert payload["drilldown_endpoint"] == "/workingness"
@@ -2934,7 +2934,7 @@ def test_cli_workingness_card_accepts_project_argument_for_first_screen_parity(
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "microcosm_workingness_command_speed_card_v1"
-    assert payload["command"] == "microcosm workingness --card"
+    assert payload["command"] == "plectis workingness --card"
     assert payload["card_status"] == "clear"
 
 
@@ -2954,7 +2954,7 @@ def test_cli_tour_smoke(
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert payload["status"] == "pass"
-    assert payload["command"] == "microcosm tour <project>"
+    assert payload["command"] == "plectis tour <project>"
     assert payload["endpoint"] == "/tour"
     assert payload["time_budget_minutes"] == 10
     assert payload["compile_summary"]["headline"] == "repo -> .microcosm"
@@ -2964,7 +2964,7 @@ def test_cli_tour_smoke(
         "microcosm_cold_reader_first_screen_v1"
     )
     assert payload["first_screen"]["primary_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert payload["first_screen"]["minimal_command_path"][0]["command"] == (
         payload["first_screen"]["primary_command"]
@@ -2974,35 +2974,35 @@ def test_cli_tour_smoke(
     )
     assert payload["selected_route_id"] == payload["first_screen"]["selected_route_id"]
     assert payload["first_screen"]["route_explanation"]["command"] == (
-        f"microcosm explain <project> {payload['first_screen']['selected_route_id']}"
+        f"plectis explain <project> {payload['first_screen']['selected_route_id']}"
     )
     assert payload["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
     assert payload["first_screen"]["proof_surface"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
     assert payload["first_screen"]["behavior_surfaces"]["observatory_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert payload["first_screen"]["behavior_surfaces"][
         "observatory_interactive_command"
     ] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert payload["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert payload["first_screen"]["behavior_surfaces"][
         "project_observe_full_command"
     ] == (
-        "microcosm observe <project>"
+        "plectis observe <project>"
     )
     assert payload["first_screen"]["behavior_surfaces"]["project_observe_endpoint"] == (
         "/project/observe"
     )
-    assert payload["command_path"][0] == "microcosm tour --card <project>"
-    assert "microcosm status --card" in payload["command_path"]
-    assert "microcosm workingness" in payload["command_path"]
-    assert "microcosm observe --card <project>" in payload["command_path"]
+    assert payload["command_path"][0] == "plectis tour --card <project>"
+    assert "plectis status --card" in payload["command_path"]
+    assert "plectis workingness" in payload["command_path"]
+    assert "plectis observe --card <project>" in payload["command_path"]
     assert "/workingness-card" in payload["endpoint_path"]
     assert "/project/observe" in payload["endpoint_path"]
     assert any(
@@ -3032,14 +3032,14 @@ def test_cli_tour_smoke(
         row["step_id"]: row for row in payload["first_screen"]["minimal_command_path"]
     }
     assert tour_steps_by_id["open_observatory"]["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert tour_step_ids.index("run_first_screen_proof_lab") < tour_step_ids.index(
         "inspect_python_routes"
     )
     assert any(
         card["card_id"] == "status_and_workingness"
-        and card["workingness_command"] == "microcosm workingness --card"
+        and card["workingness_command"] == "plectis workingness --card"
         for card in payload["route_cards"]
     )
     assert payload["first_screen_proof_lab"]["status"] == "pass"
@@ -3108,12 +3108,12 @@ def test_cli_tour_card_smoke(
     assert payload["schema_version"] == "microcosm_tour_command_speed_card_v1"
     assert payload["status"] == ("blocked" if body_floor_blocked else "pass")
     assert payload["card_status"] == ("blocked" if body_floor_blocked else "clear")
-    assert payload["command"] == "microcosm tour --card <project>"
-    assert payload["source_command"] == "microcosm tour <project>"
-    assert payload["drilldown_command"] == "microcosm tour <project>"
+    assert payload["command"] == "plectis tour --card <project>"
+    assert payload["source_command"] == "plectis tour <project>"
+    assert payload["drilldown_command"] == "plectis tour <project>"
     assert payload["endpoint"] == "/tour"
     assert payload["first_screen"]["primary_command"] == (
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
     )
     assert "reader_routes" not in payload["first_screen"]
     assert payload["first_screen"]["reader_routes_ref"] == (
@@ -3121,20 +3121,20 @@ def test_cli_tour_card_smoke(
     )
     assert (
         payload["first_screen"]["minimal_steps"][0]["command"]
-        == "microcosm tour --card <project>"
+        == "plectis tour --card <project>"
     )
     compact_steps_by_id = {
         row["step_id"]: row for row in payload["first_screen"]["minimal_steps"]
     }
     assert compact_steps_by_id["open_observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert compact_steps_by_id["open_observatory"]["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        "plectis serve <project> --host 127.0.0.1 --port 8765"
     )
     assert payload["first_screen"]["minimal_step_count"] == 10
     assert payload["first_screen"]["project_observe_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert payload["state_refs"]["route_state_ref"] == ".microcosm/routes.json"
     assert payload["state_refs"]["work_state_ref"] == ".microcosm/work_items.json"
@@ -3162,7 +3162,7 @@ def test_cli_tour_card_smoke(
     )
     assert state_write_result["status"] == "pass"
     assert state_write_result["status_scope"] == "project_local_state_write_only"
-    assert state_write_result["command"] == "microcosm tour --card <project>"
+    assert state_write_result["command"] == "plectis tour --card <project>"
     assert state_write_result["writes_microcosm_state"] == (
         state_write_result["project_compile_state_written"]
     )
@@ -3183,7 +3183,7 @@ def test_cli_tour_card_smoke(
     )
     assert state_write_result["source_files_mutated"] is False
     assert state_write_result["first_screen_map_ref"] == (
-        "microcosm first-screen <project>::state_write_boundary"
+        "plectis first-screen <project>::state_write_boundary"
     )
     assert state_write_result["front_door_status_ref"] == "front_door_status"
     assert state_write_result["inspect_command"] == (
@@ -3204,27 +3204,27 @@ def test_cli_tour_card_smoke(
     assert payload["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert payload["observatory"]["status_card_endpoint"] == "/project/status"
     assert payload["observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert payload["observatory"]["project_observe_endpoint"] == "/project/observe"
     assert payload["observatory"]["project_observe_ref"] == (
-        "microcosm serve <project>::/project/observe"
+        "plectis serve <project>::/project/observe"
     )
     assert payload["observatory"]["route_explanation_endpoint"] == (
         "/project/explain/readme_onboarding_route"
     )
     assert payload["observatory"]["first_screen_route_proof_ref"] == (
-        "microcosm serve <project>::first_screen_route_proof"
+        "plectis serve <project>::first_screen_route_proof"
     )
     assert (
-        "microcosm observe --card examples/runtime_shell/demo_project"
+        "plectis observe --card examples/runtime_shell/demo_project"
         in payload["next_commands"]
     )
     assert (
         "PYTHONPATH=src python3 -m microcosm_core observe --card "
         "examples/runtime_shell/demo_project"
     ) in payload["source_checkout_next_commands"]
-    assert payload["status_card"]["command"] == "microcosm status --card <project>"
+    assert payload["status_card"]["command"] == "plectis status --card <project>"
     assert payload["surface_statuses"]["compile"] == "pass"
     assert payload["surface_statuses"]["state_write"] == "pass"
     assert payload["surface_statuses"]["state_inspection"] == "pass"
@@ -3259,7 +3259,7 @@ def test_cli_tour_card_smoke(
         )
     else:
         assert payload["blocking_surface_ids"] == []
-    assert payload["workingness"]["command"] == "microcosm workingness --card"
+    assert payload["workingness"]["command"] == "plectis workingness --card"
     assert payload["output_economy"]["full_route_cards_exported"] is False
     assert payload["output_economy"]["route_cards_by_id_exported"] is False
     assert payload["output_economy"]["full_command_path_exported"] is False

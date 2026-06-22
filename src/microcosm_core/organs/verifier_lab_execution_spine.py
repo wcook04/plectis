@@ -1765,7 +1765,12 @@ def _build_result(
         "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
         "anti_claim": ANTI_CLAIM,
         "body_in_receipt": False,
-        "real_runtime_receipt": status == PASS,
+        # Honest run-provenance: the exported-bundle path is a declared synthetic
+        # execution contract, not a live verifier/lean execution receipt.
+        "real_runtime_receipt": status == PASS
+        and input_mode != "exported_verifier_lab_execution_spine_bundle",
+        "synthetic_contract": input_mode == "exported_verifier_lab_execution_spine_bundle",
+        "not_a_live_run": input_mode == "exported_verifier_lab_execution_spine_bundle",
         "synthetic_receipt_standin_allowed": False,
     }
 
@@ -2055,7 +2060,7 @@ def write_receipts(
             "receipt_body_is_public_evidence": True,
             "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
             "body_in_receipt": False,
-            "real_runtime_receipt": result["status"] == PASS,
+            "real_runtime_receipt": result["real_runtime_receipt"],
             "synthetic_receipt_standin_allowed": False,
             "release_authorized": False,
         }

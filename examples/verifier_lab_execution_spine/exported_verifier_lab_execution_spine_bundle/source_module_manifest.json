@@ -22,9 +22,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 83496,
+      "byte_count": 83911,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2233,
+      "line_count": 2238,
       "material_class": "public_macro_tool_body",
       "module_id": "verifier_lab_execution_spine_source_body_import",
       "path": "source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
@@ -34,15 +34,15 @@
         "def validate_source_module_imports"
       ],
       "required_anchors_present": true,
-      "sha256": "sha256:e6f6c72cb3f7a8e4ddbc8bc8f5540f0f6997783f9ebe620da9e97f1d882ce65f",
+      "sha256": "sha256:1b529e4e9ebcb08f7fb28a8baa72e61ed2621502d8c5fca70e22fbddd0269655",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
       "source_role": "Execution-spine organ that builds public Lean transition candidates, validates CP2/Evolve boundaries, writes receipts, and enforces source-open body import accounting",
-      "source_sha256": "sha256:e6f6c72cb3f7a8e4ddbc8bc8f5540f0f6997783f9ebe620da9e97f1d882ce65f",
+      "source_sha256": "sha256:1b529e4e9ebcb08f7fb28a8baa72e61ed2621502d8c5fca70e22fbddd0269655",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
-      "target_sha256": "sha256:e6f6c72cb3f7a8e4ddbc8bc8f5540f0f6997783f9ebe620da9e97f1d882ce65f",
+      "target_sha256": "sha256:1b529e4e9ebcb08f7fb28a8baa72e61ed2621502d8c5fca70e22fbddd0269655",
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
         "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"

@@ -2,7 +2,10 @@
 
 This is the shortest cold-clone path for a reader who wants to know whether
 Plectis is runnable, inspectable, and honest before opening the full README.
-The compatibility package, CLI, and local state still use the `microcosm` name.
+The runtime package and local state still use compatibility names
+(`microcosm_core` and `.microcosm/`), while the installed command is `plectis`;
+the legacy `microcosm` command remains as an alias for older notes and
+receipts.
 After the smoke path passes, use the [README Component Map](README.md#component-map)
 before raw receipts; it names the runtime package, command cards, public
 doctrine, evidence fixtures, source capsules, and validation shell.
@@ -57,22 +60,22 @@ make smoke
 
 The smoke path writes command outputs under ignored `.microcosm/smoke/`,
 validates those receipts, and prints a compact terminal summary. A healthy run
-includes `Microcosm smoke check: pass`, `authority: pass`, `workingness: clear`,
+includes `Plectis smoke check: pass`, `authority: pass`, `workingness: clear`,
 and `served status: pass`. It uses compact cards first:
 
 ```bash
-microcosm hello .
-microcosm hello --reader cold_cloner .
-microcosm hello --reader reviewer .
-microcosm hello --reader skeptical_reviewer .
-microcosm hello --reader agent .
-microcosm hello --reader domain_specialist .
-microcosm first-screen --card .
-microcosm tour --card .
-microcosm status --card .
-microcosm authority --card
-microcosm workingness --card
-microcosm legibility-scorecard
+plectis hello .
+plectis hello --reader cold_cloner .
+plectis hello --reader reviewer .
+plectis hello --reader skeptical_reviewer .
+plectis hello --reader agent .
+plectis hello --reader domain_specialist .
+plectis first-screen --card .
+plectis tour --card .
+plectis status --card .
+plectis authority --card
+plectis workingness --card
+plectis legibility-scorecard
 ```
 
 If you are staying source-only, use the exact same hand smoke through the
@@ -109,7 +112,7 @@ domain-correctness claim.
 ## 3. Inspect The Browser Surface
 
 ```bash
-microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7
+plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7
 ```
 
 If you are staying source-only, run the same bounded server through the module
@@ -147,7 +150,7 @@ For the fastest preflight before the full test floor, run:
 make check
 ```
 
-It should print `Microcosm preflight: organ evidence-class registry loads
+It should print `Plectis preflight: organ evidence-class registry loads
 cleanly.`
 
 ```bash
@@ -183,7 +186,7 @@ cards; it is not a broader release, proof-correctness, or production claim.
 For a review artifact outside this checkout, run:
 
 ```bash
-make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export
+make standalone-export EXPORT_OUT=/tmp/plectis-export
 ```
 
 That export writes a candidate standalone folder and a review receipt inside
@@ -194,7 +197,7 @@ export, not a launch operation, and keeps `release_authorized=false`.
 Before sharing that folder, validate the exported artifact as its own clone:
 
 ```bash
-cd /tmp/microcosm-substrate-export/microcosm-substrate
+cd /tmp/plectis-export/plectis
 make ci
 ```
 
@@ -206,15 +209,16 @@ stays inside local review scope.
 Plectis is a local source-open research runtime. These commands are for local
 inspection, tests, source-linked records, and result evidence. The public copy
 supports source review and reproducible local checks; distribution, hosting,
-project-source writes, excluded private material, formal correctness, service,
-domain, security, or operational claims require their own receipts.
+provider calls, source mutation, project-source writes, excluded private
+material, private-root equivalence, formal correctness, service, domain,
+security, or operational claims require their own receipts.
 
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are
-checking. Use `microcosm evidence list . --limit 25` for a bounded receipt
+checking. Use `plectis evidence list . --limit 25` for a bounded receipt
 index, then inspect a listed project ref with
-`microcosm evidence inspect . .microcosm/evidence/routes.json` or
-`microcosm evidence inspect --project . .microcosm/evidence/routes.json`.
+`plectis evidence inspect . .microcosm/evidence/routes.json` or
+`plectis evidence inspect --project . .microcosm/evidence/routes.json`.
 If you are staying source-only, use
 `PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25` and
 `PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json`.

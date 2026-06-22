@@ -22,14 +22,14 @@ def test_cli_hello_prints_shared_first_screen_card(
     output = capsys.readouterr().out
 
     output.encode("ascii")
-    assert output.startswith("Microcosm first screen\n")
+    assert output.startswith("Plectis first screen\n")
     assert "Pre-install probe: ./bootstrap.sh -> .microcosm/cold_clone_probe.json" in output
     assert (
         "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
         in output
     )
-    assert "Open card: microcosm hello ." in output
-    assert "First run: microcosm tour --card ." in output
+    assert "Open card: plectis hello ." in output
+    assert "First run: plectis tour --card ." in output
     assert (
         "Source-only first run: "
         "PYTHONPATH=src python3 -m microcosm_core tour --card ."
@@ -47,7 +47,7 @@ def test_cli_hello_prints_shared_first_screen_card(
         in output
     )
     assert (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in output
     )
     assert "-> /project/first-screen -> /project/observatory-card" in output
@@ -99,8 +99,8 @@ def test_cli_hello_can_focus_reader_branch(
     output = capsys.readouterr().out
 
     assert "Reader branch: Peer developer" in output
-    assert "First step: Run `microcosm tour --card .`." in output
-    assert "Proof: `microcosm observe --card .`" in output
+    assert "First step: Run `plectis tour --card .`." in output
+    assert "Proof: `plectis observe --card .`" in output
     assert "Reader branch: GitHub visitor" not in output
     assert "Reader branch: Safety/evals" not in output
     assert "Reader branch: Hiring" not in output
@@ -114,10 +114,10 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
     output = capsys.readouterr().out
 
     assert "Reader branch: GitHub visitor" in output
-    assert "Command: microcosm hello --reader public_github_visitor ." in output
-    assert "First step: Run `microcosm tour --card .` after this card." in output
+    assert "Command: plectis hello --reader public_github_visitor ." in output
+    assert "First step: Run `plectis tour --card .` after this card." in output
     assert "from the repo root" not in output
-    assert "Proof: `microcosm tour --card .`" in output
+    assert "Proof: `plectis tour --card .`" in output
     assert "release, hosting, and private-data claims this repo refuses" in output
     assert "Reader branch: Safety/evals" not in output
     assert "Reader branch: Hiring" not in output
@@ -132,10 +132,10 @@ def test_cli_hello_can_focus_skeptical_reviewer_source_only_handoff(
     output = capsys.readouterr().out
 
     assert "Reader branch: Safety/evals" in output
-    assert "Command: microcosm hello --reader skeptical_reviewer ." in output
+    assert "Command: plectis hello --reader skeptical_reviewer ." in output
     assert (
-        "First step: Run `microcosm tour --card .` first, then "
-        "`microcosm status --card .`."
+        "First step: Run `plectis tour --card .` first, then "
+        "`plectis status --card .`."
     ) in output
     assert (
         "Source-only first step: Run `PYTHONPATH=src python3 -m "
@@ -158,14 +158,14 @@ def test_cli_hello_can_focus_type_a_agent_branch(
     output = capsys.readouterr().out
 
     assert "Reader branch: Type A agent" in output
-    assert "Command: microcosm hello --reader type_a_agent ." in output
+    assert "Command: plectis hello --reader type_a_agent ." in output
     assert (
-        "First step: Run `microcosm first-screen --card .`. "
+        "First step: Run `plectis first-screen --card .`. "
         "If you need `doctrine_effect_frame`, run "
-        "`microcosm first-screen --full .` before reading it; then run "
-        "`microcosm organ-surface-contract --card --root .`."
+        "`plectis first-screen --full .` before reading it; then run "
+        "`plectis organ-surface-contract --card --root .`."
     ) in output
-    assert "Proof: `microcosm organ-surface-contract --card --root .`" in output
+    assert "Proof: `plectis organ-surface-contract --card --root .`" in output
     assert (
         "Source-only first step: Run `PYTHONPATH=src python3 -m "
         "microcosm_core first-screen --card .`."
@@ -207,7 +207,7 @@ def test_cli_hello_accepts_public_reader_aliases_without_new_routes(
     output = capsys.readouterr().out
 
     assert f"Reader branch: {branch_label}" in output
-    assert f"Command: microcosm hello --reader {alias} ." in output
+    assert f"Command: plectis hello --reader {alias} ." in output
     if canonical_reader == "public_github_visitor":
         assert (
             "Source-only first step: Run `PYTHONPATH=src python3 -m "
@@ -218,7 +218,7 @@ def test_cli_hello_accepts_public_reader_aliases_without_new_routes(
             "tour --card .`"
         ) in output
     if alias != canonical_reader:
-        assert f"Command: microcosm hello --reader {canonical_reader} ." not in output
+        assert f"Command: plectis hello --reader {canonical_reader} ." not in output
     assert output.count("Reader branch:") == 1
 
 
@@ -235,8 +235,8 @@ def test_cli_first_screen_text_accepts_public_reader_hyphen_alias(
     output = capsys.readouterr().out
 
     assert "Reader branch: Domain specialist" in output
-    assert "Command: microcosm hello --reader domain-specialist ." in output
-    assert "microcosm hello --reader domain_specialist ." not in output
+    assert "Command: plectis hello --reader domain-specialist ." in output
+    assert "plectis hello --reader domain_specialist ." not in output
     assert output.count("Reader branch:") == 1
 
 
@@ -247,8 +247,8 @@ def test_cli_hello_accepts_text_format_alias(
 
     output = capsys.readouterr().out
 
-    assert output.startswith("Microcosm first screen\n")
-    assert "Open card: microcosm hello ." in output
+    assert output.startswith("Plectis first screen\n")
+    assert "Open card: plectis hello ." in output
 
 
 def test_cli_hello_accepts_card_alias(
@@ -258,9 +258,9 @@ def test_cli_hello_accepts_card_alias(
 
     output = capsys.readouterr().out
 
-    assert output.startswith("Microcosm first screen\n")
-    assert "Open card: microcosm hello ." in output
-    assert "First run: microcosm tour --card ." in output
+    assert output.startswith("Plectis first screen\n")
+    assert "Open card: plectis hello ." in output
+    assert "First run: plectis tour --card ." in output
 
 
 def test_cli_hello_help_documents_card_alias(
@@ -286,11 +286,11 @@ def test_cli_first_screen_json_is_compact_by_default(
     assert payload["schema_version"] == "microcosm_first_screen_compact_card_v1"
     assert len(json.dumps(payload, sort_keys=True)) < 16000
     assert payload["output_policy"]["full_contract_command"] == (
-        "microcosm first-screen --full ."
+        "plectis first-screen --full ."
     )
     assert payload["output_policy"]["full_contract_preserved"] is True
     assert payload["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert payload["reader_route_menu"]["source_checkout_commands"]["behavior_proof"] == (
         "PYTHONPATH=src python3 -m microcosm_core tour --card ."
@@ -325,14 +325,14 @@ def test_cli_first_screen_json_is_compact_by_default(
         "PYTHONPATH=src python3 -m microcosm_core status --card ."
     )
     assert payload["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
     route_by_id = {
         route["reader_route_id"]: route
         for route in payload["reader_route_menu"]["routes"]
     }
     assert route_by_id["public_github_visitor"]["first_action"] == (
-        "Run `microcosm tour --card .` after this card."
+        "Run `plectis tour --card .` after this card."
     )
     assert route_by_id["public_github_visitor"]["source_checkout_first_action"] == (
         "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` "
@@ -342,7 +342,7 @@ def test_cli_first_screen_json_is_compact_by_default(
         "`PYTHONPATH=src python3 -m microcosm_core tour --card .`"
     )
     assert route_by_id["safety_evals_engineer"]["first_action"] == (
-        "Run `microcosm tour --card .` first, then `microcosm status --card .`."
+        "Run `plectis tour --card .` first, then `plectis status --card .`."
     )
     assert route_by_id["safety_evals_engineer"]["source_checkout_first_action"] == (
         "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` first, then "
@@ -353,17 +353,17 @@ def test_cli_first_screen_json_is_compact_by_default(
         "`PYTHONPATH=src python3 -m microcosm_core workingness --card`"
     )
     assert route_by_id["hiring_reviewer"]["first_action"] == (
-        "Run `microcosm legibility-scorecard`, then `microcosm tour --card .`."
+        "Run `plectis legibility-scorecard`, then `plectis tour --card .`."
     )
     assert route_by_id["hiring_reviewer"]["proof_surface"] == (
-        "`microcosm legibility-scorecard` plus `microcosm tour --card .`"
+        "`plectis legibility-scorecard` plus `plectis tour --card .`"
     )
     assert route_by_id["domain_specialist"]["first_action"] == (
         "Open `ORGANS.md#find-your-specialty`, then run "
-        "`microcosm tour --card .`."
+        "`plectis tour --card .`."
     )
     assert route_by_id["domain_specialist"]["proof_surface"] == (
-        "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`"
+        "`ORGANS.md#find-your-specialty` plus `plectis tour --card .`"
     )
     assert route_by_id["domain_specialist"]["source_checkout_first_action"] == (
         "Open `ORGANS.md#find-your-specialty`, then run "
@@ -374,13 +374,13 @@ def test_cli_first_screen_json_is_compact_by_default(
         "`PYTHONPATH=src python3 -m microcosm_core tour --card .`"
     )
     assert route_by_id["type_a_agent"]["first_action"] == (
-        "Run `microcosm first-screen --card .`. "
+        "Run `plectis first-screen --card .`. "
         "If you need `doctrine_effect_frame`, run "
-        "`microcosm first-screen --full .` before reading it; then run "
-        "`microcosm organ-surface-contract --card --root .`."
+        "`plectis first-screen --full .` before reading it; then run "
+        "`plectis organ-surface-contract --card --root .`."
     )
     assert route_by_id["type_a_agent"]["proof_surface"] == (
-        "`microcosm organ-surface-contract --card --root .`"
+        "`plectis organ-surface-contract --card --root .`"
     )
     assert route_by_id["type_a_agent"]["source_checkout_proof_surface"] == (
         "`PYTHONPATH=src python3 -m microcosm_core "
@@ -398,7 +398,7 @@ def test_cli_first_screen_accepts_card_alias(
 
     assert payload["schema_version"] == "microcosm_first_screen_compact_card_v1"
     assert payload["output_policy"]["full_contract_command"] == (
-        "microcosm first-screen --full ."
+        "plectis first-screen --full ."
     )
     assert payload["output_policy"]["full_contract_preserved"] is True
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
@@ -416,8 +416,8 @@ def test_cli_first_screen_card_alias_preserves_text_format(
     assert cli.main(["first-screen", "--card", "--format", "text", "."]) == 0
     output = capsys.readouterr().out
 
-    assert output.startswith("Microcosm first screen\n")
-    assert "Open card: microcosm hello ." in output
+    assert output.startswith("Plectis first screen\n")
+    assert "Open card: plectis hello ." in output
     assert "microcosm_first_screen_compact_card_v1" not in output
 
 
@@ -430,10 +430,10 @@ def test_cli_first_screen_full_flag_preserves_full_contract(
     assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert "video_storyboard_packet" in payload
     assert payload["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert payload["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
 
 
@@ -446,10 +446,10 @@ def test_cli_first_screen_card_alias_preserves_full_contract(
     assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert "video_storyboard_packet" in payload
     assert payload["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert payload["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
 
 
@@ -517,10 +517,10 @@ def test_cli_help_names_hello_as_first_screen_route(
     output = capsys.readouterr().out
 
     assert excinfo.value.code == 0
-    assert "microcosm hello <project>" in output
+    assert "plectis hello <project>" in output
     assert "print the cold-entry one-screen card" in output
     assert (
-        "microcosm hello --reader "
+        "plectis hello --reader "
         "{cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} "
         "<project> branch by reader"
     ) in output

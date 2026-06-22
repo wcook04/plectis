@@ -90,9 +90,9 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "| Runtime package | [src/microcosm_core/](src/microcosm_core/) | "
         "CLI-backed local behavior: first-screen cards, project scan, route "
         "selection, validators, server, and release export. |",
-        "| Command cards | `microcosm hello`, `microcosm tour --card`, "
-        "`microcosm status --card`, `microcosm authority --card`, "
-        "`microcosm workingness --card` | The copyable first screen, "
+        "| Command cards | `plectis hello`, `plectis tour --card`, "
+        "`plectis status --card`, `plectis authority --card`, "
+        "`plectis workingness --card` | The copyable first screen, "
         "behavior proof, evidence classes, authority ceiling, and failure "
         "envelope. |",
         "| Public doctrine | [core/](core/), [standards/](standards/), "
@@ -117,14 +117,14 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
     assert "After `python3 -m pip install -e '.[test]'` or `make install`" in opening
     assert "make package-smoke" in opening
     assert "make ci` includes that package smoke" in opening
-    assert "microcosm hello ." in opening
-    assert "microcosm compile ." in opening
+    assert "plectis hello ." in opening
+    assert "plectis compile ." in opening
     assert "full `.microcosm/` rebuild JSON" in opening
     assert opening.index("PYTHONPATH=src python3 -m microcosm_core hello .") < (
-        opening.index("microcosm hello .")
+        opening.index("plectis hello .")
     )
-    assert opening.index("microcosm hello .") < opening.index("microcosm compile .")
-    assert "Try it on your repo with one local command: `microcosm compile .`" not in opening
+    assert opening.index("plectis hello .") < opening.index("plectis compile .")
+    assert "Try it on your repo with one local command: `plectis compile .`" not in opening
 
 
 def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
@@ -133,15 +133,15 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
         1,
     )[0]
 
-    assert "microcosm hello <project>" in section
-    assert "microcosm tour --card <project>" in section
-    assert "microcosm first-screen --card <project>" in section
-    assert "microcosm first-screen <project>" in section
-    assert section.index("microcosm hello <project>") < section.index(
-        "microcosm tour --card <project>"
+    assert "plectis hello <project>" in section
+    assert "plectis tour --card <project>" in section
+    assert "plectis first-screen --card <project>" in section
+    assert "plectis first-screen <project>" in section
+    assert section.index("plectis hello <project>") < section.index(
+        "plectis tour --card <project>"
     )
-    assert section.index("microcosm tour --card <project>") < section.index(
-        "microcosm first-screen --card <project>"
+    assert section.index("plectis tour --card <project>") < section.index(
+        "plectis first-screen --card <project>"
     )
     normalized_section = " ".join(section.split())
     assert (
@@ -152,11 +152,11 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     assert "Evidence counts are accounting, not maturity scores." in section
     assert "Most projects do not publish that boundary" in section
     assert "Read the evidence class counters as a claim-boundary legend:" in section
-    assert "microcosm authority --card && microcosm workingness --card" not in section
+    assert "plectis authority --card && plectis workingness --card" not in section
     assert (
-        "| Safety/evals engineer | `microcosm tour --card <project>`, then "
-        "`microcosm status --card <project>`, then `microcosm authority --card` / "
-        "`microcosm workingness --card` |"
+        "| Safety/evals engineer | `plectis tour --card <project>`, then "
+        "`plectis status --card <project>`, then `plectis authority --card` / "
+        "`plectis workingness --card` |"
     ) in section
     for evidence_class in (
         "verified_macro_body_import",
@@ -199,7 +199,7 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     browser_path = text.split(
         "`http://127.0.0.1:8765/project/status` for the same compact status-card lens",
         1,
-    )[1].split("Use `microcosm status --card <project>`", 1)[0]
+    )[1].split("Use `plectis status --card <project>`", 1)[0]
 
     direct_hello = "PYTHONPATH=src python3 -m microcosm_core hello ."
     direct_tour_card = "PYTHONPATH=src python3 -m microcosm_core tour --card ."
@@ -222,20 +222,20 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
         in direct_path
     )
     assert "python3 -m microcosm_core.cli" not in direct_path
-    assert "microcosm hello ." in installed_path
-    assert "microcosm first-screen --card ." in installed_path
-    assert installed_path.index("microcosm hello .") < installed_path.index(
-        "microcosm tour --card ."
+    assert "plectis hello ." in installed_path
+    assert "plectis first-screen --card ." in installed_path
+    assert installed_path.index("plectis hello .") < installed_path.index(
+        "plectis tour --card ."
     )
-    assert installed_path.index("microcosm tour --card .") < installed_path.index(
-        "microcosm first-screen --card ."
+    assert installed_path.index("plectis tour --card .") < installed_path.index(
+        "plectis first-screen --card ."
     )
-    assert installed_path.index("microcosm first-screen --card .") < (
-        installed_path.index("microcosm status --card .")
+    assert installed_path.index("plectis first-screen --card .") < (
+        installed_path.index("plectis status --card .")
     )
-    assert "microcosm workingness --card" in installed_path
-    assert "microcosm evidence list . --limit 25" in installed_path
-    assert "microcosm evidence inspect . .microcosm/evidence/routes.json" in (
+    assert "plectis workingness --card" in installed_path
+    assert "plectis evidence list . --limit 25" in installed_path
+    assert "plectis evidence inspect . .microcosm/evidence/routes.json" in (
         installed_path
     )
     assert "\nmicrocosm workingness\n" not in installed_path
@@ -247,7 +247,7 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
         browser_path
     )
     assert "same compact one-screen\nreader map" in browser_path
-    assert "microcosm first-screen --card <project>" in browser_path
+    assert "plectis first-screen --card <project>" in browser_path
     assert browser_path.index("/project/first-screen") < browser_path.index(
         "/project/observatory-card"
     )
@@ -267,22 +267,22 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         1,
     )[0]
 
-    assert "microcosm hello <project>" in cold_start
+    assert "plectis hello <project>" in cold_start
     assert "It does not build\n`.microcosm/`" in cold_start
-    assert cold_start.index("microcosm hello <project>") < cold_start.index(
-        "1. `microcosm tour --card <project>`"
+    assert cold_start.index("plectis hello <project>") < cold_start.index(
+        "1. `plectis tour --card <project>`"
     )
     assert "The compact behavioral path is:" in cold_start
-    assert "3. Run `microcosm hello <project>`" in cold_start_steps
+    assert "3. Run `plectis hello <project>`" in cold_start_steps
     assert "python3 -m microcosm_core hello <project>" in cold_start_steps
     assert "python3 -m microcosm_core.cli hello <project>" not in cold_start_steps
-    assert "4. Run `microcosm tour --card <project>`" in cold_start_steps
-    assert cold_start_steps.index("microcosm hello <project>") < cold_start_steps.index(
-        "microcosm tour --card <project>"
+    assert "4. Run `plectis tour --card <project>`" in cold_start_steps
+    assert cold_start_steps.index("plectis hello <project>") < cold_start_steps.index(
+        "plectis tour --card <project>"
     )
 
     assert (
-        "The human first-screen text projection is `microcosm hello <project>`"
+        "The human first-screen text projection is `plectis hello <project>`"
         in agents
     )
     assert (
@@ -297,23 +297,23 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         "validates",
         1,
     )[1].split("Before publishing", 1)[0]
-    assert "Microcosm smoke check: pass" in agent_smoke
+    assert "Plectis smoke check: pass" in agent_smoke
     assert "authority: pass" in agent_smoke
     assert "workingness: clear" in agent_smoke
     assert "served status: pass" in agent_smoke
-    assert "microcosm first-screen --card ." in agent_smoke
+    assert "plectis first-screen --card ." in agent_smoke
     assert (
-        agent_smoke.index("microcosm hello .")
-        < agent_smoke.index("microcosm first-screen --card .")
-        < agent_smoke.index("microcosm tour --card .")
+        agent_smoke.index("plectis hello .")
+        < agent_smoke.index("plectis first-screen --card .")
+        < agent_smoke.index("plectis tour --card .")
     )
-    assert "`microcosm first-screen --card` is the compact JSON reader map" in agent_smoke
+    assert "`plectis first-screen --card` is the compact JSON reader map" in agent_smoke
     assert "The shared\n   state-writing behavior proof is" in agents
-    assert agents.index("microcosm hello <project>") < agents.index(
-        "microcosm tour --card <project>"
+    assert agents.index("plectis hello <project>") < agents.index(
+        "plectis tour --card <project>"
     )
-    assert agents.index("microcosm tour --card <project>") < agents.index(
-        "microcosm tour <project>"
+    assert agents.index("plectis tour --card <project>") < agents.index(
+        "plectis tour <project>"
     )
 
 
@@ -325,7 +325,7 @@ def test_agent_entry_routes_concepts_and_mechanisms_from_first_screen() -> None:
     )
 
     assert "## Concept And Mechanism Entry" in agents
-    assert "microcosm first-screen <project>" in agents
+    assert "plectis first-screen <project>" in agents
     assert "doctrine_effect_frame" in agents
     assert "standards/std_microcosm_concept.json" in agents
     assert "standards/std_microcosm_mechanism.json" in agents
@@ -347,11 +347,11 @@ def test_agent_entry_routes_concepts_and_mechanisms_from_first_screen() -> None:
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
         in allowed_drilldowns
     )
-    assert "microcosm first-screen <project>::doctrine_effect_frame" in allowed_drilldowns
+    assert "plectis first-screen <project>::doctrine_effect_frame" in allowed_drilldowns
     route = entry_packet["concept_mechanism_entry_route"]
     assert route["agent_entry_ref"] == "AGENTS.md::Concept And Mechanism Entry"
     assert route["first_screen_ref"] == (
-        "microcosm first-screen <project>::doctrine_effect_frame"
+        "plectis first-screen <project>::doctrine_effect_frame"
     )
     assert {row["kind_id"] for row in route["standards"]} == {
         "concept",

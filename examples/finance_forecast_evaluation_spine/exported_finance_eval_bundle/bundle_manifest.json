@@ -186,17 +186,17 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 677,
+      "line_count": 647,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/finance/model_selection_stats.py",
-      "sha256": "6c65ab3f31a1d50c32130a3c02c7e78954f6cfb15fc931a30286e33090796552",
+      "sha256": "45efb1601185d88c3795a9de7f58cde641c3b9954464c8c7fd520f7b5ab8501e",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/finance/model_selection_stats.py",
-      "source_sha256": "6c65ab3f31a1d50c32130a3c02c7e78954f6cfb15fc931a30286e33090796552",
+      "source_sha256": "45efb1601185d88c3795a9de7f58cde641c3b9954464c8c7fd520f7b5ab8501e",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/model_selection_stats.py",
-      "target_sha256": "6c65ab3f31a1d50c32130a3c02c7e78954f6cfb15fc931a30286e33090796552"
+      "target_sha256": "45efb1601185d88c3795a9de7f58cde641c3b9954464c8c7fd520f7b5ab8501e"
     },
     {
       "body_in_receipt": false,
@@ -244,7 +244,7 @@
       "line_count": 217,
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
-      "sha256": "2478d9e4ca08d662d39502f73bf462bbdd45ebeff0e0e53482431d3899583c26",
+      "sha256": "037fd485c34f2db235c8c9d890f128f830e3c77a7c563e218b98c9c876ef75b5",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
     }

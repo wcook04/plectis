@@ -105,11 +105,11 @@ def _observatory_serve_command(project_label: str) -> str:
     """Build the localhost observatory serve command string for the project label.
 
     - Teleology: keep the browser read-model serve command copyable from a single string builder.
-    - Guarantee: returns a `microcosm serve <label> --host 127.0.0.1 --port 8765` string bound to localhost only.
+    - Guarantee: returns a `plectis serve <label> --host 127.0.0.1 --port 8765` string bound to localhost only.
     - Fails: never raises; always returns a localhost-pinned string, never a hosted/public bind.
     - Non-goal: does not start a server, authorize hosting, or imply release readiness.
     """
-    return f"microcosm serve {project_label} --host 127.0.0.1 --port 8765"
+    return f"plectis serve {project_label} --host 127.0.0.1 --port 8765"
 
 
 def _bounded_observatory_serve_command(project_label: str) -> str:
@@ -316,10 +316,10 @@ def _standard_backed_first_screen_scan(
             continue
         route_id = str(row.get("reader_route_id", ""))
         terminal_command = (
-            f"microcosm hello --reader {route_id} {project_label}"
+            f"plectis hello --reader {route_id} {project_label}"
         )
         text_projection_command = (
-            "microcosm first-screen --format text --reader "
+            "plectis first-screen --format text --reader "
             f"{route_id} {project_label}"
         )
         terminal_ok = row.get("terminal_command") == terminal_command
@@ -603,8 +603,8 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             "reader_route_id": "public_github_visitor",
             "first_question": "What should I run first from the public repo page?",
             "next_commands": [
-                f"microcosm hello {project_label}",
-                f"microcosm tour --card {project_label}",
+                f"plectis hello {project_label}",
+                f"plectis tour --card {project_label}",
             ],
             "evidence_focus": [
                 "copyable first command and no-install fallback",
@@ -617,9 +617,9 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             "reader_route_id": "safety_evals_engineer",
             "first_question": "Does the evidence discipline survive contact with scale?",
             "next_commands": [
-                f"microcosm status --card {project_label}",
-                "microcosm authority --card",
-                "microcosm workingness --card",
+                f"plectis status --card {project_label}",
+                "plectis authority --card",
+                "plectis workingness --card",
             ],
             "evidence_focus": [
                 "evidence classes and their authority ceilings",
@@ -632,8 +632,8 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             "reader_route_id": "hiring_reviewer",
             "first_question": "Is this real, inspectable, and built with the judgment I would interview for?",
             "next_commands": [
-                "microcosm legibility-scorecard",
-                f"microcosm tour --card {project_label}",
+                "plectis legibility-scorecard",
+                f"plectis tour --card {project_label}",
             ],
             "evidence_focus": [
                 "local runnable behavior",
@@ -646,8 +646,8 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             "reader_route_id": "peer_developer",
             "first_question": "Can I clone it, run it, and understand the first useful path in an hour?",
             "next_commands": [
-                f"microcosm tour --card {project_label}",
-                f"microcosm observe --card {project_label}",
+                f"plectis tour --card {project_label}",
+                f"plectis observe --card {project_label}",
             ],
             "evidence_focus": [
                 "folder-local .microcosm state",
@@ -663,7 +663,7 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             ),
             "next_commands": [
                 "ORGANS.md#find-your-specialty",
-                f"microcosm tour --card {project_label}",
+                f"plectis tour --card {project_label}",
             ],
             "evidence_focus": [
                 "specialty-to-organ navigation",
@@ -679,8 +679,8 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
                 "patch if the route misleads me?"
             ),
             "next_commands": [
-                f"microcosm first-screen --card {project_label}",
-                "microcosm organ-surface-contract --card --root .",
+                f"plectis first-screen --card {project_label}",
+                "plectis organ-surface-contract --card --root .",
                 "AGENTS.md::Concept And Mechanism Entry",
             ],
             "evidence_focus": [
@@ -717,9 +717,9 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             {
                 "reader_route_id": "public_github_visitor",
                 "first_action": (
-                    f"Run `microcosm tour --card {project_label}` after this card."
+                    f"Run `plectis tour --card {project_label}` after this card."
                 ),
-                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "proof_surface": f"`plectis tour --card {project_label}`",
                 "source_checkout_first_action": (
                     "Run `PYTHONPATH=src python3 -m microcosm_core "
                     f"tour --card {project_label}` after this card."
@@ -738,11 +738,11 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             {
                 "reader_route_id": "safety_evals_engineer",
                 "first_action": (
-                    f"Run `microcosm tour --card {project_label}` first, then "
-                    f"`microcosm status --card {project_label}`."
+                    f"Run `plectis tour --card {project_label}` first, then "
+                    f"`plectis status --card {project_label}`."
                 ),
                 "proof_surface": (
-                    "`microcosm authority --card` plus `microcosm workingness --card`"
+                    "`plectis authority --card` plus `plectis workingness --card`"
                 ),
                 "source_checkout_first_action": (
                     "Run `PYTHONPATH=src python3 -m microcosm_core "
@@ -765,40 +765,40 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             {
                 "reader_route_id": "hiring_reviewer",
                 "first_action": (
-                    "Run `microcosm legibility-scorecard`, then "
-                    f"`microcosm tour --card {project_label}`."
+                    "Run `plectis legibility-scorecard`, then "
+                    f"`plectis tour --card {project_label}`."
                 ),
                 "proof_surface": (
-                    "`microcosm legibility-scorecard` plus "
-                    f"`microcosm tour --card {project_label}`"
+                    "`plectis legibility-scorecard` plus "
+                    f"`plectis tour --card {project_label}`"
                 ),
                 "success_criterion": (
                     "Can distinguish runnable local behavior from the claims this "
                     "public card explicitly refuses to make."
                 ),
-                "next_drilldown": "microcosm legibility-scorecard",
+                "next_drilldown": "plectis legibility-scorecard",
                 "authority": "inspection_order_only_not_candidate_assessment",
             },
             {
                 "reader_route_id": "peer_developer",
-                "first_action": f"Run `microcosm tour --card {project_label}`.",
-                "proof_surface": f"`microcosm observe --card {project_label}`",
+                "first_action": f"Run `plectis tour --card {project_label}`.",
+                "proof_surface": f"`plectis observe --card {project_label}`",
                 "success_criterion": (
                     "Can inspect folder-local .microcosm state and follow the "
                     "route/work/event/evidence chain without provider calls."
                 ),
-                "next_drilldown": f"microcosm observe {project_label}",
+                "next_drilldown": f"plectis observe {project_label}",
                 "authority": "inspection_order_only_not_integration_guarantee",
             },
             {
                 "reader_route_id": "domain_specialist",
                 "first_action": (
                     "Open `ORGANS.md#find-your-specialty`, then run "
-                    f"`microcosm tour --card {project_label}`."
+                    f"`plectis tour --card {project_label}`."
                 ),
                 "proof_surface": (
                     "`ORGANS.md#find-your-specialty` plus "
-                    f"`microcosm tour --card {project_label}`"
+                    f"`plectis tour --card {project_label}`"
                 ),
                 "source_checkout_first_action": (
                     "Open `ORGANS.md#find-your-specialty`, then run "
@@ -811,7 +811,7 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                     f"tour --card {project_label}`"
                 ),
                 "task_selector_command": (
-                    "microcosm agent-entry-composition --root . --task <domain> "
+                    "plectis agent-entry-composition --root . --task <domain> "
                     "--viewer human --card --check"
                 ),
                 "source_checkout_task_selector_command": (
@@ -831,13 +831,13 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             {
                 "reader_route_id": "type_a_agent",
                 "first_action": (
-                    f"Run `microcosm first-screen --card {project_label}`. "
+                    f"Run `plectis first-screen --card {project_label}`. "
                     "If you need `doctrine_effect_frame`, run "
-                    f"`microcosm first-screen --full {project_label}` before "
+                    f"`plectis first-screen --full {project_label}` before "
                     "reading it; then run "
-                    "`microcosm organ-surface-contract --card --root .`."
+                    "`plectis organ-surface-contract --card --root .`."
                 ),
-                "proof_surface": "`microcosm organ-surface-contract --card --root .`",
+                "proof_surface": "`plectis organ-surface-contract --card --root .`",
                 "source_checkout_first_action": (
                     "Run `PYTHONPATH=src python3 -m microcosm_core "
                     f"first-screen --card {project_label}`. If you need "
@@ -869,7 +869,7 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
     """Build the copyable reader-route menu (terminal + text-projection commands per reader).
 
     - Teleology: generated menu so reader-typed first screens are copyable without separate entry artifacts.
-    - Guarantee: returns a `microcosm_reader_route_menu_v1` dict whose `routes` carry the exact `microcosm hello --reader <id>` and `microcosm first-screen --format text --reader <id>` commands the standard scan expects, plus a `safe_to_show` block with all export/release flags False.
+    - Guarantee: returns a `microcosm_reader_route_menu_v1` dict whose `routes` carry the exact `plectis hello --reader <id>` and `plectis first-screen --format text --reader <id>` commands the standard scan expects, plus a `safe_to_show` block with all export/release flags False.
     - Fails: never raises; deterministic construction from `project_label`.
     - Escalates-to: command parity is asserted by _standard_backed_first_screen_scan.reader_command_parity.
     - Non-goal: does not create a new entry artifact, claim reader success, or claim release.
@@ -884,26 +884,26 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
             "Show the shared map and behavior proof first; focused reader commands "
             "only change the terminal projection, not the authority ceiling."
         ),
-        "default_command": f"microcosm hello {project_label}",
+        "default_command": f"plectis hello {project_label}",
         "alias_hint": READER_ROUTE_ALIAS_HINT,
-        "shared_behavior_command": f"microcosm tour --card {project_label}",
-        "machine_card_command": f"microcosm first-screen --card {project_label}",
-        "default_json_command": f"microcosm first-screen {project_label}",
+        "shared_behavior_command": f"plectis tour --card {project_label}",
+        "machine_card_command": f"plectis first-screen --card {project_label}",
+        "default_json_command": f"plectis first-screen {project_label}",
         "routes": [
             {
                 "reader_route_id": "public_github_visitor",
                 "label": READER_LABELS["public_github_visitor"],
                 "terminal_command": (
-                    f"microcosm hello --reader public_github_visitor {project_label}"
+                    f"plectis hello --reader public_github_visitor {project_label}"
                 ),
                 "text_projection_command": (
-                    "microcosm first-screen --format text "
+                    "plectis first-screen --format text "
                     f"--reader public_github_visitor {project_label}"
                 ),
                 "first_action": (
-                    f"Run `microcosm tour --card {project_label}` after this card."
+                    f"Run `plectis tour --card {project_label}` after this card."
                 ),
-                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "proof_surface": f"`plectis tour --card {project_label}`",
                 "source_checkout_first_action": (
                     "Run `PYTHONPATH=src python3 -m microcosm_core "
                     f"tour --card {project_label}` after this card."
@@ -920,18 +920,18 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "reader_route_id": "safety_evals_engineer",
                 "label": READER_LABELS["safety_evals_engineer"],
                 "terminal_command": (
-                    f"microcosm hello --reader safety_evals_engineer {project_label}"
+                    f"plectis hello --reader safety_evals_engineer {project_label}"
                 ),
                 "text_projection_command": (
-                    "microcosm first-screen --format text "
+                    "plectis first-screen --format text "
                     f"--reader safety_evals_engineer {project_label}"
                 ),
                 "first_action": (
-                    f"Run `microcosm tour --card {project_label}` first, then "
-                    f"`microcosm status --card {project_label}`."
+                    f"Run `plectis tour --card {project_label}` first, then "
+                    f"`plectis status --card {project_label}`."
                 ),
                 "proof_surface": (
-                    "`microcosm authority --card` plus `microcosm workingness --card`"
+                    "`plectis authority --card` plus `plectis workingness --card`"
                 ),
                 "source_checkout_first_action": (
                     "Run `PYTHONPATH=src python3 -m microcosm_core "
@@ -952,19 +952,19 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "reader_route_id": "hiring_reviewer",
                 "label": READER_LABELS["hiring_reviewer"],
                 "terminal_command": (
-                    f"microcosm hello --reader hiring_reviewer {project_label}"
+                    f"plectis hello --reader hiring_reviewer {project_label}"
                 ),
                 "text_projection_command": (
-                    "microcosm first-screen --format text "
+                    "plectis first-screen --format text "
                     f"--reader hiring_reviewer {project_label}"
                 ),
                 "first_action": (
-                    "Run `microcosm legibility-scorecard`, then "
-                    f"`microcosm tour --card {project_label}`."
+                    "Run `plectis legibility-scorecard`, then "
+                    f"`plectis tour --card {project_label}`."
                 ),
                 "proof_surface": (
-                    "`microcosm legibility-scorecard` plus "
-                    f"`microcosm tour --card {project_label}`"
+                    "`plectis legibility-scorecard` plus "
+                    f"`plectis tour --card {project_label}`"
                 ),
                 "exit_check": "separate runnable behavior from refused claims",
                 "not_a_claim": "candidate_assessed_or_interview_ready",
@@ -974,14 +974,14 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "reader_route_id": "peer_developer",
                 "label": READER_LABELS["peer_developer"],
                 "terminal_command": (
-                    f"microcosm hello --reader peer_developer {project_label}"
+                    f"plectis hello --reader peer_developer {project_label}"
                 ),
                 "text_projection_command": (
-                    "microcosm first-screen --format text "
+                    "plectis first-screen --format text "
                     f"--reader peer_developer {project_label}"
                 ),
-                "first_action": f"Run `microcosm tour --card {project_label}`.",
-                "proof_surface": f"`microcosm observe --card {project_label}`",
+                "first_action": f"Run `plectis tour --card {project_label}`.",
+                "proof_surface": f"`plectis observe --card {project_label}`",
                 "exit_check": "follow the route/work/event/evidence chain locally",
                 "not_a_claim": "integration_complete",
                 "authority": "focused_projection_only_not_integration_guarantee",
@@ -990,19 +990,19 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "reader_route_id": "domain_specialist",
                 "label": READER_LABELS["domain_specialist"],
                 "terminal_command": (
-                    f"microcosm hello --reader domain_specialist {project_label}"
+                    f"plectis hello --reader domain_specialist {project_label}"
                 ),
                 "text_projection_command": (
-                    "microcosm first-screen --format text "
+                    "plectis first-screen --format text "
                     f"--reader domain_specialist {project_label}"
                 ),
                 "first_action": (
                     "Open `ORGANS.md#find-your-specialty`, then run "
-                    f"`microcosm tour --card {project_label}`."
+                    f"`plectis tour --card {project_label}`."
                 ),
                 "proof_surface": (
                     "`ORGANS.md#find-your-specialty` plus "
-                    f"`microcosm tour --card {project_label}`"
+                    f"`plectis tour --card {project_label}`"
                 ),
                 "source_checkout_first_action": (
                     "Open `ORGANS.md#find-your-specialty`, then run "
@@ -1026,20 +1026,20 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "reader_route_id": "type_a_agent",
                 "label": READER_LABELS["type_a_agent"],
                 "terminal_command": (
-                    f"microcosm hello --reader type_a_agent {project_label}"
+                    f"plectis hello --reader type_a_agent {project_label}"
                 ),
                 "text_projection_command": (
-                    "microcosm first-screen --format text "
+                    "plectis first-screen --format text "
                     f"--reader type_a_agent {project_label}"
                 ),
                 "first_action": (
-                    f"Run `microcosm first-screen --card {project_label}`. "
+                    f"Run `plectis first-screen --card {project_label}`. "
                     "If you need `doctrine_effect_frame`, run "
-                    f"`microcosm first-screen --full {project_label}` before "
+                    f"`plectis first-screen --full {project_label}` before "
                     "reading it; then run "
-                    "`microcosm organ-surface-contract --card --root .`."
+                    "`plectis organ-surface-contract --card --root .`."
                 ),
-                "proof_surface": "`microcosm organ-surface-contract --card --root .`",
+                "proof_surface": "`plectis organ-surface-contract --card --root .`",
                 "source_checkout_first_action": (
                     "Run `PYTHONPATH=src python3 -m microcosm_core "
                     f"first-screen --card {project_label}`. If you need "
@@ -1081,10 +1081,10 @@ def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
     - Teleology: generated packet that turns the shared first run into inspectable success conditions.
     - Guarantee: returns a `microcosm_behavior_proof_packet_v1` dict with command, `writes_state: True`, `.microcosm` state_dir, the proof_fields to read (front_door_status.status, selected_route_id, state_inspection, source_files_mutated=False), and a local-receipt-not-release authority.
     - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: the actual `microcosm tour --card` run that writes .microcosm/ and front_door_status.
+    - Escalates-to: the actual `plectis tour --card` run that writes .microcosm/ and front_door_status.
     - Non-goal: does not authorize release, proof correctness, or safety evaluation.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     return {
         "schema_version": "microcosm_behavior_proof_packet_v1",
         "purpose": "turn_shared_first_run_into_inspectable_success_conditions",
@@ -1154,9 +1154,9 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
     - Escalates-to: each step's `microcosm` command and the behavior_proof_packet it points at.
     - Non-goal: does not run the ladder or claim quickstart-inventory completeness or release.
     """
-    human_first_command = f"microcosm hello {project_label}"
-    shared_first_command = f"microcosm tour --card {project_label}"
-    status_card_command = f"microcosm status --card {project_label}"
+    human_first_command = f"plectis hello {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
+    status_card_command = f"plectis status --card {project_label}"
     source_checkout_commands = _source_checkout_commands(project_label)
     return {
         "schema_version": "microcosm_first_run_ladder_v1",
@@ -1218,8 +1218,8 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
     - Escalates-to: the per-slot source_packet builders (first_run_ladder, reader_route_menu, evidence_count_frame, discipline_comparison_strip).
     - Non-goal: does not render, create a new claim, or claim renderer/release authority.
     """
-    human_first_command = f"microcosm hello {project_label}"
-    shared_first_command = f"microcosm tour --card {project_label}"
+    human_first_command = f"plectis hello {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     bounded_serve_command = _bounded_observatory_serve_command(project_label)
     must_preserve = [
         "authority_ceiling",
@@ -1353,7 +1353,7 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
             "terminal": human_first_command,
             "readme": "README.md::Choose Your First Screen",
             "browser": f"{bounded_serve_command} -> /",
-            "json": f"microcosm first-screen --card {project_label}",
+            "json": f"plectis first-screen --card {project_label}",
             "video": "video_storyboard_packet",
         },
         "safe_to_show": {
@@ -1376,7 +1376,7 @@ def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: does not authorize private-root equivalence, release, or proof correctness; refs are behavior evidence, not source mutation.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     return {
         "schema_version": "microcosm_local_state_receipt_trail_v1",
         "purpose": "show_what_the_first_run_writes_without_expanding_raw_state",
@@ -1431,11 +1431,11 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: does not export source bodies, authorize provider/source mutation, or claim release or proof correctness.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
-    status_card_command = f"microcosm status --card {project_label}"
-    observe_command = f"microcosm observe --card {project_label}"
-    observe_full_command = f"microcosm observe {project_label}"
-    proof_lab_command = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    shared_first_command = f"plectis tour --card {project_label}"
+    status_card_command = f"plectis status --card {project_label}"
+    observe_command = f"plectis observe --card {project_label}"
+    observe_full_command = f"plectis observe {project_label}"
+    proof_lab_command = "plectis proof-lab --out /tmp/microcosm-proof-lab"
     return {
         "schema_version": "microcosm_first_contact_surface_refs_v1",
         "purpose": (
@@ -1474,7 +1474,7 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
             "events": {
                 "command": observe_command,
                 "state_ref": ".microcosm/events.jsonl",
-                "status_ref": "microcosm observe --card <project>::spans",
+                "status_ref": "plectis observe --card <project>::spans",
                 "full_drilldown": observe_full_command,
             },
             "evidence": {
@@ -1487,7 +1487,7 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
                 "command": observe_command,
                 "state_ref": ".microcosm/graph.json",
                 "status_ref": (
-                    "microcosm observe --card <project>::causal_chain_summary.graph"
+                    "plectis observe --card <project>::causal_chain_summary.graph"
                 ),
                 "full_drilldown": observe_full_command,
             },
@@ -1517,10 +1517,10 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
                 "command": status_card_command,
                 "endpoint": "/project/status",
                 "body_import_floor_ref": (
-                    "microcosm status --card <project>::front_door."
+                    "plectis status --card <project>::front_door."
                     "source_open_body_import_floor"
                 ),
-                "workingness_command": "microcosm workingness --card",
+                "workingness_command": "plectis workingness --card",
             },
         },
         "safe_to_show": {
@@ -1547,7 +1547,7 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: not a marketing or release surface; it bounds claims, it does not make them.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     return {
         "schema_version": "microcosm_overclaim_tripwire_matrix_v1",
         "purpose": "translate_common_cold_reader_overclaims_into_valid_bounded_reads",
@@ -1560,7 +1560,7 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
                     "Plectis exposes a local first-run evidence card and "
                     "authority ceiling."
                 ),
-                "check_surface": f"microcosm status --card {project_label}",
+                "check_surface": f"plectis status --card {project_label}",
                 "reader_rule": "release_readiness_not_claimed",
             },
             {
@@ -1570,7 +1570,7 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
                     "Accepted public runtime organs are inventory handles with "
                     "evidence classes and failure envelopes."
                 ),
-                "check_surface": "microcosm workingness",
+                "check_surface": "plectis workingness",
                 "reader_rule": "organ_inventory_not_whole_system_correctness",
             },
             {
@@ -1619,7 +1619,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
     return {
         "schema_version": "microcosm_reader_exit_criteria_v1",
         "purpose": "tell_cold_readers_when_the_first_screen_has_done_its_job",
-        "shared_first_command": f"microcosm tour --card {project_label}",
+        "shared_first_command": f"plectis tour --card {project_label}",
         "shared_stop_rule": (
             "The first screen is complete when the reader can choose the next "
             "drilldown without needing the long command inventory."
@@ -1631,7 +1631,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                     "Can run the first command and point to the anti-claims "
                     "before opening deeper receipts."
                 ),
-                "next_if_not_met": f"microcosm hello {project_label}",
+                "next_if_not_met": f"plectis hello {project_label}",
                 "not_a_claim": "publication_or_reader_success_ready",
             },
             {
@@ -1640,7 +1640,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                     "Can name evidence-class ceilings, authority ceiling, and "
                     "first missing or failing surface without inferring readiness."
                 ),
-                "next_if_not_met": f"microcosm status --card {project_label}",
+                "next_if_not_met": f"plectis status --card {project_label}",
                 "not_a_claim": "safety_evaluation_complete",
             },
             {
@@ -1649,7 +1649,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                     "Can distinguish runnable local behavior from the claims this "
                     "card refuses to make."
                 ),
-                "next_if_not_met": "microcosm legibility-scorecard",
+                "next_if_not_met": "plectis legibility-scorecard",
                 "not_a_claim": "candidate_assessed_or_interview_ready",
             },
             {
@@ -1658,7 +1658,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                     "Can find .microcosm state refs and follow the "
                     "route/work/event/evidence chain."
                 ),
-                "next_if_not_met": f"microcosm observe --card {project_label}",
+                "next_if_not_met": f"plectis observe --card {project_label}",
                 "not_a_claim": "integration_complete",
             },
             {
@@ -1678,7 +1678,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                     "surface to patch if the route misleads."
                 ),
                 "next_if_not_met": (
-                    "microcosm organ-surface-contract --card --root ."
+                    "plectis organ-surface-contract --card --root ."
                 ),
                 "not_a_claim": "agent_autonomy_or_source_mutation_ready",
             },
@@ -1696,8 +1696,8 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
     - Escalates-to: first_screen_composition_card as the named source_projection every beat points back to.
     - Non-goal: not a release artifact, benchmark, hosted demo, or private-root equivalence claim.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
-    status_card_command = f"microcosm status --card {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
+    status_card_command = f"plectis status --card {project_label}"
     observatory_command = _bounded_observatory_serve_command(project_label)
     return {
         "schema_version": "microcosm_video_storyboard_packet_v1",
@@ -1722,7 +1722,7 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
             {
                 "beat_id": "open_map",
                 "timebox_seconds": 8,
-                "visible_surface": f"microcosm hello {project_label}",
+                "visible_surface": f"plectis hello {project_label}",
                 "reader_takeaway": "one screen names the local evidence router",
                 "proof_ref": "terminal_text_projection",
             },
@@ -1736,7 +1736,7 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
             {
                 "beat_id": "show_route_chain",
                 "timebox_seconds": 10,
-                "visible_surface": f"microcosm observe --card {project_label}",
+                "visible_surface": f"plectis observe --card {project_label}",
                 "reader_takeaway": "route, work, event, evidence, and graph refs join",
                 "proof_ref": ".microcosm/events.jsonl + .microcosm/graph.json",
             },
@@ -1751,7 +1751,7 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
                 "beat_id": "open_authority_boundary",
                 "timebox_seconds": 10,
                 "visible_surface": (
-                    "microcosm authority --card, then microcosm workingness --card"
+                    "plectis authority --card, then plectis workingness --card"
                 ),
                 "reader_takeaway": "authority ceilings and failure envelopes stay visible",
                 "proof_ref": WORKINGNESS_MAP_REF,
@@ -1791,9 +1791,9 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
     - Escalates-to: the named source_projection per row (first_screen_text_card, first_screen_compact_card, readme_entry_contract, observatory_landing_frame).
     - Non-goal: does not create a new release artifact or reader-specific claim ceiling.
     """
-    human_first_command = f"microcosm hello {project_label}"
-    shared_first_command = f"microcosm tour --card {project_label}"
-    first_screen_json_command = f"microcosm first-screen --card {project_label}"
+    human_first_command = f"plectis hello {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
+    first_screen_json_command = f"plectis first-screen --card {project_label}"
     bounded_observatory_command = _bounded_observatory_serve_command(project_label)
     shared_must_preserve = [
         "human_first_command",
@@ -1842,7 +1842,7 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
                 "surface_id": "local_behavior_card",
                 "artifact_form": "terminal_state_writer",
                 "consumer_surface": shared_first_command,
-                "source_projection": "microcosm tour --card output",
+                "source_projection": "plectis tour --card output",
                 "first_job": "write_local_state_and_expose_behavior_proof",
                 "must_preserve": [
                     *shared_must_preserve,
@@ -1927,8 +1927,8 @@ def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: does not create a new entry artifact or claim strategy/release authority.
     """
-    human_first_command = f"microcosm hello {project_label}"
-    shared_first_command = f"microcosm tour --card {project_label}"
+    human_first_command = f"plectis hello {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     return {
         "schema_version": "microcosm_cold_entry_problem_map_v1",
         "purpose": "bind_cold_entry_problem_shapes_to_existing_first_screen_packets",
@@ -2067,7 +2067,7 @@ def _evidence_count_frame() -> dict[str, Any]:
                 ),
             },
             {
-                "surface": "microcosm workingness",
+                "surface": "plectis workingness",
                 "role": "runtime evidence summary",
             },
             {
@@ -2475,12 +2475,12 @@ def _scale_frame(root: Path) -> dict[str, Any]:
             },
             {
                 "handle": "workingness map",
-                "command": "microcosm workingness",
+                "command": "plectis workingness",
                 "ref": WORKINGNESS_MAP_REF,
             },
             {
                 "handle": "authority boundary",
-                "command": "microcosm authority",
+                "command": "plectis authority",
             },
             {
                 "handle": "localhost observatory",
@@ -2531,7 +2531,7 @@ def _discipline_comparison_strip(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: not a benchmark, superiority, or maturity claim.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     return {
         "schema_version": "microcosm_discipline_comparison_strip_v1",
         "purpose": "make_microcosm_rigor_visible_as_operational_differences",
@@ -2707,9 +2707,9 @@ def _readme_entry_contract(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: a documentation-order contract, not a runtime proof or release authority.
     """
-    human_first_command = f"microcosm hello {project_label}"
-    shared_first_command = f"microcosm tour --card {project_label}"
-    first_screen_json_command = f"microcosm first-screen --card {project_label}"
+    human_first_command = f"plectis hello {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
+    first_screen_json_command = f"plectis first-screen --card {project_label}"
     return {
         "schema_version": "microcosm_readme_entry_contract_v1",
         "purpose": "make_package_backed_first_screen_card_the_readme_entry_surface",
@@ -2773,7 +2773,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
     - Non-goal: a reuse contract, not a runtime proof or release authority.
     """
     return {
-        "shared_behavior_surface": f"microcosm tour --card {project_label}",
+        "shared_behavior_surface": f"plectis tour --card {project_label}",
         "package_surface": (
             "microcosm_core.first_screen_composition.first_screen_composition_card"
         ),
@@ -2811,7 +2811,7 @@ def _runnable_structural_join(project_label: str) -> dict[str, Any]:
     """
     return {
         "local_behavior": (
-            f"`microcosm tour --card {project_label}` is the first folder-local behavior surface: "
+            f"`plectis tour --card {project_label}` is the first folder-local behavior surface: "
             "it lets a reader see compact local state before choosing a route."
         ),
         "structural_context": (
@@ -2831,8 +2831,8 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
     - Escalates-to: first_screen_text_card as the named source_projection the browser landing reuses.
     - Non-goal: a localhost read-model boundary; it authorizes no hosting, release, or whole-system correctness.
     """
-    human_first_command = f"microcosm hello {project_label}"
-    shared_first_command = f"microcosm tour --card {project_label}"
+    human_first_command = f"plectis hello {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     serve_command = _observatory_serve_command(project_label)
     bounded_serve_command = _bounded_observatory_serve_command(project_label)
     return {
@@ -2949,19 +2949,19 @@ def _drilldowns(project_label: str) -> list[dict[str, str]]:
         },
         {
             "drilldown_id": "shared_first_card",
-            "command": f"microcosm tour --card {project_label}",
+            "command": f"plectis tour --card {project_label}",
         },
         {
             "drilldown_id": "status_card",
-            "command": f"microcosm status --card {project_label}",
+            "command": f"plectis status --card {project_label}",
         },
         {
             "drilldown_id": "authority",
-            "command": "microcosm authority",
+            "command": "plectis authority",
         },
         {
             "drilldown_id": "workingness",
-            "command": "microcosm workingness",
+            "command": "plectis workingness",
         },
         {
             "drilldown_id": "evidence_class_registry",
@@ -3252,11 +3252,11 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     }
     return {
         "shared_first_command": payload.get("shared_first_command", "").startswith(
-            "microcosm tour --card "
+            "plectis tour --card "
         ),
         "human_first_command": (
             isinstance(human_first_command, str)
-            and human_first_command.startswith("microcosm hello ")
+            and human_first_command.startswith("plectis hello ")
             and human_first_command != shared_first_command
         ),
         "text_projection": (
@@ -3309,9 +3309,9 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and reader_route_menu.get("shared_behavior_command")
             == shared_first_command
             and reader_route_menu.get("machine_card_command")
-            == f"microcosm first-screen --card {payload.get('project_label')}"
+            == f"plectis first-screen --card {payload.get('project_label')}"
             and reader_route_menu.get("default_json_command")
-            == f"microcosm first-screen {payload.get('project_label')}"
+            == f"plectis first-screen {payload.get('project_label')}"
             and reader_route_menu_ids == REQUIRED_ROUTE_IDS
             and all(
                 isinstance(row, dict)
@@ -3319,13 +3319,13 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 and isinstance(row.get("terminal_command"), str)
                 and row["terminal_command"]
                 == (
-                    "microcosm hello --reader "
+                    "plectis hello --reader "
                     f"{row.get('reader_route_id')} {payload.get('project_label')}"
                 )
                 and isinstance(row.get("text_projection_command"), str)
                 and row["text_projection_command"]
                 == (
-                    "microcosm first-screen --format text --reader "
+                    "plectis first-screen --format text --reader "
                     f"{row.get('reader_route_id')} {payload.get('project_label')}"
                 )
                 and isinstance(row.get("first_action"), str)
@@ -3396,7 +3396,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and first_run_commands.get("map") == human_first_command
             and first_run_commands.get("behavior_proof") == shared_first_command
             and first_run_commands.get("status_confirmation")
-            == f"microcosm status --card {payload.get('project_label', '<project>')}"
+            == f"plectis status --card {payload.get('project_label', '<project>')}"
             and all(
                 isinstance(row, dict)
                 and "writes_microcosm_state" in row
@@ -3485,7 +3485,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 f"{_bounded_observatory_serve_command(str(payload.get('project_label')))} -> /"
             )
             and first_viewport_consumer_surfaces.get("json")
-            == f"microcosm first-screen --card {payload.get('project_label')}"
+            == f"plectis first-screen --card {payload.get('project_label')}"
             and first_viewport_consumer_surfaces.get("video")
             == "video_storyboard_packet"
             and first_viewport_safe_to_show.get("uses_existing_first_screen_packets")
@@ -3547,9 +3547,9 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             )
             == OBSERVATORY_LANDING_ENDPOINTS["compact_observatory_card"]
             and first_contact_surfaces.get("proof_lab", {}).get("command")
-            == "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+            == "plectis proof-lab --out /tmp/microcosm-proof-lab"
             and first_contact_surfaces.get("status", {}).get("command")
-            == f"microcosm status --card {payload.get('project_label', '<project>')}"
+            == f"plectis status --card {payload.get('project_label', '<project>')}"
             and first_contact_surface_refs.get("safe_to_show", {}).get(
                 "body_text_exported"
             )
@@ -3993,7 +3993,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and (human_first_command, shared_first_command) in readme_order_pairs
             and (
                 shared_first_command,
-                "microcosm first-screen --card "
+                "plectis first-screen --card "
                 f"{payload.get('project_label', '<project>')}",
             )
             in readme_order_pairs
@@ -4105,7 +4105,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             authority_ceiling.get(key) is False for key in DENIED_AUTHORITY_KEYS
         ),
         "omission_receipt": bool(payload.get("omission_receipt", {}).get("drilldown")),
-        "workingness_drilldown": "microcosm workingness" in drilldown_text,
+        "workingness_drilldown": "plectis workingness" in drilldown_text,
     }
 
 
@@ -4117,7 +4117,7 @@ def _state_write_boundary(project_label: str) -> dict[str, Any]:
     - Fails: never raises; deterministic from `project_label`.
     - Non-goal: does not mutate source, authorize provider calls, release, or proof correctness.
     """
-    shared_first_command = f"microcosm tour --card {project_label}"
+    shared_first_command = f"plectis tour --card {project_label}"
     return {
         "schema_version": "microcosm_first_screen_state_write_boundary_v1",
         "this_card_writes_microcosm_state": False,
@@ -4165,16 +4165,16 @@ def first_screen_composition_card(
         "composition_root_id": standard["kind_id"],
         "source_standard_ref": str(STANDARD_REF),
         "pre_install_probe": pre_install_probe,
-        "human_first_command": f"microcosm hello {project_label}",
-        "shared_first_command": f"microcosm tour --card {project_label}",
+        "human_first_command": f"plectis hello {project_label}",
+        "shared_first_command": f"plectis tour --card {project_label}",
         "source_checkout_commands": source_checkout_commands,
         "text_projection": {
-            "command": f"microcosm hello {project_label}",
+            "command": f"plectis hello {project_label}",
             "pre_install_probe_command": pre_install_probe["command"],
             "pre_install_probe_receipt": pre_install_probe["receipt_ref"],
             "source_checkout_command": source_checkout_commands["hello"],
             "writes_microcosm_state": False,
-            "behavioral_proof_command": f"microcosm tour --card {project_label}",
+            "behavioral_proof_command": f"plectis tour --card {project_label}",
             "source_checkout_behavioral_proof_command": source_checkout_commands[
                 "behavior_proof"
             ],
@@ -4404,17 +4404,17 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
     - Teleology: public projection giving consumers a summary-first card under a char budget while preserving full-contract drilldowns.
     - Guarantee: returns a `microcosm_first_screen_compact_card_v1` dict carrying the source status, compact reader-route/first-run/evidence/validation projections, the authority_ceiling/anti_claim/public_private_boundary, and an omission_receipt naming the omitted full-contract keys and the full-contract command.
     - Fails: never raises; missing payload sections degrade to None/empty compact fields, not an exception.
-    - When-needed: when emitting `microcosm first-screen --card` output.
-    - Escalates-to: the full card via output_policy.full_contract_command (`microcosm first-screen --full`).
+    - When-needed: when emitting `plectis first-screen --card` output.
+    - Escalates-to: the full card via output_policy.full_contract_command (`plectis first-screen --full`).
     - Non-goal: a GENERATED compact projection of an existing card; authorizes no release and is not source-of-truth.
     """
     project_label = str(payload.get("project_label") or "<project>")
     route_menu = payload.get("reader_route_menu", {})
     state_boundary = payload.get("state_write_boundary", {})
-    full_json_command = f"microcosm first-screen --full {project_label}"
-    text_projection_command = f"microcosm first-screen --format text {project_label}"
-    compact_card_command = f"microcosm first-screen --card {project_label}"
-    default_json_command = f"microcosm first-screen {project_label}"
+    full_json_command = f"plectis first-screen --full {project_label}"
+    text_projection_command = f"plectis first-screen --format text {project_label}"
+    compact_card_command = f"plectis first-screen --card {project_label}"
+    default_json_command = f"plectis first-screen {project_label}"
     card: dict[str, Any] = {
         "schema_version": "microcosm_first_screen_compact_card_v1",
         "compact_projection_of": payload.get("schema_version"),
@@ -4750,7 +4750,7 @@ def _reader_branch_lines(
     if display_reader_id in INTERESTING_PARTS_ALIASES:
         task_selector_lines.append(
             "  Interesting-parts selector: "
-            "`microcosm agent-entry-composition --root . --task interesting-parts "
+            "`plectis agent-entry-composition --root . --task interesting-parts "
             "--viewer human --card --check` | Source-only: "
             "`PYTHONPATH=src python3 -m microcosm_core agent-entry-composition "
             "--root . --task interesting-parts --viewer human --card --check`"
@@ -4845,7 +4845,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     - Teleology: public text projection rendering the same card as a budget-bounded terminal screen, optionally focused on one reader.
     - Guarantee: returns a newline-terminated text card (<= TEXT_CARD_MAX_LINES lines) over the same authority ceiling; `reader_id="all"` shows every reader branch, an alias focuses one.
     - Fails: raises ValueError when `reader_id` is not in TEXT_READER_CHOICES or when the assembled card would exceed the line budget.
-    - When-needed: when emitting `microcosm first-screen --format text` or the browser/observatory text landing.
+    - When-needed: when emitting `plectis first-screen --format text` or the browser/observatory text landing.
     - Escalates-to: first_screen_composition_card as the source card this projects; normalize_reader_route_id resolves the alias.
     - Non-goal: a GENERATED text projection; authorizes no release, hosting, provider calls, or whole-system correctness.
     """
@@ -4857,7 +4857,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     packet_by_id = _reader_packet_map(payload)
     menu_by_id = _reader_menu_map(payload)
     human_first_command = payload.get(
-        "human_first_command", "microcosm hello <project>"
+        "human_first_command", "plectis hello <project>"
     )
     source_checkout_commands = payload.get("source_checkout_commands", {})
     pre_install_probe = payload.get("pre_install_probe", {})
@@ -4908,12 +4908,12 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         else ""
     )
     check_state_line = (
-        f"Check state: microcosm status --card {payload['project_label']} | "
+        f"Check state: plectis status --card {payload['project_label']} | "
         f"Source-only status: {source_status_command} | "
         f"{check_state_suffix}{source_agent_entry_suffix}"
         if source_status_command
         else (
-            f"Check state: microcosm status --card {payload['project_label']} | "
+            f"Check state: plectis status --card {payload['project_label']} | "
             f"{check_state_suffix}{source_agent_entry_suffix}"
         )
     )
@@ -4923,9 +4923,9 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         else "Pre-install probe: see QUICKSTART.md"
     )
     lines = [
-        "Microcosm first screen",
+        "Plectis first screen",
         (
-            'Have a goal? microcosm comprehend --first-action "<your goal>" | '
+            'Have a goal? plectis comprehend --first-action "<your goal>" | '
             "Source-only: PYTHONPATH=src python3 -m microcosm_core comprehend "
             '--first-action "<your goal>" | Demonstrated in FIRST_ACTION.md'
         ),
@@ -4966,7 +4966,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
             "terminal, README, browser, JSON, and video reuse this card; "
             "problem map names the gaps."
         ),
-        "  authority/workingness: microcosm authority --card / microcosm workingness --card",
+        "  authority/workingness: plectis authority --card / plectis workingness --card",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",
         "",
         "Authority ceiling: No release, hosted publication, provider-call, source-mutation, private-equivalence, score-progress, or whole-system-correctness authority.",
