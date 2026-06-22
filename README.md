@@ -60,27 +60,19 @@ and the three things it holds for every line in it:
 - **Bounded.** Each finding records where its authority stops, kept as machine
   state rather than buried in disclaimers.
 
-Read that loop top to bottom:
+What one run does, step by step:
 
-```mermaid
-flowchart TD
-    A["A code repository"]
-    B["Local inspection"]
-    C["An inspectable record"]
-    D["Bound findings<br/>evidence · source · scope"]
-    E["Reader control<br/>read · rerun · challenge · go deeper"]
-    A -->|"1 · run Plectis locally"| B
-    B -->|"2 · select a route, write the record"| C
-    C -->|"3 · bind each finding"| D
-    D -->|"4 · expose the result and its limits"| E
-```
+1. **You run Plectis locally on a repository.** It reads the project on your
+   machine, with no network and no provider calls.
+2. **It picks a route and writes the record.** It chooses a way through the
+   project and leaves an inspectable local result, without changing your source.
+3. **It binds each finding.** Every consequential finding names the evidence that
+   backs it, the source it came from, and where its authority stops.
+4. **You take control of the result.** Read the basis of any finding, run it
+   again, challenge it, or follow a deeper route.
 
-| Step | What happens | What it means |
-|---|---|---|
-| 1 | You run Plectis locally on a repository | It reads the project on your machine, with no network and no provider calls. |
-| 2 | It selects a route and writes the record | It picks a way through the project and leaves an inspectable local result, without changing your source. |
-| 3 | It binds each finding | Every consequential finding states the evidence that backs it, the source it came from, and where its authority stops. |
-| 4 | You take control of the result | You can read the basis of any finding, run it again, challenge it, or follow a deeper route. |
+The actual component map lives in [Architecture](ARCHITECTURE.md), and as an
+interactive map on the [website](https://wcook04.github.io/plectis/).
 
 ## Run it
 

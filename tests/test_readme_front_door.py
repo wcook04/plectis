@@ -8,7 +8,6 @@ assert the specific blocking code, proving the validator is not decorative.
 
 from __future__ import annotations
 
-import re
 import shutil
 from pathlib import Path
 
@@ -65,12 +64,8 @@ def test_real_readme_satisfies_front_door_contract() -> None:
     findings = receipt["findings"]
     assert findings["h1"] == "Plectis"
     assert findings["witness_command_bound"] is True
-    assert findings["vertical_diagram_present"] is True
     assert findings["hero_banned_terms"] == []
-    # The numbered process diagram and its parity table agree, and the primary
-    # human witness is the text projection (not raw JSON).
-    assert findings["diagram_edge_numbers"] == [1, 2, 3, 4]
-    assert sorted(set(findings["table_step_numbers"])) == [1, 2, 3, 4]
+    # The primary human witness is the text projection, not raw JSON.
     assert findings["human_text_witness_present"] is True
 
 
@@ -135,40 +130,11 @@ def test_blocks_missing_banner(tmp_path: Path) -> None:
     assert "README_BANNER_MISSING" in receipt["blocking_codes"]
 
 
-def test_blocks_horizontal_diagram(tmp_path: Path) -> None:
-    root = _front_door_tree(tmp_path)
-    _mutate(root, "flowchart TD", "flowchart LR")
-    receipt = validate_readme_front_door(root)
-    assert "README_VERTICAL_DIAGRAM_MISSING" in receipt["blocking_codes"]
-
-
 def test_blocks_em_dash_in_banner_alt(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(root, "a local record whose findings", "a local record — whose findings")
     receipt = validate_readme_front_door(root)
     assert "README_BANNER_ALT_EM_DASH" in receipt["blocking_codes"]
-
-
-def test_blocks_unnumbered_diagram_edges(tmp_path: Path) -> None:
-    root = _front_door_tree(tmp_path)
-    readme = root / "README.md"
-    # Strip the "N · " prefix from every mermaid edge label.
-    text = re.sub(r'(-->\s*\|\s*")\d+ · ', r"\1", readme.read_text(encoding="utf-8"))
-    readme.write_text(text, encoding="utf-8")
-    receipt = validate_readme_front_door(root)
-    assert "README_DIAGRAM_EDGES_UNNUMBERED" in receipt["blocking_codes"]
-
-
-def test_blocks_diagram_table_parity_mismatch(tmp_path: Path) -> None:
-    root = _front_door_tree(tmp_path)
-    # Break the step table's numbering so it no longer matches the diagram edges.
-    _mutate(
-        root,
-        "| 1 | You run Plectis locally on a repository |",
-        "| 9 | You run Plectis locally on a repository |",
-    )
-    receipt = validate_readme_front_door(root)
-    assert "README_DIAGRAM_TABLE_PARITY_MISMATCH" in receipt["blocking_codes"]
 
 
 def test_blocks_json_only_witness(tmp_path: Path) -> None:

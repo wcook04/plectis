@@ -23,7 +23,7 @@ def test_readme_is_a_bound_human_front_door() -> None:
     # Assurance-preserving projection migration (2026-06-22): the README is the
     # human front door. Its first-screen contract and its bindings (banner,
     # single H1, recognition promise, route rail, witness command bound to the
-    # canonical first command, vertical diagram, resolving links, no hero
+    # canonical first command, human-text witness, resolving links, no hero
     # ontology leak, no overclaim, compatibility note present) are owned by the
     # binding validator (validators/readme_front_door.py), exercised
     # adversarially in tests/test_readme_front_door.py. This test asserts the
@@ -35,7 +35,7 @@ def test_readme_is_a_bound_human_front_door() -> None:
     assert findings["h1"] == "Plectis"
     assert findings["hero_banned_terms"] == []
     assert findings["witness_command_bound"] is True
-    assert findings["vertical_diagram_present"] is True
+    assert findings["human_text_witness_present"] is True
     assert findings["compatibility_note_present"] is True
 
 

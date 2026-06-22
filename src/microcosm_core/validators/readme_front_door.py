@@ -13,8 +13,8 @@ This validator is the missing third plane of the public entry assurance model:
     and the prose must not overclaim beyond its evidence.
 
 It deliberately queries SEMANTIC STRUCTURE (heading tree, hero region, fenced
-code blocks, links, the banner, the diagram) and BINDINGS (witness -> entry
-packet, links -> files), never a hand-written snapshot of the README's prose.
+code blocks, links, the banner, the human-text witness) and BINDINGS (witness ->
+entry packet, links -> files), never a hand-written snapshot of the README's prose.
 That is what lets the human front door evolve freely while its truth stays
 bound. Reuses the overclaim patterns from public_entry_docs so the no-overclaim
 guard has one owner.
@@ -191,13 +191,6 @@ def validate_readme_front_door(
     elif not witness_present:
         blocking.append("README_WITNESS_COMMAND_UNBOUND")
 
-    # --- 7. a vertical explanatory diagram (flowchart TD) ---
-    findings["vertical_diagram_present"] = bool(
-        re.search(r"```mermaid\s+flowchart\s+TD", text)
-    )
-    if not findings["vertical_diagram_present"]:
-        blocking.append("README_VERTICAL_DIAGRAM_MISSING")
-
     # --- 8. all relative links resolve (files + same-doc anchors) ---
     slugs = {_anchor_slug(h) for _, h in _headings(text)}
     broken: list[str] = []
@@ -227,32 +220,7 @@ def validate_readme_front_door(
     if not findings["compatibility_note_present"]:
         blocking.append("README_COMPATIBILITY_NOTE_MISSING")
 
-    # --- 11. numbered process diagram with a parity table ---
-    # The explanatory diagram is a RUNTIME STORY: edges carry numbered
-    # transitions, and an adjacent table restates the same numbers in prose
-    # (which also serves as the accessible text equivalent). Assert the edge
-    # numbering is sequential and unique and that the diagram edges and the table
-    # steps agree. We check structure/parity, NOT the natural-language labels.
-    mermaid_m = re.search(r"```mermaid\s+(.*?)```", text, flags=re.DOTALL)
-    edge_numbers: list[int] = []
-    if mermaid_m:
-        # edge labels look like:  A -->|"1 · run Plectis locally"| B
-        edge_numbers = [
-            int(n) for n in re.findall(r"-->\s*\|\s*\"?\s*(\d+)", mermaid_m.group(1))
-        ]
-    # table step numbers: leading "| N |" cells in the step table rows
-    table_numbers = [int(n) for n in re.findall(r"^\|\s*(\d+)\s*\|", text, re.MULTILINE)]
-    findings["diagram_edge_numbers"] = edge_numbers
-    findings["table_step_numbers"] = table_numbers
-    expected_seq = list(range(1, len(edge_numbers) + 1))
-    if not edge_numbers:
-        blocking.append("README_DIAGRAM_EDGES_UNNUMBERED")
-    elif edge_numbers != expected_seq:
-        blocking.append("README_DIAGRAM_EDGE_NUMBERING_NONSEQUENTIAL")
-    elif sorted(set(table_numbers)) != expected_seq:
-        blocking.append("README_DIAGRAM_TABLE_PARITY_MISMATCH")
-
-    # --- 12. the primary human witness is a TEXT projection, not raw JSON ---
+    # --- 11. the primary human witness is a TEXT projection, not raw JSON ---
     # The first demonstration a human meets must be the human-readable summary;
     # the machine JSON card stays available as a deeper route (check 6 binds the
     # canonical first command). This guards against regressing the "See it work"
