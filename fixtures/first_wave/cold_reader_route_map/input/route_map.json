@@ -7,9 +7,9 @@
       "route_id": "tour_project",
       "ordinal": 1,
       "title": "Run the compressed first-screen tour",
-      "command": "microcosm tour <project>",
+      "command": "plectis tour <project>",
       "docs_refs": [
-        "README.md#try-it-on-your-repo",
+        "README.md#run-it",
         "AGENTS.md#rules"
       ],
       "shows": [
@@ -25,9 +25,9 @@
       "route_id": "status_card",
       "ordinal": 2,
       "title": "Inspect the compressed status lens",
-      "command": "microcosm status --card <project>",
+      "command": "plectis status --card <project>",
       "docs_refs": [
-        "README.md#try-it-on-your-repo",
+        "README.md#run-it",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [
@@ -43,16 +43,16 @@
       "route_id": "proof_lab",
       "ordinal": 3,
       "title": "Run the bounded proof-lab route",
-      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
       "docs_refs": [
-        "README.md#try-it-on-your-repo",
+        "README.md#run-it",
         "AGENTS.md#rules"
       ],
       "shows": [
         "formal_prover_context_strategy_gate",
         "Lean/Lake return code",
         "route component count",
-        "safe-to-show proof payload boundary"
+        "proof payload boundary"
       ],
       "authority_note": "bounded public witness only; not general proof correctness authority"
     },
@@ -60,9 +60,9 @@
       "route_id": "compile_project",
       "ordinal": 4,
       "title": "Compile a repo into local substrate state",
-      "command": "microcosm compile <project>",
+      "command": "plectis compile <project>",
       "docs_refs": [
-        "README.md#first-run",
+        "README.md#run-it",
         "AGENTS.md#rules"
       ],
       "shows": [
@@ -77,9 +77,9 @@
       "route_id": "inspect_route",
       "ordinal": 5,
       "title": "Inspect one route card before opening raw JSON",
-      "command": "microcosm explain <project> <selected_route_id>",
+      "command": "plectis explain <project> <selected_route_id>",
       "docs_refs": [
-        "README.md#architecture-kernel",
+        "ARCHITECTURE.md#level-1-the-local-runtime-loop",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [
@@ -95,9 +95,9 @@
       "route_id": "open_observatory",
       "ordinal": 6,
       "title": "Open the local observatory after route selection",
-      "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+      "command": "plectis serve <project> --host 127.0.0.1 --port 8765",
       "docs_refs": [
-        "README.md#architecture-kernel",
+        "ARCHITECTURE.md#level-1-the-local-runtime-loop",
         "paper_modules/public_reveal_walkthrough.md"
       ],
       "shows": [
@@ -111,9 +111,9 @@
       "route_id": "inspect_public_spine",
       "ordinal": 7,
       "title": "Inspect accepted public runtime organs",
-      "command": "microcosm spine",
+      "command": "plectis spine",
       "docs_refs": [
-        "README.md#internal-runtime-spine",
+        "ARCHITECTURE.md#level-3-the-organ-spine-grouped-into-families",
         "AGENTS.md#accepted-public-runtime-spine"
       ],
       "shows": [
@@ -128,9 +128,9 @@
       "route_id": "open_import_bridge",
       "ordinal": 8,
       "title": "Open projection intake without private macro context",
-      "command": "microcosm intake",
+      "command": "plectis intake",
       "docs_refs": [
-        "README.md#try-it-on-your-repo",
+        "README.md#run-it",
         "paper_modules/macro_projection_import_protocol.md"
       ],
       "shows": [
@@ -144,9 +144,9 @@
       "route_id": "open_reveal_board",
       "ordinal": 9,
       "title": "Open the ten-minute public reveal board",
-      "command": "microcosm reveal",
+      "command": "plectis reveal",
       "docs_refs": [
-        "README.md#try-it-on-your-repo",
+        "README.md#run-it",
         "paper_modules/public_reveal_walkthrough.md"
       ],
       "shows": [
@@ -161,9 +161,9 @@
       "route_id": "inspect_cold_reader_route_map",
       "ordinal": 10,
       "title": "Validate the route map itself",
-      "command": "microcosm cold-reader-route-map run-route-map-bundle",
+      "command": "plectis cold-reader-route-map run-route-map-bundle",
       "docs_refs": [
-        "README.md#try-it-on-your-repo",
+        "README.md#run-it",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [

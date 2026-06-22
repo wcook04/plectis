@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: system/server/tests/test_agent_mission_status.py
-Boundary class: restricted_private_source_ref
+Boundary class: private_body_near_verbatim
 """
 
 PUBLIC_MICROCOSM_STUB = True

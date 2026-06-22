@@ -732,7 +732,7 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                     "Can find the first runnable local command and name the "
                     "release, hosting, and private-data claims this repo refuses."
                 ),
-                "next_drilldown": "README.md#first-run",
+                "next_drilldown": "README.md#run-it",
                 "authority": "inspection_order_only_not_publication_readiness",
             },
             {

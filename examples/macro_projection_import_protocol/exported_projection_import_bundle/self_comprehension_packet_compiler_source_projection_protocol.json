@@ -21,16 +21,16 @@
         "exact_copy_macro_compression_profile_source_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+      "body_digest": "sha256:576069edededaa67719d871f0fa68ce6a131daa96f5946fce365d28eb74bf771",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+        "source_body_digest": "sha256:576069edededaa67719d871f0fa68ce6a131daa96f5946fce365d28eb74bf771",
         "source_line_count": 15,
         "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+        "target_body_digest": "sha256:576069edededaa67719d871f0fa68ce6a131daa96f5946fce365d28eb74bf771",
         "target_line_count": 15,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
         "verification_mode": "exact_source_digest_match",
@@ -38,7 +38,7 @@
       },
       "body_in_receipt": false,
       "body_line_count": 15,
-      "byte_count": 513,
+      "byte_count": 508,
       "claim_ceiling": "public compression-profile source body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
       "line_count": 15,
@@ -51,7 +51,7 @@
       "public_safe_mode": "direct_verified_macro_packet_compiler_body",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "system/lib/compression_profiles.py",
         "substitution": "public_safe_stub"
       },
@@ -60,10 +60,10 @@
       "source_refs": [
         "system/lib/compression_profiles.py"
       ],
-      "source_sha256": "8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+      "source_sha256": "576069edededaa67719d871f0fa68ce6a131daa96f5946fce365d28eb74bf771",
       "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
-      "target_sha256": "8a9b765a97307a738f194cfc4e52fae33ad371c956d10a3aedb447a260a501dc",
+      "target_sha256": "576069edededaa67719d871f0fa68ce6a131daa96f5946fce365d28eb74bf771",
       "validation_refs": [
         "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
       ]
@@ -112,16 +112,16 @@
         "exact_copy_macro_compression_profile_test_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+      "body_digest": "sha256:478e22945adc954b472100fe9263e0efab04908b6eebb9a4e8b7af337f6a666d",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+        "source_body_digest": "sha256:478e22945adc954b472100fe9263e0efab04908b6eebb9a4e8b7af337f6a666d",
         "source_line_count": 15,
         "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+        "target_body_digest": "sha256:478e22945adc954b472100fe9263e0efab04908b6eebb9a4e8b7af337f6a666d",
         "target_line_count": 15,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
         "verification_mode": "exact_source_digest_match",
@@ -129,7 +129,7 @@
       },
       "body_in_receipt": false,
       "body_line_count": 15,
-      "byte_count": 541,
+      "byte_count": 536,
       "claim_ceiling": "public compression-profile test body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
       "line_count": 15,
@@ -142,7 +142,7 @@
       "public_safe_mode": "direct_verified_macro_packet_compiler_body",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "system/server/tests/test_compression_profiles.py",
         "substitution": "public_safe_stub"
       },
@@ -151,10 +151,10 @@
       "source_refs": [
         "system/server/tests/test_compression_profiles.py"
       ],
-      "source_sha256": "f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+      "source_sha256": "478e22945adc954b472100fe9263e0efab04908b6eebb9a4e8b7af337f6a666d",
       "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
-      "target_sha256": "f5437f31c395cbadf43846771db3e6e16d7cfb951ec9e73acd2cf85dfc823332",
+      "target_sha256": "478e22945adc954b472100fe9263e0efab04908b6eebb9a4e8b7af337f6a666d",
       "validation_refs": [
         "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
       ]

@@ -10,11 +10,11 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     text = (MICROCOSM_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
 
     assert "repository-local `.venv`" in text
-    assert "[Public Repo Map](README.md#public-repo-map)" in text
-    assert "[Component Map](README.md#component-map)" in text
+    assert "[Public Repo Map](README.md#choose-a-route)" in text
+    assert "[Component Map](README.md#choose-a-route)" in text
     assert "contributor routing layer" in text
     assert "validation lanes after that route" in text
-    assert text.index("[Public Repo Map](README.md#public-repo-map)") < text.index(
+    assert text.index("[Public Repo Map](README.md#choose-a-route)") < text.index(
         "The smoke target is the no-install public sanity check."
     )
     assert "`.microcosm/` route state through `tour --card`" in text

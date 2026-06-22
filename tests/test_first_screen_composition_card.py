@@ -301,7 +301,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "core/organ_evidence_classes.json"
     )
     assert packet_by_id["public_github_visitor"]["next_drilldown"] == (
-        "README.md#first-run"
+        "README.md#run-it"
     )
     assert packet_by_id["public_github_visitor"]["first_action"] == (
         "Run `plectis tour --card <project>` after this card."

@@ -26,6 +26,7 @@ include bootstrap.sh
 include pyproject.toml
 
 graft .github/workflows
+graft assets
 graft atlas
 graft core
 graft examples

@@ -3,12 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from microcosm_core.validators.readme_front_door import validate_readme_front_door
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-
-
-def _readme_text() -> str:
-    return (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
 
 
 def _cold_start_text() -> str:
@@ -21,242 +19,24 @@ def _agents_text() -> str:
     return (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
 
-def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
-    opening = _readme_text().split("## Choose Your First Screen", 1)[0]
-
-    assert (
-        "For a one-page cold-clone path, start with "
-        "[QUICKSTART.md](QUICKSTART.md)."
-    ) in opening
-    assert "## Public Repo Map" in opening
-    assert (
-        "Use this map before opening the longer reference body or raw receipt trees:"
-        in opening
-    )
-    for row in (
-        "| [QUICKSTART.md](QUICKSTART.md) | "
-        "One-page cold-clone run path and boundary check. |",
-        "| [AGENTS.md](AGENTS.md) | "
-        "Agent entry contract and public authority membrane. |",
-        "| [CONSTITUTION.md](CONSTITUTION.md) / [AXIOMS.md](AXIOMS.md) / "
-        "[PRINCIPLES.md](PRINCIPLES.md) / "
-        "[ANTI_PRINCIPLES.md](ANTI_PRINCIPLES.md) | Root doctrine: "
-        "authority spine, public-safe source rules, operating principles, "
-        "and rejected failure shapes. |",
-        "| [CONTRIBUTING.md](CONTRIBUTING.md) | "
-        "Public verification floor, standalone export path, and contribution "
-        "boundaries. |",
-        "| [SECURITY.md](SECURITY.md) | "
-        "Secret-exclusion and vulnerability-reporting boundary. |",
-        "| [.github/workflows/ci.yml](.github/workflows/ci.yml) / "
-        "[Makefile](Makefile) | GitHub Actions and local command surface; "
-        "both route through `make ci`, including package install smoke. |",
-        "| [pyproject.toml](pyproject.toml) / [MANIFEST.in](MANIFEST.in) | "
-        "Package metadata, console entry point, and source distribution inventory. |",
-        "| [src/microcosm_core/](src/microcosm_core/) / [tests/](tests/) | "
-        "Runnable substrate and regression contracts. |",
-        "| [core/](core/) / [standards/](standards/) / "
-        "[paper_modules/](paper_modules/) | Public registries, standards, and "
-        "bounded organ summaries. |",
-        "| [examples/](examples/) / [fixtures/](fixtures/) / "
-        "[receipts/](receipts/) | Input bundles, negative cases, and "
-        "drilldown evidence. |",
-    ):
-        assert row in opening
-    assert "This map is navigation only." in opening
-    for anti_claim in (
-        "release",
-        "hosting",
-        "provider calls",
-        "source\nmutation",
-        "private-root equivalence",
-        "proof authority",
-    ):
-        assert anti_claim in opening
-    assert opening.index("[QUICKSTART.md](QUICKSTART.md)") < opening.index(
-        "## Public Repo Map"
-    )
-    assert opening.index("## Public Repo Map") < opening.index(
-        "## Component Map"
-    )
-    assert opening.index("[CONSTITUTION.md](CONSTITUTION.md)") < opening.index(
-        "## Component Map"
-    )
-    assert opening.index("## Component Map") < opening.index(
-        "From an uninstalled source checkout"
-    )
-    assert "Read the tree as cooperating component families" in opening
-    for component_row in (
-        "| Runtime package | [src/microcosm_core/](src/microcosm_core/) | "
-        "CLI-backed local behavior: first-screen cards, project scan, route "
-        "selection, validators, server, and release export. |",
-        "| Command cards | `plectis hello`, `plectis tour --card`, "
-        "`plectis status --card`, `plectis authority --card`, "
-        "`plectis workingness --card` | The copyable first screen, "
-        "behavior proof, evidence classes, authority ceiling, and failure "
-        "envelope. |",
-        "| Public doctrine | [core/](core/), [standards/](standards/), "
-        "[paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, "
-        "standards, bounded explanations, and the first-screen entry packet. |",
-        "| Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), "
-        "[receipts/](receipts/) | Public-safe input bundles, negative cases, "
-        "drilldown receipts, and copied artifact bodies. |",
-        "| Source capsules | `source_modules/` plus "
-        "`source_module_manifest.json` inside bundles | Non-secret macro "
-        "source bodies with target paths, digests, anchors, omissions, and "
-        "light-edit receipts. |",
-        "| Validation shell | [tests/](tests/), [Makefile](Makefile), "
-        "[.github/workflows/ci.yml](.github/workflows/ci.yml) | The public "
-        "verification floor that keeps docs, CLI cards, fixtures, "
-        "package install, and standalone export honest. |",
-    ):
-        assert component_row in opening
-    assert "This component map is still navigation, not authority." in opening
-    assert "From an uninstalled source checkout" in opening
-    assert "PYTHONPATH=src python3 -m microcosm_core hello ." in opening
-    assert "After `python3 -m pip install -e '.[test]'` or `make install`" in opening
-    assert "make package-smoke" in opening
-    assert "make ci` includes that package smoke" in opening
-    assert "plectis hello ." in opening
-    assert "plectis compile ." in opening
-    assert "full `.microcosm/` rebuild JSON" in opening
-    assert opening.index("PYTHONPATH=src python3 -m microcosm_core hello .") < (
-        opening.index("plectis hello .")
-    )
-    assert opening.index("plectis hello .") < opening.index("plectis compile .")
-    assert "Try it on your repo with one local command: `plectis compile .`" not in opening
-
-
-def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
-    section = _readme_text().split("## Choose Your First Screen", 1)[1].split(
-        "## Try It On Your Repo",
-        1,
-    )[0]
-
-    assert "plectis hello <project>" in section
-    assert "plectis tour --card <project>" in section
-    assert "plectis first-screen --card <project>" in section
-    assert "plectis first-screen <project>" in section
-    assert section.index("plectis hello <project>") < section.index(
-        "plectis tour --card <project>"
-    )
-    assert section.index("plectis tour --card <project>") < section.index(
-        "plectis first-screen --card <project>"
-    )
-    normalized_section = " ".join(section.split())
-    assert (
-        "`hello` is the text projection of the first-screen card."
-        in normalized_section
-    )
-    assert "It is not a separate proof surface." in normalized_section
-    assert "Evidence counts are accounting, not maturity scores." in section
-    assert "Most projects do not publish that boundary" in section
-    assert "Read the evidence class counters as a claim-boundary legend:" in section
-    assert "plectis authority --card && plectis workingness --card" not in section
-    assert (
-        "| Safety/evals engineer | `plectis tour --card <project>`, then "
-        "`plectis status --card <project>`, then `plectis authority --card` / "
-        "`plectis workingness --card` |"
-    ) in section
-    for evidence_class in (
-        "verified_macro_body_import",
-        "external_subprocess_witness",
-        "algorithmic_projection",
-        "semantic_validator",
-        "fixture_schema_replay",
-        "fixture_echo_smoke",
-    ):
-        assert evidence_class in section
-    assert "Private-root equivalence" in section
-    assert "General proof authority" in section
-    assert "Product completeness" in section
-    assert "When a bundle includes `source_modules/`" in section
-    assert "exact non-secret source capsules" in normalized_section
-    assert "source_module_manifest.json" in section
-    assert (
-        "navigation authority for copied targets, digests, anchors, and omissions"
-        in normalized_section
-    )
-
-
-def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
-    text = _readme_text()
-    try_it = text.split("## Try It On Your Repo", 1)[1].split(
-        "## What This Proves",
-        1,
-    )[0]
-    direct_path = text.split(
-        "Or run the same product CLI directly from the checkout without installing the\n"
-        "entry point:",
-        1,
-    )[1].split("After the console command is installed, the first-screen path is:", 1)[
-        0
-    ]
-    installed_path = text.split(
-        "After the console command is installed, the first-screen path is:",
-        1,
-    )[1].split("The quickest human first screen is", 1)[0]
-    browser_path = text.split(
-        "`http://127.0.0.1:8765/project/status` for the same compact status-card lens",
-        1,
-    )[1].split("Use `plectis status --card <project>`", 1)[0]
-
-    direct_hello = "PYTHONPATH=src python3 -m microcosm_core hello ."
-    direct_tour_card = "PYTHONPATH=src python3 -m microcosm_core tour --card ."
-    direct_first_screen_card = (
-        "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
-    )
-    assert "./bootstrap.sh" in try_it
-    assert "./bootstrap.sh --dry-run" in try_it
-    assert ".microcosm/cold_clone_probe.json" in try_it
-    assert try_it.index("./bootstrap.sh") < try_it.index("python3 -m pip install .")
-    assert direct_hello in direct_path
-    assert direct_path.index(direct_hello) < direct_path.index(direct_tour_card)
-    assert direct_first_screen_card in direct_path
-    assert (
-        "PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25"
-        in direct_path
-    )
-    assert (
-        "PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json"
-        in direct_path
-    )
-    assert "python3 -m microcosm_core.cli" not in direct_path
-    assert "plectis hello ." in installed_path
-    assert "plectis first-screen --card ." in installed_path
-    assert installed_path.index("plectis hello .") < installed_path.index(
-        "plectis tour --card ."
-    )
-    assert installed_path.index("plectis tour --card .") < installed_path.index(
-        "plectis first-screen --card ."
-    )
-    assert installed_path.index("plectis first-screen --card .") < (
-        installed_path.index("plectis status --card .")
-    )
-    assert "plectis workingness --card" in installed_path
-    assert "plectis evidence list . --limit 25" in installed_path
-    assert "plectis evidence inspect . .microcosm/evidence/routes.json" in (
-        installed_path
-    )
-    assert "\nmicrocosm workingness\n" not in installed_path
-    assert "\nmicrocosm evidence list .\n" not in installed_path
-    assert "http://127.0.0.1:8765/project/first-screen" in browser_path
-    assert "/project/first-screen-full" in browser_path
-    assert "http://127.0.0.1:8765/workingness-card" in browser_path
-    assert "/workingness` only when you need the full per-organ failure map" in (
-        browser_path
-    )
-    assert "same compact one-screen\nreader map" in browser_path
-    assert "plectis first-screen --card <project>" in browser_path
-    assert browser_path.index("/project/first-screen") < browser_path.index(
-        "/project/observatory-card"
-    )
-    assert browser_path.index("/project/observatory") < browser_path.index(
-        "/project/first-screen-full"
-    )
-    assert browser_path.index("/workingness-card") < browser_path.index(
-        "/workingness` only"
-    )
+def test_readme_is_a_bound_human_front_door() -> None:
+    # Assurance-preserving projection migration (2026-06-22): the README is the
+    # human front door. Its first-screen contract and its bindings (banner,
+    # single H1, recognition promise, route rail, witness command bound to the
+    # canonical first command, vertical diagram, resolving links, no hero
+    # ontology leak, no overclaim, compatibility note present) are owned by the
+    # binding validator (validators/readme_front_door.py), exercised
+    # adversarially in tests/test_readme_front_door.py. This test asserts the
+    # real README satisfies that contract instead of pinning exact prose, so the
+    # human projection can evolve freely while its truth stays bound.
+    receipt = validate_readme_front_door(MICROCOSM_ROOT)
+    assert receipt["status"] == "pass", receipt["blocking_codes"]
+    findings = receipt["findings"]
+    assert findings["h1"] == "Plectis"
+    assert findings["hero_banned_terms"] == []
+    assert findings["witness_command_bound"] is True
+    assert findings["vertical_diagram_present"] is True
+    assert findings["compatibility_note_present"] is True
 
 
 def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> None:
@@ -285,11 +65,16 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         "The human first-screen text projection is `plectis hello <project>`"
         in agents
     )
+    # AGENTS.md routes the agent to the README's human sections; after the
+    # assurance migration those are the `Choose a route` table and the
+    # `How the result stays honest` section (the old `Public Repo Map` /
+    # `Component Map` headings were retired with the README rewrite).
     assert (
-        "In that README, use\n   `Public Repo Map` and `Component Map`"
+        "In that README, use\n   the `Choose a route` table and "
+        "`How the result stays honest`"
         in agents
     )
-    assert agents.index("`Public Repo Map` and `Component Map`") < agents.index(
+    assert agents.index("`Choose a route` table") < agents.index(
         "## Accepted Public Runtime Spine"
     )
     agent_smoke = agents.split(

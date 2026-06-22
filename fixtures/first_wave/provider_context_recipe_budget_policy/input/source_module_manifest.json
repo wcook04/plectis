@@ -121,7 +121,7 @@
       "path": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
         "substitution": "public_safe_stub"
       },
@@ -133,7 +133,7 @@
       "path": "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
         "substitution": "public_safe_stub"
       },
@@ -145,7 +145,7 @@
       "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
         "substitution": "public_safe_stub"
       },
@@ -157,7 +157,7 @@
       "path": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
         "substitution": "public_safe_stub"
       },

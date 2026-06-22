@@ -1237,6 +1237,45 @@ def _visible_allowing_verdict_count(
     return count
 
 
+def _independent_allowing_evaluator_count(
+    refs: list[str],
+    verdict_index: dict[str, dict[str, Any]],
+    proposal_id: str,
+    proof_index: dict[str, dict[str, Any]] | None = None,
+    *,
+    public_root: Path | None = None,
+    claimant_id: str = "",
+) -> int:
+    # Counts DISTINCT evaluators behind the visible allowing verdicts, excluding any
+    # verdict supplied by the proposal claimant itself. This turns the verdict floor
+    # from an artifact/row count into an independent-evidentiary-counterparty count:
+    # N verdicts that collapse to one evaluator root, or a claimant approving its own
+    # proposal, do not establish arms-length verification.
+    claimant = str(claimant_id or "").strip()
+    evaluators: set[str] = set()
+    for ref in refs:
+        row = verdict_index.get(ref, {})
+        if (
+            str(row.get("proposal_id") or "") == proposal_id
+            and row.get("visible_to_receipt") is True
+            and row.get("hidden_policy_vote") is not True
+            and row.get("verdict") in {"allow", "warn"}
+            and (
+                proof_index is None
+                or _verdict_row_resolves_proof(
+                    row,
+                    proof_index,
+                    proposal_id,
+                    public_root=public_root,
+                )
+            )
+        ):
+            evaluator = str(row.get("evaluator_id") or "").strip()
+            if evaluator and evaluator != claimant:
+                evaluators.add(evaluator)
+    return len(evaluators)
+
+
 def _proposal_has_evidence(
     refs: list[str],
     proof_index: dict[str, dict[str, Any]],
@@ -1401,6 +1440,30 @@ def _validate_proposal_row(
             observed,
             "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
             "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+            case_id=case_id,
+            subject_id=proposal_id,
+            subject_kind=subject_kind,
+        )
+    if (
+        _independent_allowing_evaluator_count(
+            verdict_refs,
+            verdict_index,
+            proposal_id,
+            proof_index,
+            public_root=public_root,
+            claimant_id=str(row.get("ephemeral_identity_ref") or ""),
+        )
+        < 2
+    ):
+        reasons.append("verdict_not_independent")
+        _record(
+            findings,
+            observed,
+            "GOV_MUT_VERDICT_NOT_INDEPENDENT",
+            "Authorization requires at least two visible allowing verdicts from DISTINCT "
+            "evaluators, each disjoint from the proposal claimant; verdicts that collapse "
+            "to one evaluator root or are supplied by the claimant itself are not an "
+            "independent evidentiary counterparty.",
             case_id=case_id,
             subject_id=proposal_id,
             subject_kind=subject_kind,
@@ -2000,6 +2063,26 @@ def validate_governed_mutation_records(
                 findings,
                 "GOV_MUT_REAL_RECORD_POLICY_REF_INVALID",
                 "Real governed-mutation records must cite visible policy verdict refs for the same proposal.",
+                record_id=record_id,
+                subject_kind="policy_verdict_refs",
+            )
+        if (
+            _independent_allowing_evaluator_count(
+                policy_refs,
+                verdict_index,
+                proposal_id,
+                proof_index,
+                public_root=public_root,
+                claimant_id=str(proposal.get("ephemeral_identity_ref") or ""),
+            )
+            < 2
+        ):
+            reasons.append("verdict_not_independent")
+            _record_real_finding(
+                findings,
+                "GOV_MUT_VERDICT_NOT_INDEPENDENT",
+                "Real governed-mutation records must cite at least two visible verdicts from "
+                "DISTINCT evaluators, each disjoint from the proposal claimant.",
                 record_id=record_id,
                 subject_kind="policy_verdict_refs",
             )

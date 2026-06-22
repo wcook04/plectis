@@ -1,6 +1,6 @@
 {
   "body_in_receipt": false,
-  "contamination_class": "restricted_private_source_ref",
+  "contamination_class": "private_body_exact_match",
   "matched_private_ref": "system/server/ui/package.json",
   "schema_version": "microcosm_withheld_private_source_stub_v1",
   "status": "withheld_private_control_plane_body"

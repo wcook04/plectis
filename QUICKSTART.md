@@ -6,7 +6,7 @@ The runtime package and local state still use compatibility names
 (`microcosm_core` and `.microcosm/`), while the installed command is `plectis`;
 the legacy `microcosm` command remains as an alias for older notes and
 receipts.
-After the smoke path passes, use the [README Component Map](README.md#component-map)
+After the smoke path passes, use the [README Component Map](README.md#choose-a-route)
 before raw receipts; it names the runtime package, command cards, public
 doctrine, evidence fixtures, source capsules, and validation shell.
 For task-specific agent routing use [AGENT_ROUTES.md](AGENT_ROUTES.md); for the

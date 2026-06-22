@@ -448,32 +448,12 @@ def test_public_entry_docs_accepts_registry_routed_spine_without_full_inline_inv
     tmp_path: Path,
 ) -> None:
     public_root = _copy_public_entry_tree(tmp_path)
-    readme = public_root / "README.md"
     agents = public_root / "AGENTS.md"
-    readme.write_text(
-        readme.read_text(encoding="utf-8").replace(
-            readme.read_text(encoding="utf-8").split(
-                "## Internal Runtime Spine",
-                1,
-            )[1].split("## ", 1)[0],
-            (
-                "\n\nThis section routes the full public entry inventory through "
-                "`core/organ_registry.json` and `core/organ_evidence_classes.json`. "
-                "`accepted_current_authority` is not an evidence-strength claim; "
-                "read each `evidence_class` before inferring strength. "
-                "This public entry inventory/read-model is inventory-only "
-                "route-alignment metadata, not product progress, release readiness, "
-                "proof correctness, private-root equivalence, or score-based "
-                "progress. It is not trading or financial advice. "
-                "It does not authorize release. "
-                "Use [AGENT_ROUTES.md](AGENT_ROUTES.md), "
-                "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty), "
-                "[ORGANS.md](ORGANS.md), and [ARCHITECTURE.md](ARCHITECTURE.md). "
-                "Real Substrate Posture.\n\n"
-            ),
-        ),
-        encoding="utf-8",
-    )
+    # The human-front-door README is inherently registry_route after the
+    # assurance migration (it names the registries and the inventory-only
+    # posture, and never inline-enumerates organs), so it needs no mutation to
+    # exercise registry_route mode. This test now drives the AGENTS.md
+    # registry_route path explicitly.
     agents.write_text(
         agents.read_text(encoding="utf-8").replace(
             agents.read_text(encoding="utf-8").split(
@@ -618,6 +598,31 @@ def test_public_entry_docs_block_injected_authority_overclaim(
     assert "README.md" in receipt["public_entry_overclaim_by_doc"]
 
 
+def test_public_entry_docs_block_legacy_name_as_current_product_label(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    routes = public_root / "AGENT_ROUTES.md"
+    routes.write_text(
+        "# Microcosm Agent Task Routes\n\nMicrocosm is a local product.\n",
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PUBLIC_LEGACY_PRODUCT_NAME" in receipt["blocking_codes"]
+    assert receipt["legacy_public_product_name_hits"]["AGENT_ROUTES.md"] == [
+        "# Microcosm",
+        "Microcosm Agent Task Routes",
+        "Microcosm is a",
+    ]
+
+
 def test_public_entry_docs_block_overclaim_in_generated_atlas_doc(
     tmp_path: Path,
 ) -> None:
@@ -720,15 +725,24 @@ def test_public_entry_docs_block_cold_clone_tracked_emit_as_default(
     }
 
 
-def test_public_entry_docs_block_readme_route_selection_truth_drift(
+def test_public_entry_docs_readme_route_selection_is_not_prose_pinned(
     tmp_path: Path,
 ) -> None:
+    # Migrated from test_public_entry_docs_block_readme_route_selection_truth_drift
+    # (assurance-preserving projection migration, 2026-06-22). The route-selection
+    # TRUTH is owned by atlas/entry_packet.json::route_selection_rule and
+    # skills/cold_start_navigation.md, each with its own drift test
+    # (test_public_entry_docs_block_entry_packet_route_selection_truth_drift,
+    # test_public_entry_docs_block_cold_start_route_selection_truth_drift). The
+    # human-front-door README no longer restates route IDs in prose, so the
+    # validator must NOT block on README route-selection wording: this guard
+    # proves the README is not prose-pinned for route selection.
     public_root = _copy_public_entry_tree(tmp_path)
     readme = public_root / "README.md"
     readme.write_text(
         readme.read_text(encoding="utf-8").replace(
-            "`missing_tests_route`",
-            "`some route`",
+            "selected_route_id",
+            "selected route handle",
         ),
         encoding="utf-8",
     )
@@ -739,15 +753,12 @@ def test_public_entry_docs_block_readme_route_selection_truth_drift(
         command="pytest",
     )
 
-    assert receipt["status"] == "blocked"
-    assert "ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH" in receipt["blocking_codes"]
     route_contract = receipt["entry_packet_route_contract"]
-    assert "readme_route_selection_rule_missing" in route_contract[
-        "blocking_reasons"
-    ]
-    assert "`missing_tests_route` when tests are absent" in route_contract[
-        "readme_route_selection_missing_phrases"
-    ]
+    assert route_contract["readme_route_selection_missing_phrases"] == []
+    assert (
+        "readme_route_selection_rule_missing"
+        not in route_contract["blocking_reasons"]
+    )
 
 
 def test_public_entry_docs_block_entry_packet_route_selection_truth_drift(
@@ -876,78 +887,99 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
 
 
 def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
+    # Assurance-preserving projection migration (2026-06-22). The README is the
+    # human front door, judged structurally + by projection binding (see
+    # validators/readme_front_door.py and tests/test_readme_front_door.py), not
+    # by exact prose. The README assertions below are the constitutional-TRUTH
+    # subset that survived: the rename/compatibility fact, the registry-route
+    # inventory posture, the bounded-claim anti-claims, the agent first-action
+    # product, and negative guards against stale macro framing. The incidental
+    # layout pins (startswith, exact section names, exact table rows, exact
+    # phrase positions, the route-ID prose) were retired; their intent moved to
+    # the binding validator and the registries. AGENTS.md (agent-facing) keeps
+    # all of its own pins unchanged.
     text = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     normalized_text = " ".join(text.split())
     normalized_agents = " ".join(agents.split())
     expected_organs = _accepted_organs_from_registry()
 
-    assert text.startswith("# Plectis")
-    assert agents.startswith("# AGENTS.md - Plectis")
+    # --- README: constitutional truth (projection-free) ---
+    # A single H1 and a banner; the banner may precede the H1 (it does), so
+    # this is a presence check, not startswith.
+    assert "# Plectis" in text
+    assert "<img" in text and "alt=" in text
+    # Rename / compatibility lineage fact stays available to the human reader.
     assert "Microcosm became Plectis" in text
-    assert "Microcosm remains only where compatibility or historical continuity requires it" in normalized_text
-    assert "Microcosm is the public repo form of the macro system" not in text
-    assert "Microcosm is the public repo form of the macro system" not in agents
-    assert "Internal Runtime Spine" in text
-    assert "Accepted Public Runtime Spine" in agents
-    assert "[CLAUDE.md](CLAUDE.md) / [CODEX.md](CODEX.md) / [CURSOR.md](CURSOR.md)" in text
-    assert "Thin provider-style adapter stubs" in text
-    assert "point back to `AGENTS.md` and add no authority" in text
-    assert "Real Substrate Posture" in text
-    assert "Real Substrate Posture" in agents
-    assert "public entry inventory/read-model" in text
-    assert "public entry inventory" in agents
-    assert "inventory-only route-alignment metadata" in text
-    assert "inventory-only route-alignment metadata" in normalized_agents
-    assert "not product progress, release readiness" in text
-    assert "not product progress, release readiness" in agents
-    assert "not a product progress meter" in normalized_text
-    assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in text
-    assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in agents
-    assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in text
-    assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in agents
-    assert "Plectis is the public repo form of the macro system" in text
-    assert "Plectis is the public repo form of the macro system" in agents
-    assert "not a synthetic safety proxy" in text
-    assert "not a synthetic safety proxy" in agents
-    assert "Public should carry private by default" in text
-    assert "Public should carry private by default" in agents
-    assert "as much of the macro substrate as possible" in normalized_text
-    assert "as much of the macro substrate as possible" in normalized_agents
-    assert "The exclusion set is narrow" in text
-    assert "The hard exclusion set is narrow" in agents
-    # README converged on the public-copy clean wording (8af1382420); AGENTS.md
-    # deliberately retains the house phrase for its agent-facing hard list.
     assert (
-        "private notes, personal material, and other content that is unsafe for a public source package"
+        "Microcosm remains only where compatibility or historical continuity requires it"
         in normalized_text
     )
-    assert "raw operator voice, slurs or abusive wording" in normalized_agents
-    assert "Any `body_copied=true` claim must name the source file" in text
-    assert "Any `body_copied=true` claim must point at a real target file" in agents
-    assert "front_door_status.blocking_surface_ids" in text
-    assert "exits zero for the expected first-run missing-state recovery card" in normalized_text
-    assert "not benchmark scores" in text
-    assert "not benchmark scores" in agents
-    assert "not score-based progress, maturity" in text
-    assert "not score-based progress" in agents
+    assert "Microcosm is the public repo form of the macro system" not in text
+    # Registry-route inventory posture: the registries own the inventory; the
+    # human README only routes to them in plain English and states the boundary.
+    # The raw JSON paths / status-enum / field-name tokens were retired from
+    # human prose (their truth is enforced independently by the registries
+    # themselves), so the README now passes the registry-route gate via its
+    # human links to the generated System map and Release review.
+    assert "[System map](ORGANS.md)" in text
+    assert "[Release review](RELEASE_REVIEW.md)" in text
+    assert (
+        "generated from the repository's governed component records"
+        in normalized_text
+    )
+    assert "not a quality or progress score" in normalized_text
+    # Bounded-claim truth: anti-claims present, witness reports no source mutation.
+    assert "executable research prototype" in normalized_text
+    assert "source_files_mutated" in text
+    assert "repo -> .microcosm" in text
+    for anti_claim in (
+        "release",
+        "hosting",
+        "provider calls",
+        "source mutation",
+        "not a copy of any private system",
+        "proof authority",
+    ):
+        assert anti_claim in normalized_text, anti_claim
+    # The agent first-action product is reachable from the human front door.
+    assert "comprehend --first-action" in text
+    # Negative guards: no stale macro / reconstruction / false-coverage framing.
     assert "public-safe ten-minute path" not in normalized_text
     assert "public-safe authority ceiling" not in normalized_text
+    assert "runnable, synthetic, and receipt-driven" not in text
+    assert "public synthetic microcosm" not in text
+    assert "private reconstruction control plane" not in text
+    assert "only implemented organ here is `pattern_binding_contract`" not in text
+
+    # --- AGENTS.md: agent-facing spine pins (unchanged) ---
+    assert agents.startswith("# AGENTS.md - Plectis")
+    assert "Microcosm is the public repo form of the macro system" not in agents
+    assert "Accepted Public Runtime Spine" in agents
+    assert "Real Substrate Posture" in agents
+    assert "public entry inventory" in agents
+    assert "inventory-only route-alignment metadata" in normalized_agents
+    assert "not product progress, release readiness" in agents
+    assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in agents
+    assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in agents
+    assert "Plectis is the public repo form of the macro system" in agents
+    assert "not a synthetic safety proxy" in agents
+    assert "Public should carry private by default" in agents
+    assert "as much of the macro substrate as possible" in normalized_agents
+    assert "The hard exclusion set is narrow" in agents
+    assert "raw operator voice, slurs or abusive wording" in normalized_agents
+    assert "Any `body_copied=true` claim must point at a real target file" in agents
+    assert "not benchmark scores" in agents
+    assert "not score-based progress" in agents
     assert "public-safe route" not in normalized_agents
     assert "only to project metadata" not in normalized_agents
-    assert "only implemented organ here is `pattern_binding_contract`" not in text
     assert "only implemented organ here is `pattern_binding_contract`" not in agents
     assert len(expected_organs) > 1
     assert "pattern_binding_contract" in expected_organs
     assert "bridge_phase_continuity_runtime" in expected_organs
-    assert "core/organ_registry.json" in text
     assert "core/organ_registry.json" in agents
-    assert "core/organ_evidence_classes.json" in text
     assert "core/organ_evidence_classes.json" in agents
-    assert "AGENT_ROUTES.md" in text
     assert "AGENT_ROUTES.md" in agents
-    assert "plectis reveal" in text
-    assert "plectis spatial-simulation" in text
     assert "plectis reveal" in agents
     assert "spatial-simulation" in agents
     assert "plectis tour --card <project>" in agents
@@ -956,28 +988,10 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     )
     assert "Do not widen Lean/Lake" in agents
     assert "Do not treat prediction fixtures as trading or financial advice" in agents
-    assert "runnable, synthetic, and receipt-driven" not in text
-    assert "public synthetic microcosm" not in text
-    assert "private reconstruction control plane" not in text
     assert "source reconstruction workspace" not in agents
     assert "Use only synthetic fixtures" not in agents
     assert "Receipts Are Authority" not in agents
     assert "macro reconstruction contracts" not in agents
-    assert "local project operating substrate" in normalized_text
-    assert "repo -> .microcosm" in text
-    assert "plectis compile ." in text
-    assert "front_door.route_explanation" in text
-    assert "source_files_mutated=false" in text
-    assert "std_python_microcosm_navigation_assay" in text
-    assert "implementation_atlas.python_navigation_assay" in text
-    assert "route_utility_curriculum" in text
-    assert "route_utility_curriculum.ratchet" in text
-    assert "executable research prototype" in text
-    assert "Architecture Kernel" in text
-    assert "plectis explain <project> <route_id>" in text
-    assert "Evidence receipts are the black-box recorder" in text
-    assert "evidence_class" in text
-    assert "`accepted_current_authority` is not an evidence-strength claim" in normalized_text
     assert "executable research prototype" in normalized_agents
     assert "local project operating substrate" in normalized_agents
     assert "plectis compile <project>" in agents
@@ -985,7 +999,10 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Fixtures Are Tests" in agents
     assert "Receipts Are Evidence" in agents
     assert "evidence_class" in agents
-    assert "`accepted_current_authority` is not an evidence-strength claim" in normalized_agents
+    assert (
+        "`accepted_current_authority` is not an evidence-strength claim"
+        in normalized_agents
+    )
 
 
 def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
@@ -1088,75 +1105,23 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
 
 
 def test_public_entry_docs_keep_tour_before_compile() -> None:
+    # The tour-before-compile TRUTH is owned by its machine contracts, not by
+    # README prose (assurance-preserving projection migration, 2026-06-22):
+    #   - atlas/entry_packet.json::first_command and local_first_screen_route
+    #     command order (asserted here and in the entry-packet route tests),
+    #   - src/microcosm_core/cli.py::FIRST_SCREEN_HELP order
+    #     (test_public_entry_docs_block_cli_first_screen_help_drift),
+    #   - skills/cold_start_navigation.md ordering (asserted below).
+    # The README is the human front door and no longer restates the full
+    # command catalogue / "First Run" walkthrough; it routes to QUICKSTART.md
+    # and the generated ORGANS.md / CLI help for the exhaustive command set.
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
     )
     assert entry_packet["first_command"] == "plectis tour --card <project>"
-
-    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "New here? Five generated surfaces give you the whole system fast:" in readme
-    for phrase in (
-        "| Repo-reading agent |",
-        "plectis hello --reader agent <project>",
-        "PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>",
-        "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check",
-        "plectis first-screen --card <project>",
-        "plectis organ-surface-contract --card --root .",
-        "mechanism/validator/projection boundaries",
-        "source-mutation ceiling",
-    ):
-        assert phrase in readme
-    first_run = readme.split("## First Run", 1)[1]
-    installed_block = first_run.split(
-        "The same commands work without installing the console script:", 1
-    )[0].split("```bash", 1)[1].split("```", 1)[0]
-    no_install_block = first_run.split(
-        "The same commands work without installing the console script:", 1
-    )[1].split("```", 2)[1]
-    assert "python3 -m microcosm_core.cli" not in no_install_block
-    assert (
-        "plectis serve /tmp/microcosm-scratch --host 127.0.0.1 "
-        "--port 8765 --max-requests 7"
-    ) in installed_block
-    assert (
-        "plectis serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765\n"
-        not in installed_block
-    )
-    tour_command = (
-        "PYTHONPATH=src python3 -m microcosm_core tour --card /tmp/microcosm-scratch"
-    )
-    status_command = (
-        "PYTHONPATH=src python3 -m microcosm_core status --card "
-        "/tmp/microcosm-scratch"
-    )
-    proof_command = (
-        "PYTHONPATH=src python3 -m microcosm_core proof-lab --out "
-        "/tmp/microcosm-proof-lab"
-    )
-    agent_entry_command = (
-        "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition "
-        "--root . --task agent-entry --viewer type_a_agent --card --check"
-    )
-    serve_command = (
-        "PYTHONPATH=src python3 -m microcosm_core serve "
-        "/tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 7"
-    )
-    compile_command = (
-        "PYTHONPATH=src python3 -m microcosm_core compile "
-        "/tmp/microcosm-scratch"
-    )
-    assert no_install_block.index(tour_command) < no_install_block.index(
-        status_command
-    )
-    assert agent_entry_command in no_install_block
-    assert no_install_block.index(proof_command) < no_install_block.index(
-        serve_command
-    )
-    assert no_install_block.index(serve_command) < no_install_block.index(
-        compile_command
-    )
-    assert no_install_block.index(proof_command) < no_install_block.index(
-        compile_command
+    command_path = entry_packet["local_first_screen_route"]["command_path"]
+    assert command_path.index("plectis tour --card <project>") < command_path.index(
+        "plectis compile <project>"
     )
 
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
@@ -1752,8 +1717,13 @@ def test_public_entry_standard_names_degraded_kernel_fallback() -> None:
 
 
 def test_public_bridge_continuity_copy_uses_synthetic_transport_language() -> None:
+    # README is the human front door and no longer carries bridge-subsystem
+    # terminology (assurance-preserving projection migration, 2026-06-22). The
+    # "synthetic transport" (never "fake transport") terminology truth stays
+    # enforced on the six canonical owners below that actually discuss the
+    # bridge: AGENTS.md, the bridge paper module, its standard, its fixture
+    # manifest, the organ registry, and the evidence-class registry.
     surfaces = {
-        "README": MICROCOSM_ROOT / "README.md",
         "AGENTS": MICROCOSM_ROOT / "AGENTS.md",
         "paper module": MICROCOSM_ROOT / "paper_modules/bridge_phase_continuity_runtime.md",
         "standard": MICROCOSM_ROOT

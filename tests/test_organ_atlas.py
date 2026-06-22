@@ -233,10 +233,10 @@ def test_architecture_md_routes_to_commands_and_kernel() -> None:
     text = (MICROCOSM_ROOT / "ARCHITECTURE.md").read_text(encoding="utf-8")
     # diagrams route to real commands/files
     assert "```mermaid" in text
-    assert "microcosm hello ." in text
-    assert "microcosm tour --card ." in text
-    assert "microcosm observe --card PROJECT" in text
-    assert "microcosm observe PROJECT (event rows)" in text
+    assert "plectis hello ." in text
+    assert "plectis tour --card ." in text
+    assert "plectis observe --card PROJECT" in text
+    assert "plectis observe PROJECT (event rows)" in text
     assert "`microcosm observe --card <project>`" in text
     assert "core/organ_evidence_classes.json" in text
     assert "core/organ_registry.json" in text
@@ -587,7 +587,7 @@ def test_agent_concurrency_routes_bind_seed_speed_topology_to_work_spine() -> No
 
 def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     text = (MICROCOSM_ROOT / "AGENT_ROUTES.md").read_text(encoding="utf-8")
-    assert "# Microcosm Agent Task Routes" in text
+    assert "# Plectis Agent Task Routes" in text
     assert "## Agent Task Route Table" in text
     assert (
         "| `task_class` | Relevant organ(s) | First command | Source relation handles |"

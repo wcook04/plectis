@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: tools/meta/factory/build_reasoning_execution_replay_scope.py
-Boundary class: restricted_private_source_ref
+Boundary class: private_body_exact_match
 """
 
 PUBLIC_MICROCOSM_STUB = True

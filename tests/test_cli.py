@@ -375,7 +375,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         in output
     )
     assert (
-        "plectis comprehend --improvements rank concrete Microcosm improvement targets"
+        "plectis comprehend --improvements rank concrete Plectis improvement targets"
         in output
     )
     task_hint = (

@@ -633,7 +633,7 @@ First-screen route:
   plectis comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   plectis comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   plectis comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
-  plectis comprehend --improvements rank concrete Microcosm improvement targets with validation commands
+  plectis comprehend --improvements rank concrete Plectis improvement targets with validation commands
   plectis comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   plectis comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
   plectis comprehension-assay [--hard|--packet-route|--whole-system|--first-action] prove the packets answer / carry atoms / navigate / comprehend-the-whole / route first actions without opening source
@@ -1315,6 +1315,87 @@ def _emit_first_screen(project: str, *, output_format: str, full: bool, reader: 
     if full:
         return _print_json(payload)
     return _print_json(first_screen_composition.first_screen_compact_card(payload))
+
+
+def _tour_text_card(card: dict[str, object]) -> str:
+    """Render the compact tour card as a short, human-readable witness.
+
+    - Teleology: give a cold human (and the README "See it work" block) a plain
+      summary of what one local run produced, instead of the machine JSON card.
+    - Guarantee: returns a newline-terminated text block read only from flat
+      fields of the compact tour card; opens no source and mutates no state.
+    - Fails: None - missing fields degrade to a dash.
+    - Writes: nothing (returns the rendered string).
+    """
+
+    def _get(source: object, key: str) -> object:
+        return source.get(key) if isinstance(source, dict) else None
+
+    compile_summary = _get(card, "compile_summary") or {}
+    state_write = _get(card, "state_write_result") or {}
+    state_refs = _get(card, "state_refs") or {}
+    ceiling = _get(_get(card, "front_door_status") or {}, "authority_ceiling") or {}
+
+    headline = _get(compile_summary, "headline") or "repo -> .microcosm"
+    route = (
+        card.get("selected_route_id")
+        or _get(compile_summary, "selected_route_id")
+        or "-"
+    )
+    route_count = _get(compile_summary, "route_count")
+    file_count = _get(compile_summary, "file_count")
+    state_dir = (
+        _get(state_write, "state_dir") or _get(state_refs, "state_dir") or ".microcosm"
+    )
+    state_files = _get(state_write, "state_file_count")
+    evidence_ref = _get(state_refs, "evidence_dir_ref") or f"{state_dir}/evidence/"
+    events_ref = _get(state_refs, "event_log_ref") or f"{state_dir}/events.jsonl"
+    mutated = card.get("source_files_mutated")
+
+    read_clause = (
+        f"{file_count} project files" if isinstance(file_count, int) else "the project"
+    )
+    route_clause = str(route)
+    if isinstance(route_count, int):
+        route_clause += f"  (one of {route_count} it found)"
+    record_clause = f"{state_dir}/"
+    if isinstance(state_files, int):
+        record_clause += f"  ({state_files} local files, written beside your project)"
+
+    boundaries = [
+        label
+        for key, label in (
+            ("release_authorized", "release"),
+            ("provider_calls_authorized", "provider calls"),
+            ("whole_system_correctness_claim", "whole-system correctness"),
+        )
+        if isinstance(ceiling, dict) and ceiling.get(key) is False
+    ]
+    scope_clause = (
+        "does not authorize " + ", ".join(boundaries)
+        if boundaries
+        else "read plectis authority --card"
+    )
+    mutated_clause = (
+        "unchanged" if mutated is False else "CHANGED" if mutated is True else "unknown"
+    )
+
+    lines = [
+        f"Plectis read {read_clause} and wrote a local record.  {headline}",
+        "",
+        f"  Route taken     {route_clause}",
+        f"  Record written  {record_clause}",
+        f"  Your source     {mutated_clause}",
+        "",
+        "  Every finding in that record carries three handles:",
+        f"    Evidence   {evidence_ref}   (what backs the finding)",
+        f"    Source     {events_ref}   (where the finding came from)",
+        f"    Scope      {scope_clause}",
+        "",
+        "  The same record as a machine-readable card:  plectis tour --card .",
+        "",
+    ]
+    return "\n".join(lines)
 
 
 def _first_screen_fast_path(argv: list[str] | None) -> int | None:
@@ -2698,6 +2779,12 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="emit the compact first-screen tour lens",
     )
+    tour_parser.add_argument(
+        "--format",
+        choices=("json", "text"),
+        default="json",
+        help="emit the JSON card (default) or a short human-readable summary",
+    )
     tour_parser.add_argument("project", nargs="?")
     hello_parser = subparsers.add_parser(
         "hello",
@@ -3741,7 +3828,7 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--improvements",
         action="store_true",
-        help="rank concrete Microcosm improvement targets with validation commands",
+        help="rank concrete Plectis improvement targets with validation commands",
     )
     comprehend_parser.add_argument(
         "--packet-atlas",
@@ -3753,7 +3840,7 @@ def main(argv: list[str] | None = None) -> int:
         "--self-model",
         dest="self_model",
         action="store_true",
-        help="compile the whole-Microcosm self-model: comprehend the entire substrate at once",
+        help="compile the whole-Plectis self-model: comprehend the entire substrate at once",
     )
     comprehend_parser.add_argument(
         "--profile",
@@ -3918,6 +4005,18 @@ def main(argv: list[str] | None = None) -> int:
             root=_runtime_root_for_project_arg(args.project),
         )
     if args.command == "tour":
+        if getattr(args, "format", "json") == "text":
+            project_public_root = _public_root_for_project(args.project)
+            shell = (
+                runtime_shell.RuntimeShell(root=project_public_root)
+                if project_public_root is not None
+                else runtime_shell.RuntimeShell()
+            )
+            card = shell.tour_card(
+                _runtime_project_arg(args.project) or args.project
+            )
+            print(_tour_text_card(card), end="")
+            return 0 if card.get("status") == "pass" else 1
         command_args = ["tour"]
         if args.card:
             command_args.append("--card")

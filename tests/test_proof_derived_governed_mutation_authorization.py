@@ -296,6 +296,103 @@ def test_governed_mutation_authorization_rejects_positive_proposal_with_one_visi
     assert "consensus_without_evidence" in mutated_row["reason_codes"]
 
 
+def test_governed_mutation_authorization_rejects_claimant_self_approval(
+    tmp_path: Path,
+) -> None:
+    # Evidentiary-counterparty invariant, claimant-disjointness arm: a proposal whose
+    # claimant supplies one of its own releasing verdicts is not arms-length verified.
+    # ephemeral_identity_ref is NOT part of the evidence-chain hash, so the block is
+    # cleanly attributable to non-independence alone (the evidence floor still passes).
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    proposal_path = input_dir / "mutation_proposals.json"
+    proposals = json.loads(proposal_path.read_text(encoding="utf-8"))
+    # the claimant impersonates one of its own evaluators
+    proposals["mutation_proposals"][0]["ephemeral_identity_ref"] = "policy_gate.synthetic"
+    proposal_path.write_text(
+        json.dumps(proposals, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = _proposal_row(result, "proposal.inspect_repo_state")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_VERDICT_NOT_INDEPENDENT" in result["error_codes"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert "verdict_not_independent" in mutated_row["reason_codes"]
+    # clean attribution: proof refs, evidence-chain hash, and two visible verdicts all
+    # still hold; the sole defect is that the claimant is its own verifier.
+    assert "consensus_without_evidence" not in mutated_row["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_two_verdicts_from_one_evaluator_root(
+    tmp_path: Path,
+) -> None:
+    # Evidentiary-counterparty invariant, evidence-root-collapse arm (the wash-trade
+    # shape): two visible verdicts that collapse to a single evaluator root are one
+    # provenance root wearing two hats, not two independent confirmations. Collapsing
+    # evaluator_id also perturbs the evidence-chain hash, so consensus_without_evidence
+    # co-fires; the independence finding is asserted as a subset.
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    verdict_path = input_dir / "policy_verdicts.json"
+    verdicts = json.loads(verdict_path.read_text(encoding="utf-8"))
+    for verdict in verdicts["verdicts"]:
+        if verdict.get("proposal_id") == "proposal.inspect_repo_state":
+            verdict["evaluator_id"] = "policy_gate.synthetic"
+    verdict_path.write_text(
+        json.dumps(verdicts, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = _proposal_row(result, "proposal.inspect_repo_state")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_VERDICT_NOT_INDEPENDENT" in result["error_codes"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert "verdict_not_independent" in mutated_row["reason_codes"]
+
+
 def test_governed_mutation_authorization_rejects_cross_proposal_proof_cell(
     tmp_path: Path,
 ) -> None:

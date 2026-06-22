@@ -1,4 +1,4 @@
 Public Plectis compatibility stub for a withheld private source module.
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt
-Boundary class: restricted_private_source_ref
+Boundary class: private_body_exact_match

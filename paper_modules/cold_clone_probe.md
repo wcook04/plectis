@@ -108,7 +108,7 @@ export, Lean/Lake execution, or whole-system correctness.
 - Standard: `standards/std_microcosm_cold_clone_probe.json`.
 - Runtime source: `src/microcosm_core/cold_clone_probe.py`.
 - Root command wrapper: `bootstrap.sh`.
-- Public docs refs: `README.md#try-it-on-your-repo`,
+- Public docs refs: `README.md#run-it`,
   `AGENTS.md#fast-entry-for-cold-agents`, and
   `skills/cold_start_navigation.md`.
 - Focused tests: `tests/test_cold_clone_probe.py`,
@@ -259,8 +259,8 @@ package importability and first-wave bootstrap mechanics while preserving the
 public/private boundary. Use `./bootstrap.sh --dry-run` to inspect the exact
 command without writing the ignored receipt.
 
-The successful script output points back to `README.md#public-repo-map` and
-`README.md#component-map`. That is deliberate: the probe proves the first local
+The successful script output points back to `README.md#choose-a-route` and
+`README.md#choose-a-route`. That is deliberate: the probe proves the first local
 source-root action, then hands the reader to the public map instead of asking
 them to trust a hidden setup step.
 

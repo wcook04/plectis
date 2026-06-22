@@ -26,8 +26,8 @@ doctrine-lattice drift check in one command, and `make check` is a sub-second
 organ-registry integrity preflight you can run on every save.
 
 Before choosing a file to edit, use the README
-[Public Repo Map](README.md#public-repo-map) and
-[Component Map](README.md#component-map). Treat those sections as the
+[Public Repo Map](README.md#choose-a-route) and
+[Component Map](README.md#choose-a-route). Treat those sections as the
 contributor routing layer: they identify the runtime package, command cards,
 public doctrine, evidence fixtures, source capsules, and validation shell.
 The commands below are validation lanes after that route, not a replacement

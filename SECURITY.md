@@ -10,8 +10,8 @@ execution, private-root equivalence, proof-correctness, or production security
 authority.
 
 Before opening receipt trees or release-boundary fields, use the README
-[Public Repo Map](README.md#public-repo-map) and
-[Component Map](README.md#component-map). Security reports should name paths
+[Public Repo Map](README.md#choose-a-route) and
+[Component Map](README.md#choose-a-route). Security reports should name paths
 through those public surfaces, especially the command cards, evidence
 fixtures, source capsules, validation shell, and release receipts.
 

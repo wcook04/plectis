@@ -72,41 +72,31 @@ REQUIRED_DOCS = [
     "skills/cold_start_navigation.md",
 ]
 REQUIRED_PHRASES_BY_DOC = {
-    "README.md": [
-        "repo -> .microcosm",
-        "Real Substrate Posture",
-        "Plectis is the public repo form of the macro system",
-        "not a synthetic safety proxy",
-        "Public should carry private by default",
-        "as much of the macro substrate as possible",
-        "The exclusion set is narrow",
-        # Aligned with the public-copy clean (8af1382420): the README's
-        # exclusion-set sentence now uses cold-reader wording instead of the
-        # house phrase "raw operator voice, slurs or abusive wording". The pin
-        # runs through the full noun phrase so a tail edit cannot slip past;
-        # the README pin in tests/test_public_entry_docs.py (first-slice test)
-        # converges on this same string.
-        "private notes, personal material, and other content that is unsafe for a public source package",
-        "Any `body_copied=true` claim must name the source file",
-        "plectis compile .",
-        "std_python_microcosm_navigation_assay",
-        "implementation_atlas.python_navigation_assay",
-        "executable research prototype",
-        "local project operating substrate",
-        ".microcosm/",
-        "Architecture Kernel",
-        "plectis explain <project> <route_id>",
-        "Evidence receipts are the black-box recorder",
-        "`accepted_current_authority` is not an evidence-strength claim",
-        "evidence_class",
-        "front_door_status.blocking_surface_ids",
-        "Internal Runtime Spine",
-        "public entry inventory/read-model",
-        "inventory-only route-alignment metadata",
-        "not product progress, release readiness",
-        "[AGENT_ROUTES.md](AGENT_ROUTES.md)",
-        "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)"
-    ],
+    # README.md carries NO required prose pins. The README is the human
+    # front door (human-experience plane), judged by structural first-screen
+    # legibility + projection binding (see validators/readme_front_door.py),
+    # not by exact substrings. The truth-intent that these pins used to defend
+    # is conserved on canonical machine owners, with no silent loss:
+    #   - posture / "not a synthetic safety proxy" / "public carries private"
+    #       -> entry_packet.json safe_to_show flags (_entry_packet_route_contract)
+    #   - inventory routing / "inventory-only route-alignment metadata" /
+    #     "accepted_current_authority is not an evidence-strength claim" /
+    #     "evidence_class"
+    #       -> core/organ_registry.json + core/organ_evidence_classes.json,
+    #          enforced by _entry_spine_claims (registry_route mode) and
+    #          _evidence_class_registry_summary (still scan README.md)
+    #   - no overclaim / no hardcoded organ count
+    #       -> _public_entry_overclaim_hits + _hardcoded_numeric_organ_count_claims
+    #          (regex scans of README.md, independent of this phrase list)
+    #   - rename / compatibility ("Microcosm became Plectis")
+    #       -> PROVENANCE.md lineage + readme_front_door.py compatibility-note check
+    #   - command order (tour before compile) / route selection rule
+    #       -> entry_packet.json + cli.py FIRST_SCREEN_HELP (_entry_packet_route_contract,
+    #          _cli_first_screen_help_contract); README no longer restates them in prose.
+    # Earned 2026-06-22 (assurance-preserving projection migration): these 32
+    # prose pins made the validator a change-detector defending a historical
+    # README rendering rather than its substance.
+    "README.md": [],
     "AGENTS.md": [
         "plectis tour --card <project>",
         "plectis tour <project>",
@@ -175,7 +165,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "explicit non-claim of domain correctness or expert review"
     ],
     "AGENT_ROUTES.md": [
-        "Microcosm Agent Task Routes",
+        "Plectis Agent Task Routes",
         "Agent Task Route Table",
         "`task_class`",
         "atlas/agent_task_routes.json",
@@ -261,6 +251,39 @@ PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_PATTERNS = (
     r"\bthe\s+\d+\s+organs?\s+cluster\b",
     r"\b\d+\s+organs?\s+cluster\s+into\b",
     r"\bpublic\s+package\s+carries\s+\d+\s+accepted\s+public\s+runtime\s+organs?\b",
+)
+PUBLIC_ENTRY_PRODUCT_NAME_SCANNED_DOCS = (
+    "README.md",
+    "AGENTS.md",
+    "AGENT_ROUTES.md",
+    "ORGANS.md",
+    "ARCHITECTURE.md",
+    "QUICKSTART.md",
+    "PROVENANCE.md",
+)
+PUBLIC_ENTRY_LEGACY_PRODUCT_NAME_PATTERNS = (
+    r"^#\s+Microcosm\b",
+    r"\bMicrocosm Agent Task Routes\b",
+    r"\bMicrocosm Architecture\b",
+    r"\bMicrocosm docs\b",
+    r"\bSearch Microcosm\b",
+    r"\bMicrocosm improvement targets\b",
+    r"\bMicrocosm is (?:a|an|the|now|currently)\b",
+    r"\bMicrocosm builds\b",
+    r"\bMicrocosm turns\b",
+)
+PUBLIC_ENTRY_LEGACY_PRODUCT_ALLOWED_CONTEXTS = (
+    "Microcosm became Plectis",
+    "Microcosm is now Plectis",
+    "legacy",
+    "historical",
+    "compatibility",
+    "compatibility alias",
+    "compatibility label",
+    "microcosm-substrate",
+    ".microcosm",
+    "microcosm_core",
+    "`microcosm ",
 )
 CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
 CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
@@ -486,6 +509,57 @@ def _hardcoded_numeric_organ_count_claims(
                 matched.add(match.group(0))
         if matched:
             hits[rel] = sorted(matched)
+    return hits
+
+
+def _legacy_public_product_name_hits(
+    doc_text_by_rel: dict[str, str],
+    public_root: Path,
+) -> dict[str, list[str]]:
+    """Find public-entry prose that presents Microcosm as the current product name.
+
+    Compatibility identifiers remain allowed: `.microcosm`, `microcosm_core`,
+    the `microcosm` console alias, historical rename notes, and legacy route
+    explanations. This catches reader-facing product labels and product
+    sentences, the class that can make public surfaces drift back to the old
+    name without renaming the implementation namespace.
+    """
+    hits: dict[str, list[str]] = {}
+    compiled = [re.compile(pattern, re.IGNORECASE) for pattern in PUBLIC_ENTRY_LEGACY_PRODUCT_NAME_PATTERNS]
+    for rel in PUBLIC_ENTRY_PRODUCT_NAME_SCANNED_DOCS:
+        text = doc_text_by_rel.get(rel)
+        if text is None:
+            path = public_root / rel
+            text = path.read_text(encoding="utf-8") if path.is_file() else ""
+        if not text:
+            continue
+        matches: set[str] = set()
+        for line in text.splitlines():
+            if any(context in line for context in PUBLIC_ENTRY_LEGACY_PRODUCT_ALLOWED_CONTEXTS):
+                continue
+            for pattern in compiled:
+                for match in pattern.finditer(line):
+                    matches.add(match.group(0))
+        if matches:
+            hits[rel] = sorted(matches)
+
+    cli_path = public_root / CLI_FIRST_SCREEN_HELP_REL
+    if cli_path.is_file():
+        try:
+            help_text = _top_level_string_assignment(
+                cli_path.read_text(encoding="utf-8"),
+                "FIRST_SCREEN_HELP",
+            )
+        except SyntaxError:
+            help_text = None
+        if help_text:
+            matches = {
+                match.group(0)
+                for pattern in compiled
+                for match in pattern.finditer(help_text)
+            }
+            if matches:
+                hits[f"{CLI_FIRST_SCREEN_HELP_REL.as_posix()}::FIRST_SCREEN_HELP"] = sorted(matches)
     return hits
 
 
@@ -872,19 +946,16 @@ def _entry_packet_route_contract(
         if phrase not in route_selection_rule
     ]
     missing_route_selection_rule = bool(route_selection_missing_phrases)
-    readme_text = _normalized_text(doc_text_by_rel.get("README.md", ""))
-    readme_route_selection_required_phrases = [
-        "`selected_route_id` from `plectis tour --card .`, `plectis tour .`, or `plectis compile .`",
-        "do not hardcode `readme_onboarding_route` for arbitrary folders",
-        "`readme_onboarding_route` is present when the project has a README",
-        "`missing_tests_route` when tests are absent",
-        "empty/non-README folders can select `missing_tests_route`",
-    ]
-    readme_route_selection_missing_phrases = [
-        phrase
-        for phrase in readme_route_selection_required_phrases
-        if phrase not in readme_text
-    ]
+    # The route-selection TRUTH (selected_route_id comes from tour/tour/compile;
+    # readme_onboarding_route only when a README is present; missing_tests_route
+    # when tests are absent) is enforced on its canonical owners:
+    #   - atlas/entry_packet.json::route_selection_rule (route_selection_missing_phrases above)
+    #   - skills/cold_start_navigation.md (cold_start_route_selection_missing_phrases below)
+    # The README is the human front door and no longer restates route IDs in
+    # prose merely so this check can find them (assurance-preserving projection
+    # migration, 2026-06-22). The field is retained as an always-empty list so
+    # the receipt shape is stable for downstream consumers.
+    readme_route_selection_missing_phrases: list[str] = []
     unsafe_flags = [
         key
         for key in [
@@ -1121,7 +1192,17 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
         claimed_count = len(counts)
         missing = [organ_id for organ_id in expected_organs if organ_id not in counts]
         duplicates = sorted(tok for tok, count in counts.items() if count > 1)
-        registry_route_present = (
+        # A doc routes its inventory honestly in one of two ways:
+        #   - machine-token route (AGENTS.md, agent-facing): names both registry
+        #     files plus the inventory-only posture, OR
+        #   - human-link route (README.md, the human front door): links to the
+        #     generated System map (ORGANS.md) and the Release review
+        #     (RELEASE_REVIEW.md) in plain English.
+        # The registries-exist-and-validate TRUTH is enforced independently by
+        # _accepted_organs + _evidence_class_registry_summary, so the human front
+        # door need not echo the raw JSON paths / status-enum / field-name tokens
+        # in prose. Assurance conserved, projection freed (2026-06-22).
+        machine_token_route = (
             "core/organ_registry.json" in text
             and "core/organ_evidence_classes.json" in text
             and (
@@ -1129,6 +1210,11 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
                 or "public entry inventory" in normalized
             )
         )
+        human_link_route = (
+            "[System map](ORGANS.md)" in text
+            and "[Release review](RELEASE_REVIEW.md)" in text
+        )
+        registry_route_present = machine_token_route or human_link_route
         expected_count = len(expected_organs)
         # A registry_route doc DEFERS enumeration to the registry / ORGANS.md; it
         # may not partially inline organs nor assert inline coverage it does not
@@ -1362,8 +1448,14 @@ def _agent_task_route_projection(
         )
         if phrase not in md_text
     ]
+    # The agent-task-route deferral (task routing -> AGENT_ROUTES.md, specialty
+    # browsing -> ORGANS.md#find-your-specialty) is an AGENT-facing routing truth
+    # enforced on AGENTS.md, the surface that should carry it. The human-facing
+    # README routes to AGENTS.md and ORGANS.md (System map) without restating
+    # these internal routing links in its prose (assurance-preserving projection
+    # migration, 2026-06-22).
     doc_deferral_missing = []
-    for rel in ("README.md", "AGENTS.md"):
+    for rel in ("AGENTS.md",):
         normalized = _normalized_text(doc_text_by_rel.get(rel, ""))
         for phrase in (
             "[AGENT_ROUTES.md](AGENT_ROUTES.md)",
@@ -1491,6 +1583,10 @@ def validate_public_entry_docs(
     hardcoded_numeric_organ_count_claims = _hardcoded_numeric_organ_count_claims(
         doc_text_by_rel
     )
+    legacy_public_product_name_hits = _legacy_public_product_name_hits(
+        doc_text_by_rel,
+        public_root,
+    )
     blocking_codes: list[str] = []
     if missing_docs:
         blocking_codes.append("MISSING_PUBLIC_ENTRY_DOC")
@@ -1518,6 +1614,8 @@ def validate_public_entry_docs(
         blocking_codes.append("PUBLIC_ENTRY_OVERCLAIM")
     if hardcoded_numeric_organ_count_claims:
         blocking_codes.append("HARDCODED_PUBLIC_ENTRY_ORGAN_COUNT")
+    if legacy_public_product_name_hits:
+        blocking_codes.append("PUBLIC_LEGACY_PRODUCT_NAME")
 
     blocking_codes = sorted(set(blocking_codes))
     status = PASS if not blocking_codes else "blocked"
@@ -1533,6 +1631,7 @@ def validate_public_entry_docs(
         "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
         "public_entry_overclaim_by_doc": public_entry_overclaim_by_doc,
         "hardcoded_numeric_organ_count_claims": hardcoded_numeric_organ_count_claims,
+        "legacy_public_product_name_hits": legacy_public_product_name_hits,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
         "duplicate_accepted_organs": _duplicates(accepted),

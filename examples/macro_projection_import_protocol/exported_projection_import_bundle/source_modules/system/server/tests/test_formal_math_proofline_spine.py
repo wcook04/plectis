@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: system/server/tests/test_formal_math_proofline_spine.py
-Boundary class: restricted_private_source_ref
+Boundary class: private_body_exact_match
 """
 
 PUBLIC_MICROCOSM_STUB = True

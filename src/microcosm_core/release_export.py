@@ -60,6 +60,7 @@ DEFAULT_INCLUDE_REFS = (
     "README.md",
     "SECURITY.md",
     "SOURCE_STATUS.md",
+    "assets",
     "atlas",
     "bootstrap.sh",
     "core",
