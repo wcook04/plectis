@@ -7,8 +7,8 @@ Every map below is a generated projection of content-graph.json (the canonical o
 ## First local command
 
 - Source checkout: `PYTHONPATH=src python3 -m microcosm_core hello --reader agent .`
-- Installed checkout: `microcosm hello --reader agent <project>`
-- First behavior card: `microcosm tour --card <project>`
+- Installed checkout: `plectis hello --reader agent <project>`
+- First behavior card: `plectis tour --card <project>`
 
 Scope: this is a local-first static/public project doorway. Use it to clone, inspect, and compare source-linked records; release operations, hosted service claims, external model access, source-file changes, claims not supported by the public records, formal-result correctness, production use, financial decisions, and specialist review are outside this doorway's scope.
 

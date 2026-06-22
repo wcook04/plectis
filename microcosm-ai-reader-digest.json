@@ -15,7 +15,6 @@
       "exhaustive visible text search"
     ]
   },
-  "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
   "canonical_question_routes": {
     "contract": "Routes a question to the first object that can answer it; it does not pre-decide the verdict. The reader still inspects.",
     "routes": {
@@ -3280,10 +3279,10 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:4a41c539f8d411853d7548197e3a304493ddeafea6df1c1d8e4e93fd8580de2e",
+    "payload_sha256_excluding_identity": "sha256:6184791ab99a0810e8f72393d915a041168a0200aba703180fd0ca60fd3b8cfa",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc"
+    "source_fingerprint": "d415388cf0e5df38889d723ccc035081"
   },
   "counts": {
     "component_count": 78,
@@ -3561,7 +3560,7 @@
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc",
+    "source_fingerprint": "d415388cf0e5df38889d723ccc035081",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -3581,85 +3580,6 @@
     "role": "derived_view",
     "search_index_path": "assets/search-index.js",
     "surface_sync_contract_ref": "content-graph.json::surface_sync_contract"
-  },
-  "public_export_egress_posture": {
-    "artifact_identity_pointer": "composition_identity + projection-status.json::artifact_identity",
-    "authorization_boundary": "The standalone public Plectis source slice and review packets are public distribution artifacts in populated-source release mode. That authorization does not publish the private macro root, private raw media, account material, future cohorts, follow-ups, live services, or any material absent from the public repository/review packet boundary.",
-    "class_rules": {
-      "prohibited_secret_or_live_payload": "Secret material and live non-public data are excluded from the public packet; any finding in this class blocks distribution until removed.",
-      "public_by_design": "Public repository URLs, public page routes, stable public component ids, evidence modes, scope limits, and public contact routes intended for review.",
-      "public_optional_personal_data": "Name, project email, public professional links, and student-budget context only when they serve contact or reviewer-calibration purposes.",
-      "strategic_private_origin_metadata_requiring_explicit_allowlist": "Non-secret internal coordinates such as private-origin root slugs, state paths, implementation module paths, internal tool paths, source-body hashes, line counts, and capability symbols. Default action is project to a public handle or omit; keep only with an explicit allowlist receipt."
-    },
-    "classification_classes": [
-      "public_by_design",
-      "public_optional_personal_data",
-      "strategic_private_origin_metadata_requiring_explicit_allowlist",
-      "prohibited_secret_or_live_payload"
-    ],
-    "personal_disclosure_policy": {
-      "allowed_public_contact_fields": [
-        "William Cook",
-        "williamwkcook+microcosm@gmail.com",
-        "https://www.linkedin.com/in/will-cook-278127234/",
-        "https://github.com/wcook04/plectis/security/advisories/new",
-        "https://github.com/wcook04/plectis"
-      ],
-      "current_public_contact_decision": {
-        "reason": "Retained fields let reviewers identify and contact the maintainer; exact age is unnecessary personal data for the public packet.",
-        "removed_fields": [
-          "exact age"
-        ],
-        "retained_fields": [
-          "name",
-          "project email alias",
-          "LinkedIn profile",
-          "University of Bristol economics undergraduate context",
-          "University non-affiliation statement"
-        ],
-        "schema": "microcosm_public_personal_disclosure_decision_v0"
-      },
-      "excluded_by_default": [
-        "exact age",
-        "private email address",
-        "home path or host username",
-        "private institution account state"
-      ],
-      "optional_context_fields": [
-        "University of Bristol economics undergraduate context",
-        "student-budget context when explaining support constraints",
-        "non-affiliation statements needed to avoid institutional endorsement"
-      ]
-    },
-    "public_runtime_rule": {
-      "current_public_artifact_runnable_components": "see_component_digest",
-      "runs_real_tools_meaning": "runs_real_tools describes whether the public component command invokes external machinery.",
-      "where_to_start_shape": [
-        "quickstart",
-        "one_component",
-        "evidence_line",
-        "source_link",
-        "scope_limit"
-      ]
-    },
-    "publication_authorized": true,
-    "release_decision": "authorized_for_standalone_public_source_slice_distribution",
-    "release_mode": "populated_source_release",
-    "reuse_terms_pointer": "legal_manifest.present_packet_and_docs_reuse_terms",
-    "schema": "microcosm_hostile_recipient_public_export_egress_v0",
-    "strategic_metadata_policy": {
-      "current_public_packet_posture": "Strategic-coordinate scanner hits are review-blocking for hostile distribution until a human allowlists them or the builder projects them to public handles.",
-      "default_action": "project_or_omit_unless_explicitly_allowlisted",
-      "scanner_pattern_ids": [
-        "private_system_public_root_slug",
-        "private_portfolio_state_path",
-        "private_system_lib_path",
-        "private_system_ui_path",
-        "private_standard_path",
-        "private_control_tool_path",
-        "private_capability_symbol"
-      ]
-    }
   },
   "public_glossary": {
     "schema": "plectis_public_glossary_projection_v0",
@@ -4178,7 +4098,7 @@
   },
   "read_first": {
     "for_ai_assistants": [
-      "Read reader_contract, public_export_egress_posture, coverage_scope, quick_path, canonical_question_routes, and public_glossary first; they route a question to the object that answers it without pre-deciding the verdict. Use route_index and source_map for exact links.",
+      "Start with the substance, not the contract: Plectis is a source-linked public map of an AI-native workflow system, where each public component carries an evidence mode, a 1-to-5 verdict-independence rank, a source route, and a stated scope limit. Route a question to the object that answers it. Areas go through family_digest, components through component_digest[], boundary questions (does this prove X, is it secure, can I trade on it) through claim_ceiling_index, and exact links through route_index and source_map. reader_contract and coverage_scope hold the rules; the routing objects order the search and do not pre-decide the verdict.",
       "For current name and vocabulary questions, start with public_glossary; for Microcosm rename, legacy URL, or compatibility-name questions, start with lineage and legacy_compatibility instead. For component or source-object questions, start with component_digest[] (it carries label, rank, evidence_kind, public_runtime, runs_real_tools meaning, command route metadata, scope_limit, claim_ceiling_tags, and a full_record_pointer) and open visible_text_index.logical_records.components[] only when you need the full record, its source_links, or links_to. For doctrine questions, use visible_text_index.logical_records.rules_and_ideas[] as the synopsis/relationship row, then follow body_pointer to the one complete machine body record. For \"what are the areas\" questions use family_digest[]; for \"what does it not prove / is this secure / can I trade on it\" questions use claim_ceiling_index and the row's claim_ceiling_tags. Open paper-module, evidence-profile, and other long visible_text bodies only by id when a question needs them.",
       "Explain Plectis in plain public language; avoid internal project vocabulary the public site does not define.",
       "When you rely on a routeable object or page, include the relative_href back to the exact public view.",
@@ -4210,7 +4130,6 @@
     "navigation_authority": "route_index and source_map are navigation projections over public site objects",
     "read_order": [
       "read_first",
-      "public_export_egress_posture",
       "coverage_scope",
       "quick_path",
       "canonical_question_routes",
@@ -4484,7 +4403,7 @@
       }
     ],
     "url_resolution": {
-      "base_url": "https://wcook04.github.io/plectis/",
+      "base_url": null,
       "relative_href_rule": "Resolve relative_href against the Plectis public site root. If no public base URL is present, keep the relative_href and ask the visitor for the site URL if an absolute URL is required."
     }
   },
@@ -4495,7 +4414,7 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc",
+  "source_fingerprint": "d415388cf0e5df38889d723ccc035081",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
     "object_count": 814,
@@ -4582,9 +4501,9 @@
   },
   "source_ref_summary": {
     "curated_source_hashes": {
-      "microcosm-substrate/README.md": "sha256:cb8cc793ca2b4c6199c514198fb227111b128bfeec41ea20aba73a1d63e7a288",
+      "microcosm-substrate/README.md": "sha256:7a70befa1a6585f4d0de4788a51c0a551046b4840491f4911b32823ed0da7a1b",
       "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
-      "sites/microcosm/index.html": "sha256:9e43af933bba111c9fab6205e1370cfc1e9d15b6888f0049156e8f8294f3f11e"
+      "sites/microcosm/index.html": "sha256:b2388bc72095ceb1e5cd8daa4de2e3a1e9ba471d41182ff4e796d8e311186fbd"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",

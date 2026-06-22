@@ -50,10 +50,76 @@
             <li><span class="loop-chip">scope limit</span></li>
           </ol>
           <div class="hero__actions">
+            <a class="btn btn--primary" href="https://github.com/wcook04/plectis">Open the repo</a>
             <a class="btn btn--primary" href="docs/index.html">Review the public map</a>
             <a class="btn btn--text" href="#evidence-loop">See the loop</a>
-            <a class="btn btn--text" href="microcosm-ai-reader-digest.json" download="microcosm-ai-reader-digest.json">Download reader digest</a>
           </div>
+        </div>
+        <aside class="hero__start" aria-label="Start here">
+          <p class="hero__start-title">Start here</p>
+          <ol class="route-list">
+            <li><a href="https://github.com/wcook04/plectis"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Clone the repository</span></a></li>
+            <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check</span></a></li>
+            <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Check the evidence line</span></a></li>
+            <li><a href="docs/architecture.html#whole-system-map"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Open the system map</span></a></li>
+            <li><a href="#review"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Review it both ways</span></a></li>
+          </ol>
+        </aside>
+      </div>
+      <p class="hero__stance">This is a working local source slice, not a finished or hosted product.</p>
+      <p class="boundary-band" role="note" aria-label="Standing boundaries">
+        <span>runs locally</span>
+        <span>public source slice</span>
+        <span>you can report issues</span>
+        <span>no hosted service</span>
+        <span>evidence-scoped claims</span>
+      </p>
+    </section>
+
+    <!-- Why this is here -->
+    <section class="wrap section" id="purpose" aria-labelledby="purpose-title">
+      <div class="section__head">
+        <p class="eyebrow">Why this is here</p>
+        <h2 id="purpose-title">A way in, and a way to check it.</h2>
+        <p>Plectis comes from a larger AI-native system I have been building with AI. I have not put all of it online: it includes live tools and non-public data, and releasing the whole thing at once did not seem sensible or responsible. This is a smaller public source slice instead, built around source-linked <a href="docs/glossary.html#glossary-component">components</a>, public-safe stubs, and small synthetic fixtures, so the shape of the work can be inspected without publishing the live working environment.</p>
+        <p>The idea behind it is that useful AI capability should build up in things you can inspect, like source links, evidence ranks, result records, and stated limits, rather than inside one-off model runs that leave nothing to check. The site is a small, checkable version of that.</p>
+        <p class="lineage-note"><strong>21 June 2026:</strong> Microcosm became Plectis. The rename avoids confusion with the earlier Southampton Microcosm hypermedia system and acknowledges that lineage without implying endorsement or affiliation. <a href="docs/lineage.html">Read the lineage note and changelog</a>.</p>
+      </div>
+      <ul class="lead-list">
+        <li>It is meant as a way in. You can start from the map, open a <a href="docs/glossary.html#glossary-component">component</a>, and read its evidence record, source reference, and the line on what it does not prove, so nothing here asks you to take a summary on trust. The public repository carries the standalone source slice and its local checks.</li>
+        <li>If something here is confusing, or claims more than it shows, I would rather hear it. Please <a href="docs/contact.html">let me know</a>.</li>
+      </ul>
+      <div class="callout">
+        This is the everyday version of <a href="docs/doctrine.html#the-root-constraints">derivation before assertion</a>: where the site makes a claim, it tries to give you enough of the source trail to check it yourself, including the point where the public version stops.
+      </div>
+    </section>
+
+    <!-- One evidence loop -->
+    <section class="wrap section" id="evidence-loop" aria-labelledby="loop-title">
+      <div class="section__head">
+        <p class="eyebrow">First loop</p>
+        <h2 id="loop-title">What is here, and what is not, in one pass.</h2>
+        <p>The fastest way to understand Plectis today is not to read all <span data-mc-fact="component_count">78</span> <a href="docs/glossary.html#glossary-component">component</a> records. Clone the repository, run the quickstart check, then follow one public record to its evidence line, source path, and <a href="docs/glossary.html#glossary-scope-limit">scope limit</a>.</p>
+      </div>
+      <ol class="route-list" data-loop-spine>
+        <li><a href="https://github.com/wcook04/plectis"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Clone the repository.</span></a></li>
+        <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check and inspect the result record.</span></a></li>
+        <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Read the evidence kind, rank, real-tool marker, and the line that says what the pass does not prove.</span></a></li>
+        <li><a href="docs/components.html#component-cold_reader_route_map"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Inspect one component card, such as the cold-reader route map, and follow its source link.</span></a></li>
+        <li><a href="docs/source.html#provenance"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Read where the public record stops, and check the site never claims past it.</span></a></li>
+      </ol>
+      <div class="callout">
+        The loop is the useful unit: quickstart &rarr; public map &rarr; <a href="docs/glossary.html#glossary-component">component</a> card &rarr; evidence line &rarr; source path &rarr; <a href="docs/glossary.html#glossary-scope-limit">scope limit</a>.
+      </div>
+      <p class="loop-trace">Or follow one on the map now: <a href="docs/architecture.html#map=component:formal_math_lean_proof_witness">trace a single component</a> (a Lean proof check that runs the real prover), and its architectural place, evidence, exact source, and scope limit appear together in the map's selected-node panel.</p>
+    </section>
+
+    <!-- Hand it to your own AI. This apparatus lives here, after the first loop,
+         rather than in the hero: a reader should meet the project before being
+         offered a way to delegate judging it. The handoff itself is unchanged;
+         only its place on the page moved. The class="hero__ai" wrapper is kept
+         verbatim (the build's view-accounting test splits on that literal). -->
+    <section class="wrap section" id="ai-handoff" aria-labelledby="ai-packet-title">
           <div class="hero__ai">
             <p class="hero__ai-kicker">Short on time?</p>
             <h2 id="ai-packet-title" class="hero__ai-title">After the first loop, hand the map to your own AI.</h2>
@@ -140,63 +206,6 @@
             </details>
             <span class="page-export-status hero__ai-status" id="site-export-status" role="status" aria-live="polite"></span>
           </div>
-        </div>
-        <aside class="hero__start" aria-label="Start here">
-          <p class="hero__start-title">Start here</p>
-          <ol class="route-list">
-            <li><a href="https://github.com/wcook04/plectis"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Clone the repository</span></a></li>
-            <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check</span></a></li>
-            <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Check the evidence line</span></a></li>
-            <li><a href="docs/architecture.html#whole-system-map"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Open the system map</span></a></li>
-            <li><a href="#review"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Review it both ways</span></a></li>
-          </ol>
-        </aside>
-      </div>
-      <p class="hero__stance">This is a working local source slice, not a finished or hosted product.</p>
-      <p class="boundary-band" role="note" aria-label="Standing boundaries">
-        <span>runs locally</span>
-        <span>public source slice</span>
-        <span>you can report issues</span>
-        <span>no hosted service</span>
-        <span>evidence-scoped claims</span>
-      </p>
-    </section>
-
-    <!-- Why this is here -->
-    <section class="wrap section" id="purpose" aria-labelledby="purpose-title">
-      <div class="section__head">
-        <p class="eyebrow">Why this is here</p>
-        <h2 id="purpose-title">A way in, and a way to check it.</h2>
-        <p>Plectis comes from a larger AI-native system I have been building with AI. I have not put all of it online: it includes live tools and non-public data, and releasing the whole thing at once did not seem sensible or responsible. This is a smaller public source slice instead, built around source-linked <a href="docs/glossary.html#glossary-component">components</a>, public-safe stubs, and small synthetic fixtures, so the shape of the work can be inspected without publishing the live working environment.</p>
-        <p>The idea behind it is that useful AI capability should build up in things you can inspect, like source links, evidence ranks, result records, and stated limits, rather than inside one-off model runs that leave nothing to check. The site is a small, checkable version of that.</p>
-        <p class="lineage-note"><strong>21 June 2026:</strong> Microcosm became Plectis. The rename avoids confusion with the earlier Southampton Microcosm hypermedia system and acknowledges that lineage without implying endorsement or affiliation. <a href="docs/lineage.html">Read the lineage note and changelog</a>.</p>
-      </div>
-      <ul class="lead-list">
-        <li>It is meant as a way in. You can start from the map, open a <a href="docs/glossary.html#glossary-component">component</a>, and read its evidence record, source reference, and the line on what it does not prove, so nothing here asks you to take a summary on trust. The public repository carries the standalone source slice and its local checks.</li>
-        <li>If something here is confusing, or claims more than it shows, I would rather hear it. Please <a href="docs/contact.html">let me know</a>.</li>
-      </ul>
-      <div class="callout">
-        This is the everyday version of <a href="docs/doctrine.html#the-root-constraints">derivation before assertion</a>: where the site makes a claim, it tries to give you enough of the source trail to check it yourself, including the point where the public version stops.
-      </div>
-    </section>
-
-    <!-- One evidence loop -->
-    <section class="wrap section" id="evidence-loop" aria-labelledby="loop-title">
-      <div class="section__head">
-        <p class="eyebrow">First loop</p>
-        <h2 id="loop-title">What is here, and what is not, in one pass.</h2>
-        <p>The fastest way to understand Plectis today is not to read all <span data-mc-fact="component_count">78</span> <a href="docs/glossary.html#glossary-component">component</a> records. Clone the repository, run the quickstart check, then follow one public record to its evidence line, source path, and <a href="docs/glossary.html#glossary-scope-limit">scope limit</a>.</p>
-      </div>
-      <ol class="route-list" data-loop-spine>
-        <li><a href="https://github.com/wcook04/plectis"><span class="route-num" aria-hidden="true">1</span><span class="route-label">Clone the repository.</span></a></li>
-        <li><a href="docs/quickstart.html"><span class="route-num" aria-hidden="true">2</span><span class="route-label">Run the quickstart check and inspect the result record.</span></a></li>
-        <li><a href="docs/evidence.html"><span class="route-num" aria-hidden="true">3</span><span class="route-label">Read the evidence kind, rank, real-tool marker, and the line that says what the pass does not prove.</span></a></li>
-        <li><a href="docs/components.html#component-cold_reader_route_map"><span class="route-num" aria-hidden="true">4</span><span class="route-label">Inspect one component card, such as the cold-reader route map, and follow its source link.</span></a></li>
-        <li><a href="docs/source.html#provenance"><span class="route-num" aria-hidden="true">5</span><span class="route-label">Read where the public record stops, and check the site never claims past it.</span></a></li>
-      </ol>
-      <div class="callout">
-        The loop is the useful unit: quickstart &rarr; public map &rarr; <a href="docs/glossary.html#glossary-component">component</a> card &rarr; evidence line &rarr; source path &rarr; <a href="docs/glossary.html#glossary-scope-limit">scope limit</a>.
-      </div>
     </section>
 
     <!-- How to read this site -->
@@ -235,7 +244,7 @@
     <section class="wrap section" aria-labelledby="what-title">
       <div class="section__head">
         <p class="eyebrow">What this is</p>
-        <h2 id="what-title"><a class="section-route" href="docs/components.html"><span data-mc-fact="component_count_word_titlecase">Seventy-eight</span> components across <span data-mc-fact="area_count_word">seven</span> areas.<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
+        <h2 id="what-title"><a class="section-route" href="docs/components.html">Every component shows how independently it is checked, marks real runs apart from stand-ins, and says where it stops.<span class="section-route__arrow" aria-hidden="true"> &rarr;</span></a></h2>
       </div>
       <ul class="lead-list">
         <li>Each of the <span data-mc-fact="area_count_word">seven</span> areas carries <a href="docs/glossary.html#glossary-component">component</a> records for the public slice. Formal math and proof has a Lean and Lake proof-check pipeline, premise retrieval, tactic routing, and verifier-trace repair. Agent reliability and safety replays sabotage, sandbox-escape, prompt-injection, and memory-poisoning cases. Research and science covers finance forecasting, a spatial world model, and a replication rubric. The rest cover source import and drift control, architecture and navigation, work and continuity, and entry and orientation.</li>

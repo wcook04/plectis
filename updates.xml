@@ -4,7 +4,14 @@
   <id>https://wcook04.github.io/plectis/updates.xml</id>
   <link href="https://wcook04.github.io/plectis/updates.xml" rel="self" type="application/atom+xml"/>
   <link href="https://wcook04.github.io/plectis/docs/updates.html" rel="alternate" type="text/html"/>
-  <updated>2026-06-21T00:00:00+00:00</updated>
+  <updated>2026-06-22T00:00:00+00:00</updated>
+  <entry>
+    <title>Tour framing tightened around one record loop</title>
+    <id>https://wcook04.github.io/plectis/updates/substrate-like-record-layer-2026-06-22</id>
+    <link href="https://wcook04.github.io/plectis/docs/tour.html#what-it-is" rel="alternate" type="text/html"/>
+    <updated>2026-06-22T00:00:00+00:00</updated>
+    <summary>The tour now frames Plectis as a system-like layer over existing source and result records, and points first-time readers to one focused command-card-evidence loop before the whole map.</summary>
+  </entry>
   <entry>
     <title>Microcosm became Plectis</title>
     <id>https://wcook04.github.io/plectis/updates/rename-2026-06-21</id>

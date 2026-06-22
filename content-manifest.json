@@ -1074,7 +1074,7 @@
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc",
+    "source_fingerprint": "d415388cf0e5df38889d723ccc035081",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -1248,12 +1248,12 @@
     "headers": "_headers",
     "hsts": {
       "header": "Strict-Transport-Security",
-      "mode": "host-only",
-      "reason": "base_url_is_https_public_launch_url_host_only",
+      "mode": "local_no_hsts",
+      "reason": "no_public_https_base_url_supplied",
       "requires_domain_inventory": false,
       "requires_preload_consent": false,
-      "status": "active_host_only",
-      "value": "max-age=31536000"
+      "status": "deferred_until_final_https_domain_verified",
+      "value": null
     },
     "legacy_route_manifest": "legacy-route-manifest.json",
     "legacy_site_output_root": "sites/microcosm-legacy",
@@ -1263,7 +1263,7 @@
     "security_policy": "docs/vulnerability-disclosure.html",
     "security_txt": ".well-known/security.txt",
     "security_txt_legacy": "security.txt",
-    "sitemap": "sitemap.xml",
+    "sitemap": null,
     "updates_feed": "updates.xml"
   },
   "deterministic_generation": true,
@@ -1320,7 +1320,7 @@
   ],
   "legacy_compatibility": {
     "canonical_site_base_url": "https://wcook04.github.io/plectis/",
-    "legacy_site_base_url": "https://wcook04.github.io/microcosm-substrate/",
+    "legacy_site_base_url": "https://wcook04.github.io/plectis/",
     "legacy_site_output_root": "sites/microcosm-legacy",
     "machine_json_aliases": [
       "content-graph.json",
@@ -2206,18 +2206,18 @@
       "title": "Vulnerability disclosure"
     }
   ],
-  "public_base_url": "https://wcook04.github.io/plectis/",
+  "public_base_url": null,
   "schema_version": "microcosm_public_site_content_manifest_v1",
   "source_hashes": {
-    "codex/doctrine/system_vocabulary/term_registry.json": "sha256:84d42278f65d456bdc3947dfef6101b9b93e4ce937791fc1273dfe1ffb37076b",
+    "codex/doctrine/system_vocabulary/term_registry.json": "sha256:0073021d3084d754db57b2bbe17cbce617127a82658028e687bad90bc8e8b081",
     "microcosm-substrate/ARCHITECTURE.md": "sha256:d69c8c51f739461b558b79ef819a045ceedd9a9ca16d93b5d8f36d108eb9d35b",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
-    "microcosm-substrate/NOTICE": "sha256:4f3ed86d156889dc1d73c63aca2fe08fc011e572599a6da65b5b2387bee7346f",
+    "microcosm-substrate/NOTICE": "sha256:5ee35efcac92a6e5009e305e2f662481e2a3b7fb6e6d95a275e519066a0b2375",
     "microcosm-substrate/ORGANS.md": "sha256:111d95d7b79e202216f7df99e5a011450d83d80121484b706294e5b6a5510fdc",
-    "microcosm-substrate/PROVENANCE.md": "sha256:8183a19fb46227db9ee8dc98b5a75cf2f90c52acb38a91d976fe2e843ac6c2f7",
-    "microcosm-substrate/QUICKSTART.md": "sha256:5b273866817f856bb9940c093535c7ced7f4224ee50ed55859190f1a39fa156f",
-    "microcosm-substrate/README.md": "sha256:cb8cc793ca2b4c6199c514198fb227111b128bfeec41ea20aba73a1d63e7a288",
-    "microcosm-substrate/SECURITY.md": "sha256:672cc43ba2e08529df1f296f28252f31e6d993c7c76af586a437b70e78a8084e",
+    "microcosm-substrate/PROVENANCE.md": "sha256:ae9e699b9d9a31ad38139fae240591ed1269502ad54dce425ab5e5f27f044ab8",
+    "microcosm-substrate/QUICKSTART.md": "sha256:f1d831a7c4fc8e356debafe66d7efabfe3634b175e5f8b6e11091ac2e3d307ed",
+    "microcosm-substrate/README.md": "sha256:7a70befa1a6585f4d0de4788a51c0a551046b4840491f4911b32823ed0da7a1b",
+    "microcosm-substrate/SECURITY.md": "sha256:29667a69e406a24719c25a8e627cb559c849b6bf3afeb4d3f18fedf27f05dcf8",
     "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
     "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
     "microcosm-substrate/anti_principles/AP-11.json": "sha256:e70d5e5b298ac7be02c3675fce3730ebda327c94a2c63e68cc3ba7bb99bf3e76",
@@ -2236,7 +2236,7 @@
     "microcosm-substrate/anti_principles/AP-8.json": "sha256:0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
     "microcosm-substrate/anti_principles/AP-9.json": "sha256:0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
     "microcosm-substrate/atlas/agent_task_routes.json": "sha256:8f1895629e47fab929d5a5be99c809779097eb06c23dfb3972c2b7cc1f3e3cdd",
-    "microcosm-substrate/atlas/entry_packet.json": "sha256:a038737d2ab18ac7bc18b5a7039360ca35a37fe959504e4c0334d3cc30adcf74",
+    "microcosm-substrate/atlas/entry_packet.json": "sha256:3809a74ae8b6017bfd261a879e618f32c91b2646dd73440be111721329d6c043",
     "microcosm-substrate/axioms/AX-1.json": "sha256:9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
     "microcosm-substrate/axioms/AX-10.json": "sha256:c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
     "microcosm-substrate/axioms/AX-11.json": "sha256:606a8b913d2bbd162d6ded70f3fa0d48343ec54df818bfed87e3b7b9fe6b1606",
@@ -2400,7 +2400,7 @@
     "microcosm-substrate/paper_modules/certificate_kernel_execution_lab.md": "sha256:e84ba4e4a701dcc31f3419bc3136c8a60e7f4076a0fafbde57a9bcab78e3587a",
     "microcosm-substrate/paper_modules/cognitive_operator_registry.md": "sha256:e32c14968f330c71622f47bf8ce853de2a10dc4903e3910ab212f6f8dbd02d52",
     "microcosm-substrate/paper_modules/cold_clone_probe.md": "sha256:46d534ccf31ff148394400ec0721f17b18eed3cab7616658cf1ee1ed7b5cf551",
-    "microcosm-substrate/paper_modules/cold_reader_route_map.md": "sha256:86a7259287f773de3d702d53d4370e2ee00d680aec8808a2a28b541d31f52acd",
+    "microcosm-substrate/paper_modules/cold_reader_route_map.md": "sha256:3a09081e3f57ba68c3cdc7cfe39949e6c56c58371f5e198c031c3e5e8d5e0aae",
     "microcosm-substrate/paper_modules/computer_use_action_trace_replay.md": "sha256:24782aa83268600b8e04175d3a64005a4883ca07ba0185810b6c42310dcb8477",
     "microcosm-substrate/paper_modules/concurrency_mission_control.md": "sha256:a6188ab0f72beca5960fd57d29365bf975d7305ac2b46cfdde40688d9e7626cc",
     "microcosm-substrate/paper_modules/corpus_readiness_mathlib_absence.md": "sha256:fc7ca37c6ebc3076fed6c320b59d0d7f27c8669601546b1318b994fd5385695c",
@@ -2478,8 +2478,8 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
-    "sites/microcosm/index.html": "sha256:9e43af933bba111c9fab6205e1370cfc1e9d15b6888f0049156e8f8294f3f11e",
-    "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:2e5f4dfd961f52dd90b0bfbf7be14456eebd2bea69420258fc68470d94382eaa"
+    "sites/microcosm/index.html": "sha256:b2388bc72095ceb1e5cd8daa4de2e3a1e9ba471d41182ff4e796d8e311186fbd",
+    "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:27fe4b034bb73c9c5d78fb439bd38b02bd875a9bde290d176deddf595a7e0501"
   },
   "source_of_truth_contract": {
     "analytics_default": "none",

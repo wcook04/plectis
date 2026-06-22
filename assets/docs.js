@@ -3392,4 +3392,155 @@
     update();
   })();
 
+  // ---- Governed term layer: hover/focus preview + nonmodal lens ----
+  // Progressive enhancement over the build-compiled term links: JS-off leaves a
+  // real glossary anchor; JS-on adds a hover preview + nonmodal lens (Back/Esc
+  // close, focus returns). Reads window.__MICROCOSM_INDEX__.terms (one source).
+  (function () {
+    var idx = window.__MICROCOSM_INDEX__ || {};
+    var terms = (idx && idx.terms) || [];
+    if (!terms.length) return;
+    var anchors = document.querySelectorAll('a.narrative-ref--term[data-term]');
+    if (!anchors.length) return;
+
+    var byId = {};
+    for (var i = 0; i < terms.length; i++) {
+      var record = terms[i];
+      var key = String((record && record.object_id) || '').replace(/^term:/, '');
+      if (key) byId[key] = record;
+    }
+
+    // Reuses the module-scope el(tag, cls, text) helper (single-sourced).
+    function placeFloater(node, anchor) {
+      node.hidden = false;
+      var rect = anchor.getBoundingClientRect();
+      var width = node.offsetWidth;
+      var height = node.offsetHeight;
+      var left = Math.min(Math.max(8, rect.left), Math.max(8, window.innerWidth - width - 8));
+      var top = rect.bottom + 8;
+      if (top + height > window.innerHeight - 8) {
+        top = Math.max(8, rect.top - height - 8);
+      }
+      node.style.left = left + 'px';
+      node.style.top = top + 'px';
+    }
+
+    // One shared two-tier preview (WCAG 1.4.13: dismissible, hoverable, persistent).
+    // Tier 0 is a one- or two-sentence hover preview; tier 1 expands it short->long
+    // in place and offers a link through to the full glossary entry. The "real full"
+    // (related terms, example route, usage counts) lives on the glossary page, so the
+    // inline preview stays deliberately small.
+    var tip = el('div', 'term-tip');
+    tip.id = 'mc-term-tip';
+    tip.setAttribute('role', 'tooltip');
+    tip.hidden = true;
+    var tipLabel = el('div', 'term-tip__label');
+    var tipText = el('div', 'term-tip__text');
+    var tipDeep = el('div', 'term-tip__deep');
+    tipDeep.hidden = true;
+    var tipFull = el('a', 'term-tip__full', 'Open the full glossary entry →');
+    tipFull.hidden = true;
+    tipFull.tabIndex = -1; // keyboard path is Enter-again on the term; the link is a pointer affordance
+    var tipCue = el('div', 'term-tip__cue');
+    tip.appendChild(tipLabel);
+    tip.appendChild(tipText);
+    tip.appendChild(tipDeep);
+    tip.appendChild(tipFull);
+    tip.appendChild(tipCue);
+    document.body.appendChild(tip);
+    var tipFor = null;     // the term anchor the preview currently describes
+    var tier = 0;          // 0 = short hover preview, 1 = expanded short->long
+    var tipHideTimer = 0;
+
+    function renderTier(data, anchor) {
+      tipLabel.textContent = data.preferred_label || data.label || '';
+      if (tier === 1) {
+        tip.classList.add('is-expanded');
+        tipText.textContent = data.reader_card || data.reader_preview || data.text || '';
+        if (data.reader_deep && data.reader_deep !== data.reader_card) {
+          tipDeep.textContent = data.reader_deep; tipDeep.hidden = false;
+        } else { tipDeep.hidden = true; }
+        var href = anchor.getAttribute('href');
+        if (href && safeNavigationUrl(href)) { tipFull.href = href; tipFull.hidden = false; }
+        else { tipFull.hidden = true; }
+        tipCue.textContent = 'Press Enter again for the full glossary entry';
+      } else {
+        tip.classList.remove('is-expanded');
+        tipText.textContent = data.reader_preview || data.text || data.reader_card || '';
+        tipDeep.hidden = true;
+        tipFull.hidden = true;
+        tipCue.textContent = 'Press Enter to expand';
+      }
+    }
+    function showTip(anchor) {
+      var data = byId[anchor.getAttribute('data-term')];
+      if (!data) return;
+      if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
+      if (tipFor !== anchor) tier = 0; // a different term always starts collapsed
+      tipFor = anchor;
+      anchor.setAttribute('aria-describedby', tip.id);
+      renderTier(data, anchor);
+      placeFloater(tip, anchor);
+    }
+    function expandTip(anchor) {
+      var data = byId[anchor.getAttribute('data-term')];
+      if (!data) return;
+      if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
+      tier = 1;
+      tipFor = anchor;
+      anchor.setAttribute('aria-describedby', tip.id);
+      renderTier(data, anchor);
+      placeFloater(tip, anchor); // reposition: the card grew
+    }
+    function hideTip() {
+      tip.hidden = true;
+      tier = 0;
+      if (tipFor) { tipFor.removeAttribute('aria-describedby'); tipFor = null; }
+    }
+    function scheduleHideTip() {
+      if (tipHideTimer) clearTimeout(tipHideTimer);
+      tipHideTimer = setTimeout(hideTip, 160); // grace so the pointer can land on the tip
+    }
+    tip.addEventListener('mouseenter', function () {
+      if (tipHideTimer) { clearTimeout(tipHideTimer); tipHideTimer = 0; }
+    });
+    tip.addEventListener('mouseleave', scheduleHideTip);
+
+    // Escape dismisses the preview; the term anchor itself is the only control.
+    document.addEventListener('keydown', function (ev) {
+      if ((ev.key === 'Escape' || ev.key === 'Esc') && !tip.hidden) hideTip();
+    });
+    // A click outside the preview (and off the active term) dismisses it. Clicks
+    // inside the preview (the glossary link) pass straight through to navigate.
+    document.addEventListener('click', function (ev) {
+      if (tip.hidden) return;
+      if (tip.contains(ev.target)) return;
+      var onTerm = ev.target.closest ? ev.target.closest('a.narrative-ref--term') : null;
+      if (onTerm === tipFor) return;
+      hideTip();
+    });
+    window.addEventListener('resize', function () {
+      if (!tip.hidden && tipFor) placeFloater(tip, tipFor);
+    });
+
+    for (var k = 0; k < anchors.length; k++) {
+      (function (anchor) {
+        anchor.addEventListener('mouseenter', function () { showTip(anchor); });
+        anchor.addEventListener('mouseleave', scheduleHideTip);
+        anchor.addEventListener('focus', function () { showTip(anchor); });
+        anchor.addEventListener('blur', scheduleHideTip);
+        anchor.addEventListener('click', function (ev) {
+          // Modified / non-primary clicks (and no-JS) keep the native link straight
+          // to the glossary entry. Otherwise the first activation expands the preview
+          // short->long; the second falls through to the native href -> full entry.
+          if (ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+          if (tipFor !== anchor || tier === 0) {
+            ev.preventDefault();
+            expandTip(anchor);
+          }
+        });
+      })(anchors[k]);
+    }
+  })();
+
 })();

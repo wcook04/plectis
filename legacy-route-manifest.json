@@ -5,7 +5,7 @@
   "generated_at": "1970-01-01T00:00:00+00:00",
   "identity_invariant": "Plectis is the preferred public identity; Microcosm is a historical and compatibility label, not a second active brand.",
   "legacy_public_name": "Microcosm",
-  "legacy_site_base_url": "https://wcook04.github.io/microcosm-substrate/",
+  "legacy_site_base_url": "https://wcook04.github.io/plectis/",
   "mode_counts": {
     "byte_compatible_alias": 15,
     "html_redirect": 25,
@@ -28,7 +28,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "index.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/index.html",
+      "legacy_url": "https://wcook04.github.io/plectis/index.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -38,7 +38,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/index.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/index.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/index.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -48,7 +48,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/tour.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/tour.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/tour.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -58,7 +58,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/quickstart.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/quickstart.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/quickstart.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -68,7 +68,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/coding-agents.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/coding-agents.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/coding-agents.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -78,7 +78,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/architecture.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/architecture.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/architecture.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -88,7 +88,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/doctrine.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/doctrine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/doctrine.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -98,7 +98,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-entry.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-entry.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-entry.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -108,7 +108,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-architecture.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-architecture.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-architecture.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -118,7 +118,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-formal-math.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-formal-math.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-formal-math.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -128,7 +128,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-agent-reliability.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-agent-reliability.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-agent-reliability.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -138,7 +138,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-research.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-research.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-research.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -148,7 +148,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-import-drift.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-import-drift.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-import-drift.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -158,7 +158,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/area-continuity.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/area-continuity.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/area-continuity.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -168,7 +168,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/components.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/components.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/components.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -178,7 +178,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/field-guide.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/field-guide.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/field-guide.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -188,7 +188,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/rules-and-ideas.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/rules-and-ideas.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/rules-and-ideas.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -198,7 +198,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/paper-modules.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/paper-modules.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-modules.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -208,7 +208,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/evidence.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/evidence.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/evidence.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -218,7 +218,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/glossary.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/glossary.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/glossary.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -228,7 +228,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/lineage.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/lineage.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/lineage.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -238,7 +238,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/updates.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/updates.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/updates.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -248,7 +248,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/source.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/source.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/source.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -258,7 +258,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/contact.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/contact.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/contact.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -268,7 +268,7 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/vulnerability-disclosure.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/docs/vulnerability-disclosure.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/vulnerability-disclosure.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -278,7 +278,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "content-graph.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/content-graph.json",
+      "legacy_url": "https://wcook04.github.io/plectis/content-graph.json",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
       "semantic_equivalence": "current_public_packet_schema_preserved"
@@ -289,7 +289,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "content-manifest.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/content-manifest.json",
+      "legacy_url": "https://wcook04.github.io/plectis/content-manifest.json",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
       "semantic_equivalence": "current_public_packet_schema_preserved"
@@ -300,7 +300,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "object-map.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/object-map.json",
+      "legacy_url": "https://wcook04.github.io/plectis/object-map.json",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
       "semantic_equivalence": "current_public_packet_schema_preserved"
@@ -311,7 +311,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "microcosm-ai-reader-digest.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/microcosm-ai-reader-digest.json",
+      "legacy_url": "https://wcook04.github.io/plectis/microcosm-ai-reader-digest.json",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
       "semantic_equivalence": "current_public_packet_schema_preserved"
@@ -322,7 +322,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "microcosm-ai-review-packet.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/microcosm-ai-review-packet.json",
+      "legacy_url": "https://wcook04.github.io/plectis/microcosm-ai-review-packet.json",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
       "semantic_equivalence": "current_public_packet_schema_preserved"
@@ -333,7 +333,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/search-index.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/search-index.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/search-index.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -344,7 +344,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/site-packet.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/site-packet.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/site-packet.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -355,7 +355,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/object-map.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/object-map.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/object-map.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -366,7 +366,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/ai-orientation-packet.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/ai-orientation-packet.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/ai-orientation-packet.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -377,7 +377,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/ai-reader-digest-packet.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/ai-reader-digest-packet.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/ai-reader-digest-packet.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -388,7 +388,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/ai-review-packet.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/ai-review-packet.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/ai-review-packet.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -399,7 +399,7 @@
       "content_type": "application/atom+xml; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "updates.xml",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/updates.xml",
+      "legacy_url": "https://wcook04.github.io/plectis/updates.xml",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -410,7 +410,7 @@
       "content_type": "text/css; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/style.css",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/style.css",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/style.css",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -421,7 +421,7 @@
       "content_type": "application/javascript; charset=utf-8",
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/docs.js",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/assets/docs.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/docs.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"
@@ -432,7 +432,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return the compatibility route manifest as JSON",
       "legacy_path": "legacy-route-manifest.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/legacy-route-manifest.json",
+      "legacy_url": "https://wcook04.github.io/plectis/legacy-route-manifest.json",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility parses this manifest before route checks",
       "semantic_equivalence": "same_route_manifest"
@@ -443,7 +443,7 @@
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return a legacy-specific JSON status object that points at the canonical projection-status route and this manifest",
       "legacy_path": "projection-status.json",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/projection-status.json",
+      "legacy_url": "https://wcook04.github.io/plectis/projection-status.json",
       "mode": "legacy_projection_status",
       "proof": "validate_legacy_compatibility parses the emitted legacy status as JSON",
       "semantic_equivalence": "legacy_status_not_html_redirect"
@@ -454,7 +454,7 @@
       "content_type": "text/plain; charset=utf-8",
       "expected_behavior": "return a legacy-host security.txt generated with the old host as its canonical security.txt URL",
       "legacy_path": ".well-known/security.txt",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/.well-known/security.txt",
+      "legacy_url": "https://wcook04.github.io/plectis/.well-known/security.txt",
       "mode": "legacy_security_txt",
       "proof": "host verifier fetches .well-known/security.txt from the legacy host",
       "semantic_equivalence": "legacy_host_security_contact"
@@ -465,7 +465,7 @@
       "content_type": "text/plain; charset=utf-8",
       "expected_behavior": "return a legacy-host security.txt generated with the old host as its canonical security.txt URL",
       "legacy_path": "security.txt",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/security.txt",
+      "legacy_url": "https://wcook04.github.io/plectis/security.txt",
       "mode": "legacy_security_txt",
       "proof": "host verifier fetches .well-known/security.txt from the legacy host",
       "semantic_equivalence": "legacy_host_security_contact"
@@ -476,11 +476,11 @@
       "content_type": "text/html; charset=utf-8",
       "expected_behavior": "visible not-found explanation with nearest canonical route; remains a 404 response on GitHub Pages",
       "legacy_path": "404.html",
-      "legacy_url": "https://wcook04.github.io/microcosm-substrate/404.html",
+      "legacy_url": "https://wcook04.github.io/plectis/404.html",
       "mode": "legacy_404",
       "query_fragment_policy": "not_applicable_for_404_fallback"
     }
   ],
   "schema": "plectis_legacy_route_manifest_v0",
-  "source_fingerprint": "53e1369d5a1a82b00f4d1624e263fabc"
+  "source_fingerprint": "d415388cf0e5df38889d723ccc035081"
 }
