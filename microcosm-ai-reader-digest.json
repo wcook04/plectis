@@ -3279,10 +3279,10 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:6184791ab99a0810e8f72393d915a041168a0200aba703180fd0ca60fd3b8cfa",
+    "payload_sha256_excluding_identity": "sha256:2d81858451c3159304eae44e72c868164bca96249d336b9446d7478647018686",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "d415388cf0e5df38889d723ccc035081"
+    "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a"
   },
   "counts": {
     "component_count": 78,
@@ -3560,7 +3560,7 @@
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "d415388cf0e5df38889d723ccc035081",
+    "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -4403,7 +4403,7 @@
       }
     ],
     "url_resolution": {
-      "base_url": null,
+      "base_url": "https://wcook04.github.io/plectis/",
       "relative_href_rule": "Resolve relative_href against the Plectis public site root. If no public base URL is present, keep the relative_href and ask the visitor for the site URL if an absolute URL is required."
     }
   },
@@ -4414,7 +4414,7 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "d415388cf0e5df38889d723ccc035081",
+  "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
     "object_count": 814,
@@ -4501,9 +4501,9 @@
   },
   "source_ref_summary": {
     "curated_source_hashes": {
-      "microcosm-substrate/README.md": "sha256:7a70befa1a6585f4d0de4788a51c0a551046b4840491f4911b32823ed0da7a1b",
+      "microcosm-substrate/README.md": "sha256:5a528d06e7d57ce85dcb97b201278d0d3e4627d270ea84d34aa5ecb6b279d5b4",
       "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
-      "sites/microcosm/index.html": "sha256:b2388bc72095ceb1e5cd8daa4de2e3a1e9ba471d41182ff4e796d8e311186fbd"
+      "sites/microcosm/index.html": "sha256:53fb3f5e22cc7af6f966cb607d0e6975863a7c8781ecb7832445a573e5c87c95"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
