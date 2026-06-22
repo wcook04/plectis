@@ -103,6 +103,41 @@ plectis tour --card .
 browser view, the offline checks, and the boundary notes, in the order a cold
 clone needs them.
 
+## What's inside
+
+Underneath that one run, Plectis is a small runtime and a spine of **78 components
+grouped into seven areas**. One person sets the direction; AI agents do the building
+and upkeep; and every component's work is kept as evidence a separate check can read.
+
+```mermaid
+flowchart TD
+    OP["One person sets the direction"]
+    AG["AI agents build and maintain it"]
+    RT["The Plectis runtime<br/>your repo becomes .microcosm local state"]
+    SP["A spine of 78 components in 7 areas"]
+    EV["Every finding kept as evidence<br/>a separate check can read"]
+    OP --> AG
+    AG --> RT
+    RT --> SP
+    SP --> EV
+    EV -->|"read · rerun · challenge"| OP
+```
+
+Each area groups related components. Open one to read a card for every component
+inside it — one line at a glance, or expanded in full:
+
+| Area | Components | What it is |
+|---|---|---|
+| [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | The entry point, and what its short guided path actually proves. |
+| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 10 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
+| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 18 | The Lean proof-evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier-trace repair, bounded witnesses, and certificates. |
+| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 17 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
+| [Research & Science Replays](ORGANS.md#research--science-replays) | 8 | Replay specimens for scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
+| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 19 | The membrane that brings non-secret substrate into the public tree and keeps projections honest instead of letting them drift from their source. |
+| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 4 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
+
+For the full per-component cards, open the [System map](ORGANS.md).
+
 ## Choose a route
 
 | You want to | Go to | What you get |
