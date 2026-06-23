@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://wcook04.github.io/plectis/</loc></url>
   <url><loc>https://wcook04.github.io/plectis/index.html</loc></url>
+  <url><loc>https://wcook04.github.io/plectis/plectis.html</loc></url>
   <url><loc>https://wcook04.github.io/plectis/docs/index.html</loc></url>
   <url><loc>https://wcook04.github.io/plectis/docs/tour.html</loc></url>
   <url><loc>https://wcook04.github.io/plectis/docs/quickstart.html</loc></url>
