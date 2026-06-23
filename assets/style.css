@@ -1243,12 +1243,13 @@ pre .c { color: var(--faint); } /* comment */
 .wire-list .wire-target { color: var(--accent); text-decoration: none; }
 .wire-list .wire-target:hover { text-decoration: underline; text-underline-offset: 0.15em; }
 
-/* On this page. Mirrors .docs-sidebar: a sticky rail must cap its height to the
-   viewport and scroll internally, else a long TOC (e.g. the glossary's ~80 rows)
-   overflows past the bottom of the screen and the tail becomes unreachable. */
+/* On this page. The rail has NO scrollbar of its own — one scrollbar (the page).
+   When the rail is taller than the viewport, docs.js (tocRidesPage) drives this
+   sticky `top` from page-scroll progress so the rail rides in line with the page:
+   pinned below the header at the top, sliding up as you scroll so lower entries
+   come into view, bottom-aligned when you reach the end. */
 .docs-toc {
   position: sticky; top: 58px; align-self: start;
-  max-height: calc(100vh - 58px); overflow-y: auto; overscroll-behavior: contain;
   padding: 36px 0; font-size: 0.84rem;
 }
 .docs-toc__title {

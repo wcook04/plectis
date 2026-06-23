@@ -677,6 +677,34 @@
     headings.forEach(function (h) { observer.observe(h); });
   })();
 
+  // --- On-this-page rides the page scroll (no second scrollbar) -------------
+  // When the rail is taller than the viewport, a fixed sticky `top` strands its
+  // lower entries off-screen. Rather than give the rail its own scrollbar, drive
+  // its sticky `top` from page-scroll progress: pinned below the header at the
+  // top of the page, sliding up in proportion as you scroll so lower entries
+  // come into view, bottom-aligned when you reach the end. One scrollbar (page),
+  // and the rail always shows the region near where you are reading.
+  (function tocRidesPage() {
+    var toc = document.querySelector('.docs-toc');
+    if (!toc) return;
+    var HEADER = 58, GAP = 24, ticking = false;
+    function place() {
+      ticking = false;
+      var vh = window.innerHeight;
+      var h = toc.offsetHeight;
+      if (h <= vh - HEADER - GAP) { toc.style.top = HEADER + 'px'; return; }
+      var maxTop = HEADER;             // page top: rail pinned below the header
+      var minTop = vh - h - GAP;       // page end: rail bottom-aligned (negative)
+      var pageOverflow = document.documentElement.scrollHeight - vh;
+      var p = pageOverflow > 0 ? Math.min(1, Math.max(0, window.scrollY / pageOverflow)) : 0;
+      toc.style.top = (maxTop - (maxTop - minTop) * p) + 'px';
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    place();
+  })();
+
   // --- Evidence-spine wash (landing) ----------------------------------------
   // One-time, cause-and-effect motion: when the first-loop list scrolls into
   // view, its step numbers light in sequence (CSS owns the animation). The list
