@@ -8,7 +8,7 @@
       "claim-boundary checks",
       "source-route triage"
     ],
-    "expands_into": "microcosm-site-map.json",
+    "expands_into": "microcosm-ai-reader-complete.json",
     "not_best_for": [
       "full page text",
       "paper-module bodies",
@@ -3279,7 +3279,7 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:2d81858451c3159304eae44e72c868164bca96249d336b9446d7478647018686",
+    "payload_sha256_excluding_identity": "sha256:e2ee539bc67f567a7e2f47bb1cbbf7b7711edd53a523d7e10987501a9a40cbe2",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
     "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a"
@@ -3294,7 +3294,7 @@
     "family_count": 7,
     "legacy_route_count": 44,
     "math_latex_asset_count": 0,
-    "page_count": 25,
+    "page_count": 24,
     "paper_module_availability_gap_count": 0,
     "paper_module_count": 93,
     "paper_module_doctrine_feed_link_count": 1350,
@@ -3343,7 +3343,8 @@
   "expands_into": {
     "full_json_map_download": "microcosm-site-map.json",
     "full_json_map_global": "window.__MICROCOSM_SITE_PACKET__",
-    "rule": "Open the full JSON map for page bodies, diagrams, and exhaustive inspection."
+    "full_text_corpus_download": "microcosm-ai-reader-complete.json",
+    "rule": "For every public text body (component cards, paper-module bodies, doctrine entities, glossary, evidence, page prose) carried once, open microcosm-ai-reader-complete.json. Open the full JSON map only for diagrams and the exhaustive object graph."
   },
   "family_digest": [
     {
@@ -4167,14 +4168,6 @@
     "page_source_refs_in_full_map": true,
     "pages": [
       {
-        "generated": false,
-        "id": "page:overview",
-        "nav_group": "Landing",
-        "nav_label": "Front door",
-        "relative_href": "index.html",
-        "title": "Plectis"
-      },
-      {
         "generated": true,
         "id": "page:docs-overview",
         "nav_group": "Getting started",
@@ -4501,16 +4494,15 @@
   },
   "source_ref_summary": {
     "curated_source_hashes": {
-      "microcosm-substrate/README.md": "sha256:5a528d06e7d57ce85dcb97b201278d0d3e4627d270ea84d34aa5ecb6b279d5b4",
-      "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
-      "sites/microcosm/index.html": "sha256:53fb3f5e22cc7af6f966cb607d0e6975863a7c8781ecb7832445a573e5c87c95"
+      "microcosm-substrate/README.md": "sha256:ee3732fc9f2d6f1be5c5caecac0694df9ba54599dccc4fe1a74361343fc08b80",
+      "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
       "microcosm-substrate/README.md",
       "microcosm-substrate/core/organ_families.json"
     ],
-    "source_hash_count": 175,
+    "source_hash_count": 174,
     "source_hashes_path": "content-manifest.json::source_hashes",
     "source_ref_count": 178,
     "source_refs_path": "content-graph.json::source_refs"

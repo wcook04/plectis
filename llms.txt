@@ -65,6 +65,7 @@ These source-linked objects are routed and searchable without promoting them bey
 ## Reader ladder (open in order of need)
 
 - [reader digest](microcosm-ai-reader-digest.json): the default AI handoff -- quick_path, canonical_question_routes, component_digest, family_digest, claim_ceiling_index, and provenance, without the deep bodies. Start here.
+- [complete text corpus](microcosm-ai-reader-complete.json): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, in one file. Open this when you want the whole site's text without re-rendered duplication.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
 - [field guide](docs/field-guide.html): the human middle layer -- areas, components, and evidence in one navigable roster.
 - [AI review packet](microcosm-ai-review-packet.json): advanced full-text packet -- read_me_first, answer contract, question routes, starter prompts, view descriptors, and the full visible-text record in a single self-describing file.
