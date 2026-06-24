@@ -1,3 +1,27 @@
+"""
+[PURPOSE]
+- Teleology: Make benchmark-integrity replay evidence inspectable without trusting claimed agent-task completions at face value.
+- Mechanism: Read replay rows, resolve their evidence references, and quarantine rows that trip evaluator-edit, train/test leakage, hidden-gold access, final-answer-only grading, score-overclaim, pass@k cherry-picking, solution/body leakage, or provider-material leakage checks.
+- Non-goal: Claim a benchmark score, establish agent capability, expose private issue/oracle bodies, run providers, mutate live repositories, or authorize release.
+
+[INTERFACE]
+- CLI: `python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input <fixture> --out <receipt-dir>`.
+- Bundle CLI: `python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run-benchmark-integrity-bundle --input <bundle> --out <receipt-dir>`.
+- Exports: validation helpers, result-card projection, receipt writer, and public trace checks for the benchmark-integrity organ.
+
+[FLOW]
+- Load projection protocol, locked evaluator policy, benchmark cases, replay observations, source manifests, public trace evidence, and negative cases.
+- Validate source-module provenance and evidence references before scoring any replay row as integrity-pass.
+- Classify every replay row as `integrity_pass` or quarantine with named error codes, then emit result, board, validation, and acceptance receipts.
+
+[DEPENDENCIES]
+- Python standard library plus local `microcosm_core` schema, receipt, private-state scan, and public trace helpers.
+- Reads only public fixtures, examples, source manifests, and receipt paths supplied by the caller.
+
+[CONSTRAINTS]
+- Receipts carry evidence refs, counts, hashes, spans, findings, and claim ceilings instead of private issue bodies, oracle patches, hidden-gold bodies, provider payloads, or raw solution material.
+- A passing row means the wired evidence cleared this validator's anti-gaming floor; it does not mean the underlying agent task was completed or that any external benchmark score is authorized.
+"""
 from __future__ import annotations
 
 import argparse
@@ -160,6 +184,7 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Resolve the public Plectis root used for relative refs and private-state scans."""
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -173,10 +198,12 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Render a path relative to the public root for receipt-safe display."""
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Extract dictionary rows from a payload key without trusting malformed input."""
     if not isinstance(payload, dict):
         return []
     value = payload.get(key, [])
@@ -184,12 +211,14 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Normalize a JSON list field into non-empty string tokens."""
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _locked_evaluator_config_hashes(policy: object) -> dict[str, list[str]]:
+    """[ACTION] Index allowed evaluator config hashes declared by the locked evaluator policy."""
     rows = policy if isinstance(policy, dict) else {}
     raw = rows.get("locked_evaluator_config_hashes", {})
     if not isinstance(raw, dict):
@@ -205,6 +234,7 @@ def _locked_evaluator_config_hashes(policy: object) -> dict[str, list[str]]:
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] List benchmark-integrity input files whose freshness can reuse prior bundle receipts."""
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     bundle_manifest = input_dir / "bundle_manifest.json"
@@ -214,15 +244,18 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _strip_microcosm_prefix(ref: str) -> str:
+    """[ACTION] Normalize legacy microcosm-substrate refs to public-root relative refs."""
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Hash a file body for source and validator custody receipts."""
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _validator_source_digests() -> dict[str, str]:
+    """[ACTION] Hash the organ validator and public trace builder source used by this run."""
     organ_path = Path(__file__).resolve(strict=False)
     trace_path = organ_path.parents[1] / "macro_tools" / "agent_execution_trace.py"
     paths = {
@@ -237,6 +270,7 @@ def _validator_source_digests() -> dict[str, str]:
 
 
 def _source_module_manifest_path(input_dir: Path, *, public_root: Path) -> Path:
+    """[ACTION] Choose the local bundle manifest when present and fall back to the public example manifest."""
     local_manifest = input_dir / "source_module_manifest.json"
     if local_manifest.is_file():
         return local_manifest
@@ -249,6 +283,7 @@ def _source_module_target_path(
     manifest_path: Path,
     public_root: Path,
 ) -> tuple[Path, str]:
+    """[ACTION] Resolve one source-manifest row to its public target path and display ref."""
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
     if target_ref:
@@ -260,6 +295,7 @@ def _source_module_target_path(
 
 
 def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Collect public source-artifact paths declared by benchmark-integrity fixtures."""
     manifest_path = _source_module_manifest_path(input_dir, public_root=public_root)
     if not manifest_path.is_file():
         return []
@@ -275,6 +311,7 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 
 def _fallback_bundle_root(public_root: Path) -> Path:
+    """[ACTION] Locate the bundled benchmark-integrity example when caller input omits it."""
     return (
         public_root
         / "examples/agent_benchmark_integrity_anti_gaming_replay/"
@@ -288,6 +325,7 @@ def _resolve_public_ref(
     input_dir: Path,
     public_root: Path,
 ) -> Path | None:
+    """[ACTION] Resolve a public fixture or source ref without escaping the public root."""
     if not ref or ref.startswith("/") or ".." in Path(ref).parts:
         return None
     stripped = _strip_microcosm_prefix(ref)
@@ -299,6 +337,7 @@ def _resolve_public_ref(
 
 
 def _evidence_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Collect evidence artifact paths referenced by replay observations and negative cases."""
     replay_path = input_dir / "replay_observations.json"
     if not replay_path.is_file():
         return []
@@ -326,6 +365,7 @@ def _evidence_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Collect all paths that make a cached bundle receipt stale when changed."""
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
@@ -336,6 +376,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Build the freshness basis used to decide whether a bundle validation receipt can be reused."""
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -396,6 +437,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    """[ACTION] Load a prior bundle receipt only when its input, validator, and evidence digests still match."""
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -432,6 +474,7 @@ def validate_source_module_imports(
     *,
     public_root: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Validate copied source-module provenance, target refs, material classes, private scans, and manifest claims."""
     manifest_path = _source_module_manifest_path(input_dir, public_root=public_root)
     manifest_ref = _display(manifest_path, public_root=public_root)
     findings: list[dict[str, Any]] = []
@@ -628,6 +671,7 @@ def validate_source_module_imports(
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load the projection protocol, policies, replay cases, observations, and requested negative fixtures."""
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -642,6 +686,7 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create one normalized blocked finding row for receipts and boards."""
     return {
         "error_code": code,
         "message": message,
@@ -658,6 +703,7 @@ def _real_trace_artifact_findings(
     module_id: str,
     target_ref: str,
 ) -> list[dict[str, Any]]:
+    """[ACTION] Validate the public real-trace artifact required by the replay source manifest."""
     trace = payload if isinstance(payload, dict) else {}
     subject_id = target_ref or module_id or "real_benchmark_trace_artifact"
     findings: list[dict[str, Any]] = []
@@ -851,6 +897,7 @@ def _real_trace_artifact_findings(
 
 
 def _real_trace_evidence_summary(payload: object) -> dict[str, Any]:
+    """[ACTION] Summarize public real-trace evidence fields without carrying private bodies."""
     trace = payload if isinstance(payload, dict) else {}
     pytest_summary = trace.get("pytest_summary")
     pytest_rows = pytest_summary if isinstance(pytest_summary, dict) else {}
@@ -902,6 +949,7 @@ def _real_trace_evidence_summary(payload: object) -> dict[str, Any]:
 
 
 def _real_trace_evidence_passes(evidence: dict[str, Any]) -> bool:
+    """[ACTION] Decide whether parsed real-trace evidence clears the integrity floor."""
     return (
         evidence.get("material_class") == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
         and evidence.get("trace_role") == REAL_TRACE_REQUIRED_TRACE_ROLE
@@ -925,6 +973,7 @@ def _replay_real_session_evidence(
     real_trace_artifact_status: str,
     real_trace_evidence_by_ref: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
+    """[ACTION] Attach real-session evidence status to a replay row without expanding private trace material."""
     evidence = real_trace_evidence_by_ref.get(real_trace_ref, {})
     evidence_passes = _real_trace_evidence_passes(evidence)
     packet = {
@@ -975,6 +1024,7 @@ def _evidence_finding(
     replay_id: str,
     ref: str,
 ) -> None:
+    """[ACTION] Append a replay evidence finding tied to a specific evidence ref."""
     findings.append(
         _finding(
             code,
@@ -998,6 +1048,7 @@ def _load_evidence_artifact(
     public_root: Path,
     findings: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], bool]:
+    """[ACTION] Load and validate one evidence artifact referenced by a replay row."""
     ref = str(row.get(ref_field) or "")
     expected_kind = EVIDENCE_REF_FIELDS[ref_field]
     path = _resolve_public_ref(ref, input_dir=input_dir, public_root=public_root)
@@ -1080,6 +1131,7 @@ def _parsed_evidence_packet(
     public_root: Path,
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """[ACTION] Parse all evidence artifacts for a replay row into a body-free integrity packet."""
     artifacts: dict[str, dict[str, Any]] = {}
     valid: dict[str, bool] = {}
     for ref_field, evidence_kind in EVIDENCE_REF_FIELDS.items():
@@ -1149,6 +1201,7 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Append a finding and record the observed negative-case code."""
     findings.append(
         _finding(
             code,
@@ -1162,6 +1215,7 @@ def _record(
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """[ACTION] Merge observed negative-case codes from component validator results."""
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -1171,6 +1225,7 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Merge and deterministically sort findings from component validator results."""
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -1186,6 +1241,7 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _semantic_negative_case_id(row: dict[str, Any]) -> str | None:
+    """[ACTION] Infer which negative-case trigger a replay row actually encodes."""
     if row.get("evaluator_mutated") is True:
         return "evaluator_edit_attempt"
     if row.get("training_material_contains_test_case") is True:
@@ -1214,6 +1270,7 @@ def _semantic_negative_case_id(row: dict[str, Any]) -> str | None:
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate that the projection protocol cites enough source, receipt, and regression-fixture backing."""
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -1249,6 +1306,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 
 def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate locked evaluators, required replay fields, allowed verdicts, and blocked claim ids."""
     policy = payload if isinstance(payload, dict) else {}
     locked = set(_strings(policy.get("locked_evaluator_ids")))
     config_hashes = _locked_evaluator_config_hashes(policy)
@@ -1327,6 +1385,7 @@ def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_benchmark_cases(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate benchmark case rows, trusted score refs, leakage labels, and uniqueness."""
     rows = _rows(payload, "benchmark_cases")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1397,6 +1456,7 @@ def _validate_replay_row(
     observed: dict[str, set[str]],
     negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate one replay row against evaluator locks, case registry, evidence refs, semantic negative triggers, and overclaim guards."""
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or "replay")
     replay_case_id = str(row.get("case_id") or "")
     replay_id = str(row.get("replay_id") or row.get("case_id") or case_id)
@@ -1745,6 +1805,7 @@ def validate_replay_observations(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Validate all replay observations and negative cases into rows, findings, and observed coverage codes."""
     policy_rows = policy if isinstance(policy, dict) else {}
     locked = set(_strings(policy_rows.get("locked_evaluator_ids")))
     locked_config_hashes = _locked_evaluator_config_hashes(policy_rows)
@@ -1886,11 +1947,13 @@ def validate_public_trace(
     *,
     locked_evaluator_config_hashes: dict[str, list[str]] | None = None,
 ) -> dict[str, Any]:
-    """Fold the recomputed public trace into organ-level findings.
+    """[ACTION] Fold recomputed public benchmark trace spans into organ-level findings.
 
-    The macro builder recomputes each replay's integrity verdict from
-    contamination, file-access, and locked-evaluator spans. Any
-    computed-vs-declared mismatch becomes an organ finding.
+    Fold the recomputed public trace into organ-level findings.
+
+        The macro builder recomputes each replay's integrity verdict from
+        contamination, file-access, and locked-evaluator spans. Any
+        computed-vs-declared mismatch becomes an organ finding.
     """
 
     findings: list[dict[str, Any]] = []
@@ -1946,8 +2009,8 @@ def validate_public_trace(
         "observed_negative_cases": {},
     }
 
-
 def _public_trace_open_body_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts."""
     imported = public_trace.get("status") == PASS
     return {
         "schema_version": (
@@ -1981,6 +2044,7 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the full benchmark-integrity validation result from source, policy, replay, trace, and scan components."""
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
@@ -2175,8 +2239,8 @@ def _build_result(
         "replay_rows": observations["replay_rows"],
     }
 
-
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Project the validation result into a compact board for human review."""
     return {
         "schema_version": "agent_benchmark_integrity_anti_gaming_replay_board_v1",
         "status": result["status"],
@@ -2253,6 +2317,7 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Write result, board, validation, and optional acceptance receipts atomically."""
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -2370,6 +2435,7 @@ def run(
     command: str = "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the fixture validator and write benchmark-integrity receipts."""
     result = _build_result(
         Path(input_dir),
         command=command,
@@ -2395,6 +2461,7 @@ def run_benchmark_integrity_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Run or reuse validation for an exported benchmark-integrity bundle."""
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     source = Path(input_dir)
@@ -2420,8 +2487,8 @@ def run_benchmark_integrity_bundle(
     write_json_atomic(bundle_path, payload)
     return payload
 
-
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Project the result into the command-card shape with omitted payload boundaries."""
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     private_scan = result.get("private_state_scan")
@@ -2515,8 +2582,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         },
     }
 
-
 def _parser() -> argparse.ArgumentParser:
+    """[ACTION] Build the CLI parser for benchmark-integrity replay commands."""
     parser = argparse.ArgumentParser(prog="agent_benchmark_integrity_anti_gaming_replay")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
@@ -2530,8 +2597,8 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser.add_argument("--card", action="store_true")
     return parser
 
-
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Dispatch CLI arguments to benchmark-integrity run and bundle commands."""
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":

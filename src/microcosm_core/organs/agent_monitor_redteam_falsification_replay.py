@@ -1,3 +1,27 @@
+"""
+[PURPOSE]
+- Teleology: Make monitor-redteam evidence inspectable before a clean verdict is trusted.
+- Mechanism: Require every monitor observation to carry rerunnable result evidence, adversarial-probe backing for coverage claims, source-manifest custody, and public trace receipts; quarantine missing evidence and downgrade unsupported coverage claims.
+- Non-goal: Claim monitor product performance, import live agent traffic, expose private reasoning/internal code/exploit instructions/credentials/provider payloads, mutate source, or authorize release.
+
+[INTERFACE]
+- CLI: `python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input <fixture> --out <receipt-dir>`.
+- Bundle CLI: `python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run-monitor-bundle --input <bundle> --out <receipt-dir>`.
+- Exports: source-manifest validation, monitor-policy checks, observation replay checks, public trace validation, board projection, and result-card projection.
+
+[FLOW]
+- Load projection protocol, monitor policy, trajectory cases, monitor observations, source manifest, public trace spans, and negative cases.
+- Validate manifest digests and public dogfood trace boundaries before accepting monitor observations.
+- Recompute coverage/probe/verdict evidence, route unsupported rows to findings, then emit result, board, validation, and acceptance receipts.
+
+[DEPENDENCIES]
+- Python standard library plus local `microcosm_core` schema, receipt, private-state scan, path-normalization, and public trace helpers.
+- Reads only public fixtures, examples, source manifests, and receipt paths supplied by the caller.
+
+[CONSTRAINTS]
+- Receipts carry evidence refs, digests, counts, spans, findings, and claim ceilings instead of private chain-of-thought, internal code bodies, exploit instructions, credentials, provider payloads, live traffic, or raw transcripts.
+- A passing replay proves this fixture's evidence wiring and boundary checks only; it does not prove monitor quality or authorize release.
+"""
 from __future__ import annotations
 
 import argparse
@@ -209,6 +233,7 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Resolve the public Plectis root used for relative refs and private-state scans."""
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -222,10 +247,12 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Render a path relative to the public root for receipt-safe display."""
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Extract dictionary rows from a payload key without trusting malformed input."""
     if not isinstance(payload, dict):
         return []
     rows = payload.get(key, [])
@@ -233,12 +260,14 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Normalize a JSON list field into non-empty string tokens."""
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] List monitor-redteam input files whose freshness can reuse prior bundle receipts."""
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     for optional_name in ("bundle_manifest.json", SOURCE_MODULE_MANIFEST_NAME):
@@ -249,6 +278,7 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Stream-hash a file body for source-manifest and validator custody checks."""
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -257,6 +287,7 @@ def _sha256(path: Path) -> str:
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Collect all paths that make a cached monitor bundle receipt stale when changed."""
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     paths = [
@@ -287,6 +318,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Build the freshness basis used to decide whether a monitor bundle receipt can be reused."""
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -348,6 +380,7 @@ def _fresh_monitor_bundle_receipt(
     *,
     command: str,
 ) -> dict[str, Any] | None:
+    """[ACTION] Load a prior monitor bundle receipt only when input and validator digests still match."""
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -383,6 +416,7 @@ def _fresh_monitor_bundle_receipt(
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load the projection protocol, monitor policy, trajectories, observations, and requested negative fixtures."""
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -397,6 +431,7 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create one normalized blocked finding row for monitor receipts and boards."""
     return {
         "error_code": code,
         "message": message,
@@ -417,6 +452,7 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Append a finding and record the observed negative-case code."""
     findings.append(
         _finding(
             code,
@@ -436,6 +472,7 @@ def _negative_case_semantic_receipt(
     declared_case_id: str,
     subject_id: str,
 ) -> dict[str, Any]:
+    """[ACTION] Validate that a negative fixture label matches the semantic trigger it contains."""
     floor = NEGATIVE_CASE_SEMANTIC_FLOORS.get(expected_case_id, {})
     required_truthy = tuple(floor.get("required_truthy") or ())
     required_empty = tuple(floor.get("required_empty") or ())
@@ -492,11 +529,13 @@ def _negative_case_semantic_receipt(
 
 
 def _normalize_sha256(value: object) -> str:
+    """[ACTION] Normalize SHA-256 digest strings with or without the sha256 prefix."""
     text = str(value or "")
     return text if text.startswith("sha256:") else f"sha256:{text}"
 
 
 def _source_module_digest_declarations(row: dict[str, Any]) -> list[dict[str, str]]:
+    """[ACTION] Extract digest declarations from a source-module manifest row."""
     declarations: list[dict[str, str]] = []
     for field in ("sha256", "source_sha256", "target_sha256"):
         if field == "sha256" or row.get(field):
@@ -512,6 +551,7 @@ def _source_module_target_path(
     *,
     public_root: Path,
 ) -> Path | None:
+    """[ACTION] Resolve one source-manifest row to its public target path."""
     rel_path = str(row.get("path") or "")
     if rel_path:
         return input_dir / rel_path
@@ -530,6 +570,7 @@ def validate_source_module_manifest(
     *,
     required: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate source-module manifest rows, target digests, material classes, and private-state scan boundaries."""
     findings: list[dict[str, Any]] = []
     if not isinstance(payload, dict):
         if required:
@@ -702,6 +743,7 @@ def _load_source_module_manifest_payload(
     *,
     public_root: Path,
 ) -> tuple[object, Path]:
+    """[ACTION] Load the source-module manifest from payloads, bundle input, or public example fallback."""
     payload = payloads.get("source_module_manifest")
     if isinstance(payload, dict):
         return payload, input_dir
@@ -712,6 +754,7 @@ def _load_source_module_manifest_payload(
 
 
 def _source_artifact_refs_from_manifest(source_module_manifest: dict[str, Any]) -> set[str]:
+    """[ACTION] Collect source artifact refs declared by the manifest."""
     refs: set[str] = set()
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -731,6 +774,7 @@ def _source_artifact_refs_by_material_class(
     source_module_manifest: dict[str, Any],
     material_class: str,
 ) -> set[str]:
+    """[ACTION] Collect source artifact refs for one material class."""
     refs: set[str] = set()
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -752,6 +796,7 @@ def _source_artifact_refs_by_material_class_with_status(
     source_module_manifest: dict[str, Any],
     material_class: str,
 ) -> dict[str, dict[str, Any]]:
+    """[ACTION] Collect source artifact refs for one material class and status."""
     refs: dict[str, dict[str, Any]] = {}
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -778,6 +823,7 @@ def _source_artifact_paths_from_manifest(
     *,
     public_root: Path,
 ) -> list[Path]:
+    """[ACTION] Resolve source artifact paths declared by the manifest."""
     paths: list[Path] = []
     seen: set[Path] = set()
     for row in source_module_manifest.get("observed_modules", []):
@@ -795,6 +841,7 @@ def _source_artifact_paths_from_manifest(
 
 
 def _validate_public_monitored_trace_artifact(path: Path | None) -> dict[str, Any]:
+    """[ACTION] Validate the public dogfood trace artifact and its export-boundary flags."""
     findings: list[dict[str, Any]] = []
     if path is None or not path.is_file():
         return {
@@ -940,6 +987,7 @@ def _validate_public_monitored_trace_artifact(path: Path | None) -> dict[str, An
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """[ACTION] Merge observed negative-case codes from component validator results."""
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -949,6 +997,7 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Merge and deterministically sort findings from component validator results."""
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -964,6 +1013,7 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate that the projection protocol cites enough source, receipt, and regression-fixture backing."""
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -999,6 +1049,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 
 def validate_monitor_policy(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate allowed verdicts, severity tiers, required observation fields, and blocked claim ids."""
     policy = payload if isinstance(payload, dict) else {}
     allowed_verdicts = set(_strings(policy.get("allowed_monitor_verdicts")))
     required = set(_strings(policy.get("required_observation_fields")))
@@ -1050,6 +1101,7 @@ def validate_monitor_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_trajectory_cases(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate trajectory case ids, synthetic/public labels, and public trace refs."""
     rows = _rows(payload, "trajectory_cases")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1108,6 +1160,7 @@ def _validate_observation_row(
     negative: bool,
     negative_case_key: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate one monitor observation against verdict policy, evidence refs, adversarial-probe backing, body omissions, and negative-case triggers."""
     case_id = str(row.get("expected_negative_case_id") or row.get("trajectory_id") or "monitor")
     semantic_case_id = negative_case_key or case_id
     observation_id = str(row.get("observation_id") or row.get("trajectory_id") or case_id)
@@ -1315,6 +1368,7 @@ def validate_monitor_observations(
     require_real_public_trace_evidence: bool,
     public_trace_spans_by_observation: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate all monitor observations and negative cases into rows, findings, and observed coverage codes."""
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_monitor_verdicts")))
     findings: list[dict[str, Any]] = []
@@ -1423,6 +1477,7 @@ def validate_monitor_observations(
 
 
 def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts."""
     imported = public_trace.get("status") == PASS
     return {
         "schema_version": SOURCE_OPEN_BODY_SCHEMA,
@@ -1457,11 +1512,13 @@ def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, 
 
 
 def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
-    """Fold the recomputed public trace into organ-level findings.
+    """[ACTION] Fold recomputed public monitor trace spans into organ-level findings.
 
-    The macro builder recomputes whether each declared coverage label is backed
-    by an adversarial-probe span and derives the monitor verdict from span
-    evidence. Any computed-vs-declared mismatch becomes an organ finding.
+    Fold the recomputed public trace into organ-level findings.
+
+        The macro builder recomputes whether each declared coverage label is backed
+        by an adversarial-probe span and derives the monitor verdict from span
+        evidence. Any computed-vs-declared mismatch becomes an organ finding.
     """
 
     findings: list[dict[str, Any]] = []
@@ -1506,6 +1563,7 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the full monitor-redteam validation result from source, policy, observation, trace, and scan components."""
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
@@ -1687,8 +1745,8 @@ def _build_result(
         "monitor_rows": observations["monitor_rows"],
     }
 
-
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Project the validation result into a compact board for human review."""
     return {
         "schema_version": "agent_monitor_redteam_falsification_replay_board_v1",
         "status": result["status"],
@@ -1746,6 +1804,7 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Write result, board, validation, and optional acceptance receipts atomically."""
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -1875,6 +1934,7 @@ def run(
     command: str = "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the fixture validator and write monitor-redteam receipts."""
     source = Path(input_dir)
     result = _build_result(
         source,
@@ -1901,6 +1961,7 @@ def run_monitor_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Run or reuse validation for an exported monitor-redteam bundle."""
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     source = Path(input_dir)
@@ -1927,8 +1988,8 @@ def run_monitor_bundle(
     write_json_atomic(bundle_path, payload)
     return payload
 
-
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Project the result into the command-card shape with omitted payload boundaries."""
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     private_scan = result.get("private_state_scan")
@@ -2019,8 +2080,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         },
     }
 
-
 def _parser() -> argparse.ArgumentParser:
+    """[ACTION] Build the CLI parser for monitor-redteam replay commands."""
     parser = argparse.ArgumentParser(prog="agent_monitor_redteam_falsification_replay")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
@@ -2034,8 +2095,8 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser.add_argument("--card", action="store_true")
     return parser
 
-
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Dispatch CLI arguments to monitor-redteam run and bundle commands."""
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":
