@@ -138,8 +138,9 @@ it proves:
   model or API.
 - It performs **no source mutation**: a run inspects the project and leaves its
   files unchanged, and the record reports `source_files_mutated=false`.
-- It is **not a copy of any private system**: this public tree is a
-  cross-section, not a reconstruction of a larger one.
+- It is **not a copy of any private system** and is not private-root
+  equivalent: this public tree is a cross-section, not a reconstruction of a
+  larger one.
 - It carries **no proof authority** over whole-system correctness, formal
   results, benchmarks, or production readiness.
 

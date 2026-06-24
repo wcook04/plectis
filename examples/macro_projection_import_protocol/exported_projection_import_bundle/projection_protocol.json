@@ -15703,7 +15703,7 @@
         "source_authority_above_macro_contracts": false
       },
       "body_copied": true,
-      "body_digest": "sha256:0a341cad398b2be2ee361ed1cc2bc77d0de88c845a4460b4cfa653bd4403fb74",
+      "body_digest": "sha256:7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
       "body_import_verification": {
         "boundary": "single_flight_dedupe_barrier_no_live_provider_dispatch_in_validation_no_reactions_state_or_ledger_body_export_no_browser_hud_or_account_session_state_no_automatic_source_mutation_authority",
         "required_anchors": [
@@ -15722,26 +15722,26 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_reaction_wiring_sources_compile_and_preserve_single_flight_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_reaction_wiring_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:0a341cad398b2be2ee361ed1cc2bc77d0de88c845a4460b4cfa653bd4403fb74",
-        "source_line_count": 15,
+        "source_body_digest": "sha256:7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
+        "source_line_count": 6836,
         "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:0a341cad398b2be2ee361ed1cc2bc77d0de88c845a4460b4cfa653bd4403fb74",
-        "target_line_count": 15,
+        "target_body_digest": "sha256:7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
+        "target_line_count": 6836,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 15,
+      "body_line_count": 6836,
       "body_text_in_receipt": false,
-      "byte_count": 516,
+      "byte_count": 283345,
       "claim_ceiling": "exact public reaction wiring source body import only; not live provider execution, reaction firing, reactions state or ledger body export, source mutation, account/session/browser/HUD access, credentials, private-root equivalence, release, publication, hosted authority, or proof-correctness authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
       "credential_exposure_risk": "low",
-      "line_count": 15,
+      "line_count": 6836,
       "material_class": "public_macro_tool_body",
       "material_id": "reaction_wiring_engine_body_import",
       "provenance_refs": [
@@ -15751,22 +15751,16 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_body",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "tools/meta/control/reactions_engine.py",
-        "substitution": "public_safe_stub"
-      },
       "sha256_match": true,
       "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
       "source_refs": [
         "tools/meta/control/reactions_engine.py",
         "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/reaction_wiring_source_module_manifest.json"
       ],
-      "source_sha256": "0a341cad398b2be2ee361ed1cc2bc77d0de88c845a4460b4cfa653bd4403fb74",
+      "source_sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
       "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
-      "target_sha256": "0a341cad398b2be2ee361ed1cc2bc77d0de88c845a4460b4cfa653bd4403fb74",
+      "target_sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
       "validation_refs": [
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_reaction_wiring_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_reaction_wiring_sources_compile_and_preserve_single_flight_boundary",

@@ -11,6 +11,7 @@ Read this top-down: identity, the local runtime loop, the claim/evidence loop, t
 ```text
 Plectis is the public, local cross-section of a larger AI-native system.
 A cold reader can run and inspect the architecture without receiving private state.
+No source mutation, private-root equivalence, or proof authority.
 Start: plectis hello .   Prove local behavior: plectis tour --card .
 ```
 
@@ -50,15 +51,15 @@ The source-module file graph is body-free relation metadata from `organ-surface-
 
 | Handle | Count |
 |---|---:|
-| Accepted organs with source relations | 77 |
-| Source-module edges | 7931 |
-| Source files (per-organ aggregate) | 671 |
-| Source shards (per-organ aggregate) | 2431 |
-| Target files (per-organ aggregate) | 682 |
-| Target shards (per-organ aggregate) | 2473 |
+| Accepted organs with source relations | 76 |
+| Source-module edges | 7821 |
+| Source files (per-organ aggregate) | 659 |
+| Source shards (per-organ aggregate) | 2369 |
+| Target files (per-organ aggregate) | 670 |
+| Target shards (per-organ aggregate) | 2411 |
 | Validation refs (per-organ aggregate) | 115 |
 
-Top relation types: `source_shard.retained_as_public_target_shard` `2474` · `source_shard.validated_by_ref` `1404` · `target_shard.validated_by_ref` `1404` · `target_file.shares_macro_source_with_target_file` `912` · `source_file.copied_to_public_target` `683`
+Top relation types: `source_shard.retained_as_public_target_shard` `2412` · `source_shard.validated_by_ref` `1404` · `target_shard.validated_by_ref` `1404` · `target_file.shares_macro_source_with_target_file` `876` · `source_file.copied_to_public_target` `671`
 
 Route into the live topology surface:
 
@@ -444,7 +445,7 @@ flowchart TD
   Drift --> Ceiling["Local inspection · source records · release scope unchanged"]
 ```
 
-> Family labels and counts are navigation metadata: use them to browse and compare source-linked components; maturity, completeness, and launch posture live in separate review records. Evidence classes describe bounded result-record strength for each component. Use this public artifact for local inspection, source records, fixture replay, and component-specific evidence. Operational deployment, external-service use, source-file changes, non-public-system equivalence, formal-result authority, and whole-system claims remain separate review topics. Continue from the linked card, paper module, command, or source reference.
+> Family labels and counts are navigation metadata: use them to browse and compare source-linked components; maturity, completeness, and launch posture live in separate review records. Evidence classes describe bounded result-record strength for each component. Use this public artifact for local inspection, source records, fixture replay, and component-specific evidence. Operational deployment, external-service use, source-file changes, source mutation, private-root equivalence, proof authority, formal-result authority, and whole-system claims remain separate review topics. Continue from the linked card, paper module, command, or source reference.
 
 ---
 

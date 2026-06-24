@@ -6,22 +6,22 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 280755,
-      "line_count": 6808,
+      "byte_count": 283345,
+      "line_count": 6836,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/meta/control/reactions_engine.py",
       "required_anchors": [
         "reaction",
         "campaign"
       ],
-      "sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63",
+      "sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/control/reactions_engine.py",
-      "source_sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63",
+      "source_sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/control/reactions_engine.py",
-      "target_sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63"
+      "target_sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa"
     },
     {
       "body_copied": true,

@@ -114,10 +114,10 @@ PUBLIC_SCOPE_LINE = (
     "separate review records. Evidence classes describe bounded result-record "
     "strength for each component. Use this public artifact for local inspection, "
     "source records, fixture replay, and component-specific evidence. Operational "
-    "deployment, external-service use, source-file changes, non-public-system "
-    "equivalence, formal-result authority, and whole-system claims remain separate "
-    "review topics. Continue from the linked card, paper module, command, or source "
-    "reference."
+    "deployment, external-service use, source-file changes, source mutation, "
+    "private-root equivalence, proof authority, formal-result authority, and "
+    "whole-system claims remain separate review topics. Continue from the linked "
+    "card, paper module, command, or source reference."
 )
 
 CLAIM_CEILING_LINE = PUBLIC_SCOPE_LINE
@@ -2066,6 +2066,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("```text")
     out.append("Plectis is the public, local cross-section of a larger AI-native system.")
     out.append("A cold reader can run and inspect the architecture without receiving private state.")
+    out.append("No source mutation, private-root equivalence, or proof authority.")
     out.append("Start: plectis hello .   Prove local behavior: plectis tour --card .")
     out.append("```")
     out.append("")

@@ -30,8 +30,8 @@
     },
     {
       "body_copied": true,
-      "byte_count": 280755,
-      "line_count": 6808,
+      "byte_count": 283345,
+      "line_count": 6836,
       "material_class": "public_macro_tool_body",
       "module_id": "reaction_wiring_engine_body_import",
       "required_anchors": [
@@ -46,14 +46,14 @@
         "dedupe_by"
       ],
       "sha256_match": true,
-      "source_line_count": 6808,
+      "source_line_count": 6836,
       "source_open_payload_boundary": "single_flight_dedupe_barrier_no_live_provider_dispatch_in_validation_no_reactions_state_or_ledger_body_export_no_browser_hud_or_account_session_state_no_automatic_source_mutation_authority",
       "source_ref": "tools/meta/control/reactions_engine.py",
       "source_role": "Resident reaction engine that previews/fires/ticks reaction plans with signal digests, barrier suspension, and dedupe state.",
-      "source_sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63",
-      "target_line_count": 6808,
+      "source_sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa",
+      "target_line_count": 6836,
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
-      "target_sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63"
+      "target_sha256": "7baeb36fbc65ff593a74d799a5a2a34a90279987735161ef32e2520bc81e4cfa"
     },
     {
       "body_copied": true,

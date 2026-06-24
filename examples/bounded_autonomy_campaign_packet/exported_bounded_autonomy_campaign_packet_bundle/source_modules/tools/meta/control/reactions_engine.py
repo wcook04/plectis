@@ -62,54 +62,63 @@ def _yaml_loader() -> tuple[Any, Any]:
 
 
 def load_hologram_build_status(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate hologram build-status loading through a lazy import."""
     from system.lib.hologram_build_status import load_hologram_build_status as _load
 
     return _load(*args, **kwargs)
 
 
 def load_raw_seed_pipeline_snapshot(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate raw-seed pipeline snapshot loading through a lazy import."""
     from system.lib.raw_seed_atomization import load_raw_seed_pipeline_snapshot as _load
 
     return _load(*args, **kwargs)
 
 
 def load_work_ledger_runtime_status(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate Work Ledger runtime-status loading through a lazy import."""
     from system.lib.work_ledger_runtime import load_runtime_status as _load
 
     return _load(*args, **kwargs)
 
 
 def prepare_launch_operation(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate launch-operation preparation without importing the launcher at module load."""
     from system.lib.launchable_operations import prepare_launch_operation as _prepare_launch_operation
 
     return _prepare_launch_operation(*args, **kwargs)
 
 
 def find_launchable_operation(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate launchable-operation lookup through the launch catalog authority."""
     from system.lib.launchable_operations import find_launchable_operation as _find_launchable_operation
 
     return _find_launchable_operation(*args, **kwargs)
 
 
 def start_meta_mission_run(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate meta-mission run creation through the launch-operation authority."""
     from system.lib.launchable_operations import start_meta_mission_run as _start_meta_mission_run
 
     return _start_meta_mission_run(*args, **kwargs)
 
 
 def launcher_meta_mission_env(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate launch environment construction through the meta-mission launcher."""
     from system.lib.launchable_operations import launcher_meta_mission_env as _launcher_meta_mission_env
 
     return _launcher_meta_mission_env(*args, **kwargs)
 
 
 def artifact_refs_from_operation_output(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Extract operation artifact references using the launcher parser."""
     from system.lib.launchable_operations import artifact_refs_from_operation_output as _artifact_refs_from_operation_output
 
     return _artifact_refs_from_operation_output(*args, **kwargs)
 
 
 def operation_event_fields_from_operation_output(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Extract orchestration event fields using the launcher output parser."""
     from system.lib.launchable_operations import (
         operation_event_fields_from_operation_output as _operation_event_fields_from_operation_output,
     )
@@ -118,6 +127,7 @@ def operation_event_fields_from_operation_output(*args: Any, **kwargs: Any) -> A
 
 
 def finalize_meta_mission_run(*args: Any, **kwargs: Any) -> Any:
+    """[ACTION] Delegate meta-mission run finalization to the launch-operation authority."""
     from system.lib.launchable_operations import finalize_meta_mission_run as _finalize_meta_mission_run
 
     return _finalize_meta_mission_run(*args, **kwargs)
@@ -223,6 +233,7 @@ def _write_python_std_compliance_coverage(repo_root: Path) -> dict[str, Any]:
 
 
 def write_python_std_compliance_coverage(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Refresh the Python standard compliance coverage artifact for reactions signals."""
     return _write_python_std_compliance_coverage(repo_root)
 
 
@@ -411,22 +422,27 @@ def _load_latest_lifecycle_boundary_event(
 
 
 def reactions_state_path(repo_root: Path) -> Path:
+    """[ACTION] Resolve the reactions engine runtime-state JSON path under a repo root."""
     return _resolve(repo_root, REACTIONS_STATE_REL)
 
 
 def reactions_ledger_path(repo_root: Path) -> Path:
+    """[ACTION] Resolve the reactions engine append-only ledger path under a repo root."""
     return _resolve(repo_root, REACTIONS_LEDGER_REL)
 
 
 def reactions_stop_flag_path(repo_root: Path) -> Path:
+    """[ACTION] Resolve the stop-flag path that asks the detached engine loop to exit."""
     return _resolve(repo_root, REACTIONS_STOP_FLAG_REL)
 
 
 def orchestration_events_path(repo_root: Path) -> Path:
+    """[ACTION] Resolve the orchestration-events JSONL path used by engine visibility surfaces."""
     return _resolve(repo_root, ORCHESTRATION_EVENTS_REL)
 
 
 def default_reactions_state() -> dict[str, Any]:
+    """[ACTION] Build the schema-versioned default reactions runtime state object."""
     return {
         "kind": "reactions_state",
         "schema_version": REACTIONS_STATE_SCHEMA_V2,
@@ -474,11 +490,13 @@ def _migrate_reactions_state_to_v2(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def load_reactions_state(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Load reactions runtime state and migrate it to the current schema."""
     state = _load_json(reactions_state_path(repo_root)) or default_reactions_state()
     return _migrate_reactions_state_to_v2(state)
 
 
 def save_reactions_state(repo_root: Path, state: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Persist a merged reactions runtime state object with schema migration applied."""
     merged = default_reactions_state()
     merged.update(dict(state))
     _migrate_reactions_state_to_v2(merged)
@@ -487,6 +505,7 @@ def save_reactions_state(repo_root: Path, state: Mapping[str, Any]) -> dict[str,
 
 
 def ensure_reactions_state(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Load or initialize the reactions runtime state file for a repo root."""
     state = load_reactions_state(repo_root)
     if not reactions_state_path(repo_root).exists():
         save_reactions_state(repo_root, state)
@@ -634,6 +653,7 @@ def _load_reactions_config_yaml(repo_root: Path) -> dict[str, Any]:
 
 
 def load_reactions_config(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Load reactions.yaml into the normalized reactions-config envelope."""
     path = _resolve(repo_root, REACTIONS_CONFIG_REL)
     if not path.exists():
         return {
@@ -5078,7 +5098,7 @@ def build_ready_deferred_reactions_projection(
     signal_mode: str = "cached",
     limit: int = 5,
 ) -> list[dict[str, Any]]:
-    """Build the compact ready-but-deferred projection used by quick pulse.
+    """[ACTION] Build the compact ready-but-deferred projection used by quick pulse.
 
     This intentionally avoids `build_reactions_snapshot`, whose frontend,
     timeline, diagram, and graph-scene payloads are useful for the reactions
@@ -5158,7 +5178,7 @@ def build_reactions_snapshot(
     graph_scene_mode: str = "manifest",
     previous_graph_scene_revision: str | None = None,
 ) -> dict[str, Any]:
-    """Build a reaction snapshot.
+    """[ACTION] Build the complete reaction snapshot for status, frontend, and routing views.
 
     ``signal_mode="live"`` is exact and re-runs every configured signal
     producer. ``signal_mode="cached"`` evaluates predicates against each
@@ -5547,7 +5567,7 @@ def resolve_reaction_graph_scene_inspector(
     snapshot: Mapping[str, Any],
     ref: str,
 ) -> dict[str, Any]:
-    """Resolve one full-scene inspector ref with typed not-found semantics."""
+    """[ACTION] Resolve one full-scene inspector ref with typed not-found semantics."""
     ref_text = str(ref or "").strip()
     scene = _safe_mapping(snapshot.get("graph_scene"))
     manifest = _safe_mapping(scene.get("manifest")) or _safe_mapping(snapshot.get("graph_scene_manifest"))
@@ -5819,7 +5839,7 @@ def build_reactions_frontend_contract_fixture_pack(
     generated_at: str | None = None,
     measure_performance: bool = True,
 ) -> dict[str, Any]:
-    """Generate a small fixture pack for frontend contract work without live signals."""
+    """[ACTION] Generate frontend contract fixtures without reading live reaction signals."""
     del repo_root  # The pack is synthetic and must not mutate or depend on the live checkout.
     generated = generated_at or _utc_now()
     ready = _frontend_contract_reaction("contract_ready")
@@ -6055,6 +6075,7 @@ def build_reactions_frontend_contract_fixture_pack(
 
 
 def build_reactions_orchestration_projection(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Project the cached reactions snapshot into orchestration status fields."""
     snapshot = build_reactions_snapshot(repo_root, signal_mode="cached")
     return {
         "engine_armed": snapshot.get("engine_armed"),
@@ -6070,6 +6091,7 @@ def build_reactions_orchestration_projection(repo_root: Path) -> dict[str, Any]:
 
 
 def build_wake_barriers_snapshot(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Project cached active wake barriers for runtime handoff surfaces."""
     snapshot = build_reactions_snapshot(repo_root, signal_mode="cached")
     return {
         "schema": "wake_barriers_v1",
@@ -6097,6 +6119,7 @@ def _persist_state_change(
 
 
 def set_engine_armed_state(repo_root: Path, armed: bool) -> dict[str, Any]:
+    """[ACTION] Persist the desired engine armed state and manage the stop flag."""
     state = ensure_reactions_state(repo_root)
     state["desired_armed"] = bool(armed)
     state["effective_armed"] = bool(armed and _pid_running(state.get("pid")))
@@ -6117,7 +6140,7 @@ def set_engine_armed_state(repo_root: Path, armed: bool) -> dict[str, Any]:
 
 
 def ensure_engine_running(repo_root: Path) -> dict[str, Any]:
-    """Spawn the detached run loop if no live pid is recorded.
+    """[ACTION] Spawn the detached run loop if no live pid is recorded.
 
     Idempotent: returns without side effects when a live pid is already
     present. Used by the CLI `arm` command and the FastAPI arm route so
@@ -6157,6 +6180,7 @@ def ensure_engine_running(repo_root: Path) -> dict[str, Any]:
 
 
 def set_reaction_override_state(repo_root: Path, reaction_id: str, armed: bool) -> dict[str, Any]:
+    """[ACTION] Persist a per-reaction override flag in runtime state."""
     state = ensure_reactions_state(repo_root)
     entry = _reaction_runtime_entry(state, reaction_id)
     entry["override_armed"] = bool(armed)
@@ -6219,6 +6243,7 @@ def _spawn_action_runner(
 
 
 def tick_engine(repo_root: Path) -> dict[str, Any]:
+    """[ACTION] Evaluate one scheduler cycle, firing at most one eligible reaction."""
     now = _now_dt()
     config = load_reactions_config(repo_root)
     state = ensure_reactions_state(repo_root)
@@ -6535,6 +6560,7 @@ def run_action(
     signal_json: str,
     started_at: str,
 ) -> int:
+    """[ACTION] Execute one launched reaction action and bind its terminal receipt."""
     parameters = json.loads(parameters_json or "{}")
     signal = json.loads(signal_json or "{}")
     if not isinstance(parameters, dict):
@@ -6686,6 +6712,7 @@ def run_action(
 
 
 def run_engine(repo_root: Path) -> int:
+    """[ACTION] Run the polling reactions engine until a stop flag can be honored."""
     state = ensure_reactions_state(repo_root)
     state["pid"] = os.getpid()
     state["effective_armed"] = bool(state.get("desired_armed"))
@@ -6739,6 +6766,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse the reactions-engine CLI and dispatch the selected command."""
     args = _build_parser().parse_args(argv)
     if args.command == "run":
         from tools.meta.control import metabolismd
