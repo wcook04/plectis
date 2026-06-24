@@ -1,5 +1,45 @@
 #!/usr/bin/env python3
-"""Microcosm Comprehension Plane: a source-body-free, goal-directed read-pack compiler.
+"""[PURPOSE]
+- Teleology: Compile source-body-free Plectis comprehension packets that let a
+  cold agent move from a goal or package overview to bounded module, organ,
+  claim, evidence, and validation surfaces without opening private context.
+- Mechanism: Joins the public code-lens join index, organ atlas, and public
+  synopses into presence-only read packs with explicit authority ceilings.
+- Guarantee: Every public packet declares the active membrane band, refuses
+  source-body export authority, and preserves validation/escalation routes.
+
+[INTERFACE]
+- Inputs: Public Plectis data under `core/` and `receipts/code_lens/`, plus
+  caller-supplied goals, modes, organ ids, owned paths, or preloaded inputs.
+- Outputs: Dict packets such as `microcosm_comprehension_read_pack_v0`,
+  assay receipts, and optional cached JSON files from `build_cached_read_packs`.
+- Exports: `comprehend`, the compile_* packet builders, assay runners, schema
+  constants, and membrane/authority-ceiling declarations.
+
+[FLOW]
+- Resolve the Plectis resource root, load public metadata, guard the membrane,
+  compile the requested packet, stamp packet identity/latency, and expose assay
+  runners that prove first-contact routing without reading source bodies.
+- Local semantic excerpts are only produced for owned source paths and remain
+  separate from committed presence-only cache outputs.
+
+[DEPENDENCIES]
+- `microcosm_core.resource_root` locates the source checkout or installed public
+  data root.
+- Public data files: `core/organ_atlas.json`,
+  `core/component_public_synopses.json`, and
+  `receipts/code_lens/code_lens_join_index_v0.json`.
+
+[CONSTRAINTS]
+- Atomicity: Read-pack compilers are pure dict builders; only
+  `build_cached_read_packs` writes files, and only to the selected cache dir.
+- Determinism: Packet builders use stable sorting and bounded lists where the
+  public route contract requires reproducible output.
+- Forbid: Presence-only packets must not contain source bodies, raw private
+  paths, release authorization, static-analysis authority, or whole-system
+  correctness claims.
+
+Microcosm Comprehension Plane: a source-body-free, goal-directed read-pack compiler.
 
 A cold agent that clones this repo should not be met with "read the source." It
 should be met with ``plectis comprehend``: a route that compiles bounded read
@@ -133,7 +173,8 @@ _PRIVATE_PATH_RE = re.compile(r"/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+")
 
 
 def default_root() -> Path:
-    """Resolve the substrate root that holds core/ and receipts/.
+    """[ACTION]
+    Resolve the substrate root that holds core/ and receipts/.
 
     - Teleology: let comprehend find its public inputs regardless of the caller's
       cwd, including from an installed package where the public data lives under
@@ -161,7 +202,8 @@ def _load_json(path: Path) -> Any:
 
 
 def load_inputs(root: Path | None = None) -> dict[str, Any]:
-    """Load the three public inputs the compiler joins, tolerating absent ones.
+    """[ACTION]
+    Load the three public inputs the compiler joins, tolerating absent ones.
 
     - Teleology: assemble the source-body-free input bundle for every compile call.
     - Guarantee: returns {root, join_index, atlas, synopses, atlas_by_organ,
@@ -295,7 +337,8 @@ def _evidence_distribution(join_organs: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Compile the substrate-orientation read pack for a cold clone.
+    """[ACTION]
+    Compile the substrate-orientation read pack for a cold clone.
 
     - Teleology: answer "what is this substrate and where do I start?" from public
       metadata so the agent never has to grep the repo first.
@@ -777,7 +820,8 @@ def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> 
 
 
 def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
-    """Compile the per-organ comprehension read pack.
+    """[ACTION]
+    Compile the per-organ comprehension read pack.
 
     - Teleology: answer "what does this organ do, how do I run it, and what may I
       trust about it?" from the join index + atlas + synopsis, never the runner source.
@@ -922,7 +966,8 @@ def _organ_source_spans(
 
 
 def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Compile the authority/trust-boundary read pack.
+    """[ACTION]
+    Compile the authority/trust-boundary read pack.
 
     - Teleology: answer "what is authoritative vs projection, and what does passing
       NOT authorize?" -- the question a careful agent must resolve before acting.
@@ -969,7 +1014,8 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Compile the organ roster read pack: one synopsis line per organ.
+    """[ACTION]
+    Compile the organ roster read pack: one synopsis line per organ.
 
     - Teleology: give the agent the whole-category-at-a-glance roster so it can pick an
       organ to comprehend without scanning the registry.
@@ -1017,7 +1063,8 @@ def _is_path_target(target: Any) -> bool:
 
 
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
-    """Route a freeform goal string to a comprehension packet mode + target.
+    """[ACTION]
+    Route a freeform goal string to a comprehension packet mode + target.
 
     - Teleology: let a cold agent ask in words and still land on the right bounded
       packet -- the information-scent router behind --goal and the packet-route assay.
@@ -1160,7 +1207,8 @@ def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
 
 
 def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
-    """Extract bounded, custody-gated atom-value excerpts from ONE owned source file.
+    """[ACTION]
+    Extract bounded, custody-gated atom-value excerpts from ONE owned source file.
 
     - Teleology: activate the local_semantic_excerpt band -- turn a file's authored
       docstring atoms into a bounded local read model so the comprehend route is
@@ -1262,7 +1310,8 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
 
 
 def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
-    """Compile a local_semantic_excerpt read pack for one owned source file.
+    """[ACTION]
+    Compile a local_semantic_excerpt read pack for one owned source file.
 
     - Teleology: the "read the code's self-description without opening the code"
       primitive -- surface an owned file's authored atoms as a bounded local read pack.
@@ -1600,7 +1649,8 @@ _SPEC_BY_ID: dict[str, dict[str, Any]] = {s["packet_id"]: s for s in PACKET_SPEC
 
 
 def packet_spec_for_mode(mode: str) -> dict[str, Any] | None:
-    """Return the packet spec whose dispatch mode is ``mode`` (or None).
+    """[ACTION]
+    Return the packet spec whose dispatch mode is ``mode`` (or None).
 
     - Teleology: let comprehend stamp a compiled pack with its packet identity/budget.
     - Guarantee: returns the spec dict for a known dispatch mode, else None.
@@ -1672,7 +1722,8 @@ def _shared_refs(rows: list[dict[str, Any]], key: str) -> list[str]:
 
 
 def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Compile the navigable packet menu -- the cold-agent first move.
+    """[ACTION]
+    Compile the navigable packet menu -- the cold-agent first move.
 
     - Teleology: answer "which packet answers my question?" by projecting the packet
       registry into a presence_only menu with byte budgets, cache state, and scent links.
@@ -1750,7 +1801,8 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]:
-    """Compile the family/subsystem read pack -- the whole-family-at-once middle doll.
+    """[ACTION]
+    Compile the family/subsystem read pack -- the whole-family-at-once middle doll.
 
     - Teleology: answer "what is this subsystem and which organs compose it?" so an
       agent can grasp a family before drilling into one organ.
@@ -1835,7 +1887,8 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
 
 
 def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Compile the formal-math / proof surfaces read pack.
+    """[ACTION]
+    Compile the formal-math / proof surfaces read pack.
 
     - Teleology: answer "where is the mathematics/proof and what does it claim?" by
       gathering the formal_math_and_proof organs with their proof evidence and ceilings.
@@ -1888,7 +1941,8 @@ def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
-    """Compile the claim-justification trace for one organ: claim -> validator -> receipt.
+    """[ACTION]
+    Compile the claim-justification trace for one organ: claim -> validator -> receipt.
 
     - Teleology: answer "how is this organ's public claim justified, and what bounds it?"
       by chaining its claim ceiling to the validator command and the receipts it emits.
@@ -1989,7 +2043,8 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
 
 
 def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
-    """Compile the execution-flow trace for one organ: validator -> runner -> receipt.
+    """[ACTION]
+    Compile the execution-flow trace for one organ: validator -> runner -> receipt.
 
     - Teleology: answer "how does this organ run and what does it leave behind?" by
       ordering its validator command, runner module, and emitted receipts.
@@ -2369,7 +2424,8 @@ def _first_action_path_contract(
 def compile_first_action(
     inputs: dict[str, Any], root: Path | None, goal: str
 ) -> dict[str, Any]:
-    """Compile the First Correct Action contract for a freeform cold-agent goal.
+    """[ACTION]
+    Compile the First Correct Action contract for a freeform cold-agent goal.
 
     - Teleology: convert a cold agent from "what is this?" to its FIRST CORRECT
       ACTION -- one graph-backed contract naming the action, the owner, the
@@ -2967,7 +3023,8 @@ def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
 def compile_mutation_plan(
     inputs: dict[str, Any], root: Path | None, target: str
 ) -> dict[str, Any]:
-    """Compile the safe-mutation plan for an organ or owned path (local band).
+    """[ACTION]
+    Compile the safe-mutation plan for an organ or owned path (local band).
 
     - Teleology: answer "I want to change this safely -- what do I inspect, test, and
       refresh, and what must I not touch?" before editing.
@@ -3386,7 +3443,8 @@ def _public_reader_block(
 
 
 def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture") -> dict[str, Any]:
-    """Compile the whole-Plectis self-model: the entire substrate in one budgeted packet.
+    """[ACTION]
+    Compile the whole-Plectis self-model: the entire substrate in one budgeted packet.
 
     - Teleology: let a cold agent comprehend the WHOLE substrate at once -- every family,
       what is real vs thin, what must not be claimed, and where to drill down -- instead of
@@ -3601,7 +3659,8 @@ def comprehend(
     with_excerpts: bool = False,
     inputs: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Compile one comprehension packet and stamp its identity, budget, and latency.
+    """[ACTION]
+    Compile one comprehension packet and stamp its identity, budget, and latency.
 
     - Teleology: the single dispatch a CLI or test calls to get a goal-shaped packet --
       first-contact, the packet atlas, an organ/cluster/math/claim_trace/flow read, or a
@@ -3647,7 +3706,8 @@ def comprehend(
 def build_cached_read_packs(
     root: Path | None = None, out_dir: Path | None = None
 ) -> dict[str, Any]:
-    """Materialize the prebuilt first-contact / authority / organs read packs.
+    """[ACTION]
+    Materialize the prebuilt first-contact / authority / organs read packs.
 
     - Teleology: Level-1 cache -- commit the presence_only entry packs (including the
       packet atlas) so a cold clone can read them without running the compiler.
@@ -3752,7 +3812,8 @@ def _pack_leaks_source_body(pack: dict[str, Any]) -> bool:
 def run_comprehension_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Run the cold-agent comprehension assay over the compiled read packs.
+    """[ACTION]
+    Run the cold-agent comprehension assay over the compiled read packs.
 
     - Teleology: prove the read packs actually let a cold agent answer substrate /
       authority / organ questions without opening source -- the activation evidence.
@@ -3834,7 +3895,8 @@ def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
 
 
 def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
-    """Run the hard assay that requires real authored atom-value content.
+    """[ACTION]
+    Run the hard assay that requires real authored atom-value content.
 
     - Teleology: prove the local_semantic_excerpt band carries actual code semantics
       (Teleology/Guarantee/Fails/Non-goal values) AND that its guards hold -- the v0
@@ -3946,7 +4008,8 @@ def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
 def run_packet_route_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Assay the packet atlas as a navigable product, not just an answer surface.
+    """[ACTION]
+    Assay the packet atlas as a navigable product, not just an answer surface.
 
     - Teleology: prove the atlas NAVIGATES -- goals route to the right packet, every
       advertised packet compiles in-band/in-budget/leak-free, scent links resolve, and
@@ -4082,7 +4145,8 @@ _WHOLE_SYSTEM_QUESTIONS: list[tuple[str, str, str | None]] = [
 def run_whole_system_comprehension_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Assay whether the self-model lets a cold reader comprehend the WHOLE substrate.
+    """[ACTION]
+    Assay whether the self-model lets a cold reader comprehend the WHOLE substrate.
 
     - Teleology: prove the self-model causes calibrated whole-system understanding -- a
       cold reader can answer global questions, map every organ, see the thinness and the
@@ -4298,7 +4362,8 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
 def run_first_action_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Assay whether the graph converts cold-agent goals into first correct actions.
+    """[ACTION]
+    Assay whether the graph converts cold-agent goals into first correct actions.
 
     - Teleology: prove the leap from self-comprehension to AGENT TRANSFER -- a
       freeform goal must yield one graph-backed contract (action, owner, proof,
