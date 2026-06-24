@@ -9,6 +9,9 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 RELEASE_FACING_ORGAN_MODULES = (
     "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
     "src/microcosm_core/organs/agent_monitor_redteam_falsification_replay.py",
+    "src/microcosm_core/organs/agent_closeout_faithfulness_audit.py",
+    "src/microcosm_core/organs/batch12_release_claim_language_gate.py",
+    "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
 )
 
 REQUIRED_MODULE_TAGS = (

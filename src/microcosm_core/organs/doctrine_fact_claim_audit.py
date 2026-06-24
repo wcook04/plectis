@@ -1,3 +1,22 @@
+"""Fixture-bounded audit for public doctrine fact claims and numeric bindings.
+
+[PURPOSE] Check that exported public doctrine fact fixtures keep fact counts,
+code loci, DAG references, and volatile numeric claims tied to inspectable
+public evidence instead of drifting into unsupported narrative claims.
+[INTERFACE] Exposes the CrownJewel `evaluate`, `evaluate_negative_case`, fixture
+runner, exported-bundle runner, and CLI entrypoint for the
+`doctrine_fact_claim_audit` organ.
+[FLOW] Load fact, DAG, numeric-claim, and projection-protocol fixtures; import
+the copied derived-fact helper from the source manifest; verify code loci and
+DAG refs; run synthetic numeric-claim binding cases; return a body-free receipt.
+[DEPENDENCIES] Uses Crown Jewel organ helpers, copied `derived_fact_hologram.py`
+source, strict JSON fixtures, temporary directories, and public-root source
+manifest validation.
+[CONSTRAINTS] This does not prove a comprehension engine, minimum read graph,
+private doctrine export, release readiness, semantic truth, or whole-system
+correctness.
+"""
+
 from __future__ import annotations
 
 import copy
@@ -89,6 +108,7 @@ SPEC = CrownJewelSpec(
 
 
 def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
+    """[ACTION] Choose the base directory for manifest-relative public source refs."""
     manifest_path = source_manifest.get("source_manifest_path")
     if isinstance(manifest_path, str) and manifest_path:
         return Path(manifest_path).parent
@@ -96,6 +116,7 @@ def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
 
 
 def _resolve_code_locus(locus: dict[str, Any], *, manifest_base: Path) -> Path:
+    """[ACTION] Resolve a fact code-locus path without escaping absolute refs."""
     path = Path(str(locus.get("path") or ""))
     if path.is_absolute():
         return path
@@ -108,6 +129,7 @@ def _load_derived_fact_module(
     input_dir: Path,
     findings: list[dict[str, Any]],
 ) -> Any | None:
+    """[ACTION] Import the copied derived-fact helper required for numeric-claim checks."""
     manifest_base = _manifest_base(source_manifest, input_dir)
     module_path = manifest_base / "source_modules/system/lib/derived_fact_hologram.py"
     if not module_path.is_file():
@@ -153,6 +175,7 @@ def _fact_assertions_for_sections(
     case_id: str,
     sections: list[str],
 ) -> list[Any]:
+    """[ACTION] Build synthetic FactAssertion rows for numeric-claim fixture sections."""
     assertion_type = getattr(module, "FactAssertion")
     return [
         assertion_type(
@@ -171,6 +194,7 @@ def _fact_assertions_for_sections(
 
 
 def _strings(value: Any) -> list[str]:
+    """[ACTION] Normalize a list-valued fixture field to strings."""
     return [str(item) for item in value if isinstance(item, str)] if isinstance(value, list) else []
 
 
@@ -180,6 +204,7 @@ def _evaluate_numeric_claims(
     source_manifest: dict[str, Any],
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """[ACTION] Run copied numeric-claim binding logic against synthetic fixture cases."""
     payload = load_json_object(input_dir / "numeric_claims.json", findings, label="numeric claims")
     module = _load_derived_fact_module(
         source_manifest=source_manifest,
@@ -317,6 +342,7 @@ def _evaluate_numeric_claims(
 
 
 def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Evaluate doctrine fact count, code-locus, DAG, and numeric-claim fixtures."""
     findings: list[dict[str, Any]] = []
     assertions = load_json_object(input_dir / "fact_assertions.json", findings, label="fact assertions")
     dag = load_json_object(input_dir / "fact_dag.json", findings, label="fact DAG")
@@ -411,10 +437,12 @@ def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
+    """[ACTION] Write a deterministic JSON fixture for a negative-case replay."""
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _semantic_case_payloads(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
+    """[ACTION] Load and deep-copy the semantic fixture payloads used by mutations."""
     payloads = {
         name: load_json_object(input_dir / name, findings, label=name)
         for name in ("fact_assertions.json", "fact_dag.json", "numeric_claims.json")
@@ -427,6 +455,7 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
+    """[ACTION] Mutate one doctrine fact fixture case and return observed error codes."""
     findings: list[dict[str, Any]] = []
     source_input = Path(input_dir)
     public_root = public_root_for_path(source_input)
@@ -497,6 +526,7 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the doctrine fact claim audit organ over fixture inputs."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -513,6 +543,7 @@ def run_doctrine_fact_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the exported bundle form of the doctrine fact claim audit."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -525,6 +556,7 @@ def run_doctrine_fact_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Dispatch CLI arguments through the doctrine fact audit entrypoint."""
     return main_for_spec(
         SPEC,
         argv,

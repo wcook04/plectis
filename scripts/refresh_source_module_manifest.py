@@ -17,13 +17,22 @@ from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators.source_module_boundary import (
     evaluate_source_module_boundary,
 )
-from tools.meta.microcosm_public_safety.public_reference_sanitizer import (
-    MACRO_ROOT_NAME,
-    PUBLIC_SAFE_PATH_NORMALIZED_MODE,
-    PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
-    public_safe_transform_receipt,
-    sanitize_public_reference_text,
-)
+try:
+    from tools.meta.plectis_public_safety.public_reference_sanitizer import (
+        MACRO_ROOT_NAME,
+        PUBLIC_SAFE_PATH_NORMALIZED_MODE,
+        PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
+        public_safe_transform_receipt,
+        sanitize_public_reference_text,
+    )
+except ModuleNotFoundError:  # pragma: no cover - compatibility for older private checkouts.
+    from tools.meta.microcosm_public_safety.public_reference_sanitizer import (
+        MACRO_ROOT_NAME,
+        PUBLIC_SAFE_PATH_NORMALIZED_MODE,
+        PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
+        public_safe_transform_receipt,
+        sanitize_public_reference_text,
+    )
 
 
 HASH_CHUNK_SIZE = 1024 * 1024
