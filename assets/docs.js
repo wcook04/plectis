@@ -3572,3 +3572,94 @@
   })();
 
 })();
+
+/* ===== Open Questions essay (docs/open-questions.html) ===== */
+/* Progressive enhancement only. Native <details> already gives per-item
+   disclosure, and deep links to individual paragraphs work without this.
+   This adds scoped bulk controls and ancestor-opening for deep links. */
+(function(){
+  "use strict";
+  if (!document.querySelector(".oq-list")) return;
+  var parents = Array.prototype.slice.call(document.querySelectorAll(".oq-q"));
+
+  /* ---- Page-level: staged expand. Questions -> all evidence -> collapse ----
+     Stage 1 opens the five questions (first layer). Stage 2 also opens every
+     evidence line (to the floor). Stage 3 collapses everything. ---- */
+  var head = document.querySelector(".oq-fivehead");
+  var allFacets = Array.prototype.slice.call(document.querySelectorAll(".oq-facet"));
+  if (head && parents.length){
+    var allBtn = document.createElement("button");
+    allBtn.className = "oq-btn";
+    allBtn.type = "button";
+    var stage = function(){
+      if (parents.some(function(d){ return !d.open; })) return "questions";
+      if (allFacets.some(function(d){ return !d.open; })) return "evidence";
+      return "collapse";
+    };
+    var syncAll = function(){
+      var s = stage();
+      allBtn.textContent = s === "questions" ? "Open all questions"
+                         : s === "evidence"  ? "Open all evidence too"
+                         : "Collapse all";
+      allBtn.setAttribute("aria-expanded", s === "questions" ? "false" : "true");
+    };
+    allBtn.addEventListener("click", function(){
+      var s = stage();
+      if (s === "questions"){ parents.forEach(function(d){ d.open = true; }); }
+      else if (s === "evidence"){ allFacets.forEach(function(d){ d.open = true; }); }
+      else { allFacets.forEach(function(d){ d.open = false; }); parents.forEach(function(d){ d.open = false; }); }
+      syncAll();
+    });
+    parents.forEach(function(d){ d.addEventListener("toggle", syncAll); });
+    allFacets.forEach(function(d){ d.addEventListener("toggle", syncAll); });
+    var hint = head.querySelector(".oq-fivehead__hint");
+    head.insertBefore(allBtn, hint);
+    syncAll();
+  }
+
+  /* ---- Per-question: expand / collapse all of THIS question's evidence ---- */
+  parents.forEach(function(parent){
+    var body = parent.querySelector(".oq-q__body");
+    var facets = Array.prototype.slice.call(parent.querySelectorAll(".oq-facet"));
+    if (!body || !facets.length) return;
+    var controls = document.createElement("div");
+    controls.className = "oq-q__controls";
+    var btn = document.createElement("button");
+    btn.className = "oq-mini";
+    btn.type = "button";
+    btn.setAttribute("aria-expanded","false");
+    btn.textContent = "Expand all evidence";
+    var sync = function(){
+      var anyClosed = facets.some(function(d){ return !d.open; });
+      btn.textContent = anyClosed ? "Expand all evidence" : "Collapse evidence";
+      btn.setAttribute("aria-expanded", anyClosed ? "false" : "true");
+    };
+    btn.addEventListener("click", function(){
+      var anyClosed = facets.some(function(d){ return !d.open; });
+      facets.forEach(function(d){ d.open = anyClosed; });
+      sync();
+    });
+    facets.forEach(function(d){ d.addEventListener("toggle", sync); });
+    controls.appendChild(btn);
+    body.insertBefore(controls, body.firstChild);
+  });
+
+  /* ---- Deep links: open every ancestor <details> of the target ---- */
+  var openAncestors = function(el){
+    var node = el;
+    while (node && node !== document.body){
+      if (node.tagName === "DETAILS" && !node.open) node.open = true;
+      node = node.parentNode;
+    }
+  };
+  var revealHash = function(){
+    if (!location.hash) return;
+    var target;
+    try { target = document.querySelector(location.hash); } catch(e){ return; }
+    if (!target) return;
+    openAncestors(target);
+    window.requestAnimationFrame(function(){ target.scrollIntoView({block:"start"}); });
+  };
+  window.addEventListener("hashchange", revealHash);
+  revealHash();
+})();

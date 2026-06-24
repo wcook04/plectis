@@ -1074,7 +1074,7 @@
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a",
+    "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -1335,7 +1335,7 @@
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
       "byte_compatible_alias": 15,
-      "html_redirect": 25,
+      "html_redirect": 26,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1401,14 +1401,14 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 25,
+        "route_count": 26,
         "sample_paths": [
           "index.html",
           "docs/index.html",
           "docs/tour.html",
+          "docs/open-questions.html",
           "docs/quickstart.html",
-          "docs/coding-agents.html",
-          "docs/architecture.html"
+          "docs/coding-agents.html"
         ]
       },
       {
@@ -1426,7 +1426,7 @@
         ]
       }
     ],
-    "route_count": 44,
+    "route_count": 45,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "pages": [
@@ -1465,6 +1465,14 @@
         "microcosm-substrate/core/organ_atlas.json"
       ],
       "title": "What Plectis is"
+    },
+    {
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/open-questions.html",
+      "public_label": "Open Questions",
+      "source_refs": [],
+      "title": "Open Questions"
     },
     {
       "generated": true,
@@ -2236,7 +2244,7 @@
     "microcosm-substrate/anti_principles/AP-8.json": "sha256:0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
     "microcosm-substrate/anti_principles/AP-9.json": "sha256:0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
     "microcosm-substrate/atlas/agent_task_routes.json": "sha256:8f1895629e47fab929d5a5be99c809779097eb06c23dfb3972c2b7cc1f3e3cdd",
-    "microcosm-substrate/atlas/entry_packet.json": "sha256:3809a74ae8b6017bfd261a879e618f32c91b2646dd73440be111721329d6c043",
+    "microcosm-substrate/atlas/entry_packet.json": "sha256:e97a81161db031f9b12b9d41dc66481c5c3fa125beeef2f814cca09205fc5973",
     "microcosm-substrate/axioms/AX-1.json": "sha256:9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
     "microcosm-substrate/axioms/AX-10.json": "sha256:c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
     "microcosm-substrate/axioms/AX-11.json": "sha256:606a8b913d2bbd162d6ded70f3fa0d48343ec54df818bfed87e3b7b9fe6b1606",
@@ -2478,6 +2486,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
+    "sites/microcosm/index.html": "sha256:deaad82434d32ee731dcb31972cd31c76cb9fc88c97aeb56d56088df2f6c18a0",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:27fe4b034bb73c9c5d78fb439bd38b02bd875a9bde290d176deddf595a7e0501"
   },
   "source_of_truth_contract": {

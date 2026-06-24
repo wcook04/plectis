@@ -3279,10 +3279,10 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:e2ee539bc67f567a7e2f47bb1cbbf7b7711edd53a523d7e10987501a9a40cbe2",
+    "payload_sha256_excluding_identity": "sha256:b9a870205f13469803d47ecd27353fd94c646ae075582028c678b7da65dab945",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a"
+    "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
   },
   "counts": {
     "component_count": 78,
@@ -3292,9 +3292,9 @@
     "doctrine_entity_body_record_count": 155,
     "evidence_profile_count": 328,
     "family_count": 7,
-    "legacy_route_count": 44,
+    "legacy_route_count": 45,
     "math_latex_asset_count": 0,
-    "page_count": 24,
+    "page_count": 26,
     "paper_module_availability_gap_count": 0,
     "paper_module_count": 93,
     "paper_module_doctrine_feed_link_count": 1350,
@@ -3561,7 +3561,7 @@
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a",
+    "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -4168,6 +4168,14 @@
     "page_source_refs_in_full_map": true,
     "pages": [
       {
+        "generated": false,
+        "id": "page:overview",
+        "nav_group": "Landing",
+        "nav_label": "Front door",
+        "relative_href": "index.html",
+        "title": "Plectis"
+      },
+      {
         "generated": true,
         "id": "page:docs-overview",
         "nav_group": "Getting started",
@@ -4182,6 +4190,14 @@
         "nav_label": "What it is (full tour)",
         "relative_href": "docs/tour.html",
         "title": "What Plectis is"
+      },
+      {
+        "generated": true,
+        "id": "page:open-questions",
+        "nav_group": "Reference",
+        "nav_label": "Open Questions",
+        "relative_href": "docs/open-questions.html",
+        "title": "Open Questions"
       },
       {
         "generated": true,
@@ -4407,7 +4423,7 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "3ab20eaacc16d3c4ee5df2c3c51beb7a",
+  "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
     "object_count": 814,
@@ -4495,14 +4511,15 @@
   "source_ref_summary": {
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:ee3732fc9f2d6f1be5c5caecac0694df9ba54599dccc4fe1a74361343fc08b80",
-      "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08"
+      "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
+      "sites/microcosm/index.html": "sha256:deaad82434d32ee731dcb31972cd31c76cb9fc88c97aeb56d56088df2f6c18a0"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
       "microcosm-substrate/README.md",
       "microcosm-substrate/core/organ_families.json"
     ],
-    "source_hash_count": 174,
+    "source_hash_count": 175,
     "source_hashes_path": "content-manifest.json::source_hashes",
     "source_ref_count": 178,
     "source_refs_path": "content-graph.json::source_refs"
