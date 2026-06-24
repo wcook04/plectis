@@ -233,7 +233,11 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """[ACTION] Resolve the public Plectis root used for relative refs and private-state scans."""
+    """[ACTION] Resolve the public Plectis root used for relative refs and private-state scans.
+
+- Teleology: Finds the public Plectis root used to turn local files into portable evidence refs before any scan or receipt can cite them.
+- Guarantee: Returns a deterministic public-root Path for repo-shaped inputs, falling back to cwd only when no public root can be inferred; it does not grant private-root equivalence.
+- Fails: Malformed or missing paths stay in the existing caller path, while unresolved roots degrade to cwd rather than silently emitting private workspace coordinates."""
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -247,12 +251,55 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
-    """[ACTION] Render a path relative to the public root for receipt-safe display."""
+    """[ACTION] Render a path relative to the public root for receipt-safe display.
+
+- Teleology: Converts one filesystem path into the display ref used by receipts, boards, and cards.
+- Guarantee: Returns a POSIX-style public-relative ref when the path lives under the selected public root; it does not inspect or authorize the target body.
+- Fails: Paths outside the public root fall back through the shared normalizer, so callers still need secret/private-state scans for release-facing payloads."""
     return public_relative_path(path, display_root=public_root)
 
 
+def _display_command(command: str, *, public_root: Path) -> str:
+    """[ACTION] Render CLI command paths through public-root and host-local receipt normalization.
+
+- Teleology: Keeps monitor bundle command receipts portable when the command includes a local
+  Plectis checkout path or a host temp output path.
+- Guarantee: Replaces public-root path prefixes with `<repo-root>` before applying the shared
+  receipt sanitizer; it does not rewrite command semantics or authorize execution.
+- Fails: Non-matching path fragments remain for the shared sanitizer to redact or for tests to
+  catch as public-readiness leakage."""
+    root = public_root.resolve(strict=False).as_posix()
+    display_command = command.replace(root, "<repo-root>")
+    normalized = normalize_public_receipt_paths({"command": display_command})
+    value = normalized.get("command") if isinstance(normalized, dict) else None
+    return value if isinstance(value, str) else display_command
+
+
+def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
+    """[ACTION] Normalize command-card receipt paths through the public receipt sanitizer.
+
+- Teleology: Keeps fresh and cached monitor-redteam command cards on the same receipt-safe
+  display contract, including host temp output roots.
+- Guarantee: Returns only string receipt refs after applying the shared public-receipt path
+  normalization policy; it does not change durable receipt files or infer evidence.
+- Fails: Non-list or malformed receipt path values collapse to an empty list so card projection
+  cannot leak arbitrary host-local structures."""
+    paths = result.get("receipt_paths")
+    if not isinstance(paths, list):
+        return []
+    normalized = normalize_public_receipt_paths({"receipt_paths": paths})
+    normalized_paths = normalized.get("receipt_paths") if isinstance(normalized, dict) else None
+    if not isinstance(normalized_paths, list):
+        return []
+    return [path for path in normalized_paths if isinstance(path, str)]
+
+
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
-    """[ACTION] Extract dictionary rows from a payload key without trusting malformed input."""
+    """[ACTION] Extract dictionary rows from a payload key without trusting malformed input.
+
+- Teleology: Keeps JSON row extraction explicit so malformed payload sections cannot masquerade as validated monitor evidence.
+- Guarantee: Returns only dict rows from the requested list-valued key and drops non-row material without mutating the payload.
+- Fails: Caller contract errors become empty row sets here; strict schema failures are owned by the higher-level validators that call this helper."""
     if not isinstance(payload, dict):
         return []
     rows = payload.get(key, [])
@@ -260,14 +307,22 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
-    """[ACTION] Normalize a JSON list field into non-empty string tokens."""
+    """[ACTION] Normalize a JSON list field into non-empty string tokens.
+
+- Teleology: Normalizes list-shaped policy and reference fields before verdict, evidence, and negative-case checks compare tokens.
+- Guarantee: Returns only non-empty strings and leaves ordering as supplied by the source payload.
+- Fails: Non-list values collapse to an empty list so later validators can report missing evidence rather than trusting malformed fields."""
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    """[ACTION] List monitor-redteam input files whose freshness can reuse prior bundle receipts."""
+    """[ACTION] List monitor-redteam input files whose freshness can reuse prior bundle receipts.
+
+- Teleology: Names the monitor bundle inputs whose digests decide whether a cached exported-bundle receipt is still current.
+- Guarantee: Returns the declared public fixture paths plus optional negative-case files and does not recurse into private or undeclared directories.
+- Fails: Missing files are represented downstream in the freshness basis instead of being hidden as a reusable cache hit."""
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     for optional_name in ("bundle_manifest.json", SOURCE_MODULE_MANIFEST_NAME):
@@ -278,7 +333,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    """[ACTION] Stream-hash a file body for source-manifest and validator custody checks."""
+    """[ACTION] Stream-hash a file body for source-manifest and validator custody checks.
+
+- Teleology: Computes file-body custody digests used by freshness checks and source-manifest validation.
+- Guarantee: Streams the exact file bytes into SHA-256 without reading unrelated files or normalizing the content.
+- Fails: Filesystem errors propagate so a missing or unreadable evidence file cannot be treated as verified."""
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -287,7 +346,11 @@ def _sha256(path: Path) -> str:
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    """[ACTION] Collect all paths that make a cached monitor bundle receipt stale when changed."""
+    """[ACTION] Collect all paths that make a cached monitor bundle receipt stale when changed.
+
+- Teleology: Expands the declared monitor-bundle input root into the concrete files that make prior validation receipts stale when changed.
+- Guarantee: Returns deterministic candidate paths for protocol, policy, trajectories, observations, public trace, manifest, and optional negative cases.
+- Fails: Absent paths stay absent for the freshness basis to count; this helper does not synthesize fallback evidence."""
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     paths = [
@@ -318,7 +381,11 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
-    """[ACTION] Build the freshness basis used to decide whether a monitor bundle receipt can be reused."""
+    """[ACTION] Build the freshness basis used to decide whether a monitor bundle receipt can be reused.
+
+- Teleology: Builds the digest envelope that lets the exported-bundle command reuse only receipts backed by the same inputs and validator source.
+- Guarantee: Returns input counts, missing-path counts, per-file digests, validator source digests, and one aggregate basis digest.
+- Fails: Unreadable files are counted as missing or raise through the hash path, preventing stale or partial caches from passing as fresh evidence."""
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -380,7 +447,11 @@ def _fresh_monitor_bundle_receipt(
     *,
     command: str,
 ) -> dict[str, Any] | None:
-    """[ACTION] Load a prior monitor bundle receipt only when input and validator digests still match."""
+    """[ACTION] Load a prior monitor bundle receipt only when input and validator digests still match.
+
+- Teleology: Loads a cached monitor-bundle result only after proving its schema, organ id, input mode, and freshness digest still match.
+- Guarantee: Returns a copy marked `receipt_reused` with the current freshness basis, or None for absent/stale/untrusted receipts.
+- Fails: Corrupt JSON, wrong schema, wrong organ, stale digests, or missing freshness inputs all force a rebuild rather than cache reuse."""
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -399,7 +470,8 @@ def _fresh_monitor_bundle_receipt(
     normalized_command = normalize_public_receipt_paths({"command": command}).get(
         "command"
     )
-    if payload.get("command") not in {command, normalized_command}:
+    public_command = _display_command(command, public_root=_public_root_for_path(input_dir))
+    if payload.get("command") not in {command, normalized_command, public_command}:
         return None
     basis = _freshness_basis(input_dir, include_negative=False)
     existing_basis = payload.get("freshness_basis")
@@ -416,7 +488,11 @@ def _fresh_monitor_bundle_receipt(
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
-    """[ACTION] Load the projection protocol, monitor policy, trajectories, observations, and requested negative fixtures."""
+    """[ACTION] Load the projection protocol, monitor policy, trajectories, observations, and requested negative fixtures.
+
+- Teleology: Collects the monitor-redteam fixture documents that every downstream validator reads from one explicit input root.
+- Guarantee: Returns strict JSON payloads for protocol, policy, trajectories, observations, public trace, manifest, and optional negative cases.
+- Fails: Strict reader failures propagate, because a malformed fixture is a validation failure rather than an optional omission."""
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -431,7 +507,11 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
-    """[ACTION] Create one normalized blocked finding row for monitor receipts and boards."""
+    """[ACTION] Create one normalized blocked finding row for monitor receipts and boards.
+
+- Teleology: Creates a body-free finding row that can be merged into monitor receipts, boards, and cards without leaking source bodies.
+- Guarantee: Returns a normalized row carrying code, severity, message, evidence ref, and optional case/verdict identifiers.
+- Fails: It does not validate the referenced evidence; bad refs remain the responsibility of the caller that detected the finding."""
     return {
         "error_code": code,
         "message": message,
@@ -452,7 +532,11 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
-    """[ACTION] Append a finding and record the observed negative-case code."""
+    """[ACTION] Append a finding and record the observed negative-case code.
+
+- Teleology: Records one negative-case or policy finding while keeping the observed negative-code ledger synchronized.
+- Guarantee: Appends exactly one normalized finding and stores the case id under its code for later coverage accounting.
+- Fails: Malformed caller inputs are converted to strings only at the finding boundary; semantic validity is checked by the validator paths."""
     findings.append(
         _finding(
             code,
@@ -472,7 +556,11 @@ def _negative_case_semantic_receipt(
     declared_case_id: str,
     subject_id: str,
 ) -> dict[str, Any]:
-    """[ACTION] Validate that a negative fixture label matches the semantic trigger it contains."""
+    """[ACTION] Validate that a negative fixture label matches the semantic trigger it contains.
+
+- Teleology: Verifies that each requested negative fixture actually exercises the semantic failure mode named by its label.
+- Guarantee: Returns observed negative-case codes and findings without copying private or adversarial bodies into public receipts.
+- Fails: Unknown labels, missing trigger evidence, or malformed rows become findings so declared coverage cannot be counted by name alone."""
     floor = NEGATIVE_CASE_SEMANTIC_FLOORS.get(expected_case_id, {})
     required_truthy = tuple(floor.get("required_truthy") or ())
     required_empty = tuple(floor.get("required_empty") or ())
@@ -529,13 +617,21 @@ def _negative_case_semantic_receipt(
 
 
 def _normalize_sha256(value: object) -> str:
-    """[ACTION] Normalize SHA-256 digest strings with or without the sha256 prefix."""
+    """[ACTION] Normalize SHA-256 digest strings with or without the sha256 prefix.
+
+- Teleology: Normalizes digest declarations before manifest rows are compared to target file bytes.
+- Guarantee: Returns lowercase hex digest text with any `sha256:` prefix stripped when the input is a string.
+- Fails: Non-string values collapse to empty text, causing the caller to report a missing or mismatched digest instead of trusting it."""
     text = str(value or "")
     return text if text.startswith("sha256:") else f"sha256:{text}"
 
 
 def _source_module_digest_declarations(row: dict[str, Any]) -> list[dict[str, str]]:
-    """[ACTION] Extract digest declarations from a source-module manifest row."""
+    """[ACTION] Extract digest declarations from a source-module manifest row.
+
+- Teleology: Extracts every usable digest declaration from one source-module manifest row for target-body custody checks.
+- Guarantee: Returns normalized digest rows with algorithm names and values while ignoring malformed declaration shapes.
+- Fails: Rows with no valid SHA-256 declaration are left for the manifest validator to block or downgrade explicitly."""
     declarations: list[dict[str, str]] = []
     for field in ("sha256", "source_sha256", "target_sha256"):
         if field == "sha256" or row.get(field):
@@ -551,7 +647,11 @@ def _source_module_target_path(
     *,
     public_root: Path,
 ) -> Path | None:
-    """[ACTION] Resolve one source-manifest row to its public target path."""
+    """[ACTION] Resolve one source-manifest row to its public target path.
+
+- Teleology: Resolves a manifest row's copied target file inside the public Plectis root before digest and private-state checks run.
+- Guarantee: Returns the resolved target Path only for declared string refs and never follows undeclared private roots as source authority.
+- Fails: Missing or malformed target refs return None so the manifest validator can emit a precise finding."""
     rel_path = str(row.get("path") or "")
     if rel_path:
         return input_dir / rel_path
@@ -570,7 +670,11 @@ def validate_source_module_manifest(
     *,
     required: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Validate source-module manifest rows, target digests, material classes, and private-state scan boundaries."""
+    """[ACTION] Validate source-module manifest rows, target digests, material classes, and private-state scan boundaries.
+
+- Teleology: Audits copied source-module provenance before the monitor replay can cite imported macro bodies as public evidence.
+- Guarantee: Returns status, counts, findings, verified artifact refs, and private-state scan results without exporting private body material.
+- Fails: Missing manifests, digest mismatches, target escapes, forbidden classes, or absent negative-case evidence block or downgrade the source-module claim."""
     findings: list[dict[str, Any]] = []
     if not isinstance(payload, dict):
         if required:
@@ -743,7 +847,11 @@ def _load_source_module_manifest_payload(
     *,
     public_root: Path,
 ) -> tuple[object, Path]:
-    """[ACTION] Load the source-module manifest from payloads, bundle input, or public example fallback."""
+    """[ACTION] Load the source-module manifest from payloads, bundle input, or public example fallback.
+
+- Teleology: Finds the source-module manifest from the loaded payloads, exported bundle, or checked public example fallback.
+- Guarantee: Returns the manifest payload and source path when an allowed public location exists.
+- Fails: Malformed payloads or absent manifest candidates return empty structures for the manifest validator to report."""
     payload = payloads.get("source_module_manifest")
     if isinstance(payload, dict):
         return payload, input_dir
@@ -754,7 +862,11 @@ def _load_source_module_manifest_payload(
 
 
 def _source_artifact_refs_from_manifest(source_module_manifest: dict[str, Any]) -> set[str]:
-    """[ACTION] Collect source artifact refs declared by the manifest."""
+    """[ACTION] Collect source artifact refs declared by the manifest.
+
+- Teleology: Collects declared source artifact refs so protocol and receipt checks can prove they point at manifest-backed evidence.
+- Guarantee: Returns a set of non-empty refs from manifest rows only, without reading the artifact bodies.
+- Fails: Malformed rows are ignored here and are reported by the manifest validator when material to the claim."""
     refs: set[str] = set()
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -774,7 +886,11 @@ def _source_artifact_refs_by_material_class(
     source_module_manifest: dict[str, Any],
     material_class: str,
 ) -> set[str]:
-    """[ACTION] Collect source artifact refs for one material class."""
+    """[ACTION] Collect source artifact refs for one material class.
+
+- Teleology: Filters manifest source artifact refs by material class for body-floor and copied-source accounting.
+- Guarantee: Returns refs only from rows whose material_class exactly matches the requested class.
+- Fails: Unknown or missing material classes produce no refs, leaving coverage gaps visible to callers."""
     refs: set[str] = set()
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -796,7 +912,11 @@ def _source_artifact_refs_by_material_class_with_status(
     source_module_manifest: dict[str, Any],
     material_class: str,
 ) -> dict[str, dict[str, Any]]:
-    """[ACTION] Collect source artifact refs for one material class and status."""
+    """[ACTION] Collect source artifact refs for one material class and status.
+
+- Teleology: Filters manifest source artifact refs by both material class and status so public/body-floor claims stay evidence-class bounded.
+- Guarantee: Returns refs only when both selectors match the manifest row exactly.
+- Fails: Malformed rows or status drift produce an empty set rather than broadening the claim boundary."""
     refs: dict[str, dict[str, Any]] = {}
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -823,7 +943,11 @@ def _source_artifact_paths_from_manifest(
     *,
     public_root: Path,
 ) -> list[Path]:
-    """[ACTION] Resolve source artifact paths declared by the manifest."""
+    """[ACTION] Resolve source artifact paths declared by the manifest.
+
+- Teleology: Resolves copied source artifact paths from the manifest for private-state scans and digest-backed source custody checks.
+- Guarantee: Returns public-root-contained Paths for declared artifact refs while skipping malformed or escaping refs.
+- Fails: Missing files are not invented; downstream validators record the gap as an evidence failure."""
     paths: list[Path] = []
     seen: set[Path] = set()
     for row in source_module_manifest.get("observed_modules", []):
@@ -841,7 +965,11 @@ def _source_artifact_paths_from_manifest(
 
 
 def _validate_public_monitored_trace_artifact(path: Path | None) -> dict[str, Any]:
-    """[ACTION] Validate the public dogfood trace artifact and its export-boundary flags."""
+    """[ACTION] Validate the public dogfood trace artifact and its export-boundary flags.
+
+- Teleology: Checks the public dogfood trace artifact that demonstrates monitor-redteam evidence shape without live monitor-performance claims.
+- Guarantee: Returns trace status, counts, refs, and boundary flags after verifying expected public trace metadata.
+- Fails: Missing, malformed, or boundary-unsafe trace artifacts become findings instead of trusted coverage evidence."""
     findings: list[dict[str, Any]] = []
     if path is None or not path.is_file():
         return {
@@ -987,7 +1115,11 @@ def _validate_public_monitored_trace_artifact(path: Path | None) -> dict[str, An
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
-    """[ACTION] Merge observed negative-case codes from component validator results."""
+    """[ACTION] Merge observed negative-case codes from component validator results.
+
+- Teleology: Combines observed negative-case maps from independent validators into one coverage ledger.
+- Guarantee: Returns deterministic code-to-case lists while preserving all case ids seen by component validators.
+- Fails: Malformed component maps are ignored so invalid coverage cannot enter through a non-dict result."""
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -997,7 +1129,11 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
-    """[ACTION] Merge and deterministically sort findings from component validator results."""
+    """[ACTION] Merge and deterministically sort findings from component validator results.
+
+- Teleology: Combines findings from manifest, protocol, policy, trajectory, observation, and trace validators for stable receipt output.
+- Guarantee: Returns a deterministically sorted list of dict findings without adding or dropping valid rows.
+- Fails: Malformed finding payloads are omitted, leaving strict shape enforcement to the validator that produced them."""
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -1013,7 +1149,11 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate that the projection protocol cites enough source, receipt, and regression-fixture backing."""
+    """[ACTION] Validate that the projection protocol cites enough source, receipt, and regression-fixture backing.
+
+- Teleology: Checks that the projection protocol declares enough source, receipt, fixture, and boundary evidence for the monitor replay claim.
+- Guarantee: Returns status and findings tied to the protocol's public refs and claim ceilings, not to private context.
+- Fails: Missing evidence refs, missing anti-claims, or unsupported release/performance language are blocked or downgraded here."""
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -1049,7 +1189,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 
 def validate_monitor_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate allowed verdicts, severity tiers, required observation fields, and blocked claim ids."""
+    """[ACTION] Validate allowed verdicts, severity tiers, required observation fields, and blocked claim ids.
+
+- Teleology: Validates the monitor policy vocabulary before observations are interpreted as pass, quarantine, downgrade, or blocker rows.
+- Guarantee: Returns allowed verdict, severity, required-field, and blocked-claim metadata used by observation validation.
+- Fails: Unknown verdicts, missing required fields, or missing blocked claims create findings rather than widening the policy."""
     policy = payload if isinstance(payload, dict) else {}
     allowed_verdicts = set(_strings(policy.get("allowed_monitor_verdicts")))
     required = set(_strings(policy.get("required_observation_fields")))
@@ -1101,7 +1245,11 @@ def validate_monitor_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_trajectory_cases(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate trajectory case ids, synthetic/public labels, and public trace refs."""
+    """[ACTION] Validate trajectory case ids, synthetic/public labels, and public trace refs.
+
+- Teleology: Checks the trajectory case inventory that monitor observations claim to cover.
+- Guarantee: Returns case counts, public/synthetic labels, trace refs, and findings without treating fictional trajectories as performance evidence.
+- Fails: Missing ids, duplicate cases, private labels, or unsupported trace refs become findings for the result builder."""
     rows = _rows(payload, "trajectory_cases")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1160,7 +1308,11 @@ def _validate_observation_row(
     negative: bool,
     negative_case_key: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Validate one monitor observation against verdict policy, evidence refs, adversarial-probe backing, body omissions, and negative-case triggers."""
+    """[ACTION] Validate one monitor observation against verdict policy, evidence refs, adversarial-probe backing, body omissions, and negative-case triggers.
+
+- Teleology: Validates one monitor observation against policy, evidence refs, adversarial-probe backing, body omissions, and negative triggers.
+- Guarantee: Returns a body-free row classification plus observed negative-case codes and findings for that observation.
+- Fails: Missing result records, unsupported coverage claims, leaked bodies, wrong verdicts, or absent probes quarantine or downgrade the row."""
     case_id = str(row.get("expected_negative_case_id") or row.get("trajectory_id") or "monitor")
     semantic_case_id = negative_case_key or case_id
     observation_id = str(row.get("observation_id") or row.get("trajectory_id") or case_id)
@@ -1368,7 +1520,11 @@ def validate_monitor_observations(
     require_real_public_trace_evidence: bool,
     public_trace_spans_by_observation: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Validate all monitor observations and negative cases into rows, findings, and observed coverage codes."""
+    """[ACTION] Validate all monitor observations and negative cases into rows, findings, and observed coverage codes.
+
+- Teleology: Runs observation-row validation over the whole monitor observation table and aggregates coverage evidence.
+- Guarantee: Returns rows, pass/quarantine/downgrade counts, findings, and observed negative-case coverage without exposing raw private bodies.
+- Fails: Malformed tables, missing evidence, or unsupported clean verdicts prevent those observations from counting as trusted monitor evidence."""
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_monitor_verdicts")))
     findings: list[dict[str, Any]] = []
@@ -1477,7 +1633,11 @@ def validate_monitor_observations(
 
 
 def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts."""
+    """[ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts.
+
+- Teleology: Summarizes the public trace-builder body import boundary without copying the body into monitor receipts.
+- Guarantee: Returns body-present and ref counts derived from public trace metadata only.
+- Fails: Missing body-import metadata yields an explicit absent summary instead of an implicit source-open claim."""
     imported = public_trace.get("status") == PASS
     return {
         "schema_version": SOURCE_OPEN_BODY_SCHEMA,
@@ -1514,12 +1674,9 @@ def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, 
 def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Fold recomputed public monitor trace spans into organ-level findings.
 
-    Fold the recomputed public trace into organ-level findings.
-
-        The macro builder recomputes whether each declared coverage label is backed
-        by an adversarial-probe span and derives the monitor verdict from span
-        evidence. Any computed-vs-declared mismatch becomes an organ finding.
-    """
+- Teleology: Rechecks the recomputed public monitor trace and folds its spans/findings into the organ-level receipt boundary.
+- Guarantee: Returns trace status, span counts, integrity counts, body-import summary, and findings without exporting raw trace bodies.
+- Fails: Malformed trace rows, missing boundary flags, or unsafe material classes block the trace-backed portion of the claim."""
 
     findings: list[dict[str, Any]] = []
     for span in public_trace.get("spans", []):
@@ -1563,7 +1720,11 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Assemble the full monitor-redteam validation result from source, policy, observation, trace, and scan components."""
+    """[ACTION] Assemble the full monitor-redteam validation result from source, policy, observation, trace, and scan components.
+
+- Teleology: Assembles the full monitor-redteam result from source manifest, protocol, policy, trajectories, observations, public trace, and scans.
+- Guarantee: Returns one receipt-ready payload with counts, rows, findings, authority ceilings, and anti-claims derived from validated components.
+- Fails: Any component failure is surfaced as blocked/downgraded status in the result; private bodies and live monitor-performance claims remain out of scope."""
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
@@ -1746,7 +1907,11 @@ def _build_result(
     }
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Project the validation result into a compact board for human review."""
+    """[ACTION] Project the validation result into a compact board for human review.
+
+- Teleology: Projects the full result into a compact board that a human can inspect before opening detailed receipts.
+- Guarantee: Returns counts, blocked claim ids, status, and evidence refs while omitting full payload bodies.
+- Fails: Missing result fields degrade to empty counts or explicit falsy flags rather than inventing positive evidence."""
     return {
         "schema_version": "agent_monitor_redteam_falsification_replay_board_v1",
         "status": result["status"],
@@ -1804,7 +1969,11 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
-    """[ACTION] Write result, board, validation, and optional acceptance receipts atomically."""
+    """[ACTION] Write result, board, validation, and optional acceptance receipts atomically.
+
+- Teleology: Writes monitor-redteam result, board, validation, and optional acceptance receipts under the requested output root.
+- Guarantee: Creates only governed JSON receipt artifacts and preserves claim ceilings for monitor quality, provider calls, live traffic, and release.
+- Fails: Filesystem or serialization failures propagate so an unwritten receipt cannot be treated as validation evidence."""
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -1934,7 +2103,11 @@ def run(
     command: str = "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the fixture validator and write monitor-redteam receipts."""
+    """[ACTION] Run the fixture validator and write monitor-redteam receipts.
+
+- Teleology: Executes the fixture validator path and writes monitor-redteam receipts for the standard first-wave fixture.
+- Guarantee: Returns the same governed result payload that was written, with freshness metadata and receipt paths attached.
+- Fails: Invalid input fixtures, policy failures, or write errors surface through the result builder or receipt writer instead of being hidden by the CLI."""
     source = Path(input_dir)
     result = _build_result(
         source,
@@ -1961,7 +2134,11 @@ def run_monitor_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
-    """[ACTION] Run or reuse validation for an exported monitor-redteam bundle."""
+    """[ACTION] Run or reuse validation for an exported monitor-redteam bundle.
+
+- Teleology: Runs or reuses validation for an exported monitor-redteam bundle intended for public-source inspection.
+- Guarantee: Returns a bundle validation receipt only when fresh input and validator digests match or after rebuilding from declared public inputs.
+- Fails: Stale receipts, missing bundle inputs, or unsafe manifest/trace boundaries force rebuilds or blocked findings."""
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     source = Path(input_dir)
@@ -1979,9 +2156,14 @@ def run_monitor_bundle(
     result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
+    source_public_root = _public_root_for_path(source)
     payload = {
         **result,
         "schema_version": "exported_monitor_redteam_bundle_validation_result_v1",
+        "command": _display_command(
+            str(result.get("command") or command),
+            public_root=source_public_root,
+        ),
         "receipt_paths": [_display(bundle_path, public_root=public_root)],
     }
     payload = normalize_public_receipt_paths(payload)
@@ -1989,7 +2171,11 @@ def run_monitor_bundle(
     return payload
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Project the result into the command-card shape with omitted payload boundaries."""
+    """[ACTION] Project the result into the command-card shape with omitted payload boundaries.
+
+- Teleology: Projects monitor-redteam results into the command-card shape used by first-screen and agent review routes.
+- Guarantee: Returns a compact card with command speed, monitor counts, validation counts, authority boundaries, and omission receipts.
+- Fails: Malformed optional sections collapse to empty or falsy card fields; full private/source/trace bodies stay omitted by design."""
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     private_scan = result.get("private_state_scan")
@@ -2073,7 +2259,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "source_mutation_authorized": False,
             "release_authorized": False,
         },
-        "receipt_paths": result.get("receipt_paths", []),
+        "receipt_paths": _card_receipt_paths(result),
         "omission_receipt": {
             "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
             "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
@@ -2081,7 +2267,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 def _parser() -> argparse.ArgumentParser:
-    """[ACTION] Build the CLI parser for monitor-redteam replay commands."""
+    """[ACTION] Build the CLI parser for monitor-redteam replay commands.
+
+- Teleology: Defines the command-line contract for fixture and exported-bundle monitor-redteam validation.
+- Guarantee: Returns an argparse parser with explicit subcommands, input/output arguments, acceptance receipt options, and card mode.
+- Fails: Argparse rejects unsupported command shapes before any validation or receipt write is attempted."""
     parser = argparse.ArgumentParser(prog="agent_monitor_redteam_falsification_replay")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
@@ -2096,7 +2286,11 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Dispatch CLI arguments to monitor-redteam run and bundle commands."""
+    """[ACTION] Dispatch CLI arguments to monitor-redteam run and bundle commands.
+
+- Teleology: Dispatches parsed CLI actions to the fixture or exported-bundle monitor-redteam validation path.
+- Guarantee: Prints either a compact command card or final status and returns a process code that follows the validation result.
+- Fails: Invalid actions, validation failures, or receipt-write failures propagate through the selected runner rather than being reported as success."""
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":
