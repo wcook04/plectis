@@ -1513,6 +1513,8 @@
     var empty = document.querySelector('[data-comp-empty]');
     var countLabel = toolbar.getAttribute('data-comp-count-label') || 'components';
     var total = items.length;
+    var urlKey = toolbar.getAttribute('data-comp-filter-param') || 'filter';
+    var canWriteUrl = !!(window.history && window.history.replaceState && window.URLSearchParams);
     var rows = items.map(function (li) {
       return {
         el: li,
@@ -1528,6 +1530,30 @@
     });
     var pendingFrame = 0;
 
+    function readUrlFilter() {
+      if (!window.URLSearchParams) return '';
+      try {
+        return (new URLSearchParams(window.location.search || '')).get(urlKey) || '';
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function writeUrlFilter(value) {
+      if (!canWriteUrl) return;
+      try {
+        var params = new URLSearchParams(window.location.search || '');
+        if (value) params.set(urlKey, value);
+        else params.delete(urlKey);
+        var query = params.toString();
+        var next = window.location.pathname + (query ? '?' + query : '') + window.location.hash;
+        window.history.replaceState(null, '', next);
+      } catch (e) {}
+    }
+
+    var initialFilter = readUrlFilter();
+    if (initialFilter) input.value = initialFilter;
+
     toolbar.removeAttribute('hidden'); // reveal now that JS can power it
 
     function setHidden(el, hidden) {
@@ -1538,8 +1564,9 @@
       }
     }
 
-    function apply() {
+    function apply(options) {
       var q = input.value.trim().toLowerCase();
+      if (!options || !options.skipUrl) writeUrlFilter(input.value.trim());
       var shown = 0;
       rows.forEach(function (row) {
         var hide = !!q && row.hay.indexOf(q) === -1;
@@ -1571,6 +1598,10 @@
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { input.value = ''; apply(); }
     });
+    window.addEventListener('popstate', function () {
+      input.value = readUrlFilter();
+      apply({ skipUrl: true });
+    });
     if (empty) {
       var clearBtn = empty.querySelector('[data-comp-clear]');
       if (clearBtn) clearBtn.addEventListener('click', function () {
@@ -1579,7 +1610,7 @@
         input.focus();
       });
     }
-    apply();
+    apply({ skipUrl: true });
   })();
 
   // --- Command palette: site-wide search over the generated index -----------

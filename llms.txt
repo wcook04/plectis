@@ -17,7 +17,7 @@ Scope: this is a local-first static/public project doorway. Use it to clone, ins
 - Public repository (source of record): https://github.com/wcook04/plectis
 - Agent entry: AGENTS.md at the repository root
 
-Objects: 815 across 16 kinds.
+Objects: 814 across 16 kinds.
 
 ## Object families (coverage)
 
@@ -31,7 +31,7 @@ Objects: 815 across 16 kinds.
 - evidence_class: 5 objects -- 5 routed, 5 searchable, 0 source-linked, 0 omitted
 - graph_node: 11 objects -- 11 routed, 11 searchable, 0 source-linked, 0 omitted
 - mechanism: 95 objects -- 95 routed, 95 searchable, 95 source-linked, 0 omitted
-- page: 14 objects -- 14 routed, 14 searchable, 0 source-linked, 0 omitted
+- page: 13 objects -- 13 routed, 13 searchable, 0 source-linked, 0 omitted
 - paper_module: 93 objects -- 93 routed, 93 searchable, 93 source-linked, 0 omitted
 - principle: 20 objects -- 20 routed, 20 searchable, 20 source-linked, 0 omitted
 - relation: 208 objects -- 208 routed, 208 searchable, 0 source-linked, 0 omitted

@@ -1248,12 +1248,12 @@
     "headers": "_headers",
     "hsts": {
       "header": "Strict-Transport-Security",
-      "mode": "local_no_hsts",
-      "reason": "no_public_https_base_url_supplied",
+      "mode": "host-only",
+      "reason": "base_url_is_https_public_launch_url_host_only",
       "requires_domain_inventory": false,
       "requires_preload_consent": false,
-      "status": "deferred_until_final_https_domain_verified",
-      "value": null
+      "status": "active_host_only",
+      "value": "max-age=31536000"
     },
     "legacy_route_manifest": "legacy-route-manifest.json",
     "legacy_site_output_root": "sites/microcosm-legacy",
@@ -1263,7 +1263,7 @@
     "security_policy": "docs/vulnerability-disclosure.html",
     "security_txt": ".well-known/security.txt",
     "security_txt_legacy": "security.txt",
-    "sitemap": null,
+    "sitemap": "sitemap.xml",
     "updates_feed": "updates.xml"
   },
   "deterministic_generation": true,
@@ -1429,13 +1429,43 @@
     "route_count": 46,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
+  "page_identity": {
+    "canonical_page_object_count": 26,
+    "compatibility_route_count": 1,
+    "count_semantics": {
+      "canonical_page_object_count": "Page objects with route_role=canonical_page.",
+      "emitted_route_count": "All emitted HTML routes, including compatibility aliases.",
+      "route_alias_count": "Compatibility routes that resolve to a canonical page object."
+    },
+    "emitted_route_count": 27,
+    "route_alias_count": 1,
+    "route_aliases": [
+      {
+        "alias_href": "docs/field-guide.html",
+        "alias_path": "docs/field-guide.html",
+        "body_owner": "page:reference",
+        "canonical_href": "docs/reference.html",
+        "canonical_object_id": "page:reference",
+        "canonical_path": "docs/reference.html",
+        "label": "Field guide",
+        "relationship": "compatibility_route_alias",
+        "schema": "microcosm_public_route_alias_v1",
+        "source_ownership": "alias_route_shell_only"
+      }
+    ],
+    "schema": "microcosm_public_page_identity_counts_v1"
+  },
   "pages": [
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:overview",
       "curated_manual_surface": true,
       "generated": false,
       "nav_group": "Landing",
       "output_path": "index.html",
       "public_label": "Front door",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "sites/microcosm/index.html",
         "microcosm-substrate/README.md",
@@ -1444,10 +1474,14 @@
       "title": "Plectis"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:docs-overview",
       "generated": true,
       "nav_group": "Getting started",
       "output_path": "docs/index.html",
       "public_label": "Overview",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/README.md",
         "microcosm-substrate/core/organ_families.json"
@@ -1455,10 +1489,14 @@
       "title": "Overview"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:tour",
       "generated": true,
       "nav_group": "Getting started",
       "output_path": "docs/tour.html",
       "public_label": "What it is (full tour)",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1467,18 +1505,26 @@
       "title": "What Plectis is"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:open-questions",
       "generated": true,
-      "nav_group": "Reference",
+      "nav_group": "Site",
       "output_path": "docs/open-questions.html",
       "public_label": "Open Questions",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [],
       "title": "Open Questions"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:quickstart",
       "generated": true,
       "nav_group": "Getting started",
       "output_path": "docs/quickstart.html",
       "public_label": "Quickstart",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/QUICKSTART.md",
         "microcosm-substrate/SOURCE_STATUS.md"
@@ -1486,10 +1532,14 @@
       "title": "Quickstart"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:coding-agents",
       "generated": true,
       "nav_group": "Getting started",
       "output_path": "docs/coding-agents.html",
       "public_label": "With a coding agent",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/AGENTS.md",
         "microcosm-substrate/README.md"
@@ -1497,10 +1547,14 @@
       "title": "Working with a coding agent"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:architecture",
       "generated": true,
       "nav_group": "The system",
       "output_path": "docs/architecture.html",
       "public_label": "How it fits together",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/ARCHITECTURE.md",
         "microcosm-substrate/core/architecture_kernel.json",
@@ -1510,10 +1564,14 @@
       "title": "How it fits together"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:doctrine",
       "generated": true,
       "nav_group": "The system",
       "output_path": "docs/doctrine.html",
       "public_label": "Doctrine",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/axioms/AX-1.json",
         "microcosm-substrate/principles/P-1.json",
@@ -1523,10 +1581,14 @@
       "title": "Doctrine"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-entry",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-entry.html",
       "public_label": "Entry & orientation",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1535,10 +1597,14 @@
       "title": "Entry & orientation"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-architecture",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-architecture.html",
       "public_label": "Architecture & navigation",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1547,10 +1613,14 @@
       "title": "Architecture & navigation"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-formal-math",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-formal-math.html",
       "public_label": "Formal math & proof",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1559,10 +1629,14 @@
       "title": "Formal math & proof"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-agent-reliability",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-agent-reliability.html",
       "public_label": "Agent reliability & safety",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1571,10 +1645,14 @@
       "title": "Agent reliability & safety"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-research",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-research.html",
       "public_label": "Research & science",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1583,10 +1661,14 @@
       "title": "Research & science"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-import-drift",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-import-drift.html",
       "public_label": "Import & drift control",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1595,10 +1677,14 @@
       "title": "Import & drift control"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:area-continuity",
       "generated": true,
       "nav_group": "Areas",
       "output_path": "docs/area-continuity.html",
       "public_label": "Work & continuity",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1607,10 +1693,14 @@
       "title": "Work & continuity"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:components",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/components.html",
       "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json",
@@ -1619,10 +1709,30 @@
       "title": "Components"
     },
     {
+      "alternate_labels": [
+        "Field guide"
+      ],
+      "canonical_object_id": "page:reference",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/reference.html",
       "public_label": "Reference index",
+      "route_alias_for": null,
+      "route_aliases": [
+        {
+          "alias_href": "docs/field-guide.html",
+          "alias_path": "docs/field-guide.html",
+          "body_owner": "page:reference",
+          "canonical_href": "docs/reference.html",
+          "canonical_object_id": "page:reference",
+          "canonical_path": "docs/reference.html",
+          "label": "Field guide",
+          "relationship": "compatibility_route_alias",
+          "schema": "microcosm_public_route_alias_v1",
+          "source_ownership": "alias_route_shell_only"
+        }
+      ],
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/anti_principles/AP-1.json",
         "microcosm-substrate/anti_principles/AP-10.json",
@@ -1791,183 +1901,30 @@
       "title": "Reference index"
     },
     {
+      "alternate_labels": [
+        "Field guide"
+      ],
+      "canonical_object_id": "page:reference",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/field-guide.html",
       "public_label": "Reference index",
+      "route_alias_for": "docs/reference.html",
+      "route_role": "route_alias",
       "source_refs": [
-        "tools/meta/dissemination/build_microcosm_public_site.py",
-        "microcosm-substrate/anti_principles/AP-1.json",
-        "microcosm-substrate/anti_principles/AP-10.json",
-        "microcosm-substrate/anti_principles/AP-11.json",
-        "microcosm-substrate/anti_principles/AP-12.json",
-        "microcosm-substrate/anti_principles/AP-13.json",
-        "microcosm-substrate/anti_principles/AP-14.json",
-        "microcosm-substrate/anti_principles/AP-15.json",
-        "microcosm-substrate/anti_principles/AP-16.json",
-        "microcosm-substrate/anti_principles/AP-17.json",
-        "microcosm-substrate/anti_principles/AP-2.json",
-        "microcosm-substrate/anti_principles/AP-3.json",
-        "microcosm-substrate/anti_principles/AP-4.json",
-        "microcosm-substrate/anti_principles/AP-5.json",
-        "microcosm-substrate/anti_principles/AP-6.json",
-        "microcosm-substrate/anti_principles/AP-7.json",
-        "microcosm-substrate/anti_principles/AP-8.json",
-        "microcosm-substrate/anti_principles/AP-9.json",
-        "microcosm-substrate/atlas/entry_packet.json",
-        "microcosm-substrate/axioms/AX-1.json",
-        "microcosm-substrate/axioms/AX-10.json",
-        "microcosm-substrate/axioms/AX-11.json",
-        "microcosm-substrate/axioms/AX-12.json",
-        "microcosm-substrate/axioms/AX-2.json",
-        "microcosm-substrate/axioms/AX-3.json",
-        "microcosm-substrate/axioms/AX-4.json",
-        "microcosm-substrate/axioms/AX-5.json",
-        "microcosm-substrate/axioms/AX-6.json",
-        "microcosm-substrate/axioms/AX-7.json",
-        "microcosm-substrate/axioms/AX-8.json",
-        "microcosm-substrate/axioms/AX-9.json",
-        "microcosm-substrate/concepts/concept.agent_reliability_and_safety_validator_bundle.json",
-        "microcosm-substrate/concepts/concept.architecture_and_navigation_route_contract_bundle.json",
-        "microcosm-substrate/concepts/concept.entry_and_reveal_route_readiness_bundle.json",
-        "microcosm-substrate/concepts/concept.executable_doctrine_grammar_standard_bundle.json",
-        "microcosm-substrate/concepts/concept.first_screen_doctrine_effect_frame.json",
-        "microcosm-substrate/concepts/concept.formal_math_and_proof_witness_bundle.json",
-        "microcosm-substrate/concepts/concept.import_projection_and_drift_control_bundle.json",
-        "microcosm-substrate/concepts/concept.research_and_science_replay_evidence_bundle.json",
-        "microcosm-substrate/concepts/concept.standards_meta_diagnostics_bundle.json",
-        "microcosm-substrate/concepts/concept.voice_to_doctrine_self_improvement_loop_bundle.json",
-        "microcosm-substrate/concepts/concept.work_landing_and_continuity_control_bundle.json",
-        "microcosm-substrate/core/doctrine_lattice_coverage.json",
-        "microcosm-substrate/core/doctrine_lattice_relations.json",
-        "microcosm-substrate/core/mechanism_sources.json",
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json",
-        "microcosm-substrate/core/paper_module_capsules.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json",
-        "microcosm-substrate/mechanisms/mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate.json",
-        "microcosm-substrate/mechanisms/mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json",
-        "microcosm-substrate/mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule.json",
-        "microcosm-substrate/mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json",
-        "microcosm-substrate/mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json",
-        "microcosm-substrate/mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json",
-        "microcosm-substrate/mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json",
-        "microcosm-substrate/mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json",
-        "microcosm-substrate/mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json",
-        "microcosm-substrate/mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json",
-        "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json",
-        "microcosm-substrate/mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark.json",
-        "microcosm-substrate/mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json",
-        "microcosm-substrate/mechanisms/mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle.json",
-        "microcosm-substrate/mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json",
-        "microcosm-substrate/mechanisms/mechanism.first_screen_composition_root.validates_public_first_screen_composition_root.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle.json",
-        "microcosm-substrate/mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json",
-        "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json",
-        "microcosm-substrate/mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json",
-        "microcosm-substrate/mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json",
-        "microcosm-substrate/mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json",
-        "microcosm-substrate/mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json",
-        "microcosm-substrate/mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json",
-        "microcosm-substrate/mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json",
-        "microcosm-substrate/mechanisms/mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation.json",
-        "microcosm-substrate/mechanisms/mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization.json",
-        "microcosm-substrate/mechanisms/mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane.json",
-        "microcosm-substrate/mechanisms/mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough.json",
-        "microcosm-substrate/mechanisms/mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution.json",
-        "microcosm-substrate/mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json",
-        "microcosm-substrate/mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json",
-        "microcosm-substrate/mechanisms/mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay.json",
-        "microcosm-substrate/mechanisms/mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics.json",
-        "microcosm-substrate/mechanisms/mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection.json",
-        "microcosm-substrate/mechanisms/mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory.json",
-        "microcosm-substrate/mechanisms/mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary.json",
-        "microcosm-substrate/mechanisms/mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness.json",
-        "microcosm-substrate/mechanisms/mechanism.verifier_lab_kernel.composes_public_formal_math_receipts.json",
-        "microcosm-substrate/mechanisms/mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop.json",
-        "microcosm-substrate/mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json",
-        "microcosm-substrate/principles/P-1.json",
-        "microcosm-substrate/principles/P-10.json",
-        "microcosm-substrate/principles/P-11.json",
-        "microcosm-substrate/principles/P-12.json",
-        "microcosm-substrate/principles/P-13.json",
-        "microcosm-substrate/principles/P-14.json",
-        "microcosm-substrate/principles/P-15.json",
-        "microcosm-substrate/principles/P-16.json",
-        "microcosm-substrate/principles/P-17.json",
-        "microcosm-substrate/principles/P-18.json",
-        "microcosm-substrate/principles/P-19.json",
-        "microcosm-substrate/principles/P-2.json",
-        "microcosm-substrate/principles/P-20.json",
-        "microcosm-substrate/principles/P-3.json",
-        "microcosm-substrate/principles/P-4.json",
-        "microcosm-substrate/principles/P-5.json",
-        "microcosm-substrate/principles/P-6.json",
-        "microcosm-substrate/principles/P-7.json",
-        "microcosm-substrate/principles/P-8.json",
-        "microcosm-substrate/principles/P-9.json"
+        "tools/meta/dissemination/build_microcosm_public_site.py"
       ],
       "title": "Field guide moved"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:rules-and-ideas",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/rules-and-ideas.html",
       "public_label": "Doctrine reference",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/anti_principles/AP-1.json",
         "microcosm-substrate/anti_principles/AP-10.json",
@@ -2133,10 +2090,14 @@
       "title": "Doctrine reference"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-modules",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/paper-modules.html",
       "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/anti_principles/AP-1.json",
         "microcosm-substrate/anti_principles/AP-10.json",
@@ -2302,10 +2263,14 @@
       "title": "Paper modules"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:evidence",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/evidence.html",
       "public_label": "What the pass proves",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/core/organ_registry.json",
         "microcosm-substrate/core/organ_atlas.json"
@@ -2313,20 +2278,28 @@
       "title": "What the pass proves"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:glossary",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/glossary.html",
       "public_label": "Glossary",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "codex/doctrine/system_vocabulary/term_registry.json"
       ],
       "title": "Glossary"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:lineage",
       "generated": true,
       "nav_group": "Reference",
       "output_path": "docs/lineage.html",
       "public_label": "Lineage & changelog",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/README.md",
         "sites/microcosm/index.html",
@@ -2336,10 +2309,14 @@
       "title": "Lineage & changelog"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:updates",
       "generated": true,
-      "nav_group": "Reference",
+      "nav_group": "Site",
       "output_path": "docs/updates.html",
       "public_label": "Follow updates",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "tools/meta/dissemination/microcosm_public_narratives.json",
         "sites/microcosm/index.html"
@@ -2347,10 +2324,14 @@
       "title": "Follow updates"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:source",
       "generated": true,
-      "nav_group": "Reference",
+      "nav_group": "Site",
       "output_path": "docs/source.html",
       "public_label": "Source & license",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/README.md",
         "microcosm-substrate/QUICKSTART.md",
@@ -2364,10 +2345,14 @@
       "title": "Source & license"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:contact",
       "generated": true,
-      "nav_group": "Reference",
+      "nav_group": "Site",
       "output_path": "docs/contact.html",
       "public_label": "Contact",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/PROVENANCE.md",
         "microcosm-substrate/README.md",
@@ -2376,10 +2361,14 @@
       "title": "Contact"
     },
     {
+      "alternate_labels": [],
+      "canonical_object_id": "page:vulnerability-disclosure",
       "generated": true,
-      "nav_group": "Reference",
+      "nav_group": "Site",
       "output_path": "docs/vulnerability-disclosure.html",
       "public_label": "Vulnerability disclosure",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
       "source_refs": [
         "microcosm-substrate/SECURITY.md",
         "microcosm-substrate/README.md"
@@ -2387,8 +2376,81 @@
       "title": "Vulnerability disclosure"
     }
   ],
-  "public_base_url": null,
+  "public_base_url": "https://wcook04.github.io/plectis/",
   "schema_version": "microcosm_public_site_content_manifest_v1",
+  "semantic_redundancy_evaluation": {
+    "decision_classes": [
+      "alias",
+      "merge_into_facet",
+      "retain_distinct_view",
+      "retain_narrative"
+    ],
+    "records": [
+      {
+        "canonical_object_id": "page:reference",
+        "canonical_route": "docs/reference.html",
+        "decision": "alias",
+        "reason": "The old Field guide carried the same roster role as Reference; keep only a route alias.",
+        "surface_id": "field-guide",
+        "surface_label": "Field guide"
+      },
+      {
+        "canonical_object_id": "page:reference",
+        "canonical_route": "docs/reference.html",
+        "decision": "retain_narrative",
+        "reason": "The Reference index is the scan-then-route roster over reference objects.",
+        "surface_id": "reference-index",
+        "surface_label": "Reference index"
+      },
+      {
+        "canonical_object_id": "page:components",
+        "canonical_route": "docs/components.html",
+        "decision": "retain_distinct_view",
+        "reason": "Components owns component cards, filters, evidence summaries, and map routes.",
+        "surface_id": "components",
+        "surface_label": "Components"
+      },
+      {
+        "canonical_object_id": "page:rules-and-ideas",
+        "canonical_route": "docs/rules-and-ideas.html",
+        "decision": "retain_distinct_view",
+        "reason": "Doctrine reference owns the rule lattice and synopsis-to-body routing.",
+        "surface_id": "doctrine-reference",
+        "surface_label": "Doctrine reference"
+      },
+      {
+        "canonical_object_id": "page:paper-modules",
+        "canonical_route": "docs/paper-modules.html",
+        "decision": "retain_distinct_view",
+        "reason": "Paper modules owns long-form paper-module reader bodies and diagram routing.",
+        "surface_id": "paper-modules",
+        "surface_label": "Paper modules"
+      },
+      {
+        "canonical_object_id": "page:glossary",
+        "canonical_route": "docs/glossary.html",
+        "decision": "retain_distinct_view",
+        "reason": "Glossary owns public vocabulary cards and term relationships.",
+        "surface_id": "glossary",
+        "surface_label": "Glossary"
+      },
+      {
+        "canonical_object_id": "site_group",
+        "canonical_route": "docs/source.html",
+        "decision": "retain_distinct_view",
+        "reason": "Open Questions, Source, Updates, Contact, and Vulnerability disclosure describe the site/repository surface rather than the reference object roster.",
+        "surface_id": "site-support-pages",
+        "surface_label": "Site support pages"
+      }
+    ],
+    "schema": "microcosm_public_reference_semantic_redundancy_evaluation_v1",
+    "summary": {
+      "alias_count": 1,
+      "merge_into_facet_count": 0,
+      "retain_distinct_view_count": 5,
+      "retain_narrative_count": 1
+    }
+  },
   "source_hashes": {
     "codex/doctrine/system_vocabulary/term_registry.json": "sha256:0073021d3084d754db57b2bbe17cbce617127a82658028e687bad90bc8e8b081",
     "microcosm-substrate/ARCHITECTURE.md": "sha256:2910626283674dad3a442e83da29e68294414d3104a8fefccef7bebc8572bb22",
@@ -2660,7 +2722,7 @@
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
     "sites/microcosm/index.html": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e",
-    "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:27fe4b034bb73c9c5d78fb439bd38b02bd875a9bde290d176deddf595a7e0501"
+    "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:401fee9964433eb6e73eace56101417055884f5083bc1e98d9c7921c3215b512"
   },
   "source_of_truth_contract": {
     "analytics_default": "none",
