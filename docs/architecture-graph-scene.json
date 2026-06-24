@@ -4106,7 +4106,8 @@
         },
         "parent_cluster_id": "cluster:areas",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "The shared path every public component binds to, in 10 steps: Project \u2192 Catalog \u2192 Pattern \u2192 Standard \u2192 Route \u2192 Work \u2192 Event \u2192 Evidence \u2192 Explanation \u2192 Assimilation."
       },
       {
         "attention_score": 0.98,
@@ -4293,7 +4294,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-entry.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "How a newcomer first meets Plectis and follows a short guided path through it."
       },
       {
         "attention_score": 0.98,
@@ -4310,7 +4312,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-architecture.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "The core primitives, pattern rules, and routing that give the system its shape."
       },
       {
         "attention_score": 0.98,
@@ -4327,7 +4330,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-formal-math.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "Inspectable pieces of a proof pipeline: premise retrieval over a copied Lean Std index, tactic routing, verifier-trace repair, and claim-separation result records. Three components run the real Lean/Lake prover locally on bounded examples; the rest publish the pipeline's checking layers as contracts you can open."
       },
       {
         "attention_score": 0.98,
@@ -4344,7 +4348,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-agent-reliability.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "Source-open replays of agent failure modes as inspectable specimens."
       },
       {
         "attention_score": 0.98,
@@ -4361,7 +4366,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-research.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "Replays that stand in for scientific and forecasting workflows, run over synthetic fixtures."
       },
       {
         "attention_score": 0.98,
@@ -4378,7 +4384,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-import-drift.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "The boundary that brings non-secret material into the public tree and flags drift."
       },
       {
         "attention_score": 0.98,
@@ -4395,7 +4402,8 @@
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-continuity.html",
         "row_id": null,
-        "state": "active"
+        "state": "active",
+        "summary": "How reversible work is recorded, landing decisions are made, and runs resume."
       },
       {
         "attention_score": 0.98,

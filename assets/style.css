@@ -2246,6 +2246,61 @@ body.cmdk-open { overflow: hidden; }
   .system-map__graph.is-docked > [data-dock="scroll"] .gsvg { min-width: 0; width: 100%; }
 }
 
+/* ── Landing "How it fits together" cover ────────────────────────────────────
+   The overview map (the public_overview projection: seven areas + the shared-path
+   hub) sits right after the hero. The figure docks its own map + inspector via the
+   shared .is-docked grid; this block tunes the compact 8-node cover and styles the
+   textual twin -- the native area/path list that is the no-JS fallback AND a
+   coequal selector of the same canonical nodes the SVG exposes. */
+.system-map-landing__stage { margin: 1.1rem 0 0.4rem; }
+/* The cover is 8 nodes in one cluster, so it needs no 680px legibility floor:
+   let it size to its column and cap it so it does not blow up into a sparse
+   thumbnail. */
+.system-map-landing .system-map__graph { margin-top: 0.6rem; --map-fit-floor: 0px; }
+.system-map-landing .gscroll { background: var(--surface-sunk); }
+.system-map-landing .gsvg { max-width: 600px; margin: 0 auto; }
+/* Cover legibility: eight labelled nodes in one small cluster collide, and the twin
+   list below already names every area. So the dots + the active-node badge carry the
+   shape at rest; a node's label appears on hover or focus. docs.js's declutter sets
+   the promoted fan labels' opacity INLINE, so the resting-hide needs !important to
+   win; the hover/focus reveal restores them the same way. The hub keeps its on-map
+   badge for a name. */
+.system-map-landing .gnode .gnode__label { opacity: 0 !important; }
+.system-map-landing .gnode:hover .gnode__label,
+.system-map-landing .gnode:focus-within .gnode__label { opacity: 1 !important; }
+
+/* Textual twin: a compact, keyboard-operable list of the areas + the shared path.
+   Each item selects its node on the map (JS on) or opens its page (JS off). */
+.system-map-landing__twin { margin: 1rem 0 0; }
+.system-map-landing__list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 0.4rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+.system-map-landing__item {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem;
+  padding: 0.5rem 0.75rem; text-decoration: none;
+  border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); color: var(--ink);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.system-map-landing__item:hover { border-color: var(--accent); }
+.system-map-landing__item.is-current { border-color: var(--accent); background: var(--accent-wash); }
+.system-map-landing__item--spine { border-style: dashed; }
+.system-map-landing__item-name { font-weight: 600; font-size: 0.92rem; }
+.system-map-landing__item-meta { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+
+.system-map-landing__exits { display: flex; flex-wrap: wrap; gap: 0.6rem 0.9rem; margin: 1.1rem 0 0; align-items: center; }
+
+/* The structural-node component-count line in the inspector, styled like the job. */
+.gpanel__count { margin: 0 0 0.55rem; font-size: 0.84rem; font-weight: 600; color: var(--ink-soft); }
+
+/* Reader-question sub-headings in "What you can actually check"; the trimmed
+   single-column hero; the review prompt that closes the route section. */
+.hero__copy--lead { max-width: var(--prose); }
+.check-q { font-size: 1.18rem; line-height: 1.3; color: var(--ink); margin: 2.4rem 0 0.7rem; }
+.check-q:first-of-type { margin-top: 1.5rem; }
+.review-callout { margin-top: 1.3rem; }
+
 /* On-map durable active-node badge (built by docs.js). Replaces reliance on the
    native <title> tooltip for the active node with a persistent label + relation
    count. Token-driven so it inverts in the dark archival palette and prints. The

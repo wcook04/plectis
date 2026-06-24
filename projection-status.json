@@ -23,7 +23,7 @@
   },
   "artifact_identity": {
     "advanced_public_handoff": "microcosm-ai-review-packet.json",
-    "advanced_public_handoff_sha256": "sha256:9fd6b7d2a250d58774e2ffbf2580feaf42abd738cf82f2cf51eb6d719e734a5a",
+    "advanced_public_handoff_sha256": "sha256:0f21d83d23593f6c1c034235c2d9815afc7e1a61954b01f50425f30746677b8c",
     "digest_algorithm": "sha256",
     "exact_byte_hash_scope": "Generated in-memory text outputs at build time. projection-status.json cannot self-embed its own final byte digest; all other generated outputs are exact.",
     "exact_byte_sha256_by_path": {
@@ -49,11 +49,11 @@
       },
       "assets/ai-reader-digest-packet.js": {
         "byte_count": 228843,
-        "sha256": "sha256:44fb11734423fb2606e13fb7a92092c53e751d516cd9a031700e9b1bfd1c2364"
+        "sha256": "sha256:fab6ce167afd1c20335faf2c3bf5c92d9d73f1daa63b530f10cb438bf56b9f40"
       },
       "assets/ai-review-packet.js": {
-        "byte_count": 10704515,
-        "sha256": "sha256:02cf35835da42082f44896b7722848a484beb5f80843faadaa9707d8349b85f2"
+        "byte_count": 10693645,
+        "sha256": "sha256:fc5fe1e2e7cbad4cc27628a42ec9f2a11190beb8972afa797df874ce158af2f3"
       },
       "assets/object-map.js": {
         "byte_count": 5115063,
@@ -64,8 +64,8 @@
         "sha256": "sha256:bd4b1a916249cc4e87fb6e95cd1a6aed9d2d27bfe80ee6f97d739e8637e4021c"
       },
       "assets/site-packet.js": {
-        "byte_count": 9160243,
-        "sha256": "sha256:aecf47584176e1a1bdd75cd4ecb9477ed9e496dfc782ab39a65516e9e833f5eb"
+        "byte_count": 9149624,
+        "sha256": "sha256:2c595a1a8d871ae4428833607ddd8f58fb4cbb2feb38a6c570e9ab443e3f35c7"
       },
       "content-graph.json": {
         "byte_count": 10353072,
@@ -73,15 +73,15 @@
       },
       "content-manifest.json": {
         "byte_count": 172202,
-        "sha256": "sha256:8dc25f92b23adfee41a406be6f286ac6b4029237b26f20a6468f204041d582b5"
+        "sha256": "sha256:4f9880b4590705db11762a70a05c15627bc3e878ec0a1003d09d772a3f46fb00"
       },
       "docs/architecture-graph-scene.json": {
-        "byte_count": 226338,
-        "sha256": "sha256:2440c20e08af879b850e93e1102c0cc273079f65d81bb4b7e84a733b4ab6d955"
+        "byte_count": 227521,
+        "sha256": "sha256:b642ed05a77369f656f0ceac95654e413905f08019f0edde66292406adeae28a"
       },
       "docs/architecture.html": {
-        "byte_count": 128227,
-        "sha256": "sha256:be08068b29ba981ec3a61a44925957f5aa870da8b58232157b5d315dc6d68932"
+        "byte_count": 129441,
+        "sha256": "sha256:6bccb36d19484b73ce402de90b140deba53149ea386c14483e7848a7dd0cde44"
       },
       "docs/area-agent-reliability.html": {
         "byte_count": 544215,
@@ -180,8 +180,8 @@
         "sha256": "sha256:fe0fa547ebd79001ec48e1f3830b832e201f10d284d51fec15445aac2303b04c"
       },
       "index.html": {
-        "byte_count": 48915,
-        "sha256": "sha256:deaad82434d32ee731dcb31972cd31c76cb9fc88c97aeb56d56088df2f6c18a0"
+        "byte_count": 37335,
+        "sha256": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e"
       },
       "legacy-route-manifest.json": {
         "byte_count": 30247,
@@ -192,16 +192,16 @@
         "sha256": "sha256:76d159c8df46e010c4aca43bd207916965de1a7a0bb13e25e02bdbc23c02db7c"
       },
       "microcosm-ai-reader-complete.json": {
-        "byte_count": 6019413,
-        "sha256": "sha256:8aa7469b70bfddb55bc18d119fc91703d3b04f69b316d677aa5f17a802f5e39e"
+        "byte_count": 6008672,
+        "sha256": "sha256:33ed95b9499c144457b9e17c8c5d19c9854ddfb7f0f9bef1b6da314af8d875a7"
       },
       "microcosm-ai-reader-digest.json": {
         "byte_count": 212900,
-        "sha256": "sha256:ae6dc8d7ced4d708ac54c67c2f320fdd7356f137f41de915fcb0b0358c976562"
+        "sha256": "sha256:7781958c964512f4feee20d9e0beeabe563032b87ab991030ac56a4d55048981"
       },
       "microcosm-ai-review-packet.json": {
-        "byte_count": 10165890,
-        "sha256": "sha256:9fd6b7d2a250d58774e2ffbf2580feaf42abd738cf82f2cf51eb6d719e734a5a"
+        "byte_count": 10155149,
+        "sha256": "sha256:0f21d83d23593f6c1c034235c2d9815afc7e1a61954b01f50425f30746677b8c"
       },
       "microcosm-legacy/.nojekyll": {
         "byte_count": 0,
@@ -221,15 +221,15 @@
       },
       "microcosm-legacy/assets/ai-reader-digest-packet.js": {
         "byte_count": 228843,
-        "sha256": "sha256:44fb11734423fb2606e13fb7a92092c53e751d516cd9a031700e9b1bfd1c2364"
+        "sha256": "sha256:fab6ce167afd1c20335faf2c3bf5c92d9d73f1daa63b530f10cb438bf56b9f40"
       },
       "microcosm-legacy/assets/ai-review-packet.js": {
-        "byte_count": 10704515,
-        "sha256": "sha256:02cf35835da42082f44896b7722848a484beb5f80843faadaa9707d8349b85f2"
+        "byte_count": 10693645,
+        "sha256": "sha256:fc5fe1e2e7cbad4cc27628a42ec9f2a11190beb8972afa797df874ce158af2f3"
       },
       "microcosm-legacy/assets/docs.js": {
-        "byte_count": 170844,
-        "sha256": "sha256:b0a3de9f544150b473a3703849b52cf27313e3c50e57caafec2fe3ef88b7b6f0"
+        "byte_count": 176010,
+        "sha256": "sha256:0246b779d14366e590cbceb29198410a356fefff0976430b8641cd03fe0dbc43"
       },
       "microcosm-legacy/assets/object-map.js": {
         "byte_count": 5115063,
@@ -240,12 +240,12 @@
         "sha256": "sha256:bd4b1a916249cc4e87fb6e95cd1a6aed9d2d27bfe80ee6f97d739e8637e4021c"
       },
       "microcosm-legacy/assets/site-packet.js": {
-        "byte_count": 9160243,
-        "sha256": "sha256:aecf47584176e1a1bdd75cd4ecb9477ed9e496dfc782ab39a65516e9e833f5eb"
+        "byte_count": 9149624,
+        "sha256": "sha256:2c595a1a8d871ae4428833607ddd8f58fb4cbb2feb38a6c570e9ab443e3f35c7"
       },
       "microcosm-legacy/assets/style.css": {
-        "byte_count": 150470,
-        "sha256": "sha256:9c2207689dd17c75df7691ff3c3a10c1369b35c0fa37df5d85591c37be87e7e5"
+        "byte_count": 153936,
+        "sha256": "sha256:9cc6222892c9492d76d88ab1626c6d97b32da71bfaa0448d52b9ff57402aa362"
       },
       "microcosm-legacy/content-graph.json": {
         "byte_count": 10353072,
@@ -253,7 +253,7 @@
       },
       "microcosm-legacy/content-manifest.json": {
         "byte_count": 172202,
-        "sha256": "sha256:8dc25f92b23adfee41a406be6f286ac6b4029237b26f20a6468f204041d582b5"
+        "sha256": "sha256:4f9880b4590705db11762a70a05c15627bc3e878ec0a1003d09d772a3f46fb00"
       },
       "microcosm-legacy/docs/architecture.html": {
         "byte_count": 1467,
@@ -365,11 +365,11 @@
       },
       "microcosm-legacy/microcosm-ai-reader-digest.json": {
         "byte_count": 212900,
-        "sha256": "sha256:ae6dc8d7ced4d708ac54c67c2f320fdd7356f137f41de915fcb0b0358c976562"
+        "sha256": "sha256:7781958c964512f4feee20d9e0beeabe563032b87ab991030ac56a4d55048981"
       },
       "microcosm-legacy/microcosm-ai-review-packet.json": {
-        "byte_count": 10165890,
-        "sha256": "sha256:9fd6b7d2a250d58774e2ffbf2580feaf42abd738cf82f2cf51eb6d719e734a5a"
+        "byte_count": 10155149,
+        "sha256": "sha256:0f21d83d23593f6c1c034235c2d9815afc7e1a61954b01f50425f30746677b8c"
       },
       "microcosm-legacy/object-map.json": {
         "byte_count": 6475569,
@@ -405,10 +405,10 @@
       }
     },
     "primary_public_handoff": "microcosm-ai-reader-digest.json",
-    "primary_public_handoff_sha256": "sha256:ae6dc8d7ced4d708ac54c67c2f320fdd7356f137f41de915fcb0b0358c976562",
+    "primary_public_handoff_sha256": "sha256:7781958c964512f4feee20d9e0beeabe563032b87ab991030ac56a4d55048981",
     "projection_status_self_digest": "not_self_embedded",
     "reader_digest": "microcosm-ai-reader-digest.json",
-    "reader_digest_sha256": "sha256:ae6dc8d7ced4d708ac54c67c2f320fdd7356f137f41de915fcb0b0358c976562",
+    "reader_digest_sha256": "sha256:7781958c964512f4feee20d9e0beeabe563032b87ab991030ac56a4d55048981",
     "schema": "microcosm_public_generated_artifact_identity_v0",
     "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
   },
@@ -1834,7 +1834,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
-    "sites/microcosm/index.html": "sha256:deaad82434d32ee731dcb31972cd31c76cb9fc88c97aeb56d56088df2f6c18a0"
+    "sites/microcosm/index.html": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e"
   },
   "source_refs": [
     "microcosm-substrate/anti_principles/AP-1.json",

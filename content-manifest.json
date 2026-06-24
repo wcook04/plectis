@@ -2218,13 +2218,13 @@
   "schema_version": "microcosm_public_site_content_manifest_v1",
   "source_hashes": {
     "codex/doctrine/system_vocabulary/term_registry.json": "sha256:0073021d3084d754db57b2bbe17cbce617127a82658028e687bad90bc8e8b081",
-    "microcosm-substrate/ARCHITECTURE.md": "sha256:32d7ab4e94ff065b6541f65316b0fa3da8d25007492d45bbfdae0b9b2b7bb2e3",
+    "microcosm-substrate/ARCHITECTURE.md": "sha256:2910626283674dad3a442e83da29e68294414d3104a8fefccef7bebc8572bb22",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
     "microcosm-substrate/NOTICE": "sha256:5ee35efcac92a6e5009e305e2f662481e2a3b7fb6e6d95a275e519066a0b2375",
-    "microcosm-substrate/ORGANS.md": "sha256:64316c1191f134b61b8e067f58df01e5c10dd7203fb3b8ca74be54e5321c71ef",
+    "microcosm-substrate/ORGANS.md": "sha256:a36b0e3fb8fbb74d3ae067319d31ad96b6aa413dfd68217b2b669fa7236d8e25",
     "microcosm-substrate/PROVENANCE.md": "sha256:ae9e699b9d9a31ad38139fae240591ed1269502ad54dce425ab5e5f27f044ab8",
     "microcosm-substrate/QUICKSTART.md": "sha256:8022da5b2122880ede5ec58e1fcf72021c912c73784b750a458d101f817bdb1f",
-    "microcosm-substrate/README.md": "sha256:ee3732fc9f2d6f1be5c5caecac0694df9ba54599dccc4fe1a74361343fc08b80",
+    "microcosm-substrate/README.md": "sha256:d7c9a55beb529ff9207c93e60e4f8ab98c4c27520c0ef84b6763f9ee570da536",
     "microcosm-substrate/SECURITY.md": "sha256:5feeae8ad642f96d0dbdcf546c865c8bda62f8b1ea87d81e9cdc1fe58fc273df",
     "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
     "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
@@ -2486,7 +2486,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
-    "sites/microcosm/index.html": "sha256:deaad82434d32ee731dcb31972cd31c76cb9fc88c97aeb56d56088df2f6c18a0",
+    "sites/microcosm/index.html": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:27fe4b034bb73c9c5d78fb439bd38b02bd875a9bde290d176deddf595a7e0501"
   },
   "source_of_truth_contract": {

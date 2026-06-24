@@ -3,6 +3,27 @@
 
   document.documentElement.classList.add('js');
 
+  // One site-relative asset resolver for the runtime. assets/ live at the site
+  // root, so a page under docs/ reaches them with ../assets/ and the root
+  // landing with assets/. Prefer deriving from this script's own URL (robust at
+  // any depth) with a pathname fallback, so the graph inspector and object
+  // coverage panel resolve assets/ correctly whether they run under docs/ or at
+  // the site root -- a hard-coded ../assets/ 404s when docs.js runs on the
+  // landing map.
+  function mcAssetUrl(name) {
+    try {
+      var scripts = Array.prototype.slice.call(document.querySelectorAll('script[src]'));
+      var docsScript = scripts.filter(function (s) {
+        return /(?:^|\/)docs\.js(?:[?#].*)?$/.test(s.getAttribute('src') || s.src || '');
+      }).pop();
+      var src = docsScript && (docsScript.src || docsScript.getAttribute('src'));
+      if (src) return src.replace(/docs\.js(?:[?#].*)?$/, name);
+    } catch (e) {}
+    return (window.location && window.location.pathname || '').indexOf('/docs/') !== -1
+      ? '../assets/' + name
+      : 'assets/' + name;
+  }
+
   function cleanText(text) {
     return String(text || '').replace(/\s+/g, ' ').trim();
   }
@@ -1907,7 +1928,7 @@
       }
       objMapState = 'loading';
       var s = document.createElement('script');
-      s.src = '../assets/object-map.js';
+      s.src = mcAssetUrl('object-map.js');
       s.setAttribute('data-object-map', '');
       s.addEventListener('load', settle);
       s.addEventListener('error', function () { objMapState = 'failed'; if (window.console && console.warn) console.warn('Microcosm: object-map.js failed to load; map inspector detail omitted.'); });
@@ -2164,7 +2185,12 @@
     // gets, including how to leave a selection.
     var graphCap = fig.querySelector('.system-map__graphcap');
     if (graphCap) {
-      graphCap.textContent = 'An interactive picture of the seven public areas, the shared path, and every public component. Hover a node to preview its links; click to pin it and read its full name and declared links below; double-click (or Open card) to open a component’s page. Press Esc, or Whole map, to return to the overview.';
+      // The landing cover shows only the areas + shared path (no components), so
+      // its caption must not promise "every public component"; the docs full map
+      // does. Consumer-aware so each surface describes what it actually renders.
+      graphCap.textContent = fig.getAttribute('data-graph-consumer') === 'landing'
+        ? 'The seven public areas and the shared path they bind to. Hover or select an area or the shared path to read it on the right; open the full map to follow any single component to its evidence and source.'
+        : 'An interactive picture of the seven public areas, the shared path, and every public component. Hover a node to preview its links; click to pin it and read its full name and declared links below; double-click (or Open card) to open a component’s page. Press Esc, or Whole map, to return to the overview.';
     }
 
     var KIND_WORD = {
@@ -2753,7 +2779,13 @@
       // loaded -- no lazy fetch), so every hover and pin says what the node is FOR
       // before the heavier evidence detail loads.
       var jobRec = recByNode[id];
-      if (jobRec && jobRec.text) panel.appendChild(el('p', 'gpanel__job', jobRec.text));
+      // Structural nodes (area, shared path) carry their one-line job as a
+      // data-summary on the node itself, so the inspector explains them with no
+      // fetch; components keep their richer search-index record.
+      var jobText = (jobRec && jobRec.text) ? jobRec.text : node.getAttribute('data-summary');
+      if (jobText) panel.appendChild(el('p', 'gpanel__job', jobText));
+      var nodeCount = node.getAttribute('data-count');
+      if (nodeCount) panel.appendChild(el('p', 'gpanel__count', nodeCount + ' components'));
 
       // Reader detail from the public object map: the evidence rank and the scope
       // limit -- the same honesty signals the source page shows,
@@ -2775,7 +2807,10 @@
           panel.appendChild(el('p', 'gpanel__links-label', 'Scope limit'));
           panel.appendChild(el('p', 'gpanel__ceiling', auth.does_not_prove));
         }
-      } else if (pinnedId === id && objMapState !== 'failed') {
+      } else if (pinnedId === id && objMapState !== 'failed' && id.indexOf('component:') === 0) {
+        // Only component nodes resolve to an object record; areas / spine /
+        // shared_path never do, so they must not trigger the multi-MB object
+        // packet -- this keeps the landing cover from ever fetching it.
         ensureObjectMap(function () {
           if (pinnedId === id && objByNode[id]) { panelState = ''; renderNode(id); }
         });
@@ -2810,6 +2845,15 @@
         var open = el('a', 'gpanel__open', 'Open card');
         open.setAttribute('href', href);
         actions.appendChild(open);
+      }
+      // On a projected consumer (the landing cover) the figure carries the full
+      // map destination; offer it carrying the SAME canonical node, so a reader
+      // drills from the overview into the docs zoom with the node still selected.
+      var fullMapHref = fig.getAttribute('data-graph-full-map-href');
+      if (fullMapHref) {
+        var openFull = el('a', 'gpanel__open', 'Open in the full map');
+        openFull.setAttribute('href', fullMapHref.split('#')[0] + hashFor(id));
+        actions.appendChild(openFull);
       }
       var share = el('button', 'gpanel__share', 'Copy link to this view');
       share.type = 'button';
@@ -2905,11 +2949,23 @@
       pinnedId = id;
       isolate(id);
       renderNode(id);
+      syncTwinCurrent(id);
       announce(labelOf(byId[id]) + ' selected, ' + relCount(id) +
         (relCount(id) === 1 ? ' declared link' : ' declared links'));
       if (scroll && byId[id] && byId[id].scrollIntoView) byId[id].scrollIntoView({ block: 'center' });
     }
-    function showOverviewUI() { pinnedId = null; restore(); }
+    function showOverviewUI() { pinnedId = null; restore(); syncTwinCurrent(''); }
+
+    // Presentation-only preselection (landing cover): populate the panel for a
+    // node on first paint without announcing, pushing history, or writing the
+    // hash. Only an explicit visitor action does those.
+    function presetSelection(id) {
+      if (!byId[id]) return;
+      pinnedId = id;
+      isolate(id);
+      renderNode(id);
+      syncTwinCurrent(id);
+    }
 
     function select(id, pin) {
       if (!byId[id]) return;
@@ -2919,13 +2975,14 @@
       renderNode(id);
       if (pin) {
         pushHash(id);
+        syncTwinCurrent(id);
         // Gate to pin only (not hover): the region is intentionally not aria-live,
         // so the badge/selection is otherwise silent to AT on a keyboard pin.
         announce(labelOf(byId[id]) + ' pinned, ' + relCount(id) +
           (relCount(id) === 1 ? ' declared link' : ' declared links'));
       }
     }
-    function clearToOverview() { cancelPendingHover(); pinnedId = null; clearHash(); restore(); }
+    function clearToOverview() { cancelPendingHover(); pinnedId = null; clearHash(); restore(); syncTwinCurrent(''); }
     function unpin() { clearToOverview(); }
 
     nodes.forEach(function (n) {
@@ -2983,6 +3040,32 @@
       }
     });
     fig.addEventListener('mouseleave', restore, { passive: true });
+
+    // ── Textual twin as a coequal selector (landing cover) ───────────────────
+    // The native area/path list beside the map is the no-JS fallback AND the
+    // SVG's promised text equivalent. With JS on, each item selects the SAME
+    // canonical node in place instead of navigating, and a visible "current"
+    // marker stays in sync across both surfaces. Absent on docs (no twin) -> the
+    // wiring is an empty no-op there.
+    var twin = document.querySelector('[data-graph-twin]');
+    var twinItems = twin ? [].slice.call(twin.querySelectorAll('[data-graph-select]')) : [];
+    function syncTwinCurrent(id) {
+      twinItems.forEach(function (item) {
+        var on = item.getAttribute('data-graph-select') === id;
+        item.classList.toggle('is-current', on);
+        if (on) item.setAttribute('aria-current', 'true');
+        else item.removeAttribute('aria-current');
+      });
+    }
+    twinItems.forEach(function (item) {
+      var nid = item.getAttribute('data-graph-select');
+      item.addEventListener('click', function (ev) {
+        if (!byId[nid]) return;        // no such node -> let the link navigate
+        if (ev.detail === 0) return;   // keyboard activation -> follow the link (Enter opens the page)
+        ev.preventDefault();
+        select(nid, true);
+      });
+    });
 
     // ── Cluster-hover local label expansion (Wave 33) ───────────────────────
     // Hovering a cluster box reveals the routine component labels INSIDE just that
@@ -3118,6 +3201,14 @@
 
     renderDefault();
     syncFromLocation(true);
+    // Landing cover: with no deep-linked node, preselect the figure's default
+    // (the shared-path hub) so the panel is populated on first paint. Pure
+    // presentation state -- no announce, no hash, no history. Docs figures carry
+    // no default-select attribute, so this is a landing-only no-op there.
+    if (!pinnedId) {
+      var presetId = fig.getAttribute('data-graph-default-select');
+      if (presetId && byId[presetId]) presetSelection(presetId);
+    }
     if (!pinnedId) revealRestingHubs(); // resting overview shows full hub names (a deep-link pins instead)
   })();
 
@@ -3141,7 +3232,7 @@
         return;
       }
       var s = document.createElement('script');
-      s.src = '../assets/object-map.js';
+      s.src = mcAssetUrl('object-map.js');
       s.setAttribute('data-object-map', '');
       s.addEventListener('load', function () { if (window.__MICROCOSM_OBJECTS__) cb(window.__MICROCOSM_OBJECTS__); });
       // object-map.js is never preloaded, so source.html always hits this fresh
@@ -3466,9 +3557,9 @@
     var tipText = el('div', 'term-tip__text');
     var tipDeep = el('div', 'term-tip__deep');
     tipDeep.hidden = true;
-    var tipFull = el('a', 'term-tip__full', 'Open the full glossary entry →');
+    var tipFull = el('a', 'term-tip__full', 'See this in the glossary ->');
     tipFull.hidden = true;
-    tipFull.tabIndex = -1; // keyboard path is Enter-again on the term; the link is a pointer affordance
+    tipFull.tabIndex = -1; // the term remains the keyboard path; this is a pointer affordance
     var tipCue = el('div', 'term-tip__cue');
     tip.appendChild(tipLabel);
     tip.appendChild(tipText);
@@ -3491,13 +3582,13 @@
         var href = anchor.getAttribute('href');
         if (href && safeNavigationUrl(href)) { tipFull.href = href; tipFull.hidden = false; }
         else { tipFull.hidden = true; }
-        tipCue.textContent = 'Press Enter again for the full glossary entry';
+        tipCue.textContent = 'Click again to open the glossary entry';
       } else {
         tip.classList.remove('is-expanded');
         tipText.textContent = data.reader_preview || data.text || data.reader_card || '';
         tipDeep.hidden = true;
         tipFull.hidden = true;
-        tipCue.textContent = 'Press Enter to expand';
+        tipCue.textContent = 'Click to expand here and stay on this page';
       }
     }
     function showTip(anchor) {
