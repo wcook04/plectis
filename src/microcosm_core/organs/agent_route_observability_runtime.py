@@ -1,3 +1,30 @@
+"""
+[PURPOSE]
+- Teleology: Validates public, source-bounded replay packets that make agent navigation and observability evidence inspectable without private runtime state.
+- Mechanism: Runs deterministic fixture validators over exported route events, hook-shadow receipts, continuation packets, session-attribution envelopes, and synthetic computer-use traces.
+- Guarantee: A passing result means the shipped evidence is structurally navigable, source-referenced, receipt-backed, and claim-bounded; it does not certify live agent behavior or authorize outreach, release, or external action.
+
+[INTERFACE]
+- Inputs: Public fixture directories under the organ's exported bundle layout.
+- Outputs: Validation result dictionaries, receipt JSON files, and compact result cards for package-local inspection.
+- Exports: `run`, `result_card`, and specific `run_*_bundle` entrypoints for each public observability replay bundle.
+
+[FLOW]
+- Load strict JSON fixture inputs and source-module manifests.
+- Validate authority ceilings, anti-claims, source references, negative cases, route-compliance summaries, and private-state scan results.
+- Write normalized receipts through the shared receipt helpers.
+- Render compact cards that point to receipts rather than embedding private or full source bodies.
+
+[DEPENDENCIES]
+- microcosm_core.macro_tools.*: public macro-tool projections used as source authority for exported replay bundles.
+- microcosm_core.private_state_scan: release-boundary scan over copied public materials.
+- microcosm_core.receipts and microcosm_core.schemas: strict JSON loading and atomic receipt writing.
+
+[CONSTRAINTS]
+- Atomicity: Receipt writes go through `write_json_atomic`; validators do not mutate source modules, Work Ledger state, or external services.
+- Determinism: Inputs are sorted or keyed by declared fixture identifiers; result envelopes use stable schema versions and normalized public paths.
+- Non-goal: This module does not read private transcripts, inspect live accounts, control browsers, send recipient material, or claim benchmark/behavior scores.
+"""
 from __future__ import annotations
 
 import argparse
@@ -1659,6 +1686,12 @@ def _bundle_finding(
 
 
 def validate_exported_route_events(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks exported route events as replayable navigation evidence rather than loose telemetry.
+    - Guarantee: Returns a pass envelope only when each row has stable ids, route labels, actor-axis metadata, and receipt-compatible provenance.
+    - Fails: Non-list payload, duplicate ids, missing route fields, private transcript fields, or behavior-change overclaim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "route_events")
     event_ids: list[str] = []
@@ -1757,6 +1790,12 @@ def validate_exported_agent_path_observations(
     payload: object,
     route_event_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Couples path observations to validated route events so an agent can move from a symptom to supporting route evidence.
+    - Guarantee: Passing rows reference known route-event ids and preserve bounded path, actor, and evidence-class fields.
+    - Fails: Unknown route event, malformed observation row, raw transcript payload, or missing evidence class -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "agent_path_observations")
     route_event_ids = set(route_event_result["route_event_ids"])
@@ -1848,6 +1887,12 @@ def validate_exported_agent_path_observations(
 
 
 def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Verifies session diagnostic summaries without treating them as private session authority.
+    - Guarantee: Returns normalized diagnostic rows only when each row carries a public session id, diagnostic class, and bounded evidence handle.
+    - Fails: Non-list payload, hidden session state, missing diagnostic class, or provider/body leakage -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "session_diagnostics")
     decisions: list[dict[str, Any]] = []
@@ -1907,6 +1952,12 @@ def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Confirms hook-shadow coverage fixtures exercise route interventions without asserting live hook behavior.
+    - Guarantee: A pass preserves required negative cases, authority ceilings, and no-live-state-read constraints.
+    - Fails: Missing expected negative case, banned route intervention without receipt, live-state read attempt, or budget overrun -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "hook_shadow_rows")
     covered_hook_ids: list[str] = []
@@ -2013,6 +2064,12 @@ def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Ensures actor-axis rows distinguish substrate authority from model intelligence or provider class.
+    - Guarantee: Passing rows retain Type A/B authority semantics and cite evidence rather than inferred capability claims.
+    - Fails: Missing actor axis, authority mismatch, unsupported role claim, or private evidence handle -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "actor_axis_checks")
     decisions: list[dict[str, Any]] = []
@@ -2069,6 +2126,12 @@ def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Keeps anti-pattern debt rows tied to concrete retirement evidence instead of vague process prose.
+    - Guarantee: Every accepted row names a debt class, replacement route, and receipt-backed retirement or residual state.
+    - Fails: Missing debt id, absent replacement route, unsupported retirement, or private-root evidence leak -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "debt_rows")
     decisions: list[dict[str, Any]] = []
@@ -2123,6 +2186,12 @@ def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Validates process-audit rows as public navigation evidence for how route failures were detected and bounded.
+    - Guarantee: Passing rows carry stable audit ids, observed route state, corrective action labels, and receipt references.
+    - Fails: Malformed row, missing audit id, action without evidence, or private state disclosure -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "process_audit_rows")
     anti_pattern_ids: list[str] = []
@@ -2174,6 +2243,12 @@ def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks the observability bundle's policy ceiling before any replay evidence is trusted.
+    - Guarantee: A pass preserves the declared no-live-state, no-provider-payload, and no-behavior-certification boundaries.
+    - Fails: Missing policy keys, broadened authority, raw transcript allowance, or absent anti-claim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
     for field in (
@@ -2247,6 +2322,12 @@ def _walk_nonempty_payload_keys(payload: object, forbidden_keys: set[str]) -> se
 
 
 def validate_exported_session_attribution_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Bounds session-attribution replay to synthetic/public metadata before any attribution view is accepted.
+    - Guarantee: Passing policy blocks live logs, transcript bodies, provider payloads, account state, and source mutation claims.
+    - Fails: Missing ceiling key, unexpected true authority, absent anti-claim, or private-state permission -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
     for field in (
@@ -2295,6 +2376,12 @@ def validate_exported_session_attribution_inputs(
     ats_payload: object,
     work_ledger_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Confirms attribution fixture inputs are synthetic envelopes with enough structure to rerun attribution deterministically.
+    - Guarantee: A pass returns AgentTraceStore and Work Ledger rows with stable ids, no raw body fields, and no live-session equivalence claim.
+    - Fails: Malformed input set, missing session/event ids, private payload key, or unsupported matched-status claim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     active_sessions = _rows(ats_payload, "active_sessions")
     work_ledger = work_ledger_payload if isinstance(work_ledger_payload, dict) else {}
@@ -2372,6 +2459,12 @@ def validate_session_attribution_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Proves attribution replay imports intended public source bodies rather than trusting detached fixture prose.
+    - Guarantee: Passing manifest rows resolve to expected paths, hashes, schema versions, and copied public macro-tool sources.
+    - Fails: Missing manifest row, hash drift, wrong source ref, missing copied body, or forbidden private material -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -2531,6 +2624,12 @@ def validate_exported_session_attribution_expected_summary(
     view: dict[str, Any],
     self_session: dict[str, Any] | None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Compares expected attribution summary to the rerun public attribution view.
+    - Guarantee: A pass means the summary is reproducible from fixture inputs and does not overstate live-session authority.
+    - Fails: Count mismatch, missing self-session handle, schema drift, or unsupported private equivalence claim -> validation finding.
+    """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     actual_summary = view.get("summary") if isinstance(view.get("summary"), dict) else {}
@@ -2582,6 +2681,12 @@ def validate_exported_session_attribution_expected_summary(
 
 
 def validate_exported_harness_configuration_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Keeps harness-configuration audit fixtures bounded to synthetic configuration metadata.
+    - Guarantee: Passing policy forbids live settings reads, hook/skill body export, hook installation, source mutation, and release claims.
+    - Fails: Missing authority ceiling, broadened permission, absent anti-claim, or private configuration body allowance -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
     for field in (
@@ -2629,6 +2734,12 @@ def validate_exported_harness_configuration_policy(payload: object) -> dict[str,
 
 
 def validate_exported_harness_configuration_inputs(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks harness configuration rows before deriving drift or coverage claims from them.
+    - Guarantee: Passing rows expose only public metadata needed to compare settings, hooks, and skill registry shapes.
+    - Fails: Non-list payload, raw hook/skill body, missing config id, or unsupported install claim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     snapshots = _rows(payload, "snapshots")
     if not snapshots:
@@ -2736,6 +2847,12 @@ def validate_harness_configuration_audit_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Ties harness-configuration replay to copied public macro-tool sources and declared standards.
+    - Guarantee: Passing manifest rows resolve with expected hashes and no private local-settings body.
+    - Fails: Missing source row, wrong ref, hash mismatch, absent copied body, or forbidden private key -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -2865,6 +2982,12 @@ def validate_exported_harness_configuration_expected_summary(
     *,
     input_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Ensures the expected harness audit summary is derived from checked public fixture rows.
+    - Guarantee: A pass binds row counts, drift counts, and authority flags to the validated input result.
+    - Fails: Summary count mismatch, missing drift field, broadened authority, or private equivalence claim -> validation finding.
+    """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     expected_summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
@@ -2900,6 +3023,12 @@ def validate_exported_harness_configuration_expected_summary(
 
 
 def validate_exported_multi_agent_fanin_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Bounds fan-in replay to public continuation and worker metadata, not live subagent dispatch.
+    - Guarantee: Passing policy keeps parent authority, disjoint write-set, no-live-dispatch, and no-transcript-body constraints intact.
+    - Fails: Missing governance key, live spawn permission, transcript export, or recipient-send authority -> validation finding.
+    """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     for field in (
@@ -2987,6 +3116,12 @@ def validate_multi_agent_fanin_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Confirms fan-in replay uses intended public continuation and governance source modules.
+    - Guarantee: Passing rows resolve source refs, target refs, hashes, and copied bodies needed to inspect fan-in evidence.
+    - Fails: Missing source module, stale hash, wrong material class, absent governance source, or private body key -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -3128,6 +3263,12 @@ def validate_bridge_dispatch_yield_resume_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks bridge yield/resume replay imports source-faithful public dispatch machinery.
+    - Guarantee: A pass binds the replay to expected bridge-resume refs, hashes, schema versions, and authority ceilings.
+    - Fails: Missing bridge source, hash drift, unexpected input name, or private worker transcript material -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -3269,6 +3410,12 @@ def validate_controller_heartbeat_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Validates controller-heartbeat replay against public heartbeat source bodies and policy refs.
+    - Guarantee: Passing manifest rows prove the heartbeat evidence can be inspected without live controller state.
+    - Fails: Missing heartbeat source, hash mismatch, forbidden payload key, or unsupported live-control claim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -3427,6 +3574,12 @@ def validate_route_compliance_audit_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Proves route-compliance audit replay is source-backed across route rules, standards, builders, and sanitized sidecars.
+    - Guarantee: Passing rows distinguish exact public macro bodies from sanitized reference projections and bind each to expected hashes.
+    - Fails: Missing exact source, wrong sanitized relation, hash drift, unexpected material class, or private projection leak -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -3940,6 +4093,12 @@ def validate_observability_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Verifies the observability bundle's copied source modules before accepting route and trace evidence.
+    - Guarantee: Every expected doctrine, standard, and macro-tool body is present, hashed, and classed as public.
+    - Fails: Missing source module, hash drift, wrong target ref, absent copied body, or forbidden private content -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -4147,6 +4306,12 @@ def validate_agent_trace_route_repair_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Ties agent-trace route-repair replay to the public route repair macro tool and declared source refs.
+    - Guarantee: Passing manifest rows resolve the source-faithful repair view, expected inputs, and anti-claim constraints.
+    - Fails: Missing source, hash mismatch, forbidden payload key, or behavior repair overclaim without trace evidence -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -4357,6 +4522,12 @@ def validate_agent_observability_store_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Confirms observability-store replay uses the public store source rather than raw private trace storage.
+    - Guarantee: A pass binds store inputs and derived views to expected public source refs, hashes, and no-body-export policy.
+    - Fails: Missing source body, hash drift, unexpected payload key, or raw trace body exposure -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -4526,6 +4697,12 @@ def validate_exported_multi_agent_fanin_inputs(
     continuation_payload: object,
     worker_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks fan-in fixture inputs before they are summarized as conductor evidence.
+    - Guarantee: Passing packets and worker rows carry stable ids, lane boundaries, disjoint write scopes, and no transcript bodies.
+    - Fails: Malformed packet, duplicate worker id, missing lane boundary, conflicting write scope, or raw worker body -> validation finding.
+    """
     contexts = _rows(continuation_payload, "continuation_contexts")
     workers = _rows(worker_payload, "worker_traces")
     findings: list[dict[str, Any]] = []
@@ -4690,6 +4867,12 @@ def validate_exported_multi_agent_fanin_expected_summary(
     packets: list[dict[str, Any]],
     workers: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reconciles the fan-in expected summary with validated packet and worker rows.
+    - Guarantee: A pass proves counts, lane states, and blocked/complete labels are derived from checked public inputs.
+    - Fails: Count mismatch, missing conductor authority, unsourced progress claim, or private transcript equivalence -> validation finding.
+    """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     actual_summary = {
@@ -4762,6 +4945,12 @@ def validate_exported_multi_agent_fanin_expected_summary(
 
 
 def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Classifies route-compliance rows as evidence of route discipline without upgrading them into behavior-change proof.
+    - Guarantee: Passing rows have stable event ids, allowed route decisions, replacement links, and expected negative-case coverage.
+    - Fails: Missing route lease, unsupported route outcome, duplicate event, or behavior-change overclaim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     event_ids = [str(row.get("event_id") or "event") for row in rows]
@@ -4928,6 +5117,12 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def validate_route_compliance_audit_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks route-compliance audit policy before route rows are treated as public evidence.
+    - Guarantee: A pass preserves no-private-state, no-live-mutation, no-release, and no-behavior-certification ceilings.
+    - Fails: Missing policy, widened permission, absent anti-claim, or unsupported live route authority -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
     required_false_fields = (
@@ -4984,6 +5179,12 @@ def validate_route_compliance_expected_summary(
     payload: object,
     route_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Binds route-compliance summary counts to the rerun route result.
+    - Guarantee: Passing summary values match validated rows and expected negative-case classifications.
+    - Fails: Count mismatch, missing quarantine/pass total, stale expected code, or unsupported behavior claim -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     expected = payload if isinstance(payload, dict) else {}
     summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
@@ -5463,6 +5664,12 @@ def validate_route_trace_analytics(
     input_dir: Path,
     payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Validates trace-analytics spans as public navigation evidence with bounded source and receipt references.
+    - Guarantee: Passing spans resolve required source artifacts, route ids, timing envelopes, and no raw transcript fields.
+    - Fails: Malformed span, missing source artifact, forbidden nonempty key, unresolved receipt, or private payload leak -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     fixture = payload if isinstance(payload, dict) else {}
     sessions = _rows(fixture, "sessions")
@@ -5730,6 +5937,12 @@ def validate_route_trace_analytics(
 
 
 def validate_hook_shadow(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Tests hook-shadow intervention coverage as a replayable fixture rather than proof that hooks are live.
+    - Guarantee: Passing rows cover required negative cases and keep shadow intervention receipts bounded to public metadata.
+    - Fails: Missing expected case, banned command displacement, live-state read, or unsupported hook authority -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     cases = _rows(payload, "cases")
@@ -5945,6 +6158,12 @@ def validate_hook_shadow(payload: object) -> dict[str, Any]:
 
 
 def validate_debt_retirement(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks route-debt retirement evidence names both the old anti-pattern and the replacement route.
+    - Guarantee: Each accepted debt row has a stable id, retired/residual state, and receipt-backed replacement.
+    - Fails: Missing debt id, absent replacement, unsupported clean claim, or private evidence handle -> validation finding.
+    """
     rows = _rows(payload, "debt_rows")
     decisions: list[dict[str, Any]] = []
     behavior_refs: list[str] = []
@@ -5984,6 +6203,12 @@ def validate_debt_retirement(payload: object) -> dict[str, Any]:
 
 
 def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Verifies route leases encode when direct action is allowed and when kernel reentry is required.
+    - Guarantee: Passing leases carry invalidation inputs, bounded budgets, permitted actions, and banned route evidence.
+    - Fails: Missing lease mode, broad kernel bloat allowance, stale invalidation field, or unsourced direct-action permission -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     feedback_decisions: list[dict[str, Any]] = []
@@ -6076,6 +6301,12 @@ def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, A
 
 
 def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Confirms the agent-principle lens is a bounded projection over selected principles, not a new doctrine authority.
+    - Guarantee: A pass preserves selected ids, source refs, route authority, and omission receipts.
+    - Fails: Missing principle ids, source-ref drift, unbounded authority claim, or private state reference -> validation finding.
+    """
     lens = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     selected_ids = _strings(lens.get("selected_ids"))
@@ -6272,6 +6503,12 @@ def _derive_egress_decision(row: dict[str, Any]) -> tuple[bool, str]:
 
 
 def validate_egress_mirror(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Checks the egress mirror receipt that keeps stop-hook and public-release boundaries visible.
+    - Guarantee: Passing rows prove no send/share/ACL/upload authority is granted by this replay and violations would be surfaced.
+    - Fails: Missing egress verdict, broadened permission, absent blocker, or raw private body export -> validation finding.
+    """
     mirror = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     cases = _rows(mirror, "cases")
@@ -6408,6 +6645,12 @@ def write_receipts(
     *,
     public_root: str | Path,
 ) -> dict[str, str]:
+    """
+    [ACTION]
+    - Teleology: Persists validation evidence as navigable public receipts.
+    - Guarantee: Writes the expected receipt set atomically and returns normalized public-relative receipt paths.
+    - Fails: Missing result section, unwritable output directory, or receipt path outside the public root -> exception or validation finding.
+    """
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -7174,6 +7417,12 @@ def run_observability_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Runs the full observability replay bundle from public fixture inputs to receipts and result card data.
+    - Guarantee: A pass means all core observability inputs, manifests, policies, private-state scans, and receipt writes succeeded within the claim ceiling.
+    - Fails: Missing fixture, strict JSON error, source-manifest drift, private-state finding, or receipt write failure -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -7399,6 +7648,12 @@ def run_route_compliance_audit_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns the route-compliance audit bundle as an inspectable public evidence package.
+    - Guarantee: A pass binds route rows, policies, source manifests, summaries, and receipts to deterministic fixture inputs.
+    - Fails: Missing input, JSON parse failure, source drift, summary mismatch, or private-state scan failure -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -7664,6 +7919,12 @@ def run_session_attribution_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns public session-attribution metadata without reading live agent session logs.
+    - Guarantee: A pass writes receipt evidence proving attribution output derives from synthetic AgentTraceStore and Work Ledger inputs.
+    - Fails: Missing fixture, source-manifest drift, raw transcript/body field, or summary mismatch -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -7859,6 +8120,12 @@ def run_harness_configuration_audit_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns the harness-configuration audit over public synthetic settings, hook, and skill-registry metadata.
+    - Guarantee: A pass writes receipt evidence for configuration-shape drift without exporting live settings or hook bodies.
+    - Fails: Missing fixture, forbidden body field, source-manifest drift, or expected-summary mismatch -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -8031,6 +8298,12 @@ def run_multi_agent_fanin_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns multi-agent fan-in evidence as public conductor metadata, not live worker dispatch.
+    - Guarantee: A pass proves packet and worker summaries are source-backed, disjoint-scope-aware, and transcript-body-free.
+    - Fails: Missing fixture, conflicting worker scope, source drift, raw worker transcript, or summary mismatch -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -8259,6 +8532,12 @@ def run_bridge_dispatch_yield_resume_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns bridge dispatch yield/resume evidence from public fixture metadata.
+    - Guarantee: A pass writes receipt evidence that resume targets, wait kinds, and source refs are bounded and reproducible.
+    - Fails: Missing fixture, malformed resume target, source-manifest drift, or private worker payload -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -8442,6 +8721,12 @@ def run_controller_heartbeat_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns controller-heartbeat evidence as a public metadata replay.
+    - Guarantee: A pass proves heartbeat rows, dedupe behavior, authority ceiling, and receipt references are source-backed.
+    - Fails: Missing fixture, heartbeat schema drift, source drift, or live-control overclaim -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -8634,6 +8919,12 @@ def run_agent_trace_route_repair_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns agent-trace-to-route-repair evidence as public route correction metadata.
+    - Guarantee: A pass binds repair rows to source refs, trace evidence, policy ceilings, and receipt outputs.
+    - Fails: Missing fixture, behavior-repair overclaim, source drift, or private trace body -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -8832,6 +9123,12 @@ def run_agent_observability_store_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns observability-store evidence over public trace-store metadata.
+    - Guarantee: A pass proves store emissions, gap rows, summaries, and source refs are reproducible without raw trace bodies.
+    - Fails: Missing fixture, forbidden payload key, source drift, or summary mismatch -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -9039,6 +9336,12 @@ def validate_computer_use_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Confirms computer-use replay imports the intended public trace standard and agent-execution source body.
+    - Guarantee: Passing manifest rows resolve expected refs, hashes, and copied public bodies for the synthetic computer-use fixture.
+    - Fails: Missing source, hash drift, wrong target ref, or raw screenshot/body export -> validation finding.
+    """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
     modules = _rows(manifest, "modules")
@@ -9915,6 +10218,15 @@ def _validate_computer_use_negative_cases(
     observed: dict[str, set[str]] = defaultdict(set)
 
     def record(case_id: str, code: str, message: str, subject_id: str) -> None:
+        """
+        [ACTION]
+        - Teleology: Records one synthetic computer-use negative-case finding
+          under a stable fixture case id.
+        - Guarantee: Updates both finding rows and observed-code coverage so
+          expected negative-case checks remain deterministic.
+        - Fails: None; malformed caller values are preserved as finding payload
+          strings and checked by the enclosing validator.
+        """
         _record(
             findings,
             observed,
@@ -10005,6 +10317,12 @@ def run_computer_use_action_trace_bundle(
     *,
     include_negative: bool | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Reruns the synthetic computer-use action trace fixture from observation through authority verdict, replay, recovery, and receipts.
+    - Guarantee: A pass proves the trace is inspectable, source-backed, negative-case-covered, and explicitly not live browser control.
+    - Fails: Missing fixture, malformed trace row, source drift, forbidden live action, or expected negative-case mismatch -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -10269,6 +10587,12 @@ def run_computer_use_action_trace_bundle(
 
 
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Provides the default organ entrypoint for the observability runtime replay.
+    - Guarantee: Delegates to the observability bundle runner and returns its claim-bounded validation envelope.
+    - Fails: Any observability-bundle validation failure or receipt write failure -> failed result envelope.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -10413,6 +10737,12 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Compresses a full validation result into a package-local start card for humans and coding agents.
+    - Guarantee: Returns status, claim ceiling, receipt paths, omitted payload keys, and next validation handles without embedding full findings.
+    - Fails: Missing optional fields degrade to empty card fields; absent noncritical result sections do not raise.
+    """
     freshness_payload = result.get("freshness_basis")
     freshness = freshness_payload if isinstance(freshness_payload, dict) else {}
     hook_payload = result.get("hook_shadow_coverage")
@@ -10510,6 +10840,12 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Exposes the organ replay as a command-line validator for local package inspection.
+    - Guarantee: Parses input/output paths, runs the selected replay mode, prints JSON, and exits nonzero on failed validation.
+    - Fails: Bad arguments, missing fixture data, strict JSON errors, or failed validation -> nonzero process exit.
+    """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="action")
     run_parser = subparsers.add_parser("run")
