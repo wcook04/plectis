@@ -2966,9 +2966,10 @@ html.js .docs-main .docs-pagetools {
 .oq-vocab{margin:24px 0 4px;padding:16px 18px;background:var(--surface-sunk);
   border:1px solid var(--rule);border-radius:10px}
 .oq-vocab h2{font-size:1.02rem;margin-bottom:11px}
-.oq-vocab dl{margin:0;display:grid;gap:10px}
-.oq-vocab dt{font-weight:600;color:var(--ink);font-size:.95rem}
-.oq-vocab dd{margin:2px 0 0;color:var(--ink-soft);font-size:.92rem;line-height:1.55}
+.oq-vocab dl{margin:0}
+.oq-vocab dt{font-weight:600;color:var(--ink);font-size:.95rem;margin-top:16px}
+.oq-vocab dt:first-of-type{margin-top:0}
+.oq-vocab dd{margin:3px 0 0;color:var(--ink-soft);font-size:.92rem;line-height:1.55}
 .oq-vocab__note{margin-top:13px;color:var(--muted);font-size:.9rem;line-height:1.5}
 
 /* The chain, in plain terms */
