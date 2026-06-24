@@ -1,0 +1,574 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_feature_registry_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record the transformation/proof commitment that carried the pressure; a mechanism row cannot pass as feature prose or a frontend plan.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "mechanism_role",
+      "concept_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+    "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+    "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_mechanism_json_seeded_from_mechanism_registry_not_authority_flip_until_parity_receipt",
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/agent_route_observability_runtime.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for public route-feedback and observability bundle validation plus receipt writing.",
+      "symbols": [
+        "run",
+        "run_observability_bundle",
+        "run_agent_observability_store_bundle",
+        "validate_route_compliance",
+        "validate_route_lease_mode_control",
+        "validate_agent_principle_lens"
+      ]
+    }
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_mechanism.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]",
+      "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract"
+    ],
+    "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
+    "required": true
+  },
+  "id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+  "kind": "mechanism",
+  "mechanism_payload": {
+    "contract_version": "microcosm_mechanism_instance_payload_v1",
+    "guardrails": [
+      "synthetic_route_feedback_only_not_live_session_authority",
+      "provider_payloads_browser_hud_account_state_and_credentials_forbidden",
+      "body_in_receipt_false_for_copied_macro_trace_bodies",
+      "route_lease_consumption_required",
+      "hook_shadow_is_advisory_not_runtime_control",
+      "agent_principle_lens_cannot_mint_or_promote_principles",
+      "egress_mirror_blocks_recipient_send_or_release_authority"
+    ],
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/mechanism_sources.json"
+    },
+    "population_binding": {
+      "anti_claims": [
+        "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+        "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+        "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+        "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+      ],
+      "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
+      "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
+      "omission_receipt": {
+        "drilldown": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]",
+        "omitted": [
+          "private macro source bodies",
+          "raw operator voice",
+          "provider payload bodies",
+          "runtime outputs beyond named public receipt refs"
+        ],
+        "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+        "residual_pressure": [
+          {
+            "gap_class": "mechanism_selective_edges_unpopulated",
+            "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+            "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+          }
+        ]
+      },
+      "source_refs": [
+        "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]",
+        "fixtures/first_wave/agent_route_observability_runtime/input",
+        "examples/agent_route_observability_runtime/exported_observability_bundle",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[4:agent_reliability_and_safety_validator_bundle]"
+      ],
+      "state_or_proof_effect": "safety and reliability claims remain bounded to named public fixtures, validators, and receipt rows instead of global agent capability claims",
+      "transformation_shape": "fixture or exported public replay bundle -> family validator runtime -> receipt with accepted/rejected rows and anti-claims",
+      "validator_refs": [
+        "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+      ]
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.md",
+      "markdown_status": "generated_projection",
+      "registry_status": "current_source_of_record_until_parity_flip",
+      "source_json_rel": "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json"
+    },
+    "projection_hooks": [
+      "markdown_reference",
+      "mermaid_graph",
+      "atlas_card",
+      "coverage_health",
+      "source_language_inventory"
+    ],
+    "resolution_evidence": {
+      "authority_class": "source_assertion",
+      "evidence_rank": 5,
+      "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime validate-observability-bundle --input examples/agent_route_observability_runtime/exported_observability_bundle --out receipts/first_wave/agent_route_observability_runtime",
+      "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_agent_route_observability_runtime.py -q",
+      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime"
+    },
+    "source_registry_row": {
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/agent_route_observability_runtime.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for public route-feedback and observability bundle validation plus receipt writing.",
+          "symbols": [
+            "run",
+            "run_observability_bundle",
+            "run_agent_observability_store_bundle",
+            "validate_route_compliance",
+            "validate_route_lease_mode_control",
+            "validate_agent_principle_lens"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "guardrails": [
+        "synthetic_route_feedback_only_not_live_session_authority",
+        "provider_payloads_browser_hud_account_state_and_credentials_forbidden",
+        "body_in_receipt_false_for_copied_macro_trace_bodies",
+        "route_lease_consumption_required",
+        "hook_shadow_is_advisory_not_runtime_control",
+        "agent_principle_lens_cannot_mint_or_promote_principles",
+        "egress_mirror_blocks_recipient_send_or_release_authority"
+      ],
+      "id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+      "input_refs": [
+        "fixtures/first_wave/agent_route_observability_runtime/input",
+        "examples/agent_route_observability_runtime/exported_observability_bundle"
+      ],
+      "kind": "mechanism",
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+        "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+        "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+        "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+        "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+        "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json",
+        "receipts/first_wave/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json",
+        "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+      ],
+      "resolution_evidence": {
+        "authority_class": "source_assertion",
+        "evidence_rank": 5,
+        "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime validate-observability-bundle --input examples/agent_route_observability_runtime/exported_observability_bundle --out receipts/first_wave/agent_route_observability_runtime",
+        "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_agent_route_observability_runtime.py -q",
+        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime"
+      },
+      "runs_in": [
+        "agent_route_observability_runtime"
+      ],
+      "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]",
+      "statement": "The agent route observability runtime validates public route-feedback and observability fixture bundles by checking actor-axis authority boundaries, route-lease consumption, duplicate trace ids, hook-shadow advisory status, anti-pattern debt retirement, agent-principle-lens compact admission, egress-mirror boundaries, copied source-module digests, and private-state exclusion before writing bounded receipts.",
+      "status": "active",
+      "upstream_of": [
+        "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+        "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
+        "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
+        "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+        "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+        "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
+        "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
+        "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+        "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+        "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+        "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry"
+      ]
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "code_locus_and_registry_grounding_computed_in_projection_not_asserted_as_correctness"
+    }
+  },
+  "omission_receipt": {
+    "drilldown": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipt refs"
+    ],
+    "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+    "residual_pressure": [
+      {
+        "gap_class": "mechanism_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+      }
+    ]
+  },
+  "organ_refs": [
+    "agent_route_observability_runtime"
+  ],
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated mechanism row must point to at least one runnable or inspectable specimen that shows the transformation and validator lane; feature prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "mechanism_role",
+      "concept_pair_ref",
+      "source_refs",
+      "transformation_shape",
+      "state_or_proof_effect",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+    "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+    "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
+    "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json",
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/agent_route_observability_runtime.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for public route-feedback and observability bundle validation plus receipt writing.",
+        "symbols": [
+          "run",
+          "run_observability_bundle",
+          "run_agent_observability_store_bundle",
+          "validate_route_compliance",
+          "validate_route_lease_mode_control",
+          "validate_agent_principle_lens"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].code_loci[0]",
+          "summary": "Mechanism registry row names this code locus as the runtime grounding path."
+        },
+        "relation_id": "mechanism.grounded_in.code_locus",
+        "relation_verb": "grounded_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/agent_route_observability_runtime.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].runs_in",
+          "summary": "Mechanism registry row names this organ as the runtime host."
+        },
+        "relation_id": "mechanism.runs_in.organ",
+        "relation_verb": "runs_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operates_through",
+        "target_id": "agent_route_observability_runtime",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].concept_refs",
+          "summary": "Mechanism registry row names this concept grounding target."
+        },
+        "relation_id": "mechanism.grounds.concept",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "runs_in": [
+      "agent_route_observability_runtime"
+    ],
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]",
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+      "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
+      "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
+      "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+      "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+      "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+      "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+      "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
+      "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
+      "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+      "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+      "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+      "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+      "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+      "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry"
+    ]
+  },
+  "schema_version": "microcosm_mechanism_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]",
+      "role": "mechanism_registry_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "fixtures/first_wave/agent_route_observability_runtime/input",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/agent_route_observability_runtime/exported_observability_bundle",
+      "role": "mechanism_input_ref"
+    }
+  ],
+  "statement": "The agent route observability runtime validates public route-feedback and observability fixture bundles by checking actor-axis authority boundaries, route-lease consumption, duplicate trace ids, hook-shadow advisory status, anti-pattern debt retirement, agent-principle-lens compact admission, egress-mirror boundaries, copied source-module digests, and private-state exclusion before writing bounded receipts.",
+  "status": "active",
+  "title": "validates public route feedback",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

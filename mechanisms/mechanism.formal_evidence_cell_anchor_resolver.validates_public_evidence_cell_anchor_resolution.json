@@ -1,0 +1,393 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_feature_registry_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record the transformation/proof commitment that carried the pressure; a mechanism row cannot pass as feature prose or a frontend plan.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "mechanism_role",
+      "concept_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+    "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+    "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_mechanism_json_seeded_from_mechanism_registry_not_authority_flip_until_parity_receipt",
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for evidence-cell anchor fixture validation, exported-bundle validation, source-module manifest checks, source-module card compression, negative-case enforcement, and body-free receipt writing.",
+      "symbols": [
+        "run",
+        "run_anchor_bundle",
+        "validate_source_module_manifest",
+        "_build_result",
+        "_source_module_summary_card",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING",
+        "SOURCE_MODULE_MANIFEST_REF",
+        "BUNDLE_RESULT_NAME",
+        "CARD_SCHEMA_VERSION"
+      ]
+    }
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_mechanism.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]",
+      "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract"
+    ],
+    "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
+    "required": true
+  },
+  "id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution",
+  "kind": "mechanism",
+  "mechanism_payload": {
+    "contract_version": "microcosm_mechanism_instance_payload_v1",
+    "guardrails": [
+      "evidence_cell_anchor_metadata_is_not_theorem_correctness_or_formal_proof_authority",
+      "proof_language_claims_require_public_evidence_cell_ids",
+      "proof_language_cells_require_source_anchor_refs_and_machine_anchor_metadata",
+      "proof_bodies_forbidden_in_public_claim_cell_manifest_and_receipt_rows",
+      "private_source_refs_and_oracle_refs_forbidden",
+      "human_approval_cannot_count_as_proof_authority",
+      "source_module_manifest_requires_digest_size_anchor_and_body_in_receipt_checks",
+      "provider_release_publication_Lean_Lake_source_mutation_and_theorem_correctness_claims_forbidden"
+    ],
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/mechanism_sources.json"
+    },
+    "population_binding": {
+      "anti_claims": [
+        "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+        "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+        "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+        "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+      ],
+      "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
+      "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
+      "omission_receipt": {
+        "drilldown": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+        "omitted": [
+          "private macro source bodies",
+          "raw operator voice",
+          "provider payload bodies",
+          "runtime outputs beyond named public receipt refs"
+        ],
+        "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+        "residual_pressure": [
+          {
+            "gap_class": "mechanism_selective_edges_unpopulated",
+            "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+            "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+          }
+        ]
+      },
+      "source_refs": [
+        "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input",
+        "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
+        "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
+      ],
+      "state_or_proof_effect": "proof-related artifacts expose bounded witness status without claiming theorem completeness or provider proof authority",
+      "transformation_shape": "formal-math fixture or copied public bundle -> verifier/evidence validator -> bounded receipt categories",
+      "validator_refs": [
+        "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+      ]
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.md",
+      "markdown_status": "generated_projection",
+      "registry_status": "current_source_of_record_until_parity_flip",
+      "source_json_rel": "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json"
+    },
+    "projection_hooks": [
+      "markdown_reference",
+      "mermaid_graph",
+      "atlas_card",
+      "coverage_health",
+      "source_language_inventory"
+    ],
+    "resolution_evidence": {
+      "authority_class": "source_assertion",
+      "evidence_rank": 3,
+      "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+      "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_evidence_cell_anchor_resolver.py -q",
+      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver --acceptance-out receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+    },
+    "source_registry_row": {
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for evidence-cell anchor fixture validation, exported-bundle validation, source-module manifest checks, source-module card compression, negative-case enforcement, and body-free receipt writing.",
+          "symbols": [
+            "run",
+            "run_anchor_bundle",
+            "validate_source_module_manifest",
+            "_build_result",
+            "_source_module_summary_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "SOURCE_MODULE_MANIFEST_REF",
+            "BUNDLE_RESULT_NAME",
+            "CARD_SCHEMA_VERSION"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "guardrails": [
+        "evidence_cell_anchor_metadata_is_not_theorem_correctness_or_formal_proof_authority",
+        "proof_language_claims_require_public_evidence_cell_ids",
+        "proof_language_cells_require_source_anchor_refs_and_machine_anchor_metadata",
+        "proof_bodies_forbidden_in_public_claim_cell_manifest_and_receipt_rows",
+        "private_source_refs_and_oracle_refs_forbidden",
+        "human_approval_cannot_count_as_proof_authority",
+        "source_module_manifest_requires_digest_size_anchor_and_body_in_receipt_checks",
+        "provider_release_publication_Lean_Lake_source_mutation_and_theorem_correctness_claims_forbidden"
+      ],
+      "id": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution",
+      "input_refs": [
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input",
+        "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
+        "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
+      ],
+      "kind": "mechanism",
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json",
+        "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+      ],
+      "resolution_evidence": {
+        "authority_class": "source_assertion",
+        "evidence_rank": 3,
+        "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+        "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_evidence_cell_anchor_resolver.py -q",
+        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver --acceptance-out receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+      },
+      "runs_in": [
+        "formal_evidence_cell_anchor_resolver"
+      ],
+      "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+      "statement": "The formal evidence cell anchor resolver validates proof-language evidence boundaries by resolving public paper claims to evidence-cell ids, requiring source-anchor refs and machine-anchor classes, checking copied source-module digests and body-free receipt policy, anchoring verifier-trace cells to real Ring2 receipts, and rejecting proof-body, private-ref, human-approval, theorem-correctness, missing-cell, and missing-anchor overclaims.",
+      "status": "active",
+      "upstream_of": [
+        "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+        "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary"
+      ]
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "code_locus_and_registry_grounding_computed_in_projection_not_asserted_as_correctness"
+    }
+  },
+  "omission_receipt": {
+    "drilldown": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipt refs"
+    ],
+    "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+    "residual_pressure": [
+      {
+        "gap_class": "mechanism_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+      }
+    ]
+  },
+  "organ_refs": [
+    "formal_evidence_cell_anchor_resolver"
+  ],
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated mechanism row must point to at least one runnable or inspectable specimen that shows the transformation and validator lane; feature prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "mechanism_role",
+      "concept_pair_ref",
+      "source_refs",
+      "transformation_shape",
+      "state_or_proof_effect",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json",
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for evidence-cell anchor fixture validation, exported-bundle validation, source-module manifest checks, source-module card compression, negative-case enforcement, and body-free receipt writing.",
+        "symbols": [
+          "run",
+          "run_anchor_bundle",
+          "validate_source_module_manifest",
+          "_build_result",
+          "_source_module_summary_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "SOURCE_MODULE_MANIFEST_REF",
+          "BUNDLE_RESULT_NAME",
+          "CARD_SCHEMA_VERSION"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.formal_math_and_proof_witness_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].code_loci[0]",
+          "summary": "Mechanism registry row names this code locus as the runtime grounding path."
+        },
+        "relation_id": "mechanism.grounded_in.code_locus",
+        "relation_verb": "grounded_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].runs_in",
+          "summary": "Mechanism registry row names this organ as the runtime host."
+        },
+        "relation_id": "mechanism.runs_in.organ",
+        "relation_verb": "runs_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operates_through",
+        "target_id": "formal_evidence_cell_anchor_resolver",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].concept_refs",
+          "summary": "Mechanism registry row names this concept grounding target."
+        },
+        "relation_id": "mechanism.grounds.concept",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "concept.formal_math_and_proof_witness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "runs_in": [
+      "formal_evidence_cell_anchor_resolver"
+    ],
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+      "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary"
+    ]
+  },
+  "schema_version": "microcosm_mechanism_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/mechanism_sources.json::mechanisms[21:mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution]",
+      "role": "mechanism_registry_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "mechanisms/mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
+      "role": "mechanism_input_ref"
+    }
+  ],
+  "statement": "The formal evidence cell anchor resolver validates proof-language evidence boundaries by resolving public paper claims to evidence-cell ids, requiring source-anchor refs and machine-anchor classes, checking copied source-module digests and body-free receipt policy, anchoring verifier-trace cells to real Ring2 receipts, and rejecting proof-body, private-ref, human-approval, theorem-correctness, missing-cell, and missing-anchor overclaims.",
+  "status": "active",
+  "title": "validates public evidence cell anchor resolution",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}
