@@ -2963,14 +2963,16 @@ html.js .docs-main .docs-pagetools {
   border:1px solid var(--rule);border-radius:9px;color:var(--ink-soft);font-size:.95rem;line-height:1.5}
 
 /* Vocabulary block: define the three objects once, compactly */
-.oq-vocab{margin:24px 0 4px;padding:16px 18px;background:var(--surface-sunk);
+.oq-vocab{margin:24px 0 4px;padding:18px 20px 20px;background:var(--surface-sunk);
   border:1px solid var(--rule);border-radius:10px}
-.oq-vocab h2{font-size:1.02rem;margin-bottom:11px}
+.oq-vocab h2{font-size:1.02rem;margin:0 0 14px}
 .oq-vocab dl{margin:0}
-.oq-vocab dt{font-weight:600;color:var(--ink);font-size:.95rem;margin-top:16px}
-.oq-vocab dt:first-of-type{margin-top:0}
-.oq-vocab dd{margin:3px 0 0;color:var(--ink-soft);font-size:.92rem;line-height:1.55}
-.oq-vocab__note{margin-top:13px;color:var(--muted);font-size:.9rem;line-height:1.5}
+.oq-vocab dt{font-weight:600;color:var(--ink);font-size:.95rem;
+  margin-top:18px;padding-top:18px;border-top:1px solid var(--rule)}
+.oq-vocab dt:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.oq-vocab dd{margin:4px 0 0;color:var(--ink-soft);font-size:.92rem;line-height:1.6}
+.oq-vocab__note{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);
+  color:var(--muted);font-size:.9rem;line-height:1.55}
 
 /* The chain, in plain terms */
 .oq-chain{margin:22px 0 4px}

@@ -1,5 +1,3 @@
 Contact: https://github.com/wcook04/plectis/security/advisories/new
 Expires: 2027-06-03T00:00:00Z
 Preferred-Languages: en
-Canonical: https://wcook04.github.io/plectis/.well-known/security.txt
-Policy: https://wcook04.github.io/plectis/docs/vulnerability-disclosure.html

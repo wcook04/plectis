@@ -1248,12 +1248,12 @@
     "headers": "_headers",
     "hsts": {
       "header": "Strict-Transport-Security",
-      "mode": "host-only",
-      "reason": "base_url_is_https_public_launch_url_host_only",
+      "mode": "local_no_hsts",
+      "reason": "no_public_https_base_url_supplied",
       "requires_domain_inventory": false,
       "requires_preload_consent": false,
-      "status": "active_host_only",
-      "value": "max-age=31536000"
+      "status": "deferred_until_final_https_domain_verified",
+      "value": null
     },
     "legacy_route_manifest": "legacy-route-manifest.json",
     "legacy_site_output_root": "sites/microcosm-legacy",
@@ -1263,7 +1263,7 @@
     "security_policy": "docs/vulnerability-disclosure.html",
     "security_txt": ".well-known/security.txt",
     "security_txt_legacy": "security.txt",
-    "sitemap": "sitemap.xml",
+    "sitemap": null,
     "updates_feed": "updates.xml"
   },
   "deterministic_generation": true,
@@ -2214,7 +2214,7 @@
       "title": "Vulnerability disclosure"
     }
   ],
-  "public_base_url": "https://wcook04.github.io/plectis/",
+  "public_base_url": null,
   "schema_version": "microcosm_public_site_content_manifest_v1",
   "source_hashes": {
     "codex/doctrine/system_vocabulary/term_registry.json": "sha256:0073021d3084d754db57b2bbe17cbce617127a82658028e687bad90bc8e8b081",

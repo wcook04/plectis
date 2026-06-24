@@ -3279,7 +3279,7 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:b9a870205f13469803d47ecd27353fd94c646ae075582028c678b7da65dab945",
+    "payload_sha256_excluding_identity": "sha256:27b564124e0207ea5526f8e2cf19206d7f439a8de878a9fbf30abecea06292e6",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
     "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
@@ -4412,7 +4412,7 @@
       }
     ],
     "url_resolution": {
-      "base_url": "https://wcook04.github.io/plectis/",
+      "base_url": null,
       "relative_href_rule": "Resolve relative_href against the Plectis public site root. If no public base URL is present, keep the relative_href and ask the visitor for the site URL if an absolute URL is required."
     }
   },
