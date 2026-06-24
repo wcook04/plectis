@@ -17,7 +17,7 @@ Scope: this is a local-first static/public project doorway. Use it to clone, ins
 - Public repository (source of record): https://github.com/wcook04/plectis
 - Agent entry: AGENTS.md at the repository root
 
-Objects: 814 across 16 kinds.
+Objects: 815 across 16 kinds.
 
 ## Object families (coverage)
 
@@ -31,7 +31,7 @@ Objects: 814 across 16 kinds.
 - evidence_class: 5 objects -- 5 routed, 5 searchable, 0 source-linked, 0 omitted
 - graph_node: 11 objects -- 11 routed, 11 searchable, 0 source-linked, 0 omitted
 - mechanism: 95 objects -- 95 routed, 95 searchable, 95 source-linked, 0 omitted
-- page: 13 objects -- 13 routed, 13 searchable, 0 source-linked, 0 omitted
+- page: 14 objects -- 14 routed, 14 searchable, 0 source-linked, 0 omitted
 - paper_module: 93 objects -- 93 routed, 93 searchable, 93 source-linked, 0 omitted
 - principle: 20 objects -- 20 routed, 20 searchable, 20 source-linked, 0 omitted
 - relation: 208 objects -- 208 routed, 208 searchable, 0 source-linked, 0 omitted
@@ -43,8 +43,8 @@ Objects: 814 across 16 kinds.
 - [Quickstart](docs/quickstart.html)
 - [How it fits together](docs/architecture.html)
 - [Doctrine](docs/doctrine.html)
+- [Reference index](docs/reference.html)
 - [Components](docs/components.html)
-- [Field guide](docs/field-guide.html)
 - [Doctrine reference](docs/rules-and-ideas.html)
 - [Paper modules](docs/paper-modules.html)
 - [What the pass proves](docs/evidence.html)
@@ -67,7 +67,7 @@ These source-linked objects are routed and searchable without promoting them bey
 - [reader digest](microcosm-ai-reader-digest.json): the default AI handoff -- quick_path, canonical_question_routes, component_digest, family_digest, claim_ceiling_index, and provenance, without the deep bodies. Start here.
 - [complete text corpus](microcosm-ai-reader-complete.json): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, in one file. Open this when you want the whole site's text without re-rendered duplication.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
-- [field guide](docs/field-guide.html): the human middle layer -- areas, components, and evidence in one navigable roster.
+- [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
 - [AI review packet](microcosm-ai-review-packet.json): advanced full-text packet -- read_me_first, answer contract, question routes, starter prompts, view descriptors, and the full visible-text record in a single self-describing file.
 - [full JSON map](microcosm-site-map.json): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
 - source of record: the public repository linked from each component's source_links.

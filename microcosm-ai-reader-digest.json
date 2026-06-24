@@ -3279,7 +3279,7 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:1fc2a4235bcaa8573701a9e05bb8c7e2b83d970da704b17d6defa1e1def09955",
+    "payload_sha256_excluding_identity": "sha256:e763ef3432cf2ffe954008fe691f7615ec5205ef4458a8649e103fd8b024365f",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
     "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
@@ -3292,9 +3292,9 @@
     "doctrine_entity_body_record_count": 155,
     "evidence_profile_count": 328,
     "family_count": 7,
-    "legacy_route_count": 45,
+    "legacy_route_count": 46,
     "math_latex_asset_count": 0,
-    "page_count": 26,
+    "page_count": 27,
     "paper_module_availability_gap_count": 0,
     "paper_module_count": 93,
     "paper_module_doctrine_feed_link_count": 1350,
@@ -4297,11 +4297,19 @@
       },
       {
         "generated": true,
+        "id": "page:reference",
+        "nav_group": "Reference",
+        "nav_label": "Reference index",
+        "relative_href": "docs/reference.html",
+        "title": "Reference index"
+      },
+      {
+        "generated": true,
         "id": "page:field-guide",
         "nav_group": "Reference",
-        "nav_label": "Field guide",
+        "nav_label": "Reference index",
         "relative_href": "docs/field-guide.html",
-        "title": "Field guide"
+        "title": "Field guide moved"
       },
       {
         "generated": true,
@@ -4426,7 +4434,7 @@
   "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
-    "object_count": 814,
+    "object_count": 815,
     "object_map_path": "object-map.json",
     "object_map_script_path": "assets/object-map.js",
     "objects_embedded": false,
@@ -4458,13 +4466,19 @@
       },
       {
         "kind": "page",
+        "label": "Reference index",
+        "object_id": "page:reference",
+        "relative_href": "docs/reference.html"
+      },
+      {
+        "kind": "page",
         "label": "Components",
         "object_id": "page:components",
         "relative_href": "docs/components.html"
       },
       {
         "kind": "page",
-        "label": "Field guide",
+        "label": "Field guide compatibility route",
         "object_id": "page:field-guide",
         "relative_href": "docs/field-guide.html"
       },
@@ -4497,12 +4511,6 @@
         "label": "Lineage & changelog",
         "object_id": "page:lineage",
         "relative_href": "docs/lineage.html"
-      },
-      {
-        "kind": "page",
-        "label": "Follow updates",
-        "object_id": "page:updates",
-        "relative_href": "docs/updates.html"
       }
     ],
     "schema": "microcosm_public_ai_orientation_source_map_ref_v1",

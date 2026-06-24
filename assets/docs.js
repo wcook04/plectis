@@ -666,6 +666,54 @@
     });
   })();
 
+  // --- Docs sidebar scroll memory --------------------------------------------
+  (function sidebarScrollMemory() {
+    var sidebar = document.querySelector('[data-docs-sidebar]') || document.querySelector('.docs-sidebar');
+    if (!sidebar) return;
+    var KEY = 'mc:docs-sidebar-scroll-top';
+    var storage = null;
+    try {
+      storage = window.sessionStorage;
+      var probe = '__mc_sidebar_scroll';
+      storage.setItem(probe, '1');
+      storage.removeItem(probe);
+    } catch (e) {
+      storage = null;
+    }
+    if (!storage) return;
+
+    function savedTop() {
+      var raw = storage.getItem(KEY);
+      if (raw === null || raw === '') return null;
+      var top = Number(raw);
+      return isFinite(top) && top >= 0 ? top : null;
+    }
+
+    function clamp(top) {
+      var max = Math.max(0, (sidebar.scrollHeight || 0) - (sidebar.clientHeight || 0));
+      return Math.max(0, Math.min(top, max));
+    }
+
+    function restore() {
+      var top = savedTop();
+      if (top === null) return;
+      sidebar.scrollTop = clamp(top);
+    }
+
+    function save() {
+      storage.setItem(KEY, String(Math.max(0, Math.round(sidebar.scrollTop || 0))));
+    }
+
+    restore();
+    if (window.requestAnimationFrame) window.requestAnimationFrame(restore);
+    window.addEventListener('load', restore, { once: true });
+    sidebar.addEventListener('scroll', save, { passive: true });
+    sidebar.addEventListener('click', function (e) {
+      if (e.target && e.target.closest && e.target.closest('a[href]')) save();
+    }, true);
+    window.addEventListener('pagehide', save);
+  })();
+
   // --- On-this-page scrollspy ------------------------------------------------
   (function scrollspy() {
     if (!('IntersectionObserver' in window)) return;
