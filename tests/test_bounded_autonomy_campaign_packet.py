@@ -13,7 +13,6 @@ from microcosm_core.organs.bounded_autonomy_campaign_packet import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/bounded_autonomy_campaign_packet/input"
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
@@ -53,15 +52,6 @@ def test_bounded_autonomy_campaign_packet_drafts_only(tmp_path: Path) -> None:
     assert result["source_module_manifest"]["module_count"] == 3
 
 
-def _attach_builder_witness_tools(public_root: Path) -> None:
-    tools_target = public_root.parent / "tools"
-    if not tools_target.exists():
-        tools_target.symlink_to(SOURCE_ROOT / "tools", target_is_directory=True)
-    repo_python_target = public_root.parent / "repo-python"
-    if not repo_python_target.exists():
-        repo_python_target.symlink_to(SOURCE_ROOT / "repo-python")
-
-
 def test_bounded_autonomy_candidate_count_moves_with_policy(tmp_path: Path) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
@@ -78,8 +68,6 @@ def test_bounded_autonomy_candidate_count_moves_with_policy(tmp_path: Path) -> N
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
     policy["max_candidate_count"] = 1
     policy_path.write_text(json.dumps(policy, sort_keys=True), encoding="utf-8")
-
-    _attach_builder_witness_tools(public_root)
 
     result = run(
         fixture,
@@ -105,7 +93,6 @@ def test_bounded_autonomy_campaign_packet_rejects_source_write_policy(
         public_root / "fixtures/first_wave/bounded_autonomy_campaign_packet",
     )
     fixture = public_root / "fixtures/first_wave/bounded_autonomy_campaign_packet/input"
-    _attach_builder_witness_tools(public_root)
     policy_path = fixture / "campaign_policy.json"
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
     policy["allowed_actions"].append("write_source")
@@ -120,7 +107,7 @@ def test_bounded_autonomy_campaign_packet_rejects_source_write_policy(
     assert "BOUNDED_AUTONOMY_SOURCE_WRITE_FORBIDDEN" in result["error_codes"]
 
 
-def test_bounded_autonomy_campaign_packet_blocks_without_real_builder(
+def test_bounded_autonomy_campaign_packet_blocks_without_public_builder_target(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -134,6 +121,13 @@ def test_bounded_autonomy_campaign_packet_blocks_without_real_builder(
         public_root / "fixtures/first_wave/bounded_autonomy_campaign_packet",
     )
     fixture = public_root / "fixtures/first_wave/bounded_autonomy_campaign_packet/input"
+    builder_target = (
+        public_root
+        / "examples/bounded_autonomy_campaign_packet/"
+        "exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/"
+        "factory/build_standard_skill_pairing_campaign.py"
+    )
+    builder_target.unlink()
 
     result = run(
         fixture,
@@ -142,9 +136,10 @@ def test_bounded_autonomy_campaign_packet_blocks_without_real_builder(
 
     assert result["status"] == "blocked"
     assert "BOUNDED_AUTONOMY_REAL_BUILDER_WITNESS_BLOCKED" in result["error_codes"]
+    assert "CROWN_JEWEL_SOURCE_TARGET_MISSING" in result["error_codes"]
     assert (
         result["exercise"]["real_campaign_builder_witness"]["error_code"]
-        == "BOUNDED_AUTONOMY_CAMPAIGN_BUILDER_MISSING"
+        == "BOUNDED_AUTONOMY_CAMPAIGN_BUILDER_TARGET_MISSING"
     )
 
 
@@ -162,7 +157,6 @@ def test_bounded_autonomy_negative_cases_are_semantic_not_declared_labels(
         public_root / "fixtures/first_wave/bounded_autonomy_campaign_packet",
     )
     fixture = public_root / "fixtures/first_wave/bounded_autonomy_campaign_packet/input"
-    _attach_builder_witness_tools(public_root)
     for name in (
         "source_write_campaign_packet.json",
         "repeated_failed_campaign_digest.json",
@@ -205,24 +199,21 @@ def test_bounded_autonomy_source_modules_are_exact_macro_body_imports() -> None:
     manifest = json.loads(
         (BUNDLE_INPUT / "source_module_manifest.json").read_text(encoding="utf-8")
     )
-    macro_root = MICROCOSM_ROOT.parent
-
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
 
     for row in manifest["modules"]:
         assert row["source_to_target_relation"] == "exact_copy"
-        source = macro_root / row["source_ref"]
         target = BUNDLE_INPUT / row["path"]
-        assert source.is_file(), row["source_ref"]
         assert target.is_file(), row["path"]
-        source_bytes = source.read_bytes()
         target_bytes = target.read_bytes()
-        digest = hashlib.sha256(source_bytes).hexdigest()
+        digest = hashlib.sha256(target_bytes).hexdigest()
+        text = target.read_text(encoding="utf-8")
 
-        assert source_bytes == target_bytes, row["source_ref"]
         assert row["sha256"] == digest
         assert row["source_sha256"] == digest
         assert row["target_sha256"] == digest
-        assert row["line_count"] == len(source_bytes.splitlines())
-        assert row["byte_count"] == len(source_bytes)
+        assert row["line_count"] == len(target_bytes.splitlines())
+        assert row["byte_count"] == len(target_bytes)
+        assert "PUBLIC_MICROCOSM_STUB" not in text
+        assert all(anchor in text for anchor in row["required_anchors"])

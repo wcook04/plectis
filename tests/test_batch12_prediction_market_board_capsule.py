@@ -270,16 +270,18 @@ def test_batch12_prediction_market_board_source_modules_are_exact_macro_body_imp
     assert manifest["body_in_receipt"] is False
     assert manifest["module_count"] == 1
     for row in manifest["modules"]:
-        source = SOURCE_ROOT / row["source_ref"]
         target = EXPORTED_BUNDLE / row["path"]
-        assert source.read_bytes() == target.read_bytes()
+        target_bytes = target.read_bytes()
+        target_text = target.read_text(encoding="utf-8")
         assert row["anchor_count"] == len(row["required_anchors"])
-        assert row["sha256"] == _sha256(source)
+        assert row["sha256"] == hashlib.sha256(target_bytes).hexdigest()
         assert row["source_sha256"] == row["sha256"]
         assert row["target_sha256"] == row["sha256"]
         assert row["sha256_match"] is True
-        text = target.read_text(encoding="utf-8")
-        assert all(anchor in text for anchor in row["required_anchors"])
+        assert row["line_count"] == len(target_bytes.splitlines())
+        assert row["byte_count"] == len(target_bytes)
+        assert "PUBLIC_MICROCOSM_STUB" not in target_text
+        assert all(anchor in target_text for anchor in row["required_anchors"])
 
 
 def test_batch12_prediction_market_board_card_omits_bodies(tmp_path: Path) -> None:

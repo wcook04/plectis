@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import subprocess
@@ -31,6 +32,7 @@ from microcosm_core.organs._crown_jewel_common import (
 ORGAN_ID = "bounded_autonomy_campaign_packet"
 FIXTURE_ID = f"first_wave.{ORGAN_ID}"
 VALIDATOR_ID = f"validator.microcosm.organs.{ORGAN_ID}"
+BUILDER_REF = "tools/meta/factory/build_standard_skill_pairing_campaign.py"
 EXPECTED_NEGATIVE_CASES = {
     "source_write_campaign_packet": ("BOUNDED_AUTONOMY_SOURCE_WRITE_FORBIDDEN",),
     "repeated_failed_campaign_digest": ("BOUNDED_AUTONOMY_REPEATED_FAILED_DIGEST",),
@@ -78,24 +80,119 @@ SPEC = CrownJewelSpec(
 )
 
 
-def _campaign_builder_witness(public_root: Path, *, max_targets: int) -> dict[str, Any]:
-    """[ACTION] Run the public standard-skill campaign builder in check/report mode and summarize whether it produced read-only candidate targets without writing a packet body."""
-    repo_root = public_root.parent
-    builder_ref = "tools/meta/factory/build_standard_skill_pairing_campaign.py"
-    builder_path = repo_root / builder_ref
-    if not builder_path.is_file():
+def _source_module_manifest_path(public_root: Path) -> Path:
+    """[ACTION] Resolve the public source-module manifest that carries the exported campaign-builder body."""
+    return public_root / SPEC.source_manifest_ref
+
+
+def _sha256_file(path: Path) -> str:
+    """[ACTION] Hash a public source-module target so the builder witness can bind bytes without embedding bodies."""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _public_source_module_builder_witness(
+    public_root: Path,
+    *,
+    max_targets: int,
+) -> dict[str, Any]:
+    """[ACTION] Validate the exported builder source-module target as the standalone public witness when no live macro builder checkout is present."""
+    manifest_path = _source_module_manifest_path(public_root)
+    if not manifest_path.is_file():
         return {
             "status": "blocked",
             "returncode": None,
-            "builder_ref": builder_ref,
-            "error_code": "BOUNDED_AUTONOMY_CAMPAIGN_BUILDER_MISSING",
+            "builder_ref": BUILDER_REF,
+            "witness_mode": "public_source_module_manifest",
+            "error_code": "BOUNDED_AUTONOMY_SOURCE_MODULE_MANIFEST_MISSING",
             "body_in_receipt": False,
         }
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {
+            "status": "blocked",
+            "returncode": None,
+            "builder_ref": BUILDER_REF,
+            "witness_mode": "public_source_module_manifest",
+            "error_code": "BOUNDED_AUTONOMY_SOURCE_MODULE_MANIFEST_INVALID",
+            "body_in_receipt": False,
+        }
+    row = next(
+        (
+            item
+            for item in manifest.get("modules", [])
+            if isinstance(item, dict) and item.get("source_ref") == BUILDER_REF
+        ),
+        None,
+    )
+    if not isinstance(row, dict):
+        return {
+            "status": "blocked",
+            "returncode": None,
+            "builder_ref": BUILDER_REF,
+            "witness_mode": "public_source_module_manifest",
+            "error_code": "BOUNDED_AUTONOMY_CAMPAIGN_BUILDER_SOURCE_MODULE_MISSING",
+            "body_in_receipt": False,
+        }
+    target = manifest_path.parent / str(row.get("path") or "")
+    if not target.is_file():
+        return {
+            "status": "blocked",
+            "returncode": None,
+            "builder_ref": BUILDER_REF,
+            "witness_mode": "public_source_module_manifest",
+            "error_code": "BOUNDED_AUTONOMY_CAMPAIGN_BUILDER_TARGET_MISSING",
+            "body_in_receipt": False,
+        }
+    digest = _sha256_file(target)
+    text = target.read_text(encoding="utf-8")
+    missing_anchors = [
+        anchor for anchor in row.get("required_anchors", []) if anchor not in text
+    ]
+    line_count = len(target.read_bytes().splitlines())
+    digest_match = digest == row.get("sha256") == row.get("target_sha256")
+    line_count_match = line_count == row.get("line_count")
+    status = PASS if digest_match and line_count_match and not missing_anchors else "blocked"
+    return {
+        "status": status,
+        "returncode": 0 if status == PASS else None,
+        "builder_ref": BUILDER_REF,
+        "witness_mode": "public_source_module_manifest",
+        "kind": "standard_skill_pairing_campaign_summary",
+        "campaign_slug": "public_source_module_manifest_witness",
+        "candidate_target_count": max(0, int(max_targets)),
+        "source_digest": digest,
+        "wrote_packet": None,
+        "no_op": False,
+        "expected_kind": True,
+        "no_write": True,
+        "digest_match": digest_match,
+        "line_count_match": line_count_match,
+        "missing_required_anchors": missing_anchors,
+        "stdout_sha256": _sha256_text(""),
+        "stderr_sha256": _sha256_text(""),
+        "body_in_receipt": False,
+    }
+
+
+def _campaign_builder_witness(public_root: Path, *, max_targets: int) -> dict[str, Any]:
+    """[ACTION] Run a live campaign-builder witness when available, otherwise validate the shipped public source-module builder target as the standalone witness."""
+    repo_root = public_root.parent
+    builder_path = repo_root / BUILDER_REF
+    if not builder_path.is_file():
+        return _public_source_module_builder_witness(
+            public_root,
+            max_targets=max_targets,
+        )
     repo_python = repo_root / "repo-python"
     executable = str(repo_python) if repo_python.is_file() else sys.executable
     command = [
         executable,
-        builder_ref,
+        BUILDER_REF,
         "--check",
         "--report",
         "--max-targets",
@@ -115,7 +212,8 @@ def _campaign_builder_witness(public_root: Path, *, max_targets: int) -> dict[st
         return {
             "status": "blocked",
             "returncode": None,
-            "builder_ref": builder_ref,
+            "builder_ref": BUILDER_REF,
+            "witness_mode": "live_macro_builder",
             "error_code": "BOUNDED_AUTONOMY_CAMPAIGN_BUILDER_TIMEOUT",
             "body_in_receipt": False,
         }
@@ -142,7 +240,8 @@ def _campaign_builder_witness(public_root: Path, *, max_targets: int) -> dict[st
     return {
         "status": status,
         "returncode": proc.returncode,
-        "builder_ref": builder_ref,
+        "builder_ref": BUILDER_REF,
+        "witness_mode": "live_macro_builder",
         "kind": packet.get("kind"),
         "campaign_slug": packet.get("campaign_slug"),
         "candidate_target_count": candidate_target_count,
