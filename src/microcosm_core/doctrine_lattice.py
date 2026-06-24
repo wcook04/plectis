@@ -1,3 +1,20 @@
+"""
+[PURPOSE]
+Maintain Microcosm doctrine-lattice projections from governed source registries rather than hand-authored generated surfaces.
+
+[INTERFACE]
+Expose builders, validators, writers, and a CLI for axiom, principle, anti-principle, concept, mechanism, organ, skill, standard, and paper-module corpora.
+
+[FLOW]
+Load strict JSON and markdown source authority, derive expected instance corpora, validate on-disk projections, write generated JSON/Markdown/Mermaid surfaces, and report residual health.
+
+[DEPENDENCIES]
+Read the Microcosm resource root, strict JSON schema helpers, relation registries, accepted organ/source registries, and the axiom support-cover validator.
+
+[CONSTRAINTS]
+Treat lattice nodes as projections, keep public surfaces bounded by leak checks, and raise mismatches instead of silently accepting stale doctrine state.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -409,6 +426,7 @@ def _standard_rel(kind: str) -> str:
 
 def source_file_digests(root: str | Path | None = None) -> dict[str, str]:
     """
+    [ACTION]
     - Teleology: build the source freshness fingerprint set for the whole doctrine-lattice source surface.
     - Guarantee: returns {relative_path: sha256_hex} for every existing source/standard/instance file under root.
     - Fails: never raises for missing files (they are filtered out); raises OSError only if an existing file cannot be read.
@@ -451,6 +469,7 @@ def source_file_digests(root: str | Path | None = None) -> dict[str, str]:
 
 def load_kind_standards(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the nine per-kind std_microcosm_*.json contract documents.
     - Guarantee: returns {kind: standard_dict} for every kind in KIND_STANDARD_IDS, empty dict for any kind whose file is missing/non-dict.
     - Fails: propagates read_json_strict errors when a standard file is present but malformed.
@@ -475,6 +494,7 @@ def _load_kind_standards_cached(root_key: str) -> dict[str, dict[str, Any]]:
 
 def load_relation_registry(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: load the relation registry that defines allowed source.verb.target lattice relations.
     - Guarantee: returns the relation registry as a dict (empty dict if the file is missing or not a dict).
     - Fails: propagates read_json_strict errors if the registry file is malformed.
@@ -583,6 +603,7 @@ def validate_relation_registry(
     standards: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that the relation registry is internally well-formed and consistent with kind-standard lattice edges.
     - Guarantee: returns {status: 'pass'|'blocked', relation_count, registered_key_count, errors[]}; status is 'pass' iff errors is empty.
     - Fails: never raises; every defect (bad id pattern, duplicate key, unknown kind, cardinality/requirement mismatch, missing registry row) is recorded as an error row.
@@ -703,6 +724,7 @@ def validate_kind_standard_contracts(
     relation_registry: dict[str, Any],
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: gate that every kind standard is an active v2 JSON contract with the required skill/validation/projection triads and organ over-minting guards.
     - Guarantee: returns {status: 'pass'|'blocked', errors[], relation_registry: <sub-result>}; status 'pass' iff no errors and the embedded relation-registry validation also passes.
     - Fails: never raises; non-v2/non-active standards, missing triad members, source-authority projections, and organ edge-shape violations are recorded as errors.
@@ -1113,6 +1135,7 @@ def check_public_codex_leaks(
     surfaces: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: scan public-facing narrative prose for the 'Codex' brand token, distinguishing real leaks from allowed provenance refs.
     - Guarantee: returns {status: 'pass'|'blocked', brand_hits[], allowed_provenance_ref_count, ...}; status 'blocked' iff any non-provenance 'Codex' brand hit exists.
     - Fails: never raises; lines containing codex/ or source_modules/codex are classified as allowed provenance, not blocking hits.
@@ -1580,6 +1603,7 @@ def build_paper_module_instance_from_source_row(
     resolution_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one paper-module source row into a governed JSON instance with typed subject/law/dependency/code edges and residuals.
     - Guarantee: returns the instance dict with relationships.edges, unpopulated_selective_relations, omission_receipt, anti_claims, and paper_module_payload; targets are marked resolved only when their id is in the resolution context.
     - Fails: never raises; missing subjects/refs become required or selective residual rows rather than errors.
@@ -1875,6 +1899,7 @@ def build_paper_module_instance_from_source_row(
 
 def expected_paper_module_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected paper-module instance corpus from source.
     - Guarantee: returns {module_id: instance} reproducibly derived from capsule/markdown source rows.
     - Fails: never raises; rows without an id are skipped.
@@ -1906,6 +1931,7 @@ def _expected_paper_module_instances_cached(root_key: str) -> dict[str, dict[str
 
 def load_paper_module_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the paper-module JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable paper_modules/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -1925,6 +1951,7 @@ def load_paper_module_instances(root: str | Path | None = None) -> dict[str, dic
 
 def validate_paper_module_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written paper-module instances match the source-derived expectation and carry required subjects and edge justifications.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, actual_count, errors[]}; status 'pass' iff no missing/extra/drift/required-subject/justification errors.
     - Fails: never raises; each defect is an error row.
@@ -1998,6 +2025,7 @@ def validate_paper_module_instance_corpus(root: str | Path | None = None) -> dic
 
 def build_paper_module_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate paper-module instance parity, residual detail, and migration counts into a corpus projection.
     - Guarantee: returns a corpus dict (counts, residual detail rows, legacy-only/required-subject ids, parity_status, embedded validation).
     - Fails: never raises.
@@ -2076,6 +2104,7 @@ def build_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
 
 def write_paper_module_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected paper-module instance to disk and return the resulting corpus.
     - Guarantee: writes paper_modules/<id>.json for expected ids whose sorted-keys JSON differs from disk, removes stale generated JSON instances with no current source row, then returns build_paper_module_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -2316,6 +2345,7 @@ def build_skill_instance_from_source_row(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one skill markdown source row into a governed JSON instance with operates/acts_on/uses/applies edges and residuals.
     - Guarantee: returns the skill instance dict; required relations (operates.standard, acts_on.doctrine_kind) that are absent become required residuals, optional ones become selective residuals.
     - Fails: never raises; missing mappings become residual rows.
@@ -2531,6 +2561,7 @@ def build_skill_instance_from_source_row(
 
 def expected_skill_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected skill instance corpus from skill markdown sources.
     - Guarantee: returns {skill_id: instance} reproducibly derived from skills/*.md rows.
     - Fails: never raises; rows without an id are skipped.
@@ -2556,6 +2587,7 @@ def _expected_skill_instances_cached(root_key: str) -> dict[str, dict[str, Any]]
 
 def load_skill_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the skill JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable skills/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -2574,6 +2606,7 @@ def load_skill_instances(root: str | Path | None = None) -> dict[str, dict[str, 
 
 def validate_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written skill instances match source-derived expectation, carry required fields, and justify edges.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/parity/required-relation/edge-justification defects are error rows.
@@ -2643,6 +2676,7 @@ def validate_skill_instance_corpus(root: str | Path | None = None) -> dict[str, 
 
 def build_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate skill instance parity, residual detail, and group counts into a corpus projection.
     - Guarantee: returns a corpus dict (counts, residual detail rows, grouped counts, parity_status, embedded validation).
     - Fails: never raises.
@@ -2781,6 +2815,7 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
 
     def section(name: str) -> dict[str, Any]:
         """
+        [ACTION]
         - Teleology: closure fetching a named sub-section dict from the enclosing health payload.
         - Guarantee: returns the named section coerced to a dict (empty dict if absent).
         - Fails: never raises.
@@ -2789,6 +2824,7 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
 
     def count(section_name: str, key: str) -> int:
         """
+        [ACTION]
         - Teleology: closure reading an integer metric from a named health section.
         - Guarantee: returns the int value at section_name[key], or 0 if missing or non-int.
         - Fails: never raises.
@@ -2798,6 +2834,7 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
 
     def has_rows(section_name: str, key: str) -> bool:
         """
+        [ACTION]
         - Teleology: closure testing whether a named health section list is non-empty.
         - Guarantee: returns True iff section_name[key] is a non-empty list.
         - Fails: never raises.
@@ -2806,6 +2843,7 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
 
     def add(gap_class: str, reentry_condition: str) -> None:
         """
+        [ACTION]
         - Teleology: closure appending one gap-class pressure row to the enclosing result list.
         - Guarantee: appends {pressure_ref, gap_class, reentry_condition} to rows (mutates in place).
         - Fails: never raises; returns None.
@@ -3341,6 +3379,7 @@ def _skill_residual_candidate_detail_rows(
 
 def write_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected skill instance to disk and return the resulting corpus.
     - Guarantee: writes skills/<id>.json for all expected ids (sorted-keys JSON), then returns build_skill_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -3483,6 +3522,7 @@ def build_standard_instance_from_registry_row(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one standards-registry row plus its source standard JSON into a governed standard lattice node.
     - Guarantee: returns the standard instance dict with governs/owns_triad/used_by edges, residuals, anti_claims, and standard_payload; status is 'active' iff the source file exists, else 'missing_source'.
     - Fails: never raises; missing kind_id or triad skill ids become required residuals; unresolved used_by organs carry typed residual metadata.
@@ -3705,6 +3745,7 @@ def build_standard_instance_from_registry_row(
 
 def expected_standard_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected standard instance corpus from the registry.
     - Guarantee: returns {standard_id: instance} for every registry row carrying a standard_id.
     - Fails: never raises beyond underlying source reads.
@@ -3731,6 +3772,7 @@ def _expected_standard_instances_cached(root_key: str) -> dict[str, dict[str, An
 
 def load_standard_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: select the expected standard instances whose source JSON file actually exists on disk.
     - Guarantee: returns {standard_id: instance} restricted to standard ids present in the on-disk file inventory.
     - Fails: never raises beyond underlying source reads.
@@ -4755,6 +4797,7 @@ def _standard_relation_metrics(instances: Any) -> dict[str, int]:
 
 def validate_standard_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that registry-backed standard instances exist on disk and justify their edges.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, files_missing_standard_id, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing source files, unaccounted required relations, and unjustified edges are error rows.
@@ -4826,6 +4869,7 @@ def validate_standard_instance_corpus(root: str | Path | None = None) -> dict[st
 
 def build_standard_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate standard inventory, legacy/draft and activation gaps, used_by residuals, and relation metrics into a corpus projection.
     - Guarantee: returns a corpus dict (inventory counts, legacy/activation/used-by detail rows and grouped counts, relation metrics, parity_status, embedded validation).
     - Fails: never raises.
@@ -5174,6 +5218,7 @@ def build_axiom_instance_from_routing_row(
     index: int,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one axiom routing row into a receipt-bound governed axiom JSON instance with grounding/guard/witness edges.
     - Guarantee: returns the axiom instance dict with edges, receipt_refs, anti_claims, and axiom_payload; principle/anti-principle edges are marked resolved and witness edges resolved_registry_or_atlas_target.
     - Fails: never raises.
@@ -5334,6 +5379,7 @@ def build_axiom_instance_from_routing_row(
 
 def expected_axiom_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected axiom instance corpus from the routing registry.
     - Guarantee: returns {axiom_id: instance} for every routing row carrying an axiom_id.
     - Fails: never raises beyond underlying source reads.
@@ -5358,6 +5404,7 @@ def _expected_axiom_instances_cached(root_key: str) -> dict[str, dict[str, Any]]
 
 def load_axiom_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the axiom JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable axioms/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -5376,6 +5423,7 @@ def load_axiom_instances(root: str | Path | None = None) -> dict[str, dict[str, 
 
 def validate_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written axiom instances reproduce the routing source and carry required standard fields.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/required-field/routing-parity defects are error rows.
@@ -5438,6 +5486,7 @@ def validate_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, 
 
 def build_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate axiom instance parity and migration state into a corpus projection.
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, parity_status, embedded validation).
     - Fails: never raises.
@@ -5482,6 +5531,7 @@ def build_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any
 
 def write_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected axiom instance JSON and generated markdown to disk and return the corpus.
     - Guarantee: writes axioms/<id>.json and axioms/<id>.md for all expected ids, then returns build_axiom_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -5507,6 +5557,7 @@ def write_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any
 
 def render_axiom_markdown(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: render the generated, do-not-hand-edit markdown projection of an axiom instance.
     - Guarantee: returns a markdown string with the formal clause, lattice neighbours, support note, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
@@ -5982,6 +6033,7 @@ def _anti_principle_source_rows(root: str | Path | None) -> list[dict[str, Any]]
 
 def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one principle source row into a receipt-bound governed principle instance with grounding/governs/guard edges and residuals.
     - Guarantee: returns the principle instance dict; absent governed mechanisms/concepts/guards become residual_pressure rows and the substrate-governance contract block is attached.
     - Fails: never raises.
@@ -6264,6 +6316,7 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
 
 def build_anti_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one anti-principle source row into a receipt-bound governed instance with guards/negates edges and residuals.
     - Guarantee: returns the anti-principle instance dict; absent negated principles become a residual_pressure row.
     - Fails: never raises.
@@ -6409,6 +6462,7 @@ def build_anti_principle_instance_from_source_row(row: dict[str, Any]) -> dict[s
 
 def expected_principle_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected principle instance corpus from PRINCIPLES.md plus atlas-derived governance.
     - Guarantee: returns {principle_id: instance} for every parsed principle row.
     - Fails: never raises beyond underlying source reads.
@@ -6443,6 +6497,7 @@ def _expected_principle_instances_cached(root_key: str) -> dict[str, dict[str, A
 
 def expected_anti_principle_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected anti-principle instance corpus from ANTI_PRINCIPLES.md plus routing-derived negations.
     - Guarantee: returns {anti_principle_id: instance} for every parsed anti-principle row.
     - Fails: never raises beyond underlying source reads.
@@ -6470,6 +6525,7 @@ def _expected_anti_principle_instances_cached(root_key: str) -> dict[str, dict[s
 
 def load_principle_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the principle JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable principles/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -6488,6 +6544,7 @@ def load_principle_instances(root: str | Path | None = None) -> dict[str, dict[s
 
 def load_anti_principle_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the anti-principle JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable anti_principles/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -6506,6 +6563,7 @@ def load_anti_principle_instances(root: str | Path | None = None) -> dict[str, d
 
 def validate_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written principle instances reproduce PRINCIPLES.md and carry required standard fields.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/required-field/markdown-parity defects are error rows.
@@ -6543,6 +6601,7 @@ def validate_principle_instance_corpus(root: str | Path | None = None) -> dict[s
 
 def validate_anti_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written anti-principle instances reproduce ANTI_PRINCIPLES.md and carry required standard fields.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/required-field/markdown-parity defects are error rows.
@@ -6580,6 +6639,7 @@ def validate_anti_principle_instance_corpus(root: str | Path | None = None) -> d
 
 def build_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate principle instance parity and migration state into a corpus projection.
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, parity_status, embedded validation).
     - Fails: never raises.
@@ -6611,6 +6671,7 @@ def build_principle_instance_corpus(root: str | Path | None = None) -> dict[str,
 
 def build_anti_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate anti-principle instance parity and migration state into a corpus projection.
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, parity_status, embedded validation).
     - Fails: never raises.
@@ -6642,6 +6703,7 @@ def build_anti_principle_instance_corpus(root: str | Path | None = None) -> dict
 
 def write_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected principle instance JSON and generated markdown to disk and return the corpus.
     - Guarantee: writes principles/<id>.json and principles/<id>.md for all expected ids, then returns build_principle_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -6669,6 +6731,7 @@ def write_principle_instance(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write a single principle instance JSON and markdown for a named id.
     - Guarantee: writes principles/<id>.json and principles/<id>.md and returns the instance payload.
     - Fails: raises KeyError when the principle id is unknown; raises OSError if a file cannot be written.
@@ -6693,6 +6756,7 @@ def write_principle_instance(
 
 def write_anti_principle_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected anti-principle instance JSON and generated markdown to disk and return the corpus.
     - Guarantee: writes anti_principles/<id>.json and anti_principles/<id>.md for all expected ids, then returns build_anti_principle_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -6717,6 +6781,7 @@ def write_anti_principle_instance_corpus(root: str | Path | None = None) -> dict
 
 def render_principle_markdown(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: render the generated, do-not-hand-edit markdown projection of a principle instance.
     - Guarantee: returns a markdown string with statement, lattice neighbours, residuals, support, grounding obligations, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
@@ -6775,6 +6840,7 @@ def render_principle_markdown(instance: dict[str, Any]) -> str:
 
 def render_anti_principle_markdown(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: render the generated, do-not-hand-edit markdown projection of an anti-principle instance.
     - Guarantee: returns a markdown string with the rejected failure shape, lattice neighbours, residuals, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
@@ -6874,6 +6940,7 @@ def build_concept_instance_from_source_row(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one concept population specimen into a governed concept instance with implements/instantiated_by/abides_by edges and residuals.
     - Guarantee: returns the concept instance dict with a cluster_flag and typed edges; targets resolve only when their id is a known instance, else become unresolved edges or residual_pressure rows.
     - Fails: never raises.
@@ -7120,6 +7187,7 @@ def build_mechanism_instance_from_source_row(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one mechanism-registry row into a governed mechanism instance with code-locus/runs_in/grounds/upstream edges and residuals.
     - Guarantee: returns the mechanism instance dict; absent code loci/concepts/organs/upstream become residual_pressure rows and a population_binding is synthesized.
     - Fails: never raises.
@@ -7385,6 +7453,7 @@ def build_mechanism_instance_from_source_row(
 
 def expected_concept_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected concept instance corpus from entry-packet specimens.
     - Guarantee: returns {concept_id: instance} for every specimen carrying an id.
     - Fails: never raises beyond underlying source reads.
@@ -7410,6 +7479,7 @@ def _expected_concept_instances_cached(root_key: str) -> dict[str, dict[str, Any
 
 def expected_mechanism_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected mechanism instance corpus from the mechanism registry.
     - Guarantee: returns {mechanism_id: instance} for every registry row carrying an id.
     - Fails: never raises beyond underlying source reads.
@@ -7435,6 +7505,7 @@ def _expected_mechanism_instances_cached(root_key: str) -> dict[str, dict[str, A
 
 def load_concept_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the concept JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable concepts/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -7453,6 +7524,7 @@ def load_concept_instances(root: str | Path | None = None) -> dict[str, dict[str
 
 def load_mechanism_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the mechanism JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable mechanisms/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -7471,6 +7543,7 @@ def load_mechanism_instances(root: str | Path | None = None) -> dict[str, dict[s
 
 def validate_concept_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written concept instances reproduce the entry-packet specimens and carry required standard fields.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/required-field/specimen-parity defects are error rows.
@@ -7508,6 +7581,7 @@ def validate_concept_instance_corpus(root: str | Path | None = None) -> dict[str
 
 def validate_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written mechanism instances reproduce the mechanism registry and carry required standard fields.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/required-field/registry-parity defects are error rows.
@@ -7557,6 +7631,7 @@ def _unpopulated_relation_count(instances: dict[str, dict[str, Any]]) -> int:
 
 def build_concept_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate concept instance parity, migration state, and residual counts into a corpus projection.
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, unpopulated relation count, parity_status, embedded validation).
     - Fails: never raises.
@@ -7590,6 +7665,7 @@ def build_concept_instance_corpus(root: str | Path | None = None) -> dict[str, A
 
 def build_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate mechanism instance parity, code-locus gaps, and residual detail into a corpus projection.
     - Guarantee: returns a corpus dict (counts, without/planned code-loci, residual detail rows and grouped counts, parity_status, embedded validation).
     - Fails: never raises.
@@ -7667,6 +7743,7 @@ def build_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
 
 def write_concept_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected concept instance JSON and generated markdown to disk and return the corpus.
     - Guarantee: writes concepts/<id>.json and concepts/<id>.md for all expected ids, then returns build_concept_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -7691,6 +7768,7 @@ def write_concept_instance_corpus(root: str | Path | None = None) -> dict[str, A
 
 def write_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected mechanism instance JSON and generated markdown to disk and return the corpus.
     - Guarantee: writes mechanisms/<id>.json and mechanisms/<id>.md for all expected ids, then returns build_mechanism_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -7862,6 +7940,7 @@ def build_organ_instance_from_source_row(
     resolution_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: project one accepted organ atlas+registry row into a governed organ instance with required and selective lattice edges.
     - Guarantee: returns the organ instance dict; missing paper/mechanism/code refs become required residuals, missing concept/principle/axiom/wires_to become selective residuals, and targets resolve only when ids/paths resolve.
     - Fails: never raises; gaps become residual rows rather than errors.
@@ -8201,6 +8280,7 @@ def build_organ_instance_from_source_row(
 
 def expected_organ_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: compute the full expected organ instance corpus from accepted atlas+registry rows.
     - Guarantee: returns {organ_id: instance} for every accepted joined source row.
     - Fails: never raises beyond underlying source reads.
@@ -8232,6 +8312,7 @@ def _expected_organ_instances_cached(root_key: str) -> dict[str, dict[str, Any]]
 
 def load_organ_instances(root: str | Path | None = None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: load the organ JSON instances already written to disk.
     - Guarantee: returns {id: payload} for each parseable organs/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
@@ -8250,6 +8331,7 @@ def load_organ_instances(root: str | Path | None = None) -> dict[str, dict[str, 
 
 def validate_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that written organ instances reproduce atlas+registry source and carry required standard fields.
     - Guarantee: returns {status: 'pass'|'blocked', expected_count, json_instance_count, missing/extra ids, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; missing/extra/required-field/atlas-registry-parity defects are error rows.
@@ -8303,6 +8385,7 @@ def _relation_residual_count(instances: dict[str, dict[str, Any]], *, requiremen
 
 def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: aggregate organ instance parity, required/selective residual detail, and migration state into a corpus projection.
     - Guarantee: returns a corpus dict (counts, residual detail rows and grouped counts, parity_status, embedded validation).
     - Fails: never raises.
@@ -8365,6 +8448,7 @@ def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
 
 def write_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write every expected organ instance JSON and generated markdown to disk and return the corpus.
     - Guarantee: writes organs/<id>.json and organs/<id>.md for all expected ids, then returns build_organ_instance_corpus.
     - Fails: raises OSError if a target file cannot be written.
@@ -8392,6 +8476,7 @@ def write_organ_instance(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write a single organ instance JSON and markdown for a named id.
     - Guarantee: writes organs/<id>.json and organs/<id>.md and returns the instance payload.
     - Fails: raises KeyError when the organ id is unknown; raises OSError if a file cannot be written.
@@ -8416,6 +8501,7 @@ def write_organ_instance(
 
 def render_organ_markdown(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: render the generated, do-not-hand-edit markdown projection of an organ instance.
     - Guarantee: returns a markdown string with role, lattice neighbours, residuals, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
@@ -8454,6 +8540,7 @@ def render_organ_markdown(instance: dict[str, Any]) -> str:
 
 def render_concept_markdown(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: render the generated, do-not-hand-edit markdown projection of a concept instance.
     - Guarantee: returns a markdown string with statement, residual neighbours, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
@@ -8488,6 +8575,7 @@ def render_concept_markdown(instance: dict[str, Any]) -> str:
 
 def render_mechanism_markdown(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: render the generated, do-not-hand-edit markdown projection of a mechanism instance.
     - Guarantee: returns a markdown string with statement, lattice neighbours, residuals, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
@@ -8537,6 +8625,7 @@ def _node_id(value: str) -> str:
 
 def render_doctrine_mermaid(instances: list[dict[str, Any]]) -> str:
     """
+    [ACTION]
     - Teleology: render the doctrine-lattice instances and their edges as a mermaid flowchart.
     - Guarantee: returns a mermaid flowchart string with one node per instance and per edge target, residual targets styled distinctly.
     - Fails: never raises; non-dict edges are skipped.
@@ -8608,6 +8697,7 @@ def build_lattice_health(
     projection: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: compute the cross-kind doctrine-lattice health payload (per-kind parity, support cover, evidence walkability, residual pressure).
     - Guarantee: returns a health dict combining every corpus's parity/gap metrics, axiom support-cover results, evidence walkability, and the derived residual-pressure rows.
     - Fails: never raises; absent on-disk instances fall back to expected instances.
@@ -9336,6 +9426,7 @@ def build_doctrine_projection(
     command: str = "python -m microcosm_core.doctrine_lattice --doctrine-projection",
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build the full doctrine-lattice projection (nodes, justified edges, support calculus, coverage health) from source.
     - Guarantee: returns a projection dict whose status is 'pass' iff coverage status passes; nodes/edges are reproducibly derived and every edge carries source_ref+summary justification.
     - Fails: never raises; absent on-disk instances fall back to expected instances.
@@ -10022,6 +10113,7 @@ def write_doctrine_projection(
     command: str = "python scripts/build_doctrine_projection.py --write",
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write the doctrine projection JSON, mermaid graph, and health surfaces to disk and return the projection.
     - Guarantee: writes DOCTRINE_PROJECTION_REL, DOCTRINE_GRAPH_REL, and DOCTRINE_HEALTH_REL, then returns the built projection dict.
     - Fails: raises OSError if a target file cannot be written.
@@ -10061,6 +10153,7 @@ def write_doctrine_projection(
 
 def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that on-disk doctrine projection/graph/health surfaces are reproducible from source and that every corpus passes.
     - Guarantee: returns {status: 'pass'|'blocked', errors[], per-kind corpus sub-results}; status 'pass' iff no corpus errors, no edge-justification/target gaps, and the three generated surfaces match expectation.
     - Fails: never raises (except a malformed on-disk projection file via read_json_strict); every other defect is an error row.
@@ -10248,6 +10341,7 @@ def build_coverage_projection(
     command: str = "python -m microcosm_core.doctrine_lattice",
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build the doctrine-lattice coverage projection (contract/relation/population/release statuses, per-kind and join health, deficit summary, next targets).
     - Guarantee: returns a coverage dict with an overall status and per-axis statuses, reproducibly derived from source plus a projection_freshness digest block.
     - Fails: never raises; defects surface as blocked sub-statuses and deficit counts rather than exceptions.
@@ -10528,6 +10622,7 @@ def validate_coverage_projection(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that an on-disk coverage projection is reproducible from current source.
     - Guarantee: returns {status: 'pass'|'blocked', errors[]}; status 'pass' iff the projection equals the freshly built one (digest and per-field mismatches are itemized).
     - Fails: never raises; every divergence from the expected projection is an error row.
@@ -10587,6 +10682,7 @@ def write_coverage_projection(
     command: str = "python -m microcosm_core.doctrine_lattice --write",
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write the coverage projection to disk and return it.
     - Guarantee: writes the built coverage projection (sorted-keys JSON) to out or core/doctrine_lattice_coverage.json and returns it.
     - Fails: raises OSError if the target file cannot be written.
@@ -10663,6 +10759,7 @@ def build_entry_card(
     command: str = "python -m microcosm_core.doctrine_lattice --entry-card",
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build the Microcosm-local agent entry card routing a cold agent to current doctrine-lattice evidence.
     - Guarantee: returns an entry-card dict with status chips, an agent band ladder, current counts, fake-green guards, and a re-entry condition; status mirrors the coverage projection status.
     - Fails: never raises; it builds its own coverage projection when none is passed.
@@ -10939,6 +11036,7 @@ def validate_entry_card(
     root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that an on-disk entry card is reproducible from current source.
     - Guarantee: returns {status: 'pass'|'blocked', errors[]}; status 'pass' iff the card equals the freshly built one (per-field and digest mismatches are itemized).
     - Fails: never raises; every divergence from the expected card is an error row.
@@ -10982,6 +11080,7 @@ def write_entry_card(
     command: str = "python -m microcosm_core.doctrine_lattice --write-entry-card",
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: write the Microcosm-local agent entry card to disk and return it.
     - Guarantee: writes the built entry card (sorted-keys JSON) to out or ENTRY_CARD_REL and returns it.
     - Fails: raises OSError if the target file cannot be written.
@@ -10999,6 +11098,7 @@ def write_entry_card(
 
 def main(argv: list[str] | None = None) -> int:
     """CLI entry to build, write, or check the doctrine-lattice projections and corpora.
+    [ACTION]
 
     - Teleology: single build/check front door for the doctrine lattice (coverage, axiom/principle/anti-principle/concept/mechanism corpora, entry card, doctrine projection).
     - Guarantee: the requested write/check/status action runs against the resolved root, prints its JSON result, and exit code matches that result's status.
