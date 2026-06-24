@@ -1,3 +1,17 @@
+"""Public runtime shell projections and validation command routing.
+
+[PURPOSE] Expose bounded, receipt-backed runtime cards and organ validation
+commands for the public Plectis/Microcosm package.
+[INTERFACE] Imported by the `plectis` CLI and agent-facing package routes; the
+main public surface is `RuntimeShell` plus module helpers such as `public_root`.
+[FLOW] Resolve the public substrate root, lazily bind organ runners, project
+runtime cards from receipts/state, and return JSON-safe payloads.
+[DEPENDENCIES] Python standard library plus local `microcosm_core` public
+projection, receipt, schema, and organ modules.
+[CONSTRAINTS] Projection helpers preserve the public payload boundary: no
+private-root equivalence, no release authorization, and no unbounded source body
+export.
+"""
 from __future__ import annotations
 
 import argparse
@@ -256,6 +270,8 @@ class _LazyModule:
     @property
     def module_name(self) -> str:
         """Read-only projection helper.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Internal read-only helper for the runtime-shell projections.
         - Guarantee: returns a string result built from the inspected inputs.
@@ -266,6 +282,8 @@ class _LazyModule:
     @property
     def loaded(self) -> bool:
         """Read-only projection helper.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Internal read-only helper for the runtime-shell projections.
         - Guarantee: returns a bool verdict computed from the inspected inputs.
@@ -2988,6 +3006,8 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
 
 def proof_lab_first_screen_boundary() -> dict[str, Any]:
     """Read-only projection helper.
+    [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
     - Teleology: Internal read-only helper for the runtime-shell projections.
     - Guarantee: returns a JSON-safe projection dict payload.
@@ -4416,6 +4436,8 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
     def manifest_ref(source_refs: list[str]) -> str:
         """Source-ref / digest custody check for the public projection.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
         - Guarantee: returns a string result built from the inspected inputs.
@@ -4437,6 +4459,8 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
     def family_id_from_ref(ref: str) -> str:
         """Read-only projection helper.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Internal read-only helper for the runtime-shell projections.
         - Guarantee: returns a string result built from the inspected inputs.
@@ -6007,6 +6031,8 @@ def _status_card_front_door_status(
 
     def add_surface(surface_id: str, status: Any) -> None:
         """Read-only projection helper.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Internal read-only helper for the runtime-shell projections.
         - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -7630,6 +7656,8 @@ class RuntimeShell:
     @property
     def runtime_receipt_dir(self) -> Path:
         """Read-only projection helper.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Internal read-only helper for the runtime-shell projections.
         - Guarantee: returns the resolved Path (no filesystem write implied).
@@ -7639,6 +7667,8 @@ class RuntimeShell:
 
     def organs(self) -> list[dict[str, Any]]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
@@ -7699,6 +7729,8 @@ class RuntimeShell:
 
     def patterns(self) -> list[dict[str, Any]]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
@@ -7726,6 +7758,8 @@ class RuntimeShell:
 
     def routes(self) -> list[dict[str, Any]]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
@@ -7750,6 +7784,8 @@ class RuntimeShell:
 
     def workitems(self) -> list[dict[str, Any]]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
@@ -7773,6 +7809,8 @@ class RuntimeShell:
 
     def evidence(self, *, limit: int | None = None) -> list[dict[str, Any]]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
@@ -7784,6 +7822,8 @@ class RuntimeShell:
 
     def evidence_index(self, *, limit: int | None = None) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -7795,6 +7835,8 @@ class RuntimeShell:
 
     def evidence_count(self) -> int:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns an int computed from the inspected inputs.
@@ -7806,6 +7848,8 @@ class RuntimeShell:
 
     def workingness_map(self, *, persist_receipt: bool = False) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -8114,6 +8158,8 @@ class RuntimeShell:
 
     def workingness_card(self) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -8187,6 +8233,8 @@ class RuntimeShell:
         project_ref: str | Path | None = None,
     ) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -8635,6 +8683,8 @@ class RuntimeShell:
         project_ref: str | Path | None = None,
     ) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -8652,6 +8702,8 @@ class RuntimeShell:
 
     def spine(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -9422,6 +9474,8 @@ class RuntimeShell:
 
     def spine_card(self) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -9596,6 +9650,8 @@ class RuntimeShell:
         persist_receipt: bool = True,
     ) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -10506,6 +10562,8 @@ class RuntimeShell:
         project: str | Path | None = DEFAULT_PROJECT_REL,
     ) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -11015,6 +11073,8 @@ class RuntimeShell:
 
     def trace_lens(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -11062,6 +11122,8 @@ class RuntimeShell:
         )
         def negative_keys(payload: dict[str, Any]) -> list[str]:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a list of the projected values (possibly empty).
@@ -11273,6 +11335,8 @@ class RuntimeShell:
 
     def repair_loop(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -11505,6 +11569,8 @@ class RuntimeShell:
 
     def evidence_cells(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -11716,6 +11782,8 @@ class RuntimeShell:
 
     def verifier_lab_execution_spine_lens(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -12072,6 +12140,8 @@ class RuntimeShell:
 
     def proof_loop_depth(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -12444,6 +12514,8 @@ class RuntimeShell:
 
     def proof_lab(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -12455,6 +12527,8 @@ class RuntimeShell:
 
     def landing_replay(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -12708,6 +12782,8 @@ class RuntimeShell:
 
     def view_quality(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -12939,6 +13015,8 @@ class RuntimeShell:
 
     def projection_drift(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -13198,6 +13276,8 @@ class RuntimeShell:
 
     def spatial_simulation(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -13268,6 +13348,8 @@ class RuntimeShell:
 
     def circuit_attribution(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -13332,6 +13414,8 @@ class RuntimeShell:
 
     def circuit_attribution_card(self) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -13378,6 +13462,8 @@ class RuntimeShell:
 
     def route_cleanup(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -13668,6 +13754,8 @@ class RuntimeShell:
 
     def projection_safety(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -15097,6 +15185,8 @@ class RuntimeShell:
 
     def projection_import_map(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -15504,6 +15594,8 @@ class RuntimeShell:
 
     def import_projector(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -15874,6 +15966,8 @@ class RuntimeShell:
 
     def option_surface_lens(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -16230,6 +16324,8 @@ class RuntimeShell:
 
     def stripping_guard(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -16500,6 +16596,8 @@ class RuntimeShell:
 
     def standards_control(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -16802,6 +16900,8 @@ class RuntimeShell:
 
     def hook_coverage(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -17113,6 +17213,8 @@ class RuntimeShell:
 
     def replay_gauntlet(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -17129,6 +17231,8 @@ class RuntimeShell:
             command: str, input_ref: str, out_ref: str
         ) -> str:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -17644,6 +17748,8 @@ class RuntimeShell:
 
     def benchmark_lab(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -17872,6 +17978,8 @@ class RuntimeShell:
 
     def legibility_scorecard(self) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -18202,6 +18310,8 @@ class RuntimeShell:
 
     def corpus_lens(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -18422,6 +18532,8 @@ class RuntimeShell:
 
     def prediction_lens(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -18601,6 +18713,8 @@ class RuntimeShell:
 
     def market_boundary(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -18923,6 +19037,8 @@ class RuntimeShell:
 
     def authority(self, *, persist_receipts: bool = True) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -20169,6 +20285,8 @@ class RuntimeShell:
 
     def authority_card(self) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -20360,6 +20478,8 @@ class RuntimeShell:
 
     def intake(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -20618,6 +20738,8 @@ class RuntimeShell:
 
     def intake_card(self) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -20778,6 +20900,8 @@ class RuntimeShell:
 
     def inspect_route(self, route_id: str) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -20800,6 +20924,8 @@ class RuntimeShell:
 
     def inspect_evidence(self, receipt_ref: str) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -20856,6 +20982,8 @@ class RuntimeShell:
         command: str | None = None,
     ) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -21023,6 +21151,8 @@ class RuntimeShell:
 
     def run_demo_card(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
         """Builds a generated projection card/row payload.
+        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
         - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -21090,6 +21220,8 @@ class RuntimeShell:
 
     def run_work_demo(self) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -21122,6 +21254,8 @@ class RuntimeShell:
 
     def reveal(self, *, persist_receipt: bool = True) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -21170,6 +21304,8 @@ class RuntimeShell:
         precomputed_lenses: dict[str, dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -21187,6 +21323,8 @@ class RuntimeShell:
             factory: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -21499,6 +21637,8 @@ class RuntimeShell:
         status_payload: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Projects a read-only runtime-shell view.
+        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+
 
         - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
         - Guarantee: returns a JSON-safe projection dict payload.
@@ -22636,6 +22776,8 @@ class RuntimeShell:
 
         def row(label: str, value: Any) -> str:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22650,6 +22792,8 @@ class RuntimeShell:
 
         def public_project_ref(value: Any) -> str:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22669,6 +22813,8 @@ class RuntimeShell:
 
         def list_text(values: Any) -> str:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22682,6 +22828,8 @@ class RuntimeShell:
 
         def dict_text(values: Any) -> str:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22695,6 +22843,8 @@ class RuntimeShell:
 
         def binding_rows(rows: list[Any], id_key: str) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22721,6 +22871,8 @@ class RuntimeShell:
 
         def first_screen_reader_route_cards() -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22777,6 +22929,8 @@ class RuntimeShell:
 
         def first_screen_demo_to_scale_cards() -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22866,6 +23020,8 @@ class RuntimeShell:
 
         def event_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22892,6 +23048,8 @@ class RuntimeShell:
 
         def evidence_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22917,6 +23075,8 @@ class RuntimeShell:
 
         def cell_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22943,6 +23103,8 @@ class RuntimeShell:
 
         def python_lens_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22968,6 +23130,8 @@ class RuntimeShell:
 
         def tour_card_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -22995,6 +23159,8 @@ class RuntimeShell:
 
         def view_quality_action_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23021,6 +23187,8 @@ class RuntimeShell:
 
         def projection_safety_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23052,6 +23220,8 @@ class RuntimeShell:
 
         def projection_drift_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23079,6 +23249,8 @@ class RuntimeShell:
 
         def market_boundary_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23106,6 +23278,8 @@ class RuntimeShell:
 
         def route_cleanup_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23133,6 +23307,8 @@ class RuntimeShell:
 
         def projection_import_map_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23160,6 +23336,8 @@ class RuntimeShell:
 
         def import_projector_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23187,6 +23365,8 @@ class RuntimeShell:
 
         def option_surface_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23214,6 +23394,8 @@ class RuntimeShell:
 
         def stripping_guard_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23241,6 +23423,8 @@ class RuntimeShell:
 
         def standards_control_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23268,6 +23452,8 @@ class RuntimeShell:
 
         def proof_loop_depth_table_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23295,6 +23481,8 @@ class RuntimeShell:
 
         def hook_intervention_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23321,6 +23509,8 @@ class RuntimeShell:
 
         def replay_episode_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23347,6 +23537,8 @@ class RuntimeShell:
 
         def benchmark_task_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23373,6 +23565,8 @@ class RuntimeShell:
 
         def legibility_checkpoint_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -23399,6 +23593,8 @@ class RuntimeShell:
 
         def repair_loop_transition_rows(rows: list[Any]) -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -24397,6 +24593,8 @@ class RuntimeShell:
         max_requests: int | None = None,
     ) -> ThreadingHTTPServer:
         """Build (but do not run) the Microcosm runtime-shell HTTP observatory server.
+        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
         - Teleology: stands up the read-only HTTP surface that serves the observatory HTML and JSON runtime/route/evidence lenses over a cached project model.
         - Guarantee: returns a bound, warmed RuntimeShellHTTPServer on (host, port); caller drives serve_forever; honors an optional max_requests self-shutdown.
@@ -24431,6 +24629,8 @@ class RuntimeShell:
 
         def ensure_project_first_screen_state() -> dict[str, Any]:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24451,6 +24651,8 @@ class RuntimeShell:
 
         def cached_observatory_model() -> dict[str, Any]:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24493,6 +24695,8 @@ class RuntimeShell:
 
         def cached_observatory_html() -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -24511,6 +24715,8 @@ class RuntimeShell:
 
         def cached_runtime_bridge_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24544,6 +24750,8 @@ class RuntimeShell:
             builder: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24568,6 +24776,8 @@ class RuntimeShell:
             builder: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24589,6 +24799,8 @@ class RuntimeShell:
 
         def kernel_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24741,6 +24953,8 @@ class RuntimeShell:
 
         def cached_project_view_path(path: str) -> dict[str, Any]:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24754,6 +24968,8 @@ class RuntimeShell:
 
         def cached_spine_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24775,6 +24991,8 @@ class RuntimeShell:
 
         def cached_spine_card() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24797,6 +25015,8 @@ class RuntimeShell:
 
         def cached_authority_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24824,6 +25044,8 @@ class RuntimeShell:
 
         def cached_authority_card() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24846,6 +25068,8 @@ class RuntimeShell:
 
         def warm_authority_payload() -> None:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -24858,6 +25082,8 @@ class RuntimeShell:
 
         def cached_workingness_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24879,6 +25105,8 @@ class RuntimeShell:
 
         def cached_workingness_card() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24939,6 +25167,8 @@ class RuntimeShell:
 
         def cached_status_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24968,6 +25198,8 @@ class RuntimeShell:
 
         def cached_status_card() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -24997,6 +25229,8 @@ class RuntimeShell:
 
         def cached_first_screen_full_card() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -25018,6 +25252,8 @@ class RuntimeShell:
 
         def cached_first_screen_card() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -25038,6 +25274,8 @@ class RuntimeShell:
 
         def cached_landing_work_transaction(selected_route_id: Any) -> dict[str, Any]:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -25072,6 +25310,8 @@ class RuntimeShell:
 
         def cached_landing_model() -> dict[str, Any]:
             """Read-only projection helper.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Internal read-only helper for the runtime-shell projections.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -25286,6 +25526,8 @@ class RuntimeShell:
 
         def cached_landing_html() -> str:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a string result built from the inspected inputs.
@@ -25326,6 +25568,8 @@ class RuntimeShell:
 
             def landing_value(value: Any, fallback: str = "not projected") -> str:
                 """Read-only projection helper.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: Internal read-only helper for the runtime-shell projections.
                 - Guarantee: returns a string result built from the inspected inputs.
@@ -25405,6 +25649,8 @@ class RuntimeShell:
             ]
             def scale_card_html(item: dict[str, Any]) -> str:
                 """Builds a generated projection card/row payload.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
                 - Guarantee: returns a string result built from the inspected inputs.
@@ -25499,6 +25745,8 @@ class RuntimeShell:
 
         def cached_tour_payload() -> dict[str, Any]:
             """Builds a generated projection card/row payload.
+            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
             - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
             - Guarantee: returns a JSON-safe projection dict payload.
@@ -25539,6 +25787,8 @@ class RuntimeShell:
                 poll_interval: float = RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL,
             ) -> None:
                 """Run the request loop with the shell's tuned poll interval.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: overrides the default poll cadence so shutdown (e.g. max_requests self-shutdown) is reacted to promptly.
                 - Guarantee: blocks serving requests until shutdown() is called, polling at RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL by default.
@@ -25558,6 +25808,8 @@ class RuntimeShell:
             """
             def finish(self) -> None:
                 """Read-only projection helper.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: Internal read-only helper for the runtime-shell projections.
                 - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -25720,6 +25972,8 @@ class RuntimeShell:
 
             def log_message(self, format: str, *args: Any) -> None:
                 """Read-only projection helper.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: Internal read-only helper for the runtime-shell projections.
                 - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -25763,6 +26017,8 @@ class RuntimeShell:
 
             def do_GET(self) -> None:
                 """Routes a runtime-shell command / request.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
                 - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -25851,6 +26107,8 @@ class RuntimeShell:
 
             def do_POST(self) -> None:
                 """Routes a runtime-shell command / request.
+                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
                 - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
                 - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -25922,6 +26180,8 @@ def _nonnegative_int(value: str) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     """Construct the microcosm-runtime CLI argument parser.
+    [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
     - Teleology: single source of truth for the runtime-shell subcommand surface (lenses, run, serve, route, work, evidence).
     - Guarantee: returns an ArgumentParser whose subparsers cover every runtime-shell command that main dispatches.
@@ -26040,6 +26300,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
     """CLI entry: parse runtime-shell args and dispatch to the selected RuntimeShell lens/command.
+    [ACTION] Project this runtime-shell helper under the public-boundary contract.
+
 
     - Teleology: command-line front door to every runtime-shell lens, the demo runner, and the HTTP observatory server.
     - Guarantee: runs the chosen subcommand on a RuntimeShell, prints its JSON, and returns its exit code; "serve" blocks until interrupt/close.
