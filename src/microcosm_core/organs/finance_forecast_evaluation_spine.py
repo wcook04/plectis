@@ -1,3 +1,12 @@
+"""Finance forecast evaluation spine replay organ.
+
+[PURPOSE] Validate the synthetic finance-evaluation fixture boundary for forecast statistics, split integrity, and no-advice/no-live-data claim ceilings.
+[INTERFACE] Exposes CrownJewelSpec entrypoints for fixture evaluation, negative-case evaluation, bundle validation, and CLI execution.
+[FLOW] Load loss matrices and policy fixtures, reject lookahead or advice overclaims, either bind an exported standalone statistics contract or run copied statistics modules, then emit bounded receipts.
+[DEPENDENCIES] Uses copied finance source modules when available, JSON fixture inputs, subprocess isolation, date parsing, and the shared crown-jewel organ harness.
+[CONSTRAINTS] The organ never uses live market data, never gives investment or trading advice, and treats a pass as evidence of fixture wiring rather than forecast performance.
+"""
+
 from __future__ import annotations
 
 import json
@@ -83,6 +92,7 @@ SPEC = CrownJewelSpec(
 
 
 def _source_modules_root(source_manifest: dict[str, Any], input_dir: Path) -> Path:
+    """[ACTION] Resolve the copied source_modules directory from a validated source manifest, falling back to the fixture input directory for local runs."""
     manifest_path = source_manifest.get("source_manifest_path")
     if isinstance(manifest_path, str) and manifest_path:
         return Path(manifest_path).parent / "source_modules"
@@ -90,6 +100,7 @@ def _source_modules_root(source_manifest: dict[str, Any], input_dir: Path) -> Pa
 
 
 def _is_exported_finance_bundle(input_dir: Path, source_manifest: dict[str, Any]) -> bool:
+    """[ACTION] Detect when the input is the exported finance bundle shape so evaluation can use the standalone public statistics contract."""
     return (
         input_dir.name == SPEC.bundle_input_mode
         and source_manifest.get("status") == PASS
@@ -102,6 +113,7 @@ def _standalone_exported_statistics_contract(
     matrix: dict[str, Any],
     paired_loss_series: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Build a bounded statistics witness from exported fixture rows when copied runtime execution is intentionally not re-run."""
     rows = [row for row in matrix.get("rows", []) if isinstance(row, dict)]
     candidate_ids = [
         candidate_id
@@ -195,6 +207,7 @@ def _run_stats_subprocess(
     family_loss_matrix: dict[str, Any],
     paired_loss_series: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Serialize the finance fixtures and delegate statistics execution to the cached subprocess helper."""
     payload_text = json.dumps(
         {
             "family_loss_matrix": family_loss_matrix,
@@ -208,6 +221,7 @@ def _run_stats_subprocess(
 
 @lru_cache(maxsize=16)
 def _run_stats_subprocess_cached(source_modules_root: str, payload_text: str) -> dict[str, Any]:
+    """[ACTION] Execute copied finance statistics modules in a subprocess and capture hashes plus typed HLN refusal evidence."""
     script = r"""
 import builtins
 import json
@@ -316,12 +330,14 @@ print(json.dumps({
 
 
 def _sha256_text(text: str) -> str:
+    """[ACTION] Hash subprocess streams so receipts can prove output identity without exporting stream bodies."""
     import hashlib
 
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _parse_iso_date(value: object) -> date | None:
+    """[ACTION] Parse fixture date strings into date objects while treating malformed values as absent evidence."""
     if not isinstance(value, str):
         return None
     try:
@@ -331,6 +347,7 @@ def _parse_iso_date(value: object) -> date | None:
 
 
 def _lookahead_split_findings(paired_loss_series: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Scan paired-loss rows for lookahead or inverted event-window violations before statistics are trusted."""
     findings: list[dict[str, Any]] = []
     rows = [row for row in paired_loss_series.get("rows", []) if isinstance(row, dict)]
     for row in rows:
@@ -367,6 +384,7 @@ def _lookahead_split_findings(paired_loss_series: dict[str, Any]) -> list[dict[s
 
 
 def _policy_findings(policy: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Enforce the no-advice, no-live-data, no-performance-claim boundary flags from the finance policy fixture."""
     findings: list[dict[str, Any]] = []
     for flag in FALSE_BOUNDARY_FLAGS:
         if policy.get(flag) is not False:
@@ -390,6 +408,7 @@ def _evaluate_payloads(
     policy: dict[str, Any],
     initial_findings: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Combine policy, split, source-manifest, and statistics checks into the bounded finance-evaluation receipt payload."""
     findings: list[dict[str, Any]] = list(initial_findings or [])
     findings.extend(_policy_findings(policy))
     findings.extend(_lookahead_split_findings(paired))
@@ -491,6 +510,7 @@ def _evaluate_payloads(
 
 
 def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Load positive fixture inputs and pass them into the finance evaluation spine with any JSON-loading findings preserved."""
     findings: list[dict[str, Any]] = []
     matrix = load_json_object(input_dir / "family_loss_matrix.json", findings, label="family loss matrix")
     paired = load_json_object(input_dir / "paired_loss_series.json", findings, label="paired loss series")
@@ -510,6 +530,7 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
+    """[ACTION] Apply one semantic negative mutation and return the error-code receipt proving the expected rejection path."""
     input_path = Path(input_dir)
     public_root = public_root_for_path(input_path)
     source_manifest = validate_source_manifest(input_path, SPEC, public_root=public_root)
@@ -571,6 +592,7 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the normal finance forecast fixture through the shared crown-jewel organ harness."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -587,6 +609,7 @@ def run_finance_forecast_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the exported finance bundle input mode through the same evaluator and negative-case checker."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -599,6 +622,7 @@ def run_finance_forecast_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Dispatch CLI actions for this organ through the shared CrownJewelSpec command surface."""
     return main_for_spec(
         SPEC,
         argv,

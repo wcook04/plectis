@@ -12,6 +12,9 @@ RELEASE_FACING_ORGAN_MODULES = (
     "src/microcosm_core/organs/agent_closeout_faithfulness_audit.py",
     "src/microcosm_core/organs/batch12_release_claim_language_gate.py",
     "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
+    "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
+    "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+    "src/microcosm_core/organs/batch12_prediction_market_board_capsule.py",
 )
 
 REQUIRED_MODULE_TAGS = (
