@@ -1,3 +1,20 @@
+"""Batch-9 public macro-engines capsule validator.
+
+[PURPOSE] Validate the Batch-9 public macro-engines capsule against copied
+source bodies and fixture probes.
+[INTERFACE] Exposes organ runners, result-card rendering, and public exercise
+helpers used by the Plectis CLI, Plectis tests, and recipient proof bundles.
+[FLOW] Load the probe manifest and copied source-module references, run
+source-backed exercises, evaluate declared negative cases, and emit bounded
+pass/block receipts without embedding private or source bodies.
+[DEPENDENCIES] Uses the shared crown-jewel organ runner, Python stdlib parsing
+and import helpers, and copied public source modules named by the Batch-9
+source manifest.
+[CONSTRAINTS] This module is public capsule validation only; it does not
+mutate source authority, dispatch providers, publish releases, assert live
+host/doctrine truth, or include private source bodies in receipts.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -384,6 +401,12 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
+    """[ACTION] Re-run one declared negative fixture patch against live exercise code.
+
+    Returns the expected Batch-9 error code only when the patched fixture causes
+    the corresponding runtime observation, keeping the receipt body-free.
+    """
+
     check = NEGATIVE_CASE_RUNTIME_CHECKS.get(case_id)
     if check is None:
         return {"status": "pass", "error_codes": [], "body_in_receipt": False}
@@ -454,6 +477,12 @@ def _normalize_run_id(value: Any) -> str | None:
 
 
 def resolve_lineage(contexts: Mapping[str, Mapping[str, Any]], start_run_id: str) -> dict[str, Any]:
+    """[ACTION] Resolve a fixture run lineage chain from local context records.
+
+    The result captures parent relations, truth-source hints, and self-loop or
+    cycle evidence without consulting the live Work Ledger.
+    """
+
     chain: list[dict[str, Any]] = []
     seen: set[str] = set()
     current = start_run_id
@@ -511,6 +540,12 @@ def adjudicate_approval(
     decision: Mapping[str, Any],
     active_claims: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
+    """[ACTION] Apply the public approval decision rules to one fixture request.
+
+    This local fallback models stale nonce and pre-acquired-claim refusal so the
+    exported capsule can be inspected without private approval state.
+    """
+
     approval_id = str(request.get("approval_id") or request.get("id") or "")
     nonce = str(decision.get("nonce") or "")
     claim = active_claims.get(approval_id)
@@ -619,6 +654,13 @@ def source_backed_approval_adjudication(
     active_claims: Mapping[str, Mapping[str, Any]],
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Execute approval adjudication through the copied public source module.
+
+    A temporary fixture repo is materialized, the module's approval APIs are
+    called directly, and the result records only contract facts and refusal
+    status rather than approval bodies.
+    """
+
     if module_path is None or not module_path.is_file():
         return {
             "status": "blocked",
@@ -689,6 +731,12 @@ def source_backed_approval_adjudication(
 
 
 def build_ast_doc_tree(files: Mapping[str, str]) -> dict[str, Any]:
+    """[ACTION] Build a small AST documentation tree for public fixture sources.
+
+    The tree records module docstrings, symbol ranges, and parse warnings so the
+    Batch-9 probe can demonstrate source navigation without importing targets.
+    """
+
     entries: list[dict[str, Any]] = []
     warnings: list[dict[str, Any]] = []
     for path, source in sorted(files.items()):
@@ -780,6 +828,12 @@ def source_backed_lineage(
     data: Mapping[str, Any],
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Probe the copied lineage module against materialized fixture contexts.
+
+    The probe loads the public module, writes only fixture runtime contexts, and
+    returns lineage evidence plus the source contract that was exercised.
+    """
+
     if module_path is None or not module_path.is_file():
         return {
             "status": "blocked",
@@ -875,6 +929,12 @@ def source_backed_ast_doc_tree(
     files: Mapping[str, str],
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the copied Python documentation-tree module on fixture files.
+
+    It verifies that public source indexing can recover qualified symbols and
+    syntax-error gaps while keeping the indexed bodies out of the receipt.
+    """
+
     if module_path is None or not module_path.is_file():
         return {
             "status": "blocked",
@@ -932,6 +992,12 @@ def source_backed_dependency_pin_audit(
     installed: Mapping[str, str],
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Exercise the copied dependency-pin auditor with fixture requirements.
+
+    The returned buckets show parsed, drifted, missing, and unparseable pins so
+    the capsule can prove the auditor path without reading host environments.
+    """
+
     empty_buckets: dict[str, list[dict[str, Any]]] = {
         "ok": [],
         "drifted": [],
@@ -1055,6 +1121,12 @@ def compile_mission_graph(
     *,
     source_text: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Compile a fixture mission graph using anchors from the copied source.
+
+    The function first checks that the copied graph body contains the required
+    closure and wave-ordering hooks, then returns a bounded topology receipt.
+    """
+
     contract = _source_backed_mission_graph_contract(source_text)
     if contract["status"] != "pass":
         return {
@@ -1192,6 +1264,12 @@ def _specifier_ok(version: str, specifier: str) -> bool:
 
 
 def audit_dependency_pins(requirements: list[str], installed: Mapping[str, str]) -> dict[str, Any]:
+    """[ACTION] Classify fixture requirement pins against supplied installed versions.
+
+    This local fallback mirrors the public pin-drift categories and never
+    consults the operator's actual Python environment.
+    """
+
     buckets: dict[str, list[dict[str, Any]]] = {
         "ok": [],
         "drifted": [],
@@ -1417,6 +1495,12 @@ def source_backed_config_authority_audit(
     known_roots: set[str],
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate fixture config-authority rows through the copied validator.
+
+    The probe builds a temporary standard contract, runs the public registry
+    validator, and reports row/findings counts without exposing local configs.
+    """
+
     if module_path is None or not module_path.is_file():
         return {
             "status": "blocked",
@@ -1484,6 +1568,12 @@ def source_backed_config_authority_audit(
 
 
 def admission_decision(quote: Mapping[str, Any], policy: str) -> dict[str, Any]:
+    """[ACTION] Decide whether a fixture host-pressure quote should block work.
+
+    This fallback keeps the policy surface explicit: `off` always allows,
+    `warn` records a warning, and `auto` blocks only override-required pressure.
+    """
+
     policy_value = str(policy or "auto").lower()
     if policy_value not in {"auto", "warn", "off"}:
         raise ValueError("unknown_policy")
@@ -1516,6 +1606,13 @@ def source_backed_admission_decision(
     policy: str,
     source_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Exercise the copied host-pressure admission consumer.
+
+    The probe calls the public builder with a fixture consumer id, checks the
+    copied source anchors, and records admission facts without changing host
+    scheduling or override state.
+    """
+
     if source_path is None or not source_path.is_file():
         return {
             "status": "blocked",
@@ -1635,6 +1732,12 @@ def source_backed_doctrine_enrichment(
     rel_path: str,
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Run copied doctrine enrichment against a temporary fixture repo.
+
+    The output demonstrates mechanism, concept, and principle joins for one
+    public path while keeping live doctrine authority out of the proof receipt.
+    """
+
     if module_path is None or not module_path.is_file():
         return {
             "status": "blocked",
@@ -1701,6 +1804,12 @@ def source_backed_doctrine_enrichment(
 
 
 def enrich_doctrine_file(payload: Mapping[str, Any], rel_path: str) -> dict[str, Any]:
+    """[ACTION] Join fixture mechanisms to concepts and principles for one file path.
+
+    This source-local fallback makes the expected enrichment shape inspectable
+    even when the copied doctrine service is unavailable.
+    """
+
     mechanisms = payload.get("mechanisms") if isinstance(payload.get("mechanisms"), list) else []
     concepts = {
         str(row.get("id")): row
@@ -1757,6 +1866,12 @@ def enrich_doctrine_file(payload: Mapping[str, Any], rel_path: str) -> dict[str,
 
 
 def worker_job_gate(job: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Apply the fixture worker budget and forbidden-surface gate.
+
+    The fallback blocks paid OpenRouter jobs without explicit budget and rejects
+    forbidden strings in the input packet, but it never dispatches a worker.
+    """
+
     provider = str(job.get("provider_id") or "").lower()
     model = str(job.get("model_id") or "").lower()
     budget = job.get("provider_budget") if isinstance(job.get("provider_budget"), Mapping) else {}
@@ -1824,6 +1939,12 @@ def source_backed_worker_job_gate(
     job: Mapping[str, Any],
     module_path: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Exercise the copied Type-A worker harness gate on one fixture job.
+
+    The probe calls budget and forbidden-surface helpers from the copied module
+    and records only gate outcomes plus source-contract booleans.
+    """
+
     if module_path is None or not module_path.is_file():
         return {
             "status": "blocked",
@@ -1918,7 +2039,15 @@ def source_backed_worker_job_gate(
 
 
 def milestone_quality_accounting(runs: list[Mapping[str, Any]]) -> dict[str, Any]:
+    """[ACTION] Compute fixture milestone-relative quality counts.
+
+    The fallback derives green, eligible, projection-verified, and missing
+    commit timestamps from supplied rows instead of reading live run folders.
+    """
+
     def parse_time(value: Any) -> datetime | None:
+        """[ACTION] Parse a fixture timestamp into timezone-aware UTC form."""
+
         if not isinstance(value, str) or not value:
             return None
         try:
@@ -1966,6 +2095,12 @@ def source_backed_milestone_quality_accounting(
     module_path: Path | None,
     blocker_metrics: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Compare fixture milestone metrics with the copied metrics module.
+
+    The probe materializes temporary run folders, calls the public metric and
+    blocker classifiers, and reports mismatches as source-contract findings.
+    """
+
     expected = milestone_quality_accounting(runs)
     if module_path is None or not module_path.is_file():
         return {
@@ -2324,6 +2459,12 @@ def _run_all_exercises(
 
 
 def evaluate(input_dir: Path, public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Evaluate the Batch-9 probe manifest and all public source exercises.
+
+    The evaluator binds manifest coverage, copied module rows, positive
+    exercises, and bounded findings into the organ result consumed by receipts.
+    """
+
     findings: list[dict[str, Any]] = []
     manifest = _load_json(input_dir / PROBE_MANIFEST_NAME)
     mechanisms = manifest.get("mechanisms")
@@ -2433,6 +2574,8 @@ def run(
     command: str | None = None,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the Batch-9 organ against fixture input and write receipts."""
+
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -2450,6 +2593,8 @@ def run_batch9_bundle(
     *,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate an exported Batch-9 bundle with the bundle input mode."""
+
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -2462,6 +2607,12 @@ def run_batch9_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Render a compact public card from a Batch-9 validation result.
+
+    The card keeps authority ceilings and body-floor checks visible while
+    deliberately omitting copied source bodies and secret-scan internals.
+    """
+
     card = card_for_result(SPEC, result)
     source = (
         result.get("source_module_manifest")
@@ -2505,6 +2656,12 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse the Batch-9 CLI command and return process status.
+
+    The CLI supports fixture runs, exported-bundle validation, and optional
+    card output through the same bounded evaluator used by package receipts.
+    """
+
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "validate-bundle"):
