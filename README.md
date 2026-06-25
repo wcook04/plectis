@@ -8,6 +8,8 @@
 
 # Plectis
 
+[![CI](https://github.com/wcook04/plectis/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wcook04/plectis/actions/workflows/ci.yml)
+
 **Run one command inside a code repository and get a local record you can read:
 what Plectis found, where each finding came from, what backs it, and the point
 where the claim stops.**
@@ -76,24 +78,50 @@ interactive map on the [website](https://wcook04.github.io/plectis/).
 
 ## Run it
 
-From a clone, without installing anything:
+Fast cold-clone path:
+
+```bash
+git clone https://github.com/wcook04/plectis.git
+cd plectis
+./bootstrap.sh
+make smoke
+```
+
+That is the first-user path the README and website are meant to imply:
+bootstrap the source tree, then run the source-only smoke floor. It requires
+Python 3.11 or newer and a POSIX shell. The automated floor currently runs on
+Ubuntu across Python 3.11-3.13; macOS is expected through the same shell path,
+and Windows users should use WSL until native Windows CI exists.
+
+Install the `plectis` command only after the source smoke is green:
+
+```bash
+make install
+.venv/bin/plectis tour --format text .
+.venv/bin/plectis tour --card .
+```
+
+If you want to stay source-only for a hand check:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core tour --format text .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 ```
 
-Or install the `plectis` command first:
-
-```bash
-python3 -m pip install -e '.[test]'
-plectis tour --format text .
-plectis tour --card .
-```
-
 [QUICKSTART.md](QUICKSTART.md) is the one-page version: the bootstrap probe, the
 browser view, the offline checks, and the boundary notes, in the order a cold
 clone needs them.
+
+To record local onboarding timings as JSON:
+
+```bash
+make onboarding-benchmark
+```
+
+The CI workflow publishes the same benchmark as an artifact for the current
+commit. The JSON records `clone_seconds`, `bootstrap_seconds`, `smoke_seconds`,
+`install_seconds`, `installed_tour_seconds`, and `total_seconds`; in an existing
+checkout `clone_seconds` is `null`, while CI uses a fresh public clone.
 
 ## What's inside
 
@@ -161,6 +189,23 @@ make that possible, and both have a generated page you can open:
   validator, or a fixture. The [Release review](RELEASE_REVIEW.md) sets out the
   claim under review and the evidence behind it, so you can weigh a finding by
   its support rather than by a headline count.
+
+Reviewer-grade commands are intentionally separate from the first-user smoke:
+
+```bash
+make flight-recorder
+make flight-recorder-verify
+make release-candidate-proof
+make release-candidate-proof-verify
+make release-review
+```
+
+`make flight-recorder-verify` checks a preserved packet without rerunning the substrate,
+including blocked/non-zero commands as preserved evidence. The packet
+does not authorize release, standards, provider calls, proof correctness, or
+production use. `make release-candidate-proof` is the distribution-true proof
+path for the first-action product; it does not authorize release. `make
+release-review` regenerates that proof and prints the reviewer contract.
 
 ## Name and history
 

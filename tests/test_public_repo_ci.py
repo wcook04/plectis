@@ -150,16 +150,31 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "concurrency:",
         "group: ${{ github.workflow }}-${{ github.ref }}",
         "cancel-in-progress: true",
+        "Tests Python ${{ matrix.python-version }}",
+        "User smoke and timing",
         "timeout-minutes: 30",
         'python-version: ["3.11", "3.12", "3.13"]',
-        "run: make ci",
+        "cache: pip",
+        "cache-dependency-path: pyproject.toml",
+        "run: make test",
+        "run: make user-smoke",
+        "make onboarding-benchmark",
+        "BENCHMARK_ARGS=\"--repo-url https://github.com/wcook04/plectis.git --ref ${{ github.sha }}\"",
+        "Upload onboarding benchmark",
+        "path: .microcosm/onboarding-benchmark.json",
+        "if-no-files-found: error",
     ):
         assert required in workflow
     _assert_inspectable_pinned_github_actions(
         workflow,
-        required_public_tags={"actions/checkout@v4", "actions/setup-python@v5"},
+        required_public_tags={
+            "actions/checkout@v4",
+            "actions/setup-python@v5",
+            "actions/upload-artifact@v4",
+        },
     )
 
+    assert "run: make ci" not in workflow
     for duplicated_command in (
         'python -m pip install -e ".[test]"',
         "python -m pytest",
@@ -200,6 +215,9 @@ def test_pyproject_license_metadata_matches_declared_build_backend_floor() -> No
         "License :: OSI Approved :: Apache Software License"
         not in pyproject["project"]["classifiers"]
     )
+    assert "Operating System :: OS Independent" not in pyproject["project"]["classifiers"]
+    assert "Operating System :: POSIX" in pyproject["project"]["classifiers"]
+    assert "Operating System :: MacOS :: MacOS X" in pyproject["project"]["classifiers"]
     assert pyproject["project"]["authors"] == [
         {"name": "William Cook", "email": "williamwkcook@gmail.com"}
     ]

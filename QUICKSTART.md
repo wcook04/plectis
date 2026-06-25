@@ -25,25 +25,32 @@ PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
 
 ## 0. Run The Bounded Cold-Clone Probe
 
-If you want one command before installing the console script, run the public
-bootstrap probe:
+The first-user path is source-only:
 
 ```bash
 ./bootstrap.sh
+make smoke
 ```
 
-It validates the first-wave fixture and boundary floor, writes ignored
+`./bootstrap.sh` validates the first-wave fixture and boundary floor, writes ignored
 `.microcosm/cold_clone_probe.json` evidence, and points back to the README map.
 Use `./bootstrap.sh --dry-run` to see the exact probe command without writing a
 receipt. Do not use `--emit` for tracked receipts unless you intentionally own
-a receipt refresh.
+receipt refresh. `make smoke` writes ignored command outputs under
+`.microcosm/smoke/` and validates the public cards.
 
-## 1. Install The Local Command
+Supported onboarding environment: Python 3.11 or newer plus a POSIX shell. The
+automated floor currently runs on Ubuntu across Python 3.11-3.13; macOS should
+use the same shell path; Windows should use WSL until native Windows CI exists.
+
+## 1. Install The Local Command After Smoke
 
 From this directory:
 
 ```bash
-python3 -m pip install -e '.[test]'
+make install
+.venv/bin/plectis tour --format text .
+.venv/bin/plectis tour --card .
 ```
 
 Or use the source form without installing:
@@ -164,6 +171,24 @@ package check:
 ```bash
 make package-smoke
 ```
+
+To record user-onboarding timings locally, run:
+
+```bash
+make onboarding-benchmark
+```
+
+That writes `.microcosm/onboarding-benchmark.json` with `clone_seconds`,
+`bootstrap_seconds`, `smoke_seconds`, `install_seconds`,
+`installed_tour_seconds`, and `total_seconds`. In an existing checkout,
+`clone_seconds` is `null`. To force a fresh public clone timing:
+
+```bash
+make onboarding-benchmark BENCHMARK_ARGS="--repo-url https://github.com/wcook04/plectis.git --ref $(git rev-parse HEAD)"
+```
+
+GitHub Actions publishes this JSON as the `plectis-onboarding-benchmark-*`
+artifact for each main-branch CI run.
 
 For a reviewer-grade replay packet that preserves command output digests,
 scope limits, private-path scans, and blocked/non-zero command evidence

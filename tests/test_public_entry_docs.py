@@ -80,9 +80,20 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
     assert quickstart_path.is_file()
     assert "[QUICKSTART.md](QUICKSTART.md)" in readme
     for phrase in (
-        "python3 -m pip install -e '.[test]'",
+        "make install",
+        ".venv/bin/plectis tour --format text .",
+        ".venv/bin/plectis tour --card .",
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "make smoke",
+        "make onboarding-benchmark",
+        ".microcosm/onboarding-benchmark.json",
+        "clone_seconds",
+        "bootstrap_seconds",
+        "smoke_seconds",
+        "install_seconds",
+        "installed_tour_seconds",
+        "total_seconds",
+        "Windows should use WSL",
         ".microcosm/smoke/",
         "Plectis smoke check: pass",
         "authority: pass",
