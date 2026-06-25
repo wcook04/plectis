@@ -1376,6 +1376,10 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
     assert payload["shared_first_command"] == "plectis tour --card ."
     assert payload["compact_projection_of"] == "microcosm_first_screen_composition_card_v1"
     assert payload["drilldowns"]["full_json"] == "plectis first-screen --full ."
+    assert payload["drilldowns"]["doctrine"] == "plectis comprehend --slice doctrine"
+    assert payload["doctrine_reader"]["command"] == "plectis comprehend --slice doctrine"
+    assert payload["doctrine_reader"]["markdown_ref"] == "DOCTRINE.md"
+    assert payload["doctrine_reader"]["record_count"] == 49
     assert payload["drilldowns"]["observatory"] == (
         "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     )
@@ -1386,6 +1390,10 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
     assert status == 0
     assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert payload["shared_first_command"] == "plectis tour --card ."
+    assert payload["doctrine_reader"]["command"] == "plectis comprehend --slice doctrine"
+    assert payload["doctrine_reader"]["projection_ref"] == (
+        "core/doctrine_reader_projection.json"
+    )
     assert (
         payload["entry_surface_contract"]["shared_behavior_surface"]
         == payload["shared_first_command"]

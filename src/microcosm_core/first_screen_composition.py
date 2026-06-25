@@ -73,6 +73,9 @@ STANDARDS_REGISTRY_REF = "core/standards_registry.json"
 EVIDENCE_CLASS_REGISTRY_REF = "core/organ_evidence_classes.json"
 WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
 FIXTURE_MANIFESTS_REF = "core/fixture_manifests"
+DOCTRINE_MARKDOWN_REF = "DOCTRINE.md"
+DOCTRINE_READER_PROJECTION_REF = "core/doctrine_reader_projection.json"
+DOCTRINE_SOURCE_OF_RECORD_REF = "core/doctrine_enrichment.json"
 SUBSTRATE_GLANCE_SAMPLE_LIMIT = 3
 SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS = 92
 EVIDENCE_CLASS_DISPLAY_ORDER = (
@@ -1605,6 +1608,54 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
             },
         ],
         "authority": "overclaim_tripwire_not_marketing_or_release_authority",
+    }
+
+
+def _doctrine_reader_packet(root: Path) -> dict[str, Any]:
+    """Build the doctrine reader route packet exposed on the first screen.
+
+    - Teleology: make the repository doctrine reader surfaces discoverable from first contact without turning doctrine into a release, proof, or correctness claim.
+    - Guarantee: returns copyable package/source commands, markdown and JSON projection refs, semantic source ref, record_count when the generated reader projection is readable, and a safe_to_show block with release/source-mutation flags False.
+    - Fails: never raises; missing generated projection narrows record_count to None and sets projection_status accordingly.
+    - Reads: `core/doctrine_reader_projection.json` under `root` when present.
+    - Non-goal: does not recompute doctrine, authorize publication, or treat the projection as source authority.
+    """
+    projection = _load_public_json(root, DOCTRINE_READER_PROJECTION_REF)
+    record_count = _non_negative_int(projection.get("record_count"))
+    projection_status = (
+        "available"
+        if projection and record_count is not None
+        else "missing_or_unreadable"
+    )
+    return {
+        "schema_version": "microcosm_first_screen_doctrine_reader_v1",
+        "purpose": "make_repository_doctrine_reader_surfaces_copyable_from_first_contact",
+        "command": "plectis comprehend --slice doctrine",
+        "target_example_command": "plectis comprehend --doctrine AX-9",
+        "source_checkout_command": (
+            "PYTHONPATH=src python3 -m microcosm_core comprehend --slice doctrine"
+        ),
+        "source_checkout_target_example_command": (
+            "PYTHONPATH=src python3 -m microcosm_core comprehend --doctrine AX-9"
+        ),
+        "markdown_ref": DOCTRINE_MARKDOWN_REF,
+        "projection_ref": DOCTRINE_READER_PROJECTION_REF,
+        "source_of_record": DOCTRINE_SOURCE_OF_RECORD_REF,
+        "projection_status": projection_status,
+        "record_count": record_count,
+        "reader_rule": (
+            "Use this packet when doctrine should explain what mistakes the system "
+            "prevents; the source of record stays core/doctrine_enrichment.json."
+        ),
+        "safe_to_show": {
+            "uses_generated_reader_projection": True,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "claims_release_or_hosting": False,
+            "claims_proof_correctness": False,
+            "claims_whole_system_correctness": False,
+        },
+        "authority": "doctrine_reader_route_not_source_authority_or_release_claim",
     }
 
 
@@ -3184,6 +3235,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         if isinstance(row, dict)
     }
     first_viewport_manifest = payload.get("first_viewport_manifest", {})
+    doctrine_reader = payload.get("doctrine_reader", {})
     first_viewport_slots = (
         first_viewport_manifest.get("slots", [])
         if isinstance(first_viewport_manifest, dict)
@@ -3977,6 +4029,50 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 for row in doctrine_effect_rows
             )
         ),
+        "doctrine_reader": (
+            isinstance(doctrine_reader, dict)
+            and doctrine_reader.get("schema_version")
+            == "microcosm_first_screen_doctrine_reader_v1"
+            and doctrine_reader.get("command") == "plectis comprehend --slice doctrine"
+            and doctrine_reader.get("target_example_command")
+            == "plectis comprehend --doctrine AX-9"
+            and doctrine_reader.get("source_checkout_command")
+            == (
+                "PYTHONPATH=src python3 -m microcosm_core comprehend "
+                "--slice doctrine"
+            )
+            and doctrine_reader.get("markdown_ref") == DOCTRINE_MARKDOWN_REF
+            and doctrine_reader.get("projection_ref")
+            == DOCTRINE_READER_PROJECTION_REF
+            and doctrine_reader.get("source_of_record")
+            == DOCTRINE_SOURCE_OF_RECORD_REF
+            and doctrine_reader.get("projection_status") == "available"
+            and _positive_count({"count": doctrine_reader.get("record_count")})
+            and doctrine_reader.get("safe_to_show", {}).get(
+                "uses_generated_reader_projection"
+            )
+            is True
+            and doctrine_reader.get("safe_to_show", {}).get("exports_private_paths")
+            is False
+            and doctrine_reader.get("safe_to_show", {}).get(
+                "exports_provider_payloads"
+            )
+            is False
+            and doctrine_reader.get("safe_to_show", {}).get(
+                "claims_release_or_hosting"
+            )
+            is False
+            and doctrine_reader.get("safe_to_show", {}).get(
+                "claims_proof_correctness"
+            )
+            is False
+            and doctrine_reader.get("safe_to_show", {}).get(
+                "claims_whole_system_correctness"
+            )
+            is False
+            and doctrine_reader.get("authority")
+            == "doctrine_reader_route_not_source_authority_or_release_claim"
+        ),
         "readme_entry_contract": (
             isinstance(readme_entry_contract, dict)
             and readme_entry_contract.get("purpose")
@@ -4203,6 +4299,7 @@ def first_screen_composition_card(
         "comparison_frame": _comparison_frame(),
         "discipline_comparison_strip": _discipline_comparison_strip(project_label),
         "doctrine_effect_frame": _doctrine_effect_frame(),
+        "doctrine_reader": _doctrine_reader_packet(root),
         "readme_entry_contract": _readme_entry_contract(project_label),
         "entry_surface_contract": _entry_surface_contract(project_label),
         "scale_frame": _scale_frame(root),
@@ -4411,6 +4508,8 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
     project_label = str(payload.get("project_label") or "<project>")
     route_menu = payload.get("reader_route_menu", {})
     state_boundary = payload.get("state_write_boundary", {})
+    doctrine_reader = payload.get("doctrine_reader", {})
+    doctrine_reader = doctrine_reader if isinstance(doctrine_reader, dict) else {}
     full_json_command = f"plectis first-screen --full {project_label}"
     text_projection_command = f"plectis first-screen --format text {project_label}"
     compact_card_command = f"plectis first-screen --card {project_label}"
@@ -4456,6 +4555,18 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
             "representative_substrate_glance": _compact_substrate_glance(payload),
             "counts_are_authority": False,
         },
+        "doctrine_reader": {
+            key: doctrine_reader.get(key)
+            for key in (
+                "command",
+                "target_example_command",
+                "markdown_ref",
+                "projection_ref",
+                "source_of_record",
+                "record_count",
+                "authority",
+            )
+        },
         "state_write_boundary": {
             "this_card_writes_microcosm_state": False,
             "behavioral_proof_command": state_boundary.get(
@@ -4475,6 +4586,7 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
             "behavior_proof": payload.get("shared_first_command"),
             "observatory": _bounded_observatory_serve_command(project_label),
             "route_contract": "paper_modules/cold_reader_route_map.md",
+            "doctrine": "plectis comprehend --slice doctrine",
         },
         "omission_receipt": {
             "summary_first_projection": True,
@@ -4484,6 +4596,7 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
                 "cold_entry_problem_map",
                 "discipline_comparison_strip",
                 "doctrine_effect_frame",
+                "doctrine_reader.safe_to_show",
             ],
             "drilldown": payload.get("omission_receipt", {}).get("drilldown")
             if isinstance(payload.get("omission_receipt"), dict)
@@ -4907,6 +5020,17 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         if source_agent_entry_command
         else ""
     )
+    doctrine_reader = payload.get("doctrine_reader", {})
+    doctrine_command = None
+    doctrine_markdown = None
+    if isinstance(doctrine_reader, dict):
+        doctrine_command = doctrine_reader.get("command")
+        doctrine_markdown = doctrine_reader.get("markdown_ref")
+    doctrine_clause = (
+        f" doctrine reader: {doctrine_command} / {doctrine_markdown};"
+        if doctrine_command and doctrine_markdown
+        else ""
+    )
     check_state_line = (
         f"Check state: plectis status --card {payload['project_label']} | "
         f"Source-only status: {source_status_command} | "
@@ -4939,7 +5063,11 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         check_state_line,
         "",
-        "What it is: A local evidence router; doctrine names boundaries; exit when you can choose a drilldown without the command inventory.",
+        (
+            "What it is: A local evidence router; doctrine names boundaries;"
+            f"{doctrine_clause} exit when you can choose a drilldown without "
+            "the command inventory."
+        ),
         *_substrate_glance_lines(payload),
         "Why the counts are honest:",
         _scale_summary_line(payload),
