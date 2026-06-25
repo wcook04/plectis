@@ -220,7 +220,7 @@
         "target_status": "resolved_json_instance"
       }
     ],
-    "entry_ref": "microcosm voice-to-doctrine-self-improvement-loop run-bundle",
+    "entry_ref": "plectis voice-to-doctrine-self-improvement-loop run-bundle",
     "mechanism_pair_ref": "voice_to_doctrine_self_improvement_loop_bundle.concept_binding",
     "mechanism_refs": [
       "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop"
@@ -268,7 +268,7 @@
   "status": "active",
   "title": "local pressure rows as typed candidates for owner-surface refinement",
   "validator_refs": [
-    "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
+    "plectis voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
     "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_exported_bundle_validates_runtime_shape"
   ]
 }

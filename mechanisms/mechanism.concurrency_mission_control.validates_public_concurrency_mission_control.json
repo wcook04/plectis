@@ -316,11 +316,11 @@
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       }
     ],
     "runs_in": [

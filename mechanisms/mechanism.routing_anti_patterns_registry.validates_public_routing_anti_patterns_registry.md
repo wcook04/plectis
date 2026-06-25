@@ -15,8 +15,8 @@ The routing anti-patterns registry organ validates public routing anti-pattern r
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/routing_anti_patterns_registry.py` (resolved_code_locus)
 - `runs_in` -> `organ:routing_anti_patterns_registry` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.architecture_and_navigation_route_contract_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (unresolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle` (resolved_json_instance)
 
 ## Anti-Claims
 

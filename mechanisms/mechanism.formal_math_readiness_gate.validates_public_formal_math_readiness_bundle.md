@@ -16,7 +16,7 @@ The formal math readiness gate organ validates public formal-math readiness evid
 - `runs_in` -> `organ:formal_math_readiness_gate` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.formal_math_and_proof_witness_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary` (resolved_json_instance)

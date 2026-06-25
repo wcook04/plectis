@@ -87,7 +87,7 @@
       "concept_pair_ref": "work_landing_and_continuity_control_bundle.concept_binding",
       "mechanism_role": "family validators that bind work landing, bridge continuity, recency coalescing, concurrency, and transaction closeout to receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -104,7 +104,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
+        "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
         "fixtures/first_wave/durable_agent_work_landing_replay/input",
         "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[10:work_landing_and_continuity_control_bundle]"
@@ -198,7 +198,7 @@
       "runs_in": [
         "durable_agent_work_landing_replay"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
       "statement": "The durable agent work-landing replay organ validates public work-landing replay rows by checking owned-path claim evidence, owner-native validation-before-commit ordering, HEAD-advance evidence for landed language, metadata-blocked closeout capture, Work Ledger finalizer refs, copied macro source-module digests, and body-free receipt boundaries before writing bounded replay receipts.",
       "status": "active",
       "upstream_of": [
@@ -213,7 +213,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -282,7 +282,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -295,7 +295,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -308,7 +308,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -321,7 +321,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -334,7 +334,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -347,7 +347,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -362,7 +362,7 @@
     "runs_in": [
       "durable_agent_work_landing_replay"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
@@ -373,7 +373,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
+      "path": "core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

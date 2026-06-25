@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[29:mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[94:mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

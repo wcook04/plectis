@@ -219,7 +219,7 @@
         "target_status": "resolved_json_instance"
       }
     ],
-    "entry_ref": "microcosm executable-doctrine-grammar validate-standards-bundle",
+    "entry_ref": "plectis executable-doctrine-grammar validate-standards-bundle",
     "mechanism_pair_ref": "executable_doctrine_grammar_standard_bundle.concept_binding",
     "mechanism_refs": [
       "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
@@ -263,7 +263,7 @@
   "status": "active",
   "title": "standard as public-safe schema contract with explicit authority ceiling",
   "validator_refs": [
-    "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
+    "plectis executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
     "tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_exported_standards_bundle"
   ]
 }

@@ -20,7 +20,7 @@
   "frontier_audit_sections": [
     "paper_module_readiness_audit"
   ],
-  "governed_floor_complete": false,
+  "governed_floor_complete": true,
   "governed_floor_total_objects": 155,
   "incomplete": [],
   "kinds": {
@@ -136,92 +136,16 @@
   "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
   "routing_floor": {
     "authority_boundary": "Concept and mechanism routing floor over governed JSON rows. Structure and route presence only; not concept completeness, topology completeness, support evidence, release authority, or proof correctness.",
-    "coverage_complete": false,
+    "coverage_complete": true,
     "covered_kinds": [
       "concept",
       "mechanism"
     ],
-    "incomplete": [
-      {
-        "id": "concept.agent_reliability_and_safety_validator_bundle",
-        "issues": [
-          "edge_8_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.architecture_and_navigation_route_contract_bundle",
-        "issues": [
-          "edge_7_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.import_projection_and_drift_control_bundle",
-        "issues": [
-          "edge_5_target_unresolved",
-          "edge_18_target_unresolved",
-          "edge_29_target_unresolved",
-          "edge_31_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.research_and_science_replay_evidence_bundle",
-        "issues": [
-          "edge_4_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.work_landing_and_continuity_control_bundle",
-        "issues": [
-          "edge_4_target_unresolved",
-          "edge_6_target_unresolved"
-        ]
-      }
-    ],
+    "incomplete": [],
     "kinds": {
       "concept": {
-        "incomplete_ids": [
-          "concept.agent_reliability_and_safety_validator_bundle",
-          "concept.architecture_and_navigation_route_contract_bundle",
-          "concept.import_projection_and_drift_control_bundle",
-          "concept.research_and_science_replay_evidence_bundle",
-          "concept.work_landing_and_continuity_control_bundle"
-        ],
-        "issue_rows": [
-          {
-            "id": "concept.agent_reliability_and_safety_validator_bundle",
-            "issues": [
-              "edge_8_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.architecture_and_navigation_route_contract_bundle",
-            "issues": [
-              "edge_7_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.import_projection_and_drift_control_bundle",
-            "issues": [
-              "edge_5_target_unresolved",
-              "edge_18_target_unresolved",
-              "edge_29_target_unresolved",
-              "edge_31_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.research_and_science_replay_evidence_bundle",
-            "issues": [
-              "edge_4_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.work_landing_and_continuity_control_bundle",
-            "issues": [
-              "edge_4_target_unresolved",
-              "edge_6_target_unresolved"
-            ]
-          }
-        ],
+        "incomplete_ids": [],
+        "issue_rows": [],
         "required_structures": [
           "source_refs",
           "valid_json_object",
@@ -234,14 +158,14 @@
           "resolved_mechanism_route",
           "empty_unpopulated_selective_relations"
         ],
-        "routed": 6,
+        "routed": 11,
         "total": 11
       },
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 25,
-        "known_residual_selective_relation_row_count": 25,
+        "known_residual_selective_relation_count": 26,
+        "known_residual_selective_relation_row_count": 26,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
@@ -290,6 +214,10 @@
           {
             "count": 1,
             "id": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule"
           },
           {
             "count": 1,
@@ -395,13 +323,13 @@
         "total": 95
       }
     },
-    "routed_objects": 101,
+    "routed_objects": 106,
     "schema_version": "microcosm_doctrine_routing_floor_v2",
     "source_of_record": {
       "concept": "concepts/concept.*.json",
       "mechanism": "mechanisms/mechanism.*.json"
     },
-    "status": "partial",
+    "status": "complete",
     "total_objects": 106
   },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
@@ -478,6 +406,6 @@
   },
   "source_of_record": "core/doctrine_enrichment.json",
   "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
-  "status": "partial",
+  "status": "complete",
   "total_objects": 49
 }

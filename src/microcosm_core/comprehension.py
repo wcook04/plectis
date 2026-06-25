@@ -93,6 +93,7 @@ PACKET_ROUTE_ASSAY_SCHEMA = "microcosm_packet_route_assay_v0"
 SELF_MODEL_SCHEMA = "microcosm_whole_system_self_model_v0"
 WHOLE_SYSTEM_ASSAY_SCHEMA = "microcosm_whole_system_comprehension_assay_v0"
 FIRST_ACTION_ASSAY_SCHEMA = "microcosm_first_action_assay_v0"
+DOCTRINE_PACKET_SCHEMA = "plectis_doctrine_comprehension_packet_v1"
 
 # atom_value_membrane_v0 -- the export contract every read pack declares. Only the
 # presence_only band is active in v0; the richer bands are declared but dormant so a
@@ -147,6 +148,7 @@ _START_HERE_ROUTES = [
     'plectis comprehend --first-action "<goal>"',
     "plectis comprehend --first-contact",
     "plectis comprehend --slice authority",
+    "plectis comprehend --slice doctrine",
     "plectis comprehend --organ <organ_id>",
     "plectis comprehend --slice organs",
 ]
@@ -201,6 +203,14 @@ def _load_json(path: Path) -> Any:
         return None
 
 
+def _dict(value: Any) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def _list(value: Any) -> list[Any]:
+    return value if isinstance(value, list) else []
+
+
 def load_inputs(root: Path | None = None) -> dict[str, Any]:
     """[ACTION]
     Load the three public inputs the compiler joins, tolerating absent ones.
@@ -218,6 +228,7 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
     join_index = _load_json(base / "receipts/code_lens/code_lens_join_index_v0.json")
     atlas = _load_json(base / "core/organ_atlas.json")
     synopses_doc = _load_json(base / "core/component_public_synopses.json")
+    doctrine_reader = _load_json(base / "core/doctrine_reader_projection.json")
     _membrane_guard(join_index)
     atlas_rows = (atlas or {}).get("organs") or []
     join_organs = ((join_index or {}).get("nodes") or {}).get("organ") or []
@@ -235,6 +246,12 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
             str(n.get("organ_id")): n for n in join_organs if isinstance(n, dict)
         },
         "synopsis_by_organ": {str(k): str(v) for k, v in synopses.items()},
+        "doctrine_reader": doctrine_reader,
+        "doctrine_by_id": {
+            str(r.get("id")): r
+            for r in _list((doctrine_reader or {}).get("records"))
+            if isinstance(r, dict) and r.get("id")
+        },
     }
 
 
@@ -1013,6 +1030,97 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
     return pack
 
 
+def compile_doctrine(inputs: dict[str, Any], target: str | None = None) -> dict[str, Any]:
+    """[ACTION]
+    Compile the doctrine reader packet from the generated reader projection.
+
+    - Teleology: answer doctrine questions from the same semantic model that feeds
+      repository Markdown and the website, including ordinary meaning, analogy
+      boundary, formal reading, examples, enforcement, and scope.
+    - Guarantee: returns a presence_only reference packet; with a target such as
+      AX-9/P-1/AP-1 it emits the full selected record, otherwise it emits one
+      bounded summary row per record plus the projection quality contract.
+    - Fails: never raises; missing reader projection yields found=False and the
+      owner commands needed to regenerate it.
+    - Reads: the in-memory doctrine_reader projection loaded from
+      core/doctrine_reader_projection.json.
+    - Non-goal: never treats the packet, Markdown, or website as semantic source
+      authority and never authorizes release or proof correctness.
+    """
+    projection = _dict(inputs.get("doctrine_reader"))
+    pack = _pack_skeleton("reference", "audit public doctrine")
+    pack["schema_version"] = DOCTRINE_PACKET_SCHEMA
+    pack["summary"]["what_not_to_trust"] = (
+        "This packet is a projection from core/doctrine_enrichment.json. It is not "
+        "source authority, proof authority, release approval, or a deployed-website receipt."
+    )
+    if not projection:
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = "Doctrine reader projection is not generated yet."
+        pack["summary"]["what_to_inspect_next"] = [
+            "PYTHONPATH=src python3 scripts/build_doctrine_projection.py --write-reader-surfaces",
+            "PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-reader-surfaces",
+        ]
+        pack["selected_nodes"] = []
+        pack["evidence_refs"] = ["core/doctrine_enrichment.json"]
+        return pack
+
+    by_id = inputs.get("doctrine_by_id") or {}
+    target_id = str(target or "").strip().upper()
+    pack["found"] = True
+    pack["authority_boundary"] = projection.get("authority_boundary")
+    pack["source_of_record"] = projection.get("source_of_record")
+    pack["quality_contract"] = projection.get("quality_contract")
+    pack["projection_profiles"] = projection.get("projection_profiles")
+    pack["publication_state"] = projection.get("publication_state")
+    if target_id:
+        record = _dict(by_id.get(target_id))
+        pack["target"] = target_id
+        pack["found"] = bool(record)
+        pack["summary"]["what_this_is"] = (
+            f"Full doctrine reader packet for {target_id}."
+            if record
+            else f"No doctrine record matched {target_id}."
+        )
+        pack["summary"]["what_to_inspect_next"] = [
+            "plectis comprehend --slice doctrine",
+            "DOCTRINE.md",
+        ]
+        pack["selected_nodes"] = [record] if record else []
+    else:
+        records = [
+            {
+                "kind": "doctrine_record",
+                "id": row.get("id"),
+                "doctrine_kind": row.get("kind"),
+                "canonical_statement": row.get("canonical_statement"),
+                "plain_meaning": row.get("plain_meaning"),
+                "analogy_boundary": _dict(row.get("analogy")).get("boundary"),
+                "source_ref": _dict(row.get("source")).get("source_ref"),
+                "basis_digest": row.get("basis_digest"),
+                "drilldown": f"plectis comprehend --doctrine {row.get('id')}",
+            }
+            for row in _list(projection.get("records"))
+            if isinstance(row, dict)
+        ]
+        pack["summary"]["what_this_is"] = (
+            f"Doctrine reader index over {projection.get('record_count')} records "
+            "from core/doctrine_enrichment.json."
+        )
+        pack["summary"]["what_to_inspect_next"] = [
+            "plectis comprehend --doctrine AX-9",
+            "DOCTRINE.md",
+            "core/doctrine_reader_projection.json",
+        ]
+        pack["selected_nodes"] = records
+    pack["evidence_refs"] = [
+        "core/doctrine_enrichment.json",
+        "core/doctrine_reader_projection.json",
+        "DOCTRINE.md",
+    ]
+    return pack
+
+
 def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
     """[ACTION]
     Compile the organ roster read pack: one synopsis line per organ.
@@ -1135,11 +1243,36 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     if any(
         w in text
         for w in (
+            "doctrine",
+            "axiom",
+            "axioms",
+            "principle",
+            "principles",
+            "anti-principle",
+            "anti principles",
+            "ax-",
+            "p-",
             "whole system", "whole microcosm", "everything", "self model", "self-model",
             "entire substrate", "operating picture", "all at once", "comprehend the whole",
             "comprehend all", "understand the whole", "comprehend everything",
         )
     ):
+        if any(
+            marker in text
+            for marker in (
+                "doctrine",
+                "axiom",
+                "axioms",
+                "principle",
+                "principles",
+                "anti-principle",
+                "anti principles",
+                "ax-",
+                "p-",
+            )
+        ):
+            match = re.search(r"\b(?:AX|AP|P)-\d+\b", raw_text, flags=re.IGNORECASE)
+            return "doctrine", match.group(0).upper() if match else None, None
         return "self-model", None, None
     if any(w in text for w in ("math", "proof", "lean", "formal", "theorem", "mathlib")):
         return "math", None, None
@@ -1457,7 +1590,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 200,
         "data_status": "full",
-        "next_packets": ["first_action", "self_model", "first_contact", "authority", "organs_index"],
+        "next_packets": ["first_action", "self_model", "first_contact", "authority", "doctrine", "organs_index"],
     },
     {
         "packet_id": "first_action",
@@ -1502,7 +1635,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "standard",
         "slo_ms": 300,
         "data_status": "full",
-        "next_packets": ["self_model", "authority", "organ_cluster", "organs_index", "mutation_plan"],
+        "next_packets": ["self_model", "authority", "doctrine", "organ_cluster", "organs_index", "mutation_plan"],
     },
     {
         "packet_id": "authority",
@@ -1518,6 +1651,21 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "slo_ms": 300,
         "data_status": "full",
         "next_packets": ["organ", "claim_trace"],
+    },
+    {
+        "packet_id": "doctrine",
+        "packet_kind": "reference",
+        "mode": "doctrine",
+        "when_needed": "audit axioms/principles/anti-principles with plain meaning, analogy boundary, formal reading, examples, and scope",
+        "command": "plectis comprehend --slice doctrine [--doctrine AX-9]",
+        "inputs": ["doctrine_reader_projection"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "standard",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["authority", "self_model", "organs_index"],
     },
     {
         "packet_id": "organs_index",
@@ -3637,6 +3785,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
 _MODE_COMPILERS = {
     "first-contact": lambda inputs, target: compile_first_contact(inputs),
     "authority": lambda inputs, target: compile_authority(inputs),
+    "doctrine": lambda inputs, target: compile_doctrine(inputs, target),
     "organs": lambda inputs, target: compile_organs_index(inputs),
     "organ": lambda inputs, target: compile_organ(inputs, target or ""),
     "packet-atlas": lambda inputs, target: compile_packet_atlas(inputs),
@@ -3967,6 +4116,7 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("I just cloned this repo, what is it?", "first_contact"),
     ("comprehend the whole microcosm at once", "self_model"),
     ("where are the math and proof surfaces?", "math"),
+    ("explain AX-9 doctrine", "doctrine"),
     ("how is this claim justified, what receipt proves it?", "claim_trace"),
     ("how does execution flow here", "flow"),
     ("what may I trust here?", "authority"),

@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

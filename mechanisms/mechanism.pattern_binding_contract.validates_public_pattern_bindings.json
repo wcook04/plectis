@@ -374,11 +374,11 @@
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {
@@ -413,11 +413,11 @@
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {
@@ -426,11 +426,11 @@
         },
         "relation_id": "mechanism.upstream_of.mechanism",
         "relation_verb": "upstream_of",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "downstream_of",
         "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {

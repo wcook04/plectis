@@ -84,7 +84,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -101,7 +101,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+        "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
         "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input",
         "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle",
         "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
@@ -194,7 +194,7 @@
       "runs_in": [
         "batch8_tools_tail_primitives_capsule"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
       "statement": "The Batch 8 tools-tail primitives capsule validates four copied public tools-tail source modules by exercising observer set diffs, JSON patch interpretation, stable ledger-id hashing, shadow-envelope parsing, source-module digest anchors, four negative cases, body-free receipts, and authority ceilings without live oracle/provider/source-mutation/release lanes.",
       "status": "active",
       "upstream_of": []
@@ -205,7 +205,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -276,7 +276,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -289,7 +289,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -302,7 +302,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -317,14 +317,21 @@
     "runs_in": [
       "batch8_tools_tail_primitives_capsule"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
-    "unpopulated_selective_relations": [],
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "status": "residual_pressure"
+      }
+    ],
     "upstream_mechanism_refs": []
   },
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+      "path": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

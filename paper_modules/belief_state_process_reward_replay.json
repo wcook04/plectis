@@ -7,7 +7,7 @@
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
     "authority_ceiling": "Source-faithful refactored fixtures and copied non-secret macro bodies only; not fixture-echo product evidence, benchmark result, or release claim.",
-    "card": "Public Microcosm projection of a belief-state process-reward claim contract. Backed by the public agent-execution trace refactor lane plus copied non-secret macro source bodies; validates trajectory groups, cold replay receipts, negative cases, and authority ceilings.",
+    "card": "Public Plectis projection of a belief-state process-reward claim contract. Backed by the public agent-execution trace refactor lane plus copied non-secret macro source bodies; validates trajectory groups, cold replay receipts, negative cases, and authority ceilings.",
     "one_line": "Public projection of a belief-state process-reward claim contract, backed by the agent-execution trace refactor and copied non-secret macro bodies."
   },
   "created_at": "2026-06-02T00:00:00Z",
@@ -78,7 +78,7 @@
       ],
       "compression": {
         "authority_ceiling": "Source-faithful refactored fixtures and copied non-secret macro bodies only; not fixture-echo product evidence, benchmark result, or release claim.",
-        "card": "Public Microcosm projection of a belief-state process-reward claim contract. Backed by the public agent-execution trace refactor lane plus copied non-secret macro source bodies; validates trajectory groups, cold replay receipts, negative cases, and authority ceilings.",
+        "card": "Public Plectis projection of a belief-state process-reward claim contract. Backed by the public agent-execution trace refactor lane plus copied non-secret macro source bodies; validates trajectory groups, cold replay receipts, negative cases, and authority ceilings.",
         "one_line": "Public projection of a belief-state process-reward claim contract, backed by the agent-execution trace refactor and copied non-secret macro bodies."
       },
       "concept_refs": [

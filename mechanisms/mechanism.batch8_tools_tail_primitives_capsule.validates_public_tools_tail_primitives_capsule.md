@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[48:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement
@@ -15,6 +15,7 @@ The Batch 8 tools-tail primitives capsule validates four copied public tools-tai
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py` (resolved_code_locus)
 - `runs_in` -> `organ:batch8_tools_tail_primitives_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
+- `mechanism.upstream_of.mechanism` -> residual pressure (Mechanism source row does not name sibling/upstream mechanism relations.)
 
 ## Anti-Claims
 

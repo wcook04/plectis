@@ -84,7 +84,7 @@
       "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
       "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -101,7 +101,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
+        "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
         "fixtures/first_wave/navigation_hologram_route_plane/input",
         "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[5:architecture_and_navigation_route_contract_bundle]"
@@ -212,7 +212,7 @@
       "runs_in": [
         "navigation_hologram_route_plane"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
       "statement": "The navigation hologram route-plane organ validates public route-plane fixture rows and exported bundle inputs by checking route projection contracts, source-coupling fingerprints, copied source-module digests and anchors, route-lease policy, entry-packet floors, affordance-passport selection, code-architecture projection packets, and secret/private-state scan boundaries before writing bounded receipts.",
       "status": "active",
       "upstream_of": [
@@ -235,7 +235,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -307,7 +307,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -320,7 +320,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -333,7 +333,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -346,7 +346,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -359,7 +359,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -372,7 +372,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -385,7 +385,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -398,7 +398,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -411,7 +411,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -424,7 +424,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -437,7 +437,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -450,7 +450,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -463,7 +463,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -476,7 +476,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -491,7 +491,7 @@
     "runs_in": [
       "navigation_hologram_route_plane"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
@@ -510,7 +510,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
+      "path": "core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

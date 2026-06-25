@@ -16,7 +16,7 @@ The Batch 11 saturation engines capsule validates copied public macro-body behav
 - `runs_in` -> `organ:batch11_saturation_engines_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
 
 ## Anti-Claims
 

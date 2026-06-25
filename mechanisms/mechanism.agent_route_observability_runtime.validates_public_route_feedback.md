@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[4:mechanism.agent_route_observability_runtime.validates_public_route_feedback]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[86:mechanism.agent_route_observability_runtime.validates_public_route_feedback]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

@@ -1,0 +1,618 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-7",
+    "AX-8",
+    "AX-11"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/engine_room_demo.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for Engine Room demo fixture evaluation, controller audit binding, missing-target negative cases, body-free receipts, and authority ceilings.",
+      "symbols": [
+        "build_result",
+        "run",
+        "run_engine_room_demo_bundle",
+        "_evaluate_case",
+        "_build_validation_receipt",
+        "_build_acceptance_receipt",
+        "AUTHORITY_CEILING"
+      ]
+    },
+    {
+      "path": "src/microcosm_core/engine_room/demo.py",
+      "resolution": "resolved",
+      "role": "Staged Engine Room composition locus that enumerates the capsule surfaces, 14 jewel targets, controller audit, and shared-registry non-mutation evidence.",
+      "symbols": [
+        "CAPSULES",
+        "EXPECTED_JEWEL_TARGETS",
+        "run_demo",
+        "audit_controller_coverage"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.import_projection_and_drift_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Engine Room Demo",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "import_projection_and_drift",
+  "id": "engine_room_demo",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "semantic_validator",
+      "edge_justification": "The tracked public fixtures, Engine Room controller audit, focused organ validator, and body-free receipts validate the staged composition demo without granting production, proof, security, provider, source-mutation, release, or publication authority.",
+      "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[64:engine_room_demo]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "engine_room_demo",
+  "organ_payload": {
+    "claim_ceiling": "It validates only the public Engine Room composition contract; it is not production readiness, private-root equivalence, frontier theorem proving, complete security proof, publication, or release approval.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/engine_room_demo.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/engine_room_demo.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the staged Engine Room composition: all 14 targets must be covered, every capsule surface must exist, the executable capsule chain must pass, and the planted missing-target case must be observed.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "claim_ceiling_restated": "It validates only the public Engine Room composition contract; it is not production readiness, private-root equivalence, frontier theorem proving, complete security proof, publication, or release approval.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/engine_room_demo.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for Engine Room demo fixture evaluation, controller audit binding, missing-target negative cases, body-free receipts, and authority ceilings.",
+          "symbols": [
+            "build_result",
+            "run",
+            "run_engine_room_demo_bundle",
+            "_evaluate_case",
+            "_build_validation_receipt",
+            "_build_acceptance_receipt",
+            "AUTHORITY_CEILING"
+          ]
+        },
+        {
+          "path": "src/microcosm_core/engine_room/demo.py",
+          "resolution": "resolved",
+          "role": "Staged Engine Room composition locus that enumerates the capsule surfaces, 14 jewel targets, controller audit, and shared-registry non-mutation evidence.",
+          "symbols": [
+            "CAPSULES",
+            "EXPECTED_JEWEL_TARGETS",
+            "run_demo",
+            "audit_controller_coverage"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "display_name": "Engine Room Demo",
+      "evidence_class": "semantic_validator",
+      "family": "import_projection_and_drift",
+      "first_command": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+      "human_gloss": "This organ turns the staged Engine Room capsules into one accepted public demo surface. It exercises the proof-search, runtime, integrity, security, navigation, orchestration, and annex-routing capsules through bounded public fixtures with explicit anti-claims.",
+      "mechanism_refs": [
+        {
+          "authority_class": "semantic_validator",
+          "edge_justification": "The tracked public fixtures, Engine Room controller audit, focused organ validator, and body-free receipts validate the staged composition demo without granting production, proof, security, provider, source-mutation, release, or publication authority.",
+          "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "engine_room_demo",
+      "paper_module_ref": "paper_modules/engine_room_demo.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "receipt_refs": [
+        "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_result.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_board.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_validation_receipt.json"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[64:engine_room_demo]",
+      "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "standalone_or_wired": "wired_composition_demo",
+      "wires_to": [
+        "batch8_compliance_pipeline_capsule",
+        "batch8_validator_checker_capsule"
+      ],
+      "wiring_note": "Wraps microcosm_core.engine_room.demo and the ten staged Engine Room capsule validators into one accepted receipt-writing organ; it writes public first-wave receipts and does not export private macro state or mutate shared registries at runtime."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "validates the staged Engine Room composition demo, owned capsule surfaces, 14 target inventory, executable fixture chain, and missing-target negative case over public-safe fixtures",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[engine_room_demo]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/engine_room_demo/engine_room_demo_result.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_board.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_validation_receipt.json",
+        "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
+      ],
+      "organ_id": "engine_room_demo",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.engine_room_demo",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_import_validation",
+      "validator_command": "python -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/engine_room_demo.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-5",
+    "P-6",
+    "P-8",
+    "P-9",
+    "P-12",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+    "receipts/first_wave/engine_room_demo/engine_room_demo_result.json",
+    "receipts/first_wave/engine_room_demo/engine_room_demo_board.json",
+    "receipts/first_wave/engine_room_demo/engine_room_demo_validation_receipt.json",
+    "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/engine_room_demo.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for Engine Room demo fixture evaluation, controller audit binding, missing-target negative cases, body-free receipts, and authority ceilings.",
+        "symbols": [
+          "build_result",
+          "run",
+          "run_engine_room_demo_bundle",
+          "_evaluate_case",
+          "_build_validation_receipt",
+          "_build_acceptance_receipt",
+          "AUTHORITY_CEILING"
+        ]
+      },
+      {
+        "path": "src/microcosm_core/engine_room/demo.py",
+        "resolution": "resolved",
+        "role": "Staged Engine Room composition locus that enumerates the capsule surfaces, 14 jewel targets, controller audit, and shared-registry non-mutation evidence.",
+        "symbols": [
+          "CAPSULES",
+          "EXPECTED_JEWEL_TARGETS",
+          "run_demo",
+          "audit_controller_coverage"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.engine_room_demo",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].mechanism_refs[0]",
+          "summary": "The tracked public fixtures, Engine Room controller audit, focused organ validator, and body-free receipts validate the staged composition demo without granting production, proof, security, provider, source-mutation, release, or publication authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for Engine Room demo fixture evaluation, controller audit binding, missing-target negative cases, body-free receipts, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/engine_room_demo.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].code_loci[1]",
+          "summary": "Staged Engine Room composition locus that enumerates the capsule surfaces, 14 jewel targets, controller audit, and shared-registry non-mutation evidence."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/engine_room/demo.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_compliance_pipeline_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_validator_checker_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "semantic_validator",
+        "edge_justification": "The tracked public fixtures, Engine Room controller audit, focused organ validator, and body-free receipts validate the staged composition demo without granting production, proof, security, provider, source-mutation, release, or publication authority.",
+        "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/engine_room_demo.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[64:engine_room_demo]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "batch8_compliance_pipeline_capsule",
+      "batch8_validator_checker_capsule"
+    ]
+  },
+  "role": "An agent runs it to validate the staged Engine Room composition: all 14 targets must be covered, every capsule surface must exist, the executable capsule chain must pass, and the planted missing-target case must be observed.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[64:engine_room_demo]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[64:engine_room_demo]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/engine_room_demo.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "source-import",
+    "provenance",
+    "drift-control"
+  ],
+  "statement": "An agent runs it to validate the staged Engine Room composition: all 14 targets must be covered, every capsule surface must exist, the executable capsule chain must pass, and the planted missing-target case must be observed.",
+  "status": "accepted_current_authority",
+  "title": "Engine Room Demo",
+  "validator_refs": [
+    "python -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "batch8_compliance_pipeline_capsule",
+    "batch8_validator_checker_capsule"
+  ]
+}

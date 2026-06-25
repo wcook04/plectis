@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

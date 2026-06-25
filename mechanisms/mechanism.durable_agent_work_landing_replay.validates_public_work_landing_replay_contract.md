@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[20:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[91:mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

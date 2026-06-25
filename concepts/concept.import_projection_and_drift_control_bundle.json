@@ -96,14 +96,7 @@
       "unstated source refs",
       "live freshness beyond named receipts"
     ],
-    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure.",
-    "residual_pressure": [
-      {
-        "gap_class": "concept_selective_edges_unpopulated_or_unresolved",
-        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-        "reentry_condition": "Bind concept implements/instantiated_by/abides_by edges from source evidence once target ids are named and resolve as generated instances."
-      }
-    ]
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
   },
   "population_specimen_contract": {
     "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
@@ -207,11 +200,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
         "target_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {
@@ -376,11 +369,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
         "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {
@@ -519,11 +512,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
         "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {
@@ -545,11 +538,11 @@
         },
         "relation_id": "concept.instantiated_by.mechanism",
         "relation_verb": "instantiated_by",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "instantiates",
         "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {

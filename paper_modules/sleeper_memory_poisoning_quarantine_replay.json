@@ -7,7 +7,7 @@
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
     "authority_ceiling": "Synthetic replay fixture only; not a live memory product, live user memory import, benchmark security result, private memory export, or release claim.",
-    "card": "Public Microcosm projection of a persistent-memory security claim contract. Replays synthetic memory-poisoning episodes and validates quarantine behavior, audit refs, rerun receipts, negative cases, and authority ceilings with body-free receipts.",
+    "card": "Public Plectis projection of a persistent-memory security claim contract. Replays synthetic memory-poisoning episodes and validates quarantine behavior, audit refs, rerun receipts, negative cases, and authority ceilings with body-free receipts.",
     "one_line": "Synthetic replay fixture for a persistent-memory security contract: quarantine of poisoned memory, audit refs, rerun receipts, negative cases, authority"
   },
   "created_at": "2026-06-02T00:00:00Z",
@@ -78,7 +78,7 @@
       ],
       "compression": {
         "authority_ceiling": "Synthetic replay fixture only; not a live memory product, live user memory import, benchmark security result, private memory export, or release claim.",
-        "card": "Public Microcosm projection of a persistent-memory security claim contract. Replays synthetic memory-poisoning episodes and validates quarantine behavior, audit refs, rerun receipts, negative cases, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis projection of a persistent-memory security claim contract. Replays synthetic memory-poisoning episodes and validates quarantine behavior, audit refs, rerun receipts, negative cases, and authority ceilings with body-free receipts.",
         "one_line": "Synthetic replay fixture for a persistent-memory security contract: quarantine of poisoned memory, audit refs, rerun receipts, negative cases, authority"
       },
       "concept_refs": [

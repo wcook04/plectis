@@ -219,7 +219,7 @@
         "target_status": "resolved_json_instance"
       }
     ],
-    "entry_ref": "microcosm standards-meta-diagnostics run-diagnostics-bundle",
+    "entry_ref": "plectis standards-meta-diagnostics run-diagnostics-bundle",
     "mechanism_pair_ref": "standards_meta_diagnostics_bundle.concept_binding",
     "mechanism_refs": [
       "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
@@ -267,7 +267,7 @@
   "status": "active",
   "title": "organ-standard-runtime-receipt coverage as projection-only evidence",
   "validator_refs": [
-    "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
+    "plectis standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
     "tests/test_standards_meta_diagnostics.py::test_standards_meta_diagnostics_bundle_validates_runtime_shape"
   ]
 }

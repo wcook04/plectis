@@ -16,7 +16,7 @@ The Batch 7 macro engines capsule validates copied public macro-body behavior th
 - `runs_in` -> `organ:batch7_macro_engines_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule` (resolved_json_instance)
 
 ## Anti-Claims

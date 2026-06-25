@@ -85,7 +85,7 @@
       "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
       "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -102,7 +102,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
+        "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
         "fixtures/first_wave/macro_projection_import_protocol/input",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle]"
@@ -197,7 +197,7 @@
       "runs_in": [
         "macro_projection_import_protocol"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
       "statement": "The macro projection import protocol organ validates fixture and exported projection bundles by checking source refs, public target refs, content digests, per-slice source-module manifests, omission receipts, authority ceilings, intake cell statuses, validation refs, and secret-exclusion scans before writing bounded public receipts.",
       "status": "active",
       "upstream_of": [
@@ -236,7 +236,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -305,7 +305,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -318,7 +318,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -331,7 +331,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -344,7 +344,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -357,7 +357,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -370,7 +370,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -383,7 +383,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -396,7 +396,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -409,7 +409,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -422,7 +422,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -435,7 +435,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -448,7 +448,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -461,7 +461,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -474,7 +474,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -487,7 +487,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -500,7 +500,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -513,7 +513,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -526,7 +526,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -539,7 +539,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -552,7 +552,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -565,7 +565,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -578,7 +578,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -591,7 +591,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -604,7 +604,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -617,7 +617,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -630,7 +630,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -643,7 +643,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -656,7 +656,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -669,7 +669,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -682,7 +682,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -697,7 +697,7 @@
     "runs_in": [
       "macro_projection_import_protocol"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
@@ -732,7 +732,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[17:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
+      "path": "core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

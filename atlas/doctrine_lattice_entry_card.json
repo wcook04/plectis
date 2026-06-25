@@ -55,19 +55,19 @@
     "expected_anti_principle_count": 17,
     "expected_axiom_count": 12,
     "expected_concept_count": 11,
-    "expected_mechanism_count": 86,
+    "expected_mechanism_count": 95,
     "expected_organ_count": 78,
     "expected_paper_module_count": 93,
     "expected_principle_count": 20,
     "expected_skill_count": 389,
     "expected_standard_count": 141,
-    "mechanism_capsule_dependency_upstream_covered_edge_count": 128,
+    "mechanism_capsule_dependency_upstream_covered_edge_count": 217,
     "mechanism_capsule_dependency_upstream_missing_count": 0,
-    "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 91,
+    "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 0,
     "mechanism_json_instance_count": 95,
     "mechanism_json_missing_count": 0,
-    "mechanism_json_parity_status": "blocked",
-    "mechanism_unpopulated_selective_relation_count": 25,
+    "mechanism_json_parity_status": "pass",
+    "mechanism_unpopulated_selective_relation_count": 26,
     "mechanism_without_code_loci_count": 0,
     "organ_json_instance_count": 78,
     "organ_json_missing_count": 0,
@@ -89,10 +89,10 @@
     "principle_json_missing_count": 0,
     "principle_json_parity_status": "pass",
     "receipt_missing_ref_count": 0,
-    "receipt_unresolved_nonlocal_ref_count": 0,
+    "receipt_unresolved_nonlocal_ref_count": 7,
     "receipt_walkable_node_count": 591,
     "resolved_code_locus_count": 80,
-    "resolved_mechanism_count": 69,
+    "resolved_mechanism_count": 78,
     "skill_json_instance_count": 389,
     "skill_json_missing_count": 0,
     "skill_json_parity_status": "pass",
@@ -125,7 +125,7 @@
   "fake_green_guards": [
     {
       "current_planned_count": 0,
-      "current_resolved_count": 69,
+      "current_resolved_count": 78,
       "guard_id": "planned_mechanism_not_resolved",
       "rule": "resolution_status=planned_unresolved increments planned_mechanism_count and never resolved_mechanism_count."
     },
@@ -163,9 +163,9 @@
     }
   ],
   "generation": {
-    "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "coverage_projection_digest": "e574a1a12bcf0a734139dbe3b024cf48956b5184bb6dabb6fcc933ead78d75e0",
-    "generated_at": "2026-06-21T18:56:53.644305Z",
+    "command": "python -m microcosm_core.doctrine_lattice --write-entry-card",
+    "coverage_projection_digest": "759b54b64c67bcc75154dd74373d0b81808162cfc150522dc307f41e128be1d2",
+    "generated_at": "2026-06-25T00:08:13.065057Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],
@@ -198,14 +198,14 @@
     "standard_instances": "standards/std_microcosm_*.json",
     "standards_registry": "core/standards_registry.json"
   },
-  "status": "blocked",
+  "status": "pass",
   "status_card": {
-    "contract_status": "blocked",
+    "contract_status": "pass",
     "deficit_summary": {
       "concept_json_missing_count": 0,
       "concept_unpopulated_selective_relation_count": 0,
       "mechanism_json_missing_count": 0,
-      "mechanism_unpopulated_selective_relation_count": 25,
+      "mechanism_unpopulated_selective_relation_count": 26,
       "mechanism_without_code_loci_count": 0,
       "organ_json_missing_count": 0,
       "organ_required_relation_gap_count": 0,
@@ -218,7 +218,7 @@
       "paper_module_required_subject_gap_count": 0,
       "paper_module_unpopulated_selective_relation_count": 0,
       "paper_module_without_json_capsule_count": 0,
-      "registry_atlas_join_error_count": 9,
+      "registry_atlas_join_error_count": 0,
       "skill_json_missing_count": 0,
       "skill_required_relation_gap_count": 0,
       "skill_unpopulated_selective_relation_count": 6,
@@ -240,12 +240,12 @@
     "relation_registry_status": "pass",
     "release_readiness_status": "ready_for_separate_release_gate",
     "schema_version": "microcosm_doctrine_lattice_status_card_v1",
-    "status": "blocked"
+    "status": "pass"
   },
   "status_chips": [
     {
       "chip_id": "contract",
-      "status": "blocked"
+      "status": "pass"
     },
     {
       "chip_id": "population",

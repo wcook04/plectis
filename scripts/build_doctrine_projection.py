@@ -59,6 +59,12 @@ from microcosm_core.doctrine_lattice import (  # noqa: E402
     write_principle_instance,
     write_skill_instance_corpus,
 )
+from microcosm_core.doctrine_reader_projection import (  # noqa: E402
+    DOCTRINE_MARKDOWN_REL,
+    READER_PROJECTION_REL,
+    validate_doctrine_reader_projection,
+    write_doctrine_reader_surfaces,
+)
 
 
 COVERAGE_REL = "core/doctrine_lattice_coverage.json"
@@ -68,6 +74,8 @@ STATUS_SURFACE_RELS = (
     DOCTRINE_HEALTH_REL,
     COVERAGE_REL,
     ENTRY_CARD_REL,
+    READER_PROJECTION_REL,
+    DOCTRINE_MARKDOWN_REL,
 )
 
 
@@ -298,6 +306,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="write only doctrine projection, graph, health, coverage, and entry-card surfaces",
     )
+    parser.add_argument(
+        "--write-reader-surfaces",
+        action="store_true",
+        help="write repository/agent reader doctrine projection surfaces from core/doctrine_enrichment.json",
+    )
+    parser.add_argument(
+        "--check-reader-surfaces",
+        action="store_true",
+        help="check repository/agent reader doctrine projection surfaces for semantic parity",
+    )
     return parser
 
 
@@ -416,8 +434,26 @@ def main(argv: list[str] | None = None) -> int:
         result = validate_standard_instance_corpus(root)
         print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
         return 0 if result["status"] == "pass" else 1
+    if args.check_reader_surfaces:
+        result = validate_doctrine_reader_projection(root)
+        print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+        return 0 if result["status"] == "pass" else 1
+    if args.write_reader_surfaces:
+        projection = write_doctrine_reader_surfaces(root)
+        result = {
+            "schema_version": "plectis_doctrine_reader_surface_write_v1",
+            "status": projection["status"],
+            "record_count": projection["record_count"],
+            "written": [
+                READER_PROJECTION_REL,
+                DOCTRINE_MARKDOWN_REL,
+            ],
+        }
+        print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+        return 0 if result["status"] == "pass" else 1
     if args.check:
         doctrine_result = validate_doctrine_projection(root)
+        reader_result = validate_doctrine_reader_projection(root)
         coverage_path = root / COVERAGE_REL
         entry_card_path = root / ENTRY_CARD_REL
         coverage_result = validate_coverage_projection(
@@ -433,10 +469,16 @@ def main(argv: list[str] | None = None) -> int:
             "status": "pass"
             if all(
                 row["status"] == "pass"
-                for row in (doctrine_result, coverage_result, entry_card_result)
+                for row in (
+                    doctrine_result,
+                    reader_result,
+                    coverage_result,
+                    entry_card_result,
+                )
             )
             else "blocked",
             "doctrine_projection": doctrine_result,
+            "doctrine_reader_projection": reader_result,
             "coverage_projection": coverage_result,
             "entry_card": entry_card_result,
         }
@@ -445,24 +487,39 @@ def main(argv: list[str] | None = None) -> int:
     if args.write_aggregate_surfaces:
         command = "python scripts/build_doctrine_projection.py --write-aggregate-surfaces"
         projection = write_doctrine_projection(root, command=command)
+        doctrine_validation = validate_doctrine_projection(root)
         coverage = write_coverage_projection(
             root,
             root / COVERAGE_REL,
             command=command,
+        )
+        coverage_validation = validate_coverage_projection(
+            json.loads((root / COVERAGE_REL).read_text(encoding="utf-8")),
+            root,
         )
         entry_card = write_entry_card(
             root,
             root / ENTRY_CARD_REL,
             command=command,
         )
+        entry_card_validation = validate_entry_card(
+            json.loads((root / ENTRY_CARD_REL).read_text(encoding="utf-8")),
+            root,
+        )
         result = {
             "schema_version": "microcosm_doctrine_lattice_aggregate_surface_write_v1",
             "status": "pass"
-            if projection["status"] == coverage["status"] == entry_card["status"] == "pass"
+            if all(
+                row["status"] == "pass"
+                for row in (doctrine_validation, coverage_validation, entry_card_validation)
+            )
             else "blocked",
-            "projection_status": projection["status"],
-            "coverage_status": coverage["status"],
-            "entry_card_status": entry_card["status"],
+            "projection_content_status": projection["status"],
+            "coverage_content_status": coverage["status"],
+            "entry_card_content_status": entry_card["status"],
+            "projection_validation_status": doctrine_validation["status"],
+            "coverage_validation_status": coverage_validation["status"],
+            "entry_card_validation_status": entry_card_validation["status"],
             "written": [
                 DOCTRINE_PROJECTION_REL,
                 DOCTRINE_GRAPH_REL,
@@ -484,11 +541,30 @@ def main(argv: list[str] | None = None) -> int:
         skill_corpus = write_skill_instance_corpus(root)
         standard_corpus = build_standard_instance_corpus(root)
         projection = write_doctrine_projection(root)
+        reader_projection = write_doctrine_reader_surfaces(root)
         coverage = write_coverage_projection(root, root / COVERAGE_REL)
         entry_card = write_entry_card(root, root / ENTRY_CARD_REL)
+        doctrine_validation = validate_doctrine_projection(root)
+        reader_validation = validate_doctrine_reader_projection(root)
+        coverage_validation = validate_coverage_projection(
+            json.loads((root / COVERAGE_REL).read_text(encoding="utf-8")),
+            root,
+        )
+        entry_card_validation = validate_entry_card(
+            json.loads((root / ENTRY_CARD_REL).read_text(encoding="utf-8")),
+            root,
+        )
         summary: dict[str, Any] = {
             "status": "pass"
-            if projection["status"] == coverage["status"] == entry_card["status"] == "pass"
+            if all(
+                row["status"] == "pass"
+                for row in (
+                    doctrine_validation,
+                    reader_validation,
+                    coverage_validation,
+                    entry_card_validation,
+                )
+            )
             else "blocked",
             "axiom_corpus": {
                 "json_instance_count": corpus["json_instance_count"],
@@ -542,6 +618,20 @@ def main(argv: list[str] | None = None) -> int:
                 "required_relation_gap_count": standard_corpus["required_relation_gap_count"],
                 "unregistered_file_count": len(standard_corpus["extra_json_ids"]),
             },
+            "doctrine_reader_projection": {
+                "record_count": reader_projection["record_count"],
+                "status": reader_projection["status"],
+                "source_of_record": reader_projection["source_of_record"]["semantic_source"],
+            },
+            "aggregate_surface_validation": {
+                "doctrine_projection_validation_status": doctrine_validation["status"],
+                "doctrine_projection_content_status": projection["status"],
+                "doctrine_reader_validation_status": reader_validation["status"],
+                "coverage_validation_status": coverage_validation["status"],
+                "coverage_content_status": coverage["status"],
+                "entry_card_validation_status": entry_card_validation["status"],
+                "entry_card_content_status": entry_card["status"],
+            },
             "written": [
                 "axioms/*.json",
                 "axioms/*.md",
@@ -562,6 +652,8 @@ def main(argv: list[str] | None = None) -> int:
                 DOCTRINE_HEALTH_REL,
                 COVERAGE_REL,
                 ENTRY_CARD_REL,
+                READER_PROJECTION_REL,
+                DOCTRINE_MARKDOWN_REL,
             ],
             "read_source_authorities": [
                 "standards/std_microcosm_*.json",

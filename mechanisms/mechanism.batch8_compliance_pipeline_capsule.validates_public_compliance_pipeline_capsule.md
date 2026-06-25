@@ -16,7 +16,7 @@ The Batch 8 compliance pipeline capsule validates a bounded public compliance/pi
 - `runs_in` -> `organ:batch8_compliance_pipeline_capsule` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports` (resolved_json_instance)
 
 ## Anti-Claims
 

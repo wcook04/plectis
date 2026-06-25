@@ -84,7 +84,7 @@
       "concept_pair_ref": "work_landing_and_continuity_control_bundle.concept_binding",
       "mechanism_role": "family validators that bind work landing, bridge continuity, recency coalescing, concurrency, and transaction closeout to receipts",
       "omission_receipt": {
-        "drilldown": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
+        "drilldown": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
         "omitted": [
           "private macro source bodies",
           "raw operator voice",
@@ -101,7 +101,7 @@
         ]
       },
       "source_refs": [
-        "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
+        "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
         "fixtures/second_wave/bridge_phase_continuity_runtime/input",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[10:work_landing_and_continuity_control_bundle]"
@@ -192,7 +192,7 @@
       "runs_in": [
         "bridge_phase_continuity_runtime"
       ],
-      "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
+      "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
       "statement": "The bridge phase continuity runtime validates public synthetic observe/apply bridge continuity by checking disk-first continuation packets, heartbeat liveness boundaries, resource-pressure dispatch blocks, resume-once semantics, duplicate-resume rejection, worker-skip dedupe, copied observe-runtime source-module digests, tracked receipt-write gating, private-state scans, and authority ceilings before writing bounded body-free receipts.",
       "status": "active",
       "upstream_of": [
@@ -207,7 +207,7 @@
     }
   },
   "omission_receipt": {
-    "drilldown": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
+    "drilldown": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
     "omitted": [
       "private macro source bodies",
       "raw operator voice",
@@ -274,7 +274,7 @@
     "edges": [
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].code_loci[0]",
+          "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].code_loci[0]",
           "summary": "Mechanism registry row names this code locus as the runtime grounding path."
         },
         "relation_id": "mechanism.grounded_in.code_locus",
@@ -287,7 +287,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].runs_in",
+          "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].runs_in",
           "summary": "Mechanism registry row names this organ as the runtime host."
         },
         "relation_id": "mechanism.runs_in.organ",
@@ -300,7 +300,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].concept_refs",
+          "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].concept_refs",
           "summary": "Mechanism registry row names this concept grounding target."
         },
         "relation_id": "mechanism.grounds.concept",
@@ -313,7 +313,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -326,7 +326,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -339,7 +339,7 @@
       },
       {
         "justification": {
-          "source_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
+          "source_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity].upstream",
           "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
         },
         "relation_id": "mechanism.upstream_of.mechanism",
@@ -354,7 +354,7 @@
     "runs_in": [
       "bridge_phase_continuity_runtime"
     ],
-    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
     "unpopulated_selective_relations": [],
     "upstream_mechanism_refs": [
       "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
@@ -365,7 +365,7 @@
   "schema_version": "microcosm_mechanism_instance_v1",
   "source_refs": [
     {
-      "path": "core/mechanism_sources.json::mechanisms[2:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
+      "path": "core/mechanism_sources.json::mechanisms[90:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity]",
       "role": "mechanism_registry_source_of_record_until_json_parity_flip"
     },
     {

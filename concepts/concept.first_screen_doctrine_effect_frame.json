@@ -192,7 +192,7 @@
         "target_status": "resolved_json_instance"
       }
     ],
-    "entry_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "entry_ref": "plectis first-screen <project>::doctrine_effect_frame",
     "mechanism_pair_ref": "first_screen_doctrine_effect_frame.concept_binding",
     "mechanism_refs": [
       "mechanism.cold_reader_route_map.validates_public_first_run_route_map"
@@ -235,7 +235,7 @@
   "status": "active",
   "title": "doctrine handles as typed mistake-prevention boundaries",
   "validator_refs": [
-    "microcosm first-screen --full <project>",
+    "plectis first-screen --full <project>",
     "tests/test_first_screen_composition_card.py::test_first_screen_payload_exposes_doctrine_effect_frame",
     "tests/test_readme_first_screen_entry.py::test_agent_entry_routes_concepts_and_mechanisms_from_first_screen"
   ]

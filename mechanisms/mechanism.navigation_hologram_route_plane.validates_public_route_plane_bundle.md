@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[1:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[93:mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement

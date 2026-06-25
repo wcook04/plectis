@@ -3814,8 +3814,22 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--slice",
         dest="slice_name",
-        choices=["first-contact", "authority", "organs", "cluster", "math", "claims", "flows"],
+        choices=[
+            "first-contact",
+            "authority",
+            "doctrine",
+            "organs",
+            "cluster",
+            "math",
+            "claims",
+            "flows",
+        ],
         help="compile a named comprehension slice",
+    )
+    comprehend_parser.add_argument(
+        "--doctrine",
+        metavar="DOCTRINE_ID",
+        help="compile the doctrine reader packet, optionally focused on AX-9/P-1/AP-1 style ids",
     )
     comprehend_parser.add_argument(
         "--family",
@@ -4802,9 +4816,19 @@ def main(argv: list[str] | None = None) -> int:
             pack = comprehension.comprehend(
                 root=comprehend_root, mode="path", path=args.path
             )
+        elif args.doctrine:
+            pack = comprehension.comprehend(
+                root=comprehend_root, mode="doctrine", target=args.doctrine
+            )
         elif args.slice_name:
             mode = slice_modes.get(args.slice_name, args.slice_name)
-            target = args.family if args.slice_name == "cluster" else args.organ
+            target = (
+                args.family
+                if args.slice_name == "cluster"
+                else args.doctrine
+                if args.slice_name == "doctrine"
+                else args.organ
+            )
             pack = comprehension.comprehend(
                 root=comprehend_root, mode=mode, target=target
             )

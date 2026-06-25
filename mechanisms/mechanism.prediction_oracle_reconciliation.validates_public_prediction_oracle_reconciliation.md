@@ -15,7 +15,7 @@ The prediction oracle reconciliation organ validates synthetic prediction packet
 - `grounded_in` -> `code_locus:src/microcosm_core/organs/prediction_oracle_reconciliation.py` (resolved_code_locus)
 - `runs_in` -> `organ:prediction_oracle_reconciliation` (resolved_registry_or_atlas_target)
 - `grounds` -> `concept:concept.research_and_science_replay_evidence_bundle` (resolved_json_instance)
-- `upstream_of` -> `mechanism:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule` (unresolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule` (resolved_json_instance)
 - `upstream_of` -> `mechanism:mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule` (resolved_json_instance)
 

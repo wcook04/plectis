@@ -3,7 +3,7 @@
 _Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
 
 - Source JSON: `mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json`
-- Registry source of record: `core/mechanism_sources.json::mechanisms[60:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule]`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[88:mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule]`
 - Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
 
 ## Statement
