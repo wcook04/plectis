@@ -168,9 +168,9 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
     _assert_inspectable_pinned_github_actions(
         workflow,
         required_public_tags={
-            "actions/checkout@v4",
-            "actions/setup-python@v5",
-            "actions/upload-artifact@v4",
+            "actions/checkout@v7",
+            "actions/setup-python@v6",
+            "actions/upload-artifact@v7",
         },
     )
 
