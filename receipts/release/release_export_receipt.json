@@ -2,10 +2,10 @@
   "anti_claim": "This receipt validates export shape for a generated public folder. It is not release, publication, hosted launch, private-root equivalence, or complete secret-audit authority.",
   "artifact": {
     "artifact_dir": "plectis",
-    "artifact_payload_hash_sha256": "d39706b0e01db08399df7d30cb038d864f858389a5a319fe00d43e94c368d848",
-    "file_count": 4808,
+    "artifact_payload_hash_sha256": "63207a6a843bd1d17a8db8b18a29da9dffe12a96bc7be7b4de11350f946f81c9",
+    "file_count": 4811,
     "mode": "generated_standalone_folder",
-    "payload_bytes": 105567018,
+    "payload_bytes": 105420221,
     "receipt_generated_after_inventory": true,
     "release_receipt_ref": "receipts/release/release_export_receipt.json"
   },
@@ -32,8 +32,8 @@
       "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
       "blocking_hit_count": 0,
       "body_in_receipt": false,
-      "expected_bounded_hit_count": 3646,
-      "expected_sentinel_hit_count": 217,
+      "expected_bounded_hit_count": 3648,
+      "expected_sentinel_hit_count": 220,
       "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
       "status": "pass",
       "unexpected_hit_count": 0,
@@ -51,8 +51,168 @@
     },
     "source_module_private_body_substitution": {
       "body_in_receipt": false,
-      "metadata_rewrite_file_count": 9,
+      "metadata_rewrite_file_count": 130,
       "metadata_rewrites": [
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_module_manifest.json",
+          "rewritten_row_count": 2
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_module_manifest.json",
+          "rewritten_row_count": 3
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json",
+          "rewritten_row_count": 2
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
+          "rewritten_row_count": 4
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_module_manifest.json",
+          "rewritten_row_count": 5
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+          "rewritten_row_count": 6
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json",
+          "rewritten_row_count": 7
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 10
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 4
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 9
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_module_manifest.json",
+          "rewritten_row_count": 16
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 10
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 19
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 8
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 8
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 2
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 11
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 3
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 3
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_module_manifest.json",
+          "rewritten_row_count": 9
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+          "rewritten_row_count": 6
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_module_manifest.json",
+          "rewritten_row_count": 3
+        },
         {
           "body_in_receipt": false,
           "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
@@ -60,46 +220,41 @@
         },
         {
           "body_in_receipt": false,
-          "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
-          "rewritten_row_count": 180
+          "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
         },
         {
           "body_in_receipt": false,
-          "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/self_comprehension_packet_compiler_source_projection_protocol.json",
+          "path": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json",
+          "rewritten_row_count": 1
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
           "rewritten_row_count": 2
         },
         {
           "body_in_receipt": false,
-          "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+          "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+          "rewritten_row_count": 6
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
+          "rewritten_row_count": 2
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
+          "rewritten_row_count": 3
+        },
+        {
+          "body_in_receipt": false,
+          "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
           "rewritten_row_count": 4
-        },
-        {
-          "body_in_receipt": false,
-          "path": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
-          "rewritten_row_count": 4
-        },
-        {
-          "body_in_receipt": false,
-          "path": "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_module_manifest.json",
-          "rewritten_row_count": 1
-        },
-        {
-          "body_in_receipt": false,
-          "path": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
-          "rewritten_row_count": 145
-        },
-        {
-          "body_in_receipt": false,
-          "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
-          "rewritten_row_count": 4
-        },
-        {
-          "body_in_receipt": false,
-          "path": "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
-          "rewritten_row_count": 1
         }
       ],
-      "metadata_rewrites_omitted": 0,
+      "metadata_rewrites_omitted": 90,
       "policy": "private_body_exact_or_near_verbatim_source_modules_are_replaced_with_public_safe_stubs_in_the_export_candidate; restricted private source-module tails are also stubbed unless a narrower public-safe body is provided",
       "status": "pass",
       "substituted_file_count": 417,
@@ -282,7 +437,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
           "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
           "restriction": "state/",
@@ -290,7 +445,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
           "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
           "restriction": "state/",
@@ -298,7 +453,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
           "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
           "restriction": "state/",
@@ -314,7 +469,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
           "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
           "restriction": "tools/meta/",
@@ -330,7 +485,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
           "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
           "restriction": "state/",
@@ -338,7 +493,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
           "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
           "restriction": "state/",
@@ -346,7 +501,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "restricted_private_source_ref",
           "matched_private_ref": "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
           "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
           "restriction": "state/",
@@ -394,7 +549,7 @@
         },
         {
           "body_in_receipt": false,
-          "contamination_class": "private_body_exact_match",
+          "contamination_class": "private_body_near_verbatim",
           "matched_private_ref": "system/lib/action_quote.py",
           "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
           "restriction": "system/",
@@ -429,72 +584,7 @@
     },
     "source_residue_excluded": [
       {
-        "path": ".DS_Store",
-        "reason": "root_local_or_nested_release_residue",
-        "status": "excluded"
-      },
-      {
-        "path": ".microcosm",
-        "reason": "root_local_or_nested_release_residue",
-        "status": "excluded"
-      },
-      {
-        "path": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_modules/microcosm_core/organs/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "examples/launch_compression_project/.microcosm",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "examples/runtime_shell/demo_project/.microcosm",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "scripts/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "src/microcosm_substrate.egg-info",
-        "reason": "package_build_metadata",
-        "status": "excluded"
-      },
-      {
         "path": "src/microcosm_core/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "src/microcosm_core/.DS_Store",
-        "reason": "os_metadata_file",
-        "status": "excluded"
-      },
-      {
-        "path": "src/microcosm_core/engine_room/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "src/microcosm_core/macro_tools/__pycache__",
         "reason": "cache_or_build_directory",
         "status": "excluded"
       },
@@ -504,17 +594,7 @@
         "status": "excluded"
       },
       {
-        "path": "src/microcosm_core/projections/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
         "path": "src/microcosm_core/validators/__pycache__",
-        "reason": "cache_or_build_directory",
-        "status": "excluded"
-      },
-      {
-        "path": "tests/__pycache__",
         "reason": "cache_or_build_directory",
         "status": "excluded"
       }
@@ -531,7 +611,7 @@
       "status": "pass"
     }
   },
-  "generated_at": "2026-06-22T22:26:22+00:00",
+  "generated_at": "2026-06-25T16:11:05+00:00",
   "install_smoke_receipt": {
     "body_in_receipt": false,
     "bytecode_write_suppressed": true,
@@ -591,13 +671,13 @@
         "command_id": "tour_card",
         "cwd": "<temp-smoke-root>",
         "emission_status": "pass",
-        "return_code": 1,
+        "return_code": 0,
         "status": "pass",
         "stderr_bytes": 0,
         "stderr_private_path_hit": false,
-        "stdout_bytes": 16731,
+        "stdout_bytes": 28974,
         "stdout_private_path_hit": false,
-        "subject_status": "blocked"
+        "subject_status": "pass"
       },
       {
         "argv": [
@@ -627,13 +707,13 @@
         "command_id": "authority_card",
         "cwd": "<temp-smoke-root>",
         "emission_status": "pass",
-        "return_code": 1,
+        "return_code": 0,
         "status": "pass",
         "stderr_bytes": 0,
         "stderr_private_path_hit": false,
-        "stdout_bytes": 10358,
+        "stdout_bytes": 10352,
         "stdout_private_path_hit": false,
-        "subject_status": "blocked"
+        "subject_status": "pass"
       }
     ],
     "console_entrypoint_used": true,
@@ -649,7 +729,7 @@
     "status": "pass"
   },
   "inventory_receipt": {
-    "file_count": 4808,
+    "file_count": 4811,
     "files": [
       {
         "path": ".github/PULL_REQUEST_TEMPLATE.md",
@@ -678,8 +758,8 @@
       {
         "path": "AGENT_ROUTES.md",
         "role": "public_entry_document",
-        "sha256": "9b26d7e7cc581cdfdd28d32bfdce92b9c5aa26ef901d3276e945a1f1e58d1f8a",
-        "size_bytes": 51872
+        "sha256": "7f5ee6dcd2adebdc280b1f66466cb57d293237b423a6cc180067c28203e9588c",
+        "size_bytes": 51901
       },
       {
         "path": "ANTI_PRINCIPLES.md",
@@ -690,8 +770,8 @@
       {
         "path": "ARCHITECTURE.md",
         "role": "public_entry_document",
-        "sha256": "a68fd05604ed5fa80550031d2b5f734c4381ffd2f80532b81a8973151357f11d",
-        "size_bytes": 18102
+        "sha256": "2910626283674dad3a442e83da29e68294414d3104a8fefccef7bebc8572bb22",
+        "size_bytes": 27493
       },
       {
         "path": "AXIOMS.md",
@@ -750,8 +830,8 @@
       {
         "path": "Makefile",
         "role": "command_surface",
-        "sha256": "46b7953e61aa40ba506b62b38a4119aa6f1daebd85d9cd2cb884122092e51ed2",
-        "size_bytes": 8913
+        "sha256": "576105f96f8843a35f600a398b58adbf19a947c9d0ffde316c15f105574bf939",
+        "size_bytes": 9303
       },
       {
         "path": "NOTICE",
@@ -762,8 +842,8 @@
       {
         "path": "ORGANS.md",
         "role": "public_entry_document",
-        "sha256": "64316c1191f134b61b8e067f58df01e5c10dd7203fb3b8ca74be54e5321c71ef",
-        "size_bytes": 399116
+        "sha256": "a36b0e3fb8fbb74d3ae067319d31ad96b6aa413dfd68217b2b669fa7236d8e25",
+        "size_bytes": 399174
       },
       {
         "path": "PRINCIPLES.md",
@@ -786,8 +866,8 @@
       {
         "path": "README.md",
         "role": "public_entry_document",
-        "sha256": "9df2f673b2ccd45bd058efdbc549a1b94713ecd6fb20e49795f10f65362ed2e3",
-        "size_bytes": 7658
+        "sha256": "d7c9a55beb529ff9207c93e60e4f8ab98c4c27520c0ef84b6763f9ee570da536",
+        "size_bytes": 9420
       },
       {
         "path": "RELEASE_DISCIPLINE.md",
@@ -852,8 +932,8 @@
       {
         "path": "atlas/entry_packet.json",
         "role": "entry_packet",
-        "sha256": "3809a74ae8b6017bfd261a879e618f32c91b2646dd73440be111721329d6c043",
-        "size_bytes": 129451
+        "sha256": "e97a81161db031f9b12b9d41dc66481c5c3fa125beeef2f814cca09205fc5973",
+        "size_bytes": 129435
       },
       {
         "path": "bootstrap.sh",
@@ -1590,8 +1670,8 @@
       {
         "path": "core/source_module_refresh_policy_v0.json",
         "role": "authority_or_registry",
-        "sha256": "3e5620360ccd2c3fb8b3b0a565cc9d3450843c0cb4e1f4a5f75e9818e7929770",
-        "size_bytes": 4043
+        "sha256": "da07ba2d493f27c5f41d28498b93b13c2758cea99e4e52b33f0831b13205b0cd",
+        "size_bytes": 5285
       },
       {
         "path": "core/standards_registry.json",
@@ -1800,8 +1880,8 @@
       {
         "path": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "a606566b68990651e3420c96004da56d3d8600d36767502f9ec92e0f50a3a9ec",
-        "size_bytes": 1301
+        "sha256": "40dc4838c7f871e21cf91289ac09c09c60d2571c97d451b22ec368f2fcce588d",
+        "size_bytes": 793
       },
       {
         "path": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_modules/system/lib/agent_experience_diagnostics.py",
@@ -1956,8 +2036,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "0f24afb9fb947118f1c1b0994609a95e064c97e62ee7c3741e03bd96332c7b18",
-        "size_bytes": 4933
+        "sha256": "62ef3d50ff712559c9e0b9988d3634c64ea0317ff8276cf718c24b82173f1b26",
+        "size_bytes": 1594
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
@@ -2004,8 +2084,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "12569e2008745561d0847019dc218418bc62fb7a067ef7f5f336f9081fc77376",
-        "size_bytes": 8901
+        "sha256": "b3a15cdc18bb544e28a3626a05d365698f79830ead70fa9417027f9be2a45882",
+        "size_bytes": 4181
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
@@ -2076,8 +2156,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "9212ba62a8fb4b1f7a3cf48d2c5a7f96b42e134fd3ca8823c14b0ae38b05e029",
-        "size_bytes": 2420
+        "sha256": "400dce35bf41f792c23b3c61ab272594b03425e452b278e50ed1ed13ec72135d",
+        "size_bytes": 1054
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
@@ -2136,8 +2216,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "c7bdd828d7423c830d19a1e5928649d4255396827fd4268f0476657061e757e3",
-        "size_bytes": 6208
+        "sha256": "a9c2c18cd076c97d611bdbc5f226008f65ee5685ee7b4b420a891ac706303574",
+        "size_bytes": 3346
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
@@ -2208,8 +2288,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "3e09fe5ae7bac0d6e4561da94094fd044498e3c550ccacf2c4877a330b044397",
-        "size_bytes": 2744
+        "sha256": "6658e3d3b92c5f785805668b71f9354f3a4cbc5b904cdfa00d43ed65eaf4139b",
+        "size_bytes": 1124
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_modules/system/lib/controller_heartbeat.py",
@@ -2244,8 +2324,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "f0198fc5b997a5fc01153ae4572413888cefbeadab34f882be11d3947a79362a",
-        "size_bytes": 3522
+        "sha256": "aac42a8394e8c4181da608dc2d2d13474cb406bc8babae587cf4efe0ba6d4601",
+        "size_bytes": 2451
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json",
@@ -2286,8 +2366,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "9fb43dcd1d689d2efa67137c9bb96bbc0458e427426a3a6f78a6232fab73159b",
-        "size_bytes": 2257
+        "sha256": "72a5a577426f53b03e43d035e070e8f9261d20d374eff31781f2ba335a61acca",
+        "size_bytes": 836
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/continuation_packet.py",
@@ -2358,8 +2438,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "7603429e47a89875c761dcb3735e47c07179905771435da33031a1aa3b85d003",
-        "size_bytes": 16076
+        "sha256": "fbcf51794d080026488fccb2c46d8934decfced56ac949b974f4a857823323b6",
+        "size_bytes": 10364
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -2436,8 +2516,8 @@
       {
         "path": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "0df225aa9f01ced7b964147fd68abe43b9941c435ca32d494cb6bcb31e2164b8",
-        "size_bytes": 19287
+        "sha256": "68a924ebb7432804bfa1ee28db0f80c35054fa55e2bc58be866872c9406aabdb",
+        "size_bytes": 11539
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/doctrine/process/trace_rules.json",
@@ -2658,8 +2738,8 @@
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "6df5eb7e924873e7065cf6cbd225e31a17af2dad8ef2a108263c42902dd4b1d7",
-        "size_bytes": 17897
+        "sha256": "a61e30400c88be59e4a82b6607d57313a7199edb0b19059dfabb07858e953717",
+        "size_bytes": 8215
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -2670,20 +2750,20 @@
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "role": "example_evidence",
-        "sha256": "c21d61062318b531fe94306ccad0e2ee16d0d30dec47a8b95784c2fdf1858cea",
-        "size_bytes": 271
+        "sha256": "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f",
+        "size_bytes": 276
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
         "role": "example_evidence",
-        "sha256": "7c6c26a0e87b43e3d8f76f92c5c9fa0e95e888242fdcb67d3e878f617b7c67df",
-        "size_bytes": 299
+        "sha256": "a2ab846181932a9aeccb5d9cf9a056c1ad7f3fff5e16adfd6cbb8c2d3fadbbbd",
+        "size_bytes": 304
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
@@ -2694,8 +2774,8 @@
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
         "role": "example_evidence",
-        "sha256": "cfaa1238c23395d9c49c13123c518b7c9b54a9c3d6de0ba51b32b672387bc84e",
-        "size_bytes": 562
+        "sha256": "fd445edc2c508959ec4cfdfc2ceca8805e11cdffc8be448fe370831d3f6dc389",
+        "size_bytes": 567
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/system/lib/strict_json.py",
@@ -2766,8 +2846,8 @@
       {
         "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "3a5696024bd034b47a0de81cebce6b0c684d85f1e2ac3184ff63f03e45a33eb3",
-        "size_bytes": 21570
+        "sha256": "fccdc49ec4cfc1abbb56c7a44058c8eb82c9bfe43d10259e94412fec635a6709",
+        "size_bytes": 10244
       },
       {
         "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -2784,20 +2864,20 @@
       {
         "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "role": "example_evidence",
-        "sha256": "c21d61062318b531fe94306ccad0e2ee16d0d30dec47a8b95784c2fdf1858cea",
-        "size_bytes": 271
+        "sha256": "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f",
+        "size_bytes": 276
       },
       {
         "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
         "role": "example_evidence",
-        "sha256": "c04d72ae33d738e7b982a6e933fb651d52de2f312eca0f208b481e90d02f2c75",
-        "size_bytes": 297
+        "sha256": "3b81d8e6e53f334f733ba1e7da0545d70b47fd6e0f9b50718309366cc900acdc",
+        "size_bytes": 302
       },
       {
         "path": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
@@ -3036,8 +3116,8 @@
       {
         "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "777dc2c2322fa8378a959e30384ab8c50fe05f1bc0b2c52d25d73d9102c39df0",
-        "size_bytes": 12889
+        "sha256": "59ccbc84a528a16c51ccea7a06a9dcf50d5ee516bddd2acf9dccda6857208549",
+        "size_bytes": 6222
       },
       {
         "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py",
@@ -3048,8 +3128,8 @@
       {
         "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
         "role": "example_evidence",
-        "sha256": "bf41851a0cd9a7f9ec1d3c3e32d5be3b0334b9297224ba2ee42641a93fa3bb79",
-        "size_bytes": 492
+        "sha256": "252a8be87c209e29e06b116791bbb9cff511dfc2b1e6f330c1443ceb9e171022",
+        "size_bytes": 494
       },
       {
         "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
@@ -3126,8 +3206,8 @@
       {
         "path": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "ec0cd90e9cd31c9503f44b18457c5283d68bff0a398eb51d5e31d4e92488d7cf",
-        "size_bytes": 5090
+        "sha256": "504bb1fd7744d2c14141436b914897acb6cd3557f4185861ad9e0eb03cd477af",
+        "size_bytes": 2151
       },
       {
         "path": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
@@ -3240,14 +3320,14 @@
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "fe2c48148bb032a44c432f8eb085345e482c66f7d913e6a5625addd8277b9079",
-        "size_bytes": 15266
+        "sha256": "d7edf7387f6b6f064a78aee2ebf3aeb6afbd1a99e6d2d9a97d06c18b7e802565",
+        "size_bytes": 10043
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/lib/kernel/commands/apply.py",
         "role": "example_evidence",
-        "sha256": "fabdf8cacc37a7c5cc6a0b42ad8442d9c7c77ac1e86f9b44233321e2bcb65bcf",
-        "size_bytes": 510
+        "sha256": "7da6d4987cec6d3990e08429d2d9f70b66e650b2bbad0439a18a083435c54fe3",
+        "size_bytes": 515
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/lib/quant_presentation_mart.py",
@@ -3276,20 +3356,20 @@
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/build_holographic_research_bundle.py",
         "role": "example_evidence",
-        "sha256": "05696ffba460ecb298ef5de606189009de0bd6cca785c0f1739d24d3f96ab903",
-        "size_bytes": 564
+        "sha256": "75192f7f0cd45c8008c6813d6be245ee76448ec3c523baa6061298506e422a21",
+        "size_bytes": 567
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/demo_take_story_package.py",
         "role": "example_evidence",
-        "sha256": "0b070ad080f3ac7f0f11e780b1211bed804adf6dc1cf36eb163e49e38e4e8aab",
-        "size_bytes": 542
+        "sha256": "b1b1ee389bc4644d1791e63a94fb1755e367a90a80b448d8c6312668ac4d8864",
+        "size_bytes": 547
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/portability_gate.py",
         "role": "example_evidence",
-        "sha256": "8da593fcd3db02975a6f953e344b736b5bc86a96fd3777905d325c33e6ba6e2c",
-        "size_bytes": 530
+        "sha256": "fc6faea4affe8256325079df44caee8c040bd1ad511a55677bb60c67ce39c9d3",
+        "size_bytes": 533
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/projection_secret_scan.py",
@@ -3300,20 +3380,20 @@
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/exogenous_nav_ladder_grader.py",
         "role": "example_evidence",
-        "sha256": "668c9eb67addf1bf6782c0644ecf4a85d16e71a24d2d16a87a9ceb68995f1b0a",
-        "size_bytes": 550
+        "sha256": "8a54651906f2907ea61c0ae895c79780aa9103ac9c55584b7ada967603087ee9",
+        "size_bytes": 555
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/frontend_nav_graph.py",
         "role": "example_evidence",
-        "sha256": "257a5f8fc4fd4fb2f4f9034920677338e87f9b472a71e6767b3654b2a2f3300f",
-        "size_bytes": 532
+        "sha256": "4d52628e0e366a762666e50d1018d38fddc1eb8e9ea6fee9c7468eee43053628",
+        "size_bytes": 537
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
         "role": "example_evidence",
-        "sha256": "05392afabb41dceaa9770df9576366a9e98a66fd8c9aa58d109045af36d9a678",
-        "size_bytes": 530
+        "sha256": "a81700bbe8e54de6d29162ebbed6f0847bad88e1867a54affd8dbfa38155cd31",
+        "size_bytes": 533
       },
       {
         "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/std_python_new_gap_blocks.json",
@@ -3402,8 +3482,8 @@
       {
         "path": "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "24fbafc1c12c51e7356c0c3702b598ed2a72ace31d59aeeaa54bf19af974b17a",
-        "size_bytes": 3368
+        "sha256": "7ba86029815423a711b2252179dd086a8c7eb5ada74f9732e256e826b90f485b",
+        "size_bytes": 2058
       },
       {
         "path": "examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_modules/system/lib/market_dashboard_read_model.py",
@@ -3498,8 +3578,8 @@
       {
         "path": "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "6a6aa01c062844a614d2417e07775e3d569dcf877cee87fab183a1088fba642b",
-        "size_bytes": 3491
+        "sha256": "d767409ce6b0dbaa743dd7ec6c017e5f79d068bad2e88589734906cbc371026c",
+        "size_bytes": 2014
       },
       {
         "path": "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_modules/system/lib/quant_presentation_mart.py",
@@ -3558,8 +3638,8 @@
       {
         "path": "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "9922548255bc681eb69bfff0838ea2847487372ba9294e255d3c49ba5375a964",
-        "size_bytes": 3326
+        "sha256": "18c5209b0f6a87961b76611649aabcc18e6717e6ecf99ed3e158acc0c6a3f593",
+        "size_bytes": 2052
       },
       {
         "path": "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_modules/tools/meta/dissemination/release_claim_language_gate.py",
@@ -3630,8 +3710,8 @@
       {
         "path": "examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "44df3f9fef868cec9ec5d6c9c82619936dfac44d377d6794f56d6766d0456fe8",
-        "size_bytes": 23626
+        "sha256": "5932965c472f6fa19464d2bb40b7e8b9ccb61d60eb294a452cc2aa27af8748ef",
+        "size_bytes": 10026
       },
       {
         "path": "examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
@@ -3816,8 +3896,8 @@
       {
         "path": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "45df794bc090dcbc1292b9fe3a86f9b1bfe470076c497207898ac4afbffd02dc",
-        "size_bytes": 14002
+        "sha256": "3ee475c6629b24fd67ea9208207c353863594717d06c824e68e394472f59cd38",
+        "size_bytes": 5424
       },
       {
         "path": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/system/lib/agent_execution_trace.py",
@@ -3954,8 +4034,8 @@
       {
         "path": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d8d4b6b8921d440366272221a4f3bbd837c774772424b017f7d2f09a26599925",
-        "size_bytes": 33438
+        "sha256": "bc55f6b9572952bead270cbe1815e887b3b19c3d73e52bfd7fe72f315c4028f2",
+        "size_bytes": 18492
       },
       {
         "path": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/apps/demo-take-console/support/demo_take_capture.py",
@@ -4158,8 +4238,8 @@
       {
         "path": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "37544e640818c833a60d88a3d84f71638cfe8f6ccbbd58e0131fbc4824556aea",
-        "size_bytes": 9868
+        "sha256": "fd9507c60cf838d0a842ff4c13cde403f6092e8da0c0f62029c64aee42424c01",
+        "size_bytes": 4657
       },
       {
         "path": "examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Package.swift",
@@ -4266,8 +4346,8 @@
       {
         "path": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "8fac838f9208415e4c75b52f746eb99dc070ff695f205f6e46c68b22c5ded964",
-        "size_bytes": 12365
+        "sha256": "2065ce1f9ced99632c3f45d56c64aacad1b4c75d8f4849fb632f35e79ebdd0ed",
+        "size_bytes": 7644
       },
       {
         "path": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/clean_clone.py",
@@ -4386,8 +4466,8 @@
       {
         "path": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "deaf4a81ded6b0211a3eb4af5b6bdc40ee24e57d143d1695fe9b958eb59ae803",
-        "size_bytes": 6304
+        "sha256": "4e7c39f39e64d3ccb3b0cdd4f1699810e864af1fb68bed42706471f4c3a5a517",
+        "size_bytes": 5249
       },
       {
         "path": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_evolve_runner.py",
@@ -4506,8 +4586,8 @@
       {
         "path": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d0da3dba1e048714e925122bc5b05313950833630815cac2704562b63f61faa8",
-        "size_bytes": 1920
+        "sha256": "b19e4a6638b86f04fb1848f44308bd6856fcc0c49a34ed5334f9c98d88bb3c29",
+        "size_bytes": 1051
       },
       {
         "path": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
@@ -4560,8 +4640,8 @@
       {
         "path": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "9b302ad7be9a1dd16a658f4d91ae85721207949c4e99a6591b6b08b61074a211",
-        "size_bytes": 12465
+        "sha256": "3c2157d17237e5630e3060895974824322bf14f36c11d0565503cebaaa81081f",
+        "size_bytes": 5397
       },
       {
         "path": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/__init__.py",
@@ -4578,8 +4658,8 @@
       {
         "path": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/microcosm_adapter.py",
         "role": "example_evidence",
-        "sha256": "5a3378f6f9bad883643456bf4c43012a91c0f6fc8127e35ab62c4d94bb761e7b",
-        "size_bytes": 524
+        "sha256": "3b5946c0cfcd8aede971e063ddb214a26c2176f3f5816629235c6d41a588e1ba",
+        "size_bytes": 529
       },
       {
         "path": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/standard_baseline_adapter.py",
@@ -4656,8 +4736,8 @@
       {
         "path": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "84897bca77de4600b86e7ae578133335435a43d83eabb476ab4bd5e731d72ead",
-        "size_bytes": 4118
+        "sha256": "c9f708515ae3cf05f654c03e32f7432df68757a308b731897ca279b567be6f70",
+        "size_bytes": 1866
       },
       {
         "path": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/campaign_state_transition.py",
@@ -4686,8 +4766,8 @@
       {
         "path": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "f95fc91e520bac1b97d5d5927e97311e9516a68f561b5aa5d36c4372fbc4c2e0",
-        "size_bytes": 13227
+        "sha256": "bd397cca2d2c8b8189040859ad9b8f08a059f1ca99932e930ebaf1f9eb9898a1",
+        "size_bytes": 11394
       },
       {
         "path": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_modules/system/__init__.py",
@@ -4812,8 +4892,8 @@
       {
         "path": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "a9f973e41a4ff409a1ceb1f509a3ecc032aee8986a083dc40e8087c180f98b1f",
-        "size_bytes": 5419
+        "sha256": "35cb617e6687095126d0bd6a53e6e2ff49fab5308fe94c6cfd4a622e1d9d65d4",
+        "size_bytes": 4601
       },
       {
         "path": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/system/lib/observer_diff.py",
@@ -4968,8 +5048,8 @@
       {
         "path": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "e5f6cf26438537d6819016b0f0929fec5477c105ba251d0f14817a1b2c4b3300",
-        "size_bytes": 13762
+        "sha256": "98a125d1fac32281d35c144bc99f778eccfcce88f6cb45cfe1685a288d9d9788",
+        "size_bytes": 5810
       },
       {
         "path": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/admission_consumer.py",
@@ -5076,8 +5156,8 @@
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "34ca01067ca9d371bb356ae3dc401b8b655304506c11635cd56d7ac9affdace4",
-        "size_bytes": 17332
+        "sha256": "7103ef5f5bddb1d65023067f4cc0e22358b63d3924c433e0f2e2f679c5df965c",
+        "size_bytes": 8038
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -5088,20 +5168,20 @@
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "role": "example_evidence",
-        "sha256": "c21d61062318b531fe94306ccad0e2ee16d0d30dec47a8b95784c2fdf1858cea",
-        "size_bytes": 271
+        "sha256": "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f",
+        "size_bytes": 276
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
         "role": "example_evidence",
-        "sha256": "7c6c26a0e87b43e3d8f76f92c5c9fa0e95e888242fdcb67d3e878f617b7c67df",
-        "size_bytes": 299
+        "sha256": "a2ab846181932a9aeccb5d9cf9a056c1ad7f3fff5e16adfd6cbb8c2d3fadbbbd",
+        "size_bytes": 304
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
@@ -5112,8 +5192,8 @@
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
         "role": "example_evidence",
-        "sha256": "cfaa1238c23395d9c49c13123c518b7c9b54a9c3d6de0ba51b32b672387bc84e",
-        "size_bytes": 562
+        "sha256": "fd445edc2c508959ec4cfdfc2ceca8805e11cdffc8be448fe370831d3f6dc389",
+        "size_bytes": 567
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/system/lib/strict_json.py",
@@ -5178,8 +5258,8 @@
       {
         "path": "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "6573436996cc3b3de7a915b8928b9265b09941dfdfa84d274749d3262e982c21",
-        "size_bytes": 3328
+        "sha256": "7f5fa13cf5a980dc539d204272a1808281b2d89fef4143aaa4506bc17940e134",
+        "size_bytes": 1800
       },
       {
         "path": "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/control/reactions_engine.py",
@@ -5256,8 +5336,8 @@
       {
         "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "74f70f6f2ef0505fb5a8fccf73d9a05abdbb3f57d22a9e4702b55535dcfbf4fd",
-        "size_bytes": 10973
+        "sha256": "c2b72f8b58ca33762efea49b61ddaf56b472e2df3a70c65652fa95f6cc426669",
+        "size_bytes": 10988
       },
       {
         "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse.lean",
@@ -5298,20 +5378,20 @@
       {
         "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
         "role": "example_evidence",
-        "sha256": "446027e550c57974bca3fb4bf06aa8191c1f76801eb0660b74ae79c72f4dfba0",
-        "size_bytes": 340
+        "sha256": "1dec612c26593ccfe4cfc97c88dd4fafa8248113c0cb849cf034f4e785ba02d5",
+        "size_bytes": 345
       },
       {
         "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json",
         "role": "example_evidence",
-        "sha256": "50a9bf82343b4dd74adb3610354babae304f5ad0ada82a7690aa13cef8bcf0b6",
-        "size_bytes": 344
+        "sha256": "a96c7e0e46eb99d739620076b98ff16835c712d8e67d8921d293449e4591249d",
+        "size_bytes": 349
       },
       {
         "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
         "role": "example_evidence",
-        "sha256": "4013830917f78dee18e3a8bedfbbfe8fee47241897cfbb9dc32ea19720521701",
-        "size_bytes": 584
+        "sha256": "d872b6f12d57641b164c724a95162e2cb9c2194b25723edb9dc1fac999e224e0",
+        "size_bytes": 589
       },
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/bundle_manifest.json",
@@ -5340,8 +5420,8 @@
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2235f51efa94e6c95ebdf5b3d6df74591697fb76f210551dacb90b0a0992daae",
-        "size_bytes": 7162
+        "sha256": "aca3d953357980c7c0ec6c76fcfaeef80b59341865e0f2e6623d3c51d995735f",
+        "size_bytes": 5823
       },
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
@@ -5388,8 +5468,8 @@
       {
         "path": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "740b66985d7ca7542c4e6c19c2648ab089765fbde6e7c865123026896d76cd62",
-        "size_bytes": 9640
+        "sha256": "da376a3210c6c288dea416254c73d347560eb6bac36b9a3dd5c1bbcc16fea1fb",
+        "size_bytes": 8404
       },
       {
         "path": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md",
@@ -5622,8 +5702,8 @@
       {
         "path": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2b2685a46d60bdf433952e5a0134fc76f451382905cfc4939ffb86a1b2789817",
-        "size_bytes": 2194
+        "sha256": "65b0b540bcecb7115883dc467ec3cd6560b06bb2ab332d706b3c39ffaec908a3",
+        "size_bytes": 1175
       },
       {
         "path": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
@@ -5670,8 +5750,8 @@
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "7276a7d3d6e6f105f9d5e8621b4f33b655e0003d19e61f5e2befe327db9dea8c",
-        "size_bytes": 12144
+        "sha256": "212d416b3807b7e9f2efbdcf67a8a2052cc823b725c016ba0f24c6954e525653",
+        "size_bytes": 5111
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py",
@@ -5694,8 +5774,8 @@
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py",
         "role": "example_evidence",
-        "sha256": "01cbacf21a80ff66f1610d2bfc93927f6273d61b41b56414533e4abfacfeae2d",
-        "size_bytes": 512
+        "sha256": "e1d4ac3065c64dcf528ebbb561dd0cdd6035b76865bbbfd9b43dba8d4a87b44d",
+        "size_bytes": 510
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py",
@@ -5706,8 +5786,8 @@
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py",
         "role": "example_evidence",
-        "sha256": "08d9194e1bb91bf384e08cdd132097a24843f57aaad79a36332eb795a18fcf50",
-        "size_bytes": 508
+        "sha256": "8fd756f86e807e9287a94fe1818aa810385d2ab29c5048eecd9cad1a14c2d04c",
+        "size_bytes": 506
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/work_landing_runs.json",
@@ -5796,8 +5876,8 @@
       {
         "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2fa0864ce7cf12c23c946127c90cecd5db1cb826e7f529226ddbc9fe98aaae64",
-        "size_bytes": 16783
+        "sha256": "3e9c60a86d0988fe542387cccd46566f29f8a1e125cb4ea7c538e0e82a77f137",
+        "size_bytes": 15192
       },
       {
         "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/core_authority_index.json",
@@ -6060,8 +6140,8 @@
       {
         "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "98f2a55c5e3fa9e89c6f27dc25dec89baa860c8a15f561d7ef816320c197cc02",
-        "size_bytes": 10545
+        "sha256": "fc3d8a47c388f348ee2b248de5d1a84244024281ca5d7e5bc8b0574959602416",
+        "size_bytes": 7840
       },
       {
         "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/codex/standards/std_paper_module.json",
@@ -6516,8 +6596,8 @@
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "1310f9a8fc9c8cd1ffcee5f42dad26433b7cac513fca4f1cf9a6c219620c81dc",
-        "size_bytes": 14061
+        "sha256": "47d91648d12b158862fe3f93ec9476721e15b7bdfc22af4b661511fa13fabfd1",
+        "size_bytes": 7199
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -6528,14 +6608,14 @@
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "role": "example_evidence",
-        "sha256": "c21d61062318b531fe94306ccad0e2ee16d0d30dec47a8b95784c2fdf1858cea",
-        "size_bytes": 271
+        "sha256": "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f",
+        "size_bytes": 276
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
@@ -6648,92 +6728,92 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2bba10487f13c297ff09d43c7da3b99f02219d22afc65ffdcebeac1228d846cc",
-        "size_bytes": 3379
+        "sha256": "25cb87040e41d3c123f746bc13e31954e482e67da7586723eb5afeec157c9ac9",
+        "size_bytes": 1747
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "70bff4651ba4b5e3c1e96b3dc9362cbf5bf08a5524d7301f6ba43a8c05f58b6b",
-        "size_bytes": 4555
+        "sha256": "0f29c56c049312b5c419332f50cdfbbc65369cf8586d3e779bbf4b2106b1af97",
+        "size_bytes": 3027
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "73ee116d5461423977eb5c0cd3bfc5d94106de13af0ed392c607136f98940a8e",
-        "size_bytes": 7550
+        "sha256": "4c4cc7b16a2613dcc9996e2c5e7000bbdd154e2cbcf8c4b6b7cb24b4badbe20b",
+        "size_bytes": 5057
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "68a03a1649b0bff6bb5db5e788d1adad341710d69498670ee54c124c4189a66e",
-        "size_bytes": 6254
+        "sha256": "a1047e639bb8eeae86f832c0cffaf657deeacc6af31fe0d119ee3e790ccd9cf1",
+        "size_bytes": 3335
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "5e4345efca0173ead08f7c0f963fb69ee5dc4f13a0f41e559cacea2b0dfd6b8c",
-        "size_bytes": 11698
+        "sha256": "28e27b96f43c3a80832c4e52ae611b4b6f75082dfd4572ed221da05aa6a19b91",
+        "size_bytes": 6023
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "63ba11af15b44e509ecc5e2e133f6168c77f4a79ed6c02b414f761ff96729285",
-        "size_bytes": 3524
+        "sha256": "f5183daa9d3d11aaa6f40c58b8de74535049d92bf43aeafe28742f9d673d2702",
+        "size_bytes": 2652
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "6122f17f336bcd6a33d977f774c42e53555766c633499c1c774ad6c8e7839c07",
-        "size_bytes": 5431
+        "sha256": "40f05c0866f8b636120bd517b622191e9d673f991d2b4f5742bdb8e373378cd3",
+        "size_bytes": 3281
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "b3dff6245ae507b8e8aa43c8fdfc541df255f7d1d81b69376eeb77917fed3282",
-        "size_bytes": 4491
+        "sha256": "88144d76d606207a13032e7bf0d5bcdb025a58a063c0b37f5bb2775d80adfead",
+        "size_bytes": 3725
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_provider_router_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "16f5d9cf88f5968f8b87c11302e7081afbc9ab6e5ac9793562ff4291e6e9b98d",
-        "size_bytes": 4739
+        "sha256": "ddaba58c63b8efc253e222c5f3ce5916caa961594d9eb975de5765db8b807227",
+        "size_bytes": 2950
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "c9b36e61a6d0c0c24596e2f66fe6eab47287a1182d15816ddba9be87c114dd2a",
-        "size_bytes": 4637
+        "sha256": "b0ad9afe574f515e14024dd2c4dd27860ef79fb7c9c45bc47cc6e180d8d1ddb5",
+        "size_bytes": 2974
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "06c6669e00a77d359ebcfa0a10d72d70bac88a5db78747c09d65b465e591dd93",
-        "size_bytes": 4496
+        "sha256": "ec29bb029776a7c7842ca3c908888ecd09c6a2c08e5b9dc8219cf682fdbd74db",
+        "size_bytes": 3038
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "5ed8d961adadc8fc93fdcca67e3f8b61db83324284b7ab7678e6e6ce4b2898ad",
-        "size_bytes": 5236
+        "sha256": "be2d4a853c96e9bf7bfd0684f5c98efa3c249356a7452bd181a73fc8d6b55a60",
+        "size_bytes": 3516
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/bootstrap_route_surface_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "456173ac17e6e1b0857a2ed43eebdfe1de2ab0661f5672a942fdbdcafba6c775",
-        "size_bytes": 6882
+        "sha256": "b5c82d56f2e8bacf387fd545d245966e14c09a1eb0740e2d02cb26fefd9bb360",
+        "size_bytes": 5479
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "575d72d9a1adff58bea3776112ec99306617e09234f138784b81816c77e9da5b",
-        "size_bytes": 4748
+        "sha256": "19dd317b6a1f15ab7c34640af4b15cf6dd4326f668be0b584a1479d67a87ab01",
+        "size_bytes": 2830
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "e53b2c1e9634fd73420ed7840eba70d9b877702cc3cbdb0ac58430843c17f128",
-        "size_bytes": 10208
+        "sha256": "dcc4c66179837f3bc20fe9ed331ffc342e1c19b05e8865befe41640daaede1d2",
+        "size_bytes": 5212
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/bundle_manifest.json",
@@ -6750,8 +6830,8 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "79116d712d734c679ad0a298526f37be3ec9cce2e812cbc501cfe7208b35c446",
-        "size_bytes": 5790
+        "sha256": "ea090824b99b0d9b7dbebec62f9f15830045f21b51288df0500eb05bfce08951",
+        "size_bytes": 3551
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json",
@@ -6762,32 +6842,32 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "0ea954aa8ff1c8959fa3cc1b72d700e06fda8009d29e12063307e232673cfc76",
-        "size_bytes": 5825
+        "sha256": "f6e330cb3f188d9f6018b6c021c9c4309fc30800fd30e5d333d362f7e8e92256",
+        "size_bytes": 5174
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2f1116d1d379823ba0ddc36ac259dc23370730bc4c79f91a14ed6ffcded82283",
-        "size_bytes": 5957
+        "sha256": "36af97a13093abfe4441adc927fc1e4fde3de32966bcf0e0db668c0dd605deeb",
+        "size_bytes": 4247
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/dynamic_paper_lattice_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2a07286dd2192c624682bac7014e1b6fdcc1252e9be3ea2d2c8534a299870f6a",
-        "size_bytes": 4589
+        "sha256": "09dbc1466369b3a50b7fa106df0f6e2ab716c4d1458ad49b561927f899e1c22f",
+        "size_bytes": 3002
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "b04355a212e527641a37d593aca711b6ae72974118d1e0fe892cd7b32f0cb0f4",
-        "size_bytes": 6023
+        "sha256": "a5a1dd46344b32085c557a5977bf280a7e57e0c34dc723ab4ee5c36d1e75a2d9",
+        "size_bytes": 3177
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "fff8efc645d61df0da295fbd069c0753c3ae388da730f1166b628b8761456d03",
-        "size_bytes": 4540
+        "sha256": "304a6c8bb6ef33d91e5cfb87eae3e98ceb5fca9690f44f2a8263dab755287783",
+        "size_bytes": 2957
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
@@ -6798,14 +6878,14 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "01301d077bed8d619b504b539b260db64f0502d28a917280e01c363651016800",
-        "size_bytes": 7422
+        "sha256": "b9d81eb6c4724c047af83221312ae4a0727c2963ad663080fe83294be3877dd9",
+        "size_bytes": 4345
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/generated_projection_control_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "5535422f807ae40780c18e34c7cf26e627a4942859d0980b68363953ce5e28e3",
-        "size_bytes": 8644
+        "sha256": "f652fcf2e5132dac2cec59919a4dc9771ac9c61d311a2f1eb551d2684b88794c",
+        "size_bytes": 4873
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json",
@@ -6816,20 +6896,20 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "9fa4405deb66ffb3c00ffcaf4d889d725af02b1f355a2772c46570cfd054f61c",
-        "size_bytes": 6038
+        "sha256": "d1ff8aeb452308e71d0baba54b60409d48735abfeab4b7d0f2a924312eead7a9",
+        "size_bytes": 3447
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "94ad6d4361a18123906e04962fea703347864021626c5017594a53ff37ea440a",
-        "size_bytes": 4568
+        "sha256": "40354873366860d81a3ce634da303f8a19b7ee165a246e1029c385b5417e4cd2",
+        "size_bytes": 2866
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "8f049b2b354ac7fd6b00f2fb1a2cd1c91dc80a1b3463c29f1b27da06a591119e",
-        "size_bytes": 4075
+        "sha256": "9314e03d770153f19e47676321f0bc8f487728ab44addc03027ddedc16d08fcd",
+        "size_bytes": 2455
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
@@ -6840,68 +6920,68 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "c175e0cc7cf496685dc92a71d0d06f742b777cd6e0bd0c4388cbc64ad90a46aa",
-        "size_bytes": 4555
+        "sha256": "8564e0c1b58509fcc4cc70946dc16f3d5a3192959c63471e0aba101356d78e9c",
+        "size_bytes": 3074
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d3c18ccaeb84154ed009a8e6b2fc73cbed7aced07fd660db3cd07477fac38f80",
-        "size_bytes": 7932
+        "sha256": "6670d1e2d902e82b62d7b48aa980f2c001919bf1f20b6ffb6249ecf5f9ddbbae",
+        "size_bytes": 5709
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "3e6ad175c849ff89d02acb3e7cca7007df89efedc92a8857b6d806975393abdb",
-        "size_bytes": 4729
+        "sha256": "e93c0f36e2f35170f152843172adbde02dfdcb11c3a0951f65bd6b3a0b41902b",
+        "size_bytes": 3065
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "5fac37e332651a880375f944c75a2bef388171dac6e6fc233b5d502d79bd59fb",
-        "size_bytes": 4644
+        "sha256": "5f7eaf1b52236128ee97497e9a2000255fffaf07569d1e21cf8eedcd41f9556e",
+        "size_bytes": 3006
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_metabolism_ledger_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "36d9327a588a68894db59721074de458b43d01ea9e49aef1d3896e139aa7cdd5",
-        "size_bytes": 4697
+        "sha256": "9d921b2a63e57b9b316a9316f1872300758a18fcaac6798dd613c388132a71d3",
+        "size_bytes": 3103
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_surface_audit_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "e601169b47156fcc1f502e5a1746702174452b5e22fab18c7e6426cb57d2f4fe",
-        "size_bytes": 5793
+        "sha256": "477b5b40a811cc59744b9457eae7b4426e90a78b11cc3cb5e2a87bcb2cbf233f",
+        "size_bytes": 3645
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_trace_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "e7d932b1b8cbb64625e14d852c771fff117a5f9defa4373087978234e3c50e5c",
-        "size_bytes": 5476
+        "sha256": "fe457a2c87695f2d1e0fe1f4d1929eae4cd148c4f9acd6a30df403decf1748d5",
+        "size_bytes": 3620
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "faff480c92e916b68e2a91bf82a78a9db62b3f01e15bb549d7a397a8cba70b3b",
-        "size_bytes": 4624
+        "sha256": "a9003ee806ad4341f330d511e954153d908e3539e66378360515ab7928584f02",
+        "size_bytes": 2834
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "eca7a21cd55fccf79ea8389f7ab78dd9c41b84b15931eac2ebcc30080114281e",
-        "size_bytes": 8706
+        "sha256": "77205f041a524bc3490ad69b44f2a66d9f79942d44fb3e7a2ecd53522f13b8ec",
+        "size_bytes": 4452
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "de99d60f7cb8bfe2231a0ad887426b5d29dae09016d7562d4d41f1c78db134a5",
-        "size_bytes": 7130
+        "sha256": "f7fa062fc45f59934d2b224752f5aebacf9aed8269ab5b6010355c92c3ff71a6",
+        "size_bytes": 4097
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "4f6b30f8d784287abbf42b7e98ea5fde4e853fb359e7682497d68f2924c5c31b",
-        "size_bytes": 11751
+        "sha256": "695cd33747acc0596b273211f2549716696ba6ee426126004a99c0ca6f1a7707",
+        "size_bytes": 7410
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
@@ -6912,86 +6992,86 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_loss_audit_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "c8392bc51b0338a4cd4f82c3a847c42775045ebd39f9b94733ff49081e387764",
-        "size_bytes": 4010
+        "sha256": "eefb865aa0083cc4d9022b1f02f8cbf08a02ac47dd9f741029fafa833796099c",
+        "size_bytes": 3093
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
         "role": "example_evidence",
-        "sha256": "1b4ba0337a6e416047ee9e1d3c4366f0ad6ac6e941f841846466c203c131602e",
-        "size_bytes": 1253866
+        "sha256": "3b4d6eaeb64a606bb7a6b3b35b4d0f40dfd6aef6d685bd32632ff495c70921ca",
+        "size_bytes": 1253870
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "a3f7307a15829dffaba8de14e2c33953198a5a05bd3c3186944d9823d2cee5d3",
-        "size_bytes": 5239
+        "sha256": "51a812d2aabb99ce684ca13033c1151e8f81c3a4c484964c8a14f401038b97dc",
+        "size_bytes": 3177
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "fd59a5a6216a3868dce87fa0b46e1b4ba506b9959e6427a0ab2a9a5a713daf6f",
-        "size_bytes": 9013
+        "sha256": "c25b36d479b2ded4194eb76ec924d623a20313d5a568b6795c5d532b2283c0fe",
+        "size_bytes": 5337
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "8d23568ee41d55901818c2ee1774bec08d094129b93035671eb692bf50119574",
-        "size_bytes": 5425
+        "sha256": "d5cc0d805754001b5c1f038c170a0cadb14208481eada956bb706bc39e5f65c9",
+        "size_bytes": 3288
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "5524a98b6606fd47fb7ff9704f1611a160efc80a4a9c11682c50711c4a8ff352",
-        "size_bytes": 5326
+        "sha256": "8a5522f7239f516ee63c60fc54ce422ab09141a02726134c9c3494fb841e7c9b",
+        "size_bytes": 3242
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "e9f6db7c7f41bb8a09c1302cc21669bd976469d313f37c5121308d6fddc5d489",
-        "size_bytes": 9210
+        "sha256": "f3e3ceef749f6f90cdfbcb33cfddf7e6960e207c069be1b3fb96be12d2e7b2e4",
+        "size_bytes": 7480
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/reaction_wiring_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "a3e79fc904c0eb1a75df6fdb5e0d9c3c59ceed9de9eea8818c7827905118faef",
-        "size_bytes": 6320
+        "sha256": "7b9666d6c7bc5e1fb866649b37e9c370bf432fbfcee79702c170c219872483d7",
+        "size_bytes": 4659
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "4441db32ecd98cb7f505ab12b29a8b99e22cf9dffe523f000c7af692ce3505a5",
-        "size_bytes": 3984
+        "sha256": "ec29978b29f1df4883493a41a90749a6a503158a24b0f3d0aebd55c0d3a04941",
+        "size_bytes": 3051
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "f6b8c522001ec86e83771d82d0731c6c0077b40c8ca4275e1000ac0e31137959",
-        "size_bytes": 6357
+        "sha256": "e718c93b04c5748cafa9e4ec69257adfcc80fb18cad9ed16c958f3341a1d62ac",
+        "size_bytes": 3948
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "1727558db6185e00f35efd3a0645899f920cbc8d64454c5b17abd4da1cdbad89",
-        "size_bytes": 8322
+        "sha256": "91ee15607dc16541e7c00067729a7bc7f177adc44b10fca013ecfe5636b415e2",
+        "size_bytes": 5528
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "8495389c9c961d5b850a126a93c2ab6e8d4eb82fb0db0e494a31728657ac11cb",
-        "size_bytes": 10919
+        "sha256": "66b6874c94d434784376edf3a6c9be79f062645114c0f27da142a8ee04b8773b",
+        "size_bytes": 6162
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "450c075497aaa536357278f786c86f9e2a7124ae28c3e782041db54f45f75330",
-        "size_bytes": 12263
+        "sha256": "2df7916a3a5e97ce7cd72cd6ced23ad5b4b77327a41b3b45f7e3d8dabd36208f",
+        "size_bytes": 6247
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_subagent_lane_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "2cd919675fd6c2552dba2ceb047378a59cbb7afaeb0e6052ac22019d47b8c69c",
-        "size_bytes": 4923
+        "sha256": "a853d0dd3489bcc0e77d4f5bff0a891180f7477919f700b791f90359ca0c0061",
+        "size_bytes": 3302
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/self_comprehension_packet_compiler_source_projection_protocol.json",
@@ -7002,26 +7082,26 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_route_quality_audit_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d69be0d8a25223a329ecd54dda31a6408638cc122bfa4deedd22cfd030ee683a",
-        "size_bytes": 4279
+        "sha256": "4661bcb43f80827840f4bf92e077a363170f0b8b054a5d99f8320bb01476e53e",
+        "size_bytes": 3166
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d511ea72e513ea0955d135800dd861d6ec57686e0f7073e7ea61b02cca662ecf",
-        "size_bytes": 4405
+        "sha256": "48a0d3c742420f86b1e922ef835eeb990d9e3352628b1bec772388a3365ff9c3",
+        "size_bytes": 2529
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/session_heartbeat_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "9e10397d546c7a96624b95ef2a60b437ef3b373ef4d6dbbc3bbff7bc13593ac3",
-        "size_bytes": 4662
+        "sha256": "b39f14c5e80cb543b583b37eef58843d285524bf55fa9c2e95c3bf09b7ac0cc0",
+        "size_bytes": 2896
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d0773714a244dc5734db4db19946d1058d6e977b67cfe43f2e730b195623a136",
-        "size_bytes": 5366
+        "sha256": "117d77c16b8ebabb4128f5689e43b6e4248f6dab9d53b3640ebb670b3cea6e55",
+        "size_bytes": 3533
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
@@ -7410,8 +7490,8 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
         "role": "example_evidence",
-        "sha256": "4fe5ff516e272b1506755fb5dbd28f885ac9a45057ddeb00377ef4de417a4c54",
-        "size_bytes": 514
+        "sha256": "fb426b8306b5e45bf7e58cc6e702d0c4f4a6f9ca88dee900f3c7f52f8532684a",
+        "size_bytes": 516
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_rosetta.py",
@@ -8118,38 +8198,38 @@
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "b8c2fd26bf42511e6657abbc318c0ee5a6966c21d1c51a6cbb3ef34565b5c67d",
-        "size_bytes": 5297
+        "sha256": "d920f60b9cdddffce71fb3dc94fa311b1ea4dbd1d429bcc5ae9b32f371b812a6",
+        "size_bytes": 3189
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/standard_option_surface_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "26ff9078b074cc689da0c23b674f3a0a98b7a06f4c33c0d9e8f62d4cd436e36c",
-        "size_bytes": 6190
+        "sha256": "7d8495f6100cc2829b1b225e23514a6c13b058b715623aade8a7fb3871303992",
+        "size_bytes": 3198
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "686fe488dab6a5d6c3933f40dfcb12e366851a5f752756e86d66e4d95c446b12",
-        "size_bytes": 7311
+        "sha256": "157628a39ff81f02e4a8e7b7ea81f86a1a2eec41a5d40a77fb7a9003407b3f3b",
+        "size_bytes": 5119
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "4f2cb7a2c05ad5f1bef91e2bce8e4c8e7133d8cc5c802420c037f7dbad5f8b78",
-        "size_bytes": 7800
+        "sha256": "1677918f1756e5bccc0da9b94e1abe452d28373deb1812e0f1ce73c12596895e",
+        "size_bytes": 4346
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/work_admission_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "d0329b32a10e0b2715e2f7937da1b004655da9b95e9c269e7876f69fb573741c",
-        "size_bytes": 4752
+        "sha256": "3b9d118c08fe6350db285232af31de6bf327be6d9482b77cf1631e31feb239e5",
+        "size_bytes": 3002
       },
       {
         "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "c73d736ff50977e14443910f039569a6e51a12c9f1aed2b31bb757f5ea5e49a8",
-        "size_bytes": 6951
+        "sha256": "0c0bb5e9c5da9b6a7a7734f2e8b74a7dc229c9bcf07c623e1b88b651f48590a4",
+        "size_bytes": 3924
       },
       {
         "path": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/active_learning_decisions.json",
@@ -8328,8 +8408,8 @@
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "ca7b6c333d433b0b4114b12d04b5a814af9980396372a49e4cdfdcdd8ebcec10",
-        "size_bytes": 16092
+        "sha256": "d6f4de1468017d1c70f0e3ac48b5dd2be3e448b3c50ce606423792663e53bc8b",
+        "size_bytes": 8828
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -8346,14 +8426,14 @@
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "role": "example_evidence",
-        "sha256": "c21d61062318b531fe94306ccad0e2ee16d0d30dec47a8b95784c2fdf1858cea",
-        "size_bytes": 271
+        "sha256": "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f",
+        "size_bytes": 276
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
@@ -8430,8 +8510,8 @@
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "f11f2742772853a5165677a7cc73c2c2853c982a4b014bb38757f4e495cd3a83",
-        "size_bytes": 16855
+        "sha256": "94e64c85f640bf2946ea862e6e549c7741b50f7ff259b9d3e68fdcdecde88cef",
+        "size_bytes": 14467
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
@@ -8520,8 +8600,8 @@
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "f65af05adb9028919248c1ad204dfc42960ed6e5c14bc7f5835971299f0a8ec6",
-        "size_bytes": 3293
+        "sha256": "b78478615b535bc02a19f319b6f1880b4f9ea4c55a8b728363f81fe4e980bb40",
+        "size_bytes": 2707
       },
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/claim_table.json",
@@ -8550,8 +8630,8 @@
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "86c056c3b4469a32d397b94e4e2c1b94f738993979e8ee66586fdee4a1c3211b",
-        "size_bytes": 3393
+        "sha256": "9c8854617c6cb9a454cdef0fbafaf25d6c7b84e839d37499c1ebe103689ac495",
+        "size_bytes": 2199
       },
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/real_work_ledger_active_claims_snapshot.json",
@@ -8574,8 +8654,8 @@
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "7e6b9e5c22cae6f8a8055e949153fe2c6d1d9846640f64890ad361c70691ad93",
-        "size_bytes": 5339
+        "sha256": "1c4b596a9c4d4d05cad1a56f6680ff7de1ac7ad205352c4ed8d0ba5fedcbcb72",
+        "size_bytes": 3303
       },
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
@@ -8670,8 +8750,8 @@
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "cc4e30af209a46e84060e873de5b83708317dafeb6ae9c0cd6abbf184843c00a",
-        "size_bytes": 5859
+        "sha256": "d23f055f84a385f0b139fbb8d3e8e48e00915b873d39ce1186d9136fbd9b6468",
+        "size_bytes": 3847
       },
       {
         "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/workitems.json",
@@ -8730,8 +8810,8 @@
       {
         "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "146f7b5f251a9c0c7557d2261805d1e91bca619050a8fed01b31f9c0e1559fb9",
-        "size_bytes": 5624
+        "sha256": "ed6afa282c3ec039c63cbffb2efe9bb76064f2dc68aaac12f2ab43a2b41ca585",
+        "size_bytes": 5626
       },
       {
         "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
@@ -8748,8 +8828,8 @@
       {
         "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
         "role": "example_evidence",
-        "sha256": "4fe5ff516e272b1506755fb5dbd28f885ac9a45057ddeb00377ef4de417a4c54",
-        "size_bytes": 514
+        "sha256": "fb426b8306b5e45bf7e58cc6e702d0c4f4a6f9ca88dee900f3c7f52f8532684a",
+        "size_bytes": 516
       },
       {
         "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
@@ -8808,8 +8888,8 @@
       {
         "path": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "abe5a7e3820fc67bcab0342f62576fefd7e57efaec1be2f564b79d05a6e20802",
-        "size_bytes": 9086
+        "sha256": "3b77867843ba1706be1affe5edc50bbb115180766803086889f96127ed3e6202",
+        "size_bytes": 5418
       },
       {
         "path": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/microcosm_core/validators/acceptance.py",
@@ -8826,8 +8906,8 @@
       {
         "path": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
         "role": "example_evidence",
-        "sha256": "bf1d19ba62e821639a8e1f97c5206d001f6c9834ab9639b6c2d5062a3eb228b5",
-        "size_bytes": 317
+        "sha256": "e92426a75b414b2a0973ec8791eb4a7a1fb46a792e68d2b223995e6fd8444330",
+        "size_bytes": 322
       },
       {
         "path": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
@@ -9168,20 +9248,20 @@
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "59f743f05bde0e6413bd3393083fc10c1c7b181bc31ad069997bad35a3f47b4f",
-        "size_bytes": 15675
+        "sha256": "184cd121edb90dac58be9f3ca7c2665dddaf942f68f5888453fe493af55bd38a",
+        "size_bytes": 5922
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "role": "example_evidence",
-        "sha256": "c21d61062318b531fe94306ccad0e2ee16d0d30dec47a8b95784c2fdf1858cea",
-        "size_bytes": 271
+        "sha256": "e6e710a8f2c815541a033fe958ffad4be1f50e311d1db144ce111d0a1c3c8c4f",
+        "size_bytes": 276
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/system/lib/work_landing_status.py",
@@ -9318,14 +9398,14 @@
       {
         "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_body_floor/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "4b80d57e08f442350835586cbb57b405420817be6b9bc2f244db4c6e05e1d414",
+        "sha256": "c8ad18eaf2fced0390d503c2c4ad162745058c4bc54bdea0e6cf348888583116",
         "size_bytes": 3022
       },
       {
         "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_body_floor/source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
         "role": "example_evidence",
-        "sha256": "c0c276c64bfe6466730bad15321f47c8453a60de3d99cc9c24e0e525b1f8d9ce",
-        "size_bytes": 115205
+        "sha256": "b8c344330beb092014a97bf81cd29d6eebf638cb6da8d3f4e4f403ab3ed7fec4",
+        "size_bytes": 123517
       },
       {
         "path": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/bundle_manifest.json",
@@ -9420,32 +9500,32 @@
       {
         "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "b9ddacca1422edcfe810fe76eca94e3616d69010f0d6fc62550a4fae8766e89c",
-        "size_bytes": 13284
+        "sha256": "14aaf61ff9f05a677ef780ea6e5a2efae1ea974df82a5d94b510f0bf27a1911e",
+        "size_bytes": 7141
       },
       {
         "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json",
         "role": "example_evidence",
-        "sha256": "ac435f80ecbe385be6b733fb23fbb0ad522e1b2cee96d28821c79a272efc850e",
-        "size_bytes": 325
+        "sha256": "2651a95163fd727b18ca8b26316d33ec68210ffad0a4aa5cd93ac94aa3fc4007",
+        "size_bytes": 330
       },
       {
         "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
         "role": "example_evidence",
-        "sha256": "474067bc58326375611355f5bb642380733e3efaa98122e3285c4b33826e9b4e",
-        "size_bytes": 320
+        "sha256": "dde545c0ed550d0dee81c764ce240569f2485ce23e71b17f1f298ccd37757541",
+        "size_bytes": 325
       },
       {
         "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_microcosm_runtime_shell_reorientation_receipt_v1.json",
         "role": "example_evidence",
-        "sha256": "f16ef3874898ec73f3102cd5f95d974f74e1740278d78b20346310e882128b04",
-        "size_bytes": 330
+        "sha256": "ce8826414ab1a08697fda172ccd476b90bb28949b0409e7de4c96e6c8075c7e4",
+        "size_bytes": 335
       },
       {
         "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_substrate_boundary_policy_v1.json",
         "role": "example_evidence",
-        "sha256": "35f97908083857b7471655439958ec8bea63782b4f4336b5a10df3eaa701a048",
-        "size_bytes": 310
+        "sha256": "63a7088e50d9338b873df4f05972db1f8878786b51ac9e63caa822239b30e153",
+        "size_bytes": 315
       },
       {
         "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/microcosm_core/organs/public_reveal_walkthrough.py",
@@ -9612,8 +9692,8 @@
       {
         "path": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "84ee10f70e037c3efb3a6cbf95c943057415858d494a4d87123e4caf7663ecfb",
-        "size_bytes": 3313
+        "sha256": "6d179ca27fddad4767a0f8dbe452092b80a74c1e44b4f97c78f9af251623f54b",
+        "size_bytes": 2017
       },
       {
         "path": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
@@ -9714,8 +9794,8 @@
       {
         "path": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "963df717d1ef8324e1687b567ec995e73c77be90ec7a7b6e368839fa60614b8a",
-        "size_bytes": 5941
+        "sha256": "ce516c6eb9c1909d4b7dc3b5c5f90e05581584ccbe7f5b8e05a76f9fd5d3dbda",
+        "size_bytes": 823
       },
       {
         "path": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_modules/tools/meta/factory/build_system_atlas.py",
@@ -9774,8 +9854,8 @@
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "a084ebcf92983869a467dfd43ecce97e4e1ca7b632cb533a27620c6bc187d546",
-        "size_bytes": 16354
+        "sha256": "a46a6bccfac331570cc245a218fcff6e7d187269997c200e692350198fab1990",
+        "size_bytes": 10255
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/claude_memory_plane_contract.md",
@@ -9798,8 +9878,8 @@
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
         "role": "example_evidence",
-        "sha256": "37f2925d8a7f395069bf3c8b4b6e79f35a0c484a5310c367e2fc168d0ab51f5f",
-        "size_bytes": 310
+        "sha256": "992be2206dda4f42d175e61fa2e40bb45bb731b241a32756758305833dc04ad3",
+        "size_bytes": 315
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
@@ -9810,8 +9890,8 @@
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
         "role": "example_evidence",
-        "sha256": "4fef24015ee3a12fd169a280acc68ed82db506b91758cce18ad6a567f5ba198f",
-        "size_bytes": 540
+        "sha256": "354be5f0a88674a69243255ef13ca2b1176c92cf1bc019d9527c5deadf55c967",
+        "size_bytes": 545
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/system/lib/strict_json.py",
@@ -9852,8 +9932,8 @@
       {
         "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "c41b98ebc3dc299677041d45e06c592e438373f9be93c0784c7e1ff0eb55a0e1",
-        "size_bytes": 4061
+        "sha256": "8db12b330b61181078b5ef239b51866fa867414582b143d121574602b5890de2",
+        "size_bytes": 2718
       },
       {
         "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
@@ -10158,8 +10238,8 @@
       {
         "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "5691f8b4d433205f50b34a3a52ab159413a57d2a5d8c2b966c3793bc300e5ac3",
-        "size_bytes": 12809
+        "sha256": "b6f538726e1ae8e317e8961206f5cf7301e2eb508c94bbb03a260ed247e1b35a",
+        "size_bytes": 10660
       },
       {
         "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.public_normalized.json",
@@ -10260,8 +10340,8 @@
       {
         "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "a2cace20e0c4d733b0e6bb6a95834a9cc34cac1f638ff3f371caccbc7ba0312a",
-        "size_bytes": 25766
+        "sha256": "03f30346639d8ef1e55b54552a0ceb8b43dd5b12570a83a4d77543217c3639d3",
+        "size_bytes": 20573
       },
       {
         "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
@@ -10452,8 +10532,8 @@
       {
         "path": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "6cda63bb588636ff39b8c0af5fbeca999ed7e7f872ff62b1f5fc31502a4eba8f",
-        "size_bytes": 5101
+        "sha256": "f8a8a17b9f1e2940d78fe5a9213dd2546bc6b24b198df4e92a9fa9c692ddf619",
+        "size_bytes": 2873
       },
       {
         "path": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
@@ -10518,8 +10598,8 @@
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
         "role": "example_evidence",
-        "sha256": "696fffe8cfcce36d1a0264f68e1e63d8768d489d6c87b97c8c09de4121ca9210",
-        "size_bytes": 7062
+        "sha256": "4b168009d21a4e14475281082774d67f9ab280c06b575cbd5298b03de3a9014b",
+        "size_bytes": 4035
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py",
@@ -13686,8 +13766,8 @@
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/generated_projection_control_source_module_manifest.json",
         "role": "fixture",
-        "sha256": "742a3ae708afedfe8c3864da367fe6ecaa1ffe66c45626cdfb691d0f1de13c77",
-        "size_bytes": 8643
+        "sha256": "f652fcf2e5132dac2cec59919a4dc9771ac9c61d311a2f1eb551d2684b88794c",
+        "size_bytes": 4873
       },
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
@@ -13710,8 +13790,8 @@
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/navigation_trace_source_module_manifest.json",
         "role": "fixture",
-        "sha256": "e7d932b1b8cbb64625e14d852c771fff117a5f9defa4373087978234e3c50e5c",
-        "size_bytes": 5476
+        "sha256": "fe457a2c87695f2d1e0fe1f4d1929eae4cd148c4f9acd6a30df403decf1748d5",
+        "size_bytes": 3620
       },
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
@@ -13722,14 +13802,14 @@
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
         "role": "fixture",
-        "sha256": "9611e054961fe5d74951f8732681d64702f89fb535c7a687ca871aa063f267dc",
-        "size_bytes": 1002075
+        "sha256": "044b68e87fc8f36bae7e38f23cd18830bc3f49132a05546a55fc3efe563dd693",
+        "size_bytes": 1002079
       },
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/raw_git_commit_guard_source_module_manifest.json",
         "role": "fixture",
-        "sha256": "e9f6db7c7f41bb8a09c1302cc21669bd976469d313f37c5121308d6fddc5d489",
-        "size_bytes": 9210
+        "sha256": "f3e3ceef749f6f90cdfbcb33cfddf7e6960e207c069be1b3fb96be12d2e7b2e4",
+        "size_bytes": 7480
       },
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/release_or_private_equivalence_overclaim.json",
@@ -13740,8 +13820,8 @@
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/shared_worktree_guard_source_module_manifest.json",
         "role": "fixture",
-        "sha256": "0238e87c50d0d3fdd3427b9ebbfbb2187e8df79fb4e0ebb7a6b3f5693773634d",
-        "size_bytes": 5366
+        "sha256": "117d77c16b8ebabb4128f5689e43b6e4248f6dab9d53b3640ebb670b3cea6e55",
+        "size_bytes": 3533
       },
       {
         "path": "fixtures/first_wave/macro_projection_import_protocol/input/standalone_dependency_leak.json",
@@ -14112,8 +14192,8 @@
       {
         "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
         "role": "fixture",
-        "sha256": "c01a2a70529da370986c84c56fd5ae748c40bc7cfd248703bf5454d8a02d0f79",
-        "size_bytes": 16628
+        "sha256": "43e971bb217acb0d986ec29fb3c393b7aafc59733ecdd2e130e623e7b6ba781a",
+        "size_bytes": 14259
       },
       {
         "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
@@ -14166,8 +14246,8 @@
       {
         "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/system/lib/agent_execution_trace.py",
         "role": "fixture",
-        "sha256": "72a3d5a1df240a4471ef78c7fc4db31ae53e8ede5af41e0a078853c36121c2af",
-        "size_bytes": 512
+        "sha256": "7ba165d5d26b5ccb6356cdc16ce285ef06418c5ff66c72f3f6654be1228b2b7e",
+        "size_bytes": 510
       },
       {
         "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/system/lib/strict_json.py",
@@ -18778,18 +18858,6 @@
         "size_bytes": 15977
       },
       {
-        "path": "receipts/first_wave/crown_jewel_demo/sidecar_workspace/state/command_outputs/navigation_metabolism.full/20260531T181940Z_a5be8bac1c79.json",
-        "role": "receipt_evidence",
-        "sha256": "a5be8bac1c793b4cb2fc3d68eb9b79a99b7b11fd00fe3d360316cbce22764425",
-        "size_bytes": 124030
-      },
-      {
-        "path": "receipts/first_wave/crown_jewel_demo/sidecar_workspace/state/command_outputs/navigation_metabolism.full/20260601T021030Z_a5be8bac1c79.json",
-        "role": "receipt_evidence",
-        "sha256": "a5be8bac1c793b4cb2fc3d68eb9b79a99b7b11fd00fe3d360316cbce22764425",
-        "size_bytes": 124030
-      },
-      {
         "path": "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json",
         "role": "receipt_evidence",
         "sha256": "d7cad05a7816a239b63ab73101fa9aa799d26f6042b4d4d583107985945e04c7",
@@ -21772,6 +21840,12 @@
         "size_bytes": 21160
       },
       {
+        "path": "scripts/check_artifact_budget.py",
+        "role": "utility_script",
+        "sha256": "7b0fa482c1ebae4d2758b0a3f180343452a0c175da39b16177fbea0124670982",
+        "size_bytes": 8119
+      },
+      {
         "path": "scripts/check_doctrine_formal_soundness.py",
         "role": "utility_script",
         "sha256": "108ca34db33a8997a34caade168920ded2aa89c2aa7670c90addfb79f803155a",
@@ -21804,8 +21878,8 @@
       {
         "path": "scripts/refresh_source_module_manifest.py",
         "role": "utility_script",
-        "sha256": "28d9f813cff2a8cf401eab1b9a9effb3b0c780642c4985ced46930f0b97a1769",
-        "size_bytes": 27767
+        "sha256": "d3229760157c6cf1f18564db8c945059e73da97a2b18ab3f54eb9c2a1fdd92c8",
+        "size_bytes": 27763
       },
       {
         "path": "scripts/release_candidate_proof.py",
@@ -26514,8 +26588,8 @@
       {
         "path": "src/microcosm_core/architecture_kernel.py",
         "role": "runtime_source",
-        "sha256": "94fa06544ed32a2eba25f3269d4f272f3659f9101beee15680202ddc081b9a84",
-        "size_bytes": 77113
+        "sha256": "0431244dc9136a409f17acfc09d34bff5bca29cb3d5c75875d833c584c513bc3",
+        "size_bytes": 201605
       },
       {
         "path": "src/microcosm_core/bounded_paths.py",
@@ -26538,8 +26612,8 @@
       {
         "path": "src/microcosm_core/comprehension.py",
         "role": "runtime_source",
-        "sha256": "9fae90c593eb4cba682e63b9b09602fe872ea45e6a068d604fc4515adc2ee5c8",
-        "size_bytes": 204029
+        "sha256": "d6f98e3d44aafb9a3dfecad2c9d04311c671d361c1f1bd5b701bb2c03e7f1988",
+        "size_bytes": 206442
       },
       {
         "path": "src/microcosm_core/crown_jewel_demo.py",
@@ -26550,8 +26624,8 @@
       {
         "path": "src/microcosm_core/doctrine_lattice.py",
         "role": "runtime_source",
-        "sha256": "58f72c675dbe3fd9f252c858fcbd6b97b60ede66421af13e6d58af209617bcea",
-        "size_bytes": 544560
+        "sha256": "ca1be23f9b87f72259e8e52cc6d09369146d0a697ec898bf71dbb07acbc1faf4",
+        "size_bytes": 546506
       },
       {
         "path": "src/microcosm_core/engine_room/__init__.py",
@@ -26610,8 +26684,8 @@
       {
         "path": "src/microcosm_core/engine_room/metabolism_runtime.py",
         "role": "runtime_source",
-        "sha256": "d5fbe5c5c758836ac45bf1593faee61b59454b89c05eab7db8ea415c53f0c20e",
-        "size_bytes": 27599
+        "sha256": "ee9fa06c5b69c07bdec239f7fdaa82aac8b0a04f64ab84957b47ab0c0d605aa8",
+        "size_bytes": 37229
       },
       {
         "path": "src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
@@ -26766,14 +26840,14 @@
       {
         "path": "src/microcosm_core/organs/_crown_jewel_common.py",
         "role": "runtime_source",
-        "sha256": "49c3890a4501ebb83e998fc49385bbc91a6e2ab2d4e6afccbf11a27173a41674",
-        "size_bytes": 37462
+        "sha256": "23d3c25a491846fde055562eec294b03f8014822c6d3fc8dddab26bcf56e60bc",
+        "size_bytes": 37860
       },
       {
         "path": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
         "role": "runtime_source",
-        "sha256": "ce13ed61d8907e349a53615d7e39468c151ca43096f1bbbcd3ec275d26de5216",
-        "size_bytes": 106925
+        "sha256": "ac5c42f9b69583632fe22deaccb1586a7af186a9ee2e599a90111b7e47cfa046",
+        "size_bytes": 150990
       },
       {
         "path": "src/microcosm_core/organs/agent_closeout_faithfulness_audit.py",
@@ -26790,20 +26864,20 @@
       {
         "path": "src/microcosm_core/organs/agent_monitor_redteam_falsification_replay.py",
         "role": "runtime_source",
-        "sha256": "f7d44be5898004c49d4de8349f5d11a0ffaa63b7537bade1f87ee093467dbe90",
-        "size_bytes": 85047
+        "sha256": "80d64a4f2bb0c43a3f2d22ba0ccd0902dab5445b4dd37f30b7f2dbb388daca80",
+        "size_bytes": 108296
       },
       {
         "path": "src/microcosm_core/organs/agent_route_observability_runtime.py",
         "role": "runtime_source",
-        "sha256": "ef8f4b4f98ea8005030a551955650fdbb1153f811e5f46f568dd2005a8fde08a",
-        "size_bytes": 454714
+        "sha256": "fb422daece4fbca00c057cd2a0f059c923868b3a90e6d35621a8233d886c9c68",
+        "size_bytes": 477169
       },
       {
         "path": "src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
         "role": "runtime_source",
-        "sha256": "8c9f10e2aa28126517db019e0d9c6501ba294f259e2c90319d40737db79cc6db",
-        "size_bytes": 105178
+        "sha256": "3fddaef99961c4ea3441f36eb0152a9f5838e77be510bad57e49d7b0aa11617d",
+        "size_bytes": 105689
       },
       {
         "path": "src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
@@ -26850,14 +26924,14 @@
       {
         "path": "src/microcosm_core/organs/batch12_prediction_market_board_capsule.py",
         "role": "runtime_source",
-        "sha256": "e2c2d1d42edea0c792743d9c8094d0120f6ed98c56eb8dee414932031e7983a8",
-        "size_bytes": 24834
+        "sha256": "f9214368f5a9a06528b3a6ecedd8e1d502c25bc8785f099328aec88049969c88",
+        "size_bytes": 27786
       },
       {
         "path": "src/microcosm_core/organs/batch12_release_claim_language_gate.py",
         "role": "runtime_source",
-        "sha256": "6f4b19bbf005df54a55b778f2575859c35b6dec9262c6751cdc78fc9a2717d56",
-        "size_bytes": 29155
+        "sha256": "a039713d2a511dd40d205550ad1a27ad48fa87ad867ab5cbfca247e4fbe30860",
+        "size_bytes": 33337
       },
       {
         "path": "src/microcosm_core/organs/batch4_proof_authority_runtime.py",
@@ -26940,8 +27014,8 @@
       {
         "path": "src/microcosm_core/organs/batch9_macro_engines_capsule.py",
         "role": "runtime_source",
-        "sha256": "f9367e57e5e0efd430a521842e02315332ca65d2e18ffc493d95a210a58fb6ef",
-        "size_bytes": 97918
+        "sha256": "1f6720e24a91ee25c72856f100ef6409880e7f6b67d885a27fe8564bb763d0ed",
+        "size_bytes": 104503
       },
       {
         "path": "src/microcosm_core/organs/belief_state_process_reward_replay.py",
@@ -26952,8 +27026,8 @@
       {
         "path": "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
         "role": "runtime_source",
-        "sha256": "5ddd186f1c84b4e7571ebba24a0bcf940b80f52b627d61ab7b861c138b7746ba",
-        "size_bytes": 14937
+        "sha256": "78c2c30c03daae303486332e4abb2c1add5f12a440aef13264fc2c59d4577adc",
+        "size_bytes": 21082
       },
       {
         "path": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
@@ -26994,8 +27068,8 @@
       {
         "path": "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
         "role": "runtime_source",
-        "sha256": "2b472bcb3ea556432ac7c2218e7b11db037dfc66bf1ddcbb4e48d747db3c9058",
-        "size_bytes": 19992
+        "sha256": "ffa9e23a9899a3cfa169c4a5a477bd4f20e5d04fd657115634c4620d065443a4",
+        "size_bytes": 26202
       },
       {
         "path": "src/microcosm_core/organs/durable_agent_work_landing_replay.py",
@@ -27018,8 +27092,8 @@
       {
         "path": "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
         "role": "runtime_source",
-        "sha256": "d0167950b191538fd2835870de0f84c103ad3027a8c7719b0bdf80f53a135e20",
-        "size_bytes": 22464
+        "sha256": "7f3ef346a21ff9e3047191ef1c777db3fabc71b0744cd750342bbd68fd8fece7",
+        "size_bytes": 25244
       },
       {
         "path": "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
@@ -27090,8 +27164,8 @@
       {
         "path": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
         "role": "runtime_source",
-        "sha256": "341492aac62f7bb3fd0cdf41dd8d82fbb38e554cb4f687895127478e358d8132",
-        "size_bytes": 82337
+        "sha256": "99699158079be6a54e6d79056fc2d17a1b3504efb37a781dbb19bfe87f78356b",
+        "size_bytes": 82938
       },
       {
         "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
@@ -27126,8 +27200,8 @@
       {
         "path": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
         "role": "runtime_source",
-        "sha256": "c0c276c64bfe6466730bad15321f47c8453a60de3d99cc9c24e0e525b1f8d9ce",
-        "size_bytes": 115205
+        "sha256": "b8c344330beb092014a97bf81cd29d6eebf638cb6da8d3f4e4f403ab3ed7fec4",
+        "size_bytes": 123517
       },
       {
         "path": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
@@ -27240,8 +27314,8 @@
       {
         "path": "src/microcosm_core/project_substrate.py",
         "role": "runtime_source",
-        "sha256": "3fb3aaf204dd045cec205b501973ef1fd1ba04f4ec770a8d9c996de4e31a9d0a",
-        "size_bytes": 248549
+        "sha256": "68f4e32cde1b8c30a2defa92dba8a2341f9462ff7f3bdcc75ab23182f8a514d3",
+        "size_bytes": 268159
       },
       {
         "path": "src/microcosm_core/projections/__init__.py",
@@ -27270,8 +27344,8 @@
       {
         "path": "src/microcosm_core/projections/organ_atlas.py",
         "role": "runtime_source",
-        "sha256": "d4c5674e6ca1c41f2f90ca386253dc4a2f5867359d93092d50bfc412851c091a",
-        "size_bytes": 109228
+        "sha256": "a2f355b8971f85bfa8496260a23a19f3604d227ba8a670399d9df76a72b1dda8",
+        "size_bytes": 126061
       },
       {
         "path": "src/microcosm_core/projections/organ_discoverability_matrix.py",
@@ -27306,14 +27380,20 @@
       {
         "path": "src/microcosm_core/release_candidate_proof.py",
         "role": "runtime_source",
-        "sha256": "b8d70a46f545b03e1ebdf97c8f23c6cf93c2b0f16f8d2a092706ce5b873d69ff",
-        "size_bytes": 67544
+        "sha256": "d0eb51c45e8c91e7a969e63d5b9a5b21eccd55a48a8511a2238eec022fc38fc0",
+        "size_bytes": 70404
+      },
+      {
+        "path": "src/microcosm_core/release_claim_portfolio.py",
+        "role": "runtime_source",
+        "sha256": "5c13cf56e431faea9e0a0b79b91213824e88d11f85b01e430ff9bed47c110119",
+        "size_bytes": 8699
       },
       {
         "path": "src/microcosm_core/release_export.py",
         "role": "runtime_source",
-        "sha256": "b5610a919cfa7a73930d5ba3c1fc0809ec9465a7ba92c7513997801ed9d9a6e8",
-        "size_bytes": 184113
+        "sha256": "f03eec22b1ab119d78ea52945d18c4eb9162639800d0302775ded9b401c3ee3e",
+        "size_bytes": 184556
       },
       {
         "path": "src/microcosm_core/resource_root.py",
@@ -27330,8 +27410,8 @@
       {
         "path": "src/microcosm_core/runtime_shell.py",
         "role": "runtime_source",
-        "sha256": "5cd373829ec0e894d33d078d908a924a9691a6dd93f7f66e188bbc852770ef9f",
-        "size_bytes": 1319401
+        "sha256": "81159fce3359b1883fd625c517d8416fb4e4a0cef0d712888ded5b6b673a9bbb",
+        "size_bytes": 1353586
       },
       {
         "path": "src/microcosm_core/schemas.py",
@@ -27432,8 +27512,8 @@
       {
         "path": "src/microcosm_core/validators/readme_front_door.py",
         "role": "runtime_source",
-        "sha256": "4e2ac3e05bbeb97b131d33d38565b5da67402a2f55b35ffb32ed3db2576acd66",
-        "size_bytes": 12709
+        "sha256": "bc02236fce2f2e8cb9ad48178a84dbcd9e86a69c7003e2e419f6e3eeaf51923d",
+        "size_bytes": 11039
       },
       {
         "path": "src/microcosm_core/validators/research_claim_assurance.py",
@@ -27444,8 +27524,8 @@
       {
         "path": "src/microcosm_core/validators/research_kernel_density.py",
         "role": "runtime_source",
-        "sha256": "97c0b44197fdbc5651132fe76f6fba3399085d9d4508190b6dd7dfb9f9c9a668",
-        "size_bytes": 32488
+        "sha256": "6a6718510b5299f5c28217f145a700813c77117467b0dc0b8ded0a977dafbeb8",
+        "size_bytes": 32494
       },
       {
         "path": "src/microcosm_core/validators/secret_exclusion_scan.py",
@@ -28344,8 +28424,8 @@
       {
         "path": "tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
         "role": "test_or_regression_guard",
-        "sha256": "9e58261744542794800c996a178c2f9209c629d5504624022b0772d0f7ee5b4e",
-        "size_bytes": 50353
+        "sha256": "7774978c0f86b37ba15c087a91787b5a53f9aa8c08707de217b4ee925149dc72",
+        "size_bytes": 51698
       },
       {
         "path": "tests/test_agent_closeout_faithfulness_audit.py",
@@ -28380,8 +28460,8 @@
       {
         "path": "tests/test_agent_monitor_redteam_falsification_replay.py",
         "role": "test_or_regression_guard",
-        "sha256": "3398b895c8282302746c1e4237d9649c00a6b59958a2a84b2cca2b499c991ae0",
-        "size_bytes": 49196
+        "sha256": "e5068e3745f29fb1d2d060ff7f3c7605dc194901248b2e8aed6111dcbbc7c0b1",
+        "size_bytes": 49191
       },
       {
         "path": "tests/test_agent_observability_classification_public.py",
@@ -28398,8 +28478,8 @@
       {
         "path": "tests/test_agent_sabotage_scheming_monitor_replay.py",
         "role": "test_or_regression_guard",
-        "sha256": "62597b7009c9e4d03fdde339cbbeef937440e098a0f78a5214996b5dbf384b5c",
-        "size_bytes": 58125
+        "sha256": "dbd9f979c0b4d779872aa53529901fb81e8379f3b1dfc73115c04cf7b5af1910",
+        "size_bytes": 58119
       },
       {
         "path": "tests/test_agent_sandbox_policy_escape_replay.py",
@@ -28418,6 +28498,12 @@
         "role": "test_or_regression_guard",
         "sha256": "6908edca907c223f5d1d063001777cf409e3460d53b780689fa1b6bf212814a4",
         "size_bytes": 7780
+      },
+      {
+        "path": "tests/test_artifact_budget.py",
+        "role": "test_or_regression_guard",
+        "sha256": "44f0bc04c447d6cfbce771ca1aba447a12f5144a7ff0bc04c3a4239212912017",
+        "size_bytes": 3435
       },
       {
         "path": "tests/test_axiom_organ_routing.py",
@@ -28464,8 +28550,8 @@
       {
         "path": "tests/test_batch12_prediction_market_board_capsule.py",
         "role": "test_or_regression_guard",
-        "sha256": "be4e5798164a0e7af5183547ac657d6f27a4e13b11515c27d3e53ac1d2d9ed5f",
-        "size_bytes": 15919
+        "sha256": "efceb499d41d93dd77da5f40e7c0b4dbcbcd342d680c181f40936f5da46a3c41",
+        "size_bytes": 16073
       },
       {
         "path": "tests/test_batch12_release_claim_language_gate.py",
@@ -28566,14 +28652,14 @@
       {
         "path": "tests/test_bootstrap_script.py",
         "role": "test_or_regression_guard",
-        "sha256": "3d4c7bf96d0e412535916d928bb0c12d925ce06a256cdde650e69773bedadce2",
-        "size_bytes": 7586
+        "sha256": "d3d695f3715d425d85834d7fa71f2057df2c2a854252f18404981606d7d90a5d",
+        "size_bytes": 7731
       },
       {
         "path": "tests/test_bounded_autonomy_campaign_packet.py",
         "role": "test_or_regression_guard",
-        "sha256": "b33361be5c4aac605da9ad93af0976e41dabbbb90f6c7b736fd194722f26a2bb",
-        "size_bytes": 9177
+        "sha256": "04570db1aa902db8a10e7f2d979dd5904be9aa26e0c6e8e86b54b77a2d4283a7",
+        "size_bytes": 9179
       },
       {
         "path": "tests/test_bridge_phase_continuity_runtime.py",
@@ -28680,8 +28766,8 @@
       {
         "path": "tests/test_contributing_docs.py",
         "role": "test_or_regression_guard",
-        "sha256": "769f8eb7c3723a6ef6be818a154a065f5d264291e77f0121f7f079458d4cdbdc",
-        "size_bytes": 7069
+        "sha256": "a11a61a6ac132044d77e99350bf608b08a3a7113e050ee295afe1f614b2c0035",
+        "size_bytes": 7070
       },
       {
         "path": "tests/test_corpus_readiness_mathlib_absence_gate.py",
@@ -28716,8 +28802,8 @@
       {
         "path": "tests/test_doctrine_fact_claim_audit.py",
         "role": "test_or_regression_guard",
-        "sha256": "39b32fef62de3450d5bef0729c4c384378ec40e2cb88bce6b2326274b4d8c489",
-        "size_bytes": 6365
+        "sha256": "8381f9ed4a865ee5964107ae0e1a314f74e026f460bcc83378f79dc8c4a76087",
+        "size_bytes": 7103
       },
       {
         "path": "tests/test_doctrine_formal_soundness.py",
@@ -28878,8 +28964,8 @@
       {
         "path": "tests/test_first_screen_composition_card.py",
         "role": "test_or_regression_guard",
-        "sha256": "71e0ccf510ac913ad37a12f7d5b246743b7ee77b6c24e3edb297255226584324",
-        "size_bytes": 89297
+        "sha256": "dfe6fb142e7b0fe7b5f445c8d69b1d0d44fe068dd6e86cf73ac6a0a7a69b6605",
+        "size_bytes": 89300
       },
       {
         "path": "tests/test_first_wave_acceptance.py",
@@ -29008,12 +29094,6 @@
         "size_bytes": 37344
       },
       {
-        "path": "tests/test_microcosm_paper_module_coverage_contract.py",
-        "role": "test_or_regression_guard",
-        "sha256": "4417356918f05f3ec3f715f312445c3d0f1c4aef55b92ebac2cdaddd2f64e387",
-        "size_bytes": 104052
-      },
-      {
         "path": "tests/test_mission_transaction_work_spine.py",
         "role": "test_or_regression_guard",
         "sha256": "6cc64a1e765111399881c099f271376b4e4b6810ed93995b393ea38b91575644",
@@ -29092,6 +29172,12 @@
         "size_bytes": 28075
       },
       {
+        "path": "tests/test_plectis_paper_module_coverage_contract.py",
+        "role": "test_or_regression_guard",
+        "sha256": "3b22b1265d81e9f0e58ea72c2a22242c8ffa3cef9880c1e200168202371b0e90",
+        "size_bytes": 103834
+      },
+      {
         "path": "tests/test_prediction_oracle_reconciliation.py",
         "role": "test_or_regression_guard",
         "sha256": "0f57b370a8c0488eb151fcbb6ece2c085096dfa6d25cde488d4793270cc5e54f",
@@ -29112,8 +29198,8 @@
       {
         "path": "tests/test_project_substrate.py",
         "role": "test_or_regression_guard",
-        "sha256": "9e10dcc84767c20806a82eef3d6e0ba3f907a827e980041e20d25c60c5f37a54",
-        "size_bytes": 60198
+        "sha256": "d5b12bac3aeb1ea86261001c643f140e6dafc979c90599ca4d253033ee795ef9",
+        "size_bytes": 146909
       },
       {
         "path": "tests/test_project_substrate_payload_boundary_vocab.py",
@@ -29136,8 +29222,8 @@
       {
         "path": "tests/test_proof_diagnostic_evidence_spine.py",
         "role": "test_or_regression_guard",
-        "sha256": "d072b022adb57a65bfdbe8dcf2a007a1395806385d0127e5e2ae0357b3a5993a",
-        "size_bytes": 56541
+        "sha256": "883c3f381e802128134c0d9b593922416c17be599180cd6cd17f1fe652d9622c",
+        "size_bytes": 59454
       },
       {
         "path": "tests/test_proof_lab_cache_action_hint.py",
@@ -29178,8 +29264,8 @@
       {
         "path": "tests/test_public_entry_docs.py",
         "role": "test_or_regression_guard",
-        "sha256": "89a60291154b4b6b055b022b4ce2899c2abca2cb07ed1846d8eb4cf6d80a9dc8",
-        "size_bytes": 81344
+        "sha256": "05b26e1507334604e8873e9b527b272865c35ae7daad1ede3d8687bb53ffadaf",
+        "size_bytes": 81342
       },
       {
         "path": "tests/test_public_lens_cli.py",
@@ -29202,8 +29288,8 @@
       {
         "path": "tests/test_public_repo_makefile.py",
         "role": "test_or_regression_guard",
-        "sha256": "90b7de3a6d7df761a044c1f4a31847806767c71a54fb0fa5580783db94df5590",
-        "size_bytes": 23602
+        "sha256": "c20f1b5bfeacc3412f2527133bd9c1ad68e55fcbbb25a66910b3f01b6c1b41a1",
+        "size_bytes": 23903
       },
       {
         "path": "tests/test_public_reveal_walkthrough.py",
@@ -29232,20 +29318,20 @@
       {
         "path": "tests/test_quickstart_docs.py",
         "role": "test_or_regression_guard",
-        "sha256": "271262ba20058351ec3eed07937141ab18bbf239616c6a8f07f6a9da8965f654",
-        "size_bytes": 5044
+        "sha256": "b5309b188c224f915bb046b1d6a3eaa05dcf594a3d04f379cddf18d5b4f7899d",
+        "size_bytes": 5043
       },
       {
         "path": "tests/test_readme_first_screen_entry.py",
         "role": "test_or_regression_guard",
-        "sha256": "8bf8bc6afa40d9e0265715c305302cd32a01ceff1c07b3008423a2a13edf5252",
-        "size_bytes": 7029
+        "sha256": "7d38f746e5e07603e99f52f43c52d07cebe5535d6d1ff4f1e2e1461b9ad8449b",
+        "size_bytes": 7033
       },
       {
         "path": "tests/test_readme_front_door.py",
         "role": "test_or_regression_guard",
-        "sha256": "0da6fba40b41d81f94ad052695b1a1ad4bb76ff22f95e7216026e8e15eddf4e0",
-        "size_bytes": 7077
+        "sha256": "acacf7d3473c99957ec74278479166d245504f0ab28b25a3ff2e7920c76e451e",
+        "size_bytes": 5617
       },
       {
         "path": "tests/test_receipts.py",
@@ -29266,10 +29352,22 @@
         "size_bytes": 47194
       },
       {
+        "path": "tests/test_release_candidate_semantic_action.py",
+        "role": "test_or_regression_guard",
+        "sha256": "cd29070eb3b12bdad3d26a7f03c2bca743d54e3322894b17d3770bb4cbc6e810",
+        "size_bytes": 6419
+      },
+      {
+        "path": "tests/test_release_claim_portfolio.py",
+        "role": "test_or_regression_guard",
+        "sha256": "389bb61a1c5f307bb02005009b61d41b39e76ca95f804193595128407a2f4b24",
+        "size_bytes": 5303
+      },
+      {
         "path": "tests/test_release_export.py",
         "role": "test_or_regression_guard",
-        "sha256": "cc99be36c9c87fa139405462a8102deeff67f03c3520ee4fa335d4276badbc26",
-        "size_bytes": 77038
+        "sha256": "9f8a300c71f054e09449a675f19ad970bdb0959d56c5c41e0cecfdba046fb6eb",
+        "size_bytes": 77268
       },
       {
         "path": "tests/test_release_review_contract.py",
@@ -29358,8 +29456,8 @@
       {
         "path": "tests/test_security_docs.py",
         "role": "test_or_regression_guard",
-        "sha256": "77b2e8c45ef73b51229e642cf0dcc8a9fd62cdcd303278aa4aa6999071c11538",
-        "size_bytes": 1550
+        "sha256": "ee8df86307e48b8894565caf76f5cb8a50ce73514974329e2147b2610b472d3e",
+        "size_bytes": 1551
       },
       {
         "path": "tests/test_self_comprehension_packet_compiler_source_bundle.py",
@@ -29558,10 +29656,10 @@
       "public_paper_module": 188,
       "public_skill": 778,
       "public_standard": 141,
-      "receipt_evidence": 786,
-      "runtime_source": 163,
-      "test_or_regression_guard": 196,
-      "utility_script": 17
+      "receipt_evidence": 784,
+      "runtime_source": 164,
+      "test_or_regression_guard": 199,
+      "utility_script": 18
     },
     "status": "pass"
   },
@@ -29625,8 +29723,8 @@
     "claim_language_scan": {
       "anti_claim": "Pattern hits in explicit boundary or anti-claim contexts are reported for review but do not by themselves authorize or block the export candidate.",
       "body_in_receipt": false,
-      "boundary_context_hit_count": 19,
-      "hit_count": 31,
+      "boundary_context_hit_count": 20,
+      "hit_count": 32,
       "hit_overflow_count": 0,
       "hits": [
         {
@@ -29673,7 +29771,7 @@
           "body_in_receipt": false,
           "category": "product_claim_boundary",
           "context": "boundary_or_anti_claim_context",
-          "line": 123,
+          "line": 136,
           "path": "README.md",
           "pattern_id": "hosted_or_production_security_claim",
           "release_authorization_blocking": false,
@@ -29905,6 +30003,16 @@
           "context": "boundary_or_anti_claim_context",
           "line": 156,
           "path": "src/microcosm_core/release_export.py",
+          "pattern_id": "hosted_or_production_security_claim",
+          "release_authorization_blocking": false,
+          "release_candidate_blocking": false
+        },
+        {
+          "body_in_receipt": false,
+          "category": "product_claim_boundary",
+          "context": "boundary_or_anti_claim_context",
+          "line": 40,
+          "path": "src/microcosm_core/validators/research_kernel_density.py",
           "pattern_id": "hosted_or_production_security_claim",
           "release_authorization_blocking": false,
           "release_candidate_blocking": false
@@ -30464,7 +30572,7 @@
     },
     "hosted_launch_authorized": false,
     "materials_ledger": {
-      "artifact_payload_hash_sha256": "d39706b0e01db08399df7d30cb038d864f858389a5a319fe00d43e94c368d848",
+      "artifact_payload_hash_sha256": "63207a6a843bd1d17a8db8b18a29da9dffe12a96bc7be7b4de11350f946f81c9",
       "body_in_receipt": false,
       "dependency_summary": {
         "build_requires": [
@@ -30491,10 +30599,10 @@
         "public_paper_module": 188,
         "public_skill": 778,
         "public_standard": 141,
-        "receipt_evidence": 786,
-        "runtime_source": 163,
-        "test_or_regression_guard": 196,
-        "utility_script": 17
+        "receipt_evidence": 784,
+        "runtime_source": 164,
+        "test_or_regression_guard": 199,
+        "utility_script": 18
       },
       "license_notice_chain": {
         "authorship_and_no_affiliation_ref": "PROVENANCE.md",
@@ -30569,12 +30677,12 @@
         "fixtures": 889,
         "paper_modules": 188,
         "pyproject.toml": 1,
-        "receipts": 786,
-        "scripts": 17,
+        "receipts": 784,
+        "scripts": 18,
         "skills": 778,
-        "src": 163,
+        "src": 164,
         "standards": 141,
-        "tests": 196
+        "tests": 199
       }
     },
     "operator_publication_checklists": {
@@ -30736,10 +30844,8 @@
       "hosted_launch_authorized": false,
       "publish_authorized": false,
       "release_authorization_gate": {
-        "additional_gate_input_count": 1,
-        "additional_gate_inputs": [
-          "clean_source_root_or_explicit_dirty_material_authorization"
-        ],
+        "additional_gate_input_count": 0,
+        "additional_gate_inputs": [],
         "gate_id": "explicit_release_authorization_gate",
         "invoked": false,
         "promotion_action": "record_explicit_release_authorization_receipt",
@@ -30757,53 +30863,44 @@
     "candidate_identity": {
       "artifact": {
         "artifact_dir": "plectis",
-        "artifact_payload_hash_sha256": "d39706b0e01db08399df7d30cb038d864f858389a5a319fe00d43e94c368d848",
-        "file_count": 4808,
+        "artifact_payload_hash_sha256": "63207a6a843bd1d17a8db8b18a29da9dffe12a96bc7be7b4de11350f946f81c9",
+        "file_count": 4811,
         "mode": "generated_standalone_folder",
-        "payload_bytes": 105567018
+        "payload_bytes": 105420221
       },
       "export_command": "python -m microcosm_core.release_export --root <microcosm-root> --out <release-out> --force --summary",
       "release_receipt_ref": "receipts/release/release_export_receipt.json",
       "source": {
         "body_in_receipt": false,
-        "dirty_source_path_count": 8,
+        "dirty_source_path_count": 0,
         "dirty_source_path_overflow_count": 0,
-        "dirty_source_path_sample": [
-          "assets/",
-          "src/microcosm_core/release_export.py",
-          "tests/test_bootstrap_script.py",
-          "tests/test_contributing_docs.py",
-          "tests/test_first_screen_composition_card.py",
-          "tests/test_quickstart_docs.py",
-          "tests/test_readme_first_screen_entry.py",
-          "tests/test_security_docs.py"
-        ],
-        "git_head": "43a2560d2632dc6dc398973b1622b230dd21d5c0",
+        "dirty_source_path_sample": [],
+        "git_head": "cd7a4220119bdc3055f405addbcbe46ec96b9d01",
         "source_root_ref": "microcosm-substrate",
-        "source_tree_state_kind": "git_head_with_worktree_delta",
+        "source_tree_state_kind": "git_head_clean",
         "status": "available"
       }
     },
     "candidate_invalidation_assessment": {
       "assessment_status": "pass",
-      "candidate_validity_result": "historical_only",
+      "candidate_validity_result": "gate_eligible",
       "comparison": {
         "commits_after_candidate_count": 0,
-        "compare_head": "43a2560d2632dc6dc398973b1622b230dd21d5c0",
+        "compare_head": "cd7a4220119bdc3055f405addbcbe46ec96b9d01",
         "compare_ref": "HEAD",
         "observed_commits": []
       },
-      "disclosure": "candidate_is_not_gate_ready",
+      "disclosure": "no_newer_commits_after_frozen_candidate",
       "frozen_candidate": {
-        "artifact_hash": "d39706b0e01db08399df7d30cb038d864f858389a5a319fe00d43e94c368d848",
-        "file_count": 4808,
-        "git_head": "43a2560d2632dc6dc398973b1622b230dd21d5c0",
-        "payload_bytes": 105567018,
+        "artifact_hash": "63207a6a843bd1d17a8db8b18a29da9dffe12a96bc7be7b4de11350f946f81c9",
+        "file_count": 4811,
+        "git_head": "cd7a4220119bdc3055f405addbcbe46ec96b9d01",
+        "payload_bytes": 105420221,
         "release_receipt_ref": "receipts/release/release_export_receipt.json",
         "source_root_ref": "microcosm-substrate",
-        "source_tree_state_kind": "git_head_with_worktree_delta"
+        "source_tree_state_kind": "git_head_clean"
       },
-      "gate_state": "defer",
+      "gate_state": "ready_pending_operator_authorization",
       "materiality_policy": {
         "macro_assimilation_material_prefixes": [
           "microcosm-substrate/examples/macro_projection_import_protocol/",
@@ -30847,10 +30944,10 @@
     },
     "candidate_state": "validated_release_candidate_pending_explicit_authorization",
     "external_warning_classification": {
-      "release_authorization_blocking_warning_count": 1,
+      "release_authorization_blocking_warning_count": 0,
       "release_blocking_rule": "A warning blocks release only if it changes public artifact claims for included or excluded files, private-state absence, runnable first-screen behavior, projection freshness, source/material digest correspondence, install-mode support, authority ceiling, or cold-reader documentation.",
       "release_blocking_warning_count": 0,
-      "warning_count": 4,
+      "warning_count": 3,
       "warnings": [
         {
           "classification": "release_candidate_disclosed",
@@ -30875,65 +30972,39 @@
           "release_authorization_blocking": false,
           "release_blocking": false,
           "warning_id": "cap_census.json"
-        },
-        {
-          "classification": "release_authority_gate_input",
-          "dirty_source_path_count": 8,
-          "public_artifact_claim_impact": [
-            "source_material_identity"
-          ],
-          "reason": "The artifact is hash-bound, but the source root has uncommitted material. Promotion must either consume a clean source-root candidate or explicitly authorize the dirty material fingerprint.",
-          "release_authorization_blocking": true,
-          "release_blocking": false,
-          "warning_id": "source_tree_dirty_at_export"
         }
       ]
     },
     "release_authorization_gate_decision": {
-      "blocking_codes": [
-        "RELEASE_AUTHORIZATION_DIRTY_SOURCE_TREE"
-      ],
-      "blocking_promotion_inputs": [
-        "source_tree_dirty_at_export"
-      ],
+      "blocking_codes": [],
+      "blocking_promotion_inputs": [],
       "clean_source_requirement": "An authorized public release must bind the artifact to a clean git HEAD unless a separate dirty-material authorization rule is explicitly invoked.",
-      "decision": "defer",
-      "decision_reason": "Release authorization is deferred because the candidate is export-shape validated but its source identity is not clean enough for public promotion.",
+      "decision": "ready_pending_operator_authorization",
+      "decision_reason": "The candidate is gate-eligible, but release remains unauthorized until the operator explicitly invokes the release authorization gate and records its receipt.",
       "dirty_material_authorization_rule": "Dirty-source promotion requires a stable dirty-diff/material fingerprint, path classification, and an explicit authorization receipt. This exporter does not promote dirty material by default.",
       "dry_run": true,
       "evaluated_inputs": {
-        "artifact_payload_hash_sha256": "d39706b0e01db08399df7d30cb038d864f858389a5a319fe00d43e94c368d848",
+        "artifact_payload_hash_sha256": "63207a6a843bd1d17a8db8b18a29da9dffe12a96bc7be7b4de11350f946f81c9",
         "candidate_state": "validated_release_candidate_pending_explicit_authorization",
         "candidate_status": "pass_with_external_warnings",
-        "dirty_source_path_count": 8,
-        "dirty_source_path_sample": [
-          "assets/",
-          "src/microcosm_core/release_export.py",
-          "tests/test_bootstrap_script.py",
-          "tests/test_contributing_docs.py",
-          "tests/test_first_screen_composition_card.py",
-          "tests/test_quickstart_docs.py",
-          "tests/test_readme_first_screen_entry.py",
-          "tests/test_security_docs.py"
-        ],
+        "dirty_source_path_count": 0,
+        "dirty_source_path_sample": [],
         "export_status": "pass",
-        "git_head": "43a2560d2632dc6dc398973b1622b230dd21d5c0",
-        "release_authorization_blocking_warning_count": 1,
+        "git_head": "cd7a4220119bdc3055f405addbcbe46ec96b9d01",
+        "release_authorization_blocking_warning_count": 0,
         "release_authorized": false,
         "release_blocking_warning_count": 0,
         "release_receipt_ref": "receipts/release/release_export_receipt.json",
         "source_status": "available",
-        "source_tree_state_kind": "git_head_with_worktree_delta",
+        "source_tree_state_kind": "git_head_clean",
         "validation_blocking_codes": []
       },
       "gate_id": "explicit_release_authorization_gate",
       "gate_invoked": false,
-      "operator_authorization_gate_eligible": false,
+      "operator_authorization_gate_eligible": true,
       "release_authorization_allowed_now": false,
       "release_authorized_after_dry_run": false,
-      "required_actions": [
-        "regenerate_from_clean_source_tree_or_authorize_dirty_material_fingerprint"
-      ],
+      "required_actions": [],
       "schema_version": "microcosm_release_authorization_gate_decision_v1"
     },
     "schema_version": "microcosm_release_candidate_packet_v1",
@@ -31030,10 +31101,10 @@
     "row_count": 0,
     "rows": [],
     "scanned_surface": "**/source_modules excluding cache/venv/generated roots",
-    "source_tree_private_body_row_count": 394,
+    "source_tree_private_body_row_count": 359,
     "source_tree_private_body_substitution_count": 417,
     "source_tree_restricted_substitution_row_count": 417,
-    "source_tree_row_count": 394,
+    "source_tree_row_count": 359,
     "status": "pass"
   },
   "standalone_severance_receipt": {

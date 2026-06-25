@@ -1,41 +1,27 @@
 {
-  "schema_version": "macro_projection_route_discovery_confirmation_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "route_discovery_confirmation_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
   "body_storage_policy": "exact_non_secret_route_discovery_confirmation_source_module_copied_into_public_projection_bundle",
-  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
-  "module_count": 1,
-  "modules": [
-    {
-      "module_id": "route_discovery_confirmation_body_import",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_ref": "tools/meta/control/route_discovery_confirmation.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
-      "source_role": "Confirms EDC-normalized route discovery proposals, verifies path/verb/evidence support, dedupes against accepted edges, writes bounded confirmation receipts, and can append accepted-ledger rows only behind an explicit accept flag.",
-      "source_sha256": "40cad3e8b710b955d16e4d106435e89541ef13800c0fec13dae68a0ddfcac313",
-      "target_sha256": "40cad3e8b710b955d16e4d106435e89541ef13800c0fec13dae68a0ddfcac313",
-      "sha256_match": true,
-      "line_count": 290,
-      "byte_count": 11250,
-      "required_anchors": [
-        "CONFIRMATION_ROOT_REL = \"state/raw_seed_routing_pilot/discovery_confirmations\"",
-        "def _support_score(",
-        "def _accepted_key(",
-        "def _confirmation_id(",
-        "def confirm_proposals(",
-        "\"schema_version\": \"route_discovery_confirmation_batch_v1\"",
-        "\"accepted_appended\": accepted_appended"
-      ],
-      "anchor_count": 7,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_route_graph_export_no_accepted_edge_mutation_authority_no_provider_payload_bodies",
-      "material_class": "public_macro_tool_body"
-    }
-  ],
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "route_discovery_confirmation_source_modules_import",
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and read-only macro confirmation smoke checks; copied route-discovery-confirmation source is body evidence, not authority to mutate accepted edges, update the canonical route graph, execute live providers, export prompt/operator/provider bodies, inspect browser/HUD live access, inspect private account/session state, or send recipient material",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, provider payload bodies, provider response bodies, operator prompt bodies, browser/HUD live-access material, account/session state, cookies, credentials, accepted-edge private state, recipient-send state, or confirmation payload bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "route_discovery_confirmation_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/route_discovery_confirmation.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/route_discovery_confirmation.py"
+    }
+  ],
+  "schema_version": "macro_projection_route_discovery_confirmation_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -52,6 +38,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary",

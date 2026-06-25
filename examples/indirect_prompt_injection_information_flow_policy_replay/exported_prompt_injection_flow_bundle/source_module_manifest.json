@@ -5,106 +5,8 @@
   "bundle_id": "indirect_prompt_injection_information_flow_policy_replay_public_trace_refactor_bundle",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "indirect_prompt_injection_information_flow_policy_replay_source_open_body_import",
-  "module_count": 5,
+  "module_count": 1,
   "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 936934,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 373,
-      "material_class": "public_macro_pattern_body",
-      "module_id": "prompt_injection_extracted_patterns_ledger_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "required_anchors": [
-        "\"pattern_id\": \"indirect_prompt_injection_information_flow_policy_replay_compound\"",
-        "AgentDojo",
-        "information-flow replay",
-        "system/lib/agent_execution_trace.py",
-        "codex/standards/std_agent_execution_trace.json"
-      ],
-      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
-      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "source_role": "Macro extracted-pattern ledger body containing the indirect_prompt_injection_information_flow_policy_replay_compound row and its prompt-injection, trace, standard, and projection source refs.",
-      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 295524,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4825,
-      "material_class": "public_macro_receipt_body",
-      "module_id": "prompt_injection_high_novelty_growth_receipt_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "required_anchors": [
-        "\"pattern_id\": \"indirect_prompt_injection_information_flow_policy_replay_compound\"",
-        "\"row_addition_decision\": \"appended\"",
-        "AgentDojo evaluates tool-using agents over untrusted data",
-        "End-to-end web-agent prompt-injection attacks make information-flow policy receipts"
-      ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
-      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "source_role": "Macro high-novelty reconstruction receipt body that appended the prompt-injection information-flow replay row and binds it to external attention and local source refs.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 304224,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace_runtime_body_import",
-      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "required_anchors": [
-        "Project each Claude / Codex session rollout into a **span-and-trace",
-        "build_agent_execution_trace",
-        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
-        "NEVER parses"
-      ],
-      "sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "sha256_match": true,
-      "source_byte_count": 304224,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_line_count": 6898,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_role": "Macro agent-execution trace runtime body that provides observable span, trace, and privacy-boundary mechanics inherited by the public prompt-injection trace refactor.",
-      "source_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "target_byte_count": 304224,
-      "target_line_count": 6898,
-      "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
-      ]
-    },
     {
       "anchor_count": 4,
       "body_copied": true,
@@ -139,38 +41,6 @@
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
       ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 10373,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 260,
-      "material_class": "public_macro_tool_body",
-      "module_id": "strict_json_source_body_import",
-      "path": "source_modules/system/lib/strict_json.py",
-      "required_anchors": [
-        "class StrictJsonError",
-        "class DuplicateJsonKeyError",
-        "def loads_json_strict(",
-        "def read_json_strict(",
-        "def strict_json_artifact_report("
-      ],
-      "sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
-      "source_ref": "system/lib/strict_json.py",
-      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
-      "source_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/system/lib/strict_json.py",
-      "target_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
-      ]
     }
   ],
   "omitted_material": [
@@ -187,6 +57,56 @@
   ],
   "public_runtime_policy": "source_modules_are_prompt_injection_information_flow_body_floor_not_live_tool_provider_account_robustness_or_exploit_authority",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "prompt_injection_extracted_patterns_ledger_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "prompt_injection_high_novelty_growth_receipt_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace_runtime_body_import",
+      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "strict_json_source_body_import",
+      "path": "source_modules/system/lib/strict_json.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/strict_json.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/strict_json.py"
+    }
+  ],
   "schema_version": "indirect_prompt_injection_information_flow_policy_replay_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
   "source_import_class": "copied_non_secret_macro_body",

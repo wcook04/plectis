@@ -10,6 +10,7 @@ from typing import Any
 from microcosm_core import architecture_kernel
 from microcosm_core import project_substrate
 from microcosm_core import cli
+from microcosm_core import runtime_shell
 from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
 from microcosm_core.runtime_shell import RuntimeShell
 
@@ -88,6 +89,48 @@ def test_project_walk_passes_precomputed_classification_metadata(
     assert all(call["path"] is None for call in calls)
     assert all(call["name"] and call["suffix"] is not None for call in calls)
     assert any(call["parts"] == {"src", "scratch_app", "__init__.py"} for call in calls)
+
+
+def test_tour_assay_predicate_coverage_prefers_verification_status() -> None:
+    producer_predicates = {
+        "join_integrity": True,
+        "selection_binding": True,
+        "record_classification_matrix": True,
+    }
+    verified_predicates = {
+        "record_classification_matrix": False,
+        "assertion_matrix_coverage": True,
+    }
+
+    assay = runtime_shell._tour_command_causality_coverage_assay(
+        compiled={
+            "selected_route_id": "readme_onboarding_route",
+            "work_id": "work_0002",
+        },
+        command_reference_execution_case={
+            "status": "blocked",
+            "selected_work_id": "work_0002",
+            "root_work_id": "work_0002",
+            "verification_status": "blocked",
+            "public_architecture_witness_eligible": False,
+            "public_witness_status": "verification_blocked",
+            "state_delta_refs": [".microcosm/work_items.json::work_0002"],
+            "predicate_status": producer_predicates,
+            "verification_predicate_status": verified_predicates,
+        },
+        project_compile_state_written=False,
+        cached_state_reused=True,
+    )
+
+    assert assay["predicate_coverage"]["join_integrity"] is True
+    assert assay["predicate_coverage"]["record_classification_matrix"] is False
+    assert assay["predicate_coverage"]["assertion_matrix_coverage"] is True
+    assert assay["predicate_coverage_sources"] == {
+        "join_integrity": "predicate_status",
+        "selection_binding": "predicate_status",
+        "record_classification_matrix": "verification_predicate_status",
+        "assertion_matrix_coverage": "verification_predicate_status",
+    }
 
 
 def test_python_lens_counts_relative_and_absolute_imports_separately(
@@ -733,7 +776,7 @@ def test_route_explanation_entry_packet_matches_tour_card_causal_proof(
     explanation = project_substrate.explain_route(project, selected_route_id)
     proof = explanation["causal_chain_proof"]
 
-    assert route["full_proof_prerequisite_command"] == "microcosm tour --card <project>"
+    assert route["full_proof_prerequisite_command"] == "plectis tour --card <project>"
     assert "causal_chain_proof" in route["expected_fields"]
     assert "selected-route work transaction" in route["full_proof_status_rule"]
     assert tour_card["state_write_result"]["status"] == "pass"
@@ -779,7 +822,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert python_lens["status"] == "pass"
     assert python_lens["schema_version"] == "microcosm_project_python_lens_v1"
     assert python_lens["lens_id"] == "project_python_route_lens"
-    assert python_lens["command"] == "microcosm python-lens <project>"
+    assert python_lens["command"] == "plectis python-lens <project>"
     assert python_lens["python_file_count"] == 2
     assert python_lens["passing_check_count"] == 4
     assert python_lens["missing_check_count"] == 1
@@ -988,6 +1031,24 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert ".microcosm/work_items.json" in causal_proof["reader_drilldowns"]
     assert ".microcosm/evidence/work_create_work_0001.json" in causal_proof["evidence_refs"]
     assert ".microcosm/evidence/work_run_work_0001.json" in causal_proof["evidence_refs"]
+    # Occurrence vs declaration: exercised_primitives is derived from THIS run's
+    # event spans, not the declared kernel_primitives literal. work runs, so work
+    # is exercised; the event spans are drawn only from the route/explain/work set.
+    assert causal_proof["exercised_event_spans"]
+    assert set(causal_proof["exercised_event_spans"]).issubset(
+        {"project.route", "project.explain", "work.create", "work.run"}
+    )
+    assert "work" in causal_proof["exercised_primitives"]
+    # catalog/pattern are in the declared kernel_primitives list, but their spans
+    # (project.index / project.patterns) never appear in a causal chain, so they
+    # must NOT be reported as exercised — occurrence != declaration.
+    assert "catalog" not in causal_proof["exercised_primitives"]
+    assert "pattern" not in causal_proof["exercised_primitives"]
+    # exercised is always a subset of the declared 10-primitive catalog.
+    assert set(causal_proof["exercised_primitives"]).issubset(
+        set(causal_proof["declared_kernel_primitives"])
+    )
+    assert len(causal_proof["declared_kernel_primitives"]) == 10
     assert causal_proof["authority_boundary"] == (
         "causal_chain_lineage_not_release_or_proof_correctness_authority"
     )
@@ -1073,9 +1134,18 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["work_id"] == "work_0001"
     assert compiled["idempotent_replay"] is True
     assert compiled["source_files_mutated"] is False
-    assert "microcosm serve <project>" in compiled["open_observatory"]
+    reader_case = compiled["reader_causal_chain"]["command_reference_execution_case"]
+    assert reader_case["status"] == "pass"
+    assert reader_case["verification_status"] == "pass"
+    assert reader_case["verification_failed_predicates"] == []
+    assert reader_case["predicate_status"]["projection_fidelity"] is True
+    assert reader_case["public_architecture_witness_eligible"] is True
+    assert reader_case["public_witness_status"] == "pass"
+    assert reader_case["producer_claimed_public_architecture_witness_eligible"] is False
+    assert reader_case["verification_predicate_status"]["rendered_eligibility_flags"] is True
+    assert "plectis serve <project>" in compiled["open_observatory"]
     assert compiled["bounded_observatory_validation"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     truth_surface = compiled["truth_readiness_surface"]
     assert compiled["truth_readiness_ref"] == ".microcosm/truth_readiness.json"
@@ -1100,10 +1170,10 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "/project/observatory-card"
     )
     assert truth_surface["observatory_surface"]["project_observe_command"] == (
-        "microcosm observe --card <project>"
+        "plectis observe --card <project>"
     )
     assert truth_surface["observatory_surface"]["project_observe_full_command"] == (
-        "microcosm observe <project>"
+        "plectis observe <project>"
     )
     assert truth_surface["authority_ceiling"]["release_authorized"] is False
     reader_chain = compiled["reader_causal_chain"]
@@ -1120,7 +1190,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert reader_chain["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert reader_chain["observatory"]["expanded_endpoint"] == "/project/observatory"
     assert reader_chain["observatory"]["bounded_validation_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert reader_chain["observatory"]["bounded_validation_request_count"] == 7
     assert reader_chain["proof_lab"]["endpoint"] == "/proof-lab"
@@ -1416,8 +1486,8 @@ def test_cli_python_lens_defaults_to_compact_card_and_full_keeps_rows(
     card = json.loads(capsys.readouterr().out)
 
     assert card["schema_version"] == "microcosm_project_python_lens_card_v1"
-    assert card["command"] == "microcosm python-lens <project>"
-    assert card["full_lens_command"] == "microcosm python-lens --full <project>"
+    assert card["command"] == "plectis python-lens <project>"
+    assert card["full_lens_command"] == "plectis python-lens --full <project>"
     assert card["deferred_full_scan"] is True
     assert card["python_file_count"] == 2
     assert card["path_preview_limit"] == project_substrate.PYTHON_LENS_CARD_PREVIEW_LIMIT
@@ -1433,7 +1503,7 @@ def test_cli_python_lens_defaults_to_compact_card_and_full_keeps_rows(
     full = json.loads(capsys.readouterr().out)
 
     assert full["schema_version"] == "microcosm_project_python_lens_v1"
-    assert full["full_lens_command"] == "microcosm python-lens --full <project>"
+    assert full["full_lens_command"] == "plectis python-lens --full <project>"
     assert full["source_span_count"] == 3
     assert full["symbol_capsule_count"] == 1
     assert full["graph_edge_count"] == 1
@@ -1468,3 +1538,2013 @@ def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
             assert payload["causal_chain_proof"]["status"] == "pass"
             assert payload["causal_chain_proof"]["selected_work_id"] == "work_0001"
             assert payload["causal_chain_proof"]["event_ref_count"] >= 4
+
+
+def test_exercised_primitives_are_occurrence_not_declaration() -> None:
+    """exercised_primitives is derived from a run's event spans, not the declared catalog.
+
+    Guards the occurrence-vs-declaration trap: the explanation's hardcoded
+    ``kernel_primitives`` list (and the kernel's 10-primitive catalog) are
+    DECLARATION; ``exercised_primitives`` must reflect only the spans that
+    actually fired. A drift-immune unit test of the helper directly, so it does
+    not depend on CLI command-name state elsewhere in the tree.
+    """
+    from microcosm_core.architecture_kernel import (
+        _exercised_primitives_from_event_refs,
+        load_kernel_manifest,
+    )
+
+    manifest = load_kernel_manifest()
+    declared = {
+        row["primitive_id"]
+        for row in manifest["primitives"]
+        if isinstance(row, dict) and row.get("primitive_id")
+    }
+    refs = [
+        {"event_id": "evt_1", "span": "project.route", "status": "pass"},
+        {"event_id": "evt_2", "span": "project.explain", "status": "pass"},
+        {"event_id": "evt_3", "span": "work.create", "status": "pass"},
+        {"event_id": "evt_4", "span": "work.run", "status": "pass"},
+    ]
+    spans, exercised = _exercised_primitives_from_event_refs(refs, manifest)
+
+    assert spans == ["project.explain", "project.route", "work.create", "work.run"]
+    # occurrence: derived from the spans that fired
+    assert {"route", "explanation", "work", "assimilation"}.issubset(set(exercised))
+    # declaration leakage guard: primitives whose spans never fired are excluded
+    for absent in ("catalog", "pattern", "standard", "project"):
+        assert absent not in exercised
+    # the glob-span primitive ("event": "project.* / work.*") is never auto-marked
+    assert "event" not in exercised
+    # exercised is always a subset of the declared catalog
+    assert set(exercised).issubset(declared)
+    # empty run -> empty occurrence
+    assert _exercised_primitives_from_event_refs([], manifest) == ([], [])
+
+
+def test_execution_instance_is_single_invocation_scoped() -> None:
+    """The execution_instance partition is one work transaction, not the route neighbourhood.
+
+    Disconfirming check: a second, interleaved run of the same route must not be able
+    to enter the selected execution's partition. Correlation closure comes from the
+    selected work's own work_id-correlated event_refs/evidence_refs, not proximity.
+    """
+    from microcosm_core.architecture_kernel import (
+        _execution_instance,
+        load_kernel_manifest,
+    )
+
+    manifest = load_kernel_manifest()
+    selected = {
+        "work_id": "work_0001",
+        "status": "closed",
+        "event_refs": [
+            {"event_id": "evt_0008", "span": "work.create", "status": "pass"},
+            {"event_id": "evt_0009", "span": "work.run", "status": "pass"},
+        ],
+        "evidence_refs": [
+            ".microcosm/evidence/work_create_work_0001.json",
+            ".microcosm/evidence/work_run_work_0001.json",
+        ],
+    }
+    # A DIFFERENT, interleaved run of the same route — its records must stay out.
+    _other = {
+        "work_id": "work_0002",
+        "status": "closed",
+        "event_refs": [
+            {"event_id": "evt_0068", "span": "work.create", "status": "pass"},
+        ],
+        "evidence_refs": [".microcosm/evidence/work_create_work_0002.json"],
+    }
+    inst = _execution_instance(
+        selected, "readme_onboarding_route", ["created", "closed"], manifest
+    )
+    event_ids = {row["event_id"] for row in inst["event_refs"]}
+    assert event_ids == {"evt_0008", "evt_0009"}
+    # the interleaved run cannot leak in
+    assert "evt_0068" not in event_ids
+    assert all("work_0002" not in ref for ref in inst["evidence_refs"])
+    assert inst["selected_work_id"] == "work_0001"
+    assert inst["single_execution_scoped"] is True
+    assert inst["correlation_status"] == "work_correlated"
+    # selection is honestly labeled as representative, NOT causal invocation binding
+    assert inst["selection_basis"] == (
+        "representative_first_closed_work_not_causal_invocation"
+    )
+    # exercised reflects only this execution's spans (create + run)
+    assert inst["exercised_primitives"] == ["assimilation", "work"]
+    # an absent selected work yields an empty partition that does NOT self-certify
+    empty = _execution_instance(None, "readme_onboarding_route", [], manifest)
+    assert empty["event_refs"] == []
+    assert empty["exercised_primitives"] == []
+    assert empty["single_execution_scoped"] is False
+    assert empty["correlation_status"] == "no_selected_work"
+
+
+def test_reference_execution_case_binds_returned_work_id_not_first_closed(
+    tmp_path: Path,
+) -> None:
+    """Command-root witness binds the returned work_id, not historical route order."""
+    project = _scratch_project(tmp_path)
+    route_id = "readme_onboarding_route"
+
+    project_substrate.propose_routes(project)
+    older = project_substrate.create_work(project, route_id)
+    project_substrate.run_work(project, str(older["work_id"]))
+    explanation = project_substrate.explain_route(project, route_id)
+
+    before_second = architecture_kernel.command_state_snapshot(project)
+    newer = project_substrate.create_work(project, route_id)
+    run = project_substrate.run_work(project, str(newer["work_id"]))
+    assert run["work_id"] == "work_0002"
+    assert run["reference_execution_case"]["root_binding"]["work_id"] == "work_0002"
+    assert run["reference_execution_case"]["command_case_eligible"] is True
+    run_case_delta = run["reference_execution_case"]["state_delta"]
+    assert run_case_delta["status"] == "available"
+    assert run_case_delta["new_work_ids"] == []
+    assert len(run_case_delta["new_event_ids"]) == 1
+    assert run_case_delta["new_evidence_refs"] == [
+        ".microcosm/evidence/work_run_work_0002.json"
+    ]
+    assert run["reference_execution_case_ref"] == (
+        ".microcosm/evidence/reference_execution_case_work_0002.json"
+    )
+    assert (
+        project / ".microcosm/evidence/reference_execution_case_work_0002.json"
+    ).is_file()
+    persisted_run_case = json.loads(
+        (project / ".microcosm/evidence/reference_execution_case_work_0002.json")
+        .read_text(encoding="utf-8")
+    )
+    assert persisted_run_case["state_delta"] == run_case_delta
+    rerun = project_substrate.run_work(project, str(newer["work_id"]))
+    assert rerun["transaction_status"] == "pass"
+    assert rerun["idempotent_replay"] is True
+    rerun_case = rerun["reference_execution_case"]
+    assert rerun_case["command_kind"] == "work.run.idempotent_replay"
+    assert rerun_case["state_delta"] == {
+        "status": "available",
+        "new_work_ids": [],
+        "new_event_ids": [],
+        "new_evidence_refs": [],
+    }
+    assert rerun_case["predicate_status"]["replay_equivalence"] is False
+    assert rerun_case["command_case_eligible"] is False
+    rerun_case_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        rerun_case,
+    )
+    assert rerun_case_verification["status"] == "blocked"
+    assert "replay_equivalence" in rerun_case_verification["failed_predicates"]
+    assert rerun_case_verification["predicate_details"]["replay_equivalence_basis"] == (
+        "available_delta_missing_root_or_descendant_or_current_state_ref"
+    )
+
+    # The existing route explanation still uses the representative first-closed
+    # selector; the command-root case must not inherit that historical selection.
+    assert explanation["causal_chain_proof"]["selected_work_id"] == "work_0001"
+
+    case = architecture_kernel.build_reference_execution_case(
+        project,
+        route_id,
+        run,
+        command_kind="work.create+work.run",
+        before_state=before_second,
+    )
+    reference_predicates = {
+        "join_integrity",
+        "selection_binding",
+        "scope_completeness",
+        "execution_terminality",
+        "authority_boundedness",
+        "replay_equivalence",
+        "state_delta_scope",
+        "record_classification_matrix",
+        "assertion_matrix_coverage",
+        "projection_fidelity",
+    }
+
+    assert case["root_binding"]["binding_kind"] == "command_returned_work_id"
+    assert case["root_binding"]["work_id"] == "work_0002"
+    assert case["command_case_eligible"] is True
+    assert case["public_architecture_witness_eligible"] is False
+    assert case["predicate_status"] == {
+        "join_integrity": True,
+        "selection_binding": True,
+        "scope_completeness": True,
+        "execution_terminality": True,
+        "authority_boundedness": True,
+        "replay_equivalence": True,
+        "state_delta_scope": True,
+        "record_classification_matrix": True,
+        "assertion_matrix_coverage": True,
+        "projection_fidelity": False,
+    }
+    assert set(case["predicate_status"]) == reference_predicates
+    assert case["required_assertion_predicates"] == (
+        architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES
+    )
+    assert {
+        row["eligibility_predicate"] for row in case["assertion_matrix"]
+    } == set(architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES)
+    assert case["predicate_details"]["projection_selected_work_id"] == "work_0001"
+    assert case["state_delta"]["new_work_ids"] == ["work_0002"]
+    assert architecture_kernel.reference_state_delta_refs(case["state_delta"])[0] == (
+        ".microcosm/work_items.json::work_0002"
+    )
+    assert all(
+        ref.startswith(".microcosm/evidence/")
+        for ref in case["state_delta"]["new_evidence_refs"]
+    )
+    assert set(case["ambient_history_excluded"]["work_ids"]) == {"work_0001"}
+    ambient_history_count = len(case["ambient_history_excluded"]["work_ids"]) + len(
+        case["ambient_history_excluded"]["event_ids"]
+    )
+    assert len(case["ambient_history_excluded"]["records"]) == ambient_history_count
+    assert {
+        row["classification"] for row in case["ambient_history_excluded"]["records"]
+    } == {"ambient_history"}
+    assert all(
+        row["included_in_occurrence_witness"] is False
+        for row in case["ambient_history_excluded"]["records"]
+    )
+    work_payload = json.loads(
+        (project / ".microcosm/work_items.json").read_text(encoding="utf-8")
+    )
+    work_0002 = next(
+        row for row in work_payload["work_items"] if row["work_id"] == "work_0002"
+    )
+    assert work_0002["reference_execution_case_ref"] == (
+        ".microcosm/evidence/reference_execution_case_work_0002.json"
+    )
+    assert work_0002["reference_execution_case_ref"] not in work_0002["evidence_refs"]
+    classification_counts = case["record_classification_counts"]
+    assert classification_counts["direct_child"] == 2
+    assert classification_counts["causal_descendant"] == (
+        len(work_0002["event_refs"]) + len(work_0002["evidence_refs"]) - 1
+    )
+    assert classification_counts["structural_lookup"] == 1
+    assert classification_counts["structural_constitutional_lookup"] == 1
+    assert classification_counts["ambient_history"] == ambient_history_count
+    assert len(case["record_classification_matrix"]) == sum(
+        classification_counts.values()
+    )
+
+    compiled = project_substrate.compile_project(project)
+    reader_case = compiled["reader_causal_chain"]["command_reference_execution_case"]
+    expected_card_state_delta_refs = architecture_kernel.reference_state_delta_refs(
+        persisted_run_case["state_delta"]
+    )
+    assert reader_case["status"] == "pass"
+    assert reader_case["selected_work_id"] == "work_0002"
+    assert reader_case["root_work_id"] == "work_0002"
+    assert reader_case["state_delta_refs"] == expected_card_state_delta_refs
+    assert reader_case["command_case_eligible"] is True
+    assert reader_case["public_architecture_witness_eligible"] is False
+    assert reader_case["public_witness_status"] == "projection_not_eligible"
+    assert reader_case["predicate_status"]["projection_fidelity"] is False
+    assert reader_case["verification_status"] == "pass"
+    assert reader_case["verification_failed_predicates"] == []
+    assert set(reference_predicates).issubset(
+        reader_case["verification_predicate_status"]
+    )
+    assert {
+        key: reader_case["verification_predicate_status"][key]
+        for key in reference_predicates
+    } == {
+        "join_integrity": True,
+        "selection_binding": True,
+        "scope_completeness": True,
+        "execution_terminality": True,
+        "authority_boundedness": True,
+        "replay_equivalence": True,
+        "state_delta_scope": True,
+        "record_classification_matrix": True,
+        "assertion_matrix_coverage": True,
+        "projection_fidelity": False,
+    }
+    assert reader_case["required_assertion_predicates"] == (
+        architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES
+    )
+    assert set(reader_case["assertion_matrix_predicates"]) == set(
+        architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES
+    )
+    assert reader_case["assertion_matrix_predicate_count"] == len(
+        architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES
+    )
+    assert reader_case["required_assertion_predicate_count"] == len(
+        architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES
+    )
+    assert reader_case["assertion_matrix_coverage_verified"] is True
+    assert reader_case["record_classification_matrix_verified"] is True
+    assert reader_case["record_classification_counts"] == classification_counts
+    assert reader_case["ambient_history_ref_count"] == ambient_history_count
+    assert reader_case["record_classification_matrix_ref"] == (
+        ".microcosm/evidence/reference_execution_case_work_0002.json"
+        "::record_classification_matrix"
+    )
+    assert reader_case["verification_predicate_status"][
+        "truth_class_authority"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_occurrence_refs"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_state_delta_refs"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_state_delta_summary"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_predicate_details"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_predicate_status"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_semantic_digest"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_truth_class_authority"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_truth_class_summary"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_record_classification_summary"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_root_binding"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_eligibility_flags"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_verification_summary"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_safe_to_show_boundary"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_guidance_boundary"
+    ] is True
+    assert reader_case["verification_predicate_status"][
+        "rendered_late_predicate_status"
+    ] is True
+    assert set(reader_case["truth_classes"]) == {
+        "constitution",
+        "occurrence",
+        "projection",
+        "structure",
+    }
+    assert (
+        ".microcosm/evidence/reference_execution_case_work_0002.json"
+        in compiled["reader_causal_chain"]["reader_drilldowns"]
+    )
+    assert (
+        ".microcosm/evidence/reference_execution_case_work_0002.json"
+        not in compiled["reader_causal_chain"]["evidence_refs"]
+    )
+
+    observe_card = project_substrate.observe_project_card(project)
+    observe_case_summary = observe_card["causal_chain_summary"][
+        "command_reference_execution_case"
+    ]
+    assert observe_case_summary["state_delta_ref_count"] == len(
+        expected_card_state_delta_refs
+    )
+    assert observe_case_summary["state_delta_refs_verified"] is True
+    assert observe_case_summary["state_delta_scope_verified"] is True
+    assert observe_case_summary["state_delta_refs_ref"] == (
+        "command_reference_execution_case.state_delta_refs"
+    )
+    assert observe_case_summary["state_delta_scope_ref"] == (
+        "verification_predicate_status.state_delta_scope"
+    )
+    assert observe_case_summary["assertion_matrix_coverage_verified"] is True
+    assert observe_case_summary["assertion_matrix_coverage_ref"] == (
+        "verification_predicate_status.assertion_matrix_coverage"
+    )
+    assert observe_case_summary["record_classification_matrix_verified"] is True
+    assert observe_case_summary["record_classification_matrix_ref"] == (
+        "verification_predicate_status.record_classification_matrix"
+    )
+
+    tour_card = RuntimeShell(MICROCOSM_ROOT).tour_card(project)
+    tour_case = tour_card["command_reference_execution_case"]
+    assert tour_case["status"] == "pass"
+    assert tour_case["selected_work_id"] == "work_0002"
+    assert tour_case["root_work_id"] == "work_0002"
+    assert tour_case["state_delta_refs"] == expected_card_state_delta_refs
+    assert tour_case["command_case_eligible"] is True
+    assert tour_case["public_architecture_witness_eligible"] is False
+    assert tour_case["verification_status"] == "pass"
+    assert tour_case["verification_failed_predicates"] == []
+    assert {
+        key: tour_case["verification_predicate_status"][key]
+        for key in reference_predicates
+    } == {
+        "join_integrity": True,
+        "selection_binding": True,
+        "scope_completeness": True,
+        "execution_terminality": True,
+        "authority_boundedness": True,
+        "replay_equivalence": True,
+        "state_delta_scope": True,
+        "record_classification_matrix": True,
+        "assertion_matrix_coverage": True,
+        "projection_fidelity": False,
+    }
+    assert tour_case["verification_predicate_status"][
+        "truth_class_authority"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_occurrence_refs"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_state_delta_refs"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_state_delta_summary"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_predicate_details"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_predicate_status"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_semantic_digest"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_truth_class_authority"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_truth_class_summary"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_record_classification_summary"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_root_binding"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_eligibility_flags"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_verification_summary"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_safe_to_show_boundary"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_guidance_boundary"
+    ] is True
+    assert tour_case["verification_predicate_status"][
+        "rendered_late_predicate_status"
+    ] is True
+    assert tour_case["record_classification_counts"] == classification_counts
+    assert tour_case["ambient_history_ref_count"] == ambient_history_count
+    assert tour_case["record_classification_matrix_verified"] is True
+    assert tour_card["compile_summary"]["command_reference_execution_case_status"] == (
+        "pass"
+    )
+    assert tour_card["compile_summary"]["public_architecture_witness_eligible"] is False
+    assert tour_card["compile_summary"][
+        "command_reference_state_delta_ref_count"
+    ] == len(expected_card_state_delta_refs)
+    assert tour_card["compile_summary"][
+        "command_reference_state_delta_refs_verified"
+    ] is True
+    assert tour_card["compile_summary"][
+        "command_reference_state_delta_scope_verified"
+    ] is True
+    assert tour_card["compile_summary"][
+        "command_reference_state_delta_refs_ref"
+    ] == "command_reference_execution_case.state_delta_refs"
+    assert tour_card["compile_summary"][
+        "command_reference_state_delta_scope_ref"
+    ] == "verification_predicate_status.state_delta_scope"
+    assert tour_card["compile_summary"][
+        "command_reference_assertion_matrix_predicate_count"
+    ] == len(architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES)
+    assert tour_card["compile_summary"][
+        "command_reference_required_assertion_predicate_count"
+    ] == len(architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES)
+    assert tour_card["compile_summary"][
+        "command_reference_assertion_matrix_coverage_verified"
+    ] is True
+    assert tour_card["compile_summary"][
+        "command_reference_assertion_matrix_coverage_ref"
+    ] == "verification_predicate_status.assertion_matrix_coverage"
+    assert tour_card["compile_summary"][
+        "command_reference_record_classification_matrix_verified"
+    ] is True
+    assert tour_card["compile_summary"][
+        "command_reference_record_classification_matrix_ref"
+    ] == "verification_predicate_status.record_classification_matrix"
+    assert tour_card["compile_summary"][
+        "command_reference_ambient_history_ref_count"
+    ] == ambient_history_count
+    assert tour_card["compile_summary"][
+        "tour_command_causality_coverage_status"
+    ] == "partial"
+    assert tour_card["compile_summary"][
+        "tour_public_witness_command_root_status"
+    ] == "not_command_rooted"
+    assert tour_card["compile_summary"]["tour_command_root_gap_count"] == 6
+    assert (
+        tour_card["compile_summary"]["tour_command_root_blocking_gap_count"]
+        == 5
+    )
+    assay = tour_card["tour_command_causality_coverage_assay"]
+    assert (
+        assay["schema_version"]
+        == "microcosm_tour_command_causality_coverage_assay_v1"
+    )
+    assert assay["status"] == "partial"
+    assert assay["public_witness_command_root_status"] == "not_command_rooted"
+    assert assay["tour_command_has_returned_work_id"] is False
+    assert assay["tour_command_root_binding_ref"] is None
+    assert assay["selected_work_id"] == "work_0002"
+    assert assay["selected_work_root_work_id"] == "work_0002"
+    assert assay["selected_work_root_matches_selected"] is True
+    assert assay["selected_work_reference_case_status"] == "pass"
+    assert assay["selected_work_reference_verification_status"] == "pass"
+    assert assay["selected_work_reference_public_witness_eligible"] is False
+    assert assay["selected_work_reference_state_delta_refs"] == (
+        expected_card_state_delta_refs
+    )
+    assert assay["selected_work_reference_state_delta_ref_count"] == len(
+        expected_card_state_delta_refs
+    )
+    assert assay["selected_work_reference_state_delta_refs_verified"] is True
+    assert assay["selected_work_reference_state_delta_scope_verified"] is True
+    assert assay["tour_command_root_gap_count"] == 6
+    assert assay["tour_command_root_blocking_gap_count"] == 5
+    gap_by_id = {row["gap_id"]: row for row in assay["tour_command_root_gap_matrix"]}
+    assert gap_by_id["tour_returned_root_handle"]["status"] == "missing"
+    assert gap_by_id["tour_invocation_envelope"]["status"] == "missing"
+    assert (
+        gap_by_id["tour_direct_child_relation_closure"]["status"]
+        == "missing_for_tour"
+    )
+    assert (
+        gap_by_id["tour_state_delta_scope"]["status"]
+        == "not_claimed_for_tour"
+    )
+    assert gap_by_id["tour_state_delta_scope"][
+        "selected_work_state_delta_scope_verified"
+    ] is True
+    assert (
+        gap_by_id["tour_projection_fidelity_to_tour_root"]["status"]
+        == "not_testable_without_tour_root"
+    )
+    assert gap_by_id["selected_work_reference_case"]["status"] == "delegated_pass"
+    assert (
+        gap_by_id["selected_work_reference_case"]["blocks_tour_public_witness"]
+        is False
+    )
+    assert assay["predicate_coverage"] == {
+        "join_integrity": True,
+        "selection_binding": True,
+        "scope_completeness": True,
+        "execution_terminality": True,
+        "authority_boundedness": True,
+        "replay_equivalence": True,
+        "state_delta_scope": True,
+        "record_classification_matrix": True,
+        "assertion_matrix_coverage": True,
+        "projection_fidelity": False,
+    }
+    assert assay["classification_matrix"][0]["scope"] == "tour_command_invocation"
+    assert assay["classification_matrix"][0]["claim_status"] == "not_command_rooted"
+    assert assay["classification_matrix"][1]["scope"] == (
+        "selected_work_reference_case"
+    )
+    assert assay["classification_matrix"][1]["claim_status"] == "pass"
+    assert assay["classification_matrix"][1]["state_delta_ref_count"] == len(
+        expected_card_state_delta_refs
+    )
+    assert assay["classification_matrix"][1]["state_delta_refs_verified"] is True
+    assert assay["classification_matrix"][1]["state_delta_scope_verified"] is True
+    assert assay["classification_matrix"][2]["scope"] == "ambient_route_history"
+    assert assay["authority_ceiling"]["tour_command_public_occurrence_witness"] is False
+    assert (
+        assay["authority_ceiling"][
+            "selected_work_reference_case_may_be_occurrence_witness"
+        ]
+        is True
+    )
+    full_tour = RuntimeShell(MICROCOSM_ROOT).tour(project, persist_receipt=False)
+    full_assay = full_tour["tour_command_causality_coverage_assay"]
+    assert (
+        full_assay["schema_version"]
+        == "microcosm_tour_command_causality_coverage_assay_v1"
+    )
+    assert full_assay["public_witness_command_root_status"] == "not_command_rooted"
+    assert full_assay["tour_command_has_returned_work_id"] is False
+    assert full_assay["project_compile_state_written"] is True
+    assert full_assay["cached_state_reused"] is False
+    assert full_assay["selected_work_reference_case_status"] == "pass"
+    assert full_assay["selected_work_reference_verification_status"] == "pass"
+    assert full_assay["tour_command_root_gap_count"] == 6
+    assert full_assay["tour_command_root_blocking_gap_count"] == 5
+    assert full_tour["compile_summary"][
+        "command_reference_state_delta_ref_count"
+    ] == len(expected_card_state_delta_refs)
+    assert full_tour["compile_summary"][
+        "command_reference_state_delta_refs_verified"
+    ] is True
+    assert full_tour["compile_summary"][
+        "command_reference_state_delta_scope_verified"
+    ] is True
+    assert full_tour["compile_summary"][
+        "command_reference_state_delta_refs_ref"
+    ] == "command_reference_execution_case.state_delta_refs"
+    assert full_tour["compile_summary"][
+        "command_reference_state_delta_scope_ref"
+    ] == "verification_predicate_status.state_delta_scope"
+    assert full_tour["compile_summary"][
+        "command_reference_assertion_matrix_coverage_verified"
+    ] is True
+    assert full_tour["compile_summary"][
+        "tour_command_causality_coverage_status"
+    ] == full_assay["status"]
+    assert full_tour["compile_summary"][
+        "tour_public_witness_command_root_status"
+    ] == "not_command_rooted"
+    assert full_tour["compile_summary"]["tour_command_root_gap_count"] == 6
+    assert (
+        full_tour["compile_summary"]["tour_command_root_blocking_gap_count"]
+        == 5
+    )
+
+    tour_rendered_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        persisted_run_case,
+        rendered_witness=tour_card,
+    )
+    assert tour_rendered_verification["status"] == "pass"
+    assert tour_rendered_verification["predicate_status"][
+        "rendered_semantic_digest"
+    ] is True
+
+    compact_truth_classes = [
+        row["truth_class"]
+        for row in [
+            *case["assertion_matrix"],
+            *case["structural_and_constitutional_lookups"],
+        ]
+        if isinstance(row.get("truth_class"), str)
+    ]
+    rendered_witness_for_case = {
+        "command_reference_execution_case": {
+            "schema_version": "microcosm_command_reference_execution_case_card_v1",
+            "selected_work_id": case["root_binding"]["work_id"],
+            "root_work_id": case["root_binding"]["work_id"],
+            "root_binding_kind": case["root_binding"]["binding_kind"],
+            "root_matches_selected_work": True,
+            "evidence_ref": run["reference_execution_case_ref"],
+            "semantic_digest": case["semantic_digest"],
+            "occurrence_witness_refs": case["occurrence_witness_refs"],
+            "state_delta_refs": architecture_kernel.reference_state_delta_refs(
+                case["state_delta"]
+            ),
+            "predicate_status": case["predicate_status"],
+            "predicate_details": case["predicate_details"],
+            "record_classification_counts": case["record_classification_counts"],
+            "ambient_history_ref_count": case["record_classification_counts"][
+                "ambient_history"
+            ],
+            "record_classification_matrix_ref": (
+                f"{run['reference_execution_case_ref']}::record_classification_matrix"
+            ),
+            "command_case_eligible": case["command_case_eligible"],
+            "public_architecture_witness_eligible": case[
+                "public_architecture_witness_eligible"
+            ],
+            "producer_claimed_command_case_eligible": case["command_case_eligible"],
+            "producer_claimed_public_architecture_witness_eligible": case[
+                "public_architecture_witness_eligible"
+            ],
+            "status": "pass",
+            "public_witness_status": "projection_not_eligible",
+            "verification_status": "pass",
+            "verification_failed_predicates": [],
+            "verification_predicate_status": {
+                "rendered_verification_summary": True,
+                "rendered_safe_to_show_boundary": True,
+                "rendered_guidance_boundary": True,
+                "rendered_predicate_details": True,
+                "rendered_state_delta_refs": True,
+                "rendered_predicate_status": True,
+                "rendered_record_classification_summary": True,
+                "rendered_late_predicate_status": True,
+            },
+            "anti_claim": case["anti_claim"],
+            "reader_action": (
+                "Use this compact card to decide whether the command-root "
+                "occurrence case is eligible before treating any architecture "
+                "projection as a public witness."
+            ),
+            "verification_ref": "architecture_kernel.verify_reference_execution_case",
+            "safe_to_show": {
+                "receipt_ref_visible": True,
+                "predicate_status_visible": True,
+                "full_receipt_body_omitted": True,
+                "source_files_mutated": False,
+                "provider_calls_authorized": False,
+                "release_authorized": False,
+                "proof_correctness_claim": False,
+            },
+            "truth_classes": sorted(set(compact_truth_classes)),
+            "truth_class_counts": {
+                truth_class: compact_truth_classes.count(truth_class)
+                for truth_class in sorted(set(compact_truth_classes))
+            },
+            "assertion_matrix_ref": (
+                f"{run['reference_execution_case_ref']}::assertion_matrix"
+            ),
+        }
+    }
+    verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        case,
+        rendered_witness=rendered_witness_for_case,
+    )
+    assert verification["status"] == "pass"
+    assert {
+        key: verification["predicate_status"][key]
+        for key in reference_predicates
+    } == {
+        "join_integrity": True,
+        "selection_binding": True,
+        "scope_completeness": True,
+        "execution_terminality": True,
+        "authority_boundedness": True,
+        "replay_equivalence": True,
+        "state_delta_scope": True,
+        "record_classification_matrix": True,
+        "assertion_matrix_coverage": True,
+        "projection_fidelity": False,
+    }
+    assert verification["predicate_status"]["truth_class_authority"] is True
+    assert verification["predicate_status"]["assertion_matrix_coverage"] is True
+    assert verification["predicate_status"]["rendered_occurrence_refs"] is True
+    assert verification["predicate_status"]["rendered_state_delta_refs"] is True
+    assert verification["predicate_status"]["rendered_state_delta_summary"] is True
+    assert verification["predicate_status"]["rendered_predicate_details"] is True
+    assert verification["predicate_status"]["rendered_predicate_status"] is True
+    assert verification["predicate_status"][
+        "rendered_assertion_matrix_coverage"
+    ] is True
+    assert verification["predicate_status"]["rendered_truth_class_summary"] is True
+    assert verification["predicate_status"][
+        "rendered_record_classification_summary"
+    ] is True
+    assert verification["predicate_status"]["rendered_root_binding"] is True
+    assert verification["predicate_status"]["rendered_eligibility_flags"] is True
+    assert verification["predicate_status"]["rendered_verification_summary"] is True
+    assert verification["predicate_status"]["rendered_safe_to_show_boundary"] is True
+    assert verification["predicate_status"]["rendered_guidance_boundary"] is True
+    assert verification["predicate_status"]["rendered_late_predicate_status"] is True
+    assert verification["predicate_status"]["projection_fidelity"] is False
+    assert verification["predicate_details"]["replay_equivalence_basis"] == (
+        "available_delta_contains_root_or_descendant"
+    )
+
+    forged_assertion_missing_case = json.loads(json.dumps(case))
+    forged_assertion_missing_case["assertion_matrix"] = [
+        row
+        for row in forged_assertion_missing_case["assertion_matrix"]
+        if row.get("eligibility_predicate") != "state_delta_scope"
+    ]
+    forged_assertion_missing_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_assertion_missing_case,
+            rendered_witness=rendered_witness_for_case,
+        )
+    )
+    assert forged_assertion_missing_verification["status"] == "blocked"
+    assert "assertion_matrix_coverage" in (
+        forged_assertion_missing_verification["failed_predicates"]
+    )
+    assert any(
+        row["reason"] == "assertion_matrix_missing_required_predicate"
+        and row["predicate_id"] == "state_delta_scope"
+        for row in forged_assertion_missing_verification["predicate_details"][
+            "assertion_matrix_coverage_violations"
+        ]
+    )
+
+    forged_assertion_duplicate_case = json.loads(json.dumps(case))
+    forged_assertion_duplicate_case["assertion_matrix"].append(
+        json.loads(json.dumps(case["assertion_matrix"][0]))
+    )
+    forged_assertion_duplicate_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_assertion_duplicate_case,
+            rendered_witness=rendered_witness_for_case,
+        )
+    )
+    assert forged_assertion_duplicate_verification["status"] == "blocked"
+    assert "assertion_matrix_coverage" in (
+        forged_assertion_duplicate_verification["failed_predicates"]
+    )
+    assert any(
+        row["reason"] == "assertion_matrix_duplicate_required_predicate"
+        and row["predicate_id"] == "join_integrity"
+        and row["count"] == 2
+        for row in forged_assertion_duplicate_verification["predicate_details"][
+            "assertion_matrix_coverage_violations"
+        ]
+    )
+
+    forged_assertion_unknown_case = json.loads(json.dumps(case))
+    forged_assertion_unknown_case["assertion_matrix"][0][
+        "eligibility_predicate"
+    ] = "release_ready"
+    forged_assertion_unknown_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_assertion_unknown_case,
+            rendered_witness=rendered_witness_for_case,
+        )
+    )
+    assert forged_assertion_unknown_verification["status"] == "blocked"
+    assert "assertion_matrix_coverage" in (
+        forged_assertion_unknown_verification["failed_predicates"]
+    )
+    assertion_unknown_violations = forged_assertion_unknown_verification[
+        "predicate_details"
+    ]["assertion_matrix_coverage_violations"]
+    assert any(
+        row["reason"] == "assertion_matrix_missing_required_predicate"
+        and row["predicate_id"] == "join_integrity"
+        for row in assertion_unknown_violations
+    )
+    assert any(
+        row["reason"] == "assertion_matrix_unknown_predicate"
+        and row["predicate_id"] == "release_ready"
+        for row in assertion_unknown_violations
+    )
+
+    forged_rendered_status_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_status_case = forged_rendered_status_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_status = forged_rendered_status_case[
+        "verification_predicate_status"
+    ]
+    forged_rendered_status["release_ready"] = True
+    forged_rendered_status_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_status_witness,
+        )
+    )
+    assert forged_rendered_status_verification["status"] == "blocked"
+    assert "rendered_predicate_status" in (
+        forged_rendered_status_verification["failed_predicates"]
+    )
+    assert forged_rendered_status_verification["predicate_status"][
+        "rendered_predicate_status"
+    ] is False
+    rendered_status_violations = forged_rendered_status_verification[
+        "predicate_details"
+    ]["rendered_predicate_status_violations"]
+    assert any(
+        row["reason"] == "rendered_predicate_status_unexpected_predicate"
+        and row["predicate_id"] == "release_ready"
+        and row["rendered"] is True
+        for row in rendered_status_violations
+    )
+    assert any(
+        row["reason"] == "rendered_predicate_status_predicate_mismatch"
+        and row["predicate_id"] == "rendered_predicate_status"
+        and row["expected"] is False
+        and row["rendered"] is True
+        for row in rendered_status_violations
+    )
+
+    forged_rendered_record_summary_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_record_summary_case = forged_rendered_record_summary_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_record_summary_case["record_classification_counts"][
+        "ambient_history"
+    ] += 1
+    forged_rendered_record_summary_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_record_summary_witness,
+        )
+    )
+    assert forged_rendered_record_summary_verification["status"] == "blocked"
+    assert "rendered_record_classification_summary" in (
+        forged_rendered_record_summary_verification["failed_predicates"]
+    )
+    assert (
+        forged_rendered_record_summary_verification["predicate_status"][
+            "rendered_record_classification_summary"
+        ]
+        is False
+    )
+    rendered_record_summary_violations = forged_rendered_record_summary_verification[
+        "predicate_details"
+    ]["rendered_record_classification_summary_violations"]
+    assert any(
+        row["reason"] == "rendered_record_classification_counts_mismatch"
+        and row["field"] == "record_classification_counts"
+        for row in rendered_record_summary_violations
+    )
+
+    forged_replay_case = json.loads(json.dumps(case))
+    forged_replay_case["state_delta"] = {
+        "status": "available",
+        "new_work_ids": [],
+        "new_event_ids": [],
+        "new_evidence_refs": [],
+    }
+    forged_replay_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        forged_replay_case,
+        rendered_witness=rendered_witness_for_case,
+    )
+    assert forged_replay_verification["status"] == "blocked"
+    assert "replay_equivalence" in forged_replay_verification["failed_predicates"]
+    assert forged_replay_verification["predicate_status"]["replay_equivalence"] is False
+    assert forged_replay_verification["predicate_details"][
+        "replay_equivalence_basis"
+    ] == "available_delta_missing_root_or_descendant_or_current_state_ref"
+
+    forged_delta_scope_case = json.loads(json.dumps(case))
+    ambient_delta_event_id = case["ambient_history_excluded"]["event_ids"][0]
+    forged_delta_scope_case["state_delta"]["new_event_ids"].append(
+        ambient_delta_event_id
+    )
+    forged_delta_scope_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_delta_scope_rendered_case = forged_delta_scope_witness[
+        "command_reference_execution_case"
+    ]
+    forged_delta_scope_rendered_case["state_delta_refs"] = (
+        architecture_kernel.reference_state_delta_refs(
+            forged_delta_scope_case["state_delta"]
+        )
+    )
+    forged_delta_scope_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_delta_scope_case,
+            rendered_witness=forged_delta_scope_witness,
+        )
+    )
+    assert forged_delta_scope_verification["status"] == "blocked"
+    assert "state_delta_scope" in (
+        forged_delta_scope_verification["failed_predicates"]
+    )
+    assert "command_case_eligible" in (
+        forged_delta_scope_verification["failed_predicates"]
+    )
+    assert "rendered_predicate_status" in (
+        forged_delta_scope_verification["failed_predicates"]
+    )
+    assert forged_delta_scope_verification["predicate_status"][
+        "replay_equivalence"
+    ] is True
+    assert forged_delta_scope_verification["predicate_status"][
+        "state_delta_scope"
+    ] is False
+    assert forged_delta_scope_verification["predicate_status"][
+        "rendered_state_delta_refs"
+    ] is True
+    assert forged_delta_scope_verification["predicate_status"][
+        "rendered_state_delta_summary"
+    ] is True
+    assert forged_delta_scope_verification["predicate_details"][
+        "unexpected_delta_event_ids"
+    ] == [ambient_delta_event_id]
+    assert any(
+        row["field"] == "new_event_ids"
+        and row["reason"] == "state_delta_event_id_outside_selected_work"
+        and row["unexpected"] == [ambient_delta_event_id]
+        for row in forged_delta_scope_verification["predicate_details"][
+            "state_delta_scope_violations"
+        ]
+    )
+
+    reference_case_path = (
+        project / ".microcosm/evidence/reference_execution_case_work_0002.json"
+    )
+    original_reference_case_text = reference_case_path.read_text(encoding="utf-8")
+    reference_case_path.write_text(
+        json.dumps(forged_replay_case, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    try:
+        forged_compiled = project_substrate.compile_project(project)
+    finally:
+        reference_case_path.write_text(
+            original_reference_case_text,
+            encoding="utf-8",
+        )
+    forged_reader_case = forged_compiled["reader_causal_chain"][
+        "command_reference_execution_case"
+    ]
+    assert forged_reader_case["status"] == "blocked"
+    assert forged_reader_case["command_case_eligible"] is False
+    assert forged_reader_case["public_witness_status"] == "verification_blocked"
+    assert forged_reader_case["producer_claimed_command_case_eligible"] is True
+    assert forged_reader_case["verification_status"] == "blocked"
+    assert "replay_equivalence" in forged_reader_case[
+        "verification_failed_predicates"
+    ]
+
+    reference_case_path.write_text(
+        json.dumps(forged_delta_scope_case, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    try:
+        forged_delta_scope_compiled = project_substrate.compile_project(project)
+        forged_delta_scope_tour = RuntimeShell(MICROCOSM_ROOT).tour_card(project)
+    finally:
+        reference_case_path.write_text(
+            original_reference_case_text,
+            encoding="utf-8",
+        )
+    forged_delta_scope_reader_case = forged_delta_scope_compiled[
+        "reader_causal_chain"
+    ]["command_reference_execution_case"]
+    assert forged_delta_scope_reader_case["status"] == "blocked"
+    assert forged_delta_scope_reader_case["command_case_eligible"] is False
+    assert forged_delta_scope_reader_case["verification_status"] == "blocked"
+    assert "state_delta_scope" in forged_delta_scope_reader_case[
+        "verification_failed_predicates"
+    ]
+    assert forged_delta_scope_reader_case["verification_predicate_status"][
+        "rendered_state_delta_refs"
+    ] is True
+    assert forged_delta_scope_reader_case["verification_predicate_status"][
+        "state_delta_scope"
+    ] is False
+    forged_delta_scope_compile_summary = forged_delta_scope_tour["compile_summary"]
+    assert (
+        forged_delta_scope_compile_summary[
+            "command_reference_state_delta_refs_verified"
+        ]
+        is True
+    )
+    assert (
+        forged_delta_scope_compile_summary[
+            "command_reference_state_delta_scope_verified"
+        ]
+        is False
+    )
+    forged_delta_scope_assay = forged_delta_scope_tour[
+        "tour_command_causality_coverage_assay"
+    ]
+    assert (
+        forged_delta_scope_assay[
+            "selected_work_reference_state_delta_refs_verified"
+        ]
+        is True
+    )
+    assert (
+        forged_delta_scope_assay[
+            "selected_work_reference_state_delta_scope_verified"
+        ]
+        is False
+    )
+    assert (
+        forged_delta_scope_assay["classification_matrix"][1][
+            "state_delta_refs_verified"
+        ]
+        is True
+    )
+    assert (
+        forged_delta_scope_assay["classification_matrix"][1][
+            "state_delta_scope_verified"
+        ]
+        is False
+    )
+
+    forged_scope_case = json.loads(json.dumps(case))
+    forged_scope_case["occurrence_witness_refs"].append(
+        ".microcosm/work_items.json::work_0001"
+    )
+    forged_scope_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        forged_scope_case,
+        rendered_witness=rendered_witness_for_case,
+    )
+    assert forged_scope_verification["status"] == "blocked"
+    assert "scope_completeness" in forged_scope_verification["failed_predicates"]
+    assert forged_scope_verification["predicate_details"][
+        "unexpected_occurrence_witness_refs"
+    ] == [".microcosm/work_items.json::work_0001"]
+    assert forged_scope_verification["predicate_details"][
+        "ambient_occurrence_refs_in_case"
+    ] == [".microcosm/work_items.json::work_0001"]
+
+    forged_classification_case = json.loads(json.dumps(case))
+    ambient_work_ref = ".microcosm/work_items.json::work_0001"
+    for row in forged_classification_case["record_classification_matrix"]:
+        if row.get("source_ref") == ambient_work_ref:
+            row["classification"] = "causal_descendant"
+            row["binding"] = "work_item.event_refs"
+            row["included_in_occurrence_witness"] = True
+            break
+    forged_classification_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_classification_case,
+            rendered_witness=rendered_witness_for_case,
+        )
+    )
+    assert forged_classification_verification["status"] == "blocked"
+    assert "record_classification_matrix" in (
+        forged_classification_verification["failed_predicates"]
+    )
+    assert forged_classification_verification["predicate_status"][
+        "record_classification_matrix"
+    ] is False
+    classification_violations = forged_classification_verification[
+        "predicate_details"
+    ]["record_classification_matrix_violations"]
+    assert any(
+        row["reason"] == "record_classification_matrix_missing_rows"
+        and any(
+            missing["source_ref"] == ambient_work_ref
+            and missing["classification"] == "ambient_history"
+            and missing["included_in_occurrence_witness"] is False
+            for missing in row["missing"]
+        )
+        for row in classification_violations
+    )
+    assert any(
+        row["reason"] == "record_classification_matrix_unexpected_rows"
+        and any(
+            rendered["source_ref"] == ambient_work_ref
+            and rendered["classification"] == "causal_descendant"
+            and rendered["included_in_occurrence_witness"] is True
+            for rendered in row["rendered"]
+        )
+        for row in classification_violations
+    )
+
+    forged_classification_counts_case = json.loads(json.dumps(case))
+    forged_classification_counts_case["record_classification_counts"][
+        "ambient_history"
+    ] += 1
+    forged_classification_counts_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_classification_counts_case,
+            rendered_witness=rendered_witness_for_case,
+        )
+    )
+    assert forged_classification_counts_verification["status"] == "blocked"
+    assert "record_classification_matrix" in (
+        forged_classification_counts_verification["failed_predicates"]
+    )
+    assert any(
+        row["reason"] == "record_classification_counts_mismatch"
+        and row["field"] == "record_classification_counts"
+        for row in forged_classification_counts_verification["predicate_details"][
+            "record_classification_matrix_violations"
+        ]
+    )
+
+    forged_ambient_history_case = json.loads(json.dumps(case))
+    forged_ambient_history_case["ambient_history_excluded"]["records"] = []
+    forged_ambient_history_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            forged_ambient_history_case,
+            rendered_witness=rendered_witness_for_case,
+        )
+    )
+    assert forged_ambient_history_verification["status"] == "blocked"
+    assert "record_classification_matrix" in (
+        forged_ambient_history_verification["failed_predicates"]
+    )
+    assert any(
+        row["reason"] == "ambient_history_records_mismatch"
+        and row["field"] == "ambient_history_excluded.records"
+        for row in forged_ambient_history_verification["predicate_details"][
+            "record_classification_matrix_violations"
+        ]
+    )
+
+    forged_truth_case = json.loads(json.dumps(case))
+    forged_truth_case["structural_and_constitutional_lookups"][1][
+        "truth_class"
+    ] = "occurrence"
+    forged_truth_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        forged_truth_case,
+        rendered_witness=rendered_witness_for_case,
+    )
+    assert forged_truth_verification["status"] == "blocked"
+    assert "truth_class_authority" in forged_truth_verification["failed_predicates"]
+    assert forged_truth_verification["predicate_details"]["truth_class_violations"][
+        0
+    ]["reason"] == "occurrence_claim_without_occurrence_ref"
+
+    forged_rendered_detail_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_detail_case = forged_rendered_detail_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_details = forged_rendered_detail_case["predicate_details"]
+    case_root_work_id = case["root_binding"]["work_id"]
+    forged_rendered_details["projection_selected_work_id"] = case_root_work_id
+    forged_rendered_details["missing_event_ids"] = ["evt_missing"]
+    forged_rendered_details["unexpected_detail"] = "release_ready"
+    forged_rendered_detail_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_detail_witness,
+        )
+    )
+    assert forged_rendered_detail_verification["status"] == "blocked"
+    assert "rendered_predicate_details" in (
+        forged_rendered_detail_verification["failed_predicates"]
+    )
+    assert "rendered_predicate_status" in (
+        forged_rendered_detail_verification["failed_predicates"]
+    )
+    assert forged_rendered_detail_verification["predicate_status"][
+        "rendered_predicate_details"
+    ] is False
+    assert forged_rendered_detail_verification["predicate_status"][
+        "rendered_predicate_status"
+    ] is False
+    rendered_detail_violations = forged_rendered_detail_verification[
+        "predicate_details"
+    ]["rendered_predicate_detail_violations"]
+    assert any(
+        row.get("field") == "projection_selected_work_id"
+        and row["expected"]
+        == case["predicate_details"]["projection_selected_work_id"]
+        and row["rendered"] == case_root_work_id
+        for row in rendered_detail_violations
+    )
+    assert any(
+        row.get("field") == "missing_event_ids"
+        and row["expected"] == case["predicate_details"]["missing_event_ids"]
+        and row["rendered"] == ["evt_missing"]
+        for row in rendered_detail_violations
+    )
+    assert any(
+        row["reason"] == "rendered_predicate_details_unexpected_keys"
+        and row["rendered"] == ["unexpected_detail"]
+        for row in rendered_detail_violations
+    )
+
+    forged_rendered_truth_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_truth_case = forged_rendered_truth_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_truth_case[
+        "structural_and_constitutional_lookups"
+    ] = json.loads(json.dumps(case["structural_and_constitutional_lookups"]))
+    forged_rendered_truth_case["structural_and_constitutional_lookups"][1][
+        "truth_class"
+    ] = "occurrence"
+    forged_rendered_truth_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_truth_witness,
+        )
+    )
+    assert forged_rendered_truth_verification["status"] == "blocked"
+    assert "rendered_truth_class_authority" in (
+        forged_rendered_truth_verification["failed_predicates"]
+    )
+    rendered_truth_violations = forged_rendered_truth_verification[
+        "predicate_details"
+    ]["rendered_truth_class_violations"]
+    assert any(
+        row["reason"] == "rendered_truth_class_mismatch"
+        and row["expected_truth_class"] == "constitution"
+        and row["rendered_truth_class"] == "occurrence"
+        for row in rendered_truth_violations
+    )
+    assert any(
+        row["reason"] == "rendered_occurrence_claim_without_occurrence_ref"
+        and row["source_ref"] == "architecture_kernel._base"
+        for row in rendered_truth_violations
+    )
+
+    forged_rendered_truth_summary_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_truth_summary_case = forged_rendered_truth_summary_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_truth_summary_case["truth_classes"] = ["occurrence"]
+    forged_rendered_truth_summary_case["truth_class_counts"] = {"occurrence": 999}
+    forged_rendered_truth_summary_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_truth_summary_witness,
+        )
+    )
+    assert forged_rendered_truth_summary_verification["status"] == "blocked"
+    assert "rendered_truth_class_summary" in (
+        forged_rendered_truth_summary_verification["failed_predicates"]
+    )
+    assert forged_rendered_truth_summary_verification["predicate_status"][
+        "rendered_truth_class_summary"
+    ] is False
+    rendered_truth_summary_violations = forged_rendered_truth_summary_verification[
+        "predicate_details"
+    ]["rendered_truth_class_summary_violations"]
+    assert any(
+        row["reason"] == "rendered_truth_classes_mismatch"
+        and row["expected"] == [
+            "constitution",
+            "occurrence",
+            "projection",
+            "structure",
+        ]
+        and row["rendered"] == ["occurrence"]
+        for row in rendered_truth_summary_violations
+    )
+    assert any(
+        row["reason"] == "rendered_truth_class_counts_mismatch"
+        and row["rendered"] == {"occurrence": 999}
+        for row in rendered_truth_summary_violations
+    )
+
+    forged_rendered_root_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_root_case = forged_rendered_root_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_root_case["selected_work_id"] = "work_0001"
+    forged_rendered_root_case["root_work_id"] = "work_0001"
+    forged_rendered_root_case["root_binding_kind"] = "representative_first_closed_work"
+    forged_rendered_root_case["root_matches_selected_work"] = False
+    forged_rendered_root_case["evidence_ref"] = (
+        ".microcosm/evidence/reference_execution_case_work_0001.json"
+    )
+    forged_rendered_root_case["assertion_matrix_ref"] = (
+        ".microcosm/evidence/reference_execution_case_work_0001.json::assertion_matrix"
+    )
+    forged_rendered_root_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_root_witness,
+        )
+    )
+    assert forged_rendered_root_verification["status"] == "blocked"
+    assert "rendered_root_binding" in (
+        forged_rendered_root_verification["failed_predicates"]
+    )
+    assert forged_rendered_root_verification["predicate_status"][
+        "rendered_root_binding"
+    ] is False
+    rendered_root_violations = forged_rendered_root_verification[
+        "predicate_details"
+    ]["rendered_root_binding_violations"]
+    assert any(
+        row["field"] == "root_work_id"
+        and row["expected"] == "work_0002"
+        and row["rendered"] == "work_0001"
+        for row in rendered_root_violations
+    )
+    assert any(
+        row["field"] == "evidence_ref"
+        and row["expected"] == ".microcosm/evidence/reference_execution_case_work_0002.json"
+        and row["rendered"] == ".microcosm/evidence/reference_execution_case_work_0001.json"
+        for row in rendered_root_violations
+    )
+
+    forged_rendered_eligibility_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_eligibility_case = forged_rendered_eligibility_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_eligibility_case["command_case_eligible"] = False
+    forged_rendered_eligibility_case[
+        "producer_claimed_public_architecture_witness_eligible"
+    ] = True
+    forged_rendered_eligibility_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_eligibility_witness,
+        )
+    )
+    assert forged_rendered_eligibility_verification["status"] == "blocked"
+    assert "rendered_eligibility_flags" in (
+        forged_rendered_eligibility_verification["failed_predicates"]
+    )
+    assert forged_rendered_eligibility_verification["predicate_status"][
+        "rendered_eligibility_flags"
+    ] is False
+    rendered_eligibility_violations = forged_rendered_eligibility_verification[
+        "predicate_details"
+    ]["rendered_eligibility_flag_violations"]
+    assert any(
+        row["field"] == "command_case_eligible"
+        and row["expected"] is True
+        and row["rendered"] is False
+        for row in rendered_eligibility_violations
+    )
+    assert any(
+        row["field"] == "producer_claimed_public_architecture_witness_eligible"
+        and row["expected"] is False
+        and row["rendered"] is True
+        for row in rendered_eligibility_violations
+    )
+
+    forged_rendered_summary_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_summary_case = forged_rendered_summary_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_summary_case["status"] = "partial"
+    forged_rendered_summary_case["verification_status"] = "blocked"
+    forged_rendered_summary_case["verification_failed_predicates"] = [
+        "scope_completeness"
+    ]
+    forged_rendered_summary_case["public_witness_status"] = "pass"
+    forged_rendered_summary_case["verification_predicate_status"][
+        "rendered_verification_summary"
+    ] = True
+    forged_rendered_summary_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_summary_witness,
+        )
+    )
+    assert forged_rendered_summary_verification["status"] == "blocked"
+    assert "rendered_verification_summary" in (
+        forged_rendered_summary_verification["failed_predicates"]
+    )
+    assert forged_rendered_summary_verification["predicate_status"][
+        "rendered_verification_summary"
+    ] is False
+    rendered_summary_violations = forged_rendered_summary_verification[
+        "predicate_details"
+    ]["rendered_verification_summary_violations"]
+    assert any(
+        row.get("field") == "status"
+        and row["expected"] == "pass"
+        and row["rendered"] == "partial"
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row.get("field") == "verification_status"
+        and row["expected"] == "pass"
+        and row["rendered"] == "blocked"
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row.get("field") == "verification_failed_predicates"
+        and row["expected"] == []
+        and row["rendered"] == ["scope_completeness"]
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row.get("field") == "public_witness_status"
+        and row["expected"] == "projection_not_eligible"
+        and row["rendered"] == "pass"
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row.get("predicate_id") == "rendered_verification_summary"
+        and row["expected"] is False
+        and row["rendered"] is True
+        for row in rendered_summary_violations
+    )
+
+    forged_rendered_safe_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_safe_case = forged_rendered_safe_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_safe = forged_rendered_safe_case["safe_to_show"]
+    forged_rendered_safe.pop("full_receipt_body_omitted")
+    forged_rendered_safe["provider_calls_authorized"] = True
+    forged_rendered_safe["release_authorized"] = True
+    forged_rendered_safe["proof_correctness_claim"] = True
+    forged_rendered_safe["release_ready"] = True
+    forged_rendered_safe_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_safe_witness,
+        )
+    )
+    assert forged_rendered_safe_verification["status"] == "blocked"
+    assert "rendered_safe_to_show_boundary" in (
+        forged_rendered_safe_verification["failed_predicates"]
+    )
+    assert forged_rendered_safe_verification["predicate_status"][
+        "rendered_safe_to_show_boundary"
+    ] is False
+    assert forged_rendered_safe_verification["predicate_status"][
+        "rendered_late_predicate_status"
+    ] is False
+    rendered_safe_violations = forged_rendered_safe_verification[
+        "predicate_details"
+    ]["rendered_safe_to_show_boundary_violations"]
+    assert any(
+        row["reason"] == "rendered_safe_to_show_missing_keys"
+        and row["missing"] == ["full_receipt_body_omitted"]
+        for row in rendered_safe_violations
+    )
+    assert any(
+        row["reason"] == "rendered_safe_to_show_unexpected_keys"
+        and row["rendered"] == ["release_ready"]
+        for row in rendered_safe_violations
+    )
+    assert any(
+        row.get("field") == "release_authorized"
+        and row["expected"] is False
+        and row["rendered"] is True
+        for row in rendered_safe_violations
+    )
+    assert any(
+        row.get("field") == "proof_correctness_claim"
+        and row["expected"] is False
+        and row["rendered"] is True
+        for row in rendered_safe_violations
+    )
+
+    forged_rendered_guidance_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_guidance_case = forged_rendered_guidance_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_guidance_case["schema_version"] = (
+        "microcosm_release_ready_card_v1"
+    )
+    forged_rendered_guidance_case["anti_claim"] = "This is release-ready proof."
+    forged_rendered_guidance_case["reader_action"] = (
+        "Publish this as a public proof."
+    )
+    forged_rendered_guidance_case["verification_ref"] = "renderer.self_verified"
+    forged_rendered_guidance_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_guidance_witness,
+        )
+    )
+    assert forged_rendered_guidance_verification["status"] == "blocked"
+    assert "rendered_guidance_boundary" in (
+        forged_rendered_guidance_verification["failed_predicates"]
+    )
+    assert "rendered_late_predicate_status" in (
+        forged_rendered_guidance_verification["failed_predicates"]
+    )
+    assert forged_rendered_guidance_verification["predicate_status"][
+        "rendered_guidance_boundary"
+    ] is False
+    assert forged_rendered_guidance_verification["predicate_status"][
+        "rendered_late_predicate_status"
+    ] is False
+    rendered_guidance_violations = forged_rendered_guidance_verification[
+        "predicate_details"
+    ]["rendered_guidance_boundary_violations"]
+    assert any(
+        row.get("field") == "schema_version"
+        and row["expected"] == "microcosm_command_reference_execution_case_card_v1"
+        and row["rendered"] == "microcosm_release_ready_card_v1"
+        for row in rendered_guidance_violations
+    )
+    assert any(
+        row.get("field") == "anti_claim"
+        and row["expected"] == case["anti_claim"]
+        and row["rendered"] == "This is release-ready proof."
+        for row in rendered_guidance_violations
+    )
+    assert any(
+        row.get("field") == "reader_action"
+        and row["expected"]
+        == (
+            "Use this compact card to decide whether the command-root occurrence "
+            "case is eligible before treating any architecture projection as a "
+            "public witness."
+        )
+        and row["rendered"] == "Publish this as a public proof."
+        for row in rendered_guidance_violations
+    )
+    assert any(
+        row.get("field") == "verification_ref"
+        and row["expected"] == "architecture_kernel.verify_reference_execution_case"
+        and row["rendered"] == "renderer.self_verified"
+        for row in rendered_guidance_violations
+    )
+
+    forged_rendered_late_status_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_late_status_case = forged_rendered_late_status_witness[
+        "command_reference_execution_case"
+    ]
+    forged_rendered_late_status_case["verification_predicate_status"][
+        "rendered_safe_to_show_boundary"
+    ] = False
+    forged_rendered_late_status_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_late_status_witness,
+        )
+    )
+    assert forged_rendered_late_status_verification["status"] == "blocked"
+    assert "rendered_late_predicate_status" in (
+        forged_rendered_late_status_verification["failed_predicates"]
+    )
+    assert forged_rendered_late_status_verification["predicate_status"][
+        "rendered_safe_to_show_boundary"
+    ] is True
+    assert forged_rendered_late_status_verification["predicate_status"][
+        "rendered_late_predicate_status"
+    ] is False
+    assert forged_rendered_late_status_verification["predicate_details"][
+        "rendered_late_predicate_status_violations"
+    ] == [
+        {
+            "status_field": "verification_predicate_status",
+            "predicate_id": "rendered_safe_to_show_boundary",
+            "expected": True,
+            "rendered": False,
+        },
+        {
+            "status_field": "verification_predicate_status",
+            "predicate_id": "rendered_late_predicate_status",
+            "reason": "rendered_late_predicate_status_predicate_mismatch",
+            "expected": False,
+            "rendered": True,
+        },
+    ]
+
+    forged_rendered_digest_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_digest_witness["command_reference_execution_case"][
+        "semantic_digest"
+    ] = "forged-semantic-digest"
+    forged_rendered_digest_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_digest_witness,
+        )
+    )
+    assert forged_rendered_digest_verification["status"] == "blocked"
+    assert "rendered_semantic_digest" in forged_rendered_digest_verification[
+        "failed_predicates"
+    ]
+    assert forged_rendered_digest_verification["predicate_status"][
+        "rendered_semantic_digest"
+    ] is False
+    assert forged_rendered_digest_verification["predicate_details"][
+        "rendered_semantic_digest"
+    ] == "forged-semantic-digest"
+
+    forged_rendered_predicate_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_predicate_witness["command_reference_execution_case"][
+        "predicate_status"
+    ]["projection_fidelity"] = True
+    forged_rendered_predicate_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_predicate_witness,
+        )
+    )
+    assert forged_rendered_predicate_verification["status"] == "blocked"
+    assert "rendered_predicate_status" in forged_rendered_predicate_verification[
+        "failed_predicates"
+    ]
+    assert forged_rendered_predicate_verification["predicate_status"][
+        "rendered_predicate_status"
+    ] is False
+    assert forged_rendered_predicate_verification["predicate_details"][
+        "rendered_predicate_status_violations"
+    ] == [
+        {
+            "status_field": "predicate_status",
+            "predicate_id": "projection_fidelity",
+            "expected": False,
+            "rendered": True,
+        },
+        {
+            "status_field": "verification_predicate_status",
+            "predicate_id": "rendered_predicate_status",
+            "reason": "rendered_predicate_status_predicate_mismatch",
+            "expected": False,
+            "rendered": True,
+        },
+    ]
+
+    forged_rendered_predicate_omission_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_predicate_omission_witness["command_reference_execution_case"][
+        "predicate_status"
+    ].pop("projection_fidelity")
+    forged_rendered_predicate_omission_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_predicate_omission_witness,
+        )
+    )
+    assert forged_rendered_predicate_omission_verification["status"] == "blocked"
+    assert "rendered_predicate_status" in (
+        forged_rendered_predicate_omission_verification["failed_predicates"]
+    )
+    assert forged_rendered_predicate_omission_verification["predicate_status"][
+        "rendered_predicate_status"
+    ] is False
+    assert forged_rendered_predicate_omission_verification["predicate_details"][
+        "rendered_predicate_status_violations"
+    ] == [
+        {
+            "status_field": "predicate_status",
+            "reason": "rendered_predicate_status_missing_predicates",
+            "expected": sorted(case["predicate_status"]),
+            "missing": ["projection_fidelity"],
+        },
+        {
+            "status_field": "verification_predicate_status",
+            "predicate_id": "rendered_predicate_status",
+            "reason": "rendered_predicate_status_predicate_mismatch",
+            "expected": False,
+            "rendered": True,
+        },
+    ]
+
+    forged_rendered_omission = json.loads(json.dumps(rendered_witness_for_case))
+    omitted_rendered_ref = forged_rendered_omission["command_reference_execution_case"][
+        "occurrence_witness_refs"
+    ].pop()
+    forged_rendered_omission_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_omission,
+        )
+    )
+    assert forged_rendered_omission_verification["status"] == "blocked"
+    assert "rendered_occurrence_refs" in forged_rendered_omission_verification[
+        "failed_predicates"
+    ]
+    assert forged_rendered_omission_verification["predicate_status"][
+        "rendered_occurrence_refs"
+    ] is False
+    assert forged_rendered_omission_verification["predicate_details"][
+        "missing_rendered_occurrence_refs"
+    ] == [omitted_rendered_ref]
+
+    forged_rendered_witness = json.loads(json.dumps(rendered_witness_for_case))
+    forged_rendered_witness["command_reference_execution_case"][
+        "occurrence_witness_refs"
+    ].append(".microcosm/state_index.json")
+    forged_rendered_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        case,
+        rendered_witness=forged_rendered_witness,
+    )
+    assert forged_rendered_verification["status"] == "blocked"
+    assert "rendered_occurrence_refs" in forged_rendered_verification[
+        "failed_predicates"
+    ]
+    assert forged_rendered_verification["predicate_details"][
+        "unexpected_rendered_occurrence_refs"
+    ] == [".microcosm/state_index.json"]
+    assert forged_rendered_verification["predicate_details"][
+        "missing_rendered_occurrence_refs"
+    ] == []
+
+    forged_rendered_state_delta_witness = json.loads(
+        json.dumps(rendered_witness_for_case)
+    )
+    forged_rendered_state_delta_witness["command_reference_execution_case"][
+        "state_delta_refs"
+    ].append(".microcosm/state_index.json")
+    forged_rendered_state_delta_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            case,
+            rendered_witness=forged_rendered_state_delta_witness,
+        )
+    )
+    assert forged_rendered_state_delta_verification["status"] == "blocked"
+    assert "rendered_state_delta_refs" in (
+        forged_rendered_state_delta_verification["failed_predicates"]
+    )
+    assert "rendered_predicate_status" in (
+        forged_rendered_state_delta_verification["failed_predicates"]
+    )
+    assert forged_rendered_state_delta_verification["predicate_status"][
+        "rendered_state_delta_refs"
+    ] is False
+    assert forged_rendered_state_delta_verification["predicate_details"][
+        "unexpected_rendered_state_delta_refs"
+    ] == [".microcosm/state_index.json"]
+    assert forged_rendered_state_delta_verification["predicate_details"][
+        "missing_rendered_state_delta_refs"
+    ] == []
+
+    forged_rendered_summary_witness = json.loads(json.dumps(tour_card))
+    forged_rendered_summary = forged_rendered_summary_witness["compile_summary"]
+    forged_rendered_summary["command_reference_state_delta_ref_count"] = 999
+    forged_rendered_summary["command_reference_state_delta_refs_verified"] = False
+    forged_rendered_summary["command_reference_state_delta_refs_ref"] = (
+        "compile_summary.local_state_delta_refs"
+    )
+    forged_rendered_summary["command_reference_state_delta_scope_verified"] = False
+    forged_rendered_summary["command_reference_state_delta_scope_ref"] = (
+        "compile_summary.local_state_delta_scope"
+    )
+    forged_rendered_summary_verification = (
+        architecture_kernel.verify_reference_execution_case(
+            project,
+            persisted_run_case,
+            rendered_witness=forged_rendered_summary_witness,
+        )
+    )
+    assert forged_rendered_summary_verification["status"] == "blocked"
+    assert "rendered_state_delta_summary" in (
+        forged_rendered_summary_verification["failed_predicates"]
+    )
+    assert "rendered_predicate_status" in (
+        forged_rendered_summary_verification["failed_predicates"]
+    )
+    assert forged_rendered_summary_verification["predicate_status"][
+        "rendered_state_delta_summary"
+    ] is False
+    rendered_summary_violations = forged_rendered_summary_verification[
+        "predicate_details"
+    ]["rendered_state_delta_summary_violations"]
+    assert any(
+        row["scope"] == "compile_summary"
+        and row["field"] == "command_reference_state_delta_ref_count"
+        and row["expected"] == len(expected_card_state_delta_refs)
+        and row["rendered"] == 999
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row["scope"] == "compile_summary"
+        and row["field"] == "command_reference_state_delta_refs_verified"
+        and row["expected"] is True
+        and row["rendered"] is False
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row["scope"] == "compile_summary"
+        and row["field"] == "command_reference_state_delta_refs_ref"
+        and row["expected"] == "command_reference_execution_case.state_delta_refs"
+        and row["rendered"] == "compile_summary.local_state_delta_refs"
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row["scope"] == "compile_summary"
+        and row["field"] == "command_reference_state_delta_scope_verified"
+        and row["expected"] is True
+        and row["rendered"] is False
+        for row in rendered_summary_violations
+    )
+    assert any(
+        row["scope"] == "compile_summary"
+        and row["field"] == "command_reference_state_delta_scope_ref"
+        and row["expected"] == "verification_predicate_status.state_delta_scope"
+        and row["rendered"] == "compile_summary.local_state_delta_scope"
+        for row in rendered_summary_violations
+    )
+
+    record_by_alias = {
+        row["alias"]: row
+        for row in case["record_classifications"]
+        if row.get("alias")
+    }
+    assert record_by_alias["work_1"]["source_ref"].endswith("::work_0002")
+    assert record_by_alias["work_1"]["classification"] == "direct_child"
+    assert all(
+        "work_0001" not in row["source_ref"]
+        for row in case["record_classifications"]
+        if isinstance(row.get("source_ref"), str)
+    )
+    assert case["alias_map"]["work"] == {"work_0002": "work_1"}
+    assert set(case["alias_map"]["events"].values()) == {"event_1", "event_2"}
+    assert set(case["alias_map"]["evidence"].values()) == {
+        "evidence_1",
+        "evidence_2",
+    }
+    assert case["semantic_digest"] == architecture_kernel.build_reference_execution_case(
+        project,
+        route_id,
+        run,
+        command_kind="work.create+work.run",
+        before_state=before_second,
+    )["semantic_digest"]
+
+
+def test_reference_execution_case_handles_reversed_same_route_completion(
+    tmp_path: Path,
+) -> None:
+    """Two same-route work items can complete out of creation order."""
+    project = _scratch_project(tmp_path)
+    route_id = "readme_onboarding_route"
+
+    project_substrate.propose_routes(project)
+    first = project_substrate.create_work(project, route_id)
+    second = project_substrate.create_work(project, route_id)
+
+    second_run = project_substrate.run_work(project, str(second["work_id"]))
+    first_run = project_substrate.run_work(project, str(first["work_id"]))
+
+    second_case = second_run["reference_execution_case"]
+    first_case = first_run["reference_execution_case"]
+
+    assert second_case["root_binding"]["work_id"] == "work_0002"
+    assert first_case["root_binding"]["work_id"] == "work_0001"
+    assert second_case["command_case_eligible"] is True
+    assert first_case["command_case_eligible"] is True
+
+    second_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        second_case,
+    )
+    first_verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        first_case,
+    )
+    assert second_verification["failed_predicates"] == [
+        "rendered_occurrence_refs",
+        "rendered_state_delta_refs",
+    ]
+    assert first_verification["failed_predicates"] == [
+        "rendered_occurrence_refs",
+        "rendered_state_delta_refs",
+    ]
+    for predicate_id in [
+        "join_integrity",
+        "selection_binding",
+        "scope_completeness",
+        "execution_terminality",
+        "authority_boundedness",
+        "replay_equivalence",
+        "state_delta_scope",
+        "record_classification_matrix",
+        "truth_class_authority",
+        "semantic_digest",
+        "assertion_matrix_coverage",
+    ]:
+        assert second_verification["predicate_status"][predicate_id] is True
+        assert first_verification["predicate_status"][predicate_id] is True
+
+    assert set(second_case["ambient_history_excluded"]["work_ids"]) == {"work_0001"}
+    assert set(first_case["ambient_history_excluded"]["work_ids"]) == {"work_0002"}
+    assert all(
+        "work_0001" not in ref
+        for ref in second_case["occurrence_witness_refs"]
+        if isinstance(ref, str)
+    )
+    assert all(
+        "work_0002" not in ref
+        for ref in first_case["occurrence_witness_refs"]
+        if isinstance(ref, str)
+    )
+
+    second_ambient_refs = {
+        row["source_ref"]
+        for row in second_case["ambient_history_excluded"]["records"]
+    }
+    first_ambient_refs = {
+        row["source_ref"]
+        for row in first_case["ambient_history_excluded"]["records"]
+    }
+    assert ".microcosm/work_items.json::work_0001" in second_ambient_refs
+    assert ".microcosm/work_items.json::work_0002" in first_ambient_refs
+    assert second_case["record_classification_counts"]["ambient_history"] == len(
+        second_case["ambient_history_excluded"]["records"]
+    )
+    assert first_case["record_classification_counts"]["ambient_history"] == len(
+        first_case["ambient_history_excluded"]["records"]
+    )
+
+    assert second_case["alias_map"]["work"] == {"work_0002": "work_1"}
+    assert first_case["alias_map"]["work"] == {"work_0001": "work_1"}
+    assert second_case["state_delta"]["new_work_ids"] == []
+    assert first_case["state_delta"]["new_work_ids"] == []

@@ -1809,8 +1809,8 @@
       "receipt"
     ],
     "macro_doctrine_refs": [
-      "codex/doctrine/paper_modules/microcosm_substrate.md",
-      "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+      "codex/doctrine/paper_modules/plectis_substrate.md",
+      "codex/doctrine/paper_modules/plectis_entry_lattice.md",
       "codex/standards/std_microcosm.json",
       "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
     ],
@@ -1866,16 +1866,16 @@
       "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json"
     ],
     "paper_module_refs": [
-      "codex/doctrine/paper_modules/microcosm_substrate.md",
-      "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
-      "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
+      "codex/doctrine/paper_modules/plectis_substrate.md",
+      "codex/doctrine/paper_modules/plectis_entry_lattice.md",
+      "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md",
       "codex/doctrine/paper_modules/prime_directives.md",
       "codex/doctrine/paper_modules/local_to_general_propagation.md",
       "codex/doctrine/paper_modules/navigation_hologram_theory.md",
       "codex/doctrine/paper_modules/public_constellation_strategy.md",
       "codex/doctrine/paper_modules/dissemination_strategy.md",
-      "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
-      "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+      "codex/doctrine/paper_modules/plectis_public_export_type_plane.md",
+      "codex/doctrine/paper_modules/laboratory_metabolism.md"
     ],
     "atlas_option_surfaces": [
       {

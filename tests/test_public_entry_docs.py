@@ -1599,7 +1599,7 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         "card",
         "source_receipt",
     ]
-    assert "codex/doctrine/paper_modules/microcosm_substrate.md" in doctrine_route[
+    assert "codex/doctrine/paper_modules/plectis_substrate.md" in doctrine_route[
         "macro_doctrine_refs"
     ]
     assert "codex/standards/std_microcosm.json" in doctrine_route[

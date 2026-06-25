@@ -69,6 +69,26 @@
         "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::work_ledger_claim_runtime_body_import"
       ],
       "anti_claim": "This grant permits only the governed-mutation bundle exact-copy refresh for this source/target relation. It does not make tools/meta/factory globally source-open."
+    },
+    {
+      "grant_id": "mechanistic_interpretability_agent_execution_trace_exact_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "agent_execution_trace_tool_body_import"
+      ],
+      "target_refs": [
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/system/lib/agent_execution_trace.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_22_governed_mutation_v1",
+      "provenance_refs": [
+        "docs/dissemination/reconstructability_release_allowlist_v0.json::system/lib/agent_execution_trace.py",
+        "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json::agent_execution_trace_tool_body_import"
+      ],
+      "anti_claim": "This grant permits only the mechanistic interpretability fixture exact-copy refresh for this source/target relation. It does not make system/lib globally source-open."
     }
   ]
 }

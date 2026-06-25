@@ -3,34 +3,8 @@
   "bundle_id": "self_comprehension_packet_compiler_source_bundle",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "self_comprehension_packet_compiler_compression_profiles_import",
-  "module_count": 3,
+  "module_count": 1,
   "modules": [
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 28132,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 634,
-      "material_class": "public_macro_packet_compiler_body",
-      "missing_required_anchors": [],
-      "module_id": "profile_loader_source_body_import",
-      "required_anchors": [
-        "PROFILE_REGISTRY_REL",
-        "RAW_SEED_CONTEXT_PROFILE_ID",
-        "def load_compression_profile_registry",
-        "def compression_profile_pointer",
-        "def build_raw_seed_context_contract",
-        "def contextual_row_from_contract"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "exact_packet_compiler_source_body_in_public_bundle_not_raw_operator_voice_rendered_private_packet_or_provider_payload",
-      "source_ref": "system/lib/compression_profiles.py",
-      "source_role": "Macro compression profile loader and packet context contract builder: shared grammar for profile pointers, dynamic fact rows, omission receipts, and source-state-preserving packet rows.",
-      "source_sha256": "b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
-      "target_sha256": "b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d"
-    },
     {
       "anchor_count": 5,
       "body_copied": true,
@@ -55,33 +29,36 @@
       "source_sha256": "91b1a10c0e60fbddb1f065b119c20be056400d500d355ca4057d0e954f4e917a",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/compression_profiles.json",
       "target_sha256": "91b1a10c0e60fbddb1f065b119c20be056400d500d355ca4057d0e954f4e917a"
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 4566,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 98,
-      "material_class": "public_macro_packet_compiler_test_body",
-      "missing_required_anchors": [],
-      "module_id": "profile_loader_test_source_body_import",
-      "required_anchors": [
-        "def test_raw_seed_compression_profile_declares_creator_and_navigator",
-        "def test_render_profile_pointer_exposes_owner_routes_and_projection_boundary",
-        "def test_raw_seed_context_contract_carries_drilldowns_dynamic_facts_and_omissions"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "exact_packet_compiler_test_body_in_public_bundle_not_raw_operator_voice_rendered_private_packet_or_provider_payload",
-      "source_ref": "system/server/tests/test_compression_profiles.py",
-      "source_role": "Macro regression contract proving the compression profile loader exposes owner routes, projection boundaries, dynamic fact rows, drilldown refs, and omission receipts.",
-      "source_sha256": "44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
-      "target_sha256": "44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011"
     }
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_packet_runtime_dependency",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "profile_loader_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/compression_profiles.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/compression_profiles.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "profile_loader_test_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_compression_profiles.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_compression_profiles.py"
+    }
+  ],
   "schema_version": "public_microcosm_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_live_access_private_video_raw_operator_voice_or_credential_equivalent_material",
   "source_modules_root_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules",

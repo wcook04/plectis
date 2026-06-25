@@ -1,102 +1,20 @@
 {
   "body_in_receipt": false,
   "bundle_id": "self_ignorance_coverage_ledger_runtime_example",
-  "module_count": 1,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "release_substitution_omissions": [
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 198399,
-      "line_count": 4391,
-      "material_class": "public_macro_tool_body",
       "module_id": "build_system_atlas_public_safe_body_import",
-      "original_source_ref": "tools/meta/factory/build_system_atlas.py",
-      "original_source_sha256": "3d9662455ebd0f26d4ec15a8580c3cbec4cccdaefe2cd9ff5c81160d64a3d8bf",
       "path": "source_modules/tools/meta/factory/build_system_atlas.py",
-      "public_safe_mode": "verified_public_macro_body_light_edit",
-      "public_safe_transform": {
-        "blocker_count": 0,
-        "blockers": [],
-        "body_text_boundary": "Transform receipts record hashed originals, replacements, classes, and policy reasons only; body text remains in the source-module target.",
-        "policy_id": "microcosm_public_path_secret_policy_v1",
-        "public_safe": true,
-        "replacement_count": 8,
-        "replacements": [
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:17b4ee770f8530b30fb0038556048c61f38df1c5ebeae1bcb7c80776325ed3c6",
-            "reason": "Private raw-seed or vault roots are collapsed to a non-dangling boundary token with hashed original evidence.",
-            "replacement": "<private-raw-seed-root>",
-            "treatment_class": "private_raw_seed_root_transform"
-          },
-          {
-            "original_sha256": "sha256:7bedce13767cb91ad51b8757d3bac62ec5e3a74d7c224d77646950f148c1c0a6",
-            "reason": "Dangling private macro source-root references are converted to a non-grant provenance token with hashed original evidence.",
-            "replacement": "private-macro-source/",
-            "treatment_class": "private_macro_source_ref_transform"
-          }
-        ],
-        "status": "transformed",
-        "transform_classes": [
-          "private_macro_source_ref_transform",
-          "private_raw_seed_root_transform"
-        ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "tools/meta/factory/build_system_atlas.py",
+        "substitution": "public_safe_stub"
       },
-      "public_safety_transformations": [
-        "private raw-seed or vault roots replaced with <private-raw-seed-root> public-safe boundary tokens",
-        "dangling private macro source-root references replaced with private-macro-source/ provenance labels"
-      ],
-      "required_anchors": [
-        "System Atlas",
-        "kind"
-      ],
-      "sha256": "b6da2f44efa58d10880de549c699a76fa3d666f81e6b4a4d2c2d18a7415e1e9f",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_system_atlas.py",
-      "source_ref_repair_basis": "original_source_ref_for_stale_copied_target_self_reference",
-      "source_ref_repaired_from": "microcosm-substrate/examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_modules/tools/meta/factory/build_system_atlas.py",
-      "source_sha256": "3d9662455ebd0f26d4ec15a8580c3cbec4cccdaefe2cd9ff5c81160d64a3d8bf",
-      "source_target_sha256_match": false,
-      "source_to_target_relation": "source_faithful_public_safe_path_normalized_copy",
-      "target_expected_digest_match": true,
-      "target_ref": "microcosm-substrate/examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_modules/tools/meta/factory/build_system_atlas.py",
-      "target_sha256": "b6da2f44efa58d10880de549c699a76fa3d666f81e6b4a4d2c2d18a7415e1e9f"
+      "source_ref": "tools/meta/factory/build_system_atlas.py"
     }
   ],
   "schema_version": "microcosm_self_ignorance_coverage_ledger_source_module_manifest_v1",

@@ -1,11 +1,39 @@
 {
-  "schema_version": "macro_projection_nvidia_nim_provider_boundary_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "nvidia_nim_provider_boundary_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access",
   "body_storage_policy": "exact_non_secret_nvidia_nim_provider_boundary_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "nvidia_nim_provider_boundary_source_modules_import",
+  "module_count": 0,
+  "modules": [],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and a no-live-probe runtime-status call; copied source modules are body evidence, not authority to call NVIDIA, export API-key values, reveal account-scoped models, emit provider payload bodies, write generated .env files, mutate private state, or claim release authority.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, API-key values, provider request/response payload bodies, live model visibility, account/session material, generated .env output, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "nvidia_nim_provider_adapter_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/nvidia_nim.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/nvidia_nim.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "nvidia_model_profile_registry_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/model_profile_registry.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/model_profile_registry.py"
+    }
+  ],
+  "schema_version": "macro_projection_nvidia_nim_provider_boundary_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -20,61 +48,5 @@
     "generated .env output",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and a no-live-probe runtime-status call; copied source modules are body evidence, not authority to call NVIDIA, export API-key values, reveal account-scoped models, emit provider payload bodies, write generated .env files, mutate private state, or claim release authority.",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "nvidia_nim_provider_adapter_body_import",
-      "source_ref": "system/lib/nvidia_nim.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
-      "source_role": "Hosted NVIDIA NIM adapter that resolves environment/config defaults, reports provider runtime status, lists account-visible model ids only when explicitly probed, and normalizes chat, embedding, and reranking responses without storing secrets.",
-      "required_anchors": [
-        "DEFAULT_CHAT_BASE_URL = \"https://integrate.api.nvidia.com\"",
-        "def list_models(",
-        "def runtime_status(",
-        "def chat_completion(",
-        "def embed_texts(",
-        "def rerank_passages(",
-        "NVIDIA_API_KEY is not configured",
-        "\"api_headers_expose_rate_limits\": None"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_live_model_visibility_or_credential_export",
-      "source_sha256": "88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
-      "target_sha256": "88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
-      "sha256_match": true,
-      "line_count": 664,
-      "byte_count": 26534,
-      "anchor_count": 8
-    },
-    {
-      "module_id": "nvidia_model_profile_registry_body_import",
-      "source_ref": "system/lib/model_profile_registry.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
-      "source_role": "Provider model-profile registry helper that reads authored provider config, resolves NVIDIA model profile ids, and renders local proxy env text without storing API secrets in source.",
-      "required_anchors": [
-        "REGISTRY_REL = \"codex/doctrine/compute/provider_registry.json\"",
-        "def load_provider_registry(",
-        "def nvidia_model_profile(",
-        "def nvidia_model_id(",
-        "def free_claude_code_profile(",
-        "def build_free_claude_code_env(",
-        "def write_free_claude_code_env("
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_live_model_visibility_or_credential_export",
-      "source_sha256": "80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
-      "target_sha256": "80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
-      "sha256_match": true,
-      "line_count": 183,
-      "byte_count": 7083,
-      "anchor_count": 7
-    }
-  ]
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access"
 }

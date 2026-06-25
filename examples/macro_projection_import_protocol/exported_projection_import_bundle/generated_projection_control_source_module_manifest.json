@@ -3,111 +3,60 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "generated_projection_control_source_modules_import",
-  "module_count": 4,
-  "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 91297,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1312,
-      "material_class": "public_macro_tool_body",
-      "material_id": "generated_projection_registry_body_import",
-      "module_id": "generated_projection_registry_body_import",
-      "required_anchors": [
-        "class GeneratedProjectionOwner:",
-        "PROJECTION_REGISTRY: tuple[GeneratedProjectionOwner, ...] = (",
-        "def owner_matches_path(",
-        "def iter_projection_owners(",
-        "def projection_registry_payload()"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_generated_projection_output_live_ledger_provider_payload_browser_hud_or_account_session_state",
-      "source_ref": "system/lib/generated_projection_registry.py",
-      "source_role": "Generated projection owner registry declaring deterministic check/repair commands, source authorities, artifact ownership boundaries, and manual-edit rules for generated state surfaces.",
-      "source_sha256": "0720c7ba7aff983c68b8a8f1811ca2c4385ffa104a2b582d661cfeda9cb65957",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_projection_registry.py",
-      "target_sha256": "0720c7ba7aff983c68b8a8f1811ca2c4385ffa104a2b582d661cfeda9cb65957"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 198765,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4750,
-      "material_class": "public_macro_tool_body",
-      "material_id": "generated_state_drainer_body_import",
-      "module_id": "generated_state_drainer_body_import",
-      "required_anchors": [
-        "generated_projection_registry,",
-        "def build_generated_projection_landing_plan(",
-        "def build_generated_projection_landing_manifest(",
-        "def build_generated_projection_settlement_fast_plan(",
-        "def build_generated_projection_settlement_plan("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_generated_projection_output_live_ledger_provider_payload_browser_hud_or_account_session_state",
-      "source_ref": "system/lib/generated_state_drainer.py",
-      "source_role": "Generated-state settlement and landing planner that maps dirty generated projections to owner checks, refresh actions, scoped commits, and fixed-point settlement without broad staging.",
-      "source_sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_state_drainer.py",
-      "target_sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 191229,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4667,
-      "material_class": "public_macro_tool_body",
-      "material_id": "generated_state_drainer_test_body_import",
-      "module_id": "generated_state_drainer_test_body_import",
-      "required_anchors": [
-        "test_status_classifies_stale_work_ledger_projection",
-        "test_landing_plan_for_fresh_dirty_task_ledger_projections",
-        "test_system_atlas_landing_plan_blocks_source_coupling_before_projection_landing",
-        "test_settlement_plan_reports_dirty_owners_in_settlement_order",
-        "test_settlement_reports_capped_residual_when_passes_change_but_do_not_converge"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_generated_projection_output_live_ledger_provider_payload_browser_hud_or_account_session_state",
-      "source_ref": "system/server/tests/test_generated_state_drainer.py",
-      "source_role": "Focused generated-state drainer regression suite covering stale/dirty owner classification, landing manifests, append-exempt landing, fixed-point settlement, and unsupported-owner refusals.",
-      "source_sha256": "70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer.py",
-      "target_sha256": "70d62c71a07149d177bf0c96b1ebb3339c36129007bfd1cfdf77b8381ac956fa"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 49576,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1155,
-      "material_class": "public_macro_tool_body",
-      "material_id": "generated_state_drainer_cli_compact_test_body_import",
-      "module_id": "generated_state_drainer_cli_compact_test_body_import",
-      "required_anchors": [
-        "test_status_compact_full_authority_emits_counts_and_full_drilldown",
-        "test_status_compact_distinguishes_clean_stale_backlog_from_dirty_fresh_paths",
-        "generated_state_drainer_status_compact_v0",
-        "dirty_generated_paths_omission_receipt",
-        "full_status_command"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_generated_projection_output_live_ledger_provider_payload_browser_hud_or_account_session_state",
-      "source_ref": "system/server/tests/test_generated_state_drainer_cli_compact.py",
-      "source_role": "Focused compact-CLI regression suite proving generated-state status omits full hashes and payload-heavy rows while preserving actionable owner counts and drilldowns.",
-      "source_sha256": "d8914b8905f31c218b7f3241dde8b10af8b29730c15a61be7da5408773e5aee2",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer_cli_compact.py",
-      "target_sha256": "d8914b8905f31c218b7f3241dde8b10af8b29730c15a61be7da5408773e5aee2"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and static source-boundary checks; copied source modules are body evidence, not authority to mutate generated state, run owner repair tools, append ledgers, export generated projection outputs, call providers, inspect browser/HUD state, or claim release authority.",
   "receipt_body_policy": "receipts report paths hashes counts anchors and compact boundary checks but never duplicate full source bodies, generated projection output bodies, live Task/Work Ledger event bodies, provider payload bodies, account/session material, browser/HUD live access, recipient-send state, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "generated_projection_registry_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_projection_registry.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/generated_projection_registry.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/generated_projection_registry.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "generated_state_drainer_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_state_drainer.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/lib/generated_state_drainer.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/generated_state_drainer.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "generated_state_drainer_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_generated_state_drainer.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_generated_state_drainer.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "generated_state_drainer_cli_compact_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer_cli_compact.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_generated_state_drainer_cli_compact.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_generated_state_drainer_cli_compact.py"
+    }
+  ],
   "schema_version": "macro_projection_generated_projection_control_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

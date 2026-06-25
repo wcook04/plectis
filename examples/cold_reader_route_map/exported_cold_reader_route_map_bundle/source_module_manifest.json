@@ -2,7 +2,7 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
   "bundle_id": "public_cold_reader_route_map_runtime_example",
-  "module_count": 5,
+  "module_count": 4,
   "modules": [
     {
       "body_copied": true,
@@ -119,36 +119,6 @@
         "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
         "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
       ]
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 404883,
-      "line_count": 9802,
-      "material_class": "public_macro_tool_body",
-      "module_id": "kernel_entry_packet_command_body_import",
-      "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "required_anchors": [
-        "ENTRY_SURFACE_STRUCTURAL_LANE_TRIGGERS",
-        "def _entry_route_lease(",
-        "\"schema_version\": \"route_lease_v0\"",
-        "def build_entry_packet(",
-        "recognized_situation"
-      ],
-      "sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
-      "source_role": "Kernel entry-packet command implementation defining structural lane triggers, route leases, recognized-situation selection, and build_entry_packet wiring consumed by cold-reader navigation.",
-      "source_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
-        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
-        "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
-      ]
     }
   ],
   "omitted_material": [
@@ -162,6 +132,20 @@
     "credential-equivalent material",
     "raw private transcript bodies",
     "live process-audit payload bodies"
+  ],
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "kernel_entry_packet_command_body_import",
+      "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py"
+    }
   ],
   "schema_version": "cold_reader_route_map_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body"

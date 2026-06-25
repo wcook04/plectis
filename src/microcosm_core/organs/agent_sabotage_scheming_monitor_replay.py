@@ -16,7 +16,11 @@ from microcosm_core.private_state_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -2413,6 +2417,17 @@ def run_sabotage_bundle(
     return payload
 
 
+def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
+    paths = result.get("receipt_paths")
+    if not isinstance(paths, list):
+        return []
+    normalized = normalize_public_receipt_paths({"receipt_paths": paths})
+    normalized_paths = normalized.get("receipt_paths") if isinstance(normalized, dict) else None
+    if not isinstance(normalized_paths, list):
+        return []
+    return [path for path in normalized_paths if isinstance(path, str)]
+
+
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2500,7 +2515,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "source_mutation_authorized": False,
             "release_authorized": False,
         },
-        "receipt_paths": result.get("receipt_paths", []),
+        "receipt_paths": _card_receipt_paths(result),
         "omission_receipt": {
             "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
             "full_payload_drilldown": "rerun without --card or inspect the written receipt file",

@@ -1,75 +1,7 @@
 {
   "body_in_receipt": false,
-  "module_count": 12,
+  "module_count": 9,
   "modules": [
-    {
-      "anchor_count": 1,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 768,
-      "line_count": 22,
-      "material_class": "public_macro_dependency_body",
-      "module_id": "system_package_init_dependency",
-      "path": "source_modules/system/__init__.py",
-      "required_anchors": [
-        "system"
-      ],
-      "sha256": "d6d97d789ebc83dbcb0513d0351f4818143d3948eb9f6003db419067887d6834",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/__init__.py",
-      "source_sha256": "d6d97d789ebc83dbcb0513d0351f4818143d3948eb9f6003db419067887d6834",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_modules/system/__init__.py",
-      "target_sha256": "d6d97d789ebc83dbcb0513d0351f4818143d3948eb9f6003db419067887d6834"
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 14330,
-      "line_count": 420,
-      "material_class": "public_macro_dependency_body",
-      "module_id": "feed_envelope_dependency",
-      "path": "source_modules/system/lib/feed_envelope.py",
-      "required_anchors": [
-        "def build_envelope",
-        "def resolve_run_id"
-      ],
-      "sha256": "65e03340b74a35342ffb1eab6e585cb2b9c4918cb45beae353b36923dc832335",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/feed_envelope.py",
-      "source_sha256": "65e03340b74a35342ffb1eab6e585cb2b9c4918cb45beae353b36923dc832335",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_modules/system/lib/feed_envelope.py",
-      "target_sha256": "65e03340b74a35342ffb1eab6e585cb2b9c4918cb45beae353b36923dc832335"
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 13794,
-      "line_count": 437,
-      "material_class": "public_macro_dependency_body",
-      "module_id": "system_types_dependency",
-      "path": "source_modules/system/lib/types.py",
-      "required_anchors": [
-        "TOOL_METADATA_SCHEMA_VERSION",
-        "class ArtifactEnvelope"
-      ],
-      "sha256": "762d2e81eb6e6254dbace9a112ec9ae6d7e1cd692889fab2c37afab62b7d7176",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/types.py",
-      "source_sha256": "762d2e81eb6e6254dbace9a112ec9ae6d7e1cd692889fab2c37afab62b7d7176",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_modules/system/lib/types.py",
-      "target_sha256": "762d2e81eb6e6254dbace9a112ec9ae6d7e1cd692889fab2c37afab62b7d7176"
-    },
     {
       "anchor_count": 1,
       "body_copied": true,
@@ -277,6 +209,44 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_modules/tools/finance/variant_registry.py",
       "target_sha256": "ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288"
+    }
+  ],
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "system_package_init_dependency",
+      "path": "source_modules/system/__init__.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/__init__.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/__init__.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "feed_envelope_dependency",
+      "path": "source_modules/system/lib/feed_envelope.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/feed_envelope.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/feed_envelope.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "system_types_dependency",
+      "path": "source_modules/system/lib/types.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/types.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/types.py"
     }
   ],
   "schema_version": "source_module_manifest_v1",

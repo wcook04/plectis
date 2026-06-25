@@ -3,58 +3,35 @@
   "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "mission_control_source_modules_import",
-  "module_count": 2,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+  "release_substitution_omissions": [
     {
-      "anchor_count": 6,
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 119305,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 3157,
       "module_id": "scoped_commit_tool_body_import",
-      "required_anchors": [
-        "def perform_scoped_commit(",
-        "def perform_tracked_removals_commit(",
-        "perform_remote_full_paths_landing",
-        "--work-ledger-session-id",
-        "--allow-multi-hunk-full-paths",
-        "scoped_commit_work_ledger_mutation_guard_v0"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_ref": "tools/meta/control/scoped_commit.py",
-      "source_role": "scoped commit controller for exact pathspec staging, mission preflight admission, private-index guardrails, and Work Ledger claim checks",
-      "source_sha256": "3530ae5bc000962aa01a762c4bf06db318fb7ded570ebbb482bc454c81e4cc96",
-      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
-      "target_sha256": "3530ae5bc000962aa01a762c4bf06db318fb7ded570ebbb482bc454c81e4cc96"
+      "path": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "tools/meta/control/scoped_commit.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/scoped_commit.py"
     },
     {
-      "anchor_count": 6,
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 31199,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 808,
       "module_id": "mission_transaction_preflight_tool_body_import",
-      "required_anchors": [
-        "def build_parser(",
-        "build_mission_transaction_landing_preflight",
-        "--subject-id",
-        "--owned-path",
-        "--require-exclusive",
-        "--fail-on-status"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_ref": "tools/meta/control/mission_transaction_preflight.py",
-      "source_role": "mission transaction preflight CLI binding Work Ledger claims, owned paths, dirty-tree classification, and scoped commit admission before landing",
-      "source_sha256": "17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
-      "target_sha256": "17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177"
+      "path": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/mission_transaction_preflight.py"
     }
   ],
-  "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
   "schema_version": "mission_transaction_work_spine_mission_control_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

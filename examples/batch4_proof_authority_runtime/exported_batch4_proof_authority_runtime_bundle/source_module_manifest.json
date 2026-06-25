@@ -3,434 +3,8 @@
   "body_copied_material_count": 17,
   "body_in_receipt": false,
   "body_text_in_receipt": false,
-  "module_count": 17,
+  "module_count": 1,
   "modules": [
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 315755,
-      "line_count": 7168,
-      "material_class": "public_macro_tool_body",
-      "module_id": "prover_graph_benchmark",
-      "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-      "required_anchors": [
-        "def run_strategy_control_graph(",
-        "def run_prover_skill_foundry(",
-        "def _strategy_comparison_report(",
-        "def _mine_skill_candidate_clusters("
-      ],
-      "sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
-      "source_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-      "target_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 36443,
-      "line_count": 952,
-      "material_class": "public_macro_tool_body",
-      "module_id": "verisoftbench_harness_differential",
-      "path": "source_modules/tools/meta/factory/run_verisoftbench_micro10_harness_differential.py",
-      "required_anchors": [
-        "def _diagnose(",
-        "def check_outputs("
-      ],
-      "sha256": "79733ca64755df2826faa29d3ce6ea0f844fa2748a7aa0705fa64f19160f0dff",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_verisoftbench_micro10_harness_differential.py",
-      "source_sha256": "79733ca64755df2826faa29d3ce6ea0f844fa2748a7aa0705fa64f19160f0dff",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/run_verisoftbench_micro10_harness_differential.py",
-      "target_sha256": "79733ca64755df2826faa29d3ce6ea0f844fa2748a7aa0705fa64f19160f0dff",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 27689,
-      "line_count": 698,
-      "material_class": "public_macro_tool_body",
-      "module_id": "verisoftbench_calibration_rows",
-      "path": "source_modules/tools/meta/factory/run_verisoftbench_micro10_calibration_rows.py",
-      "required_anchors": [
-        "def check_outputs(",
-        "--max-probes"
-      ],
-      "sha256": "4664213d68b63a2ff0cc000714a66f2fe088b11eee425a74fbaf1d940394601c",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_verisoftbench_micro10_calibration_rows.py",
-      "source_sha256": "4664213d68b63a2ff0cc000714a66f2fe088b11eee425a74fbaf1d940394601c",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/run_verisoftbench_micro10_calibration_rows.py",
-      "target_sha256": "4664213d68b63a2ff0cc000714a66f2fe088b11eee425a74fbaf1d940394601c",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 28422,
-      "line_count": 756,
-      "material_class": "public_macro_tool_body",
-      "module_id": "erdos257_target_runner",
-      "path": "source_modules/tools/meta/factory/run_formal_math_erdos257_lean_target_runner.py",
-      "required_anchors": [
-        "def _parse_axiom_dependencies(",
-        "def build_receipt("
-      ],
-      "sha256": "213202059691adc2b3854b304563aa7941be950cf321cdb45a5989bba9f68a00",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_formal_math_erdos257_lean_target_runner.py",
-      "source_sha256": "213202059691adc2b3854b304563aa7941be950cf321cdb45a5989bba9f68a00",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/run_formal_math_erdos257_lean_target_runner.py",
-      "target_sha256": "213202059691adc2b3854b304563aa7941be950cf321cdb45a5989bba9f68a00",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 318394,
-      "line_count": 6857,
-      "material_class": "public_macro_tool_body",
-      "module_id": "lean_microcosm_projection",
-      "path": "source_modules/tools/meta/factory/build_lean_mathematics_microcosm_projection.py",
-      "required_anchors": [
-        "def _verify_hashed_file_ref(",
-        "source_ref_integrity",
-        "REVIEWABLE_REPLAYED"
-      ],
-      "sha256": "b6f137341c5c7bf8d55a537a197f15534d64513a3179ce19aa2429d5270a51b2",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_lean_mathematics_microcosm_projection.py",
-      "source_sha256": "b6f137341c5c7bf8d55a537a197f15534d64513a3179ce19aa2429d5270a51b2",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/build_lean_mathematics_microcosm_projection.py",
-      "target_sha256": "b6f137341c5c7bf8d55a537a197f15534d64513a3179ce19aa2429d5270a51b2",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 8570,
-      "line_count": 225,
-      "material_class": "public_macro_tool_body",
-      "module_id": "lean_full_fidelity_packet_replay",
-      "path": "source_modules/tools/meta/factory/run_lean_full_fidelity_packet_replay.py",
-      "required_anchors": [
-        "--compact",
-        "--attempt-hydration"
-      ],
-      "sha256": "aa59383b9937af749bd2a16f9b1b967e3fc8354173c83362795f284be3e8ef46",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_lean_full_fidelity_packet_replay.py",
-      "source_sha256": "aa59383b9937af749bd2a16f9b1b967e3fc8354173c83362795f284be3e8ef46",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/run_lean_full_fidelity_packet_replay.py",
-      "target_sha256": "aa59383b9937af749bd2a16f9b1b967e3fc8354173c83362795f284be3e8ef46",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 31810,
-      "line_count": 752,
-      "material_class": "public_macro_tool_body",
-      "module_id": "reasoning_authority_envelope",
-      "path": "source_modules/tools/meta/factory/build_reasoning_execution_authority_envelope.py",
-      "required_anchors": [
-        "def _authority_decision(",
-        "forbidden_effective_context",
-        "launch_authorized"
-      ],
-      "sha256": "1148c9f86c8a5e95fb05ce423c5f04786046ec05d4a22c737be10c9dfc9a88fd",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_reasoning_execution_authority_envelope.py",
-      "source_sha256": "1148c9f86c8a5e95fb05ce423c5f04786046ec05d4a22c737be10c9dfc9a88fd",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/build_reasoning_execution_authority_envelope.py",
-      "target_sha256": "1148c9f86c8a5e95fb05ce423c5f04786046ec05d4a22c737be10c9dfc9a88fd",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 21556,
-      "line_count": 529,
-      "material_class": "public_macro_tool_body",
-      "module_id": "reasoning_grant_lease",
-      "path": "source_modules/tools/meta/factory/build_reasoning_execution_grant_lease.py",
-      "required_anchors": [
-        "def _lease_status_and_issues(",
-        "forbidden_effective_context",
-        "eligible_unissued"
-      ],
-      "sha256": "d051c39fd2ffe4c62a02f4f6fa50c2a3fca4ce24eba288e518c5fb5741886da8",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_reasoning_execution_grant_lease.py",
-      "source_sha256": "d051c39fd2ffe4c62a02f4f6fa50c2a3fca4ce24eba288e518c5fb5741886da8",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/build_reasoning_execution_grant_lease.py",
-      "target_sha256": "d051c39fd2ffe4c62a02f4f6fa50c2a3fca4ce24eba288e518c5fb5741886da8",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 17397,
-      "line_count": 468,
-      "material_class": "public_macro_tool_body",
-      "module_id": "reasoning_plan_builder",
-      "path": "source_modules/tools/meta/factory/build_reasoning_execution_plan.py",
-      "required_anchors": [
-        "runtime_execution",
-        "model_dispatch"
-      ],
-      "sha256": "cea1ebcc02a958c3a3a2af056b1cf6dfa7dcc2fccddee90d55a4171fd3a00f56",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_reasoning_execution_plan.py",
-      "source_sha256": "cea1ebcc02a958c3a3a2af056b1cf6dfa7dcc2fccddee90d55a4171fd3a00f56",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/build_reasoning_execution_plan.py",
-      "target_sha256": "cea1ebcc02a958c3a3a2af056b1cf6dfa7dcc2fccddee90d55a4171fd3a00f56",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 25382,
-      "line_count": 628,
-      "material_class": "public_macro_tool_body",
-      "module_id": "reasoning_plan_verifier",
-      "path": "source_modules/tools/meta/factory/verify_reasoning_execution_plan.py",
-      "required_anchors": [
-        "def _cycle_path(",
-        "cycle_detected"
-      ],
-      "sha256": "3808ab49de2911753d9952ed0eed4bc6fd7514b7b4a7ac54ee672011600de9b1",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/verify_reasoning_execution_plan.py",
-      "source_sha256": "3808ab49de2911753d9952ed0eed4bc6fd7514b7b4a7ac54ee672011600de9b1",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/factory/verify_reasoning_execution_plan.py",
-      "target_sha256": "3808ab49de2911753d9952ed0eed4bc6fd7514b7b4a7ac54ee672011600de9b1",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 28403,
-      "line_count": 702,
-      "material_class": "public_macro_tool_body",
-      "module_id": "forward_integration_policy",
-      "path": "source_modules/system/lib/forward_integration_policy.py",
-      "required_anchors": [
-        "def build_forward_integration_policy(",
-        "def path_scope_overlaps(",
-        "destructive_overwrite_risk"
-      ],
-      "sha256": "05aac3836f1a366678dc90b3d3c3b0425df33e29f3c24e557f563e640982d567",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/forward_integration_policy.py",
-      "source_sha256": "05aac3836f1a366678dc90b3d3c3b0425df33e29f3c24e557f563e640982d567",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/forward_integration_policy.py",
-      "target_sha256": "05aac3836f1a366678dc90b3d3c3b0425df33e29f3c24e557f563e640982d567",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 208396,
-      "line_count": 5312,
-      "material_class": "public_macro_tool_body",
-      "module_id": "closeout_executor",
-      "path": "source_modules/system/lib/closeout_executor.py",
-      "required_anchors": [
-        "def run_closeout_executor_burst(",
-        "StalePlanHeadMismatch",
-        "ConcurrentPublicationChurn"
-      ],
-      "sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/closeout_executor.py",
-      "source_sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/closeout_executor.py",
-      "target_sha256": "bbda2a07022c2a9cb5fa4b51e347977977f42d7b2789c36f75570ed615a9f9b8",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 57675,
-      "line_count": 1664,
-      "material_class": "public_macro_tool_body",
-      "module_id": "metabolism_store",
-      "path": "source_modules/system/lib/metabolism_store.py",
-      "required_anchors": [
-        "blackboard_claim_events",
-        "def _append_claim_assertion_event(",
-        "def list_temporal_blackboard_claims("
-      ],
-      "sha256": "4d4a5b474fedc49c1479e6fc65c944f059bd44bb22ab9e0f42167b9e78b58192",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/metabolism_store.py",
-      "source_sha256": "4d4a5b474fedc49c1479e6fc65c944f059bd44bb22ab9e0f42167b9e78b58192",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/metabolism_store.py",
-      "target_sha256": "4d4a5b474fedc49c1479e6fc65c944f059bd44bb22ab9e0f42167b9e78b58192",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 225515,
-      "line_count": 5489,
-      "material_class": "public_macro_tool_body",
-      "module_id": "metabolismd",
-      "path": "source_modules/tools/meta/control/metabolismd.py",
-      "required_anchors": [
-        "def _background_policy_argv_for_operation(",
-        "taskpolicy",
-        "def _launch_job"
-      ],
-      "sha256": "8463a562da76a7c05069229cd7aa5b948929a92d04767e41b90da2b9e9597e63",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/control/metabolismd.py",
-      "source_sha256": "8463a562da76a7c05069229cd7aa5b948929a92d04767e41b90da2b9e9597e63",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/tools/meta/control/metabolismd.py",
-      "target_sha256": "8463a562da76a7c05069229cd7aa5b948929a92d04767e41b90da2b9e9597e63",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 2,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 27482,
-      "line_count": 716,
-      "material_class": "public_macro_tool_body",
-      "module_id": "metabolism_governor",
-      "path": "source_modules/system/lib/metabolism_governor.py",
-      "required_anchors": [
-        "BACKGROUND_TASKPOLICY_COST_CLASSES",
-        "def should_launch_with_background_policy("
-      ],
-      "sha256": "b07021513b84b81f60e617ad47936acb6af1b16510a3e6d5ff88e494d77385aa",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/metabolism_governor.py",
-      "source_sha256": "b07021513b84b81f60e617ad47936acb6af1b16510a3e6d5ff88e494d77385aa",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/metabolism_governor.py",
-      "target_sha256": "b07021513b84b81f60e617ad47936acb6af1b16510a3e6d5ff88e494d77385aa",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 3,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 304224,
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace",
-      "path": "source_modules/system/lib/agent_execution_trace.py",
-      "required_anchors": [
-        "def _compute_context_yield_attribution(",
-        "governance_status_counts",
-        "scoped_diff_paths"
-      ],
-      "sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
-      ]
-    },
     {
       "anchor_count": 3,
       "body_copied": true,
@@ -457,6 +31,200 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_batch4_proof_authority_runtime.py::test_batch4_proof_authority_runtime_source_modules_are_exact_macro_body_imports"
       ]
+    }
+  ],
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "prover_graph_benchmark",
+      "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "verisoftbench_harness_differential",
+      "path": "source_modules/tools/meta/factory/run_verisoftbench_micro10_harness_differential.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_verisoftbench_micro10_harness_differential.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_verisoftbench_micro10_harness_differential.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "verisoftbench_calibration_rows",
+      "path": "source_modules/tools/meta/factory/run_verisoftbench_micro10_calibration_rows.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_verisoftbench_micro10_calibration_rows.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_verisoftbench_micro10_calibration_rows.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "erdos257_target_runner",
+      "path": "source_modules/tools/meta/factory/run_formal_math_erdos257_lean_target_runner.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_formal_math_erdos257_lean_target_runner.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_formal_math_erdos257_lean_target_runner.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "lean_microcosm_projection",
+      "path": "source_modules/tools/meta/factory/build_lean_mathematics_microcosm_projection.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_lean_mathematics_microcosm_projection.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_lean_mathematics_microcosm_projection.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "lean_full_fidelity_packet_replay",
+      "path": "source_modules/tools/meta/factory/run_lean_full_fidelity_packet_replay.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_lean_full_fidelity_packet_replay.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_lean_full_fidelity_packet_replay.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "reasoning_authority_envelope",
+      "path": "source_modules/tools/meta/factory/build_reasoning_execution_authority_envelope.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_reasoning_execution_authority_envelope.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_reasoning_execution_authority_envelope.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "reasoning_grant_lease",
+      "path": "source_modules/tools/meta/factory/build_reasoning_execution_grant_lease.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_reasoning_execution_grant_lease.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_reasoning_execution_grant_lease.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "reasoning_plan_builder",
+      "path": "source_modules/tools/meta/factory/build_reasoning_execution_plan.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_reasoning_execution_plan.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_reasoning_execution_plan.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "reasoning_plan_verifier",
+      "path": "source_modules/tools/meta/factory/verify_reasoning_execution_plan.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/verify_reasoning_execution_plan.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/verify_reasoning_execution_plan.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "forward_integration_policy",
+      "path": "source_modules/system/lib/forward_integration_policy.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/forward_integration_policy.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/forward_integration_policy.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "closeout_executor",
+      "path": "source_modules/system/lib/closeout_executor.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/closeout_executor.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/closeout_executor.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "metabolism_store",
+      "path": "source_modules/system/lib/metabolism_store.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/metabolism_store.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/metabolism_store.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "metabolismd",
+      "path": "source_modules/tools/meta/control/metabolismd.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/metabolismd.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/metabolismd.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "metabolism_governor",
+      "path": "source_modules/system/lib/metabolism_governor.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/metabolism_governor.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/metabolism_governor.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
     }
   ],
   "schema_version": "batch4_proof_authority_runtime_source_module_manifest_v1",

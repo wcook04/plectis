@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: tools/meta/observability/session_analyzer.py
-Boundary class: private_body_near_verbatim
+Boundary class: restricted_private_source_ref
 """
 
 PUBLIC_MICROCOSM_STUB = True

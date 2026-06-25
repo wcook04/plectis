@@ -224,7 +224,7 @@ def test_agent_monitor_redteam_falsification_replay_workingness_exposes_source_b
 
     assert row["runtime_mode"] == "drilldown_only"
     assert row["workingness_state"] == "demoted_regression_drilldown"
-    assert row["observed_workingness"]["evidence_class"] == "bounded_runtime_computation"
+    assert row["observed_workingness"]["evidence_class"] == "algorithmic_projection"
     assert row["observed_workingness"]["counts_as_real_substrate_progress"] is True
     assert body_imports["body_material_count"] == 2
     assert body_imports["body_text_exported_in_workingness"] is False

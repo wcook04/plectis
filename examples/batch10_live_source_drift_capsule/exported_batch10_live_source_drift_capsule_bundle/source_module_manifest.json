@@ -1,106 +1,55 @@
 {
   "body_in_receipt": false,
-  "module_count": 4,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "release_substitution_omissions": [
     {
-      "body_copied": true,
-      "byte_count": 781390,
-      "line_count": 17788,
-      "material_class": "public_macro_tool_body",
+      "body_in_receipt": false,
       "module_id": "standard_option_surface_source",
       "path": "source_modules/system/lib/standard_option_surface.py",
-      "required_anchors": [
-        "standard_owned_option_surface",
-        "def build_option_surface",
-        "authority_posture",
-        "governing_standard",
-        "surface_role",
-        "cluster_flag",
-        "def build_task_ledger_option_surface",
-        "option_surface_lens_packet_v0"
-      ],
-      "sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
-      "sha256_match": true,
-      "source_ref": "system/lib/standard_option_surface.py",
-      "source_role": "Standard-owned option-surface router and task-ledger browse adapter.",
-      "source_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/standard_option_surface.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/standard_option_surface.py"
     },
     {
-      "body_copied": true,
-      "byte_count": 454431,
-      "line_count": 10798,
-      "material_class": "public_macro_tool_body",
+      "body_in_receipt": false,
       "module_id": "mission_transaction_landing_preflight_source",
       "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
-      "required_anchors": [
-        "mission_transaction_landing_preflight_v0",
-        "def build_mission_transaction_landing_preflight",
-        "dirty_tree_classification",
-        "landing_decision",
-        "work_ledger_session_id",
-        "claim_requirements"
-      ],
-      "sha256": "20ab7fa2309760713cc1a07743e4acca96b275c4181cebc1ba34c394173cea4f",
-      "sha256_match": true,
-      "source_ref": "system/lib/mission_transaction_landing_preflight.py",
-      "source_role": "Mission transaction preflight and scoped landing decision model.",
-      "source_sha256": "20ab7fa2309760713cc1a07743e4acca96b275c4181cebc1ba34c394173cea4f",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
-      "target_sha256": "20ab7fa2309760713cc1a07743e4acca96b275c4181cebc1ba34c394173cea4f"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/lib/mission_transaction_landing_preflight.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/mission_transaction_landing_preflight.py"
     },
     {
-      "body_copied": true,
-      "byte_count": 13619,
-      "line_count": 376,
-      "material_class": "public_macro_tool_body",
+      "body_in_receipt": false,
       "module_id": "work_landing_tool_source",
       "path": "source_modules/tools/meta/control/work_landing.py",
-      "required_anchors": [
-        "def build_parser",
-        "admission-check",
-        "status",
-        "reconcile",
-        "begin",
-        "build_work_landing_attempt_binding",
-        "build_work_landing_reconcile_plan"
-      ],
-      "sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da",
-      "sha256_match": true,
-      "source_ref": "tools/meta/control/work_landing.py",
-      "source_role": "WorkItem landing controller CLI for status, reconcile, begin, and admission checks.",
-      "source_sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py",
-      "target_sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/work_landing.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/work_landing.py"
     },
     {
-      "body_copied": true,
-      "byte_count": 329511,
-      "line_count": 8237,
-      "material_class": "public_macro_tool_body",
+      "body_in_receipt": false,
       "module_id": "work_ledger_tool_source",
       "path": "source_modules/tools/meta/factory/work_ledger.py",
-      "required_anchors": [
-        "Mutation ordering",
-        "session-preflight",
-        "session-finalize",
-        "session-heartbeat",
-        "read_receipt_id",
-        "def cmd_session_finalize",
-        "def cmd_session_claims"
-      ],
-      "sha256": "d127574afb2894629442003b8578b7628c3e6048044eb5e2bf64c6363719dee2",
-      "sha256_match": true,
-      "source_ref": "tools/meta/factory/work_ledger.py",
-      "source_role": "Work Ledger lifecycle, claim, heartbeat, and closeout controller CLI.",
-      "source_sha256": "d127574afb2894629442003b8578b7628c3e6048044eb5e2bf64c6363719dee2",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py",
-      "target_sha256": "d127574afb2894629442003b8578b7628c3e6048044eb5e2bf64c6363719dee2"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "tools/meta/factory/work_ledger.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/work_ledger.py"
     }
   ],
   "schema_version": "source_module_manifest_v1",

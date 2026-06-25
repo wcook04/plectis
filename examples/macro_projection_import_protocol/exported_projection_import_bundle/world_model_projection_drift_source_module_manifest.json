@@ -3,108 +3,60 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "world_model_projection_drift_source_modules_import",
-  "module_count": 4,
-  "modules": [
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 847594,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 19767,
-      "material_class": "public_macro_tool_body",
-      "module_id": "world_model_drift_aggregate_source_body_import",
-      "required_anchors": [
-        "def load_world_model_snapshot(",
-        "def load_host_agent_dotfile_snapshot(",
-        "def _build_drift_aggregate(",
-        "\"schema\": \"drift_aggregate_v1\"",
-        "\"plane\": \"frontend_navigation\"",
-        "\"plane\": \"paper_modules\""
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "system/server/world_model.py",
-      "source_role": "Station world-model reducer that composes host-agent dotfile drift, navigation graph drift, and paper-module freshness into the drift_aggregate_v1 attention surface.",
-      "source_sha256": "4b4b1a875b077c218359815af4010f8a91557d972b6af082f891b5db0716b146",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
-      "target_sha256": "4b4b1a875b077c218359815af4010f8a91557d972b6af082f891b5db0716b146"
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 443247,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 10727,
-      "material_class": "public_macro_tool_body",
-      "module_id": "world_model_drift_endpoint_source_body_import",
-      "required_anchors": [
-        "@app.get(\"/api/drift\")",
-        "def drift_aggregate_endpoint():",
-        "load_world_model_snapshot(REPO_ROOT)",
-        "\"schema\": \"drift_aggregate_v1\""
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "system/server/main.py",
-      "source_role": "FastAPI route that exposes the shared world-model drift_aggregate_v1 payload through /api/drift without making the browser recompute sparse lens counts.",
-      "source_sha256": "6751be66bdf3125541fe57721b2eacbd3e19ecc8395b200c90e6c88080f06501",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
-      "target_sha256": "6751be66bdf3125541fe57721b2eacbd3e19ecc8395b200c90e6c88080f06501"
-    },
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 148951,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 3412,
-      "material_class": "public_macro_tool_body",
-      "module_id": "view_quality_action_map_source_body_import",
-      "required_anchors": [
-        "VIEW_QUALITY_ACTION_ROW_SCHEMA_V1",
-        "VIEW_QUALITY_ACTION_MAP_SCHEMA_V1",
-        "VIEW_QUALITY_HOT_ACTION_ROLLUP_SCHEMA_V1",
-        "def _view_quality_action_for_missing_view_id(",
-        "def _view_quality_action_for_row(",
-        "def _build_view_quality_action_surfaces("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "tools/meta/observability/view_quality_census.py",
-      "source_role": "Frontend-wide view quality census and action-map builder that emits one governed next-action row per observed or expected view plus a hot-action projection.",
-      "source_sha256": "9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/view_quality_census.py",
-      "target_sha256": "9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 44848,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1003,
-      "material_class": "public_macro_tool_body",
-      "module_id": "view_quality_action_map_test_body_import",
-      "required_anchors": [
-        "test_view_quality_action_map_covers_every_census_row",
-        "test_missing_requested_view_gets_census_binding_action",
-        "test_partial_unmeasured_rows_get_contract_marker_actions",
-        "test_hot_action_rollup_projects_resolution_actions_from_all_view_map",
-        "VIEW_QUALITY_ACTION_MAP_SCHEMA_V1"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "system/server/tests/test_view_quality_census.py",
-      "source_role": "Focused macro regression tests proving all-view action-map coverage, missing-view census binding, partial-row actions, and hot-rollup projection behavior.",
-      "source_sha256": "8531b8e09bd3a8a49ef734c81e574cd3ef48886b3d6db0f30fcac784de7283f9",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_view_quality_census.py",
-      "target_sha256": "8531b8e09bd3a8a49ef734c81e574cd3ef48886b3d6db0f30fcac784de7283f9"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "Macro projection import validation consumes these copied source modules as body-floor evidence only; runtime receipts remain projections and do not become live macro authority.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results without duplicating full source bodies or live private/provider/session payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "world_model_drift_aggregate_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/server/world_model.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/world_model.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "world_model_drift_endpoint_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/server/main.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/main.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "view_quality_action_map_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/view_quality_census.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/observability/view_quality_census.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/observability/view_quality_census.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "view_quality_action_map_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_view_quality_census.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_view_quality_census.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_view_quality_census.py"
+    }
+  ],
   "schema_version": "macro_projection_world_model_projection_drift_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

@@ -3,14 +3,15 @@
 [PURPOSE] Expose bounded, receipt-backed runtime cards and organ validation
 commands for the public Plectis/Microcosm package.
 [INTERFACE] Imported by the `plectis` CLI and agent-facing package routes; the
-main public surface is `RuntimeShell` plus module helpers such as `public_root`.
+main public surface is `RuntimeShell` plus module helpers such as
+`public_root`.
 [FLOW] Resolve the public substrate root, lazily bind organ runners, project
 runtime cards from receipts/state, and return JSON-safe payloads.
 [DEPENDENCIES] Python standard library plus local `microcosm_core` public
 projection, receipt, schema, and organ modules.
-[CONSTRAINTS] Projection helpers preserve the public payload boundary: no
-private-root equivalence, no release authorization, and no unbounded source body
-export.
+[CONSTRAINTS] Projection helpers must preserve the public payload boundary:
+no private-root equivalence, no release authorization, and no unbounded source
+body export.
 """
 from __future__ import annotations
 
@@ -96,6 +97,8 @@ def _runtime_receipt_write_override(enabled: bool) -> Iterator[None]:
 
 def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
     """Source-ref / digest custody check for the public projection.
+
+    [ACTION] Persist a runtime receipt only when receipt writes are enabled.
 
     - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
     - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
@@ -664,6 +667,8 @@ def _keyword_command_runner(
     def run(input_dir: str | Path, out_dir: str | Path, command: str | None) -> dict[str, Any]:
         """Read-only projection helper.
 
+        [ACTION] Invoke a keyword-style organ runner with the runtime command payload.
+
         - Teleology: Internal read-only helper for the runtime-shell projections.
         - Guarantee: returns a JSON-safe projection dict payload.
         - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
@@ -676,6 +681,8 @@ def _keyword_command_runner(
 @dataclass(frozen=True)
 class RuntimeStep:
     """Runtime-shell coordinator type.
+
+    [ROLE] Immutable registry row describing one runnable organ validation step.
 
     - Teleology: Runtime-shell coordinator type holding the state its methods project.
     - Guarantee: returns control to the caller after the documented effect.
@@ -1621,6 +1628,8 @@ RUNTIME_STEPS = tuple(
 
 def public_root() -> Path:
     """Read-only projection helper.
+
+    [ACTION] Resolve the installed or checkout-local public Microcosm root.
 
     - Teleology: Internal read-only helper for the runtime-shell projections.
     - Guarantee: returns the resolved Path (no filesystem write implied).
@@ -3567,9 +3576,13 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
             },
         }
     work_rows = project_substrate._load_work_items(project_path)
-    selected_work = next(
-        (row for row in work_rows if row.get("route_id") == route_id),
-        work_rows[0] if work_rows else {},
+    route_work_rows = [row for row in work_rows if row.get("route_id") == route_id]
+    selected_work = (
+        route_work_rows[-1] if route_work_rows else work_rows[0] if work_rows else {}
+    )
+    reference_execution_case = project_substrate._reference_execution_case_card(
+        project_path,
+        selected_work,
     )
     event_count = _count_jsonl_dict_rows(state / "events.jsonl")
     evidence_dir = state / project_substrate.EVIDENCE_DIR
@@ -3599,6 +3612,7 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
             else None
         ),
         "work_id": selected_work.get("work_id") if selected_work else None,
+        "command_reference_execution_case": reference_execution_case,
         "work_item_count": len(work_rows),
         "event_count": event_count,
         "evidence_count": _count_files_under(evidence_dir, suffix=".json"),
@@ -3621,6 +3635,379 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
             "release_authorized": False,
             "proof_correctness_claim": False,
             "freshness_certified": False,
+        },
+    }
+
+
+def _compiled_command_reference_execution_case(
+    compiled: dict[str, Any],
+) -> dict[str, Any]:
+    """Return the compact command-root case card from compile or cached state."""
+    reader_chain = compiled.get("reader_causal_chain")
+    reader_chain = reader_chain if isinstance(reader_chain, dict) else {}
+    reference_case = reader_chain.get("command_reference_execution_case")
+    if isinstance(reference_case, dict) and reference_case:
+        return reference_case
+    reference_case = compiled.get("command_reference_execution_case")
+    return reference_case if isinstance(reference_case, dict) else {}
+
+
+def _command_reference_case_state_delta_summary(
+    command_reference_execution_case: dict[str, Any],
+) -> dict[str, Any]:
+    state_delta_refs = command_reference_execution_case.get("state_delta_refs")
+    ref_count = (
+        len([ref for ref in state_delta_refs if isinstance(ref, str) and ref])
+        if isinstance(state_delta_refs, list)
+        else 0
+    )
+    verification_predicates = command_reference_execution_case.get(
+        "verification_predicate_status"
+    )
+    refs_verified: bool | None = None
+    scope_verified: bool | None = None
+    if isinstance(verification_predicates, dict):
+        candidate = verification_predicates.get("rendered_state_delta_refs")
+        refs_verified = candidate if isinstance(candidate, bool) else None
+        candidate = verification_predicates.get("state_delta_scope")
+        scope_verified = candidate if isinstance(candidate, bool) else None
+    return {
+        "command_reference_state_delta_ref_count": ref_count,
+        "command_reference_state_delta_refs_verified": refs_verified,
+        "command_reference_state_delta_refs_ref": (
+            "command_reference_execution_case.state_delta_refs"
+        ),
+        "command_reference_state_delta_scope_verified": scope_verified,
+        "command_reference_state_delta_scope_ref": (
+            "verification_predicate_status.state_delta_scope"
+        ),
+    }
+
+
+def _command_reference_case_assertion_matrix_summary(
+    command_reference_execution_case: dict[str, Any],
+) -> dict[str, Any]:
+    assertion_predicates = command_reference_execution_case.get(
+        "assertion_matrix_predicates"
+    )
+    predicate_count = (
+        len({item for item in assertion_predicates if isinstance(item, str) and item})
+        if isinstance(assertion_predicates, list)
+        else 0
+    )
+    required_predicates = command_reference_execution_case.get(
+        "required_assertion_predicates"
+    )
+    required_count = (
+        len({item for item in required_predicates if isinstance(item, str) and item})
+        if isinstance(required_predicates, list)
+        else len(architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES)
+    )
+    verification_predicates = command_reference_execution_case.get(
+        "verification_predicate_status"
+    )
+    coverage_verified: bool | None = None
+    if isinstance(verification_predicates, dict):
+        candidate = verification_predicates.get("assertion_matrix_coverage")
+        coverage_verified = candidate if isinstance(candidate, bool) else None
+    return {
+        "command_reference_assertion_matrix_predicate_count": predicate_count,
+        "command_reference_required_assertion_predicate_count": required_count,
+        "command_reference_assertion_matrix_coverage_verified": coverage_verified,
+        "command_reference_assertion_matrix_coverage_ref": (
+            "verification_predicate_status.assertion_matrix_coverage"
+        ),
+    }
+
+
+def _command_reference_case_record_classification_summary(
+    command_reference_execution_case: dict[str, Any],
+) -> dict[str, Any]:
+    verification_predicates = command_reference_execution_case.get(
+        "verification_predicate_status"
+    )
+    matrix_verified: bool | None = None
+    if isinstance(verification_predicates, dict):
+        candidate = verification_predicates.get("record_classification_matrix")
+        matrix_verified = candidate if isinstance(candidate, bool) else None
+    ambient_history_count = command_reference_execution_case.get(
+        "ambient_history_ref_count"
+    )
+    return {
+        "command_reference_record_classification_matrix_verified": matrix_verified,
+        "command_reference_record_classification_matrix_ref": (
+            "verification_predicate_status.record_classification_matrix"
+        ),
+        "command_reference_ambient_history_ref_count": (
+            ambient_history_count if isinstance(ambient_history_count, int) else None
+        ),
+    }
+
+
+def _tour_command_causality_coverage_assay(
+    *,
+    compiled: dict[str, Any],
+    command_reference_execution_case: dict[str, Any],
+    project_compile_state_written: bool,
+    cached_state_reused: bool,
+) -> dict[str, Any]:
+    """State whether tour --card itself is a command-root occurrence witness."""
+    case = (
+        command_reference_execution_case
+        if isinstance(command_reference_execution_case, dict)
+        else {}
+    )
+    predicate_status = case.get("predicate_status")
+    predicate_status = predicate_status if isinstance(predicate_status, dict) else {}
+    verification_predicate_status = case.get("verification_predicate_status")
+    verification_predicate_status = (
+        verification_predicate_status
+        if isinstance(verification_predicate_status, dict)
+        else {}
+    )
+    selected_case_state_delta_refs: list[str] = []
+    seen_state_delta_refs: set[str] = set()
+    state_delta_refs_value = case.get("state_delta_refs")
+    if isinstance(state_delta_refs_value, list):
+        for item in state_delta_refs_value:
+            if not isinstance(item, str) or not item or item in seen_state_delta_refs:
+                continue
+            seen_state_delta_refs.add(item)
+            selected_case_state_delta_refs.append(item)
+    selected_case_state_delta_refs_verified = verification_predicate_status.get(
+        "rendered_state_delta_refs"
+    )
+    selected_case_state_delta_scope_verified = verification_predicate_status.get(
+        "state_delta_scope"
+    )
+    required_predicates = [
+        "join_integrity",
+        "selection_binding",
+        "scope_completeness",
+        "execution_terminality",
+        "authority_boundedness",
+        "replay_equivalence",
+        "state_delta_scope",
+        "record_classification_matrix",
+        "assertion_matrix_coverage",
+        "projection_fidelity",
+    ]
+    covered_predicates: dict[str, Any] = {}
+    predicate_coverage_sources: dict[str, str] = {}
+    for predicate_id in required_predicates:
+        if predicate_id in verification_predicate_status:
+            covered_predicates[predicate_id] = verification_predicate_status.get(
+                predicate_id
+            )
+            predicate_coverage_sources[predicate_id] = "verification_predicate_status"
+        elif predicate_id in predicate_status:
+            covered_predicates[predicate_id] = predicate_status.get(predicate_id)
+            predicate_coverage_sources[predicate_id] = "predicate_status"
+    selected_case_status = case.get("status") or "missing"
+    selected_case_verification_status = case.get("verification_status") or "not_run"
+    selected_case_public_witness_eligible = (
+        case.get("public_architecture_witness_eligible") is True
+    )
+    selected_case_passes = (
+        selected_case_status == PASS and selected_case_verification_status == PASS
+    )
+    tour_command_root_status = "not_command_rooted"
+    status = "partial" if selected_case_passes else "not_eligible"
+    selected_work_id = case.get("selected_work_id") or compiled.get("work_id")
+    root_work_id = case.get("root_work_id")
+    root_matches_selected = bool(selected_work_id) and root_work_id == selected_work_id
+    tour_command_root_gap_matrix = [
+        {
+            "gap_id": "tour_returned_root_handle",
+            "requirement": (
+                "The tour command result must expose its own invocation or work "
+                "root handle before it can be an occurrence witness."
+            ),
+            "status": "missing",
+            "observed_ref": None,
+            "blocks_tour_public_witness": True,
+        },
+        {
+            "gap_id": "tour_invocation_envelope",
+            "requirement": (
+                "The tour command must persist an invocation envelope that binds "
+                "the command to its direct children."
+            ),
+            "status": "missing",
+            "observed_ref": None,
+            "blocks_tour_public_witness": True,
+        },
+        {
+            "gap_id": "tour_direct_child_relation_closure",
+            "requirement": (
+                "The tour result must enumerate direct children or causal links "
+                "instead of inheriting a selected work row by route history."
+            ),
+            "status": "missing_for_tour",
+            "delegated_ref": "command_reference_execution_case",
+            "blocks_tour_public_witness": True,
+        },
+        {
+            "gap_id": "tour_state_delta_scope",
+            "requirement": (
+                "The tour command must expose a tour-root state delta; the "
+                "selected work case delta remains delegated evidence only."
+            ),
+            "status": "not_claimed_for_tour",
+            "selected_work_state_delta_refs_verified": (
+                selected_case_state_delta_refs_verified
+            ),
+            "selected_work_state_delta_scope_verified": (
+                selected_case_state_delta_scope_verified
+            ),
+            "blocks_tour_public_witness": True,
+        },
+        {
+            "gap_id": "tour_projection_fidelity_to_tour_root",
+            "requirement": (
+                "The rendered witness must bind to the tour command root before "
+                "projection fidelity can be evaluated for tour itself."
+            ),
+            "status": "not_testable_without_tour_root",
+            "blocks_tour_public_witness": True,
+        },
+        {
+            "gap_id": "selected_work_reference_case",
+            "requirement": (
+                "The selected work reference case may remain a delegated "
+                "occurrence witness, but it is not proof that tour caused it."
+            ),
+            "status": "delegated_pass" if selected_case_passes else "delegated_blocked",
+            "evidence_ref": case.get("evidence_ref"),
+            "blocks_tour_public_witness": False,
+        },
+    ]
+    tour_command_root_blocking_gap_count = len(
+        [
+            row
+            for row in tour_command_root_gap_matrix
+            if row.get("blocks_tour_public_witness") is True
+        ]
+    )
+    return {
+        "schema_version": "microcosm_tour_command_causality_coverage_assay_v1",
+        "status": status,
+        "command": "plectis tour --card <project>",
+        "status_scope": "tour_command_root_not_selected_work_reference_case",
+        "public_witness_command_root_status": tour_command_root_status,
+        "tour_command_has_returned_work_id": False,
+        "tour_command_root_binding_ref": None,
+        "project_compile_state_written": project_compile_state_written,
+        "cached_state_reused": cached_state_reused,
+        "selected_route_id": compiled.get("selected_route_id"),
+        "selected_work_id": selected_work_id,
+        "selected_work_root_work_id": root_work_id,
+        "selected_work_root_matches_selected": root_matches_selected,
+        "selected_work_reference_case_status": selected_case_status,
+        "selected_work_reference_verification_status": (
+            selected_case_verification_status
+        ),
+        "selected_work_reference_public_witness_eligible": (
+            selected_case_public_witness_eligible
+        ),
+        "selected_work_reference_public_witness_status": (
+            case.get("public_witness_status")
+        ),
+        "selected_work_reference_state_delta_refs": selected_case_state_delta_refs,
+        "selected_work_reference_state_delta_ref_count": len(
+            selected_case_state_delta_refs
+        ),
+        "selected_work_reference_state_delta_refs_verified": (
+            selected_case_state_delta_refs_verified
+        ),
+        "selected_work_reference_state_delta_scope_verified": (
+            selected_case_state_delta_scope_verified
+        ),
+        "tour_command_root_gap_matrix": tour_command_root_gap_matrix,
+        "tour_command_root_gap_count": len(tour_command_root_gap_matrix),
+        "tour_command_root_blocking_gap_count": (
+            tour_command_root_blocking_gap_count
+        ),
+        "predicate_coverage": covered_predicates,
+        "predicate_coverage_sources": predicate_coverage_sources,
+        "predicate_coverage_count": len(covered_predicates),
+        "required_predicate_ids": required_predicates,
+        "classification_matrix": [
+            {
+                "scope": "tour_command_invocation",
+                "authority_type": "projection",
+                "claim_status": tour_command_root_status,
+                "rule": (
+                    "The tour card may project cached or freshly compiled state, "
+                    "but it does not persist an invocation envelope that returns "
+                    "a work_id as its own causal root."
+                ),
+            },
+            {
+                "scope": "selected_work_reference_case",
+                "authority_type": "delegated_command_occurrence_witness",
+                "claim_status": (
+                    PASS if selected_case_passes else selected_case_status
+                ),
+                "evidence_ref": case.get("evidence_ref"),
+                "verification_status": selected_case_verification_status,
+                "state_delta_ref_count": len(selected_case_state_delta_refs),
+                "state_delta_refs_verified": (
+                    selected_case_state_delta_refs_verified
+                ),
+                "state_delta_scope_verified": (
+                    selected_case_state_delta_scope_verified
+                ),
+            },
+            {
+                "scope": "ambient_route_history",
+                "authority_type": "excluded_history",
+                "claim_status": "not_causal_evidence_for_tour_invocation",
+                "rule": (
+                    "Shared route_id or work_id values are not proof that the "
+                    "current tour command caused the selected work occurrence."
+                ),
+            },
+        ],
+        "ambient_history_policy": (
+            "Do not treat cached state, route ordering, shared ids, or persisted "
+            "history as current-tour command causality without an invocation "
+            "envelope that binds the command to the returned work_id."
+        ),
+        "reader_action": (
+            "Use command_reference_execution_case for the selected work/run "
+            "witness. Treat the tour card itself as a projection witness until "
+            "a tour invocation envelope and replay case are persisted."
+        ),
+        "next_assay_step": (
+            "Add a tour invocation envelope only if tour should become a "
+            "first-class command-root public witness."
+        ),
+        "authority_ceiling": {
+            "tour_command_public_occurrence_witness": False,
+            "selected_work_reference_case_may_be_occurrence_witness": (
+                selected_case_passes
+            ),
+            "release_authorized": False,
+            "hosted_public_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "anti_claim": (
+            "This assay does not upgrade plectis tour --card into a "
+            "command-root occurrence witness. It only reports that the tour "
+            "surface can carry a separately persisted selected-work reference "
+            "case and names the boundary between those authorities."
+        ),
+        "safe_to_show": {
+            "receipt_refs_visible": True,
+            "predicate_status_visible": True,
+            "full_receipt_body_omitted": True,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
         },
     }
 
@@ -7580,6 +7967,8 @@ def _workingness_requirement_status(
 class RuntimeShell:
     """Runtime-shell coordinator type.
 
+    [ROLE] Public runtime projection facade for cards, lenses, receipts, and organ routes.
+
     - Teleology: Runtime-shell coordinator type holding the state its methods project.
     - Guarantee: returns control to the caller after the documented effect.
     - Fails: invalid / unexpected input -> raises ValueError.
@@ -9678,6 +10067,17 @@ class RuntimeShell:
             project_path,
             python_lens_scan_mode=project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN,
         )
+        command_reference_execution_case = _compiled_command_reference_execution_case(
+            compiled
+        )
+        tour_command_causality_coverage_assay = (
+            _tour_command_causality_coverage_assay(
+                compiled=compiled,
+                command_reference_execution_case=command_reference_execution_case,
+                project_compile_state_written=True,
+                cached_state_reused=False,
+            )
+        )
         with _runtime_receipt_write_override(False):
             spine = self.spine()
             authority = (
@@ -10279,6 +10679,10 @@ class RuntimeShell:
             "front_door_status": front_door_status,
             "source_open_body_import_floor": source_open_body_import_floor,
             "local_first_screen_route": _local_first_screen_route_ref(),
+            "command_reference_execution_case": command_reference_execution_case,
+            "tour_command_causality_coverage_assay": (
+                tour_command_causality_coverage_assay
+            ),
             "compile_summary": {
                 "headline": compiled.get("headline"),
                 "file_count": compiled.get("file_count"),
@@ -10286,6 +10690,44 @@ class RuntimeShell:
                 "route_count": compiled.get("route_count"),
                 "selected_route_id": compiled.get("selected_route_id"),
                 "work_id": compiled.get("work_id"),
+                "command_reference_execution_case_status": (
+                    command_reference_execution_case.get("status")
+                ),
+                "command_case_eligible": command_reference_execution_case.get(
+                    "command_case_eligible"
+                ),
+                "public_architecture_witness_eligible": (
+                    command_reference_execution_case.get(
+                        "public_architecture_witness_eligible"
+                    )
+                ),
+                **_command_reference_case_state_delta_summary(
+                    command_reference_execution_case
+                ),
+                **_command_reference_case_assertion_matrix_summary(
+                    command_reference_execution_case
+                ),
+                **_command_reference_case_record_classification_summary(
+                    command_reference_execution_case
+                ),
+                "tour_command_causality_coverage_status": (
+                    tour_command_causality_coverage_assay.get("status")
+                ),
+                "tour_public_witness_command_root_status": (
+                    tour_command_causality_coverage_assay.get(
+                        "public_witness_command_root_status"
+                    )
+                ),
+                "tour_command_root_gap_count": (
+                    tour_command_causality_coverage_assay.get(
+                        "tour_command_root_gap_count"
+                    )
+                ),
+                "tour_command_root_blocking_gap_count": (
+                    tour_command_causality_coverage_assay.get(
+                        "tour_command_root_blocking_gap_count"
+                    )
+                ),
                 "event_count": compiled.get("event_count"),
                 "evidence_count": compiled.get("evidence_count"),
                 "source_files_mutated": compiled.get("source_files_mutated") is True,
@@ -10600,6 +11042,9 @@ class RuntimeShell:
                 python_lens_scan_mode=project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN,
             )
             project_compile_state_written = True
+        command_reference_execution_case = _compiled_command_reference_execution_case(
+            compiled
+        )
         project_ref = _public_relative(project_path, self.root)
         if project_ref.startswith("/") or project_ref.startswith(".."):
             project_ref = project_path.name
@@ -10712,6 +11157,14 @@ class RuntimeShell:
         cached_state_reused = (
             (compile_cache.get("status") == PASS or has_incomplete_cached_state)
             and not project_compile_state_written
+        )
+        tour_command_causality_coverage_assay = (
+            _tour_command_causality_coverage_assay(
+                compiled=compiled,
+                command_reference_execution_case=command_reference_execution_case,
+                project_compile_state_written=project_compile_state_written,
+                cached_state_reused=cached_state_reused,
+            )
         )
         state_write_result = {
             "schema_version": "microcosm_tour_card_state_write_result_v1",
@@ -10873,6 +11326,10 @@ class RuntimeShell:
             "blocking_surface_ids": blocking_surface_ids,
             "blocking_surface_details": blocking_surface_details,
             "front_door_status": front_door_status,
+            "command_reference_execution_case": command_reference_execution_case,
+            "tour_command_causality_coverage_assay": (
+                tour_command_causality_coverage_assay
+            ),
             "first_contact_surface_count": first_contact_surface_count,
             "first_contact_surface_ids": first_contact_surface_ids,
             "first_screen": {
@@ -10945,6 +11402,45 @@ class RuntimeShell:
             "compile_summary": {
                 "headline": compiled.get("headline"),
                 "selected_route_id": compiled.get("selected_route_id"),
+                "work_id": compiled.get("work_id"),
+                "command_reference_execution_case_status": (
+                    command_reference_execution_case.get("status")
+                ),
+                "command_case_eligible": command_reference_execution_case.get(
+                    "command_case_eligible"
+                ),
+                "public_architecture_witness_eligible": (
+                    command_reference_execution_case.get(
+                        "public_architecture_witness_eligible"
+                    )
+                ),
+                **_command_reference_case_state_delta_summary(
+                    command_reference_execution_case
+                ),
+                **_command_reference_case_assertion_matrix_summary(
+                    command_reference_execution_case
+                ),
+                **_command_reference_case_record_classification_summary(
+                    command_reference_execution_case
+                ),
+                "tour_command_causality_coverage_status": (
+                    tour_command_causality_coverage_assay.get("status")
+                ),
+                "tour_public_witness_command_root_status": (
+                    tour_command_causality_coverage_assay.get(
+                        "public_witness_command_root_status"
+                    )
+                ),
+                "tour_command_root_gap_count": (
+                    tour_command_causality_coverage_assay.get(
+                        "tour_command_root_gap_count"
+                    )
+                ),
+                "tour_command_root_blocking_gap_count": (
+                    tour_command_causality_coverage_assay.get(
+                        "tour_command_root_blocking_gap_count"
+                    )
+                ),
                 "route_count": compiled.get("route_count"),
                 "file_count": compiled.get("file_count"),
                 "state_ref": project_substrate.STATE_DIR,
@@ -11024,6 +11520,8 @@ class RuntimeShell:
                 "receipt_persisted": False,
                 "receipt_write_policy_exported": True,
                 "first_contact_surface_refs_exported": True,
+                "command_reference_execution_case_exported": True,
+                "tour_command_causality_coverage_assay_exported": True,
                 "reader_routes_exported": False,
                 "project_compile_state_written": project_compile_state_written,
                 "compile_cache_status": compile_cache_status,

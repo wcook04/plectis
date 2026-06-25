@@ -1,5 +1,4 @@
-"""
-[PURPOSE]
+"""[PURPOSE]
 - Teleology: Make monitor-redteam evidence inspectable before a clean verdict is trusted.
 - Mechanism: Require every monitor observation to carry rerunnable result evidence, adversarial-probe backing for coverage claims, source-manifest custody, and public trace receipts; quarantine missing evidence and downgrade unsupported coverage claims.
 - Non-goal: Claim monitor product performance, import live agent traffic, expose private reasoning/internal code/exploit instructions/credentials/provider payloads, mutate source, or authorize release.
@@ -22,6 +21,7 @@
 - Receipts carry evidence refs, digests, counts, spans, findings, and claim ceilings instead of private chain-of-thought, internal code bodies, exploit instructions, credentials, provider payloads, live traffic, or raw transcripts.
 - A passing replay proves this fixture's evidence wiring and boundary checks only; it does not prove monitor quality or authorize release.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -1906,6 +1906,7 @@ def _build_result(
         "monitor_rows": observations["monitor_rows"],
     }
 
+
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Project the validation result into a compact board for human review.
 
@@ -2170,6 +2171,7 @@ def run_monitor_bundle(
     write_json_atomic(bundle_path, payload)
     return payload
 
+
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Project the result into the command-card shape with omitted payload boundaries.
 
@@ -2266,6 +2268,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         },
     }
 
+
 def _parser() -> argparse.ArgumentParser:
     """[ACTION] Build the CLI parser for monitor-redteam replay commands.
 
@@ -2284,6 +2287,7 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser.add_argument("--out", required=True)
     bundle_parser.add_argument("--card", action="store_true")
     return parser
+
 
 def main(argv: list[str] | None = None) -> int:
     """[ACTION] Dispatch CLI arguments to monitor-redteam run and bundle commands.

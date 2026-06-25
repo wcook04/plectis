@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: tools/meta/dissemination/demo_take_story_package.py
-Boundary class: private_body_exact_match
+Boundary class: restricted_private_source_ref
 """
 
 PUBLIC_MICROCOSM_STUB = True

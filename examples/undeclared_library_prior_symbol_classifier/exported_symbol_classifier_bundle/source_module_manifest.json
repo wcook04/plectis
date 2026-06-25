@@ -3,66 +3,8 @@
   "body_storage_policy": "copied or public-path-normalized non-secret macro bodies live under source_modules with source/target digest and anchor validation; receipts carry only hashes/counts/refs, not source bodies",
   "bundle_id": "undeclared_library_prior_symbol_classifier_runtime_example",
   "manifest_id": "undeclared_library_prior_symbol_classifier_source_modules_import",
-  "module_count": 6,
+  "module_count": 4,
   "modules": [
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 39193,
-      "line_count": 926,
-      "material_class": "public_macro_tool_body",
-      "module_id": "provider_receipt_reducer_source_body_import",
-      "path": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
-      "required_anchors": [
-        "def _undeclared_library_prior_symbols(",
-        "QUALIFIED_SYMBOL_RE",
-        "UNDECLARED_LIBRARY_PRIOR",
-        "PREMISE_BUDGET_VIOLATION",
-        "row_patch_review_outcome"
-      ],
-      "sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
-      "sha256_match": true,
-      "source_byte_count": 39193,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_line_count": 926,
-      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
-      "source_role": "Deterministic provider-receipt reducer that detects explicit undeclared library priors, separates premise-budget violations, maps failure classes to review outcomes, and records non-provider-call evidence.",
-      "source_sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
-      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
-      "target_byte_count": 39193,
-      "target_line_count": 926,
-      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
-      "target_sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 16038,
-      "line_count": 356,
-      "material_class": "public_macro_tool_body",
-      "module_id": "provider_batch_context_calibration_report_builder_source_body_import",
-      "path": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
-      "required_anchors": [
-        "def build_reports(",
-        "undeclared_library_prior_symbols",
-        "undeclared_library_prior_count",
-        "provider_receipt_reduction_matrix.json",
-        "recipe_policy_metrics.json"
-      ],
-      "sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
-      "sha256_match": true,
-      "source_byte_count": 16038,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_line_count": 356,
-      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
-      "source_role": "Batch calibration report builder that aggregates reduced prover receipts into recipe policy metrics, undeclared-library-prior counts, and provider-free context-budget summaries.",
-      "source_sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
-      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
-      "target_byte_count": 16038,
-      "target_line_count": 356,
-      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
-      "target_sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a"
-    },
     {
       "body_copied": true,
       "body_in_receipt": false,
@@ -203,6 +145,32 @@
     "host-local absolute roots in public state-body copies"
   ],
   "organ_id": "undeclared_library_prior_symbol_classifier",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "provider_receipt_reducer_source_body_import",
+      "path": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "provider_batch_context_calibration_report_builder_source_body_import",
+      "path": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
+    }
+  ],
   "schema_version": "undeclared_library_prior_symbol_classifier_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "no keys or credentials",

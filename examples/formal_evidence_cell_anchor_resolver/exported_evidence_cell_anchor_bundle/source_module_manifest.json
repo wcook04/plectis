@@ -3,82 +3,8 @@
   "body_storage_policy": "copied non-secret macro bodies live under source_modules with digest and anchor validation; receipts carry only hashes/counts/refs, not source bodies",
   "bundle_id": "formal_evidence_cell_anchor_resolver_runtime_example",
   "manifest_id": "formal_evidence_cell_anchor_resolver_source_modules_import",
-  "module_count": 6,
+  "module_count": 3,
   "modules": [
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 206935,
-      "line_count": 4848,
-      "material_class": "public_macro_tool_body",
-      "module_id": "paper_module_formal_evidence_auditor_source_body_import",
-      "path": "source_modules/system/lib/paper_modules.py",
-      "required_anchors": [
-        "def _load_cells_from_registry(",
-        "def _load_known_formal_evidence_cells(",
-        "FORMAL_EVIDENCE_HIGH_SIGNAL_PHRASES",
-        "FORMAL_EVIDENCE_ANCHOR_CLASSES",
-        "def audit_formal_evidence_cells("
-      ],
-      "sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/paper_modules.py",
-      "source_role": "Paper-module formal-evidence-cell runtime owner: registry-first cell loader, cell-id resolver, formal-proof vocabulary audit, and anchor-class compliance findings.",
-      "source_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
-      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
-      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/lib/paper_modules.py",
-      "target_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 24065,
-      "line_count": 620,
-      "material_class": "public_macro_tool_body",
-      "module_id": "formal_evidence_cell_registry_builder_source_body_import",
-      "path": "source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
-      "required_anchors": [
-        "REGISTERED_MANIFESTS",
-        "def build_registry(",
-        "def _execution_visibility_status(",
-        "def render_markdown(",
-        "REGISTRY_PATH"
-      ],
-      "sha256": "f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
-      "source_role": "Formal evidence cell registry builder: registered-manifest inventory, per-cell anchor classification, execution visibility, registry receipt, and markdown projection.",
-      "source_sha256": "f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46",
-      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
-      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
-      "target_sha256": "f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 14112,
-      "line_count": 339,
-      "material_class": "public_macro_tool_body",
-      "module_id": "paper_module_formal_evidence_cells_test_source_body_import",
-      "path": "source_modules/system/server/tests/test_paper_module_formal_evidence_cells.py",
-      "required_anchors": [
-        "test_runtime_vocab_matches_standard",
-        "test_cell_id_citation_satisfies_anchors_without_prose",
-        "test_missing_source_cell_does_not_supply_anchors",
-        "test_live_known_manifest_loads_six_cells"
-      ],
-      "sha256": "e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/server/tests/test_paper_module_formal_evidence_cells.py",
-      "source_role": "Focused test body proving runtime/standard alignment, cell-id citation, unknown-cell warnings, missing-source blocking, and live registry loading.",
-      "source_sha256": "e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694",
-      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
-      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/server/tests/test_paper_module_formal_evidence_cells.py",
-      "target_sha256": "e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694"
-    },
     {
       "body_copied": true,
       "body_in_receipt": false,
@@ -166,6 +92,44 @@
     "oracle source refs"
   ],
   "organ_id": "formal_evidence_cell_anchor_resolver",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "paper_module_formal_evidence_auditor_source_body_import",
+      "path": "source_modules/system/lib/paper_modules.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/paper_modules.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/paper_modules.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "formal_evidence_cell_registry_builder_source_body_import",
+      "path": "source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_formal_math_evidence_cell_registry.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "paper_module_formal_evidence_cells_test_source_body_import",
+      "path": "source_modules/system/server/tests/test_paper_module_formal_evidence_cells.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_paper_module_formal_evidence_cells.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_paper_module_formal_evidence_cells.py"
+    }
+  ],
   "schema_version": "formal_evidence_cell_anchor_resolver_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "no keys or credentials",

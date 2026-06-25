@@ -224,6 +224,44 @@ def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
         "ring2_graph_update_candidate_anchor",
     ]
     assert result["rejected_check_ids"] == ["regression_negative_missing_source_digest"]
+    first_screen_by_check = {
+        row["check_id"]: row for row in result["first_screen_proof_rows"]
+    }
+    assert set(first_screen_by_check) == {
+        "ring2_failure_taxonomy_receipt_anchor",
+        "ring2_graph_update_candidate_anchor",
+        "regression_negative_missing_source_digest",
+    }
+    assert all(row["body_in_receipt"] is False for row in first_screen_by_check.values())
+    assert all(
+        "theorem_correctness_claim" in row["blocked_claim_ids"]
+        for row in first_screen_by_check.values()
+    )
+    assert all(
+        "release_authorized" in row["blocked_claim_ids"]
+        for row in first_screen_by_check.values()
+    )
+    accepted_first_screen = first_screen_by_check["ring2_failure_taxonomy_receipt_anchor"]
+    rejected_first_screen = first_screen_by_check[
+        "regression_negative_missing_source_digest"
+    ]
+    assert accepted_first_screen["evaluator_signal"] is True
+    assert accepted_first_screen["proof_floor"]["source_refs_present"] is True
+    assert accepted_first_screen["proof_floor"]["receipt_anchor_refs_present"] is True
+    assert accepted_first_screen["proof_floor"]["source_digest_refs_match"] is True
+    assert accepted_first_screen["proof_floor"]["semantic_floor_passes"] is True
+    assert accepted_first_screen["source_generated_boundary"]["body_in_receipt"] is False
+    assert "diagnostic evidence only" in accepted_first_screen["downgrade_sentence"]
+    assert rejected_first_screen["evaluator_signal"] is False
+    assert "missing_source_digest_ref" in rejected_first_screen["missing_verifier"]
+    assert "expected_negative_error_code_present" in rejected_first_screen[
+        "missing_verifier"
+    ]
+    assert "negative control" in rejected_first_screen["cheapest_falsifier"]
+    card = result_card(result)
+    assert card["first_screen"]["proof_row_count"] == 3
+    assert card["first_screen"]["body_in_receipt"] is False
+    assert "formal_proof_authority_claim" in card["first_screen"]["blocked_claim_ids"]
     assert result["advisory_payload_ids"] == ["ring2_failure_taxonomy_advisory_ref"]
     assert result["provider_policy_rejection_ids"] == [
         "regression_provider_payload_with_forbidden_body_keys"
@@ -562,6 +600,20 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     assert result["bundle_id"] == "ring2_proof_diagnostic_evidence_runtime_example"
     assert result["accepted_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
     assert result["rejected_check_ids"] == []
+    assert len(result["first_screen_proof_rows"]) == 1
+    exported_first_screen = result["first_screen_proof_rows"][0]
+    assert exported_first_screen["check_id"] == "ring2_failure_taxonomy_exported_anchor_check"
+    assert exported_first_screen["evaluator_signal"] is True
+    assert exported_first_screen["body_in_receipt"] is False
+    assert exported_first_screen["proof_floor"]["source_refs_receipt_backed"] is True
+    assert exported_first_screen["proof_floor"]["source_digests_receipt_backed"] is True
+    assert "theorem_correctness_claim" in exported_first_screen["blocked_claim_ids"]
+    exported_card = result_card(result)
+    assert exported_card["first_screen"]["proof_row_count"] == 1
+    assert exported_card["first_screen"]["body_in_receipt"] is False
+    assert exported_card["first_screen"]["accepted_row_ids"] == [
+        "first_screen_proof:ring2_failure_taxonomy_exported_anchor_check"
+    ]
     assert result["advisory_payload_ids"] == ["ring2_provider_advisory_receipt_refs"]
     assert result["provider_policy_rejection_ids"] == []
     assert (

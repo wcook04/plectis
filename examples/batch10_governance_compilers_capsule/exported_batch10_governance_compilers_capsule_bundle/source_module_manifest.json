@@ -1,239 +1,131 @@
 {
   "body_copied": true,
   "body_in_receipt": false,
-  "module_count": 10,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "organ_id": "batch10_governance_compilers_capsule",
+  "release_substitution_omissions": [
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 30654,
-      "line_count": 843,
-      "material_class": "public_macro_governance_python_body",
       "module_id": "mutation_governance_core",
       "path": "source_modules/system/lib/mutation_governance.py",
-      "required_anchors": [
-        "def classify_latest_user_intent(",
-        "def build_latest_intent_gate(",
-        "def build_ledger_growth_budget(",
-        "def build_diff_safety_gate("
-      ],
-      "sha256": "849c9c977a31dc3ee00e5dd099980c8baa2698b3cf8297a3cc2ec51333af2e88",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/mutation_governance.py",
-      "source_sha256": "849c9c977a31dc3ee00e5dd099980c8baa2698b3cf8297a3cc2ec51333af2e88",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py",
-      "target_sha256": "849c9c977a31dc3ee00e5dd099980c8baa2698b3cf8297a3cc2ec51333af2e88"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/mutation_governance.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/mutation_governance.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 7469,
-      "line_count": 185,
-      "material_class": "public_macro_governance_cli_body",
       "module_id": "mutation_governance_cli",
       "path": "source_modules/tools/meta/control/mutation_governance.py",
-      "required_anchors": [
-        "build_mutation_governance_packet",
-        "--latest-user-message",
-        "--requested-route"
-      ],
-      "sha256": "c267cccc00e5a5c9c669f72c58fabc16a6452038d7b7ab414d54b91705e272c1",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/control/mutation_governance.py",
-      "source_sha256": "c267cccc00e5a5c9c669f72c58fabc16a6452038d7b7ab414d54b91705e272c1",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/control/mutation_governance.py",
-      "target_sha256": "c267cccc00e5a5c9c669f72c58fabc16a6452038d7b7ab414d54b91705e272c1"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/mutation_governance.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/mutation_governance.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 53386,
-      "line_count": 1130,
-      "material_class": "public_macro_dissemination_gate_body",
       "module_id": "flagship_reviewer_persona_gauntlet",
       "path": "source_modules/tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
-      "required_anchors": [
-        "def _persona_results(",
-        "def _status_from_requirements(",
-        "def _route_quality(",
-        "def _first_pass_questions("
-      ],
-      "sha256": "01e75f63c84eb102f9ff3d2072d8bb3c713736cc82fe135d83e4e6f9fcc59e0f",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
-      "source_sha256": "01e75f63c84eb102f9ff3d2072d8bb3c713736cc82fe135d83e4e6f9fcc59e0f",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
-      "target_sha256": "01e75f63c84eb102f9ff3d2072d8bb3c713736cc82fe135d83e4e6f9fcc59e0f"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 36774,
-      "line_count": 894,
-      "material_class": "public_macro_dissemination_gate_body",
       "module_id": "release_toggle_blocker_triage",
       "path": "source_modules/tools/meta/dissemination/release_public_toggle_closure_map.py",
-      "required_anchors": [
-        "def _blocker_closure(",
-        "def _blocker_row(",
-        "def _blocker_class(",
-        "def _closure_group("
-      ],
-      "sha256": "ba9055593d8af5fa441aba2a78359bbf96ddd69e6083df05bf59117c67813cc9",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/dissemination/release_public_toggle_closure_map.py",
-      "source_sha256": "ba9055593d8af5fa441aba2a78359bbf96ddd69e6083df05bf59117c67813cc9",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/dissemination/release_public_toggle_closure_map.py",
-      "target_sha256": "ba9055593d8af5fa441aba2a78359bbf96ddd69e6083df05bf59117c67813cc9"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "tools/meta/dissemination/release_public_toggle_closure_map.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/dissemination/release_public_toggle_closure_map.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 61800,
-      "line_count": 1376,
-      "material_class": "public_macro_observe_apply_body",
       "module_id": "observe_apply_plan_compiler",
       "path": "source_modules/tools/meta/apply/observe_compiler.py",
-      "required_anchors": [
-        "def _artifact_candidates(",
-        "def compile_session_manifest_to_apply_plan(",
-        "def _parse_operations_from_artifact",
-        "def _response_index_entries("
-      ],
-      "sha256": "ebbaca69a3086b770869d55c3e419bbb65e6e91fb1961bdda3da86b3ad4d8d2a",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/apply/observe_compiler.py",
-      "source_sha256": "ebbaca69a3086b770869d55c3e419bbb65e6e91fb1961bdda3da86b3ad4d8d2a",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/observe_compiler.py",
-      "target_sha256": "ebbaca69a3086b770869d55c3e419bbb65e6e91fb1961bdda3da86b3ad4d8d2a"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/apply/observe_compiler.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/apply/observe_compiler.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 17856,
-      "line_count": 384,
-      "material_class": "public_macro_observe_apply_body",
       "module_id": "session_dependency_wave_executor",
       "path": "source_modules/tools/meta/apply/session_core.py",
-      "required_anchors": [
-        "def dispatch_wave(",
-        "class SessionNodeStatus",
-        "class SessionNodeSpec",
-        "class SessionWave"
-      ],
-      "sha256": "95db8735081e9d9dbd3ad2e775c803709d0aa9eee7c6e979716ff3ec93f04594",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/apply/session_core.py",
-      "source_sha256": "95db8735081e9d9dbd3ad2e775c803709d0aa9eee7c6e979716ff3ec93f04594",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/session_core.py",
-      "target_sha256": "95db8735081e9d9dbd3ad2e775c803709d0aa9eee7c6e979716ff3ec93f04594"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/apply/session_core.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/apply/session_core.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 319868,
-      "line_count": 7470,
-      "material_class": "public_macro_observe_apply_body",
       "module_id": "role_aware_dag_block_propagation",
       "path": "source_modules/tools/meta/apply/run_observe_plan.py",
-      "required_anchors": [
-        "def _resolve_blocked_groups",
-        "BLOCKING_GROUP_STATUSES",
-        "quality_error is NOT a blocking status",
-        "def _resolved_group_runtime_state"
-      ],
-      "sha256": "fda5a0261fb4176a6bba1c68cff856ac1dcdfa0760af850caac1257cd2ee1ad9",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/apply/run_observe_plan.py",
-      "source_sha256": "fda5a0261fb4176a6bba1c68cff856ac1dcdfa0760af850caac1257cd2ee1ad9",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/run_observe_plan.py",
-      "target_sha256": "fda5a0261fb4176a6bba1c68cff856ac1dcdfa0760af850caac1257cd2ee1ad9"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/apply/run_observe_plan.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/apply/run_observe_plan.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 404883,
-      "line_count": 9802,
-      "material_class": "public_macro_kernel_decision_body",
       "module_id": "receipt_reuse_staleness_decider",
       "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "required_anchors": [
-        "def _compare_receipt_to_source_graph",
-        "def _changed_stable_inputs",
-        "def _fingerprint_rows_by_path",
-        "def _stable_json_fingerprint"
-      ],
-      "sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
-      "source_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "2bfc6ac62255d988ad73d358822e83fd05c0c7816a049986bd3fe7d7b7729b55"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 141779,
-      "line_count": 3107,
-      "material_class": "public_macro_temporal_contract_body",
       "module_id": "finance_no_lookahead_temporal_contract",
       "path": "source_modules/system/core/engine.py",
-      "required_anchors": [
-        "def resolve_horizon(",
-        "next_us_close",
-        "ZoneInfo(\"America/New_York\")",
-        "Cannot parse horizon"
-      ],
-      "sha256": "fea834950195503f1ff7a79ee4ca4593d410445bfc39d9d7c94f3d3924af828c",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/core/engine.py",
-      "source_sha256": "fea834950195503f1ff7a79ee4ca4593d410445bfc39d9d7c94f3d3924af828c",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py",
-      "target_sha256": "fea834950195503f1ff7a79ee4ca4593d410445bfc39d9d7c94f3d3924af828c"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/core/engine.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/core/engine.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 424762,
-      "line_count": 9872,
-      "material_class": "public_macro_coordination_gate_body",
       "module_id": "claim_conflict_wait_tax_detector",
       "path": "source_modules/system/lib/action_quote.py",
-      "required_anchors": [
-        "def _path_overlaps",
-        "def _claim_conflicts",
-        "def _wait_tax_match",
-        "ranked_wait_taxes"
-      ],
-      "sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/action_quote.py",
-      "source_sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
-      "target_sha256": "0f3479695ed4fd45f94341e939c56f6115c21129777c8b89d02adeb71f268069"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/lib/action_quote.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/action_quote.py"
     }
   ],
-  "organ_id": "batch10_governance_compilers_capsule",
   "schema_version": "batch10_governance_compilers_capsule_source_module_manifest_v1",
   "source_faithful_public_refactors": [
     {

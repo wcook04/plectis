@@ -17,22 +17,13 @@ from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators.source_module_boundary import (
     evaluate_source_module_boundary,
 )
-try:
-    from tools.meta.plectis_public_safety.public_reference_sanitizer import (
-        MACRO_ROOT_NAME,
-        PUBLIC_SAFE_PATH_NORMALIZED_MODE,
-        PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
-        public_safe_transform_receipt,
-        sanitize_public_reference_text,
-    )
-except ModuleNotFoundError:  # pragma: no cover - compatibility for older private checkouts.
-    from tools.meta.microcosm_public_safety.public_reference_sanitizer import (
-        MACRO_ROOT_NAME,
-        PUBLIC_SAFE_PATH_NORMALIZED_MODE,
-        PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
-        public_safe_transform_receipt,
-        sanitize_public_reference_text,
-    )
+from tools.meta.plectis_public_safety.public_reference_sanitizer import (
+    MACRO_ROOT_NAME,
+    PUBLIC_SAFE_PATH_NORMALIZED_MODE,
+    PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
+    public_safe_transform_receipt,
+    sanitize_public_reference_text,
+)
 
 
 HASH_CHUNK_SIZE = 1024 * 1024
@@ -222,7 +213,7 @@ def _public_safe_ref_transform(ref: str) -> tuple[str, dict[str, Any]]:
     - Fails: never raises; sanitizer blockers surface as the {"status": "blocked", "public_safe": False} receipt, not an exception; empty ref short-circuits to (ref, {}).
     - When-needed: inspect when deciding whether a single source/provenance ref is public-safe before folding it into a refreshed manifest row.
     - Reads: only the in-memory `ref` argument (no filesystem read).
-    - Escalates-to: tools.meta.microcosm_public_safety.public_reference_sanitizer (sanitize_public_reference_text / public_safe_transform_receipt) for the authoritative blocker/replacement rules.
+    - Escalates-to: tools.meta.plectis_public_safety.public_reference_sanitizer (sanitize_public_reference_text / public_safe_transform_receipt) for the authoritative blocker/replacement rules.
     - Non-goal: does not authorize source export, release, or assert public-safety beyond what the sanitizer's replacement/blocker rules cover.
     """
     if not ref:

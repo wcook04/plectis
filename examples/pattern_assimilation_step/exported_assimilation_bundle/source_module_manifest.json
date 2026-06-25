@@ -4,101 +4,8 @@
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "pattern_assimilation_step_source_open_body_import",
-  "module_count": 4,
+  "module_count": 1,
   "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 18707,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 359,
-      "material_class": "public_macro_tool_body",
-      "module_id": "macro_pattern_autonomy_process_contract_body_import",
-      "path": "source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
-      "required_anchors": [
-        "macro_pattern_autonomy_process_contract_v1",
-        "pattern_assimilation_autonomy_process_ratchet",
-        "already_run_lane_detection",
-        "residual_capture_lifecycle_policy",
-        "validation_fixed_point_policy"
-      ],
-      "sha256": "451d17e90bd2ec877bdc60707714fa3ea731bd136d35dd3546971fa3e20cbe2f",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
-      "source_role": "Macro process contract governing repeated pattern-surface autonomy seeds, same-lane receipt selection, residual capture lifecycle, and validation fixed-point ordering.",
-      "source_sha256": "451d17e90bd2ec877bdc60707714fa3ea731bd136d35dd3546971fa3e20cbe2f",
-      "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
-      "target_sha256": "451d17e90bd2ec877bdc60707714fa3ea731bd136d35dd3546971fa3e20cbe2f",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_pattern_assimilation_step.py::test_pattern_assimilation_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 39835,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 708,
-      "material_class": "public_macro_pattern_body",
-      "module_id": "macro_pattern_assimilation_fixture_manifest_body_import",
-      "path": "source_modules/state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
-      "required_anchors": [
-        "organ_fixture_manifest_v1",
-        "pattern_assimilation_step",
-        "private_state_forbidden_terms",
-        "validator_contract_ratchet_v1",
-        "macro_pattern_autonomy_process_runs_v1.jsonl"
-      ],
-      "sha256": "950fdb3b6731736f14d7974b2d4e54113056e754bf075026f86a4f9fcf65d4e0",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
-      "source_role": "Macro fixture manifest body defining pattern assimilation closeout rules, negative cases, receipt floors, and private-state exclusion contracts.",
-      "source_sha256": "950fdb3b6731736f14d7974b2d4e54113056e754bf075026f86a4f9fcf65d4e0",
-      "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
-      "target_sha256": "950fdb3b6731736f14d7974b2d4e54113056e754bf075026f86a4f9fcf65d4e0",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_pattern_assimilation_step.py::test_pattern_assimilation_source_modules_are_exact_macro_body_imports"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 6484,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 108,
-      "material_class": "public_macro_receipt_body",
-      "module_id": "pattern_assimilation_retracted_adapter_receipt_body_import",
-      "path": "source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
-      "required_anchors": [
-        "pattern_assimilation_step_real_substrate_adapter_receipt_v1",
-        "retracted_false_pass_current_authority",
-        "counts_as_real_substrate_progress",
-        "current_validator_authority",
-        "direct_consumption_rule"
-      ],
-      "sha256": "3a254ee955fcbf7843c9774ecfd17c33877ea604af5c3c85c73945a6ece2c5fe",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
-      "source_role": "Macro receipt body that retracts the older adapter-shaped pass and prevents metadata-only evidence from counting as current product progress.",
-      "source_sha256": "3a254ee955fcbf7843c9774ecfd17c33877ea604af5c3c85c73945a6ece2c5fe",
-      "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
-      "target_sha256": "3a254ee955fcbf7843c9774ecfd17c33877ea604af5c3c85c73945a6ece2c5fe",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_pattern_assimilation_step.py::test_pattern_assimilation_source_modules_are_exact_macro_body_imports"
-      ]
-    },
     {
       "anchor_count": 3,
       "body_copied": true,
@@ -133,6 +40,44 @@
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "macro_pattern_autonomy_process_contract_body_import",
+      "path": "source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "macro_pattern_assimilation_fixture_manifest_body_import",
+      "path": "source_modules/state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "pattern_assimilation_retracted_adapter_receipt_body_import",
+      "path": "source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json"
+    }
+  ],
   "schema_version": "public_microcosm_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_operator_voice_recipient_send_state_or_credential_equivalent_material",
   "source_import_class": "copied_non_secret_macro_body",

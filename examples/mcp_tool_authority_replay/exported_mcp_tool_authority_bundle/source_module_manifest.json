@@ -4,101 +4,8 @@
   "bundle_id": "mcp_tool_authority_public_trace_refactor",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "mcp_tool_authority_source_open_body_import",
-  "module_count": 7,
+  "module_count": 2,
   "modules": [
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 295524,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4825,
-      "material_class": "public_macro_receipt_body",
-      "module_id": "mcp_tool_authority_high_novelty_growth_receipt_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "required_anchors": [
-        "\"actual_substrate_mcp_tool_authority_replay_growth_v1\"",
-        "\"mcp_tool_authority_replay_compound\"",
-        "\"tools/meta/control/mission_transaction_preflight.py\"",
-        "\"codex/standards/std_agent_execution_trace.json\""
-      ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
-      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "source_role": "Macro reconstruction body recording the actual mcp_tool_authority_replay growth pass, its source refs, and its authority boundary.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 936934,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 373,
-      "material_class": "public_macro_pattern_body",
-      "module_id": "mcp_tool_authority_extracted_patterns_ledger_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "required_anchors": [
-        "\"pattern_id\": \"mcp_tool_authority_replay_compound\"",
-        "MCP tool-authority replay compound",
-        "\"tools/meta/control/mission_transaction_preflight.py\"",
-        "\"codex/standards/std_extracted_pattern_route_readiness.json\""
-      ],
-      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
-      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "source_role": "Macro extracted-pattern ledger body containing the mcp_tool_authority_replay_compound row and related route-observability source refs.",
-      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 304224,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace_runtime_body_import",
-      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "required_anchors": [
-        "[STRICT BOUNDARY]",
-        "NEVER parses `text`, `thinking`, or tool-result content bodies",
-        "build_agent_execution_trace",
-        "PROCESS_METADATA_PRIVACY_BOUNDARY"
-      ],
-      "sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_role": "Macro process-trace runtime body that parses observable agent action records while excluding hidden reasoning, prompt bodies, and tool-result bodies from trace authority.",
-      "source_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
-      ]
-    },
     {
       "anchor_count": 4,
       "body_copied": true,
@@ -160,69 +67,6 @@
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
       ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 31199,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 808,
-      "material_class": "public_macro_control_plane_body",
-      "module_id": "mission_transaction_preflight_control_body_import",
-      "path": "source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
-      "required_anchors": [
-        "\"\"\"Emit the read-only mission transaction landing preflight packet.\"\"\"",
-        "build_mission_transaction_landing_preflight",
-        "--owned-path",
-        "mission_transaction_control_summary"
-      ],
-      "sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
-      "source_ref": "tools/meta/control/mission_transaction_preflight.py",
-      "source_role": "Macro mission-transaction preflight control-plane body used by scoped commit and Work Ledger landing checks for active claims and owned paths.",
-      "source_sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
-      "target_sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 10373,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 260,
-      "material_class": "public_macro_tool_body",
-      "module_id": "strict_json_source_body_import",
-      "path": "source_modules/system/lib/strict_json.py",
-      "required_anchors": [
-        "class StrictJsonError",
-        "class DuplicateJsonKeyError",
-        "def loads_json_strict(",
-        "def read_json_strict(",
-        "def strict_json_artifact_report("
-      ],
-      "sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
-      "source_ref": "system/lib/strict_json.py",
-      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
-      "source_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/system/lib/strict_json.py",
-      "target_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
-      ]
     }
   ],
   "omitted_material": [
@@ -234,6 +78,68 @@
   ],
   "public_runtime_policy": "source_modules_are_mcp_tool_authority_body_floor_not_live_mcp_or_provider_dependency",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "mcp_tool_authority_high_novelty_growth_receipt_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "mcp_tool_authority_extracted_patterns_ledger_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace_runtime_body_import",
+      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "mission_transaction_preflight_control_body_import",
+      "path": "source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/mission_transaction_preflight.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "strict_json_source_body_import",
+      "path": "source_modules/system/lib/strict_json.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/strict_json.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/strict_json.py"
+    }
+  ],
   "schema_version": "mcp_tool_authority_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_tool_payload_result_bodies_recipient_send_state_or_credential_equivalent_material",
   "source_import_class": "copied_non_secret_macro_body",

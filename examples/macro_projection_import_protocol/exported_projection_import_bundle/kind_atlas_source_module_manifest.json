@@ -3,59 +3,36 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "kind_atlas_source_modules_import",
-  "module_count": 2,
-  "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 127242,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 2502,
-      "material_class": "public_macro_tool_body",
-      "module_id": "kind_atlas_body_import",
-      "required_anchors": [
-        "PAPER_MODULE_INDEX = Path(\"codex/doctrine/paper_modules/_index.json\")",
-        "SUPPORTED_BANDS = {\"flag\", \"card\"}",
-        "def build_kind_atlas(",
-        "\"schema_version\": \"kind_atlas_v0\"",
-        "\"not_keyword_search\": True"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_ref": "system/lib/kind_atlas.py",
-      "source_role": "Kind Atlas control-plane enumerator that exposes supported artifact kinds, option-surface commands, cluster-first navigation rungs, currentness, and first-contact guardrails without keyword-search authority.",
-      "source_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
-      "target_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 33455,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 674,
-      "material_class": "public_macro_tool_body",
-      "module_id": "kind_atlas_test_body_import",
-      "required_anchors": [
-        "test_kind_atlas_flag_enumerates_required_kinds_without_query",
-        "test_kind_atlas_marks_supported_rows_and_projection_gaps",
-        "test_kind_atlas_card_exposes_rung_support_and_omissions",
-        "test_kind_atlas_kernel_command_emits_json",
-        "test_option_surface_kinds_alias_uses_kind_atlas"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_ref": "system/server/tests/test_kind_atlas.py",
-      "source_role": "Focused regression tests for Kind Atlas row enumeration, option-surface parity, card-band rung support, kernel command JSON output, legacy query guidance, and kinds alias routing.",
-      "source_sha256": "2ca2573a4cea25243b231d87b144ce1e3d2a63f7d5c950ed9c47475191981522",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
-      "target_sha256": "2ca2573a4cea25243b231d87b144ce1e3d2a63f7d5c950ed9c47475191981522"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing Kind Atlas regression contract; copied source modules are body evidence, not authority to run live macro kernel state, mutate generated Atlas sidecars, read raw operator voice, access provider payloads, or claim private session state.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "kind_atlas_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/kind_atlas.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/kind_atlas.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "kind_atlas_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_kind_atlas.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_kind_atlas.py"
+    }
+  ],
   "schema_version": "macro_projection_kind_atlas_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

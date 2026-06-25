@@ -1,6 +1,6 @@
 """Tests for the Comprehension Plane: the source-body-free read-pack compiler.
 
-Proves ``plectis comprehend`` compiles bounded read packs from the join index +
+Proves ``microcosm comprehend`` compiles bounded read packs from the join index +
 organ atlas + synopses (never source bodies), routes goals to modes, stamps a
 non-authorizing ceiling on every pack, and that the cold-agent assay confirms the
 packs answer substrate / authority / organ questions without opening source.
@@ -518,7 +518,7 @@ def test_first_contact_leads_with_the_goal_shaped_entry(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(root=tmp_path, mode="first-contact")
     inspect_next = pack["summary"]["what_to_inspect_next"]
-    assert inspect_next[0] == 'plectis comprehend --first-action "<goal>"'
+    assert inspect_next[0] == 'microcosm comprehend --first-action "<goal>"'
 
 
 def test_self_model_front_anchor_names_first_action(tmp_path: Path) -> None:

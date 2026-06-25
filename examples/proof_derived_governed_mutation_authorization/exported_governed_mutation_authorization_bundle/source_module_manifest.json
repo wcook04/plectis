@@ -4,201 +4,8 @@
   "bundle_id": "proof_derived_governed_mutation_authorization_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "proof_derived_governed_mutation_authorization_source_open_body_import",
-  "module_count": 6,
-  "modules": [
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 936934,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 373,
-      "material_class": "public_macro_pattern_body",
-      "module_id": "proof_governed_mutation_extracted_patterns_ledger_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "required_anchors": [
-        "\"pattern_id\": \"proof_derived_governed_mutation_authorization_compound\"",
-        "standing_credentials_are_not_agent_authority",
-        "tools/meta/control/scoped_commit.py",
-        "system/lib/work_landing_status.py::build_work_landing_reconcile_plan"
-      ],
-      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
-      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "source_role": "Macro extracted-pattern ledger body containing the proof_derived_governed_mutation_authorization_compound row and its mission-transaction, scoped-commit, Work Ledger, and proof-spine source refs.",
-      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 295524,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4825,
-      "material_class": "public_macro_receipt_body",
-      "module_id": "proof_governed_mutation_high_novelty_growth_receipt_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "required_anchors": [
-        "\"actual_substrate_memory_poisoning_governed_mutation_process_reward_growth_v1\"",
-        "\"proof_derived_governed_mutation_authorization_compound\"",
-        "\"tools/meta/control/scoped_commit.py\"",
-        "\"system/lib/work_landing_status.py::build_work_landing_reconcile_plan\""
-      ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
-      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "source_role": "Macro reconstruction receipt body that introduced the governed mutation/process-reward growth tranche and binds the proof-derived authorization compound to real mission-transaction control bodies.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 31199,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 808,
-      "material_class": "public_macro_control_plane_body",
-      "module_id": "mission_transaction_preflight_control_body_import",
-      "path": "source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
-      "required_anchors": [
-        "\"\"\"Emit the read-only mission transaction landing preflight packet.\"\"\"",
-        "build_mission_transaction_landing_preflight",
-        "--owned-path",
-        "mission_transaction_control_summary"
-      ],
-      "sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
-      "source_ref": "tools/meta/control/mission_transaction_preflight.py",
-      "source_role": "Macro mission-transaction preflight CLI body that checks owned paths, active claims, and landing-control summaries before mutation or scoped commit.",
-      "source_sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
-      "target_sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 124378,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 3283,
-      "material_class": "public_macro_control_plane_body",
-      "module_id": "scoped_commit_private_index_control_body_import",
-      "path": "source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
-      "required_anchors": [
-        "Scoped-commit actuator using a private index and HEAD CAS.",
-        "perform_scoped_commit",
-        "_private_index_hunk_counts",
-        "scoped_commit_work_ledger_mutation_guard_v0"
-      ],
-      "sha256": "sha256:e399bb1393acf5567887e06b7c5dd9ac5a386dcf72c7cfd1d7d3458d3f515456",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
-      "source_ref": "tools/meta/control/scoped_commit.py",
-      "source_role": "Macro scoped-commit actuator body that stages exact owned path changes through a private index, guards Work Ledger claims, and avoids broad dirty-tree staging.",
-      "source_sha256": "sha256:e399bb1393acf5567887e06b7c5dd9ac5a386dcf72c7cfd1d7d3458d3f515456",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
-      "target_sha256": "sha256:e399bb1393acf5567887e06b7c5dd9ac5a386dcf72c7cfd1d7d3458d3f515456",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 329658,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 8240,
-      "material_class": "public_macro_ledger_body",
-      "module_id": "work_ledger_claim_runtime_body_import",
-      "path": "source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
-      "required_anchors": [
-        "session-preflight",
-        "session-heartbeat",
-        "session-finalize",
-        "append_exempt"
-      ],
-      "sha256": "sha256:2677ae4fd1db8eb662848be4159a09596431d0d7e891347d1a65cb8b4091dc97",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
-      "source_ref": "tools/meta/factory/work_ledger.py",
-      "source_role": "Macro Work Ledger runtime CLI body that issues session preflights, active claims, heartbeats, append/exempt closeouts, and finalizers for concurrent Type A mutation lanes.",
-      "source_sha256": "sha256:2677ae4fd1db8eb662848be4159a09596431d0d7e891347d1a65cb8b4091dc97",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
-      "target_sha256": "sha256:2677ae4fd1db8eb662848be4159a09596431d0d7e891347d1a65cb8b4091dc97",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 195265,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4795,
-      "material_class": "public_macro_control_plane_body",
-      "module_id": "work_landing_reconcile_control_body_import",
-      "path": "source_modules/ai_workflow/system/lib/work_landing_status.py",
-      "required_anchors": [
-        "work_landing_reconcile_plan_v0",
-        "build_work_landing_reconcile_plan",
-        "receipt_blocked_claim_collision",
-        "finalizer"
-      ],
-      "sha256": "sha256:f722c452444a33251166f9a8dce80274c01d9a5a7e27f4366b7502831fb4af90",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
-      "source_ref": "system/lib/work_landing_status.py",
-      "source_role": "Macro work-landing reconcile body that turns claims, receipts, scoped commit evidence, Task Ledger finalizers, and claim-release obligations into a governed landing plan.",
-      "source_sha256": "sha256:f722c452444a33251166f9a8dce80274c01d9a5a7e27f4366b7502831fb4af90",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/system/lib/work_landing_status.py",
-      "target_sha256": "sha256:f722c452444a33251166f9a8dce80274c01d9a5a7e27f4366b7502831fb4af90",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"
-      ]
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "omitted_material": [
     {
       "reason": "Private proof bodies, provider payloads, live credentials, account/session state, browser/HUD live-access state, raw policy-vote bodies, cloud/account identifiers, and irreversible mutation authority are credential-equivalent or private control material.",
@@ -213,6 +20,80 @@
   ],
   "public_runtime_policy": "source_modules_are_governed_mutation_authorization_body_floor_not_live_mutation_or_cloud_dependency",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "proof_governed_mutation_extracted_patterns_ledger_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "mission_transaction_preflight_control_body_import",
+      "path": "source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/mission_transaction_preflight.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "scoped_commit_private_index_control_body_import",
+      "path": "source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/scoped_commit.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/scoped_commit.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "work_ledger_claim_runtime_body_import",
+      "path": "source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/work_ledger.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/work_ledger.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "work_landing_reconcile_control_body_import",
+      "path": "source_modules/ai_workflow/system/lib/work_landing_status.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/work_landing_status.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/work_landing_status.py"
+    }
+  ],
   "schema_version": "proof_derived_governed_mutation_authorization_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_private_proof_bodies_raw_policy_votes_recipient_send_state_or_credential_equivalent_material",
   "source_import_class": "copied_non_secret_macro_body",

@@ -792,9 +792,20 @@ def _resolve_public_artifact_ref(
     if not isinstance(ref, str) or not ref.strip():
         return None
     cleaned = ref.split("::", 1)[0].strip().replace("\\", "/")
-    cleaned = cleaned.removeprefix(f"{ARTIFACT_DIR_NAME}/")
-    ref_path = Path(cleaned)
-    candidates = [target / ref_path, json_path.parent / ref_path]
+    cleaned_refs = [cleaned.removeprefix(f"{ARTIFACT_DIR_NAME}/")]
+    parts = Path(cleaned_refs[0]).parts
+    public_roots = {Path(value).parts[0] for value in DEFAULT_INCLUDE_REFS}
+    for index, part in enumerate(parts):
+        if part in public_roots:
+            suffix = Path(*parts[index:]).as_posix()
+            if suffix not in cleaned_refs:
+                cleaned_refs.append(suffix)
+            break
+
+    candidates: list[Path] = []
+    for cleaned_ref in cleaned_refs:
+        ref_path = Path(cleaned_ref)
+        candidates.extend([target / ref_path, json_path.parent / ref_path])
     for candidate in candidates:
         if candidate.is_file():
             try:

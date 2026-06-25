@@ -3,33 +3,8 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "raw_git_commit_guard_source_modules_import",
-  "module_count": 5,
+  "module_count": 3,
   "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 192865,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4579,
-      "material_class": "public_macro_tool_body",
-      "material_id": "raw_git_runtime_hook_body_import",
-      "module_id": "raw_git_runtime_hook_body_import",
-      "required_anchors": [
-        "BANNED_RAW_GIT_SUBCOMMANDS = (\"add\", \"commit\")",
-        "def _segment_has_explicit_override(",
-        "def _raw_shared_index_git_guard(",
-        "block_reason = _raw_shared_index_git_guard(payload)",
-        "AIW_ALLOW_RAW_GIT_COMMIT"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
-      "source_ref": ".claude/hooks/runtime_hook.py",
-      "source_role": "Claude PreToolUse runtime hook body that parses tool payloads and blocks raw shared-index git add/commit unless an explicit operator override or sanctioned actuator is present.",
-      "source_sha256": "9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
-      "target_sha256": "9d74f73009f376f75fdc7d3cc619aff23bdef3d2403fcf3673ea4aea1475fd8c"
-    },
     {
       "anchor_count": 5,
       "body_copied": true,
@@ -100,35 +75,36 @@
       "source_sha256": "7bed5b8e465b6d8cde613b502b91f19317328ef1f9498e6c6b4224b6b21ca3f3",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/prepare-commit-msg",
       "target_sha256": "7bed5b8e465b6d8cde613b502b91f19317328ef1f9498e6c6b4224b6b21ca3f3"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 22433,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 562,
-      "material_class": "public_macro_tool_body",
-      "material_id": "raw_git_commit_guard_test_body_import",
-      "module_id": "raw_git_commit_guard_test_body_import",
-      "required_anchors": [
-        "test_pretool_blocks_plain_git_commit_dash_m",
-        "test_prepare_commit_msg_refuses_no_verify_commit_without_override",
-        "AIW_ALLOW_RAW_GIT_COMMIT",
-        "BANNED_RAW_GIT_SUBCOMMANDS",
-        "_raw_shared_index_git_guard"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
-      "source_ref": "tools/meta/control/test_raw_git_commit_guard.py",
-      "source_role": "Regression suite proving the PreToolUse parser, env override boundary, hook dispatchers, and no-verify raw commit backstop behavior.",
-      "source_sha256": "3431695cfb406f39652e774a45b9f0ca2c8490d58c668f00ad7912c752820078",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/test_raw_git_commit_guard.py",
-      "target_sha256": "3431695cfb406f39652e774a45b9f0ca2c8490d58c668f00ad7912c752820078"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and static source-boundary checks; copied source modules are body evidence, not authority to mutate git state, inspect live dirty-path payloads, append ledgers, push or publish, call providers, inspect browser/HUD state, send recipient work, or claim release authority.",
   "receipt_body_policy": "receipts report paths hashes counts anchors and compact boundary checks but never duplicate full source bodies, live git index state, live dirty-worktree payload bodies, live ledger event bodies, provider payload bodies, account/session material, browser/HUD live access, recipient-send state, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "raw_git_runtime_hook_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": ".claude/hooks/runtime_hook.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": ".claude/hooks/runtime_hook.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "raw_git_commit_guard_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/test_raw_git_commit_guard.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/test_raw_git_commit_guard.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/test_raw_git_commit_guard.py"
+    }
+  ],
   "schema_version": "macro_projection_raw_git_commit_guard_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

@@ -3,80 +3,8 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "agent_execution_trace_source_modules_import",
-  "module_count": 4,
+  "module_count": 1,
   "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 304224,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace_source_body_import",
-      "required_anchors": [
-        "def build_agent_execution_trace(",
-        "def build_process_trace_route_packet(",
-        "def build_trace_compactness_levels(",
-        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
-        "NEVER parses `text`, `thinking`, or tool-result content bodies"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_role": "Macro process-trace builder that turns observable Claude/Codex tool-call records into span, route-compliance, bottleneck, and compactness ledgers while excluding prompt bodies, hidden reasoning, and raw tool-output bodies.",
-      "source_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 10373,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 260,
-      "material_class": "public_macro_tool_body",
-      "module_id": "strict_json_source_body_import",
-      "required_anchors": [
-        "class StrictJsonError",
-        "class DuplicateJsonKeyError",
-        "def loads_json_strict(",
-        "def read_json_strict(",
-        "def strict_json_artifact_report("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_ref": "system/lib/strict_json.py",
-      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
-      "source_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
-      "target_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 212607,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 5036,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace_test_body_import",
-      "required_anchors": [
-        "Tests for the agent-execution-trace pipeline.",
-        "without depending on live `~/.claude` or `~/.codex` state",
-        "def test_agent_execution_trace_cli_check_json_preserves_check_mode(",
-        "build_process_trace_route_packet",
-        "build_trace_compactness_levels"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_ref": "system/server/tests/test_agent_execution_trace.py",
-      "source_role": "Focused regression-test body for the macro agent-execution trace pipeline, using synthetic JSONL fixtures instead of live Claude/Codex account/session state.",
-      "source_sha256": "465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
-      "target_sha256": "465c3d8be7cebca6353cfce51b4e2392aac7da4b51764c5286d4b8adfc54e0e0"
-    },
     {
       "anchor_count": 5,
       "body_copied": true,
@@ -104,6 +32,44 @@
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic privacy-boundary trace-shape checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority.",
   "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic trace-shape checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "strict_json_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/strict_json.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/strict_json.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_agent_execution_trace.py"
+    }
+  ],
   "schema_version": "macro_projection_agent_execution_trace_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

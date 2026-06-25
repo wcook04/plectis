@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: system/server/tests/test_operator_thread_memory.py
-Boundary class: private_body_exact_match
+Boundary class: restricted_private_source_ref
 """
 
 PUBLIC_MICROCOSM_STUB = True

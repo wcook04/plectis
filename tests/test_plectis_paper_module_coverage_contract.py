@@ -411,18 +411,18 @@ def test_json_capsule_organ_subjects_bind_matching_mechanism_subjects() -> None:
     assert stale_notes == []
 
 
-def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
+def test_plectis_paper_module_coverage_contract_is_standard_backed() -> None:
     standard = _std_microcosm()
     contract = standard["paper_module_coverage_contract"]
 
     assert contract["primary_modules"] == [
-        "codex/doctrine/paper_modules/microcosm_substrate.md",
-        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
-        "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
-        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
+        "codex/doctrine/paper_modules/plectis_substrate.md",
+        "codex/doctrine/paper_modules/plectis_entry_lattice.md",
+        "codex/doctrine/paper_modules/plectis_public_export_type_plane.md",
+        "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md",
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md",
         "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
-        "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
+        "codex/doctrine/paper_modules/laboratory_metabolism.md",
         "codex/doctrine/paper_modules/public_constellation_strategy.md",
         "codex/doctrine/paper_modules/dissemination_strategy.md",
     ]
@@ -432,13 +432,13 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/navigation_hologram_theory.md",
     ]
     assert contract["module_depth_roles"] == {
-        "product_roof": "codex/doctrine/paper_modules/microcosm_substrate.md",
-        "entry_lattice": "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "product_roof": "codex/doctrine/paper_modules/plectis_substrate.md",
+        "entry_lattice": "codex/doctrine/paper_modules/plectis_entry_lattice.md",
         "public_export_bridge": (
-            "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+            "codex/doctrine/paper_modules/plectis_public_export_type_plane.md"
         ),
         "runtime_organ_source_loci": (
-            "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+            "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md"
         ),
         "coverage_metabolism": (
             "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
@@ -448,7 +448,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "paper_module_entry_projection_integrity.md"
         ),
         "laboratory_boundary": (
-            "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+            "codex/doctrine/paper_modules/laboratory_metabolism.md"
         ),
         "public_boundary_context": [
             "codex/doctrine/paper_modules/public_constellation_strategy.md",
@@ -478,11 +478,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
         (
             "./repo-python kernel.py --option-surface paper_modules "
-            "--band card --ids microcosm_entry_lattice,"
+            "--band card --ids plectis_entry_lattice,"
             "paper_module_coverage_metabolism,"
             "paper_module_entry_projection_integrity,"
-            "microcosm_public_export_type_plane,"
-            "microcosm_runtime_organ_atlas,microcosm_substrate"
+            "plectis_public_export_type_plane,"
+            "plectis_runtime_organ_atlas,plectis_substrate"
         ),
         (
             "./repo-python kernel.py --option-surface standards "
@@ -490,7 +490,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         ),
         (
             "./repo-python kernel.py --option-surface navigation_type_plane "
-            "--band card --ids public_microcosm_exports"
+            "--band card --ids public_plectis_exports"
         ),
         "./repo-python kernel.py --paper-module-coverage",
     ]
@@ -502,7 +502,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "system/lib/standard_option_surface.py::_paper_module_compression_passport",
         (
             "system/lib/navigation_context_pack.py::"
-            "MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+            "PLECTIS_PAPER_MODULE_DEPTH_ANCHORS"
         ),
         "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
         (
@@ -511,14 +511,14 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         ),
     ]
     assert all_corpus_dispatch["selected_depth_slice"] == [
-        "microcosm_entry_lattice",
+        "plectis_entry_lattice",
         "std_microcosm",
         "paper_module_coverage_metabolism",
         "paper_module_entry_projection_integrity",
-        "microcosm_public_export_type_plane",
-        "microcosm_runtime_organ_atlas",
-        "public_microcosm_exports",
-        "microcosm_substrate",
+        "plectis_public_export_type_plane",
+        "plectis_runtime_organ_atlas",
+        "public_plectis_exports",
+        "plectis_substrate",
     ]
     assert "All-row flag remains a compatibility redirect" in all_corpus_dispatch[
         "compatibility_boundary"
@@ -590,8 +590,8 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "system/lib/standard_option_surface.py::build_option_surface",
         (
             "microcosm-substrate/tests/"
-            "test_microcosm_paper_module_coverage_contract.py::"
-            "test_microcosm_paper_module_coverage_contract_is_projected_into_modules"
+            "test_plectis_paper_module_coverage_contract.py::"
+            "test_plectis_paper_module_coverage_contract_is_projected_into_modules"
         ),
     ]
     assert "authored primary_subdomain" in cluster_digest["typed_grouping_policy"]
@@ -608,10 +608,10 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "budget_rule"
     ]
     assert "budget.over_budget is true" in budget_honesty["budget_rule"]
-    assert "selected Microcosm depth slice as handles" in budget_honesty[
+    assert "selected Plectis depth slice as handles" in budget_honesty[
         "budget_rule"
     ]
-    assert "microcosm_entry_lattice" in budget_honesty["protected_row_rule"]
+    assert "plectis_entry_lattice" in budget_honesty["protected_row_rule"]
     assert [
         locus["source_ref"] for locus in budget_honesty["owner_loci"]
     ] == [
@@ -631,8 +631,8 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         ),
         (
             "microcosm-substrate/tests/"
-            "test_microcosm_paper_module_coverage_contract.py::"
-            "test_microcosm_paper_module_coverage_contract_is_projected_into_modules"
+            "test_plectis_paper_module_coverage_contract.py::"
+            "test_plectis_paper_module_coverage_contract_is_projected_into_modules"
         ),
     ]
     assert budget_honesty["required_status_fields"] == [
@@ -678,16 +678,16 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
         (
             "system/lib/navigation_context_pack.py::"
-            "MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+            "PLECTIS_PAPER_MODULE_DEPTH_ANCHORS"
         ),
         (
             "system/lib/navigation_context_pack.py::"
-            "_is_microcosm_paper_module_depth_query"
+            "_is_plectis_paper_module_depth_query"
         ),
         (
             "microcosm-substrate/tests/"
-            "test_microcosm_paper_module_coverage_contract.py::"
-            "test_microcosm_paper_module_coverage_contract_is_projected_into_modules"
+            "test_plectis_paper_module_coverage_contract.py::"
+            "test_plectis_paper_module_coverage_contract_is_projected_into_modules"
         ),
     ]
     assert source_loci["required_closeout_proof"] == [
@@ -696,7 +696,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         (
             "PYTHONPATH=microcosm-substrate/src ./repo-pytest "
             "microcosm-substrate/tests/"
-            "test_microcosm_paper_module_coverage_contract.py -q"
+            "test_plectis_paper_module_coverage_contract.py -q"
         ),
     ]
     atlas_closeout = contract["atlas_source_coupling_closeout_contract"]
@@ -714,8 +714,8 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "system/lib/navigation_context_pack.py::_generated_projection_owner_selected_row",
         (
             "microcosm-substrate/tests/"
-            "test_microcosm_paper_module_coverage_contract.py::"
-            "test_microcosm_paper_module_coverage_contract_is_standard_backed"
+            "test_plectis_paper_module_coverage_contract.py::"
+            "test_plectis_paper_module_coverage_contract_is_standard_backed"
         ),
     ]
     assert atlas_closeout["required_closeout_proof"] == [
@@ -723,17 +723,17 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "./repo-python tools/meta/factory/build_system_atlas.py --check",
         (
             'AIW_CONTEXT_PACK_DISABLE_SEMANTIC=1 ./repo-python kernel.py '
-            '--context-pack "<Microcosm paper-module depth task>" '
+            '--context-pack "<Plectis paper-module depth task>" '
             "--context-budget 12000"
         ),
         (
             './repo-python kernel.py --coverage-enforcement-matrix '
-            '"<Microcosm paper-module depth task>" --context-budget 12000'
+            '"<Plectis paper-module depth task>" --context-budget 12000'
         ),
         (
             "PYTHONPATH=microcosm-substrate/src ./repo-pytest "
             "microcosm-substrate/tests/"
-            "test_microcosm_paper_module_coverage_contract.py -q"
+            "test_plectis_paper_module_coverage_contract.py -q"
         ),
     ]
     assert atlas_closeout["closeout_status_fields"] == [
@@ -765,10 +765,10 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     assert contract["depth_order"] == [
         "entry_packet_selects_microcosm_public_substrate",
         "behavior_first_screen_visible",
-        "microcosm_substrate_product_roof",
-        "microcosm_entry_lattice_route_depth",
-        "microcosm_public_export_type_plane_bridge",
-        "microcosm_runtime_organ_atlas_source_loci_depth",
+        "plectis_substrate_product_roof",
+        "plectis_entry_lattice_route_depth",
+        "plectis_public_export_type_plane_bridge",
+        "plectis_runtime_organ_atlas_source_loci_depth",
         "paper_module_coverage_metabolism_corpus_health",
         "paper_module_entry_projection_integrity_entry_count_honesty",
         "selected_module_card_then_source_evidence",
@@ -776,18 +776,18 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     assert contract["standard_type_plane_bridge"] == {
         "type_plane_row": (
             "codex/standards/std_standard_type_plane.json::"
-            "type_plane_rows.public_microcosm_exports"
+            "type_plane_rows.public_plectis_exports"
         ),
         "paper_module": (
-            "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+            "codex/doctrine/paper_modules/plectis_public_export_type_plane.md"
         ),
         "entry_route": (
             './repo-python kernel.py --entry "public Plectis export '
             'dissemination boundary" --context-budget 12000'
         ),
         "atlas_drilldowns": [
-            "paper_modules:microcosm_public_export_type_plane",
-            "paper_modules:microcosm_runtime_organ_atlas",
+            "paper_modules:plectis_public_export_type_plane",
+            "paper_modules:plectis_runtime_organ_atlas",
             "standards:std_microcosm",
             "standards:std_standard_type_plane",
         ],
@@ -797,11 +797,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         ),
     }
     assert contract["entry_intent_opening"] == {
-        "intent_id": "microcosm_paper_module_depth",
+        "intent_id": "plectis_paper_module_depth",
         "owner": "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
         "purpose": (
-            "Task-conditioned entry/context packets for Microcosm paper-module, "
-            "Atlas, coverage, and depth prompts must open Microcosm paper-module "
+            "Task-conditioned entry/context packets for Plectis paper-module, "
+            "Atlas, coverage, and depth prompts must open Plectis paper-module "
             "and type-plane handles before generic cognitive-operator or broad "
             "Atlas surfaces."
         ),
@@ -818,11 +818,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                 "step_id": "open_microcosm_depth_module_cards",
                 "command": (
                     "./repo-python kernel.py --option-surface paper_modules "
-                    "--band card --ids microcosm_entry_lattice,"
+                    "--band card --ids plectis_entry_lattice,"
                     "paper_module_coverage_metabolism,"
                     "paper_module_entry_projection_integrity,"
-                    "microcosm_public_export_type_plane,"
-                    "microcosm_runtime_organ_atlas,microcosm_substrate"
+                    "plectis_public_export_type_plane,"
+                    "plectis_runtime_organ_atlas,plectis_substrate"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
                 "role": "combined_microcosm_module_cards",
@@ -840,7 +840,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                 "step_id": "open_public_microcosm_export_type_plane",
                 "command": (
                     "./repo-python kernel.py --option-surface navigation_type_plane "
-                    "--band card --ids public_microcosm_exports"
+                    "--band card --ids public_plectis_exports"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
                 "role": "public_export_type_plane_card",
@@ -855,7 +855,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "context_pack_selected_row_order": [
             {
                 "kind_id": "paper_modules",
-                "row_id": "microcosm_entry_lattice",
+                "row_id": "plectis_entry_lattice",
                 "role": "entry_lattice",
             },
             {
@@ -875,22 +875,22 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             },
             {
                 "kind_id": "paper_modules",
-                "row_id": "microcosm_public_export_type_plane",
+                "row_id": "plectis_public_export_type_plane",
                 "role": "public_export_type_plane_bridge",
             },
             {
                 "kind_id": "paper_modules",
-                "row_id": "microcosm_runtime_organ_atlas",
+                "row_id": "plectis_runtime_organ_atlas",
                 "role": "runtime_organ_source_loci",
             },
             {
                 "kind_id": "navigation_type_plane",
-                "row_id": "public_microcosm_exports",
+                "row_id": "public_plectis_exports",
                 "role": "standard_type_plane_row",
             },
             {
                 "kind_id": "paper_modules",
-                "row_id": "microcosm_substrate",
+                "row_id": "plectis_substrate",
                 "role": "product_roof",
             },
         ],
@@ -898,11 +898,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             {
                 "command": (
                     "./repo-python kernel.py --option-surface paper_modules "
-                    "--band card --ids microcosm_entry_lattice,"
+                    "--band card --ids plectis_entry_lattice,"
                     "paper_module_coverage_metabolism,"
                     "paper_module_entry_projection_integrity,"
-                    "microcosm_public_export_type_plane,"
-                    "microcosm_runtime_organ_atlas,microcosm_substrate"
+                    "plectis_public_export_type_plane,"
+                    "plectis_runtime_organ_atlas,plectis_substrate"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
                 "role": "combined_microcosm_module_cards",
@@ -918,7 +918,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             {
                 "command": (
                     "./repo-python kernel.py --option-surface navigation_type_plane "
-                    "--band card --ids public_microcosm_exports"
+                    "--band card --ids public_plectis_exports"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
                 "role": "public_export_type_plane_card",
@@ -977,7 +977,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/standards/std_microcosm.json::paper_module_coverage_contract"
     )
     assert rule["projection_ref"] == (
-        "codex/doctrine/paper_modules/microcosm_entry_lattice.md::"
+        "codex/doctrine/paper_modules/plectis_entry_lattice.md::"
         "paper_module_coverage_contract"
     )
     assert rule["fields"] == [
@@ -1021,7 +1021,7 @@ def test_microcosm_paper_module_coverage_classifies_entry_packet_refs() -> None:
     }
 
 
-def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
+def test_plectis_paper_module_depth_roles_cover_all_classified_refs() -> None:
     contract = _std_microcosm()["paper_module_coverage_contract"]
     roles = contract["module_depth_roles"]
     role_paths: set[str] = set()
@@ -1037,16 +1037,16 @@ def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
     )
     assert classified == role_paths
     assert roles["product_roof"] == (
-        "codex/doctrine/paper_modules/microcosm_substrate.md"
+        "codex/doctrine/paper_modules/plectis_substrate.md"
     )
     assert roles["entry_lattice"] == (
-        "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
+        "codex/doctrine/paper_modules/plectis_entry_lattice.md"
     )
     assert roles["public_export_bridge"] == (
-        "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+        "codex/doctrine/paper_modules/plectis_public_export_type_plane.md"
     )
     assert roles["runtime_organ_source_loci"] == (
-        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md"
     )
     assert roles["coverage_metabolism"] == (
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
@@ -1055,7 +1055,7 @@ def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
         "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md"
     )
     assert roles["laboratory_boundary"] == (
-        "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+        "codex/doctrine/paper_modules/laboratory_metabolism.md"
     )
     assert roles["route_governance_support"] == contract[
         "supporting_lattice_modules"
@@ -1973,7 +1973,7 @@ def test_non_engine_room_legacy_modules_publish_reader_proof_boundaries() -> Non
         assert payload["source_authority"] == "legacy_markdown_projection", row_id
         assert "## Reader Proof Boundary" in markdown, row_id
         assert (
-            "public reader projection over a legacy Microcosm paper-module row"
+            "public reader projection over a legacy microcosm paper-module row"
             in compact_markdown
         ), row_id
         assert (
@@ -1997,20 +1997,20 @@ def test_non_engine_room_legacy_modules_publish_reader_proof_boundaries() -> Non
         assert "without claiming JSON capsule authority" in compact_markdown, row_id
 
 
-def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() -> None:
+def test_plectis_paper_module_coverage_contract_is_projected_into_modules() -> None:
     entry_lattice = (
-        REPO_ROOT / "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
+        REPO_ROOT / "codex/doctrine/paper_modules/plectis_entry_lattice.md"
     ).read_text(encoding="utf-8")
     product_roof = (
-        REPO_ROOT / "codex/doctrine/paper_modules/microcosm_substrate.md"
+        REPO_ROOT / "codex/doctrine/paper_modules/plectis_substrate.md"
     ).read_text(encoding="utf-8")
     public_export_bridge = (
         REPO_ROOT
-        / "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+        / "codex/doctrine/paper_modules/plectis_public_export_type_plane.md"
     ).read_text(encoding="utf-8")
     runtime_organ_atlas = (
         REPO_ROOT
-        / "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        / "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md"
     ).read_text(encoding="utf-8")
     coverage_metabolism = (
         REPO_ROOT
@@ -2023,8 +2023,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
 
     for required in [
         "std_microcosm.json::paper_module_coverage_contract",
-        "microcosm_public_export_type_plane",
-        "microcosm_runtime_organ_atlas",
+        "plectis_public_export_type_plane",
+        "plectis_runtime_organ_atlas",
         "runtime organ source-loci",
         "paper_module_coverage_metabolism",
         "paper_module_entry_projection_integrity",
@@ -2050,7 +2050,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         'AIW_CONTEXT_PACK_DISABLE_SEMANTIC=1 ./repo-python kernel.py --context-pack "<task>" --context-budget 12000',
         "--option-surface paper_modules --band cluster_flag",
         "--option-surface standards --band card --ids std_microcosm",
-        "--option-surface navigation_type_plane --band card --ids public_microcosm_exports",
+        "--option-surface navigation_type_plane --band card --ids public_plectis_exports",
         "--paper-module-coverage",
         "selected_depth_slice",
         "context_pack_budget_honesty_contract",
@@ -2067,7 +2067,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "system/lib/standard_option_surface.py::build_option_surface",
         "system/lib/standard_option_surface.py::_paper_module_compression_packet",
         "system/lib/standard_option_surface.py::_paper_module_compression_passport",
-        "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS",
+        "system/lib/navigation_context_pack.py::PLECTIS_PAPER_MODULE_DEPTH_ANCHORS",
         "system/lib/navigation_context_pack.py::BUDGET_TRIM_PROTECTED_ROWS",
         "system/lib/navigation_context_pack.py::_budget_trim",
         "hard_ceiling_selected_row_handles",
@@ -2089,7 +2089,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "build_system_atlas.py --check",
         "stale_source_coupling",
         "100% paper-module coverage means every authored module is routed, current, and drilldown-visible",
-        "microcosm_paper_module_depth",
+        "plectis_paper_module_depth",
         "navigation_type_plane",
         "entry-packet parity rule",
         "all authored modules up to date",
@@ -2103,7 +2103,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "`paper_module_coverage_metabolism`" in depends_line
     assert "`paper_module_entry_projection_integrity`" in depends_line
     assert (
-        "standard-backed role edge to `microcosm_runtime_organ_atlas` and "
+        "standard-backed role edge to `plectis_runtime_organ_atlas` and "
         "the direct dependency edges to `paper_module_coverage_metabolism` and "
         "`paper_module_entry_projection_integrity`"
     ) in entry_lattice
@@ -2114,7 +2114,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "Route public Plectis exports" in entry_lattice
     assert "Verify runtime organ source-loci depth" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
-    assert "microcosm_runtime_organ_atlas" in product_roof
+    assert "plectis_runtime_organ_atlas" in product_roof
     assert "Inspect runtime organ source-loci depth" in product_roof
     assert "paper_module_coverage_contract.module_depth_roles" in product_roof
     assert "paper_module_entry_projection_integrity" in product_roof
@@ -2132,13 +2132,13 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "microcosm_core/runtime_shell.py::RuntimeShell" in product_roof
     assert "microcosm_core/validators/public_entry_docs.py::_entry_packet_route_contract" in product_roof
     assert "paper_module_coverage_contract.source_loci_depth_contract" in product_roof
-    assert "test_microcosm_paper_module_coverage_contract.py::" in product_roof
+    assert "test_plectis_paper_module_coverage_contract.py::" in product_roof
     assert "runtime truth belongs to these loci" in product_roof
     assert "entry-packet paper-module ref classification" in public_export_bridge
     assert "primary/support module taxonomy" in public_export_bridge
     assert "module depth roles" in public_export_bridge
     assert "type-plane row consumer" in public_export_bridge
-    assert "microcosm_runtime_organ_atlas" in public_export_bridge
+    assert "plectis_runtime_organ_atlas" in public_export_bridge
     assert "entry-depth freshness binding" in public_export_bridge
     assert "paper_module_coverage_contract.source_loci_depth_contract" in public_export_bridge
     assert (
@@ -2148,7 +2148,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "Atlas source-coupling closeout" in public_export_bridge
     assert "source-loci depth" in public_export_bridge
     assert (
-        "`public_microcosm_exports` opens this bridge before generated public files"
+        "`public_plectis_exports` opens this bridge before generated public files"
         in public_export_bridge
     )
     assert "runtime organ source-loci depth" in public_export_bridge
@@ -2171,7 +2171,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         in public_export_bridge
     )
     assert (
-        "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+        "system/lib/navigation_context_pack.py::PLECTIS_PAPER_MODULE_DEPTH_ANCHORS"
         in public_export_bridge
     )
     assert "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS" in (
@@ -2197,8 +2197,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "runtime_organ_source_loci" in runtime_organ_atlas
     assert "paper_module_entry_projection_integrity" in public_export_bridge
     assert "entry/count projection integrity" in public_export_bridge
-    assert "microcosm_paper_module_depth" in coverage_metabolism
-    assert "microcosm_runtime_organ_atlas" in coverage_metabolism
+    assert "plectis_paper_module_depth" in coverage_metabolism
+    assert "plectis_runtime_organ_atlas" in coverage_metabolism
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
     assert "All-Corpus Compression Dispatch" in coverage_metabolism
@@ -2278,11 +2278,11 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "system/lib/standard_option_surface.py::build_option_surface" in coverage_metabolism
     assert "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS" in coverage_metabolism
     assert (
-        "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+        "system/lib/navigation_context_pack.py::PLECTIS_PAPER_MODULE_DEPTH_ANCHORS"
         in coverage_metabolism
     )
     assert (
-        "system/lib/navigation_context_pack.py::_is_microcosm_paper_module_depth_query"
+        "system/lib/navigation_context_pack.py::_is_plectis_paper_module_depth_query"
         in coverage_metabolism
     )
     assert "std_microcosm.json::paper_module_coverage_contract.source_loci_depth_contract" in coverage_metabolism
@@ -2307,9 +2307,9 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "tools/meta/factory/build_system_atlas.py::main" in entry_projection_integrity
     assert "system/lib/navigation_index_spine.py::_system_atlas_source_coupling" in entry_projection_integrity
     assert "system/lib/kind_atlas.py::_system_atlas_currentness" in entry_projection_integrity
-    assert "explicit Microcosm consumers" in entry_projection_integrity
-    assert "microcosm_public_export_type_plane" in entry_projection_integrity
-    assert "microcosm_runtime_organ_atlas" in entry_projection_integrity
+    assert "explicit Plectis consumers" in entry_projection_integrity
+    assert "plectis_public_export_type_plane" in entry_projection_integrity
+    assert "plectis_runtime_organ_atlas" in entry_projection_integrity
     assert "entry/count projection honesty contract" in entry_projection_integrity
     assert "Context-Pack Budget-Honesty Gate" in entry_projection_integrity
     assert "context_pack_budget_honesty_contract" in entry_projection_integrity
@@ -2320,24 +2320,24 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "hard_ceiling_selected_row_handles" in entry_projection_integrity
 
 
-def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
+def test_public_plectis_exports_type_plane_row_has_paper_module_bridge() -> None:
     standard = _std_microcosm()
     bridge = standard["paper_module_coverage_contract"]["standard_type_plane_bridge"]
     type_plane = _std_standard_type_plane()
     row = next(
         row
         for row in type_plane["type_plane_rows"]
-        if row["type_id"] == "public_microcosm_exports"
+        if row["type_id"] == "public_plectis_exports"
     )
 
     assert bridge["paper_module"] in row["governing_standard_refs"]
     assert bridge["paper_module"] in row["projection_refs"]
     assert (
-        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md"
         in row["governing_standard_refs"]
     )
     assert (
-        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        "codex/doctrine/paper_modules/plectis_runtime_organ_atlas.md"
         in row["projection_refs"]
     )
     assert row["entry_depth_contract"]["standard_bridge"] == (
@@ -2345,10 +2345,10 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "paper_module_coverage_contract.standard_type_plane_bridge"
     )
     assert row["entry_depth_contract"]["paper_module_depth_order"] == [
-        "microcosm_substrate",
-        "microcosm_entry_lattice",
-        "microcosm_public_export_type_plane",
-        "microcosm_runtime_organ_atlas",
+        "plectis_substrate",
+        "plectis_entry_lattice",
+        "plectis_public_export_type_plane",
+        "plectis_runtime_organ_atlas",
         "paper_module_coverage_metabolism",
         "paper_module_entry_projection_integrity",
         "public_constellation_strategy",
@@ -2364,7 +2364,7 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "navigation_hologram_theory",
     ]
     assert row["entry_depth_contract"]["context_boundary_depth"] == [
-        "idea_microcosm_metabolism",
+        "laboratory_metabolism",
         "public_constellation_strategy",
         "dissemination_strategy",
     ]
@@ -2384,7 +2384,7 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
     ]
     assert row["compression_passport"]["safe_drilldown"] == (
         "./repo-python kernel.py --option-surface navigation_type_plane --band card "
-        "--ids public_microcosm_exports"
+        "--ids public_plectis_exports"
     )
     assert "plectis paper module depth" in row["compression_passport"][
         "cluster_keys"
@@ -2394,6 +2394,6 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
     )
     assert "--entry" in row["entry_depth_contract"]["control_entry"]
     assert any(
-        "microcosm_public_export_type_plane" in probe
+        "plectis_public_export_type_plane" in probe
         for probe in row["validation_probe"]
     )

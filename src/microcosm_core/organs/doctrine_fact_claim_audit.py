@@ -1,22 +1,3 @@
-"""Fixture-bounded audit for public doctrine fact claims and numeric bindings.
-
-[PURPOSE] Check that exported public doctrine fact fixtures keep fact counts,
-code loci, DAG references, and volatile numeric claims tied to inspectable
-public evidence instead of drifting into unsupported narrative claims.
-[INTERFACE] Exposes the CrownJewel `evaluate`, `evaluate_negative_case`, fixture
-runner, exported-bundle runner, and CLI entrypoint for the
-`doctrine_fact_claim_audit` organ.
-[FLOW] Load fact, DAG, numeric-claim, and projection-protocol fixtures; import
-the copied derived-fact helper from the source manifest; verify code loci and
-DAG refs; run synthetic numeric-claim binding cases; return a body-free receipt.
-[DEPENDENCIES] Uses Crown Jewel organ helpers, copied `derived_fact_hologram.py`
-source, strict JSON fixtures, temporary directories, and public-root source
-manifest validation.
-[CONSTRAINTS] This does not prove a comprehension engine, minimum read graph,
-private doctrine export, release readiness, semantic truth, or whole-system
-correctness.
-"""
-
 from __future__ import annotations
 
 import copy
@@ -64,6 +45,12 @@ AUTHORITY_CEILING = {
     "private_doctrine_export_authorized": False,
     "release_authorized": False,
 }
+BLOCKED_FACT_CLAIM_IDS = (
+    "comprehension_engine",
+    "minimum_read_graph",
+    "private_doctrine_export",
+    "release_authorized",
+)
 ANTI_CLAIM = (
     "Doctrine fact claim audit checks only public fixture fact counts, code-loci "
     "existence, anchor presence, DAG references, and synthetic volatile numeric "
@@ -108,7 +95,6 @@ SPEC = CrownJewelSpec(
 
 
 def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
-    """[ACTION] Choose the base directory for manifest-relative public source refs."""
     manifest_path = source_manifest.get("source_manifest_path")
     if isinstance(manifest_path, str) and manifest_path:
         return Path(manifest_path).parent
@@ -116,7 +102,6 @@ def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
 
 
 def _resolve_code_locus(locus: dict[str, Any], *, manifest_base: Path) -> Path:
-    """[ACTION] Resolve a fact code-locus path without escaping absolute refs."""
     path = Path(str(locus.get("path") or ""))
     if path.is_absolute():
         return path
@@ -129,7 +114,6 @@ def _load_derived_fact_module(
     input_dir: Path,
     findings: list[dict[str, Any]],
 ) -> Any | None:
-    """[ACTION] Import the copied derived-fact helper required for numeric-claim checks."""
     manifest_base = _manifest_base(source_manifest, input_dir)
     module_path = manifest_base / "source_modules/system/lib/derived_fact_hologram.py"
     if not module_path.is_file():
@@ -175,7 +159,6 @@ def _fact_assertions_for_sections(
     case_id: str,
     sections: list[str],
 ) -> list[Any]:
-    """[ACTION] Build synthetic FactAssertion rows for numeric-claim fixture sections."""
     assertion_type = getattr(module, "FactAssertion")
     return [
         assertion_type(
@@ -194,7 +177,6 @@ def _fact_assertions_for_sections(
 
 
 def _strings(value: Any) -> list[str]:
-    """[ACTION] Normalize a list-valued fixture field to strings."""
     return [str(item) for item in value if isinstance(item, str)] if isinstance(value, list) else []
 
 
@@ -204,7 +186,6 @@ def _evaluate_numeric_claims(
     source_manifest: dict[str, Any],
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Run copied numeric-claim binding logic against synthetic fixture cases."""
     payload = load_json_object(input_dir / "numeric_claims.json", findings, label="numeric claims")
     module = _load_derived_fact_module(
         source_manifest=source_manifest,
@@ -341,8 +322,137 @@ def _evaluate_numeric_claims(
     }
 
 
+def _first_screen_fact_claim_rows(
+    *,
+    fact_rows: list[dict[str, Any]],
+    expected_count: Any,
+    code_locus_count: int,
+    verified_locus_count: int,
+    dag_edges: list[dict[str, Any]],
+    unknown_edge_refs: list[str],
+    numeric_claims: dict[str, Any],
+) -> list[dict[str, Any]]:
+    source_route = "doctrine_fact_claim_audit.py::evaluate/_evaluate_numeric_claims"
+    ceiling = AUTHORITY_CEILING["authority_ceiling"]
+    numeric_blocking_count = int(numeric_claims.get("unbound_numeric_blocking_count") or 0)
+    numeric_detector_case_count = int(
+        numeric_claims.get("unbound_numeric_detector_case_count") or 0
+    )
+    return [
+        {
+            "row_id": "fact_table_count_matches",
+            "source_route": source_route,
+            "fixture_role": "fact_assertions_json",
+            "expected_status": "pass",
+            "observed_status": "pass" if expected_count == len(fact_rows) else "blocked",
+            "evaluator_signal": expected_count == len(fact_rows),
+            "allowed_claim": "public fixture fact counts match the asserted fact table",
+            "blocked_claims": list(BLOCKED_FACT_CLAIM_IDS),
+            "proof_refs": {
+                "expected_fact_count": expected_count,
+                "observed_fact_count": len(fact_rows),
+            },
+            "proof_floor": {
+                "declared_count_matches_table": expected_count == len(fact_rows),
+            },
+            "downgrade_sentence": (
+                "This row proves only fixture fact-count consistency, not doctrine "
+                "comprehension."
+            ),
+            "authority_ceiling": ceiling,
+            "body_in_receipt": False,
+        },
+        {
+            "row_id": "code_loci_anchors_verified",
+            "source_route": source_route,
+            "fixture_role": "copied_public_code_loci",
+            "expected_status": "pass",
+            "observed_status": (
+                "pass"
+                if code_locus_count > 0 and verified_locus_count == code_locus_count
+                else "blocked"
+            ),
+            "evaluator_signal": code_locus_count > 0
+            and verified_locus_count == code_locus_count,
+            "allowed_claim": (
+                "copied public code-locus paths and anchors exist for the audited facts"
+            ),
+            "blocked_claims": list(BLOCKED_FACT_CLAIM_IDS),
+            "proof_refs": {
+                "code_locus_count": code_locus_count,
+                "verified_code_locus_count": verified_locus_count,
+            },
+            "proof_floor": {
+                "at_least_one_code_locus": code_locus_count > 0,
+                "all_code_loci_verified": verified_locus_count == code_locus_count,
+            },
+            "downgrade_sentence": (
+                "This row proves copied public anchor presence, not source ownership "
+                "or private doctrine export."
+            ),
+            "authority_ceiling": ceiling,
+            "body_in_receipt": False,
+        },
+        {
+            "row_id": "fact_dag_refs_resolve",
+            "source_route": source_route,
+            "fixture_role": "fact_dag_json",
+            "expected_status": "pass",
+            "observed_status": "pass" if not unknown_edge_refs else "blocked",
+            "evaluator_signal": not unknown_edge_refs,
+            "allowed_claim": "fact-DAG edges reference audited fact ids",
+            "blocked_claims": list(BLOCKED_FACT_CLAIM_IDS),
+            "proof_refs": {
+                "dag_edge_count": len(dag_edges),
+                "unknown_edge_refs": sorted(set(unknown_edge_refs)),
+            },
+            "proof_floor": {
+                "dag_edges_loaded": len(dag_edges) > 0,
+                "no_dead_fact_refs": not unknown_edge_refs,
+            },
+            "downgrade_sentence": (
+                "This row proves local fixture graph consistency, not a minimum "
+                "read graph for the whole doctrine plane."
+            ),
+            "authority_ceiling": ceiling,
+            "body_in_receipt": False,
+        },
+        {
+            "row_id": "volatile_numeric_claims_bound_or_detected",
+            "source_route": source_route,
+            "fixture_role": "numeric_claims_json",
+            "expected_status": "pass",
+            "observed_status": "pass" if numeric_blocking_count == 0 else "blocked",
+            "evaluator_signal": numeric_blocking_count == 0
+            and numeric_detector_case_count > 0,
+            "allowed_claim": (
+                "volatile numeric claims are either freshness-bound by fact "
+                "assertions or surfaced as blocking evidence"
+            ),
+            "blocked_claims": list(BLOCKED_FACT_CLAIM_IDS),
+            "proof_refs": {
+                "numeric_claim_case_count": numeric_claims.get("numeric_claim_case_count"),
+                "unbound_numeric_detector_case_count": numeric_detector_case_count,
+                "unbound_numeric_detection_count": numeric_claims.get(
+                    "unbound_numeric_detection_count"
+                ),
+                "unbound_numeric_blocking_count": numeric_blocking_count,
+            },
+            "proof_floor": {
+                "detector_fixture_present": numeric_detector_case_count > 0,
+                "no_current_unbound_numeric_claims": numeric_blocking_count == 0,
+            },
+            "downgrade_sentence": (
+                "This row proves numeric-claim binding behavior on fixtures, not "
+                "currentness for every doctrine statement."
+            ),
+            "authority_ceiling": ceiling,
+            "body_in_receipt": False,
+        },
+    ]
+
+
 def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Evaluate doctrine fact count, code-locus, DAG, and numeric-claim fixtures."""
     findings: list[dict[str, Any]] = []
     assertions = load_json_object(input_dir / "fact_assertions.json", findings, label="fact assertions")
     dag = load_json_object(input_dir / "fact_dag.json", findings, label="fact DAG")
@@ -420,6 +530,15 @@ def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any
                 observed=sorted(set(unknown_edge_refs)),
             )
         )
+    first_screen_fact_claim_rows = _first_screen_fact_claim_rows(
+        fact_rows=fact_rows,
+        expected_count=expected_count,
+        code_locus_count=code_locus_count,
+        verified_locus_count=verified_locus_count,
+        dag_edges=dag_edges,
+        unknown_edge_refs=unknown_edge_refs,
+        numeric_claims=numeric_claims,
+    )
 
     return {
         "status": PASS if not findings else "blocked",
@@ -430,6 +549,7 @@ def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any
         "dag_edge_count": len(dag_edges),
         **numeric_claims,
         "truth_gate": "fact_count_code_loci_fixture_dag_and_numeric_claims_only",
+        "first_screen_fact_claim_rows": first_screen_fact_claim_rows,
         "comprehension_engine_claim_authorized": False,
         "minimum_read_graph_claim_authorized": False,
         "findings": findings,
@@ -437,12 +557,10 @@ def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    """[ACTION] Write a deterministic JSON fixture for a negative-case replay."""
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _semantic_case_payloads(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
-    """[ACTION] Load and deep-copy the semantic fixture payloads used by mutations."""
     payloads = {
         name: load_json_object(input_dir / name, findings, label=name)
         for name in ("fact_assertions.json", "fact_dag.json", "numeric_claims.json")
@@ -455,7 +573,6 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
-    """[ACTION] Mutate one doctrine fact fixture case and return observed error codes."""
     findings: list[dict[str, Any]] = []
     source_input = Path(input_dir)
     public_root = public_root_for_path(source_input)
@@ -526,7 +643,6 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the doctrine fact claim audit organ over fixture inputs."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -543,7 +659,6 @@ def run_doctrine_fact_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the exported bundle form of the doctrine fact claim audit."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -556,7 +671,6 @@ def run_doctrine_fact_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Dispatch CLI arguments through the doctrine fact audit entrypoint."""
     return main_for_spec(
         SPEC,
         argv,

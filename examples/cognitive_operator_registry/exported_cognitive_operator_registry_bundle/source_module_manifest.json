@@ -4,7 +4,7 @@
   "bundle_id": "public_cognitive_operator_registry_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "cognitive_operator_registry_source_open_body_import",
-  "module_count": 3,
+  "module_count": 2,
   "modules": [
     {
       "anchor_count": 5,
@@ -69,42 +69,24 @@
         "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_bundle_validates_runtime_shape"
       ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 26952,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 671,
-      "material_class": "public_macro_tool_body",
-      "module_id": "cognitive_operator_registry_macro_validator_body_import",
-      "path": "source_modules/system/lib/cognitive_operator_registry.py",
-      "required_anchors": [
-        "def validate_cognitive_operator_registry",
-        "def _operator_validation",
-        "dogfood_receipt_refs",
-        "affordance_passport_coverage",
-        "operator_id"
-      ],
-      "sha256": "518e50222334ab7b35bd7eed0a4d8f1dda2b3a498b9f44fbf7cd4237b314fe21",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
-      "source_ref": "system/lib/cognitive_operator_registry.py",
-      "source_role": "Macro cognitive-operator registry projection and validation tool body that enforces required operator fields, active-operator dogfood evidence, and affordance passport coverage.",
-      "source_sha256": "518e50222334ab7b35bd7eed0a4d8f1dda2b3a498b9f44fbf7cd4237b314fe21",
-      "target_ref": "microcosm-substrate/examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/system/lib/cognitive_operator_registry.py",
-      "target_sha256": "518e50222334ab7b35bd7eed0a4d8f1dda2b3a498b9f44fbf7cd4237b314fe21",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_bundle_validates_runtime_shape"
-      ]
     }
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "cognitive_operator_registry_macro_validator_body_import",
+      "path": "source_modules/system/lib/cognitive_operator_registry.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/cognitive_operator_registry.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/cognitive_operator_registry.py"
+    }
+  ],
   "schema_version": "public_microcosm_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_operator_voice_recipient_send_state_or_credential_equivalent_material",
   "source_import_class": "copied_non_secret_macro_body",

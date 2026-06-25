@@ -5,8 +5,10 @@ import json
 import shutil
 from pathlib import Path
 
+from microcosm_core.organs._crown_jewel_common import card_for_result
 from microcosm_core.organs.bounded_autonomy_campaign_packet import (
     EXPECTED_NEGATIVE_CASES,
+    SPEC,
     run,
     run_bounded_autonomy_bundle,
 )
@@ -193,6 +195,9 @@ def test_bounded_autonomy_bundle_runs(tmp_path: Path) -> None:
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_bounded_autonomy_campaign_packet_bundle"
+    card = card_for_result(SPEC, result)
+    assert all(path.startswith("<host-temp>/") for path in card["receipt_paths"])
+    assert not any("/private/tmp" in path for path in card["receipt_paths"])
 
 
 def test_bounded_autonomy_source_modules_are_exact_macro_body_imports() -> None:

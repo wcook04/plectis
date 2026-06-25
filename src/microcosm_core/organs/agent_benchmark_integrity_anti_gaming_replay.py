@@ -1,5 +1,4 @@
-"""
-[PURPOSE]
+"""[PURPOSE]
 - Teleology: Make benchmark-integrity replay evidence inspectable without trusting claimed agent-task completions at face value.
 - Mechanism: Read replay rows, resolve their evidence references, and quarantine rows that trip evaluator-edit, train/test leakage, hidden-gold access, final-answer-only grading, score-overclaim, pass@k cherry-picking, solution/body leakage, or provider-material leakage checks.
 - Non-goal: Claim a benchmark score, establish agent capability, expose private issue/oracle bodies, run providers, mutate live repositories, or authorize release.
@@ -22,6 +21,7 @@
 - Receipts carry evidence refs, counts, hashes, spans, findings, and claim ceilings instead of private issue bodies, oracle patches, hidden-gold bodies, provider payloads, or raw solution material.
 - A passing row means the wired evidence cleared this validator's anti-gaming floor; it does not mean the underlying agent task was completed or that any external benchmark score is authorized.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -177,6 +177,16 @@ AUTHORITY_CEILING = {
     "live_repo_mutation_authorized": False,
     "release_authorized": False,
 }
+BLOCKED_REPLAY_CLAIM_IDS = (
+    "benchmark_score_claim",
+    "swe_bench_performance_claim",
+    "hidden_gold_access",
+    "oracle_patch_body_export",
+    "private_issue_body_export",
+    "provider_payload_export",
+    "live_repo_mutation",
+    "release_authorized",
+)
 ANTI_CLAIM = (
     "Agent benchmark integrity anti-gaming replay validates copied source-open "
     "macro pattern provenance bodies and body-free regression fixture rows for "
@@ -2330,6 +2340,108 @@ def validate_replay_observations(
     }
 
 
+def _first_screen_integrity_rows(
+    replay_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """[ACTION] Project replay rows into body-free first-screen integrity receipts.
+
+    - Teleology: Projects benchmark-integrity results through _first_screen_integrity_rows into
+      a human/agent start-here surface that preserves evidence handles without expanding full
+      payload bodies.
+    - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
+      blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
+      private scans stay omitted.
+    - Fails: Missing optional payload sections collapse to empty counts or False boundary flags;
+      malformed required result shapes fail only when the existing projection code dereferences
+      them."""
+    source_route = (
+        "agent_benchmark_integrity_anti_gaming_replay.py::"
+        "_validate_replay_row/validate_replay_observations"
+    )
+    ceiling = AUTHORITY_CEILING["authority_ceiling"]
+    rows: list[dict[str, Any]] = []
+    for row in sorted(
+        replay_rows,
+        key=lambda item: str(item.get("replay_id") or ""),
+    ):
+        computed_verdict = str(row.get("computed_integrity_verdict") or "")
+        declared_verdict = str(row.get("declared_integrity_verdict") or "")
+        reason_codes = _strings(row.get("reason_codes"))
+        parsed_evidence = row.get("parsed_evidence_integrity")
+        parsed = parsed_evidence if isinstance(parsed_evidence, dict) else {}
+        real_session = row.get("real_session_integrity_evidence")
+        session = real_session if isinstance(real_session, dict) else {}
+        evidence_passes = (
+            row.get("evaluator_config_hash_matches_policy") is True
+            and row.get("source_artifact_evidence_verified") is True
+            and row.get("real_benchmark_trace_verified") is True
+            and parsed.get("evidence_passes") is True
+            and session.get("session_evidence_passes") is True
+        )
+        rows.append(
+            {
+                "row_id": str(row.get("replay_id") or row.get("case_id") or "replay"),
+                "source_route": source_route,
+                "fixture_role": (
+                    "quarantine_replay"
+                    if computed_verdict == "quarantine" or reason_codes
+                    else "integrity_pass_replay"
+                ),
+                "expected_status": computed_verdict,
+                "observed_status": declared_verdict or computed_verdict,
+                "evaluator_signal": evidence_passes
+                and computed_verdict == declared_verdict,
+                "case_id": str(row.get("case_id") or ""),
+                "allowed_claim": (
+                    "body-free replay evidence may support this row's computed "
+                    "integrity_pass or quarantine verdict"
+                ),
+                "blocked_claims": list(BLOCKED_REPLAY_CLAIM_IDS),
+                "proof_refs": {
+                    "file_access_log_ref": row.get("file_access_log_ref"),
+                    "contamination_check_ref": row.get("contamination_check_ref"),
+                    "trusted_reference_score_ref": row.get("trusted_reference_score_ref"),
+                    "real_benchmark_trace_ref": row.get("real_benchmark_trace_ref"),
+                    "source_artifact_evidence_ref_count": row.get(
+                        "source_artifact_evidence_ref_count"
+                    ),
+                },
+                "proof_floor": {
+                    "locked_evaluator_config_hash_matches_policy": row.get(
+                        "evaluator_config_hash_matches_policy"
+                    )
+                    is True,
+                    "source_artifact_evidence_verified": row.get(
+                        "source_artifact_evidence_verified"
+                    )
+                    is True,
+                    "real_benchmark_trace_verified": row.get(
+                        "real_benchmark_trace_verified"
+                    )
+                    is True,
+                    "parsed_evidence_passes": parsed.get("evidence_passes") is True,
+                    "real_session_evidence_passes": session.get(
+                        "session_evidence_passes"
+                    )
+                    is True,
+                },
+                "reason_codes": reason_codes,
+                "downgrade_sentence": (
+                    "This row proves a quarantine path fired, not a benchmark "
+                    "capability score."
+                    if computed_verdict == "quarantine" or reason_codes
+                    else (
+                        "This row proves replay-integrity evidence for a fixture "
+                        "slice, not a benchmark score."
+                    )
+                ),
+                "authority_ceiling": ceiling,
+                "body_in_receipt": False,
+            }
+        )
+    return rows
+
+
 def validate_public_trace(
     public_trace: dict[str, Any],
     *,
@@ -2348,7 +2460,6 @@ def validate_public_trace(
       validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
       from the strict readers it calls.
 
-    Fold the recomputed public trace into organ-level findings.
     The macro builder recomputes each replay's integrity verdict from
     contamination, file-access, and locked-evaluator spans. Any
     computed-vs-declared mismatch becomes an organ finding."""
@@ -2405,6 +2516,7 @@ def validate_public_trace(
         "findings": findings,
         "observed_negative_cases": {},
     }
+
 
 def _public_trace_open_body_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts.
@@ -2517,6 +2629,9 @@ def _build_result(
         real_trace_evidence_by_ref=real_trace_evidence_by_ref,
         input_dir=input_dir,
         public_root=public_root,
+    )
+    first_screen_integrity_rows = _first_screen_integrity_rows(
+        observations["replay_rows"]
     )
     public_trace = build_public_benchmark_integrity_anti_gaming_trace(input_dir)
     public_trace_validation = validate_public_trace(
@@ -2654,7 +2769,9 @@ def _build_result(
         "quarantine_count": observations["quarantine_count"],
         "benchmark_cases": benchmark_cases["benchmark_cases"],
         "replay_rows": observations["replay_rows"],
+        "first_screen_integrity_rows": first_screen_integrity_rows,
     }
+
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Project the validation result into a compact board for human review.
@@ -2726,6 +2843,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "missing_replay_case_ids": result["missing_replay_case_ids"],
         "benchmark_cases": result["benchmark_cases"],
         "replay_rows": result["replay_rows"],
+        "first_screen_integrity_rows": result["first_screen_integrity_rows"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_module_imports": result["source_module_imports"],
         "source_open_body_imports": result["source_open_body_imports"],
@@ -2941,6 +3059,7 @@ def run_benchmark_integrity_bundle(
     write_json_atomic(bundle_path, payload)
     return payload
 
+
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Project the result into the command-card shape with omitted payload boundaries.
 
@@ -3002,6 +3121,18 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "body_material_status": result.get("body_material_status"),
             "source_modules_pass": result.get("source_modules_pass") is True,
         },
+        "first_screen": {
+            "integrity_row_count": len(
+                result.get("first_screen_integrity_rows") or []
+            ),
+            "integrity_row_ids": [
+                str(row.get("row_id"))
+                for row in result.get("first_screen_integrity_rows") or []
+                if isinstance(row, dict) and row.get("row_id")
+            ],
+            "blocked_claim_ids": list(BLOCKED_REPLAY_CLAIM_IDS),
+            "body_in_receipt": False,
+        },
         "public_trace": {
             "span_count": result.get("public_trace_span_count"),
             "integrity_pass_count": result.get("public_trace_integrity_pass_count"),
@@ -3045,6 +3176,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         },
     }
 
+
 def _parser() -> argparse.ArgumentParser:
     """[ACTION] Build the CLI parser for benchmark-integrity replay commands.
 
@@ -3067,6 +3199,7 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser.add_argument("--out", required=True)
     bundle_parser.add_argument("--card", action="store_true")
     return parser
+
 
 def main(argv: list[str] | None = None) -> int:
     """[ACTION] Dispatch CLI arguments to benchmark-integrity run and bundle commands.

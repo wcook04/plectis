@@ -238,6 +238,9 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PUBLIC_TESTS ?=",
         "tests/test_package_data_contract.py",
         "tests/test_evidence_truth_floor.py",
+        "tests/test_artifact_budget.py",
+        "tests/test_release_claim_portfolio.py",
+        "tests/test_release_candidate_semantic_action.py",
         ".PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean",
         "Microcosm public repo commands:",
         "make install             create .venv and install test extras",
@@ -281,6 +284,8 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         'if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
         "ci: test smoke package-smoke",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
+        "$(PYTHON) scripts/check_artifact_budget.py --report",
+        "$(PYTHON) scripts/check_artifact_budget.py --check",
         "rm -rf $(SMOKE_OUT) $(PYTEST_TMP_ROOT) $(PACKAGE_SMOKE_TMP_ROOT) .microcosm/test-tmp",
     ):
         assert required in text
@@ -294,6 +299,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "smoke",
         "package-smoke",
         "ci",
+        "artifact-budget",
         "standalone-export",
         "clean",
     ):

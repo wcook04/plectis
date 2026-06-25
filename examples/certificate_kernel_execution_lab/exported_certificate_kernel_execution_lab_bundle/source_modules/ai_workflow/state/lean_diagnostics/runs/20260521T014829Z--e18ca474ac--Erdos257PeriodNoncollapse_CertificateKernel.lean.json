@@ -1,6 +1,6 @@
 {
   "body_in_receipt": false,
-  "contamination_class": "private_body_exact_match",
+  "contamination_class": "restricted_private_source_ref",
   "matched_private_ref": "state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
   "schema_version": "microcosm_withheld_private_source_stub_v1",
   "status": "withheld_private_control_plane_body"

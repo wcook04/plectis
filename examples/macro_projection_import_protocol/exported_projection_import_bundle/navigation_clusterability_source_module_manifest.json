@@ -3,59 +3,36 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "navigation_clusterability_source_modules_import",
-  "module_count": 2,
-  "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 23675,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 525,
-      "material_class": "public_macro_tool_body",
-      "module_id": "navigation_clusterability_body_import",
-      "required_anchors": [
-        "def build_navigation_clusterability_audit(",
-        "\"kind\": \"navigation_clusterability_audit\"",
-        "HIGH_CARDINALITY_THRESHOLD",
-        "cluster_flag_status",
-        "measure_all_rows"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_ref": "system/lib/navigation_clusterability.py",
-      "source_role": "High-cardinality option-surface clusterability audit that checks cluster_flag adapters, grouping keys, budget relation, and debt rows before navigation packets expand row bodies.",
-      "source_sha256": "94b6fb8116a15717e0b6e4a410196836ba055b9d7d97c1aa1a7bbd14539f7b3d",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
-      "target_sha256": "94b6fb8116a15717e0b6e4a410196836ba055b9d7d97c1aa1a7bbd14539f7b3d"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 5049,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 106,
-      "material_class": "public_macro_tool_body",
-      "module_id": "navigation_clusterability_test_body_import",
-      "required_anchors": [
-        "test_clusterability_audit_classifies_remaining_high_cardinality_kinds",
-        "test_clusterability_quick_profile_defers_measuring_implemented_cluster_payloads",
-        "test_clusterability_audit_cli_emits_json",
-        "missing_cluster_adapter_count",
-        "clusterability:transform_job_receipts"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_ref": "system/server/tests/test_navigation_clusterability.py",
-      "source_role": "Focused regression tests for clusterability audit rows, quick-profile deferral, CLI JSON emission, and absence of remaining high-cardinality cluster debt.",
-      "source_sha256": "7a7adc5511a771b1ae3840e2bc2de2a314b269c595fb6a54a95bfb6a0ad091db",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
-      "target_sha256": "7a7adc5511a771b1ae3840e2bc2de2a314b269c595fb6a54a95bfb6a0ad091db"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing clusterability audit regression contract; copied source modules are body evidence, not authority to run live macro kernel routing state or mutate annex/catalog substrates.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "navigation_clusterability_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/navigation_clusterability.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/navigation_clusterability.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "navigation_clusterability_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_navigation_clusterability.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_navigation_clusterability.py"
+    }
+  ],
   "schema_version": "macro_projection_navigation_clusterability_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

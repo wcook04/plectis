@@ -1,42 +1,27 @@
 {
-  "schema_version": "macro_projection_projection_loss_audit_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "projection_loss_audit_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
   "body_storage_policy": "exact_non_secret_projection_loss_audit_source_module_copied_into_public_projection_bundle",
-  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
-  "module_count": 1,
-  "modules": [
-    {
-      "module_id": "projection_loss_audit_body_import",
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_ref": "tools/meta/control/projection_loss_audit.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/projection_loss_audit.py",
-      "source_role": "Audits where route truth is lost across L0/L1/L2/L3 route-worker packet compression, comparing baseline edges against node-card, relation-card, and slim Rosetta surfaces without running providers or promoting route edges.",
-      "source_sha256": "ed9a26f3c58ad818889828cf726c3f8f934a0361cf7becb8e1b15e0163cf07a8",
-      "target_sha256": "ed9a26f3c58ad818889828cf726c3f8f934a0361cf7becb8e1b15e0163cf07a8",
-      "sha256_match": true,
-      "line_count": 218,
-      "byte_count": 9393,
-      "required_anchors": [
-        "STATE_REL = \"state/raw_seed_routing_pilot/projection_loss_audits\"",
-        "def _edge_triple(",
-        "def _node_signal(",
-        "def _relation_signal(",
-        "def _slim_signal(",
-        "def _verb_recoverable_from_slim(",
-        "def audit_projection_loss(",
-        "\"schema_version\": \"projection_loss_audit_v1\""
-      ],
-      "anchor_count": 8,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_route_graph_export_no_write_receipt_authority_no_provider_payload_bodies"
-    }
-  ],
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "projection_loss_audit_source_modules_import",
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and read-only macro projection-loss audit smoke checks; copied projection-loss-audit source is body evidence, not authority to write projection-loss audit receipts, mutate route graphs, update canonical route state, execute live providers, export prompt/operator/provider bodies, inspect browser/HUD live access, inspect private account/session state, or send recipient material",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, provider payload bodies, provider response bodies, operator prompt bodies, browser/HUD live-access material, account/session state, cookies, credentials, baseline payload bodies beyond public-safe fixture refs, recipient-send state, or projection-loss audit output bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "projection_loss_audit_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/projection_loss_audit.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/projection_loss_audit.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/projection_loss_audit.py"
+    }
+  ],
+  "schema_version": "macro_projection_projection_loss_audit_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -54,6 +39,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_projection_loss_audit_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_projection_loss_audit_source_compiles_and_preserves_read_only_boundary",

@@ -61,6 +61,16 @@ PROOF_ANTI_CLAIM = (
     "formal evidence-cell anchor receipt refs as diagnostic evidence. It does not run Lean, "
     "call providers, publish proof bodies, prove runtime correctness, or authorize later organs."
 )
+BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS = [
+    "formal_proof_authority_claim",
+    "theorem_correctness_claim",
+    "lean_execution_claim",
+    "runtime_correctness_claim",
+    "provider_payload_authority_claim",
+    "proof_body_publication_claim",
+    "source_mutation_authorized",
+    "release_authorized",
+]
 
 BODY_MATERIAL_STATUS = "real_ring2_diagnostic_receipt_refs"
 EVIDENCE_ANCHOR_STATUS = "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs"
@@ -323,9 +333,9 @@ SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS = [
             "microcosm_core/organs/proof_diagnostic_evidence_spine.py"
         ),
         "path": "source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
-        "sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
-        "source_sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
-        "target_sha256": "sha256:582d8b1c7dec03381fcca5b719c285c47a7c351dc38757108ad0b8b4ef6e0987",
+        "sha256": "computed_from_source_ref_at_validation_time",
+        "source_sha256": "computed_from_source_ref_at_validation_time",
+        "target_sha256": "computed_from_target_ref_at_validation_time",
         "source_to_target_relation": "exact_copy",
         "source_import_class": "copied_non_secret_public_substrate_body",
         "material_class": "public_microcosm_organ_source_body",
@@ -1142,7 +1152,13 @@ def validate_source_body_floor_artifacts(
         target_ref = str(expected.get("target_ref") or row.get("target_ref") or "")
         source_ref = str(row.get("source_ref") or "")
         expected_source_ref = str(expected.get("source_ref") or source_ref)
-        expected_sha256 = str(expected.get("sha256") or "")
+        source_path = _resolve_public_ref(public_root, expected_source_ref)
+        source_file_present = source_path is not None and source_path.is_file()
+        source_text = source_path.read_text(encoding="utf-8") if source_file_present else ""
+        source_actual_sha256 = _sha256_file(source_path) if source_file_present else ""
+        expected_sha256 = source_actual_sha256 or str(
+            row.get("source_sha256") or row.get("sha256") or ""
+        )
         target_path = (
             _resolve_public_ref(public_root, target_ref)
             if target_ref
@@ -1161,12 +1177,14 @@ def validate_source_body_floor_artifacts(
         missing_anchors = sorted(anchor for anchor in required_anchors if anchor not in text)
         actual_line_count = len(text.splitlines()) if file_present else 0
         actual_byte_count = len(text.encode("utf-8")) if file_present else 0
+        source_line_count = len(source_text.splitlines()) if source_file_present else 0
+        source_byte_count = len(source_text.encode("utf-8")) if source_file_present else 0
         manifest_matches_expected = (
             bool(expected)
             and source_ref == expected_source_ref
             and str(row.get("sha256") or "") == expected_sha256
-            and str(row.get("source_sha256") or "") == str(expected.get("source_sha256") or "")
-            and str(row.get("target_sha256") or "") == str(expected.get("target_sha256") or "")
+            and str(row.get("source_sha256") or "") == expected_sha256
+            and str(row.get("target_sha256") or "") == expected_sha256
             and str(row.get("source_to_target_relation") or "") == "exact_copy"
             and row.get("body_copied") is True
             and row.get("body_in_receipt") is False
@@ -1176,16 +1194,21 @@ def validate_source_body_floor_artifacts(
             and int(row.get("byte_count") or -1) == actual_byte_count
             and int(row.get("target_line_count") or -1) == actual_line_count
             and int(row.get("target_byte_count") or -1) == actual_byte_count
+            and int(row.get("source_line_count") or -1) == source_line_count
+            and int(row.get("source_byte_count") or -1) == source_byte_count
         )
         digest_status = (
             PASS
-            if file_present
+            if source_file_present
+            and file_present
             and manifest_matches_expected
             and count_matches
             and actual_sha256 == expected_sha256
             and not missing_anchors
             else "blocked"
         )
+        if not source_file_present:
+            missing_files.append(expected_source_ref)
         if not file_present:
             missing_files.append(path_ref)
         if file_present and digest_status != PASS:
@@ -1211,12 +1234,16 @@ def validate_source_body_floor_artifacts(
                 "sha256": expected_sha256,
                 "manifest_sha256": str(row.get("sha256") or ""),
                 "actual_sha256": actual_sha256,
+                "source_actual_sha256": source_actual_sha256,
                 "source_to_target_relation": str(row.get("source_to_target_relation") or ""),
                 "body_copied": row.get("body_copied") is True,
                 "body_in_receipt": False,
+                "source_file_present": source_file_present,
                 "file_present": file_present,
                 "required_anchors": required_anchors,
                 "missing_anchors": missing_anchors,
+                "source_line_count": source_line_count,
+                "source_byte_count": source_byte_count,
                 "line_count": actual_line_count,
                 "byte_count": actual_byte_count,
                 "manifest_matches_expected_import": manifest_matches_expected,
@@ -1825,6 +1852,108 @@ def _authority_rejection_count(result: dict[str, Any]) -> int:
     )
 
 
+def _first_screen_proof_rows(proof_receipts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for row in proof_receipts:
+        check_id = str(row.get("check_id") or "check")
+        result_class = str(row.get("result_class") or "")
+        semantic_status = str(row.get("semantic_check_status") or "")
+        accepted = semantic_status == PASS
+        source_refs = [str(ref) for ref in row.get("source_refs", []) if isinstance(ref, str)]
+        receipt_anchor_refs = [
+            str(ref) for ref in row.get("receipt_anchor_refs", []) if isinstance(ref, str)
+        ]
+        source_digest_refs = [
+            str(ref) for ref in row.get("source_digest_refs", []) if isinstance(ref, str)
+        ]
+        rejection_reasons = [
+            str(reason)
+            for reason in row.get("semantic_rejection_reasons", [])
+            if isinstance(reason, str)
+        ]
+        digest_mismatches = row.get("source_digest_mismatches", [])
+        if not isinstance(digest_mismatches, list):
+            digest_mismatches = []
+        source_refs_not_backed = row.get("source_refs_not_backed_by_receipts", [])
+        if not isinstance(source_refs_not_backed, list):
+            source_refs_not_backed = []
+        source_digest_refs_not_backed = row.get(
+            "source_digest_refs_not_backed_by_receipts",
+            [],
+        )
+        if not isinstance(source_digest_refs_not_backed, list):
+            source_digest_refs_not_backed = []
+        semantic_floor = row.get("semantic_floor", {})
+        if not isinstance(semantic_floor, dict):
+            semantic_floor = {}
+
+        allowed_claim = (
+            "body-free Ring2 diagnostic receipt refs and source digests recomputed as "
+            "diagnostic evidence"
+            if accepted
+            else "missing or mismatched receipt/source evidence is rejected before it can count"
+        )
+        cheapest_falsifier = (
+            "remove a receipt anchor, mutate a source digest, or remove the semantic floor marker"
+            if accepted
+            else "the row is already a negative control for: " + ", ".join(rejection_reasons)
+        )
+        missing_verifier = [] if accepted else rejection_reasons
+        rows.append(
+            {
+                "row_id": f"first_screen_proof:{check_id}",
+                "check_id": check_id,
+                "claim_id": str(row.get("claim_id") or check_id),
+                "result_class": result_class,
+                "observed_status": semantic_status,
+                "evaluator_signal": accepted,
+                "validator_id": str(row.get("validator_id") or VALIDATOR_ID),
+                "command": str(row.get("command") or "ring2_diagnostic_receipt_check"),
+                "toolchain": str(row.get("toolchain") or "ring2_receipt_metadata_check"),
+                "allowed_claim": allowed_claim,
+                "blocked_claim_ids": BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS,
+                "cheapest_falsifier": cheapest_falsifier,
+                "missing_verifier": missing_verifier,
+                "source_generated_boundary": {
+                    "source_ref_count": len(source_refs),
+                    "receipt_anchor_ref_count": len(receipt_anchor_refs),
+                    "source_digest_ref_count": len(source_digest_refs),
+                    "body_in_receipt": False,
+                    "body_material_status": row.get("body_material_status"),
+                    "evidence_anchor_status": row.get("evidence_anchor_status"),
+                },
+                "proof_refs": {
+                    "source_refs": source_refs,
+                    "receipt_anchor_refs": receipt_anchor_refs,
+                    "source_digest_refs": source_digest_refs,
+                },
+                "proof_floor": {
+                    "source_refs_present": bool(source_refs),
+                    "receipt_anchor_refs_present": bool(receipt_anchor_refs),
+                    "source_digest_refs_present": bool(source_digest_refs),
+                    "source_digest_refs_match": not digest_mismatches,
+                    "source_refs_receipt_backed": not source_refs_not_backed,
+                    "source_digests_receipt_backed": not source_digest_refs_not_backed,
+                    "semantic_floor_passes": accepted,
+                    "body_in_receipt": False,
+                },
+                "semantic_floor": semantic_floor,
+                "semantic_rejection_reasons": rejection_reasons,
+                "authority_ceiling": str(
+                    row.get("authority_ceiling")
+                    or "ring2_diagnostic_receipt_refs_only_not_formal_proof_authority"
+                ),
+                "downgrade_sentence": (
+                    "This row licenses diagnostic evidence only; it does not prove a theorem, "
+                    "run Lean, expose proof/provider bodies, prove runtime correctness, mutate "
+                    "source, or authorize release."
+                ),
+                "body_in_receipt": False,
+            }
+        )
+    return sorted(rows, key=lambda item: item["row_id"])
+
+
 def _omission_reversal_inputs(result: dict[str, Any]) -> dict[str, Any]:
     return {
         "status": PASS,
@@ -1877,6 +2006,7 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "anti_claim",
         "accepted_check_ids",
         "rejected_check_ids",
+        "first_screen_proof_rows",
         "advisory_payload_ids",
         "provider_policy_rejection_ids",
         "source_pattern_ids",
@@ -2242,6 +2372,9 @@ def run(
                 "compatibility_alias_for": "secret_exclusion_scan",
             },
             "proof_receipts": proof_result["proof_receipts"],
+            "first_screen_proof_rows": _first_screen_proof_rows(
+                proof_result["proof_receipts"]
+            ),
             "accepted_check_ids": proof_result["accepted_check_ids"],
             "rejected_check_ids": proof_result["rejected_check_ids"],
             "provider_payload_policy": provider_result["payload_rows"],
@@ -2419,6 +2552,9 @@ def run_evidence_bundle(
                 "compatibility_alias_for": "secret_exclusion_scan",
             },
             "proof_receipts": proof_result["proof_receipts"],
+            "first_screen_proof_rows": _first_screen_proof_rows(
+                proof_result["proof_receipts"]
+            ),
             "accepted_check_ids": proof_result["accepted_check_ids"],
             "rejected_check_ids": proof_result["rejected_check_ids"],
             "provider_payload_policy": provider_result["payload_rows"],
@@ -2466,6 +2602,50 @@ def run_evidence_bundle(
     receipt_path = _write_evidence_bundle_receipt(out_dir, result, public_root=public_root)
     result["receipt_paths"] = [receipt_path]
     return result
+
+
+def _first_screen_card(result: dict[str, Any]) -> dict[str, Any]:
+    proof_rows = result.get("first_screen_proof_rows", [])
+    if not isinstance(proof_rows, list):
+        proof_rows = []
+    accepted_row_ids = sorted(
+        str(row.get("row_id"))
+        for row in proof_rows
+        if isinstance(row, dict) and row.get("evaluator_signal") is True
+    )
+    rejected_row_ids = sorted(
+        str(row.get("row_id"))
+        for row in proof_rows
+        if isinstance(row, dict) and row.get("evaluator_signal") is not True
+    )
+    return {
+        "proof_row_count": len(proof_rows),
+        "proof_row_ids": sorted(
+            str(row.get("row_id"))
+            for row in proof_rows
+            if isinstance(row, dict) and row.get("row_id")
+        ),
+        "accepted_row_ids": accepted_row_ids,
+        "rejected_row_ids": rejected_row_ids,
+        "blocked_claim_ids": BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS,
+        "allowed_claims": sorted(
+            {
+                str(row.get("allowed_claim"))
+                for row in proof_rows
+                if isinstance(row, dict) and row.get("allowed_claim")
+            }
+        ),
+        "authority_ceilings": sorted(
+            {
+                str(row.get("authority_ceiling"))
+                for row in proof_rows
+                if isinstance(row, dict) and row.get("authority_ceiling")
+            }
+        ),
+        "body_in_receipt": any(
+            row.get("body_in_receipt") is True for row in proof_rows if isinstance(row, dict)
+        ),
+    }
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
@@ -2519,6 +2699,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "formal_policy_packet_status": result.get("formal_policy_packet_status"),
             "body_material_status": result.get("body_material_status"),
             "evidence_anchor_status": result.get("evidence_anchor_status"),
+            "first_screen": _first_screen_card(result),
             "authority_ceiling": (
                 result.get("authority_ceiling", {}).get("authority_ceiling")
                 if isinstance(result.get("authority_ceiling"), dict)
@@ -2578,6 +2759,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         "source_fingerprint_interpretation": source_fingerprint_interpretation,
         "body_material_status": result.get("body_material_status"),
         "evidence_anchor_status": result.get("evidence_anchor_status"),
+        "first_screen": _first_screen_card(result),
         "error_code_count": len(result.get("error_codes", [])),
         "private_state_scan": {
             "status": private_scan.get("status"),

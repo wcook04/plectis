@@ -4,7 +4,7 @@
   "bundle_id": "public_executable_grammar_metabolism_macro_specimen",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "executable_grammar_metabolism_body_imports",
-  "module_count": 12,
+  "module_count": 10,
   "modules": [
     {
       "body_copied": true,
@@ -250,57 +250,35 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_lattice_registry.json",
       "target_sha256": "f2bb920b86ece64e3c1d020b764b09f152a8992be3395f1fb48ce0983b13e02b"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 781390,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 17788,
-      "material_class": "public_macro_tool_body",
-      "module_id": "standard_option_surface_tool_body_import",
-      "path": "source_modules/system/lib/standard_option_surface.py",
-      "required_anchors": [
-        "def build_standards_option_surface(",
-        "def build_option_surface(",
-        "def _standard_index("
-      ],
-      "sha256": "sha256:caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/standard_option_surface.py",
-      "source_role": "Macro runtime tool that projects standards and related artifacts into option surfaces with validation and evidence commands",
-      "source_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "caccb3fee4f3ca4d025006de8b47e980d27c84d0dc436b10a659db98036633cd"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 127242,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 2502,
-      "material_class": "public_macro_tool_body",
-      "module_id": "kind_atlas_tool_body_import",
-      "path": "source_modules/system/lib/kind_atlas.py",
-      "required_anchors": [
-        "def build_kind_atlas(",
-        "def _build_rows(",
-        "def _standard_count("
-      ],
-      "sha256": "sha256:b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/kind_atlas.py",
-      "source_role": "Macro runtime tool that builds kind atlas rows and live counts for standards, papers, ledgers, seeds, and system artifacts",
-      "source_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/kind_atlas.py",
-      "target_sha256": "b52fce80c61c00420f38302dd0971fd9479c775a38d523ad3572a3ca9973915f"
     }
   ],
   "receipt_body_policy": "receipts may report paths, hashes, counts, and verdicts but must not duplicate full source bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "standard_option_surface_tool_body_import",
+      "path": "source_modules/system/lib/standard_option_surface.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/standard_option_surface.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/standard_option_surface.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "kind_atlas_tool_body_import",
+      "path": "source_modules/system/lib/kind_atlas.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/kind_atlas.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/kind_atlas.py"
+    }
+  ],
   "schema_version": "executable_doctrine_grammar_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body",
   "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
