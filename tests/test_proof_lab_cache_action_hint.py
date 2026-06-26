@@ -32,7 +32,7 @@ def _run_json(*args: str) -> dict:
 
 def _assert_public_safe_cache_action(action: dict) -> None:
     assert action["status"] == "actionable"
-    assert action["command"] == "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    assert action["command"] == "plectis proof-lab --out /tmp/microcosm-proof-lab"
     assert action["boundary"] == "fresh_tmp_receipt_not_canonical_or_proof_authority"
 
 
