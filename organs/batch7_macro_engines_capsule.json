@@ -1,0 +1,526 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-8"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/batch7_macro_engines_capsule.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for Batch 7 public macro-engine source imports, deterministic exercises, negative cases, and authority ceilings.",
+      "symbols": [
+        "_agent_trace_exercise",
+        "_codemap_exercise",
+        "_dag_exercise",
+        "_release_root_exercise",
+        "_source_surgeon_exercise",
+        "_clean_clone_exercise",
+        "_calculator_exercise",
+        "_pagerank_exercise",
+        "_regression_selection_exercise",
+        "_evaluate",
+        "run",
+        "run_batch7_bundle",
+        "result_card",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.import_projection_and_drift_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Trace, Code-Map & Scheduling Engines Capsule",
+  "entry_surface_contract": null,
+  "evidence_class": "verified_macro_body_import",
+  "family": "import_projection_and_drift",
+  "id": "batch7_macro_engines_capsule",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "verified_macro_body_import",
+      "edge_justification": "The copied public Batch 7 macro-engine bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting provider dispatch, source mutation, publication, release, or whole-system correctness authority.",
+      "ref": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "batch7_macro_engines_capsule",
+  "organ_payload": {
+    "claim_ceiling": "It validates only a public source-open capsule and bounded exercises; it is not live source authority, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, publication, or release approval.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/batch7_macro_engines_capsule.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/batch7_macro_engines_capsule.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the Batch-7 source-open capsule: all 9 mechanisms must execute, all 15 copied source modules must preserve required anchors and digests, planted negative cases must be observed, receipts must omit copied body text and private state, and the capsule must stay inside its public authority ceiling.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-8"
+      ],
+      "claim_ceiling_restated": "It validates only a public source-open capsule and bounded exercises; it is not live source authority, private-root equivalence, semantic truth, investment advice, complete sandbox proof, selected-test sufficiency proof, publication, or release approval.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/batch7_macro_engines_capsule.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for Batch 7 public macro-engine source imports, deterministic exercises, negative cases, and authority ceilings.",
+          "symbols": [
+            "_agent_trace_exercise",
+            "_codemap_exercise",
+            "_dag_exercise",
+            "_release_root_exercise",
+            "_source_surgeon_exercise",
+            "_clean_clone_exercise",
+            "_calculator_exercise",
+            "_pagerank_exercise",
+            "_regression_selection_exercise",
+            "_evaluate",
+            "run",
+            "run_batch7_bundle",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "display_name": "Trace, Code-Map & Scheduling Engines Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "first_command": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+      "human_gloss": "This capsule imports the Batch-7 public-safe macro engines as exact copied source bodies plus deterministic public exercises. It exposes fifteen JS, TS, and Python engine bodies for trace parsing, code-map layout, DAG scheduling, source indexing, patch validation, hermetic clean-clone execution, robust numeric scoring, personalized PageRank routing, and regression-test selection, with negative cases that prevent release, private-root, semantic-truth, or test-sufficiency overclaims.",
+      "mechanism_refs": [
+        {
+          "authority_class": "verified_macro_body_import",
+          "edge_justification": "The copied public Batch 7 macro-engine bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting provider dispatch, source mutation, publication, release, or whole-system correctness authority.",
+          "ref": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "batch7_macro_engines_capsule",
+      "paper_module_ref": "paper_modules/batch7_macro_engines_capsule.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-5",
+        "P-6",
+        "P-9",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[57:batch7_macro_engines_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule]",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [
+        "batch8_policy_engines_capsule",
+        "batch8_tools_tail_primitives_capsule",
+        "batch9_macro_engines_capsule"
+      ],
+      "wiring_note": "Imports 15 copied non-secret macro source modules into a source-open capsule and binds them to fixture, receipt, source-digest, public-exercise, CLI/runtime-shell, standards, and authority-ceiling checks; it does not feed or invoke live provider, host, approval, market, source-mutation, release, or private-root lanes."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over 15 copied non-secret source modules and 9 bounded public source-faithful exercises spanning trace IR parsing, code-map layout, constitutional DAG scheduling, source indexing, source-surgeon patch validation, hermetic clean-clone execution, robust numeric scoring, personalized PageRank routing, and never-empty regression-test selection",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch7_macro_engines_capsule]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_result.json",
+        "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_board.json",
+        "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch7_macro_engines_capsule",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.batch7_macro_engines_capsule",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_macro_engines_capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/batch7_macro_engines_capsule.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-5",
+    "P-6",
+    "P-9",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+    "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_result.json",
+    "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_board.json",
+    "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-8"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/batch7_macro_engines_capsule.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for Batch 7 public macro-engine source imports, deterministic exercises, negative cases, and authority ceilings.",
+        "symbols": [
+          "_agent_trace_exercise",
+          "_codemap_exercise",
+          "_dag_exercise",
+          "_release_root_exercise",
+          "_source_surgeon_exercise",
+          "_clean_clone_exercise",
+          "_calculator_exercise",
+          "_pagerank_exercise",
+          "_regression_selection_exercise",
+          "_evaluate",
+          "run",
+          "run_batch7_bundle",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.batch7_macro_engines_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].mechanism_refs[0]",
+          "summary": "The copied public Batch 7 macro-engine bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting provider dispatch, source mutation, publication, release, or whole-system correctness authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for Batch 7 public macro-engine source imports, deterministic exercises, negative cases, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/batch7_macro_engines_capsule.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_policy_engines_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_tools_tail_primitives_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch9_macro_engines_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "verified_macro_body_import",
+        "edge_justification": "The copied public Batch 7 macro-engine bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting provider dispatch, source mutation, publication, release, or whole-system correctness authority.",
+        "ref": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/batch7_macro_engines_capsule.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-5",
+      "P-6",
+      "P-9",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[57:batch7_macro_engines_capsule]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "batch8_policy_engines_capsule",
+      "batch8_tools_tail_primitives_capsule",
+      "batch9_macro_engines_capsule"
+    ]
+  },
+  "role": "An agent runs it to validate the Batch-7 source-open capsule: all 9 mechanisms must execute, all 15 copied source modules must preserve required anchors and digests, planted negative cases must be observed, receipts must omit copied body text and private state, and the capsule must stay inside its public authority ceiling.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[57:batch7_macro_engines_capsule]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[57:batch7_macro_engines_capsule]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/batch7_macro_engines_capsule.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "source-import",
+    "provenance",
+    "drift-control"
+  ],
+  "statement": "An agent runs it to validate the Batch-7 source-open capsule: all 9 mechanisms must execute, all 15 copied source modules must preserve required anchors and digests, planted negative cases must be observed, receipts must omit copied body text and private state, and the capsule must stay inside its public authority ceiling.",
+  "status": "accepted_current_authority",
+  "title": "Trace, Code-Map & Scheduling Engines Capsule",
+  "validator_refs": [
+    "python -m microcosm_core.organs.batch7_macro_engines_capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "batch8_policy_engines_capsule",
+    "batch8_tools_tail_primitives_capsule",
+    "batch9_macro_engines_capsule"
+  ]
+}

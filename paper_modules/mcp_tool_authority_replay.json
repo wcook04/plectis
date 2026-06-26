@@ -7,7 +7,7 @@
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
     "authority_ceiling": "Synthetic MCP-like replay fixture only; not a live MCP account test, provider call, credential-handling certification, benchmark security result, or release claim.",
-    "card": "Public Microcosm projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
+    "card": "Public Plectis projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
     "one_line": "Synthetic MCP-like replay fixture for a tool-authority claim contract: replay receipts, negative cases, authority ceilings; no live MCP/provider/credential"
   },
   "created_at": "2026-06-02T00:00:00Z",
@@ -78,7 +78,7 @@
       ],
       "compression": {
         "authority_ceiling": "Synthetic MCP-like replay fixture only; not a live MCP account test, provider call, credential-handling certification, benchmark security result, or release claim.",
-        "card": "Public Microcosm projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis projection of a tool-authority claim contract. Replays a synthetic MCP-like tool-authority scenario and validates replay receipts, negative cases, and authority ceilings with body-free receipts.",
         "one_line": "Synthetic MCP-like replay fixture for a tool-authority claim contract: replay receipts, negative cases, authority ceilings; no live MCP/provider/credential"
       },
       "concept_refs": [

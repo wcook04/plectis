@@ -198,11 +198,11 @@
         },
         "relation_id": "paper_module.explains.organ_or_mechanism",
         "relation_verb": "explains",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "explained_by",
         "target_id": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       },
       {
         "justification": {

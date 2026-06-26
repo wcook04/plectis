@@ -7,7 +7,7 @@
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
     "authority_ceiling": "Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim.",
-    "card": "Public Microcosm regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
+    "card": "Public Plectis regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
     "one_line": "Synthetic regression drilldown for a monitor/redteam honesty contract; checks falsification handling, negative cases, private-state scan, authority ceilings."
   },
   "created_at": "2026-06-02T00:00:00Z",
@@ -78,7 +78,7 @@
       ],
       "compression": {
         "authority_ceiling": "Synthetic replay fixture only; not a live monitor product, control eval, exploit guide, product-spine substrate, or complete-security claim.",
-        "card": "Public Microcosm regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis regression drilldown for a monitor/redteam honesty contract. Replays synthetic monitor traces and validates redteam-falsification behavior, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
         "one_line": "Synthetic regression drilldown for a monitor/redteam honesty contract; checks falsification handling, negative cases, private-state scan, authority ceilings."
       },
       "concept_refs": [

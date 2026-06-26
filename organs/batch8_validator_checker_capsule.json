@@ -1,0 +1,506 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-8"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/batch8_validator_checker_capsule.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for selected validator checker groups, source anchors, private-boundary checks, negative cases, and authority ceilings.",
+      "symbols": [
+        "_validator_source_anchor_matrix",
+        "_status_policy_judge_matrix",
+        "_private_boundary_scanner_matrix",
+        "_zero_failure_matrix",
+        "_specimen_checker_matrix",
+        "_release_gate_checker_matrix",
+        "_validate_entrypoint_witness",
+        "_public_runtime_source_only_engine",
+        "_evaluate",
+        "run",
+        "run_batch8_validator_checker_bundle",
+        "result_card",
+        "EXPECTED_NEGATIVE_CASES"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.agent_reliability_and_safety_validator_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Validator Checker Capsule",
+  "entry_surface_contract": null,
+  "evidence_class": "verified_macro_body_import",
+  "family": "agent_reliability_and_safety",
+  "id": "batch8_validator_checker_capsule",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "verified_macro_body_import",
+      "edge_justification": "The exact copied public validators.py body, selected checker fixtures, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting full validator-suite proof, provider dispatch, source mutation, hosted-public, publication, or release authority.",
+      "ref": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "batch8_validator_checker_capsule",
+  "organ_payload": {
+    "claim_ceiling": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/batch8_validator_checker_capsule.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/batch8_validator_checker_capsule.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the Batch 8 validator checker membrane: the copied validators.py body must match its source digest and required anchors, all six checker engines must pass, all six negative cases must be observed, and receipts must omit source body text, private refs, provider payloads, release authority, source mutation, and full validator-suite overclaims.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-8"
+      ],
+      "claim_ceiling_restated": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-root equivalence, release, hosted-public status, publication, provider dispatch, or source mutation authority.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/batch8_validator_checker_capsule.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for selected validator checker groups, source anchors, private-boundary checks, negative cases, and authority ceilings.",
+          "symbols": [
+            "_validator_source_anchor_matrix",
+            "_status_policy_judge_matrix",
+            "_private_boundary_scanner_matrix",
+            "_zero_failure_matrix",
+            "_specimen_checker_matrix",
+            "_release_gate_checker_matrix",
+            "_validate_entrypoint_witness",
+            "_public_runtime_source_only_engine",
+            "_evaluate",
+            "run",
+            "run_batch8_validator_checker_bundle",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "display_name": "Validator Checker Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "agent_reliability_and_safety",
+      "first_command": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+      "human_gloss": "This organ imports the real idea_microcosm validators.py body as an exact public-safe source copy. Running it shows status-policy judging, private-boundary scans, specimen checks, release-gate checks, and the validate entrypoint exercised against public fixtures and negative cases.",
+      "mechanism_refs": [
+        {
+          "authority_class": "verified_macro_body_import",
+          "edge_justification": "The exact copied public validators.py body, selected checker fixtures, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting full validator-suite proof, provider dispatch, source mutation, hosted-public, publication, or release authority.",
+          "ref": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "batch8_validator_checker_capsule",
+      "paper_module_ref": "paper_modules/batch8_validator_checker_capsule.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-5",
+        "P-6",
+        "P-9",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[72:batch8_validator_checker_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule]",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [
+        "batch10_cold_eval_honesty_capsule",
+        "batch12_release_claim_language_gate"
+      ],
+      "wiring_note": "Imports the exact copied public-safe validators.py body from self-indexing-cognitive-substrate and binds it to fixture, source-digest, negative-case, CLI/runtime-shell, standard, package-data, and authority-ceiling checks; it does not invoke provider dispatch, source mutation, private-root equivalence, publication, hosted-public, or release lanes."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret macro validators.py body from idea_microcosm; the runnable exercise invokes policy/status judging, private-boundary scanning, specimen checkers, release-gate checkers, and validate(root, write_receipt=False), verifies source-module digests and anchors, observes six negative cases, and keeps release, publication, provider, model, source-mutation, full validator freshness, and private-root equivalence authority false",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch8_validator_checker_capsule]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_result.json",
+        "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_board.json",
+        "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_validator_checker_capsule",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.batch8_validator_checker_capsule",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch8_validator_checker_capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/batch8_validator_checker_capsule.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-5",
+    "P-6",
+    "P-9",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+    "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_result.json",
+    "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_board.json",
+    "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-8"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/batch8_validator_checker_capsule.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for selected validator checker groups, source anchors, private-boundary checks, negative cases, and authority ceilings.",
+        "symbols": [
+          "_validator_source_anchor_matrix",
+          "_status_policy_judge_matrix",
+          "_private_boundary_scanner_matrix",
+          "_zero_failure_matrix",
+          "_specimen_checker_matrix",
+          "_release_gate_checker_matrix",
+          "_validate_entrypoint_witness",
+          "_public_runtime_source_only_engine",
+          "_evaluate",
+          "run",
+          "run_batch8_validator_checker_bundle",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.batch8_validator_checker_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].mechanism_refs[0]",
+          "summary": "The exact copied public validators.py body, selected checker fixtures, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting full validator-suite proof, provider dispatch, source mutation, hosted-public, publication, or release authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for selected validator checker groups, source anchors, private-boundary checks, negative cases, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/batch8_validator_checker_capsule.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch10_cold_eval_honesty_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch12_release_claim_language_gate",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "verified_macro_body_import",
+        "edge_justification": "The exact copied public validators.py body, selected checker fixtures, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting full validator-suite proof, provider dispatch, source mutation, hosted-public, publication, or release authority.",
+        "ref": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/batch8_validator_checker_capsule.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-5",
+      "P-6",
+      "P-9",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[72:batch8_validator_checker_capsule]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "batch10_cold_eval_honesty_capsule",
+      "batch12_release_claim_language_gate"
+    ]
+  },
+  "role": "An agent runs it to validate the Batch 8 validator checker membrane: the copied validators.py body must match its source digest and required anchors, all six checker engines must pass, all six negative cases must be observed, and receipts must omit source body text, private refs, provider payloads, release authority, source mutation, and full validator-suite overclaims.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[72:batch8_validator_checker_capsule]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[72:batch8_validator_checker_capsule]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/batch8_validator_checker_capsule.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "ai-safety",
+    "agent-evaluation",
+    "red-teaming",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to validate the Batch 8 validator checker membrane: the copied validators.py body must match its source digest and required anchors, all six checker engines must pass, all six negative cases must be observed, and receipts must omit source body text, private refs, provider payloads, release authority, source mutation, and full validator-suite overclaims.",
+  "status": "accepted_current_authority",
+  "title": "Validator Checker Capsule",
+  "validator_refs": [
+    "python -m microcosm_core.organs.batch8_validator_checker_capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "batch10_cold_eval_honesty_capsule",
+    "batch12_release_claim_language_gate"
+  ]
+}

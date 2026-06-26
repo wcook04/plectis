@@ -703,6 +703,13 @@ def test_principle_and_anti_principle_corpora_are_seeded_with_parity() -> None:
         and edge["target_status"] == "resolved_json_instance"
         for edge in p1["relationships"]["edges"]
     )
+    assert any(
+        edge["relation_id"] == "principle.governs.mechanism"
+        and edge["target_id"]
+        == "mechanism.agent_route_observability_runtime.validates_public_route_feedback"
+        and edge["target_status"] == "resolved_json_instance"
+        for edge in p1["relationships"]["edges"]
+    )
     assert p1["relationships"]["governs_mechanism_ids"]
     assert p1["relationships"]["governs_concept_ids"]
     assert any(

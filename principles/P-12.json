@@ -1,0 +1,463 @@
+{
+  "anti_claims": [
+    "This active principle JSON record does not flip source authority away from PRINCIPLES.md.",
+    "Grounding to an axiom obligation is not proof that the principle is obligation-supported.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence.",
+    "Absent governs edges are residual pressure, not evidence that no governed concepts or mechanisms exist."
+  ],
+  "authority_boundary": "public_principle_json_instance_synchronized_from_legacy_markdown_receipt_bound_not_source_authority_flip",
+  "axiom_refs": [
+    "AX-11"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "governs": [
+    "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+    "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+    "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+    "mechanism.engine_room_demo.validates_public_engine_room_demo",
+    "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+    "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+    "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
+    "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+    "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+    "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
+    "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+    "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+  ],
+  "id": "P-12",
+  "kind": "principle",
+  "obligation_refs": [
+    "AX-11.O1.grammar_membership_required",
+    "AX-11.O2.receipts_and_anti_claims_present",
+    "AX-11.O3.prose_alone_is_projection"
+  ],
+  "omission_receipt": {
+    "drilldown": "PRINCIPLES.md::P-12",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "concept and mechanism governance targets not named by legacy markdown or organ-atlas rows"
+    ],
+    "reason": "Principle instance preserves public-safe legacy markdown content and typed source-derived governance edges only."
+  },
+  "principle_payload": {
+    "body_markdown": "A doctrine surface earns authority through grammar, required fields, receipt\nobligations, anti-claims, and validator coverage. Prose can orient a reader,\nbut it cannot become substrate authority without an executable contract.",
+    "contract_version": "microcosm_principle_instance_payload_v1",
+    "grounding_axiom_ids": [
+      "AX-11"
+    ],
+    "grounding_obligation_refs": [
+      "AX-11.O1.grammar_membership_required",
+      "AX-11.O2.receipts_and_anti_claims_present",
+      "AX-11.O3.prose_alone_is_projection"
+    ],
+    "legacy_grounding_text": "AX-11.",
+    "legacy_heading": "P-12 Make doctrine executable before authoritative",
+    "legacy_obligation_grounding_text": "AX-11.O1.grammar_membership_required, AX-11.O2.receipts_and_anti_claims_present, AX-11.O3.prose_alone_is_projection.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "PRINCIPLES.md"
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "principles/P-12.md",
+      "legacy_markdown_status": "legacy_markdown_source_of_record_with_receipt_bound_json_projection",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "principles/P-12.json"
+    },
+    "substrate_governance_contract": {
+      "claim_ceiling": {
+        "boundary": "Governance reach is navigability and routing pressure, not proof that the principle is obligation-supported or complete.",
+        "computed_by": "validator.microcosm.axiom_support_cover"
+      },
+      "contract_version": "microcosm_principle_substrate_governance_v1",
+      "principle_to_substrate": {
+        "governed_concept_ids": [
+          "concept.architecture_and_navigation_route_contract_bundle",
+          "concept.entry_and_reveal_route_readiness_bundle",
+          "concept.import_projection_and_drift_control_bundle",
+          "concept.work_landing_and_continuity_control_bundle"
+        ],
+        "governed_mechanism_ids": [
+          "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+          "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+          "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+          "mechanism.engine_room_demo.validates_public_engine_room_demo",
+          "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+          "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+          "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
+          "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+          "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+          "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
+          "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+          "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+        ],
+        "grounding_axiom_ids": [
+          "AX-11"
+        ],
+        "grounding_obligation_refs": [
+          "AX-11.O1.grammar_membership_required",
+          "AX-11.O2.receipts_and_anti_claims_present",
+          "AX-11.O3.prose_alone_is_projection"
+        ],
+        "guarding_anti_principle_ids": [
+          "AP-10",
+          "AP-13",
+          "AP-17"
+        ],
+        "projection_edge_relation_ids": [
+          "principle.grounded_by.axiom",
+          "principle.governs.mechanism",
+          "principle.governs.concept",
+          "anti_principle.negates_failure_of.principle"
+        ],
+        "rule": "The principle guides mechanisms and concepts only through source-derived governance edges; it is not a witness and does not raise the support ceiling of its grounding axioms."
+      },
+      "source_authority_ref": "PRINCIPLES.md::P-12",
+      "substrate_to_principle": {
+        "derived_from": [
+          "PRINCIPLES.md grounding text",
+          "PRINCIPLES.md obligation grounding text",
+          "core/organ_atlas.json principle_refs plus mechanism_refs/concept_refs"
+        ],
+        "governance_source_ref_count": 12,
+        "refinement_rule": "Substrate rows may refine which mechanisms or concepts the principle governs when organ-atlas source rows name those ids; support remains inherited from specific grounding axiom obligations.",
+        "residual_relation_count": 0
+      }
+    },
+    "support_contract": {
+      "computed_by": "validator.microcosm.axiom_support_cover",
+      "grounding_obligation_refs": [
+        "AX-11.O1.grammar_membership_required",
+        "AX-11.O2.receipts_and_anti_claims_present",
+        "AX-11.O3.prose_alone_is_projection"
+      ],
+      "support_status": "computed_in_generated_projection_not_asserted_in_source_instance"
+    }
+  },
+  "receipt_refs": [
+    "receipts/doctrine_records/principles/P-12.receipt.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-11"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "PRINCIPLES.md::P-12.grounding",
+          "summary": "Legacy principle grounding names this axiom; axiom JSON parity corpus resolves the target while support strength remains computed separately."
+        },
+        "relation_id": "principle.grounded_by.axiom",
+        "relation_verb": "grounded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounds",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[64:engine_room_demo]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[1:executable_doctrine_grammar]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[19:navigation_hologram_route_plane]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[28:pattern_assimilation_step]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[0:pattern_binding_contract]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[48:routing_anti_patterns_registry]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[32:standards_meta_diagnostics]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[23:world_model_projection_drift_control_room]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[0:pattern_binding_contract]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.concept",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "concept.architecture_and_navigation_route_contract_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.concept",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "concept.entry_and_reveal_route_readiness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[23:world_model_projection_drift_control_room]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.concept",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.concept",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[10:AX-11]",
+          "summary": "Axiom routing names this anti-principle as a guard for the same axiom that grounds the principle; the reverse edge exposes the failure guard without converting rejection into positive support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "failure_guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "negates_failure_of",
+        "target_id": "AP-10",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[10:AX-11]",
+          "summary": "Axiom routing names this anti-principle as a guard for the same axiom that grounds the principle; the reverse edge exposes the failure guard without converting rejection into positive support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "failure_guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "negates_failure_of",
+        "target_id": "AP-13",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[10:AX-11]",
+          "summary": "Axiom routing names this anti-principle as a guard for the same axiom that grounds the principle; the reverse edge exposes the failure guard without converting rejection into positive support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "failure_guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "negates_failure_of",
+        "target_id": "AP-17",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "failure_guarded_by_anti_principle_ids": [
+      "AP-10",
+      "AP-13",
+      "AP-17"
+    ],
+    "governs_concept_ids": [
+      "concept.architecture_and_navigation_route_contract_bundle",
+      "concept.entry_and_reveal_route_readiness_bundle",
+      "concept.import_projection_and_drift_control_bundle",
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "governs_mechanism_ids": [
+      "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+      "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+      "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+      "mechanism.engine_room_demo.validates_public_engine_room_demo",
+      "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+      "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+      "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
+      "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+      "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+      "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
+      "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+      "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+    ],
+    "obligation_refs": [
+      "AX-11.O1.grammar_membership_required",
+      "AX-11.O2.receipts_and_anti_claims_present",
+      "AX-11.O3.prose_alone_is_projection"
+    ],
+    "source_markdown_ref": "PRINCIPLES.md::P-12",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_principle_instance_v1",
+  "source_refs": [
+    {
+      "path": "PRINCIPLES.md::P-12",
+      "role": "legacy_markdown_source_of_record_with_receipt_bound_json_projection"
+    },
+    {
+      "path": "PRINCIPLES.md::P-12.obligation_grounding",
+      "role": "source_owned_principle_to_axiom_obligation_grounding"
+    },
+    {
+      "path": "principles/P-12.json",
+      "role": "governed_json_instance"
+    }
+  ],
+  "statement": "A doctrine surface earns authority through grammar, required fields, receipt\nobligations, anti-claims, and validator coverage. Prose can orient a reader,\nbut it cannot become substrate authority without an executable contract.",
+  "status": "active",
+  "title": "Make doctrine executable before authoritative",
+  "validator_refs": [
+    "validator.microcosm.principle",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

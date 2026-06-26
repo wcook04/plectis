@@ -741,11 +741,11 @@
   "mechanisms": {
     "capsule_dependency_upstream_parity": {
       "authority_boundary": "computed_projection_from_paper_module_capsules_and_mechanism_sources_not_source_authority",
-      "covered_edge_count": 128,
+      "covered_edge_count": 217,
       "missing_edge_count": 0,
       "missing_edges": [],
       "relation_direction": "paper_module A depends_on paper_module B maps to mechanism(B).upstream_of mechanism(A); the reverse direction is not inferred from depends_on.",
-      "resolved_mechanism_subject_count": 82,
+      "resolved_mechanism_subject_count": 93,
       "sample_covered_edges": [
         {
           "consumer_paper_module": "paper_module.batch10_cold_eval_honesty_capsule",
@@ -772,52 +772,52 @@
           "target_mechanism": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
         },
         {
-          "consumer_paper_module": "paper_module.sleeper_memory_poisoning_quarantine_replay",
-          "dependency_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
-          "source_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
-          "target_mechanism": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+          "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
         },
         {
-          "consumer_paper_module": "paper_module.batch8_compliance_pipeline_capsule",
-          "dependency_paper_module": "paper_module.batch11_saturation_engines_capsule",
-          "source_mechanism": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
-          "target_mechanism": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch8_structural_theses_capsule",
-          "dependency_paper_module": "paper_module.batch12_prediction_market_board_capsule",
-          "source_mechanism": "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
-          "target_mechanism": "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch6_unsurfaced_primitives_capsule",
-          "dependency_paper_module": "paper_module.batch7_demo_take_console_capsule",
-          "source_mechanism": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
-          "target_mechanism": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch8_audio_level_rms_port",
-          "dependency_paper_module": "paper_module.batch7_demo_take_console_capsule",
-          "source_mechanism": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
-          "target_mechanism": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch8_policy_engines_capsule",
-          "dependency_paper_module": "paper_module.batch7_macro_engines_capsule",
-          "source_mechanism": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-          "target_mechanism": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch9_macro_engines_capsule",
-          "dependency_paper_module": "paper_module.batch7_macro_engines_capsule",
-          "source_mechanism": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
-          "target_mechanism": "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule"
+          "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
+          "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace"
         },
         {
           "consumer_paper_module": "paper_module.batch11_saturation_engines_capsule",
-          "dependency_paper_module": "paper_module.batch8_compliance_pipeline_capsule",
-          "source_mechanism": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
           "target_mechanism": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.batch4_proof_authority_runtime",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.batch6_unsurfaced_primitives_capsule",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.batch7_macro_engines_capsule",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.batch7_macro_engines_capsule",
+          "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule"
+        },
+        {
+          "consumer_paper_module": "paper_module.batch8_compliance_pipeline_capsule",
+          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
+          "source_mechanism": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "target_mechanism": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
         }
       ],
       "schema_version": "mechanism_capsule_dependency_upstream_parity_v1",
@@ -827,146 +827,20 @@
         "relation_registry": "core/doctrine_lattice_relations.json::mechanism.upstream_of.mechanism"
       },
       "status": "pass",
-      "unresolved_dependencies": [
-        {
-          "consumer_paper_module": "paper_module.agent_closeout_faithfulness_audit",
-          "dependency_paper_module": "paper_module.durable_agent_work_landing_replay",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
-          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_memory_temporal_conflict_replay",
-          "dependency_paper_module": "paper_module.bridge_phase_continuity_runtime",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_monitor_redteam_falsification_replay",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_route_observability_runtime",
-          "dependency_paper_module": "paper_module.cold_reader_route_map",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_route_observability_runtime",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_route_observability_runtime",
-          "dependency_paper_module": "paper_module.navigation_hologram_route_plane",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_route_observability_runtime",
-          "dependency_paper_module": "paper_module.pattern_binding_contract",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_route_observability_runtime",
-          "dependency_paper_module": "paper_module.routing_anti_patterns_registry",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.agent_sandbox_policy_escape_replay",
-          "dependency_paper_module": "paper_module.computer_use_action_trace_replay",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch10_governance_compilers_capsule",
-          "dependency_paper_module": "paper_module.batch10_live_source_drift_capsule",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch10_governance_compilers_capsule",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch10_live_source_drift_capsule",
-          "dependency_paper_module": "paper_module.concurrency_mission_control",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch10_live_source_drift_capsule",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch10_live_source_drift_capsule",
-          "dependency_paper_module": "paper_module.mission_transaction_work_spine",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch11_saturation_engines_capsule",
-          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch11_saturation_engines_capsule",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch11_saturation_engines_capsule",
-          "dependency_paper_module": "paper_module.navigation_hologram_route_plane",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch12_market_dashboard_read_model_capsule",
-          "dependency_paper_module": "paper_module.prediction_oracle_reconciliation",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch12_market_dashboard_read_model_capsule",
-          "dependency_paper_module": "paper_module.world_model_projection_drift_control_room",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch4_proof_authority_runtime",
-          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch4_proof_authority_runtime",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch5_authority_systems_capsule",
-          "dependency_paper_module": "paper_module.macro_projection_import_protocol",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch6_unsurfaced_primitives_capsule",
-          "dependency_paper_module": "paper_module.agent_route_observability_runtime",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        },
-        {
-          "consumer_paper_module": "paper_module.batch6_unsurfaced_primitives_capsule",
-          "dependency_paper_module": "paper_module.batch12_market_dashboard_read_model_capsule",
-          "reason": "dependency_or_consumer_lacks_resolved_mechanism_subject"
-        }
-      ],
-      "unresolved_dependency_count": 91
+      "unresolved_dependencies": [],
+      "unresolved_dependency_count": 0
     },
     "json_instance_count": 95,
-    "known_count": 86,
-    "parity_status": "blocked",
+    "known_count": 95,
+    "parity_status": "pass",
     "planned_or_unresolved_code_loci": [],
     "planned_or_unresolved_code_loci_count": 0,
-    "residual_relation_count": 25,
+    "residual_relation_count": 26,
     "residual_relation_counts_by_requirement": {
-      "selective": 25
+      "selective": 26
     },
     "support_scope": "mechanism selective residuals are typed from source rows plus the relation registry; capsule depends_on evidence classifies upstream residual fillability and confirms dependency mechanisms as upstream_of their consumers, but is not a reverse-edge fill or runtime truth claim.",
-    "unpopulated_selective_edge_count": 25,
+    "unpopulated_selective_edge_count": 26,
     "unpopulated_selective_edges": [
       "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
       "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay",
@@ -980,6 +854,7 @@
       "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
       "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
       "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
+      "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
       "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
       "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
       "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
@@ -994,9 +869,9 @@
       "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay",
       "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
     ],
-    "unpopulated_selective_relation_count": 25,
+    "unpopulated_selective_relation_count": 26,
     "unpopulated_selective_relation_counts_by_authority_boundary": {
-      "computed_from_mechanism_source_residuals_not_source_edge_inference": 25
+      "computed_from_mechanism_source_residuals_not_source_edge_inference": 26
     },
     "unpopulated_selective_relation_counts_by_instance_id": {
       "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims": 1,
@@ -1011,6 +886,7 @@
       "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule": 1,
       "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port": 1,
       "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule": 1,
+      "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule": 1,
       "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay": 1,
       "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet": 1,
       "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution": 1,
@@ -1026,12 +902,12 @@
       "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory": 1
     },
     "unpopulated_selective_relation_counts_by_pressure_ref": {
-      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 25
+      "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f": 26
     },
     "unpopulated_selective_relation_counts_by_relation_id": {
-      "mechanism.upstream_of.mechanism": 25
+      "mechanism.upstream_of.mechanism": 26
     },
-    "unpopulated_selective_relation_detail_count": 25,
+    "unpopulated_selective_relation_detail_count": 26,
     "unpopulated_selective_relation_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -1199,6 +1075,20 @@
         "source_ref": "core/mechanism_sources.json::mechanisms[40:mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule]",
         "source_refs": {
           "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[40:mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule]"
+        }
+      },
+      {
+        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
+        "instance_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "instance_kind": "mechanism",
+        "mechanism_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "requirement": "selective",
+        "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+        "source_refs": {
+          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]"
         }
       },
       {
@@ -1389,9 +1279,9 @@
     "upstream_capsule_dependency_unresolved_subject_count": 0,
     "upstream_capsule_dependency_unresolved_subject_details": [],
     "upstream_residual_counts_by_fillability_status": {
-      "no_capsule_dependency_upstream_target_named": 25
+      "no_capsule_dependency_upstream_target_named": 26
     },
-    "upstream_residual_fillability_detail_count": 25,
+    "upstream_residual_fillability_detail_count": 26,
     "upstream_residual_fillability_details": [
       {
         "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
@@ -1679,6 +1569,30 @@
         "source_ref": "core/mechanism_sources.json::mechanisms[40:mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule]",
         "source_refs": {
           "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[40:mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule]"
+        }
+      },
+      {
+        "authority_boundary": "computed_from_mechanism_source_residuals_not_source_edge_inference",
+        "capsule_dependency_expected_upstream_of": [],
+        "capsule_dependency_expected_upstream_of_count": 0,
+        "capsule_dependency_missing_upstream_of": [],
+        "capsule_dependency_missing_upstream_of_count": 0,
+        "capsule_dependency_unresolved_subject_count": 0,
+        "capsule_dependency_unresolved_subjects": [],
+        "claim_ceiling": "capsule_dependency_graph_classifies_mechanism_upstream_fillability_only_not_runtime_invocation_or_release_authority",
+        "declared_upstream_of": [],
+        "declared_upstream_of_count": 0,
+        "fillability_status": "no_capsule_dependency_upstream_target_named",
+        "instance_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "instance_kind": "mechanism",
+        "mechanism_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "requirement": "selective",
+        "source_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]",
+        "source_refs": {
+          "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[89:mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule]"
         }
       },
       {
@@ -2003,180 +1917,8 @@
     "json_instance_count": 78,
     "parity_status": "pass",
     "required_edge_gap_count": 0,
-    "required_edge_gap_detail_count": 9,
-    "required_edge_gap_details": [
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "agent_route_observability_runtime",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[26:agent_route_observability_runtime]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "batch10_live_source_drift_capsule",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[70:batch10_live_source_drift_capsule]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[70:batch10_live_source_drift_capsule]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "batch12_market_dashboard_read_model_capsule",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[75:batch12_market_dashboard_read_model_capsule]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[75:batch12_market_dashboard_read_model_capsule]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "batch8_tools_tail_primitives_capsule",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[60:batch8_tools_tail_primitives_capsule]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "bridge_phase_continuity_runtime",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[27:bridge_phase_continuity_runtime]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "durable_agent_work_landing_replay",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[21:durable_agent_work_landing_replay]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[21:durable_agent_work_landing_replay]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "macro_projection_import_protocol",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[30:macro_projection_import_protocol]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[30:macro_projection_import_protocol]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "navigation_hologram_route_plane",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[19:navigation_hologram_route_plane]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane]"
-      },
-      {
-        "authority_boundary": "computed_from_organ_json_residuals_not_source_edge_resolution_or_law_binding",
-        "missing_required_relation_ids": [
-          "organ.operates_through.mechanism"
-        ],
-        "missing_selective_law_relation_ids": [],
-        "missing_source_authority_fields": [
-          "mechanism_refs"
-        ],
-        "organ_id": "world_model_projection_drift_control_room",
-        "residual_pressure_refs": [],
-        "residual_reasons": [],
-        "resolved_required_relation_ids": [
-          "organ.explained_by.paper_module",
-          "organ.implemented_by.code_locus"
-        ],
-        "source_atlas_row_ref": "core/organ_atlas.json::organs[23:world_model_projection_drift_control_room]",
-        "source_registry_row_ref": "core/organ_registry.json::implemented_organs[23:world_model_projection_drift_control_room]"
-      }
-    ],
+    "required_edge_gap_detail_count": 0,
+    "required_edge_gap_details": [],
     "required_edge_gaps": [],
     "residual_relation_count": 26,
     "residual_relation_counts_by_requirement": {
@@ -3295,8 +3037,8 @@
     "axiom_json_parity": "pass",
     "concept_json_parity": "pass",
     "coverage_population_status": "complete",
-    "coverage_status": "blocked",
-    "mechanism_json_parity": "blocked",
+    "coverage_status": "pass",
+    "mechanism_json_parity": "pass",
     "organ_json_parity": "pass",
     "paper_module_json_parity": "pass",
     "principle_json_parity": "pass",
@@ -3306,31 +3048,26 @@
   "receipts": {
     "counts_by_support_status": {
       "declared_receipt_ref_not_file_resolved": 3,
-      "nonlocal_receipt_path_resolved_not_public_evidence": 7,
+      "nonlocal_receipt_ref_declared_not_public_file_resolved": 7,
       "receipt_path_resolved": 456,
       "symbolic_receipt_id_declared_not_file_resolved": 125
     },
     "declared_ref_count": 3,
     "edge_count": 1294,
-    "gap_details": [],
-    "known_count": 591,
-    "missing_ref_count": 0,
-    "missing_ref_details": [],
-    "nonlocal_ref_count": 7,
-    "nonlocal_ref_details": [
+    "gap_details": [
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
         "inbound_edge_count": 2,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:agent_route_observability_runtime",
           "standard:std_microcosm_agent_route_observability_runtime"
@@ -3340,22 +3077,22 @@
           "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime].receipt_refs[0]",
           "standards/std_microcosm_agent_route_observability_runtime.json.receipt_refs[1]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
         "inbound_edge_count": 2,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:executable_doctrine_grammar",
           "standard:std_microcosm_executable_doctrine_grammar"
@@ -3365,22 +3102,22 @@
           "core/organ_registry.json::implemented_organs[1:executable_doctrine_grammar].receipt_refs[0]",
           "standards/std_microcosm_executable_doctrine_grammar.json.receipt_refs[1]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
         "inbound_edge_count": 2,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:mission_transaction_work_spine",
           "standard:std_microcosm_mission_transaction_work_spine"
@@ -3390,22 +3127,22 @@
           "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine].receipt_refs[0]",
           "standards/std_microcosm_mission_transaction_work_spine.json.receipt_refs[1]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
         "inbound_edge_count": 2,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:navigation_hologram_route_plane",
           "standard:std_microcosm_navigation_hologram_route_plane"
@@ -3415,21 +3152,21 @@
           "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane].receipt_refs[0]",
           "standards/std_microcosm_navigation_hologram_route_plane.json.receipt_refs[1]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
         "inbound_edge_count": 1,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:pattern_assimilation_step"
         ],
@@ -3437,21 +3174,21 @@
         "source_refs": [
           "core/organ_registry.json::implemented_organs[28:pattern_assimilation_step].receipt_refs[0]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
         "inbound_edge_count": 1,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:proof_diagnostic_evidence_spine"
         ],
@@ -3459,22 +3196,22 @@
         "source_refs": [
           "core/organ_registry.json::implemented_organs[2:proof_diagnostic_evidence_spine].receipt_refs[0]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
       },
       {
         "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
         "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
-        "gap_count": 0,
+        "gap_count": 1,
         "id": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
         "inbound_edge_count": 2,
         "kind": "receipt",
-        "path_exists": true,
+        "path_exists": false,
         "relation_ids": [
           "organ.evidenced_by.receipt",
           "standard.evidenced_by.receipt"
         ],
-        "residual_pressure_ref": null,
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
         "source_ids": [
           "organ:pattern_binding_contract",
           "standard:std_microcosm_pattern_binding_contract"
@@ -3484,7 +3221,182 @@
           "core/organ_registry.json::implemented_organs[0:pattern_binding_contract].receipt_refs[0]",
           "standards/std_microcosm_pattern_binding_contract.json.receipt_refs[0]"
         ],
-        "support_status": "nonlocal_receipt_path_resolved_not_public_evidence",
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json"
+      }
+    ],
+    "known_count": 591,
+    "missing_ref_count": 0,
+    "missing_ref_details": [],
+    "nonlocal_ref_count": 7,
+    "nonlocal_ref_details": [
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:agent_route_observability_runtime",
+          "standard:std_microcosm_agent_route_observability_runtime"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime].receipt_refs[0]",
+          "standards/std_microcosm_agent_route_observability_runtime.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:executable_doctrine_grammar",
+          "standard:std_microcosm_executable_doctrine_grammar"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[1:executable_doctrine_grammar].receipt_refs[0]",
+          "standards/std_microcosm_executable_doctrine_grammar.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:mission_transaction_work_spine",
+          "standard:std_microcosm_mission_transaction_work_spine"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine].receipt_refs[0]",
+          "standards/std_microcosm_mission_transaction_work_spine.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:navigation_hologram_route_plane",
+          "standard:std_microcosm_navigation_hologram_route_plane"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane].receipt_refs[0]",
+          "standards/std_microcosm_navigation_hologram_route_plane.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 1,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:pattern_assimilation_step"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[28:pattern_assimilation_step].receipt_refs[0]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
+        "inbound_edge_count": 1,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:proof_diagnostic_evidence_spine"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[2:proof_diagnostic_evidence_spine].receipt_refs[0]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:pattern_binding_contract",
+          "standard:std_microcosm_pattern_binding_contract"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[0:pattern_binding_contract].receipt_refs[0]",
+          "standards/std_microcosm_pattern_binding_contract.json.receipt_refs[0]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
         "title": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json"
       }
     ],
@@ -3496,7 +3408,7 @@
       "principle.evidenced_by.receipt",
       "standard.evidenced_by.receipt"
     ],
-    "resolved_nonlocal_ref_count": 7,
+    "resolved_nonlocal_ref_count": 0,
     "resolved_path_count": 456,
     "sample_nodes": [
       {
@@ -3766,8 +3678,178 @@
     ],
     "support_scope": "derived from receipt_refs on source instances; receipt existence is not proof, and nonlocal path walkability is not runtime correctness, release authority, or source evidence laundering",
     "symbolic_id_count": 125,
-    "unresolved_nonlocal_ref_count": 0,
-    "unresolved_nonlocal_ref_details": []
+    "unresolved_nonlocal_ref_count": 7,
+    "unresolved_nonlocal_ref_details": [
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:agent_route_observability_runtime",
+          "standard:std_microcosm_agent_route_observability_runtime"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[26:agent_route_observability_runtime].receipt_refs[0]",
+          "standards/std_microcosm_agent_route_observability_runtime.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:executable_doctrine_grammar",
+          "standard:std_microcosm_executable_doctrine_grammar"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[1:executable_doctrine_grammar].receipt_refs[0]",
+          "standards/std_microcosm_executable_doctrine_grammar.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:mission_transaction_work_spine",
+          "standard:std_microcosm_mission_transaction_work_spine"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine].receipt_refs[0]",
+          "standards/std_microcosm_mission_transaction_work_spine.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:navigation_hologram_route_plane",
+          "standard:std_microcosm_navigation_hologram_route_plane"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[19:navigation_hologram_route_plane].receipt_refs[0]",
+          "standards/std_microcosm_navigation_hologram_route_plane.json.receipt_refs[1]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
+        "inbound_edge_count": 1,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:pattern_assimilation_step"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[28:pattern_assimilation_step].receipt_refs[0]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
+        "inbound_edge_count": 1,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:proof_diagnostic_evidence_spine"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[2:proof_diagnostic_evidence_spine].receipt_refs[0]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
+      },
+      {
+        "authority_boundary": "derived_projection_node_from_receipt_refs_not_receipt_content_proof",
+        "claim_ceiling": "nonlocal_receipt_handle_is_declared_authority_boundary_not_public_file_evidence",
+        "gap_count": 1,
+        "id": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+        "inbound_edge_count": 2,
+        "kind": "receipt",
+        "path_exists": false,
+        "relation_ids": [
+          "organ.evidenced_by.receipt",
+          "standard.evidenced_by.receipt"
+        ],
+        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "source_ids": [
+          "organ:pattern_binding_contract",
+          "standard:std_microcosm_pattern_binding_contract"
+        ],
+        "source_ref": null,
+        "source_refs": [
+          "core/organ_registry.json::implemented_organs[0:pattern_binding_contract].receipt_refs[0]",
+          "standards/std_microcosm_pattern_binding_contract.json.receipt_refs[0]"
+        ],
+        "support_status": "nonlocal_receipt_ref_declared_not_public_file_resolved",
+        "title": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json"
+      }
+    ]
   },
   "residual_pressure": [
     {
@@ -3794,6 +3876,11 @@
       "gap_class": "standard_contract_and_triad_population",
       "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
       "reentry_condition": "Upgrade legacy/draft standard contracts and bind standard.owns_triad skill edges to governed skill JSON only when source evidence exists."
+    },
+    {
+      "gap_class": "evidence_walkability_population",
+      "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "reentry_condition": "Resolve code-locus, receipt, and doctrine-kind walkability gaps from source refs; do not treat path or receipt existence as proof."
     }
   ],
   "schema_version": "microcosm_doctrine_lattice_health_v1",

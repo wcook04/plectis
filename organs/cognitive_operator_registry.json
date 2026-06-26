@@ -1,0 +1,535 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-7",
+    "AX-8",
+    "AX-11"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for public cognitive-operator registry validation, exported source-module manifest checks, copied body digest verification, negative-case enforcement, and receipt writing.",
+      "symbols": [
+        "run",
+        "run_registry_bundle",
+        "_source_module_manifest_result",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.architecture_and_navigation_route_contract_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Cognitive Operator Registry",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "architecture_and_navigation",
+  "id": "cognitive_operator_registry",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's source module, public fixture, exported cognitive-operator bundle, copied non-secret macro registry/standard/tool bodies, and receipts validate operator-shape rows, active-operator dogfood, anti-sprawl decisions, authority ceilings, and secret-exclusion boundaries.",
+      "ref": "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[47:cognitive_operator_registry]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "cognitive_operator_registry",
+  "organ_payload": {
+    "claim_ceiling": "It validates only the declared public registry contract and copied non-secret macro bodies; it never becomes registry source authority, mutates operators, proves operator correctness, exposes raw operator voice, or authorizes release, provider calls, or any whole-system-correctness claim.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/cognitive_operator_registry.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/cognitive_operator_registry.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs this to confirm every operator row in the public cognitive-operator registry carries the required operator-shape fields (activation, process, integration, validation, evidence, dogfood receipts), that each active operator has a dogfood receipt with cognition_delta_evidence, that near-duplicate operators carry an accretion decision (anti-sprawl), and that no row claims operator-voice authority, leaks a private body, or sets a release/provider/mutation overclaim.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "claim_ceiling_restated": "It validates only the declared public registry contract and copied non-secret macro bodies; it never becomes registry source authority, mutates operators, proves operator correctness, exposes raw operator voice, or authorizes release, provider calls, or any whole-system-correctness claim.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for public cognitive-operator registry validation, exported source-module manifest checks, copied body digest verification, negative-case enforcement, and receipt writing.",
+          "symbols": [
+            "run",
+            "run_registry_bundle",
+            "_source_module_manifest_result",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.architecture_and_navigation_route_contract_bundle"
+      ],
+      "display_name": "Cognitive Operator Registry",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out /tmp/cognitive_operator_registry_out",
+      "human_gloss": "This is a checker for the system's catalogue of named thinking-moves (operators like \"reduce competing pressure to one bounded action\" or \"compile a handoff packet when validated work cannot be committed\"). It confirms every operator in the public catalogue is fully described (how it is triggered, used, and checked) and that every operator marked active carries a real receipt proving it once changed a live decision, while rejecting any operator that claims to speak with the owner's voice or overreaches into \"ready to release.\" It matters because it shows the system treats reasoning itself as inspectable typed substrate instead of ad-hoc prompt lore.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's source module, public fixture, exported cognitive-operator bundle, copied non-secret macro registry/standard/tool bodies, and receipts validate operator-shape rows, active-operator dogfood, anti-sprawl decisions, authority ceilings, and secret-exclusion boundaries.",
+          "ref": "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "cognitive_operator_registry",
+      "paper_module_ref": "core/paper_module_capsules.json#paper_module.cognitive_operator_registry",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[47:cognitive_operator_registry]",
+      "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry]",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [],
+      "wiring_note": "Reads the public cognitive-operator registry, standard, and dogfood inputs plus the copied macro bodies as projection inputs, binding only to the shared kernel and evidence/authority spine; it does not invoke other organs at runtime."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[cognitive_operator_registry]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+        "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+      ],
+      "organ_id": "cognitive_operator_registry",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.cognitive_operator_registry",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_import_validation",
+      "validator_command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "core/paper_module_capsules.json#paper_module.cognitive_operator_registry",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-5",
+    "P-6",
+    "P-8",
+    "P-9",
+    "P-12",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+    "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for public cognitive-operator registry validation, exported source-module manifest checks, copied body digest verification, negative-case enforcement, and receipt writing.",
+        "symbols": [
+          "run",
+          "run_registry_bundle",
+          "_source_module_manifest_result",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.architecture_and_navigation_route_contract_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.cognitive_operator_registry",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].mechanism_refs[0]",
+          "summary": "The organ's source module, public fixture, exported cognitive-operator bundle, copied non-secret macro registry/standard/tool bodies, and receipts validate operator-shape rows, active-operator dogfood, anti-sprawl decisions, authority ceilings, and secret-exclusion boundaries."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].code_loci[0]",
+          "summary": "Runtime authority for public cognitive-operator registry validation, exported source-module manifest checks, copied body digest verification, negative-case enforcement, and receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/cognitive_operator_registry.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.architecture_and_navigation_route_contract_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's source module, public fixture, exported cognitive-operator bundle, copied non-secret macro registry/standard/tool bodies, and receipts validate operator-shape rows, active-operator dogfood, anti-sprawl decisions, authority ceilings, and secret-exclusion boundaries.",
+        "ref": "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "core/paper_module_capsules.json#paper_module.cognitive_operator_registry",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[47:cognitive_operator_registry]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[47:cognitive_operator_registry]",
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Organ atlas row does not name sibling wires_to targets.",
+        "relation_id": "organ.wires_to.organ",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ],
+    "wires_to": []
+  },
+  "role": "An agent runs this to confirm every operator row in the public cognitive-operator registry carries the required operator-shape fields (activation, process, integration, validation, evidence, dogfood receipts), that each active operator has a dogfood receipt with cognition_delta_evidence, that near-duplicate operators carry an accretion decision (anti-sprawl), and that no row claims operator-voice authority, leaks a private body, or sets a release/provider/mutation overclaim.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[47:cognitive_operator_registry]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[47:cognitive_operator_registry]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/cognitive_operator_registry.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "architecture",
+    "navigation",
+    "doctrine",
+    "provider-ops"
+  ],
+  "statement": "An agent runs this to confirm every operator row in the public cognitive-operator registry carries the required operator-shape fields (activation, process, integration, validation, evidence, dogfood receipts), that each active operator has a dogfood receipt with cognition_delta_evidence, that near-duplicate operators carry an accretion decision (anti-sprawl), and that no row claims operator-voice authority, leaks a private body, or sets a release/provider/mutation overclaim.",
+  "status": "accepted_current_authority",
+  "title": "Cognitive Operator Registry",
+  "validator_refs": [
+    "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": []
+}

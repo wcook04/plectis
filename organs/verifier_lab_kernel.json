@@ -1,0 +1,607 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-2",
+    "AX-5",
+    "AX-7"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/verifier_lab_kernel.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for the verifier-lab composition mechanism and receipt writing.",
+      "symbols": [
+        "run",
+        "run_kernel_bundle",
+        "_build_result",
+        "_write_receipts"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.formal_math_and_proof_witness_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Verifier Lab Kernel",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "formal_math_and_proof",
+  "id": "verifier_lab_kernel",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's source module and fixture receipt compose public formal-math component receipts into a leak-proof aggregate receipt.",
+      "ref": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[17:verifier_lab_kernel]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "verifier_lab_kernel",
+  "organ_payload": {
+    "claim_ceiling": "It validates the declared public contract shape of the proof packet and component receipts only; it does not prove anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, call providers, mutate source, or claim benchmark solve rates, release, or maturity.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/verifier_lab_kernel.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/verifier_lab_kernel.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to compose the nine public formal-math organs into one receipt and confirm the proof packet obeys its declared contract, keeping verifier-backed, oracle-compared, provider-suggested, and contract-rejected rows in separate buckets, with proof/provider/oracle bodies excluded from the receipt.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-2",
+        "AX-5",
+        "AX-7"
+      ],
+      "claim_ceiling_restated": "It validates the declared public contract shape of the proof packet and component receipts only; it does not prove anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, call providers, mutate source, or claim benchmark solve rates, release, or maturity.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/verifier_lab_kernel.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for the verifier-lab composition mechanism and receipt writing.",
+          "symbols": [
+            "run",
+            "run_kernel_bundle",
+            "_build_result",
+            "_write_receipts"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "display_name": "Verifier Lab Kernel",
+      "evidence_class": "semantic_validator",
+      "family": "formal_math_and_proof",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+      "human_gloss": "This assembly point for the Lean/proof toolkit runs nine smaller formal-math pipeline checkers together and folds their results into one leak-proof report that labels every line by where it came from: a Lean verifier, an answer-key (oracle) comparator, an AI suggestion, a retrieval miss, or a row thrown out for breaking the rules. The report carries only references, hashes, counts, and verdicts, never the actual proof text, AI output, or answer-key bodies. One receipt shows which claims a Lean verifier actually backed versus which are just hints or were rejected, instead of leaving a pile of separate outputs to be taken on faith.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's source module and fixture receipt compose public formal-math component receipts into a leak-proof aggregate receipt.",
+          "ref": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "verifier_lab_kernel",
+      "paper_module_ref": "paper_modules/verifier_lab_kernel.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-6",
+        "P-8",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[17:verifier_lab_kernel]",
+      "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel]",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "corpus_readiness_mathlib_absence_gate",
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "formal_math_verifier_trace_repair_loop",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_lean_proof_witness",
+        "verifier_lab_execution_spine"
+      ],
+      "wiring_note": "composition root that runs and folds receipts from nine named formal-math organs (corpus_readiness_mathlib_absence_gate, lean_std_premise_index, formal_math_premise_retrieval, tactic_portfolio_availability_probe, target_shape_tactic_routing_gate, ring2_premise_retrieval_precision_recall_harness, formal_math_verifier_trace_repair_loop, proof_diagnostic_evidence_spine, formal_math_lean_proof_witness)"
+    },
+    "source_registry_row": {
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "composes the real formal_prover_context_strategy_gate route slice across corpus readiness, Lean/Std premise indexing, premise retrieval, tactic availability, target-shape routing, Ring2 retrieval metrics, verifier-trace repair, proof-diagnostic evidence, and a bounded Lean/Lake witness without upgrading them into general proof authority",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[verifier_lab_kernel]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+        "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+        "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+        "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+      ],
+      "organ_id": "verifier_lab_kernel",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.verifier_lab_kernel",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_import_validation",
+      "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/verifier_lab_kernel.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-6",
+    "P-8",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-2",
+      "AX-5",
+      "AX-7"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/verifier_lab_kernel.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for the verifier-lab composition mechanism and receipt writing.",
+        "symbols": [
+          "run",
+          "run_kernel_bundle",
+          "_build_result",
+          "_write_receipts"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.formal_math_and_proof_witness_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.verifier_lab_kernel",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].mechanism_refs[0]",
+          "summary": "The organ's source module and fixture receipt compose public formal-math component receipts into a leak-proof aggregate receipt."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].code_loci[0]",
+          "summary": "Runtime authority for the verifier-lab composition mechanism and receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/verifier_lab_kernel.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.formal_math_and_proof_witness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "corpus_readiness_mathlib_absence_gate",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "lean_std_premise_index",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "formal_math_premise_retrieval",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "tactic_portfolio_availability_probe",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "target_shape_tactic_routing_gate",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "ring2_premise_retrieval_precision_recall_harness",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "formal_math_verifier_trace_repair_loop",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "proof_diagnostic_evidence_spine",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "formal_math_lean_proof_witness",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "verifier_lab_execution_spine",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's source module and fixture receipt compose public formal-math component receipts into a leak-proof aggregate receipt.",
+        "ref": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/verifier_lab_kernel.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-6",
+      "P-8",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[17:verifier_lab_kernel]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[17:verifier_lab_kernel]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_premise_index",
+      "formal_math_premise_retrieval",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "formal_math_verifier_trace_repair_loop",
+      "proof_diagnostic_evidence_spine",
+      "formal_math_lean_proof_witness",
+      "verifier_lab_execution_spine"
+    ]
+  },
+  "role": "An agent runs it to compose the nine public formal-math organs into one receipt and confirm the proof packet obeys its declared contract, keeping verifier-backed, oracle-compared, provider-suggested, and contract-rejected rows in separate buckets, with proof/provider/oracle bodies excluded from the receipt.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[17:verifier_lab_kernel]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[17:verifier_lab_kernel]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/verifier_lab_kernel.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "formal-methods",
+    "theorem-proving",
+    "lean",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to compose the nine public formal-math organs into one receipt and confirm the proof packet obeys its declared contract, keeping verifier-backed, oracle-compared, provider-suggested, and contract-rejected rows in separate buckets, with proof/provider/oracle bodies excluded from the receipt.",
+  "status": "accepted_current_authority",
+  "title": "Verifier Lab Kernel",
+  "validator_refs": [
+    "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "corpus_readiness_mathlib_absence_gate",
+    "lean_std_premise_index",
+    "formal_math_premise_retrieval",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "formal_math_verifier_trace_repair_loop",
+    "proof_diagnostic_evidence_spine",
+    "formal_math_lean_proof_witness",
+    "verifier_lab_execution_spine"
+  ]
+}

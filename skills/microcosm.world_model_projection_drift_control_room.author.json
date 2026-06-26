@@ -88,11 +88,11 @@
         },
         "relation_id": "skill.uses.mechanism",
         "relation_verb": "uses",
-        "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "residual_pressure_ref": null,
         "reverse_verb": "used_by",
         "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
         "target_kind": "mechanism",
-        "target_status": "unresolved_json_instance"
+        "target_status": "resolved_json_instance"
       }
     ],
     "mechanism_refs": [

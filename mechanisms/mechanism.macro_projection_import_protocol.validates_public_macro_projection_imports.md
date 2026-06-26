@@ -1,0 +1,51 @@
+# mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports validates public macro projection imports
+
+_Generated from the governed mechanism JSON instance. Do not edit this markdown by hand._
+
+- Source JSON: `mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json`
+- Registry source of record: `core/mechanism_sources.json::mechanisms[92:mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports]`
+- Authority boundary: JSON parity seed; mechanism registry source authority has not flipped.
+
+## Statement
+
+The macro projection import protocol organ validates fixture and exported projection bundles by checking source refs, public target refs, content digests, per-slice source-module manifests, omission receipts, authority ceilings, intake cell statuses, validation refs, and secret-exclusion scans before writing bounded public receipts.
+
+## Lattice Neighbours
+
+- `grounded_in` -> `code_locus:src/microcosm_core/organs/macro_projection_import_protocol.py` (resolved_code_locus)
+- `runs_in` -> `organ:macro_projection_import_protocol` (resolved_registry_or_atlas_target)
+- `grounds` -> `concept:concept.import_projection_and_drift_control_bundle` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.agent_route_observability_runtime.validates_public_route_feedback` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.cognitive_operator_registry.validates_public_operator_contract` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.concurrency_mission_control.validates_public_concurrency_mission_control` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics` (resolved_json_instance)
+- `upstream_of` -> `mechanism:mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary` (resolved_json_instance)
+
+## Anti-Claims
+
+- This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.
+- Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.
+- Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.
+- Generated markdown, graph, health, and atlas projections cannot be read back as source evidence.

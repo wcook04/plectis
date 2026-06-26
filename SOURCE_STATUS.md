@@ -23,6 +23,10 @@ paths, fixture names, and previously published links.
   over this public source and its release packets. If the website and repository
   disagree, the repository files and committed release receipts are the source
   of record.
+- The doctrine source rows behind that website projection live in `axioms/`,
+  `principles/`, `anti_principles/`, `concepts/`, and `mechanisms/`. The
+  top-level `AXIOMS.md`, `PRINCIPLES.md`, and `ANTI_PRINCIPLES.md` files are
+  readable projections over those rows, not replacement authority.
 - The retired `wcook04/microcosm-substrate` repository and old Pages URL are
   historical compatibility surfaces only; they are not current source authority.
 - The package is licensed under Apache-2.0; see `LICENSE`, `NOTICE`, and

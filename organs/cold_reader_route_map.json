@@ -1,0 +1,663 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-7",
+    "AX-8",
+    "AX-11"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/cold_reader_route_map.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for public first-run route-map validation, route/source replay checks, exported source-module digest verification, negative-case enforcement, authority ceilings, and receipt writing.",
+      "symbols": [
+        "run",
+        "run_route_map_bundle",
+        "_route_source_replay_result",
+        "_source_module_import_result",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.entry_and_reveal_route_readiness_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Cold Reader Route Map",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "entry_and_reveal",
+  "id": "cold_reader_route_map",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's runtime, first-wave fixture, exported cold-reader route-map bundle, exact copied macro navigation source-module manifest, acceptance receipt, runtime-shell receipt, and focused tests validate route ordering, runnable command refs, public docs refs, receipt refs, negative cases, body-free receipt boundaries, and private-state exclusion.",
+      "ref": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[33:cold_reader_route_map]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "cold_reader_route_map",
+  "organ_payload": {
+    "claim_ceiling": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/cold_reader_route_map.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/cold_reader_route_map.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to confirm the declared first-run route sequence starts with the front-door commands (tour, status card, proof lab) and is ordinal-sorted, that each route names a runnable command plus a public docs reference and resolves by route_id to at least one receipt ref in the route-receipts file, and that nothing carries release/provider overclaims or private source bodies.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "claim_ceiling_restated": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/cold_reader_route_map.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for public first-run route-map validation, route/source replay checks, exported source-module digest verification, negative-case enforcement, authority ceilings, and receipt writing.",
+          "symbols": [
+            "run",
+            "run_route_map_bundle",
+            "_route_source_replay_result",
+            "_source_module_import_result",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.entry_and_reveal_route_readiness_bundle"
+      ],
+      "display_name": "Cold Reader Route Map",
+      "evidence_class": "semantic_validator",
+      "family": "entry_and_reveal",
+      "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+      "human_gloss": "It checks Microcosm's \"what do I run first\" guided path so that every step on the cold-reader route map is backed by a real command, a public doc reference, and an evidence receipt instead of just prose promises. A newcomer can therefore trust that the suggested ten-minute first-run tour is actually wired and honestly labeled, with small verified counts shown as plain accounting rather than success badges.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's runtime, first-wave fixture, exported cold-reader route-map bundle, exact copied macro navigation source-module manifest, acceptance receipt, runtime-shell receipt, and focused tests validate route ordering, runnable command refs, public docs refs, receipt refs, negative cases, body-free receipt boundaries, and private-state exclusion.",
+          "ref": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "cold_reader_route_map",
+      "paper_module_ref": "core/paper_module_capsules.json#paper_module.cold_reader_route_map",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[33:cold_reader_route_map]",
+      "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map]",
+      "specialty": [
+        "agent-entry",
+        "getting-started",
+        "interesting-parts",
+        "evaluation",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "navigation_hologram_route_plane",
+        "agent_route_observability_runtime",
+        "pattern_binding_contract",
+        "doctrine_fact_claim_audit",
+        "pattern_assimilation_step",
+        "routing_anti_patterns_registry",
+        "self_ignorance_coverage_ledger",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "wiring_note": "consumes the first-screen card as a handoff and sequences/binds named sibling organs (tour, status, authority, workingness, explain, observe, compile) by requiring each route row to point at their commands and receipts. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "derived cold-reader route ordering, command ref, docs ref, and receipt ref validation",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[cold_reader_route_map]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+        "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+      ],
+      "organ_id": "cold_reader_route_map",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.cold_reader_route_map",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_import_validation",
+      "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "core/paper_module_capsules.json#paper_module.cold_reader_route_map",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-5",
+    "P-6",
+    "P-8",
+    "P-9",
+    "P-12",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+    "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/cold_reader_route_map.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for public first-run route-map validation, route/source replay checks, exported source-module digest verification, negative-case enforcement, authority ceilings, and receipt writing.",
+        "symbols": [
+          "run",
+          "run_route_map_bundle",
+          "_route_source_replay_result",
+          "_source_module_import_result",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.entry_and_reveal_route_readiness_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.cold_reader_route_map",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].mechanism_refs[0]",
+          "summary": "The organ's runtime, first-wave fixture, exported cold-reader route-map bundle, exact copied macro navigation source-module manifest, acceptance receipt, runtime-shell receipt, and focused tests validate route ordering, runnable command refs, public docs refs, receipt refs, negative cases, body-free receipt boundaries, and private-state exclusion."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].code_loci[0]",
+          "summary": "Runtime authority for public first-run route-map validation, route/source replay checks, exported source-module digest verification, negative-case enforcement, authority ceilings, and receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/cold_reader_route_map.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.entry_and_reveal_route_readiness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "navigation_hologram_route_plane",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "agent_route_observability_runtime",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "pattern_binding_contract",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "doctrine_fact_claim_audit",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "pattern_assimilation_step",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "routing_anti_patterns_registry",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "self_ignorance_coverage_ledger",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "voice_to_doctrine_self_improvement_loop",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's runtime, first-wave fixture, exported cold-reader route-map bundle, exact copied macro navigation source-module manifest, acceptance receipt, runtime-shell receipt, and focused tests validate route ordering, runnable command refs, public docs refs, receipt refs, negative cases, body-free receipt boundaries, and private-state exclusion.",
+        "ref": "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "core/paper_module_capsules.json#paper_module.cold_reader_route_map",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[33:cold_reader_route_map]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[33:cold_reader_route_map]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "navigation_hologram_route_plane",
+      "agent_route_observability_runtime",
+      "pattern_binding_contract",
+      "doctrine_fact_claim_audit",
+      "pattern_assimilation_step",
+      "routing_anti_patterns_registry",
+      "self_ignorance_coverage_ledger",
+      "voice_to_doctrine_self_improvement_loop"
+    ]
+  },
+  "role": "An agent runs it to confirm the declared first-run route sequence starts with the front-door commands (tour, status card, proof lab) and is ordinal-sorted, that each route names a runnable command plus a public docs reference and resolves by route_id to at least one receipt ref in the route-receipts file, and that nothing carries release/provider overclaims or private source bodies.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[33:cold_reader_route_map]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[33:cold_reader_route_map]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/cold_reader_route_map.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "agent-entry",
+    "getting-started",
+    "interesting-parts",
+    "evaluation",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to confirm the declared first-run route sequence starts with the front-door commands (tour, status card, proof lab) and is ordinal-sorted, that each route names a runnable command plus a public docs reference and resolves by route_id to at least one receipt ref in the route-receipts file, and that nothing carries release/provider overclaims or private source bodies.",
+  "status": "accepted_current_authority",
+  "title": "Cold Reader Route Map",
+  "validator_refs": [
+    "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "navigation_hologram_route_plane",
+    "agent_route_observability_runtime",
+    "pattern_binding_contract",
+    "doctrine_fact_claim_audit",
+    "pattern_assimilation_step",
+    "routing_anti_patterns_registry",
+    "self_ignorance_coverage_ledger",
+    "voice_to_doctrine_self_improvement_loop"
+  ]
+}

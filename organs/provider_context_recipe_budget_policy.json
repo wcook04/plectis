@@ -1,0 +1,466 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-2",
+    "AX-5",
+    "AX-7"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for provider-context budget fixture validation, exported budget-bundle validation, source-module manifest checks, recipe projection checks, negative-case enforcement, and body-free receipt writing.",
+      "symbols": [
+        "run",
+        "run_budget_bundle",
+        "SOURCE_MODULE_MANIFEST_NAME",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.agent_reliability_and_safety_validator_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Provider Context Recipe Budget Policy",
+  "entry_surface_contract": null,
+  "evidence_class": "bounded_runtime_computation",
+  "family": "agent_reliability_and_safety",
+  "id": "provider_context_recipe_budget_policy",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's source module, first-wave fixture, provider-context budget receipts, source-module manifest, recipe projection checks, authority ceiling, and negative cases validate context-budget accounting without authorizing provider calls, carrying proof/oracle truth-side material, asserting theorem/domain correctness, or granting release authority.",
+      "ref": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "provider_context_recipe_budget_policy",
+  "organ_payload": {
+    "claim_ceiling": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It does not authorize provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain correctness, or authorize release.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/provider_context_recipe_budget_policy.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/provider_context_recipe_budget_policy.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs this to validate that its planned provider-context recipes respect their fixed byte budgets, fill sections in declared order under those budgets, emit an omitted-sections manifest whenever something is dropped, and route to the correct deliverable type, while rejecting any recipe that authorizes a provider call or carries truth-side, oracle, or proof-body material. It also digest-checks the copied standard/source-module bodies it ships. Output is context metadata and verdicts only.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-2",
+        "AX-5",
+        "AX-7"
+      ],
+      "claim_ceiling_restated": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It does not authorize provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain correctness, or authorize release.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for provider-context budget fixture validation, exported budget-bundle validation, source-module manifest checks, recipe projection checks, negative-case enforcement, and body-free receipt writing.",
+          "symbols": [
+            "run",
+            "run_budget_bundle",
+            "SOURCE_MODULE_MANIFEST_NAME",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "display_name": "Provider Context Recipe Budget Policy",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "agent_reliability_and_safety",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+      "human_gloss": "This organ checks that the bundles of context an AI agent would assemble before calling an outside model provider stay inside fixed size limits (in bytes), fill their sections in the declared order until the budget runs out, list any section that was dropped for not fitting, and never carry answer keys, proof solutions, or other \"correct answer\" material. The record shows the exact size ceilings for each recipe, which sections fit versus got left out, and which output each recipe is allowed to produce, so the context boundary is inspectable as plain accounting before any provider call or answer authority is ever in play. It only validates this metadata; it does not itself call any provider.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's source module, first-wave fixture, provider-context budget receipts, source-module manifest, recipe projection checks, authority ceiling, and negative cases validate context-budget accounting without authorizing provider calls, carrying proof/oracle truth-side material, asserting theorem/domain correctness, or granting release authority.",
+          "ref": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "provider_context_recipe_budget_policy",
+      "paper_module_ref": "paper_modules/provider_context_recipe_budget.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-6",
+        "P-8"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[15:provider_context_recipe_budget_policy]",
+      "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy]",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [
+        "bounded_autonomy_campaign_packet",
+        "tool_server_pressure_inventory"
+      ],
+      "wiring_note": "Binds only to the shared kernel + evidence/authority spine (private_state_scan, receipts, schemas, authority ceiling); it copies standard/source-module bodies by digest but does not feed or consume other named organs at runtime."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "projection mechanics only, not domain correctness",
+      "classification_basis": "bounded context-budget packing and section omission computation",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[provider_context_recipe_budget_policy]",
+      "evidence_strength_rank": 4,
+      "generated_receipts": [
+        "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
+        "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
+        "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
+        "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
+      ],
+      "organ_id": "provider_context_recipe_budget_policy",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.provider_context_recipe_budget_policy",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/provider_context_recipe_budget.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-6",
+    "P-8"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
+    "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
+    "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
+    "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
+    "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-2",
+      "AX-5",
+      "AX-7"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for provider-context budget fixture validation, exported budget-bundle validation, source-module manifest checks, recipe projection checks, negative-case enforcement, and body-free receipt writing.",
+        "symbols": [
+          "run",
+          "run_budget_bundle",
+          "SOURCE_MODULE_MANIFEST_NAME",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.provider_context_recipe_budget",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].mechanism_refs[0]",
+          "summary": "The organ's source module, first-wave fixture, provider-context budget receipts, source-module manifest, recipe projection checks, authority ceiling, and negative cases validate context-budget accounting without authorizing provider calls, carrying proof/oracle truth-side material, asserting theorem/domain correctness, or granting release authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].code_loci[0]",
+          "summary": "Runtime authority for provider-context budget fixture validation, exported budget-bundle validation, source-module manifest checks, recipe projection checks, negative-case enforcement, and body-free receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "bounded_autonomy_campaign_packet",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "tool_server_pressure_inventory",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's source module, first-wave fixture, provider-context budget receipts, source-module manifest, recipe projection checks, authority ceiling, and negative cases validate context-budget accounting without authorizing provider calls, carrying proof/oracle truth-side material, asserting theorem/domain correctness, or granting release authority.",
+        "ref": "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/provider_context_recipe_budget.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-6",
+      "P-8"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[15:provider_context_recipe_budget_policy]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "bounded_autonomy_campaign_packet",
+      "tool_server_pressure_inventory"
+    ]
+  },
+  "role": "An agent runs this to validate that its planned provider-context recipes respect their fixed byte budgets, fill sections in declared order under those budgets, emit an omitted-sections manifest whenever something is dropped, and route to the correct deliverable type, while rejecting any recipe that authorizes a provider call or carries truth-side, oracle, or proof-body material. It also digest-checks the copied standard/source-module bodies it ships. Output is context metadata and verdicts only.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[15:provider_context_recipe_budget_policy]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[15:provider_context_recipe_budget_policy]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/provider_context_recipe_budget_policy.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "ai-safety",
+    "agent-evaluation",
+    "red-teaming",
+    "provider-ops"
+  ],
+  "statement": "An agent runs this to validate that its planned provider-context recipes respect their fixed byte budgets, fill sections in declared order under those budgets, emit an omitted-sections manifest whenever something is dropped, and route to the correct deliverable type, while rejecting any recipe that authorizes a provider call or carries truth-side, oracle, or proof-body material. It also digest-checks the copied standard/source-module bodies it ships. Output is context metadata and verdicts only.",
+  "status": "accepted_current_authority",
+  "title": "Provider Context Recipe Budget Policy",
+  "validator_refs": [
+    "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "bounded_autonomy_campaign_packet",
+    "tool_server_pressure_inventory"
+  ]
+}

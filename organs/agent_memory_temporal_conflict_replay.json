@@ -1,0 +1,363 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for synthetic memory conflict fixture validation, exported memory bundle checks, paired replay evidence accounting, negative-case enforcement, and body-free receipt writing.",
+      "symbols": [
+        "run",
+        "run_memory_bundle",
+        "validate_source_module_imports",
+        "validate_memory_episodes",
+        "validate_replay_observations",
+        "_build_result",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.agent_reliability_and_safety_validator_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Agent Memory Temporal Conflict Replay",
+  "entry_surface_contract": null,
+  "evidence_class": "algorithmic_projection",
+  "family": "agent_reliability_and_safety",
+  "id": "agent_memory_temporal_conflict_replay",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's runtime module, memory-conflict fixture receipts, public trace builder, source-module manifest checks, temporal conflict-edge and stale-downgrade refs, paired replay receipts, and negative cases validate body-free memory projection mechanics without claiming live memory quality, domain correctness, provider execution, source authority, or release readiness.",
+      "ref": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "agent_memory_temporal_conflict_replay",
+  "organ_payload": {
+    "claim_ceiling": "It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, call providers, mutate source, or authorize release.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/agent_memory_temporal_conflict_replay.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/agent_memory_temporal_conflict_replay.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs this against a synthetic fixture to see the shape of the memory-update bookkeeping it should produce: updates and deletes of older memory must carry temporal conflict-edge and stale-downgrade refs before they may affect a replay; private threads appear only as metadata-only refs with no exported body; and a memory-on replay must cite evidence handles while the memory-on/off pair is reconciled by an answer-delta receipt, not by final-answer comparison alone. It also confirms seven failure fixtures (raw transcript export, private-candidate auto-promotion, stale-preference override, memory-as-source-authority, vector recall without an evidence handle, final-answer-only credit, active-injection authority) are all rejected. It validates structure and receipt presence on fixture rows, not the correctness of any real memory system.",
+      "axiom_refs": [
+        "AX-1"
+      ],
+      "claim_ceiling_restated": "It validates the projection mechanics of a synthetic memory fixture only — that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that receipts are body-free. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, call providers, mutate source, or authorize release.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for synthetic memory conflict fixture validation, exported memory bundle checks, paired replay evidence accounting, negative-case enforcement, and body-free receipt writing.",
+          "symbols": [
+            "run",
+            "run_memory_bundle",
+            "validate_source_module_imports",
+            "validate_memory_episodes",
+            "validate_replay_observations",
+            "_build_result",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "display_name": "Agent Memory Temporal Conflict Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out",
+      "human_gloss": "Replays a canned three-step story: an agent's memory first records two facts (a preference and a tool result), then learns one is now out of date and edits the preference and deletes the stale fact, then re-runs the same task once with memory on and once with memory off. From plain receipts, it shows that the update and deletion each carry a \"conflict\" and \"downgrade\" receipt before the memory is allowed to affect the answer, that the memory-on vs memory-off runs are compared through logged evidence rather than just the final wording, and that private-thread content stays in the record only as metadata pointers, never as copied text. It checks the bookkeeping of this synthetic example; it does not judge whether the agent's memory decisions were the right ones.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's runtime module, memory-conflict fixture receipts, public trace builder, source-module manifest checks, temporal conflict-edge and stale-downgrade refs, paired replay receipts, and negative cases validate body-free memory projection mechanics without claiming live memory quality, domain correctness, provider execution, source authority, or release readiness.",
+          "ref": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "paper_module_ref": "paper_modules/agent_memory_temporal_conflict_replay.md",
+      "principle_refs": [
+        "P-1",
+        "P-2"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[36:agent_memory_temporal_conflict_replay]",
+      "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "security"
+      ],
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
+      "wiring_note": "binds to the shared kernel + evidence/authority spine (secret-exclusion scan, receipts, schemas, and a public execution-trace builder) and names sleeper_memory_poisoning_quarantine_replay as a structural downstream sibling derived from the mechanism upstream graph. This wires_to edge is navigation structure only, not live invocation, release authority, or proof of runtime integration."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "projection mechanics only, not domain correctness",
+      "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+      "evidence_class": "algorithmic_projection",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_memory_temporal_conflict_replay]",
+      "evidence_strength_rank": 3,
+      "generated_receipts": [
+        "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+        "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
+        "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.agent_memory_temporal_conflict_replay",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "validator_command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/agent_memory_temporal_conflict_replay.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for synthetic memory conflict fixture validation, exported memory bundle checks, paired replay evidence accounting, negative-case enforcement, and body-free receipt writing.",
+        "symbols": [
+          "run",
+          "run_memory_bundle",
+          "validate_source_module_imports",
+          "validate_memory_episodes",
+          "validate_replay_observations",
+          "_build_result",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.agent_memory_temporal_conflict_replay",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].mechanism_refs[0]",
+          "summary": "The organ's runtime module, memory-conflict fixture receipts, public trace builder, source-module manifest checks, temporal conflict-edge and stale-downgrade refs, paired replay receipts, and negative cases validate body-free memory projection mechanics without claiming live memory quality, domain correctness, provider execution, source authority, or release readiness."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].code_loci[0]",
+          "summary": "Runtime authority for synthetic memory conflict fixture validation, exported memory bundle checks, paired replay evidence accounting, negative-case enforcement, and body-free receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "sleeper_memory_poisoning_quarantine_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's runtime module, memory-conflict fixture receipts, public trace builder, source-module manifest checks, temporal conflict-edge and stale-downgrade refs, paired replay receipts, and negative cases validate body-free memory projection mechanics without claiming live memory quality, domain correctness, provider execution, source authority, or release readiness.",
+        "ref": "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/agent_memory_temporal_conflict_replay.md",
+    "principle_refs": [
+      "P-1",
+      "P-2"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[36:agent_memory_temporal_conflict_replay]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "sleeper_memory_poisoning_quarantine_replay"
+    ]
+  },
+  "role": "An agent runs this against a synthetic fixture to see the shape of the memory-update bookkeeping it should produce: updates and deletes of older memory must carry temporal conflict-edge and stale-downgrade refs before they may affect a replay; private threads appear only as metadata-only refs with no exported body; and a memory-on replay must cite evidence handles while the memory-on/off pair is reconciled by an answer-delta receipt, not by final-answer comparison alone. It also confirms seven failure fixtures (raw transcript export, private-candidate auto-promotion, stale-preference override, memory-as-source-authority, vector recall without an evidence handle, final-answer-only credit, active-injection authority) are all rejected. It validates structure and receipt presence on fixture rows, not the correctness of any real memory system.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[36:agent_memory_temporal_conflict_replay]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[36:agent_memory_temporal_conflict_replay]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/agent_memory_temporal_conflict_replay.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "ai-safety",
+    "agent-evaluation",
+    "red-teaming",
+    "security"
+  ],
+  "statement": "An agent runs this against a synthetic fixture to see the shape of the memory-update bookkeeping it should produce: updates and deletes of older memory must carry temporal conflict-edge and stale-downgrade refs before they may affect a replay; private threads appear only as metadata-only refs with no exported body; and a memory-on replay must cite evidence handles while the memory-on/off pair is reconciled by an answer-delta receipt, not by final-answer comparison alone. It also confirms seven failure fixtures (raw transcript export, private-candidate auto-promotion, stale-preference override, memory-as-source-authority, vector recall without an evidence handle, final-answer-only credit, active-injection authority) are all rejected. It validates structure and receipt presence on fixture rows, not the correctness of any real memory system.",
+  "status": "accepted_current_authority",
+  "title": "Agent Memory Temporal Conflict Replay",
+  "validator_refs": [
+    "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "sleeper_memory_poisoning_quarantine_replay"
+  ]
+}

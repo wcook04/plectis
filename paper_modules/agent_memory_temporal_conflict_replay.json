@@ -7,7 +7,7 @@
   "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
   "compression": {
     "authority_ceiling": "Synthetic replay fixture only; not a live memory product, private transcript export, source-authority claim, or release claim.",
-    "card": "Public Microcosm projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
+    "card": "Public Plectis projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
     "one_line": "Synthetic replay fixture for an agent-memory honesty contract: models scoped-preference episodes and checks temporal-conflict handling; no live memory product."
   },
   "created_at": "2026-06-02T00:00:00Z",
@@ -78,7 +78,7 @@
       ],
       "compression": {
         "authority_ceiling": "Synthetic replay fixture only; not a live memory product, private transcript export, source-authority claim, or release claim.",
-        "card": "Public Microcosm projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
+        "card": "Public Plectis projection of an agent-memory honesty contract. Replays synthetic episodes (a scoped preference later contradicted) and validates temporal-conflict resolution, negative cases, private-state exclusion, and authority ceilings with body-free receipts.",
         "one_line": "Synthetic replay fixture for an agent-memory honesty contract: models scoped-preference episodes and checks temporal-conflict handling; no live memory product."
       },
       "concept_refs": [

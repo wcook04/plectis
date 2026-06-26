@@ -5845,12 +5845,17 @@ def _principle_mechanism_governance_from_organ_atlas(
 ) -> dict[str, list[dict[str, str]]]:
     """
     - Teleology: derive principle->mechanism governance edges from organ-atlas rows that name both principle and mechanism refs.
-    - Guarantee: returns {principle_id: [{mechanism_id, source_ref}, ...]} built from atlas co-occurrence.
+    - Guarantee: returns {principle_id: [{mechanism_id, source_ref, target_status}, ...]} built from atlas co-occurrence; target_status resolves only when the mechanism is registry-backed.
     - Fails: never raises; rows lacking organ/principle/mechanism refs are skipped.
     - Escalates-to: core/organ_atlas.json.
     """
     atlas = _as_dict(_load(root, "core/organ_atlas.json"))
-    by_principle: dict[str, dict[str, str]] = {}
+    known_mechanisms = {
+        str(row.get("id") or "")
+        for row in _mechanism_source_rows(root)
+        if isinstance(row, dict) and row.get("id")
+    }
+    by_principle: dict[str, dict[str, dict[str, str]]] = {}
     for atlas_index, row in enumerate(_as_list(atlas.get("organs"))):
         if not isinstance(row, dict):
             continue
@@ -5863,11 +5868,25 @@ def _principle_mechanism_governance_from_organ_atlas(
         for principle_id in principle_refs:
             targets = by_principle.setdefault(principle_id, {})
             for mechanism_id in mechanism_refs:
-                targets.setdefault(mechanism_id, source_ref)
+                targets.setdefault(
+                    mechanism_id,
+                    {
+                        "source_ref": source_ref,
+                        "target_status": (
+                            "resolved_json_instance"
+                            if mechanism_id in known_mechanisms
+                            else "unresolved_json_instance"
+                        ),
+                    },
+                )
     return {
         principle_id: [
-            {"mechanism_id": mechanism_id, "source_ref": source_ref}
-            for mechanism_id, source_ref in sorted(
+            {
+                "mechanism_id": mechanism_id,
+                "source_ref": item["source_ref"],
+                "target_status": item["target_status"],
+            }
+            for mechanism_id, item in sorted(
                 targets.items(), key=lambda item: _id_sort_key(item[0])
             )
         ]
@@ -6084,7 +6103,7 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
             target_kind="mechanism",
             target_id=str(item.get("mechanism_id")),
             source_ref=str(item.get("source_ref") or source_ref),
-            target_status="resolved_json_instance",
+            target_status=str(item.get("target_status") or "unresolved_json_instance"),
             justification=(
                 "Organ atlas row names this principle as governing an organ and names "
                 "the organ mechanism ref; the principle governs the mechanism route "
