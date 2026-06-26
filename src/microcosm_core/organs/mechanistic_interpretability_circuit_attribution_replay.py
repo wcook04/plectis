@@ -14,7 +14,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -233,6 +237,14 @@ def _display(path: Path, *, public_root: Path) -> str:
     return public_relative_path(path, display_root=public_root)
 
 
+def _display_command(command: str, *, public_root: Path) -> str:
+    repo_root = public_root.parent.resolve(strict=False)
+    repo_root_normalized = command.replace(str(repo_root), "<repo-root>")
+    normalized = normalize_public_receipt_paths({"command": repo_root_normalized})
+    value = normalized.get("command")
+    return value if isinstance(value, str) else repo_root_normalized
+
+
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     if not isinstance(payload, dict):
         return []
@@ -410,7 +422,11 @@ def _fresh_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_circuit_attribution_bundle":
         return None
-    if payload.get("command") != command:
+    public_root = _public_root_for_path(input_dir)
+    if payload.get("command") not in {
+        command,
+        _display_command(command, public_root=public_root),
+    }:
         return None
     toy_runtime = payload.get("toy_transformer_attribution_runtime")
     if not isinstance(toy_runtime, dict):
@@ -1867,7 +1883,7 @@ def run_attribution_bundle(
         "receipt_paths": [_display(bundle_path, public_root=public_root)],
     }
     write_json_atomic(bundle_path, payload)
-    return payload
+    return normalize_public_receipt_paths(payload)
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:

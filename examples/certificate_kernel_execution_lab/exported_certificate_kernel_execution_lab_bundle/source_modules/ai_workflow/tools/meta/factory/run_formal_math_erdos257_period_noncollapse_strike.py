@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py
-Boundary class: private_body_exact_match
+Boundary class: restricted_private_source_ref
 """
 
 PUBLIC_MICROCOSM_STUB = True

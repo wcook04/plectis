@@ -443,20 +443,67 @@ def derive_context_encounter(
     }
 
 
+# Invocation prefixes that differ legitimately across distribution contexts: a
+# source checkout runs `PYTHONPATH=src python3 -m microcosm_core ...`, while an
+# installed wheel runs `plectis ...`. Stripping the prefix lets cross-context
+# agreement compare the semantic ACTION (capability + arguments) rather than the
+# recipe syntax, so the same action invoked two legitimate ways still agrees.
+_INVOCATION_PREFIXES = (
+    "PYTHONPATH=src python3 -m microcosm_core",
+    "PYTHONPATH=src python -m microcosm_core",
+    "python3 -m microcosm_core",
+    "python -m microcosm_core",
+    "plectis",
+    "microcosm",
+)
+
+
+def semantic_action_key(command: Any) -> str | None:
+    """Project a command to its semantic action, independent of how it is invoked.
+
+    - Teleology: distribution truth is about the ACTION the contexts select, not
+      the recipe syntax. A checkout legitimately invokes
+      ``PYTHONPATH=src python3 -m microcosm_core X ...``; an installed wheel
+      invokes ``plectis X ...``. Both name the same action. Stripping the
+      invocation prefix lets semantic agreement hold across a syntax difference
+      the operator explicitly sanctioned, while a genuinely different capability
+      still produces a different key.
+    - Guarantee: pure and deterministic; whitespace-normalized; returns None for a
+      non-string or blank command; an unrecognized prefix is returned whole
+      (conservative — unknown forms compare literally and cannot accidentally
+      agree across contexts).
+    - Fails: never raises.
+    """
+    if not isinstance(command, str):
+        return None
+    text = " ".join(command.split())
+    if not text:
+        return None
+    for prefix in _INVOCATION_PREFIXES:
+        if text == prefix:
+            return ""
+        if text.startswith(prefix + " "):
+            return text[len(prefix) + 1 :]
+    return text
+
+
 def derive_cross_context_agreement(
     encounters: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """Prove the three contexts selected the SAME owner and command for the hero goal.
+    """Prove the three contexts selected the SAME owner and semantic action.
 
-    - Teleology: the distribution-truth core -- a contract that resolves
-      differently installed than in the checkout is a different product; this
-      block makes that divergence a named, mechanical failure instead of a
-      latent surprise.
+    - Teleology: the distribution-truth core -- a contract that resolves to a
+      different product installed than in the checkout is a different product;
+      this block makes that divergence a named, mechanical failure instead of a
+      latent surprise. It compares the SEMANTIC ACTION (capability + arguments),
+      not the literal recipe, so a checkout's source-form command and an installed
+      wheel's ``plectis`` command name the same action and agree, while a
+      different capability still blocks.
     - Guarantee: pure projection over the per-context encounter blocks;
       status "pass" only when every expected context is present and the owner
-      organ_id, the command, and the validator command are each identical —
-      and a non-empty string — across all of them (a missing context or empty
-      value can never satisfy agreement by vacuity).
+      organ_id, the command's semantic action, and the validator command are
+      each identical — and a non-empty string — across all of them (a missing
+      context or empty value can never satisfy agreement by vacuity).
     - Fails: never raises.
     """
 
@@ -468,17 +515,26 @@ def derive_cross_context_agreement(
 
     owner_ids: dict[str, Any] = {}
     commands: dict[str, Any] = {}
+    command_actions: dict[str, Any] = {}
     validator_commands: dict[str, Any] = {}
+    validator_actions: dict[str, Any] = {}
     for context_id in CONTEXT_IDS:
         encounter = encounters.get(context_id)
         row = encounter if isinstance(encounter, dict) else {}
         owner = row.get("owner") if isinstance(row.get("owner"), dict) else {}
         owner_ids[context_id] = owner.get("organ_id")
         commands[context_id] = row.get("command")
+        command_actions[context_id] = semantic_action_key(row.get("command"))
         validator_commands[context_id] = row.get("validator_command")
+        validator_actions[context_id] = semantic_action_key(
+            row.get("validator_command")
+        )
     owner_identical = identical_nonempty(owner_ids)
-    command_identical = identical_nonempty(commands)
-    validator_identical = identical_nonempty(validator_commands)
+    # Distribution truth compares the semantic ACTION across contexts, not the
+    # literal recipe: source-form and installed `plectis` forms of the same action
+    # (command and validator) must agree, while a different capability still blocks.
+    command_identical = identical_nonempty(command_actions)
+    validator_identical = identical_nonempty(validator_actions)
     return {
         "status": (
             "pass"
@@ -490,7 +546,9 @@ def derive_cross_context_agreement(
         "validator_command_identical": validator_identical,
         "owner_organ_ids": owner_ids,
         "commands": commands,
+        "command_semantic_actions": command_actions,
         "validator_commands": validator_commands,
+        "validator_semantic_actions": validator_actions,
     }
 
 
@@ -580,11 +638,12 @@ def derive_expectation_policy(
             agreement.get("owner_organ_ids"),
         ),
         "command_matches_committed_demonstration": all_match(
-            expectation.get("expected_command"), agreement.get("commands")
+            semantic_action_key(expectation.get("expected_command")),
+            agreement.get("command_semantic_actions"),
         ),
         "validator_matches_committed_demonstration": all_match(
-            expectation.get("expected_validator_command"),
-            agreement.get("validator_commands"),
+            semantic_action_key(expectation.get("expected_validator_command")),
+            agreement.get("validator_semantic_actions"),
         ),
     }
     return {

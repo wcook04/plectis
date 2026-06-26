@@ -2,74 +2,8 @@
   "body_copied_material_count": 2,
   "body_in_receipt": false,
   "bundle_id": "public_agent_observability_store_runtime_example",
-  "module_count": 2,
-  "modules": [
-    {
-      "anchor_count": 8,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 80473,
-      "line_count": 1937,
-      "material_class": "public_macro_tool_body",
-      "path": "source_modules/system/lib/agent_observability.py",
-      "required_anchors": [
-        "SCHEMA_VERSION = \"1.0.0\"",
-        "API_REVISION = \"agent_observability_backend_v2\"",
-        "class AgentEvent",
-        "class AgentTraceStore",
-        "def emit(",
-        "def status(",
-        "class AgentObservabilitySampler",
-        "def ingest_recent_codex_rollouts("
-      ],
-      "sha256": "c404e743c4f144b8bb1e66be9bd7aca5eb569983791f24f1e73a3870f45e76e0",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "system/lib/agent_observability.py",
-      "source_role": "Agent observability owner that defines AgentEvent, AgentTraceStore, bounded event ingestion, trace counters, queue snapshots, and public metadata compaction while excluding provider payload bodies and live session state from public receipts.",
-      "source_sha256": "sha256:c404e743c4f144b8bb1e66be9bd7aca5eb569983791f24f1e73a3870f45e76e0",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
-      "target_sha256": "sha256:c404e743c4f144b8bb1e66be9bd7aca5eb569983791f24f1e73a3870f45e76e0",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 13537,
-      "line_count": 358,
-      "material_class": "public_macro_tool_body",
-      "path": "source_modules/system/lib/agent_observability_classification.py",
-      "required_anchors": [
-        "SCHEMA_VERSION = \"agent_observability_classification_v0\"",
-        "CLASS_ID_AUTH_FAILURE_LOOP",
-        "def classify_auth_failure_loop(",
-        "def stale_source_warnings(",
-        "def classify_telemetry_quality("
-      ],
-      "sha256": "837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "system/lib/agent_observability_classification.py",
-      "source_role": "Agent observability telemetry-quality classifier that demotes auth-failure loops, stale source runtimes, persistence warnings, stream gaps, and schema gaps from already-emitted public event metadata without reading live transcript bodies or provider payloads.",
-      "source_sha256": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py",
-      "target_sha256": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
-      ]
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "omitted_material": [
     "provider payload bodies",
     "browser/HUD live-access",
@@ -79,6 +13,32 @@
     "credential-equivalent material",
     "raw private transcript bodies",
     "live home session logs"
+  ],
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": null,
+      "path": "source_modules/system/lib/agent_observability.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_observability.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_observability.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": null,
+      "path": "source_modules/system/lib/agent_observability_classification.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_observability_classification.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_observability_classification.py"
+    }
   ],
   "schema_version": "agent_route_observability_runtime_agent_observability_store_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body",

@@ -1,21 +1,3 @@
-"""Public fixture audit for agent closeout claims.
-
-[PURPOSE] Re-run a small public fixture repo and fixture ledger so agent
-closeout claims about commits, Task Ledger caps, and pytest spans are accepted
-only when their referenced evidence exists.
-[INTERFACE] Exposes the CrownJewel evaluator, negative-case evaluator, fixture
-runner, exported-bundle runner, and CLI entrypoint for the
-`agent_closeout_faithfulness_audit` organ.
-[FLOW] Prepare a temporary Git repo from fixture source, collect its HEAD,
-load closeout claims and ledger rows, run claimed pytest spans with an available
-pytest-capable Python, and report body-free witness hashes and findings.
-[DEPENDENCIES] Uses Crown Jewel organ helpers, subprocess Git/Pytest calls,
-temporary directories, fixture JSON, and local Python environment discovery.
-[CONSTRAINTS] This is a public fixture witness only. It does not prove arbitrary
-live commits, close Task Ledger work, mutate the caller's Git repo, run provider
-services, authorize release, or certify whole-system correctness.
-"""
-
 from __future__ import annotations
 
 import copy
@@ -93,7 +75,6 @@ SPEC = CrownJewelSpec(
 
 
 def _run_subprocess(args: list[str], *, cwd: Path) -> dict[str, Any]:
-    """[ACTION] Run a subprocess and return a body-free command witness."""
     proc = subprocess.run(
         args,
         cwd=cwd,
@@ -112,21 +93,18 @@ def _run_subprocess(args: list[str], *, cwd: Path) -> dict[str, Any]:
 
 
 def _sha256_text(text: str) -> str:
-    """[ACTION] Hash command output text without storing the body in receipts."""
     import hashlib
 
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _venv_python(venv_dir: Path) -> Path:
-    """[ACTION] Resolve the platform-specific Python executable inside a venv."""
     if sys.platform == "win32":
         return venv_dir / "Scripts" / "python.exe"
     return venv_dir / "bin" / "python"
 
 
 def _pytest_python_candidates() -> list[Path]:
-    """[ACTION] List candidate Python executables that may provide pytest."""
     candidates = [
         Path(sys.executable),
         _venv_python(MICROCOSM_ROOT / ".venv"),
@@ -143,7 +121,6 @@ def _pytest_python_candidates() -> list[Path]:
 
 
 def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
-    """[ACTION] Select the first candidate Python that can run `pytest --version`."""
     for candidate in candidates or _pytest_python_candidates():
         if not candidate.exists():
             continue
@@ -163,7 +140,6 @@ def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
 
 
 def _prepare_public_fixture_repo(source_dir: Path, work_dir: Path) -> dict[str, Any]:
-    """[ACTION] Copy fixture source into a temporary Git repo and commit it."""
     repo_dir = work_dir / "public_fixture_repo"
     shutil.copytree(source_dir, repo_dir)
     subprocesses: list[dict[str, Any]] = []
@@ -203,7 +179,6 @@ def _semantic_closeout_contract_findings(
     input_dir: Path,
     claims: dict[str, Any],
 ) -> list[dict[str, Any]]:
-    """[ACTION] Check claim rows against fixture source semantics without subprocess Git."""
     findings: list[dict[str, Any]] = []
     ledger = load_json_object(input_dir / "fixture_ledger.json", findings, label="fixture ledger")
     public_repo = input_dir / "public_fixture_repo"
@@ -278,7 +253,6 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
-    """[ACTION] Perturb one closeout claim and report the expected blocking codes."""
     findings: list[dict[str, Any]] = []
     claims = load_json_object(input_dir / "closeout_claims.json", findings, label="closeout claims")
     claims = copy.deepcopy(claims)
@@ -313,7 +287,6 @@ def evaluate_negative_case(
 
 
 def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Evaluate fixture closeout claims against a temporary public Git repo."""
     findings: list[dict[str, Any]] = []
     claims = load_json_object(input_dir / "closeout_claims.json", findings, label="closeout claims")
     ledger = load_json_object(input_dir / "fixture_ledger.json", findings, label="fixture ledger")
@@ -441,7 +414,6 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the closeout faithfulness audit over fixture inputs."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -458,7 +430,6 @@ def run_agent_closeout_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the exported bundle form of the closeout faithfulness audit."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -471,7 +442,6 @@ def run_agent_closeout_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Dispatch CLI arguments through the closeout audit entrypoint."""
     return main_for_spec(
         SPEC,
         argv,

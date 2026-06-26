@@ -12,6 +12,7 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MAKEFILE = MICROCOSM_ROOT / "Makefile"
 CHECK_SMOKE_OUTPUTS = MICROCOSM_ROOT / "scripts" / "check_smoke_outputs.py"
 PACKAGE_INSTALL_SMOKE = MICROCOSM_ROOT / "scripts" / "package_install_smoke.py"
+ONBOARDING_BENCHMARK = MICROCOSM_ROOT / "scripts" / "onboarding_benchmark.py"
 
 
 def _accepted_organ_count(root: Path = MICROCOSM_ROOT) -> int:
@@ -234,17 +235,25 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PACKAGE_SMOKE_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-package-smoke-$(PYTEST_TMP_KEY)",
         "PACKAGE_SMOKE_TMP ?= $(PACKAGE_SMOKE_TMP_ROOT)/run-$(PYTEST_RUN_ID)",
         "PACKAGE_SMOKE_KEEP_TMP ?= 0",
+        "BENCHMARK_OUT ?= .microcosm/onboarding-benchmark.json",
+        "BENCHMARK_WORK_DIR ?= $(TMPDIR)/plectis-onboarding-benchmark-$(PYTEST_TMP_KEY)-$(PYTEST_RUN_ID)",
+        "BENCHMARK_ARGS ?=",
         ".DEFAULT_GOAL := help",
         "PUBLIC_TESTS ?=",
         "tests/test_package_data_contract.py",
         "tests/test_evidence_truth_floor.py",
-        ".PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean",
+        "tests/test_artifact_budget.py",
+        "tests/test_release_claim_portfolio.py",
+        "tests/test_release_candidate_semantic_action.py",
+        ".PHONY: help install venv test test-all smoke package-smoke user-smoke onboarding-benchmark ci standalone-export clean",
         "Microcosm public repo commands:",
         "make install             create .venv and install test extras",
         "make test                run public entry and safety tests",
         "make test-all            run full suite with pytest receipt writes blocked",
         "make smoke               validate and summarize the public smoke route",
+        "make user-smoke          run the user-facing bootstrap, smoke, and package smoke floor",
         "make package-smoke       install local package in a fresh venv and run console cards",
+        "make onboarding-benchmark record clone/bootstrap/smoke/install timing JSON",
         "make ci                  run test, smoke, and package-smoke",
         "make standalone-export   export a release-gated standalone tree",
         "make clean               remove local build and cache files",
@@ -278,9 +287,13 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "> $(SMOKE_OUT)/stripping-guard.json",
         "$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)",
         "$(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON)",
+        "$(PYTHON) scripts/onboarding_benchmark.py --source-root . --out $(BENCHMARK_OUT) --work-dir $(BENCHMARK_WORK_DIR) --python $(PYTHON) $(BENCHMARK_ARGS)",
         'if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi',
+        "user-smoke: check smoke package-smoke",
         "ci: test smoke package-smoke",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
+        "$(PYTHON) scripts/check_artifact_budget.py --report",
+        "$(PYTHON) scripts/check_artifact_budget.py --check",
         "rm -rf $(SMOKE_OUT) $(PYTEST_TMP_ROOT) $(PACKAGE_SMOKE_TMP_ROOT) .microcosm/test-tmp",
     ):
         assert required in text
@@ -293,7 +306,10 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "test-all",
         "smoke",
         "package-smoke",
+        "user-smoke",
+        "onboarding-benchmark",
         "ci",
+        "artifact-budget",
         "standalone-export",
         "clean",
     ):
@@ -344,6 +360,21 @@ def test_package_install_smoke_script_is_makefile_owned() -> None:
     assert "release_authorized=false" in script
     assert "/Users/" in script
     assert "src/ai_workflow" in script
+
+
+def test_onboarding_benchmark_script_is_makefile_owned() -> None:
+    text = MAKEFILE.read_text(encoding="utf-8")
+    script = ONBOARDING_BENCHMARK.read_text(encoding="utf-8")
+
+    assert ONBOARDING_BENCHMARK.is_file()
+    assert "scripts/onboarding_benchmark.py --source-root ." in text
+    assert "clone_seconds" in script
+    assert "bootstrap_seconds" in script
+    assert "smoke_seconds" in script
+    assert "install_seconds" in script
+    assert "installed_tour_seconds" in script
+    assert "total_seconds" in script
+    assert "plectis_onboarding_benchmark_v1" in script
 
 
 def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
@@ -611,5 +642,6 @@ def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:
         flags=re.MULTILINE,
     )
     assert "test-all: install" in text
+    assert re.search(r"^user-smoke:\s+check\s+smoke\s+package-smoke$", text, flags=re.MULTILINE)
     assert not re.search(r"^ci:.*standalone-export", text, flags=re.MULTILINE)
     assert "microcosm_core.cli" not in text

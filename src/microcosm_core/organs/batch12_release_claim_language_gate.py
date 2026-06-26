@@ -1,24 +1,3 @@
-"""Release-claim language gate replay for public-safe publication text fixtures.
-
-[PURPOSE] Exercise the copied release-claim lexical gate, or its explicit public
-stub, against positive-boundary and overclaim fixture text so release-facing
-copy cannot silently claim public release, source availability, production
-readiness, or private release authority.
-[INTERFACE] Exposes the CrownJewel `run`, bundle runner, negative-case evaluator,
-result card, and CLI entrypoint for the `batch12_release_claim_language_gate`
-organ.
-[FLOW] Load the strict fixture, load the copied source module or recognized
-public-safe stub, synthesize safe and active publication manifests in temporary
-roots, run the gate, compare expected negative cases, and return body-free
-receipt rows.
-[DEPENDENCIES] Uses Crown Jewel organ helpers, strict JSON schema loading,
-temporary directories, dynamic module loading, and a minimal YAML stub only when
-the copied private macro expects YAML support.
-[CONSTRAINTS] This is lexical and fixture-bounded. It does not authorize release,
-publication, source export, semantic truth, portability, secret scanning, or
-whole-system correctness.
-"""
-
 from __future__ import annotations
 
 import importlib.util
@@ -174,13 +153,11 @@ SPEC = CrownJewelSpec(
 
 
 def _load_json(path: Path) -> dict[str, Any]:
-    """[ACTION] Load a strict JSON object, returning an empty object for non-mapping payloads."""
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
 
 
 def _blocked_exercise(findings: list[dict[str, Any]]) -> dict[str, Any]:
-    """[ACTION] Convert blocking findings into the standard blocked exercise receipt."""
     return {
         "status": "blocked",
         "mechanism_count": 1,
@@ -208,7 +185,6 @@ def _blocked_exercise(findings: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _load_fixture(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
-    """[ACTION] Load and validate the required release-gate fixture object."""
     path = input_dir / "release_gate_fixture.json"
     if not path.is_file():
         findings.append(
@@ -245,7 +221,6 @@ def _load_fixture(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, 
 
 
 def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
-    """[ACTION] Resolve a copied source module path from the source manifest."""
     manifest = Path(str(source_manifest.get("source_manifest_path") or ""))
     if not manifest.is_file():
         raise FileNotFoundError("source manifest path unavailable")
@@ -257,7 +232,6 @@ def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
 
 
 def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
-    """[ACTION] Import the copied release gate module or return the sanctioned public stub."""
     if _source_module_public_stubbed(source_manifest):
         return _PublicFallbackReleaseClaimGate
     target = _source_target(
@@ -277,7 +251,6 @@ def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
         yaml_stub = types.ModuleType("yaml")
 
         def safe_load(text: str) -> dict[str, Any]:
-            """[ACTION] Parse the small publication-manifest subset needed by the copied gate."""
             entries = []
             for line in text.splitlines():
                 stripped = line.strip()
@@ -298,7 +271,6 @@ def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
 
 
 def _source_module_public_stubbed(source_manifest: Mapping[str, Any]) -> bool:
-    """[ACTION] Detect the manifest shape that explicitly substitutes a public-safe stub."""
     manifest = Path(str(source_manifest.get("source_manifest_path") or ""))
     if not manifest.is_file():
         return False
@@ -327,7 +299,6 @@ class _PublicFallbackReleaseClaimGate:
 
     @staticmethod
     def _manifest_entries(repo_root: Path) -> list[str]:
-        """[ACTION] Read documented publication manifest entries from the fallback root."""
         manifest = repo_root / "publication_manifest.yaml"
         if not manifest.is_file():
             return []
@@ -340,7 +311,6 @@ class _PublicFallbackReleaseClaimGate:
 
     @staticmethod
     def _classify(line: str, *, family: str) -> tuple[str, str]:
-        """[ACTION] Classify one risky phrase hit under the public fallback policy."""
         normalized = line.lower()
         if family == "private_control_plane_leak":
             return (
@@ -356,7 +326,6 @@ class _PublicFallbackReleaseClaimGate:
 
     @classmethod
     def build_gate(cls, repo_root: Path) -> dict[str, Any]:
-        """[ACTION] Scan public fixture documents and return a body-free gate receipt."""
         root = Path(repo_root)
         hits: list[dict[str, Any]] = []
         for rel in cls._manifest_entries(root):
@@ -411,7 +380,6 @@ class _PublicFallbackReleaseClaimGate:
 
     @classmethod
     def main(cls, argv: list[str] | None = None) -> int:
-        """[ACTION] Run the fallback gate CLI and optionally assert a clear result."""
         args = list(argv or [])
         repo_root = Path(".")
         output: Path | None = None
@@ -452,7 +420,6 @@ def _fixture_doc_name(
     default: str,
     findings: list[dict[str, Any]],
 ) -> str | None:
-    """[ACTION] Validate a fixture-selected documentation filename stays inside docs/."""
     name = str(fixture.get(key) or default)
     if any(ord(char) < 32 or ord(char) == 127 for char in name):
         findings.append(
@@ -490,7 +457,6 @@ def _write_gate_fixture(
     active: bool,
     findings: list[dict[str, Any]],
 ) -> bool:
-    """[ACTION] Materialize safe or active publication text plus its manifest."""
     docs = root / "docs"
     docs.mkdir(parents=True, exist_ok=True)
     safe_name = _fixture_doc_name(fixture, "safe_file", "safe_boundary.md", findings)
@@ -537,7 +503,6 @@ def _write_gate_fixture(
 
 
 def _run_main_assert_clear(module: Any, root: Path) -> tuple[int, dict[str, Any]]:
-    """[ACTION] Invoke the gate CLI with --assert-clear and parse its compact stdout."""
     out = root / "release_claim_language_gate_v0.json"
     buffer = io.StringIO()
     with redirect_stdout(buffer):
@@ -556,7 +521,6 @@ def _run_main_assert_clear(module: Any, root: Path) -> tuple[int, dict[str, Any]
 
 
 def _active_phrase_ids(gate: Mapping[str, Any]) -> list[str]:
-    """[ACTION] Extract active-blocker phrase ids from a gate receipt."""
     return sorted(
         {
             str(hit.get("phrase_id"))
@@ -569,12 +533,82 @@ def _active_phrase_ids(gate: Mapping[str, Any]) -> list[str]:
 
 
 def _gate_status(gate: Mapping[str, Any]) -> str:
-    """[ACTION] Return the normalized status string from a gate receipt."""
     return str(gate.get("status") or "")
 
 
+def _first_screen_claim_rows(
+    *,
+    safe_gate: Mapping[str, Any],
+    active_gate: Mapping[str, Any],
+    publication_gate: Mapping[str, Any],
+    control_plane_gate: Mapping[str, Any],
+    computed_cases: list[dict[str, Any]],
+    positive_boundary_clear: bool,
+) -> list[dict[str, Any]]:
+    case_lookup = {
+        str(row.get("case_id")): bool(row.get("computed"))
+        for row in computed_cases
+        if isinstance(row, Mapping)
+    }
+    source_route = "tools/meta/dissemination/release_claim_language_gate.py::_classify_hit/build_gate"
+    ceiling = AUTHORITY_CEILING["authority_ceiling"]
+    return [
+        {
+            "row_id": "allowed_boundary_language_clears",
+            "source_route": source_route,
+            "fixture_role": "safe_boundary_text",
+            "expected_status": "clear_boundary_only",
+            "observed_status": _gate_status(safe_gate),
+            "evaluator_signal": positive_boundary_clear,
+            "observed_active_phrase_ids": _active_phrase_ids(safe_gate),
+            "allowed_wording": "boundary-only no-release language is allowed as negative context",
+            "blocked_wording": "release_ready/source_available/open_source/production_ready phrase ids",
+            "downgrade_sentence": "This is lexical claim-language evidence, not release approval.",
+            "authority_ceiling": ceiling,
+        },
+        {
+            "row_id": "open_source_production_ready_blocks",
+            "source_route": source_route,
+            "fixture_role": "active_overclaim_text",
+            "expected_status": "active_claim_blocked",
+            "observed_status": _gate_status(active_gate),
+            "evaluator_signal": case_lookup.get("affirmative_open_source_production_ready_blocks", False),
+            "observed_active_phrase_ids": _active_phrase_ids(active_gate),
+            "allowed_wording": "public-safe fixture text may describe the boundary",
+            "blocked_wording": "open_source or production_ready phrase ids",
+            "downgrade_sentence": "A blocked active phrase proves a claim ceiling, not a public release state.",
+            "authority_ceiling": ceiling,
+        },
+        {
+            "row_id": "publication_overclaim_blocks",
+            "source_route": source_route,
+            "fixture_role": "publication_overclaim_text",
+            "expected_status": "active_claim_blocked",
+            "observed_status": _gate_status(publication_gate),
+            "evaluator_signal": _gate_status(publication_gate) == "active_claim_blocked",
+            "observed_active_phrase_ids": _active_phrase_ids(publication_gate),
+            "allowed_wording": "publication wording must stay under the separate release gate",
+            "blocked_wording": "release_ready/publicly_released/source_available phrase ids",
+            "downgrade_sentence": "The gate catches overclaim language; it does not decide publication.",
+            "authority_ceiling": ceiling,
+        },
+        {
+            "row_id": "private_control_plane_public_reader_blocks",
+            "source_route": source_route,
+            "fixture_role": "private_control_plane_leak_text",
+            "expected_status": "active_claim_blocked",
+            "observed_status": _gate_status(control_plane_gate),
+            "evaluator_signal": case_lookup.get("private_control_plane_public_reader_blocks", False),
+            "observed_active_phrase_ids": _active_phrase_ids(control_plane_gate),
+            "allowed_wording": "outbound copy should omit private control-plane authority language",
+            "blocked_wording": "release authority, release gate, publication owner",
+            "downgrade_sentence": "The public reader sees a redacted boundary, not the private control plane.",
+            "authority_ceiling": ceiling,
+        },
+    ]
+
+
 def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Execute the release-claim gate replay and compute fixture-bounded verdicts."""
     findings: list[dict[str, Any]] = []
     fixture = _load_fixture(input_dir, findings)
     if findings:
@@ -721,6 +755,14 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
         and bool(boundary_hits)
         and not safe_gate.get("summary", {}).get("active_claim_blocker_count")
     )
+    first_screen_claim_rows = _first_screen_claim_rows(
+        safe_gate=safe_gate,
+        active_gate=active_gate,
+        publication_gate=publication_gate,
+        control_plane_gate=control_plane_gate,
+        computed_cases=computed_cases,
+        positive_boundary_clear=positive_boundary_clear,
+    )
     if not positive_boundary_clear:
         findings.append(
             finding(
@@ -754,6 +796,7 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
         "safe_gate_summary": safe_gate.get("summary"),
         "active_gate_summary": active_gate.get("summary"),
         "release_claim_perturbation": release_claim_perturbation,
+        "first_screen_claim_rows": first_screen_claim_rows,
         "source_module_substitution_fallback": source_module_substitution_fallback,
         "computed_negative_case_count": sum(1 for row in computed_cases if row["computed"]),
         "error_codes": [
@@ -770,7 +813,6 @@ def evaluate_negative_case(
     input_dir: Path,
     expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
-    """[ACTION] Project a computed release-gate negative case into the expected error codes."""
     input_path = Path(input_dir)
     public_root = public_root_for_path(input_path)
     source_manifest = validate_source_manifest(input_path, SPEC, public_root=public_root)
@@ -826,7 +868,6 @@ def run(
     command: str | None = None,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the release claim-language gate organ over fixture inputs."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -845,7 +886,6 @@ def run_batch12_release_claim_language_gate_bundle(
     command: str | None = None,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the exported bundle form of the release claim-language gate organ."""
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -859,12 +899,10 @@ def run_batch12_release_claim_language_gate_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
-    """[ACTION] Convert a full release-gate result into its public command card."""
     return card_for_result(SPEC, result)
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Dispatch CLI arguments through the Crown Jewel organ entrypoint."""
     return main_for_spec(
         SPEC,
         argv,

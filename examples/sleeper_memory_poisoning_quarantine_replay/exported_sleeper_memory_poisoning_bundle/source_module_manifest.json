@@ -4,39 +4,8 @@
   "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "sleeper_memory_poisoning_quarantine_source_open_body_import",
-  "module_count": 7,
+  "module_count": 3,
   "modules": [
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 295524,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 4825,
-      "material_class": "public_macro_receipt_body",
-      "module_id": "sleeper_memory_high_novelty_growth_receipt_body_import",
-      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "required_anchors": [
-        "\"schema_version\": \"actual_substrate_memory_poisoning_governed_mutation_process_reward_growth_v1\"",
-        "\"sleeper_memory_poisoning_quarantine_replay_compound\"",
-        "\"Hidden in Memory arXiv:2605.15338\"",
-        "\"synthetic_fixture_only\": true"
-      ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
-      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "source_role": "Macro reconstruction body that appended the sleeper-memory poisoning, governed-mutation, and belief-process-reward replay rows plus their source refs and authority boundary.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
-      ]
-    },
     {
       "anchor_count": 4,
       "body_copied": true,
@@ -105,68 +74,6 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 39882,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 919,
-      "material_class": "public_macro_proof_body",
-      "module_id": "operator_thread_memory_test_body_import",
-      "path": "source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
-      "required_anchors": [
-        "Tests for private Operator Thread Memory event/projection substrate.",
-        "test_thread_memory_creates_event_log_thread_and_metadata_index",
-        "private_text not in event_text",
-        "payload_policy"
-      ],
-      "sha256": "sha256:33763b6712dde78b2a3a8db63c42f8d20a3baed1adbded2634a987185c5ded21",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
-      "source_ref": "system/server/tests/test_operator_thread_memory.py",
-      "source_role": "Macro test body proving operator thread-memory events keep private transcript bodies out of event/index projections while maintaining metadata and continuation receipts.",
-      "source_sha256": "sha256:33763b6712dde78b2a3a8db63c42f8d20a3baed1adbded2634a987185c5ded21",
-      "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
-      "target_sha256": "sha256:33763b6712dde78b2a3a8db63c42f8d20a3baed1adbded2634a987185c5ded21",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 304224,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace_runtime_body_import",
-      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "required_anchors": [
-        "[STRICT BOUNDARY]",
-        "NEVER parses `text`, `thinking`, or tool-result content bodies",
-        "build_agent_execution_trace",
-        "PROCESS_METADATA_PRIVACY_BOUNDARY"
-      ],
-      "sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_role": "Macro process-trace runtime body that parses observable agent action records while excluding hidden reasoning, prompt bodies, and tool-result bodies from trace authority.",
-      "source_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
       "byte_count": 50351,
       "classification": "copied_non_secret_macro_body",
       "line_count": 679,
@@ -192,38 +99,6 @@
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
       ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 10373,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 260,
-      "material_class": "public_macro_tool_body",
-      "module_id": "strict_json_source_body_import",
-      "path": "source_modules/system/lib/strict_json.py",
-      "required_anchors": [
-        "class StrictJsonError",
-        "class DuplicateJsonKeyError",
-        "def loads_json_strict(",
-        "def read_json_strict(",
-        "def strict_json_artifact_report("
-      ],
-      "sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
-      "source_ref": "system/lib/strict_json.py",
-      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
-      "source_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/system/lib/strict_json.py",
-      "target_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
-        "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
-      ]
     }
   ],
   "omitted_material": [
@@ -235,6 +110,56 @@
   ],
   "public_runtime_policy": "source_modules_are_sleeper_memory_body_floor_not_live_memory_product_dependency",
   "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "sleeper_memory_high_novelty_growth_receipt_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "operator_thread_memory_test_body_import",
+      "path": "source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "system/server/tests/test_operator_thread_memory.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_operator_thread_memory.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace_runtime_body_import",
+      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "strict_json_source_body_import",
+      "path": "source_modules/system/lib/strict_json.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/strict_json.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/strict_json.py"
+    }
+  ],
   "schema_version": "sleeper_memory_poisoning_quarantine_source_module_manifest_v1",
   "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_operator_voice_recipient_send_state_or_credential_equivalent_material",
   "source_import_class": "copied_non_secret_macro_body",

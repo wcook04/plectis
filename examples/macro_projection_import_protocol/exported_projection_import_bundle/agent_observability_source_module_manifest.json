@@ -3,63 +3,36 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "agent_observability_source_modules_import",
-  "module_count": 2,
-  "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 80473,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1937,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_observability_source_body_import",
-      "required_anchors": [
-        "Typed agent-observability substrate.",
-        "DEFAULT_TRACE_RELATIVE_PATH",
-        "def _compact_event_if_oversized(",
-        "class AgentTraceStore:",
-        "def ingest_codex_rollout_record("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_ref": "system/lib/agent_observability.py",
-      "source_role": "Macro append-only agent observability store and sampler that normalizes Claude/Codex hook, transcript, rollout, station, and runtime claim events while compacting large payload values and bounding trace persistence.",
-      "source_sha256": "c404e743c4f144b8bb1e66be9bd7aca5eb569983791f24f1e73a3870f45e76e0",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
-      "target_sha256": "c404e743c4f144b8bb1e66be9bd7aca5eb569983791f24f1e73a3870f45e76e0"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 26754,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 659,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_observability_test_body_import",
-      "required_anchors": [
-        "def test_agent_trace_store_emits_persists_and_filters(",
-        "def test_agent_trace_store_compacts_oversized_payloads_before_persisting(",
-        "def test_sampler_emits_backend_heartbeat_without_provider_activity(",
-        "def test_discovers_running_claude_code_app_sessions(",
-        "def test_ingest_codex_rollout_record_two_rollouts_yield_two_session_ids("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_ref": "system/server/tests/test_agent_observability.py",
-      "source_role": "Focused regression-test body for the macro agent-observability store and sampler, using temporary synthetic traces, transcripts, rollouts, and session records instead of live account/session state.",
-      "source_sha256": "fd57ab72587ffcf3a421a82f511c1386ec0ec66407aa573ba42302446d10c867",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
-        "target_sha256": "fd57ab72587ffcf3a421a82f511c1386ec0ec66407aa573ba42302446d10c867",
-        "sha256": "fd57ab72587ffcf3a421a82f511c1386ec0ec66407aa573ba42302446d10c867",
-      "public_safe_refactor_note": "Synthetic local home/path placeholders use /Users/example public fixture paths in both source and exported copy.",
-      "verification_mode": "exact_source_digest_match"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic payload-boundary trace-shape checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority. Declared public light-edit redactions may rewrite operator-specific absolute path literals without importing credential, session, provider, or raw operator bodies.",
   "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic trace-shape checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_observability_source_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_observability.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_observability.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_observability_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_agent_observability.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_agent_observability.py"
+    }
+  ],
   "schema_version": "macro_projection_agent_observability_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

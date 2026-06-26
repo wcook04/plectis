@@ -3,277 +3,128 @@
   "body_copied_material_count": 10,
   "body_in_receipt": false,
   "body_text_in_receipt": false,
-  "module_count": 10,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "release_substitution_omissions": [
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 28440,
-      "line_count": 651,
-      "material_class": "public_macro_tool_body",
       "module_id": "reasoning_execution_receipt_validator",
       "path": "source_modules/tools/meta/factory/validate_reasoning_execution_receipt.py",
-      "required_anchors": [
-        "def validate_receipt_schema(",
-        "forbidden_context_sent",
-        "execution_claimed_without_runtime_grant"
-      ],
-      "sha256": "f4e2cce1d2a1ee55b5b5fb4f456121a7918ffbc64ed7c11a24fb01db95fa79fb",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/validate_reasoning_execution_receipt.py",
-      "source_sha256": "f4e2cce1d2a1ee55b5b5fb4f456121a7918ffbc64ed7c11a24fb01db95fa79fb",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/tools/meta/factory/validate_reasoning_execution_receipt.py",
-      "target_sha256": "f4e2cce1d2a1ee55b5b5fb4f456121a7918ffbc64ed7c11a24fb01db95fa79fb",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/validate_reasoning_execution_receipt.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/validate_reasoning_execution_receipt.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 22821,
-      "line_count": 577,
-      "material_class": "public_macro_tool_body",
       "module_id": "reasoning_execution_replay_scope",
       "path": "source_modules/tools/meta/factory/build_reasoning_execution_replay_scope.py",
-      "required_anchors": [
-        "def build_replay_scope(",
-        "no_replay",
-        "def _downstream_closure("
-      ],
-      "sha256": "a5c20cbd2f9cc7f9671a9b75ac5cc596db5aa39d23b67847b41e7ef1b76889e2",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_reasoning_execution_replay_scope.py",
-      "source_sha256": "a5c20cbd2f9cc7f9671a9b75ac5cc596db5aa39d23b67847b41e7ef1b76889e2",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/tools/meta/factory/build_reasoning_execution_replay_scope.py",
-      "target_sha256": "a5c20cbd2f9cc7f9671a9b75ac5cc596db5aa39d23b67847b41e7ef1b76889e2",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_reasoning_execution_replay_scope.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_reasoning_execution_replay_scope.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 20883,
-      "line_count": 523,
-      "material_class": "public_macro_tool_body",
       "module_id": "reasoning_execution_lineage",
       "path": "source_modules/tools/meta/factory/build_reasoning_execution_lineage.py",
-      "required_anchors": [
-        "def build_lineage(",
-        "replay_identity",
-        "availability"
-      ],
-      "sha256": "bbbfe4f4e60363ec25fb0e0bb8ece2b47fd212c64d967f976f5dd245250a9f0f",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_reasoning_execution_lineage.py",
-      "source_sha256": "bbbfe4f4e60363ec25fb0e0bb8ece2b47fd212c64d967f976f5dd245250a9f0f",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/tools/meta/factory/build_reasoning_execution_lineage.py",
-      "target_sha256": "bbbfe4f4e60363ec25fb0e0bb8ece2b47fd212c64d967f976f5dd245250a9f0f",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_reasoning_execution_lineage.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_reasoning_execution_lineage.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 28169,
-      "line_count": 707,
-      "material_class": "public_macro_tool_body",
       "module_id": "reasoning_execution_schedule_preflight",
       "path": "source_modules/tools/meta/factory/build_reasoning_execution_schedule_preflight.py",
-      "required_anchors": [
-        "def build_schedule_preflight(",
-        "skip_not_demanded",
-        "deterministic_topological"
-      ],
-      "sha256": "0b1219d6198b89da60bcd6165b0164957bda6191e49be6cb92987a94e284a4e3",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/build_reasoning_execution_schedule_preflight.py",
-      "source_sha256": "0b1219d6198b89da60bcd6165b0164957bda6191e49be6cb92987a94e284a4e3",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/tools/meta/factory/build_reasoning_execution_schedule_preflight.py",
-      "target_sha256": "0b1219d6198b89da60bcd6165b0164957bda6191e49be6cb92987a94e284a4e3",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/build_reasoning_execution_schedule_preflight.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/build_reasoning_execution_schedule_preflight.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 112355,
-      "line_count": 2676,
-      "material_class": "public_macro_tool_body",
       "module_id": "lean_provider_repair_loop",
       "path": "source_modules/tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py",
-      "required_anchors": [
-        "def _proof_contract_gate",
-        "def _identifier_resolution_gate",
-        "estimated_cost_usd"
-      ],
-      "sha256": "ea90532b9dcb6165708f47f62893805da0f695768fff56ff218f59b4a811ee2d",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py",
-      "source_sha256": "ea90532b9dcb6165708f47f62893805da0f695768fff56ff218f59b4a811ee2d",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py",
-      "target_sha256": "ea90532b9dcb6165708f47f62893805da0f695768fff56ff218f59b4a811ee2d",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 21010,
-      "line_count": 598,
-      "material_class": "public_macro_tool_body",
       "module_id": "process_orphan_reaper",
       "path": "source_modules/tools/meta/control/orphan_reaper.py",
-      "required_anchors": [
-        "def build_tool_server_pressure_inventory",
-        "requires_owner_check",
-        "SIGKILL"
-      ],
-      "sha256": "5b7c41e11e079c2f20ef3e95d424350c1cda109e25fb4a281639b83f906b9c58",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/control/orphan_reaper.py",
-      "source_sha256": "5b7c41e11e079c2f20ef3e95d424350c1cda109e25fb4a281639b83f906b9c58",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/tools/meta/control/orphan_reaper.py",
-      "target_sha256": "5b7c41e11e079c2f20ef3e95d424350c1cda109e25fb4a281639b83f906b9c58",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/orphan_reaper.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/orphan_reaper.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 198765,
-      "line_count": 4750,
-      "material_class": "public_macro_tool_body",
       "module_id": "generated_state_fixpoint_drainer",
       "path": "source_modules/system/lib/generated_state_drainer.py",
-      "required_anchors": [
-        "def settle_generated_projection_owners",
-        "def _settlement_residual_signature",
-        "settlement_residual_source_moved"
-      ],
-      "sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/generated_state_drainer.py",
-      "source_sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/system/lib/generated_state_drainer.py",
-      "target_sha256": "b8232ef8993461aea4249600a073dd3a52bee9b9b0f5e4585af191dd4bc3bee6",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/lib/generated_state_drainer.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/generated_state_drainer.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 304224,
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
       "module_id": "agent_trace_tape_compactor",
       "path": "source_modules/system/lib/agent_execution_trace.py",
-      "required_anchors": [
-        "def render_trace_tape",
-        "def build_trace_tape_artifacts",
-        "omission_receipt"
-      ],
-      "sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 117341,
-      "line_count": 2805,
-      "material_class": "public_macro_tool_body",
       "module_id": "system_blast_radius",
       "path": "source_modules/system/lib/code_architecture_projection.py",
-      "required_anchors": [
-        "def build_blast_radius_packet",
-        "reverse",
-        "risk_score"
-      ],
-      "sha256": "da0cfdbe87a40cb4b11bfba4b12d42fb172554a1250af07a0f57b5a1f8553dbc",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/code_architecture_projection.py",
-      "source_sha256": "da0cfdbe87a40cb4b11bfba4b12d42fb172554a1250af07a0f57b5a1f8553dbc",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/system/lib/code_architecture_projection.py",
-      "target_sha256": "da0cfdbe87a40cb4b11bfba4b12d42fb172554a1250af07a0f57b5a1f8553dbc",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/lib/code_architecture_projection.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/code_architecture_projection.py"
     },
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 114505,
-      "line_count": 2583,
-      "material_class": "public_macro_tool_body",
       "module_id": "doctrine_graph_compiler",
       "path": "source_modules/system/lib/doctrine_graph.py",
-      "required_anchors": [
-        "def build_doctrine_graph",
-        "def build_doctrine_compiler_ir",
-        "tombstone"
-      ],
-      "sha256": "5bc79d61f4d6627f76ee184cfa0ad62f522f9112b82cbf35f33d54b22013dd0e",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/doctrine_graph.py",
-      "source_sha256": "5bc79d61f4d6627f76ee184cfa0ad62f522f9112b82cbf35f33d54b22013dd0e",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_modules/system/lib/doctrine_graph.py",
-      "target_sha256": "5bc79d61f4d6627f76ee184cfa0ad62f522f9112b82cbf35f33d54b22013dd0e",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_batch5_authority_systems_capsule.py::test_batch5_authority_systems_source_modules_are_exact_macro_body_imports"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/doctrine_graph.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/doctrine_graph.py"
     }
   ],
   "schema_version": "microcosm_source_module_manifest_v1",

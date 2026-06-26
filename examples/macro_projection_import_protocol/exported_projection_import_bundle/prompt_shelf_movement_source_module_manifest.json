@@ -1,12 +1,39 @@
 {
-  "schema_version": "macro_projection_prompt_shelf_movement_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "prompt_shelf_movement_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_account_sessions_cookies_provider_payload_bodies_browser_hud_live_access_prompt_bodies_raw_prompt_shelf_events_recipient_send_state_and_credential_equivalent_material",
   "body_storage_policy": "exact_non_secret_prompt_shelf_movement_index_source_and_synthetic_regression_test_copied_into_public_projection_bundle",
-  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic validation checks but never duplicate full source bodies, prompt bodies, raw prompt-shelf events, provider request or response payload bodies, account/session material, browser/HUD live access, generated state output, recipient-send state, or credential-equivalent payloads",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "prompt_shelf_movement_source_modules_import",
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digest, anchor checks, syntax compilation, and synthetic movement-index assertions; copied source module is body evidence, not authority to read live prompt-shelf raw events, export prompt bodies, access browser/HUD state, call providers, write generated state, promote movement rows, mutate private state, or claim release authority.",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic validation checks but never duplicate full source bodies, prompt bodies, raw prompt-shelf events, provider request or response payload bodies, account/session material, browser/HUD live access, generated state output, recipient-send state, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "prompt_shelf_movement_index_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_movement_index.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/observability/prompt_shelf_movement_index.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/observability/prompt_shelf_movement_index.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "prompt_shelf_movement_index_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_movement_index.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_prompt_shelf_movement_index.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_prompt_shelf_movement_index.py"
+    }
+  ],
+  "schema_version": "macro_projection_prompt_shelf_movement_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -21,62 +48,5 @@
     "generated state output",
     "credential-equivalent payloads"
   ],
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "prompt_shelf_movement_index_body_import",
-      "source_ref": "tools/meta/observability/prompt_shelf_movement_index.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_movement_index.py",
-      "source_role": "Macro prompt-shelf movement telemetry parser that extracts terminal aiw:movement blocks from raw prompt-shelf events into a queryable projection without promoting records or exporting prompt bodies.",
-      "required_anchors": [
-        "Movement sidecar index",
-        "SCHEMA_VERSION = \"1.0.0\"",
-        "ARTIFACT_KIND = \"prompt_shelf_movement_index\"",
-        "REQUIRED_FIELDS_V1 = (",
-        "def parse_block_body(",
-        "def _classify_blocks(",
-        "def extract_run(",
-        "def build_index(",
-        "def collect_semantic_violations(",
-        "def main() -> int:"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_prompt_body_raw_event_provider_payload_browser_hud_live_access_generated_state_account_session_or_credential_equivalent_material",
-      "source_sha256": "db3248422109569200f37d8fa13a557422d7bd21bb11a1315d5d16b97b04842c",
-      "target_sha256": "db3248422109569200f37d8fa13a557422d7bd21bb11a1315d5d16b97b04842c",
-      "sha256_match": true,
-      "line_count": 604,
-      "byte_count": 26142,
-      "anchor_count": 10
-    },
-    {
-      "module_id": "prompt_shelf_movement_index_test_body_import",
-      "source_ref": "system/server/tests/test_prompt_shelf_movement_index.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_movement_index.py",
-      "source_role": "Macro synthetic-only regression suite for prompt-shelf movement indexing, covering terminal-cluster parsing, malformed placement exclusions, validation cutoffs, and independence from the v3 uppropagation pipeline.",
-      "required_anchors": [
-        "Tests for prompt_shelf_movement_index",
-        "def test_parses_one_terminal_movement_block(",
-        "def test_two_contiguous_terminal_movement_blocks_both_recorded(",
-        "def test_nested_movement_inside_uppropagation_warned_and_excluded(",
-        "def test_validate_nonzero_on_missing_required_field(",
-        "def test_validate_since_after_historical_capture_passes(",
-        "def test_v3_uppropagation_index_unchanged_by_movement_pipeline("
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_prompt_body_raw_event_provider_payload_browser_hud_live_access_generated_state_account_session_or_credential_equivalent_material",
-      "source_sha256": "a24a03968b6f6677fd648b8b570f85e0c73e2ef1a2e507a3a9ef294b2004c532",
-      "target_sha256": "a24a03968b6f6677fd648b8b570f85e0c73e2ef1a2e507a3a9ef294b2004c532",
-      "sha256_match": true,
-      "line_count": 689,
-      "byte_count": 26937,
-      "anchor_count": 7
-    }
-  ]
+  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_account_sessions_cookies_provider_payload_bodies_browser_hud_live_access_prompt_bodies_raw_prompt_shelf_events_recipient_send_state_and_credential_equivalent_material"
 }

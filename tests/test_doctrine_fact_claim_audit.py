@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 
 from microcosm_core.organs.doctrine_fact_claim_audit import (
+    AUTHORITY_CEILING,
     EXPECTED_NEGATIVE_CASES,
     run,
     run_doctrine_fact_bundle,
@@ -36,6 +37,21 @@ def test_doctrine_fact_claim_audit_validates_fact_loci_and_dag(tmp_path: Path) -
     assert result["exercise"]["unbound_numeric_detector_case_count"] == 1
     assert result["exercise"]["unbound_numeric_detection_count"] == 1
     assert result["exercise"]["unbound_numeric_blocking_count"] == 0
+    first_screen_rows = result["exercise"]["first_screen_fact_claim_rows"]
+    assert [row["row_id"] for row in first_screen_rows] == [
+        "fact_table_count_matches",
+        "code_loci_anchors_verified",
+        "fact_dag_refs_resolve",
+        "volatile_numeric_claims_bound_or_detected",
+    ]
+    assert all(row["evaluator_signal"] is True for row in first_screen_rows)
+    assert all(
+        row["authority_ceiling"] == AUTHORITY_CEILING["authority_ceiling"]
+        for row in first_screen_rows
+    )
+    assert all(row["body_in_receipt"] is False for row in first_screen_rows)
+    assert "comprehension_engine" in first_screen_rows[0]["blocked_claims"]
+    assert "proof_floor" in first_screen_rows[3]
     assert result["exercise"]["comprehension_engine_claim_authorized"] is False
     assert result["source_module_manifest"]["module_count"] == 2
     assert result["source_module_manifest"]["all_required_anchors_present"] is True

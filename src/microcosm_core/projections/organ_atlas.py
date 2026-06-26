@@ -1256,6 +1256,15 @@ def load_model(root: str | Path) -> dict[str, Any]:
             ),
         },
         "kernel_primitives": kernel_primitives,
+        "kernel_authority": {
+            "release_authorized": bool(kernel_doc.get("release_authorized", False)),
+            "source_mutation_default": bool(
+                kernel_doc.get("source_mutation_default", False)
+            ),
+            "provider_calls_authorized": bool(
+                kernel_doc.get("provider_calls_authorized", False)
+            ),
+        },
         "family_index": families_doc,
     }
 
@@ -2019,6 +2028,68 @@ def render_organs_md(model: dict[str, Any]) -> str:
     return "\n".join(out)
 
 
+def _load_runtime_witness(root: Path) -> dict[str, Any] | None:
+    """Load the canonical end-to-end witness from the cold_reader_route_map bundle.
+
+    - Teleology: source ARCHITECTURE.md's "one real run" witness from the governed,
+      drift-checked ``cold_reader_route_map`` exported bundle so the witness cannot
+      drift from the route map that organ validates against live source.
+    - Guarantee: returns a compact dict (command, shows, authority_note, docs_refs,
+      receipt_ref, not-changed flags, route sequence) for the ordinal-1 ``tour``
+      route, or None when the bundle is absent (the witness section is then skipped).
+    - Fails: returns None on a missing bundle; lets json errors propagate on a
+      corrupt one (the bundle is a committed, drift-tested artifact).
+    - Reads: examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/
+      {route_map,route_policy,route_receipts}.json.
+    - Non-goal: authorizes nothing; pure projection of a governed bundle.
+    """
+    base = (
+        root
+        / "examples"
+        / "cold_reader_route_map"
+        / "exported_cold_reader_route_map_bundle"
+    )
+    route_map_path = base / "route_map.json"
+    policy_path = base / "route_policy.json"
+    receipts_path = base / "route_receipts.json"
+    if not route_map_path.is_file() or not policy_path.is_file():
+        return None
+    route_map = json.loads(route_map_path.read_text(encoding="utf-8"))
+    policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    receipts = (
+        json.loads(receipts_path.read_text(encoding="utf-8"))
+        if receipts_path.is_file()
+        else {}
+    )
+    routes = route_map.get("routes") or []
+    tour = next((r for r in routes if r.get("route_id") == "tour_project"), None)
+    if not tour:
+        return None
+    receipt_ref = None
+    for rr in receipts.get("route_receipts") or []:
+        if rr.get("route_id") == "tour_project":
+            refs = rr.get("receipt_refs") or []
+            receipt_ref = refs[0] if refs else None
+            break
+    ceiling = policy.get("authority_ceiling") or {}
+    return {
+        "command": tour.get("command"),
+        "title": tour.get("title"),
+        "shows": tour.get("shows") or [],
+        "authority_note": tour.get("authority_note"),
+        "docs_refs": tour.get("docs_refs") or [],
+        "receipt_ref": receipt_ref,
+        "not_changed": [k for k, v in ceiling.items() if v is False],
+        "sequence": [
+            r.get("title")
+            for r in sorted(routes, key=lambda r: r.get("ordinal") or 0)
+        ],
+        "bundle_ref": (
+            "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
+        ),
+    }
+
+
 def render_architecture_md(model: dict[str, Any]) -> str:
     """Render the GENERATED ARCHITECTURE.md system-shape page from the model.
 
@@ -2047,17 +2118,43 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append(GENERATED_MARKER)
     out.append("")
     out.append(
-        "Plectis is a local, source-open operating substrate for inspecting how a "
-        "larger AI-native workflow system thinks, routes, records work, binds "
-        "evidence, and limits its own claims. It turns a folder into local "
-        "`.microcosm/` state without mutating your source files, calling external "
-        "model providers, while keeping release, proof, and production claims outside the public scope."
+        "Plectis is a small, source-open tool you run inside a code folder. It runs "
+        "entirely on your machine, makes no network or model calls, and never "
+        "changes the files it reads. Point it at a project and it writes a local "
+        "record, under `.microcosm/`, that you can reopen, rerun, and trace back to "
+        "source."
     )
     out.append("")
     out.append(
-        "Read this top-down: identity, the local runtime loop, the claim/evidence "
-        "loop, then the organ spine. Every box below resolves to a real command, "
-        "file, endpoint, or receipt — diagrams here are routing maps, not decoration."
+        "This page is the map of that record. Plectis is the public, runnable "
+        "cross-section of a larger AI-native workflow system, shown in a form you can "
+        "inspect on your own. Read it top-down: what it is, the loop you can run, one "
+        "real run traced through it, the parts it is built from, then the discipline "
+        "that keeps its counts honest. Every box below resolves to a real command, "
+        "file, or receipt; the diagrams are routing maps, not decoration."
+    )
+    out.append("")
+
+    out.append("## How to read this page")
+    out.append("")
+    out.append(
+        "An architecture is four things, and the first read is built in that order. "
+        "First the **boundary and promise**: what Plectis is, what it touches, and "
+        "what it refuses (Level 0 and the words below it). Then **one real run, "
+        "traced end to end**, so you watch the machinery work on a concrete command. "
+        "Then **how the system is built** — the small fixed set of parts that run "
+        "names. Then the **claim discipline** that keeps its counts honest. Everything "
+        "after the *Deep reference* line is exhaustive inventory and the full relation "
+        "graph: drilldown, not a first read."
+    )
+    out.append("")
+    out.append(
+        "On a first pass, read down to the Deep reference line and stop; by then you "
+        "have an accurate model of what runs, what lands on disk, what backs it, what "
+        "parts it is built from, and where authority stops. One rule holds every line "
+        "here, and every line in the record it describes. Each is **rerunnable** (a "
+        "command reproduces it), **traceable** (it names the source or receipt it came "
+        "from), and **bounded** (it states where its claim stops)."
     )
     out.append("")
 
@@ -2065,17 +2162,70 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("")
     out.append("```text")
     out.append("Plectis is the public, local cross-section of a larger AI-native system.")
-    out.append("A cold reader can run and inspect the architecture without receiving private state.")
+    out.append("Bring a folder; it builds a local record you can read, rerun, and trace.")
+    out.append("No provider calls. No source changes. No release.")
     out.append("No source mutation, private-root equivalence, or proof authority.")
-    out.append("Start: plectis hello .   Prove local behavior: plectis tour --card .")
+    out.append("Start:     plectis hello .")
+    out.append("Prove it:  plectis tour --card .")
     out.append("```")
+    out.append("")
+
+    out.append("## The words you need first")
+    out.append("")
+    out.append(
+        "A handful of terms carry the whole design. Each has a precise, narrow "
+        "meaning here."
+    )
+    out.append("")
+    out.append(
+        "- **Component** (an *organ* in the source): a bounded unit of machinery with "
+        "one job, its own inputs and outputs, and a stated limit on what it may claim."
+    )
+    out.append(
+        "- **Family**: a grouping of components by what they help you do, not by how "
+        "finished they are."
+    )
+    out.append(
+        "- **Kernel primitive**: one of ten shared verbs (project, catalog, pattern, "
+        "route, work, event, and so on) that every component binds to instead of "
+        "calling each other."
+    )
+    out.append(
+        "- **Evidence class**: the named kind of support behind a result: a "
+        "source-linked row, a fixture pass, a local tool run, a review packet."
+    )
+    out.append(
+        "- **Scope limit**: the line that states what a claim does establish and what "
+        "it does not."
+    )
+    out.append(
+        "- **Record**: a durable artifact (a result row, a receipt, a generated "
+        "file) you can reopen on its own."
+    )
+    out.append(
+        "- **Projection and drift**: a page or a count is a projection drawn over the "
+        "substrate, a map and not the source; drift is when the map falls out of "
+        "step, and the system watches for it."
+    )
+    out.append(
+        "- **Substrate, macro, and micro**: the underlying files, routes, state, and "
+        "tools the system is built from. The private parent is the macro system; "
+        "this public cross-section is the micro one (the `microcosm-substrate` tree "
+        "and the `.microcosm/` state a run writes)."
+    )
+    out.append(
+        "- **Source authority**: the artifact that owns a fact more strongly than "
+        "anything generated from it. On this page the registries under `core/` are "
+        "the authority; the prose is generated from them."
+    )
     out.append("")
 
     out.append("## Level 1 — the local runtime loop")
     out.append("")
     out.append(
-        "Bring a folder; Plectis builds project-local state and reads it back as "
-        "cards and a local observatory."
+        "Bring a folder. Plectis reads it, writes project-local state under "
+        "`.microcosm/`, and reads that state back to you as cards and a small local "
+        "observatory, without touching your files."
     )
     out.append("")
     out.append("```mermaid")
@@ -2092,12 +2242,161 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("```")
     out.append("")
 
-    out.append("## Level 2 — the claim/evidence loop")
+    out.append(
+        "What lands on disk is the point. A run leaves a `.microcosm/` directory "
+        "(git-ignored) holding the catalog, patterns, routes, work items, an "
+        "`events.jsonl` causal trace, and `evidence/` receipts. Every card you read "
+        "is a view over those files, and every line in it can be reopened there."
+    )
+    out.append("")
+
+    auth = model.get("kernel_authority") or {}
+    prov_flag = "true" if auth.get("provider_calls_authorized") else "false"
+    src_flag = "true" if auth.get("source_mutation_default") else "false"
+    rel_flag = "true" if auth.get("release_authorized") else "false"
+
+    witness = model.get("runtime_witness")
+    if witness:
+        cmd = str(witness.get("command") or "plectis tour <project>")
+        receipt = str(witness.get("receipt_ref") or "the run receipt")
+        scope = str(witness.get("authority_note") or "local inspection only").replace(
+            "|", "\\|"
+        )
+        docs = witness.get("docs_refs") or []
+        drill = ", ".join(f"`{_md_cell(d)}`" for d in docs) or "the linked cards"
+        seq = witness.get("sequence") or []
+        out.append("## A real run, traced end to end")
+        out.append("")
+        out.append(
+            "The loop above is the shape; here is one real command walked through it. "
+            "This witness is generated from the governed `cold_reader_route_map` "
+            f"bundle (`{witness.get('bundle_ref')}`), which re-checks every command, "
+            "receipt, and doc link against live source, so it cannot quietly drift."
+        )
+        out.append("")
+        out.append("```mermaid")
+        out.append("sequenceDiagram")
+        out.append("  actor Reader")
+        out.append("  participant CLI as cli.py")
+        out.append("  participant Spine as project_substrate.py")
+        out.append("  participant State as .microcosm/")
+        out.append("  participant Card as first-screen card")
+        out.append(f"  Reader->>CLI: {cmd}")
+        out.append("  CLI->>Spine: route the folder")
+        out.append("  Spine->>State: write catalog, routes, events, evidence")
+        out.append("  Spine-->>Card: build the first-screen card")
+        out.append("  Card-->>Reader: selected route, front-door status, evidence handles")
+        out.append("  Note over Reader,Card: no provider calls, no source change, no release")
+        out.append("```")
+        out.append("")
+        out.append("| Reader question | What this run answers |")
+        out.append("|---|---|")
+        out.append(f"| What starts it? | `{_md_cell(cmd)}` — point it at a folder |")
+        out.append(
+            "| Where does control go? | `cli.py` enters, `project_substrate.py` runs "
+            "the spine |"
+        )
+        out.append(
+            "| What lands on disk? | `.microcosm/` catalog, routes, `events.jsonl`, "
+            "`evidence/` |"
+        )
+        out.append(
+            "| What does not change? | source files "
+            f"(`source_mutation_default` `{src_flag}`), provider state "
+            f"(`provider_calls_authorized` `{prov_flag}`), release state "
+            f"(`release_authorized` `{rel_flag}`) — governed kernel flags, not prose |"
+        )
+        out.append(f"| How does it become credible? | receipt `{_md_cell(receipt)}` |")
+        out.append(
+            "| What does the reader see? | the first-screen card: "
+            "`selected_route_id`, `front_door_status`, the route -> work -> event -> "
+            "evidence chain |"
+        )
+        out.append(f"| Where does the claim stop? | {scope} |")
+        out.append(f"| Where to drill down? | {drill} |")
+        out.append("")
+        if seq:
+            out.append(
+                f"That tour is route 1 of {len(seq)} in the bundle's first-run "
+                "sequence; each later route names its own command, receipt, and scope "
+                "the same way."
+            )
+            out.append("")
+
+    out.append("## How the system is built")
     out.append("")
     out.append(
-        "Every claim travels with its evidence class, its proof surface, and the "
-        "scope of what it is allowed to mean. This is the discipline that keeps "
-        "counts honest."
+        "The run above is one path through a small, fixed set of parts. This is the "
+        "whole set, so everything after this is detail on something named here. The "
+        "runnable system is one Python package, `src/microcosm_core/`, plus the "
+        "`core/*.json` registries it reads and the public surfaces it writes."
+    )
+    out.append("")
+    out.append("| Part | Where it lives | Its job |")
+    out.append("|---|---|---|")
+    out.append(
+        "| Command surface | `cli.py` | Every `plectis` and `microcosm` command "
+        "enters here. |"
+    )
+    out.append(
+        "| Runtime spine | `project_substrate.py` | Turns a folder into `.microcosm/` "
+        "state: project, catalog, pattern, route, work, event, evidence, explanation. |"
+    )
+    out.append(
+        "| Project-local state | `.microcosm/` | The record a run writes — one file "
+        "per primitive, plus `events.jsonl` and `evidence/`. |"
+    )
+    out.append(
+        "| Components | `organs/` | One module per component: a bounded specimen with "
+        "a runner and a stated scope limit. |"
+    )
+    out.append(
+        "| Validators | `validators/` | The checkers that back claims; an evidence "
+        "class is only as strong as the validator behind it. |"
+    )
+    out.append(
+        "| Projections | `projections/` | The builders that render the public "
+        "surfaces — the component atlas, the architecture graph scene, and this page "
+        "— from `core/*.json`. |"
+    )
+    out.append(
+        "| Governed registries | `core/*.json` | The source of truth this page is "
+        "generated from, not the prose here. |"
+    )
+    out.append("")
+    out.append("```mermaid")
+    out.append("flowchart LR")
+    out.append(
+        '  CLI["Command surface<br/>cli.py"] '
+        '--> SUB["Runtime spine<br/>project_substrate.py"]'
+    )
+    out.append('  SUB --> STATE["Project-local state<br/>.microcosm/"]')
+    out.append('  SUB --> ORG["Components<br/>organs/"]')
+    out.append('  ORG --> VAL["Validators<br/>validators/"]')
+    out.append('  VAL --> CORE["Governed registries<br/>core/*.json"]')
+    out.append('  CORE --> PROJ["Projections<br/>projections/"]')
+    out.append('  PROJ --> DOCS["Public surfaces<br/>ORGANS.md / this page / graph scene"]')
+    out.append("```")
+    out.append("")
+    out.append(
+        "The run you just traced enters at the command surface (`cli.py`) and lands "
+        "in project-local state (`.microcosm/`); the steps it walks are the kernel "
+        "primitives, enumerated in full under Deep reference. Three rules hold for "
+        "every part, and the kernel records them as authority flags rather than "
+        "promises: Plectis does not call providers "
+        f"(`provider_calls_authorized` `{prov_flag}`), change your source "
+        f"(`source_mutation_default` `{src_flag}`), or claim release authority "
+        f"(`release_authorized` `{rel_flag}`)."
+    )
+    out.append("")
+
+    out.append("## Level 2 — the claim/evidence discipline")
+    out.append("")
+    out.append(
+        "This is the part that makes the rest worth trusting. A count or a capability "
+        "is cheap to assert and slow to check, so every public claim here travels "
+        "with three things: the evidence class behind it, the proof surface that "
+        "backs it, and the scope limit that says where it stops meaning anything."
     )
     out.append("")
     out.append("```mermaid")
@@ -2107,6 +2406,22 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append('  Proof --> Ceiling["Scope limit<br/>plectis authority --card"]')
     out.append('  Ceiling --> Anti["Boundary<br/>(where the claim stops)"]')
     out.append('  Anti --> Drill["Drilldown: paper module / fixture / receipt"]')
+    out.append("```")
+    out.append("")
+
+    out.append(
+        "Read the headline number the way the whole system is built to be read:"
+    )
+    out.append("")
+    out.append("```text")
+    out.append(
+        f"Reads as:       {model['coverage']['registry_organ_count']} components."
+    )
+    out.append(
+        f"Means:          {model['coverage']['registry_organ_count']} public "
+        "component contracts, each with its own evidence line."
+    )
+    out.append("Does not mean:  product maturity, or whole-system correctness.")
     out.append("```")
     out.append("")
 
@@ -2121,13 +2436,25 @@ def render_architecture_md(model: dict[str, Any]) -> str:
         )[:5]
     ]
 
+    out.append("## Deep reference")
+    out.append("")
+    out.append(
+        "Everything below is exhaustive reference, not a first read: the full "
+        "primitive and component inventories, the source-module relation counts, and "
+        "the complete wiring graph, kept for drilldown and audit. If you are building "
+        "a first model of the system you already have it from the run and the parts "
+        "above; read on only when you need a specific edge, count, primitive, or "
+        "component id."
+    )
+    out.append("")
     out.append("## Level 3 — source-module file and shard routing")
     out.append("")
     out.append(
-        "The source-module file graph is body-free relation metadata from "
-        f"`{SOURCE_MODULE_FILE_GRAPH_REF}`. It connects macro source files and "
-        "source shards to public target files, target shards, and validation "
-        "refs without making this architecture page the edge authority."
+        "This facet is the deep drilldown; skip it on a first read. It is body-free "
+        "relation metadata from "
+        f"`{SOURCE_MODULE_FILE_GRAPH_REF}`, connecting macro source files and source "
+        "shards to public target files, target shards, and validation refs. The "
+        "counts below are handles into that graph, not the edge authority itself."
     )
     out.append("")
     out.append("| Handle | Count |")
@@ -2179,8 +2506,11 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("## Level 3 — the kernel primitives (shared spine)")
     out.append("")
     out.append(
-        "Organs do not call each other. They bind to these kernel primitives, "
-        "projected into every scanned project as `.microcosm/architecture.json`."
+        "The full spine, in one table. Components do not call each other; each binds "
+        "to the same ten primitives, projected into every scanned project as "
+        "`.microcosm/architecture.json`. The table reads left to right as the loop a "
+        "run walks: name the folder, catalog it, see patterns, hold to standards, "
+        "propose routes, record work, emit events, keep evidence, explain, assimilate."
     )
     out.append("")
     out.append("| Primitive | What it does | Run it | Macro analogue |")
@@ -2198,9 +2528,11 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("")
     out.append(
         "The "
-        f"{model['coverage']['registry_organ_count']} accepted organs cluster into "
-        f"{model['coverage']['family_count']} families. Open "
-        "[ORGANS.md](ORGANS.md) for the full per-organ cards."
+        f"{model['coverage']['registry_organ_count']} accepted components cluster "
+        f"into {model['coverage']['family_count']} families, grouped by what they "
+        "help you do rather than by how finished they are. Each family below links "
+        "into [ORGANS.md](ORGANS.md), where every component has a card: its job, its "
+        "first command, its evidence class, and its scope limit."
     )
     out.append("")
     out.append("```mermaid")
@@ -2231,10 +2563,12 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("## Level 3 — organ wiring map")
     out.append("")
     out.append(
-        "Each family is a cluster. Most organs are standalone specimens, so cluster "
-        "membership is the primary relation; arrows show the few explicit "
-        "organ-to-organ wires (mostly the formal-math proof chain). Node labels are "
-        "organ display names; see [ORGANS.md](ORGANS.md) for the stable ids."
+        "This is the full graph, and it is dense on purpose: a reference, not a first "
+        "read. Each box is a family; each node is a component (display names; see "
+        "[ORGANS.md](ORGANS.md) for stable ids). Arrows are the few explicit "
+        "component-to-component wires, mostly the formal-math proof chain. Most "
+        "components are standalone specimens, so a node with no arrows is normal: "
+        "family membership, not call-graph position, is the primary relation."
     )
     out.append("")
     out.append("```mermaid")
@@ -2264,10 +2598,12 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("## Level 4 — import & drift membrane")
     out.append("")
     out.append(
-        "Public carries private by default, but only through a membrane: non-secret "
-        "macro bodies are copied with digests and omission receipts; projections are "
-        "watched for drift; nothing converts these records into source-of-record "
-        "status or a release operation."
+        "The public tree carries private substrate, but only through a membrane. A "
+        "macro candidate is planned; then either its non-secret body is copied to a "
+        "public target with a digest and a validator, or, if it touches secrets or "
+        "private state, only an omission receipt and public metadata cross. "
+        "Projections are then watched for drift. Nothing in this path turns a copy "
+        "into source-of-record status or a release."
     )
     out.append("")
     out.append("```mermaid")
@@ -2282,6 +2618,26 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append('  Intake --> Drift["microcosm drift-control"]')
     out.append('  Drift --> Ceiling["Local inspection · source records · release scope unchanged"]')
     out.append("```")
+    out.append("")
+    out.append("## Where to go next")
+    out.append("")
+    out.append(
+        "- Run the loop yourself: `plectis hello .`, then `plectis tour --card .` in "
+        "any code folder."
+    )
+    out.append(
+        "- Read one component end to end: open [ORGANS.md](ORGANS.md), pick a card, "
+        "and follow its first command and its source link."
+    )
+    out.append(
+        "- Let the system orient you: `plectis comprehend --first-contact` for a "
+        "cold-start read pack, `plectis comprehend --self-model` for the "
+        "whole-substrate self-portrait, or `plectis comprehend --packet-atlas` to "
+        "choose a lens."
+    )
+    out.append(
+        "- Follow an edge to its authority: `microcosm organ-topology --organ <id>`."
+    )
     out.append("")
     out.append(f"> {CLAIM_CEILING_LINE}")
     out.append("")
@@ -2326,6 +2682,7 @@ def build(root: str | Path, *, write: bool) -> dict[str, Any]:
     """
     root = Path(root)
     model = load_model(root)
+    model["runtime_witness"] = _load_runtime_witness(root)
     organs_md = render_organs_md(model)
     architecture_md = render_architecture_md(model)
     agent_routes_md = render_agent_routes_md(model)

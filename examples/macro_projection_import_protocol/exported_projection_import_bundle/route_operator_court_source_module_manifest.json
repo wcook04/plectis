@@ -3,85 +3,48 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "route_operator_court_source_modules_import",
-  "module_count": 3,
-  "modules": [
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 43138,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1111,
-      "module_id": "route_operator_court_body_import",
-      "required_anchors": [
-        "PACKET_MODE = \"operator_court_v1\"",
-        "def build_deterministic_operator_cases(",
-        "def build_operator_court_prompt(",
-        "def detect_baseline_leakage(",
-        "def score_operator_court_output(",
-        "def build_operator_court_appeals("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_provider_export_no_prompt_operator_or_provider_payload_bodies",
-      "source_ref": "system/lib/route_operator_court.py",
-      "source_role": "Builds deterministic operator-court adjudication packets, hides prior connector guesses by default, detects baseline leakage, scores route outputs, and builds appeal rows.",
-      "source_sha256": "7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_operator_court.py",
-      "target_sha256": "7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
-      "material_class": "public_macro_tool_body"
-    },
-    {
-      "anchor_count": 6,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 117757,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 2717,
-      "module_id": "routing_pilot_harness_body_import",
-      "required_anchors": [
-        "def build_prompt(",
-        "def _score(",
-        "def run_benchmark(",
-        "def _append_operator_court_appeals(",
-        "def run_operator_court(",
-        "nvidia_nim_direct"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_provider_export_no_live_provider_call_no_provider_payload_bodies",
-      "source_ref": "tools/meta/control/routing_pilot_harness.py",
-      "source_role": "Macro routing-pilot harness body that assembles prompts, scores candidates, appends operator-court appeals, and contains provider dispatch code copied only as public source evidence, not execution authority.",
-      "source_sha256": "0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/routing_pilot_harness.py",
-      "target_sha256": "0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
-      "material_class": "public_macro_tool_body"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 23352,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 647,
-      "module_id": "route_operator_court_test_body_import",
-      "required_anchors": [
-        "def test_operator_court_packet_hides_prior_connector_by_default(",
-        "def test_operator_court_score_reports_confusion_matrix(",
-        "def test_operator_court_does_not_include_manual_baseline_evidence(",
-        "def test_operator_court_builds_appeal_rows_for_failed_dominance(",
-        "def test_leakage_appeal_emits_only_when_leakage_present("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_ref": "system/server/tests/test_route_operator_court.py",
-      "source_role": "Focused regression body for operator-court prompt boundary, leakage detection, score confusion matrix, and appeal generation.",
-      "source_sha256": "27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_operator_court.py",
-      "target_sha256": "27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
-      "material_class": "public_macro_tool_body"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, and syntax compilation; copied route-operator court and routing-pilot harness source modules are body evidence, not authority to execute live providers, mutate route graphs, export prompt/operator/provider bodies, inspect browser/HUD live access, or inspect private account/session state",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, prompt/operator thread bodies, provider payload bodies, browser/HUD live-access material, account/session state, cookies, credentials, recipient-send state, or provider response bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "route_operator_court_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_operator_court.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/route_operator_court.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/route_operator_court.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "routing_pilot_harness_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/routing_pilot_harness.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/control/routing_pilot_harness.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/control/routing_pilot_harness.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "route_operator_court_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_operator_court.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_route_operator_court.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_route_operator_court.py"
+    }
+  ],
   "schema_version": "macro_projection_route_operator_court_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

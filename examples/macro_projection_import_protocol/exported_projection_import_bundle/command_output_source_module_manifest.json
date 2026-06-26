@@ -3,7 +3,7 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "command_output_projection_source_modules_import",
-  "module_count": 4,
+  "module_count": 3,
   "modules": [
     {
       "anchor_count": 5,
@@ -57,30 +57,6 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 24757,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 606,
-      "material_class": "public_macro_tool_body",
-      "module_id": "command_output_audit_body_import",
-      "required_anchors": [
-        "def build_command_output_projection_audit(",
-        "def build_command_output_duplication_audit(",
-        "registered_commands",
-        "projected_with_drift",
-        "missing_required_fields"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
-      "source_ref": "system/lib/command_output_audit.py",
-      "source_role": "Command-output projection audit logic for registered projected commands, required envelope fields, projected-vs-monolithic status, and duplication profiles",
-      "source_sha256": "25afbd291beab84b98ae40d9d17f67ed15a5c112164befc8028a021c40f5ed50",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_output_audit.py",
-      "target_sha256": "25afbd291beab84b98ae40d9d17f67ed15a5c112164befc8028a021c40f5ed50"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
       "byte_count": 20724,
       "classification": "copied_non_secret_macro_body",
       "line_count": 359,
@@ -103,6 +79,20 @@
     }
   ],
   "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "command_output_audit_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_output_audit.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/command_output_audit.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/command_output_audit.py"
+    }
+  ],
   "schema_version": "macro_projection_command_output_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

@@ -64,7 +64,7 @@ def test_cli_proof_lab_card_reads_cached_receipt_without_rerun(
     assert status == 0
     assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
     assert payload["status"] == "pass"
-    assert payload["command"] == f"microcosm proof-lab --card --out {display_out}"
+    assert payload["command"] == f"plectis proof-lab --card --out {display_out}"
     assert payload["cache_status"] == "cached_receipt_read"
     assert payload["cached_receipt_ref"] == display_receipt
     assert payload["cached_receipt_bytes"] == receipt.stat().st_size
@@ -153,12 +153,12 @@ def test_cli_proof_lab_card_marks_input_bundle_stale_without_rerun(
     assert status == 0
     assert payload["status"] == "stale_cached_receipt"
     assert payload["command"] == (
-        f"microcosm proof-lab --card --input {display_input} --out {display_out}"
+        f"plectis proof-lab --card --input {display_input} --out {display_out}"
     )
     assert payload["cache_status"] == "stale_cached_receipt"
     assert payload["cache_action"]["status"] == "actionable"
     assert payload["cache_action"]["command"] == (
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+        "plectis proof-lab --out /tmp/microcosm-proof-lab"
     )
     assert payload["cache_freshness"]["status"] == "stale"
     assert payload["cache_freshness"]["input_status"] == "stale"
@@ -465,10 +465,10 @@ def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> 
     serialized = json.dumps(card, sort_keys=True)
     assert "/private/var/folders" not in serialized
     assert card["command"] == (
-        "microcosm proof-lab --input <proof-lab-input> --out <proof-lab-out>"
+        "plectis proof-lab --input <proof-lab-input> --out <proof-lab-out>"
     )
     assert card["expanded_command"] == (
-        "microcosm verifier-lab-kernel run-kernel-bundle "
+        "plectis verifier-lab-kernel run-kernel-bundle "
         "--input <proof-lab-input> --out <proof-lab-out>"
     )
     assert card["input_ref"] == "<proof-lab-input>"
@@ -476,7 +476,7 @@ def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> 
     assert card["cached_receipt_ref"] == f"<proof-lab-out>/{RECEIPT_NAME}"
     assert card["receipt_ref"] == f"<proof-lab-out>/{RECEIPT_NAME}"
     assert card["next_commands"][2] == (
-        f"microcosm evidence inspect <proof-lab-out>/{RECEIPT_NAME}"
+        f"plectis evidence inspect <proof-lab-out>/{RECEIPT_NAME}"
     )
     assert card["safe_to_show"]["host_private_paths_exported"] is False
     assert card["anti_claims"]["release_or_publication_authorized"] is False

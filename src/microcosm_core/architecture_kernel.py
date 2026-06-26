@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from collections import deque
+import hashlib
 import json
 import os
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any, Iterator, Mapping
 
 from microcosm_core.receipts import (
     utc_now,
@@ -19,6 +20,18 @@ EVIDENCE_DIR = "evidence"
 EVENT_STREAM = "events.jsonl"
 EXPLANATION_DIR = "explanations"
 TRUTH_READINESS_STATE = "truth_readiness.json"
+
+REFERENCE_CASE_ASSERTION_PREDICATES = [
+    "join_integrity",
+    "selection_binding",
+    "scope_completeness",
+    "execution_terminality",
+    "authority_boundedness",
+    "replay_equivalence",
+    "state_delta_scope",
+    "record_classification_matrix",
+    "projection_fidelity",
+]
 
 _PATTERN_BY_ROUTE = {
     "readme_onboarding_route": "repo_has_readme",
@@ -471,6 +484,2834 @@ def _read_explanation_event_refs(path: Path, *, limit: int = 12) -> list[dict[st
             }
         )
     return list(refs)
+
+
+def _exercised_primitives_from_event_refs(
+    causal_event_refs: list[dict[str, Any]],
+    manifest: dict[str, Any],
+) -> tuple[list[str], list[str]]:
+    """Occurrence: which primitives this run actually exercised, from event spans.
+
+    - Teleology: the explanation must distinguish what a run EXERCISED (occurrence)
+      from the declared kernel catalog (declaration). A primitive is exercised iff
+      one of its non-glob ``event_span`` tokens exactly matches a span present in
+      this run's ``causal_event_refs``. This is the honest occurrence field; the
+      top-level ``kernel_primitives`` list is a declared catalog, not run-derived,
+      so the two need not — and generally do not — match.
+    - Guarantee: returns ``(exercised_event_spans, exercised_primitives)``, both
+      sorted and de-duplicated; ``exercised_primitives`` is a subset of the
+      manifest's declared primitive_ids; glob spans (e.g. ``project.* / work.*``)
+      never mark a primitive exercised because they would match everything.
+    - Fails: never raises; non-dict rows and odd manifest entries are skipped; an
+      empty ref list yields ``([], [])``.
+    - When-needed: inspect when an explanation claims a primitive ran whose span is
+      absent from this run's event refs (the occurrence-vs-declaration trap).
+    - Non-goal: does not assert correctness or that every declared primitive ran.
+    """
+    spans = sorted(
+        {
+            str(row.get("span"))
+            for row in causal_event_refs
+            if isinstance(row, dict) and row.get("span")
+        }
+    )
+    span_set = set(spans)
+    exercised: set[str] = set()
+    for prim in manifest.get("primitives", []):
+        if not isinstance(prim, dict):
+            continue
+        primitive_id = prim.get("primitive_id")
+        if not primitive_id:
+            continue
+        tokens = [tok.strip() for tok in str(prim.get("event_span", "")).split("/")]
+        if any(tok and "*" not in tok and tok in span_set for tok in tokens):
+            exercised.add(str(primitive_id))
+    return spans, sorted(exercised)
+
+
+def _execution_instance(
+    selected_work: dict[str, Any] | None,
+    route_id: str | None,
+    state_history: list[str],
+    manifest: dict[str, Any],
+) -> dict[str, Any]:
+    """Single-execution partition of a route explanation, correlated by work_id.
+
+    - Teleology: a route accumulates many work transactions over time, so the
+      causal_chain_proof's top-level event/evidence refs are the route NEIGHBOURHOOD
+      (every run), not one invocation. This partition scopes the witness to the
+      SELECTED work transaction's OWN ``event_refs``/``evidence_refs`` — which the
+      runtime correlates to it by ``work_id`` at emission — so events or evidence from
+      other runs of the same route cannot enter it. This is correlation closure built
+      from existing fields, not an inferred run boundary.
+    - Guarantee: returns the selected work's correlated refs plus exercised spans /
+      primitives derived only from THIS execution's events; selection_basis records
+      that the work is chosen by the representative first-closed heuristic, NOT causal
+      invocation binding; correlation_status / single_execution_scoped report VERIFIED
+      correlation, so a missing/empty selected_work yields empty refs, ``[]`` exercised
+      sets, correlation_status ``no_selected_work``, and single_execution_scoped False.
+    - Fails: never raises; non-list ref fields are treated as empty.
+    - When-needed: inspect when a route explanation appears to mix events or evidence
+      from more than one run.
+    - Non-goal: does not assert the execution is terminal/complete (see
+      causal_chain status) nor that it is eligible as the public reference witness.
+    """
+    work = selected_work if isinstance(selected_work, dict) else {}
+    raw_event_refs = work.get("event_refs")
+    raw_evidence_refs = work.get("evidence_refs")
+    event_refs = _dedupe_event_refs(
+        raw_event_refs if isinstance(raw_event_refs, list) else []
+    )
+    evidence_refs = _dedupe_strings(
+        raw_evidence_refs if isinstance(raw_evidence_refs, list) else []
+    )
+    spans, primitives = _exercised_primitives_from_event_refs(event_refs, manifest)
+    has_correlated_work = bool(work.get("work_id")) and bool(event_refs)
+    return {
+        "scope_mode": "single_work_transaction",
+        "selection_basis": "representative_first_closed_work_not_causal_invocation",
+        "correlation_status": (
+            "work_correlated" if has_correlated_work else "no_selected_work"
+        ),
+        "single_execution_scoped": has_correlated_work,
+        "correlation_basis": "selected_work_transaction_work_id",
+        "selected_work_id": work.get("work_id"),
+        "selected_work_status": work.get("status"),
+        "route_id": route_id,
+        "state_history": state_history,
+        "event_refs": event_refs,
+        "event_ref_count": len(event_refs),
+        "evidence_refs": evidence_refs,
+        "evidence_ref_count": len(evidence_refs),
+        "exercised_event_spans": spans,
+        "exercised_primitives": primitives,
+        "note": (
+            "Representative single-work partition: scoped to the SELECTED work "
+            "transaction's own work_id-correlated event_refs/evidence_refs, so other "
+            "runs of this route cannot enter it. selection_basis is the first-closed "
+            "heuristic — representative for browsing, NOT the transaction caused by a "
+            "specific command invocation; a causal invocation-bound witness is a "
+            "separate reference-case artifact. correlation_status and "
+            "single_execution_scoped report VERIFIED correlation, not the requested "
+            "scope_mode (an absent selected work does not self-certify)."
+        ),
+    }
+
+
+def command_state_snapshot(project_path: str | Path) -> dict[str, Any]:
+    """Snapshot the project-local execution state at command boundaries.
+
+    - Teleology: the command-causality assay needs a before/after boundary so
+      ambient history cannot masquerade as execution output just because it is
+      nearby in the same route.
+    - Guarantee: returns stable ids/refs for work rows, event rows, and evidence
+      receipts under `.microcosm`; no source files are read and no state is
+      mutated.
+    - Fails: malformed JSON/JSONL surfaces errors; missing state surfaces empty
+      lists.
+    - When-needed: take a before snapshot, run one command, then build a
+      reference execution case with this snapshot as `before_state`.
+    - Non-goal: does not prove correctness or define causality by itself; it is
+      only the boundary input to a relation-based assay.
+    """
+    project = Path(project_path).expanduser().resolve(strict=False)
+    state = state_dir(project)
+    work_payload = read_json_if_exists(state / "work_items.json")
+    work_ids = [
+        str(row.get("work_id"))
+        for row in work_payload.get("work_items", [])
+        if isinstance(row, dict) and row.get("work_id")
+    ]
+    event_ids = [
+        str(row.get("event_id"))
+        for row in _iter_jsonl_dict_rows(state / EVENT_STREAM)
+        if row.get("event_id")
+    ]
+    evidence_root = state / EVIDENCE_DIR
+    evidence_refs: list[str] = []
+    if _path_is_dir(evidence_root):
+        for root, _dirs, files in os.walk(evidence_root):
+            for name in files:
+                if not name.endswith(".json"):
+                    continue
+                path = Path(root) / name
+                evidence_refs.append(project_relative(project, path))
+    return {
+        "schema_version": "microcosm_command_state_snapshot_v1",
+        "project_ref": ".",
+        "state_ref": STATE_DIR,
+        "work_ids": sorted(work_ids),
+        "event_ids": sorted(event_ids),
+        "evidence_refs": sorted(evidence_refs),
+    }
+
+
+def _snapshot_delta(
+    before_state: dict[str, Any] | None,
+    after_state: dict[str, Any],
+) -> dict[str, Any]:
+    """Compute set deltas between command-state snapshots."""
+    if not isinstance(before_state, dict):
+        return {
+            "status": "not_supplied",
+            "new_work_ids": [],
+            "new_event_ids": [],
+            "new_evidence_refs": [],
+        }
+
+    def _new_values(key: str) -> list[str]:
+        before = {
+            str(item)
+            for item in before_state.get(key, [])
+            if isinstance(item, str) and item
+        }
+        after = [
+            str(item)
+            for item in after_state.get(key, [])
+            if isinstance(item, str) and item
+        ]
+        return [item for item in after if item not in before]
+
+    return {
+        "status": "available",
+        "new_work_ids": _new_values("work_ids"),
+        "new_event_ids": _new_values("event_ids"),
+        "new_evidence_refs": _new_values("evidence_refs"),
+    }
+
+
+def _evidence_ref_exists(project: Path, evidence_ref: str) -> bool:
+    """Return whether a project-local evidence ref resolves under `.microcosm`."""
+    prefix = f"{STATE_DIR}/"
+    rel = evidence_ref.removeprefix(prefix)
+    return _path_is_file(state_dir(project) / rel)
+
+
+def _work_state_history(work: dict[str, Any]) -> list[str]:
+    """Extract ordered state names from a work row."""
+    history = work.get("state_history")
+    if not isinstance(history, list):
+        return []
+    return [
+        str(row.get("state"))
+        for row in history
+        if isinstance(row, dict) and row.get("state")
+    ]
+
+
+def _semantic_digest(payload: dict[str, Any]) -> str:
+    """Stable digest over a canonical semantic payload."""
+    body = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(body.encode("utf-8")).hexdigest()
+
+
+def build_reference_execution_case(
+    project_path: str | Path,
+    route_id: str,
+    command_result: dict[str, Any],
+    *,
+    command_kind: str = "work.run",
+    before_state: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Build a command-root execution case from returned handles and local state.
+
+    - Teleology: answer "what exactly did THIS command cause?" without relying on
+      first-closed/last-closed heuristics, route neighbourhood aggregation, or an
+      opaque trace id. The root is the command-returned `work_id`; events and
+      evidence enter only through preserved work/event/evidence relations.
+    - Guarantee: returns a typed occurrence graph, record classifications,
+      topology-preserving aliases, semantic digest, independent predicate statuses,
+      and ambient-history exclusions. A selected older same-route work row cannot
+      enter the occurrence witness unless it is the returned `work_id`.
+    - Fails: never raises for missing work ids; missing refs become failed
+      predicates in the returned case.
+    - Reads: `.microcosm/work_items.json`, `.microcosm/events.jsonl`,
+      `.microcosm/evidence/`, and the route explanation if present.
+    - Non-goal: does not make the route explanation or architecture page eligible
+      as the public witness; projection fidelity is reported separately.
+    """
+    project = Path(project_path).expanduser().resolve(strict=False)
+    state = state_dir(project)
+    work_id = str(command_result.get("work_id") or "")
+    work_payload = read_json_if_exists(state / "work_items.json")
+    work_items = [
+        row
+        for row in work_payload.get("work_items", [])
+        if isinstance(row, dict)
+    ]
+    selected_work = next(
+        (row for row in work_items if row.get("work_id") == work_id),
+        None,
+    )
+    work = selected_work if isinstance(selected_work, dict) else {}
+    event_refs = _dedupe_event_refs(
+        work.get("event_refs") if isinstance(work.get("event_refs"), list) else []
+    )
+    evidence_refs = _dedupe_strings(
+        work.get("evidence_refs") if isinstance(work.get("evidence_refs"), list) else []
+    )
+    events_by_id = {
+        str(row.get("event_id")): row
+        for row in _iter_jsonl_dict_rows(state / EVENT_STREAM)
+        if row.get("event_id")
+    }
+    event_ids = [str(row.get("event_id")) for row in event_refs if row.get("event_id")]
+    missing_event_ids = [
+        event_id for event_id in event_ids if event_id not in events_by_id
+    ]
+    missing_evidence_refs = [
+        ref for ref in evidence_refs if not _evidence_ref_exists(project, ref)
+    ]
+    same_route_work_ids = [
+        str(row.get("work_id"))
+        for row in work_items
+        if row.get("route_id") == route_id and row.get("work_id")
+    ]
+    ambient_work_ids = [
+        candidate for candidate in same_route_work_ids if candidate != work_id
+    ]
+    selected_event_id_set = set(event_ids)
+    ambient_event_ids = [
+        event_id
+        for event_id, row in events_by_id.items()
+        if row.get("route_id") == route_id and event_id not in selected_event_id_set
+    ]
+    returned_evidence_ref = str(command_result.get("evidence_ref") or "")
+    returned_ref_set = {returned_evidence_ref} if returned_evidence_ref else set()
+    event_aliases = {
+        event_id: f"event_{index}"
+        for index, event_id in enumerate(event_ids, start=1)
+    }
+    evidence_aliases = {
+        evidence_ref: f"evidence_{index}"
+        for index, evidence_ref in enumerate(evidence_refs, start=1)
+    }
+    work_alias = "work_1" if work_id else None
+    records: list[dict[str, Any]] = []
+    if work_alias:
+        records.append(
+            {
+                "alias": work_alias,
+                "record_type": "work_transaction",
+                "classification": "direct_child",
+                "truth_class": "occurrence",
+                "source_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+                "binding": "command_result.work_id",
+                "status": work.get("status"),
+                "included_in_occurrence_witness": bool(work),
+            }
+        )
+    for event_ref in event_refs:
+        event_id = str(event_ref.get("event_id") or "")
+        records.append(
+            {
+                "alias": event_aliases.get(event_id),
+                "record_type": "event",
+                "classification": "causal_descendant",
+                "truth_class": "occurrence",
+                "source_ref": f"{STATE_DIR}/{EVENT_STREAM}::{event_id}",
+                "binding": "work_item.event_refs",
+                "span": event_ref.get("span"),
+                "status": event_ref.get("status"),
+                "included_in_occurrence_witness": event_id in selected_event_id_set,
+            }
+        )
+    for evidence_ref in evidence_refs:
+        records.append(
+            {
+                "alias": evidence_aliases.get(evidence_ref),
+                "record_type": "evidence",
+                "classification": (
+                    "direct_child"
+                    if evidence_ref in returned_ref_set
+                    else "causal_descendant"
+                ),
+                "truth_class": "occurrence",
+                "source_ref": evidence_ref,
+                "binding": (
+                    "command_result.evidence_ref"
+                    if evidence_ref in returned_ref_set
+                    else "work_item.evidence_refs"
+                ),
+                "included_in_occurrence_witness": True,
+            }
+        )
+    structural_records = [
+        {
+            "record_type": "route",
+            "classification": "structural_lookup",
+            "truth_class": "structure",
+            "source_ref": f"{STATE_DIR}/routes.json::{route_id}",
+            "included_in_occurrence_witness": False,
+        },
+        {
+            "record_type": "authority_ceiling",
+            "classification": "structural_constitutional_lookup",
+            "truth_class": "constitution",
+            "source_ref": "architecture_kernel._base",
+            "included_in_occurrence_witness": False,
+        },
+    ]
+    ambient_records = [
+        {
+            "record_type": "work_transaction",
+            "classification": "ambient_history",
+            "truth_class": "occurrence",
+            "source_ref": f"{STATE_DIR}/work_items.json::{ambient_work_id}",
+            "route_id": route_id,
+            "included_in_occurrence_witness": False,
+            "exclusion_reason": (
+                "same_route_work_not_reachable_from_command_result_work_id"
+            ),
+        }
+        for ambient_work_id in ambient_work_ids
+    ]
+    ambient_records.extend(
+        {
+            "record_type": "event",
+            "classification": "ambient_history",
+            "truth_class": "occurrence",
+            "source_ref": f"{STATE_DIR}/{EVENT_STREAM}::{ambient_event_id}",
+            "route_id": route_id,
+            "included_in_occurrence_witness": False,
+            "exclusion_reason": (
+                "same_route_event_not_reachable_from_command_result_work_id"
+            ),
+        }
+        for ambient_event_id in ambient_event_ids
+    )
+    record_classification_matrix = [
+        *records,
+        *structural_records,
+        *ambient_records,
+    ]
+    record_classification_counts: dict[str, int] = {}
+    for row in record_classification_matrix:
+        classification = str(row.get("classification") or "")
+        if not classification:
+            continue
+        record_classification_counts[classification] = (
+            record_classification_counts.get(classification, 0) + 1
+        )
+    alias_map = {
+        "execution": {"command_result": "execution_1"},
+        "work": {work_id: work_alias} if work_alias else {},
+        "events": event_aliases,
+        "evidence": evidence_aliases,
+    }
+    semantic_nodes: list[dict[str, Any]] = [
+        {
+            "alias": "execution_1",
+            "kind": "command_invocation",
+            "command_kind": command_kind,
+            "route_id": route_id,
+        }
+    ]
+    if work_alias:
+        semantic_nodes.append(
+            {
+                "alias": work_alias,
+                "kind": "work_transaction",
+                "status": work.get("status"),
+                "state_history": _work_state_history(work),
+                "route_id": route_id,
+                "source_files_mutated": work.get("source_files_mutated") is True,
+            }
+        )
+    for event_ref in event_refs:
+        event_id = str(event_ref.get("event_id") or "")
+        semantic_nodes.append(
+            {
+                "alias": event_aliases.get(event_id),
+                "kind": "event",
+                "span": event_ref.get("span"),
+                "status": event_ref.get("status"),
+            }
+        )
+    for evidence_ref in evidence_refs:
+        semantic_nodes.append(
+            {
+                "alias": evidence_aliases.get(evidence_ref),
+                "kind": "evidence",
+                "returned_by_command": evidence_ref in returned_ref_set,
+            }
+        )
+    semantic_edges: list[dict[str, str]] = []
+    if work_alias:
+        semantic_edges.append(
+            {"from": "execution_1", "to": work_alias, "relation": "returned_work_id"}
+        )
+    for event_id in event_ids:
+        alias = event_aliases.get(event_id)
+        if work_alias and alias:
+            semantic_edges.append(
+                {"from": work_alias, "to": alias, "relation": "work_event_ref"}
+            )
+    for evidence_ref in evidence_refs:
+        alias = evidence_aliases.get(evidence_ref)
+        if work_alias and alias:
+            semantic_edges.append(
+                {"from": work_alias, "to": alias, "relation": "work_evidence_ref"}
+            )
+    semantic_graph = {
+        "schema_version": "microcosm_reference_execution_semantic_graph_v1",
+        "nodes": semantic_nodes,
+        "edges": semantic_edges,
+    }
+    semantic_digest = _semantic_digest(semantic_graph)
+    occurrence_witness_refs = _dedupe_strings(
+        [str(row.get("source_ref") or "") for row in records]
+    )
+    explanation = read_json_if_exists(state / EXPLANATION_DIR / f"{route_id}.json")
+    proof = explanation.get("causal_chain_proof") if isinstance(explanation, dict) else {}
+    proof = proof if isinstance(proof, dict) else {}
+    execution_instance = proof.get("execution_instance")
+    execution_instance = execution_instance if isinstance(execution_instance, dict) else {}
+    projection_selected_work_id = execution_instance.get("selected_work_id") or proof.get(
+        "selected_work_id"
+    )
+    projection_fidelity_ok = (
+        projection_selected_work_id == work_id if projection_selected_work_id else None
+    )
+    state_delta = _snapshot_delta(before_state, command_state_snapshot(project))
+    state_delta_work_ids = _dedupe_strings(
+        state_delta.get("new_work_ids")
+        if isinstance(state_delta.get("new_work_ids"), list)
+        else []
+    )
+    state_delta_event_ids = _dedupe_strings(
+        state_delta.get("new_event_ids")
+        if isinstance(state_delta.get("new_event_ids"), list)
+        else []
+    )
+    state_delta_evidence_refs = _dedupe_strings(
+        state_delta.get("new_evidence_refs")
+        if isinstance(state_delta.get("new_evidence_refs"), list)
+        else []
+    )
+    command_reference_case_ref = str(command_result.get("reference_execution_case_ref") or "")
+    allowed_state_delta_evidence_refs = set(evidence_refs)
+    if command_reference_case_ref:
+        allowed_state_delta_evidence_refs.add(command_reference_case_ref)
+    unexpected_state_delta_event_ids = []
+    for event_id in state_delta_event_ids:
+        if event_id in selected_event_id_set:
+            continue
+        event_row = events_by_id.get(event_id)
+        event_work_id = str(event_row.get("work_id") or "") if event_row else ""
+        event_route_id = str(event_row.get("route_id") or "") if event_row else ""
+        if event_work_id and event_work_id != work_id:
+            unexpected_state_delta_event_ids.append(event_id)
+        elif event_route_id == route_id and event_work_id != work_id:
+            unexpected_state_delta_event_ids.append(event_id)
+    state_delta_scope = state_delta["status"] == "not_supplied" or (
+        state_delta["status"] == "available"
+        and all(item == work_id for item in state_delta_work_ids)
+        and not unexpected_state_delta_event_ids
+        and all(
+            item in allowed_state_delta_evidence_refs
+            for item in state_delta_evidence_refs
+        )
+    )
+    assertion_matrix = [
+        {
+            "claim_id": "work_row_and_receipts_join_without_missing_refs",
+            "truth_class": "occurrence",
+            "authority_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+            "claim_value": not missing_event_ids and not missing_evidence_refs,
+            "execution_binding": "work_1 -> event_* / evidence_*",
+            "evidence_refs": evidence_refs,
+            "eligibility_predicate": "join_integrity",
+        },
+        {
+            "claim_id": "command_returned_work_id_selects_case_root",
+            "truth_class": "occurrence",
+            "authority_ref": "command_result.work_id",
+            "claim_value": work_id or None,
+            "execution_binding": "execution_1 -> work_1",
+            "evidence_refs": [f"{STATE_DIR}/work_items.json::{work_id}"]
+            if work_id
+            else [],
+            "eligibility_predicate": "selection_binding",
+        },
+        {
+            "claim_id": "work_refs_define_causal_descendants",
+            "truth_class": "occurrence",
+            "authority_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+            "claim_value": {
+                "event_ids": event_ids,
+                "evidence_refs": evidence_refs,
+            },
+            "execution_binding": "work_1 -> event_* / evidence_*",
+            "evidence_refs": evidence_refs,
+            "eligibility_predicate": "scope_completeness",
+        },
+        {
+            "claim_id": "work_transaction_reached_terminal_state",
+            "truth_class": "occurrence",
+            "authority_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+            "claim_value": work.get("status"),
+            "execution_binding": "work_1.status",
+            "evidence_refs": evidence_refs,
+            "eligibility_predicate": "execution_terminality",
+        },
+        {
+            "claim_id": "source_mutation_is_constitutionally_excluded",
+            "truth_class": "constitution",
+            "authority_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+            "claim_value": work.get("source_files_mutated") is not True,
+            "execution_binding": "work_1.source_files_mutated",
+            "evidence_refs": evidence_refs,
+            "eligibility_predicate": "authority_boundedness",
+        },
+        {
+            "claim_id": "state_delta_contains_root_or_descendant",
+            "truth_class": "occurrence",
+            "authority_ref": f"{STATE_DIR}/state_index.json",
+            "claim_value": state_delta,
+            "execution_binding": "execution_1 -> state_delta",
+            "evidence_refs": state_delta_evidence_refs,
+            "eligibility_predicate": "replay_equivalence",
+        },
+        {
+            "claim_id": "state_delta_excludes_ambient_history",
+            "truth_class": "occurrence",
+            "authority_ref": f"{STATE_DIR}/state_index.json",
+            "claim_value": state_delta_scope,
+            "execution_binding": "execution_1 -> state_delta",
+            "evidence_refs": state_delta_evidence_refs,
+            "eligibility_predicate": "state_delta_scope",
+        },
+        {
+            "claim_id": "record_classification_matrix_partitions_command_scope",
+            "truth_class": "projection",
+            "authority_ref": "reference_execution_case.record_classification_matrix",
+            "claim_value": record_classification_counts,
+            "execution_binding": "record_classification_matrix",
+            "evidence_refs": occurrence_witness_refs,
+            "eligibility_predicate": "record_classification_matrix",
+        },
+        {
+            "claim_id": "public_architecture_projection_matches_case_root",
+            "truth_class": "projection",
+            "authority_ref": f"{STATE_DIR}/{EXPLANATION_DIR}/{route_id}.json",
+            "claim_value": projection_selected_work_id,
+            "execution_binding": projection_selected_work_id,
+            "evidence_refs": [f"{STATE_DIR}/{EXPLANATION_DIR}/{route_id}.json"],
+            "eligibility_predicate": "projection_fidelity",
+        },
+    ]
+    assertion_predicate_ids = [
+        str(row.get("eligibility_predicate") or "")
+        for row in assertion_matrix
+        if row.get("eligibility_predicate")
+    ]
+    assertion_matrix_coverage = sorted(assertion_predicate_ids) == sorted(
+        REFERENCE_CASE_ASSERTION_PREDICATES
+    )
+    predicate_status = {
+        "join_integrity": bool(work_id)
+        and bool(work)
+        and not missing_event_ids
+        and not missing_evidence_refs,
+        "selection_binding": bool(work_id) and command_result.get("work_id") == work_id,
+        "scope_completeness": bool(work)
+        and set(event_ids) == selected_event_id_set
+        and not any(event_id in selected_event_id_set for event_id in ambient_event_ids),
+        "execution_terminality": work.get("status") in {"closed", PASS},
+        "authority_boundedness": work.get("source_files_mutated") is not True,
+        "replay_equivalence": state_delta["status"] == "not_supplied"
+        or (
+            state_delta["status"] == "available"
+            and (
+                work_id in state_delta.get("new_work_ids", [])
+                or bool(state_delta.get("new_event_ids"))
+                or bool(state_delta.get("new_evidence_refs"))
+            )
+        ),
+        "state_delta_scope": state_delta_scope,
+        "record_classification_matrix": (
+            bool(record_classification_matrix)
+            and len(record_classification_matrix)
+            == sum(record_classification_counts.values())
+        ),
+        "projection_fidelity": projection_fidelity_ok,
+        "assertion_matrix_coverage": assertion_matrix_coverage,
+    }
+    command_case_eligible = all(
+        predicate_status[key] is True
+        for key in [
+            "join_integrity",
+            "selection_binding",
+            "scope_completeness",
+            "execution_terminality",
+            "authority_boundedness",
+            "replay_equivalence",
+            "state_delta_scope",
+            "record_classification_matrix",
+            "assertion_matrix_coverage",
+        ]
+    )
+    public_architecture_witness_eligible = (
+        command_case_eligible and predicate_status["projection_fidelity"] is True
+    )
+    return {
+        **_base(project, "microcosm_reference_execution_case_v1"),
+        "case_id": "command_causality_reference_execution",
+        "command_kind": command_kind,
+        "route_id": route_id,
+        "root_binding": {
+            "binding_kind": "command_returned_work_id",
+            "work_id": work_id or None,
+            "command_result_schema": command_result.get("schema_version"),
+        },
+        "record_classifications": records,
+        "structural_and_constitutional_lookups": structural_records,
+        "ambient_history_excluded": {
+            "work_ids": ambient_work_ids,
+            "event_ids": ambient_event_ids,
+            "records": ambient_records,
+            "policy": "same-route ambient records are excluded unless reachable from command_result.work_id through work/event/evidence refs",
+        },
+        "record_classification_matrix": record_classification_matrix,
+        "record_classification_counts": record_classification_counts,
+        "state_delta": state_delta,
+        "alias_map": alias_map,
+        "semantic_graph": semantic_graph,
+        "semantic_digest": semantic_digest,
+        "occurrence_witness_refs": occurrence_witness_refs,
+        "predicate_status": predicate_status,
+        "predicate_details": {
+            "missing_event_ids": missing_event_ids,
+            "missing_evidence_refs": missing_evidence_refs,
+            "projection_selected_work_id": projection_selected_work_id,
+        },
+        "command_case_eligible": command_case_eligible,
+        "public_architecture_witness_eligible": public_architecture_witness_eligible,
+        "required_assertion_predicates": list(REFERENCE_CASE_ASSERTION_PREDICATES),
+        "assertion_matrix": assertion_matrix,
+        "anti_claim": (
+            "This case is a command-root occurrence assay. It does not make the "
+            "route explanation, architecture page, release surface, or whole-system "
+            "correctness claim eligible unless projection_fidelity and the other "
+            "independent predicates pass."
+        ),
+    }
+
+
+def _dict_rows(value: Any) -> list[dict[str, Any]]:
+    """Return dict rows from a list-like payload and ignore malformed values."""
+    if not isinstance(value, list):
+        return []
+    return [row for row in value if isinstance(row, dict)]
+
+
+def _event_number_from_id(event_id: object) -> int | None:
+    token = str(event_id or "")
+    if not token.startswith("evt_"):
+        return None
+    try:
+        return int(token.rsplit("_", 1)[-1])
+    except ValueError:
+        return None
+
+
+def _truth_row_authority_ref(row: dict[str, Any]) -> str:
+    """Return the authority/source ref used to classify a truth row."""
+    return str(row.get("source_ref") or row.get("authority_ref") or "")
+
+
+def _truth_row_identity(row: dict[str, Any]) -> str:
+    """Build a stable comparison key for rendered truth rows."""
+    claim_id = row.get("claim_id")
+    if isinstance(claim_id, str) and claim_id:
+        return f"claim_id:{claim_id}"
+    authority_ref = _truth_row_authority_ref(row)
+    if authority_ref:
+        return f"authority_ref:{authority_ref}"
+    alias = row.get("alias")
+    if isinstance(alias, str) and alias:
+        return f"alias:{alias}"
+    return ""
+
+
+def reference_state_delta_refs(state_delta: Any) -> list[str]:
+    """Return rendered state refs implied by a reference case state_delta."""
+    delta = state_delta if isinstance(state_delta, dict) else {}
+    work_ids = _dedupe_strings(
+        delta.get("new_work_ids")
+        if isinstance(delta.get("new_work_ids"), list)
+        else []
+    )
+    event_ids = _dedupe_strings(
+        delta.get("new_event_ids")
+        if isinstance(delta.get("new_event_ids"), list)
+        else []
+    )
+    evidence_refs = _dedupe_strings(
+        delta.get("new_evidence_refs")
+        if isinstance(delta.get("new_evidence_refs"), list)
+        else []
+    )
+    return _dedupe_strings(
+        [
+            *[f"{STATE_DIR}/work_items.json::{work_id}" for work_id in work_ids],
+            *[f"{STATE_DIR}/{EVENT_STREAM}::{event_id}" for event_id in event_ids],
+            *evidence_refs,
+        ]
+    )
+
+
+def _expected_reference_semantic_graph(
+    *,
+    route_id: str,
+    command_kind: str,
+    work: dict[str, Any],
+    event_refs: list[dict[str, Any]],
+    evidence_refs: list[str],
+    returned_evidence_ref: str = "",
+) -> dict[str, Any]:
+    """Reconstruct a reference-case graph directly from raw project state."""
+    work_id = str(work.get("work_id") or "")
+    work_alias = "work_1" if work_id else None
+    event_ids = [str(row.get("event_id")) for row in event_refs if row.get("event_id")]
+    event_aliases = {
+        event_id: f"event_{index}"
+        for index, event_id in enumerate(event_ids, start=1)
+    }
+    evidence_aliases = {
+        evidence_ref: f"evidence_{index}"
+        for index, evidence_ref in enumerate(evidence_refs, start=1)
+    }
+    returned_ref_set = {returned_evidence_ref} if returned_evidence_ref else set()
+    nodes: list[dict[str, Any]] = [
+        {
+            "alias": "execution_1",
+            "kind": "command_invocation",
+            "command_kind": command_kind,
+            "route_id": route_id,
+        }
+    ]
+    if work_alias:
+        nodes.append(
+            {
+                "alias": work_alias,
+                "kind": "work_transaction",
+                "status": work.get("status"),
+                "state_history": _work_state_history(work),
+                "route_id": route_id,
+                "source_files_mutated": work.get("source_files_mutated") is True,
+            }
+        )
+    for event_ref in event_refs:
+        event_id = str(event_ref.get("event_id") or "")
+        nodes.append(
+            {
+                "alias": event_aliases.get(event_id),
+                "kind": "event",
+                "span": event_ref.get("span"),
+                "status": event_ref.get("status"),
+            }
+        )
+    for evidence_ref in evidence_refs:
+        nodes.append(
+            {
+                "alias": evidence_aliases.get(evidence_ref),
+                "kind": "evidence",
+                "returned_by_command": evidence_ref in returned_ref_set,
+            }
+        )
+    edges: list[dict[str, str]] = []
+    if work_alias:
+        edges.append(
+            {"from": "execution_1", "to": work_alias, "relation": "returned_work_id"}
+        )
+    for event_id in event_ids:
+        alias = event_aliases.get(event_id)
+        if work_alias and alias:
+            edges.append(
+                {"from": work_alias, "to": alias, "relation": "work_event_ref"}
+            )
+    for evidence_ref in evidence_refs:
+        alias = evidence_aliases.get(evidence_ref)
+        if work_alias and alias:
+            edges.append(
+                {"from": work_alias, "to": alias, "relation": "work_evidence_ref"}
+            )
+    return {
+        "schema_version": "microcosm_reference_execution_semantic_graph_v1",
+        "nodes": nodes,
+        "edges": edges,
+    }
+
+
+def verify_reference_execution_case(
+    project_path: str | Path,
+    case: dict[str, Any],
+    *,
+    rendered_witness: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Independently verify a command-root reference execution case.
+
+    - Teleology: triangulate the case from raw work/event/evidence state so the
+      producer's confidence, renderer fields, and ambient route history cannot
+      self-certify a public witness.
+    - Guarantee: rereads work rows, event stream, evidence refs, route
+      explanation, assertion rows, and optional rendered witness card; returns a
+      pass/fail receipt with independent predicate details.
+    - Fails: never raises for missing case fields; malformed project JSON/JSONL
+      still surfaces via the strict readers.
+    - Reads: `.microcosm/work_items.json`, `.microcosm/events.jsonl`,
+      `.microcosm/evidence/`, and `.microcosm/explanations/<route>.json`.
+    - Non-goal: does not rebuild the case or mutate project state.
+    """
+    project = Path(project_path).expanduser().resolve(strict=False)
+    state = state_dir(project)
+    root_binding = case.get("root_binding")
+    root_binding = root_binding if isinstance(root_binding, dict) else {}
+    work_id = str(root_binding.get("work_id") or "")
+    route_id = str(case.get("route_id") or "")
+    command_kind = str(case.get("command_kind") or "")
+    work_payload = read_json_if_exists(state / "work_items.json")
+    work_items = _dict_rows(work_payload.get("work_items"))
+    work = next((row for row in work_items if row.get("work_id") == work_id), {})
+    work = work if isinstance(work, dict) else {}
+    event_refs = _dedupe_event_refs(
+        work.get("event_refs") if isinstance(work.get("event_refs"), list) else []
+    )
+    evidence_refs = _dedupe_strings(
+        work.get("evidence_refs") if isinstance(work.get("evidence_refs"), list) else []
+    )
+    event_ids = [str(row.get("event_id")) for row in event_refs if row.get("event_id")]
+    events_by_id = {
+        str(row.get("event_id")): row
+        for row in _iter_jsonl_dict_rows(state / EVENT_STREAM)
+        if row.get("event_id")
+    }
+    missing_event_ids = [
+        event_id for event_id in event_ids if event_id not in events_by_id
+    ]
+    missing_evidence_refs = [
+        ref for ref in evidence_refs if not _evidence_ref_exists(project, ref)
+    ]
+    closeout = work.get("closeout")
+    closeout = closeout if isinstance(closeout, dict) else {}
+    returned_evidence_ref = str(closeout.get("evidence_ref") or "")
+    if not returned_evidence_ref and evidence_refs:
+        returned_evidence_ref = evidence_refs[-1]
+    if not returned_evidence_ref:
+        for row in _dict_rows(case.get("record_classifications")):
+            if row.get("binding") == "command_result.evidence_ref":
+                returned_evidence_ref = str(row.get("source_ref") or "")
+                break
+    expected_graph = _expected_reference_semantic_graph(
+        route_id=route_id,
+        command_kind=command_kind,
+        work=work,
+        event_refs=event_refs,
+        evidence_refs=evidence_refs,
+        returned_evidence_ref=returned_evidence_ref,
+    )
+    expected_semantic_digest = _semantic_digest(expected_graph)
+    allowed_occurrence_refs = {
+        f"{STATE_DIR}/work_items.json::{work_id}",
+        *[f"{STATE_DIR}/{EVENT_STREAM}::{event_id}" for event_id in event_ids],
+        *evidence_refs,
+    }
+    allowed_truth_occurrence_refs = {
+        *allowed_occurrence_refs,
+        f"{STATE_DIR}/state_index.json",
+    }
+    case_occurrence_refs = _dedupe_strings(
+        [
+            str(row.get("source_ref") or "")
+            for row in _dict_rows(case.get("record_classifications"))
+            if row.get("truth_class") == "occurrence"
+            and row.get("included_in_occurrence_witness") is not False
+        ]
+    )
+    case_occurrence_witness_refs = _dedupe_strings(
+        case.get("occurrence_witness_refs")
+        if isinstance(case.get("occurrence_witness_refs"), list)
+        else []
+    )
+    missing_occurrence_refs = [
+        ref for ref in sorted(allowed_occurrence_refs) if ref not in case_occurrence_refs
+    ]
+    unexpected_case_occurrence_refs = [
+        ref for ref in case_occurrence_refs if ref not in allowed_occurrence_refs
+    ]
+    missing_occurrence_witness_refs = [
+        ref
+        for ref in sorted(allowed_occurrence_refs)
+        if ref not in case_occurrence_witness_refs
+    ]
+    unexpected_occurrence_witness_refs = [
+        ref for ref in case_occurrence_witness_refs if ref not in allowed_occurrence_refs
+    ]
+    case_created_at = str(case.get("created_at") or "")
+    selected_event_numbers = [
+        event_number
+        for event_id in event_ids
+        if (event_number := _event_number_from_id(event_id)) is not None
+    ]
+    max_selected_event_number = (
+        max(selected_event_numbers) if selected_event_numbers else None
+    )
+
+    def _row_visible_when_case_was_created(row: Mapping[str, Any]) -> bool:
+        created_at = str(row.get("created_at") or "")
+        return not case_created_at or not created_at or created_at <= case_created_at
+
+    def _event_visible_when_case_was_created(
+        event_id: str,
+        row: Mapping[str, Any],
+    ) -> bool:
+        event_number = _event_number_from_id(event_id)
+        if max_selected_event_number is not None and event_number is not None:
+            return event_number <= max_selected_event_number
+        return _row_visible_when_case_was_created(row)
+
+    def _work_visible_when_case_was_created(row: Mapping[str, Any]) -> bool:
+        row_work_id = str(row.get("work_id") or "")
+        if row_work_id == work_id:
+            return True
+        row_event_numbers = [
+            event_number
+            for event_ref in _dict_rows(row.get("event_refs"))
+            if (
+                event_number := _event_number_from_id(event_ref.get("event_id"))
+            )
+            is not None
+        ]
+        if max_selected_event_number is not None and row_event_numbers:
+            return min(row_event_numbers) <= max_selected_event_number
+        return _row_visible_when_case_was_created(row)
+
+    same_route_work_ids = [
+        str(row.get("work_id"))
+        for row in work_items
+        if row.get("route_id") == route_id
+        and row.get("work_id")
+        and _work_visible_when_case_was_created(row)
+    ]
+    ambient_work_refs = {
+        f"{STATE_DIR}/work_items.json::{candidate}"
+        for candidate in same_route_work_ids
+        if candidate != work_id
+    }
+    selected_event_id_set = set(event_ids)
+    ambient_event_refs = {
+        f"{STATE_DIR}/{EVENT_STREAM}::{event_id}"
+        for event_id, row in events_by_id.items()
+        if row.get("route_id") == route_id
+        and event_id not in selected_event_id_set
+        and _event_visible_when_case_was_created(event_id, row)
+    }
+    ambient_occurrence_refs_in_case = sorted(
+        (set(case_occurrence_refs) | set(case_occurrence_witness_refs))
+        & (ambient_work_refs | ambient_event_refs)
+    )
+    expected_record_classification_rows: list[dict[str, Any]] = []
+    if work_id:
+        expected_record_classification_rows.append(
+            {
+                "record_type": "work_transaction",
+                "classification": "direct_child",
+                "truth_class": "occurrence",
+                "source_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+                "binding": "command_result.work_id",
+                "included_in_occurrence_witness": bool(work),
+            }
+        )
+    for event_ref in event_refs:
+        event_id = str(event_ref.get("event_id") or "")
+        expected_record_classification_rows.append(
+            {
+                "record_type": "event",
+                "classification": "causal_descendant",
+                "truth_class": "occurrence",
+                "source_ref": f"{STATE_DIR}/{EVENT_STREAM}::{event_id}",
+                "binding": "work_item.event_refs",
+                "included_in_occurrence_witness": event_id in selected_event_id_set,
+            }
+        )
+    for evidence_ref in evidence_refs:
+        direct_child = (
+            bool(returned_evidence_ref) and evidence_ref == returned_evidence_ref
+        )
+        expected_record_classification_rows.append(
+            {
+                "record_type": "evidence",
+                "classification": (
+                    "direct_child" if direct_child else "causal_descendant"
+                ),
+                "truth_class": "occurrence",
+                "source_ref": evidence_ref,
+                "binding": "command_result.evidence_ref"
+                if direct_child
+                else "work_item.evidence_refs",
+                "included_in_occurrence_witness": True,
+            }
+        )
+    expected_record_classification_rows.extend(
+        [
+            {
+                "record_type": "route",
+                "classification": "structural_lookup",
+                "truth_class": "structure",
+                "source_ref": f"{STATE_DIR}/routes.json::{route_id}",
+                "binding": "",
+                "included_in_occurrence_witness": False,
+            },
+            {
+                "record_type": "authority_ceiling",
+                "classification": "structural_constitutional_lookup",
+                "truth_class": "constitution",
+                "source_ref": "architecture_kernel._base",
+                "binding": "",
+                "included_in_occurrence_witness": False,
+            },
+        ]
+    )
+    expected_record_classification_rows.extend(
+        {
+            "record_type": "work_transaction",
+            "classification": "ambient_history",
+            "truth_class": "occurrence",
+            "source_ref": ambient_ref,
+            "binding": "",
+            "included_in_occurrence_witness": False,
+        }
+        for ambient_ref in sorted(ambient_work_refs)
+    )
+    expected_record_classification_rows.extend(
+        {
+            "record_type": "event",
+            "classification": "ambient_history",
+            "truth_class": "occurrence",
+            "source_ref": ambient_ref,
+            "binding": "",
+            "included_in_occurrence_witness": False,
+        }
+        for ambient_ref in sorted(ambient_event_refs)
+    )
+
+    record_classification_matrix_violations: list[dict[str, Any]] = []
+
+    def _classification_row_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
+        return (
+            str(row.get("source_ref") or ""),
+            str(row.get("record_type") or ""),
+            str(row.get("classification") or ""),
+            str(row.get("truth_class") or ""),
+            str(row.get("binding") or ""),
+            row.get("included_in_occurrence_witness"),
+        )
+
+    def _classification_key_payload(key: tuple[Any, ...]) -> dict[str, Any]:
+        return {
+            "source_ref": key[0],
+            "record_type": key[1],
+            "classification": key[2],
+            "truth_class": key[3],
+            "binding": key[4],
+            "included_in_occurrence_witness": key[5],
+        }
+
+    def _key_counts(rows: list[dict[str, Any]]) -> dict[tuple[Any, ...], int]:
+        counts: dict[tuple[Any, ...], int] = {}
+        for row in rows:
+            key = _classification_row_key(row)
+            counts[key] = counts.get(key, 0) + 1
+        return counts
+
+    raw_record_classification_matrix = case.get("record_classification_matrix")
+    if not isinstance(raw_record_classification_matrix, list):
+        record_classification_matrix_violations.append(
+            {
+                "field": "record_classification_matrix",
+                "reason": "record_classification_matrix_missing_or_invalid",
+                "rendered": type(raw_record_classification_matrix).__name__,
+            }
+        )
+    record_classification_rows = _dict_rows(raw_record_classification_matrix)
+    normalized_record_classification_rows: list[dict[str, Any]] = []
+    for index, row in enumerate(record_classification_rows):
+        normalized = {
+            "source_ref": str(row.get("source_ref") or ""),
+            "record_type": str(row.get("record_type") or ""),
+            "classification": str(row.get("classification") or ""),
+            "truth_class": str(row.get("truth_class") or ""),
+            "binding": str(row.get("binding") or ""),
+            "included_in_occurrence_witness": row.get(
+                "included_in_occurrence_witness"
+            ),
+        }
+        missing_fields = [
+            field_name
+            for field_name in (
+                "source_ref",
+                "record_type",
+                "classification",
+                "truth_class",
+            )
+            if not normalized[field_name]
+        ]
+        if missing_fields:
+            record_classification_matrix_violations.append(
+                {
+                    "row_index": index,
+                    "reason": "record_classification_matrix_missing_fields",
+                    "missing": missing_fields,
+                }
+            )
+        if not isinstance(normalized["included_in_occurrence_witness"], bool):
+            record_classification_matrix_violations.append(
+                {
+                    "row_index": index,
+                    "field": "included_in_occurrence_witness",
+                    "reason": "record_classification_matrix_inclusion_flag_invalid",
+                    "rendered": normalized["included_in_occurrence_witness"],
+                }
+            )
+        normalized_record_classification_rows.append(normalized)
+    expected_classification_key_counts = _key_counts(
+        expected_record_classification_rows
+    )
+    case_classification_key_counts = _key_counts(
+        normalized_record_classification_rows
+    )
+    missing_record_classification_rows: list[dict[str, Any]] = []
+    unexpected_record_classification_rows: list[dict[str, Any]] = []
+    for key, expected_count in expected_classification_key_counts.items():
+        missing_count = expected_count - case_classification_key_counts.get(key, 0)
+        if missing_count > 0:
+            missing_record_classification_rows.append(
+                {**_classification_key_payload(key), "count": missing_count}
+            )
+    for key, rendered_count in case_classification_key_counts.items():
+        unexpected_count = rendered_count - expected_classification_key_counts.get(
+            key, 0
+        )
+        if unexpected_count > 0:
+            unexpected_record_classification_rows.append(
+                {**_classification_key_payload(key), "count": unexpected_count}
+            )
+    if missing_record_classification_rows:
+        record_classification_matrix_violations.append(
+            {
+                "reason": "record_classification_matrix_missing_rows",
+                "missing": missing_record_classification_rows,
+            }
+        )
+    if unexpected_record_classification_rows:
+        record_classification_matrix_violations.append(
+            {
+                "reason": "record_classification_matrix_unexpected_rows",
+                "rendered": unexpected_record_classification_rows,
+            }
+        )
+
+    def _classification_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for row in rows:
+            classification = str(row.get("classification") or "")
+            if not classification:
+                continue
+            counts[classification] = counts.get(classification, 0) + 1
+        return counts
+
+    expected_record_classification_counts = _classification_counts(
+        expected_record_classification_rows
+    )
+    rendered_counts_value = case.get("record_classification_counts")
+    rendered_record_classification_counts: dict[str, int] = {}
+    invalid_rendered_record_classification_counts: dict[str, Any] = {}
+    if isinstance(rendered_counts_value, dict):
+        for key, value in rendered_counts_value.items():
+            if (
+                not isinstance(key, str)
+                or not isinstance(value, int)
+                or isinstance(value, bool)
+            ):
+                invalid_rendered_record_classification_counts[str(key)] = value
+                continue
+            rendered_record_classification_counts[key] = value
+    else:
+        record_classification_matrix_violations.append(
+            {
+                "field": "record_classification_counts",
+                "reason": "record_classification_counts_missing_or_invalid",
+                "rendered": type(rendered_counts_value).__name__,
+            }
+        )
+    if invalid_rendered_record_classification_counts:
+        record_classification_matrix_violations.append(
+            {
+                "field": "record_classification_counts",
+                "reason": "record_classification_counts_invalid_values",
+                "rendered": invalid_rendered_record_classification_counts,
+            }
+        )
+    if rendered_record_classification_counts != expected_record_classification_counts:
+        record_classification_matrix_violations.append(
+            {
+                "field": "record_classification_counts",
+                "reason": "record_classification_counts_mismatch",
+                "expected": expected_record_classification_counts,
+                "rendered": rendered_record_classification_counts,
+            }
+        )
+    ambient_history = case.get("ambient_history_excluded")
+    ambient_history = ambient_history if isinstance(ambient_history, dict) else {}
+    normalized_ambient_history_rows: list[dict[str, Any]] = []
+    for row in _dict_rows(ambient_history.get("records")):
+        normalized_ambient_history_rows.append(
+            {
+                "source_ref": str(row.get("source_ref") or ""),
+                "record_type": str(row.get("record_type") or ""),
+                "classification": str(row.get("classification") or ""),
+                "truth_class": str(row.get("truth_class") or ""),
+                "binding": str(row.get("binding") or ""),
+                "included_in_occurrence_witness": row.get(
+                    "included_in_occurrence_witness"
+                ),
+            }
+        )
+    expected_ambient_history_rows = [
+        row
+        for row in expected_record_classification_rows
+        if row.get("classification") == "ambient_history"
+    ]
+    if _key_counts(normalized_ambient_history_rows) != _key_counts(
+        expected_ambient_history_rows
+    ):
+        record_classification_matrix_violations.append(
+            {
+                "field": "ambient_history_excluded.records",
+                "reason": "ambient_history_records_mismatch",
+                "expected": sorted(
+                    [
+                        _classification_key_payload(key)
+                        for key in _key_counts(expected_ambient_history_rows)
+                    ],
+                    key=lambda row: str(row.get("source_ref") or ""),
+                ),
+                "rendered": sorted(
+                    [
+                        _classification_key_payload(key)
+                        for key in _key_counts(normalized_ambient_history_rows)
+                    ],
+                    key=lambda row: str(row.get("source_ref") or ""),
+                ),
+            }
+        )
+    record_classification_matrix_ok = not record_classification_matrix_violations
+    alias_map = case.get("alias_map")
+    alias_map = alias_map if isinstance(alias_map, dict) else {}
+    work_aliases = alias_map.get("work")
+    work_aliases = work_aliases if isinstance(work_aliases, dict) else {}
+    semantic_graph = case.get("semantic_graph")
+    semantic_graph = semantic_graph if isinstance(semantic_graph, dict) else {}
+    semantic_edges = _dict_rows(semantic_graph.get("edges"))
+    work_record_sources = {
+        str(row.get("source_ref") or "")
+        for row in _dict_rows(case.get("record_classifications"))
+        if row.get("binding") == "command_result.work_id"
+    }
+    selection_binding = (
+        root_binding.get("binding_kind") == "command_returned_work_id"
+        and bool(work_id)
+        and bool(work)
+        and work_aliases.get(work_id) == "work_1"
+        and f"{STATE_DIR}/work_items.json::{work_id}" in work_record_sources
+        and any(
+            edge.get("from") == "execution_1"
+            and edge.get("to") == "work_1"
+            and edge.get("relation") == "returned_work_id"
+            for edge in semantic_edges
+        )
+    )
+    scope_completeness = (
+        bool(work)
+        and not missing_occurrence_refs
+        and not unexpected_case_occurrence_refs
+        and not missing_occurrence_witness_refs
+        and not unexpected_occurrence_witness_refs
+        and not ambient_occurrence_refs_in_case
+    )
+    execution_terminality = work.get("status") in {"closed", PASS}
+    authority_boundedness = work.get("source_files_mutated") is not True
+    state_delta = case.get("state_delta")
+    state_delta = state_delta if isinstance(state_delta, dict) else {}
+    delta_status = str(state_delta.get("status") or "")
+    delta_work_ids = _dedupe_strings(
+        state_delta.get("new_work_ids")
+        if isinstance(state_delta.get("new_work_ids"), list)
+        else []
+    )
+    delta_event_ids = _dedupe_strings(
+        state_delta.get("new_event_ids")
+        if isinstance(state_delta.get("new_event_ids"), list)
+        else []
+    )
+    delta_evidence_refs = _dedupe_strings(
+        state_delta.get("new_evidence_refs")
+        if isinstance(state_delta.get("new_evidence_refs"), list)
+        else []
+    )
+    unexpected_delta_work_ids = [
+        item for item in delta_work_ids if item != work_id
+    ]
+    unexpected_delta_event_ids = []
+    for event_id in delta_event_ids:
+        if event_id in event_ids:
+            continue
+        event_row = events_by_id.get(event_id)
+        event_work_id = str(event_row.get("work_id") or "") if event_row else ""
+        event_route_id = str(event_row.get("route_id") or "") if event_row else ""
+        if event_work_id and event_work_id != work_id:
+            unexpected_delta_event_ids.append(event_id)
+        elif event_route_id == route_id and event_work_id != work_id:
+            unexpected_delta_event_ids.append(event_id)
+    reference_case_ref = str(work.get("reference_execution_case_ref") or "")
+    case_evidence_ref = str(case.get("evidence_ref") or "")
+    allowed_delta_evidence_refs = set(evidence_refs)
+    for ref in (reference_case_ref, case_evidence_ref):
+        if ref:
+            allowed_delta_evidence_refs.add(ref)
+    unexpected_delta_evidence_refs = [
+        item for item in delta_evidence_refs if item not in allowed_delta_evidence_refs
+    ]
+    state_delta_scope_violations: list[dict[str, Any]] = []
+    if unexpected_delta_work_ids:
+        state_delta_scope_violations.append(
+            {
+                "field": "new_work_ids",
+                "reason": "state_delta_work_id_outside_command_root",
+                "expected": [work_id] if work_id else [],
+                "unexpected": unexpected_delta_work_ids,
+            }
+        )
+    if unexpected_delta_event_ids:
+        state_delta_scope_violations.append(
+            {
+                "field": "new_event_ids",
+                "reason": "state_delta_event_id_outside_selected_work",
+                "expected": event_ids,
+                "unexpected": unexpected_delta_event_ids,
+            }
+        )
+    if unexpected_delta_evidence_refs:
+        state_delta_scope_violations.append(
+            {
+                "field": "new_evidence_refs",
+                "reason": "state_delta_evidence_ref_outside_selected_work",
+                "expected": sorted(allowed_delta_evidence_refs),
+                "unexpected": unexpected_delta_evidence_refs,
+            }
+        )
+    if delta_status not in {"available", "not_supplied"}:
+        state_delta_scope_violations.append(
+            {
+                "field": "status",
+                "reason": "state_delta_status_unknown",
+                "expected": ["available", "not_supplied"],
+                "rendered": delta_status,
+            }
+        )
+    state_delta_scope = not state_delta_scope_violations
+    expected_rendered_state_delta_refs = reference_state_delta_refs(state_delta)
+    after_state = command_state_snapshot(project)
+    after_work_ids = set(after_state.get("work_ids", []))
+    after_event_ids = set(after_state.get("event_ids", []))
+    after_evidence_refs = set(after_state.get("evidence_refs", []))
+    missing_delta_work_ids = [
+        item for item in delta_work_ids if item not in after_work_ids
+    ]
+    missing_delta_event_ids = [
+        item for item in delta_event_ids if item not in after_event_ids
+    ]
+    missing_delta_evidence_refs = [
+        item for item in delta_evidence_refs if item not in after_evidence_refs
+    ]
+    delta_has_root_or_descendant = (
+        work_id in delta_work_ids
+        or any(event_id in delta_event_ids for event_id in event_ids)
+        or any(ref in delta_evidence_refs for ref in evidence_refs)
+    )
+    if delta_status == "not_supplied":
+        replay_equivalence = True
+        replay_equivalence_basis = "not_supplied_legacy_unasserted"
+    elif delta_status == "available":
+        replay_equivalence = (
+            delta_has_root_or_descendant
+            and not missing_delta_work_ids
+            and not missing_delta_event_ids
+            and not missing_delta_evidence_refs
+        )
+        replay_equivalence_basis = (
+            "available_delta_contains_root_or_descendant"
+            if replay_equivalence
+            else "available_delta_missing_root_or_descendant_or_current_state_ref"
+        )
+    else:
+        replay_equivalence = False
+        replay_equivalence_basis = "state_delta_status_unknown"
+    failed_predicates: list[str] = []
+    assertion_matrix_rows = _dict_rows(case.get("assertion_matrix"))
+    assertion_matrix_coverage_violations: list[dict[str, Any]] = []
+    assertion_predicate_ids: list[str] = []
+    assertion_predicate_counts: dict[str, int] = {}
+    for index, row in enumerate(assertion_matrix_rows):
+        predicate_id = row.get("eligibility_predicate")
+        if not isinstance(predicate_id, str) or not predicate_id:
+            assertion_matrix_coverage_violations.append(
+                {
+                    "row_index": index,
+                    "reason": "assertion_matrix_missing_eligibility_predicate",
+                    "rendered": predicate_id,
+                }
+            )
+            continue
+        assertion_predicate_ids.append(predicate_id)
+        assertion_predicate_counts[predicate_id] = (
+            assertion_predicate_counts.get(predicate_id, 0) + 1
+        )
+    for predicate_id in REFERENCE_CASE_ASSERTION_PREDICATES:
+        count = assertion_predicate_counts.get(predicate_id, 0)
+        if count == 0:
+            assertion_matrix_coverage_violations.append(
+                {
+                    "predicate_id": predicate_id,
+                    "reason": "assertion_matrix_missing_required_predicate",
+                }
+            )
+        elif count > 1:
+            assertion_matrix_coverage_violations.append(
+                {
+                    "predicate_id": predicate_id,
+                    "reason": "assertion_matrix_duplicate_required_predicate",
+                    "count": count,
+                }
+            )
+    for predicate_id, count in sorted(assertion_predicate_counts.items()):
+        if predicate_id not in REFERENCE_CASE_ASSERTION_PREDICATES:
+            assertion_matrix_coverage_violations.append(
+                {
+                    "predicate_id": predicate_id,
+                    "reason": "assertion_matrix_unknown_predicate",
+                    "count": count,
+                }
+            )
+    assertion_matrix_coverage = not assertion_matrix_coverage_violations
+    truth_class_violations: list[dict[str, Any]] = []
+    truth_rows = [
+        row
+        for group_key in ("record_classifications", "assertion_matrix")
+        for row in _dict_rows(case.get(group_key))
+    ]
+    truth_rows.extend(
+        row
+        for row in _dict_rows(case.get("structural_and_constitutional_lookups"))
+    )
+    compact_truth_rows = [
+        row
+        for group_key in ("assertion_matrix", "structural_and_constitutional_lookups")
+        for row in _dict_rows(case.get(group_key))
+    ]
+    compact_truth_classes = [
+        truth_class
+        for row in compact_truth_rows
+        if isinstance((truth_class := row.get("truth_class")), str)
+    ]
+    expected_truth_classes = sorted(set(compact_truth_classes))
+    expected_truth_class_counts = {
+        truth_class: compact_truth_classes.count(truth_class)
+        for truth_class in expected_truth_classes
+    }
+    case_truth_rows_by_identity: dict[str, dict[str, Any]] = {}
+    for row in truth_rows:
+        identity = _truth_row_identity(row)
+        if identity:
+            case_truth_rows_by_identity[identity] = row
+    for row in truth_rows:
+        truth_class = row.get("truth_class")
+        source_ref = _truth_row_authority_ref(row)
+        if truth_class not in {"occurrence", "structure", "constitution", "projection"}:
+            truth_class_violations.append(
+                {
+                    "claim_id": row.get("claim_id"),
+                    "source_ref": source_ref,
+                    "truth_class": truth_class,
+                    "reason": "unknown_truth_class",
+                }
+            )
+            continue
+        if (
+            truth_class == "occurrence"
+            and source_ref != "command_result.work_id"
+            and source_ref not in allowed_truth_occurrence_refs
+        ):
+            truth_class_violations.append(
+                {
+                    "claim_id": row.get("claim_id"),
+                    "source_ref": source_ref,
+                    "truth_class": truth_class,
+                    "reason": "occurrence_claim_without_occurrence_ref",
+                }
+            )
+    explanation = read_json_if_exists(state / EXPLANATION_DIR / f"{route_id}.json")
+    proof = explanation.get("causal_chain_proof")
+    proof = proof if isinstance(proof, dict) else {}
+    execution_instance = proof.get("execution_instance")
+    execution_instance = execution_instance if isinstance(execution_instance, dict) else {}
+    projection_selected_work_id = execution_instance.get("selected_work_id") or proof.get(
+        "selected_work_id"
+    )
+    projection_fidelity = (
+        projection_selected_work_id == work_id if projection_selected_work_id else None
+    )
+    truth_class_authority = not truth_class_violations
+    join_integrity = (
+        bool(work_id)
+        and bool(work)
+        and not missing_event_ids
+        and not missing_evidence_refs
+    )
+    semantic_digest_ok = case.get("semantic_digest") == expected_semantic_digest
+    independent_predicate_status = {
+        "join_integrity": join_integrity,
+        "selection_binding": selection_binding,
+        "scope_completeness": scope_completeness,
+        "execution_terminality": execution_terminality,
+        "authority_boundedness": authority_boundedness,
+        "replay_equivalence": replay_equivalence,
+        "state_delta_scope": state_delta_scope,
+        "record_classification_matrix": record_classification_matrix_ok,
+        "projection_fidelity": projection_fidelity,
+        "truth_class_authority": truth_class_authority,
+        "semantic_digest": semantic_digest_ok,
+        "assertion_matrix_coverage": assertion_matrix_coverage,
+    }
+    command_case_eligible = (
+        all(
+            independent_predicate_status[key] is True
+            for key in [
+                "join_integrity",
+                "selection_binding",
+                "scope_completeness",
+                "execution_terminality",
+                "authority_boundedness",
+                "replay_equivalence",
+                "state_delta_scope",
+                "record_classification_matrix",
+                "truth_class_authority",
+                "semantic_digest",
+                "assertion_matrix_coverage",
+            ]
+        )
+    )
+    public_architecture_witness_eligible = (
+        command_case_eligible and projection_fidelity is True
+    )
+    for predicate_id in [
+        "join_integrity",
+        "selection_binding",
+        "scope_completeness",
+        "execution_terminality",
+        "authority_boundedness",
+        "replay_equivalence",
+        "state_delta_scope",
+        "record_classification_matrix",
+        "truth_class_authority",
+        "semantic_digest",
+        "assertion_matrix_coverage",
+    ]:
+        if independent_predicate_status.get(predicate_id) is not True:
+            failed_predicates.append(predicate_id)
+    claimed_predicates = case.get("predicate_status")
+    claimed_predicates = (
+        claimed_predicates if isinstance(claimed_predicates, dict) else {}
+    )
+    if (
+        claimed_predicates.get("projection_fidelity") is True
+        and projection_fidelity is not True
+    ):
+        failed_predicates.append("projection_fidelity")
+    if case.get("command_case_eligible") is True and not command_case_eligible:
+        failed_predicates.append("command_case_eligible")
+    if (
+        case.get("public_architecture_witness_eligible") is True
+        and not public_architecture_witness_eligible
+    ):
+        failed_predicates.append("public_architecture_witness_eligible")
+    rendered_case = {}
+    if isinstance(rendered_witness, dict):
+        candidate = rendered_witness.get("command_reference_execution_case")
+        rendered_case = candidate if isinstance(candidate, dict) else rendered_witness
+    rendered_semantic_digest = rendered_case.get("semantic_digest")
+    rendered_semantic_digest_ok = (
+        not rendered_semantic_digest
+        or rendered_semantic_digest == expected_semantic_digest
+    )
+    rendered_truth_class_violations: list[dict[str, Any]] = []
+    rendered_truth_rows = [
+        row
+        for group_key in (
+            "record_classifications",
+            "assertion_matrix",
+            "structural_and_constitutional_lookups",
+        )
+        for row in _dict_rows(rendered_case.get(group_key))
+    ]
+    for row in rendered_truth_rows:
+        rendered_truth_class = row.get("truth_class")
+        rendered_authority_ref = _truth_row_authority_ref(row)
+        if rendered_truth_class not in {
+            "occurrence",
+            "structure",
+            "constitution",
+            "projection",
+        }:
+            rendered_truth_class_violations.append(
+                {
+                    "claim_id": row.get("claim_id"),
+                    "source_ref": rendered_authority_ref,
+                    "truth_class": rendered_truth_class,
+                    "reason": "unknown_rendered_truth_class",
+                }
+            )
+            continue
+        expected_row = case_truth_rows_by_identity.get(_truth_row_identity(row))
+        if expected_row:
+            expected_truth_class = expected_row.get("truth_class")
+            expected_authority_ref = _truth_row_authority_ref(expected_row)
+            if rendered_truth_class != expected_truth_class:
+                rendered_truth_class_violations.append(
+                    {
+                        "claim_id": row.get("claim_id"),
+                        "source_ref": rendered_authority_ref,
+                        "expected_truth_class": expected_truth_class,
+                        "rendered_truth_class": rendered_truth_class,
+                        "reason": "rendered_truth_class_mismatch",
+                    }
+                )
+            if (
+                rendered_authority_ref
+                and expected_authority_ref
+                and rendered_authority_ref != expected_authority_ref
+            ):
+                rendered_truth_class_violations.append(
+                    {
+                        "claim_id": row.get("claim_id"),
+                        "expected_source_ref": expected_authority_ref,
+                        "rendered_source_ref": rendered_authority_ref,
+                        "reason": "rendered_authority_ref_mismatch",
+                    }
+                )
+        if (
+            rendered_truth_class == "occurrence"
+            and rendered_authority_ref != "command_result.work_id"
+            and rendered_authority_ref not in allowed_truth_occurrence_refs
+        ):
+            rendered_truth_class_violations.append(
+                {
+                    "claim_id": row.get("claim_id"),
+                    "source_ref": rendered_authority_ref,
+                    "truth_class": rendered_truth_class,
+                    "reason": "rendered_occurrence_claim_without_occurrence_ref",
+                }
+            )
+    rendered_truth_class_authority = not rendered_truth_class_violations
+    rendered_assertion_matrix_coverage_violations: list[dict[str, Any]] = []
+    rendered_assertion_matrix_present = "assertion_matrix" in rendered_case
+    if rendered_assertion_matrix_present:
+        rendered_assertion_predicate_counts: dict[str, int] = {}
+        for index, row in enumerate(_dict_rows(rendered_case.get("assertion_matrix"))):
+            predicate_id = row.get("eligibility_predicate")
+            if not isinstance(predicate_id, str) or not predicate_id:
+                rendered_assertion_matrix_coverage_violations.append(
+                    {
+                        "row_index": index,
+                        "reason": (
+                            "rendered_assertion_matrix_missing_eligibility_predicate"
+                        ),
+                        "rendered": predicate_id,
+                    }
+                )
+                continue
+            rendered_assertion_predicate_counts[predicate_id] = (
+                rendered_assertion_predicate_counts.get(predicate_id, 0) + 1
+            )
+        for predicate_id in REFERENCE_CASE_ASSERTION_PREDICATES:
+            count = rendered_assertion_predicate_counts.get(predicate_id, 0)
+            if count == 0:
+                rendered_assertion_matrix_coverage_violations.append(
+                    {
+                        "predicate_id": predicate_id,
+                        "reason": (
+                            "rendered_assertion_matrix_missing_required_predicate"
+                        ),
+                    }
+                )
+            elif count > 1:
+                rendered_assertion_matrix_coverage_violations.append(
+                    {
+                        "predicate_id": predicate_id,
+                        "reason": (
+                            "rendered_assertion_matrix_duplicate_required_predicate"
+                        ),
+                        "count": count,
+                    }
+                )
+        for predicate_id, count in sorted(rendered_assertion_predicate_counts.items()):
+            if predicate_id not in REFERENCE_CASE_ASSERTION_PREDICATES:
+                rendered_assertion_matrix_coverage_violations.append(
+                    {
+                        "predicate_id": predicate_id,
+                        "reason": "rendered_assertion_matrix_unknown_predicate",
+                        "count": count,
+                    }
+                )
+    rendered_assertion_matrix_coverage = (
+        not rendered_assertion_matrix_coverage_violations
+    )
+    rendered_truth_class_summary_violations: list[dict[str, Any]] = []
+    rendered_truth_classes_value = rendered_case.get("truth_classes")
+    if isinstance(rendered_truth_classes_value, list):
+        invalid_rendered_truth_classes = [
+            item for item in rendered_truth_classes_value if not isinstance(item, str)
+        ]
+        rendered_truth_classes = sorted(
+            set(
+                item
+                for item in rendered_truth_classes_value
+                if isinstance(item, str)
+            )
+        )
+        if invalid_rendered_truth_classes:
+            rendered_truth_class_summary_violations.append(
+                {
+                    "reason": "rendered_truth_classes_invalid",
+                    "rendered": invalid_rendered_truth_classes,
+                }
+            )
+        if rendered_truth_classes != expected_truth_classes:
+            rendered_truth_class_summary_violations.append(
+                {
+                    "reason": "rendered_truth_classes_mismatch",
+                    "expected": expected_truth_classes,
+                    "rendered": rendered_truth_classes,
+                }
+            )
+    elif "truth_classes" in rendered_case:
+        rendered_truth_class_summary_violations.append(
+            {
+                "reason": "rendered_truth_classes_invalid",
+                "rendered": rendered_truth_classes_value,
+            }
+        )
+    rendered_truth_class_counts_value = rendered_case.get("truth_class_counts")
+    if isinstance(rendered_truth_class_counts_value, dict):
+        rendered_truth_class_counts: dict[str, int] = {}
+        invalid_rendered_truth_class_counts: dict[str, Any] = {}
+        for key, value in rendered_truth_class_counts_value.items():
+            if (
+                not isinstance(key, str)
+                or not isinstance(value, int)
+                or isinstance(value, bool)
+            ):
+                invalid_rendered_truth_class_counts[str(key)] = value
+                continue
+            rendered_truth_class_counts[key] = value
+        if invalid_rendered_truth_class_counts:
+            rendered_truth_class_summary_violations.append(
+                {
+                    "reason": "rendered_truth_class_counts_invalid",
+                    "rendered": invalid_rendered_truth_class_counts,
+                }
+            )
+        if rendered_truth_class_counts != expected_truth_class_counts:
+            rendered_truth_class_summary_violations.append(
+                {
+                    "reason": "rendered_truth_class_counts_mismatch",
+                    "expected": expected_truth_class_counts,
+                    "rendered": rendered_truth_class_counts,
+                }
+            )
+    elif "truth_class_counts" in rendered_case:
+        rendered_truth_class_summary_violations.append(
+            {
+                "reason": "rendered_truth_class_counts_invalid",
+                "rendered": rendered_truth_class_counts_value,
+            }
+        )
+    rendered_truth_class_summary_ok = not rendered_truth_class_summary_violations
+    rendered_root_binding_violations: list[dict[str, Any]] = []
+    expected_rendered_root_fields = {
+        "selected_work_id": work_id or None,
+        "root_work_id": work_id or None,
+        "root_binding_kind": root_binding.get("binding_kind"),
+        "root_matches_selected_work": bool(work_id),
+    }
+    for field_name, expected_value in expected_rendered_root_fields.items():
+        if field_name not in rendered_case:
+            continue
+        rendered_value = rendered_case.get(field_name)
+        if rendered_value != expected_value:
+            rendered_root_binding_violations.append(
+                {
+                    "field": field_name,
+                    "reason": f"rendered_{field_name}_mismatch",
+                    "expected": expected_value,
+                    "rendered": rendered_value,
+                }
+            )
+    reference_case_ref = work.get("reference_execution_case_ref")
+    expected_evidence_ref = (
+        reference_case_ref if isinstance(reference_case_ref, str) else ""
+    )
+    if "evidence_ref" in rendered_case:
+        rendered_evidence_ref = rendered_case.get("evidence_ref")
+        if not expected_evidence_ref:
+            rendered_root_binding_violations.append(
+                {
+                    "field": "evidence_ref",
+                    "reason": "rendered_evidence_ref_without_work_reference",
+                    "expected": None,
+                    "rendered": rendered_evidence_ref,
+                }
+            )
+        elif rendered_evidence_ref != expected_evidence_ref:
+            rendered_root_binding_violations.append(
+                {
+                    "field": "evidence_ref",
+                    "reason": "rendered_evidence_ref_mismatch",
+                    "expected": expected_evidence_ref,
+                    "rendered": rendered_evidence_ref,
+                }
+            )
+    expected_assertion_matrix_ref = (
+        f"{expected_evidence_ref}::assertion_matrix"
+        if expected_evidence_ref
+        else None
+    )
+    if "assertion_matrix_ref" in rendered_case:
+        rendered_assertion_matrix_ref = rendered_case.get("assertion_matrix_ref")
+        if (
+            not expected_assertion_matrix_ref
+            or rendered_assertion_matrix_ref != expected_assertion_matrix_ref
+        ):
+            rendered_root_binding_violations.append(
+                {
+                    "field": "assertion_matrix_ref",
+                    "reason": "rendered_assertion_matrix_ref_mismatch",
+                    "expected": expected_assertion_matrix_ref,
+                    "rendered": rendered_assertion_matrix_ref,
+                }
+            )
+    expected_record_classification_matrix_ref = (
+        f"{expected_evidence_ref}::record_classification_matrix"
+        if expected_evidence_ref
+        else None
+    )
+    expected_rendered_record_classification_summary = {
+        "record_classification_counts": expected_record_classification_counts,
+        "ambient_history_ref_count": expected_record_classification_counts.get(
+            "ambient_history",
+            0,
+        ),
+        "record_classification_matrix_ref": expected_record_classification_matrix_ref,
+    }
+    rendered_record_classification_summary_violations: list[dict[str, Any]] = []
+    record_summary_fields = set(expected_rendered_record_classification_summary)
+    record_summary_present = any(
+        field in rendered_case for field in record_summary_fields
+    )
+    if record_summary_present:
+        for field_name, expected_value in (
+            expected_rendered_record_classification_summary.items()
+        ):
+            if field_name not in rendered_case:
+                rendered_record_classification_summary_violations.append(
+                    {
+                        "field": field_name,
+                        "reason": (
+                            "rendered_record_classification_summary_missing_field"
+                        ),
+                        "expected": expected_value,
+                    }
+                )
+                continue
+            rendered_value = rendered_case.get(field_name)
+            if field_name == "record_classification_counts":
+                if isinstance(rendered_value, dict):
+                    rendered_counts: dict[str, int] = {}
+                    invalid_rendered_counts: dict[str, Any] = {}
+                    for key, value in rendered_value.items():
+                        if (
+                            not isinstance(key, str)
+                            or not isinstance(value, int)
+                            or isinstance(value, bool)
+                        ):
+                            invalid_rendered_counts[str(key)] = value
+                            continue
+                        rendered_counts[key] = value
+                    if invalid_rendered_counts:
+                        rendered_record_classification_summary_violations.append(
+                            {
+                                "field": field_name,
+                                "reason": (
+                                    "rendered_record_classification_counts_invalid"
+                                ),
+                                "rendered": invalid_rendered_counts,
+                            }
+                        )
+                    rendered_value = rendered_counts
+                else:
+                    rendered_record_classification_summary_violations.append(
+                        {
+                            "field": field_name,
+                            "reason": (
+                                "rendered_record_classification_counts_invalid"
+                            ),
+                            "rendered": rendered_value,
+                        }
+                    )
+                    continue
+            if rendered_value != expected_value:
+                rendered_record_classification_summary_violations.append(
+                    {
+                        "field": field_name,
+                        "reason": f"rendered_{field_name}_mismatch",
+                        "expected": expected_value,
+                        "rendered": rendered_value,
+                    }
+                )
+    rendered_record_classification_summary_ok = (
+        not rendered_record_classification_summary_violations
+    )
+    rendered_root_binding_ok = not rendered_root_binding_violations
+    rendered_eligibility_flag_violations: list[dict[str, Any]] = []
+    expected_rendered_eligibility_flags = {
+        "command_case_eligible": command_case_eligible,
+        "public_architecture_witness_eligible": public_architecture_witness_eligible,
+        "producer_claimed_command_case_eligible": case.get("command_case_eligible")
+        is True,
+        "producer_claimed_public_architecture_witness_eligible": case.get(
+            "public_architecture_witness_eligible"
+        )
+        is True,
+    }
+    for field_name, expected_value in expected_rendered_eligibility_flags.items():
+        if field_name not in rendered_case:
+            continue
+        rendered_value = rendered_case.get(field_name)
+        if rendered_value is not expected_value:
+            rendered_eligibility_flag_violations.append(
+                {
+                    "field": field_name,
+                    "reason": f"rendered_{field_name}_mismatch",
+                    "expected": expected_value,
+                    "rendered": rendered_value,
+                }
+            )
+    rendered_eligibility_flags_ok = not rendered_eligibility_flag_violations
+    rendered_occurrence_refs = _dedupe_strings(
+        rendered_case.get("occurrence_witness_refs")
+        if isinstance(rendered_case.get("occurrence_witness_refs"), list)
+        else []
+    )
+    missing_rendered_occurrence_refs = [
+        ref
+        for ref in sorted(allowed_occurrence_refs)
+        if ref not in rendered_occurrence_refs
+    ]
+    unexpected_rendered_occurrence_refs = [
+        ref for ref in rendered_occurrence_refs if ref not in allowed_occurrence_refs
+    ]
+    rendered_occurrence_refs_ok = (
+        not missing_rendered_occurrence_refs
+        and not unexpected_rendered_occurrence_refs
+    )
+    rendered_state_delta_refs: list[str] = []
+    missing_rendered_state_delta_refs: list[str] = []
+    unexpected_rendered_state_delta_refs: list[str] = []
+    rendered_state_delta_ref_violations: list[dict[str, Any]] = []
+    rendered_state_delta_refs_value = rendered_case.get("state_delta_refs")
+    if isinstance(rendered_state_delta_refs_value, list):
+        invalid_rendered_state_delta_refs = [
+            item
+            for item in rendered_state_delta_refs_value
+            if not isinstance(item, str)
+        ]
+        rendered_state_delta_refs = _dedupe_strings(
+            [
+                item
+                for item in rendered_state_delta_refs_value
+                if isinstance(item, str)
+            ]
+        )
+        missing_rendered_state_delta_refs = [
+            ref
+            for ref in expected_rendered_state_delta_refs
+            if ref not in rendered_state_delta_refs
+        ]
+        unexpected_rendered_state_delta_refs = [
+            ref
+            for ref in rendered_state_delta_refs
+            if ref not in expected_rendered_state_delta_refs
+        ]
+        if invalid_rendered_state_delta_refs:
+            rendered_state_delta_ref_violations.append(
+                {
+                    "reason": "rendered_state_delta_refs_invalid_items",
+                    "rendered": invalid_rendered_state_delta_refs,
+                }
+            )
+        if missing_rendered_state_delta_refs:
+            rendered_state_delta_ref_violations.append(
+                {
+                    "reason": "rendered_state_delta_refs_missing_refs",
+                    "expected": expected_rendered_state_delta_refs,
+                    "missing": missing_rendered_state_delta_refs,
+                }
+            )
+        if unexpected_rendered_state_delta_refs:
+            rendered_state_delta_ref_violations.append(
+                {
+                    "reason": "rendered_state_delta_refs_unexpected_refs",
+                    "expected": expected_rendered_state_delta_refs,
+                    "rendered": unexpected_rendered_state_delta_refs,
+                }
+            )
+    elif "state_delta_refs" in rendered_case:
+        rendered_state_delta_ref_violations.append(
+            {
+                "field": "state_delta_refs",
+                "reason": "rendered_state_delta_refs_invalid",
+                "rendered": rendered_state_delta_refs_value,
+            }
+        )
+    elif expected_rendered_state_delta_refs:
+        missing_rendered_state_delta_refs = list(expected_rendered_state_delta_refs)
+        rendered_state_delta_ref_violations.append(
+            {
+                "field": "state_delta_refs",
+                "reason": "rendered_state_delta_refs_missing_field",
+                "expected": expected_rendered_state_delta_refs,
+            }
+        )
+    rendered_state_delta_refs_ok = not rendered_state_delta_ref_violations
+    rendered_state_delta_summary_violations: list[dict[str, Any]] = []
+    expected_state_delta_ref_count = len(expected_rendered_state_delta_refs)
+    expected_state_delta_refs_ref = "command_reference_execution_case.state_delta_refs"
+    expected_state_delta_scope_ref = "verification_predicate_status.state_delta_scope"
+
+    def _check_rendered_state_delta_summary(
+        summary: dict[str, Any],
+        *,
+        scope: str,
+        count_field: str,
+        verified_field: str,
+        ref_field: str,
+        scope_verified_field: str,
+        scope_ref_field: str,
+    ) -> None:
+        expected_fields = {
+            count_field: expected_state_delta_ref_count,
+            verified_field: rendered_state_delta_refs_ok,
+            ref_field: expected_state_delta_refs_ref,
+            scope_verified_field: state_delta_scope,
+            scope_ref_field: expected_state_delta_scope_ref,
+        }
+        for field_name, expected_value in expected_fields.items():
+            if field_name not in summary:
+                rendered_state_delta_summary_violations.append(
+                    {
+                        "scope": scope,
+                        "field": field_name,
+                        "reason": "rendered_state_delta_summary_missing_field",
+                        "expected": expected_value,
+                    }
+                )
+                continue
+            rendered_value = summary.get(field_name)
+            if rendered_value != expected_value:
+                rendered_state_delta_summary_violations.append(
+                    {
+                        "scope": scope,
+                        "field": field_name,
+                        "reason": "rendered_state_delta_summary_mismatch",
+                        "expected": expected_value,
+                        "rendered": rendered_value,
+                    }
+                )
+
+    if isinstance(rendered_witness, dict):
+        compile_summary = rendered_witness.get("compile_summary")
+        if isinstance(compile_summary, dict):
+            _check_rendered_state_delta_summary(
+                compile_summary,
+                scope="compile_summary",
+                count_field="command_reference_state_delta_ref_count",
+                verified_field="command_reference_state_delta_refs_verified",
+                ref_field="command_reference_state_delta_refs_ref",
+                scope_verified_field=(
+                    "command_reference_state_delta_scope_verified"
+                ),
+                scope_ref_field="command_reference_state_delta_scope_ref",
+            )
+        causal_chain_summary = rendered_witness.get("causal_chain_summary")
+        if isinstance(causal_chain_summary, dict):
+            summary_case = causal_chain_summary.get("command_reference_execution_case")
+            if isinstance(summary_case, dict):
+                _check_rendered_state_delta_summary(
+                    summary_case,
+                    scope="causal_chain_summary.command_reference_execution_case",
+                    count_field="state_delta_ref_count",
+                    verified_field="state_delta_refs_verified",
+                    ref_field="state_delta_refs_ref",
+                    scope_verified_field="state_delta_scope_verified",
+                    scope_ref_field="state_delta_scope_ref",
+                )
+    rendered_state_delta_summary_ok = not rendered_state_delta_summary_violations
+    expected_rendered_predicate_details = {
+        "missing_event_ids": missing_event_ids,
+        "missing_evidence_refs": missing_evidence_refs,
+        "projection_selected_work_id": projection_selected_work_id,
+    }
+    rendered_predicate_detail_violations: list[dict[str, Any]] = []
+    rendered_predicate_details_value = rendered_case.get("predicate_details")
+    if isinstance(rendered_predicate_details_value, dict):
+        rendered_predicate_detail_keys = {
+            key for key in rendered_predicate_details_value if isinstance(key, str)
+        }
+        invalid_rendered_predicate_detail_keys = [
+            key
+            for key in rendered_predicate_details_value
+            if not isinstance(key, str)
+        ]
+        if invalid_rendered_predicate_detail_keys:
+            rendered_predicate_detail_violations.append(
+                {
+                    "reason": "rendered_predicate_details_invalid_keys",
+                    "rendered": invalid_rendered_predicate_detail_keys,
+                }
+            )
+        missing_rendered_predicate_detail_keys = sorted(
+            set(expected_rendered_predicate_details)
+            - rendered_predicate_detail_keys
+        )
+        unexpected_rendered_predicate_detail_keys = sorted(
+            rendered_predicate_detail_keys
+            - set(expected_rendered_predicate_details)
+        )
+        if missing_rendered_predicate_detail_keys:
+            rendered_predicate_detail_violations.append(
+                {
+                    "reason": "rendered_predicate_details_missing_keys",
+                    "expected": sorted(expected_rendered_predicate_details),
+                    "missing": missing_rendered_predicate_detail_keys,
+                }
+            )
+        if unexpected_rendered_predicate_detail_keys:
+            rendered_predicate_detail_violations.append(
+                {
+                    "reason": "rendered_predicate_details_unexpected_keys",
+                    "expected": sorted(expected_rendered_predicate_details),
+                    "rendered": unexpected_rendered_predicate_detail_keys,
+                }
+            )
+        for field_name, expected_value in expected_rendered_predicate_details.items():
+            if field_name not in rendered_predicate_details_value:
+                continue
+            rendered_value = rendered_predicate_details_value.get(field_name)
+            if rendered_value != expected_value:
+                rendered_predicate_detail_violations.append(
+                    {
+                        "field": field_name,
+                        "reason": f"rendered_predicate_details_{field_name}_mismatch",
+                        "expected": expected_value,
+                        "rendered": rendered_value,
+                    }
+                )
+    elif "predicate_details" in rendered_case:
+        rendered_predicate_detail_violations.append(
+            {
+                "field": "predicate_details",
+                "reason": "rendered_predicate_details_invalid",
+                "rendered": rendered_predicate_details_value,
+            }
+        )
+    rendered_predicate_details_ok = not rendered_predicate_detail_violations
+    expected_rendered_predicate_status = {
+        **independent_predicate_status,
+        "command_case_eligible": command_case_eligible,
+        "public_architecture_witness_eligible": public_architecture_witness_eligible,
+        "rendered_occurrence_refs": rendered_occurrence_refs_ok,
+        "rendered_state_delta_refs": rendered_state_delta_refs_ok,
+        "rendered_state_delta_summary": rendered_state_delta_summary_ok,
+        "rendered_predicate_details": rendered_predicate_details_ok,
+        "rendered_semantic_digest": rendered_semantic_digest_ok,
+        "rendered_truth_class_authority": rendered_truth_class_authority,
+        "rendered_assertion_matrix_coverage": rendered_assertion_matrix_coverage,
+        "rendered_truth_class_summary": rendered_truth_class_summary_ok,
+        "rendered_record_classification_summary": (
+            rendered_record_classification_summary_ok
+        ),
+        "rendered_root_binding": rendered_root_binding_ok,
+        "rendered_eligibility_flags": rendered_eligibility_flags_ok,
+    }
+    allowed_later_rendered_predicate_status_ids = {
+        "rendered_predicate_status",
+        "rendered_verification_summary",
+        "rendered_safe_to_show_boundary",
+        "rendered_guidance_boundary",
+        "rendered_late_predicate_status",
+    }
+    allowed_rendered_predicate_status_ids = (
+        set(expected_rendered_predicate_status)
+        | allowed_later_rendered_predicate_status_ids
+    )
+    rendered_predicate_status_violations: list[dict[str, Any]] = []
+    for status_field in ("predicate_status", "verification_predicate_status"):
+        rendered_predicates = rendered_case.get(status_field)
+        if not isinstance(rendered_predicates, dict):
+            continue
+        if status_field == "predicate_status":
+            expected_predicate_keys = sorted(
+                key for key in claimed_predicates if isinstance(key, str)
+            )
+            rendered_predicate_keys = {
+                key for key in rendered_predicates if isinstance(key, str)
+            }
+            missing_predicate_keys = sorted(
+                set(expected_predicate_keys) - rendered_predicate_keys
+            )
+            if missing_predicate_keys:
+                rendered_predicate_status_violations.append(
+                    {
+                        "status_field": status_field,
+                        "reason": "rendered_predicate_status_missing_predicates",
+                        "expected": expected_predicate_keys,
+                        "missing": missing_predicate_keys,
+                    }
+                )
+        for predicate_id, rendered_value in rendered_predicates.items():
+            if predicate_id not in allowed_rendered_predicate_status_ids:
+                rendered_predicate_status_violations.append(
+                    {
+                        "status_field": status_field,
+                        "predicate_id": predicate_id,
+                        "reason": "rendered_predicate_status_unexpected_predicate",
+                        "rendered": rendered_value,
+                    }
+                )
+                continue
+            if predicate_id not in expected_rendered_predicate_status:
+                continue
+            expected_value = expected_rendered_predicate_status[predicate_id]
+            if rendered_value != expected_value:
+                rendered_predicate_status_violations.append(
+                    {
+                        "status_field": status_field,
+                        "predicate_id": predicate_id,
+                        "expected": expected_value,
+                        "rendered": rendered_value,
+                    }
+                )
+    rendered_predicate_status_base_ok = not rendered_predicate_status_violations
+    for status_field in ("predicate_status", "verification_predicate_status"):
+        rendered_predicates = rendered_case.get(status_field)
+        if not isinstance(rendered_predicates, dict):
+            continue
+        if "rendered_predicate_status" not in rendered_predicates:
+            continue
+        rendered_value = rendered_predicates.get("rendered_predicate_status")
+        if rendered_value != rendered_predicate_status_base_ok:
+            rendered_predicate_status_violations.append(
+                {
+                    "status_field": status_field,
+                    "predicate_id": "rendered_predicate_status",
+                    "reason": "rendered_predicate_status_predicate_mismatch",
+                    "expected": rendered_predicate_status_base_ok,
+                    "rendered": rendered_value,
+                }
+            )
+    rendered_predicate_status_ok = not rendered_predicate_status_violations
+    if not rendered_occurrence_refs_ok:
+        failed_predicates.append("rendered_occurrence_refs")
+    if not rendered_state_delta_refs_ok:
+        failed_predicates.append("rendered_state_delta_refs")
+    if not rendered_state_delta_summary_ok:
+        failed_predicates.append("rendered_state_delta_summary")
+    if not rendered_predicate_details_ok:
+        failed_predicates.append("rendered_predicate_details")
+    if not rendered_semantic_digest_ok:
+        failed_predicates.append("rendered_semantic_digest")
+    if not rendered_predicate_status_ok:
+        failed_predicates.append("rendered_predicate_status")
+    if not rendered_truth_class_authority:
+        failed_predicates.append("rendered_truth_class_authority")
+    if not rendered_assertion_matrix_coverage:
+        failed_predicates.append("rendered_assertion_matrix_coverage")
+    if not rendered_truth_class_summary_ok:
+        failed_predicates.append("rendered_truth_class_summary")
+    if not rendered_record_classification_summary_ok:
+        failed_predicates.append("rendered_record_classification_summary")
+    if not rendered_root_binding_ok:
+        failed_predicates.append("rendered_root_binding")
+    if not rendered_eligibility_flags_ok:
+        failed_predicates.append("rendered_eligibility_flags")
+    if (
+        rendered_case.get("public_architecture_witness_eligible") is True
+        and not public_architecture_witness_eligible
+    ):
+        failed_predicates.append("rendered_public_witness_eligible")
+    if (
+        isinstance(rendered_witness, dict)
+        and isinstance(rendered_witness.get("compile_summary"), dict)
+        and rendered_witness["compile_summary"].get(
+            "public_architecture_witness_eligible"
+        )
+        is True
+        and not public_architecture_witness_eligible
+    ):
+        failed_predicates.append("rendered_compile_summary_witness_eligible")
+    core_failed_predicates = sorted(set(failed_predicates))
+    expected_rendered_status = (
+        PASS if command_case_eligible and not core_failed_predicates else "blocked"
+        if core_failed_predicates
+        else "partial"
+    )
+    expected_rendered_verification_status = (
+        PASS if not core_failed_predicates else "blocked"
+    )
+    expected_rendered_public_witness_status = (
+        PASS
+        if public_architecture_witness_eligible
+        else "verification_blocked"
+        if core_failed_predicates
+        else "projection_not_eligible"
+    )
+    expected_rendered_verification_summary = {
+        "status": expected_rendered_status,
+        "verification_status": expected_rendered_verification_status,
+        "verification_failed_predicates": core_failed_predicates,
+        "public_witness_status": expected_rendered_public_witness_status,
+    }
+    rendered_verification_summary_violations: list[dict[str, Any]] = []
+    for field_name in ("status", "verification_status", "public_witness_status"):
+        if field_name not in rendered_case:
+            continue
+        rendered_value = rendered_case.get(field_name)
+        expected_value = expected_rendered_verification_summary[field_name]
+        if rendered_value != expected_value:
+            rendered_verification_summary_violations.append(
+                {
+                    "field": field_name,
+                    "reason": f"rendered_{field_name}_mismatch",
+                    "expected": expected_value,
+                    "rendered": rendered_value,
+                }
+            )
+    rendered_failed_predicates_value = rendered_case.get(
+        "verification_failed_predicates"
+    )
+    if isinstance(rendered_failed_predicates_value, list):
+        invalid_rendered_failed_predicates = [
+            item
+            for item in rendered_failed_predicates_value
+            if not isinstance(item, str)
+        ]
+        rendered_failed_predicates = sorted(
+            set(
+                item
+                for item in rendered_failed_predicates_value
+                if isinstance(item, str)
+            )
+        )
+        if invalid_rendered_failed_predicates:
+            rendered_verification_summary_violations.append(
+                {
+                    "field": "verification_failed_predicates",
+                    "reason": "rendered_verification_failed_predicates_invalid",
+                    "rendered": invalid_rendered_failed_predicates,
+                }
+            )
+        if rendered_failed_predicates != core_failed_predicates:
+            rendered_verification_summary_violations.append(
+                {
+                    "field": "verification_failed_predicates",
+                    "reason": "rendered_verification_failed_predicates_mismatch",
+                    "expected": core_failed_predicates,
+                    "rendered": rendered_failed_predicates,
+                }
+            )
+    elif "verification_failed_predicates" in rendered_case:
+        rendered_verification_summary_violations.append(
+            {
+                "field": "verification_failed_predicates",
+                "reason": "rendered_verification_failed_predicates_invalid",
+                "rendered": rendered_failed_predicates_value,
+            }
+        )
+    rendered_verification_summary_base_ok = (
+        not rendered_verification_summary_violations
+    )
+    for status_field in ("predicate_status", "verification_predicate_status"):
+        rendered_predicates = rendered_case.get(status_field)
+        if not isinstance(rendered_predicates, dict):
+            continue
+        if "rendered_verification_summary" not in rendered_predicates:
+            continue
+        rendered_value = rendered_predicates.get("rendered_verification_summary")
+        if rendered_value is not rendered_verification_summary_base_ok:
+            rendered_verification_summary_violations.append(
+                {
+                    "status_field": status_field,
+                    "predicate_id": "rendered_verification_summary",
+                    "reason": "rendered_verification_summary_predicate_mismatch",
+                    "expected": rendered_verification_summary_base_ok,
+                    "rendered": rendered_value,
+                }
+            )
+    rendered_verification_summary_ok = (
+        not rendered_verification_summary_violations
+    )
+    if not rendered_verification_summary_ok:
+        failed_predicates.append("rendered_verification_summary")
+    expected_rendered_safe_to_show = {
+        "receipt_ref_visible": True,
+        "predicate_status_visible": True,
+        "full_receipt_body_omitted": True,
+        "source_files_mutated": False,
+        "provider_calls_authorized": False,
+        "release_authorized": False,
+        "proof_correctness_claim": False,
+    }
+    rendered_safe_to_show_boundary_violations: list[dict[str, Any]] = []
+    rendered_safe_to_show_value = rendered_case.get("safe_to_show")
+    if isinstance(rendered_safe_to_show_value, dict):
+        rendered_safe_to_show = rendered_safe_to_show_value
+        rendered_safe_to_show_keys = {
+            key for key in rendered_safe_to_show if isinstance(key, str)
+        }
+        invalid_rendered_safe_to_show_keys = [
+            key for key in rendered_safe_to_show if not isinstance(key, str)
+        ]
+        if invalid_rendered_safe_to_show_keys:
+            rendered_safe_to_show_boundary_violations.append(
+                {
+                    "reason": "rendered_safe_to_show_invalid_keys",
+                    "rendered": invalid_rendered_safe_to_show_keys,
+                }
+            )
+        missing_rendered_safe_to_show_keys = sorted(
+            set(expected_rendered_safe_to_show) - rendered_safe_to_show_keys
+        )
+        unexpected_rendered_safe_to_show_keys = sorted(
+            rendered_safe_to_show_keys - set(expected_rendered_safe_to_show)
+        )
+        if missing_rendered_safe_to_show_keys:
+            rendered_safe_to_show_boundary_violations.append(
+                {
+                    "reason": "rendered_safe_to_show_missing_keys",
+                    "expected": sorted(expected_rendered_safe_to_show),
+                    "missing": missing_rendered_safe_to_show_keys,
+                }
+            )
+        if unexpected_rendered_safe_to_show_keys:
+            rendered_safe_to_show_boundary_violations.append(
+                {
+                    "reason": "rendered_safe_to_show_unexpected_keys",
+                    "expected": sorted(expected_rendered_safe_to_show),
+                    "rendered": unexpected_rendered_safe_to_show_keys,
+                }
+            )
+        for field_name, expected_value in expected_rendered_safe_to_show.items():
+            if field_name not in rendered_safe_to_show:
+                continue
+            rendered_value = rendered_safe_to_show.get(field_name)
+            if rendered_value is not expected_value:
+                rendered_safe_to_show_boundary_violations.append(
+                    {
+                        "field": field_name,
+                        "reason": f"rendered_safe_to_show_{field_name}_mismatch",
+                        "expected": expected_value,
+                        "rendered": rendered_value,
+                    }
+                )
+    elif "safe_to_show" in rendered_case:
+        rendered_safe_to_show_boundary_violations.append(
+            {
+                "field": "safe_to_show",
+                "reason": "rendered_safe_to_show_invalid",
+                "rendered": rendered_safe_to_show_value,
+            }
+        )
+    rendered_safe_to_show_boundary_ok = (
+        not rendered_safe_to_show_boundary_violations
+    )
+    if not rendered_safe_to_show_boundary_ok:
+        failed_predicates.append("rendered_safe_to_show_boundary")
+    expected_rendered_guidance_boundary = {
+        "schema_version": "microcosm_command_reference_execution_case_card_v1",
+        "anti_claim": (
+            case.get("anti_claim")
+            if isinstance(case.get("anti_claim"), str) and case.get("anti_claim")
+            else "The reference execution case is a command-root occurrence assay, "
+            "not a release, hosting, or correctness claim."
+        ),
+        "reader_action": (
+            "Use this compact card to decide whether the command-root occurrence "
+            "case is eligible before treating any architecture projection as a "
+            "public witness."
+        ),
+        "verification_ref": "architecture_kernel.verify_reference_execution_case",
+    }
+    rendered_guidance_boundary_violations: list[dict[str, Any]] = []
+    for field_name, expected_value in expected_rendered_guidance_boundary.items():
+        if field_name not in rendered_case:
+            continue
+        rendered_value = rendered_case.get(field_name)
+        if rendered_value != expected_value:
+            rendered_guidance_boundary_violations.append(
+                {
+                    "field": field_name,
+                    "reason": f"rendered_{field_name}_mismatch",
+                    "expected": expected_value,
+                    "rendered": rendered_value,
+                }
+            )
+    rendered_guidance_boundary_ok = not rendered_guidance_boundary_violations
+    if not rendered_guidance_boundary_ok:
+        failed_predicates.append("rendered_guidance_boundary")
+    expected_late_rendered_predicate_status = {
+        "rendered_verification_summary": rendered_verification_summary_ok,
+        "rendered_safe_to_show_boundary": rendered_safe_to_show_boundary_ok,
+        "rendered_guidance_boundary": rendered_guidance_boundary_ok,
+    }
+    rendered_late_predicate_status_violations: list[dict[str, Any]] = []
+    for status_field in ("predicate_status", "verification_predicate_status"):
+        rendered_predicates = rendered_case.get(status_field)
+        if not isinstance(rendered_predicates, dict):
+            continue
+        for predicate_id, expected_value in (
+            expected_late_rendered_predicate_status.items()
+        ):
+            if predicate_id not in rendered_predicates:
+                continue
+            rendered_value = rendered_predicates.get(predicate_id)
+            if rendered_value != expected_value:
+                rendered_late_predicate_status_violations.append(
+                    {
+                        "status_field": status_field,
+                        "predicate_id": predicate_id,
+                        "expected": expected_value,
+                        "rendered": rendered_value,
+                    }
+                )
+    rendered_late_predicate_status_base_ok = (
+        not rendered_late_predicate_status_violations
+    )
+    for status_field in ("predicate_status", "verification_predicate_status"):
+        rendered_predicates = rendered_case.get(status_field)
+        if not isinstance(rendered_predicates, dict):
+            continue
+        if "rendered_late_predicate_status" not in rendered_predicates:
+            continue
+        rendered_value = rendered_predicates.get("rendered_late_predicate_status")
+        if rendered_value != rendered_late_predicate_status_base_ok:
+            rendered_late_predicate_status_violations.append(
+                {
+                    "status_field": status_field,
+                    "predicate_id": "rendered_late_predicate_status",
+                    "reason": "rendered_late_predicate_status_predicate_mismatch",
+                    "expected": rendered_late_predicate_status_base_ok,
+                    "rendered": rendered_value,
+                }
+            )
+    rendered_late_predicate_status_ok = (
+        not rendered_late_predicate_status_violations
+    )
+    if not rendered_late_predicate_status_ok:
+        failed_predicates.append("rendered_late_predicate_status")
+    failed_predicates = sorted(set(failed_predicates))
+    return {
+        **_base(project, "microcosm_reference_execution_case_verification_v1"),
+        "status": PASS if not failed_predicates else "blocked",
+        "case_id": case.get("case_id"),
+        "route_id": route_id or None,
+        "root_work_id": work_id or None,
+        "expected_semantic_digest": expected_semantic_digest,
+        "observed_semantic_digest": case.get("semantic_digest"),
+        "predicate_status": {
+            **independent_predicate_status,
+            "command_case_eligible": command_case_eligible,
+            "public_architecture_witness_eligible": (
+                public_architecture_witness_eligible
+            ),
+            "rendered_occurrence_refs": rendered_occurrence_refs_ok,
+            "rendered_state_delta_refs": rendered_state_delta_refs_ok,
+            "rendered_state_delta_summary": rendered_state_delta_summary_ok,
+            "rendered_predicate_details": rendered_predicate_details_ok,
+            "rendered_predicate_status": rendered_predicate_status_ok,
+            "rendered_semantic_digest": rendered_semantic_digest_ok,
+            "rendered_truth_class_authority": rendered_truth_class_authority,
+            "rendered_assertion_matrix_coverage": (
+                rendered_assertion_matrix_coverage
+            ),
+            "rendered_truth_class_summary": rendered_truth_class_summary_ok,
+            "rendered_record_classification_summary": (
+                rendered_record_classification_summary_ok
+            ),
+            "rendered_root_binding": rendered_root_binding_ok,
+            "rendered_eligibility_flags": rendered_eligibility_flags_ok,
+            "rendered_verification_summary": rendered_verification_summary_ok,
+            "rendered_safe_to_show_boundary": rendered_safe_to_show_boundary_ok,
+            "rendered_guidance_boundary": rendered_guidance_boundary_ok,
+            "rendered_late_predicate_status": rendered_late_predicate_status_ok,
+        },
+        "failed_predicates": failed_predicates,
+        "predicate_details": {
+            "missing_event_ids": missing_event_ids,
+            "missing_evidence_refs": missing_evidence_refs,
+            "projection_selected_work_id": projection_selected_work_id,
+            "truth_class_violations": truth_class_violations,
+            "case_occurrence_refs": case_occurrence_refs,
+            "case_occurrence_witness_refs": case_occurrence_witness_refs,
+            "missing_occurrence_refs": missing_occurrence_refs,
+            "unexpected_case_occurrence_refs": unexpected_case_occurrence_refs,
+            "missing_occurrence_witness_refs": missing_occurrence_witness_refs,
+            "unexpected_occurrence_witness_refs": unexpected_occurrence_witness_refs,
+            "ambient_occurrence_refs_in_case": ambient_occurrence_refs_in_case,
+            "replay_equivalence_basis": replay_equivalence_basis,
+            "delta_has_root_or_descendant": delta_has_root_or_descendant,
+            "missing_delta_work_ids": missing_delta_work_ids,
+            "missing_delta_event_ids": missing_delta_event_ids,
+            "missing_delta_evidence_refs": missing_delta_evidence_refs,
+            "unexpected_delta_work_ids": unexpected_delta_work_ids,
+            "unexpected_delta_event_ids": unexpected_delta_event_ids,
+            "unexpected_delta_evidence_refs": unexpected_delta_evidence_refs,
+            "state_delta_scope_violations": state_delta_scope_violations,
+            "expected_record_classification_counts": (
+                expected_record_classification_counts
+            ),
+            "rendered_record_classification_counts": (
+                rendered_record_classification_counts
+            ),
+            "record_classification_matrix_violations": (
+                record_classification_matrix_violations
+            ),
+            "expected_assertion_predicates": list(
+                REFERENCE_CASE_ASSERTION_PREDICATES
+            ),
+            "assertion_matrix_predicates": assertion_predicate_ids,
+            "assertion_matrix_coverage_violations": (
+                assertion_matrix_coverage_violations
+            ),
+            "expected_rendered_state_delta_refs": (
+                expected_rendered_state_delta_refs
+            ),
+            "rendered_state_delta_refs": rendered_state_delta_refs,
+            "missing_rendered_state_delta_refs": (
+                missing_rendered_state_delta_refs
+            ),
+            "unexpected_rendered_state_delta_refs": (
+                unexpected_rendered_state_delta_refs
+            ),
+            "rendered_state_delta_ref_violations": (
+                rendered_state_delta_ref_violations
+            ),
+            "expected_rendered_state_delta_summary": {
+                "state_delta_ref_count": expected_state_delta_ref_count,
+                "state_delta_refs_verified": rendered_state_delta_refs_ok,
+                "state_delta_refs_ref": expected_state_delta_refs_ref,
+                "state_delta_scope_verified": state_delta_scope,
+                "state_delta_scope_ref": expected_state_delta_scope_ref,
+            },
+            "rendered_state_delta_summary_violations": (
+                rendered_state_delta_summary_violations
+            ),
+            "missing_rendered_occurrence_refs": missing_rendered_occurrence_refs,
+            "unexpected_rendered_occurrence_refs": unexpected_rendered_occurrence_refs,
+            "expected_rendered_predicate_details": (
+                expected_rendered_predicate_details
+            ),
+            "rendered_predicate_detail_violations": (
+                rendered_predicate_detail_violations
+            ),
+            "rendered_predicate_status_violations": (
+                rendered_predicate_status_violations
+            ),
+            "rendered_semantic_digest": rendered_semantic_digest,
+            "rendered_truth_class_violations": rendered_truth_class_violations,
+            "rendered_assertion_matrix_coverage_violations": (
+                rendered_assertion_matrix_coverage_violations
+            ),
+            "expected_truth_classes": expected_truth_classes,
+            "expected_truth_class_counts": expected_truth_class_counts,
+            "rendered_truth_class_summary_violations": (
+                rendered_truth_class_summary_violations
+            ),
+            "expected_rendered_record_classification_summary": (
+                expected_rendered_record_classification_summary
+            ),
+            "rendered_record_classification_summary_violations": (
+                rendered_record_classification_summary_violations
+            ),
+            "expected_rendered_root_binding": {
+                **expected_rendered_root_fields,
+                "evidence_ref": expected_evidence_ref or None,
+                "assertion_matrix_ref": expected_assertion_matrix_ref,
+                "record_classification_matrix_ref": (
+                    expected_record_classification_matrix_ref
+                ),
+            },
+            "rendered_root_binding_violations": rendered_root_binding_violations,
+            "expected_rendered_eligibility_flags": (
+                expected_rendered_eligibility_flags
+            ),
+            "rendered_eligibility_flag_violations": (
+                rendered_eligibility_flag_violations
+            ),
+            "expected_rendered_verification_summary": (
+                expected_rendered_verification_summary
+            ),
+            "rendered_verification_summary_violations": (
+                rendered_verification_summary_violations
+            ),
+            "core_failed_predicates_before_rendered_verification_summary": (
+                core_failed_predicates
+            ),
+            "expected_rendered_safe_to_show": expected_rendered_safe_to_show,
+            "rendered_safe_to_show_boundary_violations": (
+                rendered_safe_to_show_boundary_violations
+            ),
+            "expected_rendered_guidance_boundary": (
+                expected_rendered_guidance_boundary
+            ),
+            "rendered_guidance_boundary_violations": (
+                rendered_guidance_boundary_violations
+            ),
+            "expected_late_rendered_predicate_status": (
+                expected_late_rendered_predicate_status
+            ),
+            "rendered_late_predicate_status_violations": (
+                rendered_late_predicate_status_violations
+            ),
+            "allowed_occurrence_refs": sorted(allowed_occurrence_refs),
+        },
+        "anti_claim": (
+            "This verifier reconstructs command-case integrity from raw local "
+            "records. It does not prove project correctness, release readiness, "
+            "or whole-system correctness."
+        ),
+    }
 
 
 def _dedupe_strings(items: list[Any]) -> list[str]:
@@ -1374,6 +4215,21 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         and isinstance(selected_work.get("state_history"), list)
         else []
     )
+    kernel_manifest = load_kernel_manifest()
+    exercised_event_spans, exercised_primitives = (
+        _exercised_primitives_from_event_refs(causal_event_refs, kernel_manifest)
+    )
+    declared_kernel_primitives = [
+        str(prim.get("primitive_id"))
+        for prim in kernel_manifest.get("primitives", [])
+        if isinstance(prim, dict) and prim.get("primitive_id")
+    ]
+    execution_instance = _execution_instance(
+        selected_work,
+        route.get("route_id"),
+        selected_state_history,
+        kernel_manifest,
+    )
     causal_chain_status = (
         PASS
         if route
@@ -1458,6 +4314,18 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
             "event_ref_count": len(causal_event_refs),
             "evidence_refs": explanation_evidence_refs,
             "evidence_ref_count": len(explanation_evidence_refs),
+            "causal_scope": "route_neighbourhood_all_runs",
+            "exercised_event_spans": exercised_event_spans,
+            "exercised_primitives": exercised_primitives,
+            "declared_kernel_primitives": declared_kernel_primitives,
+            "occurrence_vs_declaration_note": (
+                "exercised_primitives is derived from this run's event spans "
+                "(occurrence); kernel_primitives and declared_kernel_primitives "
+                "are the declared catalog (declaration) and need not be equal. The "
+                "top-level event_refs/evidence_refs are route-scoped (all runs); "
+                "execution_instance is the single-invocation partition."
+            ),
+            "execution_instance": execution_instance,
             "source_files_mutated": any(
                 row.get("source_files_mutated") is True
                 for row in work_items

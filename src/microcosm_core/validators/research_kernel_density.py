@@ -35,10 +35,10 @@ REQUIRED_PATTERN_SURFACE_FIELDS = [
 ]
 REQUIRED_README_PHRASES = [
     "executable research prototype",
-    "Run one command as a local witness",
-    "Inspect the architecture",
-    "small on purpose",
-    "Evidence receipts are the black-box recorder",
+    "Run one command inside a code repository",
+    "Every finding in that record carries three handles",
+    "not a hosted service",
+    "no proof authority",
 ]
 FORBIDDEN_README_PHRASES = [
     "production-ready developer platform",
@@ -65,7 +65,7 @@ def _kernel_findings(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
     """Audit the architecture-kernel manifest for research-prototype posture and primitive density.
 
     - Teleology: enforces that the kernel manifest declares research-prototype posture, a non-release ceiling, a pattern surface, and a dense-enough primitive set with runtime hooks.
-    - Guarantee: returns (findings, blocking_codes); appends a `KERNEL_*` code for each violated invariant (posture, `release_authorized is not False`, pattern-surface shape/state_ref/private-body ceiling, fewer than 7 primitive rows, missing required primitive fields, missing `microcosm explain` runtime command).
+    - Guarantee: returns (findings, blocking_codes); appends a `KERNEL_*` code for each violated invariant (posture, `release_authorized is not False`, pattern-surface shape/state_ref/private-body ceiling, fewer than 7 primitive rows, missing required primitive fields, missing `plectis explain` runtime command).
     - Fails: never raises here; non-conformance surfaces as `KERNEL_*` blocking codes plus structured findings; an absent manifest yields whatever empty/default `manifest.get` returns.
     - When-needed: diagnosing why density validation reports a kernel-posture or primitive-density block.
     - Escalates-to: REQUIRED_PRIMITIVE_FIELDS / REQUIRED_PATTERN_SURFACE_FIELDS constants and `load_kernel_manifest` for the source manifest shape.
@@ -437,7 +437,7 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
                 blocking_codes.append("PROJECT_OBSERVATORY_CARD_ENDPOINT_MISSING")
             if observatory.get("expanded_endpoint") != "/project/observatory":
                 blocking_codes.append("PROJECT_OBSERVATORY_ENDPOINT_MISSING")
-            if "microcosm serve <project>" not in str(observatory.get("command") or ""):
+            if "plectis serve <project>" not in str(observatory.get("command") or ""):
                 blocking_codes.append("PROJECT_OBSERVATORY_COMMAND_MISSING")
         if not isinstance(authority, dict) or authority.get("release_authorized") is not False:
             blocking_codes.append("PROJECT_TRUTH_READINESS_RELEASE_CEILING_MISSING")

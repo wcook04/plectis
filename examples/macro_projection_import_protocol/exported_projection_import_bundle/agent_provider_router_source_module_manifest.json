@@ -1,11 +1,39 @@
 {
-  "schema_version": "macro_projection_agent_provider_router_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "agent_provider_router_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access",
   "body_storage_policy": "exact_non_secret_agent_provider_router_and_guarded_openrouter_runtime_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "agent_provider_router_source_modules_import",
+  "module_count": 0,
+  "modules": [],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, provider-token resolver checks, and a no-live-probe OpenRouter runtime-status call; copied source modules are body evidence, not authority to call providers, execute local CLIs, export API-key values, emit provider payload bodies, write generated state, mutate private state, or claim release authority.",
   "receipt_body_policy": "receipts report paths hashes counts anchor results and no-live-probe status but never duplicate full source bodies, CLI subprocess payloads, API-key values, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_provider_router_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_providers.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_providers.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_providers.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "openrouter_free_runtime_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/openrouter_free_runtime.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/openrouter_free_runtime.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/openrouter_free_runtime.py"
+    }
+  ],
+  "schema_version": "macro_projection_agent_provider_router_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -20,62 +48,5 @@
     "generated state output",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, provider-token resolver checks, and a no-live-probe OpenRouter runtime-status call; copied source modules are body evidence, not authority to call providers, execute local CLIs, export API-key values, emit provider payload bodies, write generated state, mutate private state, or claim release authority.",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "agent_provider_router_body_import",
-      "source_ref": "system/lib/agent_providers.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_providers.py",
-      "source_role": "Provider dispatch router that resolves bridge, Claude CLI, Codex CLI, NVIDIA NIM, and guarded OpenRouter provider tokens into ask_ai-compatible callables without storing credentials in source.",
-      "required_anchors": [
-        "from system.lib import nvidia_nim, openrouter_free_runtime",
-        "def _run_subprocess(",
-        "def ask_claude(",
-        "def ask_codex(",
-        "def ask_nvidia(",
-        "def ask_openrouter(",
-        "def resolve_provider_callable(",
-        "repo_root required for bridge provider"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_cli_execution_provider_payload_api_key_or_credential_export",
-      "source_sha256": "82daae65f19329066aaf6c951437c8f47813ac428575b0f82f19b92bf58340fe",
-      "target_sha256": "82daae65f19329066aaf6c951437c8f47813ac428575b0f82f19b92bf58340fe",
-      "sha256_match": true,
-      "line_count": 250,
-      "byte_count": 11030,
-      "anchor_count": 8
-    },
-    {
-      "module_id": "openrouter_free_runtime_body_import",
-      "source_ref": "system/lib/openrouter_free_runtime.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/openrouter_free_runtime.py",
-      "source_role": "Guarded OpenRouter runtime that reports metadata/no-live-probe status, defaults chat calls to free-model/no-spend posture, rejects paid model calls without an explicit gate, and redacts API-key values from source and receipts.",
-      "required_anchors": [
-        "DEFAULT_CHAT_MODEL = FREE_ROUTER_MODEL_ID = \"openrouter/free\"",
-        "def runtime_status(",
-        "def chat_completion_packet(",
-        "def chat_completion(",
-        "def _paid_gate(",
-        "OpenRouter paid model call blocked",
-        "OPENROUTER_API_KEY is not configured",
-        "def smoke_openrouter_chat("
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_cli_execution_provider_payload_api_key_or_credential_export",
-      "source_sha256": "08bf5b79f64882db6ff92fe691dd3a8296bc88b4dd1595b177db14262f66c505",
-      "target_sha256": "08bf5b79f64882db6ff92fe691dd3a8296bc88b4dd1595b177db14262f66c505",
-      "sha256_match": true,
-      "line_count": 953,
-      "byte_count": 35610,
-      "anchor_count": 8
-    }
-  ]
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access"
 }

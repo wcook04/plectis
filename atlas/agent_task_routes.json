@@ -1719,7 +1719,7 @@
           ],
           "scope_limit": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 184,
+            "edge_count": 185,
             "query": "microcosm organ-topology --organ cold_reader_route_map",
             "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=cold_reader_route_map]",
@@ -1770,13 +1770,13 @@
           ],
           "scope_limit": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not establish live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.",
           "source_relation_handle": {
-            "edge_count": 7,
+            "edge_count": 41,
             "query": "microcosm organ-topology --organ navigation_hologram_route_plane",
-            "source_ref_count": 1,
+            "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=navigation_hologram_route_plane]",
-            "source_shard_ref_count": 5,
-            "target_ref_count": 1,
-            "target_shard_ref_count": 5,
+            "source_shard_ref_count": 25,
+            "target_ref_count": 5,
+            "target_shard_ref_count": 25,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
@@ -1878,7 +1878,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 307,
+        "edge_count": 342,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -1901,9 +1901,9 @@
             "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
           },
           {
-            "relation_type": "target_file.shares_macro_source_with_target_file",
-            "source_ref": "codex/standards/std_navigation_contract.json",
-            "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
+            "relation_type": "source_file.copied_to_public_target",
+            "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+            "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
           }
         ],
         "organ_with_source_relation_count": 4,
@@ -1916,19 +1916,19 @@
           "microcosm organ-topology --organ navigation_hologram_route_plane"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 17,
+          "source_file.copied_to_public_target": 21,
           "source_file.validated_by_ref": 21,
-          "source_shard.retained_as_public_target_shard": 59,
+          "source_shard.retained_as_public_target_shard": 79,
           "source_shard.validated_by_ref": 93,
-          "target_file.shares_macro_source_with_target_file": 3,
+          "target_file.shares_macro_source_with_target_file": 14,
           "target_file.validated_by_ref": 21,
           "target_shard.validated_by_ref": 93
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 17,
-        "source_shard_ref_count": 59,
-        "target_ref_count": 17,
-        "target_shard_ref_count": 59,
+        "source_ref_count": 21,
+        "source_shard_ref_count": 79,
+        "target_ref_count": 21,
+        "target_shard_ref_count": 79,
         "task_class": "agent-entry",
         "top_source_refs": [
           "codex/doctrine/paper_modules/doctrine_population_loop.md",
@@ -1944,10 +1944,10 @@
         ],
         "top_target_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"
         ],
         "top_target_shard_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json::required_anchor[\"edge_row_shape\"]",
@@ -2487,7 +2487,7 @@
           ],
           "scope_limit": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read model-output data, mutate the work log, authorize pattern assimilation, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 1173,
+            "edge_count": 1175,
             "query": "microcosm organ-topology --organ agent_route_observability_runtime",
             "source_ref_count": 20,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=agent_route_observability_runtime]",
@@ -2542,13 +2542,13 @@
           ],
           "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 29,
+            "edge_count": 64,
             "query": "microcosm organ-topology --organ provider_context_recipe_budget_policy",
-            "source_ref_count": 4,
+            "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=provider_context_recipe_budget_policy]",
-            "source_shard_ref_count": 24,
-            "target_ref_count": 4,
-            "target_shard_ref_count": 24,
+            "source_shard_ref_count": 48,
+            "target_ref_count": 8,
+            "target_shard_ref_count": 48,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
@@ -2639,7 +2639,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2717,
+        "edge_count": 2754,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -2680,19 +2680,19 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 96,
+          "source_file.copied_to_public_target": 100,
           "source_file.validated_by_ref": 184,
-          "source_shard.retained_as_public_target_shard": 362,
+          "source_shard.retained_as_public_target_shard": 386,
           "source_shard.validated_by_ref": 697,
-          "target_file.shares_macro_source_with_target_file": 497,
+          "target_file.shares_macro_source_with_target_file": 506,
           "target_file.validated_by_ref": 184,
           "target_shard.validated_by_ref": 697
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 85,
-        "source_shard_ref_count": 320,
-        "target_ref_count": 96,
-        "target_shard_ref_count": 362,
+        "source_ref_count": 89,
+        "source_shard_ref_count": 344,
+        "target_ref_count": 100,
+        "target_shard_ref_count": 386,
         "task_class": "agent-evaluation",
         "top_source_refs": [
           "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -3251,7 +3251,7 @@
           ],
           "scope_limit": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read model-output data, mutate the work log, authorize pattern assimilation, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 1173,
+            "edge_count": 1175,
             "query": "microcosm organ-topology --organ agent_route_observability_runtime",
             "source_ref_count": 20,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=agent_route_observability_runtime]",
@@ -3306,13 +3306,13 @@
           ],
           "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 29,
+            "edge_count": 64,
             "query": "microcosm organ-topology --organ provider_context_recipe_budget_policy",
-            "source_ref_count": 4,
+            "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=provider_context_recipe_budget_policy]",
-            "source_shard_ref_count": 24,
-            "target_ref_count": 4,
-            "target_shard_ref_count": 24,
+            "source_shard_ref_count": 48,
+            "target_ref_count": 8,
+            "target_shard_ref_count": 48,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
@@ -3403,7 +3403,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2717,
+        "edge_count": 2754,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -3444,19 +3444,19 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 96,
+          "source_file.copied_to_public_target": 100,
           "source_file.validated_by_ref": 184,
-          "source_shard.retained_as_public_target_shard": 362,
+          "source_shard.retained_as_public_target_shard": 386,
           "source_shard.validated_by_ref": 697,
-          "target_file.shares_macro_source_with_target_file": 497,
+          "target_file.shares_macro_source_with_target_file": 506,
           "target_file.validated_by_ref": 184,
           "target_shard.validated_by_ref": 697
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 85,
-        "source_shard_ref_count": 320,
-        "target_ref_count": 96,
-        "target_shard_ref_count": 362,
+        "source_ref_count": 89,
+        "source_shard_ref_count": 344,
+        "target_ref_count": 100,
+        "target_shard_ref_count": 386,
         "task_class": "ai-safety",
         "top_source_refs": [
           "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -3615,7 +3615,7 @@
           ],
           "scope_limit": "It validates an exported public executable-grammar metabolism bundle with exact copied-body digests and redacted receipts, plus fixture regressions for standards/paper-module shape. It does not publish macro doctrine bodies in receipts, prove doctrine completeness, export a private standards engine, authorize later organs, or claim external model access, private-data equivalence, launch-scope decision, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 56,
+            "edge_count": 57,
             "query": "microcosm organ-topology --organ executable_doctrine_grammar",
             "source_ref_count": 12,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=executable_doctrine_grammar]",
@@ -3659,13 +3659,13 @@
           ],
           "scope_limit": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not establish live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.",
           "source_relation_handle": {
-            "edge_count": 7,
+            "edge_count": 41,
             "query": "microcosm organ-topology --organ navigation_hologram_route_plane",
-            "source_ref_count": 1,
+            "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=navigation_hologram_route_plane]",
-            "source_shard_ref_count": 5,
-            "target_ref_count": 1,
-            "target_shard_ref_count": 5,
+            "source_shard_ref_count": 25,
+            "target_ref_count": 5,
+            "target_shard_ref_count": 25,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
@@ -3930,7 +3930,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 396,
+        "edge_count": 431,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -3968,19 +3968,19 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/validators/acceptance.py"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 40,
+          "source_file.copied_to_public_target": 44,
           "source_file.validated_by_ref": 27,
-          "source_shard.retained_as_public_target_shard": 122,
+          "source_shard.retained_as_public_target_shard": 142,
           "source_shard.validated_by_ref": 81,
-          "target_file.shares_macro_source_with_target_file": 18,
+          "target_file.shares_macro_source_with_target_file": 29,
           "target_file.validated_by_ref": 27,
           "target_shard.validated_by_ref": 81
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 40,
-        "source_shard_ref_count": 122,
-        "target_ref_count": 40,
-        "target_shard_ref_count": 122,
+        "source_ref_count": 44,
+        "source_shard_ref_count": 142,
+        "target_ref_count": 44,
+        "target_shard_ref_count": 142,
         "task_class": "architecture",
         "top_source_refs": [
           "codex/doctrine/cognitive_operators.json",
@@ -3996,10 +3996,10 @@
         ],
         "top_target_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"
         ],
         "top_target_shard_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json::required_anchor[\"edge_row_shape\"]",
@@ -4169,7 +4169,7 @@
           ],
           "scope_limit": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 135,
+            "edge_count": 136,
             "query": "microcosm organ-topology --organ batch5_authority_systems_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch5_authority_systems_capsule]",
@@ -4185,7 +4185,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 135,
+        "edge_count": 136,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -4216,7 +4216,7 @@
           "source_file.validated_by_ref": 10,
           "source_shard.retained_as_public_target_shard": 30,
           "source_shard.validated_by_ref": 30,
-          "target_file.shares_macro_source_with_target_file": 15,
+          "target_file.shares_macro_source_with_target_file": 16,
           "target_file.validated_by_ref": 10,
           "target_shard.validated_by_ref": 30
         },
@@ -4899,7 +4899,7 @@
           ],
           "scope_limit": "It validates an exported public executable-grammar metabolism bundle with exact copied-body digests and redacted receipts, plus fixture regressions for standards/paper-module shape. It does not publish macro doctrine bodies in receipts, prove doctrine completeness, export a private standards engine, authorize later organs, or claim external model access, private-data equivalence, launch-scope decision, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 56,
+            "edge_count": 57,
             "query": "microcosm organ-topology --organ executable_doctrine_grammar",
             "source_ref_count": 12,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=executable_doctrine_grammar]",
@@ -4943,13 +4943,13 @@
           ],
           "scope_limit": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not establish live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.",
           "source_relation_handle": {
-            "edge_count": 7,
+            "edge_count": 41,
             "query": "microcosm organ-topology --organ navigation_hologram_route_plane",
-            "source_ref_count": 1,
+            "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=navigation_hologram_route_plane]",
-            "source_shard_ref_count": 5,
-            "target_ref_count": 1,
-            "target_shard_ref_count": 5,
+            "source_shard_ref_count": 25,
+            "target_ref_count": 5,
+            "target_shard_ref_count": 25,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
@@ -5214,7 +5214,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 396,
+        "edge_count": 431,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -5252,19 +5252,19 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/validators/acceptance.py"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 40,
+          "source_file.copied_to_public_target": 44,
           "source_file.validated_by_ref": 27,
-          "source_shard.retained_as_public_target_shard": 122,
+          "source_shard.retained_as_public_target_shard": 142,
           "source_shard.validated_by_ref": 81,
-          "target_file.shares_macro_source_with_target_file": 18,
+          "target_file.shares_macro_source_with_target_file": 29,
           "target_file.validated_by_ref": 27,
           "target_shard.validated_by_ref": 81
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 40,
-        "source_shard_ref_count": 122,
-        "target_ref_count": 40,
-        "target_shard_ref_count": 122,
+        "source_ref_count": 44,
+        "source_shard_ref_count": 142,
+        "target_ref_count": 44,
+        "target_shard_ref_count": 142,
         "task_class": "doctrine",
         "top_source_refs": [
           "codex/doctrine/cognitive_operators.json",
@@ -5280,10 +5280,10 @@
         ],
         "top_target_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"
         ],
         "top_target_shard_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json::required_anchor[\"edge_row_shape\"]",
@@ -5378,7 +5378,7 @@
           ],
           "scope_limit": "It authorizes only verified non-secret macro body import with provenance and content-digest checks; it does not grant source authority, private-system equivalence, launch, hosted deployment, public sharing, recipient work, provider or Lean/Lake execution, secret or private-source-body export, or any whole-system correctness claim.",
           "source_relation_handle": {
-            "edge_count": 1255,
+            "edge_count": 1259,
             "query": "microcosm organ-topology --organ macro_projection_import_protocol",
             "source_ref_count": 181,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=macro_projection_import_protocol]",
@@ -5527,7 +5527,7 @@
           ],
           "scope_limit": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 135,
+            "edge_count": 136,
             "query": "microcosm organ-topology --organ batch5_authority_systems_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch5_authority_systems_capsule]",
@@ -5933,7 +5933,7 @@
           ],
           "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
-            "edge_count": 51,
+            "edge_count": 52,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_governance_compilers_capsule]",
@@ -6015,7 +6015,16 @@
             "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
           ],
           "scope_limit": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, launch-scope decision, external model access, private data equivalence, or whole-system correctness",
-          "source_relation_handle": null,
+          "source_relation_handle": {
+            "edge_count": 8,
+            "query": "microcosm organ-topology --organ tool_server_pressure_inventory",
+            "source_ref_count": 1,
+            "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tool_server_pressure_inventory]",
+            "source_shard_ref_count": 6,
+            "target_ref_count": 1,
+            "target_shard_ref_count": 6,
+            "validation_ref_count": 0
+          },
           "standard_ref": "standards/std_microcosm_tool_server_pressure_inventory.json",
           "wires_to": []
         },
@@ -6090,7 +6099,7 @@
           ],
           "scope_limit": "verified non-secret macro body import only, not route authority, work log or work log mutation authority, mission-transaction execution, git staging or commit approval, source-file changes, non-public runtime export, launch, or public sharing",
           "source_relation_handle": {
-            "edge_count": 39,
+            "edge_count": 40,
             "query": "microcosm organ-topology --organ batch10_live_source_drift_capsule",
             "source_ref_count": 4,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_live_source_drift_capsule]",
@@ -6147,7 +6156,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2202,
+        "edge_count": 2217,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -6175,7 +6184,7 @@
             "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/pre-commit"
           }
         ],
-        "organ_with_source_relation_count": 19,
+        "organ_with_source_relation_count": 20,
         "output_schema": "microcosm_organ_relationship_topology_card_v0",
         "query_examples": [
           "microcosm organ-topology --organ batch7_secondary_runtime_capsule",
@@ -6185,19 +6194,19 @@
           "microcosm organ-topology --relation-type shard_to_shard --shard-ref '.claude/hooks/runtime_hook.py::required_anchor[AIW_ALLOW_RAW_GIT_COMMIT]'"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 318,
+          "source_file.copied_to_public_target": 319,
           "source_file.validated_by_ref": 44,
-          "source_shard.retained_as_public_target_shard": 1419,
+          "source_shard.retained_as_public_target_shard": 1425,
           "source_shard.validated_by_ref": 128,
-          "target_file.shares_macro_source_with_target_file": 121,
+          "target_file.shares_macro_source_with_target_file": 129,
           "target_file.validated_by_ref": 44,
           "target_shard.validated_by_ref": 128
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 317,
-        "source_shard_ref_count": 1418,
-        "target_ref_count": 317,
-        "target_shard_ref_count": 1418,
+        "source_ref_count": 318,
+        "source_shard_ref_count": 1424,
+        "target_ref_count": 318,
+        "target_shard_ref_count": 1424,
         "task_class": "drift-control",
         "top_source_refs": [
           ".claude/hooks/runtime_hook.py",
@@ -6212,16 +6221,16 @@
           ".claude/hooks/runtime_hook.py::required_anchor[block_reason = _raw_shared_index_git_guard(payload)]"
         ],
         "top_target_refs": [
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/observe_compiler.py"
+          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[Cannot parse horizon]",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[ZoneInfo(\"America/New_York\")]",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[def resolve_horizon(]"
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[ACTIVE_OWNER_STATUS_VALUES]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[active_owner_release_request_count]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[build_pressure_hygiene_relief_receipt]"
         ],
         "top_validation_refs": [
           "microcosm-substrate/tests/test_batch12_release_claim_language_gate.py::test_batch12_release_claim_language_gate_runs_macro_mechanisms",
@@ -6271,7 +6280,7 @@
           ],
           "scope_limit": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 184,
+            "edge_count": 185,
             "query": "microcosm organ-topology --organ cold_reader_route_map",
             "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=cold_reader_route_map]",
@@ -6341,7 +6350,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 305,
+        "edge_count": 306,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -6383,7 +6392,7 @@
           "source_file.validated_by_ref": 25,
           "source_shard.retained_as_public_target_shard": 40,
           "source_shard.validated_by_ref": 101,
-          "target_file.shares_macro_source_with_target_file": 3,
+          "target_file.shares_macro_source_with_target_file": 4,
           "target_file.validated_by_ref": 25,
           "target_shard.validated_by_ref": 101
         },
@@ -6708,7 +6717,7 @@
           ],
           "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
-            "edge_count": 51,
+            "edge_count": 52,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_governance_compilers_capsule]",
@@ -6724,7 +6733,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 411,
+        "edge_count": 412,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -6767,7 +6776,7 @@
           "source_file.validated_by_ref": 18,
           "source_shard.retained_as_public_target_shard": 146,
           "source_shard.validated_by_ref": 68,
-          "target_file.shares_macro_source_with_target_file": 27,
+          "target_file.shares_macro_source_with_target_file": 28,
           "target_file.validated_by_ref": 18,
           "target_shard.validated_by_ref": 68
         },
@@ -7419,7 +7428,7 @@
           ],
           "scope_limit": "It only projects pre-oracle strategy-hypothesis and retrieval mechanics; it does not run Lean/Lake, prove theorems, establish domain or formal-result correctness, reveal oracle labels, expose proof bodies, use external model services, tune on test answers, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 229,
+            "edge_count": 231,
             "query": "microcosm organ-topology --organ mathematical_strategy_atlas_hypothesis_scorer",
             "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=mathematical_strategy_atlas_hypothesis_scorer]",
@@ -7726,7 +7735,7 @@
           ],
           "scope_limit": "It only projects the symbol-boundary classification mechanic over copied non-secret Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove formal-result correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, use external model services, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 37,
+            "edge_count": 39,
             "query": "microcosm organ-topology --organ undeclared_library_prior_symbol_classifier",
             "source_ref_count": 6,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=undeclared_library_prior_symbol_classifier]",
@@ -7769,7 +7778,7 @@
           ],
           "scope_limit": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The organ does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove formal-result correctness, or include launch operations, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark claims.",
           "source_relation_handle": {
-            "edge_count": 28,
+            "edge_count": 29,
             "query": "microcosm organ-topology --organ ring2_premise_retrieval_precision_recall_harness",
             "source_ref_count": 1,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=ring2_premise_retrieval_precision_recall_harness]",
@@ -7856,7 +7865,7 @@
           ],
           "scope_limit": "It validates the declared public contract shape of the proof packet and component receipts only; it does not establish anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, use external model services, change source files, or claim benchmark solve rates, launch, or maturity.",
           "source_relation_handle": {
-            "edge_count": 286,
+            "edge_count": 287,
             "query": "microcosm organ-topology --organ verifier_lab_kernel",
             "source_ref_count": 14,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=verifier_lab_kernel]",
@@ -7948,13 +7957,13 @@
           ],
           "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 27,
+            "edge_count": 42,
             "query": "microcosm organ-topology --organ certificate_kernel_execution_lab",
-            "source_ref_count": 6,
+            "source_ref_count": 9,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=certificate_kernel_execution_lab]",
-            "source_shard_ref_count": 20,
-            "target_ref_count": 6,
-            "target_shard_ref_count": 20,
+            "source_shard_ref_count": 32,
+            "target_ref_count": 9,
+            "target_shard_ref_count": 32,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
@@ -7987,7 +7996,7 @@
           ],
           "scope_limit": "It validates only a public source-open capsule and bounded negative fixtures; it is not an Erdos #257 solution, not benchmark evidence, not public sharing or launch-scope decision, not live Codex/browser/runtime authority, and not private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 205,
+            "edge_count": 206,
             "query": "microcosm organ-topology --organ batch4_proof_authority_runtime",
             "source_ref_count": 17,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch4_proof_authority_runtime]",
@@ -8046,7 +8055,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 1506,
+        "edge_count": 1528,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -8086,19 +8095,19 @@
           "microcosm organ-topology --organ formal_math_readiness_gate"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 132,
+          "source_file.copied_to_public_target": 135,
           "source_file.validated_by_ref": 187,
-          "source_shard.retained_as_public_target_shard": 256,
+          "source_shard.retained_as_public_target_shard": 268,
           "source_shard.validated_by_ref": 301,
-          "target_file.shares_macro_source_with_target_file": 142,
+          "target_file.shares_macro_source_with_target_file": 149,
           "target_file.validated_by_ref": 187,
           "target_shard.validated_by_ref": 301
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 132,
-        "source_shard_ref_count": 256,
-        "target_ref_count": 132,
-        "target_shard_ref_count": 256,
+        "source_ref_count": 135,
+        "source_shard_ref_count": 268,
+        "target_ref_count": 135,
+        "target_shard_ref_count": 268,
         "task_class": "formal-methods",
         "top_source_refs": [
           "codex/standards/std_compute_provider.json",
@@ -8394,7 +8403,7 @@
           ],
           "scope_limit": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 184,
+            "edge_count": 185,
             "query": "microcosm organ-topology --organ cold_reader_route_map",
             "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=cold_reader_route_map]",
@@ -8464,7 +8473,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 305,
+        "edge_count": 306,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -8506,7 +8515,7 @@
           "source_file.validated_by_ref": 25,
           "source_shard.retained_as_public_target_shard": 40,
           "source_shard.validated_by_ref": 101,
-          "target_file.shares_macro_source_with_target_file": 3,
+          "target_file.shares_macro_source_with_target_file": 4,
           "target_file.validated_by_ref": 25,
           "target_shard.validated_by_ref": 101
         },
@@ -8588,7 +8597,7 @@
           ],
           "scope_limit": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 184,
+            "edge_count": 185,
             "query": "microcosm organ-topology --organ cold_reader_route_map",
             "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=cold_reader_route_map]",
@@ -8658,7 +8667,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 305,
+        "edge_count": 306,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -8700,7 +8709,7 @@
           "source_file.validated_by_ref": 25,
           "source_shard.retained_as_public_target_shard": 40,
           "source_shard.validated_by_ref": 101,
-          "target_file.shares_macro_source_with_target_file": 3,
+          "target_file.shares_macro_source_with_target_file": 4,
           "target_file.validated_by_ref": 25,
           "target_shard.validated_by_ref": 101
         },
@@ -8920,7 +8929,7 @@
           ],
           "scope_limit": "It only projects pre-oracle strategy-hypothesis and retrieval mechanics; it does not run Lean/Lake, prove theorems, establish domain or formal-result correctness, reveal oracle labels, expose proof bodies, use external model services, tune on test answers, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 229,
+            "edge_count": 231,
             "query": "microcosm organ-topology --organ mathematical_strategy_atlas_hypothesis_scorer",
             "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=mathematical_strategy_atlas_hypothesis_scorer]",
@@ -9227,7 +9236,7 @@
           ],
           "scope_limit": "It only projects the symbol-boundary classification mechanic over copied non-secret Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove formal-result correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, use external model services, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 37,
+            "edge_count": 39,
             "query": "microcosm organ-topology --organ undeclared_library_prior_symbol_classifier",
             "source_ref_count": 6,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=undeclared_library_prior_symbol_classifier]",
@@ -9270,7 +9279,7 @@
           ],
           "scope_limit": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The organ does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove formal-result correctness, or include launch operations, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark claims.",
           "source_relation_handle": {
-            "edge_count": 28,
+            "edge_count": 29,
             "query": "microcosm organ-topology --organ ring2_premise_retrieval_precision_recall_harness",
             "source_ref_count": 1,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=ring2_premise_retrieval_precision_recall_harness]",
@@ -9357,7 +9366,7 @@
           ],
           "scope_limit": "It validates the declared public contract shape of the proof packet and component receipts only; it does not establish anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, use external model services, change source files, or claim benchmark solve rates, launch, or maturity.",
           "source_relation_handle": {
-            "edge_count": 286,
+            "edge_count": 287,
             "query": "microcosm organ-topology --organ verifier_lab_kernel",
             "source_ref_count": 14,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=verifier_lab_kernel]",
@@ -9449,13 +9458,13 @@
           ],
           "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 27,
+            "edge_count": 42,
             "query": "microcosm organ-topology --organ certificate_kernel_execution_lab",
-            "source_ref_count": 6,
+            "source_ref_count": 9,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=certificate_kernel_execution_lab]",
-            "source_shard_ref_count": 20,
-            "target_ref_count": 6,
-            "target_shard_ref_count": 20,
+            "source_shard_ref_count": 32,
+            "target_ref_count": 9,
+            "target_shard_ref_count": 32,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
@@ -9488,7 +9497,7 @@
           ],
           "scope_limit": "It validates only a public source-open capsule and bounded negative fixtures; it is not an Erdos #257 solution, not benchmark evidence, not public sharing or launch-scope decision, not live Codex/browser/runtime authority, and not private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 205,
+            "edge_count": 206,
             "query": "microcosm organ-topology --organ batch4_proof_authority_runtime",
             "source_ref_count": 17,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch4_proof_authority_runtime]",
@@ -9547,7 +9556,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 1506,
+        "edge_count": 1528,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -9587,19 +9596,19 @@
           "microcosm organ-topology --organ formal_math_readiness_gate"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 132,
+          "source_file.copied_to_public_target": 135,
           "source_file.validated_by_ref": 187,
-          "source_shard.retained_as_public_target_shard": 256,
+          "source_shard.retained_as_public_target_shard": 268,
           "source_shard.validated_by_ref": 301,
-          "target_file.shares_macro_source_with_target_file": 142,
+          "target_file.shares_macro_source_with_target_file": 149,
           "target_file.validated_by_ref": 187,
           "target_shard.validated_by_ref": 301
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 132,
-        "source_shard_ref_count": 256,
-        "target_ref_count": 132,
-        "target_shard_ref_count": 256,
+        "source_ref_count": 135,
+        "source_shard_ref_count": 268,
+        "target_ref_count": 135,
+        "target_shard_ref_count": 268,
         "task_class": "lean",
         "top_source_refs": [
           "codex/standards/std_compute_provider.json",
@@ -9865,7 +9874,7 @@
           ],
           "scope_limit": "It validates an exported public executable-grammar metabolism bundle with exact copied-body digests and redacted receipts, plus fixture regressions for standards/paper-module shape. It does not publish macro doctrine bodies in receipts, prove doctrine completeness, export a private standards engine, authorize later organs, or claim external model access, private-data equivalence, launch-scope decision, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 56,
+            "edge_count": 57,
             "query": "microcosm organ-topology --organ executable_doctrine_grammar",
             "source_ref_count": 12,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=executable_doctrine_grammar]",
@@ -9909,13 +9918,13 @@
           ],
           "scope_limit": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied non-secret navigation source modules in the bundle path); it does not establish live route freshness, grant source authority, authorize any later organ, run any provider/live-kernel call, or certify the whole wave.",
           "source_relation_handle": {
-            "edge_count": 7,
+            "edge_count": 41,
             "query": "microcosm organ-topology --organ navigation_hologram_route_plane",
-            "source_ref_count": 1,
+            "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=navigation_hologram_route_plane]",
-            "source_shard_ref_count": 5,
-            "target_ref_count": 1,
-            "target_shard_ref_count": 5,
+            "source_shard_ref_count": 25,
+            "target_ref_count": 5,
+            "target_shard_ref_count": 25,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
@@ -10180,7 +10189,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 396,
+        "edge_count": 431,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -10218,19 +10227,19 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/validators/acceptance.py"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 40,
+          "source_file.copied_to_public_target": 44,
           "source_file.validated_by_ref": 27,
-          "source_shard.retained_as_public_target_shard": 122,
+          "source_shard.retained_as_public_target_shard": 142,
           "source_shard.validated_by_ref": 81,
-          "target_file.shares_macro_source_with_target_file": 18,
+          "target_file.shares_macro_source_with_target_file": 29,
           "target_file.validated_by_ref": 27,
           "target_shard.validated_by_ref": 81
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 40,
-        "source_shard_ref_count": 122,
-        "target_ref_count": 40,
-        "target_shard_ref_count": 122,
+        "source_ref_count": 44,
+        "source_shard_ref_count": 142,
+        "target_ref_count": 44,
+        "target_shard_ref_count": 142,
         "task_class": "navigation",
         "top_source_refs": [
           "codex/doctrine/cognitive_operators.json",
@@ -10246,10 +10255,10 @@
         ],
         "top_target_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"
         ],
         "top_target_shard_refs": [
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json::required_anchor[\"edge_row_shape\"]",
@@ -10465,7 +10474,7 @@
           ],
           "scope_limit": "It authorizes only verified non-secret macro body import with provenance and content-digest checks; it does not grant source authority, private-system equivalence, launch, hosted deployment, public sharing, recipient work, provider or Lean/Lake execution, secret or private-source-body export, or any whole-system correctness claim.",
           "source_relation_handle": {
-            "edge_count": 1255,
+            "edge_count": 1259,
             "query": "microcosm organ-topology --organ macro_projection_import_protocol",
             "source_ref_count": 181,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=macro_projection_import_protocol]",
@@ -10614,7 +10623,7 @@
           ],
           "scope_limit": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 135,
+            "edge_count": 136,
             "query": "microcosm organ-topology --organ batch5_authority_systems_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch5_authority_systems_capsule]",
@@ -11020,7 +11029,7 @@
           ],
           "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
-            "edge_count": 51,
+            "edge_count": 52,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_governance_compilers_capsule]",
@@ -11102,7 +11111,16 @@
             "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
           ],
           "scope_limit": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, launch-scope decision, external model access, private data equivalence, or whole-system correctness",
-          "source_relation_handle": null,
+          "source_relation_handle": {
+            "edge_count": 8,
+            "query": "microcosm organ-topology --organ tool_server_pressure_inventory",
+            "source_ref_count": 1,
+            "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tool_server_pressure_inventory]",
+            "source_shard_ref_count": 6,
+            "target_ref_count": 1,
+            "target_shard_ref_count": 6,
+            "validation_ref_count": 0
+          },
           "standard_ref": "standards/std_microcosm_tool_server_pressure_inventory.json",
           "wires_to": []
         },
@@ -11177,7 +11195,7 @@
           ],
           "scope_limit": "verified non-secret macro body import only, not route authority, work log or work log mutation authority, mission-transaction execution, git staging or commit approval, source-file changes, non-public runtime export, launch, or public sharing",
           "source_relation_handle": {
-            "edge_count": 39,
+            "edge_count": 40,
             "query": "microcosm organ-topology --organ batch10_live_source_drift_capsule",
             "source_ref_count": 4,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_live_source_drift_capsule]",
@@ -11234,7 +11252,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2202,
+        "edge_count": 2217,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -11262,7 +11280,7 @@
             "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/pre-commit"
           }
         ],
-        "organ_with_source_relation_count": 19,
+        "organ_with_source_relation_count": 20,
         "output_schema": "microcosm_organ_relationship_topology_card_v0",
         "query_examples": [
           "microcosm organ-topology --organ batch7_secondary_runtime_capsule",
@@ -11272,19 +11290,19 @@
           "microcosm organ-topology --relation-type shard_to_shard --shard-ref '.claude/hooks/runtime_hook.py::required_anchor[AIW_ALLOW_RAW_GIT_COMMIT]'"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 318,
+          "source_file.copied_to_public_target": 319,
           "source_file.validated_by_ref": 44,
-          "source_shard.retained_as_public_target_shard": 1419,
+          "source_shard.retained_as_public_target_shard": 1425,
           "source_shard.validated_by_ref": 128,
-          "target_file.shares_macro_source_with_target_file": 121,
+          "target_file.shares_macro_source_with_target_file": 129,
           "target_file.validated_by_ref": 44,
           "target_shard.validated_by_ref": 128
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 317,
-        "source_shard_ref_count": 1418,
-        "target_ref_count": 317,
-        "target_shard_ref_count": 1418,
+        "source_ref_count": 318,
+        "source_shard_ref_count": 1424,
+        "target_ref_count": 318,
+        "target_shard_ref_count": 1424,
         "task_class": "provenance",
         "top_source_refs": [
           ".claude/hooks/runtime_hook.py",
@@ -11299,16 +11317,16 @@
           ".claude/hooks/runtime_hook.py::required_anchor[block_reason = _raw_shared_index_git_guard(payload)]"
         ],
         "top_target_refs": [
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/observe_compiler.py"
+          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[Cannot parse horizon]",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[ZoneInfo(\"America/New_York\")]",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[def resolve_horizon(]"
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[ACTIVE_OWNER_STATUS_VALUES]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[active_owner_release_request_count]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[build_pressure_hygiene_relief_receipt]"
         ],
         "top_validation_refs": [
           "microcosm-substrate/tests/test_batch12_release_claim_language_gate.py::test_batch12_release_claim_language_gate_runs_macro_mechanisms",
@@ -11358,7 +11376,7 @@
           ],
           "scope_limit": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
           "source_relation_handle": {
-            "edge_count": 184,
+            "edge_count": 185,
             "query": "microcosm organ-topology --organ cold_reader_route_map",
             "source_ref_count": 5,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=cold_reader_route_map]",
@@ -11797,7 +11815,7 @@
           ],
           "scope_limit": "It only projects the symbol-boundary classification mechanic over copied non-secret Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove formal-result correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, use external model services, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 37,
+            "edge_count": 39,
             "query": "microcosm organ-topology --organ undeclared_library_prior_symbol_classifier",
             "source_ref_count": 6,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=undeclared_library_prior_symbol_classifier]",
@@ -11840,7 +11858,7 @@
           ],
           "scope_limit": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The organ does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove formal-result correctness, or include launch operations, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark claims.",
           "source_relation_handle": {
-            "edge_count": 28,
+            "edge_count": 29,
             "query": "microcosm organ-topology --organ ring2_premise_retrieval_precision_recall_harness",
             "source_ref_count": 1,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=ring2_premise_retrieval_precision_recall_harness]",
@@ -11927,7 +11945,7 @@
           ],
           "scope_limit": "It validates the declared public contract shape of the proof packet and component receipts only; it does not establish anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, use external model services, change source files, or claim benchmark solve rates, launch, or maturity.",
           "source_relation_handle": {
-            "edge_count": 286,
+            "edge_count": 287,
             "query": "microcosm organ-topology --organ verifier_lab_kernel",
             "source_ref_count": 14,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=verifier_lab_kernel]",
@@ -12019,13 +12037,13 @@
           ],
           "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 27,
+            "edge_count": 42,
             "query": "microcosm organ-topology --organ certificate_kernel_execution_lab",
-            "source_ref_count": 6,
+            "source_ref_count": 9,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=certificate_kernel_execution_lab]",
-            "source_shard_ref_count": 20,
-            "target_ref_count": 6,
-            "target_shard_ref_count": 20,
+            "source_shard_ref_count": 32,
+            "target_ref_count": 9,
+            "target_shard_ref_count": 32,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
@@ -12264,7 +12282,7 @@
           ],
           "scope_limit": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read model-output data, mutate the work log, authorize pattern assimilation, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 1173,
+            "edge_count": 1175,
             "query": "microcosm organ-topology --organ agent_route_observability_runtime",
             "source_ref_count": 20,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=agent_route_observability_runtime]",
@@ -12319,13 +12337,13 @@
           ],
           "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 29,
+            "edge_count": 64,
             "query": "microcosm organ-topology --organ provider_context_recipe_budget_policy",
-            "source_ref_count": 4,
+            "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=provider_context_recipe_budget_policy]",
-            "source_shard_ref_count": 24,
-            "target_ref_count": 4,
-            "target_shard_ref_count": 24,
+            "source_shard_ref_count": 48,
+            "target_ref_count": 8,
+            "target_shard_ref_count": 48,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
@@ -12614,7 +12632,16 @@
             "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
           ],
           "scope_limit": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, launch-scope decision, external model access, private data equivalence, or whole-system correctness",
-          "source_relation_handle": null,
+          "source_relation_handle": {
+            "edge_count": 8,
+            "query": "microcosm organ-topology --organ tool_server_pressure_inventory",
+            "source_ref_count": 1,
+            "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tool_server_pressure_inventory]",
+            "source_shard_ref_count": 6,
+            "target_ref_count": 1,
+            "target_shard_ref_count": 6,
+            "validation_ref_count": 0
+          },
           "standard_ref": "standards/std_microcosm_tool_server_pressure_inventory.json",
           "wires_to": []
         },
@@ -12664,7 +12691,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2979,
+        "edge_count": 3044,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -12692,7 +12719,7 @@
             "target_ref": "microcosm-substrate/examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/meta_diagnostics_workbench_specimen.py"
           }
         ],
-        "organ_with_source_relation_count": 30,
+        "organ_with_source_relation_count": 31,
         "output_schema": "microcosm_organ_relationship_topology_card_v0",
         "query_examples": [
           "microcosm organ-topology --organ cold_reader_route_map",
@@ -12702,19 +12729,19 @@
           "microcosm organ-topology --organ standards_meta_diagnostics"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 190,
+          "source_file.copied_to_public_target": 198,
           "source_file.validated_by_ref": 252,
-          "source_shard.retained_as_public_target_shard": 555,
+          "source_shard.retained_as_public_target_shard": 597,
           "source_shard.validated_by_ref": 690,
-          "target_file.shares_macro_source_with_target_file": 350,
+          "target_file.shares_macro_source_with_target_file": 365,
           "target_file.validated_by_ref": 252,
           "target_shard.validated_by_ref": 690
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 179,
-        "source_shard_ref_count": 513,
-        "target_ref_count": 190,
-        "target_shard_ref_count": 555,
+        "source_ref_count": 187,
+        "source_shard_ref_count": 555,
+        "target_ref_count": 198,
+        "target_shard_ref_count": 597,
         "task_class": "provider-ops",
         "top_source_refs": [
           "codex/doctrine/cognitive_operators.json",
@@ -12729,16 +12756,16 @@
           "codex/doctrine/cognitive_operators.json::required_anchor[cogop_operator_accretion_governor]"
         ],
         "top_target_refs": [
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
           "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
           "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
           "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md"
+          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md"
         ],
         "top_target_shard_refs": [
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md::required_anchor[# Doctrine Population Loop]",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md::required_anchor[## TLDR (compressed view)]",
-          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md::required_anchor[# Local-to-General Propagation]"
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[ACTIVE_OWNER_STATUS_VALUES]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[active_owner_release_request_count]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[build_pressure_hygiene_relief_receipt]"
         ],
         "top_validation_refs": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -13273,7 +13300,7 @@
           ],
           "scope_limit": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read model-output data, mutate the work log, authorize pattern assimilation, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 1173,
+            "edge_count": 1175,
             "query": "microcosm organ-topology --organ agent_route_observability_runtime",
             "source_ref_count": 20,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=agent_route_observability_runtime]",
@@ -13328,13 +13355,13 @@
           ],
           "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 29,
+            "edge_count": 64,
             "query": "microcosm organ-topology --organ provider_context_recipe_budget_policy",
-            "source_ref_count": 4,
+            "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=provider_context_recipe_budget_policy]",
-            "source_shard_ref_count": 24,
-            "target_ref_count": 4,
-            "target_shard_ref_count": 24,
+            "source_shard_ref_count": 48,
+            "target_ref_count": 8,
+            "target_shard_ref_count": 48,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
@@ -13425,7 +13452,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2717,
+        "edge_count": 2754,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -13466,19 +13493,19 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 96,
+          "source_file.copied_to_public_target": 100,
           "source_file.validated_by_ref": 184,
-          "source_shard.retained_as_public_target_shard": 362,
+          "source_shard.retained_as_public_target_shard": 386,
           "source_shard.validated_by_ref": 697,
-          "target_file.shares_macro_source_with_target_file": 497,
+          "target_file.shares_macro_source_with_target_file": 506,
           "target_file.validated_by_ref": 184,
           "target_shard.validated_by_ref": 697
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 85,
-        "source_shard_ref_count": 320,
-        "target_ref_count": 96,
-        "target_shard_ref_count": 362,
+        "source_ref_count": 89,
+        "source_shard_ref_count": 344,
+        "target_ref_count": 100,
+        "target_shard_ref_count": 386,
         "task_class": "red-teaming",
         "top_source_refs": [
           "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -14246,7 +14273,7 @@
           ],
           "scope_limit": "It authorizes only verified non-secret macro body import with provenance and content-digest checks; it does not grant source authority, private-system equivalence, launch, hosted deployment, public sharing, recipient work, provider or Lean/Lake execution, secret or private-source-body export, or any whole-system correctness claim.",
           "source_relation_handle": {
-            "edge_count": 1255,
+            "edge_count": 1259,
             "query": "microcosm organ-topology --organ macro_projection_import_protocol",
             "source_ref_count": 181,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=macro_projection_import_protocol]",
@@ -14395,7 +14422,7 @@
           ],
           "scope_limit": "It validates only public-safe copied Batch 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 135,
+            "edge_count": 136,
             "query": "microcosm organ-topology --organ batch5_authority_systems_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch5_authority_systems_capsule]",
@@ -14801,7 +14828,7 @@
           ],
           "scope_limit": "It validates only the imported macro body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
           "source_relation_handle": {
-            "edge_count": 51,
+            "edge_count": 52,
             "query": "microcosm organ-topology --organ batch10_governance_compilers_capsule",
             "source_ref_count": 10,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_governance_compilers_capsule]",
@@ -14883,7 +14910,16 @@
             "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
           ],
           "scope_limit": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, launch-scope decision, external model access, private data equivalence, or whole-system correctness",
-          "source_relation_handle": null,
+          "source_relation_handle": {
+            "edge_count": 8,
+            "query": "microcosm organ-topology --organ tool_server_pressure_inventory",
+            "source_ref_count": 1,
+            "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tool_server_pressure_inventory]",
+            "source_shard_ref_count": 6,
+            "target_ref_count": 1,
+            "target_shard_ref_count": 6,
+            "validation_ref_count": 0
+          },
           "standard_ref": "standards/std_microcosm_tool_server_pressure_inventory.json",
           "wires_to": []
         },
@@ -14958,7 +14994,7 @@
           ],
           "scope_limit": "verified non-secret macro body import only, not route authority, work log or work log mutation authority, mission-transaction execution, git staging or commit approval, source-file changes, non-public runtime export, launch, or public sharing",
           "source_relation_handle": {
-            "edge_count": 39,
+            "edge_count": 40,
             "query": "microcosm organ-topology --organ batch10_live_source_drift_capsule",
             "source_ref_count": 4,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch10_live_source_drift_capsule]",
@@ -15015,7 +15051,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 2202,
+        "edge_count": 2217,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -15043,7 +15079,7 @@
             "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/pre-commit"
           }
         ],
-        "organ_with_source_relation_count": 19,
+        "organ_with_source_relation_count": 20,
         "output_schema": "microcosm_organ_relationship_topology_card_v0",
         "query_examples": [
           "microcosm organ-topology --organ batch7_secondary_runtime_capsule",
@@ -15053,19 +15089,19 @@
           "microcosm organ-topology --relation-type shard_to_shard --shard-ref '.claude/hooks/runtime_hook.py::required_anchor[AIW_ALLOW_RAW_GIT_COMMIT]'"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 318,
+          "source_file.copied_to_public_target": 319,
           "source_file.validated_by_ref": 44,
-          "source_shard.retained_as_public_target_shard": 1419,
+          "source_shard.retained_as_public_target_shard": 1425,
           "source_shard.validated_by_ref": 128,
-          "target_file.shares_macro_source_with_target_file": 121,
+          "target_file.shares_macro_source_with_target_file": 129,
           "target_file.validated_by_ref": 44,
           "target_shard.validated_by_ref": 128
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 317,
-        "source_shard_ref_count": 1418,
-        "target_ref_count": 317,
-        "target_shard_ref_count": 1418,
+        "source_ref_count": 318,
+        "source_shard_ref_count": 1424,
+        "target_ref_count": 318,
+        "target_shard_ref_count": 1424,
         "task_class": "source-import",
         "top_source_refs": [
           ".claude/hooks/runtime_hook.py",
@@ -15080,16 +15116,16 @@
           ".claude/hooks/runtime_hook.py::required_anchor[block_reason = _raw_shared_index_git_guard(payload)]"
         ],
         "top_target_refs": [
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
           "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/observe_compiler.py"
+          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[Cannot parse horizon]",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[ZoneInfo(\"America/New_York\")]",
-          "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py::required_anchor[def resolve_horizon(]"
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[ACTIVE_OWNER_STATUS_VALUES]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[active_owner_release_request_count]",
+          "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py::required_anchor[build_pressure_hygiene_relief_receipt]"
         ],
         "top_validation_refs": [
           "microcosm-substrate/tests/test_batch12_release_claim_language_gate.py::test_batch12_release_claim_language_gate_runs_macro_mechanisms",
@@ -15277,7 +15313,7 @@
           ],
           "scope_limit": "It only projects pre-oracle strategy-hypothesis and retrieval mechanics; it does not run Lean/Lake, prove theorems, establish domain or formal-result correctness, reveal oracle labels, expose proof bodies, use external model services, tune on test answers, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 229,
+            "edge_count": 231,
             "query": "microcosm organ-topology --organ mathematical_strategy_atlas_hypothesis_scorer",
             "source_ref_count": 8,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=mathematical_strategy_atlas_hypothesis_scorer]",
@@ -15584,7 +15620,7 @@
           ],
           "scope_limit": "It only projects the symbol-boundary classification mechanic over copied non-secret Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove formal-result correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, use external model services, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 37,
+            "edge_count": 39,
             "query": "microcosm organ-topology --organ undeclared_library_prior_symbol_classifier",
             "source_ref_count": 6,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=undeclared_library_prior_symbol_classifier]",
@@ -15627,7 +15663,7 @@
           ],
           "scope_limit": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The organ does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove formal-result correctness, or include launch operations, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark claims.",
           "source_relation_handle": {
-            "edge_count": 28,
+            "edge_count": 29,
             "query": "microcosm organ-topology --organ ring2_premise_retrieval_precision_recall_harness",
             "source_ref_count": 1,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=ring2_premise_retrieval_precision_recall_harness]",
@@ -15714,7 +15750,7 @@
           ],
           "scope_limit": "It validates the declared public contract shape of the proof packet and component receipts only; it does not establish anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, use external model services, change source files, or claim benchmark solve rates, launch, or maturity.",
           "source_relation_handle": {
-            "edge_count": 286,
+            "edge_count": 287,
             "query": "microcosm organ-topology --organ verifier_lab_kernel",
             "source_ref_count": 14,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=verifier_lab_kernel]",
@@ -15806,13 +15842,13 @@
           ],
           "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 27,
+            "edge_count": 42,
             "query": "microcosm organ-topology --organ certificate_kernel_execution_lab",
-            "source_ref_count": 6,
+            "source_ref_count": 9,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=certificate_kernel_execution_lab]",
-            "source_shard_ref_count": 20,
-            "target_ref_count": 6,
-            "target_shard_ref_count": 20,
+            "source_shard_ref_count": 32,
+            "target_ref_count": 9,
+            "target_shard_ref_count": 32,
             "validation_ref_count": 0
           },
           "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
@@ -15845,7 +15881,7 @@
           ],
           "scope_limit": "It validates only a public source-open capsule and bounded negative fixtures; it is not an Erdos #257 solution, not benchmark evidence, not public sharing or launch-scope decision, not live Codex/browser/runtime authority, and not private-system equivalence.",
           "source_relation_handle": {
-            "edge_count": 205,
+            "edge_count": 206,
             "query": "microcosm organ-topology --organ batch4_proof_authority_runtime",
             "source_ref_count": 17,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=batch4_proof_authority_runtime]",
@@ -15904,7 +15940,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 1506,
+        "edge_count": 1528,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -15944,19 +15980,19 @@
           "microcosm organ-topology --organ formal_math_readiness_gate"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 132,
+          "source_file.copied_to_public_target": 135,
           "source_file.validated_by_ref": 187,
-          "source_shard.retained_as_public_target_shard": 256,
+          "source_shard.retained_as_public_target_shard": 268,
           "source_shard.validated_by_ref": 301,
-          "target_file.shares_macro_source_with_target_file": 142,
+          "target_file.shares_macro_source_with_target_file": 149,
           "target_file.validated_by_ref": 187,
           "target_shard.validated_by_ref": 301
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 132,
-        "source_shard_ref_count": 256,
-        "target_ref_count": 132,
-        "target_shard_ref_count": 256,
+        "source_ref_count": 135,
+        "source_shard_ref_count": 268,
+        "target_ref_count": 135,
+        "target_shard_ref_count": 268,
         "task_class": "theorem-proving",
         "top_source_refs": [
           "codex/standards/std_compute_provider.json",
@@ -16466,7 +16502,7 @@
   "source_relation_route_count": 32,
   "source_relation_summary": {
     "authority_boundary": "Generated atlas route rows consume compact source-module relation handles; organ-topology remains dynamic edge authority.",
-    "organ_count": 76,
+    "organ_count": 77,
     "output_schema": "microcosm_organ_relationship_topology_card_v0",
     "source": "organ-surface-contract::coverage.source_module_file_graph"
   },

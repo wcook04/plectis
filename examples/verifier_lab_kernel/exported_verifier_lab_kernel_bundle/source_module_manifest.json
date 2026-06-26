@@ -18,7 +18,7 @@
   "bundle_id": "verifier_lab_kernel_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "verifier_lab_kernel_public_component_source_body_imports",
-  "module_count": 14,
+  "module_count": 10,
   "modules": [
     {
       "body_copied": true,
@@ -313,135 +313,59 @@
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
       ]
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 56851,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1321,
-      "material_class": "public_macro_tool_body",
-      "module_id": "prover_statement_only_hammer_bandit_runner_body_import",
-      "path": "source_modules/tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
-      "required_anchors": [
-        "RUN_ID = \"PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0\"",
-        "STATUS_FORMAL_STATEMENT = \"FORMAL_STATEMENT\"",
-        "STATUS_LEAN_ACCEPTED_PROOF = \"LEAN_ACCEPTED_PROOF\"",
-        "def main("
-      ],
-      "required_anchors_present": true,
-      "sha256": "sha256:91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
-      "source_role": "Statement-only hammer/bandit prover runner with status-separated action-value policy evidence and bounded public smoke CLI",
-      "source_sha256": "91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
-      "target_sha256": "91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_copied_prover_runners_have_public_smoke_commands"
-      ]
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 83103,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1934,
-      "material_class": "public_macro_tool_body",
-      "module_id": "prover_proof_state_search_curriculum_runner_body_import",
-      "path": "source_modules/tools/meta/factory/run_prover_proof_state_search_curriculum.py",
-      "required_anchors": [
-        "RUN_ID = \"PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0\"",
-        "STATUS_GOAL_STATE = \"GOAL_STATE\"",
-        "STATUS_TACTIC_TRANSITION = \"TACTIC_TRANSITION\"",
-        "def main("
-      ],
-      "required_anchors_present": true,
-      "sha256": "sha256:8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
-      "source_role": "Proof-state search curriculum runner that separates goal states, tactic transitions, premise selection, provider hypotheses, oracle repair, and accepted Lean proofs",
-      "source_sha256": "8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_proof_state_search_curriculum.py",
-      "target_sha256": "8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_copied_prover_runners_have_public_smoke_commands"
-      ]
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 315755,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 7168,
-      "material_class": "public_macro_tool_body",
-      "module_id": "prover_graph_benchmark_helper_body_import",
-      "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-      "required_anchors": [
-        "DEFAULT_RUN_ID = \"PROVER_BENCHMARK_20260510_graph_harness_v0\"",
-        "class ProverProblem",
-        "def main("
-      ],
-      "required_anchors_present": true,
-      "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
-      "source_role": "Public prover graph benchmark harness and Lean oracle helper used by the statement-only and proof-state runners",
-      "source_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-      "target_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_copied_prover_runners_have_public_smoke_commands"
-      ]
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 72273,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1569,
-      "material_class": "public_macro_tool_body",
-      "module_id": "prover_external_formal_benchmark_smoke_helper_body_import",
-      "path": "source_modules/tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
-      "required_anchors": [
-        "RUN_ID = \"PROVER_EXTERNAL_FORMAL_BENCHMARK_SMOKE_20260511_v0\"",
-        "def _body_tactic_id",
-        "def main("
-      ],
-      "required_anchors_present": true,
-      "sha256": "sha256:9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
-      "source_role": "External-formal benchmark smoke helper that supplies public benchmark problem rows and tactic-body helpers without provider/private payloads",
-      "source_sha256": "9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
-      "target_sha256": "9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor",
-        "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_copied_prover_runners_have_public_smoke_commands"
-      ]
     }
   ],
   "receipt_body_policy": "receipts may report paths, hashes, line counts, component ids, and validation status but must not duplicate proof bodies, provider payloads, oracle answers, private source, stdout, or stderr bodies",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "prover_statement_only_hammer_bandit_runner_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_statement_only_hammer_bandit.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "prover_proof_state_search_curriculum_runner_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_proof_state_search_curriculum.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "prover_graph_benchmark_helper_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "prover_external_formal_benchmark_smoke_helper_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/factory/run_prover_external_formal_benchmark_smoke.py"
+    }
+  ],
   "schema_version": "verifier_lab_kernel_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body",
   "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",

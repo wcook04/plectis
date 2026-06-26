@@ -1,11 +1,50 @@
 {
-  "schema_version": "macro_projection_dynamic_paper_lattice_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "dynamic_paper_lattice_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "authority_ceiling": {
+    "account_or_session_state_exported": false,
+    "browser_hud_live_access": false,
+    "credential_or_account_bound_bodies_exported": false,
+    "generated_paper_sidecar_authority_claimed": false,
+    "live_macro_kernel_execution": false,
+    "provider_payload_access": false,
+    "raw_operator_voice_exported": false,
+    "release_authorized": false
+  },
+  "body_in_receipt": false,
   "body_storage_policy": "exact_non_secret_dynamic_paper_lattice_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "dynamic_paper_lattice_source_modules_import",
+  "module_count": 0,
+  "modules": [],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing dynamic paper lattice regression contract; copied source modules are body evidence, not authority to read raw operator voice, mutate paper-module source, run live macro kernel routing state, access provider payloads, or claim private session state.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "dynamic_paper_lattice_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/dynamic_paper_lattice.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/dynamic_paper_lattice.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/dynamic_paper_lattice.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "dynamic_paper_lattice_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_dynamic_paper_lattice.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_dynamic_paper_lattice.py"
+    }
+  ],
+  "schema_version": "macro_projection_dynamic_paper_lattice_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -18,66 +57,5 @@
     "private account control",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing dynamic paper lattice regression contract; copied source modules are body evidence, not authority to read raw operator voice, mutate paper-module source, run live macro kernel routing state, access provider payloads, or claim private session state.",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "dynamic_paper_lattice_body_import",
-      "source_ref": "system/lib/dynamic_paper_lattice.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/dynamic_paper_lattice.py",
-      "source_role": "Dynamic paper-as-navigation-lattice builder that reads authored paper-module, standards, and raw-seed anchor paths to emit source-anchored affordance rows over navigation_hologram_theory without using generated sidecars as authority.",
-      "required_anchors": [
-        "DEFAULT_SLUG = \"navigation_hologram_theory\"",
-        "RAW_SEED_PATH = Path(",
-        "def build_dynamic_paper_lattice(",
-        "\"schema_version\": \"dynamic_paper_lattice_v0\"",
-        "\"paper_module_profile_id\": paper_contract.get(\"profile_id\")"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "c4064125b772a9569305614cc6051668608c6dd59284dadd5b9e796d61da8b21",
-      "target_sha256": "c4064125b772a9569305614cc6051668608c6dd59284dadd5b9e796d61da8b21",
-      "sha256_match": true,
-      "line_count": 780,
-      "byte_count": 32863,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "dynamic_paper_lattice_test_body_import",
-      "source_ref": "system/server/tests/test_dynamic_paper_lattice.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
-      "source_role": "Focused regression tests for dynamic paper lattice source anchoring, scope/facet filtering, CLI budgeted JSON output, and structured unsupported-slug exemplar errors.",
-      "required_anchors": [
-        "test_dynamic_paper_lattice_projects_source_anchored_affordance_rows",
-        "test_dynamic_paper_lattice_filters_scope_and_facet",
-        "test_dynamic_paper_lattice_cli_emits_budgeted_json",
-        "test_dynamic_paper_lattice_unknown_slug_is_structured_selection_error"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "a0259b516cbfafb6aed4f412f232916179747b5c0732ba73bcb398cf8ebe44a7",
-      "target_sha256": "a0259b516cbfafb6aed4f412f232916179747b5c0732ba73bcb398cf8ebe44a7",
-      "sha256_match": true,
-      "line_count": 133,
-      "byte_count": 4918,
-      "anchor_count": 4
-    }
-  ],
-  "authority_ceiling": {
-    "live_macro_kernel_execution": false,
-    "raw_operator_voice_exported": false,
-    "generated_paper_sidecar_authority_claimed": false,
-    "provider_payload_access": false,
-    "browser_hud_live_access": false,
-    "account_or_session_state_exported": false,
-    "credential_or_account_bound_bodies_exported": false,
-    "release_authorized": false
-  },
-  "body_in_receipt": false
+  "source_open_payload_boundary": "open_source_everything_but_keys"
 }

@@ -1,34 +1,23 @@
 {
   "body_in_receipt": false,
   "claim_ceiling": "Swift source reference plus Python port parity over public synthetic sample arrays only.",
-  "module_count": 1,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "organ_id": "batch8_audio_level_rms_port",
+  "release_substitution_omissions": [
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "claim_ceiling": "Pure normalizedLevel RMS math only; no sample buffer, device, permission, or audio session authority.",
-      "line_count": 133,
       "module_id": "audio_level_monitor_normalized_level",
-      "negative_case": "audio_level_clamps_over_one",
       "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
-      "public_exercise": "float32 and int16 public sample arrays plus clamp and refusal negatives",
-      "required_anchors": [
-        "private static func normalizedLevel(from sampleBuffer: CMSampleBuffer) -> Float",
-        "kAudioFormatFlagIsFloat",
-        "Int16.max",
-        "return min(max(rms * 8, 0), 1)"
-      ],
-      "sha256": "9fc1e0fca3d387bf3dc37cc35e0b271b5106dc96266bd144acb34f74415ec095",
-      "sha256_match": true,
-      "source_port_class": "python_port_from_swift_math",
-      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
-      "source_sha256": "9fc1e0fca3d387bf3dc37cc35e0b271b5106dc96266bd144acb34f74415ec095",
-      "source_to_target_relation": "exact_copy_reference_for_python_port",
-      "target_ref": "microcosm-substrate/examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
-      "target_sha256": "9fc1e0fca3d387bf3dc37cc35e0b271b5106dc96266bd144acb34f74415ec095"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "restricted_private_source_ref",
+        "matched_private_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift"
     }
   ],
-  "organ_id": "batch8_audio_level_rms_port",
   "schema_version": "batch8_audio_level_rms_port_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body",
   "source_port_class": "python_port_from_swift_math"

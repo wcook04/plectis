@@ -1,11 +1,39 @@
 {
-  "schema_version": "macro_projection_annex_routing_coverage_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "annex_routing_coverage_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys",
   "body_storage_policy": "exact_non_secret_annex_routing_coverage_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "annex_routing_coverage_source_modules_import",
+  "module_count": 0,
+  "modules": [],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing annex routing coverage regression contract; copied source modules are body evidence, not authority to pull annex repos, mutate annex metadata, or export private provider/account state.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "annex_routing_coverage_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_routing_coverage.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/annex_routing_coverage.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/annex_routing_coverage.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "annex_routing_coverage_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_routing_coverage.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_annex_routing_coverage.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_annex_routing_coverage.py"
+    }
+  ],
+  "schema_version": "macro_projection_annex_routing_coverage_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -18,58 +46,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing annex routing coverage regression contract; copied source modules are body evidence, not authority to pull annex repos, mutate annex metadata, or export private provider/account state.",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "annex_routing_coverage_body_import",
-      "source_ref": "system/lib/annex_routing_coverage.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_routing_coverage.py",
-      "source_role": "Annex-pattern routing coverage audit that measures routed versus unrouted rows, cluster-key quality, repair files, and routing-coverage debt without pulling or mutating annex repositories.",
-      "required_anchors": [
-        "DEFAULT_UNROUTED_RATE_THRESHOLD",
-        "def build_annex_routing_coverage(",
-        "\"kind\": \"annex_routing_coverage\"",
-        "routing_coverage:annex_patterns:unrouted",
-        "annex_pattern_cluster_key"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "52e9f6e43ea0960c18ba1577b7c8ea26f5ac95cfe92785f4f1ad6069411310c5",
-      "target_sha256": "52e9f6e43ea0960c18ba1577b7c8ea26f5ac95cfe92785f4f1ad6069411310c5",
-      "sha256_match": true,
-      "line_count": 259,
-      "byte_count": 9721,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "annex_routing_coverage_test_body_import",
-      "source_ref": "system/server/tests/test_annex_routing_coverage.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_routing_coverage.py",
-      "source_role": "Focused regression tests for annex routing coverage acceptable/debt states, unrouted bucket visibility, candidate repair files, and CLI JSON emission.",
-      "required_anchors": [
-        "test_annex_routing_coverage_reports_unrouted_bucket",
-        "test_annex_routing_coverage_emits_debt_when_threshold_is_exceeded",
-        "test_annex_routing_coverage_cli_emits_json",
-        "annex_pattern_cluster_key",
-        "routing_coverage_debt"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "71efa8e947b461217d23104740b13c41fc147905261b79a130f1e8bde9fc3703",
-      "target_sha256": "71efa8e947b461217d23104740b13c41fc147905261b79a130f1e8bde9fc3703",
-      "sha256_match": true,
-      "line_count": 59,
-      "byte_count": 2211,
-      "anchor_count": 5
-    }
-  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_sources_compile_and_carry_routing_contract",

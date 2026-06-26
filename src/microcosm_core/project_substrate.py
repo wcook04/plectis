@@ -3723,6 +3723,7 @@ def run_work(
     - Escalates-to: explain_route and observe_project for the resulting causal chain.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
+    before_state = architecture_kernel.command_state_snapshot(project)
     rows = _load_work_items(project)
     if not rows:
         created = create_work(project, refresh_architecture=False)
@@ -3747,7 +3748,7 @@ def run_work(
         ]
         evidence_refs = selected.get("evidence_refs", [])
         latest_evidence_ref = evidence_refs[-1] if isinstance(evidence_refs, list) and evidence_refs else None
-        return {
+        result = {
             **_base_payload("microcosm_project_work_run_result_v1", project),
             "work_id": selected["work_id"],
             "route_id": selected["route_id"],
@@ -3758,6 +3759,20 @@ def run_work(
             "event_ref": f"{STATE_DIR}/{EVENT_STREAM}",
             "evidence_ref": latest_evidence_ref,
         }
+        result["reference_execution_case"] = (
+            architecture_kernel.build_reference_execution_case(
+                project,
+                str(selected["route_id"]),
+                result,
+                command_kind="work.run.idempotent_replay",
+                before_state=before_state,
+            )
+        )
+        if selected.get("reference_execution_case_ref"):
+            result["reference_execution_case_ref"] = selected[
+                "reference_execution_case_ref"
+            ]
+        return result
     contracts = architecture_kernel.work_contracts_for_route(
         selected.get("route_snapshot", {"route_id": selected.get("route_id")}),
         str(selected.get("work_id") or ""),
@@ -3852,7 +3867,7 @@ def run_work(
     selected["closeout"]["event_ref"] = f"{STATE_DIR}/{EVENT_STREAM}::{event['event_id']}"
     selected["closeout"]["evidence_ref"] = evidence_ref
     _write_work_items(project, rows)
-    return {
+    result = {
         **_base_payload("microcosm_project_work_run_result_v1", project),
         "work_id": selected["work_id"],
         "route_id": selected["route_id"],
@@ -3862,6 +3877,25 @@ def run_work(
         "event_ref": f"{STATE_DIR}/{EVENT_STREAM}",
         "evidence_ref": evidence_ref,
     }
+    result["reference_execution_case"] = (
+        architecture_kernel.build_reference_execution_case(
+            project,
+            str(selected["route_id"]),
+            result,
+            command_kind="work.run",
+            before_state=before_state,
+        )
+    )
+    reference_case_ref = _write_evidence(
+        project,
+        f"reference_execution_case_{selected['work_id']}",
+        result["reference_execution_case"],
+    )
+    result["reference_execution_case"]["evidence_ref"] = reference_case_ref
+    result["reference_execution_case_ref"] = reference_case_ref
+    selected["reference_execution_case_ref"] = reference_case_ref
+    _write_work_items(project, rows)
+    return result
 
 
 def _run_work_for_route(
@@ -3947,6 +3981,363 @@ def _dedupe_refs(*groups: Any) -> list[str]:
     return refs
 
 
+def _reference_execution_case_card(
+    project: Path,
+    work_row: dict[str, Any],
+) -> dict[str, Any]:
+    """Read the compact public witness for a persisted command-root execution case."""
+    selected_work_id = str(work_row.get("work_id") or "")
+    evidence_ref = work_row.get("reference_execution_case_ref")
+    if not isinstance(evidence_ref, str) or not evidence_ref:
+        return {
+            "schema_version": "microcosm_command_reference_execution_case_card_v1",
+            "status": "missing",
+            "selected_work_id": selected_work_id or None,
+            "evidence_ref": None,
+            "command_case_eligible": False,
+            "public_architecture_witness_eligible": False,
+            "public_witness_status": "missing_reference_execution_case_ref",
+            "occurrence_witness_refs": [],
+            "state_delta_refs": [],
+            "verification_status": "not_run",
+            "verification_failed_predicates": [],
+            "reader_action": (
+                "Run plectis work run <project> <work_id> or plectis tour --card "
+                "<project> to generate a command-root reference execution case."
+            ),
+        }
+    case = _read_project_json(project, evidence_ref.removeprefix(f"{STATE_DIR}/"))
+    if not case:
+        return {
+            "schema_version": "microcosm_command_reference_execution_case_card_v1",
+            "status": "not_found",
+            "selected_work_id": selected_work_id or None,
+            "evidence_ref": evidence_ref,
+            "command_case_eligible": False,
+            "public_architecture_witness_eligible": False,
+            "public_witness_status": "reference_execution_case_ref_not_found",
+            "occurrence_witness_refs": [],
+            "state_delta_refs": [],
+            "verification_status": "not_run",
+            "verification_failed_predicates": [],
+            "reader_action": "Inspect the work row and regenerate the run receipt.",
+        }
+    root_binding = case.get("root_binding")
+    root_binding = root_binding if isinstance(root_binding, dict) else {}
+    predicate_status = case.get("predicate_status")
+    predicate_status = (
+        dict(predicate_status) if isinstance(predicate_status, dict) else {}
+    )
+    predicate_details = case.get("predicate_details")
+    predicate_details = (
+        dict(predicate_details) if isinstance(predicate_details, dict) else {}
+    )
+    route_id = str(case.get("route_id") or work_row.get("route_id") or "")
+    if route_id:
+        explanation = _read_project_json(project, f"explanations/{route_id}.json")
+        proof = explanation.get("causal_chain_proof")
+        proof = proof if isinstance(proof, dict) else {}
+        execution_instance = proof.get("execution_instance")
+        execution_instance = (
+            execution_instance if isinstance(execution_instance, dict) else {}
+        )
+        projection_selected_work_id = (
+            execution_instance.get("selected_work_id") or proof.get("selected_work_id")
+        )
+        if projection_selected_work_id:
+            predicate_status["projection_fidelity"] = (
+                projection_selected_work_id == root_binding.get("work_id")
+            )
+            predicate_details["projection_selected_work_id"] = projection_selected_work_id
+    assertion_matrix = case.get("assertion_matrix")
+    assertion_rows = [
+        row for row in assertion_matrix if isinstance(row, dict)
+    ] if isinstance(assertion_matrix, list) else []
+    assertion_predicates = [
+        str(row.get("eligibility_predicate"))
+        for row in assertion_rows
+        if isinstance(row.get("eligibility_predicate"), str)
+    ]
+    required_assertion_predicates_value = case.get("required_assertion_predicates")
+    required_assertion_predicates = (
+        [
+            str(predicate_id)
+            for predicate_id in required_assertion_predicates_value
+            if isinstance(predicate_id, str)
+        ]
+        if isinstance(required_assertion_predicates_value, list)
+        else list(architecture_kernel.REFERENCE_CASE_ASSERTION_PREDICATES)
+    )
+    lookup_matrix = case.get("structural_and_constitutional_lookups")
+    lookup_rows = [
+        row for row in lookup_matrix if isinstance(row, dict)
+    ] if isinstance(lookup_matrix, list) else []
+    record_classification_matrix = case.get("record_classification_matrix")
+    record_classification_rows = [
+        row
+        for row in record_classification_matrix
+        if isinstance(row, dict)
+    ] if isinstance(record_classification_matrix, list) else []
+    if not record_classification_rows:
+        legacy_record_classifications = case.get("record_classifications")
+        record_classification_rows = [
+            row
+            for row in legacy_record_classifications
+            if isinstance(row, dict)
+        ] if isinstance(legacy_record_classifications, list) else []
+    record_classification_counts_value = case.get("record_classification_counts")
+    record_classification_counts = (
+        {
+            str(key): value
+            for key, value in record_classification_counts_value.items()
+            if isinstance(key, str) and isinstance(value, int)
+        }
+        if isinstance(record_classification_counts_value, dict)
+        else {}
+    )
+    if not record_classification_counts:
+        for row in record_classification_rows:
+            classification = row.get("classification")
+            if not isinstance(classification, str) or not classification:
+                continue
+            record_classification_counts[classification] = (
+                record_classification_counts.get(classification, 0) + 1
+            )
+    truth_classes = [
+        str(row.get("truth_class"))
+        for row in [*assertion_rows, *lookup_rows]
+        if isinstance(row.get("truth_class"), str)
+    ]
+    occurrence_witness_refs = _dedupe_refs(
+        case.get("occurrence_witness_refs"),
+        [
+            row.get("source_ref")
+            for row in record_classification_rows
+            if row.get("truth_class") == "occurrence"
+            and row.get("included_in_occurrence_witness") is not False
+        ],
+    )
+    state_delta_refs = architecture_kernel.reference_state_delta_refs(
+        case.get("state_delta")
+    )
+    root_work_id = root_binding.get("work_id")
+    root_matches_selected = bool(selected_work_id) and root_work_id == selected_work_id
+    producer_claimed_command_case_eligible = case.get("command_case_eligible") is True
+    producer_claimed_public_architecture_witness_eligible = (
+        case.get("public_architecture_witness_eligible") is True
+    )
+    current_public_architecture_witness_eligible = (
+        producer_claimed_command_case_eligible
+        and predicate_status.get("projection_fidelity") is True
+    )
+    card = {
+        "schema_version": "microcosm_command_reference_execution_case_card_v1",
+        "status": PASS
+        if root_matches_selected and producer_claimed_command_case_eligible
+        else "partial",
+        "selected_work_id": selected_work_id or None,
+        "root_work_id": root_work_id,
+        "root_binding_kind": root_binding.get("binding_kind"),
+        "root_matches_selected_work": root_matches_selected,
+        "evidence_ref": evidence_ref,
+        "semantic_digest": case.get("semantic_digest"),
+        "predicate_status": predicate_status,
+        "predicate_details": predicate_details,
+        "occurrence_witness_refs": occurrence_witness_refs,
+        "state_delta_refs": state_delta_refs,
+        "command_case_eligible": producer_claimed_command_case_eligible,
+        "public_architecture_witness_eligible": (
+            current_public_architecture_witness_eligible
+        ),
+        "producer_claimed_command_case_eligible": (
+            producer_claimed_command_case_eligible
+        ),
+        "producer_claimed_public_architecture_witness_eligible": (
+            producer_claimed_public_architecture_witness_eligible
+        ),
+        "public_witness_status": (
+            PASS
+            if current_public_architecture_witness_eligible
+            else "projection_not_eligible"
+        ),
+        "truth_classes": sorted(set(truth_classes)),
+        "truth_class_counts": {
+            truth_class: truth_classes.count(truth_class)
+            for truth_class in sorted(set(truth_classes))
+        },
+        "required_assertion_predicates": required_assertion_predicates,
+        "assertion_matrix_predicates": assertion_predicates,
+        "assertion_matrix_predicate_count": len(set(assertion_predicates)),
+        "required_assertion_predicate_count": len(required_assertion_predicates),
+        "assertion_matrix_ref": f"{evidence_ref}::assertion_matrix",
+        "record_classification_counts": record_classification_counts,
+        "record_classification_matrix_ref": (
+            f"{evidence_ref}::record_classification_matrix"
+        ),
+        "ambient_history_ref_count": (
+            record_classification_counts.get("ambient_history", 0)
+        ),
+        "anti_claim": (
+            case.get("anti_claim")
+            or "The reference execution case is a command-root occurrence assay, "
+            "not a release, hosting, or correctness claim."
+        ),
+        "reader_action": (
+            "Use this compact card to decide whether the command-root occurrence "
+            "case is eligible before treating any architecture projection as a "
+            "public witness."
+        ),
+        "safe_to_show": {
+            "receipt_ref_visible": True,
+            "predicate_status_visible": True,
+            "full_receipt_body_omitted": True,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+    }
+    verification = architecture_kernel.verify_reference_execution_case(
+        project,
+        case,
+        rendered_witness=card,
+    )
+    verification_predicates = verification.get("predicate_status")
+    verification_predicates = (
+        dict(verification_predicates)
+        if isinstance(verification_predicates, dict)
+        else {}
+    )
+    verification_failed_predicates = verification.get("failed_predicates")
+    verified_command_case_eligible = (
+        verification_predicates.get("command_case_eligible") is True
+    )
+    verified_public_architecture_witness_eligible = (
+        verification_predicates.get("public_architecture_witness_eligible") is True
+    )
+    verification_status = str(verification.get("status") or "")
+    card.update(
+        {
+            "status": (
+                PASS
+                if root_matches_selected and verified_command_case_eligible
+                else "blocked"
+                if verification_status == "blocked"
+                else "partial"
+            ),
+            "command_case_eligible": verified_command_case_eligible,
+            "public_architecture_witness_eligible": (
+                verified_public_architecture_witness_eligible
+            ),
+            "public_witness_status": (
+                PASS
+                if verified_public_architecture_witness_eligible
+                else "verification_blocked"
+                if verification_status == "blocked"
+                else "projection_not_eligible"
+            ),
+            "verification_status": verification.get("status"),
+            "verification_failed_predicates": (
+                list(verification_failed_predicates)
+                if isinstance(verification_failed_predicates, list)
+                else []
+            ),
+            "verification_predicate_status": {
+                key: verification_predicates.get(key)
+                for key in [
+                    "join_integrity",
+                    "selection_binding",
+                    "scope_completeness",
+                    "execution_terminality",
+                    "authority_boundedness",
+                    "replay_equivalence",
+                    "state_delta_scope",
+                    "record_classification_matrix",
+                    "assertion_matrix_coverage",
+                    "projection_fidelity",
+                    "truth_class_authority",
+                    "semantic_digest",
+                    "rendered_occurrence_refs",
+                    "rendered_state_delta_refs",
+                    "rendered_state_delta_summary",
+                    "rendered_predicate_details",
+                    "rendered_predicate_status",
+                    "rendered_semantic_digest",
+                    "rendered_truth_class_authority",
+                    "rendered_assertion_matrix_coverage",
+                    "rendered_truth_class_summary",
+                    "rendered_record_classification_summary",
+                    "rendered_root_binding",
+                    "rendered_eligibility_flags",
+                    "rendered_verification_summary",
+                    "rendered_safe_to_show_boundary",
+                    "rendered_guidance_boundary",
+                    "rendered_late_predicate_status",
+                    "public_architecture_witness_eligible",
+                ]
+                if key in verification_predicates
+            },
+            "assertion_matrix_coverage_verified": (
+                verification_predicates.get("assertion_matrix_coverage")
+            ),
+            "record_classification_matrix_verified": (
+                verification_predicates.get("record_classification_matrix")
+            ),
+            "verification_ref": "architecture_kernel.verify_reference_execution_case",
+        }
+    )
+    return card
+
+
+def _reference_case_state_delta_ref_count(
+    reference_execution_case: dict[str, Any],
+) -> int:
+    state_delta_refs = reference_execution_case.get("state_delta_refs")
+    if not isinstance(state_delta_refs, list):
+        return 0
+    return len([ref for ref in state_delta_refs if isinstance(ref, str) and ref])
+
+
+def _reference_case_state_delta_refs_verified(
+    reference_execution_case: dict[str, Any],
+) -> bool | None:
+    predicates = reference_execution_case.get("verification_predicate_status")
+    if not isinstance(predicates, dict):
+        return None
+    verified = predicates.get("rendered_state_delta_refs")
+    return verified if isinstance(verified, bool) else None
+
+
+def _reference_case_state_delta_scope_verified(
+    reference_execution_case: dict[str, Any],
+) -> bool | None:
+    predicates = reference_execution_case.get("verification_predicate_status")
+    if not isinstance(predicates, dict):
+        return None
+    verified = predicates.get("state_delta_scope")
+    return verified if isinstance(verified, bool) else None
+
+
+def _reference_case_assertion_matrix_coverage_verified(
+    reference_execution_case: dict[str, Any],
+) -> bool | None:
+    predicates = reference_execution_case.get("verification_predicate_status")
+    if not isinstance(predicates, dict):
+        return None
+    verified = predicates.get("assertion_matrix_coverage")
+    return verified if isinstance(verified, bool) else None
+
+
+def _reference_case_record_classification_matrix_verified(
+    reference_execution_case: dict[str, Any],
+) -> bool | None:
+    predicates = reference_execution_case.get("verification_predicate_status")
+    if not isinstance(predicates, dict):
+        return None
+    verified = predicates.get("record_classification_matrix")
+    return verified if isinstance(verified, bool) else None
+
+
 def _state_names(history: Any) -> list[str]:
     """Extract the ordered state names from a work-item state_history.
 
@@ -3995,6 +4386,7 @@ def _reader_causal_chain_card(
     work_evidence_refs = (
         work_row.get("evidence_refs") if isinstance(work_row, dict) else []
     )
+    reference_execution_case = _reference_execution_case_card(project, work_row)
     proof_evidence_refs = proof.get("evidence_refs")
     evidence_refs = _dedupe_refs(
         proof_evidence_refs,
@@ -4066,9 +4458,11 @@ def _reader_causal_chain_card(
                 f"{STATE_DIR}/evidence/",
                 f"{STATE_DIR}/graph.json",
                 f"{STATE_DIR}/explanations/{route_id}.json" if route_id else "",
+                reference_execution_case.get("evidence_ref"),
             ],
         ),
         "state_history": state_history,
+        "command_reference_execution_case": reference_execution_case,
         "graph": {
             "graph_ref": graph.get("graph_ref") or f"{STATE_DIR}/graph.json",
             "node_count": graph.get("node_count", 0),
@@ -4305,6 +4699,10 @@ def observe_project_card(
     causal_chain = observed.get("causal_chain") or {}
     state_write_proof = observed.get("state_write_proof") or {}
     graph = causal_chain.get("graph") or {}
+    reference_execution_case = causal_chain.get("command_reference_execution_case")
+    reference_execution_case = (
+        reference_execution_case if isinstance(reference_execution_case, dict) else {}
+    )
     spans = observed.get("spans") or {}
     return {
         **_base_payload("microcosm_project_observe_card_v1", Path(project_path)),
@@ -4338,6 +4736,56 @@ def observe_project_card(
             "work_state_ref": observed.get("work_state_ref"),
             "route_explanation_ref": observed.get("route_explanation_ref"),
             "evidence_ref_count": observed.get("evidence_ref_count", 0),
+            "command_reference_execution_case": {
+                "status": reference_execution_case.get("status"),
+                "evidence_ref": reference_execution_case.get("evidence_ref"),
+                "command_case_eligible": reference_execution_case.get(
+                    "command_case_eligible"
+                ),
+                "public_architecture_witness_eligible": (
+                    reference_execution_case.get(
+                        "public_architecture_witness_eligible"
+                    )
+                ),
+                "public_witness_status": reference_execution_case.get(
+                    "public_witness_status"
+                ),
+                "state_delta_ref_count": _reference_case_state_delta_ref_count(
+                    reference_execution_case
+                ),
+                "state_delta_refs_verified": (
+                    _reference_case_state_delta_refs_verified(
+                        reference_execution_case
+                    )
+                ),
+                "state_delta_scope_verified": (
+                    _reference_case_state_delta_scope_verified(
+                        reference_execution_case
+                    )
+                ),
+                "assertion_matrix_coverage_verified": (
+                    _reference_case_assertion_matrix_coverage_verified(
+                        reference_execution_case
+                    )
+                ),
+                "record_classification_matrix_verified": (
+                    _reference_case_record_classification_matrix_verified(
+                        reference_execution_case
+                    )
+                ),
+                "state_delta_refs_ref": (
+                    "command_reference_execution_case.state_delta_refs"
+                ),
+                "state_delta_scope_ref": (
+                    "verification_predicate_status.state_delta_scope"
+                ),
+                "assertion_matrix_coverage_ref": (
+                    "verification_predicate_status.assertion_matrix_coverage"
+                ),
+                "record_classification_matrix_ref": (
+                    "verification_predicate_status.record_classification_matrix"
+                ),
+            },
             "graph": {
                 "node_count": graph.get("node_count", 0),
                 "edge_count": graph.get("edge_count", 0),
@@ -4957,10 +5405,9 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         else {}
     )
     work_rows = _load_work_items(project)
-    selected_work = next(
-        (row for row in work_rows if row.get("route_id") == route_id),
-        work_rows[0] if work_rows else {},
-    )
+    route_work_rows = [row for row in work_rows if row.get("route_id") == route_id]
+    selected_work = route_work_rows[-1] if route_work_rows else work_rows[0] if work_rows else {}
+    reference_execution_case = _reference_execution_case_card(project, selected_work)
     event_summary = _read_event_stream_summary(_state_dir(project) / EVENT_STREAM)
     state_ref_status = [_state_ref_status(project, ref) for ref in COMPILE_STATE_REFS]
     missing_state_refs_all = [
@@ -5048,6 +5495,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         ),
         "selected_work_id": selected_work.get("work_id") if selected_work else None,
         "selected_work_status": selected_work.get("status") if selected_work else None,
+        "command_reference_execution_case": reference_execution_case,
         "work_item_count": len(work_rows),
         "event_count": event_summary["event_count"],
         "last_event": {

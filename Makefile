@@ -25,6 +25,9 @@ PYTEST_ARGS ?=
 PACKAGE_SMOKE_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-package-smoke-$(PYTEST_TMP_KEY)
 PACKAGE_SMOKE_TMP ?= $(PACKAGE_SMOKE_TMP_ROOT)/run-$(PYTEST_RUN_ID)
 PACKAGE_SMOKE_KEEP_TMP ?= 0
+BENCHMARK_OUT ?= .microcosm/onboarding-benchmark.json
+BENCHMARK_WORK_DIR ?= $(TMPDIR)/plectis-onboarding-benchmark-$(PYTEST_TMP_KEY)-$(PYTEST_RUN_ID)
+BENCHMARK_ARGS ?=
 .DEFAULT_GOAL := help
 PUBLIC_TESTS ?= \
 	tests/test_public_entry_docs.py \
@@ -47,12 +50,15 @@ PUBLIC_TESTS ?= \
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
 PUBLIC_TESTS += tests/test_card_calibration_gate.py
 PUBLIC_TESTS += tests/test_organ_registry_authority_floor.py
+PUBLIC_TESTS += tests/test_artifact_budget.py
+PUBLIC_TESTS += tests/test_release_claim_portfolio.py
+PUBLIC_TESTS += tests/test_release_candidate_semantic_action.py
 
-.PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
+.PHONY: help install venv test test-all smoke package-smoke user-smoke onboarding-benchmark ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
 .PHONY: release-candidate-proof release-candidate-proof-verify release-review
-.PHONY: check preflight validate
+.PHONY: check preflight validate artifact-budget
 
 help:
 	@printf '%s\n' \
@@ -61,15 +67,18 @@ help:
 		"  make test                run public entry and safety tests" \
 		"  make test-all            run full suite with pytest receipt writes blocked" \
 		"  make smoke               validate and summarize the public smoke route" \
+		"  make user-smoke          run the user-facing bootstrap, smoke, and package smoke floor" \
 		"  make flight-recorder     write a public-safe evaluator proof packet" \
 		"  make flight-recorder-verify verify an existing flight-recorder packet" \
 		"  make release-candidate-proof prove the first-action product in checkout, install, and export" \
 		"  make release-candidate-proof-verify verify an existing release-candidate proof packet without rerunning anything" \
 		"  make release-review       cold review: regenerate the proof, verify the fresh packet, print its reviewer card (contract: RELEASE_REVIEW.md)" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
+		"  make onboarding-benchmark record clone/bootstrap/smoke/install timing JSON" \
 		"  make ci                  run test, smoke, and package-smoke" \
 		"  make check               fast preflight: organ evidence-class registry integrity" \
 		"  make validate            full pre-commit floor: ci + doctrine-lattice drift check" \
+		"  make artifact-budget     report and bound the shipped distribution footprint" \
 		"  make standalone-export   export a release-gated standalone tree" \
 		"  make doctrine-lattice-check check generated doctrine-lattice coverage" \
 		"  make doctrine-lattice-entry-card write generated doctrine-lattice agent entry card" \
@@ -136,6 +145,11 @@ release-review:
 package-smoke:
 	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status
 
+user-smoke: check smoke package-smoke
+
+onboarding-benchmark:
+	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/onboarding_benchmark.py --source-root . --out $(BENCHMARK_OUT) --work-dir $(BENCHMARK_WORK_DIR) --python $(PYTHON) $(BENCHMARK_ARGS)
+
 ci: test smoke package-smoke
 
 check preflight:
@@ -143,6 +157,10 @@ check preflight:
 	@printf '%s\n' "Plectis preflight: organ evidence-class registry loads cleanly."
 
 validate: ci doctrine-lattice-check
+
+artifact-budget:
+	@$(PYTHON) scripts/check_artifact_budget.py --report
+	@$(PYTHON) scripts/check_artifact_budget.py --check
 
 standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary

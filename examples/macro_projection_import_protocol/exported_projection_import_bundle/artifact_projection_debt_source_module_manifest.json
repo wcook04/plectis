@@ -3,59 +3,36 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "artifact_projection_debt_source_modules_import",
-  "module_count": 2,
-  "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 50529,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 1108,
-      "material_class": "public_macro_tool_body",
-      "module_id": "artifact_projection_debt_body_import",
-      "required_anchors": [
-        "Read-only composer for executable-grammar projection debt.",
-        "KIND_ID = \"artifact_projection_debt\"",
-        "def build_artifact_projection_debt_row_jobs(",
-        "def _projection_gap_rows(",
-        "receipt_or_row_patch_only"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_task_ledger_work_ledger_provider_session_export",
-      "source_ref": "system/lib/artifact_projection_debt.py",
-      "source_role": "Read-only artifact-projection debt composer that turns zero-row projections, stale claims, layer sprawl, and receipt-or-row-patch-only pressure into bounded candidate rows instead of source authority.",
-      "source_sha256": "824bc385aaa66e077e37bb1db3f13e9958d1607eedb7e57d18c28c54cbbb4ff6",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
-      "target_sha256": "824bc385aaa66e077e37bb1db3f13e9958d1607eedb7e57d18c28c54cbbb4ff6"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 13669,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 325,
-      "material_class": "public_macro_tool_body",
-      "module_id": "artifact_projection_debt_test_body_import",
-      "required_anchors": [
-        "test_zero_row_surface_creates_artifact_projection_debt_row",
-        "test_standard_projection_gaps_compose_into_artifact_projection_debt",
-        "test_stale_active_claim_creates_transaction_debt_row",
-        "test_artifact_projection_debt_cluster_is_microcosm_safe",
-        "test_oversized_row_flag_route_appears_under_artifact_projection_debt"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_task_ledger_work_ledger_provider_session_export",
-      "source_ref": "system/server/tests/test_artifact_projection_debt.py",
-      "source_role": "Focused regression tests proving projection gaps, skill-compression debt, stale active claims, cluster-first Microcosm safety, and oversized-row route debt stay visible as candidate-only debt rows.",
-      "source_sha256": "cd4e80955045804401f863fef0498fa8e2a585e198979836c40ba5c4fee06a4a",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
-      "target_sha256": "cd4e80955045804401f863fef0498fa8e2a585e198979836c40ba5c4fee06a4a"
-    }
-  ],
+  "module_count": 0,
+  "modules": [],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and existing artifact-projection-debt regression tests; copied source modules are body evidence, not authority to mutate live ledgers, promote provider row patches, export generated projection bodies, or claim private runtime state.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, live generated-projection outputs, Task Ledger/Work Ledger runtime rows, provider payloads, browser/HUD state, account/session state, cookies, or credential-equivalent payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "artifact_projection_debt_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/artifact_projection_debt.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/artifact_projection_debt.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "artifact_projection_debt_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_artifact_projection_debt.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_artifact_projection_debt.py"
+    }
+  ],
   "schema_version": "macro_projection_artifact_projection_debt_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

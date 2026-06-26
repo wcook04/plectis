@@ -136,6 +136,33 @@ def test_agent_benchmark_integrity_replay_observes_negative_cases(
         assert (
             span["computed_integrity_verdict"] == span["declared_integrity_verdict"]
         )
+    first_screen_rows = result["first_screen_integrity_rows"]
+    assert len(first_screen_rows) == 3
+    assert {row["case_id"] for row in first_screen_rows} == set(
+        result["known_benchmark_case_ids"]
+    )
+    assert all(row["body_in_receipt"] is False for row in first_screen_rows)
+    assert all(
+        "benchmark_score_claim" in row["blocked_claims"] for row in first_screen_rows
+    )
+    assert all(
+        "release_authorized" in row["blocked_claims"] for row in first_screen_rows
+    )
+    assert all(
+        row["authority_ceiling"]
+        == result["authority_ceiling"]["authority_ceiling"]
+        for row in first_screen_rows
+    )
+    clean_rows = [
+        row for row in first_screen_rows if row["fixture_role"] == "integrity_pass_replay"
+    ]
+    quarantine_rows = [
+        row for row in first_screen_rows if row["fixture_role"] == "quarantine_replay"
+    ]
+    assert len(clean_rows) == 2
+    assert len(quarantine_rows) == 1
+    assert all(row["evaluator_signal"] is True for row in clean_rows)
+    assert quarantine_rows[0]["reason_codes"]
 
 
 def test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict() -> None:
@@ -1143,6 +1170,12 @@ def test_agent_benchmark_integrity_bundle_card_reuses_fresh_receipt(
     assert first_card["benchmark_integrity"]["source_module_import_count"] == 4
     assert first_card["benchmark_integrity"]["copied_source_artifact_count"] == 4
     assert first_card["benchmark_integrity"]["source_modules_pass"] is True
+    assert first_card["first_screen"]["integrity_row_count"] == 3
+    assert set(first_card["first_screen"]["blocked_claim_ids"]) >= {
+        "benchmark_score_claim",
+        "release_authorized",
+    }
+    assert first_card["first_screen"]["body_in_receipt"] is False
     assert first_card["validation"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["private_state_blocking_hit_count"] == 0
     assert "benchmark_cases" not in _walk_keys(first_card)

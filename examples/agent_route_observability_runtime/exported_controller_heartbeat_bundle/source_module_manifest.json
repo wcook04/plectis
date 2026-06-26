@@ -1,43 +1,9 @@
 {
-  "schema_version": "agent_route_observability_runtime_controller_heartbeat_source_module_manifest_v1",
-  "bundle_id": "public_controller_heartbeat_runtime_example",
-  "source_import_class": "copied_non_secret_macro_body",
+  "body_copied_material_count": 1,
   "body_in_receipt": false,
-  "module_count": 1,
-  "modules": [
-    {
-      "source_ref": "system/lib/controller_heartbeat.py",
-      "path": "source_modules/system/lib/controller_heartbeat.py",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_modules/system/lib/controller_heartbeat.py",
-      "material_class": "public_macro_tool_body",
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_role": "Controller heartbeat owner that builds bounded 5x5 continuity packets, validates heartbeat shape, wraps response schemas, and deduplicates heartbeat events without reading live private state.",
-      "required_anchors": [
-        "CONTROLLER_HEARTBEAT_SCHEMA_VERSION = \"controller_heartbeat_v1\"",
-        "def build_controller_heartbeat(",
-        "def validate_controller_heartbeat(",
-        "def controller_heartbeat_event_id(",
-        "class ControllerHeartbeatDeduper",
-        "def wrap_response_schema_with_heartbeat_ref("
-      ],
-      "line_count": 530,
-      "sha256": "28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
-      "byte_count": 19834,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "body_text_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_sha256": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
-      "target_sha256": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
-      "sha256_match": true,
-      "anchor_count": 6,
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_receipt_is_public_safe",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_imports_public_macro_body_refactor"
-      ]
-    }
-  ],
+  "bundle_id": "public_controller_heartbeat_runtime_example",
+  "module_count": 0,
+  "modules": [],
   "omitted_material": [
     "seed bodies",
     "mission blackboard bodies",
@@ -49,6 +15,21 @@
     "recipient-send state",
     "credential-equivalent material"
   ],
-  "body_copied_material_count": 1,
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": null,
+      "path": "source_modules/system/lib/controller_heartbeat.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/controller_heartbeat.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/controller_heartbeat.py"
+    }
+  ],
+  "schema_version": "agent_route_observability_runtime_controller_heartbeat_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
   "validation_ref_count": 3
 }

@@ -2,7 +2,7 @@
   "body_copied_material_count": 8,
   "body_in_receipt": false,
   "bundle_id": "public_agent_route_observability_runtime_example",
-  "module_count": 8,
+  "module_count": 4,
   "modules": [
     {
       "anchor_count": 4,
@@ -124,129 +124,6 @@
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
       ]
-    },
-    {
-      "anchor_count": 4,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 304224,
-      "line_count": 6898,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_execution_trace_source_body_import",
-      "path": "source_modules/system/lib/agent_execution_trace.py",
-      "required_anchors": [
-        "LEDGER_SCHEMA_VERSION = \"agent_execution_trace_ledger_v1\"",
-        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
-        "def _detect_anti_patterns(",
-        "def build_agent_execution_trace("
-      ],
-      "sha256": "10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "system/lib/agent_execution_trace.py",
-      "source_role": "Agent execution trace owner that builds public trace ledgers, route-compliance signals, anti-pattern detections, and privacy-boundary receipts without provider payload bodies or hidden reasoning.",
-      "source_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:10d6561c735f8579c49a972c718c89833aaf705b5b865e62a59fcb5e4e10e709",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 17452,
-      "line_count": 348,
-      "material_class": "public_macro_tool_body",
-      "module_id": "navigation_route_intervention_source_body_import",
-      "path": "source_modules/system/lib/navigation_route_intervention.py",
-      "required_anchors": [
-        "class RouteRepairSuggestion",
-        "ROUTE_REPAIR_SUGGESTIONS",
-        "def route_repair_for(",
-        "def build_hook_shadow_coverage(",
-        "def suggestion_message("
-      ],
-      "sha256": "27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "system/lib/navigation_route_intervention.py",
-      "source_role": "Route-intervention owner that maps navigation anti-pattern ids to repair classes and hook-shadow coverage rows used by public route-observability validation.",
-      "source_sha256": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py",
-      "target_sha256": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 262806,
-      "line_count": 5684,
-      "material_class": "public_macro_tool_body",
-      "module_id": "navigation_metabolism_ledger_source_body_import",
-      "path": "source_modules/system/lib/navigation_metabolism_ledger.py",
-      "required_anchors": [
-        "def _process_audit_payload(",
-        "def _process_audit_behavior_rows(",
-        "def _retire_observed_navigation_mechanism_debt_rows(",
-        "def build_navigation_metabolism_ledger(",
-        "\"hook_shadow_coverage\""
-      ],
-      "sha256": "4839552e1407778331f669efa63ba95ed856497182f4634913cd8b0e42553567",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "system/lib/navigation_metabolism_ledger.py",
-      "source_role": "Navigation metabolism ledger owner that composes process-audit rows, hook-shadow coverage, route lifecycle, observed anti-pattern debt retirement, and control-entry quality signals.",
-      "source_sha256": "sha256:4839552e1407778331f669efa63ba95ed856497182f4634913cd8b0e42553567",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
-      "target_sha256": "sha256:4839552e1407778331f669efa63ba95ed856497182f4634913cd8b0e42553567",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
-      ]
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 10373,
-      "line_count": 260,
-      "material_class": "public_macro_tool_body",
-      "module_id": "strict_json_source_body_import",
-      "path": "source_modules/system/lib/strict_json.py",
-      "required_anchors": [
-        "class StrictJsonError",
-        "class DuplicateJsonKeyError",
-        "def loads_json_strict(",
-        "def read_json_strict(",
-        "def strict_json_artifact_report("
-      ],
-      "sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "system/lib/strict_json.py",
-      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
-      "source_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/strict_json.py",
-      "target_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
-      ]
     }
   ],
   "omitted_material": [
@@ -259,6 +136,56 @@
     "raw private transcript bodies",
     "live process-audit bodies",
     "live hook state"
+  ],
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_execution_trace_source_body_import",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/agent_execution_trace.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/agent_execution_trace.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "navigation_route_intervention_source_body_import",
+      "path": "source_modules/system/lib/navigation_route_intervention.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/navigation_route_intervention.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/navigation_route_intervention.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "navigation_metabolism_ledger_source_body_import",
+      "path": "source_modules/system/lib/navigation_metabolism_ledger.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/navigation_metabolism_ledger.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/navigation_metabolism_ledger.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "strict_json_source_body_import",
+      "path": "source_modules/system/lib/strict_json.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/strict_json.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/strict_json.py"
+    }
   ],
   "schema_version": "agent_route_observability_runtime_observability_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body",

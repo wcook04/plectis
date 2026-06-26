@@ -1,116 +1,8 @@
 {
   "anti_claim": "Exact source copies and focused exercises do not authorize release, publication, provider dispatch, private-root equivalence, investment advice, semantic truth, or test completeness.",
   "body_in_receipt": false,
-  "module_count": 11,
+  "module_count": 3,
   "modules": [
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 179609,
-      "line_count": 4260,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_trace_ir_compiler_parser",
-      "path": "source_modules/tools/agent_trace_structurer/parser.mjs",
-      "required_anchors": [
-        "export function parseAgentTrace",
-        "function buildEditClaimView",
-        "export function buildAttachmentClip"
-      ],
-      "sha256": "29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/agent_trace_structurer/parser.mjs",
-      "source_sha256": "29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
-      "target_sha256": "29258fb872dd7c2b74ca3925307c396a27455e86cd899e6f521bc7dbd1f7c83e"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 68032,
-      "line_count": 1382,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_trace_ir_compiler_parser_tests",
-      "path": "source_modules/tools/agent_trace_structurer/parser.test.mjs",
-      "required_anchors": [
-        "commit claims that lack diff evidence",
-        "parseAgentTrace",
-        "buildAttachmentClip"
-      ],
-      "sha256": "35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/agent_trace_structurer/parser.test.mjs",
-      "source_sha256": "35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
-      "target_sha256": "35126866a761fdb53513db8699cb4f4bb5d9337f799b8ee92f081360d7f644a5"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 13152,
-      "line_count": 288,
-      "material_class": "public_macro_tool_body",
-      "module_id": "agent_trace_lifecycle_reducer",
-      "path": "source_modules/tools/agent_trace_structurer/lifecycle_reducer.mjs",
-      "required_anchors": [
-        "export function deriveMissionLifecycle",
-        "missionIdentityFacts"
-      ],
-      "sha256": "beaa238e80975666bea464163853da498fb39a948fa3e1875cfcc7968fd39e75",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/agent_trace_structurer/lifecycle_reducer.mjs",
-      "source_sha256": "beaa238e80975666bea464163853da498fb39a948fa3e1875cfcc7968fd39e75",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/agent_trace_structurer/lifecycle_reducer.mjs",
-      "target_sha256": "beaa238e80975666bea464163853da498fb39a948fa3e1875cfcc7968fd39e75"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 18013,
-      "line_count": 449,
-      "material_class": "public_macro_tool_body",
-      "module_id": "constitutional_governance_kernel",
-      "path": "source_modules/system/core/governance.py",
-      "required_anchors": [
-        "def compile_standard(",
-        "def compute_waves(",
-        "def audit_config_purity("
-      ],
-      "sha256": "3d7570cc30602e567fb9b7a3a1b737ab3f63e18fae583dc31f549bf57ae5d901",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/core/governance.py",
-      "source_sha256": "3d7570cc30602e567fb9b7a3a1b737ab3f63e18fae583dc31f549bf57ae5d901",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/core/governance.py",
-      "target_sha256": "3d7570cc30602e567fb9b7a3a1b737ab3f63e18fae583dc31f549bf57ae5d901"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 4279,
-      "line_count": 105,
-      "material_class": "public_macro_tool_body",
-      "module_id": "constitutional_forensics_kernel",
-      "path": "source_modules/system/core/forensics.py",
-      "required_anchors": [
-        "def reconstruct_run_state(",
-        "graph_snapshot.json"
-      ],
-      "sha256": "c3ecab043ccdc077c5ed9a7a3b2b6140e50c416f848dae91637630550b4c872d",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/core/forensics.py",
-      "source_sha256": "c3ecab043ccdc077c5ed9a7a3b2b6140e50c416f848dae91637630550b4c872d",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/core/forensics.py",
-      "target_sha256": "c3ecab043ccdc077c5ed9a7a3b2b6140e50c416f848dae91637630550b4c872d"
-    },
     {
       "body_copied": true,
       "body_in_receipt": false,
@@ -156,28 +48,6 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 167564,
-      "line_count": 3703,
-      "material_class": "public_macro_tool_body",
-      "module_id": "source_surgeon_patch",
-      "path": "source_modules/tools/meta/apply.py",
-      "required_anchors": [
-        "class SourceSurgeon",
-        "def _apply_unified_diff_hunks",
-        "def _operations_from_unified_diff"
-      ],
-      "sha256": "1c207a889617229fb722239fb2de2114ce7466be9fbcf0372b1d7c4de3b29765",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/apply.py",
-      "source_sha256": "1c207a889617229fb722239fb2de2114ce7466be9fbcf0372b1d7c4de3b29765",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/meta/apply.py",
-      "target_sha256": "1c207a889617229fb722239fb2de2114ce7466be9fbcf0372b1d7c4de3b29765"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
       "byte_count": 60822,
       "line_count": 1295,
       "material_class": "public_macro_tool_body",
@@ -196,52 +66,107 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/calculator/calculator.py",
       "target_sha256": "a8eda09347de75f02c6601b059ab74d899f223f17be47569c02ef56363056b7d"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 5942,
-      "line_count": 169,
-      "material_class": "public_macro_tool_body",
-      "module_id": "personalized_pagerank_ranker",
-      "path": "source_modules/system/lib/route_graph_candidate_ranker.py",
-      "required_anchors": [
-        "def personalized_pagerank",
-        "def rank_candidates_for_source"
-      ],
-      "sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/route_graph_candidate_ranker.py",
-      "source_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/system/lib/route_graph_candidate_ranker.py",
-      "target_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 17351,
-      "line_count": 410,
-      "material_class": "public_macro_tool_body",
-      "module_id": "regression_test_selection",
-      "path": "source_modules/tools/meta/testing/select_impacted_tests.py",
-      "required_anchors": [
-        "def select(",
-        "Never returns empty",
-        "inventory_freshness"
-      ],
-      "sha256": "c92ac0cb0344bf25db014d75d77a7ba35f6737578e3c8a3370dd275b1c36b357",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/meta/testing/select_impacted_tests.py",
-      "source_sha256": "c92ac0cb0344bf25db014d75d77a7ba35f6737578e3c8a3370dd275b1c36b357",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_modules/tools/meta/testing/select_impacted_tests.py",
-      "target_sha256": "c92ac0cb0344bf25db014d75d77a7ba35f6737578e3c8a3370dd275b1c36b357"
     }
   ],
   "organ_id": "batch7_macro_engines_capsule",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_trace_ir_compiler_parser",
+      "path": "source_modules/tools/agent_trace_structurer/parser.mjs",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/agent_trace_structurer/parser.mjs",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/agent_trace_structurer/parser.mjs"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_trace_ir_compiler_parser_tests",
+      "path": "source_modules/tools/agent_trace_structurer/parser.test.mjs",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/agent_trace_structurer/parser.test.mjs",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/agent_trace_structurer/parser.test.mjs"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "agent_trace_lifecycle_reducer",
+      "path": "source_modules/tools/agent_trace_structurer/lifecycle_reducer.mjs",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/agent_trace_structurer/lifecycle_reducer.mjs",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/agent_trace_structurer/lifecycle_reducer.mjs"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "constitutional_governance_kernel",
+      "path": "source_modules/system/core/governance.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/core/governance.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/core/governance.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "constitutional_forensics_kernel",
+      "path": "source_modules/system/core/forensics.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/core/forensics.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/core/forensics.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "source_surgeon_patch",
+      "path": "source_modules/tools/meta/apply.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/apply.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/apply.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "personalized_pagerank_ranker",
+      "path": "source_modules/system/lib/route_graph_candidate_ranker.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/route_graph_candidate_ranker.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/route_graph_candidate_ranker.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "regression_test_selection",
+      "path": "source_modules/tools/meta/testing/select_impacted_tests.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/testing/select_impacted_tests.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/testing/select_impacted_tests.py"
+    }
+  ],
   "schema_version": "microcosm_source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body",
   "source_to_target_relation": "exact_copy"

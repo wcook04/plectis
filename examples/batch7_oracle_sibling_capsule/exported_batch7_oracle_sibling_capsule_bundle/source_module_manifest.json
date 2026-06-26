@@ -7,7 +7,7 @@
       "symbol": "run_missing_quartet"
     }
   ],
-  "module_count": 6,
+  "module_count": 4,
   "modules": [
     {
       "body_copied": true,
@@ -89,48 +89,37 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/run_quartet.py",
       "target_sha256": "2f3379646c557a6ac3c0a8237f00ef4bd80ac8cee48268133c421b5884e063ab"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 11523,
-      "line_count": 289,
-      "path": "source_modules/system/server/tests/test_oracle_v1_tools.py",
-      "required_anchors": [
-        "test_oracle_subject_index_builds_subject_grounding_map",
-        "test_oracle_subject_snapshot_loads_subject_artifact",
-        "test_oracle_truth_diff_macro_emits_changed_series_without_as_of_equality"
-      ],
-      "sha256": "fd06bfb4533878ad0c48454d8190f6bcad8b71dc547f4749ca79c047e70416a3",
-      "sha256_match": true,
-      "source_ref": "system/server/tests/test_oracle_v1_tools.py",
-      "source_sha256": "fd06bfb4533878ad0c48454d8190f6bcad8b71dc547f4749ca79c047e70416a3",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_oracle_v1_tools.py",
-      "target_sha256": "fd06bfb4533878ad0c48454d8190f6bcad8b71dc547f4749ca79c047e70416a3"
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 23257,
-      "line_count": 579,
-      "path": "source_modules/system/server/tests/test_evolve_runner.py",
-      "required_anchors": [
-        "test_oracle_quartet_repair_plan_materializes_existing_legacy_alias",
-        "test_oracle_quartet_plan_stdout_publishes_compact_launcher_field"
-      ],
-      "sha256": "8364d31c84e27c5c9f30f55c25cd2bec45bb5288cbaf947a2ea01d8c0aa39d39",
-      "sha256_match": true,
-      "source_ref": "system/server/tests/test_evolve_runner.py",
-      "source_sha256": "8364d31c84e27c5c9f30f55c25cd2bec45bb5288cbaf947a2ea01d8c0aa39d39",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_evolve_runner.py",
-      "target_sha256": "8364d31c84e27c5c9f30f55c25cd2bec45bb5288cbaf947a2ea01d8c0aa39d39"
     }
   ],
   "organ_id": "batch7_oracle_sibling_capsule",
   "public_safe_carveouts": [],
   "real_substrate_disposition": "real_substrate_capsule",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": null,
+      "path": "source_modules/system/server/tests/test_oracle_v1_tools.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_oracle_v1_tools.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_oracle_v1_tools.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": null,
+      "path": "source_modules/system/server/tests/test_evolve_runner.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_evolve_runner.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_evolve_runner.py"
+    }
+  ],
   "schema_version": "source_module_manifest_v1",
   "source_import_class": "copied_non_secret_macro_body"
 }

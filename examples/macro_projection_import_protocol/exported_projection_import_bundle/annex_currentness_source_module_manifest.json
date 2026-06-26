@@ -1,11 +1,39 @@
 {
-  "schema_version": "macro_projection_annex_currentness_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "annex_currentness_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys",
   "body_storage_policy": "exact_non_secret_annex_currentness_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "annex_currentness_source_modules_import",
+  "module_count": 0,
+  "modules": [],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing annex currentness regression contract; copied source modules are body evidence, not authority to refresh upstream annexes, export private provider state, or mutate live routing catalogs.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "annex_currentness_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_currentness.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/annex_currentness.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/annex_currentness.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "annex_currentness_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_annex_currentness.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_annex_currentness.py"
+    }
+  ],
+  "schema_version": "macro_projection_annex_currentness_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -18,58 +46,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing annex currentness regression contract; copied source modules are body evidence, not authority to refresh upstream annexes, export private provider state, or mutate live routing catalogs.",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "annex_currentness_body_import",
-      "source_ref": "system/lib/annex_currentness.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_currentness.py",
-      "source_role": "Read-only annex currentness packet over annex_sync_digest and related projections, separating upstream movement, stale state, projection freshness, and candidate row-job pressure without refreshing or pulling annexes.",
-      "required_anchors": [
-        "SCHEMA_VERSION = \"annex_currentness_v0\"",
-        "def build_annex_currentness(",
-        "annex_sync_digest",
-        "movement_to_row_job",
-        "currentness_contract"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "8aa7f8a95aa91b4e1e7308b4a44720d3378b2574ce758586836df78e05955cf0",
-      "target_sha256": "8aa7f8a95aa91b4e1e7308b4a44720d3378b2574ce758586836df78e05955cf0",
-      "sha256_match": true,
-      "line_count": 1036,
-      "byte_count": 45115,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "annex_currentness_test_body_import",
-      "source_ref": "system/server/tests/test_annex_currentness.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py",
-      "source_role": "Focused regression tests for annex currentness digest reading, overwritten receipt handling, run-state sync receipts, missing-clone exclusions, projection freshness debt, quick-profile deferral, missing digest debt, and CLI JSON emission.",
-      "required_anchors": [
-        "test_annex_currentness_reads_digest_as_candidate_review_surface",
-        "test_annex_currentness_does_not_bless_overwritten_sync_receipt",
-        "test_annex_currentness_uses_run_state_sync_receipt_after_validate_overwrite",
-        "test_annex_currentness_can_defer_projection_freshness_for_quick_profiles",
-        "test_kernel_annex_currentness_cli_emits_packet"
-      ],
-      "material_class": "public_macro_tool_body",
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "3cca910e7e86464d3e51257cda983cc2712468befed271f7539ed5b02e7cb178",
-      "target_sha256": "3cca910e7e86464d3e51257cda983cc2712468befed271f7539ed5b02e7cb178",
-      "sha256_match": true,
-      "line_count": 601,
-      "byte_count": 24026,
-      "anchor_count": 5
-    }
-  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",

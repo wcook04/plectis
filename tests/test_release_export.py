@@ -292,6 +292,7 @@ where = ["src"]
 
     _write(root / "atlas/entry_packet.json", '{"status": "pass"}\n')
     _write(root / "atlas/agent_task_routes.json", '{"status": "pass"}\n')
+    _write(root / "assets/.keep", "")
     _write(
         root / "core/private_state_forbidden_classes.json",
         json.dumps(
@@ -889,7 +890,11 @@ def test_release_export_substitutes_private_body_source_module_matches(
                     {
                         "module_id": "work_ledger_body_import",
                         "source_ref": "system/lib/work_ledger.py",
-                        "target_ref": "source_modules/system/lib/work_ledger.py",
+                        "target_ref": (
+                            "microcosm-substrate/examples/work_ledger_leak/"
+                            "exported_work_ledger_bundle/source_modules/"
+                            "system/lib/work_ledger.py"
+                        ),
                         "body_copied": True,
                         "body_in_receipt": False,
                         "source_sha256": "stale",

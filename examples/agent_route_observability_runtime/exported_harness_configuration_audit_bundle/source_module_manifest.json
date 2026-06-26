@@ -2,7 +2,7 @@
   "body_copied_material_count": 2,
   "body_in_receipt": false,
   "bundle_id": "public_agent_harness_configuration_audit_runtime_example",
-  "module_count": 2,
+  "module_count": 1,
   "modules": [
     {
       "anchor_count": 3,
@@ -30,33 +30,20 @@
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_validates_runtime_shape",
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_receipt_is_public_safe"
       ]
-    },
+    }
+  ],
+  "release_substitution_omissions": [
     {
-      "anchor_count": 3,
-      "body_copied": true,
       "body_in_receipt": false,
-      "body_text_in_receipt": false,
-      "byte_count": 35897,
-      "line_count": 779,
-      "material_class": "public_macro_tool_body",
+      "module_id": null,
       "path": "source_modules/tools/meta/audit/harness_audit.py",
-      "required_anchors": [
-        "class HarnessAuditor",
-        "def check_skill_registry",
-        "def main"
-      ],
-      "sha256": "f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_ref": "tools/meta/audit/harness_audit.py",
-      "source_sha256": "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py",
-      "target_sha256": "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_receipt_is_public_safe"
-      ]
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "tools/meta/audit/harness_audit.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "tools/meta/audit/harness_audit.py"
     }
   ],
   "schema_version": "agent_route_observability_runtime_harness_configuration_source_module_manifest_v1",

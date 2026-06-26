@@ -3,80 +3,8 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "task_ledger_startup_pressure_source_modules_import",
-  "module_count": 4,
+  "module_count": 1,
   "modules": [
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 22688,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 596,
-      "material_class": "public_macro_tool_body",
-      "module_id": "task_ledger_priority_scheduler_body_import",
-      "required_anchors": [
-        "def priority_constellation(",
-        "top_schedulable_unlock_pressure_workitems",
-        "top_global_unlock_pressure_workitems",
-        "top_dependency_blocked_workitem",
-        "selector_explanation"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
-      "source_ref": "system/lib/task_ledger_priority.py",
-      "source_role": "Read-only Task Ledger priority constellation compiler that preserves schedulable, unlock-pressure, global-pressure, and dependency-blocked lanes for startup/pulse/entry surfaces.",
-      "source_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
-      "target_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 1208176,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 26397,
-      "material_class": "public_macro_tool_body",
-      "module_id": "task_ledger_navigation_command_body_import",
-      "required_anchors": [
-        "def cmd_pulse(",
-        "WORK_LEDGER_SEED_SPEED_COMMAND",
-        "def cmd_phase(",
-        "def cmd_context(",
-        "def cmd_orient_task("
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
-      "source_ref": "system/lib/kernel/commands/navigate.py",
-      "source_role": "Kernel navigation command group carrying pulse, phase, context, option-surface, and first-contact command dispatch that consumes Task Ledger and Work Ledger control packets.",
-      "source_sha256": "0456ce693c54e679383828a2e5834b4fb2332da377a2cd4bb8b7a370d67b17a4",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
-      "target_sha256": "0456ce693c54e679383828a2e5834b4fb2332da377a2cd4bb8b7a370d67b17a4"
-    },
-    {
-      "anchor_count": 5,
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 8764,
-      "classification": "copied_non_secret_macro_body",
-      "line_count": 243,
-      "material_class": "public_macro_tool_body",
-      "module_id": "task_ledger_priority_scheduler_test_body_import",
-      "required_anchors": [
-        "test_priority_constellation_keeps_scheduler_lanes_separate",
-        "test_active_execution_entry_admission_preserves_scheduler_lanes_under_budget",
-        "cap_terminal_pressure",
-        "schedulable_unlock_pressure",
-        "ENTRY_PACKET_INLINE_TARGET_BYTES"
-      ],
-      "sha256_match": true,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
-      "source_ref": "system/server/tests/test_task_ledger_priority_scheduler.py",
-      "source_role": "Focused regression tests proving terminal rows cannot win pressure lanes and entry-admission hard compaction preserves the four scheduler lanes under budget.",
-      "source_sha256": "6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
-      "target_sha256": "6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80"
-    },
     {
       "anchor_count": 5,
       "body_copied": true,
@@ -104,6 +32,44 @@
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, and syntax compilation; copied source modules are body evidence, not authority to mutate the live Task Ledger, Work Ledger, kernel routes, or private state",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live Task Ledger rows, Work Ledger claims, provider payloads, browser/HUD state, or credentials",
+  "release_substitution_omissions": [
+    {
+      "body_in_receipt": false,
+      "module_id": "task_ledger_priority_scheduler_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/task_ledger_priority.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/task_ledger_priority.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "task_ledger_navigation_command_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_near_verbatim",
+        "matched_private_ref": "system/lib/kernel/commands/navigate.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/kernel/commands/navigate.py"
+    },
+    {
+      "body_in_receipt": false,
+      "module_id": "task_ledger_priority_scheduler_test_body_import",
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/server/tests/test_task_ledger_priority_scheduler.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/server/tests/test_task_ledger_priority_scheduler.py"
+    }
+  ],
   "schema_version": "macro_projection_task_ledger_startup_pressure_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",

@@ -8,7 +8,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 from microcosm_core.secret_exclusion_scan import (
     PASS,
@@ -910,6 +914,14 @@ def card_for_result(spec: CrownJewelSpec, result: Mapping[str, Any]) -> dict[str
         if isinstance(result.get("source_module_manifest"), Mapping)
         else {}
     )
+    receipt_paths = result.get("receipt_paths", [])
+    normalized = normalize_public_receipt_paths({"receipt_paths": receipt_paths})
+    normalized_paths = (
+        normalized.get("receipt_paths") if isinstance(normalized, dict) else None
+    )
+    card_receipt_paths = (
+        normalized_paths if isinstance(normalized_paths, list) else receipt_paths
+    )
     return {
         "schema_version": spec.card_schema_version,
         "organ_id": spec.organ_id,
@@ -925,7 +937,7 @@ def card_for_result(spec: CrownJewelSpec, result: Mapping[str, Any]) -> dict[str
         )
         is True,
         "error_codes": result.get("error_codes", []),
-        "receipt_paths": result.get("receipt_paths", []),
+        "receipt_paths": card_receipt_paths,
         "anti_claim": spec.anti_claim,
         "body_in_receipt": False,
     }
