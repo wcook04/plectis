@@ -1825,7 +1825,20 @@
           if (sc >= 0) scored.push([sc, i, index[i]]);
         }
         scored.sort(function (a, b) { return b[0] - a[0] || a[1] - b[1]; });
-        results = scored.slice(0, 30).map(function (r) { return r[2]; });
+        var ordered = scored.map(function (r) { return r[2]; });
+        // Object routes win the first viewport. Reader objects (paper modules,
+        // components, pages, areas) rank above graph edges (relation rows), which
+        // otherwise flood the list right after the first object rows on a broad
+        // query. An explicitly edge-shaped query ("A -> B" or a bare ">") keeps
+        // relations in score order so relation lookups still work. Stable partition,
+        // so score order is preserved within each group, and partitioning the full
+        // ordered list before the slice means objects are never dropped by the cap.
+        var edgey = /->|>/.test(input.value);
+        if (!edgey) {
+          ordered = ordered.filter(function (r) { return r.kind !== 'relation'; })
+            .concat(ordered.filter(function (r) { return r.kind === 'relation'; }));
+        }
+        results = ordered.slice(0, 30);
       }
       list.innerHTML = '';
       results.forEach(function (rec) {
