@@ -44,7 +44,7 @@ from microcosm_core.resource_root import (
     is_installed_microcosm_root,
     microcosm_root,
 )
-from microcosm_core.schemas import read_json_strict
+from microcosm_core.schemas import read_json_strict, StrictJsonError
 
 
 HASH_CHUNK_SIZE = 1024 * 1024
@@ -19344,6 +19344,7 @@ class RuntimeShell:
                 "data, mutate source, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -19668,6 +19669,7 @@ class RuntimeShell:
                 "performance; mutate source; publish; host; or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -21576,7 +21578,15 @@ class RuntimeShell:
                 "status": "not_found",
                 "receipt_ref": receipt_ref,
             }
-        payload = read_json_strict(receipt_path)
+        try:
+            payload = read_json_strict(receipt_path)
+        except (StrictJsonError, UnicodeDecodeError, OSError):
+            return {
+                "schema_version": "microcosm_runtime_evidence_card_v1",
+                "status": "blocked",
+                "receipt_ref": receipt_ref,
+                "reason": "receipt is not readable JSON",
+            }
         if not isinstance(payload, dict):
             return {
                 "schema_version": "microcosm_runtime_evidence_card_v1",
@@ -26997,7 +27007,10 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
         return _print_json(shell.spatial_simulation())
     if args.command == "circuit-attribution":
         if args.card:
-            return _print_json_card(shell.circuit_attribution_card())
+            # The card carries a status field, so use the status-aware printer to
+            # share one exit-code contract with the non-card form (and every other
+            # --card command) instead of always returning 0.
+            return _print_json(shell.circuit_attribution_card())
         return _print_json(shell.circuit_attribution())
     if args.command == "route-cleanup":
         return _print_json(shell.route_cleanup())

@@ -1020,6 +1020,23 @@ def test_cli_circuit_attribution_card_smoke(
     assert len(encoded) < 7000
 
 
+def test_cli_circuit_attribution_card_exit_code_tracks_status(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from microcosm_core import runtime_shell
+
+    monkeypatch.setattr(
+        runtime_shell.RuntimeShell,
+        "circuit_attribution_card",
+        lambda self: {"schema_version": "x", "status": "blocked"},
+    )
+    status = cli.main(["circuit-attribution", "--card", "."])
+    capsys.readouterr()
+    # A non-PASS card must exit non-zero, matching the plain command and every
+    # other --card surface; previously the card form always returned 0.
+    assert status == 1
+
+
 def test_cli_bridge_phase_continuity_runtime_accepts_card_flag(tmp_path: Path) -> None:
     out_dir = tmp_path / "bridge_receipts"
     result = _run_microcosm_cli(
