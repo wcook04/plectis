@@ -1748,7 +1748,20 @@
         else if (label.indexOf(t) !== -1) s += 3;
         else s += 1;
       }
-      if (rec.kind === 'component') s += 1;
+      // Intent-aware bias. A code-shaped query (an identifier, command, or path)
+      // wants the component spec; a natural-language query wants the paper-module
+      // write-up that explains it. Pages stay lightly boosted as orientation.
+      var codey = false;
+      for (var ci = 0; ci < qs.length; ci++) {
+        if (/[_/.]|--/.test(qs[ci])) { codey = true; break; }
+      }
+      if (codey) {
+        if (rec.kind === 'component') s += 2;
+      } else if (rec.kind === 'paper module') {
+        s += 2;
+      } else if (rec.kind === 'page') {
+        s += 1;
+      }
       return s;
     }
 
@@ -2368,7 +2381,7 @@
       // does. Consumer-aware so each surface describes what it actually renders.
       graphCap.textContent = fig.getAttribute('data-graph-consumer') === 'landing'
         ? 'The seven public areas and the shared path they bind to. Hover or select an area or the shared path to read it on the right; open the full map to follow any single component to its evidence and source.'
-        : 'An interactive picture of the seven public areas, the shared path, and every public component. Hover a node to preview its links; click to pin it and read its full name and declared links below; double-click (or Open card) to open a component’s page. Press Esc, or Whole map, to return to the overview.';
+        : 'An interactive picture of the seven public areas, the shared path, and every public component. Hover a node to preview its links; click to pin it and read its full name and declared links below; double-click (or the panel button) to open its page, the paper-module write-up where one exists, otherwise the component spec. Press Esc, or Whole map, to return to the overview.';
     }
 
     var KIND_WORD = {
@@ -3037,7 +3050,7 @@
       var href = hrefOf(node);
       var primaryHref = href || graphPageHref(objContent.primary_reader_href || (rec && rec.primary_reader_url) || '');
       if (primaryHref) {
-        var primaryLabel = /(?:^|\/)paper-module-/.test(primaryHref) ? 'Read paper module' : 'Open card';
+        var primaryLabel = /(?:^|\/)paper-module-/.test(primaryHref) ? 'Read paper module' : 'Open component spec';
         var open = el('a', 'gpanel__open', primaryLabel);
         open.setAttribute('href', primaryHref);
         actions.appendChild(open);

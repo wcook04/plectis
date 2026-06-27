@@ -1688,6 +1688,38 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
 .comp-card__read::after { content: " \2192"; }
 .comp-card__pm-anchor { font-size: 0.78rem; color: var(--faint); margin-left: 0.2rem; }
 
+/* ── Detail-page reading grammar ──────────────────────────────────────────────
+   The two object types keep their identity at full-page scale, not just on cards.
+   A component detail page is a spec/evidence record and offers a warm handoff up
+   to its paper module (the explanation); a paper-module page reads body-first as
+   an article, with covers/relations/provenance demoted to a quiet context block
+   below the writing. Every warm tone reuses the --pm-* card tokens. */
+.reader-handoff {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem 1rem;
+  margin: 1.3rem 0 0.4rem; padding: 0.85rem 1.05rem;
+  background: var(--pm-wash);
+  border: 1px solid var(--pm-rail-soft); border-left: 3px solid var(--pm-rail);
+  border-radius: var(--r-md);
+}
+.reader-handoff__note { margin: 0; flex: 1; min-width: 14rem; font-size: 0.92rem; color: var(--ink-soft); }
+.reader-handoff__cta { flex: none; }
+.reader-handoff__cta::after { content: " \2192"; }
+
+/* Paper-module page reads as an article: a warm eyebrow marks the reading object
+   and the thesis leads in serif, then the write-up follows immediately. */
+.pm-detail__eyebrow { color: var(--pm-rail); }
+.pm-detail__thesis { font-family: var(--font-serif); color: var(--ink); }
+
+/* Context & evidence: the covers/relations/scope backplane, demoted below the
+   reading so it supports the write-up rather than preceding it. */
+.pm-context {
+  display: grid; gap: 0.55rem; padding: 0.9rem 1.05rem;
+  background: var(--surface-sunk);
+  border: 1px solid var(--rule); border-radius: var(--r-md);
+  font-size: 0.9rem; color: var(--ink-soft);
+}
+.pm-context > * { margin: 0; }
+
 /* Field-guide roster: generated middle-layer rows over the content graph.
    The label and one-line own the row; ids, source, quality, and links recede. */
 .roster-status { margin-top: 1rem; }
