@@ -1,3 +1,48 @@
+"""[PURPOSE]
+- Teleology: Make proof diagnostic evidence spine evidence inspectable through runnable
+  public fixture code while keeping claims bounded to emitted receipts and authority
+  ceilings.
+- Mechanism: The file keeps prover-benchmark diagnostic evidence pinned below theorem,
+  runtime, release, or proof-authority claims; helper functions load fixtures, recompute
+  predicates, normalize findings, build result/board/card payloads, and write receipts.
+- Non-goal: Does not authorize provider calls, private-source export, live system
+  mutation, release, or claims beyond this module's receipts.
+
+[INTERFACE]
+- CLI: `python -m microcosm_core.organs.proof_diagnostic_evidence_spine <command>` with
+  detected subcommands run, run-evidence-bundle.
+- Exports: validate_copied_macro_body_artifacts, validate_source_body_floor_artifacts,
+  validate_evidence_receipts, validate_provider_payload_policy,
+  validate_diagnostic_rows, validate_required_receipt_fields,
+  validate_authority_ceiling, validate_stale_source_coupling, build_diagnostic_board,
+  write_receipts, run, run_evidence_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.secret_exclusion_scan, microcosm_core.receipts,
+  microcosm_core.schemas
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -420,6 +465,23 @@ VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -433,6 +495,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _input_file_paths(input_dir: Path) -> list[Path]:
+    """[ACTION] Implement input file paths for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_input_file_paths`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (
         "checks.json",
         "provider_advisory_payloads.json",
@@ -447,6 +524,25 @@ def _input_file_paths(input_dir: Path) -> list[Path]:
 
 
 def _bundle_input_file_paths(input_dir: Path, *, public_root: Path | None = None) -> list[Path]:
+    """[ACTION] Implement bundle input file paths for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_bundle_input_file_paths`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants PUBLIC_RING2_ARTIFACT_TARGET_REFS,
+      SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS, SOURCE_BODY_FLOOR_MANIFEST_REF.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_RING2_ARTIFACT_TARGET_REFS, SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS,
+      SOURCE_BODY_FLOOR_MANIFEST_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (
         "bundle_manifest.json",
         "checks.json",
@@ -471,11 +567,45 @@ def _bundle_input_file_paths(input_dir: Path, *, public_root: Path | None = None
 
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Scan fixture inputs for private or forbidden material.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_scan_fixture_inputs`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to load_forbidden_classes, scan_paths, _input_file_paths and
+      applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_file_paths(input_dir), forbidden_classes=policy, display_root=public_root)
 
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Scan bundle inputs for private or forbidden material.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_scan_bundle_inputs`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
+      _bundle_input_file_paths and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _bundle_input_file_paths(input_dir, public_root=public_root),
@@ -485,6 +615,22 @@ def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 
 def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
+    """[ACTION] Load input payloads for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_load_input_payloads`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Delegates to read_json_strict, read_json_strict, read_json_strict,
+      read_json_strict, read_json_strict and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "checks": read_json_strict(input_dir / "checks.json"),
         "provider_payloads": read_json_strict(input_dir / "provider_advisory_payloads.json"),
@@ -504,6 +650,22 @@ def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_evidence_bundle_payloads(input_dir: Path) -> dict[str, Any]:
+    """[ACTION] Load evidence bundle payloads for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_load_evidence_bundle_payloads`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Delegates to read_json_strict, read_json_strict, read_json_strict,
+      read_json_strict, read_json_strict and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "bundle_manifest": read_json_strict(input_dir / "bundle_manifest.json"),
         "checks": read_json_strict(input_dir / "checks.json"),
@@ -516,6 +678,22 @@ def _load_evidence_bundle_payloads(input_dir: Path) -> dict[str, Any]:
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     value = payload.get(key, [])
@@ -525,6 +703,22 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _forbidden_body_key_paths(payload: object, *, prefix: str = "") -> list[str]:
+    """[ACTION] Implement forbidden body key paths for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_forbidden_body_key_paths`.
+    - Preconditions: Callers provide payload, prefix in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants FORBIDDEN_BODY_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_BODY_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     paths: list[str] = []
     if isinstance(payload, dict):
         for key, value in payload.items():
@@ -547,6 +741,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -567,6 +778,22 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, add, _finding and applies local branch
+      checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -580,6 +807,22 @@ def _record(
 
 
 def _stable_hash(payload: object) -> str:
+    """[ACTION] Build a stable SHA-256 hash from normalized structured data.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_stable_hash`.
+    - Preconditions: Callers provide payload in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
     )
@@ -587,10 +830,41 @@ def _stable_hash(payload: object) -> str:
 
 
 def _json_digest(payload: object) -> str:
+    """[ACTION] Implement JSON digest for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_json_digest`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Delegates to _stable_hash and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return _stable_hash(payload)
 
 
 def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Implement file freshness entry for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_file_freshness_entry`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to public_relative_path, path.stat, path.exists, path.is_file
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_ref = public_relative_path(path, display_root=public_root)
     if not path.exists():
         return {
@@ -613,6 +887,23 @@ def _evidence_bundle_freshness_basis(
     *,
     public_root: Path,
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement evidence bundle freshness basis for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_evidence_bundle_freshness_basis`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     paths = _bundle_input_file_paths(input_dir, public_root=public_root)
     return sorted(
         (_file_freshness_entry(path, public_root=public_root) for path in paths),
@@ -625,6 +916,26 @@ def _fresh_evidence_bundle_receipt(
     *,
     freshness_digest: str,
 ) -> dict[str, Any] | None:
+    """[ACTION] Implement fresh evidence bundle receipt for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_fresh_evidence_bundle_receipt`.
+    - Preconditions: Callers provide out_dir, freshness_digest in the shape consumed by
+      the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants CARD_SCHEMA_VERSION,
+      EVIDENCE_BUNDLE_RESULT_NAME, ORGAN_ID; filesystem metadata named by those
+      arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: CARD_SCHEMA_VERSION, EVIDENCE_BUNDLE_RESULT_NAME, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     receipt_path = Path(out_dir) / EVIDENCE_BUNDLE_RESULT_NAME
     if not receipt_path.is_file():
         return None
@@ -649,6 +960,24 @@ def _fresh_evidence_bundle_receipt(
 
 
 def _sha256_file(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return the hexadecimal digest.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_sha256_file`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -657,16 +986,63 @@ def _sha256_file(path: Path) -> str:
 
 
 def _safe_relative_ref(ref: str) -> bool:
+    """[ACTION] Implement safe relative ref for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_safe_relative_ref`.
+    - Preconditions: Callers provide ref in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     path = Path(ref)
     return bool(ref) and not path.is_absolute() and ".." not in path.parts
 
 
 def _split_anchor_ref(ref: str) -> tuple[str, str]:
+    """[ACTION] Implement split anchor ref for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_split_anchor_ref`.
+    - Preconditions: Callers provide ref in the shape consumed by the body.
+    - Mechanism: Delegates to ref.partition and applies local branch checks.
+    - Guarantee: Returns tuple[str, str] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     file_ref, marker, anchor = ref.partition("::")
     return file_ref, anchor if marker else ""
 
 
 def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
+    """[ACTION] Resolve a public reference string to a local path when it is in scope.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_resolve_public_ref`.
+    - Preconditions: Callers provide public_root, ref in the shape consumed by the body;
+      paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     file_ref, _anchor = _split_anchor_ref(ref)
     if not _safe_relative_ref(file_ref):
         return None
@@ -679,6 +1055,21 @@ def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
 
 
 def _json_contains_anchor(payload: object, anchor: str) -> bool:
+    """[ACTION] Implement JSON contains anchor for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_json_contains_anchor`.
+    - Preconditions: Callers provide payload, anchor in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not anchor:
         return True
     if isinstance(payload, dict):
@@ -692,6 +1083,22 @@ def _json_contains_anchor(payload: object, anchor: str) -> bool:
 
 
 def _json_contains_value(payload: object, expected: str) -> bool:
+    """[ACTION] Implement JSON contains value for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_json_contains_value`.
+    - Preconditions: Callers provide payload, expected in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if isinstance(payload, dict):
         return any(_json_contains_value(value, expected) for value in payload.values())
     if isinstance(payload, list):
@@ -700,6 +1107,22 @@ def _json_contains_value(payload: object, expected: str) -> bool:
 
 
 def _read_json_anchor_ref(public_root: Path, ref: str) -> tuple[Path | None, object | None, bool]:
+    """[ACTION] Implement read JSON anchor ref for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_read_json_anchor_ref`.
+    - Preconditions: Callers provide public_root, ref in the shape consumed by the body.
+    - Mechanism: Delegates to _split_anchor_ref, _resolve_public_ref, read_json_strict,
+      _json_contains_anchor and applies local branch checks.
+    - Guarantee: Returns tuple[Path | None, object | None, bool] from the explicit
+      return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     _file_ref, anchor = _split_anchor_ref(ref)
     path = _resolve_public_ref(public_root, ref)
     if path is None:
@@ -712,6 +1135,21 @@ def _read_json_anchor_ref(public_root: Path, ref: str) -> tuple[Path | None, obj
 
 
 def _source_anchor_semantics(path: Path) -> set[str]:
+    """[ACTION] Resolve source anchor semantics from source-module evidence.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_source_anchor_semantics`.
+    - Preconditions: Callers provide path in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     try:
         payload = read_json_strict(path)
     except (OSError, json.JSONDecodeError, ValueError):
@@ -734,6 +1172,21 @@ def _source_anchor_semantics(path: Path) -> set[str]:
 
 
 def _receipt_anchor_semantics(payload: object) -> set[str]:
+    """[ACTION] Implement receipt anchor semantics for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_receipt_anchor_semantics`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Delegates to semantics.add, semantics.add, semantics.add,
+      semantics.add, semantics.add and applies local branch checks.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return set()
     semantics: set[str] = set()
@@ -764,6 +1217,23 @@ def _check_semantic_floor(
     source_semantics: set[str],
     receipt_semantics: set[str],
 ) -> dict[str, Any]:
+    """[ACTION] Implement check semantic floor for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_check_semantic_floor`.
+    - Preconditions: Callers provide check_id, source_semantics, receipt_semantics in
+      the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     required_sources: set[str] = set()
     required_receipts: set[str] = set()
     if "failure_taxonomy" in check_id:
@@ -791,6 +1261,25 @@ def _check_semantic_floor(
 
 
 def _classify_evidence_check(row: dict[str, Any], *, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Implement classify evidence check for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_classify_evidence_check`.
+    - Preconditions: Callers provide row, public_root in the shape consumed by the body.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants BODY_MATERIAL_STATUS,
+      EVIDENCE_ANCHOR_STATUS, SOURCE_DIGESTS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BODY_MATERIAL_STATUS, EVIDENCE_ANCHOR_STATUS, SOURCE_DIGESTS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source_refs = [
         str(item) for item in row.get("source_refs", []) if isinstance(item, str)
     ]
@@ -994,6 +1483,28 @@ def validate_copied_macro_body_artifacts(
     *,
     public_root: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Validate copied macro body artifacts against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_copied_macro_body_artifacts`.
+    - Preconditions: Callers provide bundle_manifest, public_root in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants PUBLIC_RING2_ARTIFACT_IMPORTS,
+      PUBLIC_RING2_ARTIFACT_TARGET_REFS, SOURCE_DIGESTS; filesystem metadata named by
+      those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_RING2_ARTIFACT_IMPORTS, PUBLIC_RING2_ARTIFACT_TARGET_REFS,
+      SOURCE_DIGESTS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     declared = []
     if isinstance(bundle_manifest, dict):
         declared = [
@@ -1124,6 +1635,28 @@ def validate_source_body_floor_artifacts(
     *,
     public_root: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Validate source body floor artifacts against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_source_body_floor_artifacts`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; content inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants ORGAN_ID,
+      SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS, SOURCE_BODY_FLOOR_MANIFEST_REF;
+      filesystem/content inputs named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ORGAN_ID, SOURCE_BODY_FLOOR_ARTIFACT_IMPORTS,
+      SOURCE_BODY_FLOOR_MANIFEST_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = input_dir / "source_body_floor" / "source_module_manifest.json"
     manifest_payload: dict[str, Any] = {}
     if manifest_path.is_file():
@@ -1283,6 +1816,24 @@ def validate_source_body_floor_artifacts(
 
 
 def validate_evidence_receipts(checks_payload: object, *, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Validate evidence receipts against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_evidence_receipts`.
+    - Preconditions: Callers provide checks_payload, public_root in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants VALIDATOR_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     proof_rows: list[dict[str, Any]] = []
     accepted_ids: list[str] = []
@@ -1439,6 +1990,23 @@ def validate_evidence_receipts(checks_payload: object, *, public_root: Path) -> 
 
 
 def _classify_provider_anchor_refs(row: dict[str, Any], *, public_root: Path | None) -> dict[str, Any]:
+    """[ACTION] Implement classify provider anchor refs for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_classify_provider_anchor_refs`.
+    - Preconditions: Callers provide row, public_root in the shape consumed by the body.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     premise_refs = [str(item) for item in row.get("premise_refs", []) if isinstance(item, str)]
     source_digest_refs = [
         str(item) for item in row.get("source_digest_refs", []) if isinstance(item, str)
@@ -1497,6 +2065,24 @@ def validate_provider_payload_policy(
     *,
     public_root: Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate provider payload policy against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_provider_payload_policy`.
+    - Preconditions: Callers provide provider_payload, public_root in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants FORBIDDEN_BODY_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_BODY_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     payload_rows: list[dict[str, Any]] = []
@@ -1602,6 +2188,23 @@ def validate_provider_payload_policy(
 
 
 def validate_diagnostic_rows(payload: object, *, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Validate diagnostic rows against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_diagnostic_rows`.
+    - Preconditions: Callers provide payload, public_root in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     diagnostic_rows: list[dict[str, Any]] = []
     accepted_ids: list[str] = []
@@ -1697,6 +2300,22 @@ def validate_diagnostic_rows(payload: object, *, public_root: Path) -> dict[str,
 
 
 def validate_required_receipt_fields(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate required receipt fields against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_required_receipt_fields`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     subject_id = "receipt_missing_claim_validator_and_anti_claim"
@@ -1737,6 +2356,22 @@ def validate_required_receipt_fields(payload: object) -> dict[str, Any]:
 
 
 def validate_authority_ceiling(payload: object, *, kind: str) -> dict[str, Any]:
+    """[ACTION] Validate authority ceiling against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_authority_ceiling`.
+    - Preconditions: Callers provide payload, kind in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     if not isinstance(payload, dict):
@@ -1780,6 +2415,22 @@ def validate_authority_ceiling(payload: object, *, kind: str) -> dict[str, Any]:
 
 
 def validate_stale_source_coupling(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate stale source coupling against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `validate_stale_source_coupling`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     subject_id = "stale_proof_receipt_fingerprint"
@@ -1832,6 +2483,22 @@ def validate_stale_source_coupling(payload: object) -> dict[str, Any]:
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """[ACTION] Merge observed evidence rows into expected replay rows.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_merge_observed`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -1841,10 +2508,40 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
+    """[ACTION] Render receipt paths relative to the public root.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_relative_receipt_paths`.
+    - Preconditions: Callers provide paths, public_root in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return [public_relative_path(path, display_root=public_root) for path in paths.values()]
 
 
 def _authority_rejection_count(result: dict[str, Any]) -> int:
+    """[ACTION] Implement authority rejection count for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_authority_rejection_count`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to int, int and applies local branch checks.
+    - Guarantee: Returns int from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return (
         len(result["provider_policy_rejection_ids"])
         + int(bool(result["diagnostic_board_source_authority_rejected"]))
@@ -1853,6 +2550,24 @@ def _authority_rejection_count(result: dict[str, Any]) -> int:
 
 
 def _first_screen_proof_rows(proof_receipts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """[ACTION] Implement first screen proof rows for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_first_screen_proof_rows`.
+    - Preconditions: Callers provide proof_receipts in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS,
+      VALIDATOR_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows: list[dict[str, Any]] = []
     for row in proof_receipts:
         check_id = str(row.get("check_id") or "check")
@@ -1955,6 +2670,22 @@ def _first_screen_proof_rows(proof_receipts: list[dict[str, Any]]) -> list[dict[
 
 
 def _omission_reversal_inputs(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement omission reversal inputs for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_omission_reversal_inputs`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "status": PASS,
         "public_replacement_refs": result["public_replacement_refs"],
@@ -1967,6 +2698,24 @@ def _omission_reversal_inputs(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_diagnostic_board(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build diagnostic board for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `build_diagnostic_board`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants PROOF_AUTHORITY_CEILING,
+      VALIDATOR_ASSERTED_FEEDS_PATTERNS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PROOF_AUTHORITY_CEILING, VALIDATOR_ASSERTED_FEEDS_PATTERNS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "schema_version": "proof_diagnostic_evidence_spine_diagnostic_board_v1",
         "board_id": "first_wave.proof_diagnostic_evidence_spine.diagnostic_board",
@@ -1990,6 +2739,23 @@ def build_diagnostic_board(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
+    """[ACTION] Build shared receipt fields used by this organ.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_common_receipt`.
+    - Preconditions: Callers provide result, schema_version, receipt_paths in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     keys = (
         "status",
         "organ_id",
@@ -2064,6 +2830,34 @@ def write_receipts(
     public_root: str | Path,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
+    """[ACTION] Write public receipt artifacts for the computed result.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `write_receipts`.
+    - Preconditions: Callers provide out_dir, validation_result, public_root,
+      acceptance_out in the shape consumed by the body; paths must be resolvable for
+      filesystem metadata checks; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns dict[str, str] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL,
+      DIAGNOSTIC_BOARD_NAME, EXPECTED_RECEIPT_PATHS, PROOF_AUTHORITY_CEILING,
+      PROOF_RECEIPTS_NAME, PROVIDER_POLICY_NAME, VALIDATION_RECEIPT_NAME,
+      VALIDATOR_ASSERTED_FEEDS_PATTERNS; filesystem metadata named by those arguments or
+      constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, DIAGNOSTIC_BOARD_NAME, EXPECTED_RECEIPT_PATHS,
+      PROOF_AUTHORITY_CEILING, PROOF_RECEIPTS_NAME, PROVIDER_POLICY_NAME,
+      VALIDATION_RECEIPT_NAME, VALIDATOR_ASSERTED_FEEDS_PATTERNS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -2239,6 +3033,26 @@ def _write_evidence_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
+    """[ACTION] Write evidence bundle receipt for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_write_evidence_bundle_receipt`.
+    - Preconditions: Callers provide out_dir, validation_result, public_root in the
+      shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks; write targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them.
+    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants EVIDENCE_BUNDLE_RESULT_NAME; filesystem
+      metadata named by those arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: EVIDENCE_BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -2285,6 +3099,30 @@ def run(
     command: str | None = None,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants AUTHORITY_CHAIN_RECEIPT_REFS,
+      BODY_MATERIAL_STATUS, EVIDENCE_ANCHOR_STATUS, EXPECTED_NEGATIVE_CASES, FIXTURE_ID,
+      ORGAN_ID, PROOF_ANTI_CLAIM, PROOF_AUTHORITY_CEILING, ....
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AUTHORITY_CHAIN_RECEIPT_REFS, BODY_MATERIAL_STATUS,
+      EVIDENCE_ANCHOR_STATUS, EXPECTED_NEGATIVE_CASES, FIXTURE_ID, ORGAN_ID,
+      PROOF_ANTI_CLAIM, PROOF_AUTHORITY_CEILING, PUBLIC_REPLACEMENT_REFS,
+      REAL_SUBSTRATE_REFS, RECEIPT_ANCHOR_REFS, REFERENCE_CAPSULE_RECEIPT_REFS, ....
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -2439,6 +3277,30 @@ def run_evidence_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run evidence bundle for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `run_evidence_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
+      the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants AUTHORITY_CHAIN_RECEIPT_REFS,
+      BODY_MATERIAL_STATUS, CARD_SCHEMA_VERSION, EVIDENCE_ANCHOR_STATUS, FIXTURE_ID,
+      ORGAN_ID, PROOF_AUTHORITY_CEILING, PUBLIC_REPLACEMENT_REFS, ....
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AUTHORITY_CHAIN_RECEIPT_REFS, BODY_MATERIAL_STATUS, CARD_SCHEMA_VERSION,
+      EVIDENCE_ANCHOR_STATUS, FIXTURE_ID, ORGAN_ID, PROOF_AUTHORITY_CEILING,
+      PUBLIC_REPLACEMENT_REFS, REAL_SUBSTRATE_REFS, RECEIPT_ANCHOR_REFS,
+      REFERENCE_CAPSULE_RECEIPT_REFS, SOURCE_DIGESTS, ....
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
@@ -2605,6 +3467,23 @@ def run_evidence_bundle(
 
 
 def _first_screen_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement first screen card for this organ replay.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `_first_screen_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BLOCKED_PROOF_DIAGNOSTIC_CLAIM_IDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     proof_rows = result.get("first_screen_proof_rows", [])
     if not isinstance(proof_rows, list):
         proof_rows = []
@@ -2649,6 +3528,25 @@ def _first_screen_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants CARD_OMITTED_FULL_PAYLOAD_KEYS,
+      CARD_SCHEMA_VERSION, ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: CARD_OMITTED_FULL_PAYLOAD_KEYS, CARD_SCHEMA_VERSION, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     receipt_paths = [
         Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
         for path in result.get("receipt_paths", [])
@@ -2789,6 +3687,22 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports proof diagnostic evidence spine by documenting and preserving
+      the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+      Writes only the output paths named by the caller, temporary workspace, or module
+      constants.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
     run_parser = subparsers.add_parser("run")

@@ -1,3 +1,56 @@
+"""[PURPOSE]
+- Teleology: Make indirect prompt-injection information-flow policy replay evidence
+  inspectable through runnable public fixture code while keeping claims bounded to
+  emitted receipts and authority ceilings.
+- Mechanism: The file propagates taint through an information-flow graph and recomputes
+  allow, warn, and block verdicts for privileged sinks; helper functions load fixtures,
+  recompute predicates, normalize findings, build result/board/card payloads, and write
+  receipts.
+- Non-goal: Indirect prompt-injection information-flow replay validates synthetic
+  source-trust, taint-graph, policy-verdict, sanitized-output, cold-replay,
+  negative-case, and authority-ceiling receipts, and now emits public agent-execution
+  trace spans over those public refs plus one generated public tool-call trace input
+  through the same taint propagation mechanic. It does not use real email, documents,
+  accounts, credentials, raw prompts, provider payloads, or live external tools, and it
+  does not claim general prompt-injection robustness, benchmark performance, source
+  mutation, or release authority.
+
+[INTERFACE]
+- CLI: `python -m
+  microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay
+  <command>` with detected subcommands run, run-prompt-injection-bundle.
+- Exports: validate_projection_protocol, validate_injection_policy,
+  validate_source_documents, validate_information_flow_graph, validate_policy_verdicts,
+  validate_sanitized_outputs, validate_cold_replay, validate_negative_cases, run,
+  run_prompt_injection_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.macro_tools.agent_execution_trace,
+  microcosm_core.secret_exclusion_scan, microcosm_core.receipts, microcosm_core.schemas
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -222,6 +275,24 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -235,10 +306,41 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Convert a path into a public-root-relative display reference.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_display`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to public_relative_path and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     rows = payload.get(key, [])
@@ -246,12 +348,45 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Build the fixture input path list for the requested replay mode.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_input_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants INPUT_NAMES, NEGATIVE_INPUT_NAMES;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: INPUT_NAMES, NEGATIVE_INPUT_NAMES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     manifest = input_dir / "bundle_manifest.json"
@@ -261,6 +396,25 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_sha256`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; module constants HASH_CHUNK_SIZE; filesystem/content inputs
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: HASH_CHUNK_SIZE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -269,6 +423,27 @@ def _sha256(path: Path) -> str:
 
 
 def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
+    """[ACTION] Find the repository root used for public reference rewriting.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_repo_root_for_public_refactor`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body;
+      paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants AGENT_EXECUTION_TRACE_SOURCE_REF,
+      AGENT_EXECUTION_TRACE_TARGET_FILE_REF; filesystem metadata named by those
+      arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AGENT_EXECUTION_TRACE_SOURCE_REF, AGENT_EXECUTION_TRACE_TARGET_FILE_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     for candidate in (public_root.parent, *public_root.parents):
         if (
             (candidate / AGENT_EXECUTION_TRACE_SOURCE_REF).is_file()
@@ -285,6 +460,30 @@ def _body_import_verification(
     public_trace: dict[str, Any],
     source_modules: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Verify that source modules can be inspected without importing private bodies.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_body_import_verification`.
+    - Preconditions: Callers provide base_verification, public_root, public_trace,
+      source_modules in the shape consumed by the body; paths must be resolvable for
+      filesystem metadata checks.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants AGENT_EXECUTION_TRACE_SOURCE_REF,
+      AGENT_EXECUTION_TRACE_TARGET_FILE_REF, AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF,
+      BODY_IMPORT_CLASSIFICATION; filesystem metadata named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AGENT_EXECUTION_TRACE_SOURCE_REF, AGENT_EXECUTION_TRACE_TARGET_FILE_REF,
+      AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF, BODY_IMPORT_CLASSIFICATION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     repo_root = _repo_root_for_public_refactor(public_root)
     source_path = (
         repo_root / AGENT_EXECUTION_TRACE_SOURCE_REF if repo_root is not None else None
@@ -343,6 +542,23 @@ def _body_import_verification(
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
+    """[ACTION] Resolve the source-module manifest path for fixture validation.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_manifest_path`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
 
@@ -352,6 +568,23 @@ def _source_module_target_path(
     input_dir: Path,
     public_root: Path,
 ) -> Path:
+    """[ACTION] Resolve a target source-module reference to a local path.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_target_path`.
+    - Preconditions: Callers provide target_ref, input_dir, public_root in the shape
+      consumed by the body.
+    - Mechanism: Delegates to target_ref.removeprefix, normalized.startswith and applies
+      local branch checks.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
         return input_dir / normalized
@@ -359,6 +592,23 @@ def _source_module_target_path(
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Resolve source-module file paths declared by fixture rows.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_paths`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
@@ -391,6 +641,24 @@ def _source_module_target_path_for_ref(
     input_dir: Path,
     public_root: Path,
 ) -> Path | None:
+    """[ACTION] Resolve source module target path for ref from source-module evidence.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_target_path_for_ref`.
+    - Preconditions: Callers provide target_ref, input_dir, public_root in the shape
+      consumed by the body.
+    - Mechanism: Delegates to _source_module_target_path and applies local branch
+      checks.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not target_ref:
         return None
     return _source_module_target_path(
@@ -401,6 +669,23 @@ def _source_module_target_path_for_ref(
 
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Scan declared input paths for forbidden private or unsafe material.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_scan_paths_for_input`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Delegates to _public_root_for_path, _input_paths, _source_module_paths
+      and applies local branch checks.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     return [
         *_input_paths(input_dir, include_negative=include_negative),
@@ -409,6 +694,22 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Collect source paths that determine replay freshness.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_freshness_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
@@ -419,6 +720,29 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Build the freshness basis used in receipts and cards.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_freshness_basis`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives. Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants CARD_SCHEMA_VERSION; filesystem metadata
+      named by those arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -480,6 +804,26 @@ def _fresh_prompt_injection_bundle_receipt(
     *,
     command: str,
 ) -> dict[str, Any] | None:
+    """[ACTION] Implement fresh prompt injection bundle receipt for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_fresh_prompt_injection_bundle_receipt`.
+    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to get, _freshness_basis, payload.get, path.is_file,
+      read_json_strict and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME, ORGAN_ID; filesystem
+      metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_RESULT_NAME, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -519,6 +863,23 @@ def _fresh_prompt_injection_bundle_receipt(
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_load_payloads`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -533,6 +894,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -553,6 +931,22 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, add, _finding and applies local branch
+      checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -566,6 +960,22 @@ def _record(
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """[ACTION] Merge observed evidence rows into expected replay rows.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_merge_observed`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -575,6 +985,22 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Merge finding collections while preserving deterministic order.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_merge_findings`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -595,6 +1021,31 @@ def _source_module_manifest_result(
     public_root: Path,
     require_manifest: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate the source-module manifest and summarize its result.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_manifest_result`.
+    - Preconditions: Callers provide input_dir, public_root, require_manifest in the
+      shape consumed by the body; content inputs must exist and match the expected local
+      fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Normalizes Path values and public-root-relative references before returning them.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants PUBLIC_SAFE_SOURCE_BODY_CLASSES,
+      SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS; filesystem/content inputs named
+      by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_SAFE_SOURCE_BODY_CLASSES, SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
     if not manifest_path.is_file():
@@ -859,6 +1310,28 @@ def _source_module_manifest_result(
 def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Summarize source imports and body-open checks for public evidence.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_source_open_body_import_summary`.
+    - Preconditions: Callers provide source_module_result in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _strings, source_module_result.get,
+      source_module_result.get, source_module_result.get, source_module_result.get and
+      applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS,
+      SOURCE_OPEN_BODY_SCHEMA.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
     imported = source_module_result.get("status") == PASS and bool(module_ids)
@@ -910,14 +1383,60 @@ def _source_open_body_import_summary(
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
+    """[ACTION] List required keys that are absent or empty in a row.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_missing`.
+    - Preconditions: Callers provide row, required in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
+    """[ACTION] Detect forbidden keys in a nested payload.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_has_forbidden_key`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants FORBIDDEN_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _is_untrusted(label: str) -> bool:
+    """[ACTION] Detect whether untrusted holds for this replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_is_untrusted`.
+    - Preconditions: Callers provide label in the shape consumed by the body.
+    - Mechanism: Delegates to label.startswith and applies local branch checks.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return label.startswith("untrusted_")
 
 
@@ -928,6 +1447,26 @@ def validate_projection_protocol(
     public_trace: dict[str, Any],
     source_modules: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Validate projection protocol against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_projection_protocol`.
+    - Preconditions: Callers provide payload, public_root, public_trace, source_modules
+      in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants BODY_IMPORT_CLASSIFICATION,
+      BODY_IMPORT_STATUS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BODY_IMPORT_CLASSIFICATION, BODY_IMPORT_STATUS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -1013,6 +1552,26 @@ def validate_projection_protocol(
 
 
 def validate_injection_policy(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate injection policy against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_injection_policy`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_FLOW_FIELDS,
+      REQUIRED_OUTPUT_FIELDS, REQUIRED_SOURCE_FIELDS, REQUIRED_VERDICT_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_FLOW_FIELDS, REQUIRED_OUTPUT_FIELDS, REQUIRED_SOURCE_FIELDS,
+      REQUIRED_VERDICT_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     policy = payload if isinstance(payload, dict) else {}
     allowed = set(_strings(policy.get("allowed_verdicts")))
     required_source = set(_strings(policy.get("required_source_fields")))
@@ -1077,6 +1636,24 @@ def validate_injection_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_source_documents(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate source documents against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_source_documents`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_SOURCE_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_SOURCE_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "source_documents")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1143,6 +1720,22 @@ def _derived_flow_taint_labels(
     row: dict[str, Any],
     source: dict[str, Any],
 ) -> list[str]:
+    """[ACTION] Implement derived flow taint labels for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_derived_flow_taint_labels`.
+    - Preconditions: Callers provide row, source in the shape consumed by the body.
+    - Mechanism: Delegates to _strings, labels.add, source.get, row.get, row.get and
+      applies local branch checks.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     labels = set(_strings(source.get("taint_labels")))
     proposed_action = str(row.get("proposed_action_ref") or "")
     sink_kind = str(row.get("sink_kind") or "")
@@ -1152,6 +1745,22 @@ def _derived_flow_taint_labels(
 
 
 def _has_untrusted_taint(labels: list[str]) -> bool:
+    """[ACTION] Implement has untrusted taint for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_has_untrusted_taint`.
+    - Preconditions: Callers provide labels in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return any(
         label.startswith("untrusted_")
         or label in {"prompt_injection", "hidden_policy_claim"}
@@ -1163,6 +1772,23 @@ def _derived_policy_verdict(
     row: dict[str, Any],
     derived_taint_labels: list[str],
 ) -> str:
+    """[ACTION] Implement derived policy verdict for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_derived_policy_verdict`.
+    - Preconditions: Callers provide row, derived_taint_labels in the shape consumed by
+      the body.
+    - Mechanism: Delegates to _has_untrusted_taint, row.get, row.get, row.get, row.get
+      and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     labels = set(derived_taint_labels)
     sink_kind = str(row.get("sink_kind") or "")
     proposed_action = str(row.get("proposed_action_ref") or "")
@@ -1192,6 +1818,24 @@ def _taint_propagation_receipt(
     rows: list[dict[str, Any]],
     source_by_id: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """[ACTION] Implement taint propagation receipt for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_taint_propagation_receipt`.
+    - Preconditions: Callers provide rows, source_by_id in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns tuple[dict[str, Any], list[dict[str, Any]]] from the explicit
+      return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     taints_by_node: dict[str, set[str]] = {
         source_id: set(_strings(source.get("taint_labels")))
@@ -1281,6 +1925,23 @@ def _taint_propagation_receipt(
 
 
 def _live_tool_call_trace_promotion(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement live tool call trace promotion for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_live_tool_call_trace_promotion`.
+    - Preconditions: Callers provide public_trace in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     spans = [
         row
         for row in public_trace.get("spans", [])
@@ -1354,6 +2015,25 @@ def validate_information_flow_graph(
     payload: object,
     source_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """[ACTION] Validate information flow graph against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_information_flow_graph`.
+    - Preconditions: Callers provide payload, source_rows in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_FLOW_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_FLOW_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "information_flows")
     source_by_id = {str(row["source_id"]): row for row in source_rows}
     findings: list[dict[str, Any]] = []
@@ -1446,6 +2126,25 @@ def validate_policy_verdicts(
     policy: object,
     flow_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """[ACTION] Validate policy verdicts against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_policy_verdicts`.
+    - Preconditions: Callers provide payload, policy, flow_rows in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_VERDICT_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_VERDICT_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "policy_verdicts")
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_verdicts")))
@@ -1506,6 +2205,25 @@ def validate_sanitized_outputs(
     flow_rows: list[dict[str, Any]],
     verdicts_by_flow: dict[str, str],
 ) -> dict[str, Any]:
+    """[ACTION] Validate sanitized outputs against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_sanitized_outputs`.
+    - Preconditions: Callers provide payload, flow_rows, verdicts_by_flow in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_OUTPUT_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_OUTPUT_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "sanitized_outputs")
     flow_by_id = {str(row["flow_id"]): row for row in flow_rows}
     findings: list[dict[str, Any]] = []
@@ -1574,6 +2292,24 @@ def validate_sanitized_outputs(
 
 
 def validate_cold_replay(payload: object, flow_ids: set[str]) -> dict[str, Any]:
+    """[ACTION] Validate cold replay against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_cold_replay`.
+    - Preconditions: Callers provide payload, flow_ids in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "cold_replay")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1625,6 +2361,24 @@ def validate_cold_replay(payload: object, flow_ids: set[str]) -> dict[str, Any]:
 
 
 def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, Any]:
+    """[ACTION] Validate negative cases against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `validate_negative_cases`.
+    - Preconditions: Callers provide negative_payloads in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     for case_id, payload in negative_payloads.items():
@@ -1725,6 +2479,29 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the replay result payload from validated evidence.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_build_result`.
+    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
+      the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
+      BODY_IMPORT_CLASSIFICATION, BODY_IMPORT_STATUS, EXPECTED_NEGATIVE_CASES,
+      FIXTURE_ID, NEGATIVE_INPUT_NAMES, ORGAN_ID, ....
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, BODY_IMPORT_CLASSIFICATION,
+      BODY_IMPORT_STATUS, EXPECTED_NEGATIVE_CASES, FIXTURE_ID, NEGATIVE_INPUT_NAMES,
+      ORGAN_ID, PRODUCT_PATH_ROLE, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
@@ -1917,6 +2694,24 @@ def _build_result(
 
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the board projection from a replay result payload.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_board_from_result`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "schema_version": (
             "indirect_prompt_injection_information_flow_policy_replay_board_v1"
@@ -1996,6 +2791,27 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Write replay receipt payloads and return their public references.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_write_receipts`.
+    - Preconditions: Callers provide result, out_dir, acceptance_out in the shape
+      consumed by the body; write targets must be inside the caller-selected output or
+      temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns dict[str, Any] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
+      FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, FIXTURE_ID, ORGAN_ID, RESULT_NAME,
+      VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -2106,6 +2922,23 @@ def run(
     ),
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     result = _build_result(
         source,
@@ -2133,6 +2966,27 @@ def run_prompt_injection_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run prompt injection bundle for this organ replay.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `run_prompt_injection_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
+      the shape consumed by the body; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     source = Path(input_dir)
@@ -2160,6 +3014,22 @@ def run_prompt_injection_bundle(
 
 
 def _card_receipt_paths(paths: object) -> list[str]:
+    """[ACTION] Collect receipt paths rendered on the public card.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by
+      `_card_receipt_paths`.
+    - Preconditions: Callers provide paths in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
         return []
     normalized = normalize_public_receipt_paths({"receipt_paths": paths})
@@ -2170,6 +3040,24 @@ def _card_receipt_paths(paths: object) -> list[str]:
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to result.get, result.get, result.get, result.get, trace.get
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants CARD_OMITTED_FULL_PAYLOAD_KEYS,
+      CARD_SCHEMA_VERSION.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: CARD_OMITTED_FULL_PAYLOAD_KEYS, CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     secret_scan = result.get("secret_exclusion_scan")
@@ -2276,6 +3164,22 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _parser() -> argparse.ArgumentParser:
+    """[ACTION] Build the command-line parser for this organ module.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `_parser`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+    - Guarantee: Returns argparse.ArgumentParser from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(
         prog="indirect_prompt_injection_information_flow_policy_replay"
     )
@@ -2293,6 +3197,22 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports indirect prompt injection information flow policy replay by
+      documenting and preserving the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: Explicit raise paths include ValueError(args.action); called operations may
+      propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":

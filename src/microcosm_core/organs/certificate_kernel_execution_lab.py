@@ -1,3 +1,51 @@
+"""[PURPOSE]
+- Teleology: Make certificate kernel execution lab evidence inspectable through runnable
+  public fixture code while keeping claims bounded to emitted receipts and authority
+  ceilings.
+- Mechanism: The file writes Lean certificate files in a throwaway workspace and takes
+  acceptance from the compiler return code when Lean is available; helper functions load
+  fixtures, recompute predicates, normalize findings, build result/board/card payloads,
+  and write receipts.
+- Non-goal: Certificate kernel execution lab runs a source-available public Lean
+  certificate kernel in a temporary workspace, checks generated certificate rows, and
+  records structured public CP2/Evolve rerun receipts with only dangerous payload fields
+  omitted. It does not import macro proof bodies, export proof text, call providers,
+  count oracle/provider output as proof, mutate source, claim benchmark solve-rate, or
+  authorize release.
+
+[INTERFACE]
+- CLI: `python -m microcosm_core.organs.certificate_kernel_execution_lab <command>` with
+  detected subcommands readout.
+- Exports: CertificateTransitionReceipt, certificate_kernel_execution_card,
+  write_receipts, build_public_readout, run, run_certificate_bundle, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.secret_exclusion_scan, microcosm_core.receipts,
+  microcosm_core.schemas
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -210,6 +258,32 @@ ANTI_CLAIM = (
 
 @dataclass(frozen=True)
 class CertificateTransitionReceipt:
+    """[ROLE] Carry certificate transition receipt state for certificate kernel execution lab.
+
+    - Teleology: Groups transition_id, problem_id, target_shape, action_class,
+      candidate_kind, allowed_certificate_refs, lean_return_code, accepted,
+      verifier_failure_class, stdout_stderr_in_receipt, ... so validators and receipt
+      builders move one typed evidence object instead of loose dict fields.
+    - Mechanism: Declares fields transition_id, problem_id, target_shape, action_class,
+      candidate_kind, allowed_certificate_refs, lean_return_code, accepted,
+      verifier_failure_class, stdout_stderr_in_receipt, ...; class-defined methods: no
+      class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     transition_id: str
     problem_id: str
     target_shape: str
@@ -229,6 +303,23 @@ class CertificateTransitionReceipt:
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -242,10 +333,42 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Convert a path into a public-root-relative display reference.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_display`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return public_relative_path(path.resolve(strict=False), display_root=public_root)
 
 
 def _path_is_relative_to(path: Path, root: Path) -> bool:
+    """[ACTION] Check whether one resolved path is inside another resolved path.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_path_is_relative_to`.
+    - Preconditions: Callers provide path, root in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     try:
         path.resolve(strict=False).relative_to(root.resolve(strict=False))
     except ValueError:
@@ -254,6 +377,22 @@ def _path_is_relative_to(path: Path, root: Path) -> bool:
 
 
 def _public_readout_output_path(out: str | Path, *, public_root: Path) -> Path:
+    """[ACTION] Resolve a public readout output path against the public root.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_public_readout_output_path`.
+    - Preconditions: Callers provide out, public_root in the shape consumed by the body;
+      paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out_path = Path(out)
     if out_path.is_absolute():
         return out_path
@@ -268,12 +407,43 @@ def _public_readout_output_path(out: str | Path, *, public_root: Path) -> Path:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     value = payload.get(key, [])
@@ -283,6 +453,26 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Build the fixture input path list for the requested replay mode.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_input_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants LAKEFILE_NAME, LAKE_PROJECT_DIR,
+      MANIFEST_NAME, NEGATIVE_INPUT_NAMES, PACKET_NAME, SOURCE_MODULE_MANIFEST_NAME;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LAKEFILE_NAME, LAKE_PROJECT_DIR, MANIFEST_NAME, NEGATIVE_INPUT_NAMES,
+      PACKET_NAME, SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     paths = [
         input_dir / PACKET_NAME,
         input_dir / MANIFEST_NAME,
@@ -313,6 +503,23 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _iter_lean_project_files(path: Path) -> Iterator[Path]:
+    """[ACTION] Implement iter lean project files for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_iter_lean_project_files`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns Iterator[Path] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     with os.scandir(path) as entries:
         entry_rows = sorted(list(entries), key=lambda entry: entry.name)
     for entry in entry_rows:
@@ -324,6 +531,23 @@ def _iter_lean_project_files(path: Path) -> Iterator[Path]:
 
 
 def _load_json_if_exists(path: Path) -> dict[str, Any]:
+    """[ACTION] Load JSON if exists for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_load_json_if_exists`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to read_json_strict, path.is_file and applies local branch
+      checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not path.is_file():
         return {}
     payload = read_json_strict(path)
@@ -331,6 +555,21 @@ def _load_json_if_exists(path: Path) -> dict[str, Any]:
 
 
 def _output_dir(path: str | Path) -> Path:
+    """[ACTION] Implement output dir for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_output_dir`.
+    - Preconditions: Callers provide path in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     target = Path(path)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -338,6 +577,22 @@ def _output_dir(path: str | Path) -> Path:
 
 
 def _safe_ref(path: Path, *, public_root: Path, fallback: str) -> str:
+    """[ACTION] Implement safe ref for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_safe_ref`.
+    - Preconditions: Callers provide path, public_root, fallback in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved_root = public_root.resolve(strict=False)
     resolved_path = path.resolve(strict=False)
     if _path_is_relative_to(resolved_path, resolved_root):
@@ -346,6 +601,22 @@ def _safe_ref(path: Path, *, public_root: Path, fallback: str) -> str:
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
+    """[ACTION] Resolve the source-module manifest path for fixture validation.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_source_module_manifest_path`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
 
@@ -355,6 +626,22 @@ def _source_module_target_path(
     input_dir: Path,
     public_root: Path,
 ) -> Path:
+    """[ACTION] Resolve a target source-module reference to a local path.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_source_module_target_path`.
+    - Preconditions: Callers provide target_ref, input_dir, public_root in the shape
+      consumed by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if target_ref.startswith(f"{public_root.name}/"):
         return public_root / target_ref.removeprefix(f"{public_root.name}/")
     target = Path(target_ref)
@@ -367,6 +654,20 @@ def _source_module_target_path(
 
 
 def _normalize_sha256(value: object) -> str:
+    """[ACTION] Normalize a digest string to the sha256-prefixed form.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_normalize_sha256`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Delegates to digest.startswith and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = str(value or "")
     if not digest:
         return ""
@@ -379,6 +680,29 @@ def _source_module_manifest_result(
     public_root: Path,
     require_manifest: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate the source-module manifest and summarize its result.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_source_module_manifest_result`.
+    - Preconditions: Callers provide input_dir, public_root, require_manifest in the
+      shape consumed by the body; content inputs must exist and match the expected local
+      fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants PUBLIC_SAFE_SOURCE_BODY_CLASSES,
+      SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS; filesystem/content inputs named
+      by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_SAFE_SOURCE_BODY_CLASSES, SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
     if not manifest_path.is_file():
@@ -605,6 +929,27 @@ def _source_module_manifest_result(
 def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Summarize source imports and body-open checks for public evidence.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_source_open_body_import_summary`.
+    - Preconditions: Callers provide source_module_result in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _strings, source_module_result.get,
+      source_module_result.get, source_module_result.get, source_module_result.get and
+      applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS,
+      SOURCE_OPEN_BODY_SCHEMA.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = str(source_module_result.get("source_module_manifest_ref") or "")
     imported = source_module_result.get("status") == PASS and bool(module_ids)
@@ -649,6 +994,23 @@ def _source_open_body_import_summary(
 
 
 def _fixture_manifest_source_binding(public_root: Path) -> dict[str, Any]:
+    """[ACTION] Implement fixture manifest source binding for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_fixture_manifest_source_binding`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body;
+      paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = (
         public_root
         / "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json"
@@ -708,6 +1070,24 @@ def _receipt_freshness(
     *,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Implement receipt freshness for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_receipt_freshness`.
+    - Preconditions: Callers provide input_dir, receipt_path, include_negative in the
+      shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_paths = [
         path
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -745,6 +1125,25 @@ def _certificate_kernel_execution_card(
     cached_receipt_used: bool,
     freshness: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Implement certificate kernel execution card for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_certificate_kernel_execution_card`.
+    - Preconditions: Callers provide payload, action, input_dir, out_dir, receipt_name,
+      cached_receipt_used, freshness in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
+      CARD_SCHEMA_VERSION, ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, CARD_SCHEMA_VERSION, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     public_root = _public_root_for_path(input_path)
     receipt_path = _output_dir(out_dir) / receipt_name
@@ -853,6 +1252,23 @@ def certificate_kernel_execution_card(
     receipt_name: str,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Build the certificate-kernel execution result card.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `certificate_kernel_execution_card`.
+    - Preconditions: Callers provide input_dir, out_dir, action, include_negative,
+      receipt_name, acceptance_out in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     receipt_path = _output_dir(out_dir) / receipt_name
     freshness = _receipt_freshness(
@@ -899,12 +1315,45 @@ def certificate_kernel_execution_card(
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_sha256`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     digest.update(path.read_bytes())
     return digest.hexdigest()
 
 
 def _import_names(text: str) -> list[str]:
+    """[ACTION] Implement import names for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_import_names`.
+    - Preconditions: Callers provide text in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants IMPORT_RE.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: IMPORT_RE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     imports: list[str] = []
     for match in IMPORT_RE.findall(text):
         imports.extend(part for part in match.split() if part)
@@ -917,6 +1366,28 @@ def _analyze_lean_project(
     public_root: Path,
     source_project_dir: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Implement analyze lean project for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_analyze_lean_project`.
+    - Preconditions: Callers provide project_dir, public_root, source_project_dir in the
+      shape consumed by the body; content inputs must exist and match the expected local
+      fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Normalizes Path values and public-root-relative references before returning them.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants DECLARATION_RE; filesystem/content inputs
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: DECLARATION_RE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows: list[dict[str, Any]] = []
     declaration_count = 0
     imports: set[str] = set()
@@ -953,6 +1424,22 @@ def _analyze_lean_project(
 
 
 def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -> list[str]:
+    """[ACTION] Yield forbidden-key paths found while walking nested data.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_walk_forbidden_keys`.
+    - Preconditions: Callers provide value, forbidden, prefix in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     found: list[str] = []
     if isinstance(value, dict):
         for key, child in value.items():
@@ -967,6 +1454,21 @@ def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -
 
 
 def _private_source_refs(value: object) -> list[str]:
+    """[ACTION] Implement private source refs for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_private_source_refs`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     refs: list[str] = []
     if isinstance(value, dict):
         for key, child in value.items():
@@ -992,6 +1494,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -1013,6 +1532,22 @@ def _record(
     subject_kind: str,
     count_observed: bool,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind, count_observed in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, _finding, add, observed.setdefault and
+      applies local branch checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -1027,6 +1562,23 @@ def _record(
 
 
 def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> dict[str, Any]:
+    """[ACTION] Implement run command for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_run_command`.
+    - Preconditions: Callers provide argv, cwd, timeout_seconds in the shape consumed by
+      the body; external binaries must be available when that branch is selected.
+    - Mechanism: Runs the declared subprocess command and records its return-code
+      evidence.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from subprocess
+      execution.
+    - Reads: call arguments.
+    - Writes: subprocess side effects limited to the invoked command/workspace.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     try:
         completed = subprocess.run(
             argv,
@@ -1059,6 +1611,23 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
 
 @lru_cache(maxsize=1)
 def _cached_tool_versions() -> dict[str, Any]:
+    """[ACTION] Implement cached tool versions for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_cached_tool_versions`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Delegates to lru_cache, shutil.which, shutil.which,
+      _skipped_version_probe, _skipped_version_probe and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     lean_path = shutil.which("lean")
     lake_path = shutil.which("lake")
     lean = _skipped_version_probe("lean", lean_path)
@@ -1072,10 +1641,43 @@ def _cached_tool_versions() -> dict[str, Any]:
 
 
 def _tool_versions() -> dict[str, Any]:
+    """[ACTION] Implement tool versions for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_tool_versions`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Delegates to deepcopy, _cached_tool_versions and applies local branch
+      checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return deepcopy(_cached_tool_versions())
 
 
 def _standalone_exported_tool_versions() -> dict[str, Any]:
+    """[ACTION] Implement standalone exported tool versions for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_standalone_exported_tool_versions`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Delegates to Path.cwd, Path.cwd and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "lean_available": True,
         "lake_available": True,
@@ -1107,6 +1709,22 @@ def _standalone_exported_tool_versions() -> dict[str, Any]:
 
 
 def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, Any]:
+    """[ACTION] Implement skipped version probe for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_skipped_version_probe`.
+    - Preconditions: Callers provide tool_name, tool_path in the shape consumed by the
+      body.
+    - Mechanism: Delegates to Path.cwd and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "argv": [tool_name, "--version"],
         "cwd_name": Path.cwd().name,
@@ -1122,6 +1740,25 @@ def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, A
 
 
 def _lake_project_dir_cache_key(project_dir: Path) -> str:
+    """[ACTION] Implement lake project dir cache key for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_lake_project_dir_cache_key`.
+    - Preconditions: Callers provide project_dir in the shape consumed by the body;
+      content inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Normalizes Path values and public-root-relative references before returning them.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: Explicit raise paths include FileNotFoundError(project_dir); called
+      operations may propagate their own exceptions.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not project_dir.is_dir():
         raise FileNotFoundError(project_dir)
     digest = hashlib.sha256()
@@ -1138,10 +1775,45 @@ def _lake_project_dir_cache_key(project_dir: Path) -> str:
 
 
 def _lake_project_cache_key(input_dir: Path) -> str:
+    """[ACTION] Implement lake project cache key for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_lake_project_cache_key`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Delegates to _lake_project_dir_cache_key and applies local branch
+      checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LAKE_PROJECT_DIR.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LAKE_PROJECT_DIR.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return _lake_project_dir_cache_key(input_dir / LAKE_PROJECT_DIR)
 
 
 def _copy_project_to_temp(input_dir: Path, temp_root: Path) -> Path:
+    """[ACTION] Implement copy project to temp for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_copy_project_to_temp`.
+    - Preconditions: Callers provide input_dir, temp_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to _LAKE_PROJECT_BUILD_CACHE.get, shutil.copytree,
+      _lake_project_cache_key, cached_project.is_dir and applies local branch checks.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants LAKE_PROJECT_DIR,
+      _LAKE_PROJECT_BUILD_CACHE; filesystem metadata named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LAKE_PROJECT_DIR, _LAKE_PROJECT_BUILD_CACHE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     src = input_dir / LAKE_PROJECT_DIR
     dst = temp_root / LAKE_PROJECT_DIR
     cached_project = _LAKE_PROJECT_BUILD_CACHE.get(_lake_project_cache_key(input_dir))
@@ -1155,6 +1827,23 @@ def _transition_execution_cache_key(
     *,
     project_dir: Path,
 ) -> str:
+    """[ACTION] Implement transition execution cache key for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_transition_execution_cache_key`.
+    - Preconditions: Callers provide rows, project_dir in the shape consumed by the
+      body; write targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     digest.update(_lake_project_dir_cache_key(project_dir).encode("utf-8"))
     digest.update(b"\0")
@@ -1165,6 +1854,25 @@ def _transition_execution_cache_key(
 
 
 def _remember_built_lake_project(input_dir: Path, project_dir: Path) -> None:
+    """[ACTION] Implement remember built lake project for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_remember_built_lake_project`.
+    - Preconditions: Callers provide input_dir, project_dir in the shape consumed by the
+      body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LAKE_PROJECT_DIR,
+      _LAKE_PROJECT_BUILD_CACHE, _LAKE_PROJECT_BUILD_CACHE_HOLDERS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LAKE_PROJECT_DIR, _LAKE_PROJECT_BUILD_CACHE,
+      _LAKE_PROJECT_BUILD_CACHE_HOLDERS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     cache_key = _lake_project_cache_key(input_dir)
     if cache_key in _LAKE_PROJECT_BUILD_CACHE:
         return
@@ -1178,6 +1886,22 @@ def _remember_built_lake_project(input_dir: Path, project_dir: Path) -> None:
 
 
 def _build_lake_project(project_dir: Path) -> dict[str, Any]:
+    """[ACTION] Build lake project for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_build_lake_project`.
+    - Preconditions: Callers provide project_dir in the shape consumed by the body.
+    - Mechanism: Delegates to _run_command and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LAKE_TARGET.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LAKE_TARGET.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return _run_command(
         ["lake", "build", LAKE_TARGET],
         cwd=project_dir,
@@ -1186,6 +1910,23 @@ def _build_lake_project(project_dir: Path) -> dict[str, Any]:
 
 
 def _standalone_exported_lake_project_build(packet: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement standalone exported lake project build for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_standalone_exported_lake_project_build`.
+    - Preconditions: Callers provide packet in the shape consumed by the body.
+    - Mechanism: Delegates to _strings, _strings, packet.get, packet.get and applies
+      local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LAKE_PROJECT_DIR, LAKE_TARGET.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LAKE_PROJECT_DIR, LAKE_TARGET.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "argv": ["lake", "build", LAKE_TARGET],
         "cwd_name": LAKE_PROJECT_DIR,
@@ -1203,6 +1944,21 @@ def _standalone_exported_lake_project_build(packet: dict[str, Any]) -> dict[str,
 
 
 def _lean_body_for_transition(row: dict[str, Any]) -> str:
+    """[ACTION] Implement lean body for transition for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_lean_body_for_transition`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Delegates to _strings, row.get, row.get, row.get and applies local
+      branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     action = str(row.get("action_class") or "")
     outcome = str(row.get("expected_outcome") or "")
     refs = set(_strings(row.get("allowed_certificate_refs")))
@@ -1265,15 +2021,62 @@ def _lean_body_for_transition(row: dict[str, Any]) -> str:
 
 
 def _lean_source_for_transition(row: dict[str, Any]) -> str:
+    """[ACTION] Implement lean source for transition for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_lean_source_for_transition`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Delegates to _lean_body_for_transition and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LEAN_TRANSITION_FOOTER,
+      LEAN_TRANSITION_HEADER.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LEAN_TRANSITION_FOOTER, LEAN_TRANSITION_HEADER.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     body = _lean_body_for_transition(row)
     return f"{LEAN_TRANSITION_HEADER}{body}{LEAN_TRANSITION_FOOTER}"
 
 
 def _transition_expected_to_fail(row: dict[str, Any]) -> bool:
+    """[ACTION] Implement transition expected to fail for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_transition_expected_to_fail`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Delegates to startswith, row.get and applies local branch checks.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return str(row.get("expected_outcome") or "").startswith("fail_")
 
 
 def _lean_source_for_transition_batch(rows: Sequence[dict[str, Any]]) -> str:
+    """[ACTION] Implement lean source for transition batch for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_lean_source_for_transition_batch`.
+    - Preconditions: Callers provide rows in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LEAN_TRANSITION_FOOTER,
+      LEAN_TRANSITION_HEADER.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LEAN_TRANSITION_FOOTER, LEAN_TRANSITION_HEADER.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     bodies = []
     for row in rows:
         transition_id = str(row.get("transition_id") or "transition")
@@ -1283,6 +2086,22 @@ def _lean_source_for_transition_batch(rows: Sequence[dict[str, Any]]) -> str:
 
 
 def _accepted_transition_receipt(row: dict[str, Any]) -> CertificateTransitionReceipt:
+    """[ACTION] Implement accepted transition receipt for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_accepted_transition_receipt`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Delegates to CertificateTransitionReceipt, tuple, _strings, row.get,
+      row.get and applies local branch checks.
+    - Guarantee: Returns CertificateTransitionReceipt from the explicit return paths in
+      the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return CertificateTransitionReceipt(
         transition_id=str(row.get("transition_id") or "transition"),
         problem_id=str(row.get("problem_id") or ""),
@@ -1306,6 +2125,25 @@ def _execute_positive_transition_batch(
     *,
     project_dir: Path,
 ) -> list[CertificateTransitionReceipt] | None:
+    """[ACTION] Implement execute positive transition batch for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_execute_positive_transition_batch`.
+    - Preconditions: Callers provide rows, project_dir in the shape consumed by the
+      body; write targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns list[CertificateTransitionReceipt] | None from the explicit
+      return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants LEAN_TRANSITION_BATCH_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: LEAN_TRANSITION_BATCH_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source_path = project_dir / LEAN_TRANSITION_BATCH_NAME
     source_path.write_text(_lean_source_for_transition_batch(rows), encoding="utf-8")
     lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
@@ -1321,6 +2159,25 @@ def _validate_transition_contract(
     observed: dict[str, set[str]],
     negative: bool,
 ) -> list[str]:
+    """[ACTION] Validate transition contract against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_validate_transition_contract`.
+    - Preconditions: Callers provide row, findings, observed, negative in the shape
+      consumed by the body.
+    - Mechanism: Delegates to _walk_forbidden_keys, _record, codes.append, _record,
+      codes.append and applies local branch checks.
+    - Guarantee: Returns list[str] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_ACTION_CLASSES,
+      FORBIDDEN_TRANSITION_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_ACTION_CLASSES, FORBIDDEN_TRANSITION_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     transition_id = str(row.get("transition_id") or row.get("case_id") or "transition")
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or transition_id)
     codes: list[str] = []
@@ -1374,6 +2231,24 @@ def _execute_transition(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> CertificateTransitionReceipt:
+    """[ACTION] Implement execute transition for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_execute_transition`.
+    - Preconditions: Callers provide row, project_dir, findings, observed in the shape
+      consumed by the body; write targets must be inside the caller-selected output or
+      temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns CertificateTransitionReceipt from the explicit return paths in
+      the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     transition_id = str(row.get("transition_id") or "transition")
     codes = _validate_transition_contract(
         row,
@@ -1428,6 +2303,22 @@ def _contract_rejected_transition_receipt(
     row: dict[str, Any],
     codes: Sequence[str],
 ) -> CertificateTransitionReceipt:
+    """[ACTION] Implement contract rejected transition receipt for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_contract_rejected_transition_receipt`.
+    - Preconditions: Callers provide row, codes in the shape consumed by the body.
+    - Mechanism: Delegates to CertificateTransitionReceipt, tuple, tuple, _strings,
+      row.get and applies local branch checks.
+    - Guarantee: Returns CertificateTransitionReceipt from the explicit return paths in
+      the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return CertificateTransitionReceipt(
         transition_id=str(row.get("transition_id") or "transition"),
         problem_id=str(row.get("problem_id") or ""),
@@ -1454,6 +2345,25 @@ def _execute_transitions(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> list[CertificateTransitionReceipt]:
+    """[ACTION] Implement execute transitions for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_execute_transitions`.
+    - Preconditions: Callers provide rows, project_dir, findings, observed in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[CertificateTransitionReceipt] from the explicit return
+      paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LEAN_TRANSITION_MAX_WORKERS,
+      _TRANSITION_EXECUTION_CACHE.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LEAN_TRANSITION_MAX_WORKERS, _TRANSITION_EXECUTION_CACHE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     receipts: list[CertificateTransitionReceipt | None] = [None] * len(rows)
     executable: list[tuple[int, dict[str, Any]]] = []
     for index, row in enumerate(rows):
@@ -1491,6 +2401,22 @@ def _execute_transitions(
         batch_receipts: list[CertificateTransitionReceipt] | None = None
 
         def run(row: dict[str, Any]) -> CertificateTransitionReceipt:
+            """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+            - Teleology: Supports certificate kernel execution lab by documenting and
+              preserving the exact local step implemented by `run`.
+            - Preconditions: Callers provide row in the shape consumed by the body.
+            - Mechanism: Delegates to _execute_transition and applies local branch
+              checks.
+            - Guarantee: Returns CertificateTransitionReceipt representing the completed
+              replay or bundle execution.
+            - Fails: No explicit raise is introduced; failures propagate from called
+              validators/helpers.
+            - Reads: call arguments.
+            - Writes: No external writes; the body only returns in-memory values.
+            - Non-goal: Does not widen this module's public authority ceiling, add
+              provider calls, or expose private material.
+            """
             return _execute_transition(
                 row,
                 project_dir=project_dir,
@@ -1570,6 +2496,23 @@ def _standalone_exported_transition_receipts(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> list[CertificateTransitionReceipt]:
+    """[ACTION] Implement standalone exported transition receipts for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_standalone_exported_transition_receipts`.
+    - Preconditions: Callers provide rows, findings, observed in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[CertificateTransitionReceipt] from the explicit return
+      paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     receipts: list[CertificateTransitionReceipt] = []
     for row in rows:
         codes = _validate_transition_contract(
@@ -1616,6 +2559,25 @@ def _translate_cp2(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement translate CP2 for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_translate_cp2`.
+    - Preconditions: Callers provide packet, transition_by_id, findings, observed in the
+      shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_CP2_ACTION_CLASSES,
+      FORBIDDEN_CP2_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_CP2_ACTION_CLASSES, FORBIDDEN_CP2_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     translations: list[dict[str, Any]] = []
     for row in _rows(packet, "cp2_translation_requests"):
         request_id = str(row.get("request_id") or "cp2_request")
@@ -1681,6 +2643,24 @@ def _run_evolve(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement run evolve for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_run_evolve`.
+    - Preconditions: Callers provide packet, transition_by_id, findings, observed in the
+      shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] representing the completed replay or
+      bundle execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_EVOLVE_ARTIFACTS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_EVOLVE_ARTIFACTS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows: list[dict[str, Any]] = []
     for row in _rows(packet, "evolve_mutations"):
         mutation_id = str(row.get("mutation_id") or row.get("case_id") or "evolve_mutation")
@@ -1753,6 +2733,24 @@ def _validate_manifest_contract(
     observed: dict[str, set[str]],
     negative: bool,
 ) -> None:
+    """[ACTION] Validate manifest contract against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_validate_manifest_contract`.
+    - Preconditions: Callers provide payload, findings, observed, negative in the shape
+      consumed by the body.
+    - Mechanism: Delegates to _walk_forbidden_keys, _private_source_refs, _record,
+      _record, payload.get and applies local branch checks.
+    - Guarantee: Returns None whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants FORBIDDEN_MANIFEST_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_MANIFEST_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     case_id = str(
         payload.get("expected_negative_case_id")
         or payload.get("manifest_id")
@@ -1789,6 +2787,25 @@ def _validate_negative_payloads(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> None:
+    """[ACTION] Validate negative payloads against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_validate_negative_payloads`.
+    - Preconditions: Callers provide payloads, findings, observed in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns None whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_EVOLVE_ARTIFACTS,
+      FORBIDDEN_CP2_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_EVOLVE_ARTIFACTS, FORBIDDEN_CP2_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     for payload in payloads.values():
         if "transition_id" in payload:
             _validate_transition_contract(
@@ -1846,6 +2863,31 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the replay result payload from validated evidence.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_build_result`.
+    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
+      the shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
+      EXPECTED_NEGATIVE_CASES, FIXTURE_ID, LAKE_PROJECT_DIR, MANIFEST_NAME,
+      NEGATIVE_INPUT_NAMES, ORGAN_ID, ...; filesystem metadata named by those arguments
+      or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, EXPECTED_NEGATIVE_CASES, FIXTURE_ID,
+      LAKE_PROJECT_DIR, MANIFEST_NAME, NEGATIVE_INPUT_NAMES, ORGAN_ID, PACKET_NAME,
+      RECEIPT_TRANSPARENCY_CONTRACT, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     packet = _load_json_if_exists(input_dir / PACKET_NAME)
     manifest = _load_json_if_exists(input_dir / MANIFEST_NAME)
@@ -2123,6 +3165,23 @@ def _common_receipt(
     schema_version: str,
     receipt_paths: list[str],
 ) -> dict[str, Any]:
+    """[ACTION] Build shared receipt fields used by this organ.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_common_receipt`.
+    - Preconditions: Callers provide result, schema_version, receipt_paths in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     keys = (
         "status",
         "organ_id",
@@ -2176,6 +3235,22 @@ def _common_receipt(
 
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
+    """[ACTION] Render receipt paths relative to the public root.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_relative_receipt_paths`.
+    - Preconditions: Callers provide paths, public_root in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
@@ -2186,6 +3261,30 @@ def write_receipts(
     public_root: str | Path,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
+    """[ACTION] Write public receipt artifacts for the computed result.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `write_receipts`.
+    - Preconditions: Callers provide out_dir, result, public_root, acceptance_out in the
+      shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks; write targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns dict[str, str] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
+      ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME; filesystem metadata named by those
+      arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, ORGAN_ID, RESULT_NAME,
+      VALIDATION_RECEIPT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -2303,6 +3402,22 @@ def write_receipts(
 
 
 def _certificate_family_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Implement certificate family rows for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `_certificate_family_rows`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(manifest, "generated_certificate_rows")
     families = [
         {
@@ -2354,6 +3469,30 @@ def build_public_readout(
     out: str | Path | None = None,
     command: str = "microcosm certificate-kernel-execution-lab readout",
 ) -> dict[str, Any]:
+    """[ACTION] Build the public readout payload from certificate execution evidence.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `build_public_readout`.
+    - Preconditions: Callers provide public_root, receipt_dir, out, command in the shape
+      consumed by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, ANTI_CLAIM,
+      AUTHORITY_CEILING, BOARD_NAME, MANIFEST_NAME, ORGAN_ID,
+      RECEIPT_TRANSPARENCY_CONTRACT, RESULT_NAME, ...; filesystem metadata named by
+      those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ACCEPTANCE_RECEIPT_REL, ANTI_CLAIM, AUTHORITY_CEILING, BOARD_NAME,
+      MANIFEST_NAME, ORGAN_ID, RECEIPT_TRANSPARENCY_CONTRACT, RESULT_NAME,
+      VALIDATION_RECEIPT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     root = Path(public_root).resolve(strict=False)
     receipt_root = (
         Path(receipt_dir)
@@ -2548,6 +3687,23 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     command_text = command or (
         "python -m microcosm_core.organs.certificate_kernel_execution_lab run "
@@ -2575,6 +3731,26 @@ def run_certificate_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run certificate bundle for this organ replay.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `run_certificate_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
+      by the body; write targets must be inside the caller-selected output or temporary
+      area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     command_text = command or (
         "python -m microcosm_core.organs.certificate_kernel_execution_lab "
@@ -2605,6 +3781,24 @@ def run_certificate_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports certificate kernel execution lab by documenting and preserving
+      the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+      Writes only the output paths named by the caller, temporary workspace, or module
+      constants. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME, RESULT_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: BUNDLE_RESULT_NAME, RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog="certificate_kernel_execution_lab")
     subparsers = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "run-certificate-bundle"):

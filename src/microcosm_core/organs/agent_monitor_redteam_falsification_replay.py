@@ -18,6 +18,8 @@
 - Reads only public fixtures, examples, source manifests, and receipt paths supplied by the caller.
 
 [CONSTRAINTS]
+- Atomicity: Module import is declaration-only; fixture reads, scans, and receipt writes occur only through explicit run/write helpers.
+- Determinism: For the same fixture files and source manifests, validation findings, counts, hashes, and receipt payloads are stable apart from receipt timestamps and caller-selected output paths.
 - Receipts carry evidence refs, digests, counts, spans, findings, and claim ceilings instead of private chain-of-thought, internal code bodies, exploit instructions, credentials, provider payloads, live traffic, or raw transcripts.
 - A passing replay proves this fixture's evidence wiring and boundary checks only; it does not prove monitor quality or authorize release.
 """
@@ -236,6 +238,7 @@ def _public_root_for_path(path: str | Path) -> Path:
     """[ACTION] Resolve the public Plectis root used for relative refs and private-state scans.
 
 - Teleology: Finds the public Plectis root used to turn local files into portable evidence refs before any scan or receipt can cite them.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a deterministic public-root Path for repo-shaped inputs, falling back to cwd only when no public root can be inferred; it does not grant private-root equivalence.
 - Fails: Malformed or missing paths stay in the existing caller path, while unresolved roots degrade to cwd rather than silently emitting private workspace coordinates."""
     resolved = Path(path).resolve(strict=False)
@@ -254,6 +257,7 @@ def _display(path: Path, *, public_root: Path) -> str:
     """[ACTION] Render a path relative to the public root for receipt-safe display.
 
 - Teleology: Converts one filesystem path into the display ref used by receipts, boards, and cards.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a POSIX-style public-relative ref when the path lives under the selected public root; it does not inspect or authorize the target body.
 - Fails: Paths outside the public root fall back through the shared normalizer, so callers still need secret/private-state scans for release-facing payloads."""
     return public_relative_path(path, display_root=public_root)
@@ -264,6 +268,7 @@ def _display_command(command: str, *, public_root: Path) -> str:
 
 - Teleology: Keeps monitor bundle command receipts portable when the command includes a local
   Plectis checkout path or a host temp output path.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Replaces public-root path prefixes with `<repo-root>` before applying the shared
   receipt sanitizer; it does not rewrite command semantics or authorize execution.
 - Fails: Non-matching path fragments remain for the shared sanitizer to redact or for tests to
@@ -280,6 +285,7 @@ def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
 
 - Teleology: Keeps fresh and cached monitor-redteam command cards on the same receipt-safe
   display contract, including host temp output roots.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns only string receipt refs after applying the shared public-receipt path
   normalization policy; it does not change durable receipt files or infer evidence.
 - Fails: Non-list or malformed receipt path values collapse to an empty list so card projection
@@ -298,6 +304,7 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """[ACTION] Extract dictionary rows from a payload key without trusting malformed input.
 
 - Teleology: Keeps JSON row extraction explicit so malformed payload sections cannot masquerade as validated monitor evidence.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns only dict rows from the requested list-valued key and drops non-row material without mutating the payload.
 - Fails: Caller contract errors become empty row sets here; strict schema failures are owned by the higher-level validators that call this helper."""
     if not isinstance(payload, dict):
@@ -310,6 +317,7 @@ def _strings(value: object) -> list[str]:
     """[ACTION] Normalize a JSON list field into non-empty string tokens.
 
 - Teleology: Normalizes list-shaped policy and reference fields before verdict, evidence, and negative-case checks compare tokens.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns only non-empty strings and leaves ordering as supplied by the source payload.
 - Fails: Non-list values collapse to an empty list so later validators can report missing evidence rather than trusting malformed fields."""
     if not isinstance(value, list):
@@ -321,6 +329,7 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """[ACTION] List monitor-redteam input files whose freshness can reuse prior bundle receipts.
 
 - Teleology: Names the monitor bundle inputs whose digests decide whether a cached exported-bundle receipt is still current.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns the declared public fixture paths plus optional negative-case files and does not recurse into private or undeclared directories.
 - Fails: Missing files are represented downstream in the freshness basis instead of being hidden as a reusable cache hit."""
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
@@ -336,6 +345,7 @@ def _sha256(path: Path) -> str:
     """[ACTION] Stream-hash a file body for source-manifest and validator custody checks.
 
 - Teleology: Computes file-body custody digests used by freshness checks and source-manifest validation.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Streams the exact file bytes into SHA-256 without reading unrelated files or normalizing the content.
 - Fails: Filesystem errors propagate so a missing or unreadable evidence file cannot be treated as verified."""
     digest = hashlib.sha256()
@@ -349,6 +359,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """[ACTION] Collect all paths that make a cached monitor bundle receipt stale when changed.
 
 - Teleology: Expands the declared monitor-bundle input root into the concrete files that make prior validation receipts stale when changed.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns deterministic candidate paths for protocol, policy, trajectories, observations, public trace, manifest, and optional negative cases.
 - Fails: Absent paths stay absent for the freshness basis to count; this helper does not synthesize fallback evidence."""
     source = Path(input_dir)
@@ -384,6 +395,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     """[ACTION] Build the freshness basis used to decide whether a monitor bundle receipt can be reused.
 
 - Teleology: Builds the digest envelope that lets the exported-bundle command reuse only receipts backed by the same inputs and validator source.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns input counts, missing-path counts, per-file digests, validator source digests, and one aggregate basis digest.
 - Fails: Unreadable files are counted as missing or raise through the hash path, preventing stale or partial caches from passing as fresh evidence."""
     source = Path(input_dir)
@@ -450,6 +462,7 @@ def _fresh_monitor_bundle_receipt(
     """[ACTION] Load a prior monitor bundle receipt only when input and validator digests still match.
 
 - Teleology: Loads a cached monitor-bundle result only after proving its schema, organ id, input mode, and freshness digest still match.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a copy marked `receipt_reused` with the current freshness basis, or None for absent/stale/untrusted receipts.
 - Fails: Corrupt JSON, wrong schema, wrong organ, stale digests, or missing freshness inputs all force a rebuild rather than cache reuse."""
     path = out_dir / BUNDLE_RESULT_NAME
@@ -491,6 +504,7 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
     """[ACTION] Load the projection protocol, monitor policy, trajectories, observations, and requested negative fixtures.
 
 - Teleology: Collects the monitor-redteam fixture documents that every downstream validator reads from one explicit input root.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns strict JSON payloads for protocol, policy, trajectories, observations, public trace, manifest, and optional negative cases.
 - Fails: Strict reader failures propagate, because a malformed fixture is a validation failure rather than an optional omission."""
     return {
@@ -510,6 +524,7 @@ def _finding(
     """[ACTION] Create one normalized blocked finding row for monitor receipts and boards.
 
 - Teleology: Creates a body-free finding row that can be merged into monitor receipts, boards, and cards without leaking source bodies.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a normalized row carrying code, severity, message, evidence ref, and optional case/verdict identifiers.
 - Fails: It does not validate the referenced evidence; bad refs remain the responsibility of the caller that detected the finding."""
     return {
@@ -535,6 +550,7 @@ def _record(
     """[ACTION] Append a finding and record the observed negative-case code.
 
 - Teleology: Records one negative-case or policy finding while keeping the observed negative-code ledger synchronized.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Appends exactly one normalized finding and stores the case id under its code for later coverage accounting.
 - Fails: Malformed caller inputs are converted to strings only at the finding boundary; semantic validity is checked by the validator paths."""
     findings.append(
@@ -559,6 +575,7 @@ def _negative_case_semantic_receipt(
     """[ACTION] Validate that a negative fixture label matches the semantic trigger it contains.
 
 - Teleology: Verifies that each requested negative fixture actually exercises the semantic failure mode named by its label.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns observed negative-case codes and findings without copying private or adversarial bodies into public receipts.
 - Fails: Unknown labels, missing trigger evidence, or malformed rows become findings so declared coverage cannot be counted by name alone."""
     floor = NEGATIVE_CASE_SEMANTIC_FLOORS.get(expected_case_id, {})
@@ -620,6 +637,7 @@ def _normalize_sha256(value: object) -> str:
     """[ACTION] Normalize SHA-256 digest strings with or without the sha256 prefix.
 
 - Teleology: Normalizes digest declarations before manifest rows are compared to target file bytes.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns lowercase hex digest text with any `sha256:` prefix stripped when the input is a string.
 - Fails: Non-string values collapse to empty text, causing the caller to report a missing or mismatched digest instead of trusting it."""
     text = str(value or "")
@@ -630,6 +648,7 @@ def _source_module_digest_declarations(row: dict[str, Any]) -> list[dict[str, st
     """[ACTION] Extract digest declarations from a source-module manifest row.
 
 - Teleology: Extracts every usable digest declaration from one source-module manifest row for target-body custody checks.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns normalized digest rows with algorithm names and values while ignoring malformed declaration shapes.
 - Fails: Rows with no valid SHA-256 declaration are left for the manifest validator to block or downgrade explicitly."""
     declarations: list[dict[str, str]] = []
@@ -650,6 +669,7 @@ def _source_module_target_path(
     """[ACTION] Resolve one source-manifest row to its public target path.
 
 - Teleology: Resolves a manifest row's copied target file inside the public Plectis root before digest and private-state checks run.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns the resolved target Path only for declared string refs and never follows undeclared private roots as source authority.
 - Fails: Missing or malformed target refs return None so the manifest validator can emit a precise finding."""
     rel_path = str(row.get("path") or "")
@@ -673,6 +693,7 @@ def validate_source_module_manifest(
     """[ACTION] Validate source-module manifest rows, target digests, material classes, and private-state scan boundaries.
 
 - Teleology: Audits copied source-module provenance before the monitor replay can cite imported macro bodies as public evidence.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns status, counts, findings, verified artifact refs, and private-state scan results without exporting private body material.
 - Fails: Missing manifests, digest mismatches, target escapes, forbidden classes, or absent negative-case evidence block or downgrade the source-module claim."""
     findings: list[dict[str, Any]] = []
@@ -850,6 +871,7 @@ def _load_source_module_manifest_payload(
     """[ACTION] Load the source-module manifest from payloads, bundle input, or public example fallback.
 
 - Teleology: Finds the source-module manifest from the loaded payloads, exported bundle, or checked public example fallback.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns the manifest payload and source path when an allowed public location exists.
 - Fails: Malformed payloads or absent manifest candidates return empty structures for the manifest validator to report."""
     payload = payloads.get("source_module_manifest")
@@ -865,6 +887,7 @@ def _source_artifact_refs_from_manifest(source_module_manifest: dict[str, Any]) 
     """[ACTION] Collect source artifact refs declared by the manifest.
 
 - Teleology: Collects declared source artifact refs so protocol and receipt checks can prove they point at manifest-backed evidence.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a set of non-empty refs from manifest rows only, without reading the artifact bodies.
 - Fails: Malformed rows are ignored here and are reported by the manifest validator when material to the claim."""
     refs: set[str] = set()
@@ -889,6 +912,7 @@ def _source_artifact_refs_by_material_class(
     """[ACTION] Collect source artifact refs for one material class.
 
 - Teleology: Filters manifest source artifact refs by material class for body-floor and copied-source accounting.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns refs only from rows whose material_class exactly matches the requested class.
 - Fails: Unknown or missing material classes produce no refs, leaving coverage gaps visible to callers."""
     refs: set[str] = set()
@@ -915,6 +939,7 @@ def _source_artifact_refs_by_material_class_with_status(
     """[ACTION] Collect source artifact refs for one material class and status.
 
 - Teleology: Filters manifest source artifact refs by both material class and status so public/body-floor claims stay evidence-class bounded.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns refs only when both selectors match the manifest row exactly.
 - Fails: Malformed rows or status drift produce an empty set rather than broadening the claim boundary."""
     refs: dict[str, dict[str, Any]] = {}
@@ -946,6 +971,7 @@ def _source_artifact_paths_from_manifest(
     """[ACTION] Resolve source artifact paths declared by the manifest.
 
 - Teleology: Resolves copied source artifact paths from the manifest for private-state scans and digest-backed source custody checks.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns public-root-contained Paths for declared artifact refs while skipping malformed or escaping refs.
 - Fails: Missing files are not invented; downstream validators record the gap as an evidence failure."""
     paths: list[Path] = []
@@ -968,6 +994,7 @@ def _validate_public_monitored_trace_artifact(path: Path | None) -> dict[str, An
     """[ACTION] Validate the public dogfood trace artifact and its export-boundary flags.
 
 - Teleology: Checks the public dogfood trace artifact that demonstrates monitor-redteam evidence shape without live monitor-performance claims.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns trace status, counts, refs, and boundary flags after verifying expected public trace metadata.
 - Fails: Missing, malformed, or boundary-unsafe trace artifacts become findings instead of trusted coverage evidence."""
     findings: list[dict[str, Any]] = []
@@ -1118,6 +1145,7 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """[ACTION] Merge observed negative-case codes from component validator results.
 
 - Teleology: Combines observed negative-case maps from independent validators into one coverage ledger.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns deterministic code-to-case lists while preserving all case ids seen by component validators.
 - Fails: Malformed component maps are ignored so invalid coverage cannot enter through a non-dict result."""
     merged: dict[str, set[str]] = defaultdict(set)
@@ -1132,6 +1160,7 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """[ACTION] Merge and deterministically sort findings from component validator results.
 
 - Teleology: Combines findings from manifest, protocol, policy, trajectory, observation, and trace validators for stable receipt output.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a deterministically sorted list of dict findings without adding or dropping valid rows.
 - Fails: Malformed finding payloads are omitted, leaving strict shape enforcement to the validator that produced them."""
     findings: list[dict[str, Any]] = []
@@ -1152,6 +1181,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """[ACTION] Validate that the projection protocol cites enough source, receipt, and regression-fixture backing.
 
 - Teleology: Checks that the projection protocol declares enough source, receipt, fixture, and boundary evidence for the monitor replay claim.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns status and findings tied to the protocol's public refs and claim ceilings, not to private context.
 - Fails: Missing evidence refs, missing anti-claims, or unsupported release/performance language are blocked or downgraded here."""
     protocol = payload if isinstance(payload, dict) else {}
@@ -1192,6 +1222,7 @@ def validate_monitor_policy(payload: object) -> dict[str, Any]:
     """[ACTION] Validate allowed verdicts, severity tiers, required observation fields, and blocked claim ids.
 
 - Teleology: Validates the monitor policy vocabulary before observations are interpreted as pass, quarantine, downgrade, or blocker rows.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns allowed verdict, severity, required-field, and blocked-claim metadata used by observation validation.
 - Fails: Unknown verdicts, missing required fields, or missing blocked claims create findings rather than widening the policy."""
     policy = payload if isinstance(payload, dict) else {}
@@ -1248,6 +1279,7 @@ def validate_trajectory_cases(payload: object) -> dict[str, Any]:
     """[ACTION] Validate trajectory case ids, synthetic/public labels, and public trace refs.
 
 - Teleology: Checks the trajectory case inventory that monitor observations claim to cover.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns case counts, public/synthetic labels, trace refs, and findings without treating fictional trajectories as performance evidence.
 - Fails: Missing ids, duplicate cases, private labels, or unsupported trace refs become findings for the result builder."""
     rows = _rows(payload, "trajectory_cases")
@@ -1311,6 +1343,7 @@ def _validate_observation_row(
     """[ACTION] Validate one monitor observation against verdict policy, evidence refs, adversarial-probe backing, body omissions, and negative-case triggers.
 
 - Teleology: Validates one monitor observation against policy, evidence refs, adversarial-probe backing, body omissions, and negative triggers.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a body-free row classification plus observed negative-case codes and findings for that observation.
 - Fails: Missing result records, unsupported coverage claims, leaked bodies, wrong verdicts, or absent probes quarantine or downgrade the row."""
     case_id = str(row.get("expected_negative_case_id") or row.get("trajectory_id") or "monitor")
@@ -1523,6 +1556,7 @@ def validate_monitor_observations(
     """[ACTION] Validate all monitor observations and negative cases into rows, findings, and observed coverage codes.
 
 - Teleology: Runs observation-row validation over the whole monitor observation table and aggregates coverage evidence.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns rows, pass/quarantine/downgrade counts, findings, and observed negative-case coverage without exposing raw private bodies.
 - Fails: Malformed tables, missing evidence, or unsupported clean verdicts prevent those observations from counting as trusted monitor evidence."""
     policy_rows = policy if isinstance(policy, dict) else {}
@@ -1636,6 +1670,7 @@ def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, 
     """[ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts.
 
 - Teleology: Summarizes the public trace-builder body import boundary without copying the body into monitor receipts.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns body-present and ref counts derived from public trace metadata only.
 - Fails: Missing body-import metadata yields an explicit absent summary instead of an implicit source-open claim."""
     imported = public_trace.get("status") == PASS
@@ -1675,6 +1710,7 @@ def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Fold recomputed public monitor trace spans into organ-level findings.
 
 - Teleology: Rechecks the recomputed public monitor trace and folds its spans/findings into the organ-level receipt boundary.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns trace status, span counts, integrity counts, body-import summary, and findings without exporting raw trace bodies.
 - Fails: Malformed trace rows, missing boundary flags, or unsafe material classes block the trace-backed portion of the claim."""
 
@@ -1723,6 +1759,7 @@ def _build_result(
     """[ACTION] Assemble the full monitor-redteam validation result from source, policy, observation, trace, and scan components.
 
 - Teleology: Assembles the full monitor-redteam result from source manifest, protocol, policy, trajectories, observations, public trace, and scans.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns one receipt-ready payload with counts, rows, findings, authority ceilings, and anti-claims derived from validated components.
 - Fails: Any component failure is surfaced as blocked/downgraded status in the result; private bodies and live monitor-performance claims remain out of scope."""
     public_root = _public_root_for_path(input_dir)
@@ -1911,6 +1948,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Project the validation result into a compact board for human review.
 
 - Teleology: Projects the full result into a compact board that a human can inspect before opening detailed receipts.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns counts, blocked claim ids, status, and evidence refs while omitting full payload bodies.
 - Fails: Missing result fields degrade to empty counts or explicit falsy flags rather than inventing positive evidence."""
     return {
@@ -1973,6 +2011,7 @@ def _write_receipts(
     """[ACTION] Write result, board, validation, and optional acceptance receipts atomically.
 
 - Teleology: Writes monitor-redteam result, board, validation, and optional acceptance receipts under the requested output root.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Creates only governed JSON receipt artifacts and preserves claim ceilings for monitor quality, provider calls, live traffic, and release.
 - Fails: Filesystem or serialization failures propagate so an unwritten receipt cannot be treated as validation evidence."""
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -2107,6 +2146,7 @@ def run(
     """[ACTION] Run the fixture validator and write monitor-redteam receipts.
 
 - Teleology: Executes the fixture validator path and writes monitor-redteam receipts for the standard first-wave fixture.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns the same governed result payload that was written, with freshness metadata and receipt paths attached.
 - Fails: Invalid input fixtures, policy failures, or write errors surface through the result builder or receipt writer instead of being hidden by the CLI."""
     source = Path(input_dir)
@@ -2138,6 +2178,7 @@ def run_monitor_bundle(
     """[ACTION] Run or reuse validation for an exported monitor-redteam bundle.
 
 - Teleology: Runs or reuses validation for an exported monitor-redteam bundle intended for public-source inspection.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a bundle validation receipt only when fresh input and validator digests match or after rebuilding from declared public inputs.
 - Fails: Stale receipts, missing bundle inputs, or unsafe manifest/trace boundaries force rebuilds or blocked findings."""
     out = Path(out_dir)
@@ -2176,6 +2217,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """[ACTION] Project the result into the command-card shape with omitted payload boundaries.
 
 - Teleology: Projects monitor-redteam results into the command-card shape used by first-screen and agent review routes.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns a compact card with command speed, monitor counts, validation counts, authority boundaries, and omission receipts.
 - Fails: Malformed optional sections collapse to empty or falsy card fields; full private/source/trace bodies stay omitted by design."""
     freshness_basis = result.get("freshness_basis")
@@ -2273,6 +2315,7 @@ def _parser() -> argparse.ArgumentParser:
     """[ACTION] Build the CLI parser for monitor-redteam replay commands.
 
 - Teleology: Defines the command-line contract for fixture and exported-bundle monitor-redteam validation.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Returns an argparse parser with explicit subcommands, input/output arguments, acceptance receipt options, and card mode.
 - Fails: Argparse rejects unsupported command shapes before any validation or receipt write is attempted."""
     parser = argparse.ArgumentParser(prog="agent_monitor_redteam_falsification_replay")
@@ -2293,6 +2336,7 @@ def main(argv: list[str] | None = None) -> int:
     """[ACTION] Dispatch CLI arguments to monitor-redteam run and bundle commands.
 
 - Teleology: Dispatches parsed CLI actions to the fixture or exported-bundle monitor-redteam validation path.
+- Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
 - Guarantee: Prints either a compact command card or final status and returns a process code that follows the validation result.
 - Fails: Invalid actions, validation failures, or receipt-write failures propagate through the selected runner rather than being reported as success."""
     args = _parser().parse_args(argv)

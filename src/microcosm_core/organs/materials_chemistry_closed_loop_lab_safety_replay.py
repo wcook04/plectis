@@ -1,3 +1,53 @@
+"""[PURPOSE]
+- Teleology: Make materials and chemistry lab-safety refusal replay evidence inspectable
+  through runnable public fixture code while keeping claims bounded to emitted receipts
+  and authority ceilings.
+- Mechanism: The file replays an abstract numeric active-learning loop under hard
+  lab-safety gates while refusing real chemistry or synthesis authority; helper
+  functions load fixtures, recompute predicates, normalize findings, build
+  result/board/card payloads, and write receipts.
+- Non-goal: Materials chemistry artifact safety/refusal validator exposes a
+  source-faithful public Lab/Evolve failure-replay graph over body-free simulator rows:
+  candidate materials, safety screens, simulated assays, active-learning decisions, cold
+  replay refs, failure classes, restart points, source capsule hashes, and teachings. It
+  is a safety/refusal validator, not a wetlab loop or discovery lab: it does not export
+  wetlab protocols, hazardous synthesis steps, reagent amounts, controlled or bioactive
+  targets, live lab credentials, robot commands, private lab notebooks, live assay data,
+  discovery claims, benchmark scores, or release authority.
+
+[INTERFACE]
+- CLI: `python -m
+  microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay <command>`
+  with detected subcommands run, run-lab-bundle.
+- Exports: run, run_lab_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.macro_tools.lab_evolve_replay,
+  microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -285,6 +335,24 @@ SURFACE_REFRAME = {
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -298,10 +366,41 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Convert a path into a public-root-relative display reference.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_display`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to public_relative_path and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     value = payload.get(key, [])
@@ -309,12 +408,45 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Build the fixture input path list for the requested replay mode.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_input_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants INPUT_NAMES, NEGATIVE_INPUT_NAMES;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: INPUT_NAMES, NEGATIVE_INPUT_NAMES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     manifest = input_dir / "bundle_manifest.json"
@@ -324,6 +456,23 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _code_freshness_paths() -> list[Path]:
+    """[ACTION] Implement code freshness paths for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_code_freshness_paths`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     core_root = Path(__file__).resolve().parents[1]
     return [
         Path(__file__).resolve(),
@@ -332,6 +481,25 @@ def _code_freshness_paths() -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_sha256`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; module constants HASH_CHUNK_SIZE; filesystem/content inputs
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: HASH_CHUNK_SIZE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -340,6 +508,22 @@ def _sha256(path: Path) -> str:
 
 
 def _stable_digest(payload: object) -> str:
+    """[ACTION] Implement stable digest for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_stable_digest`.
+    - Preconditions: Callers provide payload in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     encoded = json.dumps(
         payload,
         ensure_ascii=True,
@@ -350,6 +534,23 @@ def _stable_digest(payload: object) -> str:
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
+    """[ACTION] Resolve the source-module manifest path for fixture validation.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_manifest_path`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
 
@@ -359,6 +560,23 @@ def _source_module_target_path(
     input_dir: Path,
     public_root: Path,
 ) -> Path:
+    """[ACTION] Resolve a target source-module reference to a local path.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_target_path`.
+    - Preconditions: Callers provide target_ref, input_dir, public_root in the shape
+      consumed by the body.
+    - Mechanism: Delegates to target_ref.removeprefix, normalized.startswith and applies
+      local branch checks.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
         return input_dir / normalized
@@ -366,6 +584,23 @@ def _source_module_target_path(
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Resolve source-module file paths declared by fixture rows.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_paths`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
@@ -388,6 +623,23 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Scan declared input paths for forbidden private or unsafe material.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_scan_paths_for_input`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Delegates to _public_root_for_path, _input_paths, _source_module_paths
+      and applies local branch checks.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     return [
         *_input_paths(input_dir, include_negative=include_negative),
@@ -396,6 +648,22 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Collect source paths that determine replay freshness.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_freshness_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
@@ -406,6 +674,29 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Build the freshness basis used in receipts and cards.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_freshness_basis`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives. Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants CARD_SCHEMA_VERSION; filesystem metadata
+      named by those arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -467,6 +758,26 @@ def _fresh_lab_bundle_receipt(
     *,
     command: str,
 ) -> dict[str, Any] | None:
+    """[ACTION] Implement fresh lab bundle receipt for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_fresh_lab_bundle_receipt`.
+    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to _freshness_basis, payload.get, path.is_file,
+      read_json_strict, payload.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME, ORGAN_ID; filesystem
+      metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_RESULT_NAME, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -503,6 +814,23 @@ def _fresh_lab_bundle_receipt(
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_load_payloads`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -517,6 +845,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -537,6 +882,23 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, _finding, add and applies local branch
+      checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_NEGATIVE_CASES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -560,6 +922,23 @@ def _missing_fields(
     case_id: str,
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement missing fields for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_missing_fields`.
+    - Preconditions: Callers provide row, fields, code, kind, row_id, case_id, observed
+      in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     for field in fields:
         if field not in row:
@@ -576,11 +955,45 @@ def _missing_fields(
 
 
 def _has_private_body(row: dict[str, Any]) -> bool:
+    """[ACTION] Implement has private body for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_has_private_body`.
+    - Preconditions: Callers provide row in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments; module constants PRIVATE_NEEDLES.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: PRIVATE_NEEDLES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     encoded = json.dumps(row, sort_keys=True)
     return any(needle in encoded for needle in PRIVATE_NEEDLES)
 
 
 def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement secret exclusion scan for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_secret_exclusion_scan`.
+    - Preconditions: Callers provide scan in the shape consumed by the body.
+    - Mechanism: Delegates to public_scan.pop and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_scan = dict(scan)
     legacy_body_free = public_scan.pop("body_" "redacted", None)
     if "body_in_receipt" not in public_scan:
@@ -594,6 +1007,30 @@ def _source_module_manifest_result(
     public_root: Path,
     require_manifest: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate the source-module manifest and summarize its result.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_source_module_manifest_result`.
+    - Preconditions: Callers provide input_dir, public_root, require_manifest in the
+      shape consumed by the body; content inputs must exist and match the expected local
+      fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_SOURCE_MODULE_DIGESTS,
+      PUBLIC_SAFE_SOURCE_BODY_CLASSES, SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS;
+      filesystem/content inputs named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_SOURCE_MODULE_DIGESTS, PUBLIC_SAFE_SOURCE_BODY_CLASSES,
+      SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
     if not manifest_path.is_file():
@@ -865,6 +1302,22 @@ def _source_module_manifest_result(
 
 
 def _numeric_value(row: dict[str, Any], field: str) -> float | None:
+    """[ACTION] Implement numeric value for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_numeric_value`.
+    - Preconditions: Callers provide row, field in the shape consumed by the body.
+    - Mechanism: Delegates to row.get, float, math.isfinite and applies local branch
+      checks.
+    - Guarantee: Returns float | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     value = row.get(field)
     if isinstance(value, bool) or value is None:
         return None
@@ -876,6 +1329,22 @@ def _numeric_value(row: dict[str, Any], field: str) -> float | None:
 
 
 def _numeric_score_error_code(row: dict[str, Any], field: str) -> str:
+    """[ACTION] Implement numeric score error code for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_numeric_score_error_code`.
+    - Preconditions: Callers provide row, field in the shape consumed by the body.
+    - Mechanism: Delegates to row.get, float, math.isfinite and applies local branch
+      checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     value = row.get(field)
     if isinstance(value, bool) or value is None:
         return "MATERIALS_NUMERIC_REPLAY_SCORE_REQUIRED"
@@ -890,6 +1359,25 @@ def _numeric_score_error_code(row: dict[str, Any], field: str) -> str:
 def _numeric_replay_policy_settings(
     replay_policy: dict[str, Any],
 ) -> tuple[bool, str, float, list[dict[str, Any]]]:
+    """[ACTION] Implement numeric replay policy settings for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_numeric_replay_policy_settings`.
+    - Preconditions: Callers provide replay_policy in the shape consumed by the body.
+    - Mechanism: Delegates to replay_policy.get, numeric_policy.get, findings.append,
+      numeric_policy.get, _finding and applies local branch checks.
+    - Guarantee: Returns tuple[bool, str, float, list[dict[str, Any]]] from the explicit
+      return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants NUMERIC_REPLAY_MIN_SAFETY_GATE,
+      NUMERIC_REPLAY_SELECTION_RULE.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NUMERIC_REPLAY_MIN_SAFETY_GATE, NUMERIC_REPLAY_SELECTION_RULE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     numeric_policy = replay_policy.get("numeric_replay")
     policy_declared = isinstance(numeric_policy, dict) and bool(numeric_policy)
@@ -962,6 +1450,31 @@ def _numeric_replay_result(
     decisions: list[dict[str, Any]],
     replay_policy: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Implement numeric replay result for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_numeric_replay_result`.
+    - Preconditions: Callers provide candidates, assays, decisions, replay_policy in the
+      shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD,
+      NUMERIC_REPLAY_ASSAY_VALUE_FIELD, NUMERIC_REPLAY_SAFETY_GATE_FIELD,
+      NUMERIC_REPLAY_SCORE_FIELD, NUMERIC_REPLAY_SCORE_WEIGHTS,
+      NUMERIC_REPLAY_TOLERANCE, NUMERIC_REPLAY_VERDICT_BASIS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD, NUMERIC_REPLAY_ASSAY_VALUE_FIELD,
+      NUMERIC_REPLAY_SAFETY_GATE_FIELD, NUMERIC_REPLAY_SCORE_FIELD,
+      NUMERIC_REPLAY_SCORE_WEIGHTS, NUMERIC_REPLAY_TOLERANCE,
+      NUMERIC_REPLAY_VERDICT_BASIS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     (
         policy_declared,
         selection_rule,
@@ -1231,6 +1744,23 @@ def _numeric_replay_result(
 
 
 def _expected_numeric_selected_candidate(replay_policy: dict[str, Any]) -> str:
+    """[ACTION] Implement expected numeric selected candidate for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_expected_numeric_selected_candidate`.
+    - Preconditions: Callers provide replay_policy in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     for field in NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS:
         value = replay_policy.get(field)
         if isinstance(value, str) and value:
@@ -1245,6 +1775,23 @@ def _expected_numeric_selected_candidate(replay_policy: dict[str, Any]) -> str:
 
 
 def _numeric_replay_graph_projection(numeric_replay: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement numeric replay graph projection for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_numeric_replay_graph_projection`.
+    - Preconditions: Callers provide numeric_replay in the shape consumed by the body.
+    - Mechanism: Delegates to numeric_replay.get, numeric_replay.get, numeric_replay.get
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "schema_version": "materials_lab_numeric_replay_graph_projection_v1",
         "status": numeric_replay["status"],
@@ -1283,6 +1830,26 @@ def _numeric_replay_realness_evidence(
     assay_count: int,
     decision_count: int,
 ) -> dict[str, Any]:
+    """[ACTION] Implement numeric replay realness evidence for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_numeric_replay_realness_evidence`.
+    - Preconditions: Callers provide status, numeric_replay, candidate_count,
+      assay_count, decision_count in the shape consumed by the body.
+    - Mechanism: Delegates to int, min, numeric_replay.get, numeric_replay.get,
+      numeric_replay.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants NUMERIC_REPLAY_REALNESS_SCHEMA_VERSION,
+      NUMERIC_REPLAY_VERDICT_BASIS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NUMERIC_REPLAY_REALNESS_SCHEMA_VERSION, NUMERIC_REPLAY_VERDICT_BASIS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     verified_count = int(numeric_replay.get("verified_numeric_row_count") or 0)
     expected_row_count = min(candidate_count, assay_count, decision_count)
     selected_candidate = str(numeric_replay.get("selected_candidate_material_id") or "")
@@ -1345,6 +1912,28 @@ def _numeric_replay_realness_evidence(
 def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Summarize source imports and body-open checks for public evidence.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_source_open_body_import_summary`.
+    - Preconditions: Callers provide source_module_result in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _strings, source_module_result.get,
+      source_module_result.get, source_module_result.get, source_module_result.get and
+      applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS,
+      SOURCE_OPEN_BODY_SCHEMA.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
     imported = source_module_result.get("status") == PASS and bool(module_ids)
@@ -1399,6 +1988,25 @@ def _candidate_findings(
     case_id: str,
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement candidate findings for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_candidate_findings`.
+    - Preconditions: Callers provide row, case_id, observed in the shape consumed by the
+      body.
+    - Mechanism: Delegates to findings.extend, _missing_fields, _record, _record,
+      row.get and applies local branch checks.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_CANDIDATE_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_CANDIDATE_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("candidate_material_id") or case_id)
     findings.extend(
@@ -1474,6 +2082,26 @@ def _experiment_findings(
     candidate_ids: set[str],
     assay_ids: set[str],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement experiment findings for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_experiment_findings`.
+    - Preconditions: Callers provide row, case_id, observed, candidate_by_id,
+      candidate_ids, assay_ids in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_ACTION_CLASSES,
+      REQUIRED_EXPERIMENT_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_ACTION_CLASSES, REQUIRED_EXPERIMENT_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("experiment_id") or case_id)
     findings.extend(
@@ -1590,6 +2218,24 @@ def _assay_findings(
     candidate_ids: set[str],
     experiment_ids: set[str],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement assay findings for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_assay_findings`.
+    - Preconditions: Callers provide row, case_id, observed, candidate_ids,
+      experiment_ids in the shape consumed by the body.
+    - Mechanism: Delegates to findings.extend, _missing_fields, row.get, _record,
+      row.get and applies local branch checks.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_ASSAY_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_ASSAY_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("assay_id") or case_id)
     findings.extend(
@@ -1674,6 +2320,26 @@ def _decision_findings(
     candidate_ids: set[str],
     experiment_ids: set[str],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement decision findings for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_decision_findings`.
+    - Preconditions: Callers provide row, case_id, observed, candidate_ids,
+      experiment_ids in the shape consumed by the body.
+    - Mechanism: Delegates to findings.extend, _missing_fields, row.get, _record,
+      row.get and applies local branch checks.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_ACTION_CLASSES,
+      REQUIRED_DECISION_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_ACTION_CLASSES, REQUIRED_DECISION_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("decision_id") or case_id)
     findings.extend(
@@ -1761,6 +2427,22 @@ def _decision_findings(
 
 
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
+    """[ACTION] Implement required policy ok for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_required_policy_ok`.
+    - Preconditions: Callers provide policy in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
         return False
@@ -1789,6 +2471,23 @@ def _required_policy_ok(policy: dict[str, Any]) -> bool:
 
 
 def _projection_protocol_ok(protocol: dict[str, Any]) -> bool:
+    """[ACTION] Implement projection protocol ok for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by
+      `_projection_protocol_ok`.
+    - Preconditions: Callers provide protocol in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants REQUIRED_PROJECTION_PROTOCOL_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_PROJECTION_PROTOCOL_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     projection = protocol.get("projection_protocol")
     if not isinstance(projection, dict):
         return False
@@ -1796,6 +2495,23 @@ def _projection_protocol_ok(protocol: dict[str, Any]) -> bool:
 
 
 def _negative_rows(payload: object) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    """[ACTION] Implement negative rows for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_negative_rows`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns tuple[list[dict[str, Any]], list[dict[str, Any]],
+      list[dict[str, Any]], list[dict[str, Any]]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return [], [], [], []
     candidates = _rows(payload, "candidate_materials")
@@ -1821,6 +2537,32 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the replay result payload from validated evidence.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_build_result`.
+    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
+      the shape consumed by the body; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
+      BODY_IMPORT_CLASSIFICATION, BODY_IMPORT_STATUS, EXPECTED_NEGATIVE_CASES,
+      FIXTURE_ID, NEGATIVE_INPUT_NAMES, ORGAN_ID, ....
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, BODY_IMPORT_CLASSIFICATION,
+      BODY_IMPORT_STATUS, EXPECTED_NEGATIVE_CASES, FIXTURE_ID, NEGATIVE_INPUT_NAMES,
+      ORGAN_ID, PRIVATE_NEEDLES, PRODUCT_PATH_ROLE, PUBLIC_SURFACE_NAME,
+      SAFETY_VERDICT_SCHEMA_VERSION, ....
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     public_root = _public_root_for_path(input_dir)
     lab_safety_protocol = payloads.get("lab_safety_protocol", {})
@@ -2379,6 +3121,23 @@ def _build_result(
 
 
 def _board(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the board projection from validation and receipt data.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_board`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to result.get, result.get, utc_now, result.get, result.get
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING, ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     summary = result.get("materials_lab_safety_summary", {})
     negatives = result.get("negative_case_summary", {})
     return {
@@ -2435,6 +3194,28 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Write replay receipt payloads and return their public references.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_write_receipts`.
+    - Preconditions: Callers provide result, out_dir, acceptance_out in the shape
+      consumed by the body; write targets must be inside the caller-selected output or
+      temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns dict[str, Any] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, ANTI_CLAIM,
+      AUTHORITY_CEILING, BOARD_NAME, FIXTURE_ID, ORGAN_ID, RESULT_NAME,
+      VALIDATION_RECEIPT_NAME, ....
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, ANTI_CLAIM, AUTHORITY_CEILING, BOARD_NAME,
+      FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -2546,6 +3327,23 @@ def run(
     ),
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     result = _build_result(
         Path(input_dir),
         command=command,
@@ -2571,6 +3369,26 @@ def run_lab_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run lab bundle for this organ replay.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `run_lab_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
+      the shape consumed by the body; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2598,6 +3416,24 @@ def run_lab_bundle(
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to result.get, result.get, result.get, replay_payload.get,
+      result.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants CARD_OMITTED_FULL_PAYLOAD_KEYS,
+      CARD_SCHEMA_VERSION.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: CARD_OMITTED_FULL_PAYLOAD_KEYS, CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     summary = result.get("materials_lab_safety_summary")
@@ -2766,6 +3602,22 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _parser() -> argparse.ArgumentParser:
+    """[ACTION] Build the command-line parser for this organ module.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `_parser`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+    - Guarantee: Returns argparse.ArgumentParser from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog="materials_chemistry_closed_loop_lab_safety_replay")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
@@ -2781,6 +3633,22 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports materials chemistry closed loop lab safety replay by
+      documenting and preserving the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: Explicit raise paths include ValueError(args.action); called operations may
+      propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":

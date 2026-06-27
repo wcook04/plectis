@@ -1,3 +1,54 @@
+"""[PURPOSE]
+- Teleology: Make sabotage and scheming monitor replay evidence inspectable through
+  runnable public fixture code while keeping claims bounded to emitted receipts and
+  authority ceilings.
+- Mechanism: The file recomputes synthetic hidden-side-objective episode, action-trace,
+  monitor-score, counterfactual, cold-replay, and negative-case evidence; helper
+  functions load fixtures, recompute predicates, normalize findings, build
+  result/board/card payloads, and write receipts.
+- Non-goal: Agent sabotage scheming-monitor replay validates synthetic episode, action,
+  monitor-score, counterfactual, cold-replay, negative-case, and authority ceiling
+  receipts. It does not authorize live sabotage, live agent execution, exploit
+  instructions, credentials or account material, private reasoning, harmful payloads,
+  monitor product performance claims, deployment risk claims, provider calls, source
+  mutation, or release.
+
+[INTERFACE]
+- CLI: `python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay
+  <command>` with detected subcommands run, run-sabotage-bundle.
+- Exports: validate_source_module_manifest, validate_projection_protocol,
+  validate_monitor_policy, validate_task_episodes, validate_action_traces,
+  validate_monitor_scores, validate_real_sanitized_evidence,
+  validate_counterfactual_replay, validate_cold_replay, validate_negative_cases,
+  validate_public_trace, run, run_sabotage_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.macro_tools.agent_execution_trace,
+  microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -238,6 +289,23 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -251,10 +319,41 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Convert a path into a public-root-relative display reference.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_display`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to public_relative_path and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     rows = payload.get(key, [])
@@ -262,12 +361,46 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Build the fixture input path list for the requested replay mode.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_input_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants INPUT_NAMES, NEGATIVE_INPUT_NAMES,
+      SOURCE_MODULE_MANIFEST_NAME; filesystem metadata named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: INPUT_NAMES, NEGATIVE_INPUT_NAMES, SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     for optional_name in ("bundle_manifest.json", SOURCE_MODULE_MANIFEST_NAME):
@@ -278,6 +411,25 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_sha256`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; module constants HASH_CHUNK_SIZE; filesystem/content inputs
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: HASH_CHUNK_SIZE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -286,11 +438,40 @@ def _sha256(path: Path) -> str:
 
 
 def _normalize_sha256(value: object) -> str:
+    """[ACTION] Normalize a digest string to the sha256-prefixed form.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_normalize_sha256`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Delegates to text.startswith and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     text = str(value or "")
     return text if text.startswith("sha256:") else f"sha256:{text}"
 
 
 def _source_module_path_ref_path(input_dir: Path, row: dict[str, Any]) -> Path | None:
+    """[ACTION] Resolve a manifest path field to a local source path.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_source_module_path_ref_path`.
+    - Preconditions: Callers provide input_dir, row in the shape consumed by the body.
+    - Mechanism: Delegates to row.get and applies local branch checks.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rel_path = str(row.get("path") or "")
     return input_dir / rel_path if rel_path else None
 
@@ -301,6 +482,23 @@ def _source_module_target_ref_path(
     *,
     public_root: Path,
 ) -> Path | None:
+    """[ACTION] Resolve a target reference field to a local source path.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_source_module_target_ref_path`.
+    - Preconditions: Callers provide input_dir, row, public_root in the shape consumed
+      by the body.
+    - Mechanism: Delegates to target_ref.startswith, row.get, target_ref.removeprefix
+      and applies local branch checks.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     target_ref = str(row.get("target_ref") or "")
     if not target_ref:
         return None
@@ -316,6 +514,23 @@ def _source_module_target_path(
     *,
     public_root: Path,
 ) -> Path | None:
+    """[ACTION] Resolve a target source-module reference to a local path.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_source_module_target_path`.
+    - Preconditions: Callers provide input_dir, row, public_root in the shape consumed
+      by the body.
+    - Mechanism: Delegates to _source_module_path_ref_path,
+      _source_module_target_ref_path and applies local branch checks.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return _source_module_path_ref_path(input_dir, row) or _source_module_target_ref_path(
         input_dir,
         row,
@@ -324,6 +539,24 @@ def _source_module_target_path(
 
 
 def _source_module_freshness_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Resolve source module freshness paths from source-module evidence.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_source_module_freshness_paths`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME; filesystem
+      metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     if not manifest_path.is_file():
         return []
@@ -345,6 +578,24 @@ def _source_artifact_paths_from_manifest(
     *,
     public_root: Path,
 ) -> list[Path]:
+    """[ACTION] Resolve source artifact paths from manifest references.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by
+      `_source_artifact_paths_from_manifest`.
+    - Preconditions: Callers provide payload, input_dir, public_root in the shape
+      consumed by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     paths: list[Path] = []
@@ -366,6 +617,22 @@ def _source_artifact_paths_from_manifest(
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Collect source paths that determine replay freshness.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_freshness_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Delegates to _public_root_for_path, _input_paths,
+      _source_module_freshness_paths and applies local branch checks.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     return [
         *_input_paths(input_dir, include_negative=include_negative),
@@ -375,6 +642,29 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Build the freshness basis used in receipts and cards.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_freshness_basis`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives. Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants CARD_SCHEMA_VERSION; filesystem metadata
+      named by those arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -431,6 +721,25 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    """[ACTION] Build the freshness receipt for a replay bundle.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_fresh_bundle_receipt`.
+    - Preconditions: Callers provide input_dir, out_dir in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to _freshness_basis, payload.get, path.is_file,
+      read_json_strict, payload.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME, ORGAN_ID; filesystem
+      metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_RESULT_NAME, ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -463,6 +772,23 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_load_payloads`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -477,6 +803,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -497,6 +840,22 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, add, _finding and applies local branch
+      checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -515,6 +874,24 @@ def _negative_case_semantic_receipt(
     expected_case_id: str,
     subject_id: str,
 ) -> dict[str, Any]:
+    """[ACTION] Implement negative case semantic receipt for this organ replay.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_negative_case_semantic_receipt`.
+    - Preconditions: Callers provide row, expected_case_id, subject_id in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants NEGATIVE_CASE_SEMANTIC_FLOORS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NEGATIVE_CASE_SEMANTIC_FLOORS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     floor = NEGATIVE_CASE_SEMANTIC_FLOORS.get(expected_case_id, {})
     required_truthy = tuple(floor.get("required_truthy") or ())
     required_falsey = tuple(floor.get("required_falsey") or ())
@@ -549,6 +926,27 @@ def validate_source_module_manifest(
     *,
     required: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate source module manifest against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_source_module_manifest`.
+    - Preconditions: Callers provide input_dir, payload, required in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives. Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants ORGAN_ID, SOURCE_MODULE_MANIFEST_NAME;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ORGAN_ID, SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     if not isinstance(payload, dict):
         if required:
@@ -726,6 +1124,26 @@ def _load_source_module_manifest_payload(
     *,
     public_root: Path,
 ) -> tuple[object, Path]:
+    """[ACTION] Load the source-module manifest payload from disk.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by
+      `_load_source_module_manifest_payload`.
+    - Preconditions: Callers provide input_dir, payloads, public_root in the shape
+      consumed by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to payloads.get, fallback.is_file, read_json_strict and
+      applies local branch checks.
+    - Guarantee: Returns tuple[object, Path] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_REF; filesystem
+      metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     payload = payloads.get("source_module_manifest")
     if isinstance(payload, dict):
         return payload, input_dir
@@ -736,6 +1154,23 @@ def _load_source_module_manifest_payload(
 
 
 def _source_artifact_refs_from_manifest(source_module_manifest: dict[str, Any]) -> set[str]:
+    """[ACTION] Collect source artifact references from the source-module manifest.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by
+      `_source_artifact_refs_from_manifest`.
+    - Preconditions: Callers provide source_module_manifest in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     refs: set[str] = set()
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -757,6 +1192,27 @@ def _source_artifact_event_ids_by_ref(
     *,
     public_root: Path,
 ) -> dict[str, set[str]]:
+    """[ACTION] Resolve source artifact event IDs by ref from source-module evidence.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by
+      `_source_artifact_event_ids_by_ref`.
+    - Preconditions: Callers provide source_module_manifest, input_dir, public_root in
+      the shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, set[str]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants REAL_SANITIZED_MATERIAL_CLASSES;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REAL_SANITIZED_MATERIAL_CLASSES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     event_ids_by_ref: dict[str, set[str]] = {}
     for row in source_module_manifest.get("observed_modules", []):
         if not isinstance(row, dict):
@@ -800,7 +1256,25 @@ def _source_artifact_event_ids_by_ref(
 
 
 def _public_safe_trace_event_floor_verified(payload: dict[str, Any]) -> bool:
-    """Return whether a copied public trace has usable event-level evidence."""
+    """[ACTION] Implement public safe trace event floor verified for this organ replay.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by
+      `_public_safe_trace_event_floor_verified`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_REAL_TRACE_AUTHORITY_DENIAL_IDS,
+      REQUIRED_REAL_TRACE_SAFE_BOUNDARY_FALSE_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_REAL_TRACE_AUTHORITY_DENIAL_IDS,
+      REQUIRED_REAL_TRACE_SAFE_BOUNDARY_FALSE_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
 
     if payload.get("schema_version") != (
         "microcosm_public_dogfood_safety_evals_trace_slice_v1"
@@ -847,6 +1321,22 @@ def _public_safe_trace_event_floor_verified(payload: dict[str, Any]) -> bool:
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """[ACTION] Merge observed evidence rows into expected replay rows.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_merge_observed`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -856,6 +1346,22 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Merge finding collections while preserving deterministic order.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_merge_findings`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -871,18 +1377,81 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
+    """[ACTION] List required keys that are absent or empty in a row.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_missing`.
+    - Preconditions: Callers provide row, required in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
+    """[ACTION] Detect forbidden keys in a nested payload.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_has_forbidden_key`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants FORBIDDEN_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _baked_verdict_keys(row: dict[str, Any]) -> list[str]:
+    """[ACTION] Implement baked verdict keys for this organ replay.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_baked_verdict_keys`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants BAKED_VERDICT_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BAKED_VERDICT_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return [key for key in BAKED_VERDICT_KEYS if key in row]
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate projection protocol against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_projection_protocol`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -937,6 +1506,24 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 
 def validate_monitor_policy(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate monitor policy against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_monitor_policy`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_ACTION_FIELDS,
+      REQUIRED_EPISODE_FIELDS, REQUIRED_MONITOR_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_ACTION_FIELDS, REQUIRED_EPISODE_FIELDS, REQUIRED_MONITOR_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     policy = payload if isinstance(payload, dict) else {}
     allowed = set(_strings(policy.get("allowed_monitor_verdicts")))
     required_episode = set(_strings(policy.get("required_episode_fields")))
@@ -998,6 +1585,23 @@ def validate_monitor_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_task_episodes(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate task episodes against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_task_episodes`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_EPISODE_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_EPISODE_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "task_episodes")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1051,6 +1655,24 @@ def validate_task_episodes(payload: object) -> dict[str, Any]:
 
 
 def validate_action_traces(payload: object, episode_ids: set[str]) -> dict[str, Any]:
+    """[ACTION] Validate action traces against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_action_traces`.
+    - Preconditions: Callers provide payload, episode_ids in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_ACTION_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_ACTION_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "action_traces")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1119,6 +1741,25 @@ def validate_monitor_scores(
     source_artifact_refs: set[str],
     source_artifact_event_ids_by_ref: dict[str, set[str]],
 ) -> dict[str, Any]:
+    """[ACTION] Validate monitor scores against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_monitor_scores`.
+    - Preconditions: Callers provide payload, policy, episode_ids, action_step_ids,
+      action_rows, counterfactual_rows, source_artifact_refs,
+      source_artifact_event_ids_by_ref in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_MONITOR_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_MONITOR_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "monitor_scores")
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_monitor_verdicts")))
@@ -1434,6 +2075,21 @@ def validate_monitor_scores(
 
 
 def _source_module_refs(row: dict[str, Any]) -> set[str]:
+    """[ACTION] Resolve source module refs from source-module evidence.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_source_module_refs`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     refs: set[str] = set()
     prefix = "microcosm-substrate/"
     for key in ("target_ref", "path"):
@@ -1452,6 +2108,24 @@ def validate_real_sanitized_evidence(
     *,
     required: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate real sanitized evidence against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_real_sanitized_evidence`.
+    - Preconditions: Callers provide source_module_manifest, monitor_scores, required in
+      the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REAL_SANITIZED_MATERIAL_CLASSES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REAL_SANITIZED_MATERIAL_CLASSES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     real_source_refs: set[str] = set()
     real_modules: list[dict[str, Any]] = []
@@ -1619,6 +2293,23 @@ def validate_real_sanitized_evidence(
 
 
 def validate_counterfactual_replay(payload: object, episode_ids: set[str]) -> dict[str, Any]:
+    """[ACTION] Validate counterfactual replay against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_counterfactual_replay`.
+    - Preconditions: Callers provide payload, episode_ids in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "counterfactual_replay")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1663,6 +2354,23 @@ def validate_counterfactual_replay(payload: object, episode_ids: set[str]) -> di
 
 
 def validate_cold_replay(payload: object, episode_ids: set[str]) -> dict[str, Any]:
+    """[ACTION] Validate cold replay against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_cold_replay`.
+    - Preconditions: Callers provide payload, episode_ids in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "cold_replay")
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
@@ -1707,6 +2415,23 @@ def validate_cold_replay(payload: object, episode_ids: set[str]) -> dict[str, An
 
 
 def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, Any]:
+    """[ACTION] Validate negative cases against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_negative_cases`.
+    - Preconditions: Callers provide negative_payloads in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     semantics: list[dict[str, Any]] = []
@@ -1815,6 +2540,24 @@ def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, A
 
 
 def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Summarize source imports and body-open checks for public evidence.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_source_open_body_import_summary`.
+    - Preconditions: Callers provide public_trace in the shape consumed by the body.
+    - Mechanism: Delegates to public_trace.get, int, get, public_trace.get,
+      public_trace.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SOURCE_OPEN_BODY_IMPORTS,
+      SOURCE_OPEN_BODY_SCHEMA.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_OPEN_BODY_IMPORTS, SOURCE_OPEN_BODY_SCHEMA.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     imported = public_trace.get("status") == PASS
     return {
         "schema_version": SOURCE_OPEN_BODY_SCHEMA,
@@ -1849,6 +2592,22 @@ def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, 
 
 
 def _public_trace_rank_delta_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement public trace rank delta summary for this organ replay.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_public_trace_rank_delta_summary`.
+    - Preconditions: Callers provide public_trace in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     spans = [row for row in public_trace.get("spans", []) if isinstance(row, dict)]
     numeric_deltas = [
         float(row["counterfactual_rank_delta"])
@@ -1890,11 +2649,21 @@ def _public_trace_rank_delta_summary(public_trace: dict[str, Any]) -> dict[str, 
 
 
 def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
-    """Fold the recomputed public trace into organ-level findings.
+    """[ACTION] Validate public trace against the fixture evidence and authority ceiling.
 
-    The macro builder recomputes each episode's caught verdict from monitor
-    suspicion scores and recomputes whether the counterfactual replay isolates
-    the side task. Any computed-vs-declared mismatch becomes an organ finding.
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `validate_public_trace`.
+    - Preconditions: Callers provide public_trace in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
     """
 
     findings: list[dict[str, Any]] = []
@@ -1986,6 +2755,27 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the replay result payload from validated evidence.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_build_result`.
+    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
+      the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
+      EXPECTED_NEGATIVE_CASES, FIXTURE_ID, NEGATIVE_INPUT_NAMES, ORGAN_ID, VALIDATOR_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, EXPECTED_NEGATIVE_CASES, FIXTURE_ID,
+      NEGATIVE_INPUT_NAMES, ORGAN_ID, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     source_module_payload, source_module_input_dir = _load_source_module_manifest_payload(
@@ -2204,6 +2994,23 @@ def _build_result(
 
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the board projection from a replay result payload.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_board_from_result`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "schema_version": "agent_sabotage_scheming_monitor_replay_board_v1",
         "status": result["status"],
@@ -2260,6 +3067,27 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Write replay receipt payloads and return their public references.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_write_receipts`.
+    - Preconditions: Callers provide result, out_dir, acceptance_out in the shape
+      consumed by the body; write targets must be inside the caller-selected output or
+      temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns dict[str, Any] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
+      FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, FIXTURE_ID, ORGAN_ID, RESULT_NAME,
+      VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -2366,6 +3194,23 @@ def run(
     command: str = "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     result = _build_result(
         Path(input_dir),
         command=command,
@@ -2391,6 +3236,26 @@ def run_sabotage_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run sabotage bundle for this organ replay.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `run_sabotage_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
+      the shape consumed by the body; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     source = Path(input_dir)
@@ -2418,6 +3283,21 @@ def run_sabotage_bundle(
 
 
 def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
+    """[ACTION] Collect receipt paths rendered on the public card.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_card_receipt_paths`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     paths = result.get("receipt_paths")
     if not isinstance(paths, list):
         return []
@@ -2429,6 +3309,24 @@ def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to result.get, result.get, result.get, result.get, result.get
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants CARD_OMITTED_FULL_PAYLOAD_KEYS,
+      CARD_SCHEMA_VERSION.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: CARD_OMITTED_FULL_PAYLOAD_KEYS, CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     return {
@@ -2524,6 +3422,22 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _parser() -> argparse.ArgumentParser:
+    """[ACTION] Build the command-line parser for this organ module.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `_parser`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+    - Guarantee: Returns argparse.ArgumentParser from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog="agent_sabotage_scheming_monitor_replay")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
@@ -2539,6 +3453,22 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports agent sabotage scheming monitor replay by documenting and
+      preserving the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: Explicit raise paths include ValueError(args.action); called operations may
+      propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":

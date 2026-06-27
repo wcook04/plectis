@@ -1,3 +1,47 @@
+"""[PURPOSE]
+- Teleology: Make closeout faithfulness audit evidence inspectable through runnable
+  public fixture code while keeping claims bounded to emitted receipts and authority
+  ceilings.
+- Mechanism: The file materializes fixture git repositories and reruns cited tests so
+  closeout claims are checked against HEAD and real exit codes; helper functions load
+  fixtures, recompute predicates, normalize findings, build result/board/card payloads,
+  and write receipts.
+- Non-goal: Closeout faithfulness audit verifies that a referenced public fixture commit
+  object, ledger row, or pytest span exists and records whether a span passed only when
+  pass status is explicitly checked. It does not prove arbitrary live commits landed,
+  close Task Ledger work, mutate Git, run providers, or authorize release.
+
+[INTERFACE]
+- CLI: Import or dispatch `microcosm_core.organs.agent_closeout_faithfulness_audit`
+  through package call sites and tests; no argparse subcommand was detected.
+- Exports: evaluate_negative_case, evaluate, run, run_agent_closeout_bundle, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs._crown_jewel_common
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import copy
@@ -75,6 +119,24 @@ SPEC = CrownJewelSpec(
 
 
 def _run_subprocess(args: list[str], *, cwd: Path) -> dict[str, Any]:
+    """[ACTION] Implement run subprocess for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `_run_subprocess`.
+    - Preconditions: Callers provide args, cwd in the shape consumed by the body;
+      external binaries must be available when that branch is selected.
+    - Mechanism: Runs the declared subprocess command and records its return-code
+      evidence. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Normalizes Path values and public-root-relative references before returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from subprocess
+      execution, called validators/helpers.
+    - Reads: call arguments.
+    - Writes: subprocess side effects limited to the invoked command/workspace.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     proc = subprocess.run(
         args,
         cwd=cwd,
@@ -93,18 +155,66 @@ def _run_subprocess(args: list[str], *, cwd: Path) -> dict[str, Any]:
 
 
 def _sha256_text(text: str) -> str:
+    """[ACTION] Return the SHA-256 digest for text content.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `_sha256_text`.
+    - Preconditions: Callers provide text in the shape consumed by the body.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     import hashlib
 
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _venv_python(venv_dir: Path) -> Path:
+    """[ACTION] Implement venv python for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `_venv_python`.
+    - Preconditions: Callers provide venv_dir in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if sys.platform == "win32":
         return venv_dir / "Scripts" / "python.exe"
     return venv_dir / "bin" / "python"
 
 
 def _pytest_python_candidates() -> list[Path]:
+    """[ACTION] Implement pytest python candidates for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `_pytest_python_candidates`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants MICROCOSM_ROOT.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: MICROCOSM_ROOT.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     candidates = [
         Path(sys.executable),
         _venv_python(MICROCOSM_ROOT / ".venv"),
@@ -121,6 +231,25 @@ def _pytest_python_candidates() -> list[Path]:
 
 
 def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
+    """[ACTION] Implement select pytest python for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `_select_pytest_python`.
+    - Preconditions: Callers provide candidates in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks; external binaries must be
+      available when that branch is selected.
+    - Mechanism: Runs the declared subprocess command and records its return-code
+      evidence. Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, subprocess execution, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: subprocess side effects limited to the invoked command/workspace.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     for candidate in candidates or _pytest_python_candidates():
         if not candidate.exists():
             continue
@@ -140,6 +269,24 @@ def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
 
 
 def _prepare_public_fixture_repo(source_dir: Path, work_dir: Path) -> dict[str, Any]:
+    """[ACTION] Implement prepare public fixture repo for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `_prepare_public_fixture_repo`.
+    - Preconditions: Callers provide source_dir, work_dir in the shape consumed by the
+      body; external binaries must be available when that branch is selected.
+    - Mechanism: Runs the declared subprocess command and records its return-code
+      evidence. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from subprocess
+      execution, called validators/helpers.
+    - Reads: call arguments.
+    - Writes: subprocess side effects limited to the invoked command/workspace.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     repo_dir = work_dir / "public_fixture_repo"
     shutil.copytree(source_dir, repo_dir)
     subprocesses: list[dict[str, Any]] = []
@@ -179,6 +326,25 @@ def _semantic_closeout_contract_findings(
     input_dir: Path,
     claims: dict[str, Any],
 ) -> list[dict[str, Any]]:
+    """[ACTION] Implement semantic closeout contract findings for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by
+      `_semantic_closeout_contract_findings`.
+    - Preconditions: Callers provide input_dir, claims in the shape consumed by the
+      body; content inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     ledger = load_json_object(input_dir / "fixture_ledger.json", findings, label="fixture ledger")
     public_repo = input_dir / "public_fixture_repo"
@@ -253,6 +419,23 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
+    """[ACTION] Evaluate a negative-case row and return its verdict fields.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `evaluate_negative_case`.
+    - Preconditions: Callers provide case_id, input_dir, _expected_codes in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     claims = load_json_object(input_dir / "closeout_claims.json", findings, label="closeout claims")
     claims = copy.deepcopy(claims)
@@ -287,6 +470,26 @@ def evaluate_negative_case(
 
 
 def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Evaluate fixture evidence and return a structured verdict.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `evaluate`.
+    - Preconditions: Callers provide input_dir, _public_root, _source_manifest in the
+      shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks; external binaries must be available when that branch is selected.
+    - Mechanism: Runs the declared subprocess command and records its return-code
+      evidence. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Normalizes Path values and public-root-relative references before returning them.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, subprocess execution, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: subprocess side effects limited to the invoked command/workspace.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     claims = load_json_object(input_dir / "closeout_claims.json", findings, label="closeout claims")
     ledger = load_json_object(input_dir / "fixture_ledger.json", findings, label="fixture ledger")
@@ -414,6 +617,23 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -430,6 +650,23 @@ def run_agent_closeout_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run agent closeout bundle for this organ replay.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `run_agent_closeout_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
+      by the body.
+    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -442,6 +679,21 @@ def run_agent_closeout_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports agent closeout faithfulness audit by documenting and
+      preserving the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body.
+    - Mechanism: Delegates to main_for_spec and applies local branch checks.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return main_for_spec(
         SPEC,
         argv,
