@@ -3399,3 +3399,36 @@ def test_cli_public_entry_docs_smoke_uses_temp_output(
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
     assert '"body":' not in text
+
+
+def test_unsupported_python_message_flags_old_interpreter() -> None:
+    message = cli._unsupported_python_message((3, 9, 6))
+    assert message is not None
+    assert "3.11" in message
+    assert "3.9.6" in message
+
+
+def test_unsupported_python_message_passes_supported_interpreters() -> None:
+    assert cli._unsupported_python_message((3, 11, 0)) is None
+    assert cli._unsupported_python_message((3, 13, 1)) is None
+    # The interpreter running this suite is supported, so the live tuple must pass.
+    assert cli._unsupported_python_message(sys.version_info) is None
+
+
+def test_main_gates_old_python_with_clean_message(monkeypatch, capsys) -> None:
+    monkeypatch.setattr(cli.sys, "version_info", (3, 9, 6))
+    status = cli.main(["hello", "."])
+    captured = capsys.readouterr()
+    assert status == 2
+    # The legible message goes to stderr; stdout stays empty (no traceback, no card).
+    assert "Python 3.11 or newer" in captured.err
+    assert captured.out == ""
+
+
+def test_main_version_flag_works_on_unsupported_python(monkeypatch, capsys) -> None:
+    # `--version` must still identify the package even under an unsupported interpreter.
+    monkeypatch.setattr(cli.sys, "version_info", (3, 9, 6))
+    status = cli.main(["--version"])
+    captured = capsys.readouterr()
+    assert status == 0
+    assert captured.out.startswith("plectis ")

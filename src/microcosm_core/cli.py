@@ -2614,6 +2614,32 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
     return payload
 
 
+_MINIMUM_PYTHON = (3, 11)
+
+
+def _unsupported_python_message(version_info: "tuple[int, ...]") -> str | None:
+    """Return a cold-clone-friendly error if the interpreter is too old, else None.
+
+    - Teleology: convert the deep ``ModuleNotFoundError: No module named 'tomllib'``
+      traceback (raised lazily when an unsupported Python imports the runtime) into a
+      single legible line at the entrypoint, so a cold clone run under a system Python
+      older than 3.11 is told what is wrong rather than handed a stack trace.
+    - Guarantee: returns None when ``version_info[:2] >= (3, 11)``; otherwise returns a
+      one-line message naming the required and running versions and a corrective command.
+    - Fails: never raises; reads ``version_info`` positionally only.
+    - Non-goal: does not make older interpreters work; it only makes the failure legible.
+    """
+    if tuple(version_info[:2]) >= _MINIMUM_PYTHON:
+        return None
+    running = ".".join(str(part) for part in version_info[:3])
+    minimum = ".".join(str(part) for part in _MINIMUM_PYTHON)
+    return (
+        f"plectis requires Python {minimum} or newer; this interpreter is Python "
+        f"{running}. Re-run with a newer interpreter, for example: "
+        f"python3.11 -m microcosm_core <command>."
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     """Parse argv, dispatch the selected `microcosm` command, and return its exit code.
 
@@ -2628,6 +2654,11 @@ def main(argv: list[str] | None = None) -> int:
     if raw_argv == ["--version"]:
         print(f"plectis {__version__}")
         return 0
+
+    unsupported_python = _unsupported_python_message(sys.version_info)
+    if unsupported_python is not None:
+        print(unsupported_python, file=sys.stderr)
+        return 2
 
     fast_path_status = _first_screen_fast_path(raw_argv)
     if fast_path_status is not None:
