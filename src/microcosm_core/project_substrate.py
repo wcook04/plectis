@@ -3948,6 +3948,18 @@ def _work_row_for_chain(
         if selected is not None:
             return selected
     route_rows = [row for row in rows if str(row.get("route_id") or "") == route_id]
+    latest_reference_case_row = next(
+        (
+            row
+            for row in reversed(route_rows)
+            if row.get("status") == "closed"
+            and isinstance(row.get("reference_execution_case_ref"), str)
+            and row.get("reference_execution_case_ref")
+        ),
+        None,
+    )
+    if latest_reference_case_row is not None:
+        return latest_reference_case_row
     return next(
         (row for row in route_rows if row.get("status") == "closed"),
         route_rows[-1] if route_rows else {},
@@ -4338,6 +4350,145 @@ def _reference_case_record_classification_matrix_verified(
     return verified if isinstance(verified, bool) else None
 
 
+def _observe_agent_harness_record_review(
+    reference_execution_case: dict[str, Any],
+) -> dict[str, Any]:
+    """Return the observe-card harness-record review cue for the selected work."""
+    case = reference_execution_case if isinstance(reference_execution_case, dict) else {}
+    status = str(case.get("status") or "missing")
+    verification_status = str(case.get("verification_status") or "not_run")
+    selected_work_id = case.get("selected_work_id")
+    root_work_id = case.get("root_work_id")
+    root_matches_selected = (
+        case.get("root_matches_selected_work")
+        if isinstance(case.get("root_matches_selected_work"), bool)
+        else bool(selected_work_id) and root_work_id == selected_work_id
+    )
+    occurrence_witness_refs = (
+        [
+            ref
+            for ref in case.get("occurrence_witness_refs", [])
+            if isinstance(ref, str) and ref
+        ]
+        if isinstance(case.get("occurrence_witness_refs"), list)
+        else []
+    )
+    state_delta_refs = (
+        [
+            ref
+            for ref in case.get("state_delta_refs", [])
+            if isinstance(ref, str) and ref
+        ]
+        if isinstance(case.get("state_delta_refs"), list)
+        else []
+    )
+    state_delta_refs_verified = _reference_case_state_delta_refs_verified(case)
+    state_delta_scope_verified = _reference_case_state_delta_scope_verified(case)
+    record_classification_matrix_verified = (
+        _reference_case_record_classification_matrix_verified(case)
+    )
+    assertion_matrix_coverage_verified = (
+        _reference_case_assertion_matrix_coverage_verified(case)
+    )
+    selected_case_passes = status == PASS and verification_status == PASS
+    return {
+        "schema_version": "microcosm_observe_agent_harness_record_review_cue_v1",
+        "status": (
+            "selected_work_record_reviewable_observe_handoff"
+            if selected_case_passes
+            else "selected_work_record_gap"
+        ),
+        "question": (
+            "Show this selected local agent-work episode and ask what missing "
+            "trajectory, reproducibility fixture, task boundary, benchmark "
+            "anti-claim, or closeout check stops it from being reviewable as an "
+            "agent harness record."
+        ),
+        "candidate_record_scope": "selected_work_reference_case_from_observe_card",
+        "selected_work_id": selected_work_id,
+        "root_work_id": root_work_id,
+        "root_matches_selected": root_matches_selected,
+        "selected_work_reference_case_status": status,
+        "selected_work_reference_verification_status": verification_status,
+        "selected_work_reference_evidence_ref": case.get("evidence_ref"),
+        "review_axes": [
+            {
+                "axis": "trajectory",
+                "status": "present" if occurrence_witness_refs else "missing",
+                "evidence_ref": (
+                    "causal_chain_summary.command_reference_execution_case"
+                    ".occurrence_witness_refs"
+                ),
+                "evidence_count": len(occurrence_witness_refs),
+            },
+            {
+                "axis": "reproducibility_fixture",
+                "status": (
+                    "present"
+                    if state_delta_refs
+                    and state_delta_refs_verified is True
+                    and state_delta_scope_verified is True
+                    else "missing_or_unverified"
+                ),
+                "evidence_ref": (
+                    "causal_chain_summary.command_reference_execution_case"
+                    ".state_delta_refs"
+                ),
+                "state_delta_ref_count": len(state_delta_refs),
+                "state_delta_refs_verified": state_delta_refs_verified,
+                "state_delta_scope_verified": state_delta_scope_verified,
+            },
+            {
+                "axis": "task_boundary",
+                "status": (
+                    "present"
+                    if record_classification_matrix_verified is True
+                    else "missing_or_unverified"
+                ),
+                "evidence_ref": (
+                    "causal_chain_summary.command_reference_execution_case"
+                    ".record_classification_matrix_ref"
+                ),
+                "record_classification_matrix_verified": (
+                    record_classification_matrix_verified
+                ),
+            },
+            {
+                "axis": "benchmark_anti_claim",
+                "status": "not_claimed_here_check_if_benchmark_context",
+                "drilldown_command": (
+                    "plectis comprehend --slice claims --organ "
+                    "agent_benchmark_integrity_anti_gaming_replay"
+                ),
+            },
+            {
+                "axis": "closeout_check",
+                "status": (
+                    "present"
+                    if verification_status == PASS
+                    else "missing_or_blocked"
+                ),
+                "evidence_ref": (
+                    "causal_chain_summary.command_reference_execution_case"
+                    ".verification_status"
+                ),
+                "verification_status": verification_status,
+                "drilldown_command": (
+                    "plectis comprehend --slice claims --organ "
+                    "agent_closeout_faithfulness_audit"
+                ),
+            },
+        ],
+        "assertion_matrix_coverage_verified": assertion_matrix_coverage_verified,
+        "anti_claim": (
+            "This observe-card cue does not make observe --card a command-root "
+            "witness, does not assert benchmark score or agent capability, and "
+            "does not authorize release. It only packages the selected-work "
+            "reference case and remaining review questions."
+        ),
+    }
+
+
 def _state_names(history: Any) -> list[str]:
     """Extract the ordered state names from a work-item state_history.
 
@@ -4703,6 +4854,9 @@ def observe_project_card(
     reference_execution_case = (
         reference_execution_case if isinstance(reference_execution_case, dict) else {}
     )
+    harness_record_review = _observe_agent_harness_record_review(
+        reference_execution_case
+    )
     spans = observed.get("spans") or {}
     return {
         **_base_payload("microcosm_project_observe_card_v1", Path(project_path)),
@@ -4786,12 +4940,15 @@ def observe_project_card(
                     "verification_predicate_status.record_classification_matrix"
                 ),
             },
+            "agent_harness_record_review_status": harness_record_review.get("status"),
+            "agent_harness_record_review_ref": "agent_harness_record_review",
             "graph": {
                 "node_count": graph.get("node_count", 0),
                 "edge_count": graph.get("edge_count", 0),
                 "graph_ref": graph.get("graph_ref") or observed.get("graph_ref"),
             },
         },
+        "agent_harness_record_review": harness_record_review,
         "reader_drilldowns": observed.get("reader_drilldowns", []),
         "authority_boundary": observed.get("authority_boundary"),
         "safe_to_show": observed.get("safe_to_show", {}),

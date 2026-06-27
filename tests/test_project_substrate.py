@@ -1951,6 +1951,45 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
     assert observe_case_summary["record_classification_matrix_ref"] == (
         "verification_predicate_status.record_classification_matrix"
     )
+    assert observe_card["causal_chain_summary"][
+        "agent_harness_record_review_status"
+    ] == "selected_work_record_reviewable_observe_handoff"
+    assert observe_card["causal_chain_summary"][
+        "agent_harness_record_review_ref"
+    ] == "agent_harness_record_review"
+    observe_harness_review = observe_card["agent_harness_record_review"]
+    assert (
+        observe_harness_review["schema_version"]
+        == "microcosm_observe_agent_harness_record_review_cue_v1"
+    )
+    assert observe_harness_review["status"] == (
+        "selected_work_record_reviewable_observe_handoff"
+    )
+    assert observe_harness_review["selected_work_id"] == "work_0002"
+    assert observe_harness_review["root_work_id"] == "work_0002"
+    assert observe_harness_review["root_matches_selected"] is True
+    assert observe_harness_review["selected_work_reference_case_status"] == "pass"
+    assert (
+        observe_harness_review["selected_work_reference_verification_status"]
+        == "pass"
+    )
+    observe_review_axes = {
+        row["axis"]: row for row in observe_harness_review["review_axes"]
+    }
+    assert observe_review_axes["trajectory"]["status"] == "present"
+    assert observe_review_axes["reproducibility_fixture"]["status"] == "present"
+    assert observe_review_axes["reproducibility_fixture"][
+        "state_delta_ref_count"
+    ] == len(expected_card_state_delta_refs)
+    assert observe_review_axes["task_boundary"]["status"] == "present"
+    assert observe_review_axes["benchmark_anti_claim"]["drilldown_command"] == (
+        "plectis comprehend --slice claims --organ "
+        "agent_benchmark_integrity_anti_gaming_replay"
+    )
+    assert observe_review_axes["closeout_check"]["status"] == "present"
+    assert "does not make observe --card a command-root witness" in (
+        observe_harness_review["anti_claim"]
+    )
 
     tour_card = RuntimeShell(MICROCOSM_ROOT).tour_card(project)
     tour_case = tour_card["command_reference_execution_case"]

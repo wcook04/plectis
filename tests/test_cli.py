@@ -2244,6 +2244,34 @@ def test_cli_observe_card_is_compact_peer_developer_handoff(
     assert card["state_write_proof"]["source_files_mutated"] is False
     assert card["causal_chain_summary"]["status"] == "pass"
     assert card["causal_chain_summary"]["graph"]["node_count"] > 0
+    assert card["causal_chain_summary"]["agent_harness_record_review_ref"] == (
+        "agent_harness_record_review"
+    )
+    assert card["causal_chain_summary"][
+        "agent_harness_record_review_status"
+    ] == card["agent_harness_record_review"]["status"]
+    assert (
+        card["agent_harness_record_review"]["schema_version"]
+        == "microcosm_observe_agent_harness_record_review_cue_v1"
+    )
+    assert card["agent_harness_record_review"]["status"] == (
+        "selected_work_record_reviewable_observe_handoff"
+    )
+    axes = {
+        row["axis"]: row
+        for row in card["agent_harness_record_review"]["review_axes"]
+    }
+    assert axes["trajectory"]["status"] == "present"
+    assert axes["reproducibility_fixture"]["status"] == "present"
+    assert axes["task_boundary"]["status"] == "present"
+    assert axes["benchmark_anti_claim"]["drilldown_command"] == (
+        "plectis comprehend --slice claims --organ "
+        "agent_benchmark_integrity_anti_gaming_replay"
+    )
+    assert axes["closeout_check"]["drilldown_command"] == (
+        "plectis comprehend --slice claims --organ "
+        "agent_closeout_faithfulness_audit"
+    )
     assert card["safe_to_show"]["provider_calls_authorized"] is False
     assert card["safe_to_show"]["source_files_mutated"] is False
 
