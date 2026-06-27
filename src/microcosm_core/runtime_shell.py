@@ -3816,6 +3816,27 @@ def _tour_command_causality_coverage_assay(
     selected_work_id = case.get("selected_work_id") or compiled.get("work_id")
     root_work_id = case.get("root_work_id")
     root_matches_selected = bool(selected_work_id) and root_work_id == selected_work_id
+    selected_case_evidence_ref = (
+        case.get("evidence_ref") if isinstance(case.get("evidence_ref"), str) else None
+    )
+    occurrence_witness_refs = (
+        [
+            ref
+            for ref in case.get("occurrence_witness_refs", [])
+            if isinstance(ref, str) and ref
+        ]
+        if isinstance(case.get("occurrence_witness_refs"), list)
+        else []
+    )
+    record_classification_matrix_verified = verification_predicate_status.get(
+        "record_classification_matrix"
+    )
+    assertion_matrix_coverage_verified = verification_predicate_status.get(
+        "assertion_matrix_coverage"
+    )
+    closeout_evidence_status = (
+        "present" if selected_case_verification_status == PASS else "missing_or_blocked"
+    )
     tour_command_root_gap_matrix = [
         {
             "gap_id": "tour_returned_root_handle",
@@ -3889,6 +3910,98 @@ def _tour_command_causality_coverage_assay(
             if row.get("blocks_tour_public_witness") is True
         ]
     )
+    agent_harness_record_review = {
+        "schema_version": "microcosm_agent_harness_record_review_cue_v1",
+        "status": (
+            "selected_work_record_reviewable_tour_not_command_rooted"
+            if selected_case_passes
+            else "selected_work_record_gap"
+        ),
+        "question": (
+            "Show this selected local agent-work episode and ask what missing "
+            "trajectory, reproducibility fixture, task boundary, benchmark "
+            "anti-claim, or closeout check stops it from being reviewable as an "
+            "agent harness record."
+        ),
+        "candidate_record_scope": "selected_work_reference_case_not_tour_invocation",
+        "selected_work_id": selected_work_id,
+        "root_work_id": root_work_id,
+        "root_matches_selected": root_matches_selected,
+        "selected_work_reference_case_status": selected_case_status,
+        "selected_work_reference_verification_status": (
+            selected_case_verification_status
+        ),
+        "selected_work_reference_evidence_ref": selected_case_evidence_ref,
+        "review_axes": [
+            {
+                "axis": "trajectory",
+                "status": "present" if occurrence_witness_refs else "missing",
+                "evidence_ref": (
+                    "command_reference_execution_case.occurrence_witness_refs"
+                ),
+                "evidence_count": len(occurrence_witness_refs),
+            },
+            {
+                "axis": "reproducibility_fixture",
+                "status": (
+                    "present"
+                    if selected_case_state_delta_refs
+                    and selected_case_state_delta_refs_verified is True
+                    and selected_case_state_delta_scope_verified is True
+                    else "missing_or_unverified"
+                ),
+                "evidence_ref": "command_reference_execution_case.state_delta_refs",
+                "state_delta_ref_count": len(selected_case_state_delta_refs),
+                "state_delta_refs_verified": selected_case_state_delta_refs_verified,
+                "state_delta_scope_verified": selected_case_state_delta_scope_verified,
+            },
+            {
+                "axis": "task_boundary",
+                "status": (
+                    "present"
+                    if record_classification_matrix_verified is True
+                    else "missing_or_unverified"
+                ),
+                "evidence_ref": (
+                    "verification_predicate_status.record_classification_matrix"
+                ),
+                "record_classification_matrix_verified": (
+                    record_classification_matrix_verified
+                ),
+            },
+            {
+                "axis": "benchmark_anti_claim",
+                "status": "not_claimed_here_check_if_benchmark_context",
+                "evidence_ref": "tour_command_causality_coverage_assay.authority_ceiling",
+                "drilldown_command": (
+                    "plectis comprehend --slice claims --organ "
+                    "agent_benchmark_integrity_anti_gaming_replay"
+                ),
+            },
+            {
+                "axis": "closeout_check",
+                "status": closeout_evidence_status,
+                "evidence_ref": "command_reference_execution_case.verification_status",
+                "verification_status": selected_case_verification_status,
+                "drilldown_command": (
+                    "plectis comprehend --slice claims --organ "
+                    "agent_closeout_faithfulness_audit"
+                ),
+            },
+        ],
+        "tour_command_root_blockers": [
+            row.get("gap_id")
+            for row in tour_command_root_gap_matrix
+            if row.get("blocks_tour_public_witness") is True and row.get("gap_id")
+        ],
+        "assertion_matrix_coverage_verified": assertion_matrix_coverage_verified,
+        "anti_claim": (
+            "This review cue does not make tour --card a command-root witness, "
+            "does not assert benchmark score or agent capability, and does not "
+            "authorize release. It only packages the selected-work witness and "
+            "the remaining review questions."
+        ),
+    }
     return {
         "schema_version": "microcosm_tour_command_causality_coverage_assay_v1",
         "status": status,
@@ -3928,6 +4041,7 @@ def _tour_command_causality_coverage_assay(
         "tour_command_root_blocking_gap_count": (
             tour_command_root_blocking_gap_count
         ),
+        "agent_harness_record_review": agent_harness_record_review,
         "predicate_coverage": covered_predicates,
         "predicate_coverage_sources": predicate_coverage_sources,
         "predicate_coverage_count": len(covered_predicates),
@@ -10728,6 +10842,18 @@ class RuntimeShell:
                         "tour_command_root_blocking_gap_count"
                     )
                 ),
+                "agent_harness_record_review_status": (
+                    (
+                        tour_command_causality_coverage_assay.get(
+                            "agent_harness_record_review"
+                        )
+                        or {}
+                    ).get("status")
+                ),
+                "agent_harness_record_review_ref": (
+                    "tour_command_causality_coverage_assay."
+                    "agent_harness_record_review"
+                ),
                 "event_count": compiled.get("event_count"),
                 "evidence_count": compiled.get("evidence_count"),
                 "source_files_mutated": compiled.get("source_files_mutated") is True,
@@ -11440,6 +11566,18 @@ class RuntimeShell:
                     tour_command_causality_coverage_assay.get(
                         "tour_command_root_blocking_gap_count"
                     )
+                ),
+                "agent_harness_record_review_status": (
+                    (
+                        tour_command_causality_coverage_assay.get(
+                            "agent_harness_record_review"
+                        )
+                        or {}
+                    ).get("status")
+                ),
+                "agent_harness_record_review_ref": (
+                    "tour_command_causality_coverage_assay."
+                    "agent_harness_record_review"
                 ),
                 "route_count": compiled.get("route_count"),
                 "file_count": compiled.get("file_count"),
