@@ -55,7 +55,7 @@ def test_cli_evidence_list_fails_closed_for_missing_project(capsys, tmp_path: Pa
     assert payload["state_ref"] == ".microcosm"
     assert payload["evidence_count"] == 0
     assert payload["release_authorized"] is False
-    assert "microcosm tour --card" in payload["reader_action"]
+    assert "plectis tour --card" in payload["reader_action"]
 
 
 def test_cli_evidence_list_fails_closed_for_missing_state(capsys, tmp_path: Path) -> None:
@@ -99,7 +99,7 @@ def test_cli_evidence_list_preserves_initialized_project_success(
     assert payload["evidence_count"] == 1
     assert payload["evidence"][0]["evidence_ref"] == ".microcosm/evidence/routes.json"
     assert payload["evidence"][0]["inspect_command"] == (
-        "microcosm evidence inspect --project "
+        "plectis evidence inspect --project "
         f"{project.as_posix()} .microcosm/evidence/routes.json"
     )
     assert payload["evidence"][0]["source_checkout_inspect_command"] == (
@@ -107,7 +107,7 @@ def test_cli_evidence_list_preserves_initialized_project_success(
         f"{project.as_posix()} .microcosm/evidence/routes.json"
     )
     assert payload["inspect_drilldown"] == {
-        "command_template": "microcosm evidence inspect --project <project> <evidence_ref>",
+        "command_template": "plectis evidence inspect --project <project> <evidence_ref>",
         "source_checkout_command_template": (
             "PYTHONPATH=src python3 -m microcosm_core evidence inspect "
             "--project <project> <evidence_ref>"
@@ -168,10 +168,10 @@ def test_cli_observe_preserves_initialized_project_ref(
     assert payload["project_ref"] == project.as_posix()
     assert payload["state_ref"] == ".microcosm"
     assert payload["state_write_proof"]["state_write_result_ref"] == (
-        f"microcosm tour --card {project.as_posix()}::state_write_result"
+        f"plectis tour --card {project.as_posix()}::state_write_result"
     )
     assert payload["state_write_proof"]["status_card_project_state_ref"] == (
-        f"microcosm status --card {project.as_posix()}::front_door.project_state"
+        f"plectis status --card {project.as_posix()}::front_door.project_state"
     )
     assert payload["safe_to_show"]["source_files_mutated"] is False
 
@@ -275,6 +275,37 @@ def test_cli_evidence_inspect_not_found_keeps_interpretation_boundary(
     _assert_evidence_interpretation(payload)
 
 
+def test_cli_evidence_inspect_refuses_path_traversal_outside_state_dir(
+    capsys, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    (project / ".microcosm" / "evidence").mkdir(parents=True)
+    # A secret JSON sitting OUTSIDE the .microcosm state dir.
+    (project / "secret.json").write_text(
+        json.dumps({"schema_version": "s", "secret": "TOPSECRET", "status": "pass"}),
+        encoding="utf-8",
+    )
+
+    for escaping_ref in ("../secret.json", "../../secret.json", ".microcosm/../secret.json"):
+        capsys.readouterr()
+        assert (
+            cli.main(["evidence", "inspect", project.as_posix(), escaping_ref]) == 1
+        )
+        payload = _payload(capsys)
+        # The reader fails closed to not_found and never surfaces the foreign file's shape.
+        assert payload["status"] == "not_found", escaping_ref
+        assert "TOPSECRET" not in json.dumps(payload)
+        assert not payload.get("payload_summary")
+
+    # A direct absolute path to the foreign file is refused too.
+    capsys.readouterr()
+    assert (
+        cli.main(["evidence", "inspect", project.as_posix(), (project / "secret.json").as_posix()])
+        == 1
+    )
+    assert _payload(capsys)["status"] == "not_found"
+
+
 def test_cli_evidence_list_limit_bounds_initialized_project(
     capsys, tmp_path: Path
 ) -> None:
@@ -305,7 +336,7 @@ def test_cli_evidence_list_limit_bounds_initialized_project(
     assert payload["truncated"] is True
     assert len(payload["evidence"]) == 2
     assert payload["evidence"][0]["inspect_command"].startswith(
-        f"microcosm evidence inspect --project {project.as_posix()} "
+        f"plectis evidence inspect --project {project.as_posix()} "
     )
     assert payload["evidence"][0]["source_checkout_inspect_command"].startswith(
         "PYTHONPATH=src python3 -m microcosm_core evidence inspect --project "
@@ -330,8 +361,8 @@ def test_cli_evidence_list_help_explains_reviewer_drilldown(capsys) -> None:
     assert excinfo.value.code == 0
     output = capsys.readouterr().out
     assert "Lists compact evidence refs." in output
-    assert "microcosm evidence list <project> --limit 25" in output
-    assert "microcosm evidence inspect --project <project> <evidence_ref>" in output
+    assert "plectis evidence list <project> --limit 25" in output
+    assert "plectis evidence inspect --project <project> <evidence_ref>" in output
     assert (
         "PYTHONPATH=src python3 -m microcosm_core evidence list <project> "
         "--limit 25"

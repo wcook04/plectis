@@ -419,10 +419,17 @@ def _read_project_json(project: Path, rel: str) -> dict[str, Any]:
 
     - Teleology: the single guarded reader for project-local generated state behind every card/observe surface.
     - Guarantee: returns the parsed dict, or {} when the file is absent or parses to a non-dict.
-    - Fails: missing file -> {}; malformed JSON -> raises via read_json_strict.
-    - Reads: STATE_DIR/<rel> under the project.
+    - Fails: missing file -> {}; a rel that escapes STATE_DIR (../ traversal, absolute
+      path, or symlink target outside) -> {}; malformed JSON -> raises via read_json_strict.
+    - Reads: STATE_DIR/<rel> under the project, and nothing outside it.
     """
     path = _state_dir(project) / rel
+    state_root = _state_dir(project).resolve(strict=False)
+    try:
+        path.resolve(strict=False).relative_to(state_root)
+    except ValueError:
+        # rel escaped the project state dir; refuse to read arbitrary on-disk files.
+        return {}
     if not _path_is_file(path):
         return {}
     payload = read_json_strict(path)
