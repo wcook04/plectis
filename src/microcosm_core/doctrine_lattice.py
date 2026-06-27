@@ -10254,8 +10254,15 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
         )
     else:
         actual = _as_dict(read_json_strict(projection_path))
-        actual["generation"]["generated_at"] = "check"
-        if actual != expected_projection:
+        # Compare everything except the variable generation block (timestamps)
+        # without mutating actual in place; a JSON-valid projection that is
+        # missing or mistypes 'generation' must produce an error row, not a
+        # KeyError/TypeError (the contract is never-raises).
+        actual_for_compare = {k: v for k, v in actual.items() if k != "generation"}
+        expected_for_compare = {
+            k: v for k, v in expected_projection.items() if k != "generation"
+        }
+        if actual_for_compare != expected_for_compare:
             for key in (
                 "axiom_instance_corpus",
                 "principle_instance_corpus",
@@ -10657,33 +10664,14 @@ def validate_coverage_projection(
         actual_digests = _as_dict(_as_dict(projection.get("projection_freshness")).get("source_digests"))
         if expected_digests != actual_digests:
             _add_error(errors, code="coverage_projection_source_digest_mismatch", path="projection_freshness.source_digests", message="Coverage source digests do not match current sources.")
-        for key in (
-            "source_refs",
-            "contract_status",
-            "relation_registry_status",
-            "projection_reproducibility_status",
-            "population_status",
-            "release_readiness_status",
-            "public_brand_guard_status",
-            "organ_required_edge_coverage",
-            "per_kind_coverage",
-            "relation_registry_health",
-            "registry_atlas_join_health",
-            "paper_module_corpus",
-            "axiom_instance_corpus",
-            "principle_instance_corpus",
-            "anti_principle_instance_corpus",
-            "concept_instance_corpus",
-            "mechanism_instance_corpus",
-            "organ_instance_corpus",
-            "paper_module_instance_corpus",
-            "skill_instance_corpus",
-            "standard_instance_corpus",
-            "mechanism_capsule_dependency_upstream_parity",
-            "deficit_summary",
-            "next_population_targets",
-            "public_codex_leak_guard",
-        ):
+        # Compare every top-level field, not a fixed allowlist that silently
+        # certified drifted fields (status, standard_contract_validation,
+        # organ_count, ...) as reproducible. Skip only the variable generation
+        # block and projection_freshness, whose source_digests are already
+        # itemized by the digest check above.
+        for key in sorted(set(projection) | set(expected)):
+            if key in ("generation", "projection_freshness"):
+                continue
             if projection.get(key) != expected.get(key):
                 _add_error(errors, code="coverage_projection_reproducibility_mismatch", path=key, message=f"Coverage field {key} is not reproducible from source.")
     return {

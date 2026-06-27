@@ -1020,6 +1020,23 @@ def test_cli_circuit_attribution_card_smoke(
     assert len(encoded) < 7000
 
 
+def test_cli_circuit_attribution_card_exit_code_tracks_status(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from microcosm_core import runtime_shell
+
+    monkeypatch.setattr(
+        runtime_shell.RuntimeShell,
+        "circuit_attribution_card",
+        lambda self: {"schema_version": "x", "status": "blocked"},
+    )
+    status = cli.main(["circuit-attribution", "--card", "."])
+    capsys.readouterr()
+    # A non-PASS card must exit non-zero, matching the plain command and every
+    # other --card surface; previously the card form always returned 0.
+    assert status == 1
+
+
 def test_cli_bridge_phase_continuity_runtime_accepts_card_flag(tmp_path: Path) -> None:
     out_dir = tmp_path / "bridge_receipts"
     result = _run_microcosm_cli(
@@ -2244,6 +2261,34 @@ def test_cli_observe_card_is_compact_peer_developer_handoff(
     assert card["state_write_proof"]["source_files_mutated"] is False
     assert card["causal_chain_summary"]["status"] == "pass"
     assert card["causal_chain_summary"]["graph"]["node_count"] > 0
+    assert card["causal_chain_summary"]["agent_harness_record_review_ref"] == (
+        "agent_harness_record_review"
+    )
+    assert card["causal_chain_summary"][
+        "agent_harness_record_review_status"
+    ] == card["agent_harness_record_review"]["status"]
+    assert (
+        card["agent_harness_record_review"]["schema_version"]
+        == "microcosm_observe_agent_harness_record_review_cue_v1"
+    )
+    assert card["agent_harness_record_review"]["status"] == (
+        "selected_work_record_reviewable_observe_handoff"
+    )
+    axes = {
+        row["axis"]: row
+        for row in card["agent_harness_record_review"]["review_axes"]
+    }
+    assert axes["trajectory"]["status"] == "present"
+    assert axes["reproducibility_fixture"]["status"] == "present"
+    assert axes["task_boundary"]["status"] == "present"
+    assert axes["benchmark_anti_claim"]["drilldown_command"] == (
+        "plectis comprehend --slice claims --organ "
+        "agent_benchmark_integrity_anti_gaming_replay"
+    )
+    assert axes["closeout_check"]["drilldown_command"] == (
+        "plectis comprehend --slice claims --organ "
+        "agent_closeout_faithfulness_audit"
+    )
     assert card["safe_to_show"]["provider_calls_authorized"] is False
     assert card["safe_to_show"]["source_files_mutated"] is False
 
@@ -3371,3 +3416,36 @@ def test_cli_public_entry_docs_smoke_uses_temp_output(
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
     assert '"body":' not in text
+
+
+def test_unsupported_python_message_flags_old_interpreter() -> None:
+    message = cli._unsupported_python_message((3, 9, 6))
+    assert message is not None
+    assert "3.11" in message
+    assert "3.9.6" in message
+
+
+def test_unsupported_python_message_passes_supported_interpreters() -> None:
+    assert cli._unsupported_python_message((3, 11, 0)) is None
+    assert cli._unsupported_python_message((3, 13, 1)) is None
+    # The interpreter running this suite is supported, so the live tuple must pass.
+    assert cli._unsupported_python_message(sys.version_info) is None
+
+
+def test_main_gates_old_python_with_clean_message(monkeypatch, capsys) -> None:
+    monkeypatch.setattr(cli.sys, "version_info", (3, 9, 6))
+    status = cli.main(["hello", "."])
+    captured = capsys.readouterr()
+    assert status == 2
+    # The legible message goes to stderr; stdout stays empty (no traceback, no card).
+    assert "Python 3.11 or newer" in captured.err
+    assert captured.out == ""
+
+
+def test_main_version_flag_works_on_unsupported_python(monkeypatch, capsys) -> None:
+    # `--version` must still identify the package even under an unsupported interpreter.
+    monkeypatch.setattr(cli.sys, "version_info", (3, 9, 6))
+    status = cli.main(["--version"])
+    captured = capsys.readouterr()
+    assert status == 0
+    assert captured.out.startswith("plectis ")

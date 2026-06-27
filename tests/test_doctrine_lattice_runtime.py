@@ -463,6 +463,21 @@ def test_doctrine_lattice_coverage_is_reproducible_from_sources(tmp_path: Path) 
     assert written == projection
 
 
+def test_coverage_projection_validation_catches_top_level_field_drift() -> None:
+    projection = build_coverage_projection(MICROCOSM_ROOT)
+    assert validate_coverage_projection(projection, MICROCOSM_ROOT)["status"] == "pass"
+
+    # Fields outside the old fixed allowlist (status, organ_count, ...) must not
+    # be silently certified as reproducible when they have drifted from source.
+    for field in ("status", "organ_count"):
+        assert field in projection
+        tampered = copy.deepcopy(projection)
+        tampered[field] = "TAMPERED" if field == "status" else 999999
+        result = validate_coverage_projection(tampered, MICROCOSM_ROOT)
+        assert result["status"] == "blocked", field
+        assert any(error.get("path") == field for error in result["errors"]), field
+
+
 def test_doctrine_projection_status_only_card_is_read_only_and_compact() -> None:
     surface_paths = [
         MICROCOSM_ROOT / "atlas/doctrine_lattice_projection.json",
