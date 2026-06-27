@@ -209,7 +209,7 @@
   },
   "generation": {
     "command": "python -m microcosm_core.doctrine_lattice --write",
-    "generated_at": "2026-06-25T00:08:12.393316Z",
+    "generated_at": "2026-06-27T01:57:44.776491Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_coverage_projection"
   },
   "mechanism_capsule_dependency_upstream_parity": {
@@ -3302,7 +3302,7 @@
       "anti_principles/AP-7.json": "b4958c38fe6f9f889a8c5ba02cff0362a69ae797b234cb61bebc6fc03f641bed",
       "anti_principles/AP-8.json": "0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
       "anti_principles/AP-9.json": "0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
-      "atlas/entry_packet.json": "3809a74ae8b6017bfd261a879e618f32c91b2646dd73440be111721329d6c043",
+      "atlas/entry_packet.json": "e97a81161db031f9b12b9d41dc66481c5c3fa125beeef2f814cca09205fc5973",
       "axioms/AX-1.json": "9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
       "axioms/AX-10.json": "c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
       "axioms/AX-11.json": "606a8b913d2bbd162d6ded70f3fa0d48343ec54df818bfed87e3b7b9fe6b1606",
