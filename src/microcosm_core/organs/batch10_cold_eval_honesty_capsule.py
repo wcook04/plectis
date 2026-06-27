@@ -1,3 +1,47 @@
+"""[PURPOSE]
+- Teleology: Make cold-eval honesty capsule evidence inspectable through runnable public
+  fixture code while keeping claims bounded to emitted receipts and authority ceilings.
+- Mechanism: The file runs the cold-route evaluator and audits the evaluator for
+  baseline viability, expected-answer leakage, and private-fixture rejection; helper
+  functions load fixtures, recompute predicates, normalize findings, build
+  result/board/card payloads, and write receipts.
+- Non-goal: Batch 10 Cold Eval Honesty imports and runs the real idea_microcosm
+  cold_eval.py route-quality simulator over public fixtures, then audits the scorecard
+  shape and claim ceiling. It is not a live agent benchmark, not navigation truth, not
+  public release approval, and not proof that idea-first routing wins outside this
+  deterministic fixture.
+
+[INTERFACE]
+- CLI: Import or dispatch `microcosm_core.organs.batch10_cold_eval_honesty_capsule`
+  through package call sites and tests; no argparse subcommand was detected.
+- Exports: evaluate_negative_case, run, run_batch10_cold_eval_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs._crown_jewel_common
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -106,6 +150,21 @@ SPEC = CrownJewelSpec(
 
 
 def _copied_cold_eval(public_root: Path) -> Path:
+    """[ACTION] Implement copied cold eval for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_copied_cold_eval`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return (
         public_root
         / "examples/batch10_cold_eval_honesty_capsule/"
@@ -115,6 +174,22 @@ def _copied_cold_eval(public_root: Path) -> Path:
 
 
 def _load_cold_eval(path: Path) -> Any:
+    """[ACTION] Load cold eval for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_load_cold_eval`.
+    - Preconditions: Callers provide path in the shape consumed by the body.
+    - Mechanism: Delegates to importlib.util.spec_from_file_location,
+      importlib.util.module_from_spec, spec.loader.exec_module, ImportError and applies
+      local branch checks.
+    - Guarantee: Returns Any from the explicit return paths in the function body.
+    - Fails: Explicit raise paths include ImportError(f"Cannot load copied cold_eval
+      module from {path}"); called operations may propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     spec = importlib.util.spec_from_file_location("batch10_copied_cold_eval", path)
     if spec is None or spec.loader is None:
         raise ImportError(f"Cannot load copied cold_eval module from {path}")
@@ -125,14 +200,62 @@ def _load_cold_eval(path: Path) -> Any:
 
 
 def _load_json(path: Path) -> dict[str, Any]:
+    """[ACTION] Read a JSON file and decode it into a Python value.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_load_json`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
+    """[ACTION] Serialize a payload as formatted JSON at the requested path.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_write_json`.
+    - Preconditions: Callers provide path, payload in the shape consumed by the body;
+      write targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns None after writing only the declared receipt/output artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _walk_strings(payload: Any) -> list[str]:
+    """[ACTION] Implement walk strings for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_walk_strings`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if isinstance(payload, dict):
         values: list[str] = []
         for child in payload.values():
@@ -147,10 +270,42 @@ def _walk_strings(payload: Any) -> list[str]:
 
 
 def _workspace_source(input_path: Path) -> Path:
+    """[ACTION] Implement workspace source for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_workspace_source`.
+    - Preconditions: Callers provide input_path in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return input_path / "cold_eval_workspace"
 
 
 def _run_original_cold_eval(input_path: Path, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Implement run original cold eval for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_run_original_cold_eval`.
+    - Preconditions: Callers provide input_path, public_root in the shape consumed by
+      the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     module = _load_cold_eval(_copied_cold_eval(public_root))
     source_workspace = _workspace_source(input_path)
     if not (source_workspace / "evals/cold_agent_ab/tasks.json").is_file():
@@ -194,6 +349,23 @@ def _run_original_cold_eval(input_path: Path, public_root: Path) -> dict[str, An
 
 
 def _scorecard_shape_audit(original: Mapping[str, Any], input_path: Path) -> dict[str, Any]:
+    """[ACTION] Implement scorecard shape audit for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_scorecard_shape_audit`.
+    - Preconditions: Callers provide original, input_path in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     tasks_path = _workspace_source(input_path) / "evals/cold_agent_ab/tasks.json"
     tasks_payload = _load_json(tasks_path) if tasks_path.is_file() else {}
     private_hits = [
@@ -223,6 +395,24 @@ def _scorecard_shape_audit(original: Mapping[str, Any], input_path: Path) -> dic
 
 
 def _claim_ceiling_gate(original: Mapping[str, Any], input_path: Path) -> dict[str, Any]:
+    """[ACTION] Implement claim ceiling gate for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_claim_ceiling_gate`.
+    - Preconditions: Callers provide original, input_path in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _load_json, manifest.get, original.get, manifest.get,
+      manifest.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants AUTHORITY_CEILING, EXERCISE_MANIFEST_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AUTHORITY_CEILING, EXERCISE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest = _load_json(input_path / EXERCISE_MANIFEST_NAME)
     omitted_claims = manifest.get("forbidden_claims", [])
     required_forbidden = {
@@ -253,6 +443,24 @@ def _evaluate(
     public_root: Path,
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Evaluate fixture evidence and return a structured verdict.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_evaluate`.
+    - Preconditions: Callers provide input_path, public_root, source_manifest in the
+      shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_ENGINES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_ENGINES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     original = _run_original_cold_eval(input_path, public_root)
     shape = _scorecard_shape_audit(original, input_path)
@@ -291,6 +499,22 @@ def _evaluate(
 
 
 def _mutation_target(input_path: Path, relative_path: object) -> Path:
+    """[ACTION] Implement mutation target for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_mutation_target`.
+    - Preconditions: Callers provide input_path, relative_path in the shape consumed by
+      the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: Explicit raise paths include ValueError(f"Unsafe negative fixture mutation
+      path: {relative_path!r}"); called operations may propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rel = Path(str(relative_path or ""))
     if not rel.parts or rel.is_absolute() or ".." in rel.parts:
         raise ValueError(f"Unsafe negative fixture mutation path: {relative_path!r}")
@@ -298,12 +522,47 @@ def _mutation_target(input_path: Path, relative_path: object) -> Path:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if isinstance(value, list):
         return [item for item in value if isinstance(item, str)]
     return []
 
 
 def _apply_negative_workspace_mutation(case_id: str, input_path: Path) -> list[dict[str, Any]]:
+    """[ACTION] Implement apply negative workspace mutation for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by
+      `_apply_negative_workspace_mutation`.
+    - Preconditions: Callers provide case_id, input_path in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks; write targets must
+      be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: Explicit raise paths include ValueError("set_manifest_field mutation
+      requires field"); called operations may propagate their own exceptions.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     fixture_path = input_path / f"{case_id}.json"
     payload = _load_json(fixture_path)
     mutation = payload.get("workspace_mutation")
@@ -383,6 +642,24 @@ def _run_negative_perturbation(
     input_path: Path,
     public_root: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run negative perturbation for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_run_negative_perturbation`.
+    - Preconditions: Callers provide case_id, input_path, public_root in the shape
+      consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     with tempfile.TemporaryDirectory(prefix=f"batch10_cold_eval_negative_{case_id}_") as tmp:
         perturbed = Path(tmp) / "input"
         shutil.copytree(input_path, perturbed)
@@ -406,6 +683,24 @@ def _run_negative_perturbation(
 
 @lru_cache(maxsize=8)
 def _semantic_runtime_exercises(input_ref: str) -> dict[str, Any]:
+    """[ACTION] Implement semantic runtime exercises for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_semantic_runtime_exercises`.
+    - Preconditions: Callers provide input_ref in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES, SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_NEGATIVE_CASES, SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_ref)
     public_root = public_root_for_path(input_path)
     source_manifest = validate_source_manifest(input_path, SPEC, public_root=public_root)
@@ -425,6 +720,22 @@ def _semantic_runtime_exercises(input_ref: str) -> dict[str, Any]:
 
 
 def _engine_map(exercise: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+    """[ACTION] Implement engine map for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_engine_map`.
+    - Preconditions: Callers provide exercise in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Mapping[str, Any]] from the explicit return paths in
+      the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     engines = exercise.get("engines") if isinstance(exercise.get("engines"), list) else []
     return {
         str(row.get("engine_id")): row
@@ -434,6 +745,22 @@ def _engine_map(exercise: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
 
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
+    """[ACTION] Implement negative exercise for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_negative_exercise`.
+    - Preconditions: Callers provide runtime, case_id in the shape consumed by the body.
+    - Mechanism: Delegates to cases.get, runtime.get, runtime.get and applies local
+      branch checks.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     cases = (
         runtime.get("negative_exercises")
         if isinstance(runtime.get("negative_exercises"), Mapping)
@@ -444,6 +771,22 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
+    """[ACTION] Implement observed negative case for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `_observed_negative_case`.
+    - Preconditions: Callers provide case_id, runtime in the shape consumed by the body.
+    - Mechanism: Delegates to _negative_exercise, _engine_map, engines.get, engines.get,
+      engines.get and applies local branch checks.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants NEGATIVE_CASE_CODES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NEGATIVE_CASE_CODES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     exercise = _negative_exercise(runtime, case_id)
     engines = _engine_map(exercise)
     original = engines.get("cold_eval_original_runner", {})
@@ -485,6 +828,24 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
+    """[ACTION] Evaluate a negative-case row and return its verdict fields.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `evaluate_negative_case`.
+    - Preconditions: Callers provide case_id, input_dir, _expected_codes in the shape
+      consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants NEGATIVE_CASE_CODES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NEGATIVE_CASE_CODES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     expected_code = NEGATIVE_CASE_CODES.get(case_id, "")
     observed = _observed_negative_case(
         case_id,
@@ -504,6 +865,23 @@ def run(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, acceptance_out, command in the
+      shape consumed by the body.
+    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -522,6 +900,23 @@ def run_batch10_cold_eval_bundle(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run batch10 cold eval bundle for this organ replay.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `run_batch10_cold_eval_bundle`.
+    - Preconditions: Callers provide bundle_dir, out_dir, acceptance_out, command in the
+      shape consumed by the body.
+    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants BUNDLE_INPUT_MODE, SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_INPUT_MODE, SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return run_crown_jewel_organ(
         SPEC,
         bundle_dir,
@@ -535,6 +930,23 @@ def run_batch10_cold_eval_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to card_for_result, exercise.get, exercise.get, result.get,
+      result.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
     card["engine_count"] = exercise.get("engine_count")
@@ -543,6 +955,24 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports batch10 cold eval honesty capsule by documenting and
+      preserving the exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+      Writes only the output paths named by the caller, temporary workspace, or module
+      constants. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments; module constants ORGAN_ID.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "run-batch10-cold-eval-bundle"):

@@ -1,3 +1,51 @@
+"""[PURPOSE]
+- Teleology: Make verifier-lab kernel evidence inspectable through runnable public
+  fixture code while keeping claims bounded to emitted receipts and authority ceilings.
+- Mechanism: The file composes formal-maths sub-organs into a contamination-aware
+  verifier pipeline while quarantining oracle/provider text from success claims; helper
+  functions load fixtures, recompute predicates, normalize findings, build
+  result/board/card payloads, and write receipts.
+- Non-goal: Verifier lab kernel composes source-available public component receipts for
+  bounded Lean/Lake execution, tactic routing, verifier trace repair,
+  provider-hypothesis quarantine, CP2 action candidates, bounded Evolve candidates, and
+  structured public runtime receipts. It does not import macro proof bodies, count
+  oracle or provider output as forward proof success, expose proof bodies, mutate
+  source, claim benchmark solve rate, or authorize release.
+
+[INTERFACE]
+- CLI: Import or dispatch `microcosm_core.organs.verifier_lab_kernel` through package
+  call sites and tests; no argparse subcommand was detected.
+- Exports: ForwardProblem, OracleSidecar, VerifierAttempt, VerifierResult,
+  ProviderHypothesis, ResidualDiagnosis, RepairProposal, EvolveCandidate, ClaimBoundary,
+  AuthoritySplit, validate_source_module_imports, run, run_kernel_bundle, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs, microcosm_core.secret_exclusion_scan,
+  microcosm_core.receipts, microcosm_core.schemas
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -205,6 +253,30 @@ ANTI_CLAIM = (
 
 @dataclass(frozen=True)
 class ForwardProblem:
+    """[ROLE] Carry forward problem state for verifier lab kernel.
+
+    - Teleology: Groups problem_id, target_shape, statement_summary, public_input_hash,
+      allowed_premise_ids so validators and receipt builders move one typed evidence
+      object instead of loose dict fields.
+    - Mechanism: Declares fields problem_id, target_shape, statement_summary,
+      public_input_hash, allowed_premise_ids; class-defined methods: no class-defined
+      methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     problem_id: str
     target_shape: str
     statement_summary: str
@@ -214,6 +286,29 @@ class ForwardProblem:
 
 @dataclass(frozen=True)
 class OracleSidecar:
+    """[ROLE] Carry oracle sidecar state for verifier lab kernel.
+
+    - Teleology: Groups sidecar_id, forward_problem_id, oracle_result_class,
+      counted_as_forward_success so validators and receipt builders move one typed
+      evidence object instead of loose dict fields.
+    - Mechanism: Declares fields sidecar_id, forward_problem_id, oracle_result_class,
+      counted_as_forward_success; class-defined methods: no class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     sidecar_id: str
     forward_problem_id: str
     oracle_result_class: str
@@ -222,6 +317,30 @@ class OracleSidecar:
 
 @dataclass(frozen=True)
 class VerifierAttempt:
+    """[ROLE] Carry verifier attempt state for verifier lab kernel.
+
+    - Teleology: Groups attempt_id, forward_problem_id, verifier_result_class,
+      selected_tactic_id, component_receipt_ref so validators and receipt builders move
+      one typed evidence object instead of loose dict fields.
+    - Mechanism: Declares fields attempt_id, forward_problem_id, verifier_result_class,
+      selected_tactic_id, component_receipt_ref; class-defined methods: no class-defined
+      methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     attempt_id: str
     forward_problem_id: str
     verifier_result_class: str
@@ -231,6 +350,29 @@ class VerifierAttempt:
 
 @dataclass(frozen=True)
 class VerifierResult:
+    """[ROLE] Carry verifier result state for verifier lab kernel.
+
+    - Teleology: Groups result_id, attempt_id, result_class, verifier_receipt_ref so
+      validators and receipt builders move one typed evidence object instead of loose
+      dict fields.
+    - Mechanism: Declares fields result_id, attempt_id, result_class,
+      verifier_receipt_ref; class-defined methods: no class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     result_id: str
     attempt_id: str
     result_class: str
@@ -239,6 +381,30 @@ class VerifierResult:
 
 @dataclass(frozen=True)
 class ProviderHypothesis:
+    """[ROLE] Carry provider hypothesis state for verifier lab kernel.
+
+    - Teleology: Groups hypothesis_id, residual_id, residual_class,
+      candidate_action_classes, provider_results_counted so validators and receipt
+      builders move one typed evidence object instead of loose dict fields.
+    - Mechanism: Declares fields hypothesis_id, residual_id, residual_class,
+      candidate_action_classes, provider_results_counted; class-defined methods: no
+      class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     hypothesis_id: str
     residual_id: str
     residual_class: str
@@ -248,6 +414,29 @@ class ProviderHypothesis:
 
 @dataclass(frozen=True)
 class ResidualDiagnosis:
+    """[ROLE] Carry residual diagnosis state for verifier lab kernel.
+
+    - Teleology: Groups residual_id, forward_problem_id, residual_class,
+      missing_primitive so validators and receipt builders move one typed evidence
+      object instead of loose dict fields.
+    - Mechanism: Declares fields residual_id, forward_problem_id, residual_class,
+      missing_primitive; class-defined methods: no class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     residual_id: str
     forward_problem_id: str
     residual_class: str
@@ -256,6 +445,29 @@ class ResidualDiagnosis:
 
 @dataclass(frozen=True)
 class RepairProposal:
+    """[ROLE] Carry repair proposal state for verifier lab kernel.
+
+    - Teleology: Groups proposal_id, residual_id, action_class, verifier_rerun_ref so
+      validators and receipt builders move one typed evidence object instead of loose
+      dict fields.
+    - Mechanism: Declares fields proposal_id, residual_id, action_class,
+      verifier_rerun_ref; class-defined methods: no class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     proposal_id: str
     residual_id: str
     action_class: str
@@ -264,6 +476,29 @@ class RepairProposal:
 
 @dataclass(frozen=True)
 class EvolveCandidate:
+    """[ROLE] Carry evolve candidate state for verifier lab kernel.
+
+    - Teleology: Groups candidate_id, mutated_artifact, baseline_receipt_ref,
+      rerun_receipt_ref so validators and receipt builders move one typed evidence
+      object instead of loose dict fields.
+    - Mechanism: Declares fields candidate_id, mutated_artifact, baseline_receipt_ref,
+      rerun_receipt_ref; class-defined methods: no class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     candidate_id: str
     mutated_artifact: str
     baseline_receipt_ref: str
@@ -272,6 +507,28 @@ class EvolveCandidate:
 
 @dataclass(frozen=True)
 class ClaimBoundary:
+    """[ROLE] Carry claim boundary state for verifier lab kernel.
+
+    - Teleology: Groups boundary_id, allowed, reason so validators and receipt builders
+      move one typed evidence object instead of loose dict fields.
+    - Mechanism: Declares fields boundary_id, allowed, reason; class-defined methods: no
+      class-defined methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     boundary_id: str
     allowed: bool
     reason: str
@@ -279,6 +536,30 @@ class ClaimBoundary:
 
 @dataclass(frozen=True)
 class AuthoritySplit:
+    """[ROLE] Carry authority split state for verifier lab kernel.
+
+    - Teleology: Groups forward_success_authority, oracle_authority, provider_authority,
+      evolve_authority so validators and receipt builders move one typed evidence object
+      instead of loose dict fields.
+    - Mechanism: Declares fields forward_success_authority, oracle_authority,
+      provider_authority, evolve_authority; class-defined methods: no class-defined
+      methods.
+    - Ownership: Owns only its declared fields and methods; module-level validators own
+      replay authority and receipt emission.
+    - Mutability: Instances are immutable after construction because the dataclass is
+      frozen.
+    - Concurrency: No class-local lock is declared; callers own cross-thread or
+      cross-process coordination around shared outputs.
+    - Guarantee: Construction exposes exactly the declared fields/methods and does not
+      add validation beyond the class body.
+    - Fails: Construction and method calls fail through dataclass/type rules or explicit
+      method logic.
+    - Reads: Constructor arguments, class attributes, and method arguments.
+    - Writes: Instance attributes or method return values only as declared by the class
+      body.
+    - Non-goal: Does not authorize release, provider calls, private-data export, or
+      claims beyond the surrounding module ceiling.
+    """
     forward_success_authority: str
     oracle_authority: str
     provider_authority: str
@@ -328,6 +609,22 @@ COMPONENT_RUNNERS: dict[str, dict[str, Runner]] = {
 }
 
 def _module_source_path(module: Any) -> Path | None:
+    """[ACTION] Implement module source path for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_module_source_path`.
+    - Preconditions: Callers provide module in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source_ref = getattr(module, "__file__", None)
     return Path(source_ref) if source_ref else None
 
@@ -411,10 +708,46 @@ DEFAULT_COMPONENT_INPUTS = [
 
 
 def _is_public_root(candidate: Path) -> bool:
+    """[ACTION] Detect whether public root holds for this replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_is_public_root`.
+    - Preconditions: Callers provide candidate in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to is_file and applies local branch checks.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants PUBLIC_ROOT_POLICY_REL; filesystem
+      metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_ROOT_POLICY_REL.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return (candidate / PUBLIC_ROOT_POLICY_REL).is_file()
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants MODULE_PUBLIC_ROOT; filesystem metadata
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: MODULE_PUBLIC_ROOT.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     candidates = [
@@ -434,6 +767,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _public_local_ref(path_ref: str) -> str:
+    """[ACTION] Implement public local ref for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_public_local_ref`.
+    - Preconditions: Callers provide path_ref in the shape consumed by the body.
+    - Mechanism: Delegates to path_ref.startswith, path_ref.removeprefix and applies
+      local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if path_ref == "/private/tmp":
         return "/tmp"
     if path_ref.startswith("/private/tmp/"):
@@ -442,10 +790,41 @@ def _public_local_ref(path_ref: str) -> str:
 
 
 def _display(path: str | Path, *, public_root: Path) -> str:
+    """[ACTION] Convert a path into a public-root-relative display reference.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_display`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _public_local_ref, public_relative_path and applies local
+      branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return _public_local_ref(public_relative_path(path, display_root=public_root))
 
 
 def _normalize_receipt_public_refs(value: object) -> object:
+    """[ACTION] Normalize receipt public refs for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_normalize_receipt_public_refs`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns object from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if isinstance(value, dict):
         return {
             key: _normalize_receipt_public_refs(child)
@@ -459,6 +838,22 @@ def _normalize_receipt_public_refs(value: object) -> object:
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     value = payload.get(key, [])
@@ -468,12 +863,47 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Build the fixture input path list for the requested replay mode.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_input_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants NEGATIVE_INPUT_NAMES, PACKET_NAME,
+      PROOF_LAB_ROUTE_NAME, SOURCE_MODULE_MANIFEST_NAME; filesystem metadata named by
+      those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: NEGATIVE_INPUT_NAMES, PACKET_NAME, PROOF_LAB_ROUTE_NAME,
+      SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (PACKET_NAME, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     route_path = input_dir / PROOF_LAB_ROUTE_NAME
@@ -486,6 +916,23 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_load_payloads`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -493,6 +940,21 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 
 def _dependency_file(path: Path) -> bool:
+    """[ACTION] Implement dependency file for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_dependency_file`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to path.is_file and applies local branch checks.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not path.is_file():
         return False
     if path.suffix == ".pyc" or "__pycache__" in path.parts:
@@ -501,6 +963,22 @@ def _dependency_file(path: Path) -> bool:
 
 
 def _iter_dependency_files(path: Path) -> list[Path]:
+    """[ACTION] Implement iter dependency files for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_iter_dependency_files`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to _dependency_file, path.is_dir, _iter_dependency_tree_files
+      and applies local branch checks.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if _dependency_file(path):
         return [path]
     if not path.is_dir():
@@ -509,6 +987,23 @@ def _iter_dependency_files(path: Path) -> list[Path]:
 
 
 def _iter_dependency_tree_files(path: Path) -> Iterator[Path]:
+    """[ACTION] Implement iter dependency tree files for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_iter_dependency_tree_files`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns Iterator[Path] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     with os.scandir(path) as entries:
         entry_rows = sorted(list(entries), key=lambda entry: entry.name)
     for entry in entry_rows:
@@ -522,6 +1017,23 @@ def _iter_dependency_tree_files(path: Path) -> Iterator[Path]:
 
 
 def _unique_dependency_paths(paths: list[Path]) -> list[Path]:
+    """[ACTION] Implement unique dependency paths for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_unique_dependency_paths`.
+    - Preconditions: Callers provide paths in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     seen: set[Path] = set()
     unique: list[Path] = []
     for path in paths:
@@ -534,17 +1046,64 @@ def _unique_dependency_paths(paths: list[Path]) -> list[Path]:
 
 
 def _sha256_file(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return the hexadecimal digest.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_sha256_file`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     digest.update(path.read_bytes())
     return "sha256:" + digest.hexdigest()
 
 
 def _strip_microcosm_prefix(ref: str) -> str:
+    """[ACTION] Remove the public microcosm prefix from a path reference when present.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_strip_microcosm_prefix`.
+    - Preconditions: Callers provide ref in the shape consumed by the body.
+    - Mechanism: Delegates to ref.startswith and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
 def _source_module_manifest_path(input_dir: str | Path) -> Path:
+    """[ACTION] Resolve the source-module manifest path for fixture validation.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_source_module_manifest_path`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
 
 
@@ -554,6 +1113,23 @@ def _source_module_target_path(
     manifest_path: Path,
     public_root: Path,
 ) -> tuple[Path, str]:
+    """[ACTION] Resolve a target source-module reference to a local path.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_source_module_target_path`.
+    - Preconditions: Callers provide row, manifest_path, public_root in the shape
+      consumed by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to _strip_microcosm_prefix, row.get, target.exists, _display,
+      _display and applies local branch checks.
+    - Guarantee: Returns tuple[Path, str] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
     if target_ref:
@@ -569,6 +1145,22 @@ def _source_module_target_path(
 
 
 def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Resolve source artifact paths declared by manifest or fixture rows.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_source_artifact_paths`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
@@ -593,6 +1185,28 @@ def validate_source_module_imports(
     *,
     public_root: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Validate source module imports against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `validate_source_module_imports`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; content inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants PUBLIC_SAFE_SOURCE_MODULE_CLASSES,
+      SOURCE_IMPORT_CLASS, SOURCE_MODULE_RELATIONS, SOURCE_REF_PREFIXES;
+      filesystem/content inputs named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_SAFE_SOURCE_MODULE_CLASSES, SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_RELATIONS, SOURCE_REF_PREFIXES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
     findings: list[dict[str, Any]] = []
@@ -795,6 +1409,23 @@ def validate_source_module_imports(
 
 
 def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
+    """[ACTION] Return the empty import-verification shape used when no source modules exist.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_empty_source_module_imports`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _source_module_manifest_path, _display and applies local
+      branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     return {
         "status": "not_applicable",
@@ -809,6 +1440,23 @@ def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) ->
 
 
 def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Summarize source imports and body-open checks for public evidence.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_source_open_body_import_summary`.
+    - Preconditions: Callers provide source_imports in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants SOURCE_BODY_STATUS, SOURCE_IMPORT_CLASS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_BODY_STATUS, SOURCE_IMPORT_CLASS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     modules = _rows(source_imports, "modules")
     module_ids = [
         str(row.get("module_id")) for row in modules if row.get("module_id")
@@ -868,6 +1516,28 @@ def _source_module_blocked_result(
     source_open_body_imports: dict[str, Any],
     secret_scan: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Resolve source module blocked result from source-module evidence.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_source_module_blocked_result`.
+    - Preconditions: Callers provide input_dir, command, source_module_imports,
+      source_open_body_imports, secret_scan in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING, FIXTURE_ID,
+      ORGAN_ID, RECEIPT_TRANSPARENCY_CONTRACT, VALIDATOR_ID; filesystem metadata named
+      by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, FIXTURE_ID, ORGAN_ID,
+      RECEIPT_TRANSPARENCY_CONTRACT, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     payloads = _load_payloads(input_dir, include_negative=False)
     packet = payloads.get("verifier_lab_packet", {})
     if not isinstance(packet, dict):
@@ -962,6 +1632,25 @@ def _source_module_blocked_result(
 
 
 def _kernel_bundle_dependency_paths(input_dir: Path) -> list[Path]:
+    """[ACTION] Implement kernel bundle dependency paths for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_kernel_bundle_dependency_paths`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants COMPONENT_SOURCE_PATHS, PACKET_NAME;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: COMPONENT_SOURCE_PATHS, PACKET_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     packet_payload = read_json_strict(input_dir / PACKET_NAME)
     packet = packet_payload if isinstance(packet_payload, dict) else {}
     public_root = _public_root_for_path(input_dir)
@@ -983,6 +1672,25 @@ def _kernel_bundle_dependency_paths(input_dir: Path) -> list[Path]:
 
 
 def _fixture_dependency_paths(input_dir: Path) -> list[Path]:
+    """[ACTION] Implement fixture dependency paths for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_fixture_dependency_paths`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants COMPONENT_SOURCE_PATHS, PACKET_NAME;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: COMPONENT_SOURCE_PATHS, PACKET_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     payloads = _load_payloads(input_dir, include_negative=True)
     packet_payload = payloads.get(PACKET_NAME.removesuffix(".json"))
     packet = packet_payload if isinstance(packet_payload, dict) else {}
@@ -1010,6 +1718,24 @@ def _kernel_bundle_freshness_basis(
     dependency_paths: list[Path],
     input_mode: str = "exported_verifier_lab_kernel_bundle",
 ) -> dict[str, Any]:
+    """[ACTION] Implement kernel bundle freshness basis for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_kernel_bundle_freshness_basis`.
+    - Preconditions: Callers provide command, receipt_path, dependency_paths, input_mode
+      in the shape consumed by the body; paths must be resolvable for filesystem
+      metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     dependency_mtimes = [path.stat().st_mtime_ns for path in dependency_paths]
     return {
         "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
@@ -1030,6 +1756,26 @@ def _fresh_kernel_bundle_receipt(
     *,
     command: str,
 ) -> dict[str, Any] | None:
+    """[ACTION] Implement fresh kernel bundle receipt for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_fresh_kernel_bundle_receipt`.
+    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to read_json_strict, payload.get,
+      _kernel_bundle_dependency_paths, _kernel_bundle_freshness_basis,
+      receipt_path.is_file and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME; filesystem metadata
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     receipt_path = out_dir / BUNDLE_RESULT_NAME
     if not receipt_path.is_file():
         return None
@@ -1079,6 +1825,27 @@ def _fresh_fixture_receipts(
     command: str,
     acceptance_out: Path | None,
 ) -> dict[str, Any] | None:
+    """[ACTION] Implement fresh fixture receipts for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_fresh_fixture_receipts`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body; paths must be resolvable for filesystem metadata
+      checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
+      RESULT_NAME, VALIDATION_RECEIPT_NAME; filesystem metadata named by those arguments
+      or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, RESULT_NAME, VALIDATION_RECEIPT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     result_path = out_dir / RESULT_NAME
     board_path = out_dir / BOARD_NAME
     validation_path = out_dir / VALIDATION_RECEIPT_NAME
@@ -1137,6 +1904,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -1158,6 +1942,22 @@ def _record(
     subject_kind: str,
     count_observed: bool,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind, count_observed in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, _finding, add, observed.setdefault and
+      applies local branch checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -1172,6 +1972,22 @@ def _record(
 
 
 def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -> list[str]:
+    """[ACTION] Yield forbidden-key paths found while walking nested data.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_walk_forbidden_keys`.
+    - Preconditions: Callers provide value, forbidden, prefix in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     found: list[str] = []
     if isinstance(value, dict):
         for key, child in value.items():
@@ -1186,6 +2002,22 @@ def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -
 
 
 def _without_legacy_redaction_receipt_fields(value: object) -> object:
+    """[ACTION] Implement without legacy redaction receipt fields for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_without_legacy_redaction_receipt_fields`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns object from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants LEGACY_REDACTION_RECEIPT_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: LEGACY_REDACTION_RECEIPT_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if isinstance(value, dict):
         cleaned: dict[str, object] = {}
         for key, child in value.items():
@@ -1200,6 +2032,22 @@ def _without_legacy_redaction_receipt_fields(value: object) -> object:
 
 
 def _rewrite_json_receipt_without_legacy_redaction(path: Path) -> None:
+    """[ACTION] Implement rewrite JSON receipt without legacy redaction for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_rewrite_json_receipt_without_legacy_redaction`.
+    - Preconditions: Callers provide path in the shape consumed by the body.
+    - Mechanism: Delegates to read_json_strict,
+      _without_legacy_redaction_receipt_fields, _normalize_receipt_public_refs,
+      write_json_atomic and applies local branch checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     payload = read_json_strict(path)
     cleaned = _without_legacy_redaction_receipt_fields(payload)
     normalized = _normalize_receipt_public_refs(cleaned)
@@ -1208,6 +2056,22 @@ def _rewrite_json_receipt_without_legacy_redaction(path: Path) -> None:
 
 
 def _normalize_component_receipt_surface(target: Path) -> None:
+    """[ACTION] Normalize component receipt surface for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_normalize_component_receipt_surface`.
+    - Preconditions: Callers provide target in the shape consumed by the body; paths
+      must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not target.exists():
         return
     for path in sorted(
@@ -1217,6 +2081,20 @@ def _normalize_component_receipt_surface(target: Path) -> None:
 
 
 def _negative_case_id(row: dict[str, Any], fallback: str) -> str:
+    """[ACTION] Implement negative case ID for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_negative_case_id`.
+    - Preconditions: Callers provide row, fallback in the shape consumed by the body.
+    - Mechanism: Delegates to row.get, row.get and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return str(row.get("expected_negative_case_id") or row.get("case_id") or fallback)
 
 
@@ -1228,6 +2106,24 @@ def _validate_forward_problems(
     negative_findings: list[dict[str, Any]],
     negative: bool,
 ) -> list[ForwardProblem]:
+    """[ACTION] Validate forward problems against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_forward_problems`.
+    - Preconditions: Callers provide rows, observed, positive_findings,
+      negative_findings, negative in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[ForwardProblem] whose verdict fields are derived from
+      recomputed predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants FORBIDDEN_FORWARD_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_FORWARD_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parsed: list[ForwardProblem] = []
     findings = negative_findings if negative else positive_findings
     for row in rows:
@@ -1266,6 +2162,23 @@ def _validate_oracle_sidecars(
     negative_findings: list[dict[str, Any]],
     negative: bool,
 ) -> list[OracleSidecar]:
+    """[ACTION] Validate oracle sidecars against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_oracle_sidecars`.
+    - Preconditions: Callers provide rows, observed, positive_findings,
+      negative_findings, negative in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[OracleSidecar] whose verdict fields are derived from
+      recomputed predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parsed: list[OracleSidecar] = []
     findings = negative_findings if negative else positive_findings
     for row in rows:
@@ -1303,6 +2216,23 @@ def _validate_provider_hypotheses(
     negative_findings: list[dict[str, Any]],
     negative: bool,
 ) -> list[ProviderHypothesis]:
+    """[ACTION] Validate provider hypotheses against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_provider_hypotheses`.
+    - Preconditions: Callers provide rows, observed, positive_findings,
+      negative_findings, negative in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[ProviderHypothesis] whose verdict fields are derived from
+      recomputed predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parsed: list[ProviderHypothesis] = []
     findings = negative_findings if negative else positive_findings
     for row in rows:
@@ -1347,6 +2277,25 @@ def _validate_cp2_candidates(
     negative_findings: list[dict[str, Any]],
     negative: bool,
 ) -> list[RepairProposal]:
+    """[ACTION] Validate CP2 candidates against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_cp2_candidates`.
+    - Preconditions: Callers provide rows, observed, positive_findings,
+      negative_findings, negative in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[RepairProposal] whose verdict fields are derived from
+      recomputed predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_CP2_ACTION_CLASSES,
+      FORBIDDEN_CP2_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_CP2_ACTION_CLASSES, FORBIDDEN_CP2_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parsed: list[RepairProposal] = []
     findings = negative_findings if negative else positive_findings
     for row in rows:
@@ -1407,6 +2356,24 @@ def _validate_evolve_candidates(
     negative_findings: list[dict[str, Any]],
     negative: bool,
 ) -> list[EvolveCandidate]:
+    """[ACTION] Validate evolve candidates against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_evolve_candidates`.
+    - Preconditions: Callers provide rows, observed, positive_findings,
+      negative_findings, negative in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[EvolveCandidate] whose verdict fields are derived from
+      recomputed predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ALLOWED_EVOLVE_ARTIFACTS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ALLOWED_EVOLVE_ARTIFACTS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parsed: list[EvolveCandidate] = []
     findings = negative_findings if negative else positive_findings
     for row in rows:
@@ -1458,6 +2425,24 @@ def _validate_packet(
     *,
     require_negative_cases: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate packet against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_packet`.
+    - Preconditions: Callers provide packet, negative_payloads, require_negative_cases
+      in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_NEGATIVE_CASES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     observed: dict[str, set[str]] = {}
     positive_findings: list[dict[str, Any]] = []
     negative_findings: list[dict[str, Any]] = []
@@ -1625,6 +2610,23 @@ def _validate_packet(
 
 
 def _component_specs(packet: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Implement component specs for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_component_specs`.
+    - Preconditions: Callers provide packet in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants DEFAULT_COMPONENT_INPUTS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: DEFAULT_COMPONENT_INPUTS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(packet, "component_inputs")
     if not rows:
         return list(DEFAULT_COMPONENT_INPUTS)
@@ -1649,6 +2651,27 @@ def _validate_proof_lab_route(
     component_specs: list[dict[str, Any]],
     require_route: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate proof lab route against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_validate_proof_lab_route`.
+    - Preconditions: Callers provide payload, component_specs, require_route in the
+      shape consumed by the body.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_PROOF_LAB_ROUTE_ID,
+      EXPECTED_ROUTE_COMPONENT_ORGANS, EXPECTED_ROUTE_PATTERN_IDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_PROOF_LAB_ROUTE_ID, EXPECTED_ROUTE_COMPONENT_ORGANS,
+      EXPECTED_ROUTE_PATTERN_IDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not payload:
         return {
             "status": "blocked" if require_route else PASS,
@@ -1734,6 +2757,24 @@ def _run_component_stack(
     out_dir: Path,
     command: str,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run component stack for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_run_component_stack`.
+    - Preconditions: Callers provide packet, input_dir, out_dir, command in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants COMPONENT_RUNNERS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: COMPONENT_RUNNERS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     components_out = out_dir / "components"
     results: dict[str, dict[str, Any]] = {}
@@ -1799,9 +2840,42 @@ def _run_component_stack(
 
 
 def _standalone_exported_component_stack(packet: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement standalone exported component stack for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_standalone_exported_component_stack`.
+    - Preconditions: Callers provide packet in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXPECTED_ROUTE_COMPONENT_ORGANS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXPECTED_ROUTE_COMPONENT_ORGANS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     receipt_refs = _strings(packet.get("projection_receipt_refs"))
 
     def refs_for(organ_id: str) -> list[str]:
+        """[ACTION] Implement refs for for this organ replay.
+
+        - Teleology: Supports verifier lab kernel by documenting and preserving the
+          exact local step implemented by `refs_for`.
+        - Preconditions: Callers provide organ_id in the shape consumed by the body.
+        - Mechanism: Iterates candidate paths or structured rows exactly as written in
+          the body.
+        - Guarantee: Returns list[str] from the explicit return paths in the function
+          body.
+        - Fails: No explicit raise is introduced; failures propagate from ordinary
+          Python evaluation in this body.
+        - Reads: call arguments.
+        - Writes: No external writes; the body only returns in-memory values.
+        - Non-goal: Does not widen this module's public authority ceiling, add provider
+          calls, or expose private material.
+        """
         return [ref for ref in receipt_refs if f"/{organ_id}/" in ref]
 
     results = {
@@ -1870,6 +2944,22 @@ def _standalone_exported_component_stack(packet: dict[str, Any]) -> dict[str, An
 
 
 def _proof_lab_component_metrics(results: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """[ACTION] Implement proof lab component metrics for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_proof_lab_component_metrics`.
+    - Preconditions: Callers provide results in the shape consumed by the body.
+    - Mechanism: Delegates to results.get, results.get, results.get, results.get,
+      results.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     corpus = results.get("corpus_readiness_mathlib_absence_gate", {})
     index = results.get("lean_std_premise_index", {})
     retrieval = results.get("formal_math_premise_retrieval", {})
@@ -1918,6 +3008,23 @@ def _claim_separation(
     packet_result: dict[str, Any],
     component_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Implement claim separation for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_claim_separation`.
+    - Preconditions: Callers provide packet_result, component_result in the shape
+      consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     verifier_attempts = packet_result["verifier_attempts"]
     residuals = packet_result["residual_diagnoses"]
     provider_hypotheses = packet_result["provider_hypotheses"]
@@ -1974,6 +3081,29 @@ def _build_result(
     include_negative: bool,
     out_dir: Path,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the replay result payload from validated evidence.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_build_result`.
+    - Preconditions: Callers provide input_dir, command, input_mode, include_negative,
+      out_dir in the shape consumed by the body; paths must be resolvable for filesystem
+      metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING, FIXTURE_ID,
+      NEGATIVE_INPUT_NAMES, ORGAN_ID, RECEIPT_TRANSPARENCY_CONTRACT, VALIDATOR_ID;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, FIXTURE_ID, NEGATIVE_INPUT_NAMES,
+      ORGAN_ID, RECEIPT_TRANSPARENCY_CONTRACT, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     packet = payloads.get("verifier_lab_packet", {})
@@ -2159,6 +3289,23 @@ def _build_result(
 
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the board projection from a replay result payload.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_board_from_result`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "schema_version": "verifier_lab_kernel_board_v1",
         "status": result["status"],
@@ -2210,6 +3357,28 @@ def _write_receipts(
     acceptance_out: Path | None,
     bundle_only: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Write replay receipt payloads and return their public references.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `_write_receipts`.
+    - Preconditions: Callers provide result, out_dir, acceptance_out, bundle_only in the
+      shape consumed by the body; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns dict[str, Any] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
+      BUNDLE_RESULT_NAME, FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME,
+      VALIDATOR_ID.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, BUNDLE_RESULT_NAME, FIXTURE_ID,
+      ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     if bundle_only:
@@ -2317,6 +3486,24 @@ def run(
     command: str = "python -m microcosm_core.organs.verifier_lab_kernel run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants RESULT_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     target = Path(out_dir)
     acceptance_path = Path(acceptance_out) if acceptance_out is not None else None
@@ -2355,6 +3542,24 @@ def run_kernel_bundle(
     out_dir: str | Path,
     command: str = "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
 ) -> dict[str, Any]:
+    """[ACTION] Implement run kernel bundle for this organ replay.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `run_kernel_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
+      by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     target = Path(out_dir)
     cached = _fresh_kernel_bundle_receipt(input_path, target, command=command)
@@ -2406,6 +3611,20 @@ def run_kernel_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports verifier lab kernel by documenting and preserving the exact
+      local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog="verifier_lab_kernel")
     parser.add_argument("action", choices=["run", "run-kernel-bundle"])
     parser.add_argument("--input", required=True)

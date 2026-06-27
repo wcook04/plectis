@@ -1,3 +1,51 @@
+"""[PURPOSE]
+- Teleology: Make concurrency mission control evidence inspectable through runnable
+  public fixture code while keeping claims bounded to emitted receipts and authority
+  ceilings.
+- Mechanism: The file runs the mission-control builder over synthetic multi-agent
+  contention topology and checks fail-closed accept, block, and repair counts; helper
+  functions load fixtures, recompute predicates, normalize findings, build
+  result/board/card payloads, and write receipts.
+- Non-goal: Concurrency Mission Control imports the real public macro specimen builder
+  and its provider/task-ledger bridge fixtures, then runs the copied builder against
+  public synthetic lanes and a public Work Ledger seed-speed topology fixture to prove
+  fail-closed transaction gating. It is not the private mission-control runtime, not a
+  live scheduler, not provider dispatch, not public release approval, not private
+  session export, and not production concurrency-safety evidence.
+
+[INTERFACE]
+- CLI: Import or dispatch `microcosm_core.organs.concurrency_mission_control` through
+  package call sites and tests; no argparse subcommand was detected.
+- Exports: classify_generated_surface_claim_lens,
+  classify_concurrency_closure_state_lens, evaluate_negative_case, run,
+  run_concurrency_mission_control_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs._crown_jewel_common
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -147,10 +195,39 @@ SPEC = CrownJewelSpec(
 
 
 def _bundle_root(public_root: Path) -> Path:
+    """[ACTION] Implement bundle root for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_bundle_root`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return public_root / "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle"
 
 
 def _copied_builder(public_root: Path) -> Path:
+    """[ACTION] Implement copied builder for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_copied_builder`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body.
+    - Mechanism: Delegates to _bundle_root and applies local branch checks.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return (
         _bundle_root(public_root)
         / "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/"
@@ -159,6 +236,22 @@ def _copied_builder(public_root: Path) -> Path:
 
 
 def _seed_root(input_path: Path, public_root: Path) -> Path:
+    """[ACTION] Implement seed root for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_seed_root`.
+    - Preconditions: Callers provide input_path, public_root in the shape consumed by
+      the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to local_seed.is_dir, _bundle_root and applies local branch
+      checks.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     local_seed = input_path / "seed_root"
     if local_seed.is_dir():
         return local_seed
@@ -166,6 +259,22 @@ def _seed_root(input_path: Path, public_root: Path) -> Path:
 
 
 def _load_builder(path: Path) -> Any:
+    """[ACTION] Load builder for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_load_builder`.
+    - Preconditions: Callers provide path in the shape consumed by the body.
+    - Mechanism: Delegates to importlib.util.spec_from_file_location,
+      importlib.util.module_from_spec, spec.loader.exec_module, ImportError and applies
+      local branch checks.
+    - Guarantee: Returns Any from the explicit return paths in the function body.
+    - Fails: Explicit raise paths include ImportError(f"Cannot load copied concurrency
+      builder from {path}"); called operations may propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     spec = importlib.util.spec_from_file_location("microcosm_concurrency_builder_copy", path)
     if spec is None or spec.loader is None:
         raise ImportError(f"Cannot load copied concurrency builder from {path}")
@@ -176,10 +285,43 @@ def _load_builder(path: Path) -> Any:
 
 
 def _load_json(path: Path) -> dict[str, Any]:
+    """[ACTION] Read a JSON file and decode it into a Python value.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_load_json`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _failure_classes(board: Mapping[str, Any]) -> set[str]:
+    """[ACTION] Implement failure classes for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_failure_classes`.
+    - Preconditions: Callers provide board in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     classes: set[str] = set()
     cases = board.get("cases")
     if not isinstance(cases, list):
@@ -200,30 +342,122 @@ def _failure_classes(board: Mapping[str, Any]) -> set[str]:
 
 
 def _expected_counts(manifest: Mapping[str, Any]) -> Mapping[str, Any]:
+    """[ACTION] Implement expected counts for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_expected_counts`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Delegates to manifest.get and applies local branch checks.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     counts = manifest.get("expected_counts")
     return counts if isinstance(counts, Mapping) else {}
 
 
 def _required_bridge_statuses(manifest: Mapping[str, Any]) -> Mapping[str, Any]:
+    """[ACTION] Implement required bridge statuses for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_required_bridge_statuses`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Delegates to manifest.get and applies local branch checks.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     statuses = manifest.get("required_bridge_statuses")
     return statuses if isinstance(statuses, Mapping) else {}
 
 
 def _required_failure_classes(manifest: Mapping[str, Any]) -> set[str]:
+    """[ACTION] Implement required failure classes for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_required_failure_classes`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     values = manifest.get("required_failure_classes")
     return {str(value) for value in values} if isinstance(values, list) else set()
 
 
 def _forbidden_claims(manifest: Mapping[str, Any]) -> set[str]:
+    """[ACTION] Implement forbidden claims for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_forbidden_claims`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     values = manifest.get("forbidden_claims")
     return {str(value) for value in values} if isinstance(values, list) else set()
 
 
 def _as_mapping(value: Any) -> Mapping[str, Any]:
+    """[ACTION] Implement as mapping for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_as_mapping`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return value if isinstance(value, Mapping) else {}
 
 
 def _as_records(value: Any) -> list[Mapping[str, Any]]:
+    """[ACTION] Implement as records for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_as_records`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Mapping[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return (
         [row for row in value if isinstance(row, Mapping)]
         if isinstance(value, list)
@@ -232,12 +466,41 @@ def _as_records(value: Any) -> list[Mapping[str, Any]]:
 
 
 def _as_string_set(value: Any) -> set[str]:
+    """[ACTION] Implement as string set for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_as_string_set`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns set[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return set()
     return {str(item).strip() for item in value if str(item).strip()}
 
 
 def _claim_path(claim: Mapping[str, Any]) -> str:
+    """[ACTION] Implement claim path for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_claim_path`.
+    - Preconditions: Callers provide claim in the shape consumed by the body.
+    - Mechanism: Delegates to claim.get, claim.get and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return str(claim.get("path") or claim.get("scope_id") or "").strip()
 
 
@@ -247,6 +510,22 @@ def _session_freshness(
     session_cards_by_id: Mapping[str, Mapping[str, Any]],
     claim: Mapping[str, Any] | None,
 ) -> str:
+    """[ACTION] Implement session freshness for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_session_freshness`.
+    - Preconditions: Callers provide session_id, session_cards_by_id, claim in the shape
+      consumed by the body.
+    - Mechanism: Delegates to session_cards_by_id.get, claim.get, card.get, claim.get,
+      claim.get and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     card = session_cards_by_id.get(session_id) or {}
     claim_freshness = claim.get("freshness_state") if claim else ""
     freshness = str(card.get("freshness_state") or claim_freshness or "").strip()
@@ -267,7 +546,24 @@ def classify_generated_surface_claim_lens(
     *,
     generated_surfaces: tuple[str, ...] = GENERATED_ENTRY_SURFACES,
 ) -> dict[str, Any]:
-    """Classify generated-surface drift against live Work Ledger ownership."""
+    """[ACTION] Implement classify generated surface claim lens for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `classify_generated_surface_claim_lens`.
+    - Preconditions: Callers provide case, generated_surfaces in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants GENERATED_ENTRY_SURFACES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: GENERATED_ENTRY_SURFACES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
 
     generated_surface_set = set(generated_surfaces)
     drift_paths = _as_string_set(case.get("drift_paths"))
@@ -378,6 +674,22 @@ def classify_generated_surface_claim_lens(
 
 
 def _first_owner_row(case: Mapping[str, Any]) -> Mapping[str, Any]:
+    """[ACTION] Implement first owner row for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_first_owner_row`.
+    - Preconditions: Callers provide case in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     claim_rows = _as_records(case.get("claim_rows"))
     session_cards = _as_records(case.get("session_cards"))
     session_cards_by_id = {
@@ -402,7 +714,22 @@ def _first_owner_row(case: Mapping[str, Any]) -> Mapping[str, Any]:
 
 
 def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str, Any]:
-    """Classify closure, validation, commitability, residual, and owner states."""
+    """[ACTION] Implement classify concurrency closure state lens for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `classify_concurrency_closure_state_lens`.
+    - Preconditions: Callers provide case in the shape consumed by the body.
+    - Mechanism: Delegates to classify_generated_surface_claim_lens, _first_owner_row,
+      _as_mapping, case.get, owner.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
 
     generated = classify_generated_surface_claim_lens(case)
     generated_classification = str(generated.get("classification") or "")
@@ -518,6 +845,23 @@ def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str
 
 
 def _run_original_builder(input_path: Path, public_root: Path, manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement run original builder for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_run_original_builder`.
+    - Preconditions: Callers provide input_path, public_root, manifest in the shape
+      consumed by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     seed_root = _seed_root(input_path, public_root)
     if not seed_root.is_dir():
         return {
@@ -574,6 +918,23 @@ def _run_original_builder(input_path: Path, public_root: Path, manifest: Mapping
 
 
 def _failure_matrix_gate(original: Mapping[str, Any], manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement failure matrix gate for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_failure_matrix_gate`.
+    - Preconditions: Callers provide original, manifest in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _expected_counts, _required_failure_classes, int, int, int
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     expected = _expected_counts(manifest)
     required_classes = _required_failure_classes(manifest)
     observed_classes = set(original.get("failure_classes") or [])
@@ -608,6 +969,23 @@ def _failure_matrix_gate(original: Mapping[str, Any], manifest: Mapping[str, Any
 
 
 def _bridge_authority_membrane(original: Mapping[str, Any], manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement bridge authority membrane for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_bridge_authority_membrane`.
+    - Preconditions: Callers provide original, manifest in the shape consumed by the
+      body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     expected = _expected_counts(manifest)
     required_statuses = _required_bridge_statuses(manifest)
     forbidden = _forbidden_claims(manifest)
@@ -657,6 +1035,22 @@ def _bridge_authority_membrane(original: Mapping[str, Any], manifest: Mapping[st
 
 
 def _work_ledger_seed_speed_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement work ledger seed speed gate for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_work_ledger_seed_speed_gate`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     surface = _as_mapping(manifest.get("work_ledger_seed_speed_surface"))
     counts = _as_mapping(surface.get("counts"))
     minimum_counts = _as_mapping(surface.get("minimum_counts"))
@@ -678,6 +1072,22 @@ def _work_ledger_seed_speed_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
         expected: Any = None,
         observed: Any = None,
     ) -> None:
+        """[ACTION] Implement add finding for this organ replay.
+
+        - Teleology: Supports concurrency mission control by documenting and preserving
+          the exact local step implemented by `add_finding`.
+        - Preconditions: Callers provide code, message, expected, observed in the shape
+          consumed by the body.
+        - Mechanism: Delegates to findings.append, finding and applies local branch
+          checks.
+        - Guarantee: Returns None from the explicit return paths in the function body.
+        - Fails: No explicit raise is introduced; failures propagate from ordinary
+          Python evaluation in this body.
+        - Reads: call arguments.
+        - Writes: No external writes; the body only returns in-memory values.
+        - Non-goal: Does not widen this module's public authority ceiling, add provider
+          calls, or expose private material.
+        """
         findings.append(
             finding(
                 code,
@@ -872,6 +1282,22 @@ def _work_ledger_seed_speed_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _generated_surface_claim_lens_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement generated surface claim lens gate for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_generated_surface_claim_lens_gate`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     surface = _as_mapping(manifest.get("generated_surface_claim_lens"))
     cases = _as_records(surface.get("cases"))
     findings: list[dict[str, Any]] = []
@@ -953,6 +1379,22 @@ def _generated_surface_claim_lens_gate(manifest: Mapping[str, Any]) -> dict[str,
 
 
 def _closure_state_lens_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Implement closure state lens gate for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_closure_state_lens_gate`.
+    - Preconditions: Callers provide manifest in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     surface = _as_mapping(manifest.get("closure_state_lens"))
     cases = _as_records(surface.get("cases"))
     findings: list[dict[str, Any]] = []
@@ -1038,6 +1480,25 @@ def _evaluate(
     public_root: Path,
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Evaluate fixture evidence and return a structured verdict.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `_evaluate`.
+    - Preconditions: Callers provide input_path, public_root, source_manifest in the
+      shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES,
+      EXPECTED_NEGATIVE_CASES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_NEGATIVE_CASES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     manifest = _load_json(input_path / EXERCISE_MANIFEST_NAME)
     original = _run_original_builder(input_path, public_root, manifest)
@@ -1091,6 +1552,27 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
+    """[ACTION] Evaluate a negative-case row and return its verdict fields.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `evaluate_negative_case`.
+    - Preconditions: Callers provide case_id, input_dir, _expected_codes in the shape
+      consumed by the body; write targets must be inside the caller-selected output or
+      temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them. Iterates candidate paths or structured rows exactly as
+      written in the body.
+    - Guarantee: Returns Mapping[str, Any] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants EXERCISE_MANIFEST_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: EXERCISE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     input_path = Path(input_dir)
     manifest = _load_json(input_path / EXERCISE_MANIFEST_NAME)
     public_root = public_root_for_path(input_path)
@@ -1249,6 +1731,23 @@ def run(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, acceptance_out, command in the
+      shape consumed by the body.
+    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -1267,6 +1766,23 @@ def run_concurrency_mission_control_bundle(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run concurrency mission control bundle for this organ replay.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `run_concurrency_mission_control_bundle`.
+    - Preconditions: Callers provide bundle_dir, out_dir, acceptance_out, command in the
+      shape consumed by the body.
+    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants BUNDLE_INPUT_MODE, SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_INPUT_MODE, SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return run_crown_jewel_organ(
         SPEC,
         bundle_dir,
@@ -1280,6 +1796,23 @@ def run_concurrency_mission_control_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SPEC.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SPEC.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
     card["engine_count"] = exercise.get("engine_count")
@@ -1321,6 +1854,24 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports concurrency mission control by documenting and preserving the
+      exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+      Writes only the output paths named by the caller, temporary workspace, or module
+      constants. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
+    - Reads: call arguments; module constants ORGAN_ID.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "run-concurrency-mission-control-bundle"):

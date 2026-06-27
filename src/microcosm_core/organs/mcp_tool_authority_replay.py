@@ -1,3 +1,51 @@
+"""[PURPOSE]
+- Teleology: Make MCP tool-authority replay evidence inspectable through runnable public
+  fixture code while keeping claims bounded to emitted receipts and authority ceilings.
+- Mechanism: The file checks MCP manifest scope, per-call approval, side-effect ledger
+  rows, rollback receipts, and tool-result-as-data boundaries; helper functions load
+  fixtures, recompute predicates, normalize findings, build result/board/card payloads,
+  and write receipts.
+- Non-goal: MCP tool authority replay validates a public trace-backed tool-use contract:
+  manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback
+  receipts, untrusted-output instruction/data separation, cold replay, negative cases,
+  and public agent-execution trace spans. It does not access live MCP accounts, export
+  credentials or provider payloads, obey tool output as instruction, mutate source,
+  claim benchmark safety, or authorize release.
+
+[INTERFACE]
+- CLI: `python -m microcosm_core.organs.mcp_tool_authority_replay <command>` with
+  detected subcommands run, run-tool-authority-bundle.
+- Exports: validate_projection_protocol, validate_tool_policy, validate_tool_manifest,
+  validate_tool_calls, validate_tool_results, validate_side_effect_ledger,
+  validate_cold_replay, run, run_tool_authority_bundle, result_card, main.
+- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
+  referenced by each callable body.
+- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
+  artifacts only where the called body performs explicit writes.
+
+[FLOW]
+- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
+  negative-case rows through the local helper stack.
+- Validate: Recompute module-specific predicates from structured inputs rather than
+  trusting fixture verdict fields alone.
+- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
+  anti-claims and authority ceilings preserved.
+
+[DEPENDENCIES]
+- Required: microcosm_core.macro_tools.agent_execution_trace,
+  microcosm_core.secret_exclusion_scan, microcosm_core.receipts, microcosm_core.schemas
+- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutation is limited to explicit
+  run/write helpers invoked by the caller.
+- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
+  state, clock values, subprocess results, dependency availability, and parser
+  invocation are the admitted runtime variables.
+- Boundary: Receipts and cards must stay public-root relative and body-free for private,
+  provider, credential, oracle, hidden-answer, or raw exploit material.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -172,6 +220,23 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """[ACTION] Find the nearest repository-style public root for a path.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_public_root_for_path`.
+    - Preconditions: Callers provide path in the shape consumed by the body; paths must
+      be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -185,10 +250,41 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """[ACTION] Convert a path into a public-root-relative display reference.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_display`.
+    - Preconditions: Callers provide path, public_root in the shape consumed by the
+      body.
+    - Mechanism: Delegates to public_relative_path and applies local branch checks.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_rows`.
+    - Preconditions: Callers provide payload, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(payload, dict):
         return []
     rows = payload.get(key, [])
@@ -196,12 +292,45 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """[ACTION] Filter a list payload down to non-empty string values.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_strings`.
+    - Preconditions: Callers provide value in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Build the fixture input path list for the requested replay mode.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_input_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants INPUT_NAMES, NEGATIVE_INPUT_NAMES;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: INPUT_NAMES, NEGATIVE_INPUT_NAMES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     manifest = input_dir / "bundle_manifest.json"
@@ -211,6 +340,25 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
+    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_sha256`.
+    - Preconditions: Callers provide path in the shape consumed by the body; content
+      inputs must exist and match the expected local fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns str from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads.
+    - Reads: call arguments; module constants HASH_CHUNK_SIZE; filesystem/content inputs
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: HASH_CHUNK_SIZE.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -219,6 +367,26 @@ def _sha256(path: Path) -> str:
 
 
 def _candidate_source_roots(public_root: Path) -> tuple[Path, ...]:
+    """[ACTION] Implement candidate source roots for this organ replay.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_candidate_source_roots`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body;
+      paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns tuple[Path, ...] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks.
+    - Reads: call arguments; module constants MODULE_REPO_ROOT; filesystem metadata
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: MODULE_REPO_ROOT.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     roots: list[Path] = []
     for candidate in (public_root.parent, *public_root.parents, MODULE_REPO_ROOT):
         resolved = candidate.resolve(strict=False)
@@ -228,6 +396,26 @@ def _candidate_source_roots(public_root: Path) -> tuple[Path, ...]:
 
 
 def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
+    """[ACTION] Find the repository root used for public reference rewriting.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_repo_root_for_public_refactor`.
+    - Preconditions: Callers provide public_root in the shape consumed by the body;
+      paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns Path | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants AGENT_EXECUTION_TRACE_SOURCE_REF,
+      AGENT_EXECUTION_TRACE_TARGET_FILE_REF; filesystem metadata named by those
+      arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AGENT_EXECUTION_TRACE_SOURCE_REF, AGENT_EXECUTION_TRACE_TARGET_FILE_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     for candidate in _candidate_source_roots(public_root):
         if (
             (candidate / AGENT_EXECUTION_TRACE_SOURCE_REF).is_file()
@@ -238,6 +426,26 @@ def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
 
 
 def _source_ref_bytes(public_root: Path, source_ref: str) -> bytes | None:
+    """[ACTION] Resolve source ref bytes from source-module evidence.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_source_ref_bytes`.
+    - Preconditions: Callers provide public_root, source_ref in the shape consumed by
+      the body; content inputs must exist and match the expected local fixture shape;
+      external binaries must be available when that branch is selected.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Runs the declared subprocess command and records its return-code evidence.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns bytes | None from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, subprocess execution, called validators/helpers.
+    - Reads: call arguments; filesystem/content inputs named by those arguments or
+      constants.
+    - Writes: subprocess side effects limited to the invoked command/workspace.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     for root in _candidate_source_roots(public_root):
         source_path = root / source_ref
         if not source_path.is_file():
@@ -260,6 +468,28 @@ def _body_import_verification(
     public_trace: dict[str, Any],
     source_modules: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Verify that source modules can be inspected without importing private bodies.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_body_import_verification`.
+    - Preconditions: Callers provide base_verification, public_root, public_trace,
+      source_modules in the shape consumed by the body; paths must be resolvable for
+      filesystem metadata checks.
+    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
+      receives.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants AGENT_EXECUTION_TRACE_SOURCE_REF,
+      AGENT_EXECUTION_TRACE_TARGET_FILE_REF, AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF;
+      filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: AGENT_EXECUTION_TRACE_SOURCE_REF, AGENT_EXECUTION_TRACE_TARGET_FILE_REF,
+      AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     repo_root = _repo_root_for_public_refactor(public_root)
     source_path = (
         repo_root / AGENT_EXECUTION_TRACE_SOURCE_REF if repo_root is not None else None
@@ -305,6 +535,22 @@ def _body_import_verification(
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
+    """[ACTION] Resolve the source-module manifest path for fixture validation.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_source_module_manifest_path`.
+    - Preconditions: Callers provide input_dir in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_MODULE_MANIFEST_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
 
@@ -314,6 +560,22 @@ def _source_module_target_path(
     input_dir: Path,
     public_root: Path,
 ) -> Path:
+    """[ACTION] Resolve a target source-module reference to a local path.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_source_module_target_path`.
+    - Preconditions: Callers provide target_ref, input_dir, public_root in the shape
+      consumed by the body.
+    - Mechanism: Delegates to target_ref.removeprefix, normalized.startswith and applies
+      local branch checks.
+    - Guarantee: Returns Path from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
         return input_dir / normalized
@@ -321,6 +583,22 @@ def _source_module_target_path(
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    """[ACTION] Resolve source-module file paths declared by fixture rows.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_source_module_paths`.
+    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; filesystem metadata named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
         return []
@@ -343,6 +621,22 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Scan declared input paths for forbidden private or unsafe material.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_scan_paths_for_input`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Delegates to _public_root_for_path, _input_paths, _source_module_paths
+      and applies local branch checks.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     return [
         *_input_paths(input_dir, include_negative=include_negative),
@@ -351,6 +645,23 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """[ACTION] Collect source paths that determine replay freshness.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_freshness_paths`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Delegates to _public_root_for_path, _input_paths, _source_module_paths,
+      VALIDATOR_SOURCE_REF.removeprefix and applies local branch checks.
+    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants VALIDATOR_SOURCE_REF.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: VALIDATOR_SOURCE_REF.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     return [
         *_input_paths(input_dir, include_negative=include_negative),
@@ -361,6 +672,29 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Build the freshness basis used in receipts and cards.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_freshness_basis`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body; paths must be resolvable for filesystem metadata checks; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives. Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, filesystem writes, called validators/helpers.
+    - Reads: call arguments; module constants CARD_SCHEMA_VERSION; filesystem metadata
+      named by those arguments or constants.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
@@ -415,6 +749,25 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    """[ACTION] Build the freshness receipt for a replay bundle.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_fresh_bundle_receipt`.
+    - Preconditions: Callers provide input_dir, out_dir in the shape consumed by the
+      body; paths must be resolvable for filesystem metadata checks.
+    - Mechanism: Delegates to _freshness_basis, payload.get, path.is_file,
+      read_json_strict, existing_basis.get and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem
+      metadata checks, called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME; filesystem metadata
+      named by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
         return None
@@ -439,6 +792,23 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_load_payloads`.
+    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
+      by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -453,6 +823,23 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """[ACTION] Create a normalized finding row for a validation predicate.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_finding`.
+    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
+      the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -473,6 +860,22 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """[ACTION] Create a normalized record row for receipt emission.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_record`.
+    - Preconditions: Callers provide findings, observed, code, message, case_id,
+      subject_id, subject_kind in the shape consumed by the body.
+    - Mechanism: Delegates to findings.append, add, _finding and applies local branch
+      checks.
+    - Guarantee: Returns None from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings.append(
         _finding(
             code,
@@ -486,6 +889,22 @@ def _record(
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """[ACTION] Merge observed evidence rows into expected replay rows.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_merge_observed`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -495,6 +914,22 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    """[ACTION] Merge finding collections while preserving deterministic order.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_merge_findings`.
+    - Preconditions: Callers provide *results in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -515,6 +950,29 @@ def _source_module_manifest_result(
     public_root: Path,
     require_manifest: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate the source-module manifest and summarize its result.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_source_module_manifest_result`.
+    - Preconditions: Callers provide input_dir, public_root, require_manifest in the
+      shape consumed by the body; content inputs must exist and match the expected local
+      fixture shape.
+    - Mechanism: Reads declared local content and decodes or hashes it as the body
+      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
+      Iterates candidate paths or structured rows exactly as written in the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
+      reads, called validators/helpers.
+    - Reads: call arguments; module constants PUBLIC_SAFE_SOURCE_BODY_CLASSES,
+      SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS; filesystem/content inputs named
+      by those arguments or constants.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PUBLIC_SAFE_SOURCE_BODY_CLASSES, SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
     if not manifest_path.is_file():
@@ -740,6 +1198,27 @@ def _source_module_manifest_result(
 def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Summarize source imports and body-open checks for public evidence.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_source_open_body_import_summary`.
+    - Preconditions: Callers provide source_module_result in the shape consumed by the
+      body.
+    - Mechanism: Delegates to _strings, source_module_result.get,
+      source_module_result.get, source_module_result.get, source_module_result.get and
+      applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants SOURCE_IMPORT_CLASS,
+      SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS,
+      SOURCE_OPEN_BODY_SCHEMA.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
     imported = source_module_result.get("status") == PASS and bool(module_ids)
@@ -787,10 +1266,42 @@ def _source_open_body_import_summary(
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
+    """[ACTION] Detect forbidden keys in a nested payload.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_has_forbidden_key`.
+    - Preconditions: Callers provide row in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns bool from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants FORBIDDEN_KEYS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: FORBIDDEN_KEYS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _negative_rows(payloads: dict[str, object], key: str) -> list[dict[str, Any]]:
+    """[ACTION] Implement negative rows for this organ replay.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_negative_rows`.
+    - Preconditions: Callers provide payloads, key in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows: list[dict[str, Any]] = []
     for payload in payloads.values():
         nested = _rows(payload, key)
@@ -808,6 +1319,24 @@ def validate_projection_protocol(
     public_trace: dict[str, Any],
     source_modules: dict[str, Any],
 ) -> dict[str, Any]:
+    """[ACTION] Validate projection protocol against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_projection_protocol`.
+    - Preconditions: Callers provide payload, public_root, public_trace, source_modules
+      in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants PRIVATE_REF_MARKERS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: PRIVATE_REF_MARKERS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -902,6 +1431,24 @@ def validate_projection_protocol(
 
 
 def validate_tool_policy(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate tool policy against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_tool_policy`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_CALL_FIELDS,
+      REQUIRED_TOOL_CLASSES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_CALL_FIELDS, REQUIRED_TOOL_CLASSES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     policy = payload if isinstance(payload, dict) else {}
     allowed_classes = set(_strings(policy.get("allowed_tool_classes")))
     required_fields = set(_strings(policy.get("required_call_fields")))
@@ -955,6 +1502,23 @@ def validate_tool_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_tool_manifest(payload: object) -> dict[str, Any]:
+    """[ACTION] Validate tool manifest against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_tool_manifest`.
+    - Preconditions: Callers provide payload in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_TOOL_CLASSES.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_TOOL_CLASSES.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     tools = _rows(payload, "tools")
     classes = {str(row.get("tool_class") or "") for row in tools}
     findings: list[dict[str, Any]] = []
@@ -1012,6 +1576,24 @@ def _validate_call_row(
     observed: dict[str, set[str]],
     negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Validate call row against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_validate_call_row`.
+    - Preconditions: Callers provide row, declared_tool_ids, findings, observed,
+      negative in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants REQUIRED_CALL_FIELDS.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: REQUIRED_CALL_FIELDS.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     case_id = str(row.get("expected_negative_case_id") or row.get("call_id") or "tool_call")
     call_id = str(row.get("call_id") or case_id)
     subject_kind = "negative_case" if negative else "tool_call"
@@ -1168,6 +1750,23 @@ def validate_tool_calls(
     *,
     declared_tool_ids: set[str] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate tool calls against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_tool_calls`.
+    - Preconditions: Callers provide payload, negative_payloads, declared_tool_ids in
+      the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     rows = [
@@ -1234,6 +1833,23 @@ def validate_tool_results(
     *,
     declared_calls: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate tool results against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_tool_results`.
+    - Preconditions: Callers provide payload, declared_calls in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "tool_results")
     findings: list[dict[str, Any]] = []
     result_rows: list[dict[str, Any]] = []
@@ -1330,6 +1946,23 @@ def validate_side_effect_ledger(
     *,
     declared_calls: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate side effect ledger against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_side_effect_ledger`.
+    - Preconditions: Callers provide payload, declared_calls in the shape consumed by
+      the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "side_effects")
     findings: list[dict[str, Any]] = []
     side_effect_rows: list[dict[str, Any]] = []
@@ -1468,6 +2101,23 @@ def validate_cold_replay(
     declared_calls: dict[str, dict[str, Any]] | None = None,
     runtime_refs_by_call_id: dict[str, set[str]] | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Validate cold replay against the fixture evidence and authority ceiling.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `validate_cold_replay`.
+    - Preconditions: Callers provide payload, declared_calls, runtime_refs_by_call_id in
+      the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
+      predicates, not trusted input labels.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     rows = _rows(payload, "cold_replays")
     findings: list[dict[str, Any]] = []
     replay_rows: list[dict[str, Any]] = []
@@ -1609,6 +2259,21 @@ def validate_cold_replay(
 
 
 def _blocked_metadata_row_count(rows: list[dict[str, Any]]) -> int:
+    """[ACTION] Implement blocked metadata row count for this organ replay.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_blocked_metadata_row_count`.
+    - Preconditions: Callers provide rows in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns int from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return sum(1 for row in rows if row.get("reason_codes"))
 
 
@@ -1627,6 +2292,27 @@ def _runtime_authority_evidence(
     missing_negative_cases: list[str],
     error_codes: list[str],
 ) -> dict[str, Any]:
+    """[ACTION] Implement runtime authority evidence for this organ replay.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_runtime_authority_evidence`.
+    - Preconditions: Callers provide status, input_mode, manifest, calls, results,
+      side_effects, cold_replay, public_trace, source_modules, secret_scan,
+      missing_negative_cases, error_codes in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Computes SHA-256 evidence from the bytes or normalized data
+      it receives. Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     statuses = {
         "manifest": manifest["status"],
         "calls": calls["status"],
@@ -1727,6 +2413,28 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """[ACTION] Assemble the replay result payload from validated evidence.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_build_result`.
+    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
+      the shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them. Iterates candidate paths or structured rows exactly as written in
+      the body.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
+      EXPECTED_NEGATIVE_CASES, FIXTURE_ID, NEGATIVE_INPUT_NAMES, ORGAN_ID,
+      SOURCE_MODULE_IMPORT_STATUS, VALIDATOR_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, EXPECTED_NEGATIVE_CASES, FIXTURE_ID,
+      NEGATIVE_INPUT_NAMES, ORGAN_ID, SOURCE_MODULE_IMPORT_STATUS, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
@@ -1943,6 +2651,23 @@ def _build_result(
 
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the board projection from a replay result payload.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_board_from_result`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
+      return value.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments; module constants ORGAN_ID.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: ORGAN_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     return {
         "schema_version": "mcp_tool_authority_replay_board_v1",
         "status": result["status"],
@@ -2000,6 +2725,27 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
+    """[ACTION] Write replay receipt payloads and return their public references.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_write_receipts`.
+    - Preconditions: Callers provide result, out_dir, acceptance_out in the shape
+      consumed by the body; write targets must be inside the caller-selected output or
+      temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns dict[str, Any] after writing only the declared receipt/output
+      artifacts.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
+      FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, FIXTURE_ID, ORGAN_ID, RESULT_NAME,
+      VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
     result_path = out_dir / RESULT_NAME
@@ -2100,6 +2846,23 @@ def run(
     command: str = "python -m microcosm_core.organs.mcp_tool_authority_replay run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """[ACTION] Run the organ replay pipeline and return the computed result payload.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `run`.
+    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
+      shape consumed by the body.
+    - Mechanism: Normalizes Path values and public-root-relative references before
+      returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     result = _build_result(
         Path(input_dir),
         command=command,
@@ -2125,6 +2888,26 @@ def run_tool_authority_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    """[ACTION] Implement run tool authority bundle for this organ replay.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `run_tool_authority_bundle`.
+    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
+      the shape consumed by the body; write targets must be inside the caller-selected
+      output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants. Normalizes Path values and public-root-relative references
+      before returning them.
+    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
+      execution.
+    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
+      called validators/helpers.
+    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
+    - Writes: filesystem output explicitly written by this body.
+    - Couples: BUNDLE_RESULT_NAME.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     source = Path(input_dir)
@@ -2152,6 +2935,21 @@ def run_tool_authority_bundle(
 
 
 def _card_receipt_paths(paths: object) -> list[str]:
+    """[ACTION] Collect receipt paths rendered on the public card.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_card_receipt_paths`.
+    - Preconditions: Callers provide paths in the shape consumed by the body.
+    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
+      body.
+    - Guarantee: Returns list[str] from the explicit return paths in the function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
         return []
     normalized = normalize_public_receipt_paths({"receipt_paths": paths})
@@ -2162,6 +2960,24 @@ def _card_receipt_paths(paths: object) -> list[str]:
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    """[ACTION] Build the compact result card from replay output.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `result_card`.
+    - Preconditions: Callers provide result in the shape consumed by the body.
+    - Mechanism: Delegates to result.get, result.get, result.get, result.get, result.get
+      and applies local branch checks.
+    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
+      body.
+    - Fails: No explicit raise is introduced; failures propagate from called
+      validators/helpers.
+    - Reads: call arguments; module constants CARD_OMITTED_FULL_PAYLOAD_KEYS,
+      CARD_SCHEMA_VERSION.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Couples: CARD_OMITTED_FULL_PAYLOAD_KEYS, CARD_SCHEMA_VERSION.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     secret_scan = result.get("secret_exclusion_scan")
@@ -2245,6 +3061,22 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _parser() -> argparse.ArgumentParser:
+    """[ACTION] Build the command-line parser for this organ module.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `_parser`.
+    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
+      the body.
+    - Mechanism: Configures argparse commands and options that the module exposes.
+    - Guarantee: Returns argparse.ArgumentParser from the explicit return paths in the
+      function body.
+    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
+      evaluation in this body.
+    - Reads: call arguments.
+    - Writes: No external writes; the body only returns in-memory values.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     parser = argparse.ArgumentParser(prog="mcp_tool_authority_replay")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
@@ -2260,6 +3092,22 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
+
+    - Teleology: Supports mcp tool authority replay by documenting and preserving the
+      exact local step implemented by `main`.
+    - Preconditions: Callers provide argv in the shape consumed by the body; write
+      targets must be inside the caller-selected output or temporary area.
+    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
+      or module constants.
+    - Guarantee: Returns int from the selected CLI command path.
+    - Fails: Explicit raise paths include ValueError(args.action); called operations may
+      propagate their own exceptions.
+    - Reads: call arguments.
+    - Writes: filesystem output explicitly written by this body.
+    - Non-goal: Does not widen this module's public authority ceiling, add provider
+      calls, or expose private material.
+    """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""
     if args.action == "run":

@@ -18,6 +18,8 @@
 - Reads only public fixtures, examples, source manifests, and receipt paths supplied by the caller.
 
 [CONSTRAINTS]
+- Atomicity: Module import is declaration-only; fixture reads, scans, and receipt writes occur only through explicit run/write helpers.
+- Determinism: For the same fixture files and source manifests, validation findings, counts, hashes, and receipt payloads are stable apart from receipt timestamps and caller-selected output paths.
 - Receipts carry evidence refs, counts, hashes, spans, findings, and claim ceilings instead of private issue bodies, oracle patches, hidden-gold bodies, provider payloads, or raw solution material.
 - A passing row means the wired evidence cleared this validator's anti-gaming floor; it does not mean the underlying agent task was completed or that any external benchmark score is authorized.
 """
@@ -203,6 +205,7 @@ def _public_root_for_path(path: str | Path) -> Path:
     - Teleology: Resolves paths, refs, or digests for _public_root_for_path so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -226,6 +229,7 @@ def _display(path: Path, *, public_root: Path) -> str:
 
     - Teleology: Resolves paths, refs, or digests for _display so downstream receipts can cite
       public-root-relative evidence rather than absolute private workspace coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -241,6 +245,7 @@ def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
     - Teleology: Keeps fresh and cached benchmark-integrity command cards on the same
       receipt-safe display contract, even when the underlying receipt was written under a host
       temp directory.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns only string receipt refs after applying the shared public-receipt path
       normalization policy; it does not change the durable receipt files or infer new evidence.
     - Fails: Non-list or malformed receipt path values collapse to an empty list so card
@@ -260,6 +265,7 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
     - Teleology: Keeps the replay-evidence accounting step _rows explicit, so gaming-pattern
       decisions are traceable from row input to finding, reason code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -277,6 +283,7 @@ def _strings(value: object) -> list[str]:
 
     - Teleology: Keeps the replay-evidence accounting step _strings explicit, so gaming-pattern
       decisions are traceable from row input to finding, reason code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -294,6 +301,7 @@ def _locked_evaluator_config_hashes(policy: object) -> dict[str, list[str]]:
     - Teleology: Keeps the replay-evidence accounting step _locked_evaluator_config_hashes
       explicit, so gaming-pattern decisions are traceable from row input to finding, reason
       code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -319,6 +327,7 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
     - Teleology: Resolves paths, refs, or digests for _input_paths so downstream receipts can
       cite public-root-relative evidence rather than absolute private workspace coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -339,6 +348,7 @@ def _strip_microcosm_prefix(ref: str) -> str:
     - Teleology: Resolves paths, refs, or digests for _strip_microcosm_prefix so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -354,6 +364,7 @@ def _sha256(path: Path) -> str:
 
     - Teleology: Resolves paths, refs, or digests for _sha256 so downstream receipts can cite
       public-root-relative evidence rather than absolute private workspace coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -369,6 +380,7 @@ def _validator_source_digests() -> dict[str, str]:
     - Teleology: Resolves paths, refs, or digests for _validator_source_digests so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -394,6 +406,7 @@ def _source_module_manifest_path(input_dir: Path, *, public_root: Path) -> Path:
     - Teleology: Resolves paths, refs, or digests for _source_module_manifest_path so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -417,6 +430,7 @@ def _source_module_target_path(
     - Teleology: Resolves paths, refs, or digests for _source_module_target_path so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -439,6 +453,7 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     - Teleology: Resolves paths, refs, or digests for _source_artifact_paths so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -465,6 +480,7 @@ def _fallback_bundle_root(public_root: Path) -> Path:
     - Teleology: Resolves paths, refs, or digests for _fallback_bundle_root so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -488,6 +504,7 @@ def _resolve_public_ref(
 
     - Teleology: Resolves paths, refs, or digests for _resolve_public_ref so downstream receipts
       can cite public-root-relative evidence rather than absolute private workspace coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -510,6 +527,7 @@ def _evidence_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path
     - Teleology: Resolves paths, refs, or digests for _evidence_artifact_paths so downstream
       receipts can cite public-root-relative evidence rather than absolute private workspace
       coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -547,6 +565,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
     - Teleology: Resolves paths, refs, or digests for _freshness_paths so downstream receipts
       can cite public-root-relative evidence rather than absolute private workspace coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -567,6 +586,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
     - Teleology: Resolves paths, refs, or digests for _freshness_basis so downstream receipts
       can cite public-root-relative evidence rather than absolute private workspace coordinates.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
       public root and preserves body-free source custody; it performs no validation authority
       upgrade on its own.
@@ -637,6 +657,7 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
     - Teleology: Loads benchmark-integrity fixture or cached evidence for _fresh_bundle_receipt
       while keeping freshness and body-export boundaries explicit.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns parsed payloads only from declared public fixture/bundle locations or
       None/empty structures where the existing cache path is not trustworthy; it does not infer
       unseen evidence.
@@ -684,6 +705,7 @@ def validate_source_module_imports(
       inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
       public receipts can route from the organ overview to this evidence check without private
       context.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns a body-free validation packet with status, findings, observed
       negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
       oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
@@ -891,6 +913,7 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
     - Teleology: Loads benchmark-integrity fixture or cached evidence for _load_payloads while
       keeping freshness and body-export boundaries explicit.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns parsed payloads only from declared public fixture/bundle locations or
       None/empty structures where the existing cache path is not trustworthy; it does not infer
       unseen evidence.
@@ -914,6 +937,7 @@ def _finding(
 
     - Teleology: Keeps the replay-evidence accounting step _finding explicit, so gaming-pattern
       decisions are traceable from row input to finding, reason code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -941,6 +965,7 @@ def _real_trace_artifact_findings(
     - Teleology: Keeps the replay-evidence accounting step _real_trace_artifact_findings
       explicit, so gaming-pattern decisions are traceable from row input to finding, reason
       code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1145,6 +1170,7 @@ def _real_trace_evidence_summary(payload: object) -> dict[str, Any]:
     - Teleology: Keeps the replay-evidence accounting step _real_trace_evidence_summary
       explicit, so gaming-pattern decisions are traceable from row input to finding, reason
       code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1207,6 +1233,7 @@ def _real_trace_evidence_passes(evidence: dict[str, Any]) -> bool:
     - Teleology: Keeps the replay-evidence accounting step _real_trace_evidence_passes explicit,
       so gaming-pattern decisions are traceable from row input to finding, reason code, and
       receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1241,6 +1268,7 @@ def _replay_real_session_evidence(
     - Teleology: Keeps the replay-evidence accounting step _replay_real_session_evidence
       explicit, so gaming-pattern decisions are traceable from row input to finding, reason
       code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1302,6 +1330,7 @@ def _evidence_finding(
     - Teleology: Keeps the replay-evidence accounting step _evidence_finding explicit, so
       gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
       field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1335,6 +1364,7 @@ def _load_evidence_artifact(
 
     - Teleology: Loads benchmark-integrity fixture or cached evidence for
       _load_evidence_artifact while keeping freshness and body-export boundaries explicit.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns parsed payloads only from declared public fixture/bundle locations or
       None/empty structures where the existing cache path is not trustworthy; it does not infer
       unseen evidence.
@@ -1427,6 +1457,7 @@ def _parsed_evidence_packet(
     - Teleology: Keeps the replay-evidence accounting step _parsed_evidence_packet explicit, so
       gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
       field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1506,6 +1537,7 @@ def _record(
 
     - Teleology: Keeps the replay-evidence accounting step _record explicit, so gaming-pattern
       decisions are traceable from row input to finding, reason code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1530,6 +1562,7 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     - Teleology: Keeps the replay-evidence accounting step _merge_observed explicit, so
       gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
       field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1550,6 +1583,7 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     - Teleology: Keeps the replay-evidence accounting step _merge_findings explicit, so
       gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
       field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1576,6 +1610,7 @@ def _semantic_negative_case_id(row: dict[str, Any]) -> str | None:
     - Teleology: Keeps the replay-evidence accounting step _semantic_negative_case_id explicit,
       so gaming-pattern decisions are traceable from row input to finding, reason code, and
       receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -1616,6 +1651,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
       inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
       public receipts can route from the organ overview to this evidence check without private
       context.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns a body-free validation packet with status, findings, observed
       negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
       oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
@@ -1664,6 +1700,7 @@ def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
       inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
       public receipts can route from the organ overview to this evidence check without private
       context.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns a body-free validation packet with status, findings, observed
       negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
       oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
@@ -1755,6 +1792,7 @@ def validate_benchmark_cases(payload: object) -> dict[str, Any]:
       inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
       public receipts can route from the organ overview to this evidence check without private
       context.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns a body-free validation packet with status, findings, observed
       negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
       oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
@@ -1837,6 +1875,7 @@ def _validate_replay_row(
     - Teleology: Keeps the replay-evidence accounting step _validate_replay_row explicit, so
       gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
       field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -2197,6 +2236,7 @@ def validate_replay_observations(
       inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
       public receipts can route from the organ overview to this evidence check without private
       context.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns a body-free validation packet with status, findings, observed
       negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
       oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
@@ -2348,6 +2388,7 @@ def _first_screen_integrity_rows(
     - Teleology: Projects benchmark-integrity results through _first_screen_integrity_rows into
       a human/agent start-here surface that preserves evidence handles without expanding full
       payload bodies.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
       blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
       private scans stay omitted.
@@ -2452,6 +2493,7 @@ def validate_public_trace(
     - Teleology: Makes the benchmark-integrity organ's validate_public_trace stage inspectable
       as an explicit validation boundary, so source indexes, CodeMap nodes, and public receipts
       can route from the organ overview to this evidence check without private context.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns a body-free validation packet with status, findings, observed
       negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
       oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
@@ -2524,6 +2566,7 @@ def _public_trace_open_body_summary(public_trace: dict[str, Any]) -> dict[str, A
     - Teleology: Keeps the replay-evidence accounting step _public_trace_open_body_summary
       explicit, so gaming-pattern decisions are traceable from row input to finding, reason
       code, and receipt field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -2568,6 +2611,7 @@ def _build_result(
     - Teleology: Keeps the replay-evidence accounting step _build_result explicit, so
       gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
       field.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
       structures that preserve evaluator locks, trace refs, and negative-case semantics without
       carrying private/provider bodies.
@@ -2779,6 +2823,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     - Teleology: Projects benchmark-integrity results through _board_from_result into a
       human/agent start-here surface that preserves evidence handles without expanding full
       payload bodies.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
       blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
       private scans stay omitted.
@@ -2866,6 +2911,7 @@ def _write_receipts(
 
     - Teleology: Owns the _write_receipts write path that turns validated benchmark-integrity
       evidence into durable local receipts or reusable bundle results.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Writes only governed JSON receipts/cards under the requested output path and
       preserves the organ authority ceiling: replay integrity evidence may pass or quarantine
       rows, but never becomes a benchmark score or release claim.
@@ -2993,6 +3039,7 @@ def run(
 
     - Teleology: Owns the run write path that turns validated benchmark-integrity evidence into
       durable local receipts or reusable bundle results.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Writes only governed JSON receipts/cards under the requested output path and
       preserves the organ authority ceiling: replay integrity evidence may pass or quarantine
       rows, but never becomes a benchmark score or release claim.
@@ -3028,6 +3075,7 @@ def run_benchmark_integrity_bundle(
 
     - Teleology: Owns the run_benchmark_integrity_bundle write path that turns validated
       benchmark-integrity evidence into durable local receipts or reusable bundle results.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Writes only governed JSON receipts/cards under the requested output path and
       preserves the organ authority ceiling: replay integrity evidence may pass or quarantine
       rows, but never becomes a benchmark score or release claim.
@@ -3065,6 +3113,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
     - Teleology: Projects benchmark-integrity results through result_card into a human/agent
       start-here surface that preserves evidence handles without expanding full payload bodies.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
       blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
       private scans stay omitted.
@@ -3182,6 +3231,7 @@ def _parser() -> argparse.ArgumentParser:
 
     - Teleology: Keeps the command-line entry surface aligned with the organ's two supported
       operations: fixture replay validation and exported-bundle validation.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Constructs or dispatches only declared arguments and returns process status
       from the selected operation; --card remains a projection over the written/result payload,
       not a separate authority source.
@@ -3206,6 +3256,7 @@ def main(argv: list[str] | None = None) -> int:
 
     - Teleology: Keeps the command-line entry surface aligned with the organ's two supported
       operations: fixture replay validation and exported-bundle validation.
+    - Preconditions: Callers provide the path, payload, fixture, and output arguments in the shapes consumed by this function body; required local files must be present on branches that read them.
     - Guarantee: Constructs or dispatches only declared arguments and returns process status
       from the selected operation; --card remains a projection over the written/result payload,
       not a separate authority source.
