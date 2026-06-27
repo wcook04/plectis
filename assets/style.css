@@ -1550,6 +1550,7 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
    page-level horizontal scroll). Scaling a 6000px LR chain down to fit would make
    the text unreadable, which is worse than the raw source it replaces. */
 .pm-diagram { margin: 0; max-width: 100%; overflow-x: auto; }
+.pm-diagram__caption { margin: 0 0 0.4rem; font-size: 0.82rem; color: var(--muted); font-style: italic; }
 .pm-diagram__svg {
   display: block; box-sizing: content-box;
   background: var(--surface-sunk); border: 1px solid var(--rule);
@@ -1712,6 +1713,8 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
    and the thesis leads in serif, then the write-up follows immediately. */
 .pm-detail__eyebrow { color: var(--pm-rail); }
 .pm-detail__thesis { font-family: var(--font-serif); color: var(--ink); }
+.pm-detail__meta { margin: 0.55rem 0 0.2rem; display: flex; flex-direction: column; gap: 0.2rem; }
+.pm-detail__contains, .pm-detail__explains { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
 
 /* Context & evidence: the covers/relations/scope backplane, demoted below the
    reading so it supports the write-up rather than preceding it. */
