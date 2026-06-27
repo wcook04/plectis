@@ -16,18 +16,39 @@
     }
   }
 
+  function scrollPaddingTop() {
+    try {
+      var raw = window.getComputedStyle(document.documentElement).getPropertyValue('scroll-padding-top');
+      var value = parseFloat(raw);
+      return isNaN(value) ? 0 : value;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function scrollToAnchor(anchor) {
+    if (!anchor) return;
+    if (typeof anchor.getBoundingClientRect === 'function' && typeof window.scrollTo === 'function') {
+      var y = anchor.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - scrollPaddingTop();
+      window.scrollTo(0, Math.max(0, y));
+      return;
+    }
+    if (typeof anchor.scrollIntoView === 'function') {
+      try { anchor.scrollIntoView({ block: 'start', inline: 'nearest' }); }
+      catch (e) { try { anchor.scrollIntoView(); } catch (e2) {} }
+    }
+  }
+
   function align(target) {
     if (!target || typeof window.requestAnimationFrame !== 'function') return;
     var anchor = target;
     if (target.tagName === 'DETAILS' && target.querySelector) {
       anchor = target.querySelector('summary') || target;
     }
-    if (!anchor || typeof anchor.scrollIntoView !== 'function') return;
-    var frames = 2;
+    var frames = 4;
     var tick = function () {
       frames -= 1;
-      try { anchor.scrollIntoView({ block: 'start', inline: 'nearest' }); }
-      catch (e) { try { anchor.scrollIntoView(); } catch (e2) {} }
+      scrollToAnchor(anchor);
       if (frames > 0) window.requestAnimationFrame(tick);
     };
     window.requestAnimationFrame(tick);
@@ -43,8 +64,8 @@
     return true;
   }
 
-  if (reveal()) return;
   if (!targetId()) return;
+  reveal();
 
   var observer = null;
   if ('MutationObserver' in window) {
@@ -60,4 +81,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     if (reveal() && observer) observer.disconnect();
   }, { once: true });
+  window.addEventListener('load', reveal, { once: true });
+  window.setTimeout(reveal, 120);
+  window.setTimeout(reveal, 420);
 })();
