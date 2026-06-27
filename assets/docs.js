@@ -2394,7 +2394,16 @@
     }
     function hrefOf(node) {
       var hit = node.querySelector('.gnode__hit');
-      return hit ? hit.getAttribute('href') : '';
+      return hit ? graphPageHref(hit.getAttribute('href')) : '';
+    }
+    function graphPageHref(raw) {
+      var value = String(raw || '').trim();
+      if (!value) return '';
+      if (fig.getAttribute('data-graph-consumer') === 'landing' &&
+          !/^(?:https?:|#|\/|mailto:|docs\/)/i.test(value)) {
+        return 'docs/' + value;
+      }
+      return value;
     }
 
     var lockedSet = null;
@@ -3023,10 +3032,14 @@
       panel.appendChild(el('p', 'gpanel__note', REL_NOTE));
 
       var actions = el('div', 'gpanel__actions');
+      var rec = recByNode[id];
+      var objContent = (obj && obj.content) || {};
       var href = hrefOf(node);
-      if (href) {
-        var open = el('a', 'gpanel__open', 'Open card');
-        open.setAttribute('href', href);
+      var primaryHref = href || graphPageHref(objContent.primary_reader_href || (rec && rec.primary_reader_url) || '');
+      if (primaryHref) {
+        var primaryLabel = /(?:^|\/)paper-module-/.test(primaryHref) ? 'Read paper module' : 'Open card';
+        var open = el('a', 'gpanel__open', primaryLabel);
+        open.setAttribute('href', primaryHref);
         actions.appendChild(open);
       }
       // On a projected consumer (the landing cover) the figure carries the full
@@ -3052,8 +3065,19 @@
       // visitor copy its command, jump to its evidence/source, or carry it out as
       // a result packet -- the same affordances as the search palette, now in the
       // graph. Offered only where the record carries the data (no dead actions).
-      var rec = recByNode[id];
       if (rec) {
+        var componentDetailHref = graphPageHref(
+          objContent.component_detail_href || rec.component_detail_url || ''
+        );
+        if (
+          componentDetailHref &&
+          safeNavigationUrl(componentDetailHref) &&
+          safeNavigationUrl(componentDetailHref) !== safeNavigationUrl(primaryHref)
+        ) {
+          var detailA = el('a', 'gpanel__act', 'Open component detail');
+          detailA.setAttribute('href', componentDetailHref);
+          actions.appendChild(detailA);
+        }
         if (rec.command) {
           var cmdBtn = el('button', 'gpanel__act', 'Copy command');
           cmdBtn.type = 'button';

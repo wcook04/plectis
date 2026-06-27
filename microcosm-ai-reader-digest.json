@@ -395,6 +395,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card",
+      "component_detail_href": "docs/component-cold-reader-route-map.html",
       "evidence_kind": "Contract validator",
       "family_id": "entry_and_reveal",
       "family_label": "Entry & orientation",
@@ -402,6 +403,8 @@
       "id": "cold_reader_route_map",
       "label": "Cold Reader Route Map",
       "links_to_count": 8,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-cold-reader-route-map.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -433,6 +436,7 @@
         "not_public_sharing_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
+      "component_detail_href": "docs/component-public-reveal-walkthrough.html",
       "evidence_kind": "Bounded runtime computation",
       "family_id": "entry_and_reveal",
       "family_label": "Entry & orientation",
@@ -440,6 +444,8 @@
       "id": "public_reveal_walkthrough",
       "label": "Public Reveal Walkthrough",
       "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-public-reveal-walkthrough.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -471,6 +477,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+      "component_detail_href": "docs/component-pattern-binding-contract.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -478,6 +485,8 @@
       "id": "pattern_binding_contract",
       "label": "Pattern Binding Contract",
       "links_to_count": 6,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-pattern-binding-contract.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -508,6 +517,7 @@
         "not_public_sharing_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
+      "component_detail_href": "docs/component-pattern-assimilation-step.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -515,6 +525,8 @@
       "id": "pattern_assimilation_step",
       "label": "Pattern Assimilation Step",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-pattern-assimilation.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -545,6 +557,7 @@
         "not_launch_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out receipts/first_wave/executable_doctrine_grammar --card",
+      "component_detail_href": "docs/component-executable-doctrine-grammar.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -552,6 +565,8 @@
       "id": "executable_doctrine_grammar",
       "label": "Executable Doctrine Grammar",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-executable-doctrine-grammar.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -580,6 +595,7 @@
         "no_source_file_changes"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
+      "component_detail_href": "docs/component-navigation-hologram-route-plane.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -587,6 +603,8 @@
       "id": "navigation_hologram_route_plane",
       "label": "Navigation Hologram Route Plane",
       "links_to_count": 11,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-navigation-hologram-route-plane.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -617,6 +635,7 @@
         "not_launch_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out /tmp/standards_meta_diagnostics_out",
+      "component_detail_href": "docs/component-standards-meta-diagnostics.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -624,6 +643,8 @@
       "id": "standards_meta_diagnostics",
       "label": "Standards Meta Diagnostics",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-standards-meta-diagnostics.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -652,6 +673,7 @@
         "no_source_file_changes"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+      "component_detail_href": "docs/component-voice-to-doctrine-self-improvement-loop.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -659,6 +681,8 @@
       "id": "voice_to_doctrine_self_improvement_loop",
       "label": "Voice To Doctrine Self Improvement Loop",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -689,6 +713,7 @@
         "not_launch_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out /tmp/cognitive_operator_registry_out",
+      "component_detail_href": "docs/component-cognitive-operator-registry.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -696,6 +721,8 @@
       "id": "cognitive_operator_registry",
       "label": "Cognitive Operator Registry",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-cognitive-operator-registry.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -726,6 +753,7 @@
         "not_launch_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out /tmp/routing_anti_patterns_registry_out",
+      "component_detail_href": "docs/component-routing-anti-patterns-registry.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -733,6 +761,8 @@
       "id": "routing_anti_patterns_registry",
       "label": "Routing Anti Patterns Registry",
       "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-routing-anti-patterns-registry.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -761,6 +791,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm doctrine-fact-claim-audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit",
+      "component_detail_href": "docs/component-doctrine-fact-claim-audit.html",
       "evidence_kind": "Contract validator",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -768,6 +799,8 @@
       "id": "doctrine_fact_claim_audit",
       "label": "Doctrine Fact Claim Audit",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-doctrine-fact-claim-audit.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -796,6 +829,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm self-ignorance-coverage-ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger",
+      "component_detail_href": "docs/component-self-ignorance-coverage-ledger.html",
       "evidence_kind": "Computed projection",
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
@@ -803,6 +837,8 @@
       "id": "self_ignorance_coverage_ledger",
       "label": "Self Ignorance Coverage Ledger",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-self-ignorance-coverage-ledger.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -835,6 +871,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+      "component_detail_href": "docs/component-proof-diagnostic-evidence-spine.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -842,6 +879,8 @@
       "id": "proof_diagnostic_evidence_spine",
       "label": "Proof Diagnostic Evidence Spine",
       "links_to_count": 6,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-proof-diagnostic-evidence-spine.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -872,6 +911,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
+      "component_detail_href": "docs/component-formal-math-readiness-gate.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -879,6 +919,8 @@
       "id": "formal_math_readiness_gate",
       "label": "Formal Math Readiness Gate",
       "links_to_count": 6,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-formal-math-readiness-gate.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -911,6 +953,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
+      "component_detail_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
       "evidence_kind": "External tool run",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -918,6 +961,8 @@
       "id": "corpus_readiness_mathlib_absence_gate",
       "label": "Corpus Readiness Mathlib Absence Gate",
       "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -948,6 +993,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
+      "component_detail_href": "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -955,6 +1001,8 @@
       "id": "mathematical_strategy_atlas_hypothesis_scorer",
       "label": "Mathematical Strategy Atlas Hypothesis Scorer",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-mathematical-strategy-atlas.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -985,6 +1033,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe --acceptance-out receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
+      "component_detail_href": "docs/component-tactic-portfolio-availability-probe.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -992,6 +1041,8 @@
       "id": "tactic_portfolio_availability_probe",
       "label": "Tactic Portfolio Availability Probe",
       "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-tactic-portfolio-availability.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1022,6 +1073,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.cli target-shape-tactic-routing-gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
+      "component_detail_href": "docs/component-target-shape-tactic-routing-gate.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1029,6 +1081,8 @@
       "id": "target_shape_tactic_routing_gate",
       "label": "Target Shape Tactic Routing Gate",
       "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-target-shape-tactic-routing.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1060,6 +1114,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_std_premise_index run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index --acceptance-out receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
+      "component_detail_href": "docs/component-lean-std-premise-index.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1067,6 +1122,8 @@
       "id": "lean_std_premise_index",
       "label": "Lean Std Premise Index",
       "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-lean-std-premise-index.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1098,6 +1155,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
+      "component_detail_href": "docs/component-formal-math-premise-retrieval.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1105,6 +1163,8 @@
       "id": "formal_math_premise_retrieval",
       "label": "Formal Math Premise Retrieval",
       "links_to_count": 6,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-formal-math-premise-retrieval.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1135,6 +1195,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+      "component_detail_href": "docs/component-formal-math-verifier-trace-repair-loop.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1142,6 +1203,8 @@
       "id": "formal_math_verifier_trace_repair_loop",
       "label": "Formal Math Verifier Trace Repair Loop",
       "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-formal-math-verifier-trace-repair-loop.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1173,6 +1236,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+      "component_detail_href": "docs/component-formal-evidence-cell-anchor-resolver.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1180,6 +1244,8 @@
       "id": "formal_evidence_cell_anchor_resolver",
       "label": "Formal Evidence Cell Anchor Resolver",
       "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-formal-evidence-cell-anchor-resolver.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1210,6 +1276,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier",
+      "component_detail_href": "docs/component-undeclared-library-prior-symbol-classifier.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1217,6 +1284,8 @@
       "id": "undeclared_library_prior_symbol_classifier",
       "label": "Undeclared Library Prior Symbol Classifier",
       "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-undeclared-library-prior-classifier.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1247,6 +1316,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness",
+      "component_detail_href": "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1254,6 +1324,8 @@
       "id": "ring2_premise_retrieval_precision_recall_harness",
       "label": "Ring2 Premise Retrieval Precision Recall Harness",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-ring2-premise-precision-recall.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1287,6 +1359,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
+      "component_detail_href": "docs/component-formal-math-lean-proof-witness.html",
       "evidence_kind": "External tool run",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1294,6 +1367,8 @@
       "id": "formal_math_lean_proof_witness",
       "label": "Formal Math Lean Proof Witness",
       "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-formal-math-lean-proof-witness.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -1325,6 +1400,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+      "component_detail_href": "docs/component-verifier-lab-kernel.html",
       "evidence_kind": "Contract validator",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1332,6 +1408,8 @@
       "id": "verifier_lab_kernel",
       "label": "Verifier Lab Kernel",
       "links_to_count": 10,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-verifier-lab-kernel.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1364,6 +1442,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out .microcosm/verifier_lab_execution_spine",
+      "component_detail_href": "docs/component-verifier-lab-execution-spine.html",
       "evidence_kind": "External tool run",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1371,6 +1450,8 @@
       "id": "verifier_lab_execution_spine",
       "label": "Verifier Lab Execution Spine",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-verifier-lab-execution-spine.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -1402,6 +1483,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+      "component_detail_href": "docs/component-certificate-kernel-execution-lab.html",
       "evidence_kind": "External tool run",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1409,6 +1491,8 @@
       "id": "certificate_kernel_execution_lab",
       "label": "Certificate Kernel Execution Lab",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-certificate-kernel-execution-lab.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -1440,6 +1524,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch4-proof-authority-runtime.html",
       "evidence_kind": "Verified source import",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1447,6 +1532,8 @@
       "id": "batch4_proof_authority_runtime",
       "label": "Proof / Control / Runtime Import Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch4-proof-authority-runtime.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1477,6 +1564,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "component_detail_href": "docs/component-proof-derived-governed-mutation-authorization.html",
       "evidence_kind": "Contract validator",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -1484,6 +1572,8 @@
       "id": "proof_derived_governed_mutation_authorization",
       "label": "Proof Derived Governed Mutation Authorization",
       "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-proof-derived-governed-mutation-authorization.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1514,6 +1604,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+      "component_detail_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1521,6 +1612,8 @@
       "id": "agent_benchmark_integrity_anti_gaming_replay",
       "label": "Agent Benchmark Integrity Anti Gaming Replay",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1552,6 +1645,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm batch10-cold-eval-honesty-capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch10-cold-eval-honesty-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1559,6 +1653,8 @@
       "id": "batch10_cold_eval_honesty_capsule",
       "label": "Cold Evaluation Honesty Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch10-cold-eval-honesty-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1589,6 +1685,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch8-validator-checker-capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch8-validator-checker-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1596,6 +1693,8 @@
       "id": "batch8_validator_checker_capsule",
       "label": "Validator Checker Bundle",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch8-validator-checker-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1627,6 +1726,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
+      "component_detail_href": "docs/component-agent-monitor-redteam-falsification-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1634,6 +1734,8 @@
       "id": "agent_monitor_redteam_falsification_replay",
       "label": "Agent Monitor Redteam Falsification Replay",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1665,6 +1767,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+      "component_detail_href": "docs/component-agent-sabotage-scheming-monitor-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1672,6 +1775,8 @@
       "id": "agent_sabotage_scheming_monitor_replay",
       "label": "Agent Sabotage Scheming Monitor Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1701,6 +1806,7 @@
         "not_launch_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out /tmp/agent_memory_temporal_conflict_replay_out",
+      "component_detail_href": "docs/component-agent-memory-temporal-conflict-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1708,6 +1814,8 @@
       "id": "agent_memory_temporal_conflict_replay",
       "label": "Agent Memory Temporal Conflict Replay",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-memory-temporal-conflict-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1738,6 +1846,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay --acceptance-out receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
+      "component_detail_href": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1745,6 +1854,8 @@
       "id": "sleeper_memory_poisoning_quarantine_replay",
       "label": "Sleeper Memory Poisoning Quarantine Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1775,6 +1886,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay",
+      "component_detail_href": "docs/component-mcp-tool-authority-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1782,6 +1894,8 @@
       "id": "mcp_tool_authority_replay",
       "label": "MCP Tool Authority Replay",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-mcp-tool-authority-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1812,6 +1926,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out .microcosm/belief_state_process_reward_replay",
+      "component_detail_href": "docs/component-belief-state-process-reward-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1819,6 +1934,8 @@
       "id": "belief_state_process_reward_replay",
       "label": "Belief State Process Reward Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-belief-state-process-reward-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1850,6 +1967,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.cli agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
+      "component_detail_href": "docs/component-agent-sandbox-policy-escape-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1857,6 +1975,8 @@
       "id": "agent_sandbox_policy_escape_replay",
       "label": "Agent Sandbox Policy Escape Replay",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-sandbox-policy-escape-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1887,6 +2007,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
+      "component_detail_href": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1894,6 +2015,8 @@
       "id": "indirect_prompt_injection_information_flow_policy_replay",
       "label": "Indirect Prompt Injection Information Flow Policy Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1925,6 +2048,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay run --input fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input --out receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay --acceptance-out receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
+      "component_detail_href": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1932,6 +2056,8 @@
       "id": "agentic_vulnerability_discovery_patch_proof_replay",
       "label": "Agentic Vulnerability Discovery Patch Proof Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1961,6 +2087,7 @@
         "not_launch_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
+      "component_detail_href": "docs/component-agent-route-observability-runtime.html",
       "evidence_kind": "Contract validator",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -1968,6 +2095,8 @@
       "id": "agent_route_observability_runtime",
       "label": "Agent Route Observability Runtime",
       "links_to_count": 15,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-computer-use-action-trace-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -1998,6 +2127,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+      "component_detail_href": "docs/component-provider-context-recipe-budget-policy.html",
       "evidence_kind": "Bounded runtime computation",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -2005,6 +2135,8 @@
       "id": "provider_context_recipe_budget_policy",
       "label": "Provider Context Recipe Budget Policy",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-provider-context-recipe-budget.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -2033,6 +2165,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "component_detail_href": "docs/component-agent-closeout-faithfulness-audit.html",
       "evidence_kind": "External tool run",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -2040,6 +2173,8 @@
       "id": "agent_closeout_faithfulness_audit",
       "label": "Agent Completion Faithfulness Audit",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-closeout-faithfulness-audit.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -2068,6 +2203,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
+      "component_detail_href": "docs/component-bounded-autonomy-campaign-packet.html",
       "evidence_kind": "External tool run",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -2075,6 +2211,8 @@
       "id": "bounded_autonomy_campaign_packet",
       "label": "Bounded Autonomy Campaign Packet",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-bounded-autonomy-campaign-packet.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -2107,6 +2245,7 @@
         "not_live_market_data"
       ],
       "command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch7-secondary-runtime-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -2114,6 +2253,8 @@
       "id": "batch7_secondary_runtime_capsule",
       "label": "Secondary Runtime Source Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch7-secondary-runtime-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2145,6 +2286,7 @@
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
+      "component_detail_href": "docs/component-research-replication-rubric-artifact-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2152,6 +2294,8 @@
       "id": "research_replication_rubric_artifact_replay",
       "label": "Research Replication Rubric Artifact Replay",
       "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-research-replication-rubric-artifact-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2180,6 +2324,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
+      "component_detail_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
       "evidence_kind": "Contract validator",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2187,6 +2332,8 @@
       "id": "spatial_world_model_counterfactual_simulation_replay",
       "label": "Spatial World Model Counterfactual Simulation Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2215,6 +2362,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+      "component_detail_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
       "evidence_kind": "Computed projection",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2222,6 +2370,8 @@
       "id": "materials_chemistry_closed_loop_lab_safety_replay",
       "label": "Materials Chemistry Closed Loop Lab Safety Replay",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2252,6 +2402,7 @@
         "not_benchmark_claim"
       ],
       "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+      "component_detail_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
       "evidence_kind": "Contract validator",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2259,6 +2410,8 @@
       "id": "mechanistic_interpretability_circuit_attribution_replay",
       "label": "Mechanistic Interpretability Circuit Attribution Replay",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2289,6 +2442,7 @@
         "not_live_market_data"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
+      "component_detail_href": "docs/component-prediction-oracle-reconciliation.html",
       "evidence_kind": "Computed projection",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2296,6 +2450,8 @@
       "id": "prediction_oracle_reconciliation",
       "label": "Prediction Oracle Reconciliation",
       "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-prediction-oracle-reconciliation.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2325,6 +2481,7 @@
         "not_live_market_data"
       ],
       "command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+      "component_detail_href": "docs/component-finance-forecast-evaluation-spine.html",
       "evidence_kind": "External tool run",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2332,6 +2489,8 @@
       "id": "finance_forecast_evaluation_spine",
       "label": "Finance Forecast Evaluation Spine",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-finance-forecast-evaluation-spine.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -2363,6 +2522,7 @@
         "not_live_market_data"
       ],
       "command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
+      "component_detail_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2370,6 +2530,8 @@
       "id": "batch12_market_dashboard_read_model_capsule",
       "label": "Market Dashboard Read-Model Bundle",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2399,6 +2561,7 @@
         "not_launch_authority"
       ],
       "command": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
+      "component_detail_href": "docs/component-batch12-prediction-market-board-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -2406,6 +2569,8 @@
       "id": "batch12_prediction_market_board_capsule",
       "label": "Prediction Market Board Bundle",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch12-prediction-market-board-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2437,6 +2602,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+      "component_detail_href": "docs/component-macro-projection-import-protocol.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2444,6 +2610,8 @@
       "id": "macro_projection_import_protocol",
       "label": "Source Projection Import Protocol",
       "links_to_count": 23,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-macro-projection-import-protocol.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2474,6 +2642,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
+      "component_detail_href": "docs/component-world-model-projection-drift-control-room.html",
       "evidence_kind": "Contract validator",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2481,6 +2650,8 @@
       "id": "world_model_projection_drift_control_room",
       "label": "World Model Projection Drift Control Room",
       "links_to_count": 7,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-world-model-projection-drift-control-room.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2512,6 +2683,7 @@
         "not_live_market_data"
       ],
       "command": "microcosm batch6-unsurfaced-primitives-capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch6-unsurfaced-primitives-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2519,6 +2691,8 @@
       "id": "batch6_unsurfaced_primitives_capsule",
       "label": "Unsurfaced Source Primitives Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2549,6 +2723,7 @@
         "not_public_sharing_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch5_authority_systems_capsule run --input fixtures/first_wave/batch5_authority_systems_capsule/input --out receipts/first_wave/batch5_authority_systems_capsule --acceptance-out receipts/acceptance/first_wave/batch5_authority_systems_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch5-authority-systems-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2556,6 +2731,8 @@
       "id": "batch5_authority_systems_capsule",
       "label": "Authority Systems Source Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch5-authority-systems-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2586,6 +2763,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch7-macro-engines-capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch7-macro-engines-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2593,6 +2771,8 @@
       "id": "batch7_macro_engines_capsule",
       "label": "Trace, Code-Map & Scheduling Engines Bundle",
       "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch7-macro-engines-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2623,6 +2803,7 @@
         "not_public_sharing_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch7-oracle-sibling-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2630,6 +2811,8 @@
       "id": "batch7_oracle_sibling_capsule",
       "label": "Oracle Sibling Source Bundle",
       "links_to_count": 1,
+      "map_primary_click_policy": "component_detail_when_no_paper_module",
+      "primary_reader_href": "docs/component-batch7-oracle-sibling-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2660,6 +2843,7 @@
         "not_public_sharing_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_demo_take_console_capsule run --input fixtures/first_wave/batch7_demo_take_console_capsule/input --out receipts/first_wave/batch7_demo_take_console_capsule --acceptance-out receipts/acceptance/first_wave/batch7_demo_take_console_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch7-demo-take-console-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2667,6 +2851,8 @@
       "id": "batch7_demo_take_console_capsule",
       "label": "Demo Take Console Source Bundle",
       "links_to_count": 2,
+      "map_primary_click_policy": "component_detail_when_no_paper_module",
+      "primary_reader_href": "docs/component-batch7-demo-take-console-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2697,6 +2883,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch8-tools-tail-primitives-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2704,6 +2891,8 @@
       "id": "batch8_tools_tail_primitives_capsule",
       "label": "Tools-Tail Primitives Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch8-tools-tail-primitives-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2734,6 +2923,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch8-policy-engines-capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch8-policy-engines-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2741,6 +2931,8 @@
       "id": "batch8_policy_engines_capsule",
       "label": "Policy Engines Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch8-policy-engines-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2769,6 +2961,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm batch8-audio-level-rms-port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch8-audio-level-rms-port.html",
       "evidence_kind": "Computed projection",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2776,6 +2969,8 @@
       "id": "batch8_audio_level_rms_port",
       "label": "Audio Level RMS Port",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch8-audio-level-rms-port.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2806,6 +3001,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch8-structural-theses-capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch8-structural-theses-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2813,6 +3009,8 @@
       "id": "batch8_structural_theses_capsule",
       "label": "Structural Theses Finance Bundle",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch8-structural-theses-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2845,6 +3043,7 @@
         "not_theorem_or_proof_authority"
       ],
       "command": "microcosm engine-room-demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+      "component_detail_href": "docs/component-engine-room-demo.html",
       "evidence_kind": "Contract validator",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2852,6 +3051,8 @@
       "id": "engine_room_demo",
       "label": "Engine Room Demo",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-engine-room-demo.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2882,6 +3083,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch9-macro-engines-capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch9-macro-engines-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2889,6 +3091,8 @@
       "id": "batch9_macro_engines_capsule",
       "label": "Backend & Governance Engines Bundle",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch9-macro-engines-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2919,6 +3123,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch10-governance-compilers-capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch10-governance-compilers-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2926,6 +3131,8 @@
       "id": "batch10_governance_compilers_capsule",
       "label": "Governance & Compiler Mechanisms Bundle",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch10-governance-compilers-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2956,6 +3163,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch11-saturation-engines-capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch11-saturation-engines-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -2963,6 +3171,8 @@
       "id": "batch11_saturation_engines_capsule",
       "label": "Saturation Engines Bundle",
       "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch11-saturation-engines-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -2993,6 +3203,7 @@
         "not_launch_authority"
       ],
       "command": "microcosm tool-server-pressure-inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
+      "component_detail_href": "docs/component-tool-server-pressure-inventory.html",
       "evidence_kind": "Contract validator",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -3000,6 +3211,8 @@
       "id": "tool_server_pressure_inventory",
       "label": "Tool Server Pressure Inventory",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-tool-server-pressure-inventory.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3031,6 +3244,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
+      "component_detail_href": "docs/component-batch8-compliance-pipeline-capsule.html",
       "evidence_kind": "Computed projection",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -3038,6 +3252,8 @@
       "id": "batch8_compliance_pipeline_capsule",
       "label": "Compliance Pipeline Bundle",
       "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch8-compliance-pipeline-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3068,6 +3284,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm batch10-live-source-drift-capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch10-live-source-drift-capsule.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -3075,6 +3292,8 @@
       "id": "batch10_live_source_drift_capsule",
       "label": "Live Source Drift Bundle",
       "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch10-live-source-drift-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3105,6 +3324,7 @@
         "not_launch_authority"
       ],
       "command": "microcosm batch12-release-claim-language-gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out receipts/runtime_shell/demo_project/organs/batch12_release_claim_language_gate",
+      "component_detail_href": "docs/component-batch12-release-claim-language-gate.html",
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
@@ -3112,6 +3332,8 @@
       "id": "batch12_release_claim_language_gate",
       "label": "Release Public Wording Gate",
       "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch12-release-claim-language-gate.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3140,6 +3362,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "component_detail_href": "docs/component-mission-transaction-work-spine.html",
       "evidence_kind": "Bounded runtime computation",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
@@ -3147,6 +3370,8 @@
       "id": "mission_transaction_work_spine",
       "label": "Mission Transaction Work Spine",
       "links_to_count": 9,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-mission-transaction-work-spine.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
@@ -3175,6 +3400,7 @@
         "no_source_file_changes"
       ],
       "command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+      "component_detail_href": "docs/component-durable-agent-work-landing-replay.html",
       "evidence_kind": "Contract validator",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
@@ -3182,6 +3408,8 @@
       "id": "durable_agent_work_landing_replay",
       "label": "Durable Agent Work Landing Replay",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-durable-agent-work-landing-replay.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3210,6 +3438,7 @@
         "not_launch_authority"
       ],
       "command": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
+      "component_detail_href": "docs/component-bridge-phase-continuity-runtime.html",
       "evidence_kind": "Contract validator",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
@@ -3217,6 +3446,8 @@
       "id": "bridge_phase_continuity_runtime",
       "label": "Bridge Phase Continuity Runtime",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-bridge-phase-continuity-runtime.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3246,6 +3477,7 @@
         "not_public_sharing_authority"
       ],
       "command": "microcosm concurrency-mission-control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
+      "component_detail_href": "docs/component-concurrency-mission-control.html",
       "evidence_kind": "Verified source import",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
@@ -3253,6 +3485,8 @@
       "id": "concurrency_mission_control",
       "label": "Concurrency Mission Control",
       "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-concurrency-mission-control.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3279,7 +3513,7 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:7312d97c6051d1b0215b1c7ebaa97b384f5cf89dbf2a09f909f73760fcd2944e",
+    "payload_sha256_excluding_identity": "sha256:10d44afdb65d28f60c72c7083852ed87cd9a26e721c2e0e78d1f4692e8af5dbb",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
     "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
